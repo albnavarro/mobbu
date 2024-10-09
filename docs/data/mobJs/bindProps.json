@@ -163,16 +163,6 @@
             "content": "The state indicated in the repeater in the watch parameter will trigger the reaction automatically, so there is no need to specify it again in the bind parameter."
         },
         {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": false,
-                "items": [
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
-                ]
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/bindPropsExtra.js",
@@ -180,6 +170,16 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 15
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                ]
             }
         }
     ]

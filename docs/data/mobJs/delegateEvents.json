@@ -28,16 +28,36 @@
             "content": "The delegateEvents function collects all events associated with individual elements into a single listener associated with the app root. The event target will then be redirected to the right node. This works and you can use it on simple components or nodes."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "isBold": true
             },
-            "content": "Typically we use events like click, mousedown, mouseup, mouseover. Events like mouseenter cannot work in this case, use <a href='./#mobJs-bindEvents'>bindEvent</a> to handle similar events."
+            "content": "delegateEvent supports all common events except:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "mouseenter",
+                    "mouseleave",
+                    "pointerenter",
+                    "pointerleave"
+                ]
+            }
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
@@ -60,6 +80,20 @@
                 "style": "medium"
             },
             "content": "Native event."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "index"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
         },
         {
             "component": "mob-spacer",
@@ -88,21 +122,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Repeater props"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "index"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
+            "content": "Inside repeater"
         },
         {
             "component": "mob-spacer",

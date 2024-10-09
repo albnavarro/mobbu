@@ -61,6 +61,20 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "index"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/bindEvents.js",
@@ -81,31 +95,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Repeater props"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "index"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": false,
-                "items": [
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
-                ]
-            }
+            "content": "Inside Repeater"
         },
         {
             "component": "mob-spacer",
@@ -121,6 +111,16 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 26
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                ]
             }
         }
     ]
