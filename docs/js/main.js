@@ -29038,14 +29038,14 @@ Loading snippet ...</pre
     },
     {
       state: "level2",
-      maxItem: 10,
+      maxItem: 5,
       ref: "level2_counter",
       label_plus: "level2 +",
       label_minus: "level2 -"
     },
     {
       state: "level3",
-      maxItem: 10,
+      maxItem: 6,
       ref: "level3_counter",
       label_plus: "level3 +",
       label_minus: "level3 -"
@@ -29428,7 +29428,7 @@ Loading snippet ...</pre
           { key: 2, value: mobCore.getUnivoqueId() }
         ],
         type: Array,
-        validate: (val2) => val2.length <= 10,
+        validate: (val2) => val2.length <= 5,
         strict: true
       }),
       level3: () => ({
@@ -29440,7 +29440,7 @@ Loading snippet ...</pre
         transform: (val2, oldVal) => {
           return val2 > oldVal ? shuffle(val2) : val2;
         },
-        validate: (val2) => val2.length <= 10,
+        validate: (val2) => val2.length <= 6,
         strict: true
       }),
       counter: () => ({

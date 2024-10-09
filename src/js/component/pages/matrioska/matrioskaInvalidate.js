@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import {  MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat, SetStateByName, UpdateStateByName, GetState, Invalidate, SetRef } from '../../../mobjs/type'
+ * @import {  MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat, SetStateByName, UpdateStateByName, GetState, Invalidate } from '../../../mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
  * @import { CodeButton } from '../../common/codeButton/type';
@@ -14,18 +14,21 @@ import { html, setStateByName, updateStateByName } from '../../../mobjs';
 const buttons = [
     {
         state: 'level1',
+        maxItem: 5,
         ref: 'level1_counter',
         label_plus: 'level1 +',
         label_minus: 'level1 -',
     },
     {
         state: 'level2',
+        maxItem: 5,
         ref: 'level2_counter',
         label_plus: 'level2 +',
         label_minus: 'level2 -',
     },
     {
         state: 'level3',
+        maxItem: 6,
         ref: 'level3_counter',
         label_plus: 'level3 +',
         label_minus: 'level3 -',
@@ -41,9 +44,10 @@ function getRandomInt(max) {
  * @param { object } params
  * @param { DelegateEvents } params.delegateEvents
  * @param { UpdateState<Matrioska> } params.updateState
- * @param { SetRef } params.setRef
+ * @param { Invalidate<Matrioska> } params.invalidate
+ * @param { GetState<Matrioska> } params.getState
  */
-const getButtons = ({ delegateEvents, updateState, setRef }) => {
+const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
     return html`
         ${buttons
             .map((button) => {
@@ -86,10 +90,21 @@ const getButtons = ({ delegateEvents, updateState, setRef }) => {
                         })}
                         >${button.label_minus}</dynamic-list-button
                     >
-                    <div
-                        class="matrioska__head__counter"
-                        ${setRef(button.ref)}
-                    ></div>
+                    <div class="matrioska__head__counter">
+                        ${invalidate({
+                            bind: /** @type {'level1'|'level2'|'level3'} */ (
+                                button.state
+                            ),
+                            render: ({ html }) => {
+                                const data = getState()?.[button.state];
+
+                                return html`
+                                    Number of items: ${data.length} ( max
+                                    ${button.maxItem} )
+                                `;
+                            },
+                        })}
+                    </div>
                 </div>`;
             })
             .join('')}
@@ -102,8 +117,8 @@ const getButtons = ({ delegateEvents, updateState, setRef }) => {
  * @param { StaticProps<MatrioskaItem> } params.staticProps
  * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
  * @param { DelegateEvents } params.delegateEvents
+ * @param { GetState<Matrioska> } params.getState,
  * @param { Invalidate<Matrioska> } params.invalidate
- * @param { GetState<Matrioska> } params.getState
  */
 const getSecondLevel = ({
     repeat,
@@ -128,10 +143,12 @@ const getSecondLevel = ({
                                     level: 'level 2',
                                 })}
                                 ${bindProps({
-                                    props: ({ level2 }, index) => {
+                                    bind: ['counter'],
+                                    props: ({ level2, counter }, index) => {
                                         return {
                                             key: `${level2[index]?.key}`,
                                             value: `${level2[index]?.value}`,
+                                            counter,
                                         };
                                     },
                                 })}
@@ -191,8 +208,8 @@ const getThirdLevel = ({
                                 name="${name}"
                                 ${staticProps({
                                     level: 'level 3',
-                                    key: `${item?.key}`,
-                                    value: `${item?.value}`,
+                                    value: item.value,
+                                    key: `${item.key}`,
                                 })}
                                 ${bindProps({
                                     bind: ['counter'],
@@ -221,8 +238,8 @@ const getThirdLevel = ({
                                 name="${name2}"
                                 ${staticProps({
                                     level: 'level 3',
-                                    key: `${item?.key}`,
-                                    value: `${item?.value}`,
+                                    value: item.value,
+                                    key: `${item.key}`,
                                 })}
                                 ${bindProps({
                                     bind: ['counter'],
@@ -262,30 +279,13 @@ export const MatrioskaInvalidateFn = ({
     repeat,
     staticProps,
     bindProps,
-    watchSync,
     invalidate,
     getState,
-    setRef,
-    getRef,
 }) => {
     /** @type { SetStateByName<CodeButton> } */
     const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(() => {
-        const { level3_counter, level2_counter, level1_counter } = getRef();
-
-        watchSync('level1', (val) => {
-            level1_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
-        });
-
-        watchSync('level2', (val) => {
-            level2_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
-        });
-
-        watchSync('level3', (val) => {
-            level3_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
-        });
-
         /**
          * Code button
          */
@@ -319,7 +319,12 @@ export const MatrioskaInvalidateFn = ({
     return html`<div class="matrioska">
         <only-desktop></only-desktop>
         <div class="matrioska__head">
-            ${getButtons({ delegateEvents, updateState, setRef })}
+            ${getButtons({
+                delegateEvents,
+                updateState,
+                invalidate,
+                getState,
+            })}
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.
@@ -350,11 +355,13 @@ export const MatrioskaInvalidateFn = ({
                                     class="matrioska-item--1"
                                     ${staticProps({ level: 'level 1' })}
                                     ${bindProps({
+                                        bind: ['counter'],
                                         /** @returns{Partial<MatrioskaItem>} */
-                                        props: ({ level1 }, index) => {
+                                        props: ({ level1, counter }, index) => {
                                             return {
                                                 key: `${level1[index]?.key}`,
                                                 value: `${level1[index]?.value}`,
+                                                counter,
                                             };
                                         },
                                     })}

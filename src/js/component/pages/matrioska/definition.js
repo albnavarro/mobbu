@@ -35,7 +35,7 @@ export const Matrioska = createComponent({
                 { key: 2, value: mobCore.getUnivoqueId() },
             ],
             type: Array,
-            validate: (val) => val.length <= 10,
+            validate: (val) => val.length <= 5,
             strict: true,
         }),
         level3: () => ({
@@ -47,7 +47,7 @@ export const Matrioska = createComponent({
             transform: (val, oldVal) => {
                 return val > oldVal ? shuffle(val) : val;
             },
-            validate: (val) => val.length <= 10,
+            validate: (val) => val.length <= 6,
             strict: true,
         }),
         counter: () => ({
