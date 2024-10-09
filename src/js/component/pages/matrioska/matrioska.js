@@ -172,7 +172,6 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
                 bind: 'level3',
-                key: 'key',
                 render: ({ html, sync }) => {
                     const name = mobCore.getUnivoqueId();
                     const name2 = mobCore.getUnivoqueId();
@@ -310,8 +309,8 @@ export const MatrioskaFn = ({
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.
-            <span> First/Second level repeater without key. </span>
-            <span> Third level repeater with key, shuffle order. </span>
+            <span> First/Second/third level repeater without key. </span>
+            <span> Third level use shuffle order. </span>
         </h4>
         <div class="matrioska__head__cta">
             <dynamic-list-button
