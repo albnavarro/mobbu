@@ -35,22 +35,48 @@ const initScroller = async ({ getRef }) => {
     };
 };
 
+const FAKE_REPLACMENT = '{{fake}}';
+
 /**
  * @param {object} params
  * @param {string} params.testString
  * @returns {import('./DebugFilterLitItem/type').DebugFilterListItem[]} params
  */
 const getDataFiltered = ({ testString }) => {
+    const stringParsed =
+        testString.split(' ').filter((block) => block !== '') ?? '';
+
     return (
         [...componentMap.values()].filter(({ componentName }) => {
-            return componentName.includes(testString);
+            return stringParsed.every((piece) => componentName.includes(piece));
         }) ?? []
     ).map(({ id, componentName, instanceName }) => ({
         id,
-        tag: componentName.replace(
-            testString,
-            `<span class="match-string">${testString}</span>`
-        ),
+        tag: (() => {
+            /**
+             * Avoid to replce string in <span> tag added.
+             * Repelce placeholder, and trask order
+             */
+            const stringParseWithPlaceholder = stringParsed.reduce(
+                (previous, current, index) => {
+                    return previous.replace(
+                        current,
+                        `${FAKE_REPLACMENT}--${index}`
+                    );
+                },
+                componentName
+            );
+
+            /**
+             * Replace placeholder with real occurrence in original order.
+             */
+            return stringParsed.reduce((previous, current, index) => {
+                return previous.replace(
+                    `${FAKE_REPLACMENT}--${index}`,
+                    `<span class="match-string">${current}</span>`
+                );
+            }, stringParseWithPlaceholder);
+        })(),
         name: instanceName,
     }));
 };

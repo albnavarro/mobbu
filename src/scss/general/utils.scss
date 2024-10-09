@@ -62,6 +62,7 @@
 .match-string {
     position: relative;
     display: inline;
+    opacity: 0.5;
 
     &::after {
         content: '';
