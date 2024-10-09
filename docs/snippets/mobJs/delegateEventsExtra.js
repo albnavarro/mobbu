@@ -15,7 +15,7 @@
                 setState('counter', (value) => (value += 1));
                 event.preventDefault(); 
             },
-            onmouseenter: (event, index) => {
+            mousemove: (event, index) => {
                 setState('counter', (value) => (value += 1));
             },
         })}

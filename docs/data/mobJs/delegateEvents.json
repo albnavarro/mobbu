@@ -84,16 +84,6 @@
             }
         },
         {
-            "component": "mob-list",
-            "props": {
-                "style": "small",
-                "dots": false,
-                "items": [
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
-                ]
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
@@ -128,6 +118,22 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 35
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "small",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                ]
             }
         }
     ]

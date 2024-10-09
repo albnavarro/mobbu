@@ -30,7 +30,7 @@ export const MyComponent = ({ html, delegateEvents, setState }) => {
                         setState('counter', (value) => (value += 1));
                         event.preventDefault();
                     },
-                    onmouseenter: (event) => {
+                    mousemove: (event) => {
                         setState('counter', (value) => (value += 1));
                     },
                 })}

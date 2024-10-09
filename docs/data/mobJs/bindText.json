@@ -25,41 +25,13 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The delegateEvents function collects all events associated with individual elements into a single listener associated with the app root. The event target will then be redirected to the right node. This works and you can use it on simple components or nodes."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Typically we use events like click, mousedown, mouseup, mouseover. Events like mouseenter cannot work in this case, use <a href='./#mobJs-bindEvents'>bindEvent</a> to handle similar events."
+            "content": "bindText allows you to update the contents of a node when one or more application states change."
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "Params:"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "event"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Native event."
         },
         {
             "component": "mob-spacer",
@@ -70,64 +42,17 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/delegateEvents.js",
+                "source": "./snippets/mobJs/bindText.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 35
+                "numLines": 15
             }
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            }
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "small",
-                "dots": false,
-                "items": [
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
-                ]
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "Repeater props"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "index"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mobJs/delegateEventsExtra.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 35
             }
         }
     ]
