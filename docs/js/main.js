@@ -18294,7 +18294,13 @@
     });
     return current?.parentNode;
   };
-  var getBindTextParentSize = () => bindTextMap.size;
+  var getBindTextParentSize = () => {
+    return [...bindTextMap].reduce(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (previous, [_, values]) => previous + values.length,
+      0
+    );
+  };
   var getBindTextPlaceholderSize = () => bindTextPlaceHolderMap.size;
   var createBindTextWatcher = (id, bindTextId, render2, ...props) => {
     let watchIsRunning = false;
@@ -32070,6 +32076,10 @@ Loading snippet ...</pre
                         <div class="c-debug-head__invalidate">
                             <strong>Active invalidate: </strong>:
                             ${getNumberOfActiveInvalidate()}
+                        </div>
+                        <div class="c-debug-head__invalidate">
+                            <strong>Active bindText: </strong>:
+                            ${getBindTextParentSize()}
                         </div>
                     `;
       }

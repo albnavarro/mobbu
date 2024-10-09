@@ -11,6 +11,10 @@ import {
     getNumberOfActiveRepeater,
     mainStore,
 } from '../../../../../mobjs';
+import {
+    getBindTextParentSize,
+    getBindTextPlaceholderSize,
+} from '../../../../../mobjs/modules/bindtext';
 
 /** @type{MobComponent<import('./type').DebugHead>} */
 export const DebugHeadFn = ({
@@ -62,6 +66,10 @@ export const DebugHeadFn = ({
                         <div class="c-debug-head__invalidate">
                             <strong>Active invalidate: </strong>:
                             ${getNumberOfActiveInvalidate()}
+                        </div>
+                        <div class="c-debug-head__invalidate">
+                            <strong>Active bindText: </strong>:
+                            ${getBindTextParentSize()}
                         </div>
                     `;
                 },

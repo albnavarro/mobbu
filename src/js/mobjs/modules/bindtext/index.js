@@ -147,7 +147,13 @@ const getParentBindText = ({ id, bindTextId }) => {
 /**
  * @returns {number}
  */
-export const getBindTextParentSize = () => bindTextMap.size;
+export const getBindTextParentSize = () => {
+    return [...bindTextMap].reduce(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        (previous, [_, values]) => previous + values.length,
+        0
+    );
+};
 
 /**
  * @returns {number}
