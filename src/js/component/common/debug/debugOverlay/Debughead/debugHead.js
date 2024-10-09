@@ -11,10 +11,7 @@ import {
     getNumberOfActiveRepeater,
     mainStore,
 } from '../../../../../mobjs';
-import {
-    getBindTextParentSize,
-    getBindTextPlaceholderSize,
-} from '../../../../../mobjs/modules/bindtext';
+import { getBindTextParentSize } from '../../../../../mobjs/modules/bindtext';
 
 /** @type{MobComponent<import('./type').DebugHead>} */
 export const DebugHeadFn = ({
