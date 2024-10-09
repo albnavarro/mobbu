@@ -29066,6 +29066,21 @@ Loading snippet ...</pre
             /** @type {'level1'|'level2'|'level3'} */
             button.state,
             (val2) => {
+              return val2.slice(0, -1);
+            }
+          );
+        }
+      })}
+                        >${button.label_minus}</dynamic-list-button
+                    >
+                    <dynamic-list-button
+                        class="matrioska__button"
+                        ${delegateEvents({
+        click: () => {
+          updateState(
+            /** @type {'level1'|'level2'|'level3'} */
+            button.state,
+            (val2) => {
               return [
                 ...val2,
                 {
@@ -29078,21 +29093,6 @@ Loading snippet ...</pre
         }
       })}
                         >${button.label_plus}</dynamic-list-button
-                    >
-                    <dynamic-list-button
-                        class="matrioska__button"
-                        ${delegateEvents({
-        click: () => {
-          updateState(
-            /** @type {'level1'|'level2'|'level3'} */
-            button.state,
-            (val2) => {
-              return val2.slice(0, -1);
-            }
-          );
-        }
-      })}
-                        >${button.label_minus}</dynamic-list-button
                     >
                     <div class="matrioska__head__counter">
                         ${invalidate({
@@ -29111,6 +29111,17 @@ Loading snippet ...</pre
                     </div>
                 </div>`;
     }).join("")}
+        <div class="matrioska__head__cta-counter">
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+      click: () => {
+        updateState("counter", (val2) => val2 + 1);
+      }
+    })}
+                >Increment counter</dynamic-list-button
+            >
+        </div>
     `;
   };
   var getSecondLevel = ({ repeat, staticProps: staticProps2, bindProps, delegateEvents }) => {
@@ -29281,17 +29292,6 @@ Loading snippet ...</pre
             <span> First/Second/third level repeater without key. </span>
             <span> Third level use shuffle order. </span>
         </h4>
-        <div class="matrioska__head__cta">
-            <dynamic-list-button
-                class="matrioska__button"
-                ${delegateEvents({
-      click: () => {
-        updateState("counter", (val2) => val2 + 1);
-      }
-    })}
-                >Increment counter</dynamic-list-button
-            >
-        </div>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({

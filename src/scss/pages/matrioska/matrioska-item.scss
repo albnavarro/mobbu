@@ -7,6 +7,14 @@
     position: relative;
     z-index: 1;
 
+    h4 {
+        font-size: rem(14);
+    }
+
+    h6 {
+        font-size: rem(14);
+    }
+
     &--1,
     &--2 {
         padding-bottom: rem(20);

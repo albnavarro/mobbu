@@ -8,16 +8,18 @@
     &__head {
         position: sticky;
         top: var(--header-height);
-        background: $white;
+        background: rgba($black, 0.8);
         padding: rem(8);
         z-index: 10;
         display: flex;
         flex-wrap: wrap;
 
         &__item {
-            flex: calc((100 / 3) * 1%);
+            flex: calc((100 / 4) * 1%);
             padding-inline: rem(24);
             text-align: center;
+            color: $white;
+            font-size: rem(14);
         }
 
         &__title {
@@ -33,11 +35,14 @@
             }
         }
 
-        &__cta {
-            padding: rem(20) rem(40);
-            border-bottom: 1px $black solid;
-            margin-right: rem(12);
-            margin-bottom: rem(24);
+        &__cta-counter {
+            padding: 0;
+            flex: calc((100 / 4) * 1%);
+            text-align: center;
+        }
+
+        &__counter {
+            font-size: rem(12);
         }
     }
 

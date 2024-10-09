@@ -61,6 +61,22 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                         button.state
                                     ),
                                     (val) => {
+                                        return val.slice(0, -1);
+                                    }
+                                );
+                            },
+                        })}
+                        >${button.label_minus}</dynamic-list-button
+                    >
+                    <dynamic-list-button
+                        class="matrioska__button"
+                        ${delegateEvents({
+                            click: () => {
+                                updateState(
+                                    /** @type {'level1'|'level2'|'level3'} */ (
+                                        button.state
+                                    ),
+                                    (val) => {
                                         return [
                                             ...val,
                                             {
@@ -73,22 +89,6 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                             },
                         })}
                         >${button.label_plus}</dynamic-list-button
-                    >
-                    <dynamic-list-button
-                        class="matrioska__button"
-                        ${delegateEvents({
-                            click: () => {
-                                updateState(
-                                    /** @type {'level1'|'level2'|'level3'} */ (
-                                        button.state
-                                    ),
-                                    (val) => {
-                                        return val.slice(0, -1);
-                                    }
-                                );
-                            },
-                        })}
-                        >${button.label_minus}</dynamic-list-button
                     >
                     <div class="matrioska__head__counter">
                         ${invalidate({
@@ -108,6 +108,17 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                 </div>`;
             })
             .join('')}
+        <div class="matrioska__head__cta-counter">
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+                    click: () => {
+                        updateState('counter', (val) => val + 1);
+                    },
+                })}
+                >Increment counter</dynamic-list-button
+            >
+        </div>
     `;
 };
 
@@ -312,17 +323,6 @@ export const MatrioskaFn = ({
             <span> First/Second/third level repeater without key. </span>
             <span> Third level use shuffle order. </span>
         </h4>
-        <div class="matrioska__head__cta">
-            <dynamic-list-button
-                class="matrioska__button"
-                ${delegateEvents({
-                    click: () => {
-                        updateState('counter', (val) => val + 1);
-                    },
-                })}
-                >Increment counter</dynamic-list-button
-            >
-        </div>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
