@@ -31866,7 +31866,9 @@ Loading snippet ...</pre
     setState,
     staticProps: staticProps2,
     bindProps,
-    delegateEvents
+    delegateEvents,
+    invalidate,
+    getState
   }) => {
     let destroy = () => {
     };
@@ -31913,6 +31915,18 @@ Loading snippet ...</pre
       }
     })}
                 />
+                <div>
+                    ${invalidate({
+      bind: "data",
+      render: ({ html: html2 }) => {
+        const { data: data2 } = getState();
+        return data2.length === 0 ? html2`<span
+                                      class="c-debug-filter-list__no-result"
+                                      >no result found</span
+                                  >` : "";
+      }
+    })}
+                </div>
                 <div
                     class="c-debug-filter-list__scroller"
                     ${setRef("scroller")}
@@ -32013,34 +32027,22 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/debug/debugOverlay/Debughead/debugHead.js
-  var updateContent = ({ active, getRef }) => {
-    const { number_of_component, active_repeater, active_invalidate } = getRef();
-    const NOC_content = active ? renderHtml`<strong>Number of component</strong>: ${componentMap.size} (
-              excluded debug generated content )` : ``;
-    number_of_component.innerHTML = NOC_content;
-    active_repeater.innerHTML = renderHtml`<strong>number of active repeater</strong>:
-        ${getNumberOfActiveRepeater()}`;
-    active_invalidate.innerHTML = renderHtml`<strong
-            >number of active invalidate</strong
-        >: ${getNumberOfActiveInvalidate()}`;
-  };
   var DebugHeadFn = ({
     html,
     onMount,
     getState,
-    setRef,
-    getRef,
-    watch
+    watch,
+    invalidate,
+    setState
   }) => {
     onMount(() => {
-      watch("active", async (active) => {
-        updateContent({ active, getRef });
+      watch("active", async () => {
+        setState("shouldUpdate", true);
       });
       const unsubscrineRoute = mainStore.watch(
         "afterRouteChange",
         async () => {
-          const { active } = getState();
-          updateContent({ active, getRef });
+          setState("shouldUpdate", true);
         }
       );
       return () => {
@@ -32049,22 +32051,31 @@ Loading snippet ...</pre
     });
     return html`<div class="c-debug-head">
         <div class="c-debug-head__general">
-            <div>
-                <strong> Debug activated: </strong>
-                ${getDebugMode()}
-            </div>
-            <div class="c-debug-head__total" ${setRef("number_of_component")}>
-                <strong>Number of component</strong>: ${componentMap.size} (
-                excluded debug )
-            </div>
-            <div
-                class="c-debug-head__repeater"
-                ${setRef("active_repeater")}
-            ></div>
-            <div
-                class="c-debug-head__invalidate"
-                ${setRef("active_invalidate")}
-            ></div>
+            ${invalidate({
+      bind: "shouldUpdate",
+      render: ({ html: html2 }) => {
+        const { active } = getState();
+        if (!active) return "";
+        return html2`
+                        <div>
+                            <strong> Debug activated: </strong>
+                            ${getDebugMode()}
+                        </div>
+                        <div class="c-debug-head__total">
+                            <strong>Number of component</strong>:
+                            ${componentMap.size} ( excluded generated debug )
+                        </div>
+                        <div class="c-debug-head__repeater">
+                            <strong>Active repeater: </strong>:
+                            ${getNumberOfActiveRepeater()}
+                        </div>
+                        <div class="c-debug-head__invalidate">
+                            <strong>Active invalidate: </strong>:
+                            ${getNumberOfActiveInvalidate()}
+                        </div>
+                    `;
+      }
+    })}
         </div>
         <div class="c-debug-head__search">
             <div>
@@ -32202,6 +32213,11 @@ Loading snippet ...</pre
       active: () => ({
         value: false,
         type: Boolean
+      }),
+      shouldUpdate: () => ({
+        value: true,
+        type: Boolean,
+        skipEqual: false
       })
     },
     child: [DebugSearch]

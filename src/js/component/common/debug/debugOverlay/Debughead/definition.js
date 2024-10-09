@@ -13,6 +13,11 @@ export const DebugHead = createComponent({
             value: false,
             type: Boolean,
         }),
+        shouldUpdate: () => ({
+            value: true,
+            type: Boolean,
+            skipEqual: false,
+        }),
     },
     child: [DebugSearch],
 });

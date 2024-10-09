@@ -2577,6 +2577,13 @@ code {
 .c-debug-filter-list__scrollbar:focus::-moz-range-thumb {
   outline-offset: 0;
 }
+.c-debug-filter-list__no-result {
+  color: #fff;
+  font-size: 0.8rem;
+  padding-left: 1.3333333333rem;
+  margin-top: 1.3333333333rem;
+  display: block;
+}
 .c-debug-filter-list-item {
   color: #fff;
   font-size: 0.8rem;

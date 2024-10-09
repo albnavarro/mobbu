@@ -67,6 +67,8 @@ export const DebugFilterListFn = ({
     staticProps,
     bindProps,
     delegateEvents,
+    invalidate,
+    getState,
 }) => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};
@@ -119,6 +121,21 @@ export const DebugFilterListFn = ({
                         },
                     })}
                 />
+                <div>
+                    ${invalidate({
+                        bind: 'data',
+                        render: ({ html }) => {
+                            const { data } = getState();
+
+                            return data.length === 0
+                                ? html`<span
+                                      class="c-debug-filter-list__no-result"
+                                      >no result found</span
+                                  >`
+                                : '';
+                        },
+                    })}
+                </div>
                 <div
                     class="c-debug-filter-list__scroller"
                     ${setRef('scroller')}

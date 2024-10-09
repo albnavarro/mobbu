@@ -67,4 +67,12 @@
             outline-offset: 0;
         }
     }
+
+    &__no-result {
+        color: $white;
+        font-size: rem(12);
+        padding-left: rem(20);
+        margin-top: rem(20);
+        display: block;
+    }
 }
