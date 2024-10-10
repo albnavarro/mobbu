@@ -210,7 +210,15 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you decide to use a webComponent it is possible to use specific parameters that will allow you to control the life cycle of the webComponent."
+            "content": "If the component function returns as first node the tag specified in the definition it will be possible to use the component as a web component and manage its lifecycle."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": ["<a href='./#mobJs-web-component'>Web component</a>"]
+            }
         },
         {
             "component": "mob-title",
