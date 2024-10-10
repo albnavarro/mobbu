@@ -22,7 +22,6 @@
         background: transparent;
         border: 0;
         transition: opacity 0.55s;
-        font-size: rem(15);
         position: relative;
         display: block;
         padding: 0;
@@ -56,6 +55,10 @@
             &::after {
                 opacity: 1;
             }
+        }
+
+        &.active {
+            font-weight: 500;
         }
     }
 }

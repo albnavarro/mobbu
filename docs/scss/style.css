@@ -2990,7 +2990,6 @@ code {
   background: transparent;
   border: 0;
   transition: opacity 0.55s;
-  font-size: 1rem;
   position: relative;
   display: block;
   padding: 0;
@@ -3021,6 +3020,9 @@ code {
 .c-scroll-to button:hover::after,
 .c-scroll-to button.active::after {
   opacity: 1;
+}
+.c-scroll-to button.active {
+  font-weight: 500;
 }
 .c-params-mobjs {
   --links-height: 55vh;
