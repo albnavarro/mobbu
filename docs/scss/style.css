@@ -467,16 +467,6 @@ code {
   display: inline;
   opacity: 0.5;
 }
-.match-string::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  height: 1px;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.8);
-  z-index: -1;
-}
 [data-component=footer] {
   height: var(--footer-height);
   position: fixed;
