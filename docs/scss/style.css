@@ -2534,6 +2534,7 @@ code {
   background: transparent;
   border: 1px #fff solid;
   font-size: 0.8rem;
+  margin-right: 0.3333333333rem;
 }
 .c-debug-filter-head__button {
   grid-area: submit;
