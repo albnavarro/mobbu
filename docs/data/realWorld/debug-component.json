@@ -5,8 +5,16 @@
             "props": {
                 "style": "small",
                 "id": "start",
-                "label": "Debug component"
+                "label": "Overview"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "OverlayDebug structure"
         },
         {
             "component": "mob-spacer",
@@ -63,7 +71,7 @@
             "props": {
                 "style": "medium",
                 "id": "overlay",
-                "label": "Overlay"
+                "label": "DebugOverlay"
             }
         },
         {
@@ -71,7 +79,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Overlay"
+            "content": "DebugOverlay"
         },
         {
             "component": "mob-snippet",
@@ -103,6 +111,192 @@
                 "tag": "h3"
             },
             "content": "DebugHead"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindText.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 15
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "tree",
+                "label": "DebugTree"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "DebugTree"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindText.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 15
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "tree-item",
+                "label": "DebugTreeItem"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "DebugTreeItem"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindText.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 15
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "list",
+                "label": "DebugList"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "DebugList"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindText.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 15
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "list-item",
+                "label": "DebugListItem"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "DebugListItem"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindText.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 15
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "list-head",
+                "label": "DebugListHead"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "DebugListHead"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindText.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 15
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "component",
+                "label": "DebugComponent"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "DebugComponent"
         },
         {
             "component": "mob-snippet",
