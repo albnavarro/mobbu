@@ -437,11 +437,11 @@
             ]
         },
         {
-            "label": "examples:",
+            "label": "Repeat/Invalidate test",
             "url": "#",
             "children": [
                 {
-                    "label": "Listing",
+                    "label": "Miscellaneous",
                     "scrollToSection": "mobJs",
                     "url": "dynamic-list"
                 },
