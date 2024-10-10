@@ -11,10 +11,18 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h3",
+                "isBold": true
+            },
+            "content": "Real world example"
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "OverlayDebug structure"
+            "content": "Debug App module"
         },
         {
             "component": "mob-spacer",
@@ -27,7 +35,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "descriction paragraph"
+            "content": "Structure of the Debug App module components.</br> The module is activated from the cta at the bottom right and allows you to track the status of the application components and modules in real time."
         },
         {
             "component": "mob-spacer",

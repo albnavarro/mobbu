@@ -81,7 +81,7 @@ export const DebugOverlayFn = ({
                         /** @returns{Partial<import('./Debughead/type').DebugHead>} */
                         props: ({ active }) => {
                             return {
-                                active: active,
+                                active,
                             };
                         },
                     })}
