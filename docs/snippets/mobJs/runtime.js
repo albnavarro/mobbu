@@ -19,14 +19,15 @@ export const MyComponent = ({
     renderComponent,
     setRef,
     getRefs,
+    delegateEvents,
 }) => {
     onMount(async () => {
-        const { container, button } = getRefs();
+        const { container } = getRefs();
 
         /**
          * Add new component.
          */
-        const runTimeComponent = /* HTML */ `<runtime-component
+        const runTimeComponent = html`<runtime-component
             ${bindProps({
                 bind: ['myState'],
                 props: ({ myState }) => {
@@ -47,22 +48,27 @@ export const MyComponent = ({
             persistent: false,
             clean: true,
         });
-
-        /**
-         * Remove new component added.
-         */
-        button.addEventListener('click', () => {
-            /**
-             * Remove firstChild of container node and all component reference inside.
-             */
-            const componentToRemove = container.firstElementChild;
-            removeDOM(componentToRemove);
-        });
     });
 
     return html`
         <div>
-            <button type="button" ${setRef('button')}>Remove component</button>
+            <button
+                type="button"
+                ${delegateEvents({
+                    click: () => {
+                        /**
+                         * Remove new component added.
+                         */
+                        const { container } = getRefs();
+                        const componentToRemove = container?.firstElementChild;
+                        if (!componentToRemove) return;
+
+                        removeDOM(componentToRemove);
+                    },
+                })}
+            >
+                Remove component
+            </button>
             <div ${setRef('container')}></div>
         </div>
     `;
