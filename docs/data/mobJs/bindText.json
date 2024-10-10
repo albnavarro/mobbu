@@ -35,7 +35,8 @@
                 "items": [
                     "based on <span class='quote'>String.raw</span>",
                     "requires a <span class='quote'>unique parent node</span>, each update will delete the previous contents of the node.",
-                    "States must be specified as <span class='quote'>strings</span> in order to be identified as keys to the component's state object."
+                    "States must be specified as <span class='quote'>strings</span> in order to be identified as keys to the component's state object.",
+                    "Can be used as content of a <span class='quote'>slotted component</span>."
                 ]
             }
         },
