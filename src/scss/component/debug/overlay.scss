@@ -79,8 +79,31 @@
         width: 100%;
         max-width: 80%;
         border: 1px $white solid;
-        overflow: hidden;
         position: relative;
+    }
+
+    &__log {
+        position: absolute;
+        color: $white;
+        top: calc(100% + rem(5));
+        font-size: rem(14);
+        right: -1px;
+        background: transparent;
+        border: 1px $white solid;
+        padding-inline: rem(20);
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 0;
+        display: inline-block;
+        line-height: 1.7;
+        transition:
+            background 0.35s,
+            color 0.35s;
+
+        @include on-event {
+            background: $white;
+            color: $black;
+        }
     }
 
     &__head {

@@ -32397,11 +32397,23 @@ Loading snippet ...</pre
     })}
         ></button>
         <div class="c-debug-overlay__grid">
+            <button
+                type="button"
+                class="c-debug-overlay__log"
+                ${delegateEvents({
+      click: () => {
+        consoleLogDebug();
+      }
+    })}
+            >
+                console log
+            </button>
+
             <div class="c-debug-overlay__head">
                 <debug-head
                     ${bindProps({
       bind: ["active"],
-      /** @returns{import('./Debughead/type').DebugHead} */
+      /** @returns{Partial<import('./Debughead/type').DebugHead>} */
       props: ({ active }) => {
         return {
           active

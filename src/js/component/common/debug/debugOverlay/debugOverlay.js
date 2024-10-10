@@ -4,6 +4,7 @@
  * @import { MobComponent } from '../../../../mobjs/type';
  **/
 
+import { consoleLogDebug } from '../consoleLog';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
 
 /** @type{MobComponent<import('./type').DebugOverlay>} */
@@ -61,11 +62,23 @@ export const DebugOverlayFn = ({
             })}
         ></button>
         <div class="c-debug-overlay__grid">
+            <button
+                type="button"
+                class="c-debug-overlay__log"
+                ${delegateEvents({
+                    click: () => {
+                        consoleLogDebug();
+                    },
+                })}
+            >
+                console log
+            </button>
+
             <div class="c-debug-overlay__head">
                 <debug-head
                     ${bindProps({
                         bind: ['active'],
-                        /** @returns{import('./Debughead/type').DebugHead} */
+                        /** @returns{Partial<import('./Debughead/type').DebugHead>} */
                         props: ({ active }) => {
                             return {
                                 active: active,
