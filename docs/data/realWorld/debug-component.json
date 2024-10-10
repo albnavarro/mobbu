@@ -51,13 +51,55 @@
             "content": "Store"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "type:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/bindText.js",
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/refs/heads/main/src/js/component/common/debug/debugOverlay/Store/type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 15
+                "numLines": 9
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "debugActiveComponentStore:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/refs/heads/main/src/js/component/common/debug/debugOverlay/Store/DebugActiveComponent.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -82,13 +124,84 @@
             "content": "DebugOverlay"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "type:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/bindText.js",
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/refs/heads/main/src/js/component/common/debug/debugOverlay/type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 15
+                "numLines": 4
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Definition:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/refs/heads/main/src/js/component/common/debug/debugOverlay/definition.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 32
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Component:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/refs/heads/main/src/js/component/common/debug/debugOverlay/debugOverlay.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 180
             }
         },
         {
@@ -113,13 +226,84 @@
             "content": "DebugHead"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "type:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/bindText.js",
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/refs/heads/main/src/js/component/common/debug/debugOverlay/Debughead/type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 15
+                "numLines": 4
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Definition:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/refs/heads/main/src/js/component/common/debug/debugOverlay/Debughead/definition.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 23
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Component:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/refs/heads/main/src/js/component/common/debug/debugOverlay/Debughead/debugHead.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 81
             }
         },
         {
