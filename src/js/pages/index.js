@@ -214,6 +214,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-debug-component',
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/realWorld/debug-component.json',
+            title: 'Debug component',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs-overview',
+        },
+    },
+    {
         name: 'mobJs-useMethodByName',
         layout: layoutSidebarAnchor,
         props: {
