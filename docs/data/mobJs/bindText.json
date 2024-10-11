@@ -67,6 +67,19 @@
             "props": {
                 "style": "medium"
             }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "For more <span class='quote'>complex situations</span> it is always possible to use the <a href='#mobJs-invalidate'>invalidate</a> function to handle complex situations in a cleaner way, invalidate can in fact also return a simple text."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         }
     ]
 }
