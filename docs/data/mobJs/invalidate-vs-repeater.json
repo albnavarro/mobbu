@@ -60,7 +60,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "For this reason, the render of the repeater must return the element to be synchronized via the <span class='quote'>sync</span> parameter as the <span class='quote'>first node</span>"
+            "content": "The <span class='quote'>repeat</span> function, unlike <span class='quote'>invalidate</span>, must return a unique node as its first element."
         },
         {
             "component": "mob-title",
