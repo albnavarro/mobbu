@@ -214,7 +214,7 @@ const executeConversion = ({ element, content }) => {
         if (bindRefId && bindRefId.length > 0)
             newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
 
-        if (bindRefName && bindRefName > 0)
+        if (bindRefName && bindRefName.length > 0)
             newElement.setAttribute(ATTR_BIND_REFS_NAME, bindRefName);
 
         /**
