@@ -301,6 +301,11 @@
                     "url": "mobJs-bindtext"
                 },
                 {
+                    "label": "bindClass/Style",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-bind-class-style"
+                },
+                {
                     "label": "methods",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-methods"

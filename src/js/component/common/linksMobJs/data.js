@@ -72,6 +72,11 @@ export const mobJsComponentParams = [
         isLabel: false,
     },
     {
+        label: 'bindClass/Style',
+        url: 'mobJs-bind-class-style',
+        isLabel: false,
+    },
+    {
         label: 'methods',
         url: 'mobJs-methods',
         isLabel: false,

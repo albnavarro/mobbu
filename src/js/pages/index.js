@@ -396,6 +396,17 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-bind-class-style',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/bindClassStyle.json',
+            title: 'bindClass/Style',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-methods',
         templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
