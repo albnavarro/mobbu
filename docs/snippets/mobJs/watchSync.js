@@ -1,22 +1,33 @@
 /**
-export type WatchSync<T> = <K extends keyof T>(
+export type Watch<T> = <K extends keyof T>(
     prop: K,
     callback: (current: T[K], previous: T[K], validate: boolean) => void
 ) => void;
 **/
 
 /**
- * @type {import("../../../src/js/mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, watchSync, getRef, setRef }) => {
+export const MyComponent = ({
+    html,
+    onMount,
+    getState,
+    watchSync,
+    setRef,
+    getRef,
+}) => {
+    const { label } = getState();
+
     onMount(() => {
         const { labelRef } = getRef();
 
         /**
          * React to the state mutation.
+         * Sent the first time as soon as the onMount function is launched.
+         *
          */
-        watchSync('label', (value) => {
-            labelRef.textContent = value;
+        watchSync('myState', (value) => {
+            labelRef.classList.toggle('myClass', value);
         });
 
         return () => {};
@@ -24,7 +35,7 @@ export const MyComponent = ({ html, onMount, watchSync, getRef, setRef }) => {
 
     return html`
         <div>
-            <h2 ${setRef('labelRef')}></h2>
+            <h2 ${setRef('labelRef')}>${label}</h2>
         </div>
     `;
 };

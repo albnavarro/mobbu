@@ -6,7 +6,7 @@ export type Watch<T> = <K extends keyof T>(
 **/
 
 /**
- * @type {import("../../../src/js/mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({
     html,
@@ -24,8 +24,8 @@ export const MyComponent = ({
         /**
          * React to the state mutation.
          */
-        watch('label', (value) => {
-            labelRef.textContent = value;
+        watch('myState', (value) => {
+            labelRef.classList.toggle('myClass', value);
         });
 
         return () => {};
