@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The state of the component is actually managed by an instance of the <a href='/#mobCore-store'>store class</a>. The updateState() function is equivalent to myStore.update()."
+            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The updateState() function is equivalent to myStore.update()."
         },
         {
             "component": "mob-paragraph",

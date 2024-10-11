@@ -196,7 +196,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The states of the component. The state is an instance of store"
+            "content": "The states of the component. the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality"
         },
         {
             "component": "mob-title",

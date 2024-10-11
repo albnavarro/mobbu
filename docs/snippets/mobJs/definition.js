@@ -28,6 +28,22 @@ export const MyComponent = createComponent({
             value: [],
             type: Array,
         }),
+        myObject: () => ({
+            value: {
+                prop: 'lorem',
+            },
+            type: 'any',
+        }),
+        myComplexState: () => ({
+            value: 2,
+            type: Number,
+            transform: (value, oldValue) => {
+                return value + oldValue;
+            },
+            validate: (value) => value < 100,
+            strict: true,
+            skipEqual: false,
+        }),
     },
 
     scoped: true,
