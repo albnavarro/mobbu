@@ -4,7 +4,6 @@
  * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
 
-import { debounceFuncion } from '../../../../../../mobCore/events/debounce';
 import { tick, useMethodByName } from '../../../../../../mobjs';
 
 let lastSearch = '';
@@ -51,25 +50,6 @@ export const DebugFilterHeadFn = ({
                         });
                     }
                 },
-                // @ts-ignore
-                keyup: debounceFuncion(
-                    (
-                        /** @type {{ keyCode: number; preventDefault: () => void; target: { value: any; }; }} */ event
-                    ) => {
-                        // @ts-ignore
-                        if (event.keyCode === 13) {
-                            event.preventDefault();
-                            return;
-                        }
-
-                        const testString = event.target.value;
-                        lastSearch = testString;
-                        useMethodByName('debug_filter_list')?.refreshList({
-                            testString,
-                        });
-                    },
-                    120
-                ),
             })}
         />
         <button

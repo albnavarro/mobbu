@@ -31941,22 +31941,7 @@ Loading snippet ...</pre
             testString
           });
         }
-      },
-      // @ts-ignore
-      keyup: debounceFuncion(
-        (event) => {
-          if (event.keyCode === 13) {
-            event.preventDefault();
-            return;
-          }
-          const testString = event.target.value;
-          lastSearch = testString;
-          useMethodByName("debug_filter_list")?.refreshList({
-            testString
-          });
-        },
-        120
-      )
+      }
     })}
         />
         <button
@@ -32046,8 +32031,8 @@ Loading snippet ...</pre
     staticProps: staticProps2,
     bindProps,
     delegateEvents,
-    invalidate,
-    getState
+    getState,
+    watch
   }) => {
     let destroy = () => {
     };
@@ -32058,12 +32043,18 @@ Loading snippet ...</pre
     let updateScroller = () => {
     };
     addMethod("refreshList", async ({ testString }) => {
-      setState("data", getDataFiltered({ testString }));
+      setState("isLoading", true);
       await tick();
-      refresh?.();
-      updateScroller?.();
+      mobCore.useNextTick(async () => {
+        setState("data", getDataFiltered({ testString }));
+        await tick();
+        refresh?.();
+        updateScroller?.();
+        setState("isLoading", false);
+      });
     });
     onMount(() => {
+      const { loadingRef, noresultRef } = getRef();
       (async () => {
         const methods = await initScroller2({ getRef });
         destroy = methods.destroy;
@@ -32071,6 +32062,17 @@ Loading snippet ...</pre
         refresh = methods.refresh;
         updateScroller = methods.updateScroller;
       })();
+      watch("isLoading", (isLoading) => {
+        const { data: data2 } = getState();
+        const hasOccurrence = data2.length > 0;
+        mobCore.useFrame(() => {
+          loadingRef.classList.toggle("visible", isLoading);
+          noresultRef.classList.toggle(
+            "visible",
+            !hasOccurrence && !isLoading
+          );
+        });
+      });
       return () => {
         destroy?.();
       };
@@ -32094,18 +32096,16 @@ Loading snippet ...</pre
       }
     })}
                 />
-                <div>
-                    ${invalidate({
-      bind: "data",
-      render: ({ html: html2 }) => {
-        const { data: data2 } = getState();
-        return data2.length === 0 ? html2`<span
-                                      class="c-debug-filter-list__no-result"
-                                      >no result found</span
-                                  >` : "";
-      }
-    })}
-                </div>
+                <span
+                    ${setRef("loadingRef")}
+                    class="c-debug-filter-list__status"
+                    >Create list</span
+                >
+                <span
+                    ${setRef("noresultRef")}
+                    class="c-debug-filter-list__status"
+                    >no result</span
+                >
                 <div
                     class="c-debug-filter-list__scroller"
                     ${setRef("scroller")}
@@ -32224,6 +32224,10 @@ Loading snippet ...</pre
       data: () => ({
         value: [],
         type: Array
+      }),
+      isLoading: () => ({
+        value: false,
+        type: Boolean
       })
     },
     child: [DebugFilterListItem]
@@ -32312,21 +32316,7 @@ Loading snippet ...</pre
             id ?? ""
           );
         }
-      },
-      // @ts-ignore
-      keyup: debounceFuncion(
-        (event) => {
-          if (event.keyCode === 13) {
-            event.preventDefault();
-            return;
-          }
-          const id = event.target.value;
-          useMethodByName("debug_component")?.updateId(
-            id ?? ""
-          );
-        },
-        120
-      )
+      }
     })}
             />
             <button
@@ -32361,22 +32351,7 @@ Loading snippet ...</pre
             id ?? ""
           );
         }
-      },
-      // @ts-ignore
-      keyup: debounceFuncion(
-        (event) => {
-          if (event.keyCode === 13) {
-            event.preventDefault();
-            return;
-          }
-          const instanceName = event.target.value;
-          const id = getIdByInstanceName(instanceName);
-          useMethodByName("debug_component")?.updateId(
-            id ?? ""
-          );
-        },
-        120
-      )
+      }
     })}
             />
             <button

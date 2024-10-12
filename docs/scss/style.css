@@ -2644,12 +2644,21 @@ code {
 .c-debug-filter-list__scrollbar:focus::-moz-range-thumb {
   outline-offset: 0;
 }
-.c-debug-filter-list__no-result {
+.c-debug-filter-list__status {
   color: #fff;
   font-size: 0.8rem;
-  padding-left: 1.3333333333rem;
   margin-top: 1.3333333333rem;
-  display: block;
+  opacity: 0;
+  position: absolute;
+  bottom: 1rem;
+  right: 2.6666666667rem;
+  border: 1px #fff solid;
+  padding: 0.3333333333rem 0.6666666667rem;
+  background: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.35s;
+}
+.c-debug-filter-list__status.visible {
+  opacity: 1;
 }
 .c-debug-filter-list-item {
   color: #fff;

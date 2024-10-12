@@ -4,6 +4,7 @@
  * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
 
+import { mobCore } from '../../../../../../mobCore';
 import { componentMap, tick } from '../../../../../../mobjs';
 import { verticalScroller } from '../../../../../lib/animation/verticalScroller';
 
@@ -93,8 +94,8 @@ export const DebugFilterListFn = ({
     staticProps,
     bindProps,
     delegateEvents,
-    invalidate,
     getState,
+    watch,
 }) => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};
@@ -106,14 +107,39 @@ export const DebugFilterListFn = ({
     let updateScroller = () => {};
 
     addMethod('refreshList', async ({ testString }) => {
-        setState('data', getDataFiltered({ testString }));
-
+        /**
+         * With very large result (800/1000 item)
+         * before create list set loading true.
+         * Await css con be applied before large parse that block thread.
+         */
+        setState('isLoading', true);
         await tick();
-        refresh?.();
-        updateScroller?.();
+
+        /**
+         * After useFrame of isLoading watcher
+         * Set current data state.
+         */
+        mobCore.useNextTick(async () => {
+            /**
+             * With very large result (500/1000 item)
+             * before create list set loading true.
+             */
+            setState('data', getDataFiltered({ testString }));
+
+            // Await end of list creation.
+            await tick();
+            refresh?.();
+            updateScroller?.();
+
+            // Reset loading.
+            setState('isLoading', false);
+        });
+        // await awaitNextLoop();
     });
 
     onMount(() => {
+        const { loadingRef, noresultRef } = getRef();
+
         (async () => {
             const methods = await initScroller({ getRef });
             destroy = methods.destroy;
@@ -121,6 +147,19 @@ export const DebugFilterListFn = ({
             refresh = methods.refresh;
             updateScroller = methods.updateScroller;
         })();
+
+        watch('isLoading', (isLoading) => {
+            const { data } = getState();
+            const hasOccurrence = data.length > 0;
+
+            mobCore.useFrame(() => {
+                loadingRef.classList.toggle('visible', isLoading);
+                noresultRef.classList.toggle(
+                    'visible',
+                    !hasOccurrence && !isLoading
+                );
+            });
+        });
 
         return () => {
             destroy?.();
@@ -147,21 +186,16 @@ export const DebugFilterListFn = ({
                         },
                     })}
                 />
-                <div>
-                    ${invalidate({
-                        bind: 'data',
-                        render: ({ html }) => {
-                            const { data } = getState();
-
-                            return data.length === 0
-                                ? html`<span
-                                      class="c-debug-filter-list__no-result"
-                                      >no result found</span
-                                  >`
-                                : '';
-                        },
-                    })}
-                </div>
+                <span
+                    ${setRef('loadingRef')}
+                    class="c-debug-filter-list__status"
+                    >Create list</span
+                >
+                <span
+                    ${setRef('noresultRef')}
+                    class="c-debug-filter-list__status"
+                    >no result</span
+                >
                 <div
                     class="c-debug-filter-list__scroller"
                     ${setRef('scroller')}
