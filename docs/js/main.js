@@ -19511,7 +19511,8 @@
   var getNewElement2 = ({ element, content }) => {
     const { debug } = getDefaultComponent();
     if (element.parentNode) {
-      element.insertAdjacentHTML("afterend", content);
+      const node = document.createRange().createContextualFragment(content).firstElementChild;
+      element.after(node);
       if (debug)
         element.insertAdjacentHTML(
           "afterend",

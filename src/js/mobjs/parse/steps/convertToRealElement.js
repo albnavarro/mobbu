@@ -37,7 +37,17 @@ const getNewElement = ({ element, content }) => {
     const { debug } = getDefaultComponent();
 
     if (element.parentNode) {
-        element.insertAdjacentHTML('afterend', content);
+        // element.insertAdjacentHTML('afterend', content);
+
+        // const template = document.createElement('template');
+        // template.innerHTML = content;
+        // const node = template.content.firstElementChild;
+
+        const node = document
+            .createRange()
+            .createContextualFragment(content).firstElementChild;
+
+        element.after(node);
 
         /**
          * Add component name in debug mode
