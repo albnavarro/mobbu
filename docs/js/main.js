@@ -17351,8 +17351,55 @@
     return value ?? DEFAULT_CURRENT_REPEATER_STATE;
   };
 
+  // src/js/mobjs/parse/steps/constant.js
+  var ELEMENT_TYPE_NODE = "node";
+  var ELEMENT_TYPE_TEXT = "text";
+  var ELEMENT_TYPE_NOT_VALID = "not-valid";
+
   // src/js/mobjs/parse/steps/utils.js
   var renderHtml = String.raw;
+  var getElementOrTextFromNode = (node) => {
+    const firstChild = node.children?.[0];
+    if (firstChild)
+      return {
+        item: firstChild,
+        type: ELEMENT_TYPE_NODE
+      };
+    const textContent = node.textContent;
+    if (textContent.length > 0)
+      return {
+        item: textContent,
+        type: ELEMENT_TYPE_TEXT
+      };
+    return {
+      item: void 0,
+      type: ELEMENT_TYPE_NOT_VALID
+    };
+  };
+  var insertElementOrText = ({
+    parent,
+    itemObject,
+    position: position2 = "afterend"
+  }) => {
+    const { item, type } = itemObject;
+    if (type === ELEMENT_TYPE_NODE) {
+      parent.insertAdjacentElement(
+        position2,
+        /** @type{Element} */
+        item
+      );
+      return;
+    }
+    if (type === ELEMENT_TYPE_TEXT) {
+      parent.insertAdjacentText(
+        position2,
+        /** @type{string} */
+        item
+      );
+      return;
+    }
+    return;
+  };
 
   // src/js/mobjs/queque/tickInvalidate.js
   var invalidateQueque = /* @__PURE__ */ new Map();
@@ -19499,7 +19546,7 @@
     });
   };
   var executeConversion = ({ element, content }) => {
-    const prevContent = element.innerHTML;
+    const prevContent = getElementOrTextFromNode(element);
     const newElement = getNewElement2({ element, content });
     if (newElement) {
       const id = element.getId();
@@ -19507,12 +19554,20 @@
       const bindRefId = element?.getBindRefId();
       const bindRefName = element?.getBindRefName();
       const unNamedSlot = useSlotQuery ? queryUnNamedSlot(newElement) : getUnamedPlaceholderSlot({ element: newElement });
-      if (unNamedSlot && prevContent.length > 0) {
-        unNamedSlot.insertAdjacentHTML("afterend", prevContent);
+      if (unNamedSlot) {
+        insertElementOrText({
+          parent: unNamedSlot,
+          itemObject: prevContent,
+          position: "afterend"
+        });
         unNamedSlot.remove();
       }
-      if (!unNamedSlot && prevContent.length > 0) {
-        newElement.insertAdjacentHTML("afterbegin", prevContent);
+      if (!unNamedSlot) {
+        insertElementOrText({
+          parent: newElement,
+          itemObject: prevContent,
+          position: "afterbegin"
+        });
       }
       addToNamedSlot({ element: newElement });
       removeOrphanSlot({ element: newElement });

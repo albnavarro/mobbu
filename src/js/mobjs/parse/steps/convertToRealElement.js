@@ -20,6 +20,7 @@ import {
     getSlotByName,
     getUnamedPlaceholderSlot,
 } from '../../modules/slot';
+import { getElementOrTextFromNode, insertElementOrText } from './utils';
 
 /**
  * @param {object} obj
@@ -168,7 +169,9 @@ const executeConversion = ({ element, content }) => {
     /**
      * Add real content from render function
      */
-    const prevContent = element.innerHTML;
+    // const prevContent = element.innerHTML;
+    const prevContent = getElementOrTextFromNode(element);
+
     const newElement = getNewElement({ element, content });
 
     /**
@@ -195,13 +198,31 @@ const executeConversion = ({ element, content }) => {
             ? queryUnNamedSlot(newElement)
             : getUnamedPlaceholderSlot({ element: newElement });
 
-        if (unNamedSlot && prevContent.length > 0) {
-            unNamedSlot.insertAdjacentHTML('afterend', prevContent);
+        // if (unNamedSlot && prevContent.length > 0) {
+        //     unNamedSlot.insertAdjacentHTML('afterend', prevContent);
+        //     unNamedSlot.remove();
+        // }
+        //
+        // if (!unNamedSlot && prevContent.length > 0) {
+        //     newElement.insertAdjacentHTML('afterbegin', prevContent);
+        // }
+
+        if (unNamedSlot) {
+            insertElementOrText({
+                parent: unNamedSlot,
+                itemObject: prevContent,
+                position: 'afterend',
+            });
+
             unNamedSlot.remove();
         }
 
-        if (!unNamedSlot && prevContent.length > 0) {
-            newElement.insertAdjacentHTML('afterbegin', prevContent);
+        if (!unNamedSlot) {
+            insertElementOrText({
+                parent: newElement,
+                itemObject: prevContent,
+                position: 'afterbegin',
+            });
         }
 
         addToNamedSlot({ element: newElement });
