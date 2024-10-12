@@ -1,6 +1,7 @@
 // @ts-check
 
 import {
+    ELEMENT_TYPE_MIX_NODE_TEXT,
     ELEMENT_TYPE_NODE,
     ELEMENT_TYPE_NOT_VALID,
     ELEMENT_TYPE_TEXT,
@@ -34,14 +35,12 @@ export const renderHtml = String.raw;
  * @returns {{item: Element|string, type: string}}
  */
 export const getElementOrTextFromNode = (node) => {
-    /**
-     * First detect if first node is a NODE
-     */
-    const firstChild = node.children?.[0];
-    if (firstChild)
+    const children = node.childNodes;
+
+    if (children.length > 1)
         return {
-            item: firstChild,
-            type: ELEMENT_TYPE_NODE,
+            item: node.innerHTML,
+            type: ELEMENT_TYPE_MIX_NODE_TEXT,
         };
 
     /**
@@ -76,6 +75,11 @@ export const insertElementOrText = ({
     position = 'afterend',
 }) => {
     const { item, type } = itemObject;
+
+    if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
+        parent.insertAdjacentHTML(position, /** @type{string} */ (item));
+        return;
+    }
 
     if (type === ELEMENT_TYPE_NODE) {
         parent.insertAdjacentElement(position, /** @type{Element} */ (item));
