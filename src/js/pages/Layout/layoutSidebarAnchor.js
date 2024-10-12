@@ -21,20 +21,24 @@ export const layoutSidebarAnchor = async ({ props }) => {
     const { data } = await loadJsonContent({ source });
 
     return html` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-                data: data.data,
-                useMaxWidth: true,
-            })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            >${getBreadCrumbs({
-                breadCrumbs,
-                section,
-            })}${title}</doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">${title}</doc-title>
+        <div>
+            <html-content
+                slot="docs"
+                ${staticProps({
+                    data: data.data,
+                    useMaxWidth: true,
+                })}
+            ></html-content>
+            <doc-title-small slot="section-title-small"
+                ><div>
+                    ${getBreadCrumbs({
+                        breadCrumbs,
+                        section,
+                    })}${title}
+                </div></doc-title-small
+            >
+            <scroll-to slot="section-links"></scroll-to>
+            <doc-title slot="section-title">${title}</doc-title>
+        </div>
     </doc-container>`;
 };

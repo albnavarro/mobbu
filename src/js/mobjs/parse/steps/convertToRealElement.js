@@ -20,6 +20,7 @@ import {
     getSlotByName,
     getUnamedPlaceholderSlot,
 } from '../../modules/slot';
+import { getElementOrTextFromNode, insertElementOrText } from './utils';
 
 /**
  * @param {object} obj
@@ -36,7 +37,17 @@ const getNewElement = ({ element, content }) => {
     const { debug } = getDefaultComponent();
 
     if (element.parentNode) {
-        element.insertAdjacentHTML('afterend', content);
+        // element.insertAdjacentHTML('afterend', content);
+
+        // const template = document.createElement('template');
+        // template.innerHTML = content;
+        // const node = template.content.firstElementChild;
+
+        const node = document
+            .createRange()
+            .createContextualFragment(content).firstElementChild;
+
+        element.after(node);
 
         /**
          * Add component name in debug mode
@@ -168,7 +179,8 @@ const executeConversion = ({ element, content }) => {
     /**
      * Add real content from render function
      */
-    const prevContent = element.innerHTML;
+    // const prevContent2 = element.innerHTML;
+    const prevContent = getElementOrTextFromNode(element);
     const newElement = getNewElement({ element, content });
 
     /**
@@ -195,13 +207,31 @@ const executeConversion = ({ element, content }) => {
             ? queryUnNamedSlot(newElement)
             : getUnamedPlaceholderSlot({ element: newElement });
 
-        if (unNamedSlot && prevContent.length > 0) {
-            unNamedSlot.insertAdjacentHTML('afterend', prevContent);
+        // if (unNamedSlot && prevContent.length > 0) {
+        //     unNamedSlot.insertAdjacentHTML('afterend', prevContent);
+        //     unNamedSlot.remove();
+        // }
+        //
+        // if (!unNamedSlot && prevContent.length > 0) {
+        //     newElement.insertAdjacentHTML('afterbegin', prevContent);
+        // }
+
+        if (unNamedSlot) {
+            insertElementOrText({
+                parent: unNamedSlot,
+                itemObject: prevContent,
+                position: 'afterend',
+            });
+
             unNamedSlot.remove();
         }
 
-        if (!unNamedSlot && prevContent.length > 0) {
-            newElement.insertAdjacentHTML('afterbegin', prevContent);
+        if (!unNamedSlot) {
+            insertElementOrText({
+                parent: newElement,
+                itemObject: prevContent,
+                position: 'afterbegin',
+            });
         }
 
         addToNamedSlot({ element: newElement });

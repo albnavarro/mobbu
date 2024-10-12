@@ -54,7 +54,7 @@ mobCore.useLoad(() => {
         setDefaultComponent({
             scoped: false,
             maxParseIteration: 10_000,
-            debug: true,
+            debug: false,
         });
 
         inizializeApp({

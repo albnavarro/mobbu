@@ -68,11 +68,21 @@
         }
     }
 
-    &__no-result {
+    &__status {
         color: $white;
         font-size: rem(12);
-        padding-left: rem(20);
         margin-top: rem(20);
-        display: block;
+        opacity: 0;
+        position: absolute;
+        bottom: rem(15);
+        right: rem(40);
+        border: 1px $white solid;
+        padding: rem(5) rem(10);
+        background: rgba($black, 0.5);
+        transition: opacity 0.35s;
+
+        &.visible {
+            opacity: 1;
+        }
     }
 }
