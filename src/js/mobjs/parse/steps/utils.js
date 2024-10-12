@@ -31,20 +31,48 @@ export const removeWatchFromDynamicProps = ({ dynamicProps, stateToWatch }) => {
 export const renderHtml = String.raw;
 
 /**
+ * @description
+ * Detect if child of element is element / text / mix text and element
+ *
  * @param {Element} node
  * @returns {{item: Element|string, type: string}}
  */
 export const getElementOrTextFromNode = (node) => {
-    const children = node.childNodes;
+    const childNodes = node.childNodes;
 
-    if (children.length > 1)
+    /**
+     * No content
+     */
+    if (childNodes.length === 0) {
+        return {
+            item: undefined,
+            type: ELEMENT_TYPE_NOT_VALID,
+        };
+    }
+
+    const children = node.children;
+
+    /**
+     * Is a unique node.
+     */
+    if (children.length === 1 && childNodes.length === 1) {
+        return {
+            item: node.children?.[0],
+            type: ELEMENT_TYPE_NODE,
+        };
+    }
+
+    /**
+     * Can be everything.
+     */
+    if (childNodes.length > 1)
         return {
             item: node.innerHTML,
             type: ELEMENT_TYPE_MIX_NODE_TEXT,
         };
 
     /**
-     * Second chance detect if first node is a text
+     * Is a textNode
      */
     const textContent = node.textContent;
     if (textContent.length > 0)
@@ -54,7 +82,7 @@ export const getElementOrTextFromNode = (node) => {
         };
 
     /**
-     * No content inside component
+     * Fallback
      */
     return {
         item: undefined,
@@ -63,6 +91,9 @@ export const getElementOrTextFromNode = (node) => {
 };
 
 /**
+ * @description
+ * Insert DOM inside node by specific type.
+ *
  * @param {object} params
  * @param {Element} params.parent
  * @param {{item: Element|string, type: string}} params.itemObject

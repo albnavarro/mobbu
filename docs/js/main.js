@@ -17360,8 +17360,21 @@
   // src/js/mobjs/parse/steps/utils.js
   var renderHtml = String.raw;
   var getElementOrTextFromNode = (node) => {
-    const children = node.childNodes;
-    if (children.length > 1)
+    const childNodes = node.childNodes;
+    if (childNodes.length === 0) {
+      return {
+        item: void 0,
+        type: ELEMENT_TYPE_NOT_VALID
+      };
+    }
+    const children = node.children;
+    if (children.length === 1 && childNodes.length === 1) {
+      return {
+        item: node.children?.[0],
+        type: ELEMENT_TYPE_NODE
+      };
+    }
+    if (childNodes.length > 1)
       return {
         item: node.innerHTML,
         type: ELEMENT_TYPE_MIX_NODE_TEXT
@@ -33029,7 +33042,7 @@ Loading snippet ...</pre
       setDefaultComponent({
         scoped: false,
         maxParseIteration: 1e4,
-        debug: true
+        debug: false
       });
       inizializeApp({
         rootId: "#root",
