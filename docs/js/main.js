@@ -25196,21 +25196,25 @@ Loading snippet ...</pre
     const { source, title, section, breadCrumbs } = props;
     const { data: data2 } = await loadJsonContent({ source });
     return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
+        <div>
+            <html-content
+                slot="docs"
+                ${staticProps({
       data: data2.data,
       useMaxWidth: true
     })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            >${getBreadCrumbs({
+            ></html-content>
+            <doc-title-small slot="section-title-small"
+                ><div>
+                    ${getBreadCrumbs({
       breadCrumbs,
       section
-    })}${title}</doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">${title}</doc-title>
+    })}${title}
+                </div></doc-title-small
+            >
+            <scroll-to slot="section-links"></scroll-to>
+            <doc-title slot="section-title">${title}</doc-title>
+        </div>
     </doc-container>`;
   };
 
@@ -25221,19 +25225,23 @@ Loading snippet ...</pre
     const { source, title, breadCrumbs } = props;
     const { data: data2 } = await loadJsonContent({ source });
     return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
+        <div>
+            <html-content
+                slot="docs"
+                ${staticProps({
       data: data2.data,
       useMaxWidth: true
     })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            >${getBreadCrumbs2({
+            ></html-content>
+            <doc-title-small slot="section-title-small"
+                ><div>
+                    ${getBreadCrumbs2({
       breadCrumbs
-    })}<span>${title}</span></doc-title-small
-        >
-        <doc-title slot="section-title">${title}</doc-title>
+    })}<span>${title}</span>
+                </div></doc-title-small
+            >
+            <doc-title slot="section-title">${title}</doc-title>
+        </div>
     </doc-container>`;
   };
 

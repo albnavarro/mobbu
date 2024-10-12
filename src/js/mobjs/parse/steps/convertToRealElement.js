@@ -169,9 +169,8 @@ const executeConversion = ({ element, content }) => {
     /**
      * Add real content from render function
      */
-    // const prevContent = element.innerHTML;
+    // const prevContent2 = element.innerHTML;
     const prevContent = getElementOrTextFromNode(element);
-
     const newElement = getNewElement({ element, content });
 
     /**
