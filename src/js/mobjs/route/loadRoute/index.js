@@ -138,7 +138,9 @@ export const loadRoute = async ({
     /**
      *
      */
-    contentEl.innerHTML = '';
+    // contentEl.textContent = '';
+    contentEl.replaceChildren();
+
     removeCancellableComponent();
     contentEl.insertAdjacentHTML('afterbegin', content);
 

@@ -193,7 +193,8 @@ export const addWithKey = ({
      *
      * Reset parent Element
      */
-    repeaterParentElement.innerHTML = '';
+    // repeaterParentElement.textContent = '';
+    repeaterParentElement.replaceChildren();
 
     /**
      * -------------------
