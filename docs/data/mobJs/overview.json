@@ -66,10 +66,13 @@
                     "Pure vanilla javascript.",
                     "Independent from the npm ecosystem.",
                     "JsDoc type checking",
-                    "Parent/Child reactivity.",
                     "SPA ready.",
                     "Independent of the DOM, it only exposes APIs to manage the same.",
-                    "Optional use of web component."
+                    "Optional use of web component.",
+                    "Parent/Child reactivity.",
+                    "Props reactive only when needed",
+                    "Reactive forEach ( repeat ) only when necessary",
+                    "Flexible invalidation of the DOM"
                 ]
             }
         },
