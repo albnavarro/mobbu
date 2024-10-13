@@ -285,6 +285,7 @@ export const inizializeNestedRepeat = ({ repeatParent }) => {
                 setRepeaterPlaceholderMapInitialized({
                     repeatId,
                 });
+
                 return current.id === repeatId;
             });
         });

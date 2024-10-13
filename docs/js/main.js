@@ -17471,6 +17471,14 @@
   var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
   var invalidateIdHostMap = /* @__PURE__ */ new Map();
   var invalidateFunctionMap = /* @__PURE__ */ new Map();
+  var setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
+    const item = invalidateIdPlaceHolderMap.get(invalidateId);
+    if (!item) return;
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      ...item,
+      initialized: true
+    });
+  };
   var removeInvalidateId = ({ id }) => {
     if (invalidateFunctionMap.has(id)) {
       const value = invalidateFunctionMap.get(id);
@@ -17493,14 +17501,22 @@
     }
     invalidateFunctionMap.set(id, valueParsed);
   };
-  var getInvalidateInsideElement = (element) => {
+  var getInvalidateInsideElement = ({
+    element,
+    skipInitialized = false
+  }) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
     return entries.filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_id, parent]) => element?.contains(parent) && element !== parent
+      ([_id, parent]) => {
+        if (skipInitialized && parent?.initialized) {
+          return false;
+        }
+        return element?.contains(parent.element) && element !== parent.element;
+      }
     ).map(([id, parent]) => ({
       id,
-      parent
+      parent: parent?.element
     }));
   };
   var setInvalidateFunction = ({ id, invalidateId, fn }) => {
@@ -17529,7 +17545,10 @@
       /** @type{HTMLElement} */
       host.parentNode
     );
-    invalidateIdPlaceHolderMap.set(invalidateId, parent);
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      element: parent,
+      initialized: false
+    });
     invalidateIdHostMap.set(invalidateId, host);
   };
   var getInvalidateParent = ({ id }) => {
@@ -17543,10 +17562,13 @@
       invalidateIdHostMap.delete(id);
     }
     const parent = invalidateIdPlaceHolderMap.get(id);
-    return parent;
+    return parent?.element;
   };
   var destroyNestedInvalidate = ({ id, invalidateParent }) => {
-    const invalidatechildToDelete = getInvalidateInsideElement(invalidateParent);
+    const invalidatechildToDelete = getInvalidateInsideElement({
+      element: invalidateParent,
+      skipInitialized: false
+    });
     const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
       return invalidatechildToDelete.some((current) => {
         return current.id === item.invalidateId;
@@ -17563,10 +17585,16 @@
     });
   };
   var inizializeNestedInvalidate = ({ invalidateParent }) => {
-    const newInvalidateChild = getInvalidateInsideElement(invalidateParent);
-    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter((item) => {
+    const newInvalidateChild = getInvalidateInsideElement({
+      element: invalidateParent,
+      skipInitialized: true
+    });
+    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter(({ invalidateId }) => {
       return newInvalidateChild.some((current) => {
-        return current.id === item.invalidateId;
+        setInvalidatePlaceholderMapInitialized({
+          invalidateId
+        });
+        return current.id === invalidateId;
       });
     });
     invalidateChildToInizialize.forEach(({ fn }) => {
@@ -20351,7 +20379,10 @@
         });
       },
       fireInvalidateFunction: invalidateFunctions.length > 0 ? () => {
-        invalidateFunctions.forEach(({ fn }) => {
+        invalidateFunctions.forEach(({ fn, invalidateId }) => {
+          setInvalidatePlaceholderMapInitialized({
+            invalidateId
+          });
           fn?.();
         });
       } : () => {

@@ -18,7 +18,7 @@ import { getFallBackParentByElement } from '../../component/action/parent';
  * Key is invalidate id
  * Component track in invalidateId array all the reference to this map.
  *
- * @type {Map<string, HTMLElement>}
+ * @type {Map<string, {element: HTMLElement, initialized: boolean }>}
  */
 export const invalidateIdPlaceHolderMap = new Map();
 
@@ -45,6 +45,21 @@ export const invalidateIdHostMap = new Map();
  * @type {Map<string, Array<{invalidateId:string, fn: () => void, unsubscribe: (() => void)[]  }>>}
  */
 export const invalidateFunctionMap = new Map();
+
+/**
+ * @param {object} params
+ * @param {string} params.invalidateId - invalidateId
+ * @returns {void}
+ */
+export const setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
+    const item = invalidateIdPlaceHolderMap.get(invalidateId);
+    if (!item) return;
+
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+        ...item,
+        initialized: true,
+    });
+};
 
 /**
  * @description
@@ -102,20 +117,34 @@ export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
  * @description
  * Get all invalidate inside HTMLElement
  *
- * @param {HTMLElement} element
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @param {boolean} [ params.skipInitialized ]
  * @returns {{id: string, parent:HTMLElement}[]}
  */
-export const getInvalidateInsideElement = (element) => {
+export const getInvalidateInsideElement = ({
+    element,
+    skipInitialized = false,
+}) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
 
     return entries
         .filter(
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            ([_id, parent]) => element?.contains(parent) && element !== parent
+            ([_id, parent]) => {
+                if (skipInitialized && parent?.initialized) {
+                    return false;
+                }
+
+                return (
+                    element?.contains(parent.element) &&
+                    element !== parent.element
+                );
+            }
         )
         .map(([id, parent]) => ({
             id,
-            parent,
+            parent: parent?.element,
         }));
 };
 
@@ -184,7 +213,10 @@ export const getInvalidateFunctions = ({ id }) => {
  */
 export const setParentInvalidate = ({ invalidateId, host }) => {
     const parent = /** @type{HTMLElement} */ (host.parentNode);
-    invalidateIdPlaceHolderMap.set(invalidateId, parent);
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+        element: parent,
+        initialized: false,
+    });
     invalidateIdHostMap.set(invalidateId, host);
 };
 
@@ -211,7 +243,7 @@ export const getInvalidateParent = ({ id }) => {
     }
 
     const parent = invalidateIdPlaceHolderMap.get(id);
-    return parent;
+    return parent?.element;
 };
 
 /**
@@ -224,8 +256,10 @@ export const getInvalidateParent = ({ id }) => {
  * @returns {void}
  */
 export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
-    const invalidatechildToDelete =
-        getInvalidateInsideElement(invalidateParent);
+    const invalidatechildToDelete = getInvalidateInsideElement({
+        element: invalidateParent,
+        skipInitialized: false,
+    });
 
     const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
         .flat()
@@ -257,13 +291,20 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
  * @returns {void}
  */
 export const inizializeNestedInvalidate = ({ invalidateParent }) => {
-    const newInvalidateChild = getInvalidateInsideElement(invalidateParent);
+    const newInvalidateChild = getInvalidateInsideElement({
+        element: invalidateParent,
+        skipInitialized: true,
+    });
 
     const invalidateChildToInizialize = [...invalidateFunctionMap.values()]
         .flat()
-        .filter((item) => {
+        .filter(({ invalidateId }) => {
             return newInvalidateChild.some((current) => {
-                return current.id === item.invalidateId;
+                setInvalidatePlaceholderMapInitialized({
+                    invalidateId,
+                });
+
+                return current.id === invalidateId;
             });
         });
 

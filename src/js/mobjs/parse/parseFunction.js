@@ -27,7 +27,10 @@ import {
     setRepeaterStateById,
 } from '../component/action/repeater';
 import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
-import { getInvalidateFunctions } from '../modules/invalidate';
+import {
+    getInvalidateFunctions,
+    setInvalidatePlaceholderMapInitialized,
+} from '../modules/invalidate';
 import {
     getRepeatFunctions,
     setRepeaterPlaceholderMapInitialized,
@@ -406,7 +409,11 @@ export const parseComponentsRecursive = async ({
         fireInvalidateFunction:
             invalidateFunctions.length > 0
                 ? () => {
-                      invalidateFunctions.forEach(({ fn }) => {
+                      invalidateFunctions.forEach(({ fn, invalidateId }) => {
+                          setInvalidatePlaceholderMapInitialized({
+                              invalidateId,
+                          });
+
                           fn?.();
                       });
                   }
@@ -416,6 +423,7 @@ export const parseComponentsRecursive = async ({
                 ? () => {
                       repeatFunctions.forEach(({ fn, repeatId }) => {
                           setRepeaterPlaceholderMapInitialized({ repeatId });
+
                           fn?.();
                       });
                   }
