@@ -1,0 +1,6 @@
+@use '../../abstract' as *;
+
+.benchmark-fake {
+    border: 1px $black solid;
+    padding: rem(20);
+}

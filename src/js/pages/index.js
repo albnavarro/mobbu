@@ -1,6 +1,7 @@
 import { pageNotFound } from './404';
 import { layoutSidebarAnchor } from './Layout/layoutSidebarAnchor';
 import { layoutSidebarLinks } from './Layout/layoutSidebarLinks';
+import { benchMark } from './benchmark';
 import { animatedPatternN0 } from './canvas/animatedPatternN0';
 import { animatedPatternN1 } from './canvas/animatedPatternN1';
 import { caterpillarN0 } from './canvas/caterpillarN0';
@@ -221,6 +222,13 @@ export const routes = [
             title: 'Debug component',
             section: 'mobJs',
             breadCrumbs: './#mobJs-overview',
+        },
+    },
+    {
+        name: 'mobJs-benchmark-invalidate',
+        layout: benchMark,
+        props: {
+            rootComponent: 'benchmark-invalidate',
         },
     },
     {
