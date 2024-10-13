@@ -28,7 +28,10 @@ import {
 } from '../component/action/repeater';
 import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
 import { getInvalidateFunctions } from '../modules/invalidate';
-import { getRepeatFunctions } from '../modules/repeater';
+import {
+    getRepeatFunctions,
+    setRepeaterPlaceholderMapInitialized,
+} from '../modules/repeater';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
 import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './useQuery';
@@ -411,7 +414,8 @@ export const parseComponentsRecursive = async ({
         fireRepeatFunction:
             repeatFunctions.length > 0
                 ? () => {
-                      repeatFunctions.forEach(({ fn }) => {
+                      repeatFunctions.forEach(({ fn, repeatId }) => {
+                          setRepeaterPlaceholderMapInitialized({ repeatId });
                           fn?.();
                       });
                   }

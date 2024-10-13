@@ -6,7 +6,7 @@ import { watchRepeat } from './watch';
  * Key is repeat id
  * Component track in repeatId array all the reference to this map.
  *
- * @type {Map<string, HTMLElement>}
+ * @type {Map<string, {element: HTMLElement, initialized: boolean }>}
  */
 export const repeatIdPlaceHolderMap = new Map();
 
@@ -34,6 +34,18 @@ export const repeatIdHostMap = new Map();
  * @type {Map<string, Array<{repeatId:string, fn: () => void, unsubscribe: () => void  }>>}
  */
 export const repeatFunctionMap = new Map();
+
+/**
+ * @param {object} params
+ * @param {string} params.repeatId - repeatId
+ * @returns {void}
+ */
+export const setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+
+    repeatIdPlaceHolderMap.set(repeatId, { ...item, initialized: true });
+};
 
 /**
  * @description
@@ -89,20 +101,34 @@ export const removeRepeatByRepeatId = ({ id, repeatId }) => {
  * @description
  * Get all repeat inside HTMLElement
  *
- * @param {HTMLElement} element
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @param {boolean} [ params.skipInitialized ]
  * @returns {{id: string, parent:HTMLElement}[]}
  */
-export const getRepeatInsideElement = (element) => {
+export const getRepeatInsideElement = ({
+    element,
+    skipInitialized = false,
+}) => {
     const entries = [...repeatIdPlaceHolderMap.entries()];
 
     return entries
         .filter(
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            ([_id, parent]) => element?.contains(parent) && element !== parent
+            ([_id, parent]) => {
+                if (skipInitialized && parent?.initialized) {
+                    return false;
+                }
+
+                return (
+                    element?.contains(parent.element) &&
+                    element !== parent.element
+                );
+            }
         )
         .map(([id, parent]) => ({
             id,
-            parent,
+            parent: parent?.element,
         }));
 };
 
@@ -171,7 +197,11 @@ export const getRepeatFunctions = ({ id }) => {
  */
 export const setParentRepeater = ({ repeatId, host }) => {
     const parent = /** @type{HTMLElement} */ (host.parentNode);
-    repeatIdPlaceHolderMap.set(repeatId, parent);
+    repeatIdPlaceHolderMap.set(repeatId, {
+        element: parent,
+        initialized: false,
+    });
+
     repeatIdHostMap.set(repeatId, host);
 };
 
@@ -198,7 +228,7 @@ export const getRepeatParent = ({ id }) => {
     }
 
     const parent = repeatIdPlaceHolderMap.get(id);
-    return parent;
+    return parent?.element;
 };
 
 /**
@@ -211,7 +241,10 @@ export const getRepeatParent = ({ id }) => {
  * @returns {void}
  */
 export const destroyNestedRepeat = ({ id, repeatParent }) => {
-    const repeatChildToDelete = getRepeatInsideElement(repeatParent);
+    const repeatChildToDelete = getRepeatInsideElement({
+        element: repeatParent,
+        skipInitialized: false,
+    });
 
     const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]
         .flat()
@@ -240,13 +273,19 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
  * @returns {void}
  */
 export const inizializeNestedRepeat = ({ repeatParent }) => {
-    const newRepeatChild = getRepeatInsideElement(repeatParent);
+    const newRepeatChild = getRepeatInsideElement({
+        element: repeatParent,
+        skipInitialized: true,
+    });
 
     const repeatChildToInizialize = [...repeatFunctionMap.values()]
         .flat()
-        .filter((item) => {
+        .filter(({ repeatId }) => {
             return newRepeatChild.some((current) => {
-                return current.id === item.repeatId;
+                setRepeaterPlaceholderMapInitialized({
+                    repeatId,
+                });
+                return current.id === repeatId;
             });
         });
 
