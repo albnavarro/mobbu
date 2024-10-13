@@ -120,11 +120,13 @@ export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
  * @param {object} params
  * @param {HTMLElement} params.element
  * @param {boolean} [ params.skipInitialized ]
+ * @param {boolean} [ params.onlyInitialized ]
  * @returns {{id: string, parent:HTMLElement}[]}
  */
 export const getInvalidateInsideElement = ({
     element,
     skipInitialized = false,
+    onlyInitialized = false,
 }) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
 
@@ -133,6 +135,10 @@ export const getInvalidateInsideElement = ({
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             ([_id, parent]) => {
                 if (skipInitialized && parent?.initialized) {
+                    return false;
+                }
+
+                if (onlyInitialized && !parent?.initialized) {
                     return false;
                 }
 
@@ -259,6 +265,7 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
     const invalidatechildToDelete = getInvalidateInsideElement({
         element: invalidateParent,
         skipInitialized: false,
+        onlyInitialized: true,
     });
 
     const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
@@ -294,6 +301,7 @@ export const inizializeNestedInvalidate = ({ invalidateParent }) => {
     const newInvalidateChild = getInvalidateInsideElement({
         element: invalidateParent,
         skipInitialized: true,
+        onlyInitialized: false,
     });
 
     const invalidateChildToInizialize = [...invalidateFunctionMap.values()]

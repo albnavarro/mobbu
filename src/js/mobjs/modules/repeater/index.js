@@ -104,11 +104,13 @@ export const removeRepeatByRepeatId = ({ id, repeatId }) => {
  * @param {object} params
  * @param {HTMLElement} params.element
  * @param {boolean} [ params.skipInitialized ]
+ * @param {boolean} [ params.onlyInitialized ]
  * @returns {{id: string, parent:HTMLElement}[]}
  */
 export const getRepeatInsideElement = ({
     element,
     skipInitialized = false,
+    onlyInitialized = false,
 }) => {
     const entries = [...repeatIdPlaceHolderMap.entries()];
 
@@ -117,6 +119,10 @@ export const getRepeatInsideElement = ({
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             ([_id, parent]) => {
                 if (skipInitialized && parent?.initialized) {
+                    return false;
+                }
+
+                if (onlyInitialized && !parent?.initialized) {
                     return false;
                 }
 
@@ -244,6 +250,7 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
     const repeatChildToDelete = getRepeatInsideElement({
         element: repeatParent,
         skipInitialized: false,
+        onlyInitialized: true,
     });
 
     const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]
@@ -276,6 +283,7 @@ export const inizializeNestedRepeat = ({ repeatParent }) => {
     const newRepeatChild = getRepeatInsideElement({
         element: repeatParent,
         skipInitialized: true,
+        onlyInitialized: false,
     });
 
     const repeatChildToInizialize = [...repeatFunctionMap.values()]
