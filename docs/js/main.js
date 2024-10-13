@@ -25340,11 +25340,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/fakeComponent/benchmarkFakeComponent.js
-  var BenchMarkFakeComponentFn = ({ onMount, html, bindText }) => {
-    onMount(() => {
-      return () => {
-      };
-    });
+  var BenchMarkFakeComponentFn = ({ html, bindText }) => {
     return html`<div class="benchmark-fake">
         <div class="benchmark-fake__label">${bindText`label: ${"label"}`}</div>
         <div class="benchmark-fake__counter">
@@ -25374,6 +25370,14 @@ Loading snippet ...</pre
   function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
+  var setData = async ({ setState, value }) => {
+    const startDate = /* @__PURE__ */ new Date();
+    setState("numberOfComponent", value);
+    await tick();
+    const endDate = /* @__PURE__ */ new Date();
+    const difference = endDate - startDate;
+    setState("time", difference);
+  };
   var BenchMarkInvalidateFn = ({
     onMount,
     html,
@@ -25394,6 +25398,9 @@ Loading snippet ...</pre
     });
     return html`<div class="benchmark">
         <div class="benchmark__head">
+            <h2 class="benchmark__head__title">
+                Invalidate generate component test
+            </h2>
             <div class="benchmark__head__controls">
                 <input
                     type="text"
@@ -25406,7 +25413,7 @@ Loading snippet ...</pre
             /** @type{HTMLInputElement} */
             event.target?.value ?? 0
           );
-          setState("numberOfComponent", value);
+          setData({ setState, value });
         }
       }
     })}
@@ -25420,7 +25427,7 @@ Loading snippet ...</pre
           /** @type{HTMLInputElement} */
           input?.value ?? 0
         );
-        setState("numberOfComponent", value);
+        setData({ setState, value });
       }
     })}
                 >
@@ -25488,11 +25495,13 @@ Loading snippet ...</pre
         validate: (value) => {
           return value < 2e3;
         },
-        strict: true
+        strict: true,
+        skipEqual: false
       }),
       time: () => ({
         value: 0,
-        type: Number
+        type: Number,
+        skipEqual: false
       })
     },
     child: [BenchMarkFakeComponent]

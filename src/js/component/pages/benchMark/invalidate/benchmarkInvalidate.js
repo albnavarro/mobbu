@@ -1,12 +1,29 @@
 //@ts-check
 
+import { tick } from '../../../../mobjs';
+
 /** @param {number} numberOfItem */
 function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
 }
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @param {object} params
+ * @param {SetState<import('../type').BenchMark>} params.setState
+ * @param {number} params.value
+ */
+const setData = async ({ setState, value }) => {
+    const startDate = new Date();
+    setState('numberOfComponent', value);
+    await tick();
+    const endDate = new Date();
+    // @ts-ignore
+    const difference = endDate - startDate;
+    setState('time', difference);
+};
+
+/**
+ * @import { MobComponent, SetState } from '../../../../mobjs/type';
  **/
 
 /** @type {MobComponent<import('../type').BenchMark>} */
@@ -30,6 +47,9 @@ export const BenchMarkInvalidateFn = ({
 
     return html`<div class="benchmark">
         <div class="benchmark__head">
+            <h2 class="benchmark__head__title">
+                Invalidate generate component test
+            </h2>
             <div class="benchmark__head__controls">
                 <input
                     type="text"
@@ -45,7 +65,8 @@ export const BenchMarkInvalidateFn = ({
                                         event.target
                                     )?.value ?? 0
                                 );
-                                setState('numberOfComponent', value);
+
+                                setData({ setState, value });
                             }
                         },
                     })}
@@ -59,7 +80,8 @@ export const BenchMarkInvalidateFn = ({
                                 /** @type{HTMLInputElement} */ (input)?.value ??
                                     0
                             );
-                            setState('numberOfComponent', value);
+
+                            setData({ setState, value });
                         },
                     })}
                 >

@@ -20,10 +20,12 @@ export const BenchMarkInvalidate = createComponent({
                 return value < 2000;
             },
             strict: true,
+            skipEqual: false,
         }),
         time: () => ({
             value: 0,
             type: Number,
+            skipEqual: false,
         }),
     },
     child: [BenchMarkFakeComponent],

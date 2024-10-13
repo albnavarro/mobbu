@@ -5,11 +5,7 @@
  **/
 
 /** @type {MobComponent<import('./type').BenchMarkFakeComponent>} */
-export const BenchMarkFakeComponentFn = ({ onMount, html, bindText }) => {
-    onMount(() => {
-        return () => {};
-    });
-
+export const BenchMarkFakeComponentFn = ({ html, bindText }) => {
     return html`<div class="benchmark-fake">
         <div class="benchmark-fake__label">${bindText`label: ${'label'}`}</div>
         <div class="benchmark-fake__counter">
