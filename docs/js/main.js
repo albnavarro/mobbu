@@ -25396,10 +25396,10 @@ Loading snippet ...</pre
     }
   });
 
-  // src/js/component/pages/benchMark/invalidate/benchmarkInvalidate.js
-  function createArray(numberOfItem) {
+  // src/js/component/pages/benchMark/partials/benchMarkListPartial.js
+  var createBenchMarkArray = (numberOfItem) => {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
-  }
+  };
   var setData = async ({ setState, value }) => {
     const startDate = /* @__PURE__ */ new Date();
     setState("numberOfComponent", value);
@@ -25408,6 +25408,64 @@ Loading snippet ...</pre
     const difference = endDate - startDate;
     setState("time", difference);
   };
+  var benchMarkListPartial = ({
+    delegateEvents,
+    setRef,
+    getRef,
+    updateState,
+    setState
+  }) => {
+    return renderHtml`
+        <div class="benchmark__head__controls">
+            <input
+                class="benchmark__head__input"
+                type="text"
+                ${setRef("input")}
+                ${delegateEvents({
+      keypress: (event) => {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          const value = Number(
+            /** @type{HTMLInputElement} */
+            event.target?.value ?? 0
+          );
+          setData({ setState, value });
+        }
+      }
+    })}
+            />
+            <button
+                type="button"
+                class="benchmark__head__button"
+                ${delegateEvents({
+      click: () => {
+        const { input } = getRef();
+        const value = Number(
+          /** @type{HTMLInputElement} */
+          input?.value ?? 0
+        );
+        setData({ setState, value });
+      }
+    })}
+            >
+                Generate components
+            </button>
+            <button
+                type="button"
+                class="benchmark__head__button"
+                ${delegateEvents({
+      click: () => {
+        updateState("counter", (value) => value + 1);
+      }
+    })}
+            >
+                Update counter
+            </button>
+        </div>
+    `;
+  };
+
+  // src/js/component/pages/benchMark/invalidate/benchmarkInvalidate.js
   var BenchMarkInvalidateFn = ({
     onMount,
     html,
@@ -25431,52 +25489,15 @@ Loading snippet ...</pre
             <h2 class="benchmark__head__title">
                 Invalidate generate component test ( max 2000 )
             </h2>
-            <div class="benchmark__head__controls">
-                <input
-                    class="benchmark__head__input"
-                    type="text"
-                    ${setRef("input")}
-                    ${delegateEvents({
-      keypress: (event) => {
-        if (event.keyCode === 13) {
-          event.preventDefault();
-          const value = Number(
-            /** @type{HTMLInputElement} */
-            event.target?.value ?? 0
-          );
-          setData({ setState, value });
-        }
-      }
+
+            ${benchMarkListPartial({
+      setRef,
+      getRef,
+      setState,
+      updateState,
+      delegateEvents
     })}
-                />
-                <button
-                    type="button"
-                    class="benchmark__head__button"
-                    ${delegateEvents({
-      click: () => {
-        const { input } = getRef();
-        const value = Number(
-          /** @type{HTMLInputElement} */
-          input?.value ?? 0
-        );
-        setData({ setState, value });
-      }
-    })}
-                >
-                    Generate components
-                </button>
-                <button
-                    type="button"
-                    class="benchmark__head__button"
-                    ${delegateEvents({
-      click: () => {
-        updateState("counter", (value) => value + 1);
-      }
-    })}
-                >
-                    Update counter
-                </button>
-            </div>
+
             <div class="benchmark__head__time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
@@ -25487,7 +25508,7 @@ Loading snippet ...</pre
       render: ({ html: html2 }) => {
         const { numberOfComponent } = getState();
         return html2`
-                        ${createArray(numberOfComponent).map((_, index) => {
+                        ${createBenchMarkArray(numberOfComponent).map((_, index) => {
           return html2`
                                     <benchmark-fake-component
                                         ${staticProps2({
@@ -28776,13 +28797,13 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/dynamicList/card/dynamicListCard.js
-  function createArray2(numberOfItem) {
+  function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
   var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, getState }) => {
     const { counter } = getState();
     return renderHtml`
-        ${createArray2(counter).map((item) => {
+        ${createArray(counter).map((item) => {
       return renderHtml`
                     <div class="validate-test-wrapper">
                         <dynamic-list-card-inner
