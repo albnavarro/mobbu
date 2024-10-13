@@ -35,7 +35,7 @@ export const Matrioska = createComponent({
                 { key: 2, value: mobCore.getUnivoqueId() },
             ],
             type: Array,
-            validate: (val) => val.length <= 5,
+            validate: (val) => val.length <= 10,
             strict: true,
         }),
         level3: () => ({

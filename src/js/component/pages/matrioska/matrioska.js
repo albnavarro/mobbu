@@ -21,7 +21,7 @@ const buttons = [
     },
     {
         state: 'level2',
-        maxItem: 5,
+        maxItem: 10,
         ref: 'level2_counter',
         label_plus: 'level2 +',
         label_minus: 'level2 -',

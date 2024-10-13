@@ -29194,7 +29194,7 @@ Loading snippet ...</pre
     },
     {
       state: "level2",
-      maxItem: 5,
+      maxItem: 10,
       ref: "level2_counter",
       label_plus: "level2 +",
       label_minus: "level2 -"
@@ -29584,7 +29584,7 @@ Loading snippet ...</pre
           { key: 2, value: mobCore.getUnivoqueId() }
         ],
         type: Array,
-        validate: (val2) => val2.length <= 5,
+        validate: (val2) => val2.length <= 10,
         strict: true
       }),
       level3: () => ({
