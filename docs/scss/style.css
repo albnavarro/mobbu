@@ -3443,8 +3443,11 @@ code {
   background: #000;
   color: #fff;
 }
-.benchmark-fake__row:first-child {
+.benchmark-fake__row {
   margin-bottom: 1.3333333333rem;
+}
+.benchmark-fake__row:last-child {
+  margin-bottom: 0;
 }
 .benchmark {
   padding: 2.6666666667rem;

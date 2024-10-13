@@ -11,8 +11,10 @@
     }
 
     &__row {
-        &:first-child {
-            margin-bottom: rem(20);
+        margin-bottom: rem(20);
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 }
