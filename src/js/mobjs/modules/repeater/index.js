@@ -233,6 +233,7 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
 /**
  * @description
  * Initialize watch function of nested repeat.
+ * Start initialize from older one, so child repeat is render after parent repeat
  *
  * @param {object} params
  * @param {HTMLElement} params.repeatParent

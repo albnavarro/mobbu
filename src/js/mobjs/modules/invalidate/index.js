@@ -250,6 +250,7 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
 /**
  * @description
  * Initialize watch function of nested invalidate.
+ * Start initialize from older one, so child invalidate is render after parent invalidate
  *
  * @param {object} params
  * @param {HTMLElement} params.invalidateParent
