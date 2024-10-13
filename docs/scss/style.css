@@ -3466,6 +3466,20 @@ code {
 }
 .benchmark {
   padding: 2.6666666667rem;
+  position: relative;
+}
+.benchmark__loading {
+  position: fixed;
+  top: 13.3333333333rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px #000 solid;
+  padding: 1.3333333333rem;
+  background: #eee;
+  display: none;
+}
+.benchmark__loading.active {
+  display: block;
 }
 .benchmark__head {
   margin-bottom: 2rem;

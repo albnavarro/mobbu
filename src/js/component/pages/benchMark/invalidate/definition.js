@@ -27,6 +27,10 @@ export const BenchMarkInvalidate = createComponent({
             type: Number,
             skipEqual: false,
         }),
+        isLoading: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
     child: [BenchMarkFakeComponent],
 });

@@ -2,6 +2,22 @@
 
 .benchmark {
     padding: rem(40);
+    position: relative;
+
+    &__loading {
+        position: fixed;
+        top: rem(200);
+        left: 50%;
+        transform: translateX(-50%);
+        border: 1px $black solid;
+        padding: rem(20);
+        background: $grey;
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
 
     &__head {
         margin-bottom: rem(30);

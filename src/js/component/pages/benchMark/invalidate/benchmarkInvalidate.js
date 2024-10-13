@@ -1,5 +1,6 @@
 //@ts-check
 
+import { mobCore } from '../../../../mobCore';
 import {
     benchMarkListPartial,
     createBenchMarkArray,
@@ -23,8 +24,17 @@ export const BenchMarkInvalidateFn = ({
     setState,
     updateState,
     bindProps,
+    watch,
 }) => {
     onMount(() => {
+        const { loading } = getRef();
+
+        watch('isLoading', (value) => {
+            mobCore.useFrame(() => {
+                loading.classList.toggle('active', value);
+            });
+        });
+
         return () => {};
     });
 

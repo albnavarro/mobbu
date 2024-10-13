@@ -25401,12 +25401,17 @@ Loading snippet ...</pre
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   };
   var setData = async ({ setState, value }) => {
-    const startDate = /* @__PURE__ */ new Date();
-    setState("numberOfComponent", value);
+    setState("isLoading", true);
     await tick();
-    const endDate = /* @__PURE__ */ new Date();
-    const difference = endDate - startDate;
-    setState("time", difference);
+    mobCore.useNextTick(async () => {
+      const startDate = /* @__PURE__ */ new Date();
+      setState("numberOfComponent", value);
+      await tick();
+      const endDate = /* @__PURE__ */ new Date();
+      const difference = endDate - startDate;
+      setState("time", difference);
+      setState("isLoading", false);
+    });
   };
   var benchMarkListPartial = ({
     delegateEvents,
@@ -25416,6 +25421,9 @@ Loading snippet ...</pre
     setState
   }) => {
     return renderHtml`
+        <div class="benchmark__loading" ${setRef("loading")}>
+            generate components
+        </div>
         <div class="benchmark__head__controls">
             <input
                 class="benchmark__head__input"
@@ -25478,9 +25486,16 @@ Loading snippet ...</pre
     getRef,
     setState,
     updateState,
-    bindProps
+    bindProps,
+    watch
   }) => {
     onMount(() => {
+      const { loading } = getRef();
+      watch("isLoading", (value) => {
+        mobCore.useFrame(() => {
+          loading.classList.toggle("active", value);
+        });
+      });
       return () => {
       };
     });
@@ -25556,6 +25571,10 @@ Loading snippet ...</pre
         value: 0,
         type: Number,
         skipEqual: false
+      }),
+      isLoading: () => ({
+        value: false,
+        type: Boolean
       })
     },
     child: [BenchMarkFakeComponent]

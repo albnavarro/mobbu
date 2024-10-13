@@ -1,5 +1,6 @@
 //@ts-check
 
+import { mobCore } from '../../../../mobCore';
 import { html, tick } from '../../../../mobjs';
 
 /**
@@ -17,13 +18,20 @@ export const createBenchMarkArray = (numberOfItem) => {
  * @param {number} params.value
  */
 const setData = async ({ setState, value }) => {
-    const startDate = new Date();
-    setState('numberOfComponent', value);
+    setState('isLoading', true);
     await tick();
-    const endDate = new Date();
-    // @ts-ignore
-    const difference = endDate - startDate;
-    setState('time', difference);
+
+    mobCore.useNextTick(async () => {
+        const startDate = new Date();
+        setState('numberOfComponent', value);
+        await tick();
+
+        const endDate = new Date();
+        // @ts-ignore
+        const difference = endDate - startDate;
+        setState('time', difference);
+        setState('isLoading', false);
+    });
 };
 
 /**
@@ -42,6 +50,9 @@ export const benchMarkListPartial = ({
     setState,
 }) => {
     return html`
+        <div class="benchmark__loading" ${setRef('loading')}>
+            generate components
+        </div>
         <div class="benchmark__head__controls">
             <input
                 class="benchmark__head__input"
