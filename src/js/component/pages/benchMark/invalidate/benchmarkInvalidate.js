@@ -48,10 +48,11 @@ export const BenchMarkInvalidateFn = ({
     return html`<div class="benchmark">
         <div class="benchmark__head">
             <h2 class="benchmark__head__title">
-                Invalidate generate component test
+                Invalidate generate component test ( max 2000 )
             </h2>
             <div class="benchmark__head__controls">
                 <input
+                    class="benchmark__head__input"
                     type="text"
                     ${setRef('input')}
                     ${delegateEvents({
@@ -73,6 +74,7 @@ export const BenchMarkInvalidateFn = ({
                 />
                 <button
                     type="button"
+                    class="benchmark__head__button"
                     ${delegateEvents({
                         click: () => {
                             const { input } = getRef();
@@ -89,6 +91,7 @@ export const BenchMarkInvalidateFn = ({
                 </button>
                 <button
                     type="button"
+                    class="benchmark__head__button"
                     ${delegateEvents({
                         click: () => {
                             updateState('counter', (value) => value + 1);

@@ -5,9 +5,16 @@
     padding: rem(20);
     flex: 1 1 10%;
 
+    $self: &;
+
     &.selected {
         background: $black;
         color: $white;
+
+        #{$self}__button {
+            background: $white;
+            color: $black;
+        }
     }
 
     &__row {
@@ -15,6 +22,19 @@
 
         &:last-child {
             margin-bottom: 0;
+        }
+    }
+
+    &__button {
+        background: $black;
+        border: 0;
+        width: 100%;
+        display: block;
+        color: $white;
+
+        &:hover {
+            background: $white;
+            color: $black;
         }
     }
 }

@@ -17,7 +17,7 @@ export const BenchMarkInvalidate = createComponent({
             value: 1,
             type: Number,
             validate: (value) => {
-                return value < 2000;
+                return value < 2001;
             },
             strict: true,
             skipEqual: false,

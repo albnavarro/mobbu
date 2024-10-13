@@ -3443,17 +3443,65 @@ code {
   background: #000;
   color: #fff;
 }
+.benchmark-fake.selected .benchmark-fake__button {
+  background: #fff;
+  color: #000;
+}
 .benchmark-fake__row {
   margin-bottom: 1.3333333333rem;
 }
 .benchmark-fake__row:last-child {
   margin-bottom: 0;
 }
+.benchmark-fake__button {
+  background: #000;
+  border: 0;
+  width: 100%;
+  display: block;
+  color: #fff;
+}
+.benchmark-fake__button:hover {
+  background: #fff;
+  color: #000;
+}
 .benchmark {
   padding: 2.6666666667rem;
 }
 .benchmark__head {
   margin-bottom: 2rem;
+}
+.benchmark__head__input {
+  width: 20rem;
+  background: transparent;
+  border: 1px #000 solid;
+  margin-right: 0.3333333333rem;
+  padding-inline: 0.6666666667rem;
+  line-height: 1.7;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.benchmark__head__button {
+  grid-area: submit;
+  background: #000;
+  color: #fff;
+  border: 0;
+  padding-inline: 1.3333333333rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+  display: inline-block;
+  line-height: 1.7;
+  transition: background 0.35s, color 0.35s;
+}
+.benchmark__head__button:hover {
+  background: #fff;
+  color: #000;
+}
+.benchmark__head__controls {
+  margin-top: 2rem;
+}
+.benchmark__head__time {
+  margin-top: 1.3333333333rem;
 }
 .benchmark__list {
   display: flex;

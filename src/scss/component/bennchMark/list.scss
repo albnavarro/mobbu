@@ -5,6 +5,46 @@
 
     &__head {
         margin-bottom: rem(30);
+
+        &__input {
+            width: rem(300);
+            background: transparent;
+            border: 1px $black solid;
+            margin-right: rem(5);
+            padding-inline: rem(10);
+            line-height: 1.7;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        &__button {
+            grid-area: submit;
+            background: $black;
+            color: $white;
+            border: 0;
+            padding-inline: rem(20);
+            padding-top: 0;
+            padding-bottom: 0;
+            margin: 0;
+            display: inline-block;
+            line-height: 1.7;
+            transition:
+                background 0.35s,
+                color 0.35s;
+
+            &:hover {
+                background: $white;
+                color: $black;
+            }
+        }
+
+        &__controls {
+            margin-top: rem(30);
+        }
+
+        &__time {
+            margin-top: rem(20);
+        }
     }
 
     &__list {

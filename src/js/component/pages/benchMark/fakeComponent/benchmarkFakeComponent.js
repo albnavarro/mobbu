@@ -30,6 +30,7 @@ export const BenchMarkFakeComponentFn = ({
         <div class="benchmark-fake__row">
             <div>
                 <button
+                    class="benchmark-fake__button"
                     type="button"
                     ${delegateEvents({
                         click: () => {
