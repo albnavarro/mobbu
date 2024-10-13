@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat, SetStateByName, UpdateStateByName, SetRef, Invalidate, GetState } from '../../../mobjs/type'
+ * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat, SetStateByName, UpdateStateByName, Invalidate, GetState } from '../../../mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
  * @import { CodeButton } from '../../common/codeButton/type';
@@ -14,7 +14,7 @@ import { html, setStateByName, updateStateByName } from '../../../mobjs';
 const buttons = [
     {
         state: 'level1',
-        maxItem: 5,
+        maxItem: 10,
         ref: 'level1_counter',
         label_plus: 'level1 +',
         label_minus: 'level1 -',

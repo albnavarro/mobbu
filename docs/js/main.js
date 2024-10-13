@@ -29175,7 +29175,7 @@ Loading snippet ...</pre
   var buttons3 = [
     {
       state: "level1",
-      maxItem: 5,
+      maxItem: 10,
       ref: "level1_counter",
       label_plus: "level1 +",
       label_minus: "level1 -"
@@ -29563,7 +29563,7 @@ Loading snippet ...</pre
       level1: () => ({
         value: [{ key: 1, value: mobCore.getUnivoqueId() }],
         type: Array,
-        validate: (val2) => val2.length <= 5,
+        validate: (val2) => val2.length <= 10,
         strict: true
       }),
       level2: () => ({
