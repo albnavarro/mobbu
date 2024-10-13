@@ -5,11 +5,40 @@
  **/
 
 /** @type {MobComponent<import('./type').BenchMarkFakeComponent>} */
-export const BenchMarkFakeComponentFn = ({ html, bindText }) => {
+export const BenchMarkFakeComponentFn = ({
+    html,
+    bindText,
+    delegateEvents,
+    onMount,
+}) => {
+    let isSelected = false;
+    let rootRef;
+
+    onMount(({ element }) => {
+        rootRef = element;
+
+        return () => {};
+    });
+
     return html`<div class="benchmark-fake">
-        <div class="benchmark-fake__label">${bindText`label: ${'label'}`}</div>
-        <div class="benchmark-fake__counter">
-            ${bindText`counter: ${'counter'}`}
+        <div class="benchmark-fake__row">
+            ${bindText`<strong>label:</strong><br/> ${'label'}`}
+        </div>
+        <div class="benchmark-fake__row">
+            ${bindText`<strong>counter: </strong><br/> ${'counter'}`}
+        </div>
+        <div>
+            <button
+                type="button"
+                ${delegateEvents({
+                    click: () => {
+                        isSelected = !isSelected;
+                        rootRef.classList.toggle('selected', isSelected);
+                    },
+                })}
+            >
+                Select
+            </button>
         </div>
     </div> `;
 };

@@ -99,7 +99,7 @@ export const BenchMarkInvalidateFn = ({
                 </button>
             </div>
             <div class="benchmark__head__time">
-                ${bindText`components generate in ${'time'}ms`}
+                ${bindText`components generate in <strong>${'time'}ms</strong>`}
             </div>
         </div>
         <div class="benchmark__list">
@@ -114,7 +114,7 @@ export const BenchMarkInvalidateFn = ({
                                 return html`
                                     <benchmark-fake-component
                                         ${staticProps({
-                                            label: `component-${index}`,
+                                            label: `comp-${index}`,
                                         })}
                                         ${bindProps({
                                             bind: ['counter'],

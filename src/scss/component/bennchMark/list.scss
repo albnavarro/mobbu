@@ -2,4 +2,14 @@
 
 .benchmark {
     padding: rem(40);
+
+    &__head {
+        margin-bottom: rem(30);
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: rem(10);
+    }
 }

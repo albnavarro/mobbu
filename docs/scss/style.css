@@ -3437,9 +3437,25 @@ code {
 .benchmark-fake {
   border: 1px #000 solid;
   padding: 1.3333333333rem;
+  flex: 1 1 10%;
+}
+.benchmark-fake.selected {
+  background: #000;
+  color: #fff;
+}
+.benchmark-fake__row:first-child {
+  margin-bottom: 1.3333333333rem;
 }
 .benchmark {
   padding: 2.6666666667rem;
+}
+.benchmark__head {
+  margin-bottom: 2rem;
+}
+.benchmark__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6666666667rem;
 }
 .test-grid {
   margin-top: 6.6666666667rem;

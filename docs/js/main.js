@@ -25340,11 +25340,38 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/fakeComponent/benchmarkFakeComponent.js
-  var BenchMarkFakeComponentFn = ({ html, bindText }) => {
+  var BenchMarkFakeComponentFn = ({
+    html,
+    bindText,
+    delegateEvents,
+    onMount
+  }) => {
+    let isSelected = false;
+    let rootRef;
+    onMount(({ element }) => {
+      rootRef = element;
+      return () => {
+      };
+    });
     return html`<div class="benchmark-fake">
-        <div class="benchmark-fake__label">${bindText`label: ${"label"}`}</div>
-        <div class="benchmark-fake__counter">
-            ${bindText`counter: ${"counter"}`}
+        <div class="benchmark-fake__row">
+            ${bindText`<strong>label:</strong><br/> ${"label"}`}
+        </div>
+        <div class="benchmark-fake__row">
+            ${bindText`<strong>counter: </strong><br/> ${"counter"}`}
+        </div>
+        <div>
+            <button
+                type="button"
+                ${delegateEvents({
+      click: () => {
+        isSelected = !isSelected;
+        rootRef.classList.toggle("selected", isSelected);
+      }
+    })}
+            >
+                Select
+            </button>
         </div>
     </div> `;
   };
@@ -25445,7 +25472,7 @@ Loading snippet ...</pre
                 </button>
             </div>
             <div class="benchmark__head__time">
-                ${bindText`components generate in ${"time"}ms`}
+                ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
         </div>
         <div class="benchmark__list">
@@ -25458,7 +25485,7 @@ Loading snippet ...</pre
           return html2`
                                     <benchmark-fake-component
                                         ${staticProps2({
-            label: `component-${index}`
+            label: `comp-${index}`
           })}
                                         ${bindProps({
             bind: ["counter"],
