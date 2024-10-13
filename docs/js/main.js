@@ -18414,14 +18414,16 @@
         if (watchIsRunning) return;
         watchIsRunning = true;
         mobCore.useNextLoop(() => {
-          const parentNode = getParentBindText({ id, bindTextId });
-          if (!parentNode) {
+          mobCore.useFrame(() => {
+            const parentNode = getParentBindText({ id, bindTextId });
+            if (!parentNode) {
+              watchIsRunning = false;
+              return;
+            }
+            parentNode.textContent = "";
+            parentNode.insertAdjacentHTML("afterbegin", render2());
             watchIsRunning = false;
-            return;
-          }
-          parentNode.textContent = "";
-          parentNode.insertAdjacentHTML("afterbegin", render2());
-          watchIsRunning = false;
+          });
         });
       });
     });

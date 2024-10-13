@@ -189,16 +189,18 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
             watchIsRunning = true;
 
             mobCore.useNextLoop(() => {
-                const parentNode = getParentBindText({ id, bindTextId });
+                mobCore.useFrame(() => {
+                    const parentNode = getParentBindText({ id, bindTextId });
 
-                if (!parentNode) {
+                    if (!parentNode) {
+                        watchIsRunning = false;
+                        return;
+                    }
+
+                    parentNode.textContent = '';
+                    parentNode.insertAdjacentHTML('afterbegin', render());
                     watchIsRunning = false;
-                    return;
-                }
-
-                parentNode.textContent = '';
-                parentNode.insertAdjacentHTML('afterbegin', render());
-                watchIsRunning = false;
+                });
             });
         });
     });
