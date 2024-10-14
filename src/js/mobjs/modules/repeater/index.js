@@ -41,7 +41,7 @@ export const repeatFunctionMap = new Map();
 /**
  * @param {object} params
  * @param {string} params.repeatId - repeatId
- * @param {string} params.scopeId - repeatId
+ * @param {string} params.scopeId - scopeId
  * @returns {void}
  */
 export const setRepeaterPlaceholderMapInitialized = ({ repeatId, scopeId }) => {
@@ -288,6 +288,7 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
 
     repeatChildToDeleteParsed.forEach((item) => {
         item.unsubscribe();
+
         removeRepeatByRepeatId({
             id,
             repeatId: item.repeatId,

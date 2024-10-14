@@ -414,6 +414,7 @@ export const parseComponentsRecursive = async ({
 
                           setInvalidatePlaceholderMapInitialized({
                               invalidateId,
+                              scopeId: id,
                           });
                       });
                   }

@@ -10,15 +10,19 @@ import {
     unFreezePropById,
 } from '../../component/action/freeze';
 import { destroyComponentInsideNodeById } from '../../component/action/removeAndDestroy';
-import { getFallBackParentByElement } from '../../component/action/parent';
+import {
+    compareIdOrParentIdRecursive,
+    getFallBackParentByElement,
+} from '../../component/action/parent';
 
 /**
  * @description
  * Store parent invalidate by a webcomponent utils
  * Key is invalidate id
  * Component track in invalidateId array all the reference to this map.
+ * ScopeId is the component id when repat is initialized ( for nested repeater performance check on destroy )
  *
- * @type {Map<string, {element: HTMLElement, initialized: boolean }>}
+ * @type {Map<string, {element: HTMLElement, initialized: boolean, scopeId: string|undefined }>}
  */
 export const invalidateIdPlaceHolderMap = new Map();
 
@@ -41,23 +45,29 @@ export const invalidateIdHostMap = new Map();
  * @description
  * Store initialize invalidate function
  * Key is componentId
+ * ScopeId is the component id when repat is initialized ( for nested repeater performance check on destroy )
  *
- * @type {Map<string, Array<{invalidateId:string, fn: () => void, unsubscribe: (() => void)[]  }>>}
+ * @type {Map<string, Array<{invalidateId:string, fn: () => void, unsubscribe: (() => void)[], scopeId: string  }>>}
  */
 export const invalidateFunctionMap = new Map();
 
 /**
  * @param {object} params
  * @param {string} params.invalidateId - invalidateId
+ * @param {string} params.scopeId - scopeId
  * @returns {void}
  */
-export const setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
+export const setInvalidatePlaceholderMapInitialized = ({
+    invalidateId,
+    scopeId,
+}) => {
     const item = invalidateIdPlaceHolderMap.get(invalidateId);
     if (!item) return;
 
     invalidateIdPlaceHolderMap.set(invalidateId, {
         ...item,
         initialized: true,
+        scopeId,
     });
 };
 
@@ -121,12 +131,14 @@ export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
  * @param {HTMLElement} params.element
  * @param {boolean} [ params.skipInitialized ]
  * @param {boolean} [ params.onlyInitialized ]
+ * @param {string} [ params.scopeId ]
  * @returns {{id: string, parent:HTMLElement}[]}
  */
 export const getInvalidateInsideElement = ({
     element,
     skipInitialized = false,
     onlyInitialized = false,
+    scopeId,
 }) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
 
@@ -134,6 +146,19 @@ export const getInvalidateInsideElement = ({
         .filter(
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             ([_id, parent]) => {
+                /**
+                 * When destroy nested repat compare the the scope id is the same or a parent id
+                 */
+                if (
+                    scopeId &&
+                    !compareIdOrParentIdRecursive({
+                        id: parent.scopeId,
+                        compareValue: scopeId,
+                    })
+                ) {
+                    return;
+                }
+
                 if (skipInitialized && parent?.initialized) {
                     return false;
                 }
@@ -169,7 +194,7 @@ export const setInvalidateFunction = ({ id, invalidateId, fn }) => {
     const currentFunctions = invalidateFunctionMap.get(id) ?? [];
     invalidateFunctionMap.set(id, [
         ...currentFunctions,
-        { invalidateId, fn, unsubscribe: [() => {}] },
+        { invalidateId, fn, unsubscribe: [() => {}], scopeId: id },
     ]);
 };
 
@@ -222,6 +247,7 @@ export const setParentInvalidate = ({ invalidateId, host }) => {
     invalidateIdPlaceHolderMap.set(invalidateId, {
         element: parent,
         initialized: false,
+        scopeId: undefined,
     });
     invalidateIdHostMap.set(invalidateId, host);
 };
@@ -266,6 +292,7 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
         element: invalidateParent,
         skipInitialized: false,
         onlyInitialized: true,
+        scopeId: id,
     });
 
     const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
@@ -312,11 +339,12 @@ export const inizializeNestedInvalidate = ({ invalidateParent }) => {
             });
         });
 
-    invalidateChildToInizialize.forEach(({ fn, invalidateId }) => {
+    invalidateChildToInizialize.forEach(({ fn, invalidateId, scopeId }) => {
         fn();
 
         setInvalidatePlaceholderMapInitialized({
             invalidateId,
+            scopeId,
         });
     });
 };
