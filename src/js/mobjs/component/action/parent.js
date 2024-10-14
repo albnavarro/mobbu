@@ -99,3 +99,19 @@ export const getFallBackParentByElement = ({ element }) => {
         return item.element.contains(element) && item.element !== element;
     })?.id;
 };
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {string} params.compareValue
+ * @returns {boolean}
+ */
+export const compareIdOrParentIdRecursive = ({ id, compareValue }) => {
+    if (id === compareValue) return true;
+
+    const item = componentMap.get(id);
+    if (!item) return;
+
+    const { parentId } = item;
+    return compareIdOrParentIdRecursive({ id: parentId, compareValue });
+};

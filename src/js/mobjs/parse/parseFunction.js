@@ -424,7 +424,10 @@ export const parseComponentsRecursive = async ({
                       repeatFunctions.forEach(({ fn, repeatId }) => {
                           fn?.();
 
-                          setRepeaterPlaceholderMapInitialized({ repeatId });
+                          setRepeaterPlaceholderMapInitialized({
+                              repeatId,
+                              scopeId: id,
+                          });
                       });
                   }
                 : () => {},

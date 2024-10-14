@@ -313,8 +313,8 @@ export const watchRepeat = ({
                     (x) => !childrenBeforeUdateByRepeatId.includes(x)
                 );
 
-                newChildren.forEach((id) => {
-                    const element = getElementById({ id });
+                newChildren.forEach((childId) => {
+                    const element = getElementById({ id: childId });
 
                     inizializeNestedInvalidate({
                         invalidateParent: element,

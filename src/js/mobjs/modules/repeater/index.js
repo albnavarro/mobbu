@@ -1,3 +1,4 @@
+import { compareIdOrParentIdRecursive } from '../../component/action/parent';
 import { watchRepeat } from './watch';
 
 /**
@@ -5,8 +6,9 @@ import { watchRepeat } from './watch';
  * Store parent repeat by a webcomponent utils
  * Key is repeat id
  * Component track in repeatId array all the reference to this map.
+ * ScopeId is the component id when repat is initialized ( for nested repeater performance check on destroy )
  *
- * @type {Map<string, {element: HTMLElement, initialized: boolean }>}
+ * @type {Map<string, {element: HTMLElement, initialized: boolean, scopeId: string|undefined }>}
  */
 export const repeatIdPlaceHolderMap = new Map();
 
@@ -30,21 +32,27 @@ export const repeatIdHostMap = new Map();
  * @description
  * Store initialize repeat function
  * Key is componentId
+ * ScopeId is the component id when repat is initialized ( for nested repeater performance check on destroy )
  *
- * @type {Map<string, Array<{repeatId:string, fn: () => void, unsubscribe: () => void  }>>}
+ * @type {Map<string, Array<{repeatId:string, fn: () => void, unsubscribe: () => void, scopeId: string}>>}
  */
 export const repeatFunctionMap = new Map();
 
 /**
  * @param {object} params
  * @param {string} params.repeatId - repeatId
+ * @param {string} params.scopeId - repeatId
  * @returns {void}
  */
-export const setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {
+export const setRepeaterPlaceholderMapInitialized = ({ repeatId, scopeId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
 
-    repeatIdPlaceHolderMap.set(repeatId, { ...item, initialized: true });
+    repeatIdPlaceHolderMap.set(repeatId, {
+        ...item,
+        initialized: true,
+        scopeId,
+    });
 };
 
 /**
@@ -105,12 +113,14 @@ export const removeRepeatByRepeatId = ({ id, repeatId }) => {
  * @param {HTMLElement} params.element
  * @param {boolean} [ params.skipInitialized ]
  * @param {boolean} [ params.onlyInitialized ]
+ * @param {string} [ params.scopeId ]
  * @returns {{id: string, parent:HTMLElement}[]}
  */
 export const getRepeatInsideElement = ({
     element,
     skipInitialized = false,
     onlyInitialized = false,
+    scopeId,
 }) => {
     const entries = [...repeatIdPlaceHolderMap.entries()];
 
@@ -118,6 +128,19 @@ export const getRepeatInsideElement = ({
         .filter(
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             ([_id, parent]) => {
+                /**
+                 * When destroy nested repat compare the the scope id is the same or a parent id
+                 */
+                if (
+                    scopeId &&
+                    !compareIdOrParentIdRecursive({
+                        id: parent.scopeId,
+                        compareValue: scopeId,
+                    })
+                ) {
+                    return;
+                }
+
                 if (skipInitialized && parent?.initialized) {
                     return false;
                 }
@@ -153,7 +176,7 @@ export const setRepeatFunction = ({ id, repeatId, fn }) => {
     const currentFunctions = repeatFunctionMap.get(id) ?? [];
     repeatFunctionMap.set(id, [
         ...currentFunctions,
-        { repeatId, fn, unsubscribe: () => {} },
+        { repeatId, fn, unsubscribe: () => {}, scopeId: id },
     ]);
 };
 
@@ -206,6 +229,7 @@ export const setParentRepeater = ({ repeatId, host }) => {
     repeatIdPlaceHolderMap.set(repeatId, {
         element: parent,
         initialized: false,
+        scopeId: undefined,
     });
 
     repeatIdHostMap.set(repeatId, host);
@@ -251,6 +275,7 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
         element: repeatParent,
         skipInitialized: false,
         onlyInitialized: true,
+        scopeId: id,
     });
 
     const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]
@@ -294,11 +319,12 @@ export const inizializeNestedRepeat = ({ repeatParent }) => {
             });
         });
 
-    repeatChildToInizialize.forEach(({ fn, repeatId }) => {
+    repeatChildToInizialize.forEach(({ fn, repeatId, scopeId }) => {
         fn();
 
         setRepeaterPlaceholderMapInitialized({
             repeatId,
+            scopeId,
         });
     });
 };
