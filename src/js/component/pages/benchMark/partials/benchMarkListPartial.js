@@ -8,6 +8,18 @@ import { html, tick } from '../../../../mobjs';
  **/
 
 /**
+ * @param {Array<{label:string}>} array
+ * @returns {Array<{label:string}>}
+ */
+const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+};
+
+/**
  * @param {number} numberOfItem
  * @returns {{label:string}[]}
  */
@@ -94,6 +106,17 @@ export const benchMarkListPartial = ({
                 })}
             >
                 Generate components
+            </button>
+            <button
+                type="button"
+                class="benchmark__head__button"
+                ${delegateEvents({
+                    click: () => {
+                        updateState('data', (value) => shuffle(value));
+                    },
+                })}
+            >
+                Shuffle array
             </button>
             <button
                 type="button"

@@ -35,7 +35,7 @@ export const BenchMarkRepeatWithKyFn = ({
 
     return html`<div class="benchmark">
         <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">Repeat ( without key ):</h3>
+            <h3 class="benchmark__head__subtitle">Repeat ( with key ):</h3>
             <h2 class="benchmark__head__title">
                 Generate components performance
             </h2>

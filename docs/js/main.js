@@ -25432,6 +25432,13 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/partials/benchMarkListPartial.js
+  var shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
   var createBenchMarkArray = (numberOfItem) => {
     return [...new Array(numberOfItem).keys()].map((i) => ({
       label: `comp-${i + 1}`
@@ -25494,6 +25501,17 @@ Loading snippet ...</pre
     })}
             >
                 Generate components
+            </button>
+            <button
+                type="button"
+                class="benchmark__head__button"
+                ${delegateEvents({
+      click: () => {
+        updateState("data", (value) => shuffle(value));
+      }
+    })}
+            >
+                Shuffle array
             </button>
             <button
                 type="button"
@@ -25622,7 +25640,7 @@ Loading snippet ...</pre
     });
     return html`<div class="benchmark">
         <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">Repeat ( without key ):</h3>
+            <h3 class="benchmark__head__subtitle">Repeat ( with key ):</h3>
             <h2 class="benchmark__head__title">
                 Generate components performance
             </h2>
@@ -29988,7 +30006,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/matrioska/definition.js
-  var shuffle = (array) => {
+  var shuffle2 = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
@@ -30022,7 +30040,7 @@ Loading snippet ...</pre
         ],
         type: Array,
         transform: (val2, oldVal) => {
-          return val2 > oldVal ? shuffle(val2) : val2;
+          return val2 > oldVal ? shuffle2(val2) : val2;
         },
         validate: (val2) => val2.length <= 6,
         strict: true
