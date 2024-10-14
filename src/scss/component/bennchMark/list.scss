@@ -22,9 +22,12 @@
     &__head {
         margin-bottom: rem(30);
 
-        &__subtitle,
-        &__title {
+        &__subtitle {
             margin-bottom: 0;
+        }
+
+        &__title {
+            margin-bottom: rem(20);
         }
 
         &__input {

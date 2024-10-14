@@ -25429,6 +25429,18 @@ Loading snippet ...</pre
     child: [BenchMarkFakeComponent]
   };
 
+  // src/js/component/pages/benchMark/partials/benchMarkGarbagePartial.js
+  var benchMarkGarbagePartial = () => {
+    return renderHtml`
+        <p>
+            Generation of up to 2000 basic components with a reactive prop<br />
+            Generating a large number of components repeatedly can increase
+            memory consumption until they are deleted and the garbage collector
+            empties the memory
+        </p>
+    `;
+  };
+
   // src/js/component/pages/benchMark/partials/benchMarkListPartial.js
   var shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -25558,10 +25570,7 @@ Loading snippet ...</pre
             <h2 class="benchmark__head__title">
                 Generate components performance
             </h2>
-            <p>
-                Generation of up to 2000 basic components with a reactive prop
-            </p>
-
+            ${benchMarkGarbagePartial()}
             ${benchMarkListPartial({
       setRef,
       getRef,
@@ -25642,10 +25651,7 @@ Loading snippet ...</pre
             <h2 class="benchmark__head__title">
                 Generate components performance
             </h2>
-            <p>
-                Generation of up to 2000 basic components with a reactive prop
-            </p>
-
+            ${benchMarkGarbagePartial()}
             ${benchMarkListPartial({
       setRef,
       getRef,
@@ -25721,10 +25727,7 @@ Loading snippet ...</pre
             <h2 class="benchmark__head__title">
                 Generate components performance
             </h2>
-            <p>
-                Generation of up to 2000 basic components with a reactive prop
-            </p>
-
+            ${benchMarkGarbagePartial()}
             ${benchMarkListPartial({
       setRef,
       getRef,

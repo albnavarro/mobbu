@@ -1,6 +1,7 @@
 //@ts-check
 
 import { mobCore } from '../../../../mobCore';
+import { benchMarkGarbagePartial } from '../partials/benchMarkGarbagePartial';
 import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 
 /**
@@ -39,10 +40,7 @@ export const BenchMarkRepeatWithKyFn = ({
             <h2 class="benchmark__head__title">
                 Generate components performance
             </h2>
-            <p>
-                Generation of up to 2000 basic components with a reactive prop
-            </p>
-
+            ${benchMarkGarbagePartial()}
             ${benchMarkListPartial({
                 setRef,
                 getRef,

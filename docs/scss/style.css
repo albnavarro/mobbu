@@ -3484,9 +3484,11 @@ code {
 .benchmark__head {
   margin-bottom: 2rem;
 }
-.benchmark__head__subtitle,
-.benchmark__head__title {
+.benchmark__head__subtitle {
   margin-bottom: 0;
+}
+.benchmark__head__title {
+  margin-bottom: 1.3333333333rem;
 }
 .benchmark__head__input {
   width: 20rem;
