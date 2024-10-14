@@ -465,6 +465,11 @@
                     "label": "Repeat without key",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-benchmark-repeat-no-key"
+                },
+                {
+                    "label": "Repeat with key",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-benchmark-repeat-key"
                 }
             ]
         },
