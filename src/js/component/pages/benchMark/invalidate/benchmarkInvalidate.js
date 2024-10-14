@@ -40,9 +40,13 @@ export const BenchMarkInvalidateFn = ({
 
     return html`<div class="benchmark">
         <div class="benchmark__head">
+            <h3 class="benchmark__head__subtitle">Invalidate:</h3>
             <h2 class="benchmark__head__title">
-                Invalidate generate component test ( max 2000 )
+                Generate components performance
             </h2>
+            <p>
+                Generation of up to 2000 basic components with a reactive prop
+            </p>
 
             ${benchMarkListPartial({
                 setRef,

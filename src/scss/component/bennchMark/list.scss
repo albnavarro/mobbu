@@ -22,6 +22,11 @@
     &__head {
         margin-bottom: rem(30);
 
+        &__subtitle,
+        &__title {
+            margin-bottom: 0;
+        }
+
         &__input {
             width: rem(300);
             background: transparent;
