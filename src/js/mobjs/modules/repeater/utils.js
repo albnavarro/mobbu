@@ -51,7 +51,7 @@ export const mixPreviousAndCurrentData = (current, previous, key) => {
  */
 const arrayhaskey = ({ arr = [], key = '' }) => {
     return arr.every((/** @type {object} */ item) => {
-        return key in item;
+        return mobCore.checkType(Object, item) && key in item;
     });
 };
 
