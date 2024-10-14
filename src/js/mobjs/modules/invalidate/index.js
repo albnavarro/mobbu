@@ -265,7 +265,7 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
     const invalidatechildToDelete = getInvalidateInsideElement({
         element: invalidateParent,
         skipInitialized: false,
-        onlyInitialized: false,
+        onlyInitialized: true,
     });
 
     const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
@@ -300,7 +300,7 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
 export const inizializeNestedInvalidate = ({ invalidateParent }) => {
     const newInvalidateChild = getInvalidateInsideElement({
         element: invalidateParent,
-        skipInitialized: false,
+        skipInitialized: true,
         onlyInitialized: false,
     });
 
@@ -308,16 +308,16 @@ export const inizializeNestedInvalidate = ({ invalidateParent }) => {
         .flat()
         .filter(({ invalidateId }) => {
             return newInvalidateChild.some((current) => {
-                setInvalidatePlaceholderMapInitialized({
-                    invalidateId,
-                });
-
                 return current.id === invalidateId;
             });
         });
 
-    invalidateChildToInizialize.forEach(({ fn }) => {
+    invalidateChildToInizialize.forEach(({ fn, invalidateId }) => {
         fn();
+
+        setInvalidatePlaceholderMapInitialized({
+            invalidateId,
+        });
     });
 };
 

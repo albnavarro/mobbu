@@ -250,7 +250,7 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
     const repeatChildToDelete = getRepeatInsideElement({
         element: repeatParent,
         skipInitialized: false,
-        onlyInitialized: false,
+        onlyInitialized: true,
     });
 
     const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]
@@ -282,7 +282,7 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
 export const inizializeNestedRepeat = ({ repeatParent }) => {
     const newRepeatChild = getRepeatInsideElement({
         element: repeatParent,
-        skipInitialized: false,
+        skipInitialized: true,
         onlyInitialized: false,
     });
 
@@ -290,16 +290,16 @@ export const inizializeNestedRepeat = ({ repeatParent }) => {
         .flat()
         .filter(({ repeatId }) => {
             return newRepeatChild.some((current) => {
-                setRepeaterPlaceholderMapInitialized({
-                    repeatId,
-                });
-
                 return current.id === repeatId;
             });
         });
 
-    repeatChildToInizialize.forEach(({ fn }) => {
+    repeatChildToInizialize.forEach(({ fn, repeatId }) => {
         fn();
+
+        setRepeaterPlaceholderMapInitialized({
+            repeatId,
+        });
     });
 };
 

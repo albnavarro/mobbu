@@ -410,11 +410,11 @@ export const parseComponentsRecursive = async ({
             invalidateFunctions.length > 0
                 ? () => {
                       invalidateFunctions.forEach(({ fn, invalidateId }) => {
+                          fn?.();
+
                           setInvalidatePlaceholderMapInitialized({
                               invalidateId,
                           });
-
-                          fn?.();
                       });
                   }
                 : () => {},
@@ -422,9 +422,9 @@ export const parseComponentsRecursive = async ({
             repeatFunctions.length > 0
                 ? () => {
                       repeatFunctions.forEach(({ fn, repeatId }) => {
-                          setRepeaterPlaceholderMapInitialized({ repeatId });
-
                           fn?.();
+
+                          setRepeaterPlaceholderMapInitialized({ repeatId });
                       });
                   }
                 : () => {},
