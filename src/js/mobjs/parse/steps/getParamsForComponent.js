@@ -4,6 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { getChildrenIdByName } from '../../component/action/children';
 import {
     inizializeRepeatWatch,
+    setRepeaterPlaceholderMapInitialized,
     setRepeatFunction,
 } from '../../modules/repeater';
 import {
@@ -13,6 +14,7 @@ import {
 import {
     inizializeInvalidateWatch,
     setInvalidateFunction,
+    setInvalidatePlaceholderMapInitialized,
 } from '../../modules/invalidate';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch, unBind } from '../../component/action/props';
@@ -224,6 +226,11 @@ export const getParamsForComponentFunction = ({
                     });
 
                     isInizialized = true;
+
+                    setInvalidatePlaceholderMapInitialized({
+                        invalidateId,
+                        scopeId: id,
+                    });
                 },
             });
 
@@ -308,6 +315,11 @@ export const getParamsForComponentFunction = ({
                     });
 
                     isInizialized = true;
+
+                    setRepeaterPlaceholderMapInitialized({
+                        repeatId,
+                        scopeId: id,
+                    });
                 },
             });
 

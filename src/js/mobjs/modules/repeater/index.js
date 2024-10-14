@@ -320,13 +320,8 @@ export const inizializeNestedRepeat = ({ repeatParent }) => {
             });
         });
 
-    repeatChildToInizialize.forEach(({ fn, repeatId, scopeId }) => {
+    repeatChildToInizialize.forEach(({ fn }) => {
         fn();
-
-        setRepeaterPlaceholderMapInitialized({
-            repeatId,
-            scopeId,
-        });
     });
 };
 

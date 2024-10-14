@@ -17478,12 +17478,16 @@
   var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
   var invalidateIdHostMap = /* @__PURE__ */ new Map();
   var invalidateFunctionMap = /* @__PURE__ */ new Map();
-  var setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
+  var setInvalidatePlaceholderMapInitialized = ({
+    invalidateId,
+    scopeId
+  }) => {
     const item = invalidateIdPlaceHolderMap.get(invalidateId);
     if (!item) return;
     invalidateIdPlaceHolderMap.set(invalidateId, {
       ...item,
-      initialized: true
+      initialized: true,
+      scopeId
     });
   };
   var removeInvalidateId = ({ id }) => {
@@ -17511,12 +17515,19 @@
   var getInvalidateInsideElement = ({
     element,
     skipInitialized = false,
-    onlyInitialized = false
+    onlyInitialized = false,
+    scopeId
   }) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
     return entries.filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ([_id, parent]) => {
+        if (scopeId && !compareIdOrParentIdRecursive({
+          id: parent.scopeId,
+          compareValue: scopeId
+        })) {
+          return;
+        }
         if (skipInitialized && parent?.initialized) {
           return false;
         }
@@ -17535,7 +17546,7 @@
     invalidateFunctionMap.set(id, [
       ...currentFunctions,
       { invalidateId, fn, unsubscribe: [() => {
-      }] }
+      }], scopeId: id }
     ]);
   };
   var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
@@ -17558,7 +17569,8 @@
     );
     invalidateIdPlaceHolderMap.set(invalidateId, {
       element: parent,
-      initialized: false
+      initialized: false,
+      scopeId: void 0
     });
     invalidateIdHostMap.set(invalidateId, host);
   };
@@ -17579,7 +17591,8 @@
     const invalidatechildToDelete = getInvalidateInsideElement({
       element: invalidateParent,
       skipInitialized: false,
-      onlyInitialized: true
+      onlyInitialized: true,
+      scopeId: id
     });
     const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
       return invalidatechildToDelete.some((current) => {
@@ -17607,11 +17620,8 @@
         return current.id === invalidateId;
       });
     });
-    invalidateChildToInizialize.forEach(({ fn, invalidateId }) => {
+    invalidateChildToInizialize.forEach(({ fn }) => {
       fn();
-      setInvalidatePlaceholderMapInitialized({
-        invalidateId
-      });
     });
   };
   var inizializeInvalidateWatch = async ({
@@ -19067,12 +19077,8 @@
         return current.id === repeatId;
       });
     });
-    repeatChildToInizialize.forEach(({ fn, repeatId, scopeId }) => {
+    repeatChildToInizialize.forEach(({ fn }) => {
       fn();
-      setRepeaterPlaceholderMapInitialized({
-        repeatId,
-        scopeId
-      });
     });
   };
   var inizializeRepeatWatch = ({
@@ -20034,6 +20040,10 @@
               renderFunction: invalidateRender
             });
             isInizialized = true;
+            setInvalidatePlaceholderMapInitialized({
+              invalidateId,
+              scopeId: id
+            });
           }
         });
         return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
@@ -20097,6 +20107,10 @@
               render: render2
             });
             isInizialized = true;
+            setRepeaterPlaceholderMapInitialized({
+              repeatId,
+              scopeId: id
+            });
           }
         });
         return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${firstRender()}`;
@@ -20415,21 +20429,14 @@
         });
       },
       fireInvalidateFunction: invalidateFunctions.length > 0 ? () => {
-        invalidateFunctions.forEach(({ fn, invalidateId }) => {
+        invalidateFunctions.forEach(({ fn }) => {
           fn?.();
-          setInvalidatePlaceholderMapInitialized({
-            invalidateId
-          });
         });
       } : () => {
       },
       fireRepeatFunction: repeatFunctions.length > 0 ? () => {
-        repeatFunctions.forEach(({ fn, repeatId }) => {
+        repeatFunctions.forEach(({ fn }) => {
           fn?.();
-          setRepeaterPlaceholderMapInitialized({
-            repeatId,
-            scopeId: id
-          });
         });
       } : () => {
       }

@@ -339,13 +339,8 @@ export const inizializeNestedInvalidate = ({ invalidateParent }) => {
             });
         });
 
-    invalidateChildToInizialize.forEach(({ fn, invalidateId, scopeId }) => {
+    invalidateChildToInizialize.forEach(({ fn }) => {
         fn();
-
-        setInvalidatePlaceholderMapInitialized({
-            invalidateId,
-            scopeId,
-        });
     });
 };
 

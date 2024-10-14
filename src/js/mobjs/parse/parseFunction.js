@@ -27,14 +27,8 @@ import {
     setRepeaterStateById,
 } from '../component/action/repeater';
 import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
-import {
-    getInvalidateFunctions,
-    setInvalidatePlaceholderMapInitialized,
-} from '../modules/invalidate';
-import {
-    getRepeatFunctions,
-    setRepeaterPlaceholderMapInitialized,
-} from '../modules/repeater';
+import { getInvalidateFunctions } from '../modules/invalidate';
+import { getRepeatFunctions } from '../modules/repeater';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
 import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './useQuery';
@@ -409,26 +403,16 @@ export const parseComponentsRecursive = async ({
         fireInvalidateFunction:
             invalidateFunctions.length > 0
                 ? () => {
-                      invalidateFunctions.forEach(({ fn, invalidateId }) => {
+                      invalidateFunctions.forEach(({ fn }) => {
                           fn?.();
-
-                          setInvalidatePlaceholderMapInitialized({
-                              invalidateId,
-                              scopeId: id,
-                          });
                       });
                   }
                 : () => {},
         fireRepeatFunction:
             repeatFunctions.length > 0
                 ? () => {
-                      repeatFunctions.forEach(({ fn, repeatId }) => {
+                      repeatFunctions.forEach(({ fn }) => {
                           fn?.();
-
-                          setRepeaterPlaceholderMapInitialized({
-                              repeatId,
-                              scopeId: id,
-                          });
                       });
                   }
                 : () => {},
