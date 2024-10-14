@@ -16,6 +16,7 @@ export const BenchMarkRepeatWithKyFn = ({
     bindText,
     setRef,
     getRef,
+    getState,
     setState,
     updateState,
     bindProps,
@@ -47,6 +48,7 @@ export const BenchMarkRepeatWithKyFn = ({
                 setState,
                 updateState,
                 delegateEvents,
+                getState,
             })}
 
             <div class="benchmark__head__time">

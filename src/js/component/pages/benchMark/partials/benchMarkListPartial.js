@@ -4,7 +4,7 @@ import { mobCore } from '../../../../mobCore';
 import { html, tick } from '../../../../mobjs';
 
 /**
- * @import { DelegateEvents, SetRef, GetRef,  SetState, UpdateState } from '../../../../mobjs/type';
+ * @import { DelegateEvents, SetRef, GetRef,  SetState, UpdateState, GetState } from '../../../../mobjs/type';
  **/
 
 /**
@@ -16,6 +16,7 @@ const shuffle = (array) => {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+
     return array;
 };
 
@@ -33,14 +34,20 @@ export const createBenchMarkArray = (numberOfItem) => {
  * @param {object} params
  * @param {SetState<import('../type').BenchMark>} params.setState
  * @param {number} params.value
+ * @param {boolean} [ params.useShuffle ]
  */
-const setData = async ({ setState, value }) => {
+const setData = async ({ setState, value, useShuffle = false }) => {
     setState('isLoading', true);
     await tick();
 
     mobCore.useNextTick(async () => {
         const startDate = new Date();
-        setState('data', createBenchMarkArray(value));
+        setState(
+            'data',
+            useShuffle
+                ? shuffle(createBenchMarkArray(value))
+                : createBenchMarkArray(value)
+        );
         await tick();
 
         const endDate = new Date();
@@ -57,6 +64,7 @@ const setData = async ({ setState, value }) => {
  * @param {SetRef} params.setRef
  * @param {GetRef} params.getRef
  * @param {UpdateState<import('../type').BenchMark>} params.updateState
+ * @param {GetState<import('../type').BenchMark>} params.getState
  * @param {SetState<import('../type').BenchMark>} params.setState
  */
 export const benchMarkListPartial = ({
@@ -64,6 +72,7 @@ export const benchMarkListPartial = ({
     setRef,
     getRef,
     updateState,
+    getState,
     setState,
 }) => {
     return html`
@@ -113,7 +122,12 @@ export const benchMarkListPartial = ({
                 class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
-                        updateState('data', (value) => shuffle(value));
+                        const { data } = getState();
+                        setData({
+                            setState,
+                            value: data.length,
+                            useShuffle: true,
+                        });
                     },
                 })}
             >

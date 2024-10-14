@@ -49,6 +49,7 @@ export const BenchMarkInvalidateFn = ({
                 setState,
                 updateState,
                 delegateEvents,
+                getState,
             })}
 
             <div class="benchmark__head__time">
