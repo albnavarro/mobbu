@@ -76,7 +76,7 @@
             "component": "anchor-button",
             "props": {
                 "anchor": "#list",
-                "content": "List/Invalidate"
+                "content": "repeat/invalidate"
             }
         },
         {
@@ -523,7 +523,7 @@
                 "items": [
                     "<a href='./#mobJs-runtime'>renderComponent</a>",
                     "<a href='./#mobJs-invalidate'>invalidate</a>",
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>",
+                    "<a href='./#mobJs-repeat'>repeat ( array.map )</a>",
                     "<a href='./#mobJs-invalidate-vs-repeater'>invalidate vs repeater</a>"
                 ]
             }
