@@ -10,10 +10,11 @@ import {
     unFreezePropById,
 } from '../../component/action/freeze';
 import { destroyComponentInsideNodeById } from '../../component/action/removeAndDestroy';
+import { getFallBackParentByElement } from '../../component/action/parent';
 import {
-    compareIdOrParentIdRecursive,
-    getFallBackParentByElement,
-} from '../../component/action/parent';
+    getRepeatOrInvalidateInsideElement,
+    MODULE_INVALIDATE,
+} from '../commonRepeatInvalidate';
 
 /**
  * @description
@@ -132,62 +133,6 @@ export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
 
 /**
  * @description
- * Get all invalidate inside HTMLElement
- *
- * @param {object} params
- * @param {HTMLElement} params.element
- * @param {boolean} [ params.skipInitialized ]
- * @param {boolean} [ params.onlyInitialized ]
- * @param {string} [ params.componentId ]
- * @returns {{id: string, parent:HTMLElement}[]}
- */
-export const getInvalidateInsideElement = ({
-    element,
-    skipInitialized = false,
-    onlyInitialized = false,
-    componentId,
-}) => {
-    const entries = [...invalidateIdPlaceHolderMap.entries()];
-
-    return entries
-        .filter(
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            ([_id, parent]) => {
-                /**
-                 * When destroy nested repat compare the the scope id is the same or a parent id
-                 */
-                if (
-                    componentId &&
-                    !compareIdOrParentIdRecursive({
-                        id: parent.scopeId,
-                        compareValue: componentId,
-                    })
-                ) {
-                    return;
-                }
-
-                if (skipInitialized && parent?.initialized) {
-                    return false;
-                }
-
-                if (onlyInitialized && !parent?.initialized) {
-                    return false;
-                }
-
-                return (
-                    element?.contains(parent.element) &&
-                    element !== parent.element
-                );
-            }
-        )
-        .map(([id, parent]) => ({
-            id,
-            parent: parent?.element,
-        }));
-};
-
-/**
- * @description
  * Add new invalidate sterter function in map.
  * key is component id associated to these function.
  * scopedId will be settled by setInvalidatePlaceholderMapInitialized
@@ -296,11 +241,12 @@ export const getInvalidateParent = ({ id }) => {
  * @returns {void}
  */
 export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
-    const invalidatechildToDelete = getInvalidateInsideElement({
+    const invalidatechildToDelete = getRepeatOrInvalidateInsideElement({
         element: invalidateParent,
         skipInitialized: false,
         onlyInitialized: true,
         componentId: id,
+        module: MODULE_INVALIDATE,
     });
 
     const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
@@ -333,10 +279,11 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
  * @returns {void}
  */
 export const inizializeNestedInvalidate = ({ invalidateParent }) => {
-    const newInvalidateChild = getInvalidateInsideElement({
+    const newInvalidateChild = getRepeatOrInvalidateInsideElement({
         element: invalidateParent,
         skipInitialized: true,
         onlyInitialized: false,
+        module: MODULE_INVALIDATE,
     });
 
     const invalidateChildToInizialize = [...invalidateFunctionMap.values()]

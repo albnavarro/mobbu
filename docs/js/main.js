@@ -17123,121 +17123,6 @@
   var QUEQUE_TYPE_REPEATER = "QUEQUE_REPEATER";
   var QUEQUE_TYPE_INVALIDATE = "QUEQUE_INVALIDATE";
 
-  // src/js/mobjs/component/action/freeze.js
-  var freezePropById = ({ id = "", prop }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { freezedPros } = item;
-    if (!freezedPros) return;
-    componentMap.set(id, {
-      ...item,
-      freezedPros: [.../* @__PURE__ */ new Set([...freezedPros, prop])]
-    });
-  };
-  var unFreezePropById = ({ id = "", prop }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { freezedPros } = item;
-    if (!freezedPros) return;
-    componentMap.set(id, {
-      ...item,
-      freezedPros: freezedPros.filter((currentProp) => currentProp !== prop)
-    });
-  };
-  var getFreezePropStatus = ({ id = "", prop }) => {
-    if (!id || id === "") return false;
-    const item = componentMap.get(id);
-    const freezedPros = item?.freezedPros;
-    if (!freezedPros) return false;
-    return freezedPros.includes(prop);
-  };
-
-  // src/js/mobjs/queque/tickRepeater.js
-  var repeaterQueque = /* @__PURE__ */ new Map();
-  var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
-  var maxQueuqueSize2 = 1e3;
-  var incrementRepeaterTickQueuque = (props) => {
-    if (repeaterQueque.size >= maxQueuqueSize2) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize2})`);
-      return () => {
-      };
-    }
-    const id = mobCore.getUnivoqueId();
-    repeaterQueque.set(id, props);
-    return () => repeaterQueque.delete(id);
-  };
-  var queueIsResolved2 = () => {
-    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize2;
-  };
-  var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      repeaterQueque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved2() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved2()) {
-        resolve();
-        return;
-      }
-      repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
-    });
-  };
-
-  // src/js/mobjs/modules/repeater/activeRepeater/index.js
-  var activeRepeatMap = /* @__PURE__ */ new Set();
-  var addActiveRepeat = ({ id, state, container }) => {
-    activeRepeatMap.add({ id, state, container });
-  };
-  var removeActiveRepeat = ({ id, state, container }) => {
-    activeRepeatMap.forEach((repeat) => {
-      if (id === repeat.id && state === repeat.state && container === repeat.container) {
-        activeRepeatMap.delete(repeat);
-      }
-    });
-  };
-  var getActiveRepeater = ({ id = "", state = "", container }) => {
-    const repeatIsActive = [...activeRepeatMap].some((repeat) => {
-      return id === repeat.id && state === repeat.state && container === repeat.container;
-    });
-    return repeatIsActive;
-  };
-
-  // src/js/mobjs/modules/repeater/targetcomponent/index.js
-  var repeaterTargetComponentMap = /* @__PURE__ */ new Map();
-  var addRepeatTargetComponent = ({
-    repeatId,
-    repeaterParentId,
-    targetComponent
-  }) => {
-    if (repeaterTargetComponentMap.has(repeatId)) return;
-    repeaterTargetComponentMap.set(repeatId, {
-      repeatId,
-      repeaterParentId,
-      targetComponent
-    });
-  };
-  var getRepeaterComponentTarget = ({ id }) => {
-    const item = repeaterTargetComponentMap.get(id);
-    if (!item) return;
-    return item?.targetComponent;
-  };
-  var removeRepeaterComponentTargetByParentId = ({ id }) => {
-    for (const [key, value] of repeaterTargetComponentMap) {
-      const { repeaterParentId } = value;
-      if (repeaterParentId === id) {
-        repeaterTargetComponentMap.delete(key);
-      }
-    }
-  };
-
   // src/js/mobjs/mainStore/constant.js
   var MAIN_STORE_ACTIVE_ROUTE = "activeRoute";
   var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
@@ -17296,6 +17181,395 @@
       })
     }
   });
+
+  // src/js/mobjs/queque/tickInvalidate.js
+  var invalidateQueque = /* @__PURE__ */ new Map();
+  var invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
+  var maxQueuqueSize2 = 1e3;
+  var incrementInvalidateTickQueuque = (props) => {
+    if (invalidateQueque.size >= maxQueuqueSize2) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize2})`);
+      return () => {
+      };
+    }
+    const id = mobCore.getUnivoqueId();
+    invalidateQueque.set(id, props);
+    return () => invalidateQueque.delete(id);
+  };
+  var queueIsResolved2 = () => {
+    return invalidateQueque.size === 0 || invalidateQueque.size >= maxQueuqueSize2;
+  };
+  var invalidateTick = async ({
+    debug = false,
+    previousResolve
+  } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      invalidateQueque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved2() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved2()) {
+        resolve();
+        return;
+      }
+      invalidateTick({
+        debug,
+        previousResolve: previousResolve ?? resolve
+      });
+    });
+  };
+
+  // src/js/mobjs/component/action/freeze.js
+  var freezePropById = ({ id = "", prop }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { freezedPros } = item;
+    if (!freezedPros) return;
+    componentMap.set(id, {
+      ...item,
+      freezedPros: [.../* @__PURE__ */ new Set([...freezedPros, prop])]
+    });
+  };
+  var unFreezePropById = ({ id = "", prop }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { freezedPros } = item;
+    if (!freezedPros) return;
+    componentMap.set(id, {
+      ...item,
+      freezedPros: freezedPros.filter((currentProp) => currentProp !== prop)
+    });
+  };
+  var getFreezePropStatus = ({ id = "", prop }) => {
+    if (!id || id === "") return false;
+    const item = componentMap.get(id);
+    const freezedPros = item?.freezedPros;
+    if (!freezedPros) return false;
+    return freezedPros.includes(prop);
+  };
+
+  // src/js/mobjs/modules/invalidate/index.js
+  var invalidateIdPlaceHolderMap = /* @__PURE__ */ new Map();
+  var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
+  var invalidateIdHostMap = /* @__PURE__ */ new Map();
+  var invalidateFunctionMap = /* @__PURE__ */ new Map();
+  var setInvalidatePlaceholderMapInitialized = ({
+    invalidateId,
+    scopeId
+  }) => {
+    const item = invalidateIdPlaceHolderMap.get(invalidateId);
+    if (!item) return;
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      ...item,
+      initialized: true,
+      scopeId
+    });
+  };
+  var removeInvalidateId = ({ id }) => {
+    if (invalidateFunctionMap.has(id)) {
+      const value = invalidateFunctionMap.get(id);
+      value.forEach(({ invalidateId }) => {
+        if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+          invalidateIdPlaceHolderMap.delete(invalidateId);
+        }
+      });
+      invalidateFunctionMap.delete(id);
+    }
+  };
+  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
+    if (!invalidateFunctionMap.has(id)) return;
+    const value = invalidateFunctionMap.get(id);
+    const valueParsed = value.filter(
+      (item) => item.invalidateId !== invalidateId
+    );
+    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+      invalidateIdPlaceHolderMap.delete(invalidateId);
+    }
+    invalidateFunctionMap.set(id, valueParsed);
+  };
+  var setInvalidateFunction = ({ id, invalidateId, fn }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    invalidateFunctionMap.set(id, [
+      ...currentFunctions,
+      { invalidateId, fn, unsubscribe: [() => {
+      }], scopeId: void 0 }
+    ]);
+  };
+  var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    const item = currentFunctions.map((item2) => {
+      if (item2.invalidateId === invalidateId) {
+        return { ...item2, unsubscribe: unsubscribe3 };
+      }
+      return item2;
+    });
+    invalidateFunctionMap.set(id, item);
+  };
+  var getInvalidateFunctions = ({ id }) => {
+    return invalidateFunctionMap.get(id) ?? [];
+  };
+  var setParentInvalidate = ({ invalidateId, host }) => {
+    const parent = (
+      /** @type{HTMLElement} */
+      host.parentNode
+    );
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      element: parent,
+      initialized: false,
+      scopeId: void 0
+    });
+    invalidateIdHostMap.set(invalidateId, host);
+  };
+  var getInvalidateParent = ({ id }) => {
+    if (!invalidateIdPlaceHolderMap.has(id)) {
+      return;
+    }
+    if (invalidateIdHostMap.has(id)) {
+      const host = invalidateIdHostMap.get(id);
+      host?.removeCustomComponent();
+      host.remove();
+      invalidateIdHostMap.delete(id);
+    }
+    const parent = invalidateIdPlaceHolderMap.get(id);
+    return parent?.element;
+  };
+  var destroyNestedInvalidate = ({ id, invalidateParent }) => {
+    const invalidatechildToDelete = getRepeatOrInvalidateInsideElement({
+      element: invalidateParent,
+      skipInitialized: false,
+      onlyInitialized: true,
+      componentId: id,
+      module: MODULE_INVALIDATE
+    });
+    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
+      return invalidatechildToDelete.some((current) => {
+        return current.id === item.invalidateId;
+      });
+    });
+    invalidateChildToDeleteParsed.forEach((item) => {
+      item.unsubscribe.forEach((fn) => {
+        fn();
+      });
+      removeInvalidateByInvalidateId({
+        id,
+        invalidateId: item.invalidateId
+      });
+    });
+  };
+  var inizializeNestedInvalidate = ({ invalidateParent }) => {
+    const newInvalidateChild = getRepeatOrInvalidateInsideElement({
+      element: invalidateParent,
+      skipInitialized: true,
+      onlyInitialized: false,
+      module: MODULE_INVALIDATE
+    });
+    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter(({ invalidateId }) => {
+      return newInvalidateChild.some((current) => {
+        return current.id === invalidateId;
+      });
+    });
+    invalidateChildToInizialize.forEach(({ fn }) => {
+      fn();
+    });
+  };
+  var inizializeInvalidateWatch = async ({
+    bind = [],
+    beforeUpdate = () => Promise.resolve(),
+    afterUpdate = () => {
+    },
+    watch,
+    id,
+    invalidateId,
+    persistent = false,
+    renderFunction
+  }) => {
+    let watchIsRunning = false;
+    const fallBackParentId = getFallBackParentByElement({
+      element: getInvalidateParent({ id: invalidateId })
+    });
+    const unsubScribeArray = bind.map((state) => {
+      const unsubscribe3 = watch(state, async () => {
+        if (watchIsRunning) return;
+        freezePropById({ id, prop: state });
+        const invalidateParent = getInvalidateParent({
+          id: invalidateId
+        });
+        const descrementQueue = incrementTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
+        const decrementInvalidateQueque = incrementInvalidateTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
+        watchIsRunning = true;
+        mobCore.useNextLoop(async () => {
+          if (!invalidateParent) {
+            unFreezePropById({ id, prop: state });
+            return;
+          }
+          await beforeUpdate();
+          destroyNestedInvalidate({ id, invalidateParent });
+          destroyNestedRepeat({ id, repeatParent: invalidateParent });
+          destroyComponentInsideNodeById({
+            id: fallBackParentId ?? id,
+            container: invalidateParent
+          });
+          invalidateParent.textContent = "";
+          invalidateParent.insertAdjacentHTML(
+            "afterbegin",
+            renderFunction()
+          );
+          mainStore.set(
+            MAIN_STORE_ASYNC_PARSER,
+            {
+              element: invalidateParent,
+              parentId: fallBackParentId ?? id,
+              persistent
+            },
+            false
+          );
+          await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+          watchIsRunning = false;
+          descrementQueue();
+          decrementInvalidateQueque();
+          inizializeNestedInvalidate({ invalidateParent });
+          inizializeNestedRepeat({ repeatParent: invalidateParent });
+          unFreezePropById({ id, prop: state });
+          afterUpdate();
+        });
+      });
+      return unsubscribe3;
+    });
+    addInvalidateUnsubcribe({
+      id,
+      invalidateId,
+      unsubscribe: unsubScribeArray
+    });
+  };
+
+  // src/js/mobjs/modules/commonRepeatInvalidate.js
+  var MODULE_REPEATER = "repeater";
+  var MODULE_INVALIDATE = "invalidate";
+  var getRepeatOrInvalidateInsideElement = ({
+    element,
+    skipInitialized = false,
+    onlyInitialized = false,
+    componentId,
+    module
+  }) => {
+    const entries = module === MODULE_REPEATER ? [...repeatIdPlaceHolderMap.entries()] : [...invalidateIdPlaceHolderMap.entries()];
+    return entries.filter(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ([_id, parent]) => {
+        if (componentId && !compareIdOrParentIdRecursive({
+          id: parent.scopeId,
+          compareValue: componentId
+        }))
+          return;
+        if (skipInitialized && parent?.initialized) return false;
+        if (onlyInitialized && !parent?.initialized) return false;
+        return element?.contains(parent.element) && element !== parent.element;
+      }
+    ).map(([id, parent]) => ({
+      id,
+      parent: parent?.element
+    }));
+  };
+
+  // src/js/mobjs/queque/tickRepeater.js
+  var repeaterQueque = /* @__PURE__ */ new Map();
+  var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
+  var maxQueuqueSize3 = 1e3;
+  var incrementRepeaterTickQueuque = (props) => {
+    if (repeaterQueque.size >= maxQueuqueSize3) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
+      return () => {
+      };
+    }
+    const id = mobCore.getUnivoqueId();
+    repeaterQueque.set(id, props);
+    return () => repeaterQueque.delete(id);
+  };
+  var queueIsResolved3 = () => {
+    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize3;
+  };
+  var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      repeaterQueque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved3() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved3()) {
+        resolve();
+        return;
+      }
+      repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
+
+  // src/js/mobjs/modules/repeater/activeRepeater/index.js
+  var activeRepeatMap = /* @__PURE__ */ new Set();
+  var addActiveRepeat = ({ id, state, container }) => {
+    activeRepeatMap.add({ id, state, container });
+  };
+  var removeActiveRepeat = ({ id, state, container }) => {
+    activeRepeatMap.forEach((repeat) => {
+      if (id === repeat.id && state === repeat.state && container === repeat.container) {
+        activeRepeatMap.delete(repeat);
+      }
+    });
+  };
+  var getActiveRepeater = ({ id = "", state = "", container }) => {
+    const repeatIsActive = [...activeRepeatMap].some((repeat) => {
+      return id === repeat.id && state === repeat.state && container === repeat.container;
+    });
+    return repeatIsActive;
+  };
+
+  // src/js/mobjs/modules/repeater/targetcomponent/index.js
+  var repeaterTargetComponentMap = /* @__PURE__ */ new Map();
+  var addRepeatTargetComponent = ({
+    repeatId,
+    repeaterParentId,
+    targetComponent
+  }) => {
+    if (repeaterTargetComponentMap.has(repeatId)) return;
+    repeaterTargetComponentMap.set(repeatId, {
+      repeatId,
+      repeaterParentId,
+      targetComponent
+    });
+  };
+  var getRepeaterComponentTarget = ({ id }) => {
+    const item = repeaterTargetComponentMap.get(id);
+    if (!item) return;
+    return item?.targetComponent;
+  };
+  var removeRepeaterComponentTargetByParentId = ({ id }) => {
+    for (const [key, value] of repeaterTargetComponentMap) {
+      const { repeaterParentId } = value;
+      if (repeaterParentId === id) {
+        repeaterTargetComponentMap.delete(key);
+      }
+    }
+  };
 
   // src/js/mobjs/modules/repeater/utils.js
   var getNewElement = (current = [], previous = [], key = "") => {
@@ -17428,278 +17702,6 @@
       return;
     }
     return;
-  };
-
-  // src/js/mobjs/queque/tickInvalidate.js
-  var invalidateQueque = /* @__PURE__ */ new Map();
-  var invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
-  var maxQueuqueSize3 = 1e3;
-  var incrementInvalidateTickQueuque = (props) => {
-    if (invalidateQueque.size >= maxQueuqueSize3) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
-      return () => {
-      };
-    }
-    const id = mobCore.getUnivoqueId();
-    invalidateQueque.set(id, props);
-    return () => invalidateQueque.delete(id);
-  };
-  var queueIsResolved3 = () => {
-    return invalidateQueque.size === 0 || invalidateQueque.size >= maxQueuqueSize3;
-  };
-  var invalidateTick = async ({
-    debug = false,
-    previousResolve
-  } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      invalidateQueque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved3() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved3()) {
-        resolve();
-        return;
-      }
-      invalidateTick({
-        debug,
-        previousResolve: previousResolve ?? resolve
-      });
-    });
-  };
-
-  // src/js/mobjs/modules/invalidate/index.js
-  var invalidateIdPlaceHolderMap = /* @__PURE__ */ new Map();
-  var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
-  var invalidateIdHostMap = /* @__PURE__ */ new Map();
-  var invalidateFunctionMap = /* @__PURE__ */ new Map();
-  var setInvalidatePlaceholderMapInitialized = ({
-    invalidateId,
-    scopeId
-  }) => {
-    const item = invalidateIdPlaceHolderMap.get(invalidateId);
-    if (!item) return;
-    invalidateIdPlaceHolderMap.set(invalidateId, {
-      ...item,
-      initialized: true,
-      scopeId
-    });
-  };
-  var removeInvalidateId = ({ id }) => {
-    if (invalidateFunctionMap.has(id)) {
-      const value = invalidateFunctionMap.get(id);
-      value.forEach(({ invalidateId }) => {
-        if (invalidateIdPlaceHolderMap.has(invalidateId)) {
-          invalidateIdPlaceHolderMap.delete(invalidateId);
-        }
-      });
-      invalidateFunctionMap.delete(id);
-    }
-  };
-  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
-    if (!invalidateFunctionMap.has(id)) return;
-    const value = invalidateFunctionMap.get(id);
-    const valueParsed = value.filter(
-      (item) => item.invalidateId !== invalidateId
-    );
-    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
-      invalidateIdPlaceHolderMap.delete(invalidateId);
-    }
-    invalidateFunctionMap.set(id, valueParsed);
-  };
-  var getInvalidateInsideElement = ({
-    element,
-    skipInitialized = false,
-    onlyInitialized = false,
-    componentId
-  }) => {
-    const entries = [...invalidateIdPlaceHolderMap.entries()];
-    return entries.filter(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_id, parent]) => {
-        if (componentId && !compareIdOrParentIdRecursive({
-          id: parent.scopeId,
-          compareValue: componentId
-        })) {
-          return;
-        }
-        if (skipInitialized && parent?.initialized) {
-          return false;
-        }
-        if (onlyInitialized && !parent?.initialized) {
-          return false;
-        }
-        return element?.contains(parent.element) && element !== parent.element;
-      }
-    ).map(([id, parent]) => ({
-      id,
-      parent: parent?.element
-    }));
-  };
-  var setInvalidateFunction = ({ id, invalidateId, fn }) => {
-    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    invalidateFunctionMap.set(id, [
-      ...currentFunctions,
-      { invalidateId, fn, unsubscribe: [() => {
-      }], scopeId: void 0 }
-    ]);
-  };
-  var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
-    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    const item = currentFunctions.map((item2) => {
-      if (item2.invalidateId === invalidateId) {
-        return { ...item2, unsubscribe: unsubscribe3 };
-      }
-      return item2;
-    });
-    invalidateFunctionMap.set(id, item);
-  };
-  var getInvalidateFunctions = ({ id }) => {
-    return invalidateFunctionMap.get(id) ?? [];
-  };
-  var setParentInvalidate = ({ invalidateId, host }) => {
-    const parent = (
-      /** @type{HTMLElement} */
-      host.parentNode
-    );
-    invalidateIdPlaceHolderMap.set(invalidateId, {
-      element: parent,
-      initialized: false,
-      scopeId: void 0
-    });
-    invalidateIdHostMap.set(invalidateId, host);
-  };
-  var getInvalidateParent = ({ id }) => {
-    if (!invalidateIdPlaceHolderMap.has(id)) {
-      return;
-    }
-    if (invalidateIdHostMap.has(id)) {
-      const host = invalidateIdHostMap.get(id);
-      host?.removeCustomComponent();
-      host.remove();
-      invalidateIdHostMap.delete(id);
-    }
-    const parent = invalidateIdPlaceHolderMap.get(id);
-    return parent?.element;
-  };
-  var destroyNestedInvalidate = ({ id, invalidateParent }) => {
-    const invalidatechildToDelete = getInvalidateInsideElement({
-      element: invalidateParent,
-      skipInitialized: false,
-      onlyInitialized: true,
-      componentId: id
-    });
-    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
-      return invalidatechildToDelete.some((current) => {
-        return current.id === item.invalidateId;
-      });
-    });
-    invalidateChildToDeleteParsed.forEach((item) => {
-      item.unsubscribe.forEach((fn) => {
-        fn();
-      });
-      removeInvalidateByInvalidateId({
-        id,
-        invalidateId: item.invalidateId
-      });
-    });
-  };
-  var inizializeNestedInvalidate = ({ invalidateParent }) => {
-    const newInvalidateChild = getInvalidateInsideElement({
-      element: invalidateParent,
-      skipInitialized: true,
-      onlyInitialized: false
-    });
-    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter(({ invalidateId }) => {
-      return newInvalidateChild.some((current) => {
-        return current.id === invalidateId;
-      });
-    });
-    invalidateChildToInizialize.forEach(({ fn }) => {
-      fn();
-    });
-  };
-  var inizializeInvalidateWatch = async ({
-    bind = [],
-    beforeUpdate = () => Promise.resolve(),
-    afterUpdate = () => {
-    },
-    watch,
-    id,
-    invalidateId,
-    persistent = false,
-    renderFunction
-  }) => {
-    let watchIsRunning = false;
-    const fallBackParentId = getFallBackParentByElement({
-      element: getInvalidateParent({ id: invalidateId })
-    });
-    const unsubScribeArray = bind.map((state) => {
-      const unsubscribe3 = watch(state, async () => {
-        if (watchIsRunning) return;
-        freezePropById({ id, prop: state });
-        const invalidateParent = getInvalidateParent({
-          id: invalidateId
-        });
-        const descrementQueue = incrementTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_INVALIDATE
-        });
-        const decrementInvalidateQueque = incrementInvalidateTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_INVALIDATE
-        });
-        watchIsRunning = true;
-        mobCore.useNextLoop(async () => {
-          if (!invalidateParent) {
-            unFreezePropById({ id, prop: state });
-            return;
-          }
-          await beforeUpdate();
-          destroyNestedInvalidate({ id, invalidateParent });
-          destroyNestedRepeat({ id, repeatParent: invalidateParent });
-          destroyComponentInsideNodeById({
-            id: fallBackParentId ?? id,
-            container: invalidateParent
-          });
-          invalidateParent.textContent = "";
-          invalidateParent.insertAdjacentHTML(
-            "afterbegin",
-            renderFunction()
-          );
-          mainStore.set(
-            MAIN_STORE_ASYNC_PARSER,
-            {
-              element: invalidateParent,
-              parentId: fallBackParentId ?? id,
-              persistent
-            },
-            false
-          );
-          await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
-          watchIsRunning = false;
-          descrementQueue();
-          decrementInvalidateQueque();
-          inizializeNestedInvalidate({ invalidateParent });
-          inizializeNestedRepeat({ repeatParent: invalidateParent });
-          unFreezePropById({ id, prop: state });
-          afterUpdate();
-        });
-      });
-      return unsubscribe3;
-    });
-    addInvalidateUnsubcribe({
-      id,
-      invalidateId,
-      unsubscribe: unsubScribeArray
-    });
   };
 
   // src/js/mobjs/webComponent/repeat.js
@@ -18971,35 +18973,6 @@
     }
     repeatFunctionMap.set(id, valueParsed);
   };
-  var getRepeatInsideElement = ({
-    element,
-    skipInitialized = false,
-    onlyInitialized = false,
-    componentId
-  }) => {
-    const entries = [...repeatIdPlaceHolderMap.entries()];
-    return entries.filter(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_id, parent]) => {
-        if (componentId && !compareIdOrParentIdRecursive({
-          id: parent.scopeId,
-          compareValue: componentId
-        })) {
-          return;
-        }
-        if (skipInitialized && parent?.initialized) {
-          return false;
-        }
-        if (onlyInitialized && !parent?.initialized) {
-          return false;
-        }
-        return element?.contains(parent.element) && element !== parent.element;
-      }
-    ).map(([id, parent]) => ({
-      id,
-      parent: parent?.element
-    }));
-  };
   var setRepeatFunction = ({ id, repeatId, fn }) => {
     const currentFunctions = repeatFunctionMap.get(id) ?? [];
     repeatFunctionMap.set(id, [
@@ -19047,11 +19020,12 @@
     return parent?.element;
   };
   var destroyNestedRepeat = ({ id, repeatParent }) => {
-    const repeatChildToDelete = getRepeatInsideElement({
+    const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
       element: repeatParent,
       skipInitialized: false,
       onlyInitialized: true,
-      componentId: id
+      componentId: id,
+      module: MODULE_REPEATER
     });
     const repeatChildToDeleteParsed = [...repeatFunctionMap.values()].flat().filter((item) => {
       return repeatChildToDelete.some((current) => {
@@ -19067,10 +19041,11 @@
     });
   };
   var inizializeNestedRepeat = ({ repeatParent }) => {
-    const newRepeatChild = getRepeatInsideElement({
+    const newRepeatChild = getRepeatOrInvalidateInsideElement({
       element: repeatParent,
       skipInitialized: true,
-      onlyInitialized: false
+      onlyInitialized: false,
+      module: MODULE_REPEATER
     });
     const repeatChildToInizialize = [...repeatFunctionMap.values()].flat().filter(({ repeatId }) => {
       return newRepeatChild.some((current) => {
@@ -29677,18 +29652,18 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/pages/matrioska/matrioskaInvalidate.js
+  // src/js/component/pages/matrioska/matrioska.js
   var buttons3 = [
     {
       state: "level1",
-      maxItem: 5,
+      maxItem: 10,
       ref: "level1_counter",
       label_plus: "level1 +",
       label_minus: "level1 -"
     },
     {
       state: "level2",
-      maxItem: 5,
+      maxItem: 10,
       ref: "level2_counter",
       label_plus: "level2 +",
       label_minus: "level2 -"
@@ -29774,14 +29749,7 @@ Loading snippet ...</pre
         </div>
     `;
   };
-  var getSecondLevel = ({
-    repeat,
-    staticProps: staticProps2,
-    bindProps,
-    delegateEvents,
-    invalidate,
-    getState
-  }) => {
+  var getSecondLevel = ({ repeat, staticProps: staticProps2, bindProps, delegateEvents }) => {
     return renderHtml`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
@@ -29808,17 +29776,12 @@ Loading snippet ...</pre
         })}
                                 ${sync()}
                             >
-                                <div
-                                    class="matrioska__level matrioska__level--3"
-                                >
-                                    ${getThirdLevel({
+                                ${getThirdLevel({
+          repeat,
           staticProps: staticProps2,
           delegateEvents,
-          getState,
-          invalidate,
           bindProps
         })}
-                                </div>
                             </matrioska-item>
                         </div>
                     `;
@@ -29827,21 +29790,15 @@ Loading snippet ...</pre
         </div>
     `;
   };
-  var getThirdLevel = ({
-    staticProps: staticProps2,
-    delegateEvents,
-    invalidate,
-    getState,
-    bindProps
-  }) => {
-    return invalidate({
+  var getThirdLevel = ({ repeat, staticProps: staticProps2, bindProps, delegateEvents }) => {
+    return renderHtml`
+        <div class="matrioska__level matrioska__level--3">
+            ${repeat({
       bind: "level3",
-      render: () => {
-        const { level3 } = getState();
-        return level3.map((item) => {
-          const name = mobCore.getUnivoqueId();
-          const name2 = mobCore.getUnivoqueId();
-          return renderHtml`
+      render: ({ html, sync }) => {
+        const name = mobCore.getUnivoqueId();
+        const name2 = mobCore.getUnivoqueId();
+        return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--3"
                         >
@@ -29849,63 +29806,66 @@ Loading snippet ...</pre
                                 class="matrioska-item--3"
                                 name="${name}"
                                 ${staticProps2({
-            level: "level 3",
-            value: item.value,
-            key: `${item.key}`
-          })}
+          level: "level 3"
+        })}
                                 ${bindProps({
-            bind: ["counter"],
-            props: ({ counter }) => {
-              return {
-                counter
-              };
-            }
-          })}
+          bind: ["counter"],
+          props: ({ level3, counter }, index) => {
+            return {
+              key: `${level3[index]?.key}`,
+              value: `${level3[index]?.value}`,
+              counter
+            };
+          }
+        })}
                                 ${delegateEvents({
-            click: () => {
-              const updateActiveState = updateStateByName(name);
-              updateActiveState(
-                "active",
-                (val2) => !val2
-              );
-            }
-          })}
+          click: () => {
+            const updateActiveState = updateStateByName(name);
+            updateActiveState(
+              "active",
+              (val2) => !val2
+            );
+          }
+        })}
+                                ${sync()}
                             >
                             </matrioska-item>
                             <matrioska-item
                                 class="matrioska-item--3"
                                 name="${name2}"
                                 ${staticProps2({
-            level: "level 3",
-            value: item.value,
-            key: `${item.key}`
-          })}
+          level: "level 3"
+        })}
                                 ${bindProps({
-            bind: ["counter"],
-            props: ({ counter }) => {
-              return {
-                counter
-              };
-            }
-          })}
+          bind: ["counter"],
+          props: ({ level3, counter }, index) => {
+            return {
+              key: `${level3[index]?.key}`,
+              value: `${level3[index]?.value}`,
+              counter
+            };
+          }
+        })}
                                 ${delegateEvents({
-            click: () => {
-              const updateActiveState = updateStateByName(name2);
-              updateActiveState(
-                "active",
-                (val2) => !val2
-              );
-            }
-          })}
+          click: () => {
+            const updateActiveState = updateStateByName(name2);
+            updateActiveState(
+              "active",
+              (val2) => !val2
+            );
+          }
+        })}
+                                ${sync()}
                             >
                             </matrioska-item>
                         </div>
                     `;
-        }).join("");
       }
-    });
+    })}
+        </div>
+    `;
   };
-  var MatrioskaInvalidateFn = ({
+  var MatrioskaFn = ({
     html,
     onMount,
     delegateEvents,
@@ -29944,7 +29904,6 @@ Loading snippet ...</pre
       };
     });
     return html`<div class="matrioska">
-        <only-desktop></only-desktop>
         <div class="matrioska__head">
             ${getButtons2({
       delegateEvents,
@@ -29955,8 +29914,8 @@ Loading snippet ...</pre
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.
-            <span> First/Second level repeater without key. </span>
-            <span> Third level repeater with key, shuffle order. </span>
+            <span> First/Second/third level repeater without key. </span>
+            <span> Third level use shuffle order. </span>
         </h4>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
@@ -29987,9 +29946,7 @@ Loading snippet ...</pre
           repeat,
           staticProps: staticProps2,
           bindProps,
-          delegateEvents,
-          invalidate,
-          getState
+          delegateEvents
         })}
                                 </matrioska-item>
                             </div>
@@ -30081,7 +30038,7 @@ Loading snippet ...</pre
   };
   var Matrioska = createComponent({
     name: "page-matrioska",
-    component: MatrioskaInvalidateFn,
+    component: MatrioskaFn,
     exportState: [],
     state: {
       level1: () => ({

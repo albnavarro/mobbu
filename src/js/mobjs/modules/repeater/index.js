@@ -1,4 +1,7 @@
-import { compareIdOrParentIdRecursive } from '../../component/action/parent';
+import {
+    getRepeatOrInvalidateInsideElement,
+    MODULE_REPEATER,
+} from '../commonRepeatInvalidate';
 import { watchRepeat } from './watch';
 
 /**
@@ -111,63 +114,6 @@ export const removeRepeatByRepeatId = ({ id, repeatId }) => {
     }
 
     repeatFunctionMap.set(id, valueParsed);
-};
-
-/**
- * @description
- * Get all repeat inside HTMLElement
- *
- * @param {object} params
- * @param {HTMLElement} params.element
- * @param {boolean} [ params.skipInitialized ]
- * @param {boolean} [ params.onlyInitialized ]
- * @param {string} [ params.componentId ]
- * @returns {{id: string, parent:HTMLElement}[]}
- */
-export const getRepeatInsideElement = ({
-    element,
-    skipInitialized = false,
-    onlyInitialized = false,
-    componentId,
-}) => {
-    const entries = [...repeatIdPlaceHolderMap.entries()];
-
-    return entries
-        .filter(
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            ([_id, parent]) => {
-                /**
-                 * When destroy nested repat compare the the scope id is the same or a parent id
-                 * Check only repeate descendants by scopeId
-                 */
-                if (
-                    componentId &&
-                    !compareIdOrParentIdRecursive({
-                        id: parent.scopeId,
-                        compareValue: componentId,
-                    })
-                ) {
-                    return;
-                }
-
-                if (skipInitialized && parent?.initialized) {
-                    return false;
-                }
-
-                if (onlyInitialized && !parent?.initialized) {
-                    return false;
-                }
-
-                return (
-                    element?.contains(parent.element) &&
-                    element !== parent.element
-                );
-            }
-        )
-        .map(([id, parent]) => ({
-            id,
-            parent: parent?.element,
-        }));
 };
 
 /**
@@ -285,11 +231,12 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
      * Filter repater with scopeId equal or descendants of componentId
      * Avoid unnecessary element.contains() check.
      */
-    const repeatChildToDelete = getRepeatInsideElement({
+    const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
         element: repeatParent,
         skipInitialized: false,
         onlyInitialized: true,
         componentId: id,
+        module: MODULE_REPEATER,
     });
 
     const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]
@@ -320,10 +267,11 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
  * @returns {void}
  */
 export const inizializeNestedRepeat = ({ repeatParent }) => {
-    const newRepeatChild = getRepeatInsideElement({
+    const newRepeatChild = getRepeatOrInvalidateInsideElement({
         element: repeatParent,
         skipInitialized: true,
         onlyInitialized: false,
+        module: MODULE_REPEATER,
     });
 
     const repeatChildToInizialize = [...repeatFunctionMap.values()]
