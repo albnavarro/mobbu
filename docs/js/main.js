@@ -25366,20 +25366,18 @@ Loading snippet ...</pre
             ${bindText`<strong>counter: </strong><br/> ${"counter"}`}
         </div>
         <div class="benchmark-fake__row">
-            <div>
-                <button
-                    class="benchmark-fake__button"
-                    type="button"
-                    ${delegateEvents({
+            <button
+                class="benchmark-fake__button"
+                type="button"
+                ${delegateEvents({
       click: () => {
         isSelected = !isSelected;
         rootRef.classList.toggle("selected", isSelected);
       }
     })}
-                >
-                    Select
-                </button>
-            </div>
+            >
+                Select
+            </button>
         </div>
     </div> `;
   };
