@@ -395,7 +395,7 @@
             ]
         },
         {
-            "label": "Render list/component",
+            "label": "Create/repeat/invalidate",
             "url": "#",
             "children": [
                 {
@@ -409,7 +409,7 @@
                     "url": "mobJs-invalidate"
                 },
                 {
-                    "label": "reactive list (repeat)",
+                    "label": "repeat ( array.map )",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-repeat"
                 },

@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "reactive list: repeat"
+            "content": "reactive array: repeat"
         },
         {
             "component": "mob-spacer",
@@ -33,8 +33,9 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#dynamic-list'>example</a>",
-                    "<a href='./#matrioska'>example nested same scope</a>"
+                    "<a href='./#mobJs-benchmark-repeat-key'>Example repater with key</a>",
+                    "<a href='./#mobJs-benchmark-repeat-no-key'>Example repater without key</a>",
+                    "<a href='./#matrioska'>Example nested same scope</a>"
                 ]
             }
         },

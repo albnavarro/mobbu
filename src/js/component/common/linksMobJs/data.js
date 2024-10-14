@@ -175,7 +175,7 @@ export const mobJsComponentParams = [
         isLabel: false,
     },
     {
-        label: 'reactive list: (repeat)',
+        label: 'repeat ( array.map )',
         url: 'mobJs-repeat',
         isLabel: false,
     },
