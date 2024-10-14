@@ -5,8 +5,9 @@ import { watchRepeat } from './watch';
  * @description
  * Store parent repeat by a webcomponent utils
  * Key is repeat id
- * Component track in repeatId array all the reference to this map.
- * ScopeId is the component id when repat is initialized ( for nested repeater performance check on destroy )
+ * ScopeId is the component id that contains repeat when is initialized
+ * ( for nested repeater performance check on destroy )
+ *
  *
  * @type {Map<string, {element: HTMLElement, initialized: boolean, scopeId: string|undefined }>}
  */
@@ -21,8 +22,8 @@ export const getNumberOfActiveRepeater = () => {
 
 /**
  * @description
- * Store how web component
- * Key is repeat id
+ * Store host of webComponent
+ * Key is repeatId
  *
  * @type {Map<string, HTMLElement>}
  */
@@ -32,13 +33,18 @@ export const repeatIdHostMap = new Map();
  * @description
  * Store initialize repeat function
  * Key is componentId
- * ScopeId is the component id when repat is initialized ( for nested repeater performance check on destroy )
+ * ScopeId is the component id that contains repeat when is initialized
+ * ( for nested repeater performance check on destroy )
  *
  * @type {Map<string, Array<{repeatId:string, fn: () => void, unsubscribe: () => void, scopeId: string}>>}
  */
 export const repeatFunctionMap = new Map();
 
 /**
+ * @description
+ * Set initialized to true.
+ * Set scopedId.
+ *
  * @param {object} params
  * @param {string} params.repeatId - repeatId
  * @param {string} params.scopeId - scopeId
@@ -58,6 +64,7 @@ export const setRepeaterPlaceholderMapInitialized = ({ repeatId, scopeId }) => {
 /**
  * @description
  * Clean the two utils map on component destroy.
+ * Remove by componentId.
  *
  * @param {object} params
  * @param {string} params.id - component id
@@ -86,6 +93,7 @@ export const removeRepeaterId = ({ id }) => {
 /**
  * @description
  * Remove repeat by id filtered by repeatId
+ * Remove only current repeater, each component usa many repater.
  *
  * @param {object} params
  * @param {string} params.id - component id
@@ -113,14 +121,14 @@ export const removeRepeatByRepeatId = ({ id, repeatId }) => {
  * @param {HTMLElement} params.element
  * @param {boolean} [ params.skipInitialized ]
  * @param {boolean} [ params.onlyInitialized ]
- * @param {string} [ params.scopeId ]
+ * @param {string} [ params.componentId ]
  * @returns {{id: string, parent:HTMLElement}[]}
  */
 export const getRepeatInsideElement = ({
     element,
     skipInitialized = false,
     onlyInitialized = false,
-    scopeId,
+    componentId,
 }) => {
     const entries = [...repeatIdPlaceHolderMap.entries()];
 
@@ -130,12 +138,13 @@ export const getRepeatInsideElement = ({
             ([_id, parent]) => {
                 /**
                  * When destroy nested repat compare the the scope id is the same or a parent id
+                 * Check only repeate descendants by scopeId
                  */
                 if (
-                    scopeId &&
+                    componentId &&
                     !compareIdOrParentIdRecursive({
                         id: parent.scopeId,
-                        compareValue: scopeId,
+                        compareValue: componentId,
                     })
                 ) {
                     return;
@@ -163,8 +172,9 @@ export const getRepeatInsideElement = ({
 
 /**
  * @description
- * Add new repeat sterter function in map.
+ * Add new repeat initialized in map.
  * key is component id associated to these function.
+ * scopedId will be settled by setRepeaterPlaceholderMapInitialized
  *
  * @param {object} params
  * @param {string} params.id - component id
@@ -176,13 +186,13 @@ export const setRepeatFunction = ({ id, repeatId, fn }) => {
     const currentFunctions = repeatFunctionMap.get(id) ?? [];
     repeatFunctionMap.set(id, [
         ...currentFunctions,
-        { repeatId, fn, unsubscribe: () => {}, scopeId: id },
+        { repeatId, fn, unsubscribe: () => {}, scopeId: undefined },
     ]);
 };
 
 /**
  * @description
- * Add new repeat sterter function in map.
+ * Add new repeat unsubScribe function in map.
  * key is component id associated to these function.
  *
  * @param {object} params
@@ -271,11 +281,15 @@ export const getRepeatParent = ({ id }) => {
  * @returns {void}
  */
 export const destroyNestedRepeat = ({ id, repeatParent }) => {
+    /**
+     * Filter repater with scopeId equal or descendants of componentId
+     * Avoid unnecessary element.contains() check.
+     */
     const repeatChildToDelete = getRepeatInsideElement({
         element: repeatParent,
         skipInitialized: false,
         onlyInitialized: true,
-        scopeId: id,
+        componentId: id,
     });
 
     const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]

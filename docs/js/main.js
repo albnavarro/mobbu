@@ -18975,15 +18975,15 @@
     element,
     skipInitialized = false,
     onlyInitialized = false,
-    scopeId
+    componentId
   }) => {
     const entries = [...repeatIdPlaceHolderMap.entries()];
     return entries.filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ([_id, parent]) => {
-        if (scopeId && !compareIdOrParentIdRecursive({
+        if (componentId && !compareIdOrParentIdRecursive({
           id: parent.scopeId,
-          compareValue: scopeId
+          compareValue: componentId
         })) {
           return;
         }
@@ -19005,7 +19005,7 @@
     repeatFunctionMap.set(id, [
       ...currentFunctions,
       { repeatId, fn, unsubscribe: () => {
-      }, scopeId: id }
+      }, scopeId: void 0 }
     ]);
   };
   var addRepeatUnsubcribe = ({ id, repeatId, unsubscribe: unsubscribe3 }) => {
@@ -19051,7 +19051,7 @@
       element: repeatParent,
       skipInitialized: false,
       onlyInitialized: true,
-      scopeId: id
+      componentId: id
     });
     const repeatChildToDeleteParsed = [...repeatFunctionMap.values()].flat().filter((item) => {
       return repeatChildToDelete.some((current) => {
