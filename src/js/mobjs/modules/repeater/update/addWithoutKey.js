@@ -97,7 +97,13 @@ export const addWithoutKey = ({
          * So add simple, mix to simplest solution and efficence.
          */
         elementToAdd.forEach((element) => {
-            repeaterParentElement.insertAdjacentHTML('beforeend', element);
+            const node = document
+                .createRange()
+                .createContextualFragment(element).firstElementChild;
+
+            repeaterParentElement.append(node);
+
+            // repeaterParentElement.insertAdjacentHTML('beforeend', element);
         });
     }
 

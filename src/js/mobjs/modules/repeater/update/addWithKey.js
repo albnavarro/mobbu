@@ -234,8 +234,7 @@ export const addWithKey = ({
             return;
         }
 
-        repeaterParentElement.insertAdjacentHTML(
-            'beforeend',
+        const node = document.createRange().createContextualFragment(
             getPartialsComponentList({
                 state,
                 key,
@@ -244,7 +243,21 @@ export const addWithKey = ({
                 render,
                 repeatId,
             })
-        );
+        ).firstElementChild;
+
+        repeaterParentElement.append(node);
+
+        // repeaterParentElement.insertAdjacentHTML(
+        //     'beforeend',
+        //     getPartialsComponentList({
+        //         state,
+        //         key,
+        //         currentUnique,
+        //         index,
+        //         render,
+        //         repeatId,
+        //     })
+        // );
     });
 
     return currentUnique;
