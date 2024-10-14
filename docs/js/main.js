@@ -25344,7 +25344,8 @@ Loading snippet ...</pre
     html,
     bindText,
     delegateEvents,
-    onMount
+    onMount,
+    id
   }) => {
     let isSelected = false;
     let rootRef;
@@ -25354,6 +25355,10 @@ Loading snippet ...</pre
       };
     });
     return html`<div class="benchmark-fake">
+        <div class="benchmark-fake__row">
+            <strong>id:</strong><br />
+            ${id}
+        </div>
         <div class="benchmark-fake__row">
             ${bindText`<strong>label:</strong><br/> ${"label"}`}
         </div>

@@ -10,6 +10,7 @@ export const BenchMarkFakeComponentFn = ({
     bindText,
     delegateEvents,
     onMount,
+    id,
 }) => {
     let isSelected = false;
     let rootRef;
@@ -21,6 +22,10 @@ export const BenchMarkFakeComponentFn = ({
     });
 
     return html`<div class="benchmark-fake">
+        <div class="benchmark-fake__row">
+            <strong>id:</strong><br />
+            ${id}
+        </div>
         <div class="benchmark-fake__row">
             ${bindText`<strong>label:</strong><br/> ${'label'}`}
         </div>
