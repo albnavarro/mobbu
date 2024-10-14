@@ -8,7 +8,9 @@ export type BindText = (TemplateStringsArray, ...any) => string;
 export const MyComponent = ({ html, bindText }) => {
     return html`
         <div>
-            <div>${bindText`some text ${'state'} some text ${'state2'}`}</div>
+            <div>
+                ${bindText`<strong>some</strong> text ${'state'} text ${'state2'}`}
+            </div>
             <div>${bindText`some text ${'state.prop1.prop2'} state2'}`}</div>
 
             <!-- Use with slot -->
