@@ -460,6 +460,11 @@
                     "label": "Invalidate",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-benchmark-invalidate"
+                },
+                {
+                    "label": "Repeat without key",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-benchmark-repeat-no-key"
                 }
             ]
         },

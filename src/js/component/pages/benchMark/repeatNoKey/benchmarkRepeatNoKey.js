@@ -8,20 +8,18 @@ import { benchMarkListPartial } from '../partials/benchMarkListPartial';
  **/
 
 /** @type {MobComponent<import('../type').BenchMark>} */
-export const BenchMarkInvalidateFn = ({
+export const BenchMarkRepeatNoKyFn = ({
     onMount,
     html,
     delegateEvents,
     bindText,
-    invalidate,
-    getState,
-    staticProps,
     setRef,
     getRef,
     setState,
     updateState,
     bindProps,
     watch,
+    repeat,
 }) => {
     onMount(() => {
         const { loading } = getRef();
@@ -37,7 +35,7 @@ export const BenchMarkInvalidateFn = ({
 
     return html`<div class="benchmark">
         <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">Invalidate:</h3>
+            <h3 class="benchmark__head__subtitle">Repeat ( without key ):</h3>
             <h2 class="benchmark__head__title">
                 Generate components performance
             </h2>
@@ -58,32 +56,23 @@ export const BenchMarkInvalidateFn = ({
             </div>
         </div>
         <div class="benchmark__list">
-            ${invalidate({
+            ${repeat({
                 bind: 'data',
-                render: ({ html }) => {
-                    const { data } = getState();
-
+                render: ({ html, sync }) => {
                     return html`
-                        ${data
-                            .map(({ label }) => {
-                                return html`
-                                    <benchmark-fake-component
-                                        ${staticProps({
-                                            label,
-                                        })}
-                                        ${bindProps({
-                                            bind: ['counter'],
-                                            /** @returns{Partial<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-                                            props: ({ counter }) => {
-                                                return {
-                                                    counter,
-                                                };
-                                            },
-                                        })}
-                                    ></benchmark-fake-component>
-                                `;
-                            })
-                            .join('')}
+                        <benchmark-fake-component
+                            ${sync()}
+                            ${bindProps({
+                                bind: ['counter'],
+                                /** @returns{Partial<import('../fakeComponent/type').BenchMarkFakeComponent>} */
+                                props: ({ counter, data }, index) => {
+                                    return {
+                                        label: data[index]?.label,
+                                        counter,
+                                    };
+                                },
+                            })}
+                        ></benchmark-fake-component>
                     `;
                 },
             })}

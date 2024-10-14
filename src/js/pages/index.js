@@ -232,6 +232,13 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-benchmark-repeat-no-key',
+        layout: benchMark,
+        props: {
+            rootComponent: 'benchmark-repeat-no-key',
+        },
+    },
+    {
         name: 'mobJs-useMethodByName',
         layout: layoutSidebarAnchor,
         props: {

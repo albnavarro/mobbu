@@ -17306,7 +17306,7 @@
   };
   var arrayhaskey = ({ arr = [], key = "" }) => {
     return arr.every((item) => {
-      return key in item;
+      return mobCore.checkType(Object, item) && key in item;
     });
   };
   var listKeyExist = ({ current, previous, key }) => {
@@ -25396,16 +25396,48 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/pages/benchMark/partials/definitionPartial.js
+  var benchMarkDefinitionPartial = {
+    exportState: ["svg"],
+    state: {
+      counter: () => ({
+        value: 0,
+        type: Number
+      }),
+      data: () => ({
+        value: [],
+        type: Array,
+        validate: (value) => {
+          return value.length < 2001;
+        },
+        strict: true,
+        skipEqual: false
+      }),
+      time: () => ({
+        value: 0,
+        type: Number,
+        skipEqual: false
+      }),
+      isLoading: () => ({
+        value: false,
+        type: Boolean
+      })
+    },
+    child: [BenchMarkFakeComponent]
+  };
+
   // src/js/component/pages/benchMark/partials/benchMarkListPartial.js
   var createBenchMarkArray = (numberOfItem) => {
-    return [...new Array(numberOfItem).keys()].map((i) => i + 1);
+    return [...new Array(numberOfItem).keys()].map((i) => ({
+      label: `comp-${i + 1}`
+    }));
   };
   var setData = async ({ setState, value }) => {
     setState("isLoading", true);
     await tick();
     mobCore.useNextTick(async () => {
       const startDate = /* @__PURE__ */ new Date();
-      setState("numberOfComponent", value);
+      setState("data", createBenchMarkArray(value));
       await tick();
       const endDate = /* @__PURE__ */ new Date();
       const difference = endDate - startDate;
@@ -25523,15 +25555,15 @@ Loading snippet ...</pre
         </div>
         <div class="benchmark__list">
             ${invalidate({
-      bind: "numberOfComponent",
+      bind: "data",
       render: ({ html: html2 }) => {
-        const { numberOfComponent } = getState();
+        const { data: data2 } = getState();
         return html2`
-                        ${createBenchMarkArray(numberOfComponent).map((_, index) => {
+                        ${data2.map(({ label }) => {
           return html2`
                                     <benchmark-fake-component
                                         ${staticProps2({
-            label: `comp-${index}`
+            label
           })}
                                         ${bindProps({
             bind: ["counter"],
@@ -25556,36 +25588,89 @@ Loading snippet ...</pre
   var BenchMarkInvalidate = createComponent({
     name: "benchmark-invalidate",
     component: BenchMarkInvalidateFn,
-    exportState: ["svg"],
-    state: {
-      counter: () => ({
-        value: 0,
-        type: Number
-      }),
-      numberOfComponent: () => ({
-        value: 1,
-        type: Number,
-        validate: (value) => {
-          return value < 2001;
-        },
-        strict: true,
-        skipEqual: false
-      }),
-      time: () => ({
-        value: 0,
-        type: Number,
-        skipEqual: false
-      }),
-      isLoading: () => ({
-        value: false,
-        type: Boolean
-      })
-    },
-    child: [BenchMarkFakeComponent]
+    ...benchMarkDefinitionPartial
+  });
+
+  // src/js/component/pages/benchMark/repeatNoKey/benchmarkRepeatNoKey.js
+  var BenchMarkRepeatNoKyFn = ({
+    onMount,
+    html,
+    delegateEvents,
+    bindText,
+    setRef,
+    getRef,
+    setState,
+    updateState,
+    bindProps,
+    watch,
+    repeat
+  }) => {
+    onMount(() => {
+      const { loading } = getRef();
+      watch("isLoading", (value) => {
+        mobCore.useFrame(() => {
+          loading.classList.toggle("active", value);
+        });
+      });
+      return () => {
+      };
+    });
+    return html`<div class="benchmark">
+        <div class="benchmark__head">
+            <h3 class="benchmark__head__subtitle">Repeat ( without key ):</h3>
+            <h2 class="benchmark__head__title">
+                Generate components performance
+            </h2>
+            <p>
+                Generation of up to 2000 basic components with a reactive prop
+            </p>
+
+            ${benchMarkListPartial({
+      setRef,
+      getRef,
+      setState,
+      updateState,
+      delegateEvents
+    })}
+
+            <div class="benchmark__head__time">
+                ${bindText`components generate in <strong>${"time"}ms</strong>`}
+            </div>
+        </div>
+        <div class="benchmark__list">
+            ${repeat({
+      bind: "data",
+      render: ({ html: html2, sync }) => {
+        return html2`
+                        <benchmark-fake-component
+                            ${sync()}
+                            ${bindProps({
+          bind: ["counter"],
+          /** @returns{Partial<import('../fakeComponent/type').BenchMarkFakeComponent>} */
+          props: ({ counter, data: data2 }, index) => {
+            return {
+              label: data2[index]?.label,
+              counter
+            };
+          }
+        })}
+                        ></benchmark-fake-component>
+                    `;
+      }
+    })}
+        </div>
+    </div>`;
+  };
+
+  // src/js/component/pages/benchMark/repeatNoKey/definition.js
+  var BenchMarkRepeatNoKey = createComponent({
+    name: "benchmark-repeat-no-key",
+    component: BenchMarkRepeatNoKyFn,
+    ...benchMarkDefinitionPartial
   });
 
   // src/js/pages/benchmark/index.js
-  useComponent([BenchMarkInvalidate]);
+  useComponent([BenchMarkInvalidate, BenchMarkRepeatNoKey]);
   var benchMark = async ({ props }) => {
     const { rootComponent } = props;
     console.log(rootComponent);
@@ -31014,6 +31099,13 @@ Loading snippet ...</pre
       layout: benchMark,
       props: {
         rootComponent: "benchmark-invalidate"
+      }
+    },
+    {
+      name: "mobJs-benchmark-repeat-no-key",
+      layout: benchMark,
+      props: {
+        rootComponent: "benchmark-repeat-no-key"
       }
     },
     {

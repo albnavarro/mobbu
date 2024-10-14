@@ -7,9 +7,14 @@ import { html, tick } from '../../../../mobjs';
  * @import { DelegateEvents, SetRef, GetRef,  SetState, UpdateState } from '../../../../mobjs/type';
  **/
 
-/** @param {number} numberOfItem */
+/**
+ * @param {number} numberOfItem
+ * @returns {{label:string}[]}
+ */
 export const createBenchMarkArray = (numberOfItem) => {
-    return [...new Array(numberOfItem).keys()].map((i) => i + 1);
+    return [...new Array(numberOfItem).keys()].map((i) => ({
+        label: `comp-${i + 1}`,
+    }));
 };
 
 /**
@@ -23,7 +28,7 @@ const setData = async ({ setState, value }) => {
 
     mobCore.useNextTick(async () => {
         const startDate = new Date();
-        setState('numberOfComponent', value);
+        setState('data', createBenchMarkArray(value));
         await tick();
 
         const endDate = new Date();
