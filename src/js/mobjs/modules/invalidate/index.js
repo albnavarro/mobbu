@@ -265,7 +265,7 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
     const invalidatechildToDelete = getInvalidateInsideElement({
         element: invalidateParent,
         skipInitialized: false,
-        onlyInitialized: true,
+        onlyInitialized: false,
     });
 
     const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
@@ -300,7 +300,7 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
 export const inizializeNestedInvalidate = ({ invalidateParent }) => {
     const newInvalidateChild = getInvalidateInsideElement({
         element: invalidateParent,
-        skipInitialized: true,
+        skipInitialized: false,
         onlyInitialized: false,
     });
 

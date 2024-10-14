@@ -250,7 +250,7 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
     const repeatChildToDelete = getRepeatInsideElement({
         element: repeatParent,
         skipInitialized: false,
-        onlyInitialized: true,
+        onlyInitialized: false,
     });
 
     const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]
@@ -282,7 +282,7 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
 export const inizializeNestedRepeat = ({ repeatParent }) => {
     const newRepeatChild = getRepeatInsideElement({
         element: repeatParent,
-        skipInitialized: true,
+        skipInitialized: false,
         onlyInitialized: false,
     });
 
