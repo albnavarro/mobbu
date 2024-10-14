@@ -74,6 +74,7 @@ export const benchMarkListPartial = ({
             <input
                 class="benchmark__head__input"
                 type="text"
+                placeholder="Number of component"
                 ${setRef('input')}
                 ${delegateEvents({
                     keypress: (event) => {
