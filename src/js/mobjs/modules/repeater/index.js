@@ -93,7 +93,7 @@ export const removeRepeaterId = ({ id }) => {
 /**
  * @description
  * Remove repeat by id filtered by repeatId
- * Remove only current repeater, each component usa many repater.
+ * Remove only current repeater, each component use many repater.
  *
  * @param {object} params
  * @param {string} params.id - component id

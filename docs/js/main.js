@@ -17516,15 +17516,15 @@
     element,
     skipInitialized = false,
     onlyInitialized = false,
-    scopeId
+    componentId
   }) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
     return entries.filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ([_id, parent]) => {
-        if (scopeId && !compareIdOrParentIdRecursive({
+        if (componentId && !compareIdOrParentIdRecursive({
           id: parent.scopeId,
-          compareValue: scopeId
+          compareValue: componentId
         })) {
           return;
         }
@@ -17546,7 +17546,7 @@
     invalidateFunctionMap.set(id, [
       ...currentFunctions,
       { invalidateId, fn, unsubscribe: [() => {
-      }], scopeId: id }
+      }], scopeId: void 0 }
     ]);
   };
   var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
@@ -17592,7 +17592,7 @@
       element: invalidateParent,
       skipInitialized: false,
       onlyInitialized: true,
-      scopeId: id
+      componentId: id
     });
     const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
       return invalidatechildToDelete.some((current) => {
@@ -29677,18 +29677,18 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/pages/matrioska/matrioska.js
+  // src/js/component/pages/matrioska/matrioskaInvalidate.js
   var buttons3 = [
     {
       state: "level1",
-      maxItem: 10,
+      maxItem: 5,
       ref: "level1_counter",
       label_plus: "level1 +",
       label_minus: "level1 -"
     },
     {
       state: "level2",
-      maxItem: 10,
+      maxItem: 5,
       ref: "level2_counter",
       label_plus: "level2 +",
       label_minus: "level2 -"
@@ -29774,7 +29774,14 @@ Loading snippet ...</pre
         </div>
     `;
   };
-  var getSecondLevel = ({ repeat, staticProps: staticProps2, bindProps, delegateEvents }) => {
+  var getSecondLevel = ({
+    repeat,
+    staticProps: staticProps2,
+    bindProps,
+    delegateEvents,
+    invalidate,
+    getState
+  }) => {
     return renderHtml`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
@@ -29801,12 +29808,17 @@ Loading snippet ...</pre
         })}
                                 ${sync()}
                             >
-                                ${getThirdLevel({
-          repeat,
+                                <div
+                                    class="matrioska__level matrioska__level--3"
+                                >
+                                    ${getThirdLevel({
           staticProps: staticProps2,
           delegateEvents,
+          getState,
+          invalidate,
           bindProps
         })}
+                                </div>
                             </matrioska-item>
                         </div>
                     `;
@@ -29815,15 +29827,21 @@ Loading snippet ...</pre
         </div>
     `;
   };
-  var getThirdLevel = ({ repeat, staticProps: staticProps2, bindProps, delegateEvents }) => {
-    return renderHtml`
-        <div class="matrioska__level matrioska__level--3">
-            ${repeat({
+  var getThirdLevel = ({
+    staticProps: staticProps2,
+    delegateEvents,
+    invalidate,
+    getState,
+    bindProps
+  }) => {
+    return invalidate({
       bind: "level3",
-      render: ({ html, sync }) => {
-        const name = mobCore.getUnivoqueId();
-        const name2 = mobCore.getUnivoqueId();
-        return html`
+      render: () => {
+        const { level3 } = getState();
+        return level3.map((item) => {
+          const name = mobCore.getUnivoqueId();
+          const name2 = mobCore.getUnivoqueId();
+          return renderHtml`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--3"
                         >
@@ -29831,66 +29849,63 @@ Loading snippet ...</pre
                                 class="matrioska-item--3"
                                 name="${name}"
                                 ${staticProps2({
-          level: "level 3"
-        })}
+            level: "level 3",
+            value: item.value,
+            key: `${item.key}`
+          })}
                                 ${bindProps({
-          bind: ["counter"],
-          props: ({ level3, counter }, index) => {
-            return {
-              key: `${level3[index]?.key}`,
-              value: `${level3[index]?.value}`,
-              counter
-            };
-          }
-        })}
+            bind: ["counter"],
+            props: ({ counter }) => {
+              return {
+                counter
+              };
+            }
+          })}
                                 ${delegateEvents({
-          click: () => {
-            const updateActiveState = updateStateByName(name);
-            updateActiveState(
-              "active",
-              (val2) => !val2
-            );
-          }
-        })}
-                                ${sync()}
+            click: () => {
+              const updateActiveState = updateStateByName(name);
+              updateActiveState(
+                "active",
+                (val2) => !val2
+              );
+            }
+          })}
                             >
                             </matrioska-item>
                             <matrioska-item
                                 class="matrioska-item--3"
                                 name="${name2}"
                                 ${staticProps2({
-          level: "level 3"
-        })}
+            level: "level 3",
+            value: item.value,
+            key: `${item.key}`
+          })}
                                 ${bindProps({
-          bind: ["counter"],
-          props: ({ level3, counter }, index) => {
-            return {
-              key: `${level3[index]?.key}`,
-              value: `${level3[index]?.value}`,
-              counter
-            };
-          }
-        })}
+            bind: ["counter"],
+            props: ({ counter }) => {
+              return {
+                counter
+              };
+            }
+          })}
                                 ${delegateEvents({
-          click: () => {
-            const updateActiveState = updateStateByName(name2);
-            updateActiveState(
-              "active",
-              (val2) => !val2
-            );
-          }
-        })}
-                                ${sync()}
+            click: () => {
+              const updateActiveState = updateStateByName(name2);
+              updateActiveState(
+                "active",
+                (val2) => !val2
+              );
+            }
+          })}
                             >
                             </matrioska-item>
                         </div>
                     `;
+        }).join("");
       }
-    })}
-        </div>
-    `;
+    });
   };
-  var MatrioskaFn = ({
+  var MatrioskaInvalidateFn = ({
     html,
     onMount,
     delegateEvents,
@@ -29929,6 +29944,7 @@ Loading snippet ...</pre
       };
     });
     return html`<div class="matrioska">
+        <only-desktop></only-desktop>
         <div class="matrioska__head">
             ${getButtons2({
       delegateEvents,
@@ -29939,8 +29955,8 @@ Loading snippet ...</pre
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.
-            <span> First/Second/third level repeater without key. </span>
-            <span> Third level use shuffle order. </span>
+            <span> First/Second level repeater without key. </span>
+            <span> Third level repeater with key, shuffle order. </span>
         </h4>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
@@ -29971,7 +29987,9 @@ Loading snippet ...</pre
           repeat,
           staticProps: staticProps2,
           bindProps,
-          delegateEvents
+          delegateEvents,
+          invalidate,
+          getState
         })}
                                 </matrioska-item>
                             </div>
@@ -30063,7 +30081,7 @@ Loading snippet ...</pre
   };
   var Matrioska = createComponent({
     name: "page-matrioska",
-    component: MatrioskaFn,
+    component: MatrioskaInvalidateFn,
     exportState: [],
     state: {
       level1: () => ({
