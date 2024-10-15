@@ -27,6 +27,26 @@ export const setRepeaterStateById = ({ id = '', value }) => {
 };
 
 /**
+ * @description
+ * Find first element children of rootNode that contains currentNode.
+ * Use to find repeater innerWrap.
+ *
+ * @param {object} params
+ * @param {HTMLElement} params.rootNode
+ * @param {HTMLElement} params.currentNode
+ * @returns {HTMLElement|undefined}
+ */
+const getFirstChildOfElementParentOfElement = ({ rootNode, currentNode }) => {
+    if (!rootNode.contains(currentNode)) return;
+    if (currentNode.parentElement === rootNode) return currentNode;
+
+    return getFirstChildOfElementParentOfElement({
+        rootNode,
+        currentNode: currentNode.parentElement,
+    });
+};
+
+/**
  *
  * @param {object} obj
  * @param {HTMLElement} obj.rootNode
@@ -39,9 +59,14 @@ export const setRepeaterStateById = ({ id = '', value }) => {
 export const findFirstRepeaterElementWrap = ({ rootNode, node }) => {
     if (!rootNode) return;
 
-    return [...rootNode.children].find(
-        (child) => child.contains(node) && child !== node
-    );
+    // return [...rootNode.children].find(
+    //     (child) => child.contains(node) && child !== node
+    // );
+
+    return getFirstChildOfElementParentOfElement({
+        rootNode,
+        currentNode: node.parentElement,
+    });
 };
 
 /**
