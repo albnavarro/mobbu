@@ -91,20 +91,21 @@ export const addWithoutKey = ({
             });
         });
 
-        /**
-         * Content of container list id deleted at start.
-         * Assume container is dedicated to children.
-         * So add simple, mix to simplest solution and efficence.
-         */
-        elementToAdd.forEach((element) => {
-            const node = document
-                .createRange()
-                .createContextualFragment(element).firstElementChild;
+        // elementToAdd.forEach((element) => {
+        //     const node = document
+        //         .createRange()
+        //         .createContextualFragment(element).firstElementChild;
+        //
+        //     repeaterParentElement.append(node);
+        //
+        //     // repeaterParentElement.insertAdjacentHTML('beforeend', element);
+        // });
 
-            repeaterParentElement.append(node);
+        const elementsParsed = document
+            .createRange()
+            .createContextualFragment(elementToAdd.join(''));
 
-            // repeaterParentElement.insertAdjacentHTML('beforeend', element);
-        });
+        repeaterParentElement.append(elementsParsed);
     }
 
     /**
