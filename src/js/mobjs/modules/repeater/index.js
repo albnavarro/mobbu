@@ -36,10 +36,8 @@ export const repeatIdHostMap = new Map();
  * @description
  * Store initialize repeat function
  * Key is componentId
- * ScopeId is the component id that contains repeat when is initialized
- * ( for nested repeater performance check on destroy )
  *
- * @type {Map<string, Array<{repeatId:string, fn: () => void, unsubscribe: () => void, scopeId: string}>>}
+ * @type {Map<string, Array<{repeatId:string, fn: () => void, unsubscribe: () => void}>>}
  */
 export const repeatFunctionMap = new Map();
 
@@ -120,7 +118,6 @@ export const removeRepeatByRepeatId = ({ id, repeatId }) => {
  * @description
  * Add new repeat initialized in map.
  * key is component id associated to these function.
- * scopedId will be settled by setRepeaterPlaceholderMapInitialized
  *
  * @param {object} params
  * @param {string} params.id - component id
@@ -132,7 +129,7 @@ export const setRepeatFunction = ({ id, repeatId, fn }) => {
     const currentFunctions = repeatFunctionMap.get(id) ?? [];
     repeatFunctionMap.set(id, [
         ...currentFunctions,
-        { repeatId, fn, unsubscribe: () => {}, scopeId: undefined },
+        { repeatId, fn, unsubscribe: () => {} },
     ]);
 };
 

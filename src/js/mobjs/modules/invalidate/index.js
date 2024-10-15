@@ -46,10 +46,8 @@ export const invalidateIdHostMap = new Map();
  * @description
  * Store initialize invalidate function
  * Key is componentId
- * ScopeId is the component id that contains invalidate when is initialized
- * ( for nested invalidate performance check on destroy )
  *
- * @type {Map<string, Array<{invalidateId:string, fn: () => void, unsubscribe: (() => void)[], scopeId: string  }>>}
+ * @type {Map<string, Array<{invalidateId:string, fn: () => void, unsubscribe: (() => void)[]  }>>}
  */
 export const invalidateFunctionMap = new Map();
 
@@ -135,7 +133,6 @@ export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
  * @description
  * Add new invalidate sterter function in map.
  * key is component id associated to these function.
- * scopedId will be settled by setInvalidatePlaceholderMapInitialized
  *
  * @param {object} params
  * @param {string} params.id - component id
@@ -147,7 +144,7 @@ export const setInvalidateFunction = ({ id, invalidateId, fn }) => {
     const currentFunctions = invalidateFunctionMap.get(id) ?? [];
     invalidateFunctionMap.set(id, [
         ...currentFunctions,
-        { invalidateId, fn, unsubscribe: [() => {}], scopeId: undefined },
+        { invalidateId, fn, unsubscribe: [() => {}] },
     ]);
 };
 

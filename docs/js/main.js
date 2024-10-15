@@ -17300,7 +17300,7 @@
     invalidateFunctionMap.set(id, [
       ...currentFunctions,
       { invalidateId, fn, unsubscribe: [() => {
-      }], scopeId: void 0 }
+      }] }
     ]);
   };
   var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
@@ -18978,7 +18978,7 @@
     repeatFunctionMap.set(id, [
       ...currentFunctions,
       { repeatId, fn, unsubscribe: () => {
-      }, scopeId: void 0 }
+      } }
     ]);
   };
   var addRepeatUnsubcribe = ({ id, repeatId, unsubscribe: unsubscribe3 }) => {
