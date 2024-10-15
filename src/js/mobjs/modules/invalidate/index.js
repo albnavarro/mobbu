@@ -44,7 +44,7 @@ export const invalidateIdHostMap = new Map();
 
 /**
  * @description
- * Store initialize invalidate function
+ * Store initialize invalidate function map.
  * Key is componentId
  *
  * @type {Map<string, Array<{invalidateId:string, fn: () => void, unsubscribe: (() => void)[]  }>>}
@@ -53,26 +53,66 @@ export const invalidateFunctionMap = new Map();
 
 /**
  * @description
- * Set initialized to true.
- * Set scopedId.
+ * Is the first call to populate placeholderMap.
+ * Initialize all the props.
+ *
+ * Here we have scopeId, content is just render from getParamsForComponent()
+ * element: we will wait the end of parse.
+ * initialize: we will wait fire function.
  *
  * @param {object} params
  * @param {string} params.invalidateId - invalidateId
  * @param {string} params.scopeId - scopeId
  * @returns {void}
  */
-export const setInvalidatePlaceholderMapInitialized = ({
+export const setInvalidatePlaceholderMapScopedId = ({
     invalidateId,
     scopeId,
 }) => {
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+        element: undefined,
+        initialized: false,
+        scopeId,
+    });
+};
+
+/**
+ * @description
+ * Set initialized to true.
+ * Set scopedId.
+ *
+ * @param {object} params
+ * @param {string} params.invalidateId - invalidateId
+ * @returns {void}
+ */
+export const setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
     const item = invalidateIdPlaceHolderMap.get(invalidateId);
     if (!item) return;
 
     invalidateIdPlaceHolderMap.set(invalidateId, {
         ...item,
         initialized: true,
-        scopeId,
     });
+};
+
+/**
+ * @description
+ * Store parent invalidate block from repeat webComponent.
+ *
+ * @param {object} params
+ * @param {string} params.invalidateId - invalidateId id
+ * @param {object} params.host  - webComponent root
+ */
+export const setParentInvalidate = ({ invalidateId, host }) => {
+    const item = invalidateIdPlaceHolderMap.get(invalidateId);
+    if (!item) return;
+
+    const parent = /** @type{HTMLElement} */ (host.parentNode);
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+        ...item,
+        element: parent,
+    });
+    invalidateIdHostMap.set(invalidateId, host);
 };
 
 /**
@@ -186,24 +226,6 @@ export const getInvalidateFunctions = ({ id }) => {
 
 /**
  * @description
- * Store parent invalidate block from repeat webComponent.
- *
- * @param {object} params
- * @param {string} params.invalidateId - invalidateId id
- * @param {object} params.host  - webComponent root
- */
-export const setParentInvalidate = ({ invalidateId, host }) => {
-    const parent = /** @type{HTMLElement} */ (host.parentNode);
-    invalidateIdPlaceHolderMap.set(invalidateId, {
-        element: parent,
-        initialized: false,
-        scopeId: undefined,
-    });
-    invalidateIdHostMap.set(invalidateId, host);
-};
-
-/**
- * @description
  * Get invalidate parent by invalidate id.
  *
  * @returns {HTMLElement}
@@ -273,13 +295,15 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
  *
  * @param {object} params
  * @param {HTMLElement} params.invalidateParent
+ * @param {string} params.id - componentId
  * @returns {void}
  */
-export const inizializeNestedInvalidate = ({ invalidateParent }) => {
+export const inizializeNestedInvalidate = ({ invalidateParent, id }) => {
     const newInvalidateChild = getRepeatOrInvalidateInsideElement({
         element: invalidateParent,
         skipInitialized: true,
         onlyInitialized: false,
+        componentId: id,
         module: MODULE_INVALIDATE,
     });
 
@@ -418,8 +442,8 @@ export const inizializeInvalidateWatch = async ({
                 /**
                  * Run new invalidate init function
                  */
-                inizializeNestedInvalidate({ invalidateParent });
-                inizializeNestedRepeat({ repeatParent: invalidateParent });
+                inizializeNestedInvalidate({ invalidateParent, id });
+                inizializeNestedRepeat({ repeatParent: invalidateParent, id });
 
                 unFreezePropById({ id, prop: state });
 

@@ -34,7 +34,7 @@ export const repeatIdHostMap = new Map();
 
 /**
  * @description
- * Store initialize repeat function
+ * Store initialize function map.
  * Key is componentId
  *
  * @type {Map<string, Array<{repeatId:string, fn: () => void, unsubscribe: () => void}>>}
@@ -43,23 +43,63 @@ export const repeatFunctionMap = new Map();
 
 /**
  * @description
- * Set initialized to true.
- * Set scopedId.
+ * Is the first call to populate placeholderMap.
+ * Initialize all the props.
+ *
+ * Here we have scopeId, content is just render from getParamsForComponent()
+ * element: we will wait the end of parse.
+ * initialize: we will wait fire function.
  *
  * @param {object} params
  * @param {string} params.repeatId - repeatId
- * @param {string} params.scopeId - scopeId
+ * @param {string} params.scopeId - scopedId
  * @returns {void}
  */
-export const setRepeaterPlaceholderMapInitialized = ({ repeatId, scopeId }) => {
+export const setRepeaterPlaceholderMapScopeId = ({ repeatId, scopeId }) => {
+    repeatIdPlaceHolderMap.set(repeatId, {
+        element: undefined,
+        initialized: false,
+        scopeId,
+    });
+};
+
+/**
+ * @description
+ * Set initialized to true.
+ *
+ * @param {object} params
+ * @param {string} params.repeatId - repeatId
+ * @returns {void}
+ */
+export const setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
 
     repeatIdPlaceHolderMap.set(repeatId, {
         ...item,
         initialized: true,
-        scopeId,
     });
+};
+
+/**
+ * @description
+ * Store parent repeat block from repeat webComponent.
+ *
+ * @param {object} params
+ * @param {string} params.repeatId - repeat id
+ * @param {object} params.host  - webComponent root
+ */
+export const setParentRepeater = ({ repeatId, host }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+
+    const parent = /** @type{HTMLElement} */ (host.parentNode);
+    repeatIdPlaceHolderMap.set(repeatId, {
+        ...item,
+        element: parent,
+    });
+
+    repeatIdHostMap.set(repeatId, host);
 };
 
 /**
@@ -171,25 +211,6 @@ export const getRepeatFunctions = ({ id }) => {
 
 /**
  * @description
- * Store parent repeat block from repeat webComponent.
- *
- * @param {object} params
- * @param {string} params.repeatId - repeat id
- * @param {object} params.host  - webComponent root
- */
-export const setParentRepeater = ({ repeatId, host }) => {
-    const parent = /** @type{HTMLElement} */ (host.parentNode);
-    repeatIdPlaceHolderMap.set(repeatId, {
-        element: parent,
-        initialized: false,
-        scopeId: undefined,
-    });
-
-    repeatIdHostMap.set(repeatId, host);
-};
-
-/**
- * @description
  * Get repeat parent by repeat id.
  *
  * @returns {HTMLElement}
@@ -261,13 +282,15 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
  *
  * @param {object} params
  * @param {HTMLElement} params.repeatParent
+ * @param {string} params.id - componentId
  * @returns {void}
  */
-export const inizializeNestedRepeat = ({ repeatParent }) => {
+export const inizializeNestedRepeat = ({ repeatParent, id }) => {
     const newRepeatChild = getRepeatOrInvalidateInsideElement({
         element: repeatParent,
         skipInitialized: true,
         onlyInitialized: false,
+        componentId: id,
         module: MODULE_REPEATER,
     });
 

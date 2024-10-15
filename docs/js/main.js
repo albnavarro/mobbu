@@ -17261,17 +17261,36 @@
   var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
   var invalidateIdHostMap = /* @__PURE__ */ new Map();
   var invalidateFunctionMap = /* @__PURE__ */ new Map();
-  var setInvalidatePlaceholderMapInitialized = ({
+  var setInvalidatePlaceholderMapScopedId = ({
     invalidateId,
     scopeId
   }) => {
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      element: void 0,
+      initialized: false,
+      scopeId
+    });
+  };
+  var setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
     const item = invalidateIdPlaceHolderMap.get(invalidateId);
     if (!item) return;
     invalidateIdPlaceHolderMap.set(invalidateId, {
       ...item,
-      initialized: true,
-      scopeId
+      initialized: true
     });
+  };
+  var setParentInvalidate = ({ invalidateId, host }) => {
+    const item = invalidateIdPlaceHolderMap.get(invalidateId);
+    if (!item) return;
+    const parent = (
+      /** @type{HTMLElement} */
+      host.parentNode
+    );
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      ...item,
+      element: parent
+    });
+    invalidateIdHostMap.set(invalidateId, host);
   };
   var removeInvalidateId = ({ id }) => {
     if (invalidateFunctionMap.has(id)) {
@@ -17316,18 +17335,6 @@
   var getInvalidateFunctions = ({ id }) => {
     return invalidateFunctionMap.get(id) ?? [];
   };
-  var setParentInvalidate = ({ invalidateId, host }) => {
-    const parent = (
-      /** @type{HTMLElement} */
-      host.parentNode
-    );
-    invalidateIdPlaceHolderMap.set(invalidateId, {
-      element: parent,
-      initialized: false,
-      scopeId: void 0
-    });
-    invalidateIdHostMap.set(invalidateId, host);
-  };
   var getInvalidateParent = ({ id }) => {
     if (!invalidateIdPlaceHolderMap.has(id)) {
       return;
@@ -17364,11 +17371,12 @@
       });
     });
   };
-  var inizializeNestedInvalidate = ({ invalidateParent }) => {
+  var inizializeNestedInvalidate = ({ invalidateParent, id }) => {
     const newInvalidateChild = getRepeatOrInvalidateInsideElement({
       element: invalidateParent,
       skipInitialized: true,
       onlyInitialized: false,
+      componentId: id,
       module: MODULE_INVALIDATE
     });
     const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter(({ invalidateId }) => {
@@ -17443,8 +17451,8 @@
           watchIsRunning = false;
           descrementQueue();
           decrementInvalidateQueque();
-          inizializeNestedInvalidate({ invalidateParent });
-          inizializeNestedRepeat({ repeatParent: invalidateParent });
+          inizializeNestedInvalidate({ invalidateParent, id });
+          inizializeNestedRepeat({ repeatParent: invalidateParent, id });
           unFreezePropById({ id, prop: state });
           afterUpdate();
         });
@@ -18927,9 +18935,13 @@
           newChildren.forEach((childId) => {
             const element = getElementById({ id: childId });
             inizializeNestedInvalidate({
-              invalidateParent: element
+              invalidateParent: element,
+              id
             });
-            inizializeNestedRepeat({ repeatParent: element });
+            inizializeNestedRepeat({
+              repeatParent: element,
+              id
+            });
           });
         });
       }
@@ -18944,14 +18956,33 @@
   };
   var repeatIdHostMap = /* @__PURE__ */ new Map();
   var repeatFunctionMap = /* @__PURE__ */ new Map();
-  var setRepeaterPlaceholderMapInitialized = ({ repeatId, scopeId }) => {
+  var setRepeaterPlaceholderMapScopeId = ({ repeatId, scopeId }) => {
+    repeatIdPlaceHolderMap.set(repeatId, {
+      element: void 0,
+      initialized: false,
+      scopeId
+    });
+  };
+  var setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
     repeatIdPlaceHolderMap.set(repeatId, {
       ...item,
-      initialized: true,
-      scopeId
+      initialized: true
     });
+  };
+  var setParentRepeater = ({ repeatId, host }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    const parent = (
+      /** @type{HTMLElement} */
+      host.parentNode
+    );
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      element: parent
+    });
+    repeatIdHostMap.set(repeatId, host);
   };
   var removeRepeaterId = ({ id }) => {
     if (repeatFunctionMap.has(id)) {
@@ -18994,18 +19025,6 @@
   var getRepeatFunctions = ({ id }) => {
     return repeatFunctionMap.get(id) ?? [];
   };
-  var setParentRepeater = ({ repeatId, host }) => {
-    const parent = (
-      /** @type{HTMLElement} */
-      host.parentNode
-    );
-    repeatIdPlaceHolderMap.set(repeatId, {
-      element: parent,
-      initialized: false,
-      scopeId: void 0
-    });
-    repeatIdHostMap.set(repeatId, host);
-  };
   var getRepeatParent = ({ id }) => {
     if (!repeatIdPlaceHolderMap.has(id)) {
       return;
@@ -19040,11 +19059,12 @@
       });
     });
   };
-  var inizializeNestedRepeat = ({ repeatParent }) => {
+  var inizializeNestedRepeat = ({ repeatParent, id }) => {
     const newRepeatChild = getRepeatOrInvalidateInsideElement({
       element: repeatParent,
       skipInitialized: true,
       onlyInitialized: false,
+      componentId: id,
       module: MODULE_REPEATER
     });
     const repeatChildToInizialize = [...repeatFunctionMap.values()].flat().filter(({ repeatId }) => {
@@ -19996,6 +20016,7 @@
         const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
         const invalidateRender = () => render2({ html: renderHtml });
         let isInizialized = false;
+        setInvalidatePlaceholderMapScopedId({ invalidateId, scopeId: id });
         setInvalidateFunction({
           id,
           invalidateId,
@@ -20016,8 +20037,7 @@
             });
             isInizialized = true;
             setInvalidatePlaceholderMapInitialized({
-              invalidateId,
-              scopeId: id
+              invalidateId
             });
           }
         });
@@ -20062,6 +20082,10 @@
           ).join("");
         };
         let isInizialized = false;
+        setRepeaterPlaceholderMapScopeId({
+          repeatId,
+          scopeId: id
+        });
         setRepeatFunction({
           id,
           repeatId,
@@ -20083,8 +20107,7 @@
             });
             isInizialized = true;
             setRepeaterPlaceholderMapInitialized({
-              repeatId,
-              scopeId: id
+              repeatId
             });
           }
         });

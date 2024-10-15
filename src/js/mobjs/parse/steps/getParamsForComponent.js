@@ -5,6 +5,7 @@ import { getChildrenIdByName } from '../../component/action/children';
 import {
     inizializeRepeatWatch,
     setRepeaterPlaceholderMapInitialized,
+    setRepeaterPlaceholderMapScopeId,
     setRepeatFunction,
 } from '../../modules/repeater';
 import {
@@ -15,6 +16,7 @@ import {
     inizializeInvalidateWatch,
     setInvalidateFunction,
     setInvalidatePlaceholderMapInitialized,
+    setInvalidatePlaceholderMapScopedId,
 } from '../../modules/invalidate';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch, unBind } from '../../component/action/props';
@@ -203,6 +205,8 @@ export const getParamsForComponentFunction = ({
              */
             let isInizialized = false;
 
+            setInvalidatePlaceholderMapScopedId({ invalidateId, scopeId: id });
+
             setInvalidateFunction({
                 id,
                 invalidateId,
@@ -229,7 +233,6 @@ export const getParamsForComponentFunction = ({
 
                     setInvalidatePlaceholderMapInitialized({
                         invalidateId,
-                        scopeId: id,
                     });
                 },
             });
@@ -290,6 +293,11 @@ export const getParamsForComponentFunction = ({
              */
             let isInizialized = false;
 
+            setRepeaterPlaceholderMapScopeId({
+                repeatId,
+                scopeId: id,
+            });
+
             setRepeatFunction({
                 id,
                 repeatId,
@@ -318,7 +326,6 @@ export const getParamsForComponentFunction = ({
 
                     setRepeaterPlaceholderMapInitialized({
                         repeatId,
-                        scopeId: id,
                     });
                 },
             });

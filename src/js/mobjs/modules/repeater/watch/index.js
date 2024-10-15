@@ -318,9 +318,13 @@ export const watchRepeat = ({
 
                     inizializeNestedInvalidate({
                         invalidateParent: element,
+                        id,
                     });
 
-                    inizializeNestedRepeat({ repeatParent: element });
+                    inizializeNestedRepeat({
+                        repeatParent: element,
+                        id,
+                    });
                 });
             });
         }
