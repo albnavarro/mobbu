@@ -28,6 +28,13 @@
             "content": "The delegateEvents function collects all events associated with individual elements into a single listener associated with the app root. The event target will then be redirected to the right node. This works and you can use it on simple components or nodes."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "During the execution of each event, further calls made before the entire app has updated will be inhibited."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
