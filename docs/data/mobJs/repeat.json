@@ -92,7 +92,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "key:"
+            "content": "key ( optional ):"
         },
         {
             "component": "mob-paragraph",
@@ -106,21 +106,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span class='quote'>key used:</span> If a key is used the only persistent components will be those that store the key. The components will not be recycled but if they are new they will be recreated from scratch. For this reason it is possible to use the currentValue parameter passed directly from the repeat function"
+            "content": "<strong>key used:</strong> If a key is used the only <span class='quote'>persistent</span> components will be those that store the key. The components will not be recycled but if they are new they will be recreated from scratch. For this reason it is possible to use the <span class='quote'>currentValue/index</span> parameter passed directly from the repeat function"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span class='quote'>no key used:</span> If no key is specified or clean=false, only new items will be added, but persistent items will not be affected. Each recycled component will be updated through the bindProps function. bindProps/delegateEvent/bindEvent will always return the correct index value relative to the original position of the observed array"
+            "content": "<strong>no key used:</strong> If no key is specified or, only new items will be added, but persistent items will not be affected. Each recycled component will be updated through the bindProps function. bindProps/delegateEvent/bindEvent will always return the correct index value relative to the original position of the observed array"
         },
         {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
             },
-            "content": "beforeUpdate"
+            "content": "beforeUpdate ( optional )"
         },
         {
             "component": "mob-paragraph",
@@ -145,7 +145,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "afterUpdate"
+            "content": "afterUpdate ( optional )"
         },
         {
             "component": "mob-paragraph",

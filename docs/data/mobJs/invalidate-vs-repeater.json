@@ -35,8 +35,8 @@
                 "dots": true,
                 "items": [
                     "Invalidate takes care of deleting the old DOM and returning a fresh new DOM.",
-                    "Inside an invalidate there are <span class='quote'>no limits</span> on the formatting of the code, and it is possible to use the standard javascript <span class='quote'>map()</span> function to create lists of elements.",
-                    "Creating a component without using <span class='quote'>props binding</span> is more performant than updating an already created component. Often the <span class='quote'>staticProps</span> function used inside <span class='quote'>invalidate</span> block is advantageous if it is not necessary to keep track of the component state."
+                    "Inside an invalidate there are <span class='quote'>no limits</span> on the formatting of the code, and it is possible to use the standard javascript <span class='quote'>map()</span> function to create lists of elements in case we don't need reactivity.",
+                    "Invalidate can also be used to generate DOM blocks depending on specific <span class='quote'>conditions</span>. Returning a function you can use getState() inside it and create more or less complex specific conditions."
                 ]
             }
         },
@@ -94,7 +94,7 @@
                 "dots": false,
                 "items": [
                     "<a href='./#mobJs-invalidate'>invalidate</a>",
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                    "<a href='./#mobJs-repeat'>repeat ( array.map )</a>"
                 ]
             }
         }
