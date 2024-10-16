@@ -25,14 +25,20 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The staticProps function allows you to pass static values to the state of a component without triggering any reactivity."
+            "content": "The <span class='quote'>staticProps</span> function allows you to pass <span class='quote'>static values</span> to the state of a component without triggering any reactivity. It is useful when you know that the value will not have to be reactive, clearer to read, lighter for the entire app."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "It is useful when you know that the value will not have to be reactive, clearer to read, lighter for the entire app."
+            "content": "The values are available from the <span class='quote'>created state</span>, without having to wait for the onMount state."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",

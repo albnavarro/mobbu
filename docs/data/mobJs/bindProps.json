@@ -32,12 +32,25 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The bindProps function is an object with two properties:"
+            "content": "The values are available from the <span class='quote'>created state</span>, without having to wait for the onMount state."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
+            },
+            "content": "Params"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
             },
             "content": "bind"
         },
@@ -56,11 +69,17 @@
             "content": "The parameter is optional since within a repeater the monitored state will trigger the reaction by default, if you want to monitor only that state you can omit the bind parameter."
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
-            "content": "forceParent"
+            "content": "forceParent ( optional )"
         },
         {
             "component": "mob-paragraph",
@@ -70,9 +89,15 @@
             "content": "By default the states defined in the watch parameter are related to the general component. When inserting multiple components into the same return (for example, we are using a <a href='./#mobJs-slot'>slot</a> or a nested component inside a repeater) you can decide to point to the states of the first component that hosts it and not of the general function component."
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "props"
         },
