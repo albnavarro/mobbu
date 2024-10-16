@@ -208,7 +208,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
         const arrayValues = arrayValuesFromProp(stateToWatch);
 
         // prop is array
-        const isArray = arrayValues?.length === 1;
+        const isArray = arrayValues?.length > 0;
 
         // in case of myProps[0] watch only myprops
         const finalStateTowatch = isArray
