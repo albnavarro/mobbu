@@ -29,6 +29,18 @@ export const addBindTextPlaceHolderMap = ({
 };
 
 /**
+ * @param {string} value
+ * @returns {any[]}
+ */
+const arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
+
+/**
+ * @param {string} value
+ * @returns {string}
+ */
+const splitPropUntilSquare = (value) => value.split('[')?.[0];
+
+/**
  * @param {string} id - componentId
  * @param {TemplateStringsArray} strings
  * @param {any[]} values
@@ -46,9 +58,19 @@ export const renderBindText = (id, strings, ...values) => {
         return propsToArray.reduce(
             (
                 /** @type {{ [x: string]: any; }} */ previous,
-                /** @type {string | number} */ current
+                /** @type {string } */ current
             ) => {
-                return previous?.[current] ?? previous;
+                // props is link myProps[0]
+                const arrayValues = arrayValuesFromProp(current);
+
+                // prop is array
+                const isArray = arrayValues?.length === 1;
+
+                const finalPropValue = isArray
+                    ? previous[splitPropUntilSquare(current)]?.[arrayValues[0]]
+                    : previous?.[current];
+
+                return finalPropValue ?? previous;
             },
             props
         );
@@ -176,12 +198,26 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
     props.forEach((state) => {
         /**
          * Get state to watch if prop is:
-         * bindText`${'obj.prop1.prop2'}`
+         * bindText`${'myProps.prop1.prop2'}`
+         * Get first prop
          */
         const propsToArray = state.split('.');
         const stateToWatch = propsToArray?.[0];
 
-        watchById(id, stateToWatch, () => {
+        // props is link myProps[0]
+        const arrayValues = arrayValuesFromProp(stateToWatch);
+
+        // prop is array
+        const isArray = arrayValues?.length === 1;
+
+        // in case of myProps[0] watch only myprops
+        const finalStateTowatch = isArray
+            ? splitPropUntilSquare(stateToWatch)
+            : stateToWatch;
+
+        if (!finalStateTowatch) return;
+
+        watchById(id, finalStateTowatch, () => {
             /**
              * Wait for all all props is settled.
              */
