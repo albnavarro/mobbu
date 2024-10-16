@@ -29,12 +29,18 @@ export const addBindTextPlaceHolderMap = ({
 };
 
 /**
+ * @description
+ * Check if there is square brackets in a string with value eg. [0]
+ *
  * @param {string} value
  * @returns {any[]}
  */
 const arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
 
 /**
+ * @description
+ * Split string until first square [ and return strign before [
+ *
  * @param {string} value
  * @returns {string}
  */
