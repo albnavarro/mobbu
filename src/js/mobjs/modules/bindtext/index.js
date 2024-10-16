@@ -41,6 +41,24 @@ const arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
 const splitPropUntilSquare = (value) => value.split('[')?.[0];
 
 /**
+ * @param {object} params
+ * @param {{ [x:string]: any }} params.previous
+ * @param {string} params.current
+ * @returns {any[]}
+ */
+const parsePropValue = ({ previous, current }) => {
+    const arrayValues = arrayValuesFromProp(current);
+    const isArray = arrayValues?.length > 0;
+
+    return isArray
+        ? arrayValues.reduce(
+              (accumulator, currentProp) => accumulator?.[currentProp],
+              previous[splitPropUntilSquare(current)]
+          )
+        : previous?.[current];
+};
+
+/**
  * @param {string} id - componentId
  * @param {TemplateStringsArray} strings
  * @param {any[]} values
@@ -60,16 +78,10 @@ export const renderBindText = (id, strings, ...values) => {
                 /** @type {{ [x: string]: any; }} */ previous,
                 /** @type {string } */ current
             ) => {
-                // props is link myProps[0]
-                const arrayValues = arrayValuesFromProp(current);
-
-                // prop is array
-                const isArray = arrayValues?.length === 1;
-
-                const finalPropValue = isArray
-                    ? previous[splitPropUntilSquare(current)]?.[arrayValues[0]]
-                    : previous?.[current];
-
+                /**
+                 * Return prop value or array value
+                 */
+                const finalPropValue = parsePropValue({ previous, current });
                 return finalPropValue ?? previous;
             },
             props
