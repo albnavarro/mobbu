@@ -10,15 +10,14 @@ export const benchMarkDefinitionPartial = {
         data: () => ({
             value: [],
             type: Array,
-            validate: (value) => {
-                return value.length < 2001;
-            },
+            validate: (value) => value.length < 2001,
             strict: true,
             skipEqual: false,
         }),
         time: () => ({
             value: 0,
             type: Number,
+            transform: (value) => Math.round(value),
             skipEqual: false,
         }),
         isLoading: () => ({

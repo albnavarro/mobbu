@@ -41,7 +41,7 @@ const setData = async ({ setState, value, useShuffle = false }) => {
     await tick();
 
     mobCore.useNextTick(async () => {
-        const startDate = new Date();
+        const startTime = performance.now();
         setState(
             'data',
             useShuffle
@@ -50,9 +50,8 @@ const setData = async ({ setState, value, useShuffle = false }) => {
         );
         await tick();
 
-        const endDate = new Date();
-        // @ts-ignore
-        const difference = endDate - startDate;
+        const endTime = performance.now();
+        const difference = endTime - startTime;
         setState('time', difference);
         setState('isLoading', false);
     });
