@@ -49,18 +49,16 @@
             "content": "Repeater:"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "Repeater, on the other hand, keeps track of the components by reusing them and optionally maintaining their order."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The <span class='quote'>repeat</span> function, unlike <span class='quote'>invalidate</span>, must return a unique node as its first element."
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "The repeater module should be thought of as a reactive <span class='quote'>array.map()</span>.",
+                    "Repeater keeps track of the components by reusing them or maintaining their order.",
+                    "The <span class='quote'>repeat</span> function, unlike <span class='quote'>invalidate</span>, must return a unique node as its first element."
+                ]
+            }
         },
         {
             "component": "mob-title",
@@ -77,7 +75,8 @@
                 "dots": true,
                 "items": [
                     "Both functions must be contained in a unique div",
-                    "A repeater with the <span class='quote'>clean=true</span> option is in all respects the mirror image of an <span class='quote'>invalidate</span>."
+                    "A repeater with the <span class='quote'>clean=true</span> option is in all respects the mirror image of an <span class='quote'>invalidate</span>.",
+                    "One of the goals of this library is to separate all <span class='quote'>static</span> content from <span class='quote'>dynamic</span> content, a correct use of invalidate/repeater will bring more clarity inside the component, just like a correct use of staticProps/bindProps."
                 ]
             }
         },
