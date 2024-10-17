@@ -347,37 +347,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "id": "async",
-                "label": "Async"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "Async"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The component function can be asynchronous. It is therefore possible to perform fetches and similar operations before rendering the DOM"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mobJs/componentAsync.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 23
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "style": "medium",
                 "id": "parameters",
                 "label": "Component function params"
