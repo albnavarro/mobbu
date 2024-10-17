@@ -2433,6 +2433,21 @@ code {
 .c-debug-tree__scrollbar:focus::-moz-range-thumb {
   outline-offset: 0;
 }
+.c-debug-tree__status {
+  color: #fff;
+  font-size: 0.8rem;
+  margin-top: 1.3333333333rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 2.6666666667rem;
+  border: 1px #fff solid;
+  padding: 0.3333333333rem 0.6666666667rem;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.c-debug-tree__status.visible {
+  display: block;
+}
 .c-debug-head {
   color: #fff;
   font-size: 0.8rem;

@@ -142,11 +142,9 @@ export const DebugFilterListFn = ({
         const { loadingRef, noresultRef } = getRef();
 
         (async () => {
-            const methods = await initScroller({ getRef });
-            destroy = methods.destroy;
-            move = methods.move;
-            refresh = methods.refresh;
-            updateScroller = methods.updateScroller;
+            ({ destroy, move, refresh, updateScroller } = await initScroller({
+                getRef,
+            }));
         })();
 
         watch('isLoading', (isLoading) => {
@@ -162,6 +160,10 @@ export const DebugFilterListFn = ({
 
         return () => {
             destroy?.();
+            destroy = () => {};
+            refresh = () => {};
+            updateScroller = () => {};
+            move = () => {};
         };
     });
 

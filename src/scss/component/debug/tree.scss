@@ -67,4 +67,21 @@
             outline-offset: 0;
         }
     }
+
+    &__status {
+        color: $white;
+        font-size: rem(12);
+        margin-top: rem(20);
+        position: absolute;
+        bottom: rem(15);
+        right: rem(40);
+        border: 1px $white solid;
+        padding: rem(5) rem(10);
+        background: rgba($black, 0.5);
+        display: none;
+
+        &.visible {
+            display: block;
+        }
+    }
 }

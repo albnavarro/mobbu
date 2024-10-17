@@ -13,6 +13,10 @@ export const DebugTree = createComponent({
             value: [],
             type: Array,
         }),
+        isLoading: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
     child: [DebugTreeItem],
 });

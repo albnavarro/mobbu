@@ -4,6 +4,7 @@
  * @import { MobComponent } from '../../../../../mobjs/type';
  **/
 
+import { mobCore } from '../../../../../mobCore';
 import { getTree, mainStore, tick } from '../../../../../mobjs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { generateTreeComponents } from './recursiveTree';
@@ -19,19 +20,19 @@ const initScroller = async ({ getRef }) => {
         scrollbar,
     });
 
-    const init = methods.init;
     const destroy = methods.destroy;
     const refresh = methods.refresh;
     const move = methods.move;
     const updateScroller = methods.updateScroller;
-    init();
+
+    methods.init();
     updateScroller();
     move(0);
 
     return {
         destroy,
-        move,
         refresh,
+        move,
         updateScroller,
     };
 };
@@ -48,6 +49,7 @@ export const DebugTreeFn = ({
     getRef,
     addMethod,
     delegateEvents,
+    watch,
 }) => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};
@@ -55,10 +57,12 @@ export const DebugTreeFn = ({
     let refresh = () => {};
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let updateScroller = () => {};
-
-    let move;
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let move = () => {};
 
     onMount(() => {
+        const { loadingRef } = getRef();
+
         addMethod('refresh', () => {
             refresh?.();
             updateScroller?.();
@@ -68,40 +72,47 @@ export const DebugTreeFn = ({
         const unsubscrineRoute = mainStore.watch(
             'afterRouteChange',
             async () => {
+                setState('isLoading', true);
                 await tick();
 
-                destroy?.();
-                setState('data', getTree());
-                const methods = await initScroller({ getRef });
-                destroy = methods.destroy;
-                move = methods.move;
-                refresh = methods.refresh;
-                updateScroller = methods.updateScroller;
+                mobCore.useFrame(() => {
+                    mobCore.useNextTick(async () => {
+                        destroy?.();
+                        setState('data', getTree());
+                        ({ destroy, move, refresh, updateScroller } =
+                            await initScroller({ getRef }));
+                        setState('isLoading', false);
+                    });
+                });
             }
         );
 
+        watch('isLoading', (isLoading) => {
+            loadingRef.classList.toggle('visible', isLoading);
+        });
+
         (async () => {
-            /**
-             * Populate list after app is completed.
-             * So total component counter doas't count tree list.
-             *
-             * If i want to show immediately first result i have to:
-             * - set getTree() in component definition.
-             * - set data on created.
-             */
+            setState('isLoading', true);
             await tick();
 
-            setState('data', getTree());
-            const methods = await initScroller({ getRef });
-            destroy = methods.destroy;
-            move = methods.move;
-            refresh = methods.refresh;
-            updateScroller = methods.updateScroller;
+            mobCore.useFrame(() => {
+                mobCore.useNextTick(async () => {
+                    destroy?.();
+                    setState('data', getTree());
+                    ({ destroy, move, refresh, updateScroller } =
+                        await initScroller({ getRef }));
+                    setState('isLoading', false);
+                });
+            });
         })();
 
         return () => {
             unsubscrineRoute();
             destroy?.();
+            destroy = () => {};
+            refresh = () => {};
+            updateScroller = () => {};
+            move = () => {};
         };
     });
 
@@ -125,6 +136,9 @@ export const DebugTreeFn = ({
                         },
                     })}
                 />
+                <span ${setRef('loadingRef')} class="c-debug-tree__status"
+                    >Create list</span
+                >
                 <div class="c-debug-tree__scroller" ${setRef('scroller')}>
                     ${invalidate({
                         bind: 'data',

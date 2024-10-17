@@ -32657,11 +32657,9 @@ Loading snippet ...</pre
     onMount(() => {
       const { loadingRef, noresultRef } = getRef();
       (async () => {
-        const methods = await initScroller2({ getRef });
-        destroy = methods.destroy;
-        move = methods.move;
-        refresh = methods.refresh;
-        updateScroller = methods.updateScroller;
+        ({ destroy, move, refresh, updateScroller } = await initScroller2({
+          getRef
+        }));
       })();
       watch("isLoading", (isLoading) => {
         const { data: data2 } = getState();
@@ -32674,6 +32672,14 @@ Loading snippet ...</pre
       });
       return () => {
         destroy?.();
+        destroy = () => {
+        };
+        refresh = () => {
+        };
+        updateScroller = () => {
+        };
+        move = () => {
+        };
       };
     });
     return html`
@@ -33211,18 +33217,17 @@ Loading snippet ...</pre
       scroller: scroller2,
       scrollbar
     });
-    const init7 = methods.init;
     const destroy = methods.destroy;
     const refresh = methods.refresh;
     const move = methods.move;
     const updateScroller = methods.updateScroller;
-    init7();
+    methods.init();
     updateScroller();
     move(0);
     return {
       destroy,
-      move,
       refresh,
+      move,
       updateScroller
     };
   };
@@ -33236,7 +33241,8 @@ Loading snippet ...</pre
     setRef,
     getRef,
     addMethod,
-    delegateEvents
+    delegateEvents,
+    watch
   }) => {
     let destroy = () => {
     };
@@ -33244,8 +33250,10 @@ Loading snippet ...</pre
     };
     let updateScroller = () => {
     };
-    let move;
+    let move = () => {
+    };
     onMount(() => {
+      const { loadingRef } = getRef();
       addMethod("refresh", () => {
         refresh?.();
         updateScroller?.();
@@ -33253,28 +33261,44 @@ Loading snippet ...</pre
       const unsubscrineRoute = mainStore.watch(
         "afterRouteChange",
         async () => {
+          setState("isLoading", true);
           await tick();
-          destroy?.();
-          setState("data", getTree());
-          const methods = await initScroller3({ getRef });
-          destroy = methods.destroy;
-          move = methods.move;
-          refresh = methods.refresh;
-          updateScroller = methods.updateScroller;
+          mobCore.useFrame(() => {
+            mobCore.useNextTick(async () => {
+              destroy?.();
+              setState("data", getTree());
+              ({ destroy, move, refresh, updateScroller } = await initScroller3({ getRef }));
+              setState("isLoading", false);
+            });
+          });
         }
       );
+      watch("isLoading", (isLoading) => {
+        loadingRef.classList.toggle("visible", isLoading);
+      });
       (async () => {
+        setState("isLoading", true);
         await tick();
-        setState("data", getTree());
-        const methods = await initScroller3({ getRef });
-        destroy = methods.destroy;
-        move = methods.move;
-        refresh = methods.refresh;
-        updateScroller = methods.updateScroller;
+        mobCore.useFrame(() => {
+          mobCore.useNextTick(async () => {
+            destroy?.();
+            setState("data", getTree());
+            ({ destroy, move, refresh, updateScroller } = await initScroller3({ getRef }));
+            setState("isLoading", false);
+          });
+        });
       })();
       return () => {
         unsubscrineRoute();
         destroy?.();
+        destroy = () => {
+        };
+        refresh = () => {
+        };
+        updateScroller = () => {
+        };
+        move = () => {
+        };
       };
     });
     return html`
@@ -33296,6 +33320,9 @@ Loading snippet ...</pre
       }
     })}
                 />
+                <span ${setRef("loadingRef")} class="c-debug-tree__status"
+                    >Create list</span
+                >
                 <div class="c-debug-tree__scroller" ${setRef("scroller")}>
                     ${invalidate({
       bind: "data",
@@ -33442,6 +33469,10 @@ Loading snippet ...</pre
       data: () => ({
         value: [],
         type: Array
+      }),
+      isLoading: () => ({
+        value: false,
+        type: Boolean
       })
     },
     child: [DebugTreeItem]
