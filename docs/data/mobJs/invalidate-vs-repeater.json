@@ -41,6 +41,12 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h3",
@@ -61,12 +67,18 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h3",
                 "isBold": true
             },
-            "content": ""
+            "content": "Difference:"
         },
         {
             "component": "mob-list",
@@ -77,6 +89,31 @@
                     "Both functions must be contained in a unique div",
                     "A repeater with the <span class='quote'>clean=true</span> option is in all respects the mirror image of an <span class='quote'>invalidate</span>.",
                     "One of the goals of this library is to separate all <span class='quote'>static</span> content from <span class='quote'>dynamic</span> content, a correct use of invalidate/repeater will bring more clarity inside the component, just like a correct use of staticProps/bindProps."
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "isBold": true
+            },
+            "content": "Performance:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "Performance at creation time is very similar, invalidate may be slightly faster and repeat with key slightly slower.",
+                    "During the update repeater without key will be the fastest, if there is no need to preserve the internal state of the component it is recommended."
                 ]
             }
         },

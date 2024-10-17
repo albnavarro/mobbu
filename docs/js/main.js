@@ -32714,7 +32714,7 @@ Loading snippet ...</pre
                 <span
                     ${setRef("loadingRef")}
                     class="c-debug-filter-list__status"
-                    >Create list</span
+                    >Generate list</span
                 >
                 <span
                     ${setRef("noresultRef")}
@@ -33331,7 +33331,7 @@ Loading snippet ...</pre
     })}
                 />
                 <span ${setRef("loadingRef")} class="c-debug-tree__status"
-                    >Create list</span
+                    >Generate tree</span
                 >
                 <div class="c-debug-tree__scroller" ${setRef("scroller")}>
                     ${invalidate({

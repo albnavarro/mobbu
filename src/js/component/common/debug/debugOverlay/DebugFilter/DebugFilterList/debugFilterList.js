@@ -190,7 +190,7 @@ export const DebugFilterListFn = ({
                 <span
                     ${setRef('loadingRef')}
                     class="c-debug-filter-list__status"
-                    >Create list</span
+                    >Generate list</span
                 >
                 <span
                     ${setRef('noresultRef')}

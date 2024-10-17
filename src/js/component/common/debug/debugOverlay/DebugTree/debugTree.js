@@ -137,7 +137,7 @@ export const DebugTreeFn = ({
                     })}
                 />
                 <span ${setRef('loadingRef')} class="c-debug-tree__status"
-                    >Create list</span
+                    >Generate tree</span
                 >
                 <div class="c-debug-tree__scroller" ${setRef('scroller')}>
                     ${invalidate({
