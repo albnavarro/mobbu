@@ -65,10 +65,15 @@ export const LinksMobJsFn = ({
     onMount(() => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
 
-        let init;
-        let destroy;
-        let move;
-        let updateScroller;
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let init = () => {};
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let destroy = () => {};
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let move = () => {};
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let updateScroller = () => {};
+
         let isActive = false;
 
         scrollbar.addEventListener('input', () => {
@@ -104,19 +109,18 @@ export const LinksMobJsFn = ({
                     screenEl.classList.add('active');
                     if (isActive) return;
 
-                    const methods = verticalScroller({
-                        screen: screenEl,
-                        scroller: scrollerEl,
-                        scrollbar,
-                    });
+                    ({ init, destroy, move, updateScroller } = verticalScroller(
+                        {
+                            screen: screenEl,
+                            scroller: scrollerEl,
+                            scrollbar,
+                        }
+                    ));
 
-                    init = methods.init;
-                    destroy = methods.destroy;
-                    move = methods.move;
-                    updateScroller = methods.updateScroller;
                     isActive = true;
                     init();
                     updateScroller();
+                    // @ts-ignore
                     move(0);
                 }
 
@@ -131,6 +135,10 @@ export const LinksMobJsFn = ({
         return () => {
             destroy?.();
             unsubscribeRoute();
+            init = () => {};
+            destroy = () => {};
+            move = () => {};
+            updateScroller = () => {};
         };
     });
 
