@@ -1,6 +1,5 @@
 //@ts-check
 
-import { mobCore } from '../../../../mobCore';
 import { benchMarkGarbagePartial } from '../partials/benchMarkGarbagePartial';
 import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 
@@ -27,9 +26,7 @@ export const BenchMarkRepeatNoKyFn = ({
         const { loading } = getRef();
 
         watch('isLoading', (value) => {
-            mobCore.useFrame(() => {
-                loading.classList.toggle('active', value);
-            });
+            loading.classList.toggle('active', value);
         });
 
         return () => {};

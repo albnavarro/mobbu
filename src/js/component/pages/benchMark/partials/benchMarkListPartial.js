@@ -40,20 +40,23 @@ const setData = async ({ setState, value, useShuffle = false }) => {
     setState('isLoading', true);
     await tick();
 
-    mobCore.useNextTick(async () => {
-        const startTime = performance.now();
-        setState(
-            'data',
-            useShuffle
-                ? shuffle(createBenchMarkArray(value))
-                : createBenchMarkArray(value)
-        );
-        await tick();
+    // await loading class is applied before saturate thread.
+    mobCore.useFrame(() => {
+        mobCore.useNextTick(async () => {
+            const startTime = performance.now();
+            setState(
+                'data',
+                useShuffle
+                    ? shuffle(createBenchMarkArray(value))
+                    : createBenchMarkArray(value)
+            );
+            await tick();
 
-        const endTime = performance.now();
-        const difference = endTime - startTime;
-        setState('time', difference);
-        setState('isLoading', false);
+            const endTime = performance.now();
+            const difference = endTime - startTime;
+            setState('time', difference);
+            setState('isLoading', false);
+        });
     });
 };
 

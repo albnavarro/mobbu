@@ -119,22 +119,23 @@ export const DebugFilterListFn = ({
          * After useFrame of isLoading watcher
          * Set current data state.
          */
-        mobCore.useNextTick(async () => {
-            /**
-             * With very large result (500/1000 item)
-             * before create list set loading true.
-             */
-            setState('data', getDataFiltered({ testString }));
+        mobCore.useFrame(() => {
+            mobCore.useNextTick(async () => {
+                /**
+                 * With very large result (500/1000 item)
+                 * before create list set loading true.
+                 */
+                setState('data', getDataFiltered({ testString }));
 
-            // Await end of list creation.
-            await tick();
-            refresh?.();
-            updateScroller?.();
+                // Await end of list creation.
+                await tick();
+                refresh?.();
+                updateScroller?.();
 
-            // Reset loading.
-            setState('isLoading', false);
+                // Reset loading.
+                setState('isLoading', false);
+            });
         });
-        // await awaitNextLoop();
     });
 
     onMount(() => {
@@ -152,13 +153,11 @@ export const DebugFilterListFn = ({
             const { data } = getState();
             const hasOccurrence = data.length > 0;
 
-            mobCore.useFrame(() => {
-                loadingRef.classList.toggle('visible', isLoading);
-                noresultRef.classList.toggle(
-                    'visible',
-                    !hasOccurrence && !isLoading
-                );
-            });
+            loadingRef.classList.toggle('visible', isLoading);
+            noresultRef.classList.toggle(
+                'visible',
+                !hasOccurrence && !isLoading
+            );
         });
 
         return () => {
