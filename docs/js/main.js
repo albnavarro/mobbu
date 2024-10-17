@@ -25620,9 +25620,7 @@ Loading snippet ...</pre
     onMount(() => {
       const { loading } = getRef();
       watch("isLoading", (value) => {
-        mobCore.useFrame(() => {
-          loading.classList.toggle("active", value);
-        });
+        loading.classList.toggle("active", value);
       });
       return () => {
       };
@@ -25703,9 +25701,7 @@ Loading snippet ...</pre
     onMount(() => {
       const { loading } = getRef();
       watch("isLoading", (value) => {
-        mobCore.useFrame(() => {
-          loading.classList.toggle("active", value);
-        });
+        loading.classList.toggle("active", value);
       });
       return () => {
       };
