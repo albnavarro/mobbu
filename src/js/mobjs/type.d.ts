@@ -81,6 +81,10 @@ export interface componentReturnType {
 
 export type MobComponent<T = MobComponentMap, R = MobComponentMap> = (
     props: componentPropsType<T, R>
+) => string;
+
+export type MobComponentAsync<T = MobComponentMap, R = MobComponentMap> = (
+    props: componentPropsType<T, R>
 ) => Promise<string>;
 
 export interface componentPropsType<T, R> {
@@ -546,7 +550,7 @@ export interface componentPropsType<T, R> {
      *
      * ```
      */
-    html(string: TemplateStringsArray, ...values: any[]): Promise<string>;
+    html(string: TemplateStringsArray, ...values: any[]): string;
 
     /**
      *

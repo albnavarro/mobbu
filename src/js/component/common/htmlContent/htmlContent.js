@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent, BindProps } from '../../../mobjs/type';
+ * @import { BindProps, MobComponentAsync, StaticProps } from '../../../mobjs/type';
  * @import { HtmlContent } from './type';
  * @import { Loader } from '../loader/type';
  **/
@@ -9,6 +9,13 @@
 import { html } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
+/**
+ * @param {object} params
+ * @param {HtmlContent['data']} params.data
+ * @param {StaticProps<any>} params.staticProps
+ * @param {boolean} params.awaitLoadSnippet
+ * @returns {string}
+ */
 const getComponents = ({ data, staticProps, awaitLoadSnippet }) => {
     return data
         .map((item) => {
@@ -56,7 +63,7 @@ const getLoader = ({ data, bindProps }) => {
 };
 
 /**
- * @type {MobComponent<HtmlContent>}
+ * @type {MobComponentAsync<HtmlContent>}
  */
 export const HtmlContentFn = async ({
     html,

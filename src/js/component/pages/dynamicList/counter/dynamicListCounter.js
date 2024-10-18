@@ -1,7 +1,7 @@
 //@ts-check
 
 /** @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicCounter>} */
-export const DynamicListCounterFn = async ({ html, getState, bindText }) => {
+export const DynamicListCounterFn = ({ html, getState, bindText }) => {
     const { parentListId } = getState();
 
     return html`<div class="dynamic-counter">

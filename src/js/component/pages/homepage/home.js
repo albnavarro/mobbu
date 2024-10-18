@@ -31,7 +31,7 @@ export const HomeComponentFn = ({
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
-    onMount(async ({ element }) => {
+    onMount(({ element }) => {
         const { textStagger } = getRefs();
         const svg_group = element.querySelectorAll('[ref="svg_group"]');
 

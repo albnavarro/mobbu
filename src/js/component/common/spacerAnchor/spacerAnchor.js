@@ -18,7 +18,7 @@ const options = {
 };
 
 /** @type {MobComponent<SpacerAnchor>} */
-export const SpacerAnchorFn = async ({ html, getState, onMount }) => {
+export const SpacerAnchorFn = ({ html, getState, onMount }) => {
     const { style, line, id, label } = getState();
     const lineClass = line ? 'spacer--line' : '';
 
