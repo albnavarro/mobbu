@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Html is the tag that allows you to return the component's HTML.<br/>In addition to the HTML, it will take care of passing the component id and the original tag to the parser ready to be replaced with the real final component."
+            "content": "Html is the tag that allows you to return the component's HTML.<br/>It simply returns a <span class='quote'>raw.string</span> function to enable the editor's html formatting, the function can be used multiple times to format any <span class='quote'>array.map()</span> or similar"
         },
         {
             "component": "mob-snippet",
@@ -35,6 +35,27 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 13
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "You can also import the <span class='quote'>html</span> function outside the function if you decide to use partials."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": ["<a href='./#mobJs-utils'>utils</a>"]
             }
         }
     ]
