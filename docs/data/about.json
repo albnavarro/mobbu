@@ -33,7 +33,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The site is designed for desktop use, on a mobile level the bare minimum has been done.<br/>Safai has fairly poor canvas support, please don't use safari."
+            "content": "The site is designed for desktop use."
         },
         {
             "component": "mob-paragraph",
@@ -128,13 +128,6 @@
                 "style": "medium"
             },
             "content": "This project was also and above all possible thanks to the effort of the open-source community.<br/>A special thanks to all the people who freely carry out the <a href='https://neovim.io/' target='_blank'>Neovim</a> project or tools like <a href='https://inkscape.org/' target='_blank'>inkscape</a>, everything I have managed to achieve has been done thanks to these people."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Another special thanks to skateboarding and writing, thanks to you I'm still here today."
         },
         {
             "component": "mob-spacer",
