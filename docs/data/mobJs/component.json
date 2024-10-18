@@ -549,7 +549,7 @@
                 "style": "medium",
                 "dots": false,
                 "items": [
-                    "<a hrcf='./#mobJs-setStateByName'>setStateByName</a>",
+                    "<a href='./#mobJs-setStateByName'>setStateByName</a>",
                     "<a href='./#mobJs-updateStateByName'>updateStateByName</a>",
                     "<a href='./#mobJs-useMethodByName'>useMethodByName</a>"
                 ]
