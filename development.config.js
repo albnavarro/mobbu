@@ -11,10 +11,11 @@ const ctx = await esbuild.context({
     outdir: 'docs',
     loader: { '.svg': 'text' },
     plugins: [
-        sassPlugin(),
-        // sassPlugin({
-        //     type: 'css-text',
-        // }),
+        sassPlugin({
+            // sass-mq warning, temp disable
+            quietDeps: true,
+            // type: 'css-text',
+        }),
     ],
 });
 
