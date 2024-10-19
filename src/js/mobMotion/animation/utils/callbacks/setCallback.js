@@ -5,7 +5,7 @@ import { callBackStore } from './callBackStore';
 
 /**
  * @param {() => void} currentCallback - callback to execute.
- * @param {Array.<import('./type').callbackObject<() => void>>} arrayOfCallback
+ * @param {Array.<import('./type').callbackObject<(arg0:Record<string, number>) => void>>} arrayOfCallback
  * @returns {import('./type').setCallbackReturnObject}
  *
  * @description

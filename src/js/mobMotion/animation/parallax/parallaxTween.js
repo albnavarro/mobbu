@@ -83,13 +83,13 @@ export default class ParallaxTween {
 
         /**
          * @private
-         * @type{import('../utils/callbacks/type.js').callbackObject<() => void>[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
          */
         this.callbackOnStop = [];
 
         /**
          * @private
-         * @type{import('../utils/callbacks/type.js').callbackObject<() => void>[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
          */
         this.callback = [];
 

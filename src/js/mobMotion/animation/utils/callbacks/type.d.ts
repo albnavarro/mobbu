@@ -6,10 +6,12 @@ export interface callbackObject<T> {
 }
 
 export interface setCallbackReturnObject {
-    arrayOfCallbackUpdated: callbackObject<() => void>[];
+    arrayOfCallbackUpdated: callbackObject<
+        (arg0: Record<string, number>) => void
+    >[];
     unsubscribeCb: (
-        arg0: callbackObject<() => void>[]
-    ) => callbackObject<() => void>[];
+        arg0: callbackObject<(arg0: Record<string, number>) => void>[]
+    ) => callbackObject<(arg0: Record<string, number>) => void>[];
 }
 
 export interface setCallbackCacheReturnObject {

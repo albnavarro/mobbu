@@ -1540,7 +1540,7 @@ export default class ParallaxClass {
     /**
      * @description
      * Method used to control the instance from the outside.
-     * The methods acceps two parameters:
+     * The methods accept two parameters:
      *
      * `value`: The scroll position of the parent.
      * If no value is provided, the instance will calculate it autonomously.

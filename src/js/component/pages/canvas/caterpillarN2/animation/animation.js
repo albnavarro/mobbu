@@ -85,6 +85,7 @@ export const caterpillarN2Animation = ({
     canvas.height = canvas.clientHeight;
 
     /**
+     * @type {import('../../../../../mobMotion/type.d.ts').Sequencer}
      * Create sequencer.
      */
     const infiniteTween = tween
