@@ -1,3 +1,5 @@
+// @ts-check
+
 import { tick } from '../../queque/tick';
 
 /**

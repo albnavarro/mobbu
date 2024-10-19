@@ -1,3 +1,5 @@
+// @ts-check
+
 import { compareIdOrParentIdRecursive } from '../component/action/parent';
 import { invalidateIdPlaceHolderMap } from './invalidate/invalidateIdPlaceHolderMap';
 import { repeatIdPlaceHolderMap } from './repeater/repeatIdPlaceHolderMap';

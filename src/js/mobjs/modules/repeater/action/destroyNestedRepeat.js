@@ -1,3 +1,5 @@
+// @ts-check
+
 import { repeatFunctionMap } from '../repeatFunctionMap';
 import {
     getRepeatOrInvalidateInsideElement,

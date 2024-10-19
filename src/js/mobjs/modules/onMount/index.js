@@ -1,6 +1,6 @@
 // @ts-check
 
-import { setDestroyCallback } from '../../component/action/removeAndDestroy/removeAndDestroy';
+import { setDestroyCallback } from '../../component/action/removeAndDestroy/setDestroyCallback';
 
 /**
  * @type {Map<string,Function>}

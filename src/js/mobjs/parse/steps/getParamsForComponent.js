@@ -2,25 +2,20 @@
 
 import { mobCore } from '../../../mobCore';
 import { getChildrenIdByName } from '../../component/action/children';
-import {
-    inizializeRepeatWatch,
-    setRepeatFunction,
-} from '../../modules/repeater';
+import { setRepeatFunction } from '../../modules/repeater/action/setRepeatFunction';
 import { setRepeaterPlaceholderMapScopeId } from '../../modules/repeater/action/setRepeaterPlaceholderMapScopeId';
 import { setRepeaterPlaceholderMapInitialized } from '../../modules/repeater/action/setRepeaterPlaceholderMapInitialized';
 import {
     freezePropById,
     unFreezePropById,
 } from '../../component/action/freeze';
-import {
-    inizializeInvalidateWatch,
-    setInvalidateFunction,
-} from '../../modules/invalidate';
+import { inizializeInvalidateWatch } from '../../modules/invalidate/action/inizializeInvalidateWatch';
+import { setInvalidateFunction } from '../../modules/invalidate/action/setInvalidateFunction';
 import { setInvalidatePlaceholderMapInitialized } from '../../modules/invalidate/action/setInvalidatePlaceholderMapInitialized';
 import { setInvalidatePlaceholderMapScopedId } from '../../modules/invalidate/action/setInvalidatePlaceholderMapScopedId';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch, unBind } from '../../component/action/props';
-import { destroyComponentInsideNodeById } from '../../component/action/removeAndDestroy/removeAndDestroy';
+import { destroyComponentInsideNodeById } from '../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
 import { removeAndDestroyById } from '../../component/action/removeAndDestroy/removeAndDestroyById';
 import { watchById } from '../../component/action/watch';
 import {
@@ -52,6 +47,7 @@ import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
 import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
 import { createBindTextWatcher, renderBindText } from '../../modules/bindtext';
+import { inizializeRepeatWatch } from '../../modules/repeater/action/inizializeRepeatWatch';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state

@@ -1,3 +1,5 @@
+// @ts-check
+
 import { removeCurrentIdToBindProps } from '../../../modules/bindProps/removeCurrentIdToBindProps';
 import { removeBindTextParentById } from '../../../modules/bindtext';
 import { removeInvalidateId } from '../../../modules/invalidate/action/removeInvalidateId';

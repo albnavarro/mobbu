@@ -1,3 +1,5 @@
+// @ts-check
+
 import { invalidateIdHostMap } from '../invalidateIdHostMap';
 import { invalidateIdPlaceHolderMap } from '../invalidateIdPlaceHolderMap';
 

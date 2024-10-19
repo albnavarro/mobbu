@@ -16765,6 +16765,346 @@
     }
   };
 
+  // src/js/mobjs/component/store.js
+  var componentMap = /* @__PURE__ */ new Map();
+
+  // src/js/mobjs/component/action/element.js
+  var setElementById = ({
+    id = "",
+    newElement = document.createElement("div")
+  }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    componentMap.set(id, { ...item, element: newElement });
+  };
+  var getElementById = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const element = item?.element;
+    return element;
+  };
+  var getIdByElement = ({ element }) => {
+    const item = [...componentMap.values()].find((item2) => {
+      const currentElement = item2?.element;
+      return currentElement === element;
+    });
+    return item?.id ?? "";
+  };
+  var getElementByKeyAndRepeatId = ({ key = "", repeatId = "" }) => {
+    if (key?.length === 0) return;
+    const values = [...componentMap.values()];
+    const valuesFiltered = values.find(
+      (item) => `${item.key}` === `${key}` && item.componentRepeatId === repeatId
+    );
+    return valuesFiltered?.element;
+  };
+  var getIdsByByRepeatId = ({ id, repeatId, filterById = false }) => {
+    if (!id || id === "") return;
+    const values = [...componentMap.values()];
+    return values.filter((item) => {
+      return item?.componentRepeatId === repeatId;
+    }).filter((item) => {
+      if (filterById) return item?.parentId === id;
+      return item;
+    }).map((item) => {
+      return item.id;
+    });
+  };
+
+  // src/js/mobjs/component/action/children.js
+  var getChildrenIdByName = ({ id = "", componentName = "" }) => {
+    if (!id || id === "") return [];
+    const item = componentMap.get(id);
+    const child2 = item?.child;
+    if (!child2) {
+      console.warn(`getChildIdById failed no id found`);
+      return [];
+    }
+    return child2?.[componentName] ?? [];
+  };
+  var gerOrderedChildrenById = ({ children }) => {
+    return children.map((id) => {
+      return { id, element: getElementById({ id }) };
+    }).sort(function(a, b) {
+      const { element: elementA } = a;
+      const { element: elementB } = b;
+      if (elementA === elementB || !elementA || !elementB) return 0;
+      if (elementA.compareDocumentPosition(elementB) & 2) {
+        return 1;
+      }
+      return -1;
+    }).map(({ id }) => id);
+  };
+
+  // src/js/mobjs/component/action/component.js
+  var getIdByInstanceName = (name = "") => {
+    if (!name) return;
+    const instance = [...componentMap.values()].find(({ instanceName }) => {
+      return instanceName === name;
+    });
+    const id = instance?.id;
+    if (!id) {
+      console.warn(`getIdByName failed no name`);
+      return;
+    }
+    return id;
+  };
+
+  // src/js/mobjs/component/action/getTree.js
+  var getTreeRecursive = ({ chunk }) => {
+    return chunk.reduce((previous, current) => {
+      const [key, value] = current;
+      const { child: child2, componentName, instanceName } = value;
+      const childrenId = new Set(Object.values(child2 ?? {}).flat());
+      const childrenChunk = [...componentMap.entries()].filter(
+        ([key2]) => childrenId.has(key2)
+      );
+      return [
+        ...previous,
+        {
+          id: key,
+          componentName,
+          instanceName,
+          children: getTreeRecursive({
+            chunk: childrenChunk
+          })
+        }
+      ];
+    }, []);
+  };
+  var getTree = () => {
+    const chunk = [...componentMap.entries()].filter(
+      ([, value]) => !value?.parentId || value?.parentId === ""
+    );
+    return getTreeRecursive({ chunk });
+  };
+
+  // src/js/mobjs/component/action/methods.js
+  var addMethodById = ({ id, name, fn }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const methods = item?.methods;
+    if (name in methods) {
+      console.warn(`Method ${name}, is already used by ${id}`);
+      return;
+    }
+    componentMap.set(id, {
+      ...item,
+      methods: { ...methods, [name]: fn }
+    });
+  };
+  var getMethodsById = ({ id }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const methods = item?.methods;
+    if (Object.keys(methods).length === 0) {
+      console.warn(`no methods available for ${id} component`);
+      return {};
+    }
+    return methods;
+  };
+  var useMethodByName = (name) => {
+    const id = getIdByInstanceName(name);
+    if (!id || id === "") return;
+    const methods = getMethodsById({ id });
+    if (Object.keys(methods).length === 0) {
+      console.warn(`no methods available for ${name} component`);
+      return {};
+    }
+    return methods;
+  };
+
+  // src/js/mobjs/parse/useQuery.js
+  var useQuery = false;
+  var forceComponentChildQuery = true;
+  var useSlotQuery = false;
+
+  // src/js/mobjs/query/queryAllFutureComponent.js
+  function* walkPreOrder(node) {
+    if (!node) return;
+    yield node;
+    for (const child2 of node.children) {
+      yield* walkPreOrder(child2);
+    }
+  }
+  function selectAll(root2, firstOccurrence) {
+    const result = [];
+    for (const node of walkPreOrder(root2)) {
+      if (result.length > 0 && firstOccurrence) break;
+      if (node?.getIsPlaceholder?.()) {
+        result.push(node);
+      }
+    }
+    return result;
+  }
+  var queryAllFutureComponent = (node, firstOccurence = true) => {
+    let result = [];
+    const root2 = node || document.body;
+    for (const child2 of root2.children) {
+      result = [...result, ...selectAll(child2, firstOccurence)];
+    }
+    return result;
+  };
+
+  // src/js/mobjs/queque/utils.js
+  function awaitNextLoop() {
+    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
+  }
+
+  // src/js/mobjs/queque/tick.js
+  var queque = /* @__PURE__ */ new Map();
+  var maxQueuqueSize = 1e5;
+  var incrementTickQueuque = (props) => {
+    if (queque.size >= maxQueuqueSize) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+      return () => {
+      };
+    }
+    const id = mobCore.getUnivoqueId();
+    queque.set(id, props);
+    return () => queque.delete(id);
+  };
+  var queueIsResolved = () => {
+    return queque.size === 0 || queque.size >= maxQueuqueSize;
+  };
+  var tick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      queque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved()) {
+        resolve();
+        return;
+      }
+      tick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
+
+  // src/js/mobjs/modules/userComponent/index.js
+  var userPlaceholder = /* @__PURE__ */ new Set();
+  var addUserPlaceholder = (element) => {
+    userPlaceholder.add(element);
+  };
+  var getFirstUserChildPlaceHolder = (element) => {
+    const userComponent = [...userPlaceholder].find((item) => {
+      return element?.contains(item) && item.getIsPlaceholder();
+    });
+    userPlaceholder.delete(userComponent);
+    return [userComponent];
+  };
+  var getAllUserChildPlaceholder = ({ element }) => {
+    return [...userPlaceholder].filter((component) => {
+      return element.contains(component) && element !== component && component.getIsPlaceholder?.();
+    }) ?? [];
+  };
+  var getAllUserComponentUseNamedSlot = ({ element }) => {
+    return [...userPlaceholder].filter((component) => {
+      return element.contains(component) && element !== component && component.getIsPlaceholder?.() && component?.getSlotPosition?.();
+    }) ?? [];
+  };
+  var getUserChildPlaceholderSize = () => {
+    return userPlaceholder.size;
+  };
+  var clearUserPlaceHolder = async () => {
+    await tick();
+    userPlaceholder.clear();
+  };
+
+  // src/js/mobjs/component/utils.js
+  var updateChildrenArray = ({
+    currentChild,
+    id = "",
+    componentName = ""
+  }) => {
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = [...childGroupByName, id];
+    return currentChild;
+  };
+  var removeChildFromChildrenArray = ({
+    currentChild,
+    id = "",
+    componentName = ""
+  }) => {
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = childGroupByName.filter(
+      (currentId) => {
+        return id !== currentId;
+      }
+    );
+    return currentChild;
+  };
+  var addPropsToState = ({ props, store }) => {
+    Object.entries(props).forEach(([key, value]) => {
+      store.set(key, value);
+    });
+  };
+
+  // src/js/mobjs/component/action/parent.js
+  var getParentIdById = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentId = item?.parentId;
+    if (!parentId) {
+      return;
+    }
+    return parentId;
+  };
+  var addSelfIdToParentComponent = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentId = item?.parentId;
+    const componentName = item?.componentName ?? "";
+    if (!parentId) return;
+    const value = componentMap.get(parentId);
+    if (!value) return;
+    const { child: child2 } = value;
+    if (!child2) return;
+    componentMap.set(parentId, {
+      ...value,
+      child: {
+        ...child2,
+        ...updateChildrenArray({
+          currentChild: child2,
+          id,
+          componentName
+        })
+      }
+    });
+  };
+  var addParentIdToFutureComponent = ({ element, id }) => {
+    if (useQuery || forceComponentChildQuery) {
+      const children = queryAllFutureComponent(element, false);
+      children.forEach((child2) => {
+        child2.setParentId(id);
+      });
+      return;
+    }
+    const childrenComponent = getAllUserChildPlaceholder({ element });
+    childrenComponent.forEach((component) => {
+      component.setParentId(id);
+    });
+  };
+  var getFallBackParentByElement = ({ element }) => {
+    return [...componentMap.values()].findLast((item) => {
+      return item.element.contains(element) && item.element !== element;
+    })?.id;
+  };
+  var compareIdOrParentIdRecursive = ({ id, compareValue }) => {
+    if (id === compareValue) return true;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { parentId } = item;
+    return compareIdOrParentIdRecursive({ id: parentId, compareValue });
+  };
+
   // src/js/mobjs/modules/bindProps/bindPropsMap.js
   var bindPropsMap = /* @__PURE__ */ new Map();
 
@@ -16778,9 +17118,6 @@
       }
     }
   };
-
-  // src/js/mobjs/component/store.js
-  var componentMap = /* @__PURE__ */ new Map();
 
   // src/js/mobjs/component/action/state/getStateById.js
   var getStateById = (id = "") => {
@@ -16979,35 +17316,6 @@
     }
   };
 
-  // src/js/mobjs/component/utils.js
-  var updateChildrenArray = ({
-    currentChild,
-    id = "",
-    componentName = ""
-  }) => {
-    const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = [...childGroupByName, id];
-    return currentChild;
-  };
-  var removeChildFromChildrenArray = ({
-    currentChild,
-    id = "",
-    componentName = ""
-  }) => {
-    const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = childGroupByName.filter(
-      (currentId) => {
-        return id !== currentId;
-      }
-    );
-    return currentChild;
-  };
-  var addPropsToState = ({ props, store }) => {
-    Object.entries(props).forEach(([key, value]) => {
-      store.set(key, value);
-    });
-  };
-
   // src/js/mobjs/component/action/removeAndDestroy/removeItselfFromParent.js
   var removeItselfFromParent = ({ id, parentId, componentName }) => {
     if (!id) return;
@@ -17198,11 +17506,6 @@
     );
   };
 
-  // src/js/mobjs/parse/useQuery.js
-  var useQuery = false;
-  var forceComponentChildQuery = true;
-  var useSlotQuery = false;
-
   // src/js/mobjs/modules/slot/index.js
   var slotPlaceholder = /* @__PURE__ */ new Set();
   var addSlotPlaceholder = (slot) => {
@@ -17279,77 +17582,6 @@
         }
       }
     );
-  };
-
-  // src/js/mobjs/queque/utils.js
-  function awaitNextLoop() {
-    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
-  }
-
-  // src/js/mobjs/queque/tick.js
-  var queque = /* @__PURE__ */ new Map();
-  var maxQueuqueSize = 1e5;
-  var incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
-      return () => {
-      };
-    }
-    const id = mobCore.getUnivoqueId();
-    queque.set(id, props);
-    return () => queque.delete(id);
-  };
-  var queueIsResolved = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize;
-  };
-  var tick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      queque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved()) {
-        resolve();
-        return;
-      }
-      tick({ debug, previousResolve: previousResolve ?? resolve });
-    });
-  };
-
-  // src/js/mobjs/modules/userComponent/index.js
-  var userPlaceholder = /* @__PURE__ */ new Set();
-  var addUserPlaceholder = (element) => {
-    userPlaceholder.add(element);
-  };
-  var getFirstUserChildPlaceHolder = (element) => {
-    const userComponent = [...userPlaceholder].find((item) => {
-      return element?.contains(item) && item.getIsPlaceholder();
-    });
-    userPlaceholder.delete(userComponent);
-    return [userComponent];
-  };
-  var getAllUserChildPlaceholder = ({ element }) => {
-    return [...userPlaceholder].filter((component) => {
-      return element.contains(component) && element !== component && component.getIsPlaceholder?.();
-    }) ?? [];
-  };
-  var getAllUserComponentUseNamedSlot = ({ element }) => {
-    return [...userPlaceholder].filter((component) => {
-      return element.contains(component) && element !== component && component.getIsPlaceholder?.() && component?.getSlotPosition?.();
-    }) ?? [];
-  };
-  var getUserChildPlaceholderSize = () => {
-    return userPlaceholder.size;
-  };
-  var clearUserPlaceHolder = async () => {
-    await tick();
-    userPlaceholder.clear();
   };
 
   // src/js/mobjs/webComponent/userComponent.js
@@ -17864,244 +18096,14 @@
     state.set(prop, value, fire4);
   };
 
-  // src/js/mobjs/component/action/element.js
-  var setElementById = ({
-    id = "",
-    newElement = document.createElement("div")
-  }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    componentMap.set(id, { ...item, element: newElement });
-  };
-  var getElementById = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const element = item?.element;
-    return element;
-  };
-  var getIdByElement = ({ element }) => {
-    const item = [...componentMap.values()].find((item2) => {
-      const currentElement = item2?.element;
-      return currentElement === element;
-    });
-    return item?.id ?? "";
-  };
-  var getElementByKeyAndRepeatId = ({ key = "", repeatId = "" }) => {
-    if (key?.length === 0) return;
-    const values = [...componentMap.values()];
-    const valuesFiltered = values.find(
-      (item) => `${item.key}` === `${key}` && item.componentRepeatId === repeatId
-    );
-    return valuesFiltered?.element;
-  };
-  var getIdsByByRepeatId = ({ id, repeatId, filterById = false }) => {
-    if (!id || id === "") return;
-    const values = [...componentMap.values()];
-    return values.filter((item) => {
-      return item?.componentRepeatId === repeatId;
-    }).filter((item) => {
-      if (filterById) return item?.parentId === id;
-      return item;
-    }).map((item) => {
-      return item.id;
-    });
-  };
-
-  // src/js/mobjs/component/action/children.js
-  var getChildrenIdByName = ({ id = "", componentName = "" }) => {
-    if (!id || id === "") return [];
-    const item = componentMap.get(id);
-    const child2 = item?.child;
-    if (!child2) {
-      console.warn(`getChildIdById failed no id found`);
-      return [];
-    }
-    return child2?.[componentName] ?? [];
-  };
-  var gerOrderedChildrenById = ({ children }) => {
-    return children.map((id) => {
-      return { id, element: getElementById({ id }) };
-    }).sort(function(a, b) {
-      const { element: elementA } = a;
-      const { element: elementB } = b;
-      if (elementA === elementB || !elementA || !elementB) return 0;
-      if (elementA.compareDocumentPosition(elementB) & 2) {
-        return 1;
-      }
-      return -1;
-    }).map(({ id }) => id);
-  };
-
-  // src/js/mobjs/component/action/component.js
-  var getIdByInstanceName = (name = "") => {
-    if (!name) return;
-    const instance = [...componentMap.values()].find(({ instanceName }) => {
-      return instanceName === name;
-    });
-    const id = instance?.id;
-    if (!id) {
-      console.warn(`getIdByName failed no name`);
-      return;
-    }
-    return id;
-  };
-
-  // src/js/mobjs/component/action/getTree.js
-  var getTreeRecursive = ({ chunk }) => {
-    return chunk.reduce((previous, current) => {
-      const [key, value] = current;
-      const { child: child2, componentName, instanceName } = value;
-      const childrenId = new Set(Object.values(child2 ?? {}).flat());
-      const childrenChunk = [...componentMap.entries()].filter(
-        ([key2]) => childrenId.has(key2)
-      );
-      return [
-        ...previous,
-        {
-          id: key,
-          componentName,
-          instanceName,
-          children: getTreeRecursive({
-            chunk: childrenChunk
-          })
-        }
-      ];
-    }, []);
-  };
-  var getTree = () => {
-    const chunk = [...componentMap.entries()].filter(
-      ([, value]) => !value?.parentId || value?.parentId === ""
-    );
-    return getTreeRecursive({ chunk });
-  };
-
-  // src/js/mobjs/component/action/methods.js
-  var addMethodById = ({ id, name, fn }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const methods = item?.methods;
-    if (name in methods) {
-      console.warn(`Method ${name}, is already used by ${id}`);
-      return;
-    }
-    componentMap.set(id, {
-      ...item,
-      methods: { ...methods, [name]: fn }
-    });
-  };
-  var getMethodsById = ({ id }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const methods = item?.methods;
-    if (Object.keys(methods).length === 0) {
-      console.warn(`no methods available for ${id} component`);
-      return {};
-    }
-    return methods;
-  };
-  var useMethodByName = (name) => {
-    const id = getIdByInstanceName(name);
-    if (!id || id === "") return;
-    const methods = getMethodsById({ id });
-    if (Object.keys(methods).length === 0) {
-      console.warn(`no methods available for ${name} component`);
-      return {};
-    }
-    return methods;
-  };
-
-  // src/js/mobjs/query/queryAllFutureComponent.js
-  function* walkPreOrder(node) {
-    if (!node) return;
-    yield node;
-    for (const child2 of node.children) {
-      yield* walkPreOrder(child2);
-    }
-  }
-  function selectAll(root2, firstOccurrence) {
-    const result = [];
-    for (const node of walkPreOrder(root2)) {
-      if (result.length > 0 && firstOccurrence) break;
-      if (node?.getIsPlaceholder?.()) {
-        result.push(node);
-      }
-    }
-    return result;
-  }
-  var queryAllFutureComponent = (node, firstOccurence = true) => {
-    let result = [];
-    const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      result = [...result, ...selectAll(child2, firstOccurence)];
-    }
-    return result;
-  };
-
-  // src/js/mobjs/component/action/parent.js
-  var getParentIdById = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentId = item?.parentId;
-    if (!parentId) {
-      return;
-    }
-    return parentId;
-  };
-  var addSelfIdToParentComponent = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentId = item?.parentId;
-    const componentName = item?.componentName ?? "";
-    if (!parentId) return;
-    const value = componentMap.get(parentId);
-    if (!value) return;
-    const { child: child2 } = value;
-    if (!child2) return;
-    componentMap.set(parentId, {
-      ...value,
-      child: {
-        ...child2,
-        ...updateChildrenArray({
-          currentChild: child2,
-          id,
-          componentName
-        })
-      }
-    });
-  };
-  var addParentIdToFutureComponent = ({ element, id }) => {
-    if (useQuery || forceComponentChildQuery) {
-      const children = queryAllFutureComponent(element, false);
-      children.forEach((child2) => {
-        child2.setParentId(id);
-      });
-      return;
-    }
-    const childrenComponent = getAllUserChildPlaceholder({ element });
-    childrenComponent.forEach((component) => {
-      component.setParentId(id);
-    });
-  };
-  var getFallBackParentByElement = ({ element }) => {
-    return [...componentMap.values()].findLast((item) => {
-      return item.element.contains(element) && item.element !== element;
-    })?.id;
-  };
-  var compareIdOrParentIdRecursive = ({ id, compareValue }) => {
-    if (id === compareValue) return true;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { parentId } = item;
-    return compareIdOrParentIdRecursive({ id: parentId, compareValue });
-  };
-
-  // src/js/mobjs/component/action/state/state.js
+  // src/js/mobjs/component/action/state/setStateByName.js
   var setStateByName = (name = "") => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
     return (prop, value, fire4) => setStateById(id, prop, value, fire4);
   };
+
+  // src/js/mobjs/component/action/state/updateStateById.js
   var updateStateById = (id = "", prop = "", value, fire4 = true) => {
     if ((!id || id === "") && (!prop || prop === "") && !value) return;
     const isFreezed = getFreezePropStatus({ id, prop });
@@ -18127,6 +18129,8 @@
     }
     state.update(prop, value, fire4);
   };
+
+  // src/js/mobjs/component/action/state/updateStateByName.js
   var updateStateByName = (name = "") => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
@@ -18907,6 +18911,30 @@
     }
   };
 
+  // src/js/mobjs/component/action/removeAndDestroy/setDestroyCallback.js
+  var setDestroyCallback = ({ cb = () => {
+  }, id = null }) => {
+    if (!id) return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    componentMap.set(id, { ...item, destroy: cb });
+  };
+
+  // src/js/mobjs/modules/onMount/index.js
+  var onMountCallbackMap = /* @__PURE__ */ new Map();
+  var addOnMoutCallback = ({ id, cb = () => {
+  } }) => {
+    onMountCallbackMap.set(id, cb);
+  };
+  var fireOnMountCallBack = async ({ id, element }) => {
+    const callback2 = onMountCallbackMap.get(id);
+    const destroyCallback = await callback2?.({
+      element
+    });
+    setDestroyCallback({ cb: destroyCallback, id });
+    onMountCallbackMap.delete(id);
+  };
+
   // src/js/mobjs/modules/commonEvent.js
   var shouldFireEvent = true;
   var allowFireEvent = () => {
@@ -18949,7 +18977,36 @@
     bindEventMap.clear();
   };
 
-  // src/js/mobjs/component/action/removeAndDestroy/removeAndDestroy.js
+  // src/js/mobjs/modules/repeater/action/setRepeatFunction.js
+  var setRepeatFunction = ({ id, repeatId, fn }) => {
+    const currentFunctions = repeatFunctionMap.get(id) ?? [];
+    repeatFunctionMap.set(id, [
+      ...currentFunctions,
+      { repeatId, fn, unsubscribe: () => {
+      } }
+    ]);
+  };
+
+  // src/js/mobjs/modules/repeater/action/setRepeaterPlaceholderMapScopeId.js
+  var setRepeaterPlaceholderMapScopeId = ({ repeatId, scopeId }) => {
+    repeatIdPlaceHolderMap.set(repeatId, {
+      element: void 0,
+      initialized: false,
+      scopeId
+    });
+  };
+
+  // src/js/mobjs/modules/repeater/action/setRepeaterPlaceholderMapInitialized.js
+  var setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      initialized: true
+    });
+  };
+
+  // src/js/mobjs/component/action/removeAndDestroy/destroyComponentInsideNodeById.js
   var destroyComponentInsideNodeById = ({ id, container }) => {
     const instanceValue = componentMap.get(id);
     const child2 = instanceValue?.child;
@@ -18963,57 +19020,377 @@
       }
     });
   };
-  var removeCancellableComponent = () => {
-    const cancellableComponents = [...componentMap.values()].filter(
-      ({ persistent }) => !persistent
-    );
-    cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));
-  };
-  var removeOrphanTempIds = () => {
-    removeOrphansPropsFromParent();
-    removeOrphansBindEvent();
-    removeOrphansBindProps();
-  };
-  var setDestroyCallback = ({ cb = () => {
-  }, id = null }) => {
-    if (!id) return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    componentMap.set(id, { ...item, destroy: cb });
-  };
 
-  // src/js/mobjs/modules/onMount/index.js
-  var onMountCallbackMap = /* @__PURE__ */ new Map();
-  var addOnMoutCallback = ({ id, cb = () => {
-  } }) => {
-    onMountCallbackMap.set(id, cb);
-  };
-  var fireOnMountCallBack = async ({ id, element }) => {
-    const callback2 = onMountCallbackMap.get(id);
-    const destroyCallback = await callback2?.({
-      element
-    });
-    setDestroyCallback({ cb: destroyCallback, id });
-    onMountCallbackMap.delete(id);
-  };
-
-  // src/js/mobjs/modules/repeater/activeRepeater/index.js
-  var activeRepeatMap = /* @__PURE__ */ new Set();
-  var addActiveRepeat = ({ id, state, container }) => {
-    activeRepeatMap.add({ id, state, container });
-  };
-  var removeActiveRepeat = ({ id, state, container }) => {
-    activeRepeatMap.forEach((repeat) => {
-      if (id === repeat.id && state === repeat.state && container === repeat.container) {
-        activeRepeatMap.delete(repeat);
+  // src/js/mobjs/modules/commonRepeatInvalidate.js
+  var MODULE_REPEATER = "repeater";
+  var MODULE_INVALIDATE = "invalidate";
+  var getRepeatOrInvalidateInsideElement = ({
+    element,
+    skipInitialized = false,
+    onlyInitialized = false,
+    componentId,
+    module
+  }) => {
+    const entries = module === MODULE_REPEATER ? [...repeatIdPlaceHolderMap.entries()] : [...invalidateIdPlaceHolderMap.entries()];
+    return entries.filter(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ([_id, parent]) => {
+        if (componentId && !compareIdOrParentIdRecursive({
+          id: parent.scopeId,
+          compareValue: componentId
+        }))
+          return;
+        if (skipInitialized && parent?.initialized) return false;
+        if (onlyInitialized && !parent?.initialized) return false;
+        return element?.contains(parent.element) && element !== parent.element;
       }
+    ).map(([id, parent]) => ({
+      id,
+      parent: parent?.element
+    }));
+  };
+
+  // src/js/mobjs/modules/repeater/action/removeRepeatByRepeatId.js
+  var removeRepeatByRepeatId = ({ id, repeatId }) => {
+    if (!repeatFunctionMap.has(id)) return;
+    const value = repeatFunctionMap.get(id);
+    const valueParsed = value.filter((item) => item.repeatId !== repeatId);
+    if (repeatIdPlaceHolderMap.has(repeatId)) {
+      repeatIdPlaceHolderMap.delete(repeatId);
+    }
+    repeatFunctionMap.set(id, valueParsed);
+  };
+
+  // src/js/mobjs/modules/repeater/action/destroyNestedRepeat.js
+  var destroyNestedRepeat = ({ id, repeatParent }) => {
+    const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
+      element: repeatParent,
+      skipInitialized: false,
+      onlyInitialized: true,
+      componentId: id,
+      module: MODULE_REPEATER
+    });
+    const repeatChildToDeleteParsed = [...repeatFunctionMap.values()].flat().filter((item) => {
+      return repeatChildToDelete.some((current) => {
+        return current.id === item.repeatId;
+      });
+    });
+    repeatChildToDeleteParsed.forEach((item) => {
+      item.unsubscribe();
+      removeRepeatByRepeatId({
+        id,
+        repeatId: item.repeatId
+      });
     });
   };
-  var getActiveRepeater = ({ id = "", state = "", container }) => {
-    const repeatIsActive = [...activeRepeatMap].some((repeat) => {
-      return id === repeat.id && state === repeat.state && container === repeat.container;
+
+  // src/js/mobjs/modules/repeater/watch/inizializeNestedRepeat.js
+  var inizializeNestedRepeat = ({ repeatParent, id }) => {
+    const newRepeatChild = getRepeatOrInvalidateInsideElement({
+      element: repeatParent,
+      skipInitialized: true,
+      onlyInitialized: false,
+      componentId: id,
+      module: MODULE_REPEATER
     });
-    return repeatIsActive;
+    const repeatChildToInizialize = [...repeatFunctionMap.values()].flat().filter(({ repeatId }) => {
+      return newRepeatChild.some((current) => {
+        return current.id === repeatId;
+      });
+    });
+    repeatChildToInizialize.forEach(({ fn }) => {
+      fn();
+    });
+  };
+
+  // src/js/mobjs/modules/invalidate/action/addInvalidateUnsubcribe.js
+  var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    const item = currentFunctions.map((item2) => {
+      if (item2.invalidateId === invalidateId) {
+        return { ...item2, unsubscribe: unsubscribe3 };
+      }
+      return item2;
+    });
+    invalidateFunctionMap.set(id, item);
+  };
+
+  // src/js/mobjs/modules/invalidate/action/removeInvalidateByInvalidateId.js
+  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
+    if (!invalidateFunctionMap.has(id)) return;
+    const value = invalidateFunctionMap.get(id);
+    const valueParsed = value.filter(
+      (item) => item.invalidateId !== invalidateId
+    );
+    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+      invalidateIdPlaceHolderMap.delete(invalidateId);
+    }
+    invalidateFunctionMap.set(id, valueParsed);
+  };
+
+  // src/js/mobjs/modules/invalidate/action/destroyNestedInvalidate.js
+  var destroyNestedInvalidate = ({ id, invalidateParent }) => {
+    const invalidatechildToDelete = getRepeatOrInvalidateInsideElement({
+      element: invalidateParent,
+      skipInitialized: false,
+      onlyInitialized: true,
+      componentId: id,
+      module: MODULE_INVALIDATE
+    });
+    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
+      return invalidatechildToDelete.some((current) => {
+        return current.id === item.invalidateId;
+      });
+    });
+    invalidateChildToDeleteParsed.forEach((item) => {
+      item.unsubscribe.forEach((fn) => {
+        fn();
+      });
+      removeInvalidateByInvalidateId({
+        id,
+        invalidateId: item.invalidateId
+      });
+    });
+  };
+
+  // src/js/mobjs/modules/invalidate/action/getInvalidateParent.js
+  var getInvalidateParent = ({ id }) => {
+    if (!invalidateIdPlaceHolderMap.has(id)) {
+      return;
+    }
+    if (invalidateIdHostMap.has(id)) {
+      const host = invalidateIdHostMap.get(id);
+      host?.removeCustomComponent();
+      host.remove();
+      invalidateIdHostMap.delete(id);
+    }
+    const parent = invalidateIdPlaceHolderMap.get(id);
+    return parent?.element;
+  };
+
+  // src/js/mobjs/modules/invalidate/action/inizializeNestedInvalidate.js
+  var inizializeNestedInvalidate = ({ invalidateParent, id }) => {
+    const newInvalidateChild = getRepeatOrInvalidateInsideElement({
+      element: invalidateParent,
+      skipInitialized: true,
+      onlyInitialized: false,
+      componentId: id,
+      module: MODULE_INVALIDATE
+    });
+    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter(({ invalidateId }) => {
+      return newInvalidateChild.some((current) => {
+        return current.id === invalidateId;
+      });
+    });
+    invalidateChildToInizialize.forEach(({ fn }) => {
+      fn();
+    });
+  };
+
+  // src/js/mobjs/modules/invalidate/action/inizializeInvalidateWatch.js
+  var inizializeInvalidateWatch = async ({
+    bind = [],
+    beforeUpdate = () => Promise.resolve(),
+    afterUpdate = () => {
+    },
+    watch,
+    id,
+    invalidateId,
+    persistent = false,
+    renderFunction
+  }) => {
+    let watchIsRunning = false;
+    const fallBackParentId = getFallBackParentByElement({
+      element: getInvalidateParent({ id: invalidateId })
+    });
+    const unsubScribeArray = bind.map((state) => {
+      const unsubscribe3 = watch(state, async () => {
+        if (watchIsRunning) return;
+        freezePropById({ id, prop: state });
+        const invalidateParent = getInvalidateParent({
+          id: invalidateId
+        });
+        const descrementQueue = incrementTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
+        const decrementInvalidateQueque = incrementInvalidateTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
+        watchIsRunning = true;
+        mobCore.useNextLoop(async () => {
+          if (!invalidateParent) {
+            unFreezePropById({ id, prop: state });
+            return;
+          }
+          await beforeUpdate();
+          destroyNestedInvalidate({ id, invalidateParent });
+          destroyNestedRepeat({ id, repeatParent: invalidateParent });
+          destroyComponentInsideNodeById({
+            id: fallBackParentId ?? id,
+            container: invalidateParent
+          });
+          invalidateParent.textContent = "";
+          invalidateParent.insertAdjacentHTML(
+            "afterbegin",
+            renderFunction()
+          );
+          mainStore.set(
+            MAIN_STORE_ASYNC_PARSER,
+            {
+              element: invalidateParent,
+              parentId: fallBackParentId ?? id,
+              persistent
+            },
+            false
+          );
+          await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+          watchIsRunning = false;
+          descrementQueue();
+          decrementInvalidateQueque();
+          inizializeNestedInvalidate({ invalidateParent, id });
+          inizializeNestedRepeat({ repeatParent: invalidateParent, id });
+          unFreezePropById({ id, prop: state });
+          afterUpdate();
+        });
+      });
+      return unsubscribe3;
+    });
+    addInvalidateUnsubcribe({
+      id,
+      invalidateId,
+      unsubscribe: unsubScribeArray
+    });
+  };
+
+  // src/js/mobjs/modules/invalidate/action/setInvalidateFunction.js
+  var setInvalidateFunction = ({ id, invalidateId, fn }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    invalidateFunctionMap.set(id, [
+      ...currentFunctions,
+      { invalidateId, fn, unsubscribe: [() => {
+      }] }
+    ]);
+  };
+
+  // src/js/mobjs/modules/invalidate/action/setInvalidatePlaceholderMapInitialized.js
+  var setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
+    const item = invalidateIdPlaceHolderMap.get(invalidateId);
+    if (!item) return;
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      ...item,
+      initialized: true
+    });
+  };
+
+  // src/js/mobjs/modules/invalidate/action/setInvalidatePlaceholderMapScopedId.js
+  var setInvalidatePlaceholderMapScopedId = ({
+    invalidateId,
+    scopeId
+  }) => {
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      element: void 0,
+      initialized: false,
+      scopeId
+    });
+  };
+
+  // src/js/mobjs/route/domRef/root.js
+  var root = document.createElement("div");
+  var setRoot = ({ element }) => {
+    root = element;
+  };
+  var getRoot = () => root;
+
+  // src/js/mobjs/modules/delegateEvents/index.js
+  var tempDelegateEventMap = /* @__PURE__ */ new Map();
+  var eventDelegationMap = /* @__PURE__ */ new WeakMap();
+  var eventToAdd = [];
+  var eventRegistered = [];
+  var setDelegateBindEvent = (eventsData = []) => {
+    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
+    const id = mobCore.getUnivoqueId();
+    tempDelegateEventMap.set(id, eventsDataParsed);
+    return id;
+  };
+  var findParentElementInMap = (target) => {
+    let parent = target?.parentNode;
+    while (parent) {
+      if (eventDelegationMap.has(parent))
+        return { target: parent, data: eventDelegationMap.get(parent) };
+      parent = parent?.parentNode;
+    }
+    return { target: void 0, data: void 0 };
+  };
+  var getItemFromTarget = (target) => {
+    const data2 = eventDelegationMap.get(target);
+    if (data2) return { target, data: eventDelegationMap.get(target) };
+    return findParentElementInMap(target);
+  };
+  async function handleAction(eventKey, event) {
+    const target = event?.target;
+    if (!target) return;
+    if (!getFireEvent()) return;
+    preventFireEvent();
+    await tick();
+    allowFireEvent();
+    const { target: targetParsed, data: data2 } = getItemFromTarget(target);
+    if (!data2 || !document.contains(targetParsed)) return;
+    const currentEvent = data2.find(({ event: event2 }) => event2 === eventKey);
+    if (!currentEvent) return;
+    const { callback: callback2 } = currentEvent;
+    const componentId = getIdByElement({ element: targetParsed });
+    const currentRepeaterState = componentId ? getRepeaterStateById({
+      id: componentId
+    }) : DEFAULT_CURRENT_REPEATER_STATE;
+    Object.defineProperty(event, "target", { value: targetParsed });
+    callback2(event, currentRepeaterState?.index);
+  }
+  var applyDelegationBindEvent = async (root2) => {
+    await repeaterTick();
+    await invalidateTick();
+    const parent = root2.parentNode;
+    const elements = parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
+    [...elements].forEach((element) => {
+      const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? "";
+      element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
+      const data2 = tempDelegateEventMap.get(id);
+      tempDelegateEventMap.delete(id);
+      const dataParsed = data2?.flatMap((item) => {
+        return Object.entries(item).map((current) => {
+          const [event, callback2] = current;
+          if (!eventToAdd.includes(event)) eventToAdd.push(event);
+          return { event, callback: callback2 };
+        });
+      });
+      eventDelegationMap.set(element, dataParsed);
+    });
+    const rootElement = getRoot();
+    eventToAdd.forEach((eventKey) => {
+      if (eventRegistered.includes(eventKey)) return;
+      eventRegistered.push(eventKey);
+      rootElement.addEventListener(
+        eventKey,
+        handleAction.bind(null, eventKey)
+      );
+    });
+  };
+
+  // src/js/mobjs/modules/repeater/repeaterValue/index.js
+  var currentRepeaterValueMap = /* @__PURE__ */ new Map();
+  var setComponentRepeaterState = (current) => {
+    const id = mobCore.getUnivoqueId();
+    currentRepeaterValueMap.set(id, current);
+    return id;
+  };
+  var getComponentRepeaterState = (id = "") => {
+    if (!id) return DEFAULT_CURRENT_REPEATER_STATE;
+    const value = currentRepeaterValueMap.get(id);
+    currentRepeaterValueMap.delete(id);
+    return value ?? DEFAULT_CURRENT_REPEATER_STATE;
   };
 
   // src/js/mobjs/modules/repeater/utils.js
@@ -19063,119 +19440,109 @@
     return childrenChunkedByWrapper;
   };
 
-  // src/js/mobjs/modules/repeater/repeaterValue/index.js
-  var currentRepeaterValueMap = /* @__PURE__ */ new Map();
-  var setComponentRepeaterState = (current) => {
-    const id = mobCore.getUnivoqueId();
-    currentRepeaterValueMap.set(id, current);
-    return id;
+  // src/js/mobjs/modules/bindRefs/index.js
+  var getBindRefs = ({ element }) => {
+    const hasRef = element.querySelector(`[${ATTR_BIND_REFS_ID}]`);
+    if (!hasRef) return {};
+    const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
+    return [...refs].reduce((previous, current) => {
+      const refId = current.getAttribute(ATTR_BIND_REFS_ID);
+      const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
+      current.removeAttribute(ATTR_BIND_REFS_ID);
+      current.removeAttribute(ATTR_BIND_REFS_NAME);
+      const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
+      return { ...previous, [refName]: newRefsByName };
+    }, {});
   };
-  var getComponentRepeaterState = (id = "") => {
-    if (!id) return DEFAULT_CURRENT_REPEATER_STATE;
-    const value = currentRepeaterValueMap.get(id);
-    currentRepeaterValueMap.delete(id);
-    return value ?? DEFAULT_CURRENT_REPEATER_STATE;
+  var getRefsSorter = (refs) => {
+    return [
+      ...new Set(
+        refs.sort(function(a, b) {
+          if (a === b || !a || !b) return 0;
+          if (a.compareDocumentPosition(b) & 2) {
+            return 1;
+          }
+          return -1;
+        })
+      )
+    ];
+  };
+  var mergeRefsAndOrder = ({ refs, refName, element }) => {
+    return {
+      ...refs,
+      [refName]: getRefsSorter([...refs[refName], element])
+    };
+  };
+  var addBindRefsToComponent = (refs) => {
+    Object.entries(refs).forEach(([refName, entries]) => {
+      entries.forEach(({ element, scopeId }) => {
+        const item = componentMap.get(scopeId);
+        if (!item) return;
+        const { refs: previousRef } = item;
+        if (!previousRef) return;
+        const newRefs = refName in previousRef ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
+        componentMap.set(scopeId, {
+          ...item,
+          refs: newRefs
+        });
+      });
+    });
+  };
+  var getBindRefsById = ({ id }) => {
+    const item = componentMap.get(id);
+    if (!item) return {};
+    const { refs, element } = item;
+    if (!refs) return {};
+    const refsUpdated = Object.entries(refs).map(([name, collection]) => {
+      return {
+        name,
+        collection: collection.filter((ref) => element.contains(ref))
+      };
+    }).reduce((previous, current) => {
+      return { ...previous, [current.name]: current.collection };
+    }, {});
+    componentMap.set(id, {
+      ...item,
+      refs: refsUpdated
+    });
+    return refsUpdated;
+  };
+  var getBindRefById = ({ id }) => {
+    const refs = getBindRefsById({ id });
+    return Object.entries(refs).reduce((previous, [name, collection]) => {
+      return { ...previous, [name]: collection?.[0] };
+    }, {});
   };
 
-  // src/js/mobjs/modules/commonRepeatInvalidate.js
-  var MODULE_REPEATER = "repeater";
-  var MODULE_INVALIDATE = "invalidate";
-  var getRepeatOrInvalidateInsideElement = ({
-    element,
-    skipInitialized = false,
-    onlyInitialized = false,
-    componentId,
-    module
-  }) => {
-    const entries = module === MODULE_REPEATER ? [...repeatIdPlaceHolderMap.entries()] : [...invalidateIdPlaceHolderMap.entries()];
-    return entries.filter(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_id, parent]) => {
-        if (componentId && !compareIdOrParentIdRecursive({
-          id: parent.scopeId,
-          compareValue: componentId
-        }))
-          return;
-        if (skipInitialized && parent?.initialized) return false;
-        if (onlyInitialized && !parent?.initialized) return false;
-        return element?.contains(parent.element) && element !== parent.element;
+  // src/js/mobjs/modules/repeater/action/addRepeatUnsubcribe.js
+  var addRepeatUnsubcribe = ({ id, repeatId, unsubscribe: unsubscribe3 }) => {
+    const currentFunctions = repeatFunctionMap.get(id) ?? [];
+    const item = currentFunctions.map((item2) => {
+      if (item2.repeatId === repeatId) {
+        return { ...item2, unsubscribe: unsubscribe3 };
       }
-    ).map(([id, parent]) => ({
-      id,
-      parent: parent?.element
-    }));
+      return item2;
+    });
+    repeatFunctionMap.set(id, item);
   };
 
-  // src/js/mobjs/modules/invalidate/action/removeInvalidateByInvalidateId.js
-  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
-    if (!invalidateFunctionMap.has(id)) return;
-    const value = invalidateFunctionMap.get(id);
-    const valueParsed = value.filter(
-      (item) => item.invalidateId !== invalidateId
-    );
-    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
-      invalidateIdPlaceHolderMap.delete(invalidateId);
-    }
-    invalidateFunctionMap.set(id, valueParsed);
+  // src/js/mobjs/modules/repeater/activeRepeater/index.js
+  var activeRepeatMap = /* @__PURE__ */ new Set();
+  var addActiveRepeat = ({ id, state, container }) => {
+    activeRepeatMap.add({ id, state, container });
   };
-
-  // src/js/mobjs/modules/invalidate/action/destroyNestedInvalidate.js
-  var destroyNestedInvalidate = ({ id, invalidateParent }) => {
-    const invalidatechildToDelete = getRepeatOrInvalidateInsideElement({
-      element: invalidateParent,
-      skipInitialized: false,
-      onlyInitialized: true,
-      componentId: id,
-      module: MODULE_INVALIDATE
-    });
-    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
-      return invalidatechildToDelete.some((current) => {
-        return current.id === item.invalidateId;
-      });
-    });
-    invalidateChildToDeleteParsed.forEach((item) => {
-      item.unsubscribe.forEach((fn) => {
-        fn();
-      });
-      removeInvalidateByInvalidateId({
-        id,
-        invalidateId: item.invalidateId
-      });
+  var removeActiveRepeat = ({ id, state, container }) => {
+    activeRepeatMap.forEach((repeat) => {
+      if (id === repeat.id && state === repeat.state && container === repeat.container) {
+        activeRepeatMap.delete(repeat);
+      }
     });
   };
-
-  // src/js/mobjs/modules/repeater/action/removeRepeatByRepeatId.js
-  var removeRepeatByRepeatId = ({ id, repeatId }) => {
-    if (!repeatFunctionMap.has(id)) return;
-    const value = repeatFunctionMap.get(id);
-    const valueParsed = value.filter((item) => item.repeatId !== repeatId);
-    if (repeatIdPlaceHolderMap.has(repeatId)) {
-      repeatIdPlaceHolderMap.delete(repeatId);
-    }
-    repeatFunctionMap.set(id, valueParsed);
-  };
-
-  // src/js/mobjs/modules/repeater/action/destroyNestedRepeat.js
-  var destroyNestedRepeat = ({ id, repeatParent }) => {
-    const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
-      element: repeatParent,
-      skipInitialized: false,
-      onlyInitialized: true,
-      componentId: id,
-      module: MODULE_REPEATER
+  var getActiveRepeater = ({ id = "", state = "", container }) => {
+    const repeatIsActive = [...activeRepeatMap].some((repeat) => {
+      return id === repeat.id && state === repeat.state && container === repeat.container;
     });
-    const repeatChildToDeleteParsed = [...repeatFunctionMap.values()].flat().filter((item) => {
-      return repeatChildToDelete.some((current) => {
-        return current.id === item.repeatId;
-      });
-    });
-    repeatChildToDeleteParsed.forEach((item) => {
-      item.unsubscribe();
-      removeRepeatByRepeatId({
-        id,
-        repeatId: item.repeatId
-      });
-    });
+    return repeatIsActive;
   };
 
   // src/js/mobjs/modules/repeater/update/addWithKey.js
@@ -19404,44 +19771,6 @@
     return currentUnivoque;
   };
 
-  // src/js/mobjs/modules/invalidate/action/inizializeNestedInvalidate.js
-  var inizializeNestedInvalidate = ({ invalidateParent, id }) => {
-    const newInvalidateChild = getRepeatOrInvalidateInsideElement({
-      element: invalidateParent,
-      skipInitialized: true,
-      onlyInitialized: false,
-      componentId: id,
-      module: MODULE_INVALIDATE
-    });
-    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter(({ invalidateId }) => {
-      return newInvalidateChild.some((current) => {
-        return current.id === invalidateId;
-      });
-    });
-    invalidateChildToInizialize.forEach(({ fn }) => {
-      fn();
-    });
-  };
-
-  // src/js/mobjs/modules/repeater/watch/inizializeNestedRepeat.js
-  var inizializeNestedRepeat = ({ repeatParent, id }) => {
-    const newRepeatChild = getRepeatOrInvalidateInsideElement({
-      element: repeatParent,
-      skipInitialized: true,
-      onlyInitialized: false,
-      componentId: id,
-      module: MODULE_REPEATER
-    });
-    const repeatChildToInizialize = [...repeatFunctionMap.values()].flat().filter(({ repeatId }) => {
-      return newRepeatChild.some((current) => {
-        return current.id === repeatId;
-      });
-    });
-    repeatChildToInizialize.forEach(({ fn }) => {
-      fn();
-    });
-  };
-
   // src/js/mobjs/modules/repeater/watch/index.js
   var watchRepeat = ({
     state = "",
@@ -19600,31 +19929,7 @@
     return unsubscribe3;
   };
 
-  // src/js/mobjs/modules/repeater/index.js
-  var getNumberOfActiveRepeater = () => {
-    return repeatIdPlaceHolderMap.size;
-  };
-  var setRepeatFunction = ({ id, repeatId, fn }) => {
-    const currentFunctions = repeatFunctionMap.get(id) ?? [];
-    repeatFunctionMap.set(id, [
-      ...currentFunctions,
-      { repeatId, fn, unsubscribe: () => {
-      } }
-    ]);
-  };
-  var addRepeatUnsubcribe = ({ id, repeatId, unsubscribe: unsubscribe3 }) => {
-    const currentFunctions = repeatFunctionMap.get(id) ?? [];
-    const item = currentFunctions.map((item2) => {
-      if (item2.repeatId === repeatId) {
-        return { ...item2, unsubscribe: unsubscribe3 };
-      }
-      return item2;
-    });
-    repeatFunctionMap.set(id, item);
-  };
-  var getRepeatFunctions = ({ id }) => {
-    return repeatFunctionMap.get(id) ?? [];
-  };
+  // src/js/mobjs/modules/repeater/action/inizializeRepeatWatch.js
   var inizializeRepeatWatch = ({
     repeatId,
     persistent,
@@ -19658,318 +19963,6 @@
       repeatId,
       unsubscribe: unsubscribe3
     });
-  };
-
-  // src/js/mobjs/modules/repeater/action/setRepeaterPlaceholderMapScopeId.js
-  var setRepeaterPlaceholderMapScopeId = ({ repeatId, scopeId }) => {
-    repeatIdPlaceHolderMap.set(repeatId, {
-      element: void 0,
-      initialized: false,
-      scopeId
-    });
-  };
-
-  // src/js/mobjs/modules/repeater/action/setRepeaterPlaceholderMapInitialized.js
-  var setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
-    if (!item) return;
-    repeatIdPlaceHolderMap.set(repeatId, {
-      ...item,
-      initialized: true
-    });
-  };
-
-  // src/js/mobjs/modules/invalidate/action/getInvalidateParent.js
-  var getInvalidateParent = ({ id }) => {
-    if (!invalidateIdPlaceHolderMap.has(id)) {
-      return;
-    }
-    if (invalidateIdHostMap.has(id)) {
-      const host = invalidateIdHostMap.get(id);
-      host?.removeCustomComponent();
-      host.remove();
-      invalidateIdHostMap.delete(id);
-    }
-    const parent = invalidateIdPlaceHolderMap.get(id);
-    return parent?.element;
-  };
-
-  // src/js/mobjs/modules/invalidate/index.js
-  var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
-  var setInvalidateFunction = ({ id, invalidateId, fn }) => {
-    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    invalidateFunctionMap.set(id, [
-      ...currentFunctions,
-      { invalidateId, fn, unsubscribe: [() => {
-      }] }
-    ]);
-  };
-  var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
-    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    const item = currentFunctions.map((item2) => {
-      if (item2.invalidateId === invalidateId) {
-        return { ...item2, unsubscribe: unsubscribe3 };
-      }
-      return item2;
-    });
-    invalidateFunctionMap.set(id, item);
-  };
-  var getInvalidateFunctions = ({ id }) => {
-    return invalidateFunctionMap.get(id) ?? [];
-  };
-  var inizializeInvalidateWatch = async ({
-    bind = [],
-    beforeUpdate = () => Promise.resolve(),
-    afterUpdate = () => {
-    },
-    watch,
-    id,
-    invalidateId,
-    persistent = false,
-    renderFunction
-  }) => {
-    let watchIsRunning = false;
-    const fallBackParentId = getFallBackParentByElement({
-      element: getInvalidateParent({ id: invalidateId })
-    });
-    const unsubScribeArray = bind.map((state) => {
-      const unsubscribe3 = watch(state, async () => {
-        if (watchIsRunning) return;
-        freezePropById({ id, prop: state });
-        const invalidateParent = getInvalidateParent({
-          id: invalidateId
-        });
-        const descrementQueue = incrementTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_INVALIDATE
-        });
-        const decrementInvalidateQueque = incrementInvalidateTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_INVALIDATE
-        });
-        watchIsRunning = true;
-        mobCore.useNextLoop(async () => {
-          if (!invalidateParent) {
-            unFreezePropById({ id, prop: state });
-            return;
-          }
-          await beforeUpdate();
-          destroyNestedInvalidate({ id, invalidateParent });
-          destroyNestedRepeat({ id, repeatParent: invalidateParent });
-          destroyComponentInsideNodeById({
-            id: fallBackParentId ?? id,
-            container: invalidateParent
-          });
-          invalidateParent.textContent = "";
-          invalidateParent.insertAdjacentHTML(
-            "afterbegin",
-            renderFunction()
-          );
-          mainStore.set(
-            MAIN_STORE_ASYNC_PARSER,
-            {
-              element: invalidateParent,
-              parentId: fallBackParentId ?? id,
-              persistent
-            },
-            false
-          );
-          await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
-          watchIsRunning = false;
-          descrementQueue();
-          decrementInvalidateQueque();
-          inizializeNestedInvalidate({ invalidateParent, id });
-          inizializeNestedRepeat({ repeatParent: invalidateParent, id });
-          unFreezePropById({ id, prop: state });
-          afterUpdate();
-        });
-      });
-      return unsubscribe3;
-    });
-    addInvalidateUnsubcribe({
-      id,
-      invalidateId,
-      unsubscribe: unsubScribeArray
-    });
-  };
-
-  // src/js/mobjs/modules/invalidate/action/setInvalidatePlaceholderMapInitialized.js
-  var setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
-    const item = invalidateIdPlaceHolderMap.get(invalidateId);
-    if (!item) return;
-    invalidateIdPlaceHolderMap.set(invalidateId, {
-      ...item,
-      initialized: true
-    });
-  };
-
-  // src/js/mobjs/modules/invalidate/action/setInvalidatePlaceholderMapScopedId.js
-  var setInvalidatePlaceholderMapScopedId = ({
-    invalidateId,
-    scopeId
-  }) => {
-    invalidateIdPlaceHolderMap.set(invalidateId, {
-      element: void 0,
-      initialized: false,
-      scopeId
-    });
-  };
-
-  // src/js/mobjs/route/domRef/root.js
-  var root = document.createElement("div");
-  var setRoot = ({ element }) => {
-    root = element;
-  };
-  var getRoot = () => root;
-
-  // src/js/mobjs/modules/delegateEvents/index.js
-  var tempDelegateEventMap = /* @__PURE__ */ new Map();
-  var eventDelegationMap = /* @__PURE__ */ new WeakMap();
-  var eventToAdd = [];
-  var eventRegistered = [];
-  var setDelegateBindEvent = (eventsData = []) => {
-    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
-    const id = mobCore.getUnivoqueId();
-    tempDelegateEventMap.set(id, eventsDataParsed);
-    return id;
-  };
-  var findParentElementInMap = (target) => {
-    let parent = target?.parentNode;
-    while (parent) {
-      if (eventDelegationMap.has(parent))
-        return { target: parent, data: eventDelegationMap.get(parent) };
-      parent = parent?.parentNode;
-    }
-    return { target: void 0, data: void 0 };
-  };
-  var getItemFromTarget = (target) => {
-    const data2 = eventDelegationMap.get(target);
-    if (data2) return { target, data: eventDelegationMap.get(target) };
-    return findParentElementInMap(target);
-  };
-  async function handleAction(eventKey, event) {
-    const target = event?.target;
-    if (!target) return;
-    if (!getFireEvent()) return;
-    preventFireEvent();
-    await tick();
-    allowFireEvent();
-    const { target: targetParsed, data: data2 } = getItemFromTarget(target);
-    if (!data2 || !document.contains(targetParsed)) return;
-    const currentEvent = data2.find(({ event: event2 }) => event2 === eventKey);
-    if (!currentEvent) return;
-    const { callback: callback2 } = currentEvent;
-    const componentId = getIdByElement({ element: targetParsed });
-    const currentRepeaterState = componentId ? getRepeaterStateById({
-      id: componentId
-    }) : DEFAULT_CURRENT_REPEATER_STATE;
-    Object.defineProperty(event, "target", { value: targetParsed });
-    callback2(event, currentRepeaterState?.index);
-  }
-  var applyDelegationBindEvent = async (root2) => {
-    await repeaterTick();
-    await invalidateTick();
-    const parent = root2.parentNode;
-    const elements = parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
-    [...elements].forEach((element) => {
-      const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? "";
-      element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
-      const data2 = tempDelegateEventMap.get(id);
-      tempDelegateEventMap.delete(id);
-      const dataParsed = data2?.flatMap((item) => {
-        return Object.entries(item).map((current) => {
-          const [event, callback2] = current;
-          if (!eventToAdd.includes(event)) eventToAdd.push(event);
-          return { event, callback: callback2 };
-        });
-      });
-      eventDelegationMap.set(element, dataParsed);
-    });
-    const rootElement = getRoot();
-    eventToAdd.forEach((eventKey) => {
-      if (eventRegistered.includes(eventKey)) return;
-      eventRegistered.push(eventKey);
-      rootElement.addEventListener(
-        eventKey,
-        handleAction.bind(null, eventKey)
-      );
-    });
-  };
-
-  // src/js/mobjs/modules/bindRefs/index.js
-  var getBindRefs = ({ element }) => {
-    const hasRef = element.querySelector(`[${ATTR_BIND_REFS_ID}]`);
-    if (!hasRef) return {};
-    const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
-    return [...refs].reduce((previous, current) => {
-      const refId = current.getAttribute(ATTR_BIND_REFS_ID);
-      const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
-      current.removeAttribute(ATTR_BIND_REFS_ID);
-      current.removeAttribute(ATTR_BIND_REFS_NAME);
-      const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
-      return { ...previous, [refName]: newRefsByName };
-    }, {});
-  };
-  var getRefsSorter = (refs) => {
-    return [
-      ...new Set(
-        refs.sort(function(a, b) {
-          if (a === b || !a || !b) return 0;
-          if (a.compareDocumentPosition(b) & 2) {
-            return 1;
-          }
-          return -1;
-        })
-      )
-    ];
-  };
-  var mergeRefsAndOrder = ({ refs, refName, element }) => {
-    return {
-      ...refs,
-      [refName]: getRefsSorter([...refs[refName], element])
-    };
-  };
-  var addBindRefsToComponent = (refs) => {
-    Object.entries(refs).forEach(([refName, entries]) => {
-      entries.forEach(({ element, scopeId }) => {
-        const item = componentMap.get(scopeId);
-        if (!item) return;
-        const { refs: previousRef } = item;
-        if (!previousRef) return;
-        const newRefs = refName in previousRef ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
-        componentMap.set(scopeId, {
-          ...item,
-          refs: newRefs
-        });
-      });
-    });
-  };
-  var getBindRefsById = ({ id }) => {
-    const item = componentMap.get(id);
-    if (!item) return {};
-    const { refs, element } = item;
-    if (!refs) return {};
-    const refsUpdated = Object.entries(refs).map(([name, collection]) => {
-      return {
-        name,
-        collection: collection.filter((ref) => element.contains(ref))
-      };
-    }).reduce((previous, current) => {
-      return { ...previous, [current.name]: current.collection };
-    }, {});
-    componentMap.set(id, {
-      ...item,
-      refs: refsUpdated
-    });
-    return refsUpdated;
-  };
-  var getBindRefById = ({ id }) => {
-    const refs = getBindRefsById({ id });
-    return Object.entries(refs).reduce((previous, [name, collection]) => {
-      return { ...previous, [name]: collection?.[0] };
-    }, {});
   };
 
   // src/js/mobjs/parse/steps/getParamsForComponent.js
@@ -20329,6 +20322,16 @@
     };
   };
 
+  // src/js/mobjs/modules/invalidate/action/getInvalidateFunctions.js
+  var getInvalidateFunctions = ({ id }) => {
+    return invalidateFunctionMap.get(id) ?? [];
+  };
+
+  // src/js/mobjs/modules/repeater/action/getRepeatFunctions.js
+  var getRepeatFunctions = ({ id }) => {
+    return repeatFunctionMap.get(id) ?? [];
+  };
+
   // src/js/mobjs/parse/parseFunction.js
   var parseComponentsRecursive = async ({
     element,
@@ -20614,6 +20617,21 @@
     return getPenultimateHistoryNext();
   };
 
+  // src/js/mobjs/component/action/removeAndDestroy/removeOrphanTempIds.js
+  var removeOrphanTempIds = () => {
+    removeOrphansPropsFromParent();
+    removeOrphansBindEvent();
+    removeOrphansBindProps();
+  };
+
+  // src/js/mobjs/component/action/removeAndDestroy/removeCancellableComponent.js
+  var removeCancellableComponent = () => {
+    const cancellableComponents = [...componentMap.values()].filter(
+      ({ persistent }) => !persistent
+    );
+    cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));
+  };
+
   // src/js/mobjs/route/domRef/content.js
   var domContentID = "";
   var setContentId = ({ contentId = "" }) => {
@@ -20887,6 +20905,14 @@
     }, frameDelayAfterParse);
     debugRoute();
     router();
+  };
+
+  // src/js/mobjs/modules/invalidate/action/getNumberOfActiveInvalidate.js
+  var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
+
+  // src/js/mobjs/modules/repeater/action/getNumberOfActiveRepeater.js
+  var getNumberOfActiveRepeater = () => {
+    return repeatIdPlaceHolderMap.size;
   };
 
   // src/js/mobjs/utils.js

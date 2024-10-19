@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * @type {Set<import('../../webComponent/type').SlotComponent>}
  */

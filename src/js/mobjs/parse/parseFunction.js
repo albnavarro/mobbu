@@ -27,8 +27,8 @@ import {
     setRepeaterStateById,
 } from '../component/action/repeater';
 import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
-import { getInvalidateFunctions } from '../modules/invalidate';
-import { getRepeatFunctions } from '../modules/repeater';
+import { getInvalidateFunctions } from '../modules/invalidate/action/getInvalidateFunctions';
+import { getRepeatFunctions } from '../modules/repeater/action/getRepeatFunctions';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
 import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './useQuery';

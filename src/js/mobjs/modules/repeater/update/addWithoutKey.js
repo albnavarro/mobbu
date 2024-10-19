@@ -1,6 +1,5 @@
 // @ts-check
 
-import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/removeAndDestroy';
 import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/removeAndDestroyById';
 import {
     ATTR_CHILD_REPEATID,
@@ -18,6 +17,7 @@ import { destroyNestedRepeat } from '../action/destroyNestedRepeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { chunkIdsByRepeaterWrapper } from '../utils';
+import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
 
 /**
  * @param {object} obj

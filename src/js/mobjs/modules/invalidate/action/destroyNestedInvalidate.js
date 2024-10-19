@@ -1,3 +1,5 @@
+// @ts-check
+
 import {
     getRepeatOrInvalidateInsideElement,
     MODULE_INVALIDATE,

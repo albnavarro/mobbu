@@ -1,3 +1,5 @@
+// @ts-check
+
 import { invalidateFunctionMap } from '../invalidateFunctionMap';
 import { invalidateIdPlaceHolderMap } from '../invalidateIdPlaceHolderMap';
 

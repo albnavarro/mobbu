@@ -1,9 +1,7 @@
 // @ts-check
 
-import {
-    removeCancellableComponent,
-    removeOrphanTempIds,
-} from '../../component/action/removeAndDestroy/removeAndDestroy';
+import { removeOrphanTempIds } from '../../component/action/removeAndDestroy/removeOrphanTempIds';
+import { removeCancellableComponent } from '../../component/action/removeAndDestroy/removeCancellableComponent';
 import { getRouteByName } from '../routeList';
 import {
     MAIN_STORE_ACTIVE_PARAMS,

@@ -1,8 +1,5 @@
 // @ts-check
 
-export { removeAndDestroyById } from './component/action/removeAndDestroy/removeAndDestroyById';
-export { setStateById } from './component/action/state/setStateById';
-export { getStateById } from './component/action/state/getStateById';
 export { getChildrenIdByName } from './component/action/children';
 export {
     getComponentNameById,
@@ -11,11 +8,12 @@ export {
 export { getTree } from './component/action/getTree';
 export { useMethodByName } from './component/action/methods';
 export { getParentIdById } from './component/action/parent';
-export {
-    getStateByName,
-    setStateByName,
-    updateStateByName,
-} from './component/action/state/state';
+export { removeAndDestroyById } from './component/action/removeAndDestroy/removeAndDestroyById';
+export { getStateById } from './component/action/state/getStateById';
+export { getStateByName } from './component/action/state/getStateByName';
+export { setStateById } from './component/action/state/setStateById';
+export { setStateByName } from './component/action/state/setStateByName';
+export { updateStateByName } from './component/action/state/updateStateByName';
 export { watchById } from './component/action/watch';
 export { useComponent } from './component/componentList';
 export {
@@ -38,10 +36,10 @@ export {
     eventDelegationMap,
     tempDelegateEventMap,
 } from './modules/delegateEvents';
+export { getNumberOfActiveInvalidate } from './modules/invalidate/action/getNumberOfActiveInvalidate';
+export { getNumberOfActiveRepeater } from './modules/repeater/action/getNumberOfActiveRepeater';
 export { getPropsFromParent } from './modules/staticProps';
 export { renderHtml as html } from './parse/steps/utils';
 export { tick } from './queque/tick';
 export { loadUrl } from './route';
 export { staticProps } from './utils';
-export { getNumberOfActiveRepeater } from './modules/repeater';
-export { getNumberOfActiveInvalidate } from './modules/invalidate';

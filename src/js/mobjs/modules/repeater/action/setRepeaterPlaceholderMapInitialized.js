@@ -1,3 +1,5 @@
+// @ts-check
+
 import { repeatIdPlaceHolderMap } from '../repeatIdPlaceHolderMap';
 
 /**
