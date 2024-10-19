@@ -148,7 +148,7 @@ export type PartialUnBind = () => void;
 export type PartialOnMount = (
     arg0: (arg1: {
         element: HTMLElement;
-    }) => (() => void) | Promise<() => void> | undefined
+    }) => void | (() => void) | Promise<(() => void) | undefined | void>
 ) => void;
 
 /**
