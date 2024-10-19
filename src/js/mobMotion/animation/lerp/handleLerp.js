@@ -497,19 +497,10 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Record<string, number>} obj Initial data structure
-     * @returns {void}
+     * @type {import('./type.js').lerpSetData}
      *
      * @description
      * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
-     *
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.setData({ val: 100 });
-     * ```
      */
     setData(obj) {
         this.values = Object.entries(obj).map((item) => {
@@ -549,13 +540,7 @@ export default class HandleLerp {
 
     /**
      * @private
-     *
-     * @description
-     * Merge special props with default props
-     *
-     * @param  {import('./type.js').lerpActions} props
-     * @return {import('./type.js').lerpDefault} props merged
-     *
+     * @type  {import('./type.js').lerpMergeProps}
      */
     mergeProps(props) {
         const newProps = { ...this.defaultProps, ...props };
@@ -568,39 +553,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('./type.js').lerpActions} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.goTo(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         precision: [ Number ],
-     *         velocity: [ Number ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `current value` to the `entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - precision
-     *   - velocity
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
-     *
+     * @type {import('./type.js').lerpGoTo} obj to Values
      */
     goTo(obj, props = {}) {
         if (this.pauseStatus) return;
@@ -610,38 +563,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj from Values
-     * @param {import('./type.js').lerpActions} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.goFrom(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         precision: [ Number ],
-     *         velocity: [ Number ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `entered value` to the `current value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - precision
-     *   - velocity
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').lerpGoFrom} obj from Values
      */
     goFrom(obj, props = {}) {
         if (this.pauseStatus) return;
@@ -651,39 +573,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} fromObj from Values
-     * @param {Record<string, number|(() => number)>} toObj to Values
-     * @param {import('./type.js').lerpActions } props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.goFromTo(
-     *     { string: ( Number|Function ) },
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         precision: [ Number ],
-     *         velocity: [ Number ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `first entered value` to the `second entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - precision
-     *   - velocity
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').lerpGoFromTo} fromObj from Values
      */
     goFromTo(fromObj, toObj, props = {}) {
         if (this.pauseStatus) return;
@@ -701,29 +591,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('../tween/type.js').tweenCommonProps} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.set(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `current value` to the `entered value` immediately.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').lerpSet} obj to Values
      */
     set(obj, props = {}) {
         if (this.pauseStatus) return;
@@ -734,15 +602,7 @@ export default class HandleLerp {
 
     /**
      * @private
-     *
-     * @param {( import('../utils/tweenAction/type.js').goToParamsType|import('../utils/tweenAction/type.js').goFromType|import('../utils/tweenAction/type.js').goFromToType )[]} data Updated data
-     * @param {import('./type.js').lerpActions} props special props
-     * @param {Record<string, number|(() => number)>} obj new data obj come from set/goTo/goFrom/goFromTo
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @description
-     * Common oparation for set/goTo/goFrom/goFromTo methods.
-     * It is the method that updates the internal store
+     * @type {import('./type.js').lerpDoAction}
      */
     doAction(data, props, obj) {
         this.values = mergeArray(data, this.values);
@@ -959,24 +819,6 @@ export default class HandleLerp {
      * @param {() => void} cb - callback function.
      * @return {() => void} unsubscribe callback.
      *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = myLerp.subscribe(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myLerp.subscribe(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
      * ```
      * @description
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
@@ -1012,43 +854,12 @@ export default class HandleLerp {
      * @param {() => void} cb - callback function.
      * @return {() => void} unsubscribe callback.
      *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = myLerp.onComplete(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
      *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myLerp.onComplete(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
-       Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-       Useful for applying a different style to an inactive element.
-       A typical example is to remove the teansform3D property:
-
-     * @example
-     * ```javascript
-     * // Use transform3D while item is active
-     * myLerp.subscribe(({x}) => {
-     *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
-     * })
-     *
-     * // Remove transform3D when item is inactive
-     * myLerp.onComplete(({x}) => {
-     *      domEl.style.transform = `translateX(${x}px)`
-     * })
-     * ```
-     */
+     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
+     *  Useful for applying a different style to an inactive element.
+     *  A typical example is to remove the teansform3D property:
+     **/
     onComplete(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
             cb,
@@ -1065,18 +876,6 @@ export default class HandleLerp {
      * @param {(arg0:any) => void} fn - callback function.
      * @return {() => void} unsubscribe callback
      *
-     * @example
-     *```javascript
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myLerp.subscribeCache(item, ({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
      */

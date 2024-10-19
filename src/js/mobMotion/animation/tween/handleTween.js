@@ -545,19 +545,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Record<string, number>} obj Initial data structure
-     * @returns {void}
-     *
-     * @description
-     * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
-     *
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myTween.setData({ val: 100 });
-     * ```
+     * @type {import('./type.js').tweenSetData}
      */
     setData(obj) {
         this.values = Object.entries(obj).map((item) => {
@@ -634,11 +622,10 @@ export default class HandleTween {
     /**
      * @private
      *
+     * @type  {import('./type.js').tweenMergeProps}
+     *
      * @description
      * Merge special props with default props
-     *
-     * @param  {import('./type.js').tweenAction} props
-     * @return {import('./type.js').tweenDefault} props merged
      *
      */
     mergeProps(props) {
@@ -651,38 +638,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('./type.js').tweenAction} props special props
-     * @returns {Promise|void} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     * myTween.goTo(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         duration: [ ( Number|Function ) ],
-     *         ease: [ String ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `current value` to the `entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - duration
-     *   - ease
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
-     *
+     * @type {import('./type.js').tweenGoTo} obj to Values
      */
     goTo(obj, props = {}) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -692,38 +648,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj from Values
-     * @param {import('./type.js').tweenAction} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myTween.goFrom(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         duration: [ ( Number|Function ) ],
-     *         ease: [ String ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `entered value` to the `current value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - duration
-     *   - ease
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').tweenGoFrom}
      */
     goFrom(obj, props = {}) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -733,40 +658,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} fromObj from Values
-     * @param {Record<string, number|(() => number)>} toObj to Values
-     * @param {import('./type.js').tweenAction} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myTween.goFromTo(
-     *     { string: ( Number|Function ) },
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         duration: [ ( Number|Function ) ],
-     *         ease: [ String ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `first entered value` to the `second entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - duration
-     *   - ease
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').tweenGoFromTo}
      */
     goFromTo(fromObj, toObj, props = {}) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -782,29 +674,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('./type.js').tweenCommonPropsTween } props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myTween.set(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `current value` to the `entered value` immediately.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').tweenSet}
      */
     set(obj, props = {}) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -818,15 +688,7 @@ export default class HandleTween {
 
     /**
      * @private
-     *
-     * @param {import('../utils/tweenAction/type.js').allActionType[]} data Updated data
-     * @param {import('./type.js').tweenAction} props special props
-     * @param {Record<string, number|(() => number)>} obj new data obj come from set/goTo/goFrom/goFromTo
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @description
-     * Common oparation for set/goTo/goFrom/goFromTo methods.
-     * It is the method that updates the internal store
+     * @type {import('./type.js').tweenDoAction} data Updated data
      */
     doAction(data, props, obj) {
         this.values = mergeArrayTween(data, this.values);

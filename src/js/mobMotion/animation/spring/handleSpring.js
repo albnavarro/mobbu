@@ -597,13 +597,10 @@ export default class HandleSpring {
 
     /**
      * @private
+     * @type  {import('./type.js').springMergeProps}
      *
      * @description
      * Merge special props with default props
-     *
-     * @param  {import('./type.js').springActions} props
-     * @return {import('./type.js').springDefault} props merged
-     *
      */
     mergeProps(props) {
         const springParams = handleSetUp.get('spring');
@@ -643,44 +640,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('./type.js').springActions} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * mySpring.goTo(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         config: [ String ],
-     *         configProp: {
-     *            tension: [ Number ],
-     *            mass: [ Number ],
-     *            friction: [ Number ],
-     *            velocity: [ Number ],
-     *            precision: [ Number ],
-     *         },
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `current value` to the `entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - config
-     *   - configProp
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').springGoTo}
      */
     goTo(obj, props = {}) {
         if (this.pauseStatus) return;
@@ -690,44 +650,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj from Values
-     * @param {import('./type.js').springActions} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * mySpring.goFrom(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         config: [ String ],
-     *         configProp: {
-     *            tension: [ Number ],
-     *            mass: [ Number ],
-     *            friction: [ Number ],
-     *            velocity: [ Number ],
-     *            precision: [ Number ],
-     *         },
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `entered value` to the `current value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - config
-     *   - configProp
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').springGoFrom}
      */
     goFrom(obj, props = {}) {
         if (this.pauseStatus) return;
@@ -737,45 +660,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} fromObj from Values
-     * @param {Record<string, number|(() => number)>} toObj to Values
-     * @param {import('./type.js').springActions } props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * mySpring.goFromTo(
-     *     { string: ( Number|Function ) },
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         config: [ String ],
-     *         configProp: {
-     *            tension: [ Number ],
-     *            mass: [ Number ],
-     *            friction: [ Number ],
-     *            velocity: [ Number ],
-     *            precision: [ Number ],
-     *         },
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `first entered value` to the `second entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - config
-     *   - configProp
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').springGoFromTo}
      */
     goFromTo(fromObj, toObj, props = {}) {
         if (this.pauseStatus) return;
@@ -790,29 +675,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('../tween/type.js').tweenCommonProps} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * mySpring.set(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `current value` to the `entered value` immediately.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').springSet}
      */
     set(obj, props = {}) {
         if (this.pauseStatus) return;
@@ -823,15 +686,7 @@ export default class HandleSpring {
 
     /**
      * @private
-     *
-     * @param {import('../utils/tweenAction/type.js').allActionType[]} data Updated data
-     * @param {import('./type.js').springActions} props special props
-     * @param {Record<string, number|(() => number)>} obj new data obj come from set/goTo/goFrom/goFromTo
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @description
-     * Common oparation for set/goTo/goFrom/goFromTo methods.
-     * It is the method that updates the internal store
+     * @type {import('./type.js').springDoAction} data Updated data
      */
     doAction(data, props, obj) {
         this.values = mergeArray(data, this.values);

@@ -398,6 +398,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
+     * @type {() => void}
      */
     run() {
         /**
@@ -905,6 +906,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
+     * @type {() => void}
      */
     onRepeat() {
         /*
@@ -930,7 +932,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
-     * @param {import('./type').asyncTimelineTween} tween
+     * @type {import('./type').addToActiveTween}
      */
     addToActiveTween(tween) {
         const tweenId = tween?.getId && tween.getId();
@@ -954,6 +956,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
+     * @type {() => void}
      */
     revertTween() {
         this.isReverse = !this.isReverse;
@@ -1016,7 +1019,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
-     * @param {import('./type').asyncTimelineRowData} obj
+     * @type {import('./type').addToMainArray}
      */
     addToMainArray(obj) {
         /**
@@ -1039,7 +1042,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
-     * @param {import('./type').asyncTimelineTween} tween
+     * @type {import('./type').addTweenToStore} tween
      */
     addTweenToStore(tween) {
         const uniqueId = tween?.getId?.();
@@ -1052,39 +1055,14 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
+     * @type {() => void}
      */
     resetAllTween() {
         this.tweenStore.forEach(({ tween }) => tween.resetData());
     }
 
     /**
-     * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {Record<string, number>} valuesSet - set values Object
-     * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.set(
-     *      myTweenInstance,
-     *      { Object.<string, number>, },
-     *      {
-     *          delay: [ Number ],
-     *          immediate [ Boolean ],
-     *          immediateNoPromise: [ Boolean ]
-     *      }
-     *  )
-     *
-     *
-     * ```
-     *
-     * @description
-     * Transform some properties of your choice from the `current value` to the `entered value` immediately.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     * It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *  - immediate (internal use)
-     *  - immediateNoPromise (internal use)
-     *  - dealy
+     * @type {import('./type').asyncTimelineSet}
      */
     set(tween, valuesSet = {}, tweenProps = {}) {
         if (!asyncTimelineTweenIsValid(tween)) return this;
@@ -1108,60 +1086,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {Record<string, number>} valuesTo - set values Object
-     * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.goTo(
-     *      myTweenInstance,
-     *      { Object.<string, (Number|Function)> },
-     *      {
-     *          `Tween properties`
-     *          ease: [ String ],
-     *          duration: [ ( Number|Function ) ],
-     *          --------------
-     *          `Spring properties`
-     *          config: [ String ],
-     *          configProp: {
-     *             tension: [ Number ],
-     *             mass: [ Number ],
-     *             friction: [ Number ],
-     *             velocity: [ Number ],
-     *             precision: [ Number ],
-     *          },
-     *          --------------
-     *          `Lerp properties`
-     *          precision: [ Number ],
-     *          velocity: [ Number ],
-     *          --------------
-     *          reverse: [ Boolean ],
-     *          delay: [ Number ],
-     *          immediate [ Boolean ],
-     *          immediateNoPromise: [ Boolean ]
-     *      }
-     *  )
-     *
-     *
-     * ```
-     *
-     * @description
-     * Transform some properties of your choice from the `current value` to the `entered value`.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     * It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *  - duration
-     *  - ease ( HandleTween )
-     *  - config  ( HandleSpring )
-     *  - configProp ( HandleSpring )
-     *  - velocity ( HandleLerp )
-     *  - precision ( HandleLerp )
-     *  - relative
-     *  - reverse
-     *  - delay
-     *  - immediate (internal use)
-     *  - immediateNoPromise (internal use)
+     * @type {import('./type').asyncTimelineGoTo}
      */
     goTo(tween, valuesTo = {}, tweenProps = {}) {
         if (!asyncTimelineTweenIsValid(tween)) return this;
@@ -1184,60 +1109,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {Record<string, number>} valuesFrom - set values Object
-     * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.goFrom(
-     *      myTweenInstance,
-     *      { Object.<string, (Number|Function)> },
-     *      {
-     *          `Tween properties`
-     *          ease: [ String ],
-     *          duration: [ ( Number|Function ) ],
-     *          --------------
-     *          `Spring properties`
-     *          config: [ String ],
-     *          configProp: {
-     *             tension: [ Number ],
-     *             mass: [ Number ],
-     *             friction: [ Number ],
-     *             velocity: [ Number ],
-     *             precision: [ Number ],
-     *          },
-     *          --------------
-     *          `Lerp properties`
-     *          precision: [ Number ],
-     *          velocity: [ Number ],
-     *          --------------
-     *          reverse: [ Boolean ],
-     *          delay: [ Number ],
-     *          immediate [ Boolean ],
-     *          immediateNoPromise: [ Boolean ]
-     *      }
-     *  )
-     *
-     *
-     * ```
-     *
-     * @description
-     * Transform some properties of your choice from the `entered value` to the `current value`.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     * It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *  - duration
-     *  - ease ( HandleTween )
-     *  - config  ( HandleSpring )
-     *  - configProp ( HandleSpring )
-     *  - velocity ( HandleLerp )
-     *  - precision ( HandleLerp )
-     *  - relative
-     *  - reverse
-     *  - delay
-     *  - immediate (internal use)
-     *  - immediateNoPromise (internal use)
+     * @type {import('./type').asyncTimelineGoFrom}
      */
     goFrom(tween, valuesFrom = {}, tweenProps = {}) {
         if (!asyncTimelineTweenIsValid(tween)) return this;
@@ -1260,62 +1132,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {Record<string, number>} valuesFrom - set values Object
-     * @param {Record<string, number>} valuesTo - set values Object
-     * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.goFromTo(
-     *      myTweenInstance,
-     *      { Object.<string, (Number|Function)> },
-     *      { Object.<string, (Number|Function)> },
-     *      {
-     *          `Tween properties`
-     *          ease: [ String ],
-     *          duration: [ ( Number|Function ) ],
-     *          --------------
-     *          `Spring properties`
-     *          config: [ String ],
-     *          configProp: {
-     *             tension: [ Number ],
-     *             mass: [ Number ],
-     *             friction: [ Number ],
-     *             velocity: [ Number ],
-     *             precision: [ Number ],
-     *          },
-     *          --------------
-     *          `Lerp properties`
-     *          precision: [ Number ],
-     *          velocity: [ Number ],
-     *          --------------
-     *          reverse: [ Boolean ],
-     *          delay: [ Number ],
-     *          immediate [ Boolean ],
-     *          immediateNoPromise: [ Boolean ]
-     *      }
-     *  )
-     *
-     *
-     * ```
-     *
-     * @description
-     * Transform some properties of your choice from the `first entered value` to the `second entered value`.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     * It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *  - duration
-     *  - ease ( HandleTween )
-     *  - config  ( HandleSpring )
-     *  - configProp ( HandleSpring )
-     *  - velocity ( HandleLerp )
-     *  - precision ( HandleLerp )
-     *  - relative
-     *  - reverse
-     *  - delay
-     *  - immediate (internal use)
-     *  - immediateNoPromise (internal use)
+     * @type {import('./type').asyncTimelineGoFromTo}
      */
     goFromTo(tween, valuesFrom = {}, valuesTo = {}, tweenProps = {}) {
         if (!asyncTimelineTweenIsValid(tween)) return this;
@@ -1339,21 +1156,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {Function} fn - Function to perform
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     *
-     * myTimeline.add(() => {
-     *      // code
-     * });
-     *
-     *
-     * ```
-     * @description
-     *  Adds a `custom function` to the timeline, the function will be executed after the previous promise and before the next one, `the function will not overlap the tweens`.
-     * `This property cannot be used within a group`.
+     * @type {import('./type').asyncTimelineAdd}
      */
     add(fn = NOOP) {
         const cb = functionIsValidAndReturnDefault(
@@ -1384,26 +1187,11 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param { function(import('../utils/timeline/type.js').directionTypeAsync):void } fn - callback function
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     *   myTimeline.addAsync(({ loop, direction, resolve }) => {
-     *       // code
-     *       resolve();
-     *   });
-     *
-     *
-     * ```
-     * @description
-     * Adds an `asynchronous` function to the timeline.
-     * The function receives the `resolve parameter as input`, the timeline will automatically enter the `suspended state`
-     * Here it is possible to perform asynchronous operations, the timeline will be active again by launching the resolve function.
-     * `This property cannot be used within a group`.
+     * @type {import('./type').asyncTimelineAddAsync}
      */
     addAsync(fn) {
         const cb = addAsyncFunctionIsValid(fn);
+
         /**
          * Can't add this interpolation inside a group.
          * groupId props is not null when active.
@@ -1427,20 +1215,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {Object} syncProp
-     * @param {Object} syncProp.from - HandleTween | HandleSpring | HandleSpring - from tween
-     * @param {Object} syncProp.to - HandleTween | HandleSpring | HandleSpring - to tween
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.sync({ from: instanceA, to: instanceB });
-     *
-     *
-     * ```
-     * @description
-     *  This method `synchronizes two different tweens` by updating their `current values`, it is possible for example to synchronize a tween with a spring and vice versa in order to manage a single element with two different interpolation methods.
-     * `This property cannot be used within a group`
+     * @type {import('./type').asyncTimelineSync}
      */
     sync(syncProp) {
         /**
@@ -1473,26 +1248,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {Object} [ groupProps ]
-     * @param {boolean} [ groupProps.waitComplete ]
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline
-     *      .createGroup({waitComplete: [Boolean]})
-     *      .goTo(..)
-     *      ...
-     *      .closeGroup();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Initialize a group, within this group all instances will run in `parallel`.
-     * If the waitComplete property is set to true the group will behave like a `promise.all()` otherwise it will behave like a `promise.race()`. This means that if waitComplete is equal to false the group of promises will be resolved by the fastest, otherwise it will be resolved only when each of the single promises (tween) are resolved.
-     * To close the group use the `closeGroup()` method.
-     * `Within a group, only the goTo, goFrom, goFromTo methods can be used`
+     * @type {import('./type').asyncTimelineCreateGroup}
      */
     createGroup(groupProps = {}) {
         /**
@@ -1520,21 +1276,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline
-     *      .createGroup({waitComplete: [Boolean]})
-     *      .goTo(..)
-     *      ...
-     *      .closeGroup();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Closes a previously opened group.
+     * @type {import('./type').asyncTimelineCloseGroup}
      */
     closeGroup() {
         this.groupId = undefined;
@@ -1553,22 +1295,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param { function():boolean } fn - callback function
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.suspend(() => {
-     *     return true
-     * });
-     *
-     *
-     * ```
-     *
-     * @description
-     * This method puts the timeline in a state of `suspension`, the individual instances if within a group with the property waitComplete = false, they will finish their interpolation, suspend in fact does not pause the individual instances but only the timeline.
-     * It is possible to use a `function that returns a Boolean` value as a parameter to have conditional control.
-     * To reactivate the timeline use the resume() method. `This property cannot be used within a group`.
+     * @type {import('./type').asyncTimelineSuspend}
      */
     suspend(fn = () => true) {
         /**
@@ -1594,19 +1321,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {Object} labelProps
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.label({ name: 'labelName' });
-     *
-     *
-     * ```
-     *
-     * @description
-     *  Add a label, this label can be used by the playFrom(), playFromReverse(), setTween() methods.
-     * `This property cannot be used within a group`
+     * @type {import('./type').asyncTimelineLabel}
      */
     label(labelProps = {}) {
         /**
@@ -1634,8 +1349,9 @@ export default class HandleAsyncTimeline {
         return this;
     }
 
-    /*
+    /**
      * @private
+     * @type {() => void}
      *
      * @description
      * Add a set 'tween' at start and end of timeline.
@@ -1696,30 +1412,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {string} label
-     * @param {Array} items
-     * @returns {Promise} Return a promise which is resolved when tween is settled
-     *
-     * @example
-     * ```javascript
-     * myTimeline
-     *     .setTween('myLabel', [tweenA,tweenB])
-     *     .then(() => {
-     *         // es:
-     *         myTimeline.playFrom('myLabel');
-     *     })
-     *     .catch((error) => {
-     *         // code
-     *     });
-     *
-     *
-     * ```
-     *
-     * @description
-     * Executes the set method on the tweens contained in the array to a specific label.
-     * The method will return a promise.
-     * It is possible for example to execute a set of specific instances before using the playFrom() method to be sure that all instances are in position, the instances on which a delay is applied could in fact remain in the old position until the delay is finished , by doing so we can be put in the right position before launching the method.
-     * `This property cannot be used within a group`
+     * @type {import('./type').asyncTimelineSetTween}
      */
     setTween(label = '', items = []) {
         this.stop();
@@ -1791,19 +1484,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @return {Promise} - The promise launched at the end of the animation
-     *
-     * @example
-     * ```javascript
-     * myTimeline.play().then(() => {
-     *      // Code
-     * });
-     *
-     *
-     * ```
-     *
-     * @description
-     * Plays the timeline from start
+     * @type {() => Promise<any>}
      */
     play() {
         return new Promise((resolve, reject) => {
@@ -1895,9 +1576,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
-     * @param {object} obj
-     * @param {boolean} [ obj.isReverse ]
-     * @param {string|null} obj.label
+     * @type {import('./type').asyncTimelinePlayFromLabel}
      */
     playFromLabel({ isReverse = false, label = null }) {
         // Skip of there is nothing to run
@@ -1925,20 +1604,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {string} label
-     * @return {Promise} - The promise launched at the end of the animation
-     *
-     * @example
-     * ```javascript
-     * myTimeline.playFrom('myLabel').then(() => {
-     *      // Code
-     * });
-     *
-     *
-     * ```
-     *
-     * @description
-     * Play timeline from a specific label.
+     * @type {import('./type').asyncTimelinePlayFrom}
      */
     playFrom(label) {
         return new Promise((resolve, reject) => {
@@ -1971,20 +1637,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {string} label
-     * @return {Promise} - The promise launched at the end of the animation
-     *
-     * @example
-     * ```javascript
-     * myTimeline.playFromReverse('myLabel').then(() => {
-     *      // Code
-     * });
-     *
-     *
-     * ```
-     *
-     * @description
-     * Play timeline from a specific label in backward direction.
+     * @type {import('./type').asyncTimelinePlayFromReverse}
      */
     playFromReverse(label) {
         return new Promise((resolve, reject) => {
@@ -2012,22 +1665,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {object} obj
-     * @param {boolean} [ obj.forceYoYo ]
-     * @param {(value:any) => void|null} [ obj.resolve ]
-     * @param {(value:any) => void|null} [ obj.reject ]
-     * @return {Promise} - The promise launched at the end of the animation
-     *
-     * @example
-     * ```javascript
-     * myTimeline.playReverse().then(() => {
-     *      // Code
-     * });
-     *
-     *
-     * ```
-     * @description
-     * Play timeline in backward direction.
+     * @type {import('./type').asyncTimelinePlayReverse}
      */
     playReverse({ forceYoYo = true, resolve = null, reject = null } = {}) {
         return new Promise((resolveFromReverse, rejectFromReverse) => {
@@ -2099,32 +1737,14 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @example
-     * ```javascript
-     * myTimeline.reverseNext();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Reverse timeline direction at the end of current interpolation.
+     * @type {() => void}
      */
     reverseNext() {
         this.isReverseNext = true;
     }
 
     /**
-     * @param {object} obj
-     * @param {boolean} [ obj.clearCache ]
-     *
-     * @example
-     * ```javascript
-     * myTimeline.stop();
-     *
-     *
-     * ```
-     * @description
-     * Stop timeline.
+     * @type {import('./type').asyncTimelineStop}
      */
     stop({ clearCache = true } = {}) {
         this.isStopped = true;
@@ -2164,14 +1784,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @example
-     * ```javascript
-     * myTimeline.pause();
-     *
-     *
-     * ```
-     * @description
-     * Pause all the instance.
+     * @type {import('./type').asyncTimelinePause}
      */
     pause() {
         this.isInPause = true;
@@ -2182,14 +1795,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @example
-     * ```javascript
-     * myTimeline.resume();
-     *
-     *
-     * ```
-     * @description
-     * Resume all the instance or resume timeline from suspend.
+     * @type {import('./type').asyncTimelineResume}
      */
     resume() {
         if (this.isInPause) {
@@ -2218,6 +1824,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
+     * @type {() => void}
      */
     disableLabel() {
         this.labelState.active = false;
@@ -2226,6 +1833,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @private
+     * @type {() => void}
      */
     resumeEachTween() {
         this.currentTween.forEach(({ tween }) => {
@@ -2316,20 +1924,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {(arg0: import('../utils/timeline/type.js').directionTypeObjectLoop ) => void } cb - callback function
-     * @return {() => void} unsubscribe callback
-     *
-     * @example
-     *```javascript
-     * const unsubscribeOnLoopEnd = myTimeline.onLoopEnd(({direction, loop})=>{
-     *      /// code
-     * })
-     * unsubscribeOnLoopEnd();
-     *
-     *
-     * ```
-     * @description
-     * Callback thrown at the end of each cycle
+     * @type {import('./type').asyncTimelineOnLoopEnd}
      */
     onLoopEnd(cb) {
         this.callbackLoop.push({ cb, id: this.id });
@@ -2344,20 +1939,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {function():void } cb - callback function
-     * @return {Function} unsubscribe callback
-     *
-     * @example
-     *```javascript
-     * const unsubscribeOnComplete = myTimeline.onComplete(() => {
-     *      /// code
-     * })
-     * unsubscribeOnComplete();
-     *
-     *
-     * ```
-     * @description
-     * Callback thrown at the end of timeline
+     * @type {import('./type').asyncTimelineOnComplete}
      */
     onComplete(cb) {
         this.callbackComplete.push({ cb, id: this.id });

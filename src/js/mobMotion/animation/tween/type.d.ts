@@ -91,3 +91,34 @@ export interface tweenStoreData extends tweenInitialData {
     toValueOnPause: number | (() => number);
     toValProcessed: number | (() => number);
 }
+
+export type tweenSetData = (arg0: Record<string, number>) => void;
+
+export type tweenGoTo = (
+    obj: Record<string, number | (() => number)>,
+    props: tweenAction
+) => void | Promise<any>;
+
+export type tweenGoFrom = (
+    obj: Record<string, number | (() => number)>,
+    props: tweenAction
+) => void | Promise<any>;
+
+export type tweenGoFromTo = (
+    fromObj: Record<string, number | (() => number)>,
+    toObj: Record<string, number | (() => number)>,
+    props: tweenAction
+) => void | Promise<any>;
+
+export type tweenSet = (
+    obj: Record<string, number | (() => number)>,
+    props: tweenAction
+) => void | Promise<any>;
+
+export type tweenDoAction = (
+    data: (goToParamsType | goFromType | goFromToType)[],
+    props: tweenAction,
+    obj: Record<string, number | (() => number)>
+) => void | Promise<any>;
+
+export type tweenMergeProps = (props: tweenAction) => tweenDefault;

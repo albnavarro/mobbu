@@ -7482,19 +7482,10 @@
       }
     }
     /**
-     * @param {Record<string, number>} obj Initial data structure
-     * @returns {void}
+     * @type {import('./type.js').lerpSetData}
      *
      * @description
      * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
-     *
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.setData({ val: 100 });
-     * ```
      */
     setData(obj) {
       this.values = Object.entries(obj).map((item) => {
@@ -7531,13 +7522,7 @@
     }
     /**
      * @private
-     *
-     * @description
-     * Merge special props with default props
-     *
-     * @param  {import('./type.js').lerpActions} props
-     * @return {import('./type.js').lerpDefault} props merged
-     *
+     * @type  {import('./type.js').lerpMergeProps}
      */
     mergeProps(props) {
       const newProps = { ...this.defaultProps, ...props };
@@ -7548,39 +7533,7 @@
       return newProps;
     }
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('./type.js').lerpActions} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.goTo(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         precision: [ Number ],
-     *         velocity: [ Number ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `current value` to the `entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - precision
-     *   - velocity
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
-     *
+     * @type {import('./type.js').lerpGoTo} obj to Values
      */
     goTo(obj, props = {}) {
       if (this.pauseStatus) return;
@@ -7589,38 +7542,7 @@
       return this.doAction(data2, props, obj);
     }
     /**
-     * @param {Record<string, number|(() => number)>} obj from Values
-     * @param {import('./type.js').lerpActions} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.goFrom(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         precision: [ Number ],
-     *         velocity: [ Number ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `entered value` to the `current value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - precision
-     *   - velocity
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').lerpGoFrom} obj from Values
      */
     goFrom(obj, props = {}) {
       if (this.pauseStatus) return;
@@ -7629,39 +7551,7 @@
       return this.doAction(data2, props, obj);
     }
     /**
-     * @param {Record<string, number|(() => number)>} fromObj from Values
-     * @param {Record<string, number|(() => number)>} toObj to Values
-     * @param {import('./type.js').lerpActions } props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.goFromTo(
-     *     { string: ( Number|Function ) },
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         precision: [ Number ],
-     *         velocity: [ Number ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `first entered value` to the `second entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - precision
-     *   - velocity
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').lerpGoFromTo} fromObj from Values
      */
     goFromTo(fromObj, toObj, props = {}) {
       if (this.pauseStatus) return;
@@ -7674,29 +7564,7 @@
       return this.doAction(data2, props, fromObj);
     }
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('../tween/type.js').tweenCommonProps} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myLerp.set(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `current value` to the `entered value` immediately.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').lerpSet} obj to Values
      */
     set(obj, props = {}) {
       if (this.pauseStatus) return;
@@ -7706,15 +7574,7 @@
     }
     /**
      * @private
-     *
-     * @param {( import('../utils/tweenAction/type.js').goToParamsType|import('../utils/tweenAction/type.js').goFromType|import('../utils/tweenAction/type.js').goFromToType )[]} data Updated data
-     * @param {import('./type.js').lerpActions} props special props
-     * @param {Record<string, number|(() => number)>} obj new data obj come from set/goTo/goFrom/goFromTo
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @description
-     * Common oparation for set/goTo/goFrom/goFromTo methods.
-     * It is the method that updates the internal store
+     * @type {import('./type.js').lerpDoAction}
      */
     doAction(data2, props, obj) {
       this.values = mergeArray(data2, this.values);
@@ -7913,24 +7773,6 @@
      * @param {() => void} cb - callback function.
      * @return {() => void} unsubscribe callback.
      *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = myLerp.subscribe(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myLerp.subscribe(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
      * ```
      * @description
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
@@ -7961,46 +7803,15 @@
       return () => this.callbackStartInPause = [];
     }
     /**
-         * @param {() => void} cb - callback function.
-         * @return {() => void} unsubscribe callback.
-         *
-         * @example
-         * ```javascript
-         * //Single DOM element
-         * const unsubscribe = myLerp.onComplete(({ x,y... }) => {
-         *      domEl.style.prop = `...`
-         * })
-         * unsubscribe()
-         *
-         *
-         * //Multiple DOM element ( stagger )
-         * const unsubscribeStagger = [...elements].map((item) => {
-         *   return myLerp.onComplete(({ x, y... }) => {
-         *       item.style.prop = ...
-         *   });
-         * });
-         * unsubscribeStagger.forEach((item) => item());
-         *
-         *
-         * ```
-         * @description
-           Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-           Useful for applying a different style to an inactive element.
-           A typical example is to remove the teansform3D property:
-    
-         * @example
-         * ```javascript
-         * // Use transform3D while item is active
-         * myLerp.subscribe(({x}) => {
-         *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
-         * })
-         *
-         * // Remove transform3D when item is inactive
-         * myLerp.onComplete(({x}) => {
-         *      domEl.style.transform = `translateX(${x}px)`
-         * })
-         * ```
-         */
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
+     *
+     *
+     * @description
+     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
+     *  Useful for applying a different style to an inactive element.
+     *  A typical example is to remove the teansform3D property:
+     **/
     onComplete(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
@@ -8014,18 +7825,6 @@
      * @param {(arg0:any) => void} fn - callback function.
      * @return {() => void} unsubscribe callback
      *
-     * @example
-     *```javascript
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myLerp.subscribeCache(item, ({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
      */
@@ -9802,13 +9601,10 @@
     }
     /**
      * @private
+     * @type  {import('./type.js').springMergeProps}
      *
      * @description
      * Merge special props with default props
-     *
-     * @param  {import('./type.js').springActions} props
-     * @return {import('./type.js').springDefault} props merged
-     *
      */
     mergeProps(props) {
       const springParams = handleSetUp.get("spring");
@@ -9830,44 +9626,7 @@
       return newProps;
     }
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('./type.js').springActions} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * mySpring.goTo(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         config: [ String ],
-     *         configProp: {
-     *            tension: [ Number ],
-     *            mass: [ Number ],
-     *            friction: [ Number ],
-     *            velocity: [ Number ],
-     *            precision: [ Number ],
-     *         },
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `current value` to the `entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - config
-     *   - configProp
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').springGoTo}
      */
     goTo(obj, props = {}) {
       if (this.pauseStatus) return;
@@ -9876,44 +9635,7 @@
       return this.doAction(data2, props, obj);
     }
     /**
-     * @param {Record<string, number|(() => number)>} obj from Values
-     * @param {import('./type.js').springActions} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * mySpring.goFrom(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         config: [ String ],
-     *         configProp: {
-     *            tension: [ Number ],
-     *            mass: [ Number ],
-     *            friction: [ Number ],
-     *            velocity: [ Number ],
-     *            precision: [ Number ],
-     *         },
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `entered value` to the `current value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - config
-     *   - configProp
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').springGoFrom}
      */
     goFrom(obj, props = {}) {
       if (this.pauseStatus) return;
@@ -9922,45 +9644,7 @@
       return this.doAction(data2, props, obj);
     }
     /**
-     * @param {Record<string, number|(() => number)>} fromObj from Values
-     * @param {Record<string, number|(() => number)>} toObj to Values
-     * @param {import('./type.js').springActions } props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * mySpring.goFromTo(
-     *     { string: ( Number|Function ) },
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         config: [ String ],
-     *         configProp: {
-     *            tension: [ Number ],
-     *            mass: [ Number ],
-     *            friction: [ Number ],
-     *            velocity: [ Number ],
-     *            precision: [ Number ],
-     *         },
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `first entered value` to the `second entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - config
-     *   - configProp
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').springGoFromTo}
      */
     goFromTo(fromObj, toObj, props = {}) {
       if (this.pauseStatus) return;
@@ -9973,29 +9657,7 @@
       return this.doAction(data2, props, fromObj);
     }
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('../tween/type.js').tweenCommonProps} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * mySpring.set(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `current value` to the `entered value` immediately.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').springSet}
      */
     set(obj, props = {}) {
       if (this.pauseStatus) return;
@@ -10005,15 +9667,7 @@
     }
     /**
      * @private
-     *
-     * @param {import('../utils/tweenAction/type.js').allActionType[]} data Updated data
-     * @param {import('./type.js').springActions} props special props
-     * @param {Record<string, number|(() => number)>} obj new data obj come from set/goTo/goFrom/goFromTo
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @description
-     * Common oparation for set/goTo/goFrom/goFromTo methods.
-     * It is the method that updates the internal store
+     * @type {import('./type.js').springDoAction} data Updated data
      */
     doAction(data2, props, obj) {
       this.values = mergeArray(data2, this.values);
@@ -10660,19 +10314,7 @@
       this.comeFromResume = true;
     }
     /**
-     * @param {Record<string, number>} obj Initial data structure
-     * @returns {void}
-     *
-     * @description
-     * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
-     *
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myTween.setData({ val: 100 });
-     * ```
+     * @type {import('./type.js').tweenSetData}
      */
     setData(obj) {
       this.values = Object.entries(obj).map((item) => {
@@ -10743,11 +10385,10 @@
     /**
      * @private
      *
+     * @type  {import('./type.js').tweenMergeProps}
+     *
      * @description
      * Merge special props with default props
-     *
-     * @param  {import('./type.js').tweenAction} props
-     * @return {import('./type.js').tweenDefault} props merged
      *
      */
     mergeProps(props) {
@@ -10759,38 +10400,7 @@
       return newProps;
     }
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('./type.js').tweenAction} props special props
-     * @returns {Promise|void} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     * myTween.goTo(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         duration: [ ( Number|Function ) ],
-     *         ease: [ String ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `current value` to the `entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - duration
-     *   - ease
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
-     *
+     * @type {import('./type.js').tweenGoTo} obj to Values
      */
     goTo(obj, props = {}) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10799,38 +10409,7 @@
       return this.doAction(data2, props, obj);
     }
     /**
-     * @param {Record<string, number|(() => number)>} obj from Values
-     * @param {import('./type.js').tweenAction} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myTween.goFrom(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         duration: [ ( Number|Function ) ],
-     *         ease: [ String ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `entered value` to the `current value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - duration
-     *   - ease
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').tweenGoFrom}
      */
     goFrom(obj, props = {}) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10839,40 +10418,7 @@
       return this.doAction(data2, props, obj);
     }
     /**
-     * @param {Record<string, number|(() => number)>} fromObj from Values
-     * @param {Record<string, number|(() => number)>} toObj to Values
-     * @param {import('./type.js').tweenAction} props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myTween.goFromTo(
-     *     { string: ( Number|Function ) },
-     *     { string: ( Number|Function ) },
-     *     {
-     *         reverse: [ Boolean ],
-     *         duration: [ ( Number|Function ) ],
-     *         ease: [ String ],
-     *         relative: [ Boolean ],
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     * @description
-     *  Transform some properties of your choice from the `first entered value` to the `second entered value`.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - duration
-     *   - ease
-     *   - relative
-     *   - reverse
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').tweenGoFromTo}
      */
     goFromTo(fromObj, toObj, props = {}) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10885,29 +10431,7 @@
       return this.doAction(data2, props, fromObj);
     }
     /**
-     * @param {Record<string, number|(() => number)>} obj to Values
-     * @param {import('./type.js').tweenCommonPropsTween } props special props
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @example
-     * ```javascript
-     *
-     *
-     * myTween.set(
-     *     { string: ( Number|Function ) },
-     *     {
-     *         immediate [ Boolean ],
-     *         immediateNoPromise: [ Boolean ]
-     *     }
-     * ).then(() => { ... }).catch(() => { ... });
-     *
-     *
-     * ```
-     *  Transform some properties of your choice from the `current value` to the `entered value` immediately.
-     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *   - immediate (internal use)
-     *   - immediateNoPromise (internal use)
+     * @type {import('./type.js').tweenSet}
      */
     set(obj, props = {}) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10918,15 +10442,7 @@
     }
     /**
      * @private
-     *
-     * @param {import('../utils/tweenAction/type.js').allActionType[]} data Updated data
-     * @param {import('./type.js').tweenAction} props special props
-     * @param {Record<string, number|(() => number)>} obj new data obj come from set/goTo/goFrom/goFromTo
-     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
-     *
-     * @description
-     * Common oparation for set/goTo/goFrom/goFromTo methods.
-     * It is the method that updates the internal store
+     * @type {import('./type.js').tweenDoAction} data Updated data
      */
     doAction(data2, props, obj) {
       this.values = mergeArrayTween(data2, this.values);
@@ -11951,6 +11467,7 @@
     }
     /**
      * @private
+     * @type {() => void}
      */
     run() {
       const currentTweelist = this.tweenList[this.currentIndex];
@@ -12259,6 +11776,7 @@
     }
     /**
      * @private
+     * @type {() => void}
      */
     onRepeat() {
       if (this.loopCounter > 0) {
@@ -12279,7 +11797,7 @@
     }
     /**
      * @private
-     * @param {import('./type').asyncTimelineTween} tween
+     * @type {import('./type').addToActiveTween}
      */
     addToActiveTween(tween3) {
       const tweenId = tween3?.getId && tween3.getId();
@@ -12299,6 +11817,7 @@
     }
     /**
      * @private
+     * @type {() => void}
      */
     revertTween() {
       this.isReverse = !this.isReverse;
@@ -12353,7 +11872,7 @@
     }
     /**
      * @private
-     * @param {import('./type').asyncTimelineRowData} obj
+     * @type {import('./type').addToMainArray}
      */
     addToMainArray(obj) {
       const rowIndex = this.tweenList.findIndex((item) => {
@@ -12367,7 +11886,7 @@
     }
     /**
      * @private
-     * @param {import('./type').asyncTimelineTween} tween
+     * @type {import('./type').addTweenToStore} tween
      */
     addTweenToStore(tween3) {
       const uniqueId = tween3?.getId?.();
@@ -12378,38 +11897,13 @@
     }
     /**
      * @private
+     * @type {() => void}
      */
     resetAllTween() {
       this.tweenStore.forEach(({ tween: tween3 }) => tween3.resetData());
     }
     /**
-     * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {Record<string, number>} valuesSet - set values Object
-     * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.set(
-     *      myTweenInstance,
-     *      { Object.<string, number>, },
-     *      {
-     *          delay: [ Number ],
-     *          immediate [ Boolean ],
-     *          immediateNoPromise: [ Boolean ]
-     *      }
-     *  )
-     *
-     *
-     * ```
-     *
-     * @description
-     * Transform some properties of your choice from the `current value` to the `entered value` immediately.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     * It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *  - immediate (internal use)
-     *  - immediateNoPromise (internal use)
-     *  - dealy
+     * @type {import('./type').asyncTimelineSet}
      */
     set(tween3, valuesSet = {}, tweenProps = {}) {
       if (!asyncTimelineTweenIsValid(tween3)) return this;
@@ -12430,60 +11924,7 @@
       return this;
     }
     /**
-     * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {Record<string, number>} valuesTo - set values Object
-     * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.goTo(
-     *      myTweenInstance,
-     *      { Object.<string, (Number|Function)> },
-     *      {
-     *          `Tween properties`
-     *          ease: [ String ],
-     *          duration: [ ( Number|Function ) ],
-     *          --------------
-     *          `Spring properties`
-     *          config: [ String ],
-     *          configProp: {
-     *             tension: [ Number ],
-     *             mass: [ Number ],
-     *             friction: [ Number ],
-     *             velocity: [ Number ],
-     *             precision: [ Number ],
-     *          },
-     *          --------------
-     *          `Lerp properties`
-     *          precision: [ Number ],
-     *          velocity: [ Number ],
-     *          --------------
-     *          reverse: [ Boolean ],
-     *          delay: [ Number ],
-     *          immediate [ Boolean ],
-     *          immediateNoPromise: [ Boolean ]
-     *      }
-     *  )
-     *
-     *
-     * ```
-     *
-     * @description
-     * Transform some properties of your choice from the `current value` to the `entered value`.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     * It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *  - duration
-     *  - ease ( HandleTween )
-     *  - config  ( HandleSpring )
-     *  - configProp ( HandleSpring )
-     *  - velocity ( HandleLerp )
-     *  - precision ( HandleLerp )
-     *  - relative
-     *  - reverse
-     *  - delay
-     *  - immediate (internal use)
-     *  - immediateNoPromise (internal use)
+     * @type {import('./type').asyncTimelineGoTo}
      */
     goTo(tween3, valuesTo = {}, tweenProps = {}) {
       if (!asyncTimelineTweenIsValid(tween3)) return this;
@@ -12503,60 +11944,7 @@
       return this;
     }
     /**
-     * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {Record<string, number>} valuesFrom - set values Object
-     * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.goFrom(
-     *      myTweenInstance,
-     *      { Object.<string, (Number|Function)> },
-     *      {
-     *          `Tween properties`
-     *          ease: [ String ],
-     *          duration: [ ( Number|Function ) ],
-     *          --------------
-     *          `Spring properties`
-     *          config: [ String ],
-     *          configProp: {
-     *             tension: [ Number ],
-     *             mass: [ Number ],
-     *             friction: [ Number ],
-     *             velocity: [ Number ],
-     *             precision: [ Number ],
-     *          },
-     *          --------------
-     *          `Lerp properties`
-     *          precision: [ Number ],
-     *          velocity: [ Number ],
-     *          --------------
-     *          reverse: [ Boolean ],
-     *          delay: [ Number ],
-     *          immediate [ Boolean ],
-     *          immediateNoPromise: [ Boolean ]
-     *      }
-     *  )
-     *
-     *
-     * ```
-     *
-     * @description
-     * Transform some properties of your choice from the `entered value` to the `current value`.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     * It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *  - duration
-     *  - ease ( HandleTween )
-     *  - config  ( HandleSpring )
-     *  - configProp ( HandleSpring )
-     *  - velocity ( HandleLerp )
-     *  - precision ( HandleLerp )
-     *  - relative
-     *  - reverse
-     *  - delay
-     *  - immediate (internal use)
-     *  - immediateNoPromise (internal use)
+     * @type {import('./type').asyncTimelineGoFrom}
      */
     goFrom(tween3, valuesFrom = {}, tweenProps = {}) {
       if (!asyncTimelineTweenIsValid(tween3)) return this;
@@ -12576,62 +11964,7 @@
       return this;
     }
     /**
-     * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {Record<string, number>} valuesFrom - set values Object
-     * @param {Record<string, number>} valuesTo - set values Object
-     * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.goFromTo(
-     *      myTweenInstance,
-     *      { Object.<string, (Number|Function)> },
-     *      { Object.<string, (Number|Function)> },
-     *      {
-     *          `Tween properties`
-     *          ease: [ String ],
-     *          duration: [ ( Number|Function ) ],
-     *          --------------
-     *          `Spring properties`
-     *          config: [ String ],
-     *          configProp: {
-     *             tension: [ Number ],
-     *             mass: [ Number ],
-     *             friction: [ Number ],
-     *             velocity: [ Number ],
-     *             precision: [ Number ],
-     *          },
-     *          --------------
-     *          `Lerp properties`
-     *          precision: [ Number ],
-     *          velocity: [ Number ],
-     *          --------------
-     *          reverse: [ Boolean ],
-     *          delay: [ Number ],
-     *          immediate [ Boolean ],
-     *          immediateNoPromise: [ Boolean ]
-     *      }
-     *  )
-     *
-     *
-     * ```
-     *
-     * @description
-     * Transform some properties of your choice from the `first entered value` to the `second entered value`.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     * It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-     *  - duration
-     *  - ease ( HandleTween )
-     *  - config  ( HandleSpring )
-     *  - configProp ( HandleSpring )
-     *  - velocity ( HandleLerp )
-     *  - precision ( HandleLerp )
-     *  - relative
-     *  - reverse
-     *  - delay
-     *  - immediate (internal use)
-     *  - immediateNoPromise (internal use)
+     * @type {import('./type').asyncTimelineGoFromTo}
      */
     goFromTo(tween3, valuesFrom = {}, valuesTo = {}, tweenProps = {}) {
       if (!asyncTimelineTweenIsValid(tween3)) return this;
@@ -12652,21 +11985,7 @@
       return this;
     }
     /**
-     * @param {Function} fn - Function to perform
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     *
-     * myTimeline.add(() => {
-     *      // code
-     * });
-     *
-     *
-     * ```
-     * @description
-     *  Adds a `custom function` to the timeline, the function will be executed after the previous promise and before the next one, `the function will not overlap the tweens`.
-     * `This property cannot be used within a group`.
+     * @type {import('./type').asyncTimelineAdd}
      */
     add(fn = NOOP) {
       const cb = functionIsValidAndReturnDefault(
@@ -12691,23 +12010,7 @@
       return this;
     }
     /**
-     * @param { function(import('../utils/timeline/type.js').directionTypeAsync):void } fn - callback function
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     *   myTimeline.addAsync(({ loop, direction, resolve }) => {
-     *       // code
-     *       resolve();
-     *   });
-     *
-     *
-     * ```
-     * @description
-     * Adds an `asynchronous` function to the timeline.
-     * The function receives the `resolve parameter as input`, the timeline will automatically enter the `suspended state`
-     * Here it is possible to perform asynchronous operations, the timeline will be active again by launching the resolve function.
-     * `This property cannot be used within a group`.
+     * @type {import('./type').asyncTimelineAddAsync}
      */
     addAsync(fn) {
       const cb = addAsyncFunctionIsValid(fn);
@@ -12727,20 +12030,7 @@
       return this;
     }
     /**
-     * @param {Object} syncProp
-     * @param {Object} syncProp.from - HandleTween | HandleSpring | HandleSpring - from tween
-     * @param {Object} syncProp.to - HandleTween | HandleSpring | HandleSpring - to tween
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.sync({ from: instanceA, to: instanceB });
-     *
-     *
-     * ```
-     * @description
-     *  This method `synchronizes two different tweens` by updating their `current values`, it is possible for example to synchronize a tween with a spring and vice versa in order to manage a single element with two different interpolation methods.
-     * `This property cannot be used within a group`
+     * @type {import('./type').asyncTimelineSync}
      */
     sync(syncProp) {
       if (this.groupId) {
@@ -12762,26 +12052,7 @@
       return this;
     }
     /**
-     * @param {Object} [ groupProps ]
-     * @param {boolean} [ groupProps.waitComplete ]
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline
-     *      .createGroup({waitComplete: [Boolean]})
-     *      .goTo(..)
-     *      ...
-     *      .closeGroup();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Initialize a group, within this group all instances will run in `parallel`.
-     * If the waitComplete property is set to true the group will behave like a `promise.all()` otherwise it will behave like a `promise.race()`. This means that if waitComplete is equal to false the group of promises will be resolved by the fastest, otherwise it will be resolved only when each of the single promises (tween) are resolved.
-     * To close the group use the `closeGroup()` method.
-     * `Within a group, only the goTo, goFrom, goFromTo methods can be used`
+     * @type {import('./type').asyncTimelineCreateGroup}
      */
     createGroup(groupProps = {}) {
       if (this.groupId) {
@@ -12801,21 +12072,7 @@
       return this;
     }
     /**
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline
-     *      .createGroup({waitComplete: [Boolean]})
-     *      .goTo(..)
-     *      ...
-     *      .closeGroup();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Closes a previously opened group.
+     * @type {import('./type').asyncTimelineCloseGroup}
      */
     closeGroup() {
       this.groupId = void 0;
@@ -12830,22 +12087,7 @@
       return this;
     }
     /**
-     * @param { function():boolean } fn - callback function
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.suspend(() => {
-     *     return true
-     * });
-     *
-     *
-     * ```
-     *
-     * @description
-     * This method puts the timeline in a state of `suspension`, the individual instances if within a group with the property waitComplete = false, they will finish their interpolation, suspend in fact does not pause the individual instances but only the timeline.
-     * It is possible to use a `function that returns a Boolean` value as a parameter to have conditional control.
-     * To reactivate the timeline use the resume() method. `This property cannot be used within a group`.
+     * @type {import('./type').asyncTimelineSuspend}
      */
     suspend(fn = () => true) {
       if (this.groupId) {
@@ -12864,19 +12106,7 @@
       return this;
     }
     /**
-     * @param {Object} labelProps
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.label({ name: 'labelName' });
-     *
-     *
-     * ```
-     *
-     * @description
-     *  Add a label, this label can be used by the playFrom(), playFromReverse(), setTween() methods.
-     * `This property cannot be used within a group`
+     * @type {import('./type').asyncTimelineLabel}
      */
     label(labelProps = {}) {
       if (this.groupId) {
@@ -12896,8 +12126,9 @@
       this.addToMainArray(mergedObj);
       return this;
     }
-    /*
+    /**
      * @private
+     * @type {() => void}
      *
      * @description
      * Add a set 'tween' at start and end of timeline.
@@ -12942,30 +12173,7 @@
       });
     }
     /**
-     * @param {string} label
-     * @param {Array} items
-     * @returns {Promise} Return a promise which is resolved when tween is settled
-     *
-     * @example
-     * ```javascript
-     * myTimeline
-     *     .setTween('myLabel', [tweenA,tweenB])
-     *     .then(() => {
-     *         // es:
-     *         myTimeline.playFrom('myLabel');
-     *     })
-     *     .catch((error) => {
-     *         // code
-     *     });
-     *
-     *
-     * ```
-     *
-     * @description
-     * Executes the set method on the tweens contained in the array to a specific label.
-     * The method will return a promise.
-     * It is possible for example to execute a set of specific instances before using the playFrom() method to be sure that all instances are in position, the instances on which a delay is applied could in fact remain in the old position until the delay is finished , by doing so we can be put in the right position before launching the method.
-     * `This property cannot be used within a group`
+     * @type {import('./type').asyncTimelineSetTween}
      */
     setTween(label = "", items = []) {
       this.stop();
@@ -13014,19 +12222,7 @@
       }
     }
     /**
-     * @return {Promise} - The promise launched at the end of the animation
-     *
-     * @example
-     * ```javascript
-     * myTimeline.play().then(() => {
-     *      // Code
-     * });
-     *
-     *
-     * ```
-     *
-     * @description
-     * Plays the timeline from start
+     * @type {() => Promise<any>}
      */
     play() {
       return new Promise((resolve, reject) => {
@@ -13079,9 +12275,7 @@
     }
     /**
      * @private
-     * @param {object} obj
-     * @param {boolean} [ obj.isReverse ]
-     * @param {string|null} obj.label
+     * @type {import('./type').asyncTimelinePlayFromLabel}
      */
     playFromLabel({ isReverse = false, label = null }) {
       if (this.tweenList.length === 0 || this.addAsyncIsActive) return;
@@ -13099,20 +12293,7 @@
       this.run();
     }
     /**
-     * @param {string} label
-     * @return {Promise} - The promise launched at the end of the animation
-     *
-     * @example
-     * ```javascript
-     * myTimeline.playFrom('myLabel').then(() => {
-     *      // Code
-     * });
-     *
-     *
-     * ```
-     *
-     * @description
-     * Play timeline from a specific label.
+     * @type {import('./type').asyncTimelinePlayFrom}
      */
     playFrom(label) {
       return new Promise((resolve, reject) => {
@@ -13130,20 +12311,7 @@
       });
     }
     /**
-     * @param {string} label
-     * @return {Promise} - The promise launched at the end of the animation
-     *
-     * @example
-     * ```javascript
-     * myTimeline.playFromReverse('myLabel').then(() => {
-     *      // Code
-     * });
-     *
-     *
-     * ```
-     *
-     * @description
-     * Play timeline from a specific label in backward direction.
+     * @type {import('./type').asyncTimelinePlayFromReverse}
      */
     playFromReverse(label) {
       return new Promise((resolve, reject) => {
@@ -13161,22 +12329,7 @@
       });
     }
     /**
-     * @param {object} obj
-     * @param {boolean} [ obj.forceYoYo ]
-     * @param {(value:any) => void|null} [ obj.resolve ]
-     * @param {(value:any) => void|null} [ obj.reject ]
-     * @return {Promise} - The promise launched at the end of the animation
-     *
-     * @example
-     * ```javascript
-     * myTimeline.playReverse().then(() => {
-     *      // Code
-     * });
-     *
-     *
-     * ```
-     * @description
-     * Play timeline in backward direction.
+     * @type {import('./type').asyncTimelinePlayReverse}
      */
     playReverse({ forceYoYo = true, resolve = null, reject = null } = {}) {
       return new Promise((resolveFromReverse, rejectFromReverse) => {
@@ -13213,31 +12366,13 @@
       });
     }
     /**
-     * @example
-     * ```javascript
-     * myTimeline.reverseNext();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Reverse timeline direction at the end of current interpolation.
+     * @type {() => void}
      */
     reverseNext() {
       this.isReverseNext = true;
     }
     /**
-     * @param {object} obj
-     * @param {boolean} [ obj.clearCache ]
-     *
-     * @example
-     * ```javascript
-     * myTimeline.stop();
-     *
-     *
-     * ```
-     * @description
-     * Stop timeline.
+     * @type {import('./type').asyncTimelineStop}
      */
     stop({ clearCache = true } = {}) {
       this.isStopped = true;
@@ -13260,14 +12395,7 @@
       if (!this.freeMode) this.resetAllTween();
     }
     /**
-     * @example
-     * ```javascript
-     * myTimeline.pause();
-     *
-     *
-     * ```
-     * @description
-     * Pause all the instance.
+     * @type {import('./type').asyncTimelinePause}
      */
     pause() {
       this.isInPause = true;
@@ -13277,14 +12405,7 @@
       });
     }
     /**
-     * @example
-     * ```javascript
-     * myTimeline.resume();
-     *
-     *
-     * ```
-     * @description
-     * Resume all the instance or resume timeline from suspend.
+     * @type {import('./type').asyncTimelineResume}
      */
     resume() {
       if (this.isInPause) {
@@ -13309,6 +12430,7 @@
     }
     /**
      * @private
+     * @type {() => void}
      */
     disableLabel() {
       this.labelState.active = false;
@@ -13316,6 +12438,7 @@
     }
     /**
      * @private
+     * @type {() => void}
      */
     resumeEachTween() {
       this.currentTween.forEach(({ tween: tween3 }) => {
@@ -13394,20 +12517,7 @@
       return this.isReverse ? directionConstant.BACKWARD : directionConstant.FORWARD;
     }
     /**
-     * @param {(arg0: import('../utils/timeline/type.js').directionTypeObjectLoop ) => void } cb - callback function
-     * @return {() => void} unsubscribe callback
-     *
-     * @example
-     *```javascript
-     * const unsubscribeOnLoopEnd = myTimeline.onLoopEnd(({direction, loop})=>{
-     *      /// code
-     * })
-     * unsubscribeOnLoopEnd();
-     *
-     *
-     * ```
-     * @description
-     * Callback thrown at the end of each cycle
+     * @type {import('./type').asyncTimelineOnLoopEnd}
      */
     onLoopEnd(cb) {
       this.callbackLoop.push({ cb, id: this.id });
@@ -13419,20 +12529,7 @@
       };
     }
     /**
-     * @param {function():void } cb - callback function
-     * @return {Function} unsubscribe callback
-     *
-     * @example
-     *```javascript
-     * const unsubscribeOnComplete = myTimeline.onComplete(() => {
-     *      /// code
-     * })
-     * unsubscribeOnComplete();
-     *
-     *
-     * ```
-     * @description
-     * Callback thrown at the end of timeline
+     * @type {import('./type').asyncTimelineOnComplete}
      */
     onComplete(cb) {
       this.callbackComplete.push({ cb, id: this.id });
