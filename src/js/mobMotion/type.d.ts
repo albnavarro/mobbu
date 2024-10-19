@@ -56,6 +56,25 @@ import {
     springUdateConfigProp,
 } from './animation/spring/type';
 import {
+    syncTimelineAdd,
+    syncTimelineGetDirection,
+    syncTimelineIsActive,
+    syncTimelineIsPaused,
+    syncTimelineOnComplete,
+    syncTimelineOnLoopEnd,
+    syncTimelineOnUpdate,
+    syncTimelinePause,
+    syncTimelinePlay,
+    syncTimelinePlayFrom,
+    syncTimelinePlayFromReverse,
+    syncTimelinePlayReverse,
+    syncTimelineResume,
+    syncTimelineReverse,
+    syncTimelineSetDuration,
+    syncTimelineStop,
+    syncTimelineTime,
+} from './animation/syncTimeline/type';
+import {
     tweenGetId,
     tweenGetType,
     tweenGetValue,
@@ -172,5 +191,26 @@ export interface AsyncTimeline {
     getDirection: () => directionType;
     onLoopEnd: asyncTimelineOnLoopEnd;
     onComplete: asyncTimelineOnComplete;
+    destroy: () => void;
+}
+
+export interface SyncTimeline {
+    play: syncTimelinePlay;
+    playFrom: syncTimelinePlayFrom;
+    playFromReverse: syncTimelinePlayFromReverse;
+    playReverse: syncTimelinePlayReverse;
+    pause: syncTimelinePause;
+    resume: syncTimelineResume;
+    reverse: syncTimelineReverse;
+    stop: syncTimelineStop;
+    add: syncTimelineAdd;
+    setDuration: syncTimelineSetDuration;
+    isActive: syncTimelineIsActive;
+    isPaused: syncTimelineIsPaused;
+    getDirection: syncTimelineGetDirection;
+    getTime: syncTimelineTime;
+    onLoopEnd: syncTimelineOnLoopEnd;
+    onComplete: syncTimelineOnComplete;
+    onUpdate: syncTimelineOnUpdate;
     destroy: () => void;
 }

@@ -462,20 +462,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {Object} props
-     * @param {boolean} [ props.useCurrent ]
-     * @return {Promise} - The promise launched at the end of the animation
-     *
-     * @example
-     * ```javascript
-     * myTimeline.play({
-     *      useCurrent: true
-     * }).then(() => {
-     *      // code
-     * })
-     *
-     *
-     * ```
+     * @type {import('./type.js').syncTimelinePlay}
      *
      * @description
      * Plays the timeline starting from the initial value
@@ -505,8 +492,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {number|string} value
-     * @return {Promise} - The promise launched at the end of the animation
+     * @type {import('./type.js').syncTimelinePlayFrom} value
      *
      * @example
      * ```javascript
@@ -570,8 +556,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {number|string} value
-     * @return {Promise} - The promise launched at the end of the animation
+     * @type {import('./type.js').syncTimelinePlayFromReverse} value
      *
      * @example
      * ```javascript
@@ -607,9 +592,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {Object} props
-     * @param {boolean} [ props.useCurrent ]
-     * @return {Promise} - The promise launched at the end of the animation
+     * @type {import('./type.js').syncTimelinePlayReverse} 
      *
      * @example
      * ```javascript
@@ -723,19 +706,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     *
-     * @example
-     * ```javascript
-     * myTimeline.pause();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Pause timeline
-     *
-     * @returns {void}
-     *
+     * @type {import('./type.js').syncTimelinePause}
      */
     pause() {
         if (this.isStopped || this.isInPause || this.fpsIsInLoading) return;
@@ -745,18 +716,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     *
-     * @example
-     * ```javascript
-     * myTimeline.resume();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Resume timeline from pause
-     *
-     * @returns {void}
+     * @type {import('./type.js').syncTimelineResume}
      */
     resume() {
         if (this.isStopped || !this.isInPause || this.fpsIsInLoading) return;
@@ -766,19 +726,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     *
-     * @example
-     * ```javascript
-     * myTimeline.reverse();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Reverse the direction while the timeline is running
-     *
-     *
-     * @returns {void}
+     * @type {import('./type.js').syncTimelineReverse}
      */
     reverse() {
         if (this.isStopped || this.isInPause || this.fpsIsInLoading) return;
@@ -794,21 +742,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {Object} obj
-     * @param {boolean} [ obj.clearCache ]
-     * @returns {this|undefined} The instance on which this method was called.
-     *
-     * @example
-     * ```javascript
-     * myTimeline.stop();
-     *
-     *
-     * ```
-     *
-     * @description
-     * Stop timeline
-     *
-     *
+     * @type {import('./type.js').syncTimelineStop}
      */
     stop({ clearCache = true } = {}) {
         this.isStopped = true;
@@ -842,8 +776,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {import('./type.js').syncTimelineSequencers} sequencer
-     * @returns {this} The instance on which this method was called.
+     * @type {import('./type.js').syncTimelineAdd}
      *
      * @example
      * ```javascript
@@ -864,8 +797,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {number} duration
-     * @returns {this} The instance on which this method was called.
+     * @type {import('./type.js').syncTimelineSetDuration}
      */
     setDuration(duration) {
         this.duration = duration;
@@ -881,7 +813,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @return {boolean} Active status
+     * @type {import('./type.js').syncTimelineIsActive}
      *
      * @example
      * ```javascript
@@ -898,7 +830,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @return {boolean} Pause status
+     * @type {import('./type.js').syncTimelineIsPaused}
      *
      * @example
      * ```javascript
@@ -915,7 +847,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @returns {import('../utils/timeline/type.js').directionType}
+     * @type {import('./type.js').syncTimelineGetDirection}
      *
      * @example
      * ```javascript
@@ -936,7 +868,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @returns {number} Current time
+     * @type {import('./type.js').syncTimelineTime}
      *
      * @example
      * ```javascript
@@ -953,8 +885,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {(arg0: import('../utils/timeline/type.js').directionTypeObjectLoop ) => void } cb - callback function
-     * @return {() => void} unsubscribe callback
+     * @type {import('./type.js').syncTimelineOnLoopEnd}
      *
      * @example
      *```javascript
@@ -981,8 +912,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {function():void } cb - callback function
-     * @return {() => void} unsubscribe callback
+     * @type {import('./type.js').syncTimelineOnComplete}
      *
      * @example
      *```javascript
@@ -1009,8 +939,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {function(import('../utils/timeline/type.js').directionTypeObjectUpdate ):void } cb - callback function
-     * @return {() => void} unsubscribe callback
+     * @type {import('./type.js').syncTimelineOnUpdate}
      *
      * @example
      *```javascript
