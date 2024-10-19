@@ -694,7 +694,7 @@ export default class HandleTween {
     /**
      * @param {Record<string, number|(() => number)>} obj from Values
      * @param {import('./type.js').tweenAction} props special props
-     * @returns {Promise|void} Return a promise which is resolved when tween is over
+     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -736,7 +736,7 @@ export default class HandleTween {
      * @param {Record<string, number|(() => number)>} fromObj from Values
      * @param {Record<string, number|(() => number)>} toObj to Values
      * @param {import('./type.js').tweenAction} props special props
-     * @returns {Promise|void|null} Return a promise which is resolved when tween is over
+     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -784,7 +784,7 @@ export default class HandleTween {
     /**
      * @param {Record<string, number|(() => number)>} obj to Values
      * @param {import('./type.js').tweenCommonPropsTween } props special props
-     * @returns {Promise|void} Return a promise which is resolved when tween is over
+     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -822,7 +822,7 @@ export default class HandleTween {
      * @param {import('../utils/tweenAction/type.js').allActionType[]} data Updated data
      * @param {import('./type.js').tweenAction} props special props
      * @param {Record<string, number|(() => number)>} obj new data obj come from set/goTo/goFrom/goFromTo
-     * @returns {Promise|void} Return a promise which is resolved when tween is over
+     * @returns {void|Promise<any>} Return a promise which is resolved when tween is over
      *
      * @description
      * Common oparation for set/goTo/goFrom/goFromTo methods.
