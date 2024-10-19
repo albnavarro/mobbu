@@ -187,19 +187,19 @@ export default class HandleSyncTimeline {
 
         /**
          * @private
-         * @type {import('./type.js').syncTimelineEventType[]}
+         * @type {import('./type.js').syncTimelineEventType<{direction: import('../utils/timeline/type.js').directionType, loop:number}>[]}
          */
         this.callbackLoop = [];
 
         /**
          * @private
-         * @type {import('./type.js').syncTimelineEventType[]}
+         * @type {import('./type.js').syncTimelineEventType<{cb:() => void, id:string}>[]}
          */
         this.callbackComplete = [];
 
         /**
          * @private
-         * @type {import('./type.js').syncTimelineEventType[]}
+         * @type {import('./type.js').syncTimelineEventType<{time:number,direction:import('../utils/timeline/type.js').directionType }>[]}
          */
         this.callbackOnUpdate = [];
 
