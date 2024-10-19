@@ -74,7 +74,7 @@ function init() {
  * Performs a scroll callback using a throttle function
  *
  * @param {import('./type.js').handleScrollCallback} cb - callback function
- * @return {Function} unsubscribe callback
+ * @return {() => void} unsubscribe callback
  *
  * @example
  * ```javascript

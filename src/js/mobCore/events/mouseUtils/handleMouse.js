@@ -44,7 +44,7 @@ function handleMouse(event) {
     let initialized = false;
 
     /**
-     * @type {Map<string,function>}
+     * @type {Map<string,import('./type.js').mouseEventCallback>}
      */
     const callbacks = new Map();
 
@@ -143,13 +143,9 @@ function handleMouse(event) {
     /**
      * @description
      * add callback on mouse action
-     *
      * @param {import('./type.js').mouseEventCallback} cb - callback function fired on mouse action.
+     * @returns {() => void}
      *
-     * @example
-     * ```javascript
-     *
-     * ```
      */
     const addCb = (cb) => {
         const id = getUnivoqueId();

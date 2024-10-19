@@ -111,6 +111,7 @@ function init() {
 
 /**
  * @param {import('./type.js').handleResizeCallback} cb - callback function fired on resize.
+ * @returns {() => void}
  *
  * @description
  * Add callback on resize using a debounce function.
