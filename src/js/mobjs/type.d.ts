@@ -70,9 +70,7 @@ export type Bindtext = PartialBindText;
 /**
  * Main component.
  */
-interface MobComponentMap {
-    [prop: string]: any;
-}
+type MobComponentMap = Record<string, any>;
 
 export interface componentReturnType {
     content: string;
@@ -691,7 +689,7 @@ interface WebComponentParmas {
     emit(prop: string): void;
     emitAsync(prop: string): Promise<{ success: boolean }>;
     freezeProp(prop: string): void;
-    getChildren(componentName: string): Array<string>;
+    getChildren(componentName: string): string[];
     getParentId(): string | undefined;
     getState(arg0: string): any;
     remove: () => void;
@@ -741,12 +739,13 @@ export interface ComponentParsed {
     attributeToObserve?: string[];
     style?: string;
     state?: mobStoreBaseData;
-    child?: {
-        [key: string]: {
+    child?: Record<
+        string,
+        {
             componentFunction: import('./mainStore/type').componentFunctionType;
             componentParams: import('./type').ComponentParsed;
-        };
-    }[];
+        }
+    >[];
 }
 
 export interface CreateComponent extends ComponentParsed {
@@ -754,12 +753,13 @@ export interface CreateComponent extends ComponentParsed {
     component: componentFunctionType;
 }
 
-export interface CreateComponentReturn {
-    [key: string]: {
+export type CreateComponentReturn = Record<
+    string,
+    {
         componentFunction: import('./mainStore/type').componentFunctionType;
         componentParams: import('./type').ComponentParsed;
-    };
-}
+    }
+>;
 
 export interface DefaultComponent {
     /**

@@ -1059,7 +1059,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} valuesSet - set values Object
+     * @param {Record<string, number>} valuesSet - set values Object
      * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
      * @returns {this} The instance on which this method was called.
      *
@@ -1109,7 +1109,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} valuesTo - set values Object
+     * @param {Record<string, number>} valuesTo - set values Object
      * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
      * @returns {this} The instance on which this method was called.
      *
@@ -1185,7 +1185,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} valuesFrom - set values Object
+     * @param {Record<string, number>} valuesFrom - set values Object
      * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
      * @returns {this} The instance on which this method was called.
      *
@@ -1261,8 +1261,8 @@ export default class HandleAsyncTimeline {
 
     /**
      * @param {object} tween instance of HandleTween | HandleLerp | HandleSpring
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} valuesFrom - set values Object
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} valuesTo - set values Object
+     * @param {Record<string, number>} valuesFrom - set values Object
+     * @param {Record<string, number>} valuesTo - set values Object
      * @param {import('./type').asyncTimelineTypeSpecialProps} tweenProps - special props
      * @returns {this} The instance on which this method was called.
      *

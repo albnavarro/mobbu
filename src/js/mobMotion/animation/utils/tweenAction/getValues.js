@@ -1,7 +1,7 @@
 /**
  * @param {Array} arr
  * @param {string} key
- * @returns {import("./type").valueToparseType<number>}
+ * @returns {Record<string, number>}
  *
  * @description
  * Get value of specific key from an array
@@ -15,7 +15,7 @@ export const getValueObj = (arr, key) => {
 
 /**
  * @param {Array} arr
- * @returns {import("./type").valueToparseType<(number|Function)>}
+ * @return {Record<string, number|(() => number)>}
  *
  * @description
  * Get toValue of specific key from an array ( function or number )
@@ -32,7 +32,7 @@ export const getValueObjToNative = (arr) => {
 
 /**
  * @param {Array} arr
- * @returns {import("./type").valueToparseType<(number|Function)>}
+ * @return {Record<string, number|(() => number)>}
  *
  * @description
  * Get fromValue of specific key from an array ( function or number )

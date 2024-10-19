@@ -16,7 +16,7 @@ let initialized = false;
 const callbacks = new Map();
 
 /**
- * @type {Function}
+ * @type {() => void}
  */
 let unsubscribe = () => {};
 

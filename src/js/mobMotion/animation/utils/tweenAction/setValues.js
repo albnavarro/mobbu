@@ -53,7 +53,7 @@ export const setFromToByCurrent = (arr) => {
  * @description
  * Revert fromValue and toValue
  *
- * @param {import("./type").valueToparseType} obj
+ * @param {Record<string, number | (() => number)>} obj
  * @param {Array} arr
  *
  * @returns {Array} arr

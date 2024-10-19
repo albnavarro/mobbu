@@ -6,8 +6,7 @@ import { asyncReduceData } from './asyncReduceData';
  * @param {Array<import('./type').asyncTimelineTweenItem[]>} tweenList
  * @param {object} tween
  * @param {number} index
- *
- * @returns {import('../utils/tweenAction/type').valueToparseType}
+ * @returns {Record<string, number|(() => number)>}
  *
  * @description
  * Get Obj data of tween in specific index

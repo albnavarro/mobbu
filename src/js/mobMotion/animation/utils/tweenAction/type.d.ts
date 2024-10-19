@@ -1,7 +1,3 @@
-export interface valueToparseType<T> {
-    [key: string]: T;
-}
-
 export interface goToParamsType {
     prop: string;
     toValue: number;

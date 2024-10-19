@@ -3,7 +3,7 @@ export type NotValue<T, K> = T extends K ? never : T;
 
 export type storeMap = Map<string, storeMapValue>;
 
-export type validateState = boolean | { [key: string]: boolean };
+export type validateState = boolean | Record<string, boolean>;
 
 export interface storeMapValue {
     callBackWatcher: Map<
@@ -15,62 +15,34 @@ export interface storeMapValue {
     >;
     callBackComputed: Set<{
         prop: string;
-        fn: (arg0: { [key: string]: any }) => void;
+        fn: (arg0: Record<string, any>) => void;
         keys: string[];
     }>;
     lastestPropsChanged: Set<string>;
-    validationStatusObject: {
-        [key: string]: validateState;
-    };
+    validationStatusObject: Record<string, validateState>;
     dataDepth: number;
     computedRunning: boolean;
-    store: {
-        [key: string]: any | { [key: string]: any };
-    };
-    type: {
-        [key: string]:
-            | mobStoreTypeNative
-            | mobStoreTypeAlias
-            | {
-                  [key: string]: mobStoreTypeNative | mobStoreTypeAlias;
-              };
-    };
-    fnTransformation: {
-        [key: string]:
-            | ((current: any, previous: any) => any)
-            | {
-                  [key: string]: (current: any, previous: any) => any;
-              };
-    };
-    fnValidate: {
-        [key: string]:
-            | (() => boolean)
-            | {
-                  [key: string]: () => boolean;
-              };
-    };
-    strict: {
-        [key: string]:
-            | boolean
-            | {
-                  [key: string]: boolean;
-              };
-    };
-    skipEqual: {
-        [key: string]:
-            | boolean
-            | {
-                  [key: string]: boolean;
-              };
-    };
+    store: Record<string, any | Record<string, any>>;
+    type: Record<
+        string,
+        | mobStoreTypeNative
+        | mobStoreTypeAlias
+        | Record<string, mobStoreTypeNative | mobStoreTypeAlias>
+    >;
+    fnTransformation: Record<
+        string,
+        | ((current: any, previous: any) => any)
+        | Record<string, (current: any, previous: any) => any>
+    >;
+    fnValidate: Record<string, (() => boolean) | Record<string, () => boolean>>;
+    strict: Record<string, boolean | Record<string, boolean>>;
+    skipEqual: Record<string, boolean | Record<string, boolean>>;
 }
 
 /**
  * Main component.
  */
-interface StoreDefaultMap {
-    [prop: string]: any;
-}
+type StoreDefaultMap = Record<string, any>;
 
 export interface MobStore<T extends StoreDefaultMap> {
     get: getType<T>;
@@ -121,7 +93,7 @@ export type watchType<T> = <K extends keyof T>(
 
 export type computedType<T> = <K extends keyof T>(
     prop: Extract<K, string>,
-    keys: Array<Extract<keyof T, string>>,
+    keys: Extract<keyof T, string>[],
     callback: (arg0: T) => T[K]
 ) => void;
 
@@ -149,7 +121,7 @@ export type mobStoreTypeNative =
     | number
     | object
     | (() => void)
-    | Array<any>
+    | any[]
     | boolean
     | Element
     | Map<any, any>
@@ -202,7 +174,7 @@ export interface storeWatchReturnObject {
 export interface storeComputed {
     prop: string;
     keys: string[];
-    fn: (arg0: { [key: string]: any }) => void;
+    fn: (arg0: Record<string, any>) => void;
 }
 
 export interface storeComputedAction extends storeComputed {
@@ -217,14 +189,14 @@ export interface callbackQueue {
             fn: (
                 arg0: any,
                 arg1: any,
-                arg2: boolean | { [key: string]: boolean }
+                arg2: boolean | Record<string, boolean>
             ) => void | Promise<void>;
         }
     >;
     prop: string;
     newValue: any;
     oldValue: any;
-    validationValue: boolean | { [key: string]: boolean };
+    validationValue: boolean | Record<string, boolean>;
 }
 
 export type simpleStoreCustomValue = () => {

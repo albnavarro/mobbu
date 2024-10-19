@@ -90,7 +90,7 @@ function init() {
  * Execute a callback immediately on scroll
  *
  * @param {import('./type').handleScrollCallback} cb - callback function
- * @return {Function} unsubscribe callback
+ * @return {() => void} unsubscribe callback
  *
  * @example
  * ```javascript

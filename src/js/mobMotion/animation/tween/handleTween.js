@@ -545,7 +545,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType<number>} obj Initial data structure
+     * @param {Record<string, number>} obj Initial data structure
      * @returns {void}
      *
      * @description
@@ -651,7 +651,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
+     * @param {Record<string, number|(() => number)>} obj to Values
      * @param {import('./type.js').tweenAction} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -692,7 +692,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj from Values
+     * @param {Record<string, number|(() => number)>} obj from Values
      * @param {import('./type.js').tweenAction} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -733,8 +733,8 @@ export default class HandleTween {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} fromObj from Values
-     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} toObj to Values
+     * @param {Record<string, number|(() => number)>} fromObj from Values
+     * @param {Record<string, number|(() => number)>} toObj to Values
      * @param {import('./type.js').tweenAction} props special props
      * @returns {Promise|void|null} Return a promise which is resolved when tween is over
      *
@@ -782,7 +782,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
+     * @param {Record<string, number|(() => number)>} obj to Values
      * @param {import('./type.js').tweenCommonPropsTween } props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -821,7 +821,7 @@ export default class HandleTween {
      *
      * @param {import('../utils/tweenAction/type.js').allActionType[]} data Updated data
      * @param {import('./type.js').tweenAction} props special props
-     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj new data obj come from set/goTo/goFrom/goFromTo
+     * @param {Record<string, number|(() => number)>} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description
@@ -865,7 +865,7 @@ export default class HandleTween {
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {import('../utils/tweenAction/type.js').valueToparseType} current value obj.
+     * @return {Record<string, number>} current value obj.
      *
      * @example
      * ```javascript
@@ -882,7 +882,7 @@ export default class HandleTween {
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {import('../utils/tweenAction/type.js').valueToparseType} initial value obj.
+     * @return {Record<string, number>} current value obj.
      *
      * @example
      * ```javascript
@@ -899,7 +899,7 @@ export default class HandleTween {
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {import('../utils/tweenAction/type.js').valueToparseType} from value obj.
+     * @return {Record<string, number>} current value obj.
      *
      * @example
      * ```javascript
@@ -916,7 +916,7 @@ export default class HandleTween {
      * @description
      * Get to values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} to value obj.
+     * @return {Record<string, number>} to value obj.
      *
      * @example
      * ```javascript
@@ -933,7 +933,7 @@ export default class HandleTween {
      * @description
      * Get From values, if the single value is a function it returns the same function.
      *
-     * @return {Object} from value obj.
+     * @return {Record<string, number|(() => number)>} from value obj.
      *
      * @example
      * ```javascript
@@ -950,7 +950,7 @@ export default class HandleTween {
      * @description
      * Get To values, if the single value is a function it returns the same function.
      *
-     * @return {Object} to value obj.
+     * @return {Record<string, number|(() => number)>} from value obj.
      *
      * @example
      * ```javascript

@@ -2,7 +2,6 @@ import { mqAction, mqValues } from '../../utils/type';
 import { springChoiceConfig } from '../spring/type';
 import { easeTypes } from '../tween/type';
 import { staggerObjectOptional } from '../utils/stagger/type';
-import { valueToparseType } from '../utils/tweenAction/type';
 
 export interface dynamicStartType {
     position: 'bottom' | 'top' | 'left' | 'right';
@@ -393,8 +392,8 @@ export interface parallaxMoveType {
 }
 
 export interface parallaxTweenType {
-    from: valueToparseType<any>;
-    to: valueToparseType<any>;
+    from: Record<string, number>;
+    to: Record<string, number>;
     stagger?: staggerObjectOptional;
     ease?: easeTypes;
     duration?: number;

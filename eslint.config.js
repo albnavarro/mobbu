@@ -15,6 +15,7 @@ export default [
     eslintConfigPrettier,
     eslintPluginUnicorn.configs['flat/all'],
     ...tseslint.configs.recommended,
+    ...tseslint.configs.stylistic,
     {
         files: ['**/*.js', '**/*.d.ts'],
         languageOptions: {
@@ -42,6 +43,7 @@ export default [
             'import/no-cycle': 'error',
             '@typescript-eslint/no-explicit-any': 'off',
             '@typescript-eslint/ban-ts-comment': 'off',
+            '@typescript-eslint/no-empty-function': 'off',
             'prefer-const': [
                 'error',
                 {

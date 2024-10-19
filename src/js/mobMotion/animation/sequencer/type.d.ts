@@ -1,10 +1,9 @@
 import { easeTypes } from '../tween/type';
 import { staggerObjectOptional } from '../utils/stagger/type';
 import { directionType } from '../utils/timeline/type';
-import { valueToparseType } from '../utils/tweenAction/type';
 
 export interface sequencerProps {
-    data: valueToparseType<any>;
+    data: Record<string, number | (() => number)>;
     duration?: number;
     stagger?: staggerObjectOptional;
     ease?: easeTypes;
@@ -82,6 +81,6 @@ export interface masterSequencerItem {
 }
 
 export interface createSequencerType {
-    items: Array<HTMLElement | object>;
+    items: (HTMLElement | object)[];
     duration?: number;
 }

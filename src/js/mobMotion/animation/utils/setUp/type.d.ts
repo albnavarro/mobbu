@@ -29,7 +29,7 @@ export interface setUpType {
      * default keys: `xSmall, small, medium, tablet, desktop, large, xLarge`.
      * es: `desktop: 992`.
      */
-    mq?: { [key: string]: number };
+    mq?: Record<string, number>;
 
     /**
      * @description

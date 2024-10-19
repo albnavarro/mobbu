@@ -541,7 +541,7 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj  to values
+     * @param {Record<string, number|(() => number)>} obj  to values
      * @param {import('./type.js').sequencerAction} props special properties
      * @returns {this} The instance on which this method was called.
      *
@@ -593,7 +593,7 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from values
+     * @param {Record<string, number|(() => number)>} obj  to values
      * @param {import('./type.js').sequencerAction} props special properties
      * @returns {this} The instance on which this method was called.
      *
@@ -645,8 +645,8 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from values
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to values
+     * @param {Record<string, number|(() => number)>} fromObj  to values
+     * @param {Record<string, number|(() => number)>} toObj  to values
      * @param {import('./type.js').sequencerAction} props special properties
      *
      * @example

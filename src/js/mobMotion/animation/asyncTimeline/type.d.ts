@@ -1,6 +1,5 @@
 import { springChoiceConfig, springProps } from '../spring/type';
 import { easeTypes, tweenCommonProps } from '../tween/type';
-import { valueToparseType } from '../utils/tweenAction/type';
 
 export interface asyncTimelineType {
     /**
@@ -51,7 +50,10 @@ export interface asyncTimelineTypeSpecialProps {
 
 export interface asyncTimelineTween {
     getId: () => string;
-    set: (arg0: valueToparseType<any>, ar1?: tweenCommonProps) => Promise<any>;
+    set: (
+        arg0: Record<string, number | (() => number)>,
+        ar1?: tweenCommonProps
+    ) => Promise<any>;
     goTo: () => Promise<any>;
     goFromTo: () => Promise<any>;
     getToNativeType: () => any;
@@ -72,15 +74,15 @@ export interface asyncTimelineRowData {
     id: number;
     labelProps: { name?: string };
     prevValueSettled: boolean;
-    prevValueTo: valueToparseType<any>;
+    prevValueTo: Record<string, number | (() => number)>;
     syncProp: {
         from: asyncTimelineTween;
         to: asyncTimelineTween;
     };
     tween: any;
     tweenProps: asyncTimelineTypeSpecialProps;
-    valuesFrom: valueToparseType<any>;
-    valuesTo: valueToparseType<any>;
+    valuesFrom: Record<string, number | (() => number)>;
+    valuesTo: Record<string, number | (() => number)>;
 }
 
 export interface asyncTimelineTweenItem {

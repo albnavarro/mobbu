@@ -96,5 +96,5 @@ export interface staggerDefaultIndex {
 export interface setStagger {
     frame: number;
     index: number;
-    item: { [key: string]: number };
+    item: Record<string, number>;
 }

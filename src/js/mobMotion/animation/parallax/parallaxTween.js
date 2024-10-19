@@ -214,7 +214,7 @@ export default class ParallaxTween {
 
     /**
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType<number>} obj Initial data Object
+     * @param {Record<string, number>} obj Initial data Object
      * @returns {this} The instance on which this method was called.
      */
     setData(obj) {
@@ -263,7 +263,7 @@ export default class ParallaxTween {
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to values
+     * @param {Record<string, number|(() => number)>} obj to values
      * @returns {this} The instance on which this method was called.
      *
      * @example

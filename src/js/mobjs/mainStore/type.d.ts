@@ -9,9 +9,7 @@ export interface componentListMapType {
 
 export interface MainStore {
     activeRoute: { route: string; templateName: string };
-    activeParams: {
-        [key: string]: any;
-    };
+    activeParams: Record<string, any>;
     beforeRouteLeave: { route: string; templateName: string };
     beforeRouteChange: { route: string; templateName: string };
     afterRouteChange: { route: string; templateName: string };

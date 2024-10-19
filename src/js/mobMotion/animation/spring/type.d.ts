@@ -1,5 +1,4 @@
 import { staggerObjectOptional } from '../utils/stagger/type';
-import { valueToparseType } from '../utils/tweenAction/type';
 
 export interface springProps {
     friction: number;
@@ -34,7 +33,7 @@ export type springChoiceConfig =
     | 'scroller';
 
 export interface springTweenProps {
-    data: valueToparseType<any>;
+    data: Record<string, number>;
     relative?: boolean;
     stagger?: staggerObjectOptional;
     config?: springChoiceConfig;

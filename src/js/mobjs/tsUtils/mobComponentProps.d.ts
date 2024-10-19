@@ -6,7 +6,7 @@ import { ArrayElement, NotValue, OnlyStringKey } from './utils';
  * bindProps.
  */
 export type PartialBindProps<T, R> = (arg0: {
-    bind?: Array<OnlyStringKey<T>>;
+    bind?: OnlyStringKey<T>[];
     forceParent?: boolean;
     props: (arg0: T, index: number) => Partial<R>;
 }) => string;
@@ -87,7 +87,7 @@ export type PartialEmitAsync<T> = (
  */
 export type PartialCompunted<T> = <K extends keyof T>(
     prop: K,
-    keys: Array<NotValue<keyof T, K>>,
+    keys: NotValue<keyof T, K>[],
     callback: (arg0: T) => T[K]
 ) => void;
 
@@ -112,7 +112,7 @@ export type PartialRemove = () => void;
 /**
  * getChildren
  */
-export type PartialGetChildren = (componentName: string) => Array<string>;
+export type PartialGetChildren = (componentName: string) => string[];
 
 /**
  * freezeProp
@@ -316,7 +316,7 @@ export type PartialRenderComponent = (arg0: {
  * Invalidate component
  */
 export type PartialInvalidateComponent<T> = (arg0: {
-    bind?: Array<OnlyStringKey<T>> | OnlyStringKey<T>;
+    bind?: OnlyStringKey<T>[] | OnlyStringKey<T>;
     persistent?: boolean;
     beforeUpdate?(): Promise<void>;
     afterUpdate?(): void;
@@ -345,6 +345,6 @@ export type PartialMethods = (
  * Bind refs
  */
 export type PartialSetRef = (string) => string;
-export type PartialGetRef = () => { [key: string]: HTMLElement };
-export type PartialGetRefs = () => { [key: string]: HTMLElement[] };
+export type PartialGetRef = () => Record<string, HTMLElement>;
+export type PartialGetRefs = () => Record<string, HTMLElement[]>;
 export type PartialBindText = (TemplateStringsArray, ...any) => string;

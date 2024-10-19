@@ -1,5 +1,4 @@
 import { staggerObjectOptional } from '../utils/stagger/type';
-import { valueToparseType } from '../utils/tweenAction/type';
 
 export type easeTypes =
     | 'easeLinear'
@@ -35,7 +34,7 @@ export type easeTypes =
     | 'easeInOutBounce';
 
 export interface tweenProps {
-    data: valueToparseType<any>;
+    data: Record<string, number>;
     duration?: number;
     relative?: boolean;
     stagger?: staggerObjectOptional;
