@@ -1,6 +1,6 @@
 import { compareIdOrParentIdRecursive } from '../component/action/parent';
-import { invalidateIdPlaceHolderMap } from './invalidate';
-import { repeatIdPlaceHolderMap } from './repeater';
+import { invalidateIdPlaceHolderMap } from './invalidate/invalidateIdPlaceHolderMap';
+import { repeatIdPlaceHolderMap } from './repeater/repeatIdPlaceHolderMap';
 
 export const MODULE_REPEATER = 'repeater';
 export const MODULE_INVALIDATE = 'invalidate';

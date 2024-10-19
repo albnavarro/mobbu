@@ -1029,7 +1029,7 @@ export default class HandleAsyncTimeline {
         /**
          * If there is an active group append interpolation to current group
          */
-        if (rowIndex >= 0) {
+        if (rowIndex !== -1) {
             this.tweenList[rowIndex].push({ group: this.groupId, data: obj });
             return;
         }

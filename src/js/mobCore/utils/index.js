@@ -143,7 +143,7 @@ export function isDescendant(parent, child) {
  * Gets computed translate values
  */
 export function getTranslateValues(element) {
-    const style = window.getComputedStyle(element);
+    const style = globalThis.getComputedStyle(element);
     const matrix =
         // @ts-ignore
         style['transform'] || style.mozTransform;

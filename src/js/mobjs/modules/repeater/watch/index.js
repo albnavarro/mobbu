@@ -3,7 +3,6 @@
 import { mobCore } from '../../../../mobCore';
 import { gerOrderedChildrenById } from '../../../component/action/children';
 import { setRepeaterStateById } from '../../../component/action/repeater';
-import { getRepeatParent, inizializeNestedRepeat } from '..';
 import {
     getElementById,
     getIdsByByRepeatId,
@@ -12,7 +11,7 @@ import {
     freezePropById,
     unFreezePropById,
 } from '../../../component/action/freeze';
-import { removeAndDestroyById } from '../../../component/action/removeAndDestroy';
+import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/removeAndDestroyById';
 import { incrementTickQueuque } from '../../../queque/tick';
 import { incrementRepeaterTickQueuque } from '../../../queque/tickRepeater';
 import { QUEQUE_TYPE_REPEATER } from '../../../constant';
@@ -23,9 +22,11 @@ import {
 } from '../activeRepeater';
 import { getRepeaterComponentTarget } from '../targetcomponent';
 import { updateRepeater } from '../update';
-import { inizializeNestedInvalidate } from '../../invalidate';
+import { inizializeNestedInvalidate } from '../../invalidate/action/inizializeNestedInvalidate';
 import { getFallBackParentByElement } from '../../../component/action/parent';
 import { chunkIdsByRepeaterWrapper } from '../utils';
+import { getRepeatParent } from '../action/getRepeaterParent';
+import { inizializeNestedRepeat } from './inizializeNestedRepeat';
 
 /**
  * @param {import('../type').watchListType} param

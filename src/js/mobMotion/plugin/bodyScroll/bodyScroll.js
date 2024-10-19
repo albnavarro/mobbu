@@ -89,7 +89,7 @@ export const bodyScroll = (() => {
      * @param {import('./type.js').bodyScrollType} [ data ]
      */
     const to = (target, data) => {
-        if (typeof window === 'undefined') return;
+        if (typeof globalThis === 'undefined') return;
 
         const targetParsed = (() => {
             if (!target) return 0;

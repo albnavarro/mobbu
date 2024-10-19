@@ -106,7 +106,7 @@ const addCb = (cb) => {
     const id = getUnivoqueId();
     callbacks.set(id, cb);
 
-    if (typeof window !== 'undefined') {
+    if (typeof globalThis !== 'undefined') {
         init();
     }
 

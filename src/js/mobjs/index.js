@@ -1,5 +1,8 @@
 // @ts-check
 
+export { removeAndDestroyById } from './component/action/removeAndDestroy/removeAndDestroyById';
+export { setStateById } from './component/action/state/setStateById';
+export { getStateById } from './component/action/state/getStateById';
 export { getChildrenIdByName } from './component/action/children';
 export {
     getComponentNameById,
@@ -8,14 +11,11 @@ export {
 export { getTree } from './component/action/getTree';
 export { useMethodByName } from './component/action/methods';
 export { getParentIdById } from './component/action/parent';
-export { removeAndDestroyById } from './component/action/removeAndDestroy';
 export {
-    getStateById,
     getStateByName,
-    setStateById,
     setStateByName,
     updateStateByName,
-} from './component/action/state';
+} from './component/action/state/state';
 export { watchById } from './component/action/watch';
 export { useComponent } from './component/componentList';
 export {

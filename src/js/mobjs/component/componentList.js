@@ -9,7 +9,7 @@ import { defineBindTextComponent } from '../webComponent/bindText';
 /**
  * @type {{[key:string]:import('../mainStore/type').componentListMapType}}
  */
-let componentListMap = {};
+export let componentListMap = {};
 
 /**
  * @type {Set<import('../type').CreateComponentReturn>}
@@ -40,15 +40,6 @@ export const setComponentList = () => {
     defineInvalidateComponent();
     defineRepeatComponent();
     defineBindTextComponent();
-};
-
-/**
- * @description
- *
- * @returns {{[key:string]:import('../mainStore/type').componentListMapType}}
- */
-export const getComponentList = () => {
-    return componentListMap;
 };
 
 /**

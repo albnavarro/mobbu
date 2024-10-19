@@ -2,7 +2,7 @@
 
 import { setElementById } from '../component/action/element';
 import { convertToRealElement } from './steps/convertToRealElement';
-import { getComponentList } from '../component/componentList';
+import { getComponentList } from '../component/getComponentList';
 // import { removeOrphanComponent } from '../component/action/removeAndDestroy';
 import { getDefaultComponent } from '../component/createComponent';
 import {

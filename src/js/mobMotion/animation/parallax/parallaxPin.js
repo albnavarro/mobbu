@@ -33,6 +33,7 @@ export class ParallaxPin {
          * @description
          * @type {HTMLElement|Window}
          */
+        // eslint-disable-next-line unicorn/prefer-global-this
         this.scroller = window;
 
         /**
@@ -304,7 +305,7 @@ export class ParallaxPin {
         this.getEnd = data.getEnd;
         this.start = this.getStart();
         this.end = this.getEnd();
-        this.prevscrollY = window.pageYOffset;
+        this.prevscrollY = window.scrollY;
         this.scrollerHeight = data?.scrollerHeight;
         this.refreshCollisionPoint();
         this.collisionTranslateProp =
@@ -328,6 +329,7 @@ export class ParallaxPin {
         this.unsubscribeScrollStart = mobCore.useScrollStart(() => {
             if (!this.isInizialized) return;
 
+            // eslint-disable-next-line unicorn/prefer-global-this
             if (this.screen !== window && this.isInner && this.pin) {
                 mobCore.useFrame(() => {
                     if (this.pin)
@@ -340,6 +342,7 @@ export class ParallaxPin {
             if (!this.isInizialized) return;
 
             if (
+                // eslint-disable-next-line unicorn/prefer-global-this
                 this.screen !== window &&
                 this.screen !== document.documentElement
             ) {
@@ -488,6 +491,7 @@ export class ParallaxPin {
     addStyleFromPinToWrapper() {
         if (!this.item) return;
 
+        // eslint-disable-next-line unicorn/prefer-global-this
         const compStyles = window.getComputedStyle(this.item);
         const style = this.itemRequireStyleToWrapper.reduce((p, c) => {
             return { ...p, [c]: compStyles.getPropertyValue(c) };
@@ -588,6 +592,7 @@ export class ParallaxPin {
         /**
          * Update start position when use custom screen ad scroll outside on window
          */
+        // eslint-disable-next-line unicorn/prefer-global-this
         if (this.screen !== window) {
             this.start -=
                 this.direction === parallaxConstant.DIRECTION_VERTICAL
@@ -770,6 +775,7 @@ export class ParallaxPin {
     addPinStyleFromItem() {
         if (!this.item) return {};
 
+        // eslint-disable-next-line unicorn/prefer-global-this
         const compStyles = window.getComputedStyle(this.item);
         return this.itemRequireStyleToPin.reduce((p, c) => {
             return { ...p, [c]: compStyles.getPropertyValue(c) };
@@ -782,6 +788,7 @@ export class ParallaxPin {
     addStyleToItem() {
         if (!this.item) return {};
 
+        // eslint-disable-next-line unicorn/prefer-global-this
         const compStyles = window.getComputedStyle(this.item);
         return this.itemRequireStyleWhenTraspond.reduce((p, c) => {
             return { ...p, [c]: compStyles.getPropertyValue(c) };

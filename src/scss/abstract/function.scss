@@ -48,7 +48,7 @@
         @return $multiplier;
     }
 
-    @if unitless($pixels) {
+    @if math.is-unitless($pixels) {
         $pixels: $pixels * 1px;
     }
 

@@ -1,9 +1,7 @@
 // @ts-check
 
-import {
-    destroyComponentInsideNodeById,
-    removeAndDestroyById,
-} from '../../../component/action/removeAndDestroy';
+import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/removeAndDestroy';
+import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/removeAndDestroyById';
 import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
@@ -15,8 +13,8 @@ import {
 } from '../../../component/action/element';
 import { setComponentRepeaterState } from '../repeaterValue';
 import { renderHtml } from '../../../parse/steps/utils';
-import { destroyNestedInvalidate } from '../../invalidate';
-import { destroyNestedRepeat } from '..';
+import { destroyNestedInvalidate } from '../../invalidate/action/destroyNestedInvalidate';
+import { destroyNestedRepeat } from '../action/destroyNestedRepeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { chunkIdsByRepeaterWrapper } from '../utils';

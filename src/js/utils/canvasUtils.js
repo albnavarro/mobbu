@@ -1,7 +1,7 @@
 export const canvasBackground = '#000000';
 
 export const getCanvasContext = ({ disableOffcanvas }) => {
-    const useOffscreen = 'OffscreenCanvas' in window && !disableOffcanvas;
+    const useOffscreen = 'OffscreenCanvas' in globalThis && !disableOffcanvas;
     const context = useOffscreen ? 'bitmaprenderer' : '2d';
     return { useOffscreen, context };
 };

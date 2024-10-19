@@ -1,12 +1,17 @@
+// @ts-check
+
 import globals from 'globals';
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import tsParser from '@typescript-eslint/parser';
+// @ts-ignore
+import importPlugin from 'eslint-plugin-import';
 
 export default [
     js.configs.recommended,
+    importPlugin.flatConfigs.recommended,
     eslintConfigPrettier,
     eslintPluginUnicorn.configs['flat/all'],
     ...tseslint.configs.recommended,
@@ -33,6 +38,8 @@ export default [
             'unicorn/no-null': 'off',
             'unicorn/no-new-array': 'off',
             'unicorn/no-keyword-prefix': 'off',
+            'import/no-unresolved': 'off',
+            'import/no-cycle': 'error',
             '@typescript-eslint/no-explicit-any': 'off',
             '@typescript-eslint/ban-ts-comment': 'off',
             'prefer-const': [

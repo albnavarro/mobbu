@@ -2,7 +2,7 @@
 
 import { getComponentRepeaterState } from '../../modules/repeater/repeaterValue';
 import { getPropsFromParent } from '../../modules/staticProps';
-import { filterExportableStateFromObject } from '../../component/action/exportState';
+import { filterExportableStateFromObject } from '../../component/action/state/exportState';
 
 /**
  * @param {object} obj

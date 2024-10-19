@@ -7,8 +7,8 @@ import {
     setType,
     updateType,
     watchType,
+    MobStore,
 } from '../../mobCore/store/type';
-import { MobStore } from '../../mobCore/store/type';
 import { UserComponent } from '../webComponent/type';
 
 export interface componentCommonTypes {

@@ -58,7 +58,7 @@ function handleMouse(event) {
      * Switch passive event on setUp change.
      */
     eventStore.watch('usePassive', () => {
-        window.removeEventListener(event, handler);
+        globalThis.removeEventListener(event, handler);
         initialized = false;
 
         init();
@@ -72,7 +72,7 @@ function handleMouse(event) {
          * if - if there is no subscritor remove handler
          */
         if (callbacks.size === 0) {
-            window.removeEventListener(event, handler);
+            globalThis.removeEventListener(event, handler);
 
             initialized = false;
             return;
@@ -135,7 +135,7 @@ function handleMouse(event) {
         initialized = true;
         usePassive = eventStore.getProp('usePassive');
 
-        window.addEventListener(event, handler, {
+        globalThis.addEventListener(event, handler, {
             passive: usePassive,
         });
     }
@@ -155,7 +155,7 @@ function handleMouse(event) {
         const id = getUnivoqueId();
         callbacks.set(id, cb);
 
-        if (typeof window !== 'undefined') {
+        if (typeof globalThis !== 'undefined') {
             init();
         }
 

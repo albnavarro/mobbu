@@ -763,7 +763,8 @@ export const domNodeIsValidAndReturnElOrWin = (
 
     // @ts-ignore
     return returnWindow
-        ? (realEl ?? window)
+        ? // eslint-disable-next-line unicorn/prefer-global-this
+          (realEl ?? window)
         : (realEl ?? document.createElement('div'));
 };
 

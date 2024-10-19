@@ -1,6 +1,6 @@
 //@ts-check
 
-import { setParentRepeater } from '../modules/repeater';
+import { setParentRepeater } from '../modules/repeater/action/setParentRepeater';
 import { ATTR_MOBJS_REPEAT } from '../constant';
 
 export const defineRepeatComponent = () => {

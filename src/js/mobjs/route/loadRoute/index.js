@@ -3,7 +3,7 @@
 import {
     removeCancellableComponent,
     removeOrphanTempIds,
-} from '../../component/action/removeAndDestroy';
+} from '../../component/action/removeAndDestroy/removeAndDestroy';
 import { getRouteByName } from '../routeList';
 import {
     MAIN_STORE_ACTIVE_PARAMS,

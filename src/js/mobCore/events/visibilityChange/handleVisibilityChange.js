@@ -20,7 +20,7 @@ function handler() {
      * if - if there is no subscritor remove handler
      */
     if (callbacks.size === 0) {
-        window.removeEventListener('visibilitychange', handler);
+        globalThis.removeEventListener('visibilitychange', handler);
 
         initialized = false;
         return;
@@ -45,7 +45,7 @@ function init() {
     if (initialized) return;
     initialized = true;
 
-    window.addEventListener('visibilitychange', handler, {
+    globalThis.addEventListener('visibilitychange', handler, {
         passive: false,
     });
 }
@@ -71,7 +71,7 @@ const addCb = (cb) => {
     const id = getUnivoqueId();
     callbacks.set(id, cb);
 
-    if (typeof window !== 'undefined') {
+    if (typeof globalThis !== 'undefined') {
         init();
     }
 

@@ -61,7 +61,6 @@ export type Invalidate<T> = PartialInvalidateComponent<T>;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 export type SetStateByName<T> = PartialSetStateByName<T>;
 export type UpdateStateByName<T> = PartialUpdateStateByName<T>;
-export type Repeat<T> = PartialRepeat<T>;
 export type Methods = PartialMethods;
 export type SetRef = PartialSetRef;
 export type GetRef = PartialGetRef;

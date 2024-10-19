@@ -1,7 +1,7 @@
 // @ts-check
 
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant.js';
-import { getRepeatParent } from '../../modules/repeater/index.js';
+import { getRepeatParent } from '../../modules/repeater/action/getRepeaterParent.js';
 import { componentMap } from '../store.js';
 
 /**

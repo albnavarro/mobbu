@@ -5,18 +5,8 @@ import {
     mainStore,
     tempDelegateEventMap,
 } from '../../../mobjs';
-import {
-    repeatFunctionMap,
-    repeatIdPlaceHolderMap,
-} from '../../../mobjs/modules/repeater';
-import {
-    invalidateFunctionMap,
-    invalidateIdHostMap,
-    invalidateIdPlaceHolderMap,
-} from '../../../mobjs/modules/invalidate';
 import { bindEventMap } from '../../../mobjs/modules/bindEvents';
 import { currentRepeaterValueMap } from '../../../mobjs/modules/repeater/repeaterValue';
-import { bindPropsMap } from '../../../mobjs/modules/bindProps';
 import { onMountCallbackMap } from '../../../mobjs/modules/onMount';
 import { activeRepeatMap } from '../../../mobjs/modules/repeater/activeRepeater';
 import { repeaterTargetComponentMap } from '../../../mobjs/modules/repeater/targetcomponent';
@@ -27,6 +17,12 @@ import {
     getBindTextParentSize,
     getBindTextPlaceholderSize,
 } from '../../../mobjs/modules/bindtext';
+import { repeatIdPlaceHolderMap } from '../../../mobjs/modules/repeater/repeatIdPlaceHolderMap';
+import { repeatFunctionMap } from '../../../mobjs/modules/repeater/repeatFunctionMap';
+import { invalidateIdPlaceHolderMap } from '../../../mobjs/modules/invalidate/invalidateIdPlaceHolderMap';
+import { invalidateIdHostMap } from '../../../mobjs/modules/invalidate/invalidateIdHostMap';
+import { invalidateFunctionMap } from '../../../mobjs/modules/invalidate/invalidateFunctionMap';
+import { bindPropsMap } from '../../../mobjs/modules/bindProps/bindPropsMap';
 
 export const consoleLogDebug = () => {
     mainStore.debugStore();
@@ -45,7 +41,6 @@ export const consoleLogDebug = () => {
     console.log('invalidateIdHostMap', invalidateIdHostMap.size);
     console.log('invalidateFunctionMap', invalidateFunctionMap);
     console.log('repeatIdPlaceHolderMap', repeatIdPlaceHolderMap);
-    console.log('repeatIdHostMap', invalidateIdHostMap.size);
     console.log('repeatFunctionMap', repeatFunctionMap);
     console.log('userChildPlaceholderSize', getUserChildPlaceholderSize());
     console.log('slotPlaceholderSize', getSlotPlaceholderSize());

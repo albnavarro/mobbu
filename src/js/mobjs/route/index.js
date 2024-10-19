@@ -82,7 +82,7 @@ const hashHandler = async () => {
         return;
     }
 
-    const hashOriginal = window.location.hash.slice(1);
+    const hashOriginal = globalThis.location.hash.slice(1);
     const parts = hashOriginal.split('?');
     const search = sanitizeParams(parts?.[1] ?? '');
 
@@ -161,7 +161,7 @@ const hashHandler = async () => {
 export const router = () => {
     hashHandler();
 
-    window.addEventListener('popstate', (event) => {
+    globalThis.addEventListener('popstate', (event) => {
         currentHistory = event?.state?.nextId;
 
         /**
@@ -204,7 +204,7 @@ export const router = () => {
         resetNext();
     });
 
-    window.addEventListener('hashchange', () => {
+    globalThis.addEventListener('hashchange', () => {
         hashHandler();
     });
 };
@@ -230,12 +230,12 @@ export const loadUrl = ({ url = '' }) => {
     /**
      * Update hash without params.
      */
-    window.location.hash = hash;
+    globalThis.location.hash = hash;
 
     /**
      * If we want reload same route from same hash, maybe params is different.
      */
     if (hash === previousHash || previousHash === '') {
-        window.dispatchEvent(new HashChangeEvent('hashchange'));
+        globalThis.dispatchEvent(new HashChangeEvent('hashchange'));
     }
 };

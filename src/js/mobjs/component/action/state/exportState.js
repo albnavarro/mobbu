@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getComponentList } from '../componentList';
+import { getComponentList } from '../../getComponentList';
 
 /**
  * @param {object} obj
@@ -28,19 +28,4 @@ export const filterExportableStateFromObject = ({
             const [key, value] = current;
             return { ...previous, [key]: value };
         }, {});
-};
-
-/**
- * @param {object} obj
- * @param {string} obj.componentName
- * @param {string} obj.propName
- * @returns {boolean}
- */
-export const checkIfStateIsExportable = ({ componentName, propName }) => {
-    const componentList = getComponentList();
-
-    const exportableState =
-        componentList?.[componentName]?.componentParams?.exportState ?? [];
-
-    return exportableState.includes(propName);
 };

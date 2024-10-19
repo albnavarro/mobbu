@@ -4,10 +4,10 @@ import { mobCore } from '../../../mobCore';
 import { getChildrenIdByName } from '../../component/action/children';
 import {
     inizializeRepeatWatch,
-    setRepeaterPlaceholderMapInitialized,
-    setRepeaterPlaceholderMapScopeId,
     setRepeatFunction,
 } from '../../modules/repeater';
+import { setRepeaterPlaceholderMapScopeId } from '../../modules/repeater/action/setRepeaterPlaceholderMapScopeId';
+import { setRepeaterPlaceholderMapInitialized } from '../../modules/repeater/action/setRepeaterPlaceholderMapInitialized';
 import {
     freezePropById,
     unFreezePropById,
@@ -15,15 +15,13 @@ import {
 import {
     inizializeInvalidateWatch,
     setInvalidateFunction,
-    setInvalidatePlaceholderMapInitialized,
-    setInvalidatePlaceholderMapScopedId,
 } from '../../modules/invalidate';
+import { setInvalidatePlaceholderMapInitialized } from '../../modules/invalidate/action/setInvalidatePlaceholderMapInitialized';
+import { setInvalidatePlaceholderMapScopedId } from '../../modules/invalidate/action/setInvalidatePlaceholderMapScopedId';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch, unBind } from '../../component/action/props';
-import {
-    destroyComponentInsideNodeById,
-    removeAndDestroyById,
-} from '../../component/action/removeAndDestroy';
+import { destroyComponentInsideNodeById } from '../../component/action/removeAndDestroy/removeAndDestroy';
+import { removeAndDestroyById } from '../../component/action/removeAndDestroy/removeAndDestroyById';
 import { watchById } from '../../component/action/watch';
 import {
     ATTR_BIND_EVENTS,

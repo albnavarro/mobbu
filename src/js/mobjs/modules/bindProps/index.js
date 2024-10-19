@@ -4,7 +4,8 @@ import { mobCore } from '../../../mobCore';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch } from '../../component/action/props';
-import { getStateById, setStateById } from '../../component/action/state';
+import { setStateById } from '../../component/action/state/setStateById';
+import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
 import { incrementTickQueuque } from '../../queque/tick';
 import { componentMap } from '../../component/store';
@@ -15,12 +16,8 @@ import {
     invalidateTick,
 } from '../../queque/tickInvalidate';
 import { getElementById } from '../../component/action/element';
-import { removeAndDestroyById } from '../../component/action/removeAndDestroy';
-
-/**
- * @type {Map<string,{'bind':Array<string>,'parentId':string|undefined,'componentId':string,'propsId':string,'props':object}>}
- */
-export const bindPropsMap = new Map();
+import { removeAndDestroyById } from '../../component/action/removeAndDestroy/removeAndDestroyById';
+import { bindPropsMap } from './bindPropsMap';
 
 /**
  * @param {{bind?:string[],parentId:string|undefined,props:{[key:string]: any}, forceParent? :boolean}} propsObj
@@ -179,26 +176,6 @@ export const addCurrentIdToBindProps = ({
         repeatPropBind,
         inizilizeWatcher: false,
     });
-};
-
-/**
- * @param {object} obj
- * @param {string} obj.componentId
- * @return void
- *
- * @description
- * Remove dynamic prop reference by componentId.
- *
- */
-export const removeCurrentIdToBindProps = ({ componentId }) => {
-    if (!componentId) return;
-
-    for (const [key, value] of bindPropsMap) {
-        const { componentId: currentComponentId } = value;
-        if (currentComponentId === componentId) {
-            bindPropsMap.delete(key);
-        }
-    }
 };
 
 /**

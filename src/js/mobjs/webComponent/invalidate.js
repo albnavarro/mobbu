@@ -1,6 +1,6 @@
 //@ts-check
 
-import { setParentInvalidate } from '../modules/invalidate';
+import { setParentInvalidate } from '../modules/invalidate/action/setParentInvalidate';
 import { ATTR_INVALIDATE } from '../constant';
 
 export const defineInvalidateComponent = () => {
