@@ -147,13 +147,13 @@ export default class HandleSpring {
 
         /**
          * @private
-         * @type{( function(any):void )|undefined}
+         * @type{(value:any) => void|null}
          */
         this.currentResolve = undefined;
 
         /**
          * @private
-         * @type{Function|undefined}
+         * @type{(value:any) => void|null}
          */
         this.currentReject = undefined;
 
@@ -459,8 +459,8 @@ export default class HandleSpring {
 
     /**
      * @private
-     * @param {function(any):void} res
-     * @param {Function} reject
+     * @param {(value:any) => void} res
+     * @param {(value:any) => void} reject
      *
      * @returns {Promise}
      */
@@ -1149,8 +1149,8 @@ export default class HandleSpring {
 
     /**
      * @param {(Object|HTMLElement)} item
-     * @param {function(any):void} fn - callback function.
-     * @return {Function} unsubscribe callback
+     * @param {(arg0:any) => void} fn - callback function.
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript

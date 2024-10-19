@@ -138,13 +138,13 @@ export default class HandleLerp {
 
         /**
          * @private
-         * @type{( function(any):void )|undefined}
+         * @type{(value:any) => void|null }
          */
         this.currentResolve = undefined;
 
         /**
          * @private
-         * @type{function|undefined}
+         * @type{(value:any) => void|null}
          */
         this.currentReject = undefined;
 
@@ -261,7 +261,7 @@ export default class HandleLerp {
     /**
      * @param {number} _time
      * @param {number} fps
-     * @param {Function} res
+     * @param {(value:any) => void} res
      *
      * @returns {void}
      */
@@ -344,7 +344,7 @@ export default class HandleLerp {
      *
      * @param {number} time current global time
      * @param {number} fps current FPS
-     * @param {Function} res current promise resolve
+     * @param {(value:any) => void} res current promise resolve
      **/
     onReuqestAnim(time, fps, res) {
         this.values = [...this.values].map((item) => {
@@ -414,8 +414,8 @@ export default class HandleLerp {
 
     /**
      * @private
-     * @param {function(any):void} res
-     * @param {Function} reject
+     * @param {(arg0: any) => void} res
+     * @param {(value: any) => void|null} reject
      *
      * @returns {Promise}
      */
@@ -1062,8 +1062,8 @@ export default class HandleLerp {
 
     /**
      * @param {(Object|HTMLElement)} item
-     * @param {function(any):void} fn - callback function.
-     * @return {Function} unsubscribe callback
+     * @param {(arg0:any) => void} fn - callback function.
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript

@@ -385,13 +385,13 @@ export default class HandleAsyncTimeline {
 
         /**
          * @private
-         * @type{Function|undefined}
+         * @type{(value:any) => void|null}
          */
         this.currentResolve = undefined;
 
         /**
          * @private
-         * @type{Function|undefined}
+         * @type{(value:any) => void|null}
          */
         this.currentReject = undefined;
     }
@@ -2014,8 +2014,8 @@ export default class HandleAsyncTimeline {
     /**
      * @param {object} obj
      * @param {boolean} [ obj.forceYoYo ]
-     * @param {Function|null} [ obj.resolve ]
-     * @param {Function|null} [ obj.reject ]
+     * @param {(value:any) => void|null} [ obj.resolve ]
+     * @param {(value:any) => void|null} [ obj.reject ]
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -2316,8 +2316,8 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {function(import('../utils/timeline/type.js').directionTypeObjectLoop ):void } cb - callback function
-     * @return {Function} unsubscribe callback
+     * @param {(arg0: import('../utils/timeline/type.js').directionTypeObjectLoop ) => void } cb - callback function
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript

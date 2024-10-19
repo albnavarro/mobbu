@@ -7300,7 +7300,7 @@
     /**
      * @param {number} _time
      * @param {number} fps
-     * @param {Function} res
+     * @param {(value:any) => void} res
      *
      * @returns {void}
      */
@@ -7360,7 +7360,7 @@
      *
      * @param {number} time current global time
      * @param {number} fps current FPS
-     * @param {Function} res current promise resolve
+     * @param {(value:any) => void} res current promise resolve
      **/
     onReuqestAnim(time2, fps2, res) {
       this.values = [...this.values].map((item) => {
@@ -7415,8 +7415,8 @@
     }
     /**
      * @private
-     * @param {function(any):void} res
-     * @param {Function} reject
+     * @param {(arg0: any) => void} res
+     * @param {(value: any) => void|null} reject
      *
      * @returns {Promise}
      */
@@ -8011,8 +8011,8 @@
     }
     /**
      * @param {(Object|HTMLElement)} item
-     * @param {function(any):void} fn - callback function.
-     * @return {Function} unsubscribe callback
+     * @param {(arg0:any) => void} fn - callback function.
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript
@@ -9683,8 +9683,8 @@
     }
     /**
      * @private
-     * @param {function(any):void} res
-     * @param {Function} reject
+     * @param {(value:any) => void} res
+     * @param {(value:any) => void} reject
      *
      * @returns {Promise}
      */
@@ -10305,8 +10305,8 @@
     }
     /**
      * @param {(Object|HTMLElement)} item
-     * @param {function(any):void} fn - callback function.
-     * @return {Function} unsubscribe callback
+     * @param {(arg0:any) => void} fn - callback function.
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript
@@ -10594,8 +10594,8 @@
     }
     /**
      * @private
-     * @param {function(any):void} res
-     * @param {Function} reject
+     * @param {(value:any) => void} res
+     * @param {(value:any) => void} reject
      *
      * @returns {Promise}
      */
@@ -11194,8 +11194,8 @@
     }
     /**
      * @param {(Object|HTMLElement)} item
-     * @param {function(any):void} fn - callback function.
-     * @return {Function} unsubscribe callback
+     * @param {(arg0:any) => void} fn - callback function.
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript
@@ -13163,8 +13163,8 @@
     /**
      * @param {object} obj
      * @param {boolean} [ obj.forceYoYo ]
-     * @param {Function|null} [ obj.resolve ]
-     * @param {Function|null} [ obj.reject ]
+     * @param {(value:any) => void|null} [ obj.resolve ]
+     * @param {(value:any) => void|null} [ obj.reject ]
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -13394,8 +13394,8 @@
       return this.isReverse ? directionConstant.BACKWARD : directionConstant.FORWARD;
     }
     /**
-     * @param {function(import('../utils/timeline/type.js').directionTypeObjectLoop ):void } cb - callback function
-     * @return {Function} unsubscribe callback
+     * @param {(arg0: import('../utils/timeline/type.js').directionTypeObjectLoop ) => void } cb - callback function
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript
@@ -14093,7 +14093,7 @@
       return this.currentTime;
     }
     /**
-     * @param {function(import('../utils/timeline/type.js').directionTypeObjectLoop ):void } cb - callback function
+     * @param {(arg0: import('../utils/timeline/type.js').directionTypeObjectLoop ) => void } cb - callback function
      * @return {() => void} unsubscribe callback
      *
      * @example

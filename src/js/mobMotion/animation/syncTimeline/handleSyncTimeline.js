@@ -205,13 +205,13 @@ export default class HandleSyncTimeline {
 
         /**
          * @private
-         * @type{Function|undefined}
+         * @type{(value:any) => void|null}
          */
         this.currentResolve = undefined;
 
         /**
          * @private
-         * @type{Function|undefined}
+         * @type{(value:any) => void|null}
          */
         this.currentReject = undefined;
     }
@@ -953,7 +953,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {function(import('../utils/timeline/type.js').directionTypeObjectLoop ):void } cb - callback function
+     * @param {(arg0: import('../utils/timeline/type.js').directionTypeObjectLoop ) => void } cb - callback function
      * @return {() => void} unsubscribe callback
      *
      * @example
