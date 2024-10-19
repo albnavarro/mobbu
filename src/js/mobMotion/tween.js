@@ -165,6 +165,7 @@ export const tween = {
 
     /**
      * @param {import('./animation/tween/type.js').tweenProps} data
+     * @returns {HandleTween}
      *
      * @example
      * ```javascript
@@ -217,6 +218,7 @@ export const tween = {
 
     /**
      * @param {import('./animation/spring/type.js').springTweenProps} data
+     * @returns {HandleSpring}
      *
      *
      * @example
@@ -277,6 +279,7 @@ export const tween = {
 
     /**
      * @param {import('./animation/lerp/type.js').lerpTweenProps} data
+     * @returns {HandleLerp}
      *
      * @example
      * ```javascript

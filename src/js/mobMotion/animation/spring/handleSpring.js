@@ -484,11 +484,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {import('../tween/type.js').tweenStopProps} Stop props
-     * @returns {void}
-     *
-     * @description
-     * Stop tween and fire reject of current promise.
+     * @type {import('./type.js').springStop}
      */
     stop({ clearCache = true } = {}) {
         if (this.pauseStatus) this.pauseStatus = false;
@@ -516,10 +512,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @description
-     * Pause the tween
-     *
-     * @returns {void}
+     * @type {import('./type.js').springPause}
      */
     pause() {
         if (this.pauseStatus) return;
@@ -529,10 +522,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @description
-     * Resume tween in pause
-     *
-     * @returns {void}
+     * @type {import('./type.js').springResume}
      */
     resume() {
         if (!this.pauseStatus) return;
@@ -586,10 +576,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @description
-     * Reset data value with initial
-     *
-     * @returns {void}
+     * @type {import('./type.js').springResetData}
      */
     resetData() {
         this.values = mergeDeep(this.values, this.initialData);
@@ -723,7 +710,7 @@ export default class HandleSpring {
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} current value obj.
+     * @type {import('./type.js').springGetValue}
      *
      * @example
      * ```javascript
@@ -740,7 +727,7 @@ export default class HandleSpring {
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} initial value obj.
+     * @type {import('./type.js').springGetValue}
      *
      * @example
      * ```javascript
@@ -757,7 +744,7 @@ export default class HandleSpring {
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} from value obj.
+     * @type {import('./type.js').springGetValue}
      *
      * @example
      * ```javascript
@@ -774,7 +761,7 @@ export default class HandleSpring {
      * @description
      * Get to values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} to value obj.
+     * @type {import('./type.js').springGetValue}
      *
      * @example
      * ```javascript
@@ -791,7 +778,7 @@ export default class HandleSpring {
      * @description
      * Get From values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').springGetValueNative}
      *
      * @example
      * ```javascript
@@ -808,7 +795,7 @@ export default class HandleSpring {
      * @description
      * Get To values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').springGetValueNative}
      *
      * @example
      * ```javascript
@@ -825,7 +812,7 @@ export default class HandleSpring {
      * @description
      * Get tween type
      *
-     * @return {string} tween type
+     * @type {import('./type.js').springGetType} tween type
      *
      * @example
      * ```javascript
@@ -842,7 +829,7 @@ export default class HandleSpring {
      * @description
      * Get univoque Id
      *
-     * @return {string} Univoque Id
+     * @type {import('./type.js').springGetId}
      *
      * @example
      * ```javascript
@@ -856,7 +843,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {import('./type.js').springPropsOptional} configProp - single spring config propierties
+     * @type {import('./type.js').springUdateConfigProp}
      *
      *  @example
      *  ```javascript
@@ -886,7 +873,7 @@ export default class HandleSpring {
      * @description
      * updateConfig - Update config object with new preset
      *
-     * @param  {import('./type.js').springChoiceConfig} config
+     * @type {import('./type.js').springUdateConfig}
      *
      */
     updateConfig(config) {
@@ -897,26 +884,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
-     *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = mySpring.subscribe(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return mySpring.subscribe(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
+     * @type {import('./type.js').springSubscribe}
      *
      * ```
      * @description
@@ -952,45 +920,14 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
-     *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = mySpring.onComplete(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
+     * @type {import('./type.js').springOnComplete}
      *
      *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return mySpring.onComplete(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
-     * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-     * Useful for applying a different style to an inactive element.
-     * A typical example is to remove the teansform3D property:
-     * @example
-     * ```javascript
-     * // Use transform3D while item is active
-     * mySpring.subscribe(({x}) => {
-     *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
-     * })
-     *
-     * // Remove transform3D when item is inactive
-     * mySpring.onComplete(({x}) => {
-     *      domEl.style.transform = `translateX(${x}px)`
-     * })
-     * ```
-     */
+     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
+     *  Useful for applying a different style to an inactive element.
+     *  A typical example is to remove the teansform3D property:
+     **/
     onComplete(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
             cb,
@@ -1003,22 +940,8 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {(Object|HTMLElement)} item
-     * @param {(arg0:any) => void} fn - callback function.
-     * @return {() => void} unsubscribe callback
+     * @type {import('./type.js').springSubscribeCache}
      *
-     * @example
-     *```javascript
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return mySpring.subscribeCache(item, ({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
      */

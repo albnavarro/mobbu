@@ -439,11 +439,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {import('../tween/type.js').tweenStopProps} Stop props
-     * @returns {void}
-     *
-     * @description
-     * Stop tween and fire reject of current promise.
+     * @type {import('./type.js').lerpStop}
      */
     stop({ clearCache = true } = {}) {
         if (this.pauseStatus) this.pauseStatus = false;
@@ -469,10 +465,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @description
-     * Pause the tween
-     *
-     * @returns {void}
+     * @type {import('./type.js').lerpPause}
      */
     pause() {
         if (this.pauseStatus) return;
@@ -482,10 +475,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @description
-     * Resume tween in pause
-     *
-     * @returns {void}
+     * @type {import('./type.js').lerpResume}
      */
     resume() {
         if (!this.pauseStatus) return;
@@ -529,10 +519,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @description
-     * Reset data value with initial
-     *
-     * @returns {void}
+     * @type {import('./type.js').lerpResetData}
      */
     resetData() {
         this.values = mergeDeep(this.values, this.initialData);
@@ -639,7 +626,7 @@ export default class HandleLerp {
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} current value obj.
+     * @type {import('./type.js').lerpGetValue}
      *
      * @example
      * ```javascript
@@ -656,7 +643,7 @@ export default class HandleLerp {
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} initial value obj.
+     * @type {import('./type.js').lerpGetValue}
      *
      * @example
      * ```javascript
@@ -673,7 +660,7 @@ export default class HandleLerp {
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} from value obj.
+     * @type {import('./type.js').lerpGetValue}
      *
      * @example
      * ```javascript
@@ -690,7 +677,7 @@ export default class HandleLerp {
      * @description
      * Get to values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} to value obj.
+     * @type {import('./type.js').lerpGetValue}
      *
      * @example
      * ```javascript
@@ -707,7 +694,7 @@ export default class HandleLerp {
      * @description
      * Get From values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').lerpGetValueNative}
      *
      * @example
      * ```javascript
@@ -724,7 +711,7 @@ export default class HandleLerp {
      * @description
      * Get To values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').lerpGetValueNative}
      *
      * @example
      * ```javascript
@@ -741,7 +728,7 @@ export default class HandleLerp {
      * @description
      * Get tween type
      *
-     * @return {string} tween type
+     * @type {import('./type.js').lerpGetType} tween type
      *
      * @example
      * ```javascript
@@ -758,7 +745,7 @@ export default class HandleLerp {
      * @description
      * Get univoque Id
      *
-     * @return {string} Univoque Id
+     * @type {import('./type.js').lerpGetId}
      *
      * @example
      * ```javascript
@@ -772,7 +759,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param  {number} velocity - New velocity value
+     * @type  {import('./type.js').lerpUpdateVelocity} 
      *
      * @example
      * ```javascript
@@ -794,7 +781,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param  {number} precision - New velocity value
+     * @type  {import('./type.js').lerpUpdatePrecision} 
      *
      * @example
      * ```javascript
@@ -816,8 +803,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').lerpSubscribe}
      *
      * ```
      * @description
@@ -851,8 +837,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').lerpOnComplete}
      *
      *
      * @description
@@ -872,9 +857,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {(Object|HTMLElement)} item
-     * @param {(arg0:any) => void} fn - callback function.
-     * @return {() => void} unsubscribe callback
+     * @type {import('./type.js').lerpSubscribeCache}
      *
      * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.

@@ -7437,11 +7437,7 @@
       );
     }
     /**
-     * @param {import('../tween/type.js').tweenStopProps} Stop props
-     * @returns {void}
-     *
-     * @description
-     * Stop tween and fire reject of current promise.
+     * @type {import('./type.js').lerpStop}
      */
     stop({ clearCache = true } = {}) {
       if (this.pauseStatus) this.pauseStatus = false;
@@ -7457,10 +7453,7 @@
       if (this.isActive) this.isActive = false;
     }
     /**
-     * @description
-     * Pause the tween
-     *
-     * @returns {void}
+     * @type {import('./type.js').lerpPause}
      */
     pause() {
       if (this.pauseStatus) return;
@@ -7469,10 +7462,7 @@
       this.values = setFromByCurrent(this.values);
     }
     /**
-     * @description
-     * Resume tween in pause
-     *
-     * @returns {void}
+     * @type {import('./type.js').lerpResume}
      */
     resume() {
       if (!this.pauseStatus) return;
@@ -7512,10 +7502,7 @@
       });
     }
     /**
-     * @description
-     * Reset data value with initial
-     *
-     * @returns {void}
+     * @type {import('./type.js').lerpResetData}
      */
     resetData() {
       this.values = mergeDeep(this.values, this.initialData);
@@ -7603,7 +7590,7 @@
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} current value obj.
+     * @type {import('./type.js').lerpGetValue}
      *
      * @example
      * ```javascript
@@ -7619,7 +7606,7 @@
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} initial value obj.
+     * @type {import('./type.js').lerpGetValue}
      *
      * @example
      * ```javascript
@@ -7635,7 +7622,7 @@
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} from value obj.
+     * @type {import('./type.js').lerpGetValue}
      *
      * @example
      * ```javascript
@@ -7651,7 +7638,7 @@
      * @description
      * Get to values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} to value obj.
+     * @type {import('./type.js').lerpGetValue}
      *
      * @example
      * ```javascript
@@ -7667,7 +7654,7 @@
      * @description
      * Get From values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').lerpGetValueNative}
      *
      * @example
      * ```javascript
@@ -7683,7 +7670,7 @@
      * @description
      * Get To values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').lerpGetValueNative}
      *
      * @example
      * ```javascript
@@ -7699,7 +7686,7 @@
      * @description
      * Get tween type
      *
-     * @return {string} tween type
+     * @type {import('./type.js').lerpGetType} tween type
      *
      * @example
      * ```javascript
@@ -7715,7 +7702,7 @@
      * @description
      * Get univoque Id
      *
-     * @return {string} Univoque Id
+     * @type {import('./type.js').lerpGetId}
      *
      * @example
      * ```javascript
@@ -7728,7 +7715,7 @@
       return this.uniqueId;
     }
     /**
-     * @param  {number} velocity - New velocity value
+     * @type  {import('./type.js').lerpUpdateVelocity} 
      *
      * @example
      * ```javascript
@@ -7749,7 +7736,7 @@
       });
     }
     /**
-     * @param  {number} precision - New velocity value
+     * @type  {import('./type.js').lerpUpdatePrecision} 
      *
      * @example
      * ```javascript
@@ -7770,8 +7757,7 @@
       });
     }
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').lerpSubscribe}
      *
      * ```
      * @description
@@ -7803,8 +7789,7 @@
       return () => this.callbackStartInPause = [];
     }
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').lerpOnComplete}
      *
      *
      * @description
@@ -7821,9 +7806,7 @@
       return () => this.callbackOnComplete = unsubscribeCb(this.callbackOnComplete);
     }
     /**
-     * @param {(Object|HTMLElement)} item
-     * @param {(arg0:any) => void} fn - callback function.
-     * @return {() => void} unsubscribe callback
+     * @type {import('./type.js').lerpSubscribeCache}
      *
      * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
@@ -9504,11 +9487,7 @@
       );
     }
     /**
-     * @param {import('../tween/type.js').tweenStopProps} Stop props
-     * @returns {void}
-     *
-     * @description
-     * Stop tween and fire reject of current promise.
+     * @type {import('./type.js').springStop}
      */
     stop({ clearCache = true } = {}) {
       if (this.pauseStatus) this.pauseStatus = false;
@@ -9526,10 +9505,7 @@
       }
     }
     /**
-     * @description
-     * Pause the tween
-     *
-     * @returns {void}
+     * @type {import('./type.js').springPause}
      */
     pause() {
       if (this.pauseStatus) return;
@@ -9538,10 +9514,7 @@
       this.values = setFromByCurrent(this.values);
     }
     /**
-     * @description
-     * Resume tween in pause
-     *
-     * @returns {void}
+     * @type {import('./type.js').springResume}
      */
     resume() {
       if (!this.pauseStatus) return;
@@ -9591,10 +9564,7 @@
       });
     }
     /**
-     * @description
-     * Reset data value with initial
-     *
-     * @returns {void}
+     * @type {import('./type.js').springResetData}
      */
     resetData() {
       this.values = mergeDeep(this.values, this.initialData);
@@ -9696,7 +9666,7 @@
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} current value obj.
+     * @type {import('./type.js').springGetValue}
      *
      * @example
      * ```javascript
@@ -9712,7 +9682,7 @@
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} initial value obj.
+     * @type {import('./type.js').springGetValue}
      *
      * @example
      * ```javascript
@@ -9728,7 +9698,7 @@
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} from value obj.
+     * @type {import('./type.js').springGetValue}
      *
      * @example
      * ```javascript
@@ -9744,7 +9714,7 @@
      * @description
      * Get to values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} to value obj.
+     * @type {import('./type.js').springGetValue}
      *
      * @example
      * ```javascript
@@ -9760,7 +9730,7 @@
      * @description
      * Get From values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').springGetValueNative}
      *
      * @example
      * ```javascript
@@ -9776,7 +9746,7 @@
      * @description
      * Get To values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').springGetValueNative}
      *
      * @example
      * ```javascript
@@ -9792,7 +9762,7 @@
      * @description
      * Get tween type
      *
-     * @return {string} tween type
+     * @type {import('./type.js').springGetType} tween type
      *
      * @example
      * ```javascript
@@ -9808,7 +9778,7 @@
      * @description
      * Get univoque Id
      *
-     * @return {string} Univoque Id
+     * @type {import('./type.js').springGetId}
      *
      * @example
      * ```javascript
@@ -9821,7 +9791,7 @@
       return this.uniqueId;
     }
     /**
-     * @param {import('./type.js').springPropsOptional} configProp - single spring config propierties
+     * @type {import('./type.js').springUdateConfigProp}
      *
      *  @example
      *  ```javascript
@@ -9849,7 +9819,7 @@
      * @description
      * updateConfig - Update config object with new preset
      *
-     * @param  {import('./type.js').springChoiceConfig} config
+     * @type {import('./type.js').springUdateConfig}
      *
      */
     updateConfig(config) {
@@ -9859,26 +9829,7 @@
       });
     }
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
-     *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = mySpring.subscribe(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return mySpring.subscribe(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
+     * @type {import('./type.js').springSubscribe}
      *
      * ```
      * @description
@@ -9910,45 +9861,14 @@
       return () => this.callbackStartInPause = [];
     }
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
-     *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = mySpring.onComplete(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
+     * @type {import('./type.js').springOnComplete}
      *
      *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return mySpring.onComplete(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
-     * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-     * Useful for applying a different style to an inactive element.
-     * A typical example is to remove the teansform3D property:
-     * @example
-     * ```javascript
-     * // Use transform3D while item is active
-     * mySpring.subscribe(({x}) => {
-     *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
-     * })
-     *
-     * // Remove transform3D when item is inactive
-     * mySpring.onComplete(({x}) => {
-     *      domEl.style.transform = `translateX(${x}px)`
-     * })
-     * ```
-     */
+     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
+     *  Useful for applying a different style to an inactive element.
+     *  A typical example is to remove the teansform3D property:
+     **/
     onComplete(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
@@ -9958,22 +9878,8 @@
       return () => this.callbackOnComplete = unsubscribeCb(this.callbackOnComplete);
     }
     /**
-     * @param {(Object|HTMLElement)} item
-     * @param {(arg0:any) => void} fn - callback function.
-     * @return {() => void} unsubscribe callback
+     * @type {import('./type.js').springSubscribeCache}
      *
-     * @example
-     *```javascript
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return mySpring.subscribeCache(item, ({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
      */
@@ -10270,12 +10176,7 @@
       );
     }
     /**
-     * @param {import('./type.js').tweenStopProps} Stop props
-     * @returns {void}
-     *
-     * @description
-     *
-     * Stop tween and fire reject of current promise.
+     * @type {import('./type.js').tweenStop}
      */
     stop({ clearCache = true } = {}) {
       this.pauseTime = 0;
@@ -10293,20 +10194,14 @@
       this.isActive = false;
     }
     /**
-     * @description
-     * Pause the tween
-     *
-     * @returns {void}
+     * @type {import('./type.js').tweenPause}
      */
     pause() {
       if (this.pauseStatus) return;
       this.pauseStatus = true;
     }
     /**
-     * @description
-     * Resume tween in pause
-     *
-     * @returns {void}
+     * @type {import('./type.js').tweenResume}
      */
     resume() {
       if (!this.pauseStatus) return;
@@ -10352,10 +10247,7 @@
       });
     }
     /**
-     * @description
-     * Reset data value with initial
-     *
-     * @returns {void}
+     * @type {import('./type.js').tweenResetData}
      */
     resetData() {
       this.values = mergeDeep(this.values, this.initialData);
@@ -10472,7 +10364,7 @@
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} current value obj.
+     * @type {import('./type.js').tweenGetValue}
      *
      * @example
      * ```javascript
@@ -10488,7 +10380,7 @@
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} current value obj.
+     * @type {import('./type.js').tweenGetValue}
      *
      * @example
      * ```javascript
@@ -10504,7 +10396,7 @@
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} current value obj.
+     * @type {import('./type.js').tweenGetValue}
      *
      * @example
      * ```javascript
@@ -10520,7 +10412,7 @@
      * @description
      * Get to values, If the single value is a function it returns the result of the function.
      *
-     * @return {Record<string, number>} to value obj.
+     * @type {import('./type.js').tweenGetValue}
      *
      * @example
      * ```javascript
@@ -10536,7 +10428,7 @@
      * @description
      * Get From values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').tweenGetValueNative}
      *
      * @example
      * ```javascript
@@ -10552,7 +10444,7 @@
      * @description
      * Get To values, if the single value is a function it returns the same function.
      *
-     * @return {Record<string, number|(() => number)>} from value obj.
+     * @type {import('./type.js').tweenGetValueNative}
      *
      * @example
      * ```javascript
@@ -10568,7 +10460,7 @@
      * @description
      * Get tween type
      *
-     * @return {string} tween type
+     * @type {import('./type.js').tweenGetType} tween type
      *
      * @example
      * ```javascript
@@ -10584,7 +10476,7 @@
      * @description
      * Get univoque Id
      *
-     * @return {string} Univoque Id
+     * @type {import('./type.js').tweenGetId}
      *
      * @example
      * ```javascript
@@ -10599,7 +10491,7 @@
     /**
      * Update ease with new preset
      *
-     * @param {import('./type.js').easeTypes} ease
+     * @type {import('./type.js').tweenUpdateEase}
      *
      */
     updateEase(ease) {
@@ -10609,26 +10501,7 @@
       });
     }
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
-     *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = myTween.subscribe(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myTween.subscribe(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
+     * @type {import('./type.js').tweenSubscribe}
      *
      * ```
      * @description
@@ -10660,46 +10533,14 @@
       return () => this.callbackStartInPause = [];
     }
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
-     *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = myTween.onComplete(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
+     * @type {import('./type.js').tweenOnComplete}
      *
      *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myTween.onComplete(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
-     * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-     * Useful for applying a different style to an inactive element.
-     * A typical example is to remove the teansform3D property:
-     *
-     * @example
-     * ```javascript
-     * // Use transform3D while item is active
-     * myTween.subscribe(({x}) => {
-     *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
-     * })
-     *
-     * // Remove transform3D when item is inactive
-     * myTween.onComplete(({x}) => {
-     *      domEl.style.transform = `translateX(${x}px)`
-     * })
-     * ```
-     */
+     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
+     *  Useful for applying a different style to an inactive element.
+     *  A typical example is to remove the teansform3D property:
+     **/
     onComplete(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
@@ -10709,22 +10550,8 @@
       return () => this.callbackOnComplete = unsubscribeCb(this.callbackOnComplete);
     }
     /**
-     * @param {(Object|HTMLElement)} item
-     * @param {(arg0:any) => void} fn - callback function.
-     * @return {() => void} unsubscribe callback
+     * @type {import('./type.js').tweenSubscribeCache}
      *
-     * @example
-     *```javascript
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myTween.subscribeCache(item, ({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
      */
@@ -11045,6 +10872,7 @@
     },
     /**
      * @param {import('./animation/tween/type.js').tweenProps} data
+     * @returns {HandleTween}
      *
      * @example
      * ```javascript
@@ -11096,6 +10924,7 @@
     },
     /**
      * @param {import('./animation/spring/type.js').springTweenProps} data
+     * @returns {HandleSpring}
      *
      *
      * @example
@@ -11155,6 +10984,7 @@
     },
     /**
      * @param {import('./animation/lerp/type.js').lerpTweenProps} data
+     * @returns {HandleLerp}
      *
      * @example
      * ```javascript
@@ -12502,7 +12332,7 @@
       return this.isInSuspension;
     }
     /**
-     * @return {string} Returns a boolean value indicating whether the timeline is suspended
+     * @return {import('../utils/timeline/type.js').directionType} Returns a boolean value indicating whether the timeline is suspended
      * @example
      * ```javascript
      * const direction = myTimeline.getDirection();
@@ -13330,6 +13160,7 @@
     },
     /**
      * @param {import('./animation/asyncTimeline/type.js').asyncTimelineType} data
+     * @return {HandleAsyncTimeline}
      *
      * @example
      * ```javascript

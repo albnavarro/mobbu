@@ -1,3 +1,4 @@
+import { tweenStopProps } from '../tween/type';
 import { staggerObjectOptional } from '../utils/stagger/type';
 import {
     goFromToType,
@@ -76,3 +77,20 @@ export type lerpDoAction = (
 ) => void | Promise<any>;
 
 export type lerpMergeProps = (props: lerpActions) => lerpDefault;
+
+export type lerpStop = (arg0?: tweenStopProps) => void;
+export type lerpPause = () => void;
+export type lerpResume = () => void;
+export type lerpResetData = () => void;
+export type lerpGetValue = () => Record<string, number>;
+export type lerpGetValueNative = () => Record<string, number | (() => number)>;
+export type lerpGetType = () => string;
+export type lerpGetId = () => string;
+export type lerpUpdateVelocity = (number) => void;
+export type lerpUpdatePrecision = (number) => void;
+export type lerpSubscribe = (cb: () => void) => () => void;
+export type lerpSubscribeCache = (
+    item: object | HTMLElement,
+    cb: (arg0: Record<string, number>) => void
+) => () => void;
+export type lerpOnComplete = (cb: () => void) => () => void;

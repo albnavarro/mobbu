@@ -49,6 +49,7 @@ export const timeline = {
 
     /**
      * @param {import('./animation/asyncTimeline/type.js').asyncTimelineType} data
+     * @return {HandleAsyncTimeline}
      *
      * @example
      * ```javascript

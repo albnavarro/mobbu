@@ -1902,7 +1902,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @return {string} Returns a boolean value indicating whether the timeline is suspended
+     * @return {import('../utils/timeline/type.js').directionType} Returns a boolean value indicating whether the timeline is suspended
      * @example
      * ```javascript
      * const direction = myTimeline.getDirection();

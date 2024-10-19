@@ -103,3 +103,23 @@ export type springDoAction = (
 ) => void | Promise<any>;
 
 export type springMergeProps = (props: springActions) => springDefault;
+
+export type springStop = (arg0?: tweenStopProps) => void;
+export type springPause = () => void;
+export type springResume = () => void;
+export type springResetData = () => void;
+export type springGetValue = () => Record<string, number>;
+export type springGetValueNative = () => Record<
+    string,
+    number | (() => number)
+>;
+export type springGetType = () => string;
+export type springGetId = () => string;
+export type springUdateConfigProp = (arg0: springPropsOptional) => void;
+export type springUdateConfig = (arg0: springChoiceConfig) => void;
+export type springSubscribe = (cb: () => void) => () => void;
+export type springSubscribeCache = (
+    item: object | HTMLElement,
+    cb: (arg0: Record<string, number>) => void
+) => () => void;
+export type springOnComplete = (cb: () => void) => () => void;

@@ -122,3 +122,19 @@ export type tweenDoAction = (
 ) => void | Promise<any>;
 
 export type tweenMergeProps = (props: tweenAction) => tweenDefault;
+
+export type tweenStop = (arg0?: tweenStopProps) => void;
+export type tweenPause = () => void;
+export type tweenResume = () => void;
+export type tweenResetData = () => void;
+export type tweenGetValue = () => Record<string, number>;
+export type tweenGetValueNative = () => Record<string, number | (() => number)>;
+export type tweenGetType = () => string;
+export type tweenGetId = () => string;
+export type tweenUpdateEase = (arg0: easeTypes) => void;
+export type tweenSubscribe = (cb: () => void) => () => void;
+export type tweenSubscribeCache = (
+    item: object | HTMLElement,
+    cb: (arg0: Record<string, number>) => void
+) => () => void;
+export type tweenOnComplete = (cb: () => void) => () => void;
