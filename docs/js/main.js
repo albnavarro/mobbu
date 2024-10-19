@@ -10722,6 +10722,7 @@
   var tween = {
     /**
      * @param {import('./animation/parallax/type.js').parallaxTweenType} data
+     * @return {ParallaxTween}
      *
      * @example
      * ```javascript
@@ -10762,6 +10763,7 @@
     },
     /**
      * @param {import('./animation/sequencer/type.js').sequencerProps} data
+     * @returns {HandleSequencer}
      *
      * @example
      * ```javascript
@@ -13118,6 +13120,7 @@
   var timeline = {
     /**
      * @param {import('./animation/syncTimeline/type.js').syncTimelineType} data
+     * @return {HandleSyncTimeline}
      *
      * @example
      * ```javascript
@@ -15569,6 +15572,7 @@
   var scroller = {
     /**
      * @param {import('./animation/parallax/type.js').parallaxCommonType & import('./animation/parallax/type.js').parallaxType} data
+     * @returns {ParallaxClass}
      *
      * @example
      * ```javascript
@@ -15628,6 +15632,7 @@
     },
     /**
      * @param {import('./animation/parallax/type.js').parallaxCommonType & import('./animation/parallax/type.js').scrollTriggerType } data
+     * @returns {ParallaxClass}
      *
      * @example
      *

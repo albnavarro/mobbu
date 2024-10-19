@@ -6,6 +6,7 @@ import HandleSyncTimeline from './animation/syncTimeline/handleSyncTimeline.js';
 export const timeline = {
     /**
      * @param {import('./animation/syncTimeline/type.js').syncTimelineType} data
+     * @return {HandleSyncTimeline}
      *
      * @example
      * ```javascript
