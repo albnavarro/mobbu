@@ -38,6 +38,22 @@ import {
     lerpUpdateVelocity,
 } from './animation/lerp/type';
 import {
+    sequencerAdd,
+    sequencerGetDuration,
+    sequencerGetLabels,
+    sequencerGetType,
+    sequencerGoFrom,
+    sequencerGoFromTo,
+    sequencerGoTo,
+    sequencerLabel,
+    sequencerOnStop,
+    sequencerSetData,
+    sequencerSetDuration,
+    sequencerSetStretchFacor,
+    sequencerSubscribe,
+    sequencerSubscribeCache,
+} from './animation/sequencer/type';
+import {
     springGetId,
     springGetType,
     springGetValue,
@@ -191,6 +207,24 @@ export interface AsyncTimeline {
     getDirection: () => directionType;
     onLoopEnd: asyncTimelineOnLoopEnd;
     onComplete: asyncTimelineOnComplete;
+    destroy: () => void;
+}
+
+export interface Sequencer {
+    setStretchFactor: sequencerSetStretchFacor;
+    setData: sequencerSetData;
+    goTo: sequencerGoTo;
+    goFrom: sequencerGoFrom;
+    goFromTo: sequencerGoFromTo;
+    label: sequencerLabel;
+    getLabels: sequencerGetLabels;
+    add: sequencerAdd;
+    subscribe: sequencerSubscribe;
+    onStop: sequencerOnStop;
+    subscribeCache: sequencerSubscribeCache;
+    getDuration: sequencerGetDuration;
+    setDuration: sequencerSetDuration;
+    getType: sequencerGetType;
     destroy: () => void;
 }
 

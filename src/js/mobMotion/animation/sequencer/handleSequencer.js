@@ -472,6 +472,8 @@ export default class HandleSequencer {
     }
 
     /**
+     * @type {import('./type.js').sequencerSetStretchFacor}
+     *
      * @description
      * Set factor between timeline duration and sequencer getDuration
      * So start and end propierties will be proportionate to the duration of the timeline
@@ -510,9 +512,7 @@ export default class HandleSequencer {
     }
 
     /**
-     *
-     * @prop {Object.<string, number>} obj Initial data Object
-     * @returns {this} The instance on which this method was called.
+     * @type {import('./type.js').sequencerSetData}
      */
     setData(obj = {}) {
         this.values = Object.entries(obj).map((item) => {
@@ -541,9 +541,7 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj  to values
-     * @param {import('./type.js').sequencerAction} props special properties
-     * @returns {this} The instance on which this method was called.
+     * @type {import('./type.js').sequencerGoTo}
      *
      * @example
      * ```javascript
@@ -593,9 +591,7 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} obj  to values
-     * @param {import('./type.js').sequencerAction} props special properties
-     * @returns {this} The instance on which this method was called.
+     * @type {import('./type.js').sequencerGoFrom} obj  to values
      *
      * @example
      * ```javascript
@@ -645,9 +641,7 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {Record<string, number|(() => number)>} fromObj  to values
-     * @param {Record<string, number|(() => number)>} toObj  to values
-     * @param {import('./type.js').sequencerAction} props special properties
+     * @type {import('./type.js').sequencerGoFromTo}
      *
      * @example
      * ```javascript
@@ -695,9 +689,7 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {string} name
-     * @param {number} [ time = 0 ] time
-     * @returns {this} The instance on which this method was called.
+     * @type {import('./type.js').sequencerLabel}
      *
      * @example
      * ```javascript
@@ -716,16 +708,14 @@ export default class HandleSequencer {
 
     /**
      * Return the array of entered labels
-     * @returns {import('./type.js').labelType[]} labels array
+     * @type {import('./type.js').sequencerGetLabels}
      */
     getLabels() {
         return this.labels;
     }
 
     /**
-     * @param {function(import('../utils/timeline/type.js').directionTypeObjectSequencer ):void } fn - callback function
-     * @param {number} time - Value grater than 0 and minor duration.
-     * @returns {this} The instance on which this method was called.
+     * @type {import('./type.js').sequencerAdd}
      *
      * @description
      * Fire a function at a step in a range greater the 0 and minor duration.
@@ -733,24 +723,6 @@ export default class HandleSequencer {
      *
      * To interpect both end ( 0 and duration )
      * use the syncTimeline/scrollTrigger built in function:
-     *
-     * ```javascript
-     * // For syncTimeline:
-     * myTimeline.onLoopEnd()
-     *
-     * // For scrollTrigger:
-     * myScrolltrigger.onEnter();
-     * myScrolltrigger.onEnterBack();
-     * myScrolltrigger.onLeave();
-     * myScrolltrigger.onLeaveBack();
-     * ```
-     *
-     * @example
-     * ```javascript
-     * mySequencer.add(({direction: string, value: number, isForced: boolean}) => {
-     *      //code
-     * }, time:number);
-     * ```
      */
     add(fn = () => {}, time = 0) {
         const fnIsValid = mobCore.checkType(Function, fn);
@@ -766,28 +738,8 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').sequencerSubscribe}
      *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = mySequencer.subscribe(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return mySequencer.subscribe(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method.
      */
@@ -802,45 +754,12 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').sequencerOnStop}
      *
-     * @example
-     * ```javascript
-     * //Single DOM element
-     * const unsubscribe = mySequencer.onStop(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return mySequencer.onStop(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
      *  Useful for applying a different style to an inactive element.
      *  A typical example is to remove the teansform3D property:
-     *
-     * @example
-     * ```javascript
-     * // Use transform3D while item is active
-     * mySequencer.subscribe(({x}) => {
-     *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
-     * })
-     *
-     * // Remove transform3D when item is inactive
-     * mySequencer.onStop(({x}) => {
-     *      domEl.style.transform = `translateX(${x}px)`
-     * })
-     * ```
      */
     onStop(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
@@ -853,22 +772,8 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {(Object|HTMLElement)} item
-     * @param {function(any):void} fn - callback function.
-     * @return {Function} unsubscribe callback
+     * @type {import('./type.js').sequencerSubscribeCache}
      *
-     * @example
-     *```javascript
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return mySequencer.subscribeCache(item, ({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
      */
@@ -889,7 +794,7 @@ export default class HandleSequencer {
     /**
      * @description
      * Get duration
-     * @return {number}
+     * @type {import('./type.js').sequencerGetDuration}
      */
     getDuration() {
         return this.duration;
@@ -898,13 +803,14 @@ export default class HandleSequencer {
     /**
      * @description
      * Set duration
-     * @param {number} val
+     * @type {import('./type.js').sequencerSetDuration}
      */
     setDuration(val = 0) {
         this.duration = val;
     }
 
     /**
+     * @type {import('./type.js').sequencerGetType}
      * @description
      * Get tween type - 'sequencer'
      */
@@ -929,6 +835,7 @@ export default class HandleSequencer {
     }
 
     /**
+     * @type {() => void}
      * @description
      * Destroy sequencer
      */

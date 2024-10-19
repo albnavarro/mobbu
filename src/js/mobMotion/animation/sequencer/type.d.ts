@@ -1,9 +1,10 @@
 import { easeTypes } from '../tween/type';
 import { staggerObjectOptional } from '../utils/stagger/type';
 import { directionType } from '../utils/timeline/type';
+import HandleSequencer from './handleSequencer';
 
 export interface sequencerProps {
-    data: Record<string, number | (() => number)>;
+    data: Record<string, number>;
     duration?: number;
     stagger?: staggerObjectOptional;
     ease?: easeTypes;
@@ -84,3 +85,46 @@ export interface createSequencerType {
     items: (HTMLElement | object)[];
     duration?: number;
 }
+
+export type sequencerSetStretchFacor = (arg0: number) => void;
+
+export type sequencerSetData = (
+    arg0: Record<string, number>
+) => HandleSequencer;
+
+export type sequencerGoTo = (
+    arg0: Record<string, number | (() => number)>,
+    arg1: sequencerAction
+) => HandleSequencer;
+
+export type sequencerGoFrom = (
+    arg0: Record<string, number | (() => number)>,
+    arg1: sequencerAction
+) => HandleSequencer;
+
+export type sequencerGoFromTo = (
+    arg0: Record<string, number | (() => number)>,
+    arg1: Record<string, number | (() => number)>,
+    arg2: sequencerAction
+) => HandleSequencer;
+
+export type sequencerLabel = (arg0: string, arg0?: number) => HandleSequencer;
+
+export type sequencerGetLabels = () => labelType[];
+
+export type sequencerAdd = (
+    arg0: (directionTypeObjectSequencer) => void,
+    arg1: number
+) => HandleSequencer;
+
+export type sequencerSubscribe = (arg0: () => void) => () => void;
+export type sequencerOnStop = (arg0: () => void) => () => void;
+
+export type sequencerSubscribeCache = (
+    item: object | HTMLElement,
+    cb: (arg0: Record<string, number>) => void
+) => () => void;
+
+export type sequencerGetDuration = () => number;
+export type sequencerSetDuration = (arg0: number) => void;
+export type sequencerGetType = () => string;
