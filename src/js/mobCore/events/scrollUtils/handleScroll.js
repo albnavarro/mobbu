@@ -11,7 +11,7 @@ import { handleScrollImmediate } from './handleScrollImmediate.js';
 let initialized = false;
 
 /**
- * @type {Map<string,function>}
+ * @type {Map<string,import('./type.js').handleScrollCallback>}
  */
 const callbacks = new Map();
 

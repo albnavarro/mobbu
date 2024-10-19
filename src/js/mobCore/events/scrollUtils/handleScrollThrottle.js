@@ -13,12 +13,12 @@ import { getUnivoqueId } from '../../utils/index.js';
 let initialized = false;
 
 /**
- * @type {Map<string,function>}
+ * @type {Map<string,import('./type.js').handleScrollCallback>}
  */
 const callbacks = new Map();
 
 /**
- * @type {Function}
+ * @type {() => void}
  */
 let throttleFunctionReference;
 
@@ -28,7 +28,7 @@ let throttleFunctionReference;
 let unsubscribe = () => {};
 
 /**
- * @param {Object} scrollData
+ * @param {any} scrollData
  */
 function handler(scrollData) {
     /**
@@ -59,6 +59,7 @@ function init() {
     if (initialized) return;
     initialized = true;
 
+    // @ts-ignore
     throttleFunctionReference = throttle(
         (/** @type{Object} */ scrollData) => handler(scrollData),
         eventStore.getProp('throttle')

@@ -8,7 +8,7 @@ import { getUnivoqueId } from '../../utils';
 let initialized = false;
 
 /**
- * @type {Map<string,function>}
+ * @type {Map<string,import('./type').handleScrollCallback>}
  */
 const callbacks = new Map();
 const UP = 'UP';

@@ -8,7 +8,7 @@ import { getUnivoqueId } from '../../utils';
 let initialized = false;
 
 /**
- * @type {Map<string,function>}
+ * @type {Map<string,() => void>}
  */
 const callbacks = new Map();
 
@@ -53,8 +53,8 @@ function init() {
  * @description
  * Add callback on page load
  *
- * @param {Function} cb - Callback function executed on page load
- * @returns {function():void}
+ * @param {() => void} cb - Callback function executed on page load
+ * @returns {() => void}
  *
  * @example
  * ```javascript

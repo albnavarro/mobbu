@@ -8,7 +8,7 @@ import { getUnivoqueId } from '../../utils';
 let initialized = false;
 
 /**
- * @type {Map<string,Function>}
+ * @type {Map<string,import('./type').visibilityChangeCallback>}
  */
 const callbacks = new Map();
 
@@ -55,7 +55,7 @@ function init() {
  * Add callback on tab change
  *
  * @param {import('./type').visibilityChangeCallback} cb - callback function fired on tab change.
- * @returns function
+ * @returns {() => void}
  *
  * @example
  * ```javascript

@@ -44,7 +44,7 @@ export const setCallBack = (currentCallback, arrayOfCallback) => {
 
 /**
  * @param {(Object|HTMLElement)} item
- * @param {function(Object.<string, number>):void} currentCallback
+ * @param {(arg0: any, arg1: Object|HTMLElement) => void} currentCallback
  * @param {Array.<import('./type').callbackObject<string>>} arrayOfCallback
  * @param {Array.<() => void>} unsubscribeCacheArray - unsubscribe function of handleCache.
  *
