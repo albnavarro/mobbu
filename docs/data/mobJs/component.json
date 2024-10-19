@@ -61,6 +61,13 @@
         {
             "component": "anchor-button",
             "props": {
+                "anchor": "#list",
+                "content": "Render Blocks"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
                 "anchor": "#static",
                 "content": "Static params"
             }
@@ -70,13 +77,6 @@
             "props": {
                 "anchor": "#secondary",
                 "content": "Utils params"
-            }
-        },
-        {
-            "component": "anchor-button",
-            "props": {
-                "anchor": "#list",
-                "content": "repeat/invalidate"
             }
         },
         {
@@ -445,6 +445,33 @@
         {
             "component": "mob-spacer",
             "props": {
+                "id": "list",
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Render Blocks"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-runtime'>renderComponent</a>",
+                    "<a href='./#mobJs-invalidate'>invalidate</a>",
+                    "<a href='./#mobJs-repeat'>repeat ( array.map )</a>",
+                    "<a href='./#mobJs-invalidate-vs-repeater'>invalidate vs repeater</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "id": "static",
                 "style": "medium"
             }
@@ -498,33 +525,6 @@
                     "<a href='./#mobJs-unFreezeProp'>unFreezeProp</a>",
                     "<a href='./#mobJs-getParentId'>getParentId</a>",
                     "<a href='./#mobJs-watchParent'>watchParent</a>"
-                ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "list",
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "Render list/component:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": false,
-                "items": [
-                    "<a href='./#mobJs-runtime'>renderComponent</a>",
-                    "<a href='./#mobJs-invalidate'>invalidate</a>",
-                    "<a href='./#mobJs-repeat'>repeat ( array.map )</a>",
-                    "<a href='./#mobJs-invalidate-vs-repeater'>invalidate vs repeater</a>"
                 ]
             }
         },

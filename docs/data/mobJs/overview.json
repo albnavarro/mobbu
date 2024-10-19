@@ -102,7 +102,6 @@
                     "<a href='./#mobJs-web-component'>Web component</a>",
                     "<a href='./#mobJs-routing'>Routing</a>",
                     "<a href='./#mobJs-slot'>Slot</a>",
-                    "<a href='./#mobJs-runtime'>Runtime add/remove</a>",
                     "<a href='./#mobJs-tick'>Tick</a>",
                     "<a href='./#mobJs-utils'>Utils</a>",
                     "<a href='./#mobJs-debug'>Debug</a>"

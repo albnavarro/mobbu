@@ -318,6 +318,32 @@
             ]
         },
         {
+            "label": "Render Blocks",
+            "url": "#",
+            "children": [
+                {
+                    "label": "renderComponent",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-runtime"
+                },
+                {
+                    "label": "invalidate",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-invalidate"
+                },
+                {
+                    "label": "repeat ( array.map )",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-repeat"
+                },
+                {
+                    "label": "invalidate vs repeater",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-invalidate-vs-repeater"
+                }
+            ]
+        },
+        {
             "label": "Component static Params",
             "url": "#",
             "children": [
@@ -391,32 +417,6 @@
                     "label": "watchParent",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-watchParent"
-                }
-            ]
-        },
-        {
-            "label": "Create/repeat/invalidate",
-            "url": "#",
-            "children": [
-                {
-                    "label": "renderComponent",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-runtime"
-                },
-                {
-                    "label": "invalidate",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-invalidate"
-                },
-                {
-                    "label": "repeat ( array.map )",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-repeat"
-                },
-                {
-                    "label": "invalidate vs repeater",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-invalidate-vs-repeater"
                 }
             ]
         },

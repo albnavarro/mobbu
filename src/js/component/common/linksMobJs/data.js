@@ -87,6 +87,31 @@ export const mobJsComponentParams = [
         isLabel: false,
     },
     {
+        label: 'Render Blocks',
+        url: '',
+        isLabel: true,
+    },
+    {
+        label: 'renderComponent',
+        url: 'mobJs-runtime',
+        isLabel: false,
+    },
+    {
+        label: 'invalidate',
+        url: 'mobJs-invalidate',
+        isLabel: false,
+    },
+    {
+        label: 'repeat ( array.map )',
+        url: 'mobJs-repeat',
+        isLabel: false,
+    },
+    {
+        label: 'invalidate vs repeater',
+        url: 'mobJs-invalidate-vs-repeater',
+        isLabel: false,
+    },
+    {
         label: 'Static params',
         url: '',
         isLabel: true,
@@ -158,30 +183,5 @@ export const mobJsComponentParams = [
     {
         label: 'watchParent',
         url: 'mobJs-watchParent',
-    },
-    {
-        label: 'Render List/component',
-        url: '',
-        isLabel: true,
-    },
-    {
-        label: 'renderComponent',
-        url: 'mobJs-runtime',
-        isLabel: false,
-    },
-    {
-        label: 'invalidate',
-        url: 'mobJs-invalidate',
-        isLabel: false,
-    },
-    {
-        label: 'repeat ( array.map )',
-        url: 'mobJs-repeat',
-        isLabel: false,
-    },
-    {
-        label: 'invalidate vs repeater',
-        url: 'mobJs-invalidate-vs-repeater',
-        isLabel: false,
     },
 ];
