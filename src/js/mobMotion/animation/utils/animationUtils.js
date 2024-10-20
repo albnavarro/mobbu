@@ -70,7 +70,7 @@ export const compareKeys = (a, b) => {
 };
 
 /**
- * @param {Array} arr
+ * @param {any[]} arr
  * @param {number} chunkSize
  *
  * @description
@@ -86,7 +86,7 @@ export const sliceIntoChunks = (arr, chunkSize) => {
 };
 
 /**
- * @param {Array} arr
+ * @param {any[]} arr
  * @param {number} n
  *
  * @description

@@ -195,7 +195,7 @@ export default class HandleSpring {
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]}
          */
         this.callbackStartInPause = [];
 
@@ -914,7 +914,10 @@ export default class HandleSpring {
             cb,
             this.callbackStartInPause
         );
-        this.callbackStartInPause = arrayOfCallbackUpdated;
+        this.callbackStartInPause =
+            /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */ (
+                arrayOfCallbackUpdated
+            );
 
         return () => (this.callbackStartInPause = []);
     }

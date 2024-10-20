@@ -1,3 +1,5 @@
+//@ts-check
+
 /**
  * @param {Record<'prop', any>[]} arr
  * @param {string} key

@@ -7785,7 +7785,8 @@
         cb,
         this.callbackStartInPause
       );
-      this.callbackStartInPause = arrayOfCallbackUpdated;
+      this.callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
+      arrayOfCallbackUpdated;
       return () => this.callbackStartInPause = [];
     }
     /**
@@ -9764,7 +9765,8 @@
         cb,
         this.callbackStartInPause
       );
-      this.callbackStartInPause = arrayOfCallbackUpdated;
+      this.callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
+      arrayOfCallbackUpdated;
       return () => this.callbackStartInPause = [];
     }
     /**
@@ -10436,7 +10438,8 @@
         cb,
         this.callbackStartInPause
       );
-      this.callbackStartInPause = arrayOfCallbackUpdated;
+      this.callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
+      arrayOfCallbackUpdated;
       return () => this.callbackStartInPause = [];
     }
     /**
