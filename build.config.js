@@ -8,5 +8,11 @@ esbuild.build({
     sourcemap: true,
     outdir: 'docs',
     loader: { '.svg': 'text' },
-    plugins: [sassPlugin()],
+    plugins: [
+        sassPlugin({
+            // sass-mq warning, temp disable
+            quietDeps: true,
+            // type: 'css-text',
+        }),
+    ],
 });
