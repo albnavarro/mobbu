@@ -15,14 +15,7 @@ import { staggerColRowWarning } from '../warning.js';
 import { mobCore } from '../../../../mobCore/index.js';
 
 /**
- * @param {object} obj
- * @param {import('../callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]} obj.arrayDefault
- * @param {import('../callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]} obj.arrayOnStop
- * @param {import('./type.js').staggerObject} obj.stagger
- * @param {import('./type.js').staggerDefaultIndex} obj.slowlestStagger
- * @param {import('./type.js').staggerDefaultIndex} obj.fastestStagger
- *
- * @returns {{staggerArray:any[],staggerArrayOnComplete:any[], fastestStagger:import('./type.js').staggerDefaultIndex, slowlestStagger:import('./type.js').staggerDefaultIndex}}
+ * @type {import('./type.js').getStagger}
  */
 const getRadial = ({
     arrayDefault,
@@ -131,14 +124,7 @@ const getRadial = ({
 };
 
 /**
- * @param {object} obj
- * @param {import('../callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]} obj.arrayDefault
- * @param {import('../callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]} obj.arrayOnStop
- * @param {import('./type.js').staggerObject} obj.stagger
- * @param {import('./type.js').staggerDefaultIndex} obj.slowlestStagger
- * @param {import('./type.js').staggerDefaultIndex} obj.fastestStagger
- *
- * @returns {{staggerArray:any[],staggerArrayOnComplete:any[], fastestStagger:import('./type.js').staggerDefaultIndex, slowlestStagger:import('./type.js').staggerDefaultIndex}}
+ * @type {import('./type.js').getStagger}
  */
 const getDefault = ({
     arrayDefault,
@@ -183,14 +169,7 @@ const getDefault = ({
 };
 
 /**
- * @param {object} obj
- * @param {any[]} obj.arrayDefault
- * @param {any[]} obj.arrayOnStop
- * @param {import('./type.js').staggerObject} obj.stagger
- * @param {import('./type.js').staggerDefaultIndex} obj.slowlestStagger
- * @param {import('./type.js').staggerDefaultIndex} obj.fastestStagger
- *
- * @returns {{staggerArray:any[],staggerArrayOnComplete:any[], fastestStagger:import('./type.js').staggerDefaultIndex, slowlestStagger:import('./type.js').staggerDefaultIndex}}
+ * @type {import('./type.js').setSatgger}
  */
 export const setStagger = ({
     arrayDefault,

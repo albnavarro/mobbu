@@ -68,9 +68,7 @@ export const getStaggerFromProps = (props) => {
 };
 
 /**
- * @param {import('../callbacks/type.js').callbackObject<string>[]} callbackCache
- * @param {import('../callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]} callbackDefault
- * @returns {import('../callbacks/type.js').callbackObject<(string|((arg0:Record<string, number>) => void))>[]}
+ * @type {import('./type.js').getStaggerArray}
  */
 export const getStaggerArray = (callbackCache, callbackDefault) => {
     return callbackCache.length > callbackDefault.length

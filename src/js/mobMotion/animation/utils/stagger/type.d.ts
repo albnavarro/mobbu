@@ -1,3 +1,5 @@
+import { callbackObject } from '../callbacks/type.js';
+
 export interface staggerObject {
     /**
      * @description
@@ -98,3 +100,41 @@ export interface setStagger {
     index: number;
     item: Record<string, number>;
 }
+
+export type getStagger = (arg0: {
+    arrayDefault: callbackObject<(arg0: Record<string, number>) => void>[];
+    arrayOnStop: callbackObject<(arg0: Record<string, number>) => void>[];
+    stagger: staggerObject;
+    slowlestStagger: staggerDefaultIndex;
+    fastestStagger: staggerDefaultIndex;
+}) => {
+    staggerArray: any[];
+    staggerArrayOnComplete: any[];
+    fastestStagger: staggerDefaultIndex;
+    slowlestStagger: staggerDefaultIndex;
+};
+
+export type setSatgger = (arg0: {
+    arrayDefault: any[];
+    arrayOnStop: any[];
+    stagger: staggerObject;
+    slowlestStagger: staggerDefaultIndex;
+    fastestStagger: staggerDefaultIndex;
+}) => {
+    staggerArray: any[];
+    staggerArrayOnComplete: any[];
+    fastestStagger: staggerDefaultIndex;
+    slowlestStagger: staggerDefaultIndex;
+};
+
+export type shouldInizializzeStagger = (
+    each: number,
+    firstRun: boolean,
+    arrayToCompare1: callbackObject<any>[],
+    arrayToCompare2: callbackObject<any>[]
+) => boolean | undefined;
+
+export type getStaggerArray = (
+    callbackCache: callbackObject<string>[],
+    callbackDefault: callbackObject<(arg0: Record<string, number>) => void>[]
+) => callbackObject<string | ((arg0: Record<string, number>) => void)>[];
