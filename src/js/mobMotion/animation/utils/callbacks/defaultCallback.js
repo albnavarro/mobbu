@@ -3,12 +3,7 @@
 import { mobCore } from '../../../../mobCore/index.js';
 
 /**
- * @param {Object} obj
- * @param {import('../stagger/type.js').staggerObject} obj.stagger
- * @param {import('./type.js').callbackObject<(arg0:Record<string, number>) => void>[]} obj.callback
- * @param {import('./type.js').callbackObject<string>[]} obj.callbackCache
- * @param {Record<string, number>} obj.callBackObject
- * @param {boolean} obj.useStagger
+ * @type {import('./type.js').defaultCallback}
  *
  * @description
  * Fire callback while Running
@@ -61,16 +56,7 @@ export const defaultCallback = ({
 };
 
 /**
- * @param {Object} obj
- * @param {Function} obj.onComplete
- * @param {import('../stagger/type.js').staggerObject} obj.stagger
- * @param {import('./type.js').callbackObject<(arg0:Record<string, number>) => void>[]} obj.callback
- * @param {import('./type.js').callbackObject<string>[]} obj.callbackCache
- * @param {import('./type.js').callbackObject<(arg0:Record<string, number>) => void >[]} obj.callbackOnComplete
- * @param {{[key:string]:number}} obj.callBackObject
- * @param {import('../stagger/type.js').staggerDefaultIndex} obj.slowlestStagger
- * @param {import('../stagger/type.js').staggerDefaultIndex} obj.fastestStagger
- * @param {boolean} obj.useStagger
+ * @type {import('./type.js').defaultCallbackOnComplete}
  *
  * @description
  *Callback on complete

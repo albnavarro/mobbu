@@ -3,15 +3,7 @@
 import { mobCore } from '../../../../mobCore';
 
 /**
- * @param {Object} obj
- * @param {number} obj.each
- * @param {boolean} obj.useStagger
- * @param {boolean} obj.isLastDraw
- * @param {Record<string, number>} obj.callBackObject
- * @param {import('./type.js').callbackObject<(arg0:Record<string, number>) => void>[]} obj.callback
- * @param {import('./type.js').callbackObject<string>[]} obj.callbackCache
- * @param {import('./type.js').callbackObject<(arg0:Record<string, number>) => void >[]} obj.callbackOnStop
- * @returns void
+ * @type {import('./type').syncCallback}
  *
  * @description
  * Fire callback while Running

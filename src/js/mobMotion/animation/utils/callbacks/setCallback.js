@@ -4,9 +4,7 @@ import { mobCore } from '../../../../mobCore';
 import { callBackStore } from './callBackStore';
 
 /**
- * @param {() => void} currentCallback - callback to execute.
- * @param {import('./type').callbackObject<(arg0:Record<string, number>) => void>[]} arrayOfCallback
- * @returns {import('./type').setCallbackReturnObject}
+ * @type {import('./type').setCallBack}
  *
  * @description
  * Add callback to Stack.
@@ -43,12 +41,7 @@ export const setCallBack = (currentCallback, arrayOfCallback) => {
 };
 
 /**
- * @param {(Object|HTMLElement)} item
- * @param {(arg0: any, arg1: Object|HTMLElement) => void} currentCallback
- * @param {import('./type').callbackObject<string>[]} arrayOfCallback
- * @param {(() => void)[]} unsubscribeCacheArray - unsubscribe function of handleCache.
- *
- * @returns {import('./type').setCallbackCacheReturnObject}
+ * @type {import('./type').setCallBackCache}
  */
 export const setCallBackCache = (
     item,
