@@ -214,8 +214,7 @@ export default class ParallaxTween {
 
     /**
      *
-     * @param {Record<string, number>} obj Initial data Object
-     * @returns {this} The instance on which this method was called.
+     * @type {import('./type.js').parallaxTweenSetData}
      */
     setData(obj) {
         const valToArray = Object.entries(obj);
@@ -261,17 +260,7 @@ export default class ParallaxTween {
     }
 
     /**
-     * @private
-     *
-     * @param {Record<string, number|(() => number)>} obj to values
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```js
-     * myParallaxTween.goTo(
-     *     { string: number|function, ... }
-     * );
-     *
+     * @type {import('./type.js').parallaxTweenGoTo}
      *
      * ```
      * @description
@@ -285,28 +274,8 @@ export default class ParallaxTween {
     }
 
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').parallaxTweenSubscribe}
      *
-     * @example
-     * ```js
-     * //Single DOM element
-     * const unsubscribe = myParallaxTween.subscribe(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myParallaxTween.subscribe(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
@@ -321,45 +290,12 @@ export default class ParallaxTween {
     }
 
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').parallaxTweenOnStop}
      *
-     * @example
-     * ```js
-     * //Single DOM element
-     * const unsubscribe = myParallaxTween.onStop(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myParallaxTween.onStop(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
      * Useful for applying a different style to an inactive element.
      * A typical example is to remove the teansform3D property:
-     *
-     * @example
-     * ```js
-     * // Use transform3D while item is active
-     * mySequencer.subscribe(({x}) => {
-     *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
-     * })
-     *
-     * // Remove transform3D when item is inactive
-     * mySequencer.onStop(({x}) => {
-     *      domEl.style.transform = `translateX(${x}px)`
-     * })
-     * ```
      */
     onStop(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
@@ -372,24 +308,7 @@ export default class ParallaxTween {
     }
 
     /**
-     * @param {(Object|HTMLElement)} item
-     * @param {function(any):void} fn - callback function.
-     * @return {Function} unsubscribe callback
-     *
-     * @example
-     *```js
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myParallaxTween.subscribeCache(item, ({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
-     * @description
-     * Callback that returns updated values ready to be usable, specific to manage large staggers.
+     * @type {import('./type.js').parallaxTweenSubscribeCache}
      */
     subscribeCache(item, fn) {
         const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } =
@@ -408,7 +327,7 @@ export default class ParallaxTween {
     /**
      * @description
      * Get duration
-     * @return {number}
+     * @type {import('./type.js').parallaxTweenGetDuration}
      */
     getDuration() {
         return this.duration;
@@ -417,6 +336,7 @@ export default class ParallaxTween {
     /**
      * @description
      * Get tween type - 'parallaxTween'
+     * @type {import('./type.js').parallaxTweenGetType}
      */
     getType() {
         return this.type;
@@ -425,6 +345,7 @@ export default class ParallaxTween {
     /**
      * @description
      * Destroy sequencer
+     * @type {() => void}
      */
     destroy() {
         this.values = [];

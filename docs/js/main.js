@@ -3149,9 +3149,7 @@
         if (frameCounter >= duration2) {
           eventStore.quickSetProp("instantFps", averageFPS);
           loadFpsIsReady = true;
-          resolve({
-            averageFPS
-          });
+          resolve({ averageFPS });
           return;
         }
         requestAnimationFrame(render2);
@@ -3713,6 +3711,7 @@
      * Use this method to modify elements of the DOM
      *
      * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
+     * @returns {void}
      *
      * @example
      * ```javascript
@@ -3731,6 +3730,7 @@
      * Execute callbacks after scheduling the request animation frame. Use this method to read data from the DOM. To execute callbacks exactly after the request animation frame, set the global property deferredNextTick to true.
      *
      * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
+     * @returns {void}
      *
      * @example
      * ```javascript
@@ -3769,6 +3769,7 @@
      * Execute a callback to the next available frame allowing the creation of a request animation frame loop
      *
      * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
+     * @returns {void}
      *
      * @example
      * ```javascript
@@ -3792,7 +3793,8 @@
      * Add callback to a specific frame.
      *
      * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
-     * @pram {number} index
+     * @param {number} frame
+     * @returns {void}
      *
      * @example
      * ```javascript
@@ -3813,7 +3815,7 @@
         The method is launched the first time automatically at the first loading.
      *
      * @param {import('./events/rafutils/type.js').loadFpsCallback} callback - callback function
-     * @return {Promise}
+     * @return {Promise<{averageFPS: number}>}
      *
      */
     async useFps(callback2 = () => {
@@ -3827,6 +3829,7 @@
      * Add callback on page load
      *
      * @param {function():void } callback - Callback function executed on page load
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -3853,6 +3856,7 @@
      * Add callback on resize using a debounce function.
      *
      * @param {import('./events/resizeUtils/type.js').handleResizeCallback} callback - callback function fired on resize.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -3880,6 +3884,7 @@
      * Add callback on tab change.
      *
      * @param {import('./events/visibilityChange/type.js').visibilityChangeCallback} callback - callback function fired on tab change.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -3900,6 +3905,7 @@
      * Add callback on mouse click
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse click.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -3922,6 +3928,7 @@
      * Add callback on mouse down
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse down.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -3944,6 +3951,7 @@
      * Add callback on touch start
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse touch start.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -3966,6 +3974,7 @@
      * Add callback on mouse move
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse move.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -3988,6 +3997,7 @@
      * Add callback on touch move
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on touch move.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -4010,6 +4020,7 @@
      * Add callback on mouse up
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse up.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -4032,6 +4043,7 @@
      * Add callback on touch end.
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on touch end.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -4054,6 +4066,7 @@
      * Add callback on mouse wheel.
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse wheel.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -4086,7 +4099,7 @@
      * Perform a callback to the first nextTick available after scrolling
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      * ```javascript
@@ -4107,7 +4120,7 @@
      * Execute a callback immediately on scroll
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      * ```javascript
@@ -4128,7 +4141,7 @@
      * Performs a scroll callback using a throttle function
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      * ```javascript
@@ -4155,7 +4168,7 @@
      * Execute a callback at the beginning of the scroll
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollUtilsCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      * ```javascript
@@ -4176,7 +4189,7 @@
      * Execute a callback at the end of the scroll
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollUtilsCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -8010,8 +8023,7 @@
     }
     /**
      *
-     * @param {Record<string, number>} obj Initial data Object
-     * @returns {this} The instance on which this method was called.
+     * @type {import('./type.js').parallaxTweenSetData}
      */
     setData(obj) {
       const valToArray = Object.entries(obj);
@@ -8050,17 +8062,7 @@
       });
     }
     /**
-     * @private
-     *
-     * @param {Record<string, number|(() => number)>} obj to values
-     * @returns {this} The instance on which this method was called.
-     *
-     * @example
-     * ```js
-     * myParallaxTween.goTo(
-     *     { string: number|function, ... }
-     * );
-     *
+     * @type {import('./type.js').parallaxTweenGoTo}
      *
      * ```
      * @description
@@ -8073,28 +8075,8 @@
       return this;
     }
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').parallaxTweenSubscribe}
      *
-     * @example
-     * ```js
-     * //Single DOM element
-     * const unsubscribe = myParallaxTween.subscribe(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myParallaxTween.subscribe(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
@@ -8107,45 +8089,12 @@
       return () => this.callback = unsubscribeCb(this.callback);
     }
     /**
-     * @param {() => void} cb - callback function.
-     * @return {() => void} unsubscribe callback.
+     * @type {import('./type.js').parallaxTweenOnStop}
      *
-     * @example
-     * ```js
-     * //Single DOM element
-     * const unsubscribe = myParallaxTween.onStop(({ x,y... }) => {
-     *      domEl.style.prop = `...`
-     * })
-     * unsubscribe()
-     *
-     *
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myParallaxTween.onStop(({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
      * @description
      * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
      * Useful for applying a different style to an inactive element.
      * A typical example is to remove the teansform3D property:
-     *
-     * @example
-     * ```js
-     * // Use transform3D while item is active
-     * mySequencer.subscribe(({x}) => {
-     *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
-     * })
-     *
-     * // Remove transform3D when item is inactive
-     * mySequencer.onStop(({x}) => {
-     *      domEl.style.transform = `translateX(${x}px)`
-     * })
-     * ```
      */
     onStop(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
@@ -8156,24 +8105,7 @@
       return () => this.callbackOnStop = unsubscribeCb(this.callbackOnStop);
     }
     /**
-     * @param {(Object|HTMLElement)} item
-     * @param {function(any):void} fn - callback function.
-     * @return {Function} unsubscribe callback
-     *
-     * @example
-     *```js
-     * //Multiple DOM element ( stagger )
-     * const unsubscribeStagger = [...elements].map((item) => {
-     *   return myParallaxTween.subscribeCache(item, ({ x, y... }) => {
-     *       item.style.prop = ...
-     *   });
-     * });
-     * unsubscribeStagger.forEach((item) => item());
-     *
-     *
-     * ```
-     * @description
-     * Callback that returns updated values ready to be usable, specific to manage large staggers.
+     * @type {import('./type.js').parallaxTweenSubscribeCache}
      */
     subscribeCache(item, fn) {
       const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
@@ -8189,7 +8121,7 @@
     /**
      * @description
      * Get duration
-     * @return {number}
+     * @type {import('./type.js').parallaxTweenGetDuration}
      */
     getDuration() {
       return this.duration;
@@ -8197,6 +8129,7 @@
     /**
      * @description
      * Get tween type - 'parallaxTween'
+     * @type {import('./type.js').parallaxTweenGetType}
      */
     getType() {
       return this.type;
@@ -8204,6 +8137,7 @@
     /**
      * @description
      * Destroy sequencer
+     * @type {() => void}
      */
     destroy() {
       this.values = [];

@@ -38,6 +38,14 @@ import {
     lerpUpdateVelocity,
 } from './animation/lerp/type';
 import {
+    parallaxTweenGetDuration,
+    parallaxTweenGetType,
+    parallaxTweenOnStop,
+    parallaxTweenSetData,
+    parallaxTweenSubscribe,
+    parallaxTweenSubscribeCache,
+} from './animation/parallax/type';
+import {
     sequencerAdd,
     sequencerGetDuration,
     sequencerGetLabels,
@@ -226,6 +234,16 @@ export interface Sequencer {
     setDuration: sequencerSetDuration;
     getType: sequencerGetType;
     destroy: () => void;
+}
+
+export interface ParallaxTween {
+    setData: parallaxTweenSetData;
+    goTo: parallaxTweenGoTo;
+    subscribe: parallaxTweenSubscribe;
+    onStop: parallaxTweenOnStop;
+    subscribeCache: parallaxTweenSubscribeCache;
+    getDuration: parallaxTweenGetDuration;
+    getType: parallaxTweenGetType;
 }
 
 export interface SyncTimeline {

@@ -180,6 +180,7 @@ export const mobCore = {
      * Use this method to modify elements of the DOM
      *
      * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
+     * @returns {void}
      *
      * @example
      * ```javascript
@@ -198,6 +199,7 @@ export const mobCore = {
      * Execute callbacks after scheduling the request animation frame. Use this method to read data from the DOM. To execute callbacks exactly after the request animation frame, set the global property deferredNextTick to true.
      *
      * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
+     * @returns {void}
      *
      * @example
      * ```javascript
@@ -236,6 +238,7 @@ export const mobCore = {
      * Execute a callback to the next available frame allowing the creation of a request animation frame loop
      *
      * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
+     * @returns {void}
      *
      * @example
      * ```javascript
@@ -259,7 +262,8 @@ export const mobCore = {
      * Add callback to a specific frame.
      *
      * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
-     * @pram {number} index
+     * @param {number} frame
+     * @returns {void}
      *
      * @example
      * ```javascript
@@ -280,7 +284,7 @@ export const mobCore = {
         The method is launched the first time automatically at the first loading.
      *
      * @param {import('./events/rafutils/type.js').loadFpsCallback} callback - callback function
-     * @return {Promise}
+     * @return {Promise<{averageFPS: number}>}
      *
      */
     async useFps(callback = () => {}) {
@@ -294,6 +298,7 @@ export const mobCore = {
      * Add callback on page load
      *
      * @param {function():void } callback - Callback function executed on page load
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -321,6 +326,7 @@ export const mobCore = {
      * Add callback on resize using a debounce function.
      *
      * @param {import('./events/resizeUtils/type.js').handleResizeCallback} callback - callback function fired on resize.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -348,6 +354,7 @@ export const mobCore = {
      * Add callback on tab change.
      *
      * @param {import('./events/visibilityChange/type.js').visibilityChangeCallback} callback - callback function fired on tab change.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -368,6 +375,7 @@ export const mobCore = {
      * Add callback on mouse click
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse click.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -390,6 +398,7 @@ export const mobCore = {
      * Add callback on mouse down
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse down.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -412,6 +421,7 @@ export const mobCore = {
      * Add callback on touch start
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse touch start.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -434,6 +444,7 @@ export const mobCore = {
      * Add callback on mouse move
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse move.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -456,6 +467,7 @@ export const mobCore = {
      * Add callback on touch move
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on touch move.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -478,6 +490,7 @@ export const mobCore = {
      * Add callback on mouse up
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse up.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -500,6 +513,7 @@ export const mobCore = {
      * Add callback on touch end.
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on touch end.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -522,6 +536,7 @@ export const mobCore = {
      * Add callback on mouse wheel.
      *
      * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse wheel.
+     * @returns {() => void}
      *
      * @example
      * ```javascript
@@ -554,7 +569,7 @@ export const mobCore = {
      * Perform a callback to the first nextTick available after scrolling
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      * ```javascript
@@ -575,7 +590,7 @@ export const mobCore = {
      * Execute a callback immediately on scroll
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      * ```javascript
@@ -596,7 +611,7 @@ export const mobCore = {
      * Performs a scroll callback using a throttle function
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      * ```javascript
@@ -623,7 +638,7 @@ export const mobCore = {
      * Execute a callback at the beginning of the scroll
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollUtilsCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      * ```javascript
@@ -644,7 +659,7 @@ export const mobCore = {
      * Execute a callback at the end of the scroll
      *
      * @param {import('./events/scrollUtils/type.js').handleScrollUtilsCallback} callback - callback function
-     * @return {Function} unsubscribe callback
+     * @returns {() => void}
      *
      * @example
      * ```javascript

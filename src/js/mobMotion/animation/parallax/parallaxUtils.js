@@ -487,7 +487,7 @@ export const getRetReverseValue = (propierties, val) => {
  * @param {boolean} param.pin
  * @param {boolean} param.ease
  * @param {boolean} param.useThrottle
- * @returns {Function}
+ * @returns {() => void}
  */
 export const getScrollFunction = ({ callback, pin, ease, useThrottle }) => {
     /**

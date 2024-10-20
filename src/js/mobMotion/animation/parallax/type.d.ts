@@ -2,6 +2,7 @@ import { mqAction, mqValues } from '../../utils/type';
 import { springChoiceConfig } from '../spring/type';
 import { easeTypes } from '../tween/type';
 import { staggerObjectOptional } from '../utils/stagger/type';
+import ParallaxTween from './parallaxTween';
 
 export interface dynamicStartType {
     position: 'bottom' | 'top' | 'left' | 'right';
@@ -411,3 +412,22 @@ export interface parallaxTweenValue {
     toValue: number;
     fromValue: number;
 }
+
+export type parallaxTweenSetData = (
+    arg0: Record<string, number>
+) => ParallaxTween;
+
+export type parallaxTweenGoTo = (
+    arg0: Record<string, number | (() => number)>
+) => ParallaxTween;
+
+export type parallaxTweenSubscribe = (arg0: () => void) => () => void;
+export type parallaxTweenOnStop = (arg0: () => void) => () => void;
+
+export type parallaxTweenSubscribeCache = (
+    item: object | HTMLElement,
+    cb: (arg0: Record<string, number>) => void
+) => () => void;
+
+export type parallaxTweenGetDuration = () => number;
+export type parallaxTweenGetType = () => string;
