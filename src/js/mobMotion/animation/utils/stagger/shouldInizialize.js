@@ -6,8 +6,8 @@ import { staggerEachWarning } from '../warning';
 /**
  * @param {number} each
  * @param {boolean} firstRun
- * @param {Array.<import('../callbacks/type').callbackObject>} arrayToCompare1
- * @param {Array.<import('../callbacks/type').callbackObject>} arrayToCompare2
+ * @param {import('../callbacks/type').callbackObject<any>[]} arrayToCompare1
+ * @param {import('../callbacks/type').callbackObject<any>[]} arrayToCompare2
  */
 export const shouldInizializzeStagger = (
     each,

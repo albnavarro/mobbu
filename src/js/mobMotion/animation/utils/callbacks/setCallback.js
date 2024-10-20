@@ -5,7 +5,7 @@ import { callBackStore } from './callBackStore';
 
 /**
  * @param {() => void} currentCallback - callback to execute.
- * @param {Array.<import('./type').callbackObject<(arg0:Record<string, number>) => void>>} arrayOfCallback
+ * @param {import('./type').callbackObject<(arg0:Record<string, number>) => void>[]} arrayOfCallback
  * @returns {import('./type').setCallbackReturnObject}
  *
  * @description
@@ -45,8 +45,8 @@ export const setCallBack = (currentCallback, arrayOfCallback) => {
 /**
  * @param {(Object|HTMLElement)} item
  * @param {(arg0: any, arg1: Object|HTMLElement) => void} currentCallback
- * @param {Array.<import('./type').callbackObject<string>>} arrayOfCallback
- * @param {Array.<() => void>} unsubscribeCacheArray - unsubscribe function of handleCache.
+ * @param {import('./type').callbackObject<string>[]} arrayOfCallback
+ * @param {(() => void)[]} unsubscribeCacheArray - unsubscribe function of handleCache.
  *
  * @returns {import('./type').setCallbackCacheReturnObject}
  */

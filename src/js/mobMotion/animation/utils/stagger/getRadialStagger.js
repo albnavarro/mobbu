@@ -7,7 +7,7 @@ import { MERGE_FROM_UP, MERGE_FROM_DOWN } from './staggerCostant';
  * @description
  * Get radial in y direction
  *
- * @param {Array<Array>} arr
+ * @param {any[][]} arr
  * @param {number} x
  * @param {number} y
  *
@@ -29,10 +29,10 @@ const getRadialY = (arr, x, y) => {
  * @description
  * Get radial in x direction
  *
- * @param {Array<Array>} arr
+ * @param {any[][]} arr
  * @param {number} x
  * @param {number} y
- * @param {Array<Array>} chunk
+ * @param {any[][]} chunk
  *
  * @returns Array<Array>
  */
@@ -78,7 +78,7 @@ const getRadialX = (arr, x, y, chunk) => {
 };
 
 /**
- * @param {Array<Array>} arr
+ * @param {any[][]} arr
  * @param {number} i
  * @param {number} i2
  *
@@ -89,7 +89,7 @@ const isAvailableIntoChunk = (arr, i, i2) => {
 };
 
 /**
- * @param {Array} arr
+ * @param {any[]} arr
  * @param {import('./type.js').staggerObject} stagger
  *
  * @returns Array<Array>

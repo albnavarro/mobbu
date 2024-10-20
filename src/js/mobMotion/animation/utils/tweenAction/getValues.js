@@ -1,5 +1,5 @@
 /**
- * @param {Array} arr
+ * @param {Record<'prop', any>[]} arr
  * @param {string} key
  * @returns {Record<string, number>}
  *
@@ -14,7 +14,7 @@ export const getValueObj = (arr, key) => {
 };
 
 /**
- * @param {Array} arr
+ * @param {Record<'toIsFn'|'toFn'|'prop'|'toValue', any>[]} arr
  * @return {Record<string, number|(() => number)>}
  *
  * @description
@@ -31,7 +31,7 @@ export const getValueObjToNative = (arr) => {
 };
 
 /**
- * @param {Array} arr
+ * @param {Record<'fromIsFn'|'fromFn'|'prop'|'fromValue', any>[]} arr
  * @return {Record<string, number|(() => number)>}
  *
  * @description
