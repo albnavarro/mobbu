@@ -1,3 +1,5 @@
+// @ts-check
+
 import HandleLerp from '../../animation/lerp/handleLerp.js';
 import HandleSpring from '../../animation/spring/handleSpring.js';
 import { clamp } from '../../animation/utils/animationUtils.js';
@@ -20,79 +22,9 @@ import {
     outerWidth,
 } from '../../../mobCore/utils/index.js';
 
-/**
- * @typedef {Object} smoothScrollerType
- * @prop {('vertical'|'horizontal')} [ direction = 'vertical' ]
-    Defines the scroll direction
- * @prop {('spring'|'lerp')} [ easeType = 'lerp']
-    Defines the type of easing. The default is `lerp`.
- * @prop {( string|Element )} scroller
-   The node that will have to scroll
- * @prop {( string|Element )} [ screen ]
-    The scroller container.
-    The default value is `document.documentElement`.
- * @prop {boolean} scopedEvent
-   Use event ( scroll,wheel,etc.. ) on scroller or on document.
-   If the events are used on the scroller they will have the passive property set to true (better performance).
-   Otherwise, based on the general value of the passive property, the listener attached to the document will use the `preventDefault()` function.
-   This will prevent the page from scrolling in turn when scrolling over the component.
-   To set the global passive property use:
-   `core.setDefault({ usePassive: true|false })`;
- * @prop {number} speed
-   You can adjust the speed of the wheel event.
-   The default value is `60`.
- * @prop {boolean} drag
-   It is possible to enable and disable the drag functionality.
-   The default value is `false`.
- * @prop {function({value:number, percent:number, parentIsMoving:boolean}):void} [ onTick = null ]
-   Function that is launched at each tick.
-   The function will have an Object as input parameter.
-   `value`: scroll value
-   `percent`: scroll value in percent
-   `parentIsMoving`: A boolean value indicating whether the scroller has stopped ( last tick )
- * @prop {function({value:number, percent:number, parentIsMoving:boolean}):void} [ onUpdate = null ]
-   Function that is launched at each update value ( non easing value ).
-   The function will have an Object as input parameter.
-   `value`: scroll value
-   `percent`: scroll value in percent
- * @prop {function():void} [ afterRefresh = null ]
-   Function that is launched after refresh
- * @prop {function():void} [ afterInit = null ]
-   Function that is launched after destroy
- * @prop {Array.<ParallaxClass>} children
-   An array of instances of the ParallaxClass class used within the scroller.
-   Es:
-   const parallax = mobbu.createParallax({ ... })
-   const scrolltrigger = mobbu.createScrollTrigger({ ... })
-   ...
-   children: [parallax, scrolltrigger],
-   ...
-
-   The instances contained in the array will be:
-   Drive.
-   Updated.
-   Destroyed.
-
-   The `scroller`,`screen`, `direction`,`branckPoint`,`queryType` properties
-   will be automatically aligned.
- */
-
-/**
- * @typedef {Object} mqTypeObject
- * @prop {import('../../utils/type.js').mqAction} [ queryType = "min" ] - Defines whether the defined breakpoint will be a max-with or a min-width. The default is 'min-width'.
- **/
-
-/**
- * @typedef {Object} breackPointTypeObj
- * @prop {import('../../utils/type.js').mqValues} [ breakpoint ]
- */
-
-/**
- * @typedef  { smoothScrollerType & breackPointTypeObj & mqTypeObject } smoothScrollerConstructorType
- */
 export default class SmoothScroller {
     /**
-     * @param { smoothScrollerConstructorType } data
+     * @param { import('./type.d.ts').SmoothScroller } data
      *
      * @description
      *
@@ -134,7 +66,7 @@ export default class SmoothScroller {
        mySmoothScroller.init();
        ```
      */
-    constructor(data = {}) {
+    constructor(data) {
         /**
          * @private
          */
@@ -325,7 +257,7 @@ export default class SmoothScroller {
          * @private
          */
         this.scroller = mobCore.checkType(String, data?.scroller)
-            ? document.querySelector(data.scroller)
+            ? document.querySelector(/** @type{string} */ (data.scroller))
             : data.scroller;
 
         if (!this.scroller) {
@@ -340,7 +272,9 @@ export default class SmoothScroller {
         this.screen = data?.screen
             ? (() => {
                   return mobCore.checkType(String, data.screen)
-                      ? document.querySelector(data.screen)
+                      ? document.querySelector(
+                            /** @type{string} */ (data.screen)
+                        )
                       : data.screen;
               })()
             : document.documentElement;
@@ -380,6 +314,7 @@ export default class SmoothScroller {
 
         /**
          * @private
+         * @type {import('./type.d.ts').onTick}
          */
         this.onTickCallback = valueIsFunctionAndReturnDefault(
             data?.onTick,
@@ -389,6 +324,7 @@ export default class SmoothScroller {
 
         /**
          * @private
+         * @type {import('./type.d.ts').onUpdate}
          */
         this.onUpdateCallback = valueIsFunctionAndReturnDefault(
             data?.onUpdate,
@@ -416,6 +352,7 @@ export default class SmoothScroller {
 
         /**
          * @private
+         * @type {any[]}
          */
         this.children = data?.children || [];
         this.children.forEach((element) => {
@@ -428,21 +365,26 @@ export default class SmoothScroller {
         });
 
         /**
-         * Scoped event
+         * @private
+         * @type {(arg0: Event) => void}
          */
-        this.scopedWhell = (e) => {
-            const { spinY } = mobCore.normalizeWheel(e);
+        this.scopedWhell = (event) => {
+            const { spinY } = mobCore.normalizeWheel(event);
             this.onScopedWhell({
-                target: e.target,
                 spinY,
             });
         };
 
         /**
          * @private
+         * @type {(arg0: Event) => void}
          */
-        this.scopedTouchMove = (e) => {
-            const { clientX, clientY } = e.touches ? e.touches[0] : e;
+        this.scopedTouchMove = (event) => {
+            // @ts-ignore
+            const { clientX, clientY } = event.touches
+                ? // @ts-ignore
+                  event.touches[0]
+                : event;
 
             this.onScopedTouchMove({
                 client: {
@@ -459,6 +401,8 @@ export default class SmoothScroller {
      *
      * @example
      * myInstance.init()
+     *
+     * @type {() => void}
      */
     init() {
         if (!this.propsIsValid) return;
@@ -479,17 +423,29 @@ export default class SmoothScroller {
          * scoped event
          */
         if (this.scopedEvent) {
-            this.scroller.addEventListener('wheel', this.scopedWhell, {
-                passive: true,
-            });
+            /** @type{HTMLElement} */ (this.scroller).addEventListener(
+                'wheel',
+                this.scopedWhell,
+                {
+                    passive: true,
+                }
+            );
 
-            this.scroller.addEventListener('mousemove', this.scopedTouchMove, {
-                passive: true,
-            });
+            /** @type{HTMLElement} */ (this.scroller).addEventListener(
+                'mousemove',
+                this.scopedTouchMove,
+                {
+                    passive: true,
+                }
+            );
 
-            this.scroller.addEventListener('touchmove', this.scopedTouchMove, {
-                passive: true,
-            });
+            /** @type{HTMLElement} */ (this.scroller).addEventListener(
+                'touchmove',
+                this.scopedTouchMove,
+                {
+                    passive: true,
+                }
+            );
         } else {
             this.subscribeMouseWheel = mobCore.useMouseWheel((data) =>
                 this.onWhell(data)
@@ -555,40 +511,49 @@ export default class SmoothScroller {
 
     /**
      * @private
+     * @type {() => void}
      */
     setScrolerStyle() {
-        this.scroller.style['user-select'] = 'none';
+        /** @type{HTMLElement} */ (this.scroller).style['user-select'] = 'none';
 
-        const activeElement = this.scroller.querySelectorAll('a, button');
+        const activeElement = /** @type{HTMLElement} */ (
+            this.scroller
+        ).querySelectorAll('a, button');
+
         [...activeElement].forEach((item) => {
-            item.setAttribute('draggable', false);
-            item.style['user-select'] = 'none';
+            item.setAttribute('draggable', 'false');
+            /** @type {HTMLElement} */ (item).style['user-select'] = 'none';
         });
     }
 
     /**
      * @private
+     * @type {() => void}
      */
     removeScrolerStyle() {
         if (!this.scroller) return;
 
-        this.scroller.style['user-select'] = '';
+        /** @type{HTMLElement} */ (this.scroller).style['user-select'] = '';
+        const activeElement = /** @type{HTMLElement} */ (
+            this.scroller
+        ).querySelectorAll('a, button');
 
-        const activeElement = this.scroller.querySelectorAll('a, button');
         [...activeElement].forEach((item) => {
             item.removeAttribute('draggable');
-            item.style['user-select'] = '';
+            /** @type{HTMLElement} */ (item).style['user-select'] = '';
         });
     }
 
     /**
      * @private
+     * @type {() => void}
      */
     initMotion() {
-        this.motion.setData({ val: 0 });
+        if (!this.motion) return;
 
+        this.motion.setData({ val: 0 });
         this.unsubscribeMotion = this.motion.subscribe(({ val }) => {
-            this.scroller.style.transform =
+            /** @type{HTMLElement} */ (this.scroller).style.transform =
                 this.direction == parallaxConstant.DIRECTION_VERTICAL
                     ? `translate3d(0px, 0px, 0px) translateY(${-val}px)`
                     : `translate3d(0px, 0px, 0px) translateX(${-val}px)`;
@@ -618,7 +583,7 @@ export default class SmoothScroller {
         });
 
         this.unsubscribeOnComplete = this.motion.onComplete(({ val }) => {
-            this.scroller.style.transform =
+            /** @type{HTMLElement} */ (this.scroller).style.transform =
                 this.direction == parallaxConstant.DIRECTION_VERTICAL
                     ? `translateY(${-val}px)`
                     : `translateX(${-val}px)`;
@@ -643,41 +608,51 @@ export default class SmoothScroller {
 
     /**
      * @private
+     * @type {() => void}
      */
     refreshScroller() {
+        if (!this.screen) return;
+
         this.screenWidth =
             this.screen === document.documentElement
                 ? window.innerWidth
-                : outerWidth(this.screen);
+                : outerWidth(/** @type{HTMLElement} */ (this.screen));
 
         this.screenHeight =
             this.screen === document.documentElement
                 ? window.innerHeight
-                : outerHeight(this.screen);
+                : outerHeight(/** @type{HTMLElement} */ (this.screen));
 
         this.maxValue =
             this.direction === parallaxConstant.DIRECTION_VERTICAL
-                ? this.scroller.offsetHeight - this.screenHeight
-                : this.scroller.offsetWidth - this.screenWidth;
+                ? /** @type{HTMLElement} */ (this.scroller).offsetHeight -
+                  this.screenHeight
+                : /** @type{HTMLElement} */ (this.scroller).offsetWidth -
+                  this.screenWidth;
 
         this.calculateValue();
     }
 
     /**
      * @private
+     * @type {import('./type.d.ts').onMouseEvent}
      */
     onScopedTouchMove({ client }) {
         if (!this.dragEnable || !this.drag) return;
 
         this.prevTouchVal = this.touchVal;
-        this.touchVal = this.getMousePos(client);
-        this.endValue += Number.parseInt(this.prevTouchVal - this.touchVal);
+        this.touchVal = this.getMousePos({
+            x: client.x,
+            y: client.y,
+        });
+        this.endValue += Math.round(this.prevTouchVal - this.touchVal);
         this.calculateValue();
         this.scrollbarIsRunning = false;
     }
 
     /**
      * @private
+     * @type {(arg0: {spinY: number}) => void}
      */
     onScopedWhell({ spinY }) {
         if (!mq[this.queryType](this.breakpoint)) return;
@@ -695,21 +670,35 @@ export default class SmoothScroller {
 
     /**
      * @private
+     * @type {import('./type.d.ts').onMouseEvent}
      */
     onMouseDown({ target, client }) {
         if (!mq[this.queryType](this.breakpoint)) return;
 
-        if (target === this.scroller || isDescendant(this.scroller, target)) {
+        if (
+            target === this.scroller ||
+            isDescendant(
+                /** @type{HTMLElement} */ (this.scroller),
+                /** @type{HTMLElement} */ (target)
+            )
+        ) {
             this.firstTouchValue = this.endValue;
             this.dragEnable = true;
-            this.prevTouchVal = this.getMousePos(client);
-            this.touchVal = this.getMousePos(client);
+            this.prevTouchVal = this.getMousePos({
+                x: client.x,
+                y: client.y,
+            });
+            this.touchVal = this.getMousePos({
+                x: client.x,
+                y: client.y,
+            });
             this.scrollbarIsRunning = false;
         }
     }
 
     /**
      * @private
+     * @type {import('./type.d.ts').onMouseEvent}
      */
     onMouseUp() {
         this.dragEnable = false;
@@ -718,19 +707,28 @@ export default class SmoothScroller {
 
     /**
      * @private
+     * @type {import('./type.d.ts').onMouseEvent}
      */
     onTouchMove({ target, client, preventDefault }) {
         if (
-            (target === this.scroller || isDescendant(this.scroller, target)) &&
+            (target === this.scroller ||
+                isDescendant(
+                    /** @type{HTMLElement} */ (this.scroller),
+                    /** @type{HTMLElement} */ (target)
+                )) &&
             this.dragEnable &&
             this.drag
         ) {
+            // @ts-ignore
             preventDefault();
 
             this.prevTouchVal = this.touchVal;
-            this.touchVal = this.getMousePos(client);
+            this.touchVal = this.getMousePos({
+                x: client.x,
+                y: client.y,
+            });
 
-            const result = Number.parseInt(this.prevTouchVal - this.touchVal);
+            const result = Math.round(this.prevTouchVal - this.touchVal);
             this.endValue += result;
 
             this.calculateValue();
@@ -738,6 +736,10 @@ export default class SmoothScroller {
         }
     }
 
+    /**
+     * @private
+     * @type {import('./type.d.ts').onMouseEvent}
+     */
     onWhell({ target, spinY, preventDefault }) {
         const bodyIsOverflow =
             document.body.style.overflow === 'hidden' &&
@@ -745,9 +747,15 @@ export default class SmoothScroller {
 
         if (!mq[this.queryType](this.breakpoint) || bodyIsOverflow) return;
 
-        if (target === this.scroller || isDescendant(this.scroller, target)) {
+        if (
+            target === this.scroller ||
+            isDescendant(
+                /** @type{HTMLElement} */ (this.scroller),
+                /** @type{HTMLElement} */ (target)
+            )
+        ) {
             this.dragEnable = false;
-            preventDefault();
+            preventDefault?.();
             this.endValue += spinY * this.speed;
             this.calculateValue();
             this.scrollbarIsRunning = false;
@@ -758,7 +766,7 @@ export default class SmoothScroller {
      * @description
      * Move scroller
      *
-     * @prop {number} new position in percent, from 0 to 100
+     * @param {number} percent position in percent, from 0 to 100
      *
      * @example
      * myInstance.move(val);
@@ -769,7 +777,7 @@ export default class SmoothScroller {
         this.scrollbarIsRunning = true;
         this.percent = percent;
         this.endValue = (this.percent * this.maxValue) / 100;
-        this.motion.goTo({ val: this.endValue }).catch(() => {});
+        this.motion.goTo({ val: this.endValue });
     }
 
     /**
@@ -777,7 +785,7 @@ export default class SmoothScroller {
      * @description
      * Move scroller immediatr
      *
-     * @prop {number} new position in percent, from 0 to 100
+     * @param {number} percent position in percent, from 0 to 100
      *
      * @example
      * myInstance.set(val);
@@ -788,17 +796,20 @@ export default class SmoothScroller {
         this.scrollbarIsRunning = true;
         this.percent = percent;
         this.endValue = (this.percent * this.maxValue) / 100;
-        this.motion.set({ val: this.endValue }).catch(() => {});
+        this.motion.set({ val: this.endValue });
     }
 
     /**
+     * @description
      * Utils
+     *
+     * @type {() => void}
      */
     calculateValue() {
         const percentValue = (this.endValue * 100) / this.maxValue;
         this.percent = clamp(percentValue, 0, 100);
         this.endValue = clamp(this.endValue, 0, this.maxValue);
-        this.motion.goTo({ val: this.endValue }).catch(() => {});
+        this.motion.goTo({ val: this.endValue });
 
         /**
          * Fire on update callback
@@ -813,19 +824,29 @@ export default class SmoothScroller {
 
     /**
      * @private
+     * @type {import('./type.d.ts').onMouseEvent}
      */
     preventChecker({ target, preventDefault }) {
         if (
             mq[this.queryType](this.breakpoint) &&
-            (target === this.scroller || isDescendant(this.scroller, target)) &&
+            (target === this.scroller ||
+                isDescendant(
+                    /** @type{HTMLElement} */ (this.scroller),
+                    /** @type{HTMLElement} */ (target)
+                )) &&
             Math.abs(this.endValue - this.firstTouchValue) > this.threshold
         ) {
+            // @ts-ignore
             preventDefault();
         }
     }
 
-    getMousePos(client) {
-        const { x, y } = client;
+    /**
+     * @type (arg0: {x: number, y:number}) => number
+     */
+    getMousePos({ x, y }) {
+        if (!x || !y) return 0;
+
         return this.direction === parallaxConstant.DIRECTION_VERTICAL ? y : x;
     }
 
@@ -835,14 +856,18 @@ export default class SmoothScroller {
      *
      * @example
      * myInstance.refresh()
+     *
+     * @type {() => void}
      */
     refresh() {
         if (!mq[this.queryType](this.breakpoint)) {
             this.removeScrolerStyle();
             this.motion?.stop?.();
+
             mobCore.useFrame(() => {
                 mobCore.useNextTick(() => {
-                    this.scroller.style.transform = '';
+                    /** @type{HTMLElement} */ (this.scroller).style.transform =
+                        '';
                 });
             });
             return;
@@ -856,7 +881,7 @@ export default class SmoothScroller {
                 if (this.onAfterRefresh) this.onAfterRefresh();
 
                 this.children.forEach((element) => {
-                    element?.refresh?.();
+                    element.refresh();
                 });
             });
         }, 2);
@@ -868,6 +893,8 @@ export default class SmoothScroller {
      *
      * @example
      * myInstance.destroy()
+     *
+     * @type {() => void}
      */
     destroy() {
         this.isDestroyed = true;
@@ -889,8 +916,7 @@ export default class SmoothScroller {
         this.motion?.destroy();
         this.motion = null;
         this.children.forEach((element) => {
-            element?.destroy?.();
-            element = null;
+            element.destroy();
         });
         this.children = [];
         this.onTickCallback = NOOP;
@@ -899,12 +925,15 @@ export default class SmoothScroller {
         this.afterInit = NOOP;
 
         if (this.scopedEvent) {
-            this.scroller?.removeEventListener('wheel', this.scopedWhell);
-            this.scroller?.removeEventListener(
+            /** @type{HTMLElement} */ (this.scroller)?.removeEventListener(
+                'wheel',
+                this.scopedWhell
+            );
+            /** @type{HTMLElement} */ (this.scroller)?.removeEventListener(
                 'mousemove',
                 this.scopedTouchMove
             );
-            this.scroller?.removeEventListener(
+            /** @type{HTMLElement} */ (this.scroller)?.removeEventListener(
                 'touchmove',
                 this.scopedTouchMove
             );

@@ -138,13 +138,13 @@ export const bodyScroll = (() => {
         return new Promise((resolve) => {
             isRunning = true;
 
-            // @ts-ignore
             tween
                 .goFromTo(
                     { val: window.scrollY },
                     { val: targetParsed },
                     { duration }
                 )
+                // @ts-ignore
                 .then(() => {
                     onComplete();
                     isRunning = false;

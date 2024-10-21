@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-check
 
 import { outerHeight, outerWidth } from '../../../mobCore/utils';
 import { SmoothScroller } from '../../../mobMotion/plugin';
@@ -49,7 +49,7 @@ export const verticalScroller = ({ screen, scroller, scrollbar }) => {
              */
             instance?.refresh();
         },
-        move: (val) => {
+        move: (/** @type{number} */ val) => {
             if (!instance) return;
 
             instance.move(val);
