@@ -916,7 +916,7 @@ export default class SmoothScroller {
         this.motion?.destroy();
         this.motion = null;
         this.children.forEach((element) => {
-            element.destroy();
+            element?.destroy?.();
         });
         this.children = [];
         this.onTickCallback = NOOP;
