@@ -576,7 +576,7 @@ export const valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
 /**
  *
  * @param {Function|undefined} value
- * @returns {Function}
+ * @returns {() => void}
  *
  * @description
  * Check if value is Function and return default

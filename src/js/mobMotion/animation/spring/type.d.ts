@@ -77,28 +77,28 @@ export type springSetData = (arg0: Record<string, number>) => void;
 
 export type springGoTo = (
     obj: Record<string, number | (() => number)>,
-    props: springActions
+    props?: springActions
 ) => void | Promise<any>;
 
 export type springGoFrom = (
     obj: Record<string, number | (() => number)>,
-    props: springActions
+    props?: springActions
 ) => void | Promise<any>;
 
 export type springGoFromTo = (
     fromObj: Record<string, number | (() => number)>,
     toObj: Record<string, number | (() => number)>,
-    props: springActions
+    props?: springActions
 ) => void | Promise<any>;
 
 export type springSet = (
     obj: Record<string, number | (() => number)>,
-    props: springActions
+    props?: springActions
 ) => void | Promise<any>;
 
 export type springDoAction = (
     data: (goToParamsType | goFromType | goFromToType)[],
-    props: springActions,
+    props?: springActions,
     obj: Record<string, number | (() => number)>
 ) => void | Promise<any>;
 

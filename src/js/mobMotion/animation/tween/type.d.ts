@@ -96,28 +96,28 @@ export type tweenSetData = (arg0: Record<string, number>) => void;
 
 export type tweenGoTo = (
     obj: Record<string, number | (() => number)>,
-    props: tweenAction
+    props?: tweenAction
 ) => void | Promise<any>;
 
 export type tweenGoFrom = (
     obj: Record<string, number | (() => number)>,
-    props: tweenAction
+    props?: tweenAction
 ) => void | Promise<any>;
 
 export type tweenGoFromTo = (
     fromObj: Record<string, number | (() => number)>,
     toObj: Record<string, number | (() => number)>,
-    props: tweenAction
+    props?: tweenAction
 ) => void | Promise<any>;
 
 export type tweenSet = (
     obj: Record<string, number | (() => number)>,
-    props: tweenAction
+    props?: tweenAction
 ) => void | Promise<any>;
 
 export type tweenDoAction = (
     data: (goToParamsType | goFromType | goFromToType)[],
-    props: tweenAction,
+    props?: tweenAction,
     obj: Record<string, number | (() => number)>
 ) => void | Promise<any>;
 

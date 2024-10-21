@@ -51,23 +51,23 @@ export type lerpSetData = (arg0: Record<string, number>) => void;
 
 export type lerpGoTo = (
     obj: Record<string, number | (() => number)>,
-    props: lerpActions
+    props?: lerpActions
 ) => void | Promise<any>;
 
 export type lerpGoFrom = (
     obj: Record<string, number | (() => number)>,
-    props: lerpActions
+    props?: lerpActions
 ) => void | Promise<any>;
 
 export type lerpGoFromTo = (
     fromObj: Record<string, number | (() => number)>,
     toObj: Record<string, number | (() => number)>,
-    props: lerpActions
+    props?: lerpActions
 ) => void | Promise<any>;
 
 export type lerpSet = (
     obj: Record<string, number | (() => number)>,
-    props: lerpActions
+    props?: lerpActions
 ) => void | Promise<any>;
 
 export type lerpDoAction = (
