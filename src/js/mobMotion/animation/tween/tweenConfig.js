@@ -554,6 +554,9 @@ export const printEaseKey = () => {
     console.log(Object.keys(tweenConfig));
 };
 
+/**
+ * @type {(arg0: string) => () => void}
+ */
 export const getTweenFn = (prop) => {
     if (prop in tweenConfig) {
         return tweenConfig[prop];
