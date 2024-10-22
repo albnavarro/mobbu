@@ -101,7 +101,7 @@ export type springDoAction = (
     data: allActionType[],
     props?: springActions,
     obj: Record<string, number | (() => number)>
-) => void | Promise<any>;
+) => any | Promise<any>;
 
 export type springMergeProps = (props: springActions) => springDefault;
 

@@ -159,7 +159,7 @@ export default class HandleSpring {
 
         /**
          * @private
-         * @type{Promise|undefined}
+         * @type{Promise<void>|undefined}
          */
         this.promise = undefined;
 

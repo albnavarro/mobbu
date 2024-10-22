@@ -152,7 +152,7 @@ export default class HandleTween {
 
         /**
          * @private
-         * @type{Promise|undefined}
+         * @type{Promise<void>|undefined}
          */
         this.promise = undefined;
 

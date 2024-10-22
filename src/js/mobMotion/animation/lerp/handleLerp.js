@@ -150,7 +150,7 @@ export default class HandleLerp {
 
         /**
          * @private
-         * @type{Promise|undefined}
+         * @type{Promise<void>|undefined}
          */
         this.promise = undefined;
 

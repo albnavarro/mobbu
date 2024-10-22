@@ -70,7 +70,7 @@ export type lerpDoAction = (
     data: allActionType[],
     props: lerpActions,
     obj: Record<string, number | (() => number)>
-) => void | Promise<any>;
+) => any | Promise<any>;
 
 export type lerpMergeProps = (props: lerpActions) => lerpDefault;
 

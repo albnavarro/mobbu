@@ -144,7 +144,6 @@ export const bodyScroll = (() => {
                     { val: targetParsed },
                     { duration }
                 )
-                // @ts-ignore
                 .then(() => {
                     onComplete();
                     isRunning = false;

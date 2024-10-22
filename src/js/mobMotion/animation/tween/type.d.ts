@@ -120,7 +120,7 @@ export type tweenDoAction = (
     data: allActionType[],
     props?: tweenAction,
     obj: Record<string, number | (() => number)>
-) => void | Promise<any>;
+) => any | Promise<void>;
 
 export type tweenMergeProps = (props: tweenAction) => tweenDefault;
 
