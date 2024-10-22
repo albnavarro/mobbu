@@ -1,10 +1,6 @@
 import { tweenStopProps } from '../tween/type';
 import { staggerObjectOptional } from '../utils/stagger/type';
-import {
-    goFromToType,
-    goFromType,
-    goToParamsType,
-} from '../utils/tweenAction/type';
+import { allActionType } from '../utils/tweenAction/type';
 
 export interface lerpTweenProps {
     data: Record<string, number>;
@@ -52,26 +48,26 @@ export type lerpSetData = (arg0: Record<string, number>) => void;
 export type lerpGoTo = (
     obj: Record<string, number | (() => number)>,
     props?: lerpActions
-) => void | Promise<any>;
+) => ReturnType<lerpDoAction>;
 
 export type lerpGoFrom = (
     obj: Record<string, number | (() => number)>,
     props?: lerpActions
-) => void | Promise<any>;
+) => ReturnType<lerpDoAction>;
 
 export type lerpGoFromTo = (
     fromObj: Record<string, number | (() => number)>,
     toObj: Record<string, number | (() => number)>,
     props?: lerpActions
-) => void | Promise<any>;
+) => ReturnType<lerpDoAction>;
 
 export type lerpSet = (
     obj: Record<string, number | (() => number)>,
     props?: lerpActions
-) => void | Promise<any>;
+) => ReturnType<lerpDoAction>;
 
 export type lerpDoAction = (
-    data: (goToParamsType | goFromType | goFromToType)[],
+    data: allActionType[],
     props: lerpActions,
     obj: Record<string, number | (() => number)>
 ) => void | Promise<any>;

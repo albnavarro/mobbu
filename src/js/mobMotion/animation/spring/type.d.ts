@@ -1,4 +1,5 @@
 import { staggerObjectOptional } from '../utils/stagger/type';
+import { allActionType } from '../utils/tweenAction/type';
 
 export interface springProps {
     friction: number;
@@ -78,26 +79,26 @@ export type springSetData = (arg0: Record<string, number>) => void;
 export type springGoTo = (
     obj: Record<string, number | (() => number)>,
     props?: springActions
-) => void | Promise<any>;
+) => ReturnType<springDoAction>;
 
 export type springGoFrom = (
     obj: Record<string, number | (() => number)>,
     props?: springActions
-) => void | Promise<any>;
+) => ReturnType<springDoAction>;
 
 export type springGoFromTo = (
     fromObj: Record<string, number | (() => number)>,
     toObj: Record<string, number | (() => number)>,
     props?: springActions
-) => void | Promise<any>;
+) => ReturnType<springDoAction>;
 
 export type springSet = (
     obj: Record<string, number | (() => number)>,
     props?: springActions
-) => void | Promise<any>;
+) => ReturnType<springDoAction>;
 
 export type springDoAction = (
-    data: (goToParamsType | goFromType | goFromToType)[],
+    data: allActionType[],
     props?: springActions,
     obj: Record<string, number | (() => number)>
 ) => void | Promise<any>;
