@@ -1,5 +1,4 @@
 import { mobStore } from '../mobCore/store/mobStore.js';
-import { storeMap } from '../mobCore/store/storeMap.js';
 
 export const initTestMapStore = async () => {
     const test = mobStore({
@@ -49,18 +48,22 @@ export const initTestMapStore = async () => {
         return `${myObject.prop1}_`;
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const unsubscribeC0 = test.watch('computedProp1', (val, old, validate) => {
         console.log('computedProp 1', val, old, validate);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const unsubscribeC1 = test.watch('computedProp2', (val, old, validate) => {
         console.log('computedProp 2', val, old, validate);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const unsubscribe = test.watch('prop1', (val, old, validate) => {
         console.log('sync', val, old, validate);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const unsubscribe2 = test.watch('prop2', async (val, old, validate) => {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -71,6 +74,7 @@ export const initTestMapStore = async () => {
         });
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const unsubscribe3 = test.watch('myObject', (val, old, validate) => {
         console.log('myObject', val, old, validate);
     });
