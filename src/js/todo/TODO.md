@@ -1,3 +1,8 @@
+# Priority
+- HorizontalScroller type
+- bindText: check performance
+
+# General
 - Alias: aggiungere gli alias @ !!!!
 
 # DOCS
@@ -49,6 +54,9 @@ beforeNavigate(({props}) => {
 
 
 # MobCore
+
+### bindText
+- Posissibile che ci sia possibilitá di ottimizzare le performance
 
 ### Default:
 - Spostare mq da mobMotion a mobCore.
