@@ -547,13 +547,18 @@ const fireComputed = (instanceId) => {
         const computedValue = fn(valuesToObject);
 
         /**
-         * Set the result value to computed prop
+         * Await next loop to enable computed pipe.
          */
-        storeSetEntryPoint({
-            instanceId,
-            prop,
-            value: computedValue,
-            action: STORE_SET,
+        useNextLoop(() => {
+            /**
+             * Set the result value to computed prop.
+             */
+            storeSetEntryPoint({
+                instanceId,
+                prop,
+                value: computedValue,
+                action: STORE_SET,
+            });
         });
     });
 
