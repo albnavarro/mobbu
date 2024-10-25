@@ -243,6 +243,8 @@ export const getParamsForComponentFunction = ({
         }) => {
             const repeatId = mobCore.getUnivoqueId();
             const hasKey = key && key !== '';
+
+            /** type @type{Record<string, any>[]} */
             const initialState = getState()?.[bind];
             const currentUnique = hasKey
                 ? getUnivoqueByKey({ data: initialState, key })

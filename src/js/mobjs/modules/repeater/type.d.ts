@@ -1,5 +1,15 @@
 import { emitType, setType, watchType } from '../../../mobCore/store/type';
 
+export type RepeaterRender = (arg0: {
+    sync: () => string;
+    index: number;
+    currentValue: Record<string, any>;
+    html?: (
+        template: { raw: readonly string[] | ArrayLike<string> },
+        ...substitutions: any[]
+    ) => string;
+}) => string;
+
 /**
  * @description
  * Add new repeater id and props.
@@ -24,13 +34,7 @@ export interface repeaterType {
     setState: setType;
     watch: watchType;
     emit?: emitType;
-    render: (arg0: {
-        sync: () => string;
-        html?: (
-            template: { raw: readonly string[] | ArrayLike<string> },
-            ...substitutions: any[]
-        ) => string;
-    }) => string;
+    render: RepeaterRender;
 }
 
 export interface watchListType extends repeaterType {

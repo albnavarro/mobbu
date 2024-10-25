@@ -76,7 +76,7 @@ export const listKeyExist = ({ current, previous, key }) => {
  * @param {object} obj
  * @param {array} obj.data
  * @param {string} obj.key
- * @return {array}
+ * @return {Record<string, any>[]}
  *
  * @description
  * Get univique array by key.

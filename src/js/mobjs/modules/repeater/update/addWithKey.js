@@ -30,9 +30,9 @@ import { destroyComponentInsideNodeById } from '../../../component/action/remove
  * @param {string} obj.state
  * @param {string} obj.key
  * @param {string} obj.repeatId
- * @param {array} obj.currentUnique
+ * @param {Record<string, any>[]} obj.currentUnique
  * @param {number} obj.index
- * @param {Function} obj.render
+ * @param {import('../type').RepeaterRender} obj.render
  *
  * @return {string}
  *
@@ -72,13 +72,13 @@ function getPartialsComponentList({
 /**
  * @param {object} obj
  * @param {string} obj.state
- * @param {array} obj.current
- * @param {array} obj.previous
+ * @param {Record<string, any>[]} obj.current
+ * @param {Record<string, any>[]} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
  * @param {string} obj.key
  * @param {string} obj.id
- * @param {Function} obj.render
+ * @param {import('../type').RepeaterRender} obj.render
  * @param {string} obj.repeatId
  * @return {array}
  *

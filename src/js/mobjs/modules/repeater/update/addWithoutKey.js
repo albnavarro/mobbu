@@ -22,15 +22,15 @@ import { destroyComponentInsideNodeById } from '../../../component/action/remove
 /**
  * @param {object} obj
  * @param {string} obj.state
- * @param {array} obj.current
- * @param {array} obj.previous
+ * @param {any[]} obj.current
+ * @param {any[]} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
- * @param {Function} obj.render
+ * @param {import('../type').RepeaterRender} obj.render
  * @param {string} [ obj.key ]
  * @param {string} obj.id
  * @param {string} obj.repeatId
- * @return {array}
+ * @return {any[]}
  *
  * @description
  * Add new children.

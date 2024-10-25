@@ -18,7 +18,7 @@ import { listKeyExist } from '../utils';
  * @param {string} obj.id
  * @param {string} obj.fallBackParentId w
  * @param {string} obj.repeatId
- * @param {Function} obj.render
+ * @param {import('../type').RepeaterRender} obj.render
  * @return {Promise.<Array.<object>>}
  *
  * @description
