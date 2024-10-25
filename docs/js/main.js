@@ -427,7 +427,7 @@ Loading snippet ...</pre
             memory consumption until they are deleted and the garbage collector
             empties the memory
         </p>
-    `;var bx=e=>{for(let t=e.length-1;t>0;t--){let r=Math.floor(Math.random()*(t+1));[e[t],e[r]]=[e[r],e[t]]}return e},Ib=e=>[...new Array(e).keys()].map(t=>({label:`comp-${t+1}`})),Bc=async({setState:e,value:t,useShuffle:r=!1})=>{e("isLoading",!0),await ue(),l.useFrame(()=>{l.useNextTick(async()=>{let o=performance.now();e("data",r?bx(Ib(t)):Ib(t)),await ue();let s=performance.now()-o;e("time",s),e("isLoading",!1)})})},ln=({delegateEvents:e,setRef:t,getRef:r,updateState:o,getState:n,setState:s})=>k`
+    `;var bx=e=>{for(let t=e.length-1;t>0;t--){let r=Math.floor(Math.random()*(t+1));[e[t],e[r]]=[e[r],e[t]]}return e},Ib=e=>{let t=l.checkType(Number,e)?e:0;return[...new Array(t).keys()].map(r=>({label:`comp-${r+1}`}))},Bc=async({setState:e,value:t,useShuffle:r=!1})=>{e("isLoading",!0),await ue(),l.useFrame(()=>{l.useNextTick(async()=>{let o=performance.now();e("data",r?bx(Ib(t)):Ib(t)),await ue();let s=performance.now()-o;e("time",s),e("isLoading",!1)})})},ln=({delegateEvents:e,setRef:t,getRef:r,updateState:o,getState:n,setState:s})=>k`
         <div class="benchmark__loading" ${t("loading")}>
             generate components
         </div>

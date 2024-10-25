@@ -25,7 +25,11 @@ const shuffle = (array) => {
  * @returns {{label:string}[]}
  */
 export const createBenchMarkArray = (numberOfItem) => {
-    return [...new Array(numberOfItem).keys()].map((i) => ({
+    const valueSanitized = mobCore.checkType(Number, numberOfItem)
+        ? numberOfItem
+        : 0;
+
+    return [...new Array(valueSanitized).keys()].map((i) => ({
         label: `comp-${i + 1}`,
     }));
 };
