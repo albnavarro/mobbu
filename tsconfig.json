@@ -14,9 +14,5 @@
         "target": "ESNext"
     },
     "ts-node": { "esm": true },
-    "include": ["src/js/mobjs", "src/js/mobMotion", "src/js/mobCore"],
-    "exclude": [
-        "src/js/mobMotion/plugin/horizontalScroller",
-        "src/js/mobMotion/plugin/index.js"
-    ]
+    "include": ["src/js/mobjs", "src/js/mobMotion", "src/js/mobCore"]
 }
