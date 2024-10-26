@@ -663,6 +663,8 @@ export class HorizontalScroller {
      *
      * @example
      * myInstance.init()
+     *
+     * @type {() => void}
      */
     init() {
         if (!this.propsisValid) return;
@@ -693,6 +695,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => void}
      */
     setLinkAttribute() {
         [...this.button].forEach((item) =>
@@ -702,6 +705,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => void}
      */
     removeLinkAttribute() {
         [...this.button].forEach((item) => item.removeAttribute('draggable'));
@@ -709,8 +713,7 @@ export class HorizontalScroller {
 
     /**
      * @private
-     * @param {number} value
-     * @returns {void}
+     * @type {(value: number) => void}
      */
     onDrag(value) {
         if (!this.shouldDragValue) return;
@@ -719,6 +722,9 @@ export class HorizontalScroller {
         );
     }
 
+    /**
+     * @type {() => void}
+     */
     shouldDrag() {
         const documentScrollTop = window.scrollY;
 
@@ -731,6 +737,9 @@ export class HorizontalScroller {
                 documentScrollTop + window.innerHeight;
     }
 
+    /**
+     * @type {() => void}
+     */
     addDragListener() {
         this.unsubscribeScroll = mobCore.useScroll(() => this.shouldDrag());
         this.shouldDrag();
@@ -768,6 +777,9 @@ export class HorizontalScroller {
         });
     }
 
+    /**
+     * @type {() => void}
+     */
     removeDragListener() {
         this.unsubscribeScroll();
         this.row.removeEventListener('click', this.preventFireClick);
@@ -782,6 +794,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => Promise<boolean>}
      */
     setDimension() {
         if (!this.trigger || !this.mainContainer || !this.row) {
@@ -808,6 +821,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => Promise<boolean>}
      */
     getWidth() {
         return new Promise((resolve) => {
@@ -830,6 +844,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => Promise<boolean>}
      */
     createShadow() {
         if (!this.trigger) {
@@ -905,6 +920,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => void}
      */
     removeShadow() {
         if (this.trigger) this.trigger.innerHTML = '';
@@ -912,6 +928,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => Promise<boolean>}
      */
     updateShadow() {
         return new Promise((resolve) => {
@@ -1061,6 +1078,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => void}
      */
     initScroller() {
         if (!this.trigger || !mq[this.queryType](this.breakpoint)) return;
@@ -1136,6 +1154,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => void}
      */
     createScroller() {
         pipe(
@@ -1151,6 +1170,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {() => void}
      */
     refreshChildren() {
         mobCore.useFrameIndex(() => {
@@ -1169,6 +1189,8 @@ export class HorizontalScroller {
      *
      * @example
      * myInstance.refresh()
+     *
+     * @type {() => Promise<boolean>}
      */
     refresh() {
         if (!this.moduleisActive || !mq[this.queryType](this.breakpoint))
@@ -1194,6 +1216,7 @@ export class HorizontalScroller {
 
     /**
      * @private
+     * @type {(arg0: {destroyAll?: boolean}) => void}
      */
     killScroller({ destroyAll = false }) {
         if (this.moduleisActive || destroyAll) {
@@ -1270,7 +1293,7 @@ export class HorizontalScroller {
     }
 
     /**
-     * @param {boolean} horizontalResize
+     * @type {(horizontalResize: boolean) => void}
      */
     onResize(horizontalResize) {
         if (this.moduleisActive && mq[this.queryType](this.breakpoint)) {
@@ -1294,6 +1317,8 @@ export class HorizontalScroller {
      *
      * @example
      * myInstance.destroy()
+     *
+     * @type {() => void}
      */
     destroy() {
         this.killScroller({ destroyAll: true });
