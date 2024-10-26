@@ -482,8 +482,8 @@ export class HorizontalScroller {
          * @private
          * @type {NodeListOf<HTMLElement>}
          */
-        this.column = this.mainContainer.querySelectorAll(data.column);
-        if (this.column.length === 0) {
+        this.columns = this.mainContainer.querySelectorAll(data.column);
+        if (this.columns.length === 0) {
             this.propsisValid = false;
             console.warn('horizontal custom: column nodeList not found');
             return;
@@ -493,7 +493,7 @@ export class HorizontalScroller {
          * @private
          * @type {NodeListOf<HTMLElement>}
          */
-        this.shadow = this.mainContainer.querySelectorAll('[data-shadow]');
+        this.shadows = this.mainContainer.querySelectorAll('[data-shadow]');
         const originalShadowClass = data?.shadowClass || 'shadow';
 
         /**
@@ -817,7 +817,7 @@ export class HorizontalScroller {
                     return;
                 }
 
-                this.horizontalWidth = [...this.column]
+                this.horizontalWidth = [...this.columns]
                     .map((item) => {
                         return outerWidth(item);
                     })
@@ -845,7 +845,7 @@ export class HorizontalScroller {
                     return;
                 }
 
-                const shadowsTransition = [...this.shadow]
+                const shadowsTransition = [...this.shadows]
                     .map((item) => {
                         const shadowClass = item.dataset['shadow'];
                         const debug = item.dataset['debug'] ? 'debug' : '';
@@ -904,7 +904,7 @@ export class HorizontalScroller {
             }
 
             mobCore.useFrame(() => {
-                [...this.shadow].forEach((item) => {
+                [...this.shadows].forEach((item) => {
                     const percentrange = this.percentRange / 100;
                     const shadowData = item.dataset['shadow'];
                     const width = outerWidth(item);
@@ -1214,9 +1214,9 @@ export class HorizontalScroller {
                     // @ts-ignore
                     this.row = null;
                     // @ts-ignore
-                    this.column = null;
+                    this.columns = [];
                     // @ts-ignore
-                    this.shadow = null;
+                    this.shadows = null;
                     this.afterInit = NOOP;
                     this.afterRefresh = NOOP;
                     this.onTick = NOOP;

@@ -21892,13 +21892,13 @@ Loading snippet ...</pre
         console.warn("horizontal custom: row node not found");
         return;
       }
-      this.column = this.mainContainer.querySelectorAll(data2.column);
-      if (this.column.length === 0) {
+      this.columns = this.mainContainer.querySelectorAll(data2.column);
+      if (this.columns.length === 0) {
         this.propsisValid = false;
         console.warn("horizontal custom: column nodeList not found");
         return;
       }
-      this.shadow = this.mainContainer.querySelectorAll("[data-shadow]");
+      this.shadows = this.mainContainer.querySelectorAll("[data-shadow]");
       const originalShadowClass = data2?.shadowClass || "shadow";
       this.shadowMainClassTransition = originalShadowClass.replace(".", "");
       this.button = this.row.querySelectorAll("a, button");
@@ -22102,7 +22102,7 @@ Loading snippet ...</pre
             resolve(true);
             return;
           }
-          this.horizontalWidth = [...this.column].map((item) => {
+          this.horizontalWidth = [...this.columns].map((item) => {
             return outerWidth(item);
           }).reduce((a, b) => a + b, 0);
           resolve(true);
@@ -22124,7 +22124,7 @@ Loading snippet ...</pre
             resolve(true);
             return;
           }
-          const shadowsTransition = [...this.shadow].map((item) => {
+          const shadowsTransition = [...this.shadows].map((item) => {
             const shadowClass = item.dataset["shadow"];
             const debug = item.dataset["debug"] ? "debug" : "";
             const left = item.dataset["debug"] ? `left left : ${shadowClass}` : "";
@@ -22168,7 +22168,7 @@ Loading snippet ...</pre
           return;
         }
         mobCore.useFrame(() => {
-          [...this.shadow].forEach((item) => {
+          [...this.shadows].forEach((item) => {
             const percentrange = this.percentRange / 100;
             const shadowData = item.dataset["shadow"];
             const width = outerWidth(item);
@@ -22386,8 +22386,8 @@ Loading snippet ...</pre
             this.mainContainer = null;
             this.trigger = null;
             this.row = null;
-            this.column = null;
-            this.shadow = null;
+            this.columns = [];
+            this.shadows = null;
             this.afterInit = NOOP;
             this.afterRefresh = NOOP;
             this.onTick = NOOP;
