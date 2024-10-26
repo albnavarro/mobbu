@@ -22125,25 +22125,26 @@ Loading snippet ...</pre
             return;
           }
           const shadowsTransition = [...this.shadows].map((item) => {
-            const shadowClass = item.dataset["shadow"];
-            const debug = item.dataset["debug"] ? "debug" : "";
-            const left = item.dataset["debug"] ? `left left : ${shadowClass}` : "";
-            const inCenter = item.dataset["debug"] ? `in center : ${shadowClass}` : "";
-            const outCenter = item.dataset["debug"] ? `center out : ${shadowClass}` : "";
-            const end = item.dataset["debug"] ? `in out : ${shadowClass}` : "";
+            const shadowLabel = item.dataset["shadow"];
+            const useDebug = Object.hasOwn(item.dataset, "debug");
+            const debugClass = useDebug ? "debug" : "";
+            const leftLabel = useDebug ? `left left : ${shadowLabel}` : "";
+            const inCenterLabel = useDebug ? `in center : ${shadowLabel}` : "";
+            const outCenterlabel = useDebug ? `center out : ${shadowLabel}` : "";
+            const endLabel = useDebug ? `in out : ${shadowLabel}` : "";
             return `
-                            <div class='${this.shadowMainClassTransition} ${this.shadowMainClassTransition}--${shadowClass}' data-shadow='${shadowClass}'>
-                                <span class="${this.shadowMainClassTransition}--in-center ${debug}">
-                                    ${inCenter}
+                            <div class='${this.shadowMainClassTransition} ${this.shadowMainClassTransition}--${shadowLabel}' data-shadow='${shadowLabel}'>
+                                <span class="${this.shadowMainClassTransition}--in-center ${debugClass}">
+                                    ${inCenterLabel}
                                 </span>
-                                <span class="${this.shadowMainClassTransition}--out-center ${debug}">
-                                    ${outCenter}
+                                <span class="${this.shadowMainClassTransition}--out-center ${debugClass}">
+                                    ${outCenterlabel}
                                 </span>
-                                <span class="${this.shadowMainClassTransition}--left ${debug}">
-                                    ${left}
+                                <span class="${this.shadowMainClassTransition}--left ${debugClass}">
+                                    ${leftLabel}
                                 </span>
-                                <span class="${this.shadowMainClassTransition}--end ${debug}">
-                                    ${end}
+                                <span class="${this.shadowMainClassTransition}--end ${debugClass}">
+                                    ${endLabel}
                                 </span>
                             </div>`;
           }).join("");
@@ -22387,7 +22388,7 @@ Loading snippet ...</pre
             this.trigger = null;
             this.row = null;
             this.columns = [];
-            this.shadows = null;
+            this.shadows = [];
             this.afterInit = NOOP;
             this.afterRefresh = NOOP;
             this.onTick = NOOP;
@@ -29448,7 +29449,7 @@ Loading snippet ...</pre
                 <span class="l-h-scroller__indicator js-indicator ${pinClass}">
                     <span></span>
                 </span>
-                <div class="l-h-scroller__title js-title">
+                <div class="l-h-scroller__title js-title" data-debug>
                     <h1>${id}</h1>
                 </div>
             </div>
