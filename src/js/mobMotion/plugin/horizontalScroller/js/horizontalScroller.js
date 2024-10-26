@@ -1216,7 +1216,7 @@ export class HorizontalScroller {
                     // @ts-ignore
                     this.columns = [];
                     // @ts-ignore
-                    this.shadows = null;
+                    this.shadows = [];
                     this.afterInit = NOOP;
                     this.afterRefresh = NOOP;
                     this.onTick = NOOP;

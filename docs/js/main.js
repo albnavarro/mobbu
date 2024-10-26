@@ -29164,22 +29164,21 @@ Loading snippet ...</pre
       columnHeight: 70,
       columnWidth: 100,
       columnAlign: "center",
-      pin: animatePin,
       animatePin,
       breakpoint: "tablet",
       children: [...pins, ...titlesParallax],
       onEnter: () => {
-        showNav({ nav, indicators });
+        showNav({ nav });
       },
       onEnterBack: () => {
         refreshPins({ pins });
-        showNav({ nav, indicators });
+        showNav({ nav });
       },
       onLeave: () => {
-        hideNav({ nav, indicators });
+        hideNav({ nav });
       },
       onLeaveBack: () => {
-        hideNav({ nav, indicators });
+        hideNav({ nav });
       }
     });
     horizontalCustom.init();

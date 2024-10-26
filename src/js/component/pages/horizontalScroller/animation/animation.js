@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-check
 import { mobCore } from '../../../../mobCore';
 import { outerWidth } from '../../../../mobCore/utils';
 import { scroller } from '../../../../mobMotion';
@@ -126,12 +126,11 @@ export const horizontalScrollerAnimation = ({
         columnHeight: 70,
         columnWidth: 100,
         columnAlign: 'center',
-        pin: animatePin,
         animatePin,
         breakpoint: 'tablet',
         children: [...pins, ...titlesParallax],
         onEnter: () => {
-            showNav({ nav, indicators });
+            showNav({ nav });
         },
         onEnterBack: () => {
             /**
@@ -139,13 +138,13 @@ export const horizontalScrollerAnimation = ({
              * So upodate when scroller back active.
              */
             refreshPins({ pins });
-            showNav({ nav, indicators });
+            showNav({ nav });
         },
         onLeave: () => {
-            hideNav({ nav, indicators });
+            hideNav({ nav });
         },
         onLeaveBack: () => {
-            hideNav({ nav, indicators });
+            hideNav({ nav });
         },
     });
 
@@ -173,6 +172,7 @@ export const horizontalScrollerAnimation = ({
              * Destroy timelines.
              */
             horizontalCustom.destroy();
+            // @ts-ignore
             horizontalCustom = null;
             unsubscribeResize();
         },
