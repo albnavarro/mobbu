@@ -864,21 +864,36 @@ export class HorizontalScroller {
                             ? `in out : ${shadowLabel}`
                             : '';
 
-                        return `
-                            <div class='${this.shadowMainClassTransition} ${this.shadowMainClassTransition}--${shadowLabel}' data-shadow='${shadowLabel}'>
-                                <span class="${this.shadowMainClassTransition}--in-center ${debugClass}">
-                                    ${inCenterLabel}
-                                </span>
-                                <span class="${this.shadowMainClassTransition}--out-center ${debugClass}">
-                                    ${outCenterlabel}
-                                </span>
-                                <span class="${this.shadowMainClassTransition}--left ${debugClass}">
-                                    ${leftLabel}
-                                </span>
-                                <span class="${this.shadowMainClassTransition}--end ${debugClass}">
-                                    ${endLabel}
-                                </span>
-                            </div>`;
+                        return /* HTML */ ` <div
+                            class="${this.shadowMainClassTransition} ${this
+                                .shadowMainClassTransition}--${shadowLabel}"
+                            data-shadow="${shadowLabel}"
+                        >
+                            <span
+                                class="${this
+                                    .shadowMainClassTransition}--in-center ${debugClass}"
+                            >
+                                ${inCenterLabel}
+                            </span>
+                            <span
+                                class="${this
+                                    .shadowMainClassTransition}--out-center ${debugClass}"
+                            >
+                                ${outCenterlabel}
+                            </span>
+                            <span
+                                class="${this
+                                    .shadowMainClassTransition}--left ${debugClass}"
+                            >
+                                ${leftLabel}
+                            </span>
+                            <span
+                                class="${this
+                                    .shadowMainClassTransition}--end ${debugClass}"
+                            >
+                                ${endLabel}
+                            </span>
+                        </div>`;
                     })
                     .join('');
 

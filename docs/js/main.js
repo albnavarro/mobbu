@@ -22132,21 +22132,34 @@ Loading snippet ...</pre
             const inCenterLabel = useDebug ? `in center : ${shadowLabel}` : "";
             const outCenterlabel = useDebug ? `center out : ${shadowLabel}` : "";
             const endLabel = useDebug ? `in out : ${shadowLabel}` : "";
-            return `
-                            <div class='${this.shadowMainClassTransition} ${this.shadowMainClassTransition}--${shadowLabel}' data-shadow='${shadowLabel}'>
-                                <span class="${this.shadowMainClassTransition}--in-center ${debugClass}">
-                                    ${inCenterLabel}
-                                </span>
-                                <span class="${this.shadowMainClassTransition}--out-center ${debugClass}">
-                                    ${outCenterlabel}
-                                </span>
-                                <span class="${this.shadowMainClassTransition}--left ${debugClass}">
-                                    ${leftLabel}
-                                </span>
-                                <span class="${this.shadowMainClassTransition}--end ${debugClass}">
-                                    ${endLabel}
-                                </span>
-                            </div>`;
+            return (
+              /* HTML */
+              ` <div
+                            class="${this.shadowMainClassTransition} ${this.shadowMainClassTransition}--${shadowLabel}"
+                            data-shadow="${shadowLabel}"
+                        >
+                            <span
+                                class="${this.shadowMainClassTransition}--in-center ${debugClass}"
+                            >
+                                ${inCenterLabel}
+                            </span>
+                            <span
+                                class="${this.shadowMainClassTransition}--out-center ${debugClass}"
+                            >
+                                ${outCenterlabel}
+                            </span>
+                            <span
+                                class="${this.shadowMainClassTransition}--left ${debugClass}"
+                            >
+                                ${leftLabel}
+                            </span>
+                            <span
+                                class="${this.shadowMainClassTransition}--end ${debugClass}"
+                            >
+                                ${endLabel}
+                            </span>
+                        </div>`
+            );
           }).join("");
           this.trigger.innerHTML = shadowsTransition;
           resolve(true);
@@ -29449,7 +29462,7 @@ Loading snippet ...</pre
                 <span class="l-h-scroller__indicator js-indicator ${pinClass}">
                     <span></span>
                 </span>
-                <div class="l-h-scroller__title js-title" data-debug>
+                <div class="l-h-scroller__title js-title">
                     <h1>${id}</h1>
                 </div>
             </div>
