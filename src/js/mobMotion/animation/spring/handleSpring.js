@@ -627,6 +627,7 @@ export default class HandleSpring {
 
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').springActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goTo(obj, props) {
         if (this.pauseStatus) return;
@@ -637,6 +638,7 @@ export default class HandleSpring {
 
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').springActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goFrom(obj, props) {
         if (this.pauseStatus) return;
@@ -647,6 +649,7 @@ export default class HandleSpring {
 
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').springActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goFromTo(fromObj, toObj, props) {
         if (this.pauseStatus) return;
@@ -662,6 +665,7 @@ export default class HandleSpring {
 
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').springActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     set(obj, props) {
         if (this.pauseStatus) return;

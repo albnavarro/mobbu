@@ -7536,6 +7536,7 @@
     }
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').lerpActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goTo(obj, props) {
       if (this.pauseStatus) return;
@@ -7545,6 +7546,7 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').lerpActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goFrom(obj, props) {
       if (this.pauseStatus) return;
@@ -7554,6 +7556,7 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').lerpActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goFromTo(fromObj, toObj, props) {
       if (this.pauseStatus) return;
@@ -7567,6 +7570,7 @@
     }
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').lerpActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     set(obj, props) {
       if (this.pauseStatus) return;
@@ -9440,6 +9444,7 @@
     }
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').springActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goTo(obj, props) {
       if (this.pauseStatus) return;
@@ -9449,6 +9454,7 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').springActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goFrom(obj, props) {
       if (this.pauseStatus) return;
@@ -9458,6 +9464,7 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').springActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goFromTo(fromObj, toObj, props) {
       if (this.pauseStatus) return;
@@ -9471,6 +9478,7 @@
     }
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').springActions>} obj to Values
+     * @returns{void|Promise<void>}
      */
     set(obj, props) {
       if (this.pauseStatus) return;
@@ -10137,6 +10145,7 @@
     }
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').tweenAction>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goTo(obj, props) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10146,6 +10155,7 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').tweenAction>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goFrom(obj, props) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10155,6 +10165,7 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').tweenAction>} obj to Values
+     * @returns{void|Promise<void>}
      */
     goFromTo(fromObj, toObj, props) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10168,6 +10179,7 @@
     }
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').tweenAction>} obj to Values
+     * @returns{void|Promise<void>}
      */
     set(obj, props) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -21492,7 +21504,14 @@ Loading snippet ...</pre
         tween2.goFromTo(
           { val: window.scrollY },
           { val: targetParsed },
-          { duration: duration2 }
+          {
+            duration: duration2,
+            immediateNoPromise: false,
+            immediate: true,
+            ease: "easeLinear",
+            reverse: false,
+            relative: true
+          }
         ).then(() => {
           onComplete();
           isRunning = false;
