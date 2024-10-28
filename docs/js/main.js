@@ -21504,14 +21504,7 @@ Loading snippet ...</pre
         tween2.goFromTo(
           { val: window.scrollY },
           { val: targetParsed },
-          {
-            duration: duration2,
-            immediateNoPromise: false,
-            immediate: true,
-            ease: "easeLinear",
-            reverse: false,
-            relative: true
-          }
+          { duration: duration2 }
         ).then(() => {
           onComplete();
           isRunning = false;
