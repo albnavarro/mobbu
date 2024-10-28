@@ -487,7 +487,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @type {import('./type.js').lerpSetData}
+     * @type {import('../../utils/type.js').SetData}
      *
      * @description
      * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
@@ -540,9 +540,10 @@ export default class HandleLerp {
     }
 
     /**
-     * @type {import('./type.js').lerpGoTo} obj to Values
+     * @type {import('../../utils/type.js').GoTo<import('./type.js').lerpActions>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
-    goTo(obj, props = {}) {
+    goTo(obj, props) {
         if (this.pauseStatus) return;
         this.useStagger = true;
         const data = goToUtils(obj);
@@ -550,9 +551,10 @@ export default class HandleLerp {
     }
 
     /**
-     * @type {import('./type.js').lerpGoFrom} obj from Values
+     * @type {import('../../utils/type.js').GoFrom<import('./type.js').lerpActions>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
-    goFrom(obj, props = {}) {
+    goFrom(obj, props) {
         if (this.pauseStatus) return;
         this.useStagger = true;
         const data = goFromUtils(obj);
@@ -560,9 +562,10 @@ export default class HandleLerp {
     }
 
     /**
-     * @type {import('./type.js').lerpGoFromTo} fromObj from Values
+     * @type {import('../../utils/type.js').GoFromTo<import('./type.js').lerpActions>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
-    goFromTo(fromObj, toObj, props = {}) {
+    goFromTo(fromObj, toObj, props) {
         if (this.pauseStatus) return;
         this.useStagger = true;
 
@@ -578,9 +581,10 @@ export default class HandleLerp {
     }
 
     /**
-     * @type {import('./type.js').lerpSet} obj to Values
+     * @type {import('../../utils/type.js').Set<import('./type.js').lerpActions>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
-    set(obj, props = {}) {
+    set(obj, props) {
         if (this.pauseStatus) return;
         this.useStagger = false;
         const data = setUtils(obj);
@@ -589,7 +593,7 @@ export default class HandleLerp {
 
     /**
      * @private
-     * @type {import('./type.js').lerpDoAction}
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').lerpActions>} obj to Values
      */
     doAction(data, props, obj) {
         this.values = mergeArray(data, this.values);

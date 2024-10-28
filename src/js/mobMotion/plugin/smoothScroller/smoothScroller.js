@@ -777,6 +777,13 @@ export default class SmoothScroller {
         this.scrollbarIsRunning = true;
         this.percent = percent;
         this.endValue = (this.percent * this.maxValue) / 100;
+
+        /**
+         * this.motion use spring or lerp, so goTo generic type is not the same.
+         * But we don't use props here, so skip ts error
+         */
+
+        // @ts-ignore
         this.motion.goTo({ val: this.endValue });
     }
 
@@ -796,6 +803,13 @@ export default class SmoothScroller {
         this.scrollbarIsRunning = true;
         this.percent = percent;
         this.endValue = (this.percent * this.maxValue) / 100;
+
+        /**
+         * this.motion use spring or lerp, so set generic type is not the same.
+         * But we don't use props here, so skip ts error
+         */
+
+        // @ts-ignore
         this.motion.set({ val: this.endValue });
     }
 
@@ -809,6 +823,13 @@ export default class SmoothScroller {
         const percentValue = (this.endValue * 100) / this.maxValue;
         this.percent = clamp(percentValue, 0, 100);
         this.endValue = clamp(this.endValue, 0, this.maxValue);
+
+        /**
+         * this.motion use spring or lerp, so goTo generic type is not the same.
+         * But we don't use props here, so skip ts error
+         */
+
+        // @ts-ignore
         this.motion.goTo({ val: this.endValue });
 
         /**

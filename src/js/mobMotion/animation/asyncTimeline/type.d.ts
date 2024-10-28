@@ -140,7 +140,7 @@ export type asyncTimelineSet = (
 export type asyncTimelineGoTo = (
     tween: any,
     valuesTo: Record<string, number>,
-    tweenProps: asyncTimelineTypeSpecialProps
+    tweenProps?: asyncTimelineTypeSpecialProps
 ) => HandleAsyncTimeline;
 
 export type asyncTimelineGoFrom = (

@@ -534,8 +534,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Record<string, number>} obj Initial data structure
-     * @returns {void}
+     * @type {import('../../utils/type.js').SetData} obj Initial data structure
      *
      * @description
      * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
@@ -627,9 +626,10 @@ export default class HandleSpring {
     }
 
     /**
-     * @type {import('./type.js').springGoTo}
+     * @type {import('../../utils/type.js').GoTo<import('./type.js').springActions>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').springActions>>}
      */
-    goTo(obj, props = {}) {
+    goTo(obj, props) {
         if (this.pauseStatus) return;
         this.useStagger = true;
         const data = goToUtils(obj);
@@ -637,9 +637,10 @@ export default class HandleSpring {
     }
 
     /**
-     * @type {import('./type.js').springGoFrom}
+     * @type {import('../../utils/type.js').GoFrom<import('./type.js').springActions>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').springActions>>}
      */
-    goFrom(obj, props = {}) {
+    goFrom(obj, props) {
         if (this.pauseStatus) return;
         this.useStagger = true;
         const data = goFromUtils(obj);
@@ -647,9 +648,10 @@ export default class HandleSpring {
     }
 
     /**
-     * @type {import('./type.js').springGoFromTo}
+     * @type {import('../../utils/type.js').GoFromTo<import('./type.js').springActions>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').springActions>>}
      */
-    goFromTo(fromObj, toObj, props = {}) {
+    goFromTo(fromObj, toObj, props) {
         if (this.pauseStatus) return;
         this.useStagger = true;
         if (!compareKeys(fromObj, toObj)) {
@@ -662,9 +664,10 @@ export default class HandleSpring {
     }
 
     /**
-     * @type {import('./type.js').springSet}
+     * @type {import('../../utils/type.js').Set<import('./type.js').springActions>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').springActions>>}
      */
-    set(obj, props = {}) {
+    set(obj, props) {
         if (this.pauseStatus) return;
         this.useStagger = false;
         const data = setUtils(obj);
@@ -673,9 +676,9 @@ export default class HandleSpring {
 
     /**
      * @private
-     * @type {import('./type.js').springDoAction} data Updated data
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').springActions>} obj to Values
      */
-    doAction(data, props, obj) {
+    doAction(data, props = {}, obj) {
         this.values = mergeArray(data, this.values);
         const { reverse, immediate, immediateNoPromise } =
             this.mergeProps(props);

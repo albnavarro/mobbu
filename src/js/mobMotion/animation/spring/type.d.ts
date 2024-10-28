@@ -1,5 +1,4 @@
 import { staggerObjectOptional } from '../utils/stagger/type';
-import { allActionType } from '../utils/tweenAction/type';
 
 export interface springProps {
     friction: number;
@@ -74,37 +73,7 @@ export interface springValues extends springInitialData {
     settled: boolean;
 }
 
-export type springSetData = (arg0: Record<string, number>) => void;
-
-export type springGoTo = (
-    obj: Record<string, number | (() => number)>,
-    props?: springActions
-) => ReturnType<springDoAction>;
-
-export type springGoFrom = (
-    obj: Record<string, number | (() => number)>,
-    props?: springActions
-) => ReturnType<springDoAction>;
-
-export type springGoFromTo = (
-    fromObj: Record<string, number | (() => number)>,
-    toObj: Record<string, number | (() => number)>,
-    props?: springActions
-) => ReturnType<springDoAction>;
-
-export type springSet = (
-    obj: Record<string, number | (() => number)>,
-    props?: springActions
-) => ReturnType<springDoAction>;
-
-export type springDoAction = (
-    data: allActionType[],
-    props?: springActions,
-    obj: Record<string, number | (() => number)>
-) => any | Promise<any>;
-
 export type springMergeProps = (props: springActions) => springDefault;
-
 export type springStop = (arg0?: tweenStopProps) => void;
 export type springPause = () => void;
 export type springResume = () => void;

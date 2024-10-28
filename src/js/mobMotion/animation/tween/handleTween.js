@@ -534,7 +534,7 @@ export default class HandleTween {
     }
 
     /**
-     * @type {import('./type.js').tweenSetData}
+     * @type {import('../../utils/type.js').SetData}
      */
     setData(obj) {
         this.values = Object.entries(obj).map((item) => {
@@ -624,9 +624,10 @@ export default class HandleTween {
     }
 
     /**
-     * @type {import('./type.js').tweenGoTo} obj to Values
+     * @type {import('../../utils/type.js').GoTo<import('./type.js').tweenAction>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
-    goTo(obj, props = {}) {
+    goTo(obj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
         this.useStagger = true;
         const data = goToUtils(obj);
@@ -634,9 +635,10 @@ export default class HandleTween {
     }
 
     /**
-     * @type {import('./type.js').tweenGoFrom}
+     * @type {import('../../utils/type.js').GoFrom<import('./type.js').tweenAction>} obj to Values
+     * @return {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
-    goFrom(obj, props = {}) {
+    goFrom(obj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
         this.useStagger = true;
         const data = goFromUtils(obj);
@@ -644,9 +646,10 @@ export default class HandleTween {
     }
 
     /**
-     * @type {import('./type.js').tweenGoFromTo}
+     * @type {import('../../utils/type.js').GoFromTo<import('./type.js').tweenAction>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
-    goFromTo(fromObj, toObj, props = {}) {
+    goFromTo(fromObj, toObj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
         this.useStagger = true;
 
@@ -660,23 +663,24 @@ export default class HandleTween {
     }
 
     /**
-     * @type {import('./type.js').tweenSet}
+     * @type {import('../../utils/type.js').Set<import('./type.js').tweenAction>} obj to Values
+     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
-    set(obj, props = {}) {
+    set(obj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
         this.useStagger = false;
         const data = setUtils(obj);
 
         // In set mode duration is small as possible
-        props.duration = 1;
-        return this.doAction(data, props, obj);
+        const propsParsed = props ? { ...props, duration: 1 } : { duration: 1 };
+        return this.doAction(data, propsParsed, obj);
     }
 
     /**
      * @private
-     * @type {import('./type.js').tweenDoAction} data Updated data
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').tweenAction>} obj to Values
      */
-    doAction(data, props, obj) {
+    doAction(data, props = {}, obj) {
         this.values = mergeArrayTween(data, this.values);
         if (this.isActive) this.updateDataWhileRunning();
 

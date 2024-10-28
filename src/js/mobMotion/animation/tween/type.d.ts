@@ -1,5 +1,4 @@
 import { staggerObjectOptional } from '../utils/stagger/type';
-import { allActionType } from '../utils/tweenAction/type';
 
 export type easeTypes =
     | 'easeLinear'
@@ -93,37 +92,7 @@ export interface tweenStoreData extends tweenInitialData {
     toValProcessed: number | (() => number);
 }
 
-export type tweenSetData = (arg0: Record<string, number>) => void;
-
-export type tweenGoTo = (
-    obj: Record<string, number | (() => number)>,
-    props?: tweenAction
-) => ReturnType<tweenDoAction>;
-
-export type tweenGoFrom = (
-    obj: Record<string, number | (() => number)>,
-    props?: tweenAction
-) => ReturnType<tweenDoAction>;
-
-export type tweenGoFromTo = (
-    fromObj: Record<string, number | (() => number)>,
-    toObj: Record<string, number | (() => number)>,
-    props?: tweenAction
-) => ReturnType<tweenDoAction>;
-
-export type tweenSet = (
-    obj: Record<string, number | (() => number)>,
-    props?: tweenAction
-) => ReturnType<tweenDoAction>;
-
-export type tweenDoAction = (
-    data: allActionType[],
-    props?: tweenAction,
-    obj: Record<string, number | (() => number)>
-) => any | Promise<void>;
-
 export type tweenMergeProps = (props: tweenAction) => tweenDefault;
-
 export type tweenStop = (arg0?: tweenStopProps) => void;
 export type tweenPause = () => void;
 export type tweenResume = () => void;
