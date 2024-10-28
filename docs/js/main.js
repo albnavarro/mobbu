@@ -7536,7 +7536,6 @@
     }
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').lerpActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
     goTo(obj, props) {
       if (this.pauseStatus) return;
@@ -7546,7 +7545,6 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').lerpActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
     goFrom(obj, props) {
       if (this.pauseStatus) return;
@@ -7556,7 +7554,6 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').lerpActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
     goFromTo(fromObj, toObj, props) {
       if (this.pauseStatus) return;
@@ -7570,7 +7567,6 @@
     }
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').lerpActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
     set(obj, props) {
       if (this.pauseStatus) return;
@@ -9444,7 +9440,6 @@
     }
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').springActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').springActions>>}
      */
     goTo(obj, props) {
       if (this.pauseStatus) return;
@@ -9454,7 +9449,6 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').springActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').springActions>>}
      */
     goFrom(obj, props) {
       if (this.pauseStatus) return;
@@ -9464,7 +9458,6 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').springActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').springActions>>}
      */
     goFromTo(fromObj, toObj, props) {
       if (this.pauseStatus) return;
@@ -9478,7 +9471,6 @@
     }
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').springActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').springActions>>}
      */
     set(obj, props) {
       if (this.pauseStatus) return;
@@ -10145,7 +10137,6 @@
     }
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').tweenAction>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
     goTo(obj, props) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10155,7 +10146,6 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').tweenAction>} obj to Values
-     * @return {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
     goFrom(obj, props) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10165,7 +10155,6 @@
     }
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').tweenAction>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
     goFromTo(fromObj, toObj, props) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -10179,7 +10168,6 @@
     }
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').tweenAction>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
     set(obj, props) {
       if (this.pauseStatus || this.comeFromResume) this.stop();

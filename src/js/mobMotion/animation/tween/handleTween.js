@@ -625,7 +625,6 @@ export default class HandleTween {
 
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').tweenAction>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
     goTo(obj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -636,7 +635,6 @@ export default class HandleTween {
 
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').tweenAction>} obj to Values
-     * @return {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
     goFrom(obj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -647,7 +645,6 @@ export default class HandleTween {
 
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').tweenAction>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
     goFromTo(fromObj, toObj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -664,7 +661,6 @@ export default class HandleTween {
 
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').tweenAction>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').tweenAction>>}
      */
     set(obj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();

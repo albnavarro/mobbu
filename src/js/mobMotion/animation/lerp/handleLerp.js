@@ -541,7 +541,6 @@ export default class HandleLerp {
 
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').lerpActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
     goTo(obj, props) {
         if (this.pauseStatus) return;
@@ -552,7 +551,6 @@ export default class HandleLerp {
 
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').lerpActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
     goFrom(obj, props) {
         if (this.pauseStatus) return;
@@ -563,7 +561,6 @@ export default class HandleLerp {
 
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').lerpActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
     goFromTo(fromObj, toObj, props) {
         if (this.pauseStatus) return;
@@ -582,7 +579,6 @@ export default class HandleLerp {
 
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').lerpActions>} obj to Values
-     * @returns {ReturnType<import('../../utils/type.js').DoAction<import('./type.js').lerpActions>>}
      */
     set(obj, props) {
         if (this.pauseStatus) return;
