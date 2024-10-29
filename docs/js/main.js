@@ -7233,6 +7233,102 @@
   // src/js/mobMotion/animation/lerp/handleLerp.js
   var HandleLerp = class {
     /**
+     * @type {import('../utils/stagger/type.js').staggerObject}
+     */
+    #stagger;
+    /**
+     * @type {boolean}
+     */
+    #relative;
+    /**
+     * @type {number}
+     */
+    #velocity;
+    /**
+     * @type {number}
+     */
+    #precision;
+    /**
+     * @type {string}
+     */
+    #uniqueId;
+    /**
+     * @type {boolean}
+     */
+    #isActive;
+    /**
+     * @type{(value:any) => void|null }
+     */
+    #currentResolve;
+    /**
+     * @type{(value:any) => void|null}
+     */
+    #currentReject;
+    /**
+     * @type{Promise<void>|undefined}
+     */
+    #promise;
+    /**
+     * @type {import('./type.js').lerpValues[]|[]}
+     */
+    #values;
+    /**
+     * @type {import('./type.js').lerpInitialData[]}
+     */
+    #initialData;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callback;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<string>[]}
+     */
+    #callbackCache;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callbackOnComplete;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]}
+     */
+    #callbackStartInPause;
+    /**
+     * @type {Array<() => void>}
+     */
+    #unsubscribeCache;
+    /**
+     * @type {boolean}
+     */
+    #pauseStatus;
+    /**
+     * @type {boolean}
+     */
+    #firstRun;
+    /**
+     * @type {boolean}
+     */
+    #useStagger;
+    /**
+     * @type {boolean}
+     */
+    #fpsInLoading;
+    /**
+     * @description
+     * This value is the base value merged with new value in custom prop
+     * passed form user in goTo etc..
+     *
+     * @type {import('./type.js').lerpDefault}
+     **/
+    #defaultProps;
+    /**
+     * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
+     **/
+    #slowlestStagger;
+    /**
+     * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
+     */
+    #fastestStagger;
+    /**
      * @param {import('./type.js').lerpTweenProps} [ data  = {}]
      *
      * @example
@@ -7279,35 +7375,35 @@
      * ```
      */
     constructor(data2) {
-      this.stagger = getStaggerFromProps(data2);
-      this.relative = relativeIsValid(data2?.relative, "lerp");
-      this.velocity = lerpVelocityIsValid(data2?.velocity);
-      this.precision = lerpPrecisionIsValid(data2?.precision);
-      this.uniqueId = mobCore.getUnivoqueId();
-      this.isActive = false;
-      this.currentResolve = void 0;
-      this.currentReject = void 0;
-      this.promise = void 0;
-      this.values = [];
-      this.initialData = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.callbackOnComplete = [];
-      this.callbackStartInPause = [];
-      this.unsubscribeCache = [];
-      this.pauseStatus = false;
-      this.firstRun = true;
-      this.useStagger = true;
-      this.fpsInLoading = false;
-      this.defaultProps = {
+      this.#stagger = getStaggerFromProps(data2);
+      this.#relative = relativeIsValid(data2?.relative, "lerp");
+      this.#velocity = lerpVelocityIsValid(data2?.velocity);
+      this.#precision = lerpPrecisionIsValid(data2?.precision);
+      this.#uniqueId = mobCore.getUnivoqueId();
+      this.#isActive = false;
+      this.#currentResolve = void 0;
+      this.#currentReject = void 0;
+      this.#promise = void 0;
+      this.#values = [];
+      this.#initialData = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#callbackOnComplete = [];
+      this.#callbackStartInPause = [];
+      this.#unsubscribeCache = [];
+      this.#pauseStatus = false;
+      this.#firstRun = true;
+      this.#useStagger = true;
+      this.#fpsInLoading = false;
+      this.#defaultProps = {
         reverse: false,
-        velocity: this.velocity,
-        precision: this.precision,
-        relative: this.relative,
+        velocity: this.#velocity,
+        precision: this.#precision,
+        relative: this.#relative,
         immediate: false
       };
-      this.slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
-      this.fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
+      this.#slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
+      this.#fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
       const props = data2?.data || null;
       if (props) this.setData(props);
     }
@@ -7320,52 +7416,52 @@
      */
     draw(_time, fps2, res = () => {
     }) {
-      this.isActive = true;
-      this.values = lerpGetValuesOnDraw({
-        values: this.values,
+      this.#isActive = true;
+      this.#values = lerpGetValuesOnDraw({
+        values: this.#values,
         fps: fps2,
-        velocity: this.velocity,
-        precision: this.precision
+        velocity: this.#velocity,
+        precision: this.#precision
       });
-      const callBackObject = getValueObj(this.values, "currentValue");
+      const callBackObject = getValueObj(this.#values, "currentValue");
       defaultCallback({
-        stagger: this.stagger,
-        callback: this.callback,
-        callbackCache: this.callbackCache,
+        stagger: this.#stagger,
+        callback: this.#callback,
+        callbackCache: this.#callbackCache,
         callBackObject,
-        useStagger: this.useStagger
+        useStagger: this.#useStagger
       });
-      const allSettled = this.values.every((item) => item.settled === true);
+      const allSettled = this.#values.every((item) => item.settled === true);
       if (allSettled) {
         const onComplete2 = () => {
-          this.isActive = false;
-          this.values = [...this.values].map((item) => {
+          this.#isActive = false;
+          this.#values = [...this.#values].map((item) => {
             return { ...item, fromValue: item.toValue };
           });
-          if (!this.pauseStatus) {
+          if (!this.#pauseStatus) {
             res();
-            this.promise = void 0;
-            this.currentReject = void 0;
-            this.currentResolve = void 0;
+            this.#promise = void 0;
+            this.#currentReject = void 0;
+            this.#currentResolve = void 0;
           }
         };
-        const cbObjectSettled = getValueObj(this.values, "toValue");
+        const cbObjectSettled = getValueObj(this.#values, "toValue");
         defaultCallbackOnComplete({
           onComplete: onComplete2,
-          callback: this.callback,
-          callbackCache: this.callbackCache,
-          callbackOnComplete: this.callbackOnComplete,
+          callback: this.#callback,
+          callbackCache: this.#callbackCache,
+          callbackOnComplete: this.#callbackOnComplete,
           callBackObject: cbObjectSettled,
-          stagger: this.stagger,
-          slowlestStagger: this.slowlestStagger,
-          fastestStagger: this.fastestStagger,
-          useStagger: this.useStagger
+          stagger: this.#stagger,
+          slowlestStagger: this.#slowlestStagger,
+          fastestStagger: this.#fastestStagger,
+          useStagger: this.#useStagger
         });
         return;
       }
       mobCore.useFrame(() => {
         mobCore.useNextTick(({ time: time2, fps: fps3 }) => {
-          if (this.isActive) this.draw(time2, fps3, res);
+          if (this.#isActive) this.draw(time2, fps3, res);
         });
       });
     }
@@ -7377,7 +7473,7 @@
      * @param {(value:any) => void} res current promise resolve
      **/
     onReuqestAnim(time2, fps2, res) {
-      this.values = [...this.values].map((item) => {
+      this.#values = [...this.#values].map((item) => {
         return { ...item, currentValue: item.fromValue };
       });
       this.draw(time2, fps2, res);
@@ -7390,17 +7486,17 @@
      */
     async inzializeStagger() {
       if (shouldInizializzeStagger(
-        this.stagger.each,
-        this.firstRun,
-        this.callbackCache,
-        this.callback
+        this.#stagger.each,
+        this.#firstRun,
+        this.#callbackCache,
+        this.#callback
       )) {
         const { averageFPS } = await mobCore.useFps();
         fpsLoadedLog("lerp", averageFPS);
-        const cb = getStaggerArray(this.callbackCache, this.callback);
-        if (this.stagger.grid.col > cb.length) {
+        const cb = getStaggerArray(this.#callbackCache, this.#callback);
+        if (this.#stagger.grid.col > cb.length) {
           staggerIsOutOfRangeWarning(cb.length);
-          this.firstRun = false;
+          this.#firstRun = false;
           return;
         }
         const {
@@ -7410,20 +7506,20 @@
           slowlestStagger
         } = setStagger({
           arrayDefault: cb,
-          arrayOnStop: this.callbackOnComplete,
-          stagger: this.stagger,
-          slowlestStagger: this.slowlestStagger,
-          fastestStagger: this.fastestStagger
+          arrayOnStop: this.#callbackOnComplete,
+          stagger: this.#stagger,
+          slowlestStagger: this.#slowlestStagger,
+          fastestStagger: this.#fastestStagger
         });
-        if (this.callbackCache.length > this.callback.length) {
-          this.callbackCache = staggerArray;
+        if (this.#callbackCache.length > this.#callback.length) {
+          this.#callbackCache = staggerArray;
         } else {
-          this.callback = staggerArray;
+          this.#callback = staggerArray;
         }
-        this.callbackOnComplete = staggerArrayOnComplete;
-        this.slowlestStagger = slowlestStagger;
-        this.fastestStagger = fastestStagger;
-        this.firstRun = false;
+        this.#callbackOnComplete = staggerArrayOnComplete;
+        this.#slowlestStagger = slowlestStagger;
+        this.#fastestStagger = fastestStagger;
+        this.#firstRun = false;
       }
       return { ready: true };
     }
@@ -7435,16 +7531,16 @@
      * @returns {Promise}
      */
     async startRaf(res, reject) {
-      if (this.fpsInLoading) return;
-      this.currentResolve = res;
-      this.currentReject = reject;
-      if (this.firstRun) {
-        this.fpsInLoading = true;
+      if (this.#fpsInLoading) return;
+      this.#currentResolve = res;
+      this.#currentReject = reject;
+      if (this.#firstRun) {
+        this.#fpsInLoading = true;
         await this.inzializeStagger();
-        this.fpsInLoading = false;
+        this.#fpsInLoading = false;
       }
       initRaf(
-        this.callbackStartInPause,
+        this.#callbackStartInPause,
         this.onReuqestAnim.bind(this),
         this.pause.bind(this),
         res
@@ -7454,35 +7550,35 @@
      * @type {import('./type.js').lerpStop}
      */
     stop({ clearCache = true } = {}) {
-      if (this.pauseStatus) this.pauseStatus = false;
-      this.values = setFromToByCurrent(this.values);
-      if (this.isActive && clearCache)
-        this.callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
-      if (this.currentReject) {
-        this.currentReject(mobCore.ANIMATION_STOP_REJECT);
-        this.promise = void 0;
-        this.currentReject = void 0;
-        this.currentResolve = void 0;
+      if (this.#pauseStatus) this.#pauseStatus = false;
+      this.#values = setFromToByCurrent(this.#values);
+      if (this.#isActive && clearCache)
+        this.#callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
+      if (this.#currentReject) {
+        this.#currentReject(mobCore.ANIMATION_STOP_REJECT);
+        this.#promise = void 0;
+        this.#currentReject = void 0;
+        this.#currentResolve = void 0;
       }
-      if (this.isActive) this.isActive = false;
+      if (this.#isActive) this.#isActive = false;
     }
     /**
      * @type {import('./type.js').lerpPause}
      */
     pause() {
-      if (this.pauseStatus) return;
-      this.pauseStatus = true;
-      if (this.isActive) this.isActive = false;
-      this.values = setFromByCurrent(this.values);
+      if (this.#pauseStatus) return;
+      this.#pauseStatus = true;
+      if (this.#isActive) this.#isActive = false;
+      this.#values = setFromByCurrent(this.#values);
     }
     /**
      * @type {import('./type.js').lerpResume}
      */
     resume() {
-      if (!this.pauseStatus) return;
-      this.pauseStatus = false;
-      if (!this.isActive && this.currentResolve) {
-        resume(this.onReuqestAnim.bind(this), this.currentResolve);
+      if (!this.#pauseStatus) return;
+      this.#pauseStatus = false;
+      if (!this.#isActive && this.#currentResolve) {
+        resume(this.onReuqestAnim.bind(this), this.#currentResolve);
       }
     }
     /**
@@ -7492,7 +7588,7 @@
      * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
      */
     setData(obj) {
-      this.values = Object.entries(obj).map((item) => {
+      this.#values = Object.entries(obj).map((item) => {
         const [prop, value] = item;
         return {
           prop,
@@ -7506,7 +7602,7 @@
           settled: false
         };
       });
-      this.initialData = this.values.map((item) => {
+      this.#initialData = this.#values.map((item) => {
         return {
           prop: item.prop,
           toValue: item.toValue,
@@ -7519,26 +7615,26 @@
      * @type {import('./type.js').lerpResetData}
      */
     resetData() {
-      this.values = mergeDeep(this.values, this.initialData);
+      this.#values = mergeDeep(this.#values, this.#initialData);
     }
     /**
      * @private
      * @type  {import('./type.js').lerpMergeProps}
      */
     mergeProps(props) {
-      const newProps = { ...this.defaultProps, ...props };
+      const newProps = { ...this.#defaultProps, ...props };
       const { velocity, precision, relative } = newProps;
-      this.relative = relativeIsValid(relative, "lerp");
-      this.velocity = lerpVelocityIsValid(velocity);
-      this.precision = lerpPrecisionIsValid(precision);
+      this.#relative = relativeIsValid(relative, "lerp");
+      this.#velocity = lerpVelocityIsValid(velocity);
+      this.#precision = lerpPrecisionIsValid(precision);
       return newProps;
     }
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').lerpActions>} obj to Values
      */
     goTo(obj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = true;
+      if (this.#pauseStatus) return;
+      this.#useStagger = true;
       const data2 = goToUtils(obj);
       return this.doAction(data2, props, obj);
     }
@@ -7546,8 +7642,8 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').lerpActions>} obj to Values
      */
     goFrom(obj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = true;
+      if (this.#pauseStatus) return;
+      this.#useStagger = true;
       const data2 = goFromUtils(obj);
       return this.doAction(data2, props, obj);
     }
@@ -7555,11 +7651,11 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').lerpActions>} obj to Values
      */
     goFromTo(fromObj, toObj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = true;
+      if (this.#pauseStatus) return;
+      this.#useStagger = true;
       if (!compareKeys(fromObj, toObj)) {
         compareKeysWarning("lerp goFromTo:", fromObj, toObj);
-        return this.promise;
+        return this.#promise;
       }
       const data2 = goFromToUtils(fromObj, toObj);
       return this.doAction(data2, props, fromObj);
@@ -7568,8 +7664,8 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').lerpActions>} obj to Values
      */
     set(obj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = false;
+      if (this.#pauseStatus) return;
+      this.#useStagger = false;
       const data2 = setUtils(obj);
       return this.doAction(data2, props, obj);
     }
@@ -7577,16 +7673,16 @@
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').lerpActions>} obj to Values
      */
     setImmediate(obj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = false;
+      if (this.#pauseStatus) return;
+      this.#useStagger = false;
       const data2 = setUtils(obj);
-      this.values = mergeArray(data2, this.values);
+      this.#values = mergeArray(data2, this.#values);
       const { reverse } = this.mergeProps(props);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
-        this.values = setReverseValues(obj, this.values);
-      this.values = setRelative(this.values, this.relative);
-      this.values = setFromCurrentByTo(this.values);
-      this.isActive = false;
+        this.#values = setReverseValues(obj, this.#values);
+      this.#values = setRelative(this.#values, this.#relative);
+      this.#values = setFromCurrentByTo(this.#values);
+      this.#isActive = false;
       return;
     }
     /**
@@ -7594,22 +7690,22 @@
      * @type {import('../../utils/type.js').DoAction<import('./type.js').lerpActions>} obj to Values
      */
     doAction(data2, props, obj) {
-      this.values = mergeArray(data2, this.values);
+      this.#values = mergeArray(data2, this.#values);
       const { reverse, immediate } = this.mergeProps(props);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
-        this.values = setReverseValues(obj, this.values);
-      this.values = setRelative(this.values, this.relative);
+        this.#values = setReverseValues(obj, this.#values);
+      this.#values = setRelative(this.#values, this.#relative);
       if (valueIsBooleanAndTrue(immediate, "immediate ")) {
-        this.isActive = false;
-        this.values = setFromCurrentByTo(this.values);
+        this.#isActive = false;
+        this.#values = setFromCurrentByTo(this.#values);
         return Promise.resolve();
       }
-      if (!this.isActive) {
-        this.promise = new Promise((res, reject) => {
+      if (!this.#isActive) {
+        this.#promise = new Promise((res, reject) => {
           this.startRaf(res, reject);
         });
       }
-      if (this.promise) return this.promise;
+      if (this.#promise) return this.#promise;
     }
     /**
      * @description
@@ -7625,7 +7721,7 @@
      * ```
      */
     get() {
-      return getValueObj(this.values, "currentValue");
+      return getValueObj(this.#values, "currentValue");
     }
     /**
      * @description
@@ -7641,7 +7737,7 @@
      * ```
      */
     getInitialData() {
-      return getValueObj(this.initialData, "currentValue");
+      return getValueObj(this.#initialData, "currentValue");
     }
     /**
      * @description
@@ -7657,7 +7753,7 @@
      * ```
      */
     getFrom() {
-      return getValueObj(this.values, "fromValue");
+      return getValueObj(this.#values, "fromValue");
     }
     /**
      * @description
@@ -7673,7 +7769,7 @@
      * ```
      */
     getTo() {
-      return getValueObj(this.values, "toValue");
+      return getValueObj(this.#values, "toValue");
     }
     /**
      * @description
@@ -7689,7 +7785,7 @@
      * ```
      */
     getFromNativeType() {
-      return getValueObjFromNative(this.values);
+      return getValueObjFromNative(this.#values);
     }
     /**
      * @description
@@ -7705,7 +7801,7 @@
      * ```
      */
     getToNativeType() {
-      return getValueObjToNative(this.values);
+      return getValueObjToNative(this.#values);
     }
     /**
      * @description
@@ -7737,7 +7833,7 @@
      * ```
      */
     getId() {
-      return this.uniqueId;
+      return this.#uniqueId;
     }
     /**
      * @type  {import('./type.js').lerpUpdateVelocity} 
@@ -7755,9 +7851,9 @@
         The change will be persistent
      */
     updateVelocity(velocity) {
-      this.velocity = lerpVelocityIsValid(velocity);
-      this.defaultProps = mergeDeep(this.defaultProps, {
-        velocity: this.velocity
+      this.#velocity = lerpVelocityIsValid(velocity);
+      this.#defaultProps = mergeDeep(this.#defaultProps, {
+        velocity: this.#velocity
       });
     }
     /**
@@ -7776,9 +7872,9 @@
        The change will be persistent
      */
     updatePrecision(precision) {
-      this.velocity = lerpPrecisionIsValid(precision);
-      this.defaultProps = mergeDeep(this.defaultProps, {
-        precision: this.precision
+      this.#velocity = lerpPrecisionIsValid(precision);
+      this.#defaultProps = mergeDeep(this.#defaultProps, {
+        precision: this.#precision
       });
     }
     /**
@@ -7791,10 +7887,10 @@
     subscribe(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callback
+        this.#callback
       );
-      this.callback = arrayOfCallbackUpdated;
-      return () => this.callback = unsubscribeCb(this.callback);
+      this.#callback = arrayOfCallbackUpdated;
+      return () => this.#callback = unsubscribeCb(this.#callback);
     }
     /**
      * Support callback to asyncTimeline.
@@ -7808,11 +7904,11 @@
     onStartInPause(cb) {
       const { arrayOfCallbackUpdated } = setCallBack(
         cb,
-        this.callbackStartInPause
+        this.#callbackStartInPause
       );
-      this.callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
+      this.#callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
       arrayOfCallbackUpdated;
-      return () => this.callbackStartInPause = [];
+      return () => this.#callbackStartInPause = [];
     }
     /**
      * @type {import('./type.js').lerpOnComplete}
@@ -7826,10 +7922,12 @@
     onComplete(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callbackOnComplete
+        this.#callbackOnComplete
       );
-      this.callbackOnComplete = arrayOfCallbackUpdated;
-      return () => this.callbackOnComplete = unsubscribeCb(this.callbackOnComplete);
+      this.#callbackOnComplete = arrayOfCallbackUpdated;
+      return () => this.#callbackOnComplete = unsubscribeCb(
+        this.#callbackOnComplete
+      );
     }
     /**
      * @type {import('./type.js').lerpSubscribeCache}
@@ -7841,27 +7939,27 @@
       const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
         item,
         fn,
-        this.callbackCache,
-        this.unsubscribeCache
+        this.#callbackCache,
+        this.#unsubscribeCache
       );
-      this.callbackCache = arrayOfCallbackUpdated;
-      this.unsubscribeCache = unsubscribeCache;
-      return () => this.callbackCache = unsubscribeCb(this.callbackCache);
+      this.#callbackCache = arrayOfCallbackUpdated;
+      this.#unsubscribeCache = unsubscribeCache;
+      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
     }
     /**
      * @description
      * Destroy tween
      */
     destroy() {
-      if (this.promise) this.stop();
-      this.callbackOnComplete = [];
-      this.callbackStartInPause = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.values = [];
-      this.promise = void 0;
-      this.unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
-      this.unsubscribeCache = [];
+      if (this.#promise) this.stop();
+      this.#callbackOnComplete = [];
+      this.#callbackStartInPause = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#values = [];
+      this.#promise = void 0;
+      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      this.#unsubscribeCache = [];
     }
   };
 
@@ -7908,6 +8006,42 @@
   // src/js/mobMotion/animation/parallax/parallaxTween.js
   var ParallaxTween = class {
     /**
+     * @type {Function}
+     */
+    #ease;
+    /**
+     * @type {number}
+     */
+    #duration;
+    /**
+     * @type {import('../utils/stagger/type.js').staggerObject}
+     */
+    #stagger;
+    /**
+     * @type {import('./type.js').parallaxTweenValue[]}
+     */
+    #values;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callbackOnStop;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callback;
+    /**
+     * @type{import('../utils/callbacks/type.js').callbackObject<string>[]}
+     */
+    #callbackCache;
+    /**
+     * @type {Array<() => void>}
+     */
+    #unsubscribeCache;
+    /**
+     * @type {string}
+     */
+    #type;
+    /**
      * @param {import('./type.js').parallaxTweenType} data
      *
      * @example
@@ -7942,15 +8076,15 @@
      * ```
      */
     constructor(data2) {
-      this.ease = easeParallaxTweenIsValid(data2?.ease);
-      this.duration = durationIsValid(data2?.duration);
-      this.stagger = getStaggerFromProps(data2);
-      this.values = [];
-      this.callbackOnStop = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.unsubscribeCache = [];
-      this.type = "parallaxTween";
+      this.#ease = easeParallaxTweenIsValid(data2?.ease);
+      this.#duration = durationIsValid(data2?.duration);
+      this.#stagger = getStaggerFromProps(data2);
+      this.#values = [];
+      this.#callbackOnStop = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#unsubscribeCache = [];
+      this.#type = "parallaxTween";
       const props = data2?.from || null;
       if (props) this.setData(props);
       if (data2?.to) {
@@ -7964,27 +8098,27 @@
      * @returns {void}
      */
     inzializeStagger() {
-      if (this.stagger.each > 0 && (this.callbackCache.length > 0 || this.callback.length > 0)) {
-        const cb = getStaggerArray(this.callbackCache, this.callback);
-        if (this.stagger.grid.col > cb.length) {
+      if (this.#stagger.each > 0 && (this.#callbackCache.length > 0 || this.#callback.length > 0)) {
+        const cb = getStaggerArray(this.#callbackCache, this.#callback);
+        if (this.#stagger.grid.col > cb.length) {
           staggerIsOutOfRangeWarning(cb.length);
           return;
         }
         const { staggerArray, staggerArrayOnComplete } = setStagger({
           arrayDefault: cb,
-          arrayOnStop: this.callbackOnStop,
-          stagger: this.stagger,
+          arrayOnStop: this.#callbackOnStop,
+          stagger: this.#stagger,
           slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ,
           //sequencer doesn't support fastestStagger
           fastestStagger: STAGGER_DEFAULT_INDEX_OBJ
           //sequencer doesn't support fastestStagger
         });
-        if (this.callbackCache.length > this.callback.length) {
-          this.callbackCache = staggerArray;
+        if (this.#callbackCache.length > this.#callback.length) {
+          this.#callbackCache = staggerArray;
         } else {
-          this.callback = staggerArray;
+          this.#callback = staggerArray;
         }
-        this.callbackOnStop = staggerArrayOnComplete;
+        this.#callbackOnStop = staggerArrayOnComplete;
       }
     }
     /**
@@ -8004,32 +8138,32 @@
      * @description
      */
     draw({ partial, isLastDraw }) {
-      this.values = [...this.values].map((item) => {
+      this.#values = [...this.#values].map((item) => {
         const { toIsFn, toFn, toValue, fromIsFn, fromFn, fromValue } = item;
         const toValueParsed = toIsFn ? toFn() : toValue;
         const fromValueParsed = fromIsFn ? fromFn() : fromValue;
         const toValFinal = toValueParsed - fromValueParsed;
-        const currentValue = this.ease(
+        const currentValue = this.#ease(
           partial,
           fromValueParsed,
           toValFinal,
-          this.duration
+          this.#duration
         );
         return {
           ...item,
           currentValue: getRoundedValue(currentValue)
         };
       });
-      const callBackObject = getValueObj(this.values, "currentValue");
+      const callBackObject = getValueObj(this.#values, "currentValue");
       mobCore.useNextTick(() => {
         syncCallback({
-          each: this.stagger.each,
+          each: this.#stagger.each,
           useStagger: true,
           isLastDraw,
           callBackObject,
-          callback: this.callback,
-          callbackCache: this.callbackCache,
-          callbackOnStop: this.callbackOnStop
+          callback: this.#callback,
+          callbackCache: this.#callbackCache,
+          callbackOnStop: this.#callbackOnStop
         });
       });
     }
@@ -8039,7 +8173,7 @@
      */
     setData(obj) {
       const valToArray = Object.entries(obj);
-      this.values = valToArray.map((item) => {
+      this.#values = valToArray.map((item) => {
         const [prop, value] = item;
         return {
           prop,
@@ -8066,7 +8200,7 @@
      * @return {void}
      */
     mergeData(newData) {
-      this.values = this.values.map((item) => {
+      this.#values = this.#values.map((item) => {
         const itemToMerge = newData.find((newItem) => {
           return newItem.prop === item.prop;
         });
@@ -8095,10 +8229,10 @@
     subscribe(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callback
+        this.#callback
       );
-      this.callback = arrayOfCallbackUpdated;
-      return () => this.callback = unsubscribeCb(this.callback);
+      this.#callback = arrayOfCallbackUpdated;
+      return () => this.#callback = unsubscribeCb(this.#callback);
     }
     /**
      * @type {import('./type.js').parallaxTweenOnStop}
@@ -8111,10 +8245,10 @@
     onStop(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callbackOnStop
+        this.#callbackOnStop
       );
-      this.callbackOnStop = arrayOfCallbackUpdated;
-      return () => this.callbackOnStop = unsubscribeCb(this.callbackOnStop);
+      this.#callbackOnStop = arrayOfCallbackUpdated;
+      return () => this.#callbackOnStop = unsubscribeCb(this.#callbackOnStop);
     }
     /**
      * @type {import('./type.js').parallaxTweenSubscribeCache}
@@ -8123,12 +8257,12 @@
       const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
         item,
         fn,
-        this.callbackCache,
-        this.unsubscribeCache
+        this.#callbackCache,
+        this.#unsubscribeCache
       );
-      this.callbackCache = arrayOfCallbackUpdated;
-      this.unsubscribeCache = unsubscribeCache;
-      return () => this.callbackCache = unsubscribeCb(this.callbackCache);
+      this.#callbackCache = arrayOfCallbackUpdated;
+      this.#unsubscribeCache = unsubscribeCache;
+      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
     }
     /**
      * @description
@@ -8136,7 +8270,7 @@
      * @type {import('./type.js').parallaxTweenGetDuration}
      */
     getDuration() {
-      return this.duration;
+      return this.#duration;
     }
     /**
      * @description
@@ -8144,7 +8278,7 @@
      * @type {import('./type.js').parallaxTweenGetType}
      */
     getType() {
-      return this.type;
+      return this.#type;
     }
     /**
      * @description
@@ -8152,20 +8286,28 @@
      * @type {() => void}
      */
     destroy() {
-      this.values = [];
-      this.callbackOnStop = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
-      this.unsubscribeCache = [];
+      this.#values = [];
+      this.#callbackOnStop = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      this.#unsubscribeCache = [];
     }
   };
 
   // src/js/mobMotion/animation/sequencer/handleMasterSequencer.js
   var HandleMasterSequencer = class {
+    /**
+     * @trype {string}
+     */
+    #type;
+    /**
+     * @type {import("./type").masterSequencerItem[]}
+     */
+    #children;
     constructor() {
-      this.type = "sequencer";
-      this.children = [];
+      this.#type = "sequencer";
+      this.#children = [];
     }
     /**
      * @param {object} obj
@@ -8176,7 +8318,7 @@
      * @returns {void}
      */
     draw({ partial, isLastDraw, useFrame }) {
-      this.children.forEach((item) => {
+      this.#children.forEach((item) => {
         item.draw({ partial, isLastDraw, useFrame });
       });
     }
@@ -8185,13 +8327,13 @@
      * @returns {void}
      */
     add(item) {
-      this.children.push(item);
+      this.#children.push(item);
     }
     /**
      * @returns {void}
      */
     inzializeStagger() {
-      this.children.forEach((item) => {
+      this.#children.forEach((item) => {
         item.inzializeStagger();
       });
     }
@@ -8200,7 +8342,7 @@
      * @returns {void}
      */
     setDuration(val2) {
-      this.children.forEach((item) => {
+      this.#children.forEach((item) => {
         item.setDuration(val2);
       });
     }
@@ -8208,14 +8350,14 @@
      * @returns {number}
      */
     getDuration() {
-      return this.children.length > 0 ? this.children[0].getDuration() : 0;
+      return this.#children.length > 0 ? this.#children[0].getDuration() : 0;
     }
     /**
      * @param {number} val
      * @returns {void}
      */
     setStretchFactor(val2) {
-      this.children.forEach((item) => {
+      this.#children.forEach((item) => {
         item.setStretchFactor(val2);
       });
     }
@@ -8223,19 +8365,19 @@
      * @returns {Array<string>}
      */
     getLabels() {
-      return this.children.flatMap((item) => item.getLabels());
+      return this.#children.flatMap((item) => item.getLabels());
     }
     /**
      * @returns {void}
      */
     resetLastValue() {
-      this.children.forEach((item) => item.resetLastValue());
+      this.#children.forEach((item) => item.resetLastValue());
     }
     /**
      * @returns {void}
      */
     disableStagger() {
-      this.children.forEach((item) => {
+      this.#children.forEach((item) => {
         item.disableStagger();
       });
     }
@@ -8243,7 +8385,7 @@
      * @returns {void}
      */
     cleanCachedId() {
-      this.children.forEach((item) => {
+      this.#children.forEach((item) => {
         item.cleanCachedId();
       });
     }
@@ -8251,16 +8393,16 @@
      * @returns {string}
      */
     getType() {
-      return this.type;
+      return this.#type;
     }
     /**
      * @returns {void}
      */
     destroy() {
-      this.children.forEach((item) => {
+      this.#children.forEach((item) => {
         item.destroy();
       });
-      this.children = [];
+      this.#children = [];
     }
   };
 
@@ -8491,6 +8633,84 @@
   // src/js/mobMotion/animation/sequencer/handleSequencer.js
   var HandleSequencer = class {
     /**
+     * Basic array with all the propierties, is created in setData methods
+     * in draw methods currentValue and settled will be updated for each prop
+     *
+     * it is used as a mock to create the array to add to the timeline
+     * @type {import('./type.js').sequencerValue[]}
+     */
+    #values;
+    /**
+     * Timeline array
+     *
+     * @type {import('./type.js').sequencerRow[]}
+     */
+    #timeline;
+    /**
+     * @type {import('./type.js').labelType[]}
+     */
+    #labels;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callback;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<string>[]}
+     */
+    #callbackCache;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callbackOnStop;
+    /**
+     * @type {import('./type.js').addType[]}
+     */
+    #callbackAdd;
+    /**
+     * @type {Array<() => void>}
+     */
+    #unsubscribeCache;
+    /**
+     * @type {number}
+     */
+    #duration;
+    /**
+     * @type {string}
+     */
+    #type;
+    /**
+     * @type {import('./type.js').sequencerDefault}
+     */
+    #defaultProp;
+    /**
+     * @type {boolean}
+     */
+    #firstRun;
+    /**
+     * @type {boolean}
+     */
+    #forceAddFnAtFirstRun;
+    /**
+     * @type {import('../utils/timeline/type.js').directionType}
+     */
+    #direction;
+    /**
+     * @type {number}
+     */
+    #lastPartial;
+    /**
+     * @type {import('../utils/stagger/type.js').staggerObject}
+     */
+    #stagger;
+    /**
+     * @type {boolean}
+     */
+    #useStagger;
+    /**
+     * @type {boolean}
+     */
+    #staggerIsReady;
+    /**
      * @param {import('./type.js').sequencerProps} data
      *
      * @example
@@ -8528,29 +8748,28 @@
      * ```
      */
     constructor(data2) {
-      this.values = [];
-      this.timeline = [];
-      this.labels = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.callbackOnStop = [];
-      this.callbackAdd = [];
-      this.unsubscribeCache = [];
-      this.duration = durationIsValid(data2?.duration);
-      this.type = "sequencer";
-      this.defaultProp = {
+      this.#values = [];
+      this.#timeline = [];
+      this.#labels = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#callbackOnStop = [];
+      this.#callbackAdd = [];
+      this.#unsubscribeCache = [];
+      this.#duration = durationIsValid(data2?.duration);
+      this.#type = "sequencer";
+      this.#defaultProp = {
         start: 0,
-        end: this.duration,
+        end: this.#duration,
         ease: easeIsValid(data2?.ease)
       };
-      this.firstRun = true;
-      this.forceAddFnAtFirstRun = true;
-      this.direction = "none";
-      this.lastPartial = 0;
-      this.lastDirection = "none";
-      this.stagger = getStaggerFromProps(data2);
-      this.useStagger = true;
-      this.staggerIsReady = false;
+      this.#firstRun = true;
+      this.#forceAddFnAtFirstRun = true;
+      this.#direction = "none";
+      this.#lastPartial = 0;
+      this.#stagger = getStaggerFromProps(data2);
+      this.#useStagger = true;
+      this.#staggerIsReady = false;
       const props = data2?.data || null;
       if (props) this.setData(props);
     }
@@ -8559,30 +8778,30 @@
      * Inzialize stagger array
      */
     inzializeStagger() {
-      if (this.staggerIsReady) return;
-      if (this.stagger.each > 0 && (this.callbackCache.length > 0 || this.callback.length > 0)) {
-        const cb = getStaggerArray(this.callbackCache, this.callback);
-        if (this.stagger.grid.col > cb.length) {
+      if (this.#staggerIsReady) return;
+      if (this.#stagger.each > 0 && (this.#callbackCache.length > 0 || this.#callback.length > 0)) {
+        const cb = getStaggerArray(this.#callbackCache, this.#callback);
+        if (this.#stagger.grid.col > cb.length) {
           staggerIsOutOfRangeWarning(cb.length);
           return;
         }
         const { staggerArray, staggerArrayOnComplete } = setStagger({
           arrayDefault: cb,
-          arrayOnStop: this.callbackOnStop,
-          stagger: this.stagger,
+          arrayOnStop: this.#callbackOnStop,
+          stagger: this.#stagger,
           slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ,
           //sequencer doesn't support fastestStagger
           fastestStagger: STAGGER_DEFAULT_INDEX_OBJ
           //sequencer doesn't support fastestStagger
         });
-        if (this.callbackCache.length > this.callback.length) {
-          this.callbackCache = staggerArray;
+        if (this.#callbackCache.length > this.#callback.length) {
+          this.#callbackCache = staggerArray;
         } else {
-          this.callback = staggerArray;
+          this.#callback = staggerArray;
         }
-        this.callbackOnStop = staggerArrayOnComplete;
+        this.#callbackOnStop = staggerArrayOnComplete;
       }
-      this.staggerIsReady = true;
+      this.#staggerIsReady = true;
     }
     /**
      * @param {object} obj
@@ -8640,42 +8859,41 @@
       isLastDraw = false,
       direction: direction2 = directionConstant.NONE
     }) {
-      if (this.firstRun) {
-        this.lastPartial = partial;
+      if (this.#firstRun) {
+        this.#lastPartial = partial;
         this.actionAtFirstRender(partial);
       }
-      if (!this.firstRun && this.lastPartial && (!direction2 || direction2 === directionConstant.NONE)) {
-        this.direction = partial >= this.lastPartial ? directionConstant.FORWARD : directionConstant.BACKWARD;
+      if (!this.#firstRun && this.#lastPartial && (!direction2 || direction2 === directionConstant.NONE)) {
+        this.#direction = partial >= this.#lastPartial ? directionConstant.FORWARD : directionConstant.BACKWARD;
       }
-      if (!this.firstRun && (direction2 === directionConstant.BACKWARD || direction2 === directionConstant.FORWARD)) {
-        this.direction = direction2;
+      if (!this.#firstRun && (direction2 === directionConstant.BACKWARD || direction2 === directionConstant.FORWARD)) {
+        this.#direction = direction2;
       }
-      this.values = [...this.values].map((item) => {
+      this.#values = [...this.#values].map((item) => {
         return {
           ...item,
           settled: false
         };
       });
-      this.values = sequencerGetValusOnDraw({
-        timeline: this.timeline,
-        valuesState: this.values,
+      this.#values = sequencerGetValusOnDraw({
+        timeline: this.#timeline,
+        valuesState: this.#values,
         partial
       });
-      const callBackObject = getValueObj(this.values, "currentValue");
+      const callBackObject = getValueObj(this.#values, "currentValue");
       syncCallback({
-        each: this.stagger.each,
-        useStagger: this.useStagger,
+        each: this.#stagger.each,
+        useStagger: this.#useStagger,
         isLastDraw,
         callBackObject,
-        callback: this.callback,
-        callbackCache: this.callbackCache,
-        callbackOnStop: this.callbackOnStop
+        callback: this.#callback,
+        callbackCache: this.#callbackCache,
+        callbackOnStop: this.#callbackOnStop
       });
       this.fireAddCallBack(partial);
-      this.useStagger = true;
-      this.lastPartial = partial;
-      this.lastDirection = this.direction;
-      this.firstRun = false;
+      this.#useStagger = true;
+      this.#lastPartial = partial;
+      this.#firstRun = false;
     }
     /**
      * @description
@@ -8683,9 +8901,8 @@
      * Reset the data that control add callback to have a new clean state
      */
     resetLastValue() {
-      this.firstRun = true;
-      this.lastPartial = 0;
-      this.lastDirection = directionConstant.NONE;
+      this.#firstRun = true;
+      this.#lastPartial = 0;
     }
     /**
      * @private
@@ -8699,8 +8916,8 @@
      * To skip this callback, check isForce prop in callback
      */
     actionAtFirstRender(time2 = 0) {
-      if (!this.forceAddFnAtFirstRun) return;
-      this.callbackAdd.forEach(({ fn, time: fnTime }) => {
+      if (!this.#forceAddFnAtFirstRun) return;
+      this.#callbackAdd.forEach(({ fn, time: fnTime }) => {
         const mustFireForward = {
           shouldFire: time2 >= fnTime,
           direction: directionConstant.FORWARD
@@ -8714,7 +8931,7 @@
         const direction2 = mustFireForward.shouldFire ? mustFireForward.direction : mustFireBackward.direction;
         fn({ direction: direction2, value: time2, isForced: true });
       });
-      this.forceAddFnAtFirstRun = false;
+      this.#forceAddFnAtFirstRun = false;
     }
     /**
      * @private
@@ -8726,12 +8943,12 @@
      *
      */
     fireAddCallBack(time2 = 0) {
-      this.callbackAdd.forEach(({ fn, time: fnTime }) => {
-        const mustFireForward = this.direction === directionConstant.FORWARD && time2 > fnTime && this.lastPartial <= fnTime;
-        const mustFireBackward = this.direction === directionConstant.BACKWARD && time2 < fnTime && this.lastPartial >= fnTime;
+      this.#callbackAdd.forEach(({ fn, time: fnTime }) => {
+        const mustFireForward = this.#direction === directionConstant.FORWARD && time2 > fnTime && this.#lastPartial <= fnTime;
+        const mustFireBackward = this.#direction === directionConstant.BACKWARD && time2 < fnTime && this.#lastPartial >= fnTime;
         const mustFire = mustFireForward || mustFireBackward;
         if (!mustFire) return;
-        fn({ direction: this.direction, value: time2, isForced: false });
+        fn({ direction: this.#direction, value: time2, isForced: false });
       });
     }
     /**
@@ -8743,8 +8960,8 @@
      * This methods is called by SyncTimeline
      */
     setStretchFactor(duration2 = 0) {
-      const stretchFactor = duration2 / this.duration;
-      this.timeline = [...this.timeline].map((item) => {
+      const stretchFactor = duration2 / this.#duration;
+      this.#timeline = [...this.#timeline].map((item) => {
         const { start, end } = item;
         return {
           ...item,
@@ -8752,14 +8969,14 @@
           end: getRoundedValue(end * stretchFactor)
         };
       });
-      this.labels = [...this.labels].map((item) => {
+      this.#labels = [...this.#labels].map((item) => {
         const { time: time2 } = item;
         return {
           ...item,
           time: getRoundedValue(time2 * stretchFactor)
         };
       });
-      this.callbackAdd = [...this.callbackAdd].map((item) => {
+      this.#callbackAdd = [...this.#callbackAdd].map((item) => {
         const { time: time2 } = item;
         return {
           ...item,
@@ -8771,7 +8988,7 @@
      * @type {import('./type.js').sequencerSetData}
      */
     setData(obj = {}) {
-      this.values = Object.entries(obj).map((item) => {
+      this.#values = Object.entries(obj).map((item) => {
         const [prop, value] = item;
         const isValid = initialDataPropValidate(prop, value);
         const valueSanitized = isValid ? value : 0;
@@ -8806,21 +9023,21 @@
      * It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
      */
     goTo(obj, props) {
-      const propMerged = { ...this.defaultProp, ...props };
+      const propMerged = { ...this.#defaultProp, ...props };
       const { start, end, ease } = propMerged;
       if (!sequencerRangeValidate({ start, end })) return this;
       const data2 = goToSyncUtils(obj, ease);
-      const newValues = mergeNewValues({ data: data2, values: this.values });
+      const newValues = mergeNewValues({ data: data2, values: this.#values });
       const activeProp = Object.keys(obj);
       const newTimeline = insertNewRow({
-        timeline: this.timeline,
+        timeline: this.#timeline,
         values: newValues,
         start,
         end,
-        duration: this.duration,
+        duration: this.#duration,
         propToFind: "fromValue"
       });
-      this.timeline = setPropFromAncestor({
+      this.#timeline = setPropFromAncestor({
         timeline: newTimeline,
         activeProp
       });
@@ -8844,21 +9061,21 @@
      * It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
      */
     goFrom(obj, props) {
-      const propMerged = { ...this.defaultProp, ...props };
+      const propMerged = { ...this.#defaultProp, ...props };
       const { start, end, ease } = propMerged;
       if (!sequencerRangeValidate({ start, end })) return this;
       const data2 = goFromSyncUtils(obj, ease);
-      const newValues = mergeNewValues({ data: data2, values: this.values });
+      const newValues = mergeNewValues({ data: data2, values: this.#values });
       const activeProp = Object.keys(obj);
       const newTimeline = insertNewRow({
-        timeline: this.timeline,
+        timeline: this.#timeline,
         values: newValues,
         start,
         end,
-        duration: this.duration,
+        duration: this.#duration,
         propToFind: "toValue"
       });
-      this.timeline = setPropFromAncestor({
+      this.#timeline = setPropFromAncestor({
         timeline: newTimeline,
         activeProp
       });
@@ -8884,7 +9101,7 @@
      * It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
      */
     goFromTo(fromObj, toObj, props) {
-      const propMerged = { ...this.defaultProp, ...props };
+      const propMerged = { ...this.#defaultProp, ...props };
       const { start, end, ease } = propMerged;
       if (!sequencerRangeValidate({ start, end })) return this;
       if (!compareKeys(fromObj, toObj)) {
@@ -8892,13 +9109,13 @@
         return;
       }
       const data2 = goFromToSyncUtils(fromObj, toObj, ease);
-      const newValues = mergeNewValues({ data: data2, values: this.values });
-      this.timeline = insertNewRow({
-        timeline: this.timeline,
+      const newValues = mergeNewValues({ data: data2, values: this.#values });
+      this.#timeline = insertNewRow({
+        timeline: this.#timeline,
         values: newValues,
         start,
         end,
-        duration: this.duration,
+        duration: this.#duration,
         propToFind: ""
       });
       return this;
@@ -8917,7 +9134,7 @@
      * Both syncTimeline and scrollTrigger will take care of processing the value as needed
      */
     label(name = "", time2 = 0) {
-      this.labels.push({ name, time: time2 });
+      this.#labels.push({ name, time: time2 });
       return this;
     }
     /**
@@ -8925,7 +9142,7 @@
      * @type {import('./type.js').sequencerGetLabels}
      */
     getLabels() {
-      return this.labels;
+      return this.#labels;
     }
     /**
      * @type {import('./type.js').sequencerAdd}
@@ -8945,7 +9162,7 @@
       if (!fnIsValid) syncTimelineAddFnWarning(fn);
       if (!timeIsValid) syncTimelineAddTimeWarning(time2);
       if (!addIsValid) return this;
-      this.callbackAdd.push({ fn, time: time2 });
+      this.#callbackAdd.push({ fn, time: time2 });
       return this;
     }
     /**
@@ -8958,10 +9175,10 @@
     }) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callback
+        this.#callback
       );
-      this.callback = arrayOfCallbackUpdated;
-      return () => this.callback = unsubscribeCb(this.callback);
+      this.#callback = arrayOfCallbackUpdated;
+      return () => this.#callback = unsubscribeCb(this.#callback);
     }
     /**
      * @type {import('./type.js').sequencerOnStop}
@@ -8974,10 +9191,10 @@
     onStop(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callbackOnStop
+        this.#callbackOnStop
       );
-      this.callbackOnStop = arrayOfCallbackUpdated;
-      return () => this.callbackOnStop = unsubscribeCb(this.callbackOnStop);
+      this.#callbackOnStop = arrayOfCallbackUpdated;
+      return () => this.#callbackOnStop = unsubscribeCb(this.#callbackOnStop);
     }
     /**
      * @type {import('./type.js').sequencerSubscribeCache}
@@ -8990,12 +9207,12 @@
       const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
         item,
         fn,
-        this.callbackCache,
-        this.unsubscribeCache
+        this.#callbackCache,
+        this.#unsubscribeCache
       );
-      this.callbackCache = arrayOfCallbackUpdated;
-      this.unsubscribeCache = unsubscribeCache;
-      return () => this.callbackCache = unsubscribeCb(this.callbackCache);
+      this.#callbackCache = arrayOfCallbackUpdated;
+      this.#unsubscribeCache = unsubscribeCache;
+      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
     }
     /**
      * @description
@@ -9003,7 +9220,7 @@
      * @type {import('./type.js').sequencerGetDuration}
      */
     getDuration() {
-      return this.duration;
+      return this.#duration;
     }
     /**
      * @description
@@ -9011,7 +9228,7 @@
      * @type {import('./type.js').sequencerSetDuration}
      */
     setDuration(val2 = 0) {
-      this.duration = val2;
+      this.#duration = val2;
     }
     /**
      * @type {import('./type.js').sequencerGetType}
@@ -9019,21 +9236,21 @@
      * Get tween type - 'sequencer'
      */
     getType() {
-      return this.type;
+      return this.#type;
     }
     /**
      * @description
      * Removes all references of staggers not yet started by the handleCache function, method used by HandleSyncTimeline when it is stopped
      */
     cleanCachedId() {
-      this.callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
+      this.#callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
     }
     /**
      * @description
      * Disable stagger for one run
      **/
     disableStagger() {
-      this.useStagger = false;
+      this.#useStagger = false;
     }
     /**
      * @type {() => void}
@@ -9041,14 +9258,14 @@
      * Destroy sequencer
      */
     destroy() {
-      this.values = [];
-      this.timeline = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.callbackOnStop = [];
-      this.callbackAdd = [];
-      this.unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
-      this.unsubscribeCache = [];
+      this.#values = [];
+      this.#timeline = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#callbackOnStop = [];
+      this.#callbackAdd = [];
+      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      this.#unsubscribeCache = [];
     }
   };
 
@@ -9091,6 +9308,100 @@
 
   // src/js/mobMotion/animation/spring/handleSpring.js
   var HandleSpring = class {
+    /**
+     * @type {import('../utils/stagger/type.js').staggerObject}
+     */
+    #stagger;
+    /**
+     * @type {boolean}
+     */
+    #relative;
+    /**
+     * @type {import('./type.js').springProps}
+     *
+     * This value lives from user call ( goTo etc..) until next call
+     **/
+    #configProps;
+    /**
+     * @type {string}
+     */
+    #uniqueId;
+    /**
+     * @type {boolean}
+     */
+    #isActive;
+    /**
+     * @type{(value:any) => void|null}
+     */
+    #currentResolve;
+    /**
+     * @type{(value:any) => void|null}
+     */
+    #currentReject;
+    /**
+     * @type{Promise<void>|undefined}
+     */
+    #promise;
+    /**
+     * @type {import('./type.js').springValues[]|[]}
+     */
+    #values;
+    /**
+     * @type {import('./type.js').springInitialData[]}
+     */
+    #initialData;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callback;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<string>[]}
+     */
+    #callbackCache;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callbackOnComplete;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]}
+     */
+    #callbackStartInPause;
+    /**
+     * @type {Array<() => void>}
+     */
+    #unsubscribeCache;
+    /**
+     * @type {boolean}
+     */
+    #pauseStatus;
+    /**
+     * @type {boolean}
+     */
+    #firstRun;
+    /**
+     * @type {boolean}
+     */
+    #useStagger;
+    /**
+     * @type {boolean}
+     */
+    #fpsInLoading;
+    /**
+     * @description
+     * This value is the base value merged with new value in custom prop
+     * passed form user in goTo etc..
+     *
+     * @type {import('./type.js').springDefault}
+     **/
+    #defaultProps;
+    /**
+     * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
+     */
+    #slowlestStagger;
+    /**
+     * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
+     */
+    #fastestStagger;
     /**
      * @param {import('./type.js').springTweenProps} [ data = {} ]
      *
@@ -9144,34 +9455,34 @@
      * ```
      */
     constructor(data2) {
-      this.stagger = getStaggerFromProps(data2);
-      this.relative = relativeIsValid(data2?.relative, "spring");
-      this.configProps = springConfigIsValidAndGetNew(data2?.config);
+      this.#stagger = getStaggerFromProps(data2);
+      this.#relative = relativeIsValid(data2?.relative, "spring");
+      this.#configProps = springConfigIsValidAndGetNew(data2?.config);
       this.updateConfigProp(data2?.configProp);
-      this.uniqueId = mobCore.getUnivoqueId();
-      this.isActive = false;
-      this.currentResolve = void 0;
-      this.currentReject = void 0;
-      this.promise = void 0;
-      this.values = [];
-      this.initialData = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.callbackOnComplete = [];
-      this.callbackStartInPause = [];
-      this.unsubscribeCache = [];
-      this.pauseStatus = false;
-      this.firstRun = true;
-      this.useStagger = true;
-      this.fpsInLoading = false;
-      this.defaultProps = {
+      this.#uniqueId = mobCore.getUnivoqueId();
+      this.#isActive = false;
+      this.#currentResolve = void 0;
+      this.#currentReject = void 0;
+      this.#promise = void 0;
+      this.#values = [];
+      this.#initialData = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#callbackOnComplete = [];
+      this.#callbackStartInPause = [];
+      this.#unsubscribeCache = [];
+      this.#pauseStatus = false;
+      this.#firstRun = true;
+      this.#useStagger = true;
+      this.#fpsInLoading = false;
+      this.#defaultProps = {
         reverse: false,
-        configProps: this.configProps,
-        relative: this.relative,
+        configProps: this.#configProps,
+        relative: this.#relative,
         immediate: false
       };
-      this.slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
-      this.fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
+      this.#slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
+      this.#fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
       const props = data2?.data || null;
       if (props) this.setData(props);
     }
@@ -9188,57 +9499,57 @@
      */
     draw(_time, fps2, res = () => {
     }, tension, friction, mass, precision) {
-      this.isActive = true;
-      this.values = springGetValuesOndraw({
-        values: this.values,
+      this.#isActive = true;
+      this.#values = springGetValuesOndraw({
+        values: this.#values,
         tension,
         friction,
         mass,
         precision,
         fps: fps2
       });
-      const callBackObject = getValueObj(this.values, "currentValue");
+      const callBackObject = getValueObj(this.#values, "currentValue");
       defaultCallback({
-        stagger: this.stagger,
-        callback: this.callback,
-        callbackCache: this.callbackCache,
+        stagger: this.#stagger,
+        callback: this.#callback,
+        callbackCache: this.#callbackCache,
         callBackObject,
-        useStagger: this.useStagger
+        useStagger: this.#useStagger
       });
-      const allSettled = this.values.every((item) => item.settled === true);
+      const allSettled = this.#values.every((item) => item.settled === true);
       if (allSettled) {
         const onComplete2 = () => {
-          this.isActive = false;
-          this.values = [...this.values].map((item) => {
+          this.#isActive = false;
+          this.#values = [...this.#values].map((item) => {
             return {
               ...item,
               fromValue: item.toValue
             };
           });
-          if (!this.pauseStatus) {
+          if (!this.#pauseStatus) {
             res();
-            this.promise = void 0;
-            this.currentReject = void 0;
-            this.currentResolve = void 0;
+            this.#promise = void 0;
+            this.#currentReject = void 0;
+            this.#currentResolve = void 0;
           }
         };
-        const cbObjectSettled = getValueObj(this.values, "toValue");
+        const cbObjectSettled = getValueObj(this.#values, "toValue");
         defaultCallbackOnComplete({
           onComplete: onComplete2,
-          callback: this.callback,
-          callbackCache: this.callbackCache,
-          callbackOnComplete: this.callbackOnComplete,
+          callback: this.#callback,
+          callbackCache: this.#callbackCache,
+          callbackOnComplete: this.#callbackOnComplete,
           callBackObject: cbObjectSettled,
-          stagger: this.stagger,
-          slowlestStagger: this.slowlestStagger,
-          fastestStagger: this.fastestStagger,
-          useStagger: this.useStagger
+          stagger: this.#stagger,
+          slowlestStagger: this.#slowlestStagger,
+          fastestStagger: this.#fastestStagger,
+          useStagger: this.#useStagger
         });
         return;
       }
       mobCore.useFrame(() => {
         mobCore.useNextTick(({ time: time2, fps: fps3 }) => {
-          if (this.isActive)
+          if (this.#isActive)
             this.draw(
               time2,
               fps3,
@@ -9259,16 +9570,16 @@
      * @param {Function} res current promise resolve
      **/
     onReuqestAnim(time2, fps2, res) {
-      this.values = [...this.values].map((item) => {
+      this.#values = [...this.#values].map((item) => {
         return {
           ...item,
-          velocity: Math.trunc(this.configProps.velocity)
+          velocity: Math.trunc(this.#configProps.velocity)
         };
       });
-      const tension = this.configProps.tension;
-      const friction = this.configProps.friction;
-      const mass = Math.max(1, this.configProps.mass);
-      const precision = this.configProps.precision;
+      const tension = this.#configProps.tension;
+      const friction = this.#configProps.friction;
+      const mass = Math.max(1, this.#configProps.mass);
+      const precision = this.#configProps.precision;
       this.draw(time2, fps2, res, tension, friction, mass, precision);
     }
     /**
@@ -9279,17 +9590,17 @@
      */
     async inzializeStagger() {
       if (shouldInizializzeStagger(
-        this.stagger.each,
-        this.firstRun,
-        this.callbackCache,
-        this.callback
+        this.#stagger.each,
+        this.#firstRun,
+        this.#callbackCache,
+        this.#callback
       )) {
         const { averageFPS } = await mobCore.useFps();
         fpsLoadedLog("spring", averageFPS);
-        const cb = getStaggerArray(this.callbackCache, this.callback);
-        if (this.stagger.grid.col > cb.length) {
+        const cb = getStaggerArray(this.#callbackCache, this.#callback);
+        if (this.#stagger.grid.col > cb.length) {
           staggerIsOutOfRangeWarning(cb.length);
-          this.firstRun = false;
+          this.#firstRun = false;
           return;
         }
         const {
@@ -9299,20 +9610,20 @@
           slowlestStagger
         } = setStagger({
           arrayDefault: cb,
-          arrayOnStop: this.callbackOnComplete,
-          stagger: this.stagger,
-          slowlestStagger: this.slowlestStagger,
-          fastestStagger: this.fastestStagger
+          arrayOnStop: this.#callbackOnComplete,
+          stagger: this.#stagger,
+          slowlestStagger: this.#slowlestStagger,
+          fastestStagger: this.#fastestStagger
         });
-        if (this.callbackCache.length > this.callback.length) {
-          this.callbackCache = staggerArray;
+        if (this.#callbackCache.length > this.#callback.length) {
+          this.#callbackCache = staggerArray;
         } else {
-          this.callback = staggerArray;
+          this.#callback = staggerArray;
         }
-        this.callbackOnComplete = staggerArrayOnComplete;
-        this.slowlestStagger = slowlestStagger;
-        this.fastestStagger = fastestStagger;
-        this.firstRun = false;
+        this.#callbackOnComplete = staggerArrayOnComplete;
+        this.#slowlestStagger = slowlestStagger;
+        this.#fastestStagger = fastestStagger;
+        this.#firstRun = false;
       }
       return { ready: true };
     }
@@ -9324,16 +9635,16 @@
      * @returns {Promise}
      */
     async startRaf(res, reject) {
-      if (this.fpsInLoading) return;
-      this.currentResolve = res;
-      this.currentReject = reject;
-      if (this.firstRun) {
-        this.fpsInLoading = true;
+      if (this.#fpsInLoading) return;
+      this.#currentResolve = res;
+      this.#currentReject = reject;
+      if (this.#firstRun) {
+        this.#fpsInLoading = true;
         await this.inzializeStagger();
-        this.fpsInLoading = false;
+        this.#fpsInLoading = false;
       }
       initRaf(
-        this.callbackStartInPause,
+        this.#callbackStartInPause,
         this.onReuqestAnim.bind(this),
         this.pause.bind(this),
         res
@@ -9343,37 +9654,37 @@
      * @type {import('./type.js').springStop}
      */
     stop({ clearCache = true } = {}) {
-      if (this.pauseStatus) this.pauseStatus = false;
-      this.values = setFromToByCurrent(this.values);
-      if (this.isActive && clearCache)
-        this.callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
-      if (this.currentReject) {
-        this.currentReject(mobCore.ANIMATION_STOP_REJECT);
-        this.promise = void 0;
-        this.currentReject = void 0;
-        this.currentResolve = void 0;
+      if (this.#pauseStatus) this.#pauseStatus = false;
+      this.#values = setFromToByCurrent(this.#values);
+      if (this.#isActive && clearCache)
+        this.#callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
+      if (this.#currentReject) {
+        this.#currentReject(mobCore.ANIMATION_STOP_REJECT);
+        this.#promise = void 0;
+        this.#currentReject = void 0;
+        this.#currentResolve = void 0;
       }
-      if (this.isActive) {
-        this.isActive = false;
+      if (this.#isActive) {
+        this.#isActive = false;
       }
     }
     /**
      * @type {import('./type.js').springPause}
      */
     pause() {
-      if (this.pauseStatus) return;
-      this.pauseStatus = true;
-      if (this.isActive) this.isActive = false;
-      this.values = setFromByCurrent(this.values);
+      if (this.#pauseStatus) return;
+      this.#pauseStatus = true;
+      if (this.#isActive) this.#isActive = false;
+      this.#values = setFromByCurrent(this.#values);
     }
     /**
      * @type {import('./type.js').springResume}
      */
     resume() {
-      if (!this.pauseStatus) return;
-      this.pauseStatus = false;
-      if (!this.isActive && this.currentResolve) {
-        resume(this.onReuqestAnim.bind(this), this.currentResolve);
+      if (!this.#pauseStatus) return;
+      this.#pauseStatus = false;
+      if (!this.#isActive && this.#currentResolve) {
+        resume(this.onReuqestAnim.bind(this), this.#currentResolve);
       }
     }
     /**
@@ -9391,13 +9702,13 @@
      * ```
      */
     setData(obj) {
-      this.values = Object.entries(obj).map((item) => {
+      this.#values = Object.entries(obj).map((item) => {
         const [prop, value] = item;
         return {
           prop,
           toValue: value,
           fromValue: value,
-          velocity: this.configProps.velocity,
+          velocity: this.#configProps.velocity,
           currentValue: value,
           fromFn: () => 0,
           fromIsFn: false,
@@ -9406,7 +9717,7 @@
           settled: false
         };
       });
-      this.initialData = this.values.map((item) => {
+      this.#initialData = this.#values.map((item) => {
         return {
           prop: item.prop,
           toValue: item.toValue,
@@ -9419,7 +9730,7 @@
      * @type {import('./type.js').springResetData}
      */
     resetData() {
-      this.values = mergeDeep(this.values, this.initialData);
+      this.#values = mergeDeep(this.#values, this.#initialData);
     }
     /**
      * @private
@@ -9434,25 +9745,25 @@
       const newConfigPreset = springConfigIsValid(props?.config) ? (
         // @ts-ignore
         allPresetConfig[props.config]
-      ) : this.defaultProps.configProps;
+      ) : this.#defaultProps.configProps;
       const configPropsToMerge = springConfigPropIsValid(props?.configProp);
       const newConfigProps = { ...newConfigPreset, ...configPropsToMerge };
       const newProps = {
-        ...this.defaultProps,
+        ...this.#defaultProps,
         ...props,
         configProps: newConfigProps
       };
       const { configProps, relative } = newProps;
-      this.configProps = configProps;
-      this.relative = relative;
+      this.#configProps = configProps;
+      this.#relative = relative;
       return newProps;
     }
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').springActions>} obj to Values
      */
     goTo(obj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = true;
+      if (this.#pauseStatus) return;
+      this.#useStagger = true;
       const data2 = goToUtils(obj);
       return this.doAction(data2, props, obj);
     }
@@ -9460,8 +9771,8 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').springActions>} obj to Values
      */
     goFrom(obj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = true;
+      if (this.#pauseStatus) return;
+      this.#useStagger = true;
       const data2 = goFromUtils(obj);
       return this.doAction(data2, props, obj);
     }
@@ -9469,11 +9780,11 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').springActions>} obj to Values
      */
     goFromTo(fromObj, toObj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = true;
+      if (this.#pauseStatus) return;
+      this.#useStagger = true;
       if (!compareKeys(fromObj, toObj)) {
         compareKeysWarning("spring goFromTo:", fromObj, toObj);
-        return this.promise;
+        return this.#promise;
       }
       const data2 = goFromToUtils(fromObj, toObj);
       return this.doAction(data2, props, fromObj);
@@ -9482,8 +9793,8 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').springActions>} obj to Values
      */
     set(obj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = false;
+      if (this.#pauseStatus) return;
+      this.#useStagger = false;
       const data2 = setUtils(obj);
       return this.doAction(data2, props, obj);
     }
@@ -9491,16 +9802,16 @@
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').springActions>} obj to Values
      */
     setImmediate(obj, props) {
-      if (this.pauseStatus) return;
-      this.useStagger = false;
+      if (this.#pauseStatus) return;
+      this.#useStagger = false;
       const data2 = setUtils(obj);
-      this.values = mergeArray(data2, this.values);
+      this.#values = mergeArray(data2, this.#values);
       const { reverse } = this.mergeProps(props);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
-        this.values = setReverseValues(obj, this.values);
-      this.values = setRelative(this.values, this.relative);
-      this.values = setFromCurrentByTo(this.values);
-      this.isActive = false;
+        this.#values = setReverseValues(obj, this.#values);
+      this.#values = setRelative(this.#values, this.#relative);
+      this.#values = setFromCurrentByTo(this.#values);
+      this.#isActive = false;
       return;
     }
     /**
@@ -9508,22 +9819,22 @@
      * @type {import('../../utils/type.js').DoAction<import('./type.js').springActions>} obj to Values
      */
     doAction(data2, props = {}, obj) {
-      this.values = mergeArray(data2, this.values);
+      this.#values = mergeArray(data2, this.#values);
       const { reverse, immediate } = this.mergeProps(props);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
-        this.values = setReverseValues(obj, this.values);
-      this.values = setRelative(this.values, this.relative);
+        this.#values = setReverseValues(obj, this.#values);
+      this.#values = setRelative(this.#values, this.#relative);
       if (valueIsBooleanAndTrue(immediate, "immediate ")) {
-        this.isActive = false;
-        this.values = setFromCurrentByTo(this.values);
+        this.#isActive = false;
+        this.#values = setFromCurrentByTo(this.#values);
         return Promise.resolve();
       }
-      if (!this.isActive) {
-        this.promise = new Promise((res, reject) => {
+      if (!this.#isActive) {
+        this.#promise = new Promise((res, reject) => {
           this.startRaf(res, reject);
         });
       }
-      if (this.promise) return this.promise;
+      if (this.#promise) return this.#promise;
     }
     /**
      * @description
@@ -9539,7 +9850,7 @@
      * ```
      */
     get() {
-      return getValueObj(this.values, "currentValue");
+      return getValueObj(this.#values, "currentValue");
     }
     /**
      * @description
@@ -9555,7 +9866,7 @@
      * ```
      */
     getInitialData() {
-      return getValueObj(this.initialData, "currentValue");
+      return getValueObj(this.#initialData, "currentValue");
     }
     /**
      * @description
@@ -9571,7 +9882,7 @@
      * ```
      */
     getFrom() {
-      return getValueObj(this.values, "fromValue");
+      return getValueObj(this.#values, "fromValue");
     }
     /**
      * @description
@@ -9587,7 +9898,7 @@
      * ```
      */
     getTo() {
-      return getValueObj(this.values, "toValue");
+      return getValueObj(this.#values, "toValue");
     }
     /**
      * @description
@@ -9603,7 +9914,7 @@
      * ```
      */
     getFromNativeType() {
-      return getValueObjFromNative(this.values);
+      return getValueObjFromNative(this.#values);
     }
     /**
      * @description
@@ -9619,7 +9930,7 @@
      * ```
      */
     getToNativeType() {
-      return getValueObjToNative(this.values);
+      return getValueObjToNative(this.#values);
     }
     /**
      * @description
@@ -9651,7 +9962,7 @@
      * ```
      */
     getId() {
-      return this.uniqueId;
+      return this.#uniqueId;
     }
     /**
      * @type {import('./type.js').springUdateConfigProp}
@@ -9672,8 +9983,8 @@
      */
     updateConfigProp(configProp = {}) {
       const configToMerge = springConfigPropIsValid(configProp);
-      this.configProps = { ...this.configProps, ...configToMerge };
-      this.defaultProps = mergeDeep(this.defaultProps, {
+      this.#configProps = { ...this.#configProps, ...configToMerge };
+      this.#defaultProps = mergeDeep(this.#defaultProps, {
         configProps: configToMerge
       });
     }
@@ -9686,9 +9997,9 @@
      *
      */
     updateConfig(config) {
-      this.configProps = springConfigIsValidAndGetNew(config);
-      this.defaultProps = mergeDeep(this.defaultProps, {
-        configProps: this.configProps
+      this.#configProps = springConfigIsValidAndGetNew(config);
+      this.#defaultProps = mergeDeep(this.#defaultProps, {
+        configProps: this.#configProps
       });
     }
     /**
@@ -9701,10 +10012,10 @@
     subscribe(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callback
+        this.#callback
       );
-      this.callback = arrayOfCallbackUpdated;
-      return () => this.callback = unsubscribeCb(this.callback);
+      this.#callback = arrayOfCallbackUpdated;
+      return () => this.#callback = unsubscribeCb(this.#callback);
     }
     /**
      * Support callback to asyncTimeline.
@@ -9718,11 +10029,11 @@
     onStartInPause(cb) {
       const { arrayOfCallbackUpdated } = setCallBack(
         cb,
-        this.callbackStartInPause
+        this.#callbackStartInPause
       );
-      this.callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
+      this.#callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
       arrayOfCallbackUpdated;
-      return () => this.callbackStartInPause = [];
+      return () => this.#callbackStartInPause = [];
     }
     /**
      * @type {import('./type.js').springOnComplete}
@@ -9736,10 +10047,12 @@
     onComplete(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callbackOnComplete
+        this.#callbackOnComplete
       );
-      this.callbackOnComplete = arrayOfCallbackUpdated;
-      return () => this.callbackOnComplete = unsubscribeCb(this.callbackOnComplete);
+      this.#callbackOnComplete = arrayOfCallbackUpdated;
+      return () => this.#callbackOnComplete = unsubscribeCb(
+        this.#callbackOnComplete
+      );
     }
     /**
      * @type {import('./type.js').springSubscribeCache}
@@ -9751,27 +10064,27 @@
       const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
         item,
         fn,
-        this.callbackCache,
-        this.unsubscribeCache
+        this.#callbackCache,
+        this.#unsubscribeCache
       );
-      this.callbackCache = arrayOfCallbackUpdated;
-      this.unsubscribeCache = unsubscribeCache;
-      return () => this.callbackCache = unsubscribeCb(this.callbackCache);
+      this.#callbackCache = arrayOfCallbackUpdated;
+      this.#unsubscribeCache = unsubscribeCache;
+      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
     }
     /**
      * @description
      * Destroy tween
      */
     destroy() {
-      if (this.promise) this.stop();
-      this.callbackOnComplete = [];
-      this.callbackStartInPause = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.values = [];
-      this.promise = void 0;
-      this.unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
-      this.unsubscribeCache = [];
+      if (this.#promise) this.stop();
+      this.#callbackOnComplete = [];
+      this.#callbackStartInPause = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#values = [];
+      this.#promise = void 0;
+      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      this.#unsubscribeCache = [];
     }
   };
 
@@ -9804,6 +10117,119 @@
 
   // src/js/mobMotion/animation/tween/handleTween.js
   var HandleTween = class {
+    /**
+     * @type {Function}
+     *  This value lives from user call ( goTo etc..) until next call
+     */
+    #ease;
+    /**
+     * @type {number}
+     */
+    #duration;
+    /**
+     * @type {boolean}
+     */
+    #relative;
+    /**
+     * @type {import('../utils/stagger/type.js').staggerObject}
+     */
+    #stagger;
+    /**
+     * @type {string}
+     */
+    #uniqueId;
+    /**
+     * @type {boolean}
+     */
+    #isActive;
+    /**
+     * @type{(value:any) => void|null}
+     */
+    #currentReject;
+    /**
+     * @type{Promise<void>|undefined}
+     */
+    #promise;
+    /**
+     * @type {import('./type.js').tweenStoreData[]}
+     */
+    #values;
+    /**
+     * @type {import('./type.js').tweenInitialData[]}
+     */
+    #initialData;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callback;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<string>[]}
+     */
+    #callbackCache;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:Record<string, number>) => void>[]}
+     */
+    #callbackOnComplete;
+    /**
+     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]}
+     */
+    #callbackStartInPause;
+    /**
+     * @type {Array<() => void>}
+     */
+    #unsubscribeCache;
+    /**
+     * @type {boolean}
+     */
+    #pauseStatus;
+    /**
+     * @type {boolean}
+     */
+    #comeFromResume;
+    /**
+     * @type {number}
+     */
+    #startTime;
+    /**
+     * @type {boolean}
+     */
+    #isRunning;
+    /**
+     * @type {number}
+     */
+    #timeElapsed;
+    /**
+     * @type {number}
+     */
+    #pauseTime;
+    /**
+     * @type {boolean}
+     */
+    #firstRun;
+    /**
+     * @type {boolean}
+     */
+    #useStagger;
+    /**
+     * @type {boolean}
+     */
+    #fpsInLoading;
+    /**
+     * @description
+     * This value is the base value merged with new value in custom prop
+     * passed form user in goTo etc..
+     *
+     * @type{import('./type.js').tweenDefault}
+     */
+    #defaultProps;
+    /**
+     * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
+     */
+    #slowlestStagger;
+    /**
+     * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
+     */
+    #fastestStagger;
     /**
      * @param {import('./type.js').tweenProps} [ data ]
      *
@@ -9850,40 +10276,39 @@
      * ```
      */
     constructor(data2) {
-      this.ease = easeTweenIsValidGetFunction(data2?.ease);
-      this.duration = durationIsNumberOrFunctionIsValid(data2?.duration);
-      this.relative = relativeIsValid(data2?.relative, "tween");
-      this.stagger = getStaggerFromProps(data2);
-      this.uniqueId = mobCore.getUnivoqueId();
-      this.isActive = false;
-      this.currentResolve = void 0;
-      this.currentReject = void 0;
-      this.promise = void 0;
-      this.values = [];
-      this.initialData = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.callbackOnComplete = [];
-      this.callbackStartInPause = [];
-      this.unsubscribeCache = [];
-      this.pauseStatus = false;
-      this.comeFromResume = false;
-      this.startTime = 0;
-      this.isRunning = false;
-      this.timeElapsed = 0;
-      this.pauseTime = 0;
-      this.firstRun = true;
-      this.useStagger = true;
-      this.fpsInLoading = false;
-      this.defaultProps = {
-        duration: this.duration,
+      this.#ease = easeTweenIsValidGetFunction(data2?.ease);
+      this.#duration = durationIsNumberOrFunctionIsValid(data2?.duration);
+      this.#relative = relativeIsValid(data2?.relative, "tween");
+      this.#stagger = getStaggerFromProps(data2);
+      this.#uniqueId = mobCore.getUnivoqueId();
+      this.#isActive = false;
+      this.#currentReject = void 0;
+      this.#promise = void 0;
+      this.#values = [];
+      this.#initialData = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#callbackOnComplete = [];
+      this.#callbackStartInPause = [];
+      this.#unsubscribeCache = [];
+      this.#pauseStatus = false;
+      this.#comeFromResume = false;
+      this.#startTime = 0;
+      this.#isRunning = false;
+      this.#timeElapsed = 0;
+      this.#pauseTime = 0;
+      this.#firstRun = true;
+      this.#useStagger = true;
+      this.#fpsInLoading = false;
+      this.#defaultProps = {
+        duration: this.#duration,
         ease: easeTweenIsValid(data2?.ease),
-        relative: this.relative,
+        relative: this.#relative,
         reverse: false,
         immediate: false
       };
-      this.slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
-      this.fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
+      this.#slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
+      this.#fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
       const props = data2?.data || null;
       if (props) this.setData(props);
     }
@@ -9895,36 +10320,36 @@
      */
     draw(time2, res = () => {
     }) {
-      this.isActive = true;
-      if (this.pauseStatus) {
-        this.pauseTime = time2 - this.startTime - this.timeElapsed;
+      this.#isActive = true;
+      if (this.#pauseStatus) {
+        this.#pauseTime = time2 - this.#startTime - this.#timeElapsed;
       }
-      this.timeElapsed = time2 - this.startTime - this.pauseTime;
-      if (this.isRunning && Math.round(this.timeElapsed) >= this.duration) {
-        this.timeElapsed = this.duration;
+      this.#timeElapsed = time2 - this.#startTime - this.#pauseTime;
+      if (this.#isRunning && Math.round(this.#timeElapsed) >= this.#duration) {
+        this.#timeElapsed = this.#duration;
       }
-      this.values = tweenGetValueOnDraw({
-        values: this.values,
-        timeElapsed: this.timeElapsed,
-        duration: this.duration,
-        ease: this.ease
+      this.#values = tweenGetValueOnDraw({
+        values: this.#values,
+        timeElapsed: this.#timeElapsed,
+        duration: this.#duration,
+        ease: this.#ease
       });
-      const isSettled = Math.round(this.timeElapsed) === this.duration;
-      const callBackObject = getValueObj(this.values, "currentValue");
+      const isSettled = Math.round(this.#timeElapsed) === this.#duration;
+      const callBackObject = getValueObj(this.#values, "currentValue");
       defaultCallback({
-        stagger: this.stagger,
-        callback: this.callback,
-        callbackCache: this.callbackCache,
+        stagger: this.#stagger,
+        callback: this.#callback,
+        callbackCache: this.#callbackCache,
         callBackObject,
-        useStagger: this.useStagger
+        useStagger: this.#useStagger
       });
-      this.isRunning = true;
+      this.#isRunning = true;
       if (isSettled) {
         const onComplete2 = () => {
-          this.isActive = false;
-          this.isRunning = false;
-          this.pauseTime = 0;
-          this.values = [...this.values].map((item) => {
+          this.#isActive = false;
+          this.#isRunning = false;
+          this.#pauseTime = 0;
+          this.#values = [...this.#values].map((item) => {
             if (!item.shouldUpdate) return item;
             return {
               ...item,
@@ -9932,29 +10357,28 @@
               fromValue: item.currentValue
             };
           });
-          if (!this.pauseStatus) {
+          if (!this.#pauseStatus) {
             res();
-            this.promise = void 0;
-            this.currentReject = void 0;
-            this.currentResolve = void 0;
+            this.#promise = void 0;
+            this.#currentReject = void 0;
           }
         };
         defaultCallbackOnComplete({
           onComplete: onComplete2,
-          callback: this.callback,
-          callbackCache: this.callbackCache,
-          callbackOnComplete: this.callbackOnComplete,
+          callback: this.#callback,
+          callbackCache: this.#callbackCache,
+          callbackOnComplete: this.#callbackOnComplete,
           callBackObject,
-          stagger: this.stagger,
-          slowlestStagger: this.slowlestStagger,
-          fastestStagger: this.fastestStagger,
-          useStagger: this.useStagger
+          stagger: this.#stagger,
+          slowlestStagger: this.#slowlestStagger,
+          fastestStagger: this.#fastestStagger,
+          useStagger: this.#useStagger
         });
         return;
       }
       mobCore.useFrame(() => {
         mobCore.useNextTick(({ time: time3 }) => {
-          if (this.isActive) this.draw(time3, res);
+          if (this.#isActive) this.draw(time3, res);
         });
       });
     }
@@ -9967,7 +10391,7 @@
      * @returns {void}
      **/
     onReuqestAnim(time2, _fps, res) {
-      this.startTime = time2;
+      this.#startTime = time2;
       this.draw(time2, res);
     }
     /**
@@ -9978,17 +10402,17 @@
      */
     async inzializeStagger() {
       if (shouldInizializzeStagger(
-        this.stagger.each,
-        this.firstRun,
-        this.callbackCache,
-        this.callback
+        this.#stagger.each,
+        this.#firstRun,
+        this.#callbackCache,
+        this.#callback
       )) {
         const { averageFPS } = await mobCore.useFps();
         fpsLoadedLog("tween", averageFPS);
-        const cb = getStaggerArray(this.callbackCache, this.callback);
-        if (this.stagger.grid.col > cb.length) {
+        const cb = getStaggerArray(this.#callbackCache, this.#callback);
+        if (this.#stagger.grid.col > cb.length) {
           staggerIsOutOfRangeWarning(cb.length);
-          this.firstRun = false;
+          this.#firstRun = false;
           return;
         }
         const {
@@ -9998,20 +10422,20 @@
           slowlestStagger
         } = setStagger({
           arrayDefault: cb,
-          arrayOnStop: this.callbackOnComplete,
-          stagger: this.stagger,
-          slowlestStagger: this.slowlestStagger,
-          fastestStagger: this.fastestStagger
+          arrayOnStop: this.#callbackOnComplete,
+          stagger: this.#stagger,
+          slowlestStagger: this.#slowlestStagger,
+          fastestStagger: this.#fastestStagger
         });
-        if (this.callbackCache.length > this.callback.length) {
-          this.callbackCache = staggerArray;
+        if (this.#callbackCache.length > this.#callback.length) {
+          this.#callbackCache = staggerArray;
         } else {
-          this.callback = staggerArray;
+          this.#callback = staggerArray;
         }
-        this.callbackOnComplete = staggerArrayOnComplete;
-        this.slowlestStagger = slowlestStagger;
-        this.fastestStagger = fastestStagger;
-        this.firstRun = false;
+        this.#callbackOnComplete = staggerArrayOnComplete;
+        this.#slowlestStagger = slowlestStagger;
+        this.#fastestStagger = fastestStagger;
+        this.#firstRun = false;
       }
       return { ready: true };
     }
@@ -10023,16 +10447,15 @@
      * @returns {Promise}
      */
     async startRaf(res, reject) {
-      if (this.fpsInLoading) return;
-      this.currentResolve = res;
-      this.currentReject = reject;
-      if (this.firstRun) {
-        this.fpsInLoading = true;
+      if (this.#fpsInLoading) return;
+      this.#currentReject = reject;
+      if (this.#firstRun) {
+        this.#fpsInLoading = true;
         await this.inzializeStagger();
-        this.fpsInLoading = false;
+        this.#fpsInLoading = false;
       }
       initRaf(
-        this.callbackStartInPause,
+        this.#callbackStartInPause,
         this.onReuqestAnim.bind(this),
         this.pause.bind(this),
         res
@@ -10042,40 +10465,39 @@
      * @type {import('./type.js').tweenStop}
      */
     stop({ clearCache = true } = {}) {
-      this.pauseTime = 0;
-      this.pauseStatus = false;
-      this.comeFromResume = false;
-      this.values = setFromToByCurrent(this.values);
-      if (this.isActive && clearCache)
-        this.callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
-      if (this.currentReject) {
-        this.currentReject(mobCore.ANIMATION_STOP_REJECT);
-        this.promise = void 0;
-        this.currentReject = void 0;
-        this.currentResolve = void 0;
+      this.#pauseTime = 0;
+      this.#pauseStatus = false;
+      this.#comeFromResume = false;
+      this.#values = setFromToByCurrent(this.#values);
+      if (this.#isActive && clearCache)
+        this.#callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
+      if (this.#currentReject) {
+        this.#currentReject(mobCore.ANIMATION_STOP_REJECT);
+        this.#promise = void 0;
+        this.#currentReject = void 0;
       }
-      this.isActive = false;
+      this.#isActive = false;
     }
     /**
      * @type {import('./type.js').tweenPause}
      */
     pause() {
-      if (this.pauseStatus) return;
-      this.pauseStatus = true;
+      if (this.#pauseStatus) return;
+      this.#pauseStatus = true;
     }
     /**
      * @type {import('./type.js').tweenResume}
      */
     resume() {
-      if (!this.pauseStatus) return;
-      this.pauseStatus = false;
-      this.comeFromResume = true;
+      if (!this.#pauseStatus) return;
+      this.#pauseStatus = false;
+      this.#comeFromResume = true;
     }
     /**
      * @type {import('../../utils/type.js').SetData}
      */
     setData(obj) {
-      this.values = Object.entries(obj).map((item) => {
+      this.#values = Object.entries(obj).map((item) => {
         const [prop, value] = item;
         return {
           prop,
@@ -10093,7 +10515,7 @@
           // not used, only for uniformity with lerp and spring
         };
       });
-      this.initialData = this.values.map((item) => {
+      this.#initialData = this.#values.map((item) => {
         return {
           prop: item.prop,
           toValue: item.toValue,
@@ -10113,7 +10535,7 @@
      * @type {import('./type.js').tweenResetData}
      */
     resetData() {
-      this.values = mergeDeep(this.values, this.initialData);
+      this.#values = mergeDeep(this.#values, this.#initialData);
     }
     /**
      * @private
@@ -10124,12 +10546,12 @@
      * @returns {void}
      */
     updateDataWhileRunning() {
-      this.isActive = false;
-      if (this.currentReject) {
-        this.currentReject(mobCore.ANIMATION_STOP_REJECT);
-        this.promise = void 0;
+      this.#isActive = false;
+      if (this.#currentReject) {
+        this.#currentReject(mobCore.ANIMATION_STOP_REJECT);
+        this.#promise = void 0;
       }
-      this.values = [...this.values].map((item) => {
+      this.#values = [...this.#values].map((item) => {
         if (!item.shouldUpdate) return item;
         return {
           ...item,
@@ -10147,19 +10569,19 @@
      *
      */
     mergeProps(props) {
-      const newProps = { ...this.defaultProps, ...props };
+      const newProps = { ...this.#defaultProps, ...props };
       const { ease, duration: duration2, relative } = newProps;
-      this.ease = easeTweenIsValidGetFunction(ease);
-      this.relative = relativeIsValid(relative, "tween");
-      this.duration = durationIsNumberOrFunctionIsValid(duration2);
+      this.#ease = easeTweenIsValidGetFunction(ease);
+      this.#relative = relativeIsValid(relative, "tween");
+      this.#duration = durationIsNumberOrFunctionIsValid(duration2);
       return newProps;
     }
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').tweenAction>} obj to Values
      */
     goTo(obj, props) {
-      if (this.pauseStatus || this.comeFromResume) this.stop();
-      this.useStagger = true;
+      if (this.#pauseStatus || this.#comeFromResume) this.stop();
+      this.#useStagger = true;
       const data2 = goToUtils(obj);
       return this.doAction(data2, props, obj);
     }
@@ -10167,8 +10589,8 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').tweenAction>} obj to Values
      */
     goFrom(obj, props) {
-      if (this.pauseStatus || this.comeFromResume) this.stop();
-      this.useStagger = true;
+      if (this.#pauseStatus || this.#comeFromResume) this.stop();
+      this.#useStagger = true;
       const data2 = goFromUtils(obj);
       return this.doAction(data2, props, obj);
     }
@@ -10176,11 +10598,11 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').tweenAction>} obj to Values
      */
     goFromTo(fromObj, toObj, props) {
-      if (this.pauseStatus || this.comeFromResume) this.stop();
-      this.useStagger = true;
+      if (this.#pauseStatus || this.#comeFromResume) this.stop();
+      this.#useStagger = true;
       if (!compareKeys(fromObj, toObj)) {
         compareKeysWarning("tween goFromTo:", fromObj, toObj);
-        return this.promise;
+        return this.#promise;
       }
       const data2 = goFromToUtils(fromObj, toObj);
       return this.doAction(data2, props, fromObj);
@@ -10189,8 +10611,8 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').tweenAction>} obj to Values
      */
     set(obj, props) {
-      if (this.pauseStatus || this.comeFromResume) this.stop();
-      this.useStagger = false;
+      if (this.#pauseStatus || this.#comeFromResume) this.stop();
+      this.#useStagger = false;
       const data2 = setUtils(obj);
       const propsParsed = props ? { ...props, duration: 1 } : { duration: 1 };
       return this.doAction(data2, propsParsed, obj);
@@ -10199,18 +10621,18 @@
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').tweenAction>} obj to Values
      */
     setImmediate(obj, props) {
-      if (this.pauseStatus || this.comeFromResume) this.stop();
-      this.useStagger = false;
+      if (this.#pauseStatus || this.#comeFromResume) this.stop();
+      this.#useStagger = false;
       const data2 = setUtils(obj);
       const propsParsed = props ? { ...props, duration: 1 } : { duration: 1 };
-      this.values = mergeArrayTween(data2, this.values);
-      if (this.isActive) this.updateDataWhileRunning();
+      this.#values = mergeArrayTween(data2, this.#values);
+      if (this.#isActive) this.updateDataWhileRunning();
       const { reverse } = this.mergeProps(propsParsed);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
-        this.values = setReverseValues(obj, this.values);
-      this.values = setRelativeTween(this.values, this.relative);
-      this.values = setFromCurrentByTo(this.values);
-      this.isActive = false;
+        this.#values = setReverseValues(obj, this.#values);
+      this.#values = setRelativeTween(this.#values, this.#relative);
+      this.#values = setFromCurrentByTo(this.#values);
+      this.#isActive = false;
       return;
     }
     /**
@@ -10218,23 +10640,23 @@
      * @type {import('../../utils/type.js').DoAction<import('./type.js').tweenAction>} obj to Values
      */
     doAction(data2, props = {}, obj) {
-      this.values = mergeArrayTween(data2, this.values);
-      if (this.isActive) this.updateDataWhileRunning();
+      this.#values = mergeArrayTween(data2, this.#values);
+      if (this.#isActive) this.updateDataWhileRunning();
       const { reverse, immediate } = this.mergeProps(props);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
-        this.values = setReverseValues(obj, this.values);
-      this.values = setRelativeTween(this.values, this.relative);
+        this.#values = setReverseValues(obj, this.#values);
+      this.#values = setRelativeTween(this.#values, this.#relative);
       if (valueIsBooleanAndTrue(immediate, "immediate ")) {
-        this.isActive = false;
-        this.values = setFromCurrentByTo(this.values);
+        this.#isActive = false;
+        this.#values = setFromCurrentByTo(this.#values);
         return Promise.resolve();
       }
-      if (!this.isActive) {
-        this.promise = new Promise((res, reject) => {
+      if (!this.#isActive) {
+        this.#promise = new Promise((res, reject) => {
           this.startRaf(res, reject);
         });
       }
-      if (this.promise) return this.promise;
+      if (this.#promise) return this.#promise;
     }
     /**
      * @description
@@ -10250,7 +10672,7 @@
      * ```
      */
     get() {
-      return getValueObj(this.values, "currentValue");
+      return getValueObj(this.#values, "currentValue");
     }
     /**
      * @description
@@ -10266,7 +10688,7 @@
      * ```
      */
     getInitialData() {
-      return getValueObj(this.initialData, "currentValue");
+      return getValueObj(this.#initialData, "currentValue");
     }
     /**
      * @description
@@ -10282,7 +10704,7 @@
      * ```
      */
     getFrom() {
-      return getValueObj(this.values, "fromValue");
+      return getValueObj(this.#values, "fromValue");
     }
     /**
      * @description
@@ -10298,7 +10720,7 @@
      * ```
      */
     getTo() {
-      return getValueObj(this.values, "toValue");
+      return getValueObj(this.#values, "toValue");
     }
     /**
      * @description
@@ -10314,7 +10736,7 @@
      * ```
      */
     getFromNativeType() {
-      return getValueObjFromNative(this.values);
+      return getValueObjFromNative(this.#values);
     }
     /**
      * @description
@@ -10330,7 +10752,7 @@
      * ```
      */
     getToNativeType() {
-      return getValueObjToNative(this.values);
+      return getValueObjToNative(this.#values);
     }
     /**
      * @description
@@ -10362,7 +10784,7 @@
      * ```
      */
     getId() {
-      return this.uniqueId;
+      return this.#uniqueId;
     }
     /**
      * Update ease with new preset
@@ -10371,8 +10793,8 @@
      *
      */
     updateEase(ease) {
-      this.ease = easeTweenIsValidGetFunction(ease);
-      this.defaultProps = mergeDeep(this.defaultProps, {
+      this.#ease = easeTweenIsValidGetFunction(ease);
+      this.#defaultProps = mergeDeep(this.#defaultProps, {
         ease
       });
     }
@@ -10386,10 +10808,10 @@
     subscribe(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callback
+        this.#callback
       );
-      this.callback = arrayOfCallbackUpdated;
-      return () => this.callback = unsubscribeCb(this.callback);
+      this.#callback = arrayOfCallbackUpdated;
+      return () => this.#callback = unsubscribeCb(this.#callback);
     }
     /**
      * Support callback to asyncTimeline.
@@ -10403,11 +10825,11 @@
     onStartInPause(cb) {
       const { arrayOfCallbackUpdated } = setCallBack(
         cb,
-        this.callbackStartInPause
+        this.#callbackStartInPause
       );
-      this.callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
+      this.#callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
       arrayOfCallbackUpdated;
-      return () => this.callbackStartInPause = [];
+      return () => this.#callbackStartInPause = [];
     }
     /**
      * @type {import('./type.js').tweenOnComplete}
@@ -10421,10 +10843,12 @@
     onComplete(cb) {
       const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
         cb,
-        this.callbackOnComplete
+        this.#callbackOnComplete
       );
-      this.callbackOnComplete = arrayOfCallbackUpdated;
-      return () => this.callbackOnComplete = unsubscribeCb(this.callbackOnComplete);
+      this.#callbackOnComplete = arrayOfCallbackUpdated;
+      return () => this.#callbackOnComplete = unsubscribeCb(
+        this.#callbackOnComplete
+      );
     }
     /**
      * @type {import('./type.js').tweenSubscribeCache}
@@ -10436,12 +10860,12 @@
       const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
         item,
         fn,
-        this.callbackCache,
-        this.unsubscribeCache
+        this.#callbackCache,
+        this.#unsubscribeCache
       );
-      this.callbackCache = arrayOfCallbackUpdated;
-      this.unsubscribeCache = unsubscribeCache;
-      return () => this.callbackCache = unsubscribeCb(this.callbackCache);
+      this.#callbackCache = arrayOfCallbackUpdated;
+      this.#unsubscribeCache = unsubscribeCache;
+      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
     }
     /**
      * @description
@@ -10450,15 +10874,15 @@
      * @returns {void}
      */
     destroy() {
-      if (this.promise) this.stop();
-      this.callbackOnComplete = [];
-      this.callbackStartInPause = [];
-      this.callback = [];
-      this.callbackCache = [];
-      this.values = [];
-      this.promise = void 0;
-      this.unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
-      this.unsubscribeCache = [];
+      if (this.#promise) this.stop();
+      this.#callbackOnComplete = [];
+      this.#callbackStartInPause = [];
+      this.#callback = [];
+      this.#callbackCache = [];
+      this.#values = [];
+      this.#promise = void 0;
+      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      this.#unsubscribeCache = [];
     }
   };
 
@@ -10999,6 +11423,159 @@
   // src/js/mobMotion/animation/asyncTimeline/handleAsyncTimeline.js
   var HandleAsyncTimeline = class {
     /**
+     * @type {number}
+     */
+    #repeat;
+    /**
+     * @type {boolean}
+     */
+    #yoyo;
+    /**
+     * @type {boolean}
+     */
+    #freeMode;
+    /**
+     * @type {boolean}
+     */
+    #autoSet;
+    /**
+     * @type {Array<import('./type').asyncTimelineTweenItem[]>}
+     */
+    #tweenList;
+    /**
+     * @type {Array<import('./type').asyncTimelineCurrentTween>}
+     */
+    #currentTween;
+    /**
+     * @type {Array<import('./type').syncTimelineTweenStore>}
+     */
+    #tweenStore;
+    /**
+     * @type {boolean}
+     */
+    #waitComplete;
+    /**
+     * @type {import('./type').asyncTimelineRowData}
+     */
+    #defaultObj;
+    /**
+     * @description
+     * Timeline state
+     *
+     * @type {import('./type').asyncTimelineLabelState}
+     */
+    #labelState;
+    /**
+     * @type {import('./type').asyncTimelineStarterFunction}
+     */
+    #starterFunction;
+    /**
+     * @description
+     * group "name" star from 1 to avoid 0 = false
+     *
+     * @type {number}
+     */
+    #groupCounter;
+    /**
+     * @type {number|undefined}
+     */
+    #groupId;
+    /**
+     * @type {number}
+     */
+    #currentTweenCounter;
+    /**
+     * @type {number}
+     */
+    #currentIndex;
+    /**
+     * @type {number}
+     */
+    #loopCounter;
+    /**
+     * @type {boolean}
+     */
+    #isReverseNext;
+    /**
+     * @type {boolean}
+     */
+    #forceYoyo;
+    /**
+     * @type {boolean}
+     */
+    #isReverse;
+    /**
+     * @type {boolean}
+     */
+    #isInPause;
+    /**
+     * @type {boolean}
+     */
+    #isInSuspension;
+    /**
+     * @type {boolean}
+     */
+    #addAsyncIsActive;
+    /**
+     * @type {boolean}
+     */
+    #isStopped;
+    /**
+     * @type {boolean}
+     */
+    #delayIsRunning;
+    /**
+     * @type {boolean}
+     */
+    #startOnDelay;
+    /**
+     * @type {import('./type').asyncTimelineAfterReject}
+     */
+    #actionAfterReject;
+    /**
+     * @type {number}
+     */
+    #sessionId;
+    /**
+     * @type {number}
+     */
+    #activetweenCounter;
+    /**
+     * @type {number}
+     */
+    #timeOnPause;
+    /**
+     * @type {boolean}
+     */
+    #autoSetIsJustCreated;
+    /**
+     * @type {import('./type').asyncTimelineCurrentAction[]}
+     */
+    #currentAction;
+    /**
+     * @type {boolean}
+     */
+    #fpsIsInLoading;
+    /**
+     * @type {number}
+     */
+    #id;
+    /**
+     */
+    #callbackLoop;
+    /**
+     * @type {Array}
+     */
+    #callbackComplete;
+    /**
+     * @type{(value:any) => void|null}
+     */
+    #currentResolve;
+    /**
+     * @type{(value:any) => void|null}
+     */
+    #currentReject;
+    /**
      * @param {import('./type').asyncTimelineType} data
      *
      * @example
@@ -11053,27 +11630,27 @@
      * ```
      */
     constructor(data2) {
-      this.repeat = repeatIsValid(data2?.repeat);
-      this.yoyo = valueIsBooleanAndReturnDefault(
+      this.#repeat = repeatIsValid(data2?.repeat);
+      this.#yoyo = valueIsBooleanAndReturnDefault(
         data2?.yoyo,
         "asyncTimeline: yoyo",
         false
       );
-      this.freeMode = valueIsBooleanAndReturnDefault(
+      this.#freeMode = valueIsBooleanAndReturnDefault(
         data2?.freeMode,
         "asyncTimeline: freeMode",
         false
       );
-      this.autoSet = valueIsBooleanAndReturnDefault(
+      this.#autoSet = valueIsBooleanAndReturnDefault(
         data2?.autoSet,
         "asyncTimeline: autoSet",
         false
       );
-      this.tweenList = [];
-      this.currentTween = [];
-      this.tweenStore = [];
-      this.waitComplete = false;
-      this.defaultObj = {
+      this.#tweenList = [];
+      this.#currentTween = [];
+      this.#tweenStore = [];
+      this.#waitComplete = false;
+      this.#defaultObj = {
         id: -1,
         tween: void 0,
         action: "",
@@ -11131,57 +11708,57 @@
         },
         labelProps: {}
       };
-      this.labelState = {
+      this.#labelState = {
         active: false,
         index: -1,
         isReverse: false
       };
-      this.starterFunction = {
+      this.#starterFunction = {
         fn: () => {
         },
         active: false
       };
-      this.groupCounter = 1;
-      this.groupId = void 0;
-      this.currentTweenCounter = 0;
-      this.currentIndex = 0;
-      this.loopCounter = 1;
-      this.isReverseNext = false;
-      this.forceYoyo = false;
-      this.isReverse = false;
-      this.isInPause = false;
-      this.isInSuspension = false;
-      this.addAsyncIsActive = false;
-      this.isStopped = true;
-      this.delayIsRunning = false;
-      this.startOnDelay = false;
-      this.actionAfterReject = {
+      this.#groupCounter = 1;
+      this.#groupId = void 0;
+      this.#currentTweenCounter = 0;
+      this.#currentIndex = 0;
+      this.#loopCounter = 1;
+      this.#isReverseNext = false;
+      this.#forceYoyo = false;
+      this.#isReverse = false;
+      this.#isInPause = false;
+      this.#isInSuspension = false;
+      this.#addAsyncIsActive = false;
+      this.#isStopped = true;
+      this.#delayIsRunning = false;
+      this.#startOnDelay = false;
+      this.#actionAfterReject = {
         active: false,
         fn: () => {
         }
       };
-      this.sessionId = 0;
-      this.activetweenCounter = 0;
-      this.timeOnPause = 0;
-      this.autoSetIsJustCreated = false;
-      this.currentAction = [];
-      this.fpsIsInLoading = false;
-      this.id = 0;
-      this.callbackLoop = [];
-      this.callbackComplete = [];
-      this.currentResolve = void 0;
-      this.currentReject = void 0;
+      this.#sessionId = 0;
+      this.#activetweenCounter = 0;
+      this.#timeOnPause = 0;
+      this.#autoSetIsJustCreated = false;
+      this.#currentAction = [];
+      this.#fpsIsInLoading = false;
+      this.#id = 0;
+      this.#callbackLoop = [];
+      this.#callbackComplete = [];
+      this.#currentResolve = void 0;
+      this.#currentReject = void 0;
     }
     /**
      * @private
      * @type {() => void}
      */
     run() {
-      const currentTweelist = this.tweenList[this.currentIndex];
-      const lastAction = this.currentAction;
-      this.currentAction = [];
+      const currentTweelist = this.#tweenList[this.#currentIndex];
+      const lastAction = this.#currentAction;
+      this.#currentAction = [];
       if (!currentTweelist) return;
-      this.tweenList[this.currentIndex] = currentTweelist.map((item) => {
+      this.#tweenList[this.#currentIndex] = currentTweelist.map((item) => {
         const { data: data2 } = item;
         const { tween: tween3, valuesTo, prevValueSettled } = data2;
         if (tween3 && tween3?.getToNativeType && !prevValueSettled) {
@@ -11211,15 +11788,15 @@
         } = data2;
         const newTweenProps = { ...tweenProps };
         delete newTweenProps.delay;
-        const { active: labelIsActive, index: labelIndex } = this.labelState;
+        const { active: labelIsActive, index: labelIndex } = this.#labelState;
         const isImmediate = Number.isNaN(labelIndex) ? false : labelIsActive && labelIndex && // @ts-ignore
-        this.currentIndex < labelIndex;
+        this.#currentIndex < labelIndex;
         if (isImmediate) newTweenProps.immediate = true;
         if (tweenProps && "relative" in tweenProps && tweenProps.relative) {
           tweenProps.relative = false;
           relativePropInsideTimelineWarning();
         }
-        this.currentAction.push({ id, action: action2 });
+        this.#currentAction.push({ id, action: action2 });
         const prevActionIsCurrent = lastAction.find(
           ({ id: prevId, action: prevAction }) => {
             return prevId === id && prevAction === action2;
@@ -11258,14 +11835,14 @@
               const direction2 = this.getDirection();
               tween3({
                 direction: direction2,
-                loop: this.loopCounter
+                loop: this.#loopCounter
               });
               res({ resolve: true });
             });
           },
           addAsync: () => {
-            this.addAsyncIsActive = true;
-            const sessionId = this.sessionId;
+            this.#addAsyncIsActive = true;
+            const sessionId = this.#sessionId;
             if (prevActionIsCurrent) {
               return new Promise((res) => res({ resolve: true }));
             }
@@ -11277,9 +11854,9 @@
               const direction2 = this.getDirection();
               tween3({
                 direction: direction2,
-                loop: this.loopCounter,
+                loop: this.#loopCounter,
                 resolve: () => {
-                  if (sessionId === this.sessionId) {
+                  if (sessionId === this.#sessionId) {
                     res({ resolve: true });
                     return;
                   }
@@ -11306,7 +11883,7 @@
             const sholudSuspend = valueIsValid ? tween3() : true;
             return new Promise((res) => {
               if (!isImmediate && sholudSuspend) {
-                this.isInSuspension = true;
+                this.#isInSuspension = true;
               }
               res({ resolve: true });
             });
@@ -11314,10 +11891,10 @@
         };
         return new Promise((res, reject) => {
           const delay = isImmediate ? false : tweenProps?.delay;
-          const previousSessionId = this.sessionId;
+          const previousSessionId = this.#sessionId;
           if (delay) {
             const start = mobCore.getTime();
-            this.delayIsRunning = true;
+            this.#delayIsRunning = true;
             requestAnimationFrame(() => {
               this.loopOnDelay({
                 start,
@@ -11336,11 +11913,11 @@
           resolveTweenPromise({
             reject,
             res,
-            isStopped: this.isStopped,
-            startOnDelay: this.startOnDelay,
-            isInPause: this.isInPause,
+            isStopped: this.#isStopped,
+            startOnDelay: this.#startOnDelay,
+            isInPause: this.#isInPause,
             addToActiveTween: (tween4) => this.addToActiveTween(tween4),
-            currentSessionId: this.sessionId,
+            currentSessionId: this.#sessionId,
             previousSessionId,
             tween: tween3,
             fn,
@@ -11348,51 +11925,53 @@
           });
         });
       });
-      const waitComplete = this.tweenList[this.currentIndex].some((item) => {
-        return item.data.groupProps?.waitComplete;
-      });
+      const waitComplete = this.#tweenList[this.#currentIndex].some(
+        (item) => {
+          return item.data.groupProps?.waitComplete;
+        }
+      );
       const promiseType = waitComplete ? "all" : "race";
       Promise[promiseType](tweenPromises).then(() => {
-        if (this.isInSuspension || this.isStopped) return;
+        if (this.#isInSuspension || this.#isStopped) return;
         const {
           active: labelIsActive,
           index: labelIndex,
           isReverse: labelIsReverse
-        } = this.labelState;
-        const { fn: starterFunction, active: starterFunctionIsActive } = this.starterFunction;
+        } = this.#labelState;
+        const { fn: starterFunction, active: starterFunctionIsActive } = this.#starterFunction;
         if (starterFunctionIsActive && labelIsActive && // @ts-ignore
-        this.currentIndex === labelIndex - 1) {
-          this.starterFunction.active = false;
+        this.#currentIndex === labelIndex - 1) {
+          this.#starterFunction.active = false;
           this.disableLabel();
-          this.loopCounter++;
+          this.#loopCounter++;
           starterFunction();
           return;
         }
         if (labelIsActive && labelIsReverse && // @ts-ignore
-        this.currentIndex === labelIndex - 1) {
+        this.#currentIndex === labelIndex - 1) {
           this.reverseNext();
         }
-        if (this.isReverseNext) {
-          this.isReverseNext = false;
-          this.currentIndex = this.tweenList.length - this.currentIndex - 1;
+        if (this.#isReverseNext) {
+          this.#isReverseNext = false;
+          this.#currentIndex = this.#tweenList.length - this.#currentIndex - 1;
           this.disableLabel();
           this.revertTween();
           this.run();
           return;
         }
-        if (this.currentIndex < this.tweenList.length - 1) {
-          this.currentIndex++;
+        if (this.#currentIndex < this.#tweenList.length - 1) {
+          this.#currentIndex++;
           this.run();
           return;
         }
-        if (this.loopCounter < this.repeat || this.repeat === -1) {
-          if (labelIsActive && labelIndex === this.tweenList.length && !this.freeMode) {
-            const tweenPromise = this.tweenStore.map(
+        if (this.#loopCounter < this.#repeat || this.#repeat === -1) {
+          if (labelIsActive && labelIndex === this.#tweenList.length && !this.#freeMode) {
+            const tweenPromise = this.#tweenStore.map(
               ({ tween: tween3 }) => {
                 const data2 = asyncReduceTween(
-                  this.tweenList,
+                  this.#tweenList,
                   tween3,
-                  this.tweenList.length
+                  this.#tweenList.length
                 );
                 return new Promise((resolve, reject) => {
                   tween3.set(data2).then(() => resolve({ resolve: true })).catch(() => reject());
@@ -11408,26 +11987,26 @@
           this.onRepeat();
           return;
         }
-        this.callbackComplete.forEach(({ cb }) => cb());
-        this.isStopped = true;
-        if (this.currentResolve) {
+        this.#callbackComplete.forEach(({ cb }) => cb());
+        this.#isStopped = true;
+        if (this.#currentResolve) {
           handleNextFrame.add(() => {
             handleNextTick.add(() => {
-              this.currentResolve?.({ resolve: true });
+              this.#currentResolve?.({ resolve: true });
             });
           });
         }
       }).catch(() => {
-        if (this.actionAfterReject.active) {
+        if (this.#actionAfterReject.active) {
           console.log("actionAfterReject fired");
-          this.actionAfterReject.fn();
-          this.actionAfterReject.fn = () => {
+          this.#actionAfterReject.fn();
+          this.#actionAfterReject.fn = () => {
           };
-          this.actionAfterReject.active = false;
+          this.#actionAfterReject.active = false;
           return;
         }
       }).finally(() => {
-        this.addAsyncIsActive = false;
+        this.#addAsyncIsActive = false;
       });
     }
     loopOnDelay({
@@ -11443,23 +12022,23 @@
     }) {
       const current = mobCore.getTime();
       let delta = current - start;
-      if (this.isInPause) deltaTimeOnpause = current - this.timeOnPause;
-      if (this.actionAfterReject.active) {
+      if (this.#isInPause) deltaTimeOnpause = current - this.#timeOnPause;
+      if (this.#actionAfterReject.active) {
         deltaTimeOnpause = 0;
         delta = delay;
       }
-      if (delta - deltaTimeOnpause >= delay || this.isStopped || this.isReverseNext) {
-        this.delayIsRunning = false;
+      if (delta - deltaTimeOnpause >= delay || this.#isStopped || this.#isReverseNext) {
+        this.#delayIsRunning = false;
         resolveTweenPromise({
           reject,
           res,
-          isStopped: this.isStopped,
-          startOnDelay: this.startOnDelay,
-          isInPause: this.isInPause,
+          isStopped: this.#isStopped,
+          startOnDelay: this.#startOnDelay,
+          isInPause: this.#isInPause,
           addToActiveTween: (tween4) => {
             return this.addToActiveTween(tween4);
           },
-          currentSessionId: this.sessionId,
+          currentSessionId: this.#sessionId,
           previousSessionId,
           tween: tween3,
           fn,
@@ -11486,20 +12065,20 @@
      * @type {() => void}
      */
     onRepeat() {
-      if (this.loopCounter > 0) {
+      if (this.#loopCounter > 0) {
         const direction2 = this.getDirection();
-        this.callbackLoop.forEach(
+        this.#callbackLoop.forEach(
           ({ cb }) => cb({
             direction: direction2,
-            loop: this.loopCounter
+            loop: this.#loopCounter
           })
         );
       }
-      this.loopCounter++;
-      this.currentIndex = 0;
+      this.#loopCounter++;
+      this.#currentIndex = 0;
       this.disableLabel();
-      if (this.yoyo || this.forceYoyo) this.revertTween();
-      this.forceYoyo = false;
+      if (this.#yoyo || this.#forceYoyo) this.revertTween();
+      this.#forceYoyo = false;
       this.run();
     }
     /**
@@ -11509,15 +12088,15 @@
     addToActiveTween(tween3) {
       const tweenId = tween3?.getId && tween3.getId();
       if (!tweenId) return NOOP;
-      const prevActiveTweenCounter = this.activetweenCounter;
-      this.activetweenCounter++;
-      this.currentTween.push({
+      const prevActiveTweenCounter = this.#activetweenCounter;
+      this.#activetweenCounter++;
+      this.#currentTween.push({
         tween: tween3,
         uniqueId: tweenId,
         id: prevActiveTweenCounter
       });
       return () => {
-        this.currentTween = this.currentTween.filter(
+        this.#currentTween = this.#currentTween.filter(
           ({ id }) => id !== prevActiveTweenCounter
         );
       };
@@ -11527,8 +12106,8 @@
      * @type {() => void}
      */
     revertTween() {
-      this.isReverse = !this.isReverse;
-      this.tweenList = this.tweenList.reverse().map((group) => {
+      this.#isReverse = !this.#isReverse;
+      this.#tweenList = this.#tweenList.reverse().map((group) => {
         return group.reverse().map((item) => {
           const { data: data2 } = item;
           const { action: action2, valuesFrom, syncProp, prevValueTo, valuesTo } = data2;
@@ -11582,14 +12161,14 @@
      * @type {import('./type').addToMainArray}
      */
     addToMainArray(obj) {
-      const rowIndex = this.tweenList.findIndex((item) => {
-        return item[0]?.group && item[0].group === this.groupId;
+      const rowIndex = this.#tweenList.findIndex((item) => {
+        return item[0]?.group && item[0].group === this.#groupId;
       });
       if (rowIndex !== -1) {
-        this.tweenList[rowIndex].push({ group: this.groupId, data: obj });
+        this.#tweenList[rowIndex].push({ group: this.#groupId, data: obj });
         return;
       }
-      this.tweenList.push([{ group: this.groupId, data: obj }]);
+      this.#tweenList.push([{ group: this.#groupId, data: obj }]);
     }
     /**
      * @private
@@ -11597,17 +12176,19 @@
      */
     addTweenToStore(tween3) {
       const uniqueId = tween3?.getId?.();
-      const tweenIsStored = this.tweenStore.find(({ id }) => id === uniqueId);
+      const tweenIsStored = this.#tweenStore.find(
+        ({ id }) => id === uniqueId
+      );
       if (tweenIsStored) return;
       const obj = { id: uniqueId, tween: tween3 };
-      this.tweenStore.push(obj);
+      this.#tweenStore.push(obj);
     }
     /**
      * @private
      * @type {() => void}
      */
     resetAllTween() {
-      this.tweenStore.forEach(({ tween: tween3 }) => tween3.resetData());
+      this.#tweenStore.forEach(({ tween: tween3 }) => tween3.resetData());
     }
     /**
      * @type {import('./type').asyncTimelineSet}
@@ -11616,16 +12197,16 @@
       if (!asyncTimelineTweenIsValid(tween3)) return this;
       tweenProps.delay = asyncTimelineDelayIsValid(tweenProps?.delay);
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         tween: tween3,
         action: "set",
         valuesTo: valuesSet,
         valuesFrom: valuesSet,
         tweenProps,
-        groupProps: { waitComplete: this.waitComplete }
+        groupProps: { waitComplete: this.#waitComplete }
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
       this.addTweenToStore(tween3);
       return this;
@@ -11637,15 +12218,15 @@
       if (!asyncTimelineTweenIsValid(tween3)) return this;
       tweenProps.delay = asyncTimelineDelayIsValid(tweenProps?.delay);
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         tween: tween3,
         action: "goTo",
         valuesTo,
         tweenProps: tweenProps ?? {},
-        groupProps: { waitComplete: this.waitComplete }
+        groupProps: { waitComplete: this.#waitComplete }
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
       this.addTweenToStore(tween3);
       return this;
@@ -11657,15 +12238,15 @@
       if (!asyncTimelineTweenIsValid(tween3)) return this;
       tweenProps.delay = asyncTimelineDelayIsValid(tweenProps?.delay);
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         tween: tween3,
         action: "goFrom",
         valuesFrom,
         tweenProps,
-        groupProps: { waitComplete: this.waitComplete }
+        groupProps: { waitComplete: this.#waitComplete }
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
       this.addTweenToStore(tween3);
       return this;
@@ -11677,16 +12258,16 @@
       if (!asyncTimelineTweenIsValid(tween3)) return this;
       tweenProps.delay = asyncTimelineDelayIsValid(tweenProps?.delay);
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         tween: tween3,
         action: "goFromTo",
         valuesFrom,
         valuesTo,
         tweenProps,
-        groupProps: { waitComplete: this.waitComplete }
+        groupProps: { waitComplete: this.#waitComplete }
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
       this.addTweenToStore(tween3);
       return this;
@@ -11701,18 +12282,18 @@
         },
         "timeline add function"
       );
-      if (this.groupId) {
+      if (this.#groupId) {
         asyncTimelineMetodsInsideGroupWarining("add");
         return this;
       }
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         tween: cb,
         action: "add",
-        groupProps: { waitComplete: this.waitComplete }
+        groupProps: { waitComplete: this.#waitComplete }
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
       return this;
     }
@@ -11721,18 +12302,18 @@
      */
     addAsync(fn) {
       const cb = addAsyncFunctionIsValid(fn);
-      if (this.groupId) {
+      if (this.#groupId) {
         asyncTimelineMetodsInsideGroupWarining("addAsync");
         return this;
       }
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         tween: cb,
         action: "addAsync",
-        groupProps: { waitComplete: this.waitComplete }
+        groupProps: { waitComplete: this.#waitComplete }
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
       return this;
     }
@@ -11740,7 +12321,7 @@
      * @type {import('./type').asyncTimelineSync}
      */
     sync(syncProp) {
-      if (this.groupId) {
+      if (this.#groupId) {
         asyncTimelineMetodsInsideGroupWarining("sync");
         return this;
       }
@@ -11748,13 +12329,13 @@
       const toIsTween = asyncTimelineTweenIsValid(syncProp?.to);
       if (!toIsTween || !fromIsTween) return this;
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         action: "sync",
-        groupProps: { waitComplete: this.waitComplete },
+        groupProps: { waitComplete: this.#waitComplete },
         syncProp
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
       return this;
     }
@@ -11762,53 +12343,53 @@
      * @type {import('./type').asyncTimelineCreateGroup}
      */
     createGroup(groupProps = {}) {
-      if (this.groupId) {
+      if (this.#groupId) {
         asyncTimelineMetodsInsideGroupWarining("createGroup");
         return this;
       }
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         action: "createGroup",
         groupProps
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
-      this.waitComplete = groupProps?.waitComplete ?? false;
-      this.groupId = this.groupCounter++;
+      this.#waitComplete = groupProps?.waitComplete ?? false;
+      this.#groupId = this.#groupCounter++;
       return this;
     }
     /**
      * @type {import('./type').asyncTimelineCloseGroup}
      */
     closeGroup() {
-      this.groupId = void 0;
+      this.#groupId = void 0;
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         action: "closeGroup"
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
-      this.waitComplete = false;
+      this.#waitComplete = false;
       return this;
     }
     /**
      * @type {import('./type').asyncTimelineSuspend}
      */
     suspend(fn = () => true) {
-      if (this.groupId) {
+      if (this.#groupId) {
         asyncTimelineMetodsInsideGroupWarining("suspend");
         return this;
       }
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         tween: fn,
         action: "suspend",
-        groupProps: { waitComplete: this.waitComplete }
+        groupProps: { waitComplete: this.#waitComplete }
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
       return this;
     }
@@ -11816,20 +12397,20 @@
      * @type {import('./type').asyncTimelineLabel}
      */
     label(labelProps = {}) {
-      if (this.groupId) {
+      if (this.#groupId) {
         asyncTimelineMetodsInsideGroupWarining("label");
         return this;
       }
       if (!valueStringIsValid(labelProps?.name, "asyncTimeline label:"))
         return this;
       const obj = {
-        id: this.currentTweenCounter,
+        id: this.#currentTweenCounter,
         action: "label",
         labelProps,
-        groupProps: { waitComplete: this.waitComplete }
+        groupProps: { waitComplete: this.#waitComplete }
       };
-      this.currentTweenCounter++;
-      const mergedObj = { ...this.defaultObj, ...obj };
+      this.#currentTweenCounter++;
+      const mergedObj = { ...this.#defaultObj, ...obj };
       this.addToMainArray(mergedObj);
       return this;
     }
@@ -11841,42 +12422,42 @@
      * Add a set 'tween' at start and end of timeline.
      */
     addSetBlocks() {
-      if (this.autoSetIsJustCreated) return;
-      this.autoSetIsJustCreated = true;
-      this.tweenStore.forEach(({ tween: tween3 }) => {
+      if (this.#autoSetIsJustCreated) return;
+      this.#autoSetIsJustCreated = true;
+      this.#tweenStore.forEach(({ tween: tween3 }) => {
         const setValueTo = tween3.getInitialData();
         const obj = {
-          id: this.currentTweenCounter,
+          id: this.#currentTweenCounter,
           tween: tween3,
           action: "set",
           valuesFrom: setValueTo,
           valuesTo: setValueTo,
-          groupProps: { waitComplete: this.waitComplete }
+          groupProps: { waitComplete: this.#waitComplete }
         };
-        this.currentTweenCounter++;
-        const mergedObj = { ...this.defaultObj, ...obj };
-        this.tweenList = [
+        this.#currentTweenCounter++;
+        const mergedObj = { ...this.#defaultObj, ...obj };
+        this.#tweenList = [
           [{ group: void 0, data: mergedObj }],
-          ...this.tweenList
+          ...this.#tweenList
         ];
       });
-      this.tweenStore.forEach(({ tween: tween3 }) => {
+      this.#tweenStore.forEach(({ tween: tween3 }) => {
         const setValueTo = asyncReduceTween(
-          this.tweenList,
+          this.#tweenList,
           tween3,
-          this.tweenList.length
+          this.#tweenList.length
         );
         const obj = {
-          id: this.currentTweenCounter,
+          id: this.#currentTweenCounter,
           tween: tween3,
           action: "set",
           valuesFrom: setValueTo,
           valuesTo: setValueTo,
-          groupProps: { waitComplete: this.waitComplete }
+          groupProps: { waitComplete: this.#waitComplete }
         };
-        this.currentTweenCounter++;
-        const mergedObj = { ...this.defaultObj, ...obj };
-        this.tweenList.push([{ group: void 0, data: mergedObj }]);
+        this.#currentTweenCounter++;
+        const mergedObj = { ...this.#defaultObj, ...obj };
+        this.#tweenList.push([{ group: void 0, data: mergedObj }]);
       });
     }
     /**
@@ -11891,10 +12472,10 @@
           new Error("timeline setTween: props is wrong")
         );
       const itemsId = new Set(items.map((item) => item?.getId?.()));
-      const tweens = this.tweenStore.filter(({ id }) => {
+      const tweens = this.#tweenStore.filter(({ id }) => {
         return itemsId.has(id);
       });
-      const index = this.tweenList.findIndex((item) => {
+      const index = this.#tweenList.findIndex((item) => {
         const [firstItem] = item;
         const labelCheck = firstItem.data.labelProps?.name;
         return labelCheck === label;
@@ -11907,7 +12488,7 @@
       }
       return new Promise((resolve) => {
         const tweenPromise = tweens.map(({ tween: tween3 }) => {
-          const data2 = asyncReduceTween(this.tweenList, tween3, index);
+          const data2 = asyncReduceTween(this.#tweenList, tween3, index);
           return new Promise((resolveTween, rejectTween) => {
             tween3.set(data2).then(() => resolveTween({ resolve: true })).catch(() => rejectTween());
           });
@@ -11923,9 +12504,9 @@
      * Private
      */
     rejectPromise() {
-      if (this.currentReject) {
-        this.currentReject(mobCore.ANIMATION_STOP_REJECT);
-        this.currentReject = void 0;
+      if (this.#currentReject) {
+        this.#currentReject(mobCore.ANIMATION_STOP_REJECT);
+        this.#currentReject = void 0;
       }
     }
     /**
@@ -11933,49 +12514,49 @@
      */
     play() {
       return new Promise((resolve, reject) => {
-        if (this.fpsIsInLoading) return;
-        this.fpsIsInLoading = true;
+        if (this.#fpsIsInLoading) return;
+        this.#fpsIsInLoading = true;
         mobCore.useFps(() => {
-          this.fpsIsInLoading = false;
-          if (this.autoSet) this.addSetBlocks();
-          if (this.freeMode) {
-            if (this.tweenList.length === 0 || this.addAsyncIsActive)
+          this.#fpsIsInLoading = false;
+          if (this.#autoSet) this.addSetBlocks();
+          if (this.#freeMode) {
+            if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
               return;
-            if (this.delayIsRunning && !this.actionAfterReject.active) {
-              this.startOnDelay = true;
-              this.actionAfterReject.fn = () => this.play();
-              this.actionAfterReject.active = true;
+            if (this.#delayIsRunning && !this.#actionAfterReject.active) {
+              this.#startOnDelay = true;
+              this.#actionAfterReject.fn = () => this.play();
+              this.#actionAfterReject.active = true;
               return;
             }
-            this.startOnDelay = false;
+            this.#startOnDelay = false;
             this.stop();
-            this.isStopped = false;
-            if (this.isReverse) this.revertTween();
-            this.sessionId++;
+            this.#isStopped = false;
+            if (this.#isReverse) this.revertTween();
+            this.#sessionId++;
             mobCore.useFrameIndex(() => {
-              this.currentReject = reject;
-              this.currentResolve = resolve;
+              this.#currentReject = reject;
+              this.#currentResolve = resolve;
               this.run();
             }, 1);
             return;
           }
-          this.starterFunction.fn = () => {
+          this.#starterFunction.fn = () => {
             this.stop();
-            this.isStopped = false;
-            const tweenPromise = this.tweenStore.map(({ tween: tween3 }) => {
+            this.#isStopped = false;
+            const tweenPromise = this.#tweenStore.map(({ tween: tween3 }) => {
               const data2 = tween3.getInitialData();
               return new Promise((resolve2, reject2) => {
                 tween3.set(data2).then(() => resolve2({ resolve: true })).catch(() => reject2());
               });
             });
             Promise.all(tweenPromise).then(() => {
-              this.currentReject = reject;
-              this.currentResolve = resolve;
+              this.#currentReject = reject;
+              this.#currentResolve = resolve;
               this.run();
             }).catch(() => {
             });
           };
-          this.starterFunction.active = true;
+          this.#starterFunction.active = true;
           this.playReverse({ forceYoYo: true });
         });
       });
@@ -11985,18 +12566,18 @@
      * @type {import('./type').asyncTimelinePlayFromLabel}
      */
     playFromLabel({ isReverse = false, label = null }) {
-      if (this.tweenList.length === 0 || this.addAsyncIsActive) return;
-      if (this.isReverse) this.revertTween();
-      this.currentIndex = 0;
-      this.labelState.isReverse = isReverse;
-      this.labelState.active = true;
-      this.labelState.index = mobCore.checkType(String, label) ? this.tweenList.findIndex((item) => {
+      if (this.#tweenList.length === 0 || this.#addAsyncIsActive) return;
+      if (this.#isReverse) this.revertTween();
+      this.#currentIndex = 0;
+      this.#labelState.isReverse = isReverse;
+      this.#labelState.active = true;
+      this.#labelState.index = mobCore.checkType(String, label) ? this.#tweenList.findIndex((item) => {
         const [firstItem] = item;
         const labelCheck = firstItem.data.labelProps?.name;
         return labelCheck === label;
       }) : label;
       if (mobCore.checkType(String, label))
-        playLabelIsValid(this.labelState.index, label);
+        playLabelIsValid(this.#labelState.index, label);
       this.run();
     }
     /**
@@ -12004,15 +12585,15 @@
      */
     playFrom(label) {
       return new Promise((resolve, reject) => {
-        if (this.fpsIsInLoading) return;
-        this.fpsIsInLoading = true;
+        if (this.#fpsIsInLoading) return;
+        this.#fpsIsInLoading = true;
         mobCore.useFps(() => {
-          this.fpsIsInLoading = false;
-          this.starterFunction.fn = () => this.playFromLabel({
+          this.#fpsIsInLoading = false;
+          this.#starterFunction.fn = () => this.playFromLabel({
             isReverse: false,
             label
           });
-          this.starterFunction.active = true;
+          this.#starterFunction.active = true;
           this.playReverse({ forceYoYo: false, resolve, reject });
         });
       });
@@ -12022,15 +12603,15 @@
      */
     playFromReverse(label) {
       return new Promise((resolve, reject) => {
-        if (this.fpsIsInLoading) return;
-        this.fpsIsInLoading = true;
+        if (this.#fpsIsInLoading) return;
+        this.#fpsIsInLoading = true;
         mobCore.useFps(() => {
-          this.fpsIsInLoading = false;
-          this.starterFunction.fn = () => this.playFromLabel({
+          this.#fpsIsInLoading = false;
+          this.#starterFunction.fn = () => this.playFromLabel({
             isReverse: true,
             label
           });
-          this.starterFunction.active = true;
+          this.#starterFunction.active = true;
           this.playReverse({ forceYoYo: false, resolve, reject });
         });
       });
@@ -12042,31 +12623,31 @@
       return new Promise((resolveFromReverse, rejectFromReverse) => {
         const resolveInUse = resolve || resolveFromReverse;
         const rejectInUse = reject || rejectFromReverse;
-        if (this.fpsIsInLoading) return;
-        this.fpsIsInLoading = true;
+        if (this.#fpsIsInLoading) return;
+        this.#fpsIsInLoading = true;
         mobCore.useFps(() => {
-          this.fpsIsInLoading = false;
-          if (this.autoSet) this.addSetBlocks();
+          this.#fpsIsInLoading = false;
+          if (this.#autoSet) this.addSetBlocks();
           const forceYoYonow = forceYoYo;
-          if (this.tweenList.length === 0 || this.addAsyncIsActive)
+          if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
             return;
-          if (this.delayIsRunning && !this.actionAfterReject.active) {
-            this.startOnDelay = true;
-            this.actionAfterReject.fn = () => this.playReverse({ forceYoYo: forceYoYonow });
-            this.actionAfterReject.active = true;
+          if (this.#delayIsRunning && !this.#actionAfterReject.active) {
+            this.#startOnDelay = true;
+            this.#actionAfterReject.fn = () => this.playReverse({ forceYoYo: forceYoYonow });
+            this.#actionAfterReject.active = true;
             return;
           }
-          this.startOnDelay = false;
+          this.#startOnDelay = false;
           this.stop();
-          this.isStopped = false;
-          if (forceYoYonow) this.forceYoyo = true;
-          this.labelState.active = true;
-          this.labelState.index = this.tweenList.length;
-          this.loopCounter--;
-          this.sessionId++;
+          this.#isStopped = false;
+          if (forceYoYonow) this.#forceYoyo = true;
+          this.#labelState.active = true;
+          this.#labelState.index = this.#tweenList.length;
+          this.#loopCounter--;
+          this.#sessionId++;
           mobCore.useFrameIndex(() => {
-            this.currentResolve = resolveInUse;
-            this.currentReject = rejectInUse;
+            this.#currentResolve = resolveInUse;
+            this.#currentReject = rejectInUse;
             this.run();
           }, 1);
         });
@@ -12076,38 +12657,38 @@
      * @type {() => void}
      */
     reverseNext() {
-      this.isReverseNext = true;
+      this.#isReverseNext = true;
     }
     /**
      * @type {import('./type').asyncTimelineStop}
      */
     stop({ clearCache = true } = {}) {
-      this.isStopped = true;
-      this.currentIndex = 0;
-      this.loopCounter = 1;
+      this.#isStopped = true;
+      this.#currentIndex = 0;
+      this.#loopCounter = 1;
       this.rejectPromise();
-      this.isReverseNext = false;
+      this.#isReverseNext = false;
       this.disableLabel();
-      this.forceYoyo = false;
-      this.isInPause = false;
-      this.isInSuspension = false;
-      this.addAsyncIsActive = false;
-      this.timeOnPause = 0;
-      this.labelState.isReverse = false;
-      this.tweenStore.forEach(({ tween: tween3 }) => {
+      this.#forceYoyo = false;
+      this.#isInPause = false;
+      this.#isInSuspension = false;
+      this.#addAsyncIsActive = false;
+      this.#timeOnPause = 0;
+      this.#labelState.isReverse = false;
+      this.#tweenStore.forEach(({ tween: tween3 }) => {
         tween3?.stop?.({ clearCache });
       });
-      if (this.isReverse) this.revertTween();
-      this.isReverse = false;
-      if (!this.freeMode) this.resetAllTween();
+      if (this.#isReverse) this.revertTween();
+      this.#isReverse = false;
+      if (!this.#freeMode) this.resetAllTween();
     }
     /**
      * @type {import('./type').asyncTimelinePause}
      */
     pause() {
-      this.isInPause = true;
-      this.timeOnPause = mobCore.getTime();
-      this.currentTween.forEach(({ tween: tween3 }) => {
+      this.#isInPause = true;
+      this.#timeOnPause = mobCore.getTime();
+      this.#currentTween.forEach(({ tween: tween3 }) => {
         tween3?.pause?.();
       });
     }
@@ -12115,22 +12696,22 @@
      * @type {import('./type').asyncTimelineResume}
      */
     resume() {
-      if (this.isInPause) {
-        this.isInPause = false;
-        this.timeOnPause = 0;
+      if (this.#isInPause) {
+        this.#isInPause = false;
+        this.#timeOnPause = 0;
         this.resumeEachTween();
       }
-      if (this.isInSuspension) {
-        this.isInSuspension = false;
-        this.timeOnPause = 0;
-        if (this.currentIndex <= this.tweenList.length - 2) {
-          this.currentIndex++;
+      if (this.#isInSuspension) {
+        this.#isInSuspension = false;
+        this.#timeOnPause = 0;
+        if (this.#currentIndex <= this.#tweenList.length - 2) {
+          this.#currentIndex++;
           this.run();
-        } else if (this.currentIndex === this.tweenList.length - 1) {
-          this.currentIndex = this.yoyo && !this.isReverse ? 1 : 0;
+        } else if (this.#currentIndex === this.#tweenList.length - 1) {
+          this.#currentIndex = this.#yoyo && !this.#isReverse ? 1 : 0;
           this.disableLabel();
-          if (this.yoyo) this.revertTween();
-          this.loopCounter++;
+          if (this.#yoyo) this.revertTween();
+          this.#loopCounter++;
           this.run();
         }
       }
@@ -12140,15 +12721,15 @@
      * @type {() => void}
      */
     disableLabel() {
-      this.labelState.active = false;
-      this.labelState.index = -1;
+      this.#labelState.active = false;
+      this.#labelState.index = -1;
     }
     /**
      * @private
      * @type {() => void}
      */
     resumeEachTween() {
-      this.currentTween.forEach(({ tween: tween3 }) => {
+      this.#currentTween.forEach(({ tween: tween3 }) => {
         tween3?.resume?.();
       });
     }
@@ -12164,7 +12745,7 @@
      * Get an array of active instance.
      */
     get() {
-      return this.currentTween;
+      return this.#currentTween;
     }
     /**
      * @return {boolean} Returns a boolean value indicating whether the timeline is active
@@ -12178,7 +12759,7 @@
      * Return active state.
      */
     isActive() {
-      return !this.isStopped;
+      return !this.#isStopped;
     }
     /**
      * @return {boolean} Returns a boolean value indicating whether the timeline is in pause
@@ -12192,7 +12773,7 @@
      * Return pause state.
      */
     isPaused() {
-      return this.isInPause;
+      return this.#isInPause;
     }
     /**
      * @return {boolean} Returns a boolean value indicating whether the timeline is suspended
@@ -12206,7 +12787,7 @@
      * return suspended state.
      */
     isSuspended() {
-      return this.isInSuspension;
+      return this.#isInSuspension;
     }
     /**
      * @return {import('../utils/timeline/type.js').directionType} Returns a boolean value indicating whether the timeline is suspended
@@ -12220,17 +12801,17 @@
      * return current direction.
      */
     getDirection() {
-      if (this.isStopped) return directionConstant.NONE;
-      return this.isReverse ? directionConstant.BACKWARD : directionConstant.FORWARD;
+      if (this.#isStopped) return directionConstant.NONE;
+      return this.#isReverse ? directionConstant.BACKWARD : directionConstant.FORWARD;
     }
     /**
      * @type {import('./type').asyncTimelineOnLoopEnd}
      */
     onLoopEnd(cb) {
-      this.callbackLoop.push({ cb, id: this.id });
-      const cbId = this.id;
+      this.#callbackLoop.push({ cb, id: this.#id });
+      const cbId = this.#id;
       return () => {
-        this.callbackLoop = this.callbackLoop.filter(
+        this.#callbackLoop = this.#callbackLoop.filter(
           (item) => item.id !== cbId
         );
       };
@@ -12239,11 +12820,11 @@
      * @type {import('./type').asyncTimelineOnComplete}
      */
     onComplete(cb) {
-      this.callbackComplete.push({ cb, id: this.id });
-      const cbId = this.id;
-      this.id++;
+      this.#callbackComplete.push({ cb, id: this.#id });
+      const cbId = this.#id;
+      this.#id++;
       return () => {
-        this.callbackComplete = this.callbackComplete.filter(
+        this.#callbackComplete = this.#callbackComplete.filter(
           (item) => item.id !== cbId
         );
       };
@@ -12253,16 +12834,16 @@
      * Destroy timeline and all the sequencer
      */
     destroy() {
-      this.tweenStore.forEach(({ tween: tween3 }) => {
+      this.#tweenStore.forEach(({ tween: tween3 }) => {
         tween3?.destroy?.();
       });
-      this.tweenList = [];
-      this.currentTween = [];
-      this.callbackComplete = [];
-      this.callbackLoop = [];
-      this.tweenStore = [];
-      this.currentIndex = 0;
-      this.actionAfterReject = {
+      this.#tweenList = [];
+      this.#currentTween = [];
+      this.#callbackComplete = [];
+      this.#callbackLoop = [];
+      this.#tweenStore = [];
+      this.#currentIndex = 0;
+      this.#actionAfterReject = {
         active: false,
         fn: () => {
         }
@@ -13268,34 +13849,224 @@
 
   // src/js/mobMotion/animation/parallax/parallaxPin.js
   var ParallaxPin = class {
+    /**
+     * @type{number}
+     */
+    #scrollerHeight;
+    /**
+     * @type{number}
+     */
+    #start;
+    /**
+     * @type{number}
+     */
+    #startFromTop;
+    /**
+     * @type{boolean|undefined}
+     */
+    #invertSide;
+    /**
+     * @type{number}
+     */
+    #end;
+    /**
+     * @type{() => number}
+     */
+    #getStart;
+    /**
+     * @type{() => number}
+     */
+    #getEnd;
+    /**
+     * @type{string}
+     */
+    #direction;
+    /**
+     * @type{number}
+     */
+    #compesateValue;
+    /**
+     * @description
+     * @type {HTMLElement|undefined}
+     */
+    #item;
+    /**
+     * @description
+     * @type {Object|undefined}
+     */
+    #spring;
+    /**
+     * @description
+     * @type {HTMLElement|undefined}
+     */
+    #wrapper;
+    /**
+     * @description
+     * @type {HTMLElement|undefined}
+     */
+    #pin;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #isOver;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #isInner;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #isUnder;
+    /**
+     * @description
+     * @type {Function}
+     */
+    #unsubscribeScroll;
+    /**
+     * @description
+     * @type {Function}
+     */
+    #unsubscribeScrollStart;
+    /**
+     * @description
+     * @type {Function}
+     */
+    #unsubscribeSpring;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #firstTime;
+    /**
+     * @description
+     * Item style applied to pin wrapper
+     *
+     * @type {Array<string>}
+     */
+    #itemRequireStyleToWrapper;
+    /**
+     * @description
+     * Item style get and applied itself when transpond
+     *
+     * @type {Array<string>}
+     */
+    #itemRequireStyleWhenTraspond;
+    /**
+     * @description
+     * Paerent style to applied to pin
+     *
+     * @type {Array<string>}
+     */
+    #parentRequireStyle;
+    /**
+     * @description
+     * Item style applied to pin
+     *
+     * @type {Array<string>}
+     */
+    #itemRequireStyleToPin;
+    /**
+     * @description
+     * Parent style that activate transpond
+     *
+     * @type {Array<string>}
+     */
+    #styleToTranspond;
+    /**
+     * @description
+     * Skip parent style to activate transpond above with this value
+     *
+     * @type {Array<string>}
+     */
+    #nonRelevantRule;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #isInizialized;
+    /**
+     * @description
+     * @type {number}
+     */
+    #prevScroll;
+    /**
+     * @description
+     * @type {number}
+     */
+    #prevscrollY;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #animatePin;
+    /**
+     * @description
+     * @type {number}
+     */
+    #anticipateFactor;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #forceTranspond;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #justPinned;
+    /**
+     * @description
+     * @type {number}
+     */
+    #afterPinCounter;
+    /**
+     * @description
+     * @type {number}
+     */
+    #lastStep;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #afterJustPinned;
+    /**
+     * @description
+     * @type {number}
+     */
+    #afterJustPinnedCounter;
+    /**
+     * @description
+     * @type {number}
+     */
+    #numeCycleToFreeze;
     constructor() {
-      this.trasponderActive = false;
-      this.scrollerHeight = 0;
-      this.start = 0;
-      this.startFromTop = 0;
-      this.scroller = window;
-      this.invertSide = void 0;
-      this.end = 0;
-      this.getStart = () => 0;
-      this.getEnd = () => 0;
-      this.direction = parallaxConstant.DIRECTION_VERTICAL;
-      this.compesateValue = 0;
-      this.trigger = null;
-      this.item = void 0;
-      this.spring = void 0;
-      this.wrapper = void 0;
-      this.pin = void 0;
-      this.isOver = false;
-      this.isInner = false;
-      this.isUnder = false;
-      this.unsubscribeScroll = () => {
+      this.#scrollerHeight = 0;
+      this.#start = 0;
+      this.#startFromTop = 0;
+      this.#invertSide = void 0;
+      this.#end = 0;
+      this.#getStart = () => 0;
+      this.#getEnd = () => 0;
+      this.#direction = parallaxConstant.DIRECTION_VERTICAL;
+      this.#compesateValue = 0;
+      this.#item = void 0;
+      this.#spring = void 0;
+      this.#wrapper = void 0;
+      this.#pin = void 0;
+      this.#isOver = false;
+      this.#isInner = false;
+      this.#isUnder = false;
+      this.#unsubscribeScroll = () => {
       };
-      this.unsubscribeScrollStart = () => {
+      this.#unsubscribeScrollStart = () => {
       };
-      this.unsubscribeSpring = () => {
+      this.#unsubscribeSpring = () => {
       };
-      this.firstTime = true;
-      this.itemRequireStyleToWrapper = [
+      this.#firstTime = true;
+      this.#itemRequireStyleToWrapper = [
         "flex",
         "flex-shrink",
         "flex-basis",
@@ -13312,144 +14083,142 @@
         "align-self",
         "justify-self"
       ];
-      this.itemRequireStyleWhenTraspond = [
+      this.#itemRequireStyleWhenTraspond = [
         "font-size",
         "padding",
         "margin",
         "line-height",
         "white-space"
       ];
-      this.parentRequireStyle = ["text-align"];
-      this.itemRequireStyleToPin = ["z-index", "pointer-events"];
-      this.styleToTranspond = [
+      this.#parentRequireStyle = ["text-align"];
+      this.#itemRequireStyleToPin = ["z-index", "pointer-events"];
+      this.#styleToTranspond = [
         "transform",
         "position",
         "translate",
         "rotate",
         "scale"
       ];
-      this.nonRelevantRule = ["none", "static"];
-      this.isInizialized = false;
-      this.prevScroll = 0;
-      this.prevscrollY = 0;
-      this.animatePin = false;
-      this.anticipateFactor = 1.5;
-      this.forceTranspond = false;
-      this.justPinned = false;
-      this.afterPinCounter = 0;
-      this.lastStep = 0;
-      this.afterJustPinned = false;
-      this.afterJustPinnedCounter = 0;
-      this.numeCycleToFreeze = 3;
+      this.#nonRelevantRule = ["none", "static"];
+      this.#isInizialized = false;
+      this.#prevScroll = 0;
+      this.#prevscrollY = 0;
+      this.#animatePin = false;
+      this.#anticipateFactor = 1.5;
+      this.#forceTranspond = false;
+      this.#justPinned = false;
+      this.#afterPinCounter = 0;
+      this.#lastStep = 0;
+      this.#afterJustPinned = false;
+      this.#afterJustPinnedCounter = 0;
+      this.#numeCycleToFreeze = 3;
     }
     /**
      * @param {Object} data
      */
     init(data2) {
-      this.item = data2.item;
+      this.#item = data2.item;
       this.marker = data2.marker;
-      this.trigger = data2.trigger || data2?.item;
-      this.scroller = data2.scroller;
       this.screen = data2.screen;
-      this.animatePin = data2.animatePin;
+      this.#animatePin = data2.animatePin;
       this.anticipatePinOnLoad = data2.anticipatePinOnLoad;
-      this.forceTranspond = data2.forceTranspond;
-      this.invertSide = data2.invertSide;
-      this.direction = data2.direction;
-      this.getStart = data2.getStart;
-      this.getEnd = data2.getEnd;
-      this.start = this.getStart();
-      this.end = this.getEnd();
-      this.prevscrollY = window.scrollY;
-      this.scrollerHeight = data2?.scrollerHeight;
+      this.#forceTranspond = data2.forceTranspond;
+      this.#invertSide = data2.invertSide;
+      this.#direction = data2.direction;
+      this.#getStart = data2.getStart;
+      this.#getEnd = data2.getEnd;
+      this.#start = this.#getStart();
+      this.#end = this.#getEnd();
+      this.#prevscrollY = window.scrollY;
+      this.#scrollerHeight = data2?.scrollerHeight;
       this.refreshCollisionPoint();
-      this.collisionTranslateProp = this.direction === parallaxConstant.DIRECTION_VERTICAL ? "Y" : "X";
-      this.collisionStyleProp = this.direction === parallaxConstant.DIRECTION_VERTICAL ? "top" : "left";
-      this.isInizialized = true;
-      this.firstTime = true;
+      this.collisionTranslateProp = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? "Y" : "X";
+      this.collisionStyleProp = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? "top" : "left";
+      this.#isInizialized = true;
+      this.#firstTime = true;
       this.createPin();
       this.addStyleFromPinToWrapper();
       this.setPinSize();
       this.setUpMotion();
-      this.unsubscribeScrollStart = mobCore.useScrollStart(() => {
-        if (!this.isInizialized) return;
-        if (this.screen !== window && this.isInner && this.pin) {
+      this.#unsubscribeScrollStart = mobCore.useScrollStart(() => {
+        if (!this.#isInizialized) return;
+        if (this.screen !== window && this.#isInner && this.#pin) {
           mobCore.useFrame(() => {
-            if (this.pin)
-              this.pin.style.transition = `transform .85s cubic-bezier(0, 0.68, 0.45, 1.1)`;
+            if (this.#pin)
+              this.#pin.style.transition = `transform .85s cubic-bezier(0, 0.68, 0.45, 1.1)`;
           });
         }
       });
-      this.unsubscribeScroll = mobCore.useScroll(({ scrollY: scrollY2 }) => {
-        if (!this.isInizialized) return;
+      this.#unsubscribeScroll = mobCore.useScroll(({ scrollY: scrollY2 }) => {
+        if (!this.#isInizialized) return;
         if (
           // eslint-disable-next-line unicorn/prefer-global-this
           this.screen !== window && this.screen !== document.documentElement
         ) {
-          if (this.direction === parallaxConstant.DIRECTION_VERTICAL) {
+          if (this.#direction === parallaxConstant.DIRECTION_VERTICAL) {
             this.refreshCollisionPoint();
           }
-          const gap = scrollY2 - this.prevscrollY;
-          this.prevscrollY = scrollY2;
-          if (this.isInner && this.pin) {
-            const { verticalGap } = this.spring.get();
+          const gap = scrollY2 - this.#prevscrollY;
+          this.#prevscrollY = scrollY2;
+          if (this.#isInner && this.#pin) {
+            const { verticalGap } = this.#spring.get();
             const translateValue = verticalGap - gap;
-            this.spring.setData({
+            this.#spring.setData({
               collision: 0,
               verticalGap: translateValue
             });
             mobCore.useFrame(() => {
-              if (this.pin)
-                this.pin.style.transform = `translate(0px,${translateValue}px)`;
+              if (this.#pin)
+                this.#pin.style.transform = `translate(0px,${translateValue}px)`;
             });
           }
         }
       });
     }
     setUpMotion() {
-      this.spring = new HandleSpring({
+      this.#spring = new HandleSpring({
         data: { collision: 0, verticalGap: 0 },
         config: "wobbly"
       });
-      this.unsubscribeSpring = this.spring.subscribe(
+      this.#unsubscribeSpring = this.#spring.subscribe(
         ({ collision, verticalGap }) => {
-          if (this.direction === parallaxConstant.DIRECTION_VERTICAL && this.pin) {
-            this.pin.style.transform = `translate(0px, ${collision}px)`;
-          } else if (this.pin) {
-            this.pin.style.transform = `translate(${collision}px, ${verticalGap}px)`;
+          if (this.#direction === parallaxConstant.DIRECTION_VERTICAL && this.#pin) {
+            this.#pin.style.transform = `translate(0px, ${collision}px)`;
+          } else if (this.#pin) {
+            this.#pin.style.transform = `translate(${collision}px, ${verticalGap}px)`;
           }
         }
       );
     }
     resetSpring() {
-      if (this.pin)
-        this.spring.set({ collision: 0, verticalGap: 0 }).catch(() => {
+      if (this.#pin)
+        this.#spring.set({ collision: 0, verticalGap: 0 }).catch(() => {
         });
     }
     createPin() {
-      if (!this.item) this.item = document.createElement("div");
+      if (!this.#item) this.#item = document.createElement("div");
       const wrapper2 = document.createElement("div");
       wrapper2.classList.add("pin-wrapper");
       const pin = document.createElement("div");
       pin.classList.add("pin");
       wrapper2.append(pin);
-      const parentNode = this.item?.parentNode;
-      if (parentNode) parentNode.insertBefore(wrapper2, this.item);
-      pin.append(this.item);
-      this.wrapper = this.item.closest(".pin-wrapper");
-      this.pin = this.item.closest(".pin");
+      const parentNode = this.#item?.parentNode;
+      if (parentNode) parentNode.insertBefore(wrapper2, this.#item);
+      pin.append(this.#item);
+      this.#wrapper = this.#item.closest(".pin-wrapper");
+      this.#pin = this.#item.closest(".pin");
       const requiredStyleToadd = this.addRquiredStyle();
       const pinStyleFromItem = this.addPinStyleFromItem();
       const markerWrapperStyle = getMarkerWrapperStyle({
         marker: this.marker,
-        invertSide: this.invertSide,
-        direction: this.direction
+        invertSide: this.#invertSide,
+        direction: this.#direction
       });
       const display = { display: "table" };
       mobCore.useFrame(() => {
-        if (!this.pin || !this.wrapper) return;
-        Object.assign(this.wrapper.style, { ...markerWrapperStyle });
-        Object.assign(this.pin.style, {
+        if (!this.#pin || !this.#wrapper) return;
+        Object.assign(this.#wrapper.style, { ...markerWrapperStyle });
+        Object.assign(this.#pin.style, {
           ...display,
           ...pinStyleFromItem,
           ...requiredStyleToadd
@@ -13458,27 +14227,27 @@
       this.checkIfShouldTranspond();
     }
     setPinSize() {
-      if (!this.pin || !this.wrapper) return;
-      const height = this.wrapper.offsetHeight;
-      const width = this.wrapper.offsetWidth;
-      this.wrapper.style.height = `${height}px`;
-      this.wrapper.style.width = `${width}px`;
-      this.pin.style.height = `${height}px`;
-      this.pin.style.width = `${width}px`;
+      if (!this.#pin || !this.#wrapper) return;
+      const height = this.#wrapper.offsetHeight;
+      const width = this.#wrapper.offsetWidth;
+      this.#wrapper.style.height = `${height}px`;
+      this.#wrapper.style.width = `${width}px`;
+      this.#pin.style.height = `${height}px`;
+      this.#pin.style.width = `${width}px`;
     }
     /**
      * @description
      * Get style from item and apply to wrapper ( es: flex)
      */
     addStyleFromPinToWrapper() {
-      if (!this.item) return;
-      const compStyles = window.getComputedStyle(this.item);
-      const style = this.itemRequireStyleToWrapper.reduce((p, c) => {
+      if (!this.#item) return;
+      const compStyles = window.getComputedStyle(this.#item);
+      const style = this.#itemRequireStyleToWrapper.reduce((p, c) => {
         return { ...p, [c]: compStyles.getPropertyValue(c) };
       }, {});
       mobCore.useFrame(() => {
-        if (!this.wrapper) return;
-        Object.assign(this.wrapper.style, style);
+        if (!this.#wrapper) return;
+        Object.assign(this.#wrapper.style, style);
       });
     }
     /**
@@ -13492,7 +14261,7 @@
       if (!node) return;
       while (node !== null && node !== document) {
         const style = getComputedStyle(node);
-        if (style[rule] && !this.nonRelevantRule.includes(style[rule])) {
+        if (style[rule] && !this.#nonRelevantRule.includes(style[rule])) {
           return { [rule]: style[rule] };
         }
         node = node.parentNode;
@@ -13503,9 +14272,9 @@
      * @returns {object}
      */
     addRquiredStyle() {
-      if (!this.pin) return {};
-      return this.parentRequireStyle.map((item) => {
-        return this.findStyle(this.pin, item);
+      if (!this.#pin) return {};
+      return this.#parentRequireStyle.map((item) => {
+        return this.findStyle(this.#pin, item);
       }).filter((item) => item !== null).reduce((p, c) => {
         return { ...p, ...c };
       }, {});
@@ -13514,12 +14283,12 @@
      * @returns {void}
      */
     checkIfShouldTranspond() {
-      if (this.forceTranspond) {
+      if (this.#forceTranspond) {
         this.shoulTranspond = true;
         return;
       }
-      this.shoulTranspond = this.styleToTranspond.map((item) => {
-        const style = this.findStyle(this.wrapper, item);
+      this.shoulTranspond = this.#styleToTranspond.map((item) => {
+        const style = this.findStyle(this.#wrapper, item);
         if (!style) return false;
         const [key] = Object.keys(style);
         const [value] = Object.values(style);
@@ -13534,8 +14303,8 @@
      * @returns {void}
      */
     updateStartEndValue() {
-      this.start = this.getStart();
-      this.end = this.getEnd();
+      this.#start = this.#getStart();
+      this.#end = this.#getEnd();
     }
     /**
      * @returns {void}
@@ -13543,42 +14312,42 @@
     refreshCollisionPoint() {
       this.updateStartEndValue();
       if (this.screen !== window) {
-        this.start -= this.direction === parallaxConstant.DIRECTION_VERTICAL ? position(this.screen).top : position(this.screen).left;
+        this.#start -= this.#direction === parallaxConstant.DIRECTION_VERTICAL ? position(this.screen).top : position(this.screen).left;
       }
-      this.startFromTop = this.invertSide ? this.start : this.scrollerHeight - this.start;
-      this.compesateValue = this.invertSide ? -Math.trunc(this.end) : Math.trunc(this.end);
+      this.#startFromTop = this.#invertSide ? this.#start : this.#scrollerHeight - this.#start;
+      this.#compesateValue = this.#invertSide ? -Math.trunc(this.#end) : Math.trunc(this.#end);
     }
     /**
      * @returns {void}
      */
     destroy() {
-      if (!this.isInizialized) return;
-      this.spring.stop();
-      this.unsubscribeSpring();
-      this.unsubscribeScroll();
-      this.unsubscribeScrollStart();
-      this.spring.destroy();
-      this.spring = null;
-      this.afterPinCounter = 0;
-      this.justPinned = false;
-      this.isUnder = false;
-      this.isInner = false;
-      this.isOver = false;
-      if (this.pin && this.wrapper) {
-        this.wrapper.parentNode?.insertBefore(this.item, this.wrapper);
-        this.pin.remove();
-        this.wrapper.remove();
-        this.wrapper = void 0;
-        this.pin = void 0;
-        this.isInizialized = false;
+      if (!this.#isInizialized) return;
+      this.#spring.stop();
+      this.#unsubscribeSpring();
+      this.#unsubscribeScroll();
+      this.#unsubscribeScrollStart();
+      this.#spring.destroy();
+      this.#spring = null;
+      this.#afterPinCounter = 0;
+      this.#justPinned = false;
+      this.#isUnder = false;
+      this.#isInner = false;
+      this.#isOver = false;
+      if (this.#pin && this.#wrapper) {
+        this.#wrapper.parentNode?.insertBefore(this.#item, this.#wrapper);
+        this.#pin.remove();
+        this.#wrapper.remove();
+        this.#wrapper = void 0;
+        this.#pin = void 0;
+        this.#isInizialized = false;
       }
     }
     /**
      * @returns {number}
      */
     getGap() {
-      if (!this.wrapper) return 0;
-      return this.direction === parallaxConstant.DIRECTION_VERTICAL ? position(this.wrapper).top - this.startFromTop : position(this.wrapper).left - this.startFromTop;
+      if (!this.#wrapper) return 0;
+      return this.#direction === parallaxConstant.DIRECTION_VERTICAL ? position(this.#wrapper).top - this.#startFromTop : position(this.#wrapper).left - this.#startFromTop;
     }
     /**
      * @returns {void}
@@ -13591,7 +14360,7 @@
      * @returns {void}
      */
     animateCollisionBack() {
-      const gap = this.invertSide ? this.getGap() - this.end : this.getGap() + this.end;
+      const gap = this.#invertSide ? this.getGap() - this.#end : this.getGap() + this.#end;
       this.tween(gap);
     }
     /**
@@ -13599,11 +14368,11 @@
      */
     tween(gap) {
       mobCore.useFrame(() => {
-        if (!this.pin || !this.collisionStyleProp) return;
-        this.pin.style[this.collisionStyleProp] = `${this.startFromTop}px`;
+        if (!this.#pin || !this.collisionStyleProp) return;
+        this.#pin.style[this.collisionStyleProp] = `${this.#startFromTop}px`;
       });
-      if (this.animatePin && !this.firstTime && this.pin) {
-        this.spring.goFrom({ collision: gap }).then(() => {
+      if (this.#animatePin && !this.#firstTime && this.#pin) {
+        this.#spring.goFrom({ collision: gap }).then(() => {
           this.resetPinTransform();
         }).catch(() => {
         });
@@ -13614,8 +14383,8 @@
      */
     resetPinTransform() {
       mobCore.useFrame(() => {
-        if (!this.pin) return;
-        this.pin.style.transform = `translate(0px, 0px)`;
+        if (!this.#pin) return;
+        this.#pin.style.transform = `translate(0px, 0px)`;
       });
     }
     /**
@@ -13624,11 +14393,11 @@
     resetStyleWhenUnder() {
       this.resetSpring();
       mobCore.useFrame(() => {
-        if (!this.pin) return;
-        this.pin.style.transition = "";
-        this.pin.style.position = "relative";
-        this.pin.style.top = ``;
-        this.pin.style.left = ``;
+        if (!this.#pin) return;
+        this.#pin.style.transition = "";
+        this.#pin.style.position = "relative";
+        this.#pin.style.top = ``;
+        this.#pin.style.left = ``;
       });
     }
     /**
@@ -13637,15 +14406,15 @@
     resetStyleWhenOver() {
       this.resetSpring();
       mobCore.useFrame(() => {
-        if (!this.pin) return;
-        this.pin.style.transition = "";
-        this.pin.style.position = "relative";
-        if (this.direction === parallaxConstant.DIRECTION_VERTICAL) {
-          this.pin.style.left = ``;
-          this.pin.style.top = `${this.compesateValue}px`;
+        if (!this.#pin) return;
+        this.#pin.style.transition = "";
+        this.#pin.style.position = "relative";
+        if (this.#direction === parallaxConstant.DIRECTION_VERTICAL) {
+          this.#pin.style.left = ``;
+          this.#pin.style.top = `${this.#compesateValue}px`;
         } else {
-          this.pin.style.top = ``;
-          this.pin.style.left = `${this.compesateValue}px`;
+          this.#pin.style.top = ``;
+          this.#pin.style.left = `${this.#compesateValue}px`;
         }
       });
     }
@@ -13653,24 +14422,24 @@
      * @returns {void}
      */
     setFixedPosition() {
-      if (!this.pin) return;
-      const left = this.direction === parallaxConstant.DIRECTION_VERTICAL ? position(this.pin).left : position(this.pin).top;
-      const style = this.direction === parallaxConstant.DIRECTION_VERTICAL ? "left" : "top";
+      if (!this.#pin) return;
+      const left = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? position(this.#pin).left : position(this.#pin).top;
+      const style = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? "left" : "top";
       mobCore.useFrame(() => {
-        if (!this.pin) return;
-        this.pin.style.position = "fixed";
-        this.pin.style[style] = `${left}px`;
-        this.justPinned = true;
-        this.afterJustPinned = true;
+        if (!this.#pin) return;
+        this.#pin.style.position = "fixed";
+        this.#pin.style[style] = `${left}px`;
+        this.#justPinned = true;
+        this.#afterJustPinned = true;
       });
     }
     /**
      * @returns {object}
      */
     addPinStyleFromItem() {
-      if (!this.item) return {};
-      const compStyles = window.getComputedStyle(this.item);
-      return this.itemRequireStyleToPin.reduce((p, c) => {
+      if (!this.#item) return {};
+      const compStyles = window.getComputedStyle(this.#item);
+      return this.#itemRequireStyleToPin.reduce((p, c) => {
         return { ...p, [c]: compStyles.getPropertyValue(c) };
       }, {});
     }
@@ -13678,9 +14447,9 @@
      * @returns {object}
      */
     addStyleToItem() {
-      if (!this.item) return {};
-      const compStyles = window.getComputedStyle(this.item);
-      return this.itemRequireStyleWhenTraspond.reduce((p, c) => {
+      if (!this.#item) return {};
+      const compStyles = window.getComputedStyle(this.#item);
+      return this.#itemRequireStyleWhenTraspond.reduce((p, c) => {
         return { ...p, [c]: compStyles.getPropertyValue(c) };
       }, {});
     }
@@ -13688,7 +14457,7 @@
      * @returns {object}
      */
     removeStyleToItem() {
-      return this.itemRequireStyleWhenTraspond.reduce((p, c) => {
+      return this.#itemRequireStyleWhenTraspond.reduce((p, c) => {
         return { ...p, [c]: "" };
       }, {});
     }
@@ -13701,28 +14470,26 @@
         const pinStyleFromItem = this.addPinStyleFromItem();
         const styleToAdd = this.addStyleToItem();
         mobCore.useFrame(() => {
-          if (!this.pin) return;
-          Object.assign(this.pin.style, {
+          if (!this.#pin) return;
+          Object.assign(this.#pin.style, {
             ...pinStyleFromItem,
             ...requiredStyleToAdd
           });
-          if (this.item) Object.assign(this.item.style, styleToAdd);
-          document.body.append(this.pin);
+          if (this.#item) Object.assign(this.#item.style, styleToAdd);
+          document.body.append(this.#pin);
         });
-        this.trasponderActive = true;
       }
     }
     /**
      * @returns {void}
      */
     deactivateTrasponder() {
-      if (!this.shoulTranspond || !this.item || !this.wrapper) return;
+      if (!this.shoulTranspond || !this.#item || !this.#wrapper) return;
       mobCore.useFrame(() => {
-        if (!this.pin) return;
-        Object.assign(this.item.style, this.removeStyleToItem());
-        this.wrapper?.append(this.pin);
+        if (!this.#pin) return;
+        Object.assign(this.#item.style, this.removeStyleToItem());
+        this.#wrapper?.append(this.#pin);
       });
-      this.trasponderActive = false;
     }
     /**
      * @param {number} scrollTop
@@ -13730,15 +14497,15 @@
      * @returns {number}
      */
     getAnticipate(scrollTop) {
-      const step = this.afterJustPinned && this.afterJustPinnedCounter < 3 ? this.lastStep : clamp(Math.abs(scrollTop - this.prevScroll), 0, 250);
-      if (this.afterJustPinned && this.afterJustPinnedCounter < this.numeCycleToFreeze) {
-        this.afterJustPinnedCounter++;
+      const step = this.#afterJustPinned && this.#afterJustPinnedCounter < 3 ? this.#lastStep : clamp(Math.abs(scrollTop - this.#prevScroll), 0, 250);
+      if (this.#afterJustPinned && this.#afterJustPinnedCounter < this.#numeCycleToFreeze) {
+        this.#afterJustPinnedCounter++;
       } else {
-        this.afterJustPinnedCounter = 0;
-        this.afterJustPinned = false;
+        this.#afterJustPinnedCounter = 0;
+        this.#afterJustPinned = false;
       }
-      this.lastStep = step;
-      return step * this.anticipateFactor;
+      this.#lastStep = step;
+      return step * this.#anticipateFactor;
     }
     /**
      * @param {number} scrollTop
@@ -13747,7 +14514,7 @@
      * @returns {{anticipateBottom:number,anticipateInnerIn:number,anticipateInnerOut:number}}
      */
     getAnticipateValue(scrollTop, scrollDirection) {
-      if (this.animatePin && !this.firstTime || this.firstTime && !this.anticipatePinOnLoad) {
+      if (this.#animatePin && !this.#firstTime || this.#firstTime && !this.anticipatePinOnLoad) {
         return {
           anticipateBottom: 0,
           anticipateInnerIn: 0,
@@ -13771,7 +14538,7 @@
      * @returns {{anticipateBottom:number,anticipateInnerIn:number,anticipateInnerOut:number}}
      */
     getAnticipateValueInverted(scrollTop, scrollDirection) {
-      if (this.animatePin && !this.firstTime || this.firstTime && !this.anticipatePinOnLoad) {
+      if (this.#animatePin && !this.#firstTime || this.#firstTime && !this.anticipatePinOnLoad) {
         return {
           anticipateBottom: 0,
           anticipateInnerIn: 0,
@@ -13792,52 +14559,52 @@
      * @param {number} scrollTop
      */
     onScroll(scrollTop) {
-      if (!this.isInizialized || !this.wrapper) return;
-      if (this.justPinned && this.afterPinCounter < this.numeCycleToFreeze) {
-        this.afterPinCounter++;
+      if (!this.#isInizialized || !this.#wrapper) return;
+      if (this.#justPinned && this.#afterPinCounter < this.#numeCycleToFreeze) {
+        this.#afterPinCounter++;
         return;
       } else {
-        this.afterPinCounter = 0;
-        this.justPinned = false;
+        this.#afterPinCounter = 0;
+        this.#justPinned = false;
       }
-      const scrollDirection = this.prevScroll > scrollTop ? parallaxConstant.SCROLL_UP : parallaxConstant.SCROLL_DOWN;
-      const offsetTop = this.direction === parallaxConstant.DIRECTION_VERTICAL ? position(this.wrapper).top : position(this.wrapper).left;
-      const { anticipateBottom, anticipateInnerIn, anticipateInnerOut } = this.invertSide ? this.getAnticipateValueInverted(scrollTop, scrollDirection) : this.getAnticipateValue(scrollTop, scrollDirection);
-      const bottomCondition = this.invertSide ? offsetTop < this.start - anticipateBottom : offsetTop > this.scrollerHeight - this.start + anticipateBottom;
-      const innerCondition = this.invertSide ? offsetTop >= this.start - anticipateInnerIn && offsetTop <= this.start + anticipateInnerOut + this.end : offsetTop <= this.scrollerHeight - this.start + anticipateInnerIn && this.scrollerHeight - offsetTop <= this.end + anticipateInnerOut + this.start;
+      const scrollDirection = this.#prevScroll > scrollTop ? parallaxConstant.SCROLL_UP : parallaxConstant.SCROLL_DOWN;
+      const offsetTop = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? position(this.#wrapper).top : position(this.#wrapper).left;
+      const { anticipateBottom, anticipateInnerIn, anticipateInnerOut } = this.#invertSide ? this.getAnticipateValueInverted(scrollTop, scrollDirection) : this.getAnticipateValue(scrollTop, scrollDirection);
+      const bottomCondition = this.#invertSide ? offsetTop < this.#start - anticipateBottom : offsetTop > this.#scrollerHeight - this.#start + anticipateBottom;
+      const innerCondition = this.#invertSide ? offsetTop >= this.#start - anticipateInnerIn && offsetTop <= this.#start + anticipateInnerOut + this.#end : offsetTop <= this.#scrollerHeight - this.#start + anticipateInnerIn && this.#scrollerHeight - offsetTop <= this.#end + anticipateInnerOut + this.#start;
       if (bottomCondition) {
-        if (!this.isUnder) {
+        if (!this.#isUnder) {
           this.resetStyleWhenUnder();
           this.deactivateTrasponder();
-          this.isUnder = true;
-          this.isInner = false;
-          this.isOver = false;
+          this.#isUnder = true;
+          this.#isInner = false;
+          this.#isOver = false;
         }
       } else if (innerCondition) {
-        if (!this.isInner) {
+        if (!this.#isInner) {
           this.setFixedPosition();
-          const fireSpring = scrollDirection === parallaxConstant.SCROLL_DOWN && !this.invertSide || scrollDirection === parallaxConstant.SCROLL_UP && this.invertSide;
+          const fireSpring = scrollDirection === parallaxConstant.SCROLL_DOWN && !this.#invertSide || scrollDirection === parallaxConstant.SCROLL_UP && this.#invertSide;
           this.activateTrasponder();
           if (fireSpring) {
             this.animateCollision();
           } else {
             this.animateCollisionBack();
           }
-          this.isUnder = false;
-          this.isInner = true;
-          this.isOver = false;
+          this.#isUnder = false;
+          this.#isInner = true;
+          this.#isOver = false;
         }
       } else {
-        if (!this.isOver) {
+        if (!this.#isOver) {
           this.resetStyleWhenOver();
           this.deactivateTrasponder();
-          this.isUnder = false;
-          this.isInner = false;
-          this.isOver = true;
+          this.#isUnder = false;
+          this.#isInner = false;
+          this.#isOver = true;
         }
       }
-      this.prevScroll = scrollTop;
-      this.firstTime = false;
+      this.#prevScroll = scrollTop;
+      this.#firstTime = false;
     }
   };
 
@@ -14099,6 +14866,405 @@
   // src/js/mobMotion/animation/parallax/parallax.js
   var ParallaxClass = class {
     /**
+     * @type {boolean}
+     */
+    #isInzialized;
+    /**
+     * @type {boolean}
+     */
+    #willChangeIsActive;
+    /**
+     * @type {number}
+     */
+    #offset;
+    /**
+     * @type {number}
+     */
+    #screenPosition;
+    /**
+     * @type {number}
+     */
+    #endValue;
+    /**
+     * @type {number}
+     */
+    #height;
+    /**
+     * @type {number}
+     */
+    #width;
+    /**
+     * @type {number}
+     */
+    #scrollerScroll;
+    /**
+     * @type {number}
+     */
+    #scrollerHeight;
+    /**
+     * @type {number}
+     */
+    #windowInnerWidth;
+    /**
+     * @type {number}
+     */
+    #windowInnerHeight;
+    /**
+     * @type {number}
+     */
+    #gap;
+    /**
+     * @type {number}
+     */
+    #numericRange;
+    /**
+     * @type {Function}
+     */
+    #unsubscribeResize;
+    /**
+     * @type {Function}
+     */
+    #unsubscribeScroll;
+    /**
+     * @type {Function}
+     */
+    #unsubscribeScrollStart;
+    /**
+     * @type {Function}
+     */
+    #unsubscribeScrollEnd;
+    /**
+     * @type {Function}
+     */
+    #unsubscribeMarker;
+    /**
+     * @type {Element|undefined}
+     */
+    #startMarker;
+    /**
+     * @type {Element|undefined}
+     */
+    #endMarker;
+    /**
+     * @type {number|undefined}
+     */
+    #lastValue;
+    /**
+     * @type {number}
+     */
+    #prevFixedRawValue;
+    /**
+     * @type {boolean}
+     */
+    #fixedShouldRender;
+    /**
+     * @type {number|undefined}
+     */
+    #prevFixedClamp;
+    /**
+     * @type {boolean}
+     */
+    #firstTime;
+    /**
+     * @type {boolean}
+     */
+    #isInViewport;
+    /**
+     * @type {boolean}
+     */
+    #iSControlledFromOutside;
+    /**
+     * @type {boolean}
+     */
+    #force3D;
+    /**
+     * @type {object|undefined}
+     */
+    #pinInstance;
+    /**
+     * @type {string}
+     */
+    #unitMisure;
+    /**
+     * @type {number}
+     */
+    #startPoint;
+    /**
+     * @type {number}
+     */
+    #endPoint;
+    /**
+     * @type {Function}
+     */
+    #unsubscribeMotion;
+    /**
+     * @type {Function}
+     */
+    #unsubscribeOnComplete;
+    /**
+     * Fixed prop
+     */
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #pin;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #animatePin;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #forceTranspond;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #anticipatePinOnLoad;
+    /**
+     * @description
+     * @type {string}
+     */
+    #start;
+    /**
+     * @description
+     * @type {string}
+     */
+    #end;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #fromTo;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #invertSide;
+    /**
+     * @description
+     * @type {string}
+     */
+    #marker;
+    /**
+     * @description
+     * @type {import('./type.js').dynamicStartType}
+     */
+    #dynamicStart;
+    /**
+     * @description
+     * @type {import('./type.js').dynamicEndType}
+     */
+    #dynamicEnd;
+    /**
+     * @description
+     * @type {Function|undefined}
+     */
+    #dynamicRange;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #animateAtStart;
+    /**
+     * @description
+     * @type {Function}
+     */
+    #onEnter;
+    /**
+     * @description
+     * @type {Function}
+     */
+    #onEnterBack;
+    /**
+     * @description
+     * @type {Function}
+     */
+    #onLeave;
+    /**
+     * @description
+     * @type {Function}
+     */
+    #onLeaveBack;
+    /**
+     * @description
+     * @type {Function}
+     */
+    #onTickCallback;
+    /**
+     * @description
+     * @type {string|number}
+     */
+    #align;
+    /**
+     * @description
+     * @type {string|boolean}
+     */
+    #onSwitch;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #reverse;
+    /**
+     * @description
+     * @type {number}
+     */
+    #opacityStart;
+    /**
+     * @description
+     * @type {number}
+     */
+    #opacityEnd;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #limiterOff;
+    /**
+     * Common prop
+     */
+    /**
+     * @description
+     * @type {boolean|undefined}
+     */
+    #useWillChange;
+    /**
+     * @description
+     * @type {object}
+     */
+    #tween;
+    /**
+     *
+     */
+    /**
+     * @description
+     * @type {HTMLElement|null}
+     */
+    #item;
+    /**
+     * @description
+     * @type {HTMLElement|Window|null}
+     */
+    #scroller;
+    /**
+     * @description
+     * @type {HTMLElement|Window|null}
+     */
+    #screen;
+    /**
+     * @description
+     * @type {HTMLElement|null|undefined}
+     */
+    #trigger;
+    /**
+     * @description
+     * @type {HTMLElement|null|undefined}
+     */
+    #applyTo;
+    /**
+     * @description
+     * @type {string}
+     */
+    #direction;
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #disableForce3D;
+    // With pin active no throttle is usable, pin need precision
+    /**
+     * @description
+     * @type {boolean}
+     */
+    #useThrottle;
+    /**
+     * @description
+     * @type {string}
+     */
+    #type;
+    /**
+     * @description
+     * @type {number}
+     */
+    #perspective;
+    /**
+     * @description
+     * @type {string}
+     */
+    #breakpoint;
+    /**
+     * @description
+     * @type {string}
+     */
+    #queryType;
+    /**
+     * @type {string}
+     */
+    #propierties;
+    /**
+     * @description
+     * Skip render and set a default 100px value for
+     * trigger the events.
+     *
+     * @type {boolean}
+     */
+    #shouldTrackOnlyEvents;
+    /**
+     * @description
+     * @type {string|number}
+     */
+    #range;
+    /**
+     * @description
+     * Get properties, check if there is sequencer inside a Parallax,
+     * In case return y propierties
+     *
+     * @type {boolean}
+     */
+    #ease;
+    /**
+     * @description
+     * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
+     * In case return a lerp
+     *
+     * @type {string}
+     */
+    #easeType;
+    /**
+     * @description
+     * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
+     * In case return a lerp
+     *
+     * @type {string}
+     */
+    #springConfig;
+    /**
+     * @description
+     * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
+     * In case return a lerp
+     *
+     * @type {number}
+     */
+    #lerpConfig;
+    /**
+     * @description
+     * Add more precision to motion spring/lerp to trigger better force3D
+     *
+     * @type {any}
+     */
+    #motionParameters;
+    /**
+     * @description
+     * Add more precision to motion spring/lerp to trigger better force3D
+     *
+     * @type {object}
+     */
+    #motion;
+    /**
      * @param  { import('./type.js').parallaxCommonType & import('./type.js').parallaxType &  import('./type.js').scrollTriggerType} data
      *
      * @example
@@ -14201,228 +15367,227 @@
      * ```
      */
     constructor(data2) {
-      this.isInzialized = false;
-      this.firstScroll = false;
-      this.willChangeIsActive = false;
-      this.offset = 0;
-      this.screenPosition = 0;
-      this.endValue = 0;
-      this.height = 0;
-      this.width = 0;
-      this.scrollerScroll = 0;
-      this.scrollerHeight = 0;
-      this.windowInnerWidth = window.innerWidth;
-      this.windowInnerHeight = window.innerHeight;
-      this.gap = 150;
-      this.numericRange = 0;
-      this.unsubscribeResize = () => {
+      this.#isInzialized = false;
+      this.#willChangeIsActive = false;
+      this.#offset = 0;
+      this.#screenPosition = 0;
+      this.#endValue = 0;
+      this.#height = 0;
+      this.#width = 0;
+      this.#scrollerScroll = 0;
+      this.#scrollerHeight = 0;
+      this.#windowInnerWidth = window.innerWidth;
+      this.#windowInnerHeight = window.innerHeight;
+      this.#gap = 150;
+      this.#numericRange = 0;
+      this.#unsubscribeResize = () => {
       };
-      this.unsubscribeScroll = () => {
+      this.#unsubscribeScroll = () => {
       };
-      this.unsubscribeScrollStart = () => {
+      this.#unsubscribeScrollStart = () => {
       };
-      this.unsubscribeScrollEnd = () => {
+      this.#unsubscribeScrollEnd = () => {
       };
-      this.unsubscribeMarker = () => {
+      this.#unsubscribeMarker = () => {
       };
-      this.startMarker = void 0;
-      this.endMarker = void 0;
-      this.lastValue = void 0;
-      this.prevFixedRawValue = 0;
-      this.fixedShouldRender = false;
-      this.prevFixedClamp = void 0;
-      this.firstTime = true;
-      this.isInViewport = false;
-      this.iSControlledFromOutside = false;
-      this.force3D = false;
-      this.pinInstance = void 0;
-      this.unitMisure = "";
-      this.startPoint = 0;
-      this.endPoint = 0;
-      this.unsubscribeMotion = () => {
+      this.#startMarker = void 0;
+      this.#endMarker = void 0;
+      this.#lastValue = void 0;
+      this.#prevFixedRawValue = 0;
+      this.#fixedShouldRender = false;
+      this.#prevFixedClamp = void 0;
+      this.#firstTime = true;
+      this.#isInViewport = false;
+      this.#iSControlledFromOutside = false;
+      this.#force3D = false;
+      this.#pinInstance = void 0;
+      this.#unitMisure = "";
+      this.#startPoint = 0;
+      this.#endPoint = 0;
+      this.#unsubscribeMotion = () => {
       };
-      this.unsubscribeOnComplete = () => {
+      this.#unsubscribeOnComplete = () => {
       };
-      this.pin = valueIsBooleanAndReturnDefault(
+      this.#pin = valueIsBooleanAndReturnDefault(
         data2?.pin,
         "Scrolltrigger pin propierties error:",
         false
       );
-      this.animatePin = valueIsBooleanAndReturnDefault(
+      this.#animatePin = valueIsBooleanAndReturnDefault(
         data2?.animatePin,
         "Scrolltrigger animatePin propierties error:",
         false
       );
-      this.forceTranspond = valueIsBooleanAndReturnDefault(
+      this.#forceTranspond = valueIsBooleanAndReturnDefault(
         data2?.forceTranspond,
         "Scrolltrigger forceTranspond propierties error:",
         false
       );
-      this.anticipatePinOnLoad = valueIsBooleanAndReturnDefault(
+      this.#anticipatePinOnLoad = valueIsBooleanAndReturnDefault(
         data2?.anticipatePinOnLoad,
         "Scrolltrigger anticipatePinOnLoad propierties error:",
         false
       );
-      this.start = valueIsStringAndReturnDefault(
+      this.#start = valueIsStringAndReturnDefault(
         data2?.start,
         "Scrolltrigger start propierties error:",
         "bottom 0px"
       );
-      this.end = valueIsStringAndReturnDefault(
+      this.#end = valueIsStringAndReturnDefault(
         data2?.end,
         "Scrolltrigger end propierties error:",
         "top"
       );
-      this.fromTo = valueIsBooleanAndReturnDefault(
+      this.#fromTo = valueIsBooleanAndReturnDefault(
         data2?.fromTo,
         "Scrolltrigger fromTo propierties error:",
         false
       );
-      this.invertSide = valueIsBooleanAndReturnDefault(
+      this.#invertSide = valueIsBooleanAndReturnDefault(
         data2?.invertSide,
         "Scrolltrigger invertSide propierties error:",
         false
       );
-      this.marker = valueIsStringAndReturnDefault(
+      this.#marker = valueIsStringAndReturnDefault(
         data2?.marker,
         "Scrolltrigger marker propierties error:",
         // eslint-disable-next-line unicorn/no-useless-undefined
         void 0
       );
-      this.dynamicStart = data2?.dynamicStart ? parallaxDynamicValueIsValid(data2.dynamicStart, "dynamicStart") : null;
-      this.dynamicEnd = data2?.dynamicEnd ? parallaxDynamicValueIsValid(data2.dynamicEnd, "dynamicEnd") : null;
-      this.dynamicRange = parallaxDynamicRangeIsValid(data2?.dynamicRange);
-      this.animateAtStart = valueIsBooleanAndReturnDefault(
+      this.#dynamicStart = data2?.dynamicStart ? parallaxDynamicValueIsValid(data2.dynamicStart, "dynamicStart") : null;
+      this.#dynamicEnd = data2?.dynamicEnd ? parallaxDynamicValueIsValid(data2.dynamicEnd, "dynamicEnd") : null;
+      this.#dynamicRange = parallaxDynamicRangeIsValid(data2?.dynamicRange);
+      this.#animateAtStart = valueIsBooleanAndReturnDefault(
         data2?.animateAtStart,
         "Scrolltrigger animateAtStart propierties error:",
         false
       );
-      this.onEnter = functionIsValidAndReturnDefault(
+      this.#onEnter = functionIsValidAndReturnDefault(
         data2?.onEnter,
         false,
         "Scrolltrigger onEnter propierties error"
       );
-      this.onEnterBack = functionIsValidAndReturnDefault(
+      this.#onEnterBack = functionIsValidAndReturnDefault(
         data2?.onEnterBack,
         false,
         "Scrolltrigger onEnterBack propierties error"
       );
-      this.onLeave = functionIsValidAndReturnDefault(
+      this.#onLeave = functionIsValidAndReturnDefault(
         data2?.onLeave,
         false,
         "Scrolltrigger onLeave propierties error"
       );
-      this.onLeaveBack = functionIsValidAndReturnDefault(
+      this.#onLeaveBack = functionIsValidAndReturnDefault(
         data2?.onLeaveBack,
         false,
         "Scrolltrigger onLeaveBack propierties error"
       );
-      this.onTickCallback = functionIsValidAndReturnDefault(
+      this.#onTickCallback = functionIsValidAndReturnDefault(
         data2?.onTick,
         false,
         "Scrolltrigger onTickCallback propierties error"
       );
-      this.align = parallaxAlignIsValid(data2?.align);
-      this.onSwitch = parallaxOnSwitchIsValid(data2?.onSwitch);
-      this.reverse = valueIsBooleanAndReturnDefault(
+      this.#align = parallaxAlignIsValid(data2?.align);
+      this.#onSwitch = parallaxOnSwitchIsValid(data2?.onSwitch);
+      this.#reverse = valueIsBooleanAndReturnDefault(
         data2?.reverse,
         "Parallax reverse propierties error:",
         false
       );
-      this.opacityStart = parallaxOpacityIsValid(
+      this.#opacityStart = parallaxOpacityIsValid(
         data2?.opacityStart,
         "Parallax opacityStart propierties error:",
         100
       );
-      this.opacityEnd = parallaxOpacityIsValid(
+      this.#opacityEnd = parallaxOpacityIsValid(
         data2?.opacityEnd,
         "Parallax opacityEnd propierties error:",
         0
       );
-      this.limiterOff = valueIsBooleanAndReturnDefault(
+      this.#limiterOff = valueIsBooleanAndReturnDefault(
         data2?.limiterOff,
         "Parallax|Scrolltrigger limiterOff propierties error:",
         false
       );
-      this.useWillChange = data2?.useWillChange;
-      this.tween = parallaxTweenIsValid(data2?.tween);
-      const tweenIsSequencer = this.tween?.getType && this.tween.getType() === parallaxConstant.TWEEN_TIMELINE;
-      const tweenIsParallaxTween = this.tween?.getType && this.tween.getType() === parallaxConstant.TWEEN_TWEEN;
-      this.item = domNodeIsValidAndReturnElOrWin(data2?.item, false);
-      this.scroller = domNodeIsValidAndReturnElOrWin(data2?.scroller, true);
-      this.screen = domNodeIsValidAndReturnElOrWin(data2?.screen, true);
-      this.trigger = domNodeIsValidAndReturnNull(data2?.trigger);
-      this.applyTo = domNodeIsValidAndReturnNull(data2?.applyTo);
-      this.direction = directionIsValid(
+      this.#useWillChange = data2?.useWillChange;
+      this.#tween = parallaxTweenIsValid(data2?.tween);
+      const tweenIsSequencer = this.#tween?.getType && this.#tween.getType() === parallaxConstant.TWEEN_TIMELINE;
+      const tweenIsParallaxTween = this.#tween?.getType && this.#tween.getType() === parallaxConstant.TWEEN_TWEEN;
+      this.#item = domNodeIsValidAndReturnElOrWin(data2?.item, false);
+      this.#scroller = domNodeIsValidAndReturnElOrWin(data2?.scroller, true);
+      this.#screen = domNodeIsValidAndReturnElOrWin(data2?.screen, true);
+      this.#trigger = domNodeIsValidAndReturnNull(data2?.trigger);
+      this.#applyTo = domNodeIsValidAndReturnNull(data2?.applyTo);
+      this.#direction = directionIsValid(
         data2?.direction,
         "Parallax/Scrolltrigger"
       );
-      this.disableForce3D = valueIsBooleanAndReturnDefault(
+      this.#disableForce3D = valueIsBooleanAndReturnDefault(
         data2?.disableForce3D,
         "Parallax|Scrolltrigger disableForce3D propierties error:",
         false
       );
-      this.useThrottle = valueIsBooleanAndReturnDefault(
+      this.#useThrottle = valueIsBooleanAndReturnDefault(
         data2?.useThrottle,
         "Parallax|Scrolltrigger useThrottle propierties error:",
         false
       );
-      this.type = parallaxTypeIsValid(data2?.type);
-      this.perspective = valueIsNumberAndReturnDefault(
+      this.#type = parallaxTypeIsValid(data2?.type);
+      this.#perspective = valueIsNumberAndReturnDefault(
         data2?.perspective,
         "Parallax|Scrolltrigger perspective propierties error:",
         0
       );
-      this.breakpoint = breakpointIsValid(
+      this.#breakpoint = breakpointIsValid(
         data2?.breakpoint,
         "breakpoint",
         "parallax/scrolltrigger"
       );
-      this.queryType = breakpointTypeIsValid(
+      this.#queryType = breakpointTypeIsValid(
         data2?.queryType,
         "queryType",
         "parallax/scrolltrigger"
       );
       const { propierties, shouldTrackOnlyEvents } = parallaxPropiertiesIsValid(
         data2?.propierties,
-        this.type,
+        this.#type,
         tweenIsParallaxTween,
         tweenIsSequencer
       );
-      this.propierties = propierties;
-      this.shouldTrackOnlyEvents = shouldTrackOnlyEvents;
-      this.range = shouldTrackOnlyEvents ? "100px" : parallaxRangeIsValid(data2?.range, this.type);
-      this.ease = valueIsBooleanAndReturnDefault(
+      this.#propierties = propierties;
+      this.#shouldTrackOnlyEvents = shouldTrackOnlyEvents;
+      this.#range = shouldTrackOnlyEvents ? "100px" : parallaxRangeIsValid(data2?.range, this.#type);
+      this.#ease = valueIsBooleanAndReturnDefault(
         data2?.ease,
         "Parallax|Scrolltrigger ease propierties error:",
         false
       );
       if (tweenIsSequencer && data2?.easeType === parallaxConstant.EASE_SPRING)
         parallaxEaseTypeSpringWarining();
-      this.easeType = tweenIsSequencer ? parallaxConstant.EASE_LERP : parallaxEaseTypeIsValid(data2?.easeType);
-      this.springConfig = parallaxSpringConfigIsValid(
+      this.#easeType = tweenIsSequencer ? parallaxConstant.EASE_LERP : parallaxEaseTypeIsValid(data2?.easeType);
+      this.#springConfig = parallaxSpringConfigIsValid(
         data2?.springConfig,
-        this.type
+        this.#type
       );
-      this.lerpConfig = parallaxLerpConfigIsValid(
+      this.#lerpConfig = parallaxLerpConfigIsValid(
         data2?.lerpConfig,
-        this.type
+        this.#type
       );
-      this.motionParameters = this.easeType === parallaxConstant.EASE_SPRING ? { configProp: { precision: parallaxConstant.EASE_PRECISION } } : { precision: parallaxConstant.EASE_PRECISION };
-      this.motion = this.easeType === parallaxConstant.EASE_SPRING ? new HandleSpring() : new HandleLerp();
+      this.#motionParameters = this.#easeType === parallaxConstant.EASE_SPRING ? { configProp: { precision: parallaxConstant.EASE_PRECISION } } : { precision: parallaxConstant.EASE_PRECISION };
+      this.#motion = this.#easeType === parallaxConstant.EASE_SPRING ? new HandleSpring() : new HandleLerp();
     }
     /**
      * @description
      * Initialize instance
      */
     init() {
-      if (this.isInzialized) {
+      if (this.#isInzialized) {
         console.warn(
           "Parallax/scrollTrigger: The init() method cannot be launched more than once. If you are passing the instance to components like horizontalScroller or smoothScroller via the children property, they will initialize the instance."
         );
         return;
       }
-      this.isInzialized = true;
+      this.#isInzialized = true;
       this.setMotion();
       this.calcScreenPosition();
       this.calcOffset();
@@ -14430,46 +15595,44 @@
       this.calcWidth();
       this.getScreenHeight();
       this.setPerspective();
-      if (this.propierties === parallaxConstant.PROP_TWEEN) {
-        this.range = this?.tween?.getDuration ? this.tween.getDuration() : 0;
-        this.dynamicRange = () => this.range;
-        this.tween?.inzializeStagger?.();
+      if (this.#propierties === parallaxConstant.PROP_TWEEN) {
+        this.#range = this.#tween?.getDuration ? this.#tween.getDuration() : 0;
+        this.#dynamicRange = () => this.#range;
+        this.#tween?.inzializeStagger?.();
       }
-      if (this.type == parallaxConstant.TYPE_SCROLLTRIGGER) {
-        this.limiterOff = true;
+      if (this.#type == parallaxConstant.TYPE_SCROLLTRIGGER) {
+        this.#limiterOff = true;
         this.calcRangeAndUnitMiusure();
         this.calcFixedLimit();
       }
-      if (this.ease) {
-        this.unsubscribeScrollStart = mobCore.useScrollStart(() => {
-          this.firstScroll = true;
-          if (!this.disableForce3D) this.force3D = true;
+      if (this.#ease) {
+        this.#unsubscribeScrollStart = mobCore.useScrollStart(() => {
+          if (!this.#disableForce3D) this.#force3D = true;
         });
-        this.unsubscribeScrollEnd = mobCore.useScrollEnd(() => {
+        this.#unsubscribeScrollEnd = mobCore.useScrollEnd(() => {
           mobCore.useFrame(() => {
             mobCore.useNextTick(() => {
               this.smoothParallaxJs();
             });
           });
         });
-        if (this.scroller === window) {
-          this.unsubscribeScroll = getScrollFunction({
-            pin: this.pin,
-            ease: this.ease,
-            useThrottle: this.useThrottle,
+        if (this.#scroller === window) {
+          this.#unsubscribeScroll = getScrollFunction({
+            pin: this.#pin,
+            ease: this.#ease,
+            useThrottle: this.#useThrottle,
             callback: () => {
-              this.firstScroll = false;
               this.smoothParallaxJs();
             }
           });
         }
         this.smoothParallaxJs();
       } else {
-        if (this.scroller === window) {
-          this.unsubscribeScroll = getScrollFunction({
-            pin: this.pin,
-            ease: this.ease,
-            useThrottle: this.useThrottle,
+        if (this.#scroller === window) {
+          this.#unsubscribeScroll = getScrollFunction({
+            pin: this.#pin,
+            ease: this.#ease,
+            useThrottle: this.#useThrottle,
             callback: () => {
               this.computeValue();
               this.noEasingRender();
@@ -14478,44 +15641,44 @@
         }
         this.computeValue();
         this.noEasingRender();
-        this.unsubscribeScrollEnd = mobCore.useScrollEnd(() => {
+        this.#unsubscribeScrollEnd = mobCore.useScrollEnd(() => {
           this.noEasingRender({ forceRender: true });
         });
       }
-      if (this.scroller !== window && this.marker) {
-        this.unsubscribeMarker = mobCore.useScroll(() => {
+      if (this.#scroller !== window && this.#marker) {
+        this.#unsubscribeMarker = mobCore.useScroll(() => {
           this.calcFixedLimit();
         });
       }
-      this.unsubscribeResize = mobCore.useResize(({ horizontalResize }) => {
+      this.#unsubscribeResize = mobCore.useResize(({ horizontalResize }) => {
         if (horizontalResize) this.refresh();
       });
-      if (this.pin) {
-        this.pinInstance = new ParallaxPin();
-        if (mq[this.queryType](this.breakpoint)) {
+      if (this.#pin) {
+        this.#pinInstance = new ParallaxPin();
+        if (mq[this.#queryType](this.#breakpoint)) {
           mobCore.useNextTick(() => {
             this.getScrollerOffset();
-            this.pinInstance?.init(this.getPinParams());
-            this.pinInstance?.onScroll(this.scrollerScroll);
+            this.#pinInstance?.init(this.getPinParams());
+            this.#pinInstance?.onScroll(this.#scrollerScroll);
           });
         }
       }
     }
     getPinParams() {
       return {
-        item: this.item,
-        marker: this.marker,
-        trigger: this.trigger,
-        scroller: this.scroller,
-        screen: this.screen,
-        animatePin: this.animatePin,
-        anticipatePinOnLoad: this.anticipatePinOnLoad,
-        forceTranspond: this.forceTranspond,
-        invertSide: this.invertSide,
-        direction: this.direction,
-        scrollerHeight: this.scrollerHeight,
-        getStart: () => this.startPoint,
-        getEnd: () => this.endPoint,
+        item: this.#item,
+        marker: this.#marker,
+        trigger: this.#trigger,
+        scroller: this.#scroller,
+        screen: this.#screen,
+        animatePin: this.#animatePin,
+        anticipatePinOnLoad: this.#anticipatePinOnLoad,
+        forceTranspond: this.#forceTranspond,
+        invertSide: this.#invertSide,
+        direction: this.#direction,
+        scrollerHeight: this.#scrollerHeight,
+        getStart: () => this.#startPoint,
+        getEnd: () => this.#endPoint,
         instance: this
       };
     }
@@ -14525,7 +15688,7 @@
      * @param {HTMLElement|Window} scroller
      */
     setScroller(scroller2) {
-      this.scroller = domNodeIsValidAndReturnElOrWin(scroller2, true);
+      this.#scroller = domNodeIsValidAndReturnElOrWin(scroller2, true);
     }
     /**
      * @description
@@ -14533,7 +15696,7 @@
      * @param {HTMLElement|Window} screen
      */
     setScreen(screen) {
-      this.screen = domNodeIsValidAndReturnElOrWin(screen, true);
+      this.#screen = domNodeIsValidAndReturnElOrWin(screen, true);
     }
     /**
      * @description
@@ -14541,7 +15704,7 @@
      * @param {string} direction
      */
     setDirection(direction2) {
-      this.direction = directionIsValid(direction2, "Parallax/Scrolltrigger");
+      this.#direction = directionIsValid(direction2, "Parallax/Scrolltrigger");
     }
     /**
      * @description
@@ -14549,7 +15712,7 @@
      * @param {string} breakpoint
      */
     setBreakPoint(breakpoint) {
-      this.breakpoint = breakpointIsValid(
+      this.#breakpoint = breakpointIsValid(
         breakpoint,
         "breakpoint",
         "Parallax/Scrolltrigger"
@@ -14561,7 +15724,7 @@
      * @param {string} queryType
      */
     setQueryType(queryType) {
-      this.queryType = breakpointTypeIsValid(
+      this.#queryType = breakpointTypeIsValid(
         queryType,
         "queryType",
         "Parallax/Scrolltrigger"
@@ -14571,12 +15734,12 @@
      * @private
      */
     setPerspective() {
-      if (this.perspective && this.item && this.item.parentNode) {
+      if (this.#perspective && this.#item && this.#item.parentNode) {
         const style = {
-          perspective: `${this.perspective}px`,
+          perspective: `${this.#perspective}px`,
           "transform-style": "preserve-3d"
         };
-        const parent = this.item.parentNode;
+        const parent = this.#item.parentNode;
         Object.assign(parent.style, style);
       }
     }
@@ -14585,29 +15748,29 @@
      */
     setMotion() {
       const initialValue = parallaxConstant.PROP_SCALE || parallaxConstant.PROP_SCALE_X || parallaxConstant.PROP_SCALE_Y || parallaxConstant.PROP_OPACITY ? 1 : 0;
-      this.motion.setData({ val: initialValue });
-      this.unsubscribeMotion = this.motion.subscribe(({ val: val2 }) => {
-        if (val2 === this.lastValue) return;
-        if (this.propierties === parallaxConstant.PROP_TWEEN && this.tween?.draw) {
-          this.tween.draw({
+      this.#motion.setData({ val: initialValue });
+      this.#unsubscribeMotion = this.#motion.subscribe(({ val: val2 }) => {
+        if (val2 === this.#lastValue) return;
+        if (this.#propierties === parallaxConstant.PROP_TWEEN && this.#tween?.draw) {
+          this.#tween.draw({
             partial: val2,
             isLastDraw: false,
             useFrame: false
           });
-          this.lastValue = val2;
-          this.firstTime = false;
+          this.#lastValue = val2;
+          this.#firstTime = false;
         } else {
           this.updateStyle(val2);
         }
         mobCore.useNextTick(() => {
-          if (this.onTickCallback)
-            this.onTickCallback({ value: val2, parentIsMoving: true });
+          if (this.#onTickCallback)
+            this.#onTickCallback({ value: val2, parentIsMoving: true });
         });
       });
-      this.unsubscribeOnComplete = this.motion.onComplete(({ val: val2 }) => {
-        this.force3D = false;
-        if (this.propierties === parallaxConstant.PROP_TWEEN && this.tween?.draw) {
-          this.tween.draw({
+      this.#unsubscribeOnComplete = this.#motion.onComplete(({ val: val2 }) => {
+        this.#force3D = false;
+        if (this.#propierties === parallaxConstant.PROP_TWEEN && this.#tween?.draw) {
+          this.#tween.draw({
             partial: val2,
             isLastDraw: true,
             useFrame: false
@@ -14616,20 +15779,20 @@
           this.updateStyle(val2);
         }
         mobCore.useNextTick(() => {
-          if (this.onTickCallback)
-            this.onTickCallback({ value: val2, parentIsMoving: false });
+          if (this.#onTickCallback)
+            this.#onTickCallback({ value: val2, parentIsMoving: false });
         });
       });
-      switch (this.easeType) {
+      switch (this.#easeType) {
         case parallaxConstant.EASE_LERP: {
-          if (this.lerpConfig) {
-            this.motion.updateVelocity(this.lerpConfig);
+          if (this.#lerpConfig) {
+            this.#motion.updateVelocity(this.#lerpConfig);
           }
           break;
         }
         case parallaxConstant.EASE_SPRING: {
-          if (this.springConfig) {
-            this.motion.updateConfig(this.springConfig);
+          if (this.#springConfig) {
+            this.#motion.updateConfig(this.#springConfig);
           }
           break;
         }
@@ -14639,52 +15802,52 @@
      * @private
      */
     calcRangeAndUnitMiusure() {
-      if (this.dynamicRange) {
-        const range = this.dynamicRange();
-        this.numericRange = Number.isNaN(range) ? 0 : Number.parseFloat(range);
-        this.unitMisure = parallaxConstant.PX;
+      if (this.#dynamicRange) {
+        const range = this.#dynamicRange();
+        this.#numericRange = Number.isNaN(range) ? 0 : Number.parseFloat(range);
+        this.#unitMisure = parallaxConstant.PX;
       } else {
-        const str = String(this.range);
+        const str = String(this.#range);
         const firstChar = str.charAt(0);
         const isNegative = firstChar === "-" ? -1 : 1;
         const strParsed = checkStringRangeOnPropierties(
           str,
-          this.propierties
+          this.#propierties
         );
-        this.numericRange = // @ts-ignore
+        this.#numericRange = // @ts-ignore
         Number.parseFloat(strParsed.replaceAll(/^\D+/g, "")) * isNegative;
-        this.unitMisure = getRangeUnitMisure(strParsed);
+        this.#unitMisure = getRangeUnitMisure(strParsed);
       }
     }
     /**
      * @private
      */
     calcFixedLimit() {
-      const screenUnit = this.scrollerHeight / 100;
-      if (this.dynamicStart && this.dynamicStart?.position && this.dynamicStart?.value?.()) {
-        const { position: position2, value: fn } = this.dynamicStart;
+      const screenUnit = this.#scrollerHeight / 100;
+      if (this.#dynamicStart && this.#dynamicStart?.position && this.#dynamicStart?.value?.()) {
+        const { position: position2, value: fn } = this.#dynamicStart;
         const valueResult = fn();
         if (!Number.isNaN(valueResult)) {
-          this.start = `${position2} ${valueResult}px`;
+          this.#start = `${position2} ${valueResult}px`;
         }
       }
       const {
         value: startPoint,
         additionalVal: additionalStartVal,
         position: startPosition
-      } = getStartPoint(screenUnit, this.start, this.direction);
-      this.invertSide = startPosition === parallaxConstant.POSITION_TOP || startPosition === parallaxConstant.POSITION_LEFT;
-      this.startPoint = processFixedLimit(
+      } = getStartPoint(screenUnit, this.#start, this.#direction);
+      this.#invertSide = startPosition === parallaxConstant.POSITION_TOP || startPosition === parallaxConstant.POSITION_LEFT;
+      this.#startPoint = processFixedLimit(
         startPoint,
         additionalStartVal,
-        this.direction === parallaxConstant.DIRECTION_VERTICAL ? this.height : this.width,
-        this.direction === parallaxConstant.DIRECTION_VERTICAL ? this.width : this.height
+        this.#direction === parallaxConstant.DIRECTION_VERTICAL ? this.#height : this.#width,
+        this.#direction === parallaxConstant.DIRECTION_VERTICAL ? this.#width : this.#height
       );
-      if (this.dynamicEnd && this.dynamicEnd?.position && this.dynamicEnd?.value?.()) {
-        const { position: position2, value: fn } = this.dynamicEnd;
+      if (this.#dynamicEnd && this.#dynamicEnd?.position && this.#dynamicEnd?.value?.()) {
+        const { position: position2, value: fn } = this.#dynamicEnd;
         const valueResult = fn();
         if (!Number.isNaN(valueResult)) {
-          this.end = `${position2} ${valueResult}px`;
+          this.#end = `${position2} ${valueResult}px`;
         }
       }
       const {
@@ -14693,131 +15856,131 @@
         position: endPosition
       } = getEndPoint(
         screenUnit,
-        this.end,
-        this.startPoint,
-        this.scrollerHeight,
-        this.invertSide,
-        this.direction
+        this.#end,
+        this.#startPoint,
+        this.#scrollerHeight,
+        this.#invertSide,
+        this.#direction
       );
       const multiplier = (() => {
-        if (this.invertSide) {
+        if (this.#invertSide) {
           return endPosition === parallaxConstant.POSITION_BOTTOM || endPosition === parallaxConstant.POSITION_RIGHT ? -1 : 1;
         } else {
           return endPosition === parallaxConstant.POSITION_BOTTOM || endPosition === parallaxConstant.POSITION_RIGHT ? 1 : -1;
         }
       })();
-      this.endPoint = processFixedLimit(
+      this.#endPoint = processFixedLimit(
         endPoint,
         additionalEndVal,
-        this.direction === parallaxConstant.DIRECTION_VERTICAL ? this.height * multiplier : this.width * multiplier,
-        this.direction === parallaxConstant.DIRECTION_VERTICAL ? this.width * multiplier : this.height * multiplier
+        this.#direction === parallaxConstant.DIRECTION_VERTICAL ? this.#height * multiplier : this.#width * multiplier,
+        this.#direction === parallaxConstant.DIRECTION_VERTICAL ? this.#width * multiplier : this.#height * multiplier
       );
       this.setMarker();
-      if (this.invertSide) this.startPoint -= this.height;
+      if (this.#invertSide) this.#startPoint -= this.#height;
     }
     /**
      * @private
      */
     setMarker() {
-      if (this.marker) {
+      if (this.#marker) {
         const { startMarker, endMarker } = parallaxMarker({
-          startMarker: this.startMarker,
-          endMarker: this.endMarker,
-          startPoint: this.startPoint,
-          endPoint: this.endPoint,
-          screen: this.screen,
-          direction: this.direction,
-          invertSide: this.invertSide,
-          label: this.marker
+          startMarker: this.#startMarker,
+          endMarker: this.#endMarker,
+          startPoint: this.#startPoint,
+          endPoint: this.#endPoint,
+          screen: this.#screen,
+          direction: this.#direction,
+          invertSide: this.#invertSide,
+          label: this.#marker
         });
-        this.startMarker = startMarker;
-        this.endMarker = endMarker;
+        this.#startMarker = startMarker;
+        this.#endMarker = endMarker;
       }
     }
     /**
      * @private
      */
     calcOffset() {
-      const el = this.trigger ?? this.item;
+      const el = this.#trigger ?? this.#item;
       if (!el) return;
       let x = 0;
       let y = 0;
       let z = 0;
-      if (this.trigger) {
-        x = getTranslateValues(this.trigger).x;
-        y = getTranslateValues(this.trigger).y;
-        z = getTranslateValues(this.trigger).z;
+      if (this.#trigger) {
+        x = getTranslateValues(this.#trigger).x;
+        y = getTranslateValues(this.#trigger).y;
+        z = getTranslateValues(this.#trigger).z;
       }
       el.style.transform = "";
-      if (this.direction === parallaxConstant.DIRECTION_VERTICAL) {
-        this.offset = // eslint-disable-next-line unicorn/prefer-global-this
-        this.scroller === window ? Math.trunc(offset(el).top) : (
+      if (this.#direction === parallaxConstant.DIRECTION_VERTICAL) {
+        this.#offset = // eslint-disable-next-line unicorn/prefer-global-this
+        this.#scroller === window ? Math.trunc(offset(el).top) : (
           // @ts-ignore
-          Math.trunc(offset(el).top) - offset(this.scroller).top
+          Math.trunc(offset(el).top) - offset(this.#scroller).top
         );
       } else {
-        this.offset = // eslint-disable-next-line unicorn/prefer-global-this
-        this.scroller === window ? Math.trunc(offset(el).left) : (
+        this.#offset = // eslint-disable-next-line unicorn/prefer-global-this
+        this.#scroller === window ? Math.trunc(offset(el).left) : (
           // @ts-ignore
-          Math.trunc(offset(el).left) - offset(this.scroller).left
+          Math.trunc(offset(el).left) - offset(this.#scroller).left
         );
       }
-      if (this.screen && this.screen !== window) {
-        this.offset -= this.direction === parallaxConstant.DIRECTION_VERTICAL ? (
+      if (this.#screen && this.#screen !== window) {
+        this.#offset -= this.#direction === parallaxConstant.DIRECTION_VERTICAL ? (
           // @ts-ignore
-          Math.trunc(offset(this.screen).top)
+          Math.trunc(offset(this.#screen).top)
         ) : (
           // @ts-ignore
-          Math.trunc(position(this.screen).left)
+          Math.trunc(position(this.#screen).left)
         );
       }
-      if (this.trigger && (x !== 0 || y !== 0 || z !== 0)) {
-        this.trigger.style.transform = `translate3D(${x}px, ${y}px, ${z}px)`;
+      if (this.#trigger && (x !== 0 || y !== 0 || z !== 0)) {
+        this.#trigger.style.transform = `translate3D(${x}px, ${y}px, ${z}px)`;
       }
     }
     /**
      * @private
      */
     calcScreenPosition() {
-      if (this.screen === window || !this.screen) return;
-      this.screenPosition = this.direction === parallaxConstant.DIRECTION_VERTICAL ? (
+      if (this.#screen === window || !this.#screen) return;
+      this.#screenPosition = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? (
         // @ts-ignore
-        Number.parseInt(offset(this.screen).top)
+        Number.parseInt(offset(this.#screen).top)
       ) : (
         // @ts-ignore
-        Number.parseInt(position(this.screen).left)
+        Number.parseInt(position(this.#screen).left)
       );
     }
     /**
      * @private
      */
     calcHeight() {
-      const el = this.trigger ?? this.item;
+      const el = this.#trigger ?? this.#item;
       if (!el) return;
-      this.height = this.direction === parallaxConstant.DIRECTION_VERTICAL ? Math.trunc(el.offsetHeight) : Math.trunc(el.offsetWidth);
+      this.#height = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? Math.trunc(el.offsetHeight) : Math.trunc(el.offsetWidth);
     }
     /**
      * @private
      */
     calcWidth() {
-      const el = this.trigger ?? this.item;
+      const el = this.#trigger ?? this.#item;
       if (!el) return;
-      this.width = this.direction === parallaxConstant.DIRECTION_VERTICAL ? Math.trunc(el.offsetWidth) : Math.trunc(el.offsetHeight);
+      this.#width = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? Math.trunc(el.offsetWidth) : Math.trunc(el.offsetHeight);
     }
     /**
      * @private
      */
     getScrollerOffset() {
-      if (!this.scroller) return;
-      if (this.scroller === window) {
-        this.scrollerScroll = this.direction === parallaxConstant.DIRECTION_VERTICAL ? this.scroller.scrollY : this.scroller.scrollX;
+      if (!this.#scroller) return;
+      if (this.#scroller === window) {
+        this.#scrollerScroll = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? this.#scroller.scrollY : this.#scroller.scrollX;
       } else {
-        this.scrollerScroll = this.direction === parallaxConstant.DIRECTION_VERTICAL ? (
+        this.#scrollerScroll = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? (
           // @ts-ignore
-          -offset(this.scroller).top
+          -offset(this.#scroller).top
         ) : (
           // @ts-ignore
-          -offset(this.scroller).left
+          -offset(this.#scroller).left
         );
       }
     }
@@ -14825,18 +15988,18 @@
      * @private
      */
     getScreenHeight() {
-      if (!this.screen) return;
-      this.windowInnerWidth = window.innerWidth;
-      this.windowInnerHeight = window.innerHeight;
-      if (this.screen === window) {
-        this.scrollerHeight = this.direction === parallaxConstant.DIRECTION_VERTICAL ? window.innerHeight : window.innerWidth;
+      if (!this.#screen) return;
+      this.#windowInnerWidth = window.innerWidth;
+      this.#windowInnerHeight = window.innerHeight;
+      if (this.#screen === window) {
+        this.#scrollerHeight = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? window.innerHeight : window.innerWidth;
       } else {
-        this.scrollerHeight = this.direction === parallaxConstant.DIRECTION_VERTICAL ? (
+        this.#scrollerHeight = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? (
           // @ts-ignore
-          Math.trunc(this.screen.offsetHeight)
+          Math.trunc(this.#screen.offsetHeight)
         ) : (
           // @ts-ignore
-          Math.trunc(this.screen.offsetWidth)
+          Math.trunc(this.#screen.offsetWidth)
         );
       }
     }
@@ -14845,39 +16008,38 @@
      * Recalculate positions and align all values
      */
     refresh() {
-      if (this.pin && this.pinInstance) this.pinInstance.destroy();
+      if (this.#pin && this.#pinInstance) this.#pinInstance.destroy();
       this.calcScreenPosition();
       this.calcOffset();
       this.calcHeight();
       this.calcWidth();
       this.getScreenHeight();
-      if (this.type == parallaxConstant.TYPE_SCROLLTRIGGER) {
+      if (this.#type == parallaxConstant.TYPE_SCROLLTRIGGER) {
         this.calcFixedLimit();
-        if (this.dynamicRange) this.calcRangeAndUnitMiusure();
-        if (this.pin && this.pinInstance && mq[this.queryType](this.breakpoint)) {
-          this.pinInstance?.init(this.getPinParams());
+        if (this.#dynamicRange) this.calcRangeAndUnitMiusure();
+        if (this.#pin && this.#pinInstance && mq[this.#queryType](this.#breakpoint)) {
+          this.#pinInstance?.init(this.getPinParams());
         }
       }
-      this.lastValue = void 0;
-      this.firstTime = true;
-      this.firstScroll = false;
-      if (mq[this.queryType](this.breakpoint)) {
-        if (this.ease) {
+      this.#lastValue = void 0;
+      this.#firstTime = true;
+      if (mq[this.#queryType](this.#breakpoint)) {
+        if (this.#ease) {
           this.smoothParallaxJs();
         } else {
           this.computeValue();
           this.noEasingRender({ forceRender: true });
         }
       } else {
-        if (this.ease) this.motion?.stop?.();
+        if (this.#ease) this.#motion?.stop?.();
         mobCore.useFrameIndex(() => {
-          if (this.applyTo) {
-            this.resetTweenStyle(this.applyTo);
-            Object.assign(this.applyTo.style, this.getResetStyle());
+          if (this.#applyTo) {
+            this.resetTweenStyle(this.#applyTo);
+            Object.assign(this.#applyTo.style, this.getResetStyle());
           } else {
-            this.resetTweenStyle(this.item);
-            if (this.item)
-              Object.assign(this.item.style, this.getResetStyle());
+            this.resetTweenStyle(this.#item);
+            if (this.#item)
+              Object.assign(this.#item.style, this.getResetStyle());
           }
         }, 3);
       }
@@ -14914,14 +16076,14 @@
      *
      */
     move({ value, parentIsMoving = false }) {
-      if (!mq[this.queryType](this.breakpoint) || !value) return;
-      this.iSControlledFromOutside = true;
+      if (!mq[this.#queryType](this.#breakpoint) || !value) return;
+      this.#iSControlledFromOutside = true;
       const scrollVal = this.getScrollValueOnMove(value);
-      if (this.ease) {
+      if (this.#ease) {
         this.smoothParallaxJs(scrollVal);
       } else {
         this.computeValue(scrollVal);
-        const forceRender = this.isInViewport || this.firstTime || void 0;
+        const forceRender = this.#isInViewport || this.#firstTime || void 0;
         this.noEasingRender({ forceRender, parentIsMoving });
       }
     }
@@ -14931,9 +16093,8 @@
      * Used by smoothScroll to activate 3D if child (this) have ease = true
      */
     triggerScrollStart() {
-      if (!this.ease) return;
-      this.firstScroll = true;
-      if (!this.disableForce3D) this.force3D = true;
+      if (!this.#ease) return;
+      if (!this.#disableForce3D) this.#force3D = true;
     }
     /**
      * @description
@@ -14941,7 +16102,7 @@
      * Used by smoothScroll to deactivate 3D if child (this) have ease = false
      */
     triggerScrollEnd() {
-      if (this.ease) return;
+      if (this.#ease) return;
       this.noEasingRender({ forceRender: true });
     }
     /**
@@ -14951,7 +16112,7 @@
      */
     getScrollValueOnMove(value) {
       if (value === void 0) return;
-      if (this.screen !== window) return value + this.screenPosition;
+      if (this.#screen !== window) return value + this.#screenPosition;
       return value;
     }
     /**
@@ -14959,7 +16120,7 @@
      * Stop lerp|spring tween.
      */
     stopMotion() {
-      this.motion?.stop?.();
+      this.#motion?.stop?.();
     }
     /**
      * @private
@@ -14967,18 +16128,15 @@
      * @param {number} [ scrollVal ]
      */
     smoothParallaxJs(scrollVal) {
-      if (!mq[this.queryType](this.breakpoint)) return;
+      if (!mq[this.#queryType](this.#breakpoint)) return;
       this.computeValue(scrollVal);
-      if (!this.fixedShouldRender && !this.firstTime && this.type === parallaxConstant.TYPE_SCROLLTRIGGER)
+      if (!this.#fixedShouldRender && !this.#firstTime && this.#type === parallaxConstant.TYPE_SCROLLTRIGGER)
         return;
-      if (!this.isInViewport && !this.firstTime && this.type === parallaxConstant.TYPE_PARALLAX)
+      if (!this.#isInViewport && !this.#firstTime && this.#type === parallaxConstant.TYPE_PARALLAX)
         return;
-      const action2 = this.firstTime && !this.animateAtStart ? "set" : "goTo";
-      if (!this.motion) return;
-      this.motion[action2](
-        { val: this.endValue },
-        this.motionParameters
-      ).catch(() => {
+      const action2 = this.#firstTime && !this.#animateAtStart ? "set" : "goTo";
+      if (!this.#motion) return;
+      this.#motion[action2]({ val: this.#endValue }, this.#motionParameters).catch(() => {
       });
     }
     /**
@@ -14987,53 +16145,55 @@
      * @param {number} [ scrollVal ]
      */
     computeValue(scrollVal) {
-      if (!mq[this.queryType](this.breakpoint)) return;
+      if (!mq[this.#queryType](this.#breakpoint)) return;
       if (scrollVal) {
-        this.scrollerScroll = -scrollVal;
+        this.#scrollerScroll = -scrollVal;
       } else {
         this.getScrollerOffset();
       }
-      this.isInViewport = detectViewPortInterception({
-        offset: this.offset,
-        height: this.height,
-        gap: this.gap,
-        wScrollTop: this.scrollerScroll,
-        wHeight: this.scrollerHeight
+      this.#isInViewport = detectViewPortInterception({
+        offset: this.#offset,
+        height: this.#height,
+        gap: this.#gap,
+        wScrollTop: this.#scrollerScroll,
+        wHeight: this.#scrollerHeight
       });
-      if (!this.isInViewport && !this.limiterOff && this.type === parallaxConstant.TYPE_PARALLAX)
+      if (!this.#isInViewport && !this.#limiterOff && this.#type === parallaxConstant.TYPE_PARALLAX)
         return;
-      if (this.pin && this.pinInstance) {
-        this.pinInstance.onScroll(this.scrollerScroll);
+      if (this.#pin && this.#pinInstance) {
+        this.#pinInstance.onScroll(this.#scrollerScroll);
       }
-      switch (this.type) {
+      switch (this.#type) {
         case parallaxConstant.TYPE_SCROLLTRIGGER: {
-          this.endValue = getRoundedValue(this.getFixedValue());
+          this.#endValue = getRoundedValue(this.getFixedValue());
           break;
         }
         default: {
-          switch (this.propierties) {
+          switch (this.#propierties) {
             case parallaxConstant.PROP_OPACITY: {
-              this.endValue = getRoundedValue(this.getOpacityValue());
+              this.#endValue = getRoundedValue(
+                this.getOpacityValue()
+              );
               break;
             }
             default: {
-              this.endValue = Number.isNaN(
+              this.#endValue = Number.isNaN(
                 // @ts-ignore
-                Number.parseInt(this.align)
+                Number.parseInt(this.#align)
               ) ? getRoundedValue(this.getIsNaNValue() / 2) : getRoundedValue(this.getIsANumberValue() / 2);
               break;
             }
           }
         }
       }
-      const reverseValue = this.reverse && this.type !== parallaxConstant.TYPE_SCROLLTRIGGER ? getRetReverseValue(this.propierties, this.endValue) : this.endValue;
-      this.endValue = this.type === parallaxConstant.TYPE_SCROLLTRIGGER ? reverseValue : this.getSwitchAfterZeroValue(reverseValue);
+      const reverseValue = this.#reverse && this.#type !== parallaxConstant.TYPE_SCROLLTRIGGER ? getRetReverseValue(this.#propierties, this.#endValue) : this.#endValue;
+      this.#endValue = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? reverseValue : this.getSwitchAfterZeroValue(reverseValue);
     }
     /**
      * @private
      */
     noEasingRender({ forceRender = false, parentIsMoving = false } = {}) {
-      if (!mq[this.queryType](this.breakpoint)) return;
+      if (!mq[this.#queryType](this.#breakpoint)) return;
       mobCore.useFrame(() => {
         this.cleanRender({ forceRender, parentIsMoving });
       });
@@ -15042,28 +16202,28 @@
      * @private
      */
     cleanRender({ forceRender = false, parentIsMoving = false } = {}) {
-      if (this.endValue === this.lastValue && !forceRender || !this.isInViewport && !forceRender)
+      if (this.#endValue === this.#lastValue && !forceRender || !this.#isInViewport && !forceRender)
         return;
-      if (!this.disableForce3D && !this.iSControlledFromOutside)
-        this.force3D = !forceRender;
-      if (!this.disableForce3D && this.iSControlledFromOutside)
-        this.force3D = parentIsMoving && this.isInViewport;
-      if (this.propierties === parallaxConstant.PROP_TWEEN) {
-        this.tween.draw({
-          partial: this.endValue,
-          isLastDraw: !this.force3D,
+      if (!this.#disableForce3D && !this.#iSControlledFromOutside)
+        this.#force3D = !forceRender;
+      if (!this.#disableForce3D && this.#iSControlledFromOutside)
+        this.#force3D = parentIsMoving && this.#isInViewport;
+      if (this.#propierties === parallaxConstant.PROP_TWEEN) {
+        this.#tween.draw({
+          partial: this.#endValue,
+          isLastDraw: !this.#force3D,
           useFrame: false
         });
-        this.lastValue = this.endValue;
-        this.firstTime = false;
+        this.#lastValue = this.#endValue;
+        this.#firstTime = false;
       } else {
-        this.updateStyle(this.endValue);
+        this.updateStyle(this.#endValue);
       }
       mobCore.useNextTick(() => {
-        if (this.onTickCallback)
-          this.onTickCallback({
-            value: this.endValue,
-            parentIsMoving: this.force3D
+        if (this.#onTickCallback)
+          this.#onTickCallback({
+            value: this.#endValue,
+            parentIsMoving: this.#force3D
           });
       });
     }
@@ -15073,46 +16233,46 @@
      * @param {number} value
      */
     updateStyle(value) {
-      if (this.applyTo) {
-        Object.assign(this.applyTo.style, this.getStyle(value));
-      } else if (this.item) {
-        Object.assign(this.item.style, this.getStyle(value));
+      if (this.#applyTo) {
+        Object.assign(this.#applyTo.style, this.getStyle(value));
+      } else if (this.#item) {
+        Object.assign(this.#item.style, this.getStyle(value));
       }
-      this.lastValue = value;
-      this.firstTime = false;
+      this.#lastValue = value;
+      this.#firstTime = false;
     }
     /**
      * @private
      */
     getFixedValue() {
-      const partials = this.invertSide ? -(this.scrollerScroll + this.startPoint + this.endPoint - (this.offset + this.endPoint)) : -(this.scrollerScroll + this.scrollerHeight - this.startPoint - (this.offset + this.endPoint));
-      const maxVal = this.endPoint / 100 * this.numericRange;
-      const partialVal = partials / 100 * this.numericRange;
+      const partials = this.#invertSide ? -(this.#scrollerScroll + this.#startPoint + this.#endPoint - (this.#offset + this.#endPoint)) : -(this.#scrollerScroll + this.#scrollerHeight - this.#startPoint - (this.#offset + this.#endPoint));
+      const maxVal = this.#endPoint / 100 * this.#numericRange;
+      const partialVal = partials / 100 * this.#numericRange;
       const valePerDirections = (() => {
-        if (this.fromTo) {
-          return this.invertSide ? maxVal - partialVal : partialVal;
+        if (this.#fromTo) {
+          return this.#invertSide ? maxVal - partialVal : partialVal;
         } else {
-          return this.invertSide ? partialVal : maxVal - partialVal;
+          return this.#invertSide ? partialVal : maxVal - partialVal;
         }
       })();
       const clampValue = maxVal > 0 ? -clamp(valePerDirections, 0, maxVal) : -clamp(valePerDirections, maxVal, 0);
-      this.fixedShouldRender = this.prevFixedClamp !== clampValue;
-      this.prevFixedClamp = clampValue;
-      if (!this.fixedShouldRender && !this.firstTime) return this.endValue;
-      const percentValue = clampValue * 100 / this.endPoint;
-      if (this.onEnter || this.onEnterBack || this.onLeave || this.onLeaveBack) {
+      this.#fixedShouldRender = this.#prevFixedClamp !== clampValue;
+      this.#prevFixedClamp = clampValue;
+      if (!this.#fixedShouldRender && !this.#firstTime) return this.#endValue;
+      const percentValue = clampValue * 100 / this.#endPoint;
+      if (this.#onEnter || this.#onEnterBack || this.#onLeave || this.#onLeaveBack) {
         parallaxEmitter({
-          prevValue: this.prevFixedRawValue,
+          prevValue: this.#prevFixedRawValue,
           value: valePerDirections,
           maxVal,
-          onEnter: this.onEnter,
-          onEnterBack: this.onEnterBack,
-          onLeave: this.onLeave,
-          onLeaveBack: this.onLeaveBack
+          onEnter: this.#onEnter,
+          onEnterBack: this.#onEnterBack,
+          onLeave: this.#onLeave,
+          onLeaveBack: this.#onLeaveBack
         });
       }
-      this.prevFixedRawValue = valePerDirections;
-      switch (this.propierties) {
+      this.#prevFixedRawValue = valePerDirections;
+      switch (this.#propierties) {
         case parallaxConstant.PROP_HORIZONTAL:
         case parallaxConstant.PROP_VERTICAL: {
           return this.getHVval(percentValue);
@@ -15134,18 +16294,18 @@
      * @param {number} percent
      */
     getHVval(percent) {
-      switch (this.unitMisure) {
+      switch (this.#unitMisure) {
         case parallaxConstant.VW: {
-          return this.windowInnerWidth / 100 * -percent;
+          return this.#windowInnerWidth / 100 * -percent;
         }
         case parallaxConstant.VH: {
-          return this.windowInnerHeight / 100 * -percent;
+          return this.#windowInnerHeight / 100 * -percent;
         }
         case parallaxConstant.WPERCENT: {
-          return this.direction === parallaxConstant.DIRECTION_VERTICAL ? this.width / 100 * -percent : this.height / 100 * -percent;
+          return this.#direction === parallaxConstant.DIRECTION_VERTICAL ? this.#width / 100 * -percent : this.#height / 100 * -percent;
         }
         case parallaxConstant.HPERCENT: {
-          return this.direction === parallaxConstant.DIRECTION_VERTICAL ? this.height / 100 * -percent : this.width / 100 * -percent;
+          return this.#direction === parallaxConstant.DIRECTION_VERTICAL ? this.#height / 100 * -percent : this.#width / 100 * -percent;
         }
         default: {
           return -percent;
@@ -15156,36 +16316,36 @@
      * @private
      */
     getOpacityValue() {
-      const vhLimit = this.scrollerHeight / 100 * this.opacityEnd;
-      const vhStart = this.scrollerHeight - this.scrollerHeight / 100 * this.opacityStart;
-      const value = this.align == parallaxConstant.ALIGN_START ? -this.scrollerScroll * -1 : (this.scrollerScroll + vhLimit - this.offset) * -1;
-      const valClamped = this.align == parallaxConstant.ALIGN_START ? 1 - value / this.offset : 1 - value / (this.scrollerHeight - vhStart - vhLimit);
+      const vhLimit = this.#scrollerHeight / 100 * this.#opacityEnd;
+      const vhStart = this.#scrollerHeight - this.#scrollerHeight / 100 * this.#opacityStart;
+      const value = this.#align == parallaxConstant.ALIGN_START ? -this.#scrollerScroll * -1 : (this.#scrollerScroll + vhLimit - this.#offset) * -1;
+      const valClamped = this.#align == parallaxConstant.ALIGN_START ? 1 - value / this.#offset : 1 - value / (this.#scrollerHeight - vhStart - vhLimit);
       return clamp(valClamped, 0, 1);
     }
     /**
      * @private
      */
     getIsNaNValue() {
-      const valuetoNumber = Number(this.range);
+      const valuetoNumber = Number(this.#range);
       const rangeNumber = Number.isNaN(valuetoNumber) ? 0 : valuetoNumber;
-      const documentHeight = this.direction === parallaxConstant.DIRECTION_VERTICAL ? document.documentElement.scrollHeight : document.documentElement.scrollWidth;
-      switch (this.align) {
+      const documentHeight = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? document.documentElement.scrollHeight : document.documentElement.scrollWidth;
+      switch (this.#align) {
         case parallaxConstant.ALIGN_START: {
-          return this.scrollerScroll / rangeNumber;
+          return this.#scrollerScroll / rangeNumber;
         }
         case parallaxConstant.ALIGN_TOP:
         case parallaxConstant.ALIGN_LEFT: {
-          return (this.scrollerScroll - this.offset) / rangeNumber;
+          return (this.#scrollerScroll - this.#offset) / rangeNumber;
         }
         case parallaxConstant.ALIGN_CENTER: {
-          return (this.scrollerScroll + (this.scrollerHeight / 2 - this.height / 2) - this.offset) / rangeNumber;
+          return (this.#scrollerScroll + (this.#scrollerHeight / 2 - this.#height / 2) - this.#offset) / rangeNumber;
         }
         case parallaxConstant.ALIGN_BOTTOM:
         case parallaxConstant.ALIGN_RIGHT: {
-          return (this.scrollerScroll + (this.scrollerHeight - this.height) - this.offset) / rangeNumber;
+          return (this.#scrollerScroll + (this.#scrollerHeight - this.#height) - this.#offset) / rangeNumber;
         }
         case parallaxConstant.ALIGN_END: {
-          return -(documentHeight - (this.scrollerScroll + this.scrollerHeight)) / rangeNumber;
+          return -(documentHeight - (this.#scrollerScroll + this.#scrollerHeight)) / rangeNumber;
         }
         default: {
           return 0;
@@ -15197,9 +16357,9 @@
      * Here the value is a number.
      */
     getIsANumberValue() {
-      const align = Number(this.align);
-      const range = Number(this.range);
-      return (this.scrollerScroll + this.scrollerHeight / 100 * align - this.offset) / range;
+      const align = Number(this.#align);
+      const range = Number(this.#range);
+      return (this.#scrollerScroll + this.#scrollerHeight / 100 * align - this.#offset) / range;
     }
     /**
      * @private
@@ -15208,8 +16368,8 @@
      */
     getSwitchAfterZeroValue(value) {
       return getValueOnSwitch({
-        switchPropierties: this.onSwitch,
-        isReverse: this.reverse,
+        switchPropierties: this.#onSwitch,
+        isReverse: this.#reverse,
         value
       });
     }
@@ -15219,12 +16379,12 @@
      * @param {number} value
      */
     getStyle(value) {
-      if (this.shouldTrackOnlyEvents) return;
-      const force3DStyle = this.force3D ? "translate3D(0px, 0px, 0px)" : "";
-      this.willChangeIsActive = this.useWillChange ? mobCore.mustMakeSomething() : false;
-      const shouldWill = this.willChangeIsActive && this.force3D ? "transform" : "";
+      if (this.#shouldTrackOnlyEvents) return;
+      const force3DStyle = this.#force3D ? "translate3D(0px, 0px, 0px)" : "";
+      this.#willChangeIsActive = this.#useWillChange ? mobCore.mustMakeSomething() : false;
+      const shouldWill = this.#willChangeIsActive && this.#force3D ? "transform" : "";
       const valueParsed = mobCore.shouldMakeSomething() ? Math.round(value) : value;
-      switch (this.propierties) {
+      switch (this.#propierties) {
         case parallaxConstant.PROP_VERTICAL: {
           return {
             // translate: `0 ${val}px`,
@@ -15267,21 +16427,21 @@
           return { opacity: `${value}` };
         }
         case parallaxConstant.PROP_SCALE: {
-          const scaleVal = this.type === parallaxConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
+          const scaleVal = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
           return {
             transform: `${force3DStyle} scale(${scaleVal})`,
             willChange: shouldWill
           };
         }
         case parallaxConstant.PROP_SCALE_X: {
-          const scaleVal = this.type === parallaxConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
+          const scaleVal = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
           return {
             transform: `${force3DStyle} scaleX(${scaleVal})`,
             willChange: shouldWill
           };
         }
         case parallaxConstant.PROP_SCALE_Y: {
-          const scaleVal = this.type === parallaxConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
+          const scaleVal = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
           return {
             transform: `${force3DStyle} scaleY(${scaleVal})`,
             willChange: shouldWill
@@ -15289,7 +16449,7 @@
         }
         default: {
           return {
-            [this.propierties.toLowerCase()]: `${value}px`
+            [this.#propierties.toLowerCase()]: `${value}px`
           };
         }
       }
@@ -15301,15 +16461,15 @@
      * @param {HTMLElement|null} item
      */
     resetTweenStyle(item) {
-      if (this.tween) item.style = "";
+      if (this.#tween) item.style = "";
     }
     /**
      * @private
      * Reset default style
      */
     getResetStyle() {
-      if (this.shouldTrackOnlyEvents) return;
-      switch (this.propierties) {
+      if (this.#shouldTrackOnlyEvents) return;
+      switch (this.#propierties) {
         case parallaxConstant.PROP_VERTICAL:
         case parallaxConstant.PROP_HORIZONTAL:
         case parallaxConstant.PROP_ROTATE:
@@ -15325,7 +16485,7 @@
           return { opacity: `` };
         }
         default: {
-          return { [this.propierties.toLowerCase()]: `` };
+          return { [this.#propierties.toLowerCase()]: `` };
         }
       }
     }
@@ -15334,41 +16494,41 @@
      * Destroy instance
      */
     destroy() {
-      this.motion?.stop?.();
-      this.unsubscribeScroll();
-      this.unsubscribeScrollStart();
-      this.unsubscribeScrollEnd();
-      this.unsubscribeResize();
-      this.unsubscribeMotion();
-      this.unsubscribeOnComplete();
-      this.unsubscribeMarker();
-      this.motion?.destroy?.();
-      this.dynamicRange = () => {
+      this.#motion?.stop?.();
+      this.#unsubscribeScroll();
+      this.#unsubscribeScrollStart();
+      this.#unsubscribeScrollEnd();
+      this.#unsubscribeResize();
+      this.#unsubscribeMotion();
+      this.#unsubscribeOnComplete();
+      this.#unsubscribeMarker();
+      this.#motion?.destroy?.();
+      this.#dynamicRange = () => {
       };
-      this.onEnter = () => {
+      this.#onEnter = () => {
       };
-      this.onEnterBack = () => {
+      this.#onEnterBack = () => {
       };
-      this.onLeave = () => {
+      this.#onLeave = () => {
       };
-      this.onLeaveBack = () => {
+      this.#onLeaveBack = () => {
       };
-      this.onTickCallback = () => {
+      this.#onTickCallback = () => {
       };
-      if (this.pin && this.pinInstance) this.pinInstance?.destroy?.();
-      if (this.startMarker) this.startMarker?.remove?.();
-      if (this.endMarker) this.endMarker?.remove?.();
-      this.startMarker = void 0;
-      this.endMarker = void 0;
-      this.pinInstance = null;
-      this.endValue = 0;
-      const el = this.applyTo ?? this.item;
+      if (this.#pin && this.#pinInstance) this.#pinInstance?.destroy?.();
+      if (this.#startMarker) this.#startMarker?.remove?.();
+      if (this.#endMarker) this.#endMarker?.remove?.();
+      this.#startMarker = void 0;
+      this.#endMarker = void 0;
+      this.#pinInstance = null;
+      this.#endValue = 0;
+      const el = this.#applyTo ?? this.#item;
       if (el && "style" in el) el.style = "";
-      this.item = null;
-      this.scroller = null;
-      this.screen = null;
-      this.trigger = null;
-      this.applyTo = null;
+      this.#item = null;
+      this.#scroller = null;
+      this.#screen = null;
+      this.#trigger = null;
+      this.#applyTo = null;
     }
   };
 
@@ -20817,6 +21977,178 @@ Loading snippet ...</pre
   // src/js/mobMotion/plugin/smoothScroller/smoothScroller.js
   var SmoothScroller = class {
     /**
+     * @type {boolean}
+     */
+    #propsIsValid;
+    /**
+     * @type {number}
+     */
+    #endValue;
+    /**
+     * @type {number}
+     */
+    #percent;
+    /**
+     * @type {number}
+     */
+    #screenWidth;
+    /**
+     * @type {number}
+     */
+    #screenHeight;
+    /**
+     * @type {number}
+     */
+    #firstTouchValue;
+    /**
+     * @type {number}
+     */
+    #threshold;
+    /**
+     * @type {number}
+     */
+    #maxValue;
+    /**
+     * @type {boolean}
+     */
+    #dragEnable;
+    /**
+     * @type {number}
+     */
+    #prevTouchVal;
+    /**
+     * @type {number}
+     */
+    #touchVal;
+    /**
+     * @type {() => void}
+     */
+    #subscribeResize;
+    /**
+     * @type {() => void}
+     */
+    #subscribeScrollStart;
+    /**
+     * @type {() => void}
+     */
+    #subscribeScrollEnd;
+    /**
+     * @type {() => void}
+     */
+    #subscribeTouchStart;
+    /**
+     * @type {() => void}
+     */
+    #subscribeTouchEnd;
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseDown;
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseUp;
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseWheel;
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseMove;
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeTouchMove;
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseClick;
+    /**
+     * @type {any}
+     */
+    #motion;
+    /**
+     * @type {() => void}
+     */
+    #unsubscribeMotion;
+    /**
+     * @type {() => void}
+     */
+    #unsubscribeOnComplete;
+    /**
+     * @type {string}
+     */
+    #direction;
+    /**
+     * @type {boolean}
+     */
+    #isDestroyed;
+    /**
+     * @type {'lerp'|'spring'}
+     */
+    #easeType;
+    /**
+     * @type {import('../../utils/type.js').mqValues}
+     */
+    #breakpoint;
+    /**
+     * @type {import('../../utils/type.js').mqAction}
+     */
+    #queryType;
+    /**
+     */
+    #scroller;
+    /**
+     */
+    #screen;
+    /**
+     * @type {boolean}
+     */
+    #scopedEvent;
+    /**
+     * @type {number}
+     */
+    #speed;
+    /**
+     * @type {boolean}
+     */
+    #drag;
+    /**
+     * @type {import('./type.d.ts').onTick}
+     */
+    #onTickCallback;
+    /**
+     * @type {import('./type.d.ts').onUpdate}
+     */
+    #onUpdateCallback;
+    /**
+     * @type {() => void}
+     */
+    #onAfterRefresh;
+    /**
+     * @type {() => void}
+     */
+    #afterInit;
+    /**
+     * @type {any[]}
+     */
+    #children;
+    /**
+     * @type {(arg0: Event) => void}
+     */
+    #scopedWhell;
+    /**
+     * @type {(arg0: Event) => void}
+     */
+    #scopedTouchMove;
+    /**
          * @param { import('./type.d.ts').SmoothScroller } data
          *
          * @description
@@ -20860,123 +22192,118 @@ Loading snippet ...</pre
            ```
          */
     constructor(data2) {
-      this.propsIsValid = true;
-      this.endValue = 0;
-      this.percent = 0;
-      this.screenWidth = 0;
-      this.screenHeight = 0;
-      this.firstTouchValue = 0;
-      this.threshold = 30;
-      this.maxValue = 0;
-      this.minValue = 0;
-      this.dragEnable = null;
-      this.touchend = null;
-      this.touchmove = null;
-      this.prevTouchVal = 0;
-      this.touchVal = 0;
-      this.onUpdateScrollBar = NOOP;
-      this.subscribeResize = NOOP;
-      this.subscribeScrollStart = NOOP;
-      this.subscribeScrollEnd = NOOP;
-      this.subscribeTouchStart = NOOP;
-      this.subscribeTouchEnd = NOOP;
-      this.subscribeMouseDown = NOOP;
-      this.subscribeMouseUp = NOOP;
-      this.subscribeMouseWheel = NOOP;
-      this.subscribeMouseMove = NOOP;
-      this.subscribeTouchMove = NOOP;
-      this.subscribeMouseClick = NOOP;
-      this.motion = null;
-      this.unsubscribeMotion = NOOP;
-      this.unsubscribeOnComplete = NOOP;
-      this.scrollbarIsRunning = false;
-      this.direction = directionIsValid(data2?.direction, "SmoothScroller");
-      this.isDestroyed = false;
-      this.easeType = genericEaseTypeIsValid(
+      this.#propsIsValid = true;
+      this.#endValue = 0;
+      this.#percent = 0;
+      this.#screenWidth = 0;
+      this.#screenHeight = 0;
+      this.#firstTouchValue = 0;
+      this.#threshold = 30;
+      this.#maxValue = 0;
+      this.#dragEnable = null;
+      this.#prevTouchVal = 0;
+      this.#touchVal = 0;
+      this.#subscribeResize = NOOP;
+      this.#subscribeScrollStart = NOOP;
+      this.#subscribeScrollEnd = NOOP;
+      this.#subscribeTouchStart = NOOP;
+      this.#subscribeTouchEnd = NOOP;
+      this.#subscribeMouseDown = NOOP;
+      this.#subscribeMouseUp = NOOP;
+      this.#subscribeMouseWheel = NOOP;
+      this.#subscribeMouseMove = NOOP;
+      this.#subscribeTouchMove = NOOP;
+      this.#subscribeMouseClick = NOOP;
+      this.#motion = null;
+      this.#unsubscribeMotion = NOOP;
+      this.#unsubscribeOnComplete = NOOP;
+      this.#direction = directionIsValid(data2?.direction, "SmoothScroller");
+      this.#isDestroyed = false;
+      this.#easeType = genericEaseTypeIsValid(
         data2?.easeType,
         "SmoothScroller"
       );
-      this.breakpoint = breakpointIsValid(
+      this.#breakpoint = breakpointIsValid(
         data2?.breakpoint,
         "breakpoint",
         "SmoothScroller"
       );
-      this.queryType = breakpointTypeIsValid(
+      this.#queryType = breakpointTypeIsValid(
         data2?.queryType,
         "queryType",
         "SmoothScroller"
       );
-      this.scroller = mobCore.checkType(String, data2?.scroller) ? document.querySelector(
+      this.#scroller = mobCore.checkType(String, data2?.scroller) ? document.querySelector(
         /** @type{string} */
         data2.scroller
       ) : data2.scroller;
-      if (!this.scroller) {
+      if (!this.#scroller) {
         console.warn("SmoothScroller: scroller node not found");
-        this.propsIsValid = false;
+        this.#propsIsValid = false;
         return;
       }
-      this.screen = data2?.screen ? (() => {
+      this.#screen = data2?.screen ? (() => {
         return mobCore.checkType(String, data2.screen) ? document.querySelector(
           /** @type{string} */
           data2.screen
         ) : data2.screen;
       })() : document.documentElement;
-      if (!this.screen) {
-        this.propsIsValid = false;
+      if (!this.#screen) {
+        this.#propsIsValid = false;
         console.warn("SmoothScroller: screen node not found");
         return;
       }
-      this.scopedEvent = valueIsBooleanAndReturnDefault(
+      this.#scopedEvent = valueIsBooleanAndReturnDefault(
         data2?.scopedEvent,
         "SmoothScroller: scopedEvent",
         false
       );
-      this.speed = valueIsNumberAndReturnDefault(
+      this.#speed = valueIsNumberAndReturnDefault(
         data2?.speed,
         "SmoothScroller: speed",
         60
       );
-      this.drag = valueIsBooleanAndReturnDefault(
+      this.#drag = valueIsBooleanAndReturnDefault(
         data2?.drag,
         "SmoothScroller: drag",
         false
       );
-      this.onTickCallback = valueIsFunctionAndReturnDefault(
+      this.#onTickCallback = valueIsFunctionAndReturnDefault(
         data2?.onTick,
         "SmoothScroller: onTick",
         NOOP
       );
-      this.onUpdateCallback = valueIsFunctionAndReturnDefault(
+      this.#onUpdateCallback = valueIsFunctionAndReturnDefault(
         data2?.onUpdate,
         "SmoothScroller: onUpdate",
         NOOP
       );
-      this.onAfterRefresh = valueIsFunctionAndReturnDefault(
+      this.#onAfterRefresh = valueIsFunctionAndReturnDefault(
         data2?.afterRefresh,
         "SmoothScroller: afterRefresh",
         NOOP
       );
-      this.afterInit = valueIsFunctionAndReturnDefault(
+      this.#afterInit = valueIsFunctionAndReturnDefault(
         data2?.afterInit,
         "SmoothScroller: afterInit",
         NOOP
       );
-      this.children = data2?.children || [];
-      this.children.forEach((element) => {
-        element.setScroller(this.scroller);
-        element.setDirection(this.direction);
-        element.setScreen(this.screen);
-        element.setBreakPoint(this.breakpoint);
-        element.setQueryType(this.queryType);
+      this.#children = data2?.children || [];
+      this.#children.forEach((element) => {
+        element.setScroller(this.#scroller);
+        element.setDirection(this.#direction);
+        element.setScreen(this.#screen);
+        element.setBreakPoint(this.#breakpoint);
+        element.setQueryType(this.#queryType);
         element.init();
       });
-      this.scopedWhell = (event) => {
+      this.#scopedWhell = (event) => {
         const { spinY } = mobCore.normalizeWheel(event);
         this.onScopedWhell({
           spinY
         });
       };
-      this.scopedTouchMove = (event) => {
+      this.#scopedTouchMove = (event) => {
         const { clientX, clientY } = event.touches ? (
           // @ts-ignore
           event.touches[0]
@@ -20999,86 +22326,86 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     init() {
-      if (!this.propsIsValid) return;
-      switch (this.easeType) {
+      if (!this.#propsIsValid) return;
+      switch (this.#easeType) {
         case parallaxConstant.EASE_SPRING: {
-          this.motion = new HandleSpring();
+          this.#motion = new HandleSpring();
           break;
         }
         default: {
-          this.motion = new HandleLerp();
+          this.#motion = new HandleLerp();
           break;
         }
       }
-      if (this.scopedEvent) {
-        this.scroller.addEventListener(
+      if (this.#scopedEvent) {
+        this.#scroller.addEventListener(
           "wheel",
-          this.scopedWhell,
+          this.#scopedWhell,
           {
             passive: true
           }
         );
-        this.scroller.addEventListener(
+        this.#scroller.addEventListener(
           "mousemove",
-          this.scopedTouchMove,
+          this.#scopedTouchMove,
           {
             passive: true
           }
         );
-        this.scroller.addEventListener(
+        this.#scroller.addEventListener(
           "touchmove",
-          this.scopedTouchMove,
+          this.#scopedTouchMove,
           {
             passive: true
           }
         );
       } else {
-        this.subscribeMouseWheel = mobCore.useMouseWheel(
+        this.#subscribeMouseWheel = mobCore.useMouseWheel(
           (data2) => this.onWhell(data2)
         );
-        this.subscribeMouseMove = mobCore.useMouseMove(
+        this.#subscribeMouseMove = mobCore.useMouseMove(
           (data2) => this.onTouchMove(data2)
         );
-        this.subscribeTouchMove = mobCore.useTouchMove(
+        this.#subscribeTouchMove = mobCore.useTouchMove(
           (data2) => this.onTouchMove(data2)
         );
       }
-      this.subscribeResize = mobCore.useResize(() => this.refresh());
-      this.subscribeScrollStart = mobCore.useScrollStart(
+      this.#subscribeResize = mobCore.useResize(() => this.refresh());
+      this.#subscribeScrollStart = mobCore.useScrollStart(
         () => this.refreshScroller()
       );
-      this.subscribeScrollEnd = mobCore.useScrollEnd(
+      this.#subscribeScrollEnd = mobCore.useScrollEnd(
         () => this.refreshScroller()
       );
-      this.subscribeTouchStart = mobCore.useTouchStart(
+      this.#subscribeTouchStart = mobCore.useTouchStart(
         (data2) => this.onMouseDown(data2)
       );
-      this.subscribeTouchEnd = mobCore.useTouchEnd(
+      this.#subscribeTouchEnd = mobCore.useTouchEnd(
         (data2) => this.onMouseUp(data2)
       );
-      this.subscribeMouseDown = mobCore.useMouseDown(
+      this.#subscribeMouseDown = mobCore.useMouseDown(
         (data2) => this.onMouseDown(data2)
       );
-      this.subscribeMouseUp = mobCore.useMouseUp(
+      this.#subscribeMouseUp = mobCore.useMouseUp(
         (data2) => this.onMouseUp(data2)
       );
-      if (this.drag) {
-        this.subscribeMouseClick = mobCore.useMouseClick(
+      if (this.#drag) {
+        this.#subscribeMouseClick = mobCore.useMouseClick(
           ({ target, preventDefault }) => {
             this.preventChecker({ target, preventDefault });
           }
         );
       }
       this.initMotion();
-      if (mq[this.queryType](this.breakpoint)) {
+      if (mq[this.#queryType](this.#breakpoint)) {
         this.setScrolerStyle();
         this.refreshScroller();
       }
       mobCore.useFrameIndex(() => {
         mobCore.useNextTick(() => {
-          if (this.isDestroyed) return;
-          this.afterInit?.();
-          this.children.forEach((element) => {
+          if (this.#isDestroyed) return;
+          this.#afterInit?.();
+          this.#children.forEach((element) => {
             element.refresh();
           });
         });
@@ -21089,10 +22416,10 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     setScrolerStyle() {
-      this.scroller.style["user-select"] = "none";
+      this.#scroller.style["user-select"] = "none";
       const activeElement = (
         /** @type{HTMLElement} */
-        this.scroller.querySelectorAll("a, button")
+        this.#scroller.querySelectorAll("a, button")
       );
       [...activeElement].forEach((item) => {
         item.setAttribute("draggable", "false");
@@ -21104,11 +22431,11 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     removeScrolerStyle() {
-      if (!this.scroller) return;
-      this.scroller.style["user-select"] = "";
+      if (!this.#scroller) return;
+      this.#scroller.style["user-select"] = "";
       const activeElement = (
         /** @type{HTMLElement} */
-        this.scroller.querySelectorAll("a, button")
+        this.#scroller.querySelectorAll("a, button")
       );
       [...activeElement].forEach((item) => {
         item.removeAttribute("draggable");
@@ -21120,20 +22447,20 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     initMotion() {
-      if (!this.motion) return;
-      this.motion.setData({ val: 0 });
-      this.unsubscribeMotion = this.motion.subscribe(({ val: val2 }) => {
-        this.scroller.style.transform = this.direction == parallaxConstant.DIRECTION_VERTICAL ? `translate3d(0px, 0px, 0px) translateY(${-val2}px)` : `translate3d(0px, 0px, 0px) translateX(${-val2}px)`;
-        this.children.forEach((element) => {
+      if (!this.#motion) return;
+      this.#motion.setData({ val: 0 });
+      this.#unsubscribeMotion = this.#motion.subscribe(({ val: val2 }) => {
+        this.#scroller.style.transform = this.#direction == parallaxConstant.DIRECTION_VERTICAL ? `translate3d(0px, 0px, 0px) translateY(${-val2}px)` : `translate3d(0px, 0px, 0px) translateX(${-val2}px)`;
+        this.#children.forEach((element) => {
           element.triggerScrollStart();
         });
         mobCore.useNextTick(() => {
-          this.onTickCallback({
+          this.#onTickCallback({
             value: -val2,
-            percent: this.percent,
+            percent: this.#percent,
             parentIsMoving: true
           });
-          this.children.forEach((element) => {
+          this.#children.forEach((element) => {
             element.move({
               value: -val2,
               parentIsMoving: true
@@ -21141,15 +22468,15 @@ Loading snippet ...</pre
           });
         });
       });
-      this.unsubscribeOnComplete = this.motion.onComplete(({ val: val2 }) => {
-        this.scroller.style.transform = this.direction == parallaxConstant.DIRECTION_VERTICAL ? `translateY(${-val2}px)` : `translateX(${-val2}px)`;
+      this.#unsubscribeOnComplete = this.#motion.onComplete(({ val: val2 }) => {
+        this.#scroller.style.transform = this.#direction == parallaxConstant.DIRECTION_VERTICAL ? `translateY(${-val2}px)` : `translateX(${-val2}px)`;
         mobCore.useNextTick(() => {
-          this.onTickCallback({
+          this.#onTickCallback({
             value: -val2,
-            percent: this.percent,
+            percent: this.#percent,
             parentIsMoving: false
           });
-          this.children.forEach((element) => {
+          this.#children.forEach((element) => {
             element.triggerScrollEnd();
             element.move({
               value: -val2,
@@ -21164,21 +22491,21 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     refreshScroller() {
-      if (!this.screen) return;
-      this.screenWidth = this.screen === document.documentElement ? window.innerWidth : outerWidth(
+      if (!this.#screen) return;
+      this.#screenWidth = this.#screen === document.documentElement ? window.innerWidth : outerWidth(
         /** @type{HTMLElement} */
-        this.screen
+        this.#screen
       );
-      this.screenHeight = this.screen === document.documentElement ? window.innerHeight : outerHeight(
+      this.#screenHeight = this.#screen === document.documentElement ? window.innerHeight : outerHeight(
         /** @type{HTMLElement} */
-        this.screen
+        this.#screen
       );
-      this.maxValue = this.direction === parallaxConstant.DIRECTION_VERTICAL ? (
+      this.#maxValue = this.#direction === parallaxConstant.DIRECTION_VERTICAL ? (
         /** @type{HTMLElement} */
-        this.scroller.offsetHeight - this.screenHeight
+        this.#scroller.offsetHeight - this.#screenHeight
       ) : (
         /** @type{HTMLElement} */
-        this.scroller.offsetWidth - this.screenWidth
+        this.#scroller.offsetWidth - this.#screenWidth
       );
       this.calculateValue();
     }
@@ -21187,26 +22514,24 @@ Loading snippet ...</pre
      * @type {import('./type.d.ts').onMouseEvent}
      */
     onScopedTouchMove({ client }) {
-      if (!this.dragEnable || !this.drag) return;
-      this.prevTouchVal = this.touchVal;
-      this.touchVal = this.getMousePos({
+      if (!this.#dragEnable || !this.#drag) return;
+      this.#prevTouchVal = this.#touchVal;
+      this.#touchVal = this.getMousePos({
         x: client.x,
         y: client.y
       });
-      this.endValue += Math.round(this.prevTouchVal - this.touchVal);
+      this.#endValue += Math.round(this.#prevTouchVal - this.#touchVal);
       this.calculateValue();
-      this.scrollbarIsRunning = false;
     }
     /**
      * @private
      * @type {(arg0: {spinY: number}) => void}
      */
     onScopedWhell({ spinY }) {
-      if (!mq[this.queryType](this.breakpoint)) return;
-      this.dragEnable = false;
-      this.endValue += spinY * this.speed;
+      if (!mq[this.#queryType](this.#breakpoint)) return;
+      this.#dragEnable = false;
+      this.#endValue += spinY * this.#speed;
       this.calculateValue();
-      this.scrollbarIsRunning = false;
     }
     /**
      * Listener related event.
@@ -21217,24 +22542,23 @@ Loading snippet ...</pre
      * @type {import('./type.d.ts').onMouseEvent}
      */
     onMouseDown({ target, client }) {
-      if (!mq[this.queryType](this.breakpoint)) return;
-      if (target === this.scroller || isDescendant(
+      if (!mq[this.#queryType](this.#breakpoint)) return;
+      if (target === this.#scroller || isDescendant(
         /** @type{HTMLElement} */
-        this.scroller,
+        this.#scroller,
         /** @type{HTMLElement} */
         target
       )) {
-        this.firstTouchValue = this.endValue;
-        this.dragEnable = true;
-        this.prevTouchVal = this.getMousePos({
+        this.#firstTouchValue = this.#endValue;
+        this.#dragEnable = true;
+        this.#prevTouchVal = this.getMousePos({
           x: client.x,
           y: client.y
         });
-        this.touchVal = this.getMousePos({
+        this.#touchVal = this.getMousePos({
           x: client.x,
           y: client.y
         });
-        this.scrollbarIsRunning = false;
       }
     }
     /**
@@ -21242,30 +22566,28 @@ Loading snippet ...</pre
      * @type {import('./type.d.ts').onMouseEvent}
      */
     onMouseUp() {
-      this.dragEnable = false;
-      this.scrollbarIsRunning = false;
+      this.#dragEnable = false;
     }
     /**
      * @private
      * @type {import('./type.d.ts').onMouseEvent}
      */
     onTouchMove({ target, client, preventDefault }) {
-      if ((target === this.scroller || isDescendant(
+      if ((target === this.#scroller || isDescendant(
         /** @type{HTMLElement} */
-        this.scroller,
+        this.#scroller,
         /** @type{HTMLElement} */
         target
-      )) && this.dragEnable && this.drag) {
+      )) && this.#dragEnable && this.#drag) {
         preventDefault();
-        this.prevTouchVal = this.touchVal;
-        this.touchVal = this.getMousePos({
+        this.#prevTouchVal = this.#touchVal;
+        this.#touchVal = this.getMousePos({
           x: client.x,
           y: client.y
         });
-        const result = Math.round(this.prevTouchVal - this.touchVal);
-        this.endValue += result;
+        const result = Math.round(this.#prevTouchVal - this.#touchVal);
+        this.#endValue += result;
         this.calculateValue();
-        this.scrollbarIsRunning = false;
       }
     }
     /**
@@ -21273,19 +22595,18 @@ Loading snippet ...</pre
      * @type {import('./type.d.ts').onMouseEvent}
      */
     onWhell({ target, spinY, preventDefault }) {
-      const bodyIsOverflow = document.body.style.overflow === "hidden" && this.direction === parallaxConstant.DIRECTION_VERTICAL;
-      if (!mq[this.queryType](this.breakpoint) || bodyIsOverflow) return;
-      if (target === this.scroller || isDescendant(
+      const bodyIsOverflow = document.body.style.overflow === "hidden" && this.#direction === parallaxConstant.DIRECTION_VERTICAL;
+      if (!mq[this.#queryType](this.#breakpoint) || bodyIsOverflow) return;
+      if (target === this.#scroller || isDescendant(
         /** @type{HTMLElement} */
-        this.scroller,
+        this.#scroller,
         /** @type{HTMLElement} */
         target
       )) {
-        this.dragEnable = false;
+        this.#dragEnable = false;
         preventDefault?.();
-        this.endValue += spinY * this.speed;
+        this.#endValue += spinY * this.#speed;
         this.calculateValue();
-        this.scrollbarIsRunning = false;
       }
     }
     /**
@@ -21298,11 +22619,10 @@ Loading snippet ...</pre
      * myInstance.move(val);
      */
     move(percent) {
-      if (!mq[this.queryType](this.breakpoint)) return;
-      this.scrollbarIsRunning = true;
-      this.percent = percent;
-      this.endValue = this.percent * this.maxValue / 100;
-      this.motion.goTo({ val: this.endValue });
+      if (!mq[this.#queryType](this.#breakpoint)) return;
+      this.#percent = percent;
+      this.#endValue = this.#percent * this.#maxValue / 100;
+      this.#motion.goTo({ val: this.#endValue });
     }
     /**
      *
@@ -21315,11 +22635,10 @@ Loading snippet ...</pre
      * myInstance.set(val);
      */
     set(percent) {
-      if (!mq[this.queryType](this.breakpoint)) return;
-      this.scrollbarIsRunning = true;
-      this.percent = percent;
-      this.endValue = this.percent * this.maxValue / 100;
-      this.motion.set({ val: this.endValue });
+      if (!mq[this.#queryType](this.#breakpoint)) return;
+      this.#percent = percent;
+      this.#endValue = this.#percent * this.#maxValue / 100;
+      this.#motion.set({ val: this.#endValue });
     }
     /**
      * @description
@@ -21328,14 +22647,14 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     calculateValue() {
-      const percentValue = this.endValue * 100 / this.maxValue;
-      this.percent = clamp(percentValue, 0, 100);
-      this.endValue = clamp(this.endValue, 0, this.maxValue);
-      this.motion.goTo({ val: this.endValue });
-      if (this.onUpdateCallback)
-        this.onUpdateCallback({
-          value: -this.endValue,
-          percent: this.percent,
+      const percentValue = this.#endValue * 100 / this.#maxValue;
+      this.#percent = clamp(percentValue, 0, 100);
+      this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
+      this.#motion.goTo({ val: this.#endValue });
+      if (this.#onUpdateCallback)
+        this.#onUpdateCallback({
+          value: -this.#endValue,
+          percent: this.#percent,
           parentIsMoving: true
         });
     }
@@ -21344,12 +22663,12 @@ Loading snippet ...</pre
      * @type {import('./type.d.ts').onMouseEvent}
      */
     preventChecker({ target, preventDefault }) {
-      if (mq[this.queryType](this.breakpoint) && (target === this.scroller || isDescendant(
+      if (mq[this.#queryType](this.#breakpoint) && (target === this.#scroller || isDescendant(
         /** @type{HTMLElement} */
-        this.scroller,
+        this.#scroller,
         /** @type{HTMLElement} */
         target
-      )) && Math.abs(this.endValue - this.firstTouchValue) > this.threshold) {
+      )) && Math.abs(this.#endValue - this.#firstTouchValue) > this.#threshold) {
         preventDefault();
       }
     }
@@ -21358,7 +22677,7 @@ Loading snippet ...</pre
      */
     getMousePos({ x, y }) {
       if (!x || !y) return 0;
-      return this.direction === parallaxConstant.DIRECTION_VERTICAL ? y : x;
+      return this.#direction === parallaxConstant.DIRECTION_VERTICAL ? y : x;
     }
     /**
      * @description
@@ -21370,12 +22689,12 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     refresh() {
-      if (!mq[this.queryType](this.breakpoint)) {
+      if (!mq[this.#queryType](this.#breakpoint)) {
         this.removeScrolerStyle();
-        this.motion?.stop?.();
+        this.#motion?.stop?.();
         mobCore.useFrame(() => {
           mobCore.useNextTick(() => {
-            this.scroller.style.transform = "";
+            this.#scroller.style.transform = "";
           });
         });
         return;
@@ -21384,8 +22703,8 @@ Loading snippet ...</pre
       this.setScrolerStyle();
       mobCore.useFrameIndex(() => {
         mobCore.useNextTick(() => {
-          if (this.onAfterRefresh) this.onAfterRefresh();
-          this.children.forEach((element) => {
+          if (this.#onAfterRefresh) this.#onAfterRefresh();
+          this.#children.forEach((element) => {
             element.refresh();
           });
         });
@@ -21401,50 +22720,49 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     destroy() {
-      this.isDestroyed = true;
+      this.#isDestroyed = true;
       this.removeScrolerStyle();
-      this.subscribeResize();
-      this.subscribeScrollStart();
-      this.subscribeScrollEnd();
-      this.subscribeTouchStart();
-      this.subscribeTouchEnd();
-      this.subscribeMouseDown();
-      this.subscribeMouseUp();
-      this.subscribeMouseWheel();
-      this.subscribeMouseMove();
-      this.subscribeTouchMove();
-      this.subscribeMouseClick();
-      this.unsubscribeMotion();
-      this.unsubscribeOnComplete();
-      this.onUpdateScrollBar = NOOP;
-      this.motion?.destroy();
-      this.motion = null;
-      this.children.forEach((element) => {
+      this.#subscribeResize();
+      this.#subscribeScrollStart();
+      this.#subscribeScrollEnd();
+      this.#subscribeTouchStart();
+      this.#subscribeTouchEnd();
+      this.#subscribeMouseDown();
+      this.#subscribeMouseUp();
+      this.#subscribeMouseWheel();
+      this.#subscribeMouseMove();
+      this.#subscribeTouchMove();
+      this.#subscribeMouseClick();
+      this.#unsubscribeMotion();
+      this.#unsubscribeOnComplete();
+      this.#motion?.destroy();
+      this.#motion = null;
+      this.#children.forEach((element) => {
         element?.destroy?.();
       });
-      this.children = [];
-      this.onTickCallback = NOOP;
-      this.onUpdateCallback = NOOP;
-      this.onAfterRefresh = NOOP;
-      this.afterInit = NOOP;
-      if (this.scopedEvent) {
-        this.scroller?.removeEventListener(
+      this.#children = [];
+      this.#onTickCallback = NOOP;
+      this.#onUpdateCallback = NOOP;
+      this.#onAfterRefresh = NOOP;
+      this.#afterInit = NOOP;
+      if (this.#scopedEvent) {
+        this.#scroller?.removeEventListener(
           "wheel",
-          this.scopedWhell
+          this.#scopedWhell
         );
-        this.scroller?.removeEventListener(
+        this.#scroller?.removeEventListener(
           "mousemove",
-          this.scopedTouchMove
+          this.#scopedTouchMove
         );
-        this.scroller?.removeEventListener(
+        this.#scroller?.removeEventListener(
           "touchmove",
-          this.scopedTouchMove
+          this.#scopedTouchMove
         );
       }
       mobCore.useFrameIndex(() => {
         mobCore.useNextTick(() => {
-          this.scroller = null;
-          this.screen = null;
+          this.#scroller = null;
+          this.#screen = null;
         });
       }, 3);
     }
@@ -21673,331 +22991,570 @@ Loading snippet ...</pre
   // src/js/mobMotion/plugin/horizontalScroller/js/horizontalScroller.js
   var HorizontalScroller = class {
     /**
+     * @type {boolean}
+     */
+    #propsisValid;
+    /**
+     * @type {number}
+     */
+    #triggerTopPosition;
+    /**
+     * @type {boolean}
+     */
+    #touchActive;
+    /**
+     * @type {number}
+     */
+    #lastTouchValueX;
+    /**
+     * @type {number}
+     */
+    #dragSecureAreaBottom;
+    /**
+     * @type {number}
+     */
+    #dragSecureAreaTop;
+    /**
+     * @type {boolean}
+     */
+    #shouldDragValue;
+    /**
+     * @type {number}
+     */
+    #scrollValue;
+    /**
+     * @type {() => void}
+     */
+    #unsubscribeScroll;
+    /**
+     * @type {boolean}
+     */
+    #useDrag;
+    /**
+     * @type {number}
+     */
+    #threshold;
+    /**
+     * @type {boolean}
+     */
+    #useWillChange;
+    /**
+     * @type {import('../../../utils/type').mqValues}
+     */
+    #breakpoint;
+    /**
+     * @type {import('../../../utils/type').mqAction}
+     */
+    #queryType;
+    /**
+     * @type {boolean}
+     */
+    #forceTranspond;
+    /**
+     * @type {boolean}
+     */
+    #addCss;
+    /**
+     * @type {boolean}
+     */
+    #animateAtStart;
+    /**
+     * @type {boolean}
+     */
+    #ease;
+    /**
+     * @type {'lerp'|'spring'}
+     */
+    #easeType;
+    /**
+     * @type {boolean}
+     */
+    #useSticky;
+    /**
+     * @type {boolean}
+     */
+    #animatePin;
+    /**
+     * @type {boolean}
+     */
+    #reverse;
+    /**
+     * @type {boolean}
+     */
+    #useThrottle;
+    /**
+     * @type {number}
+     */
+    #columnHeight;
+    /**
+     * @type {number}
+     */
+    #columnWidth;
+    /**
+     * @type {string}
+     */
+    #columnAlign;
+    /**
+     * @type {() => void}
+     */
+    #onEnter;
+    /**
+     * @type {() => void}
+     */
+    #onEnterBack;
+    /**
+     * @type {() => void}
+     */
+    #onLeave;
+    /**
+     * @type {() => void}
+     */
+    #onLeaveBack;
+    /**
+     * @type {() => void}
+     */
+    #afterInit;
+    /**
+     * @type {() => void}
+     */
+    #afterRefresh;
+    /**
+     * @type {() => void}
+     */
+    #afterDestroy;
+    /**
+     * @type {import('./type.d.ts').horizontalScrollerOnTick}
+     */
+    #onTick;
+    /**
+     * Dom element
+     */
+    /**
+     * @type {HTMLElement}
+     */
+    #mainContainer;
+    /**
+     * @type {string}
+     */
+    #container;
+    /**
+     * @type {HTMLElement}
+     */
+    #trigger;
+    /**
+     * @type {HTMLElement}
+     */
+    #row;
+    /**
+     * @type {NodeListOf<HTMLElement>}
+     */
+    #columns;
+    /**
+     * @type {NodeListOf<HTMLElement>}
+     */
+    #shadows;
+    /**
+     *
+     */
+    #shadowMainClassTransition;
+    /**
+     * @type {NodeListOf<HTMLElement>|[]}
+     */
+    #buttons;
+    /**
+     * @type {boolean}
+     */
+    #moduleisActive;
+    /**
+     * @type {number}
+     */
+    #horizontalWidth;
+    /**
+     *
+     */
+    #scrollTriggerInstance;
+    /**
+     * @type {number}
+     */
+    #percentRange;
+    /**
+     * @description
+     * Initialize children.
+     *
+     * @type {ParallaxClass[]}
+     */
+    #children;
+    /**
+     * Scoped event.
+     * @type {(arg0: MouseEvent) => void}
+     * @return {void}
+     */
+    #onMouseMove;
+    /**
+     * @type {(arg0: MouseEvent) => void}
+     * @return {void}
+     */
+    #onMouseDown;
+    /**
+     * @type {(arg0: MouseEvent) => void}
+     * @return {void}
+     */
+    #onMouseUp;
+    /**
+     * @type {(arg0: MouseEvent) => void}
+     * @return {void}
+     */
+    #onMouseLeave;
+    /**
+     * @type {(arg0: TouchEvent) => void}
+     * @return {void}
+     */
+    #onTouchStart;
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #onTouchEnd;
+    /**
+     * @type {(arg0: TouchEvent) => void}
+     * @return {void}
+     */
+    #onTouchMove;
+    /**
+     * @type {EventListener}
+     * @return {void}
+     */
+    #preventFireClick;
+    /**
+     * @type {number}
+     */
+    #firstTouchValue;
+    /**
      * @param  { import('./type.d.ts').HorizontalScroller } data
-    *
-    * @description
-    *
-    * Create new HorizontalScroller instance.
-    *
-    * Special attributes to handle shadow elements:
-    * Apply the following data-attributes to any element
-    *
-    * `data-shadow="<String>"`
-    * Create a vertical shadow element with a custom className.
-    *
-    * `data-debug`
-    * Makes the shadow element visible
-    *
-    * Available methods:
-    * myHorizontalScroller.init();
-    * myHorizontalScroller.refresh();
-    * myHorizontalScroller.destroy();
-    *
-    * @example
-    *
-    ```html
-        HTML:
-        <div class="root">
-            <div class="container">
-                <div class="row">
-                    <section class="column" data-shadow="section1">
-                        <h1>title</h1>
-                    </section>
-                    <section class="column">
-                        <h1 data-shadow="title" data-debug>title</h1>
-                    </section>
-                    ...
-                </div>
-                <div class="trigger"></div>
-            </div>
-        </div>
-    ```
-    ```javascript
-        JS:
-        const myHorizontalScroller = new HorizontalScroller({
-            root: '.root',
-            container: '.container',
-            row: '.row',
-            column: '.column',
-            trigger: '.trigger',
-            shadowClass: '.myShadowClass,
-            useThrottle: [ Boolean ],
-            useSticky: [ Boolean ],
-            animatePin: [ Boolean ],
-            forceTranspond: [ Boolean ],
-            useWillChange: [ Boolean ],
-            animateAtStart: [ Boolean ],
-            queryType: [ String ],
-            breakpoint: [ String ],
-            ease: [ Boolean ],
-            easeType: [ String ],
-            addCss: [ Boolean ],
-            columnHeight: [ Number ],
-            columnWidth: [ Number ],
-            columnAlign: [ String ],
-            children: [child1,child2, ...],
-            onEnter: () => {
-                ...
-            },
-            onEnterBack: () => {
-                ...
-            },
-            onLeave: () => {
-                ...
-            },
-            onLeaveBack: () => {
-                ...
-            },
-            afterInit: () => {
-                ...
-            },
-            onTick: ({ value, parentIsMoving, percent }) => {
-                ...
-            },
-            afterRefresh: () => {
-                ...
-            },
-            afterDestroy: () => {
-                ...
-            },
-        });
-    ```
-    *
+     *
+     * @description
+     *
+     * Create new HorizontalScroller instance.
+     *
+     * Special attributes to handle shadow elements:
+     * Apply the following data-attributes to any element
+     *
+     * `data-shadow="<String>"`
+     * Create a vertical shadow element with a custom className.
+     *
+     * `data-debug`
+     * Makes the shadow element visible
+     *
+     * Available methods:
+     * myHorizontalScroller.init();
+     * myHorizontalScroller.refresh();
+     * myHorizontalScroller.destroy();
+     *
+     * @example
+     *
+     * ```html
+     *     HTML:
+     *     <div class="root">
+     *         <div class="container">
+     *             <div class="row">
+     *                 <section class="column" data-shadow="section1">
+     *                     <h1>title</h1>
+     *                 </section>
+     *                 <section class="column">
+     *                     <h1 data-shadow="title" data-debug>title</h1>
+     *                 </section>
+     *                 ...
+     *             </div>
+     *             <div class="trigger"></div>
+     *         </div>
+     *     </div>
+     * ```
+     * ```javascript
+     *     JS:
+     *     const myHorizontalScroller = new HorizontalScroller({
+     *         root: '.root',
+     *         container: '.container',
+     *         row: '.row',
+     *         column: '.column',
+     *         trigger: '.trigger',
+     *         shadowClass: '.myShadowClass,
+     *         useThrottle: [ Boolean ],
+     *         useSticky: [ Boolean ],
+     *         animatePin: [ Boolean ],
+     *         forceTranspond: [ Boolean ],
+     *         useWillChange: [ Boolean ],
+     *         animateAtStart: [ Boolean ],
+     *         queryType: [ String ],
+     *         breakpoint: [ String ],
+     *         ease: [ Boolean ],
+     *         easeType: [ String ],
+     *         addCss: [ Boolean ],
+     *         columnHeight: [ Number ],
+     *         columnWidth: [ Number ],
+     *         columnAlign: [ String ],
+     *         children: [child1,child2, ...],
+     *         onEnter: () => {
+     *             ...
+     *         },
+     *         onEnterBack: () => {
+     *             ...
+     *         },
+     *         onLeave: () => {
+     *             ...
+     *         },
+     *         onLeaveBack: () => {
+     *             ...
+     *         },
+     *         afterInit: () => {
+     *             ...
+     *         },
+     *         onTick: ({ value, parentIsMoving, percent }) => {
+     *             ...
+     *         },
+     *         afterRefresh: () => {
+     *             ...
+     *         },
+     *         afterDestroy: () => {
+     *             ...
+     *         },
+     *     });
+     * ```
+     *
      */
     constructor(data2) {
-      this.propsisValid = true;
-      this.triggerTopPosition = 0;
-      this.touchActive = false;
-      this.lastTouchValueX = 0;
-      this.dragSecureAreaBottom = 100;
-      this.dragSecureAreaTop = 100;
-      this.shouldDragValue = false;
-      this.button = [];
-      this.scrollValue = 0;
-      this.unsubscribeScroll = () => {
+      this.#propsisValid = true;
+      this.#triggerTopPosition = 0;
+      this.#touchActive = false;
+      this.#lastTouchValueX = 0;
+      this.#dragSecureAreaBottom = 100;
+      this.#dragSecureAreaTop = 100;
+      this.#shouldDragValue = false;
+      this.#scrollValue = 0;
+      this.#unsubscribeScroll = () => {
       };
-      this.useDrag = valueIsBooleanAndReturnDefault(
+      this.#useDrag = valueIsBooleanAndReturnDefault(
         data2?.useDrag,
         "HorizontalScroller: useDrag",
         false
       );
-      this.threshold = valueIsNumberAndReturnDefault(
+      this.#threshold = valueIsNumberAndReturnDefault(
         data2?.threshold,
         "HorizontalScroller: threshold",
         30
       );
-      this.useWillChange = valueIsBooleanAndReturnDefault(
+      this.#useWillChange = valueIsBooleanAndReturnDefault(
         data2?.useWillChange,
         "HorizontalScroller: useWillChange",
         false
       );
-      this.breakpoint = breakpointIsValid(
+      this.#breakpoint = breakpointIsValid(
         data2?.breakpoint,
         "breakpoint",
         "horizontalScroller"
       );
-      this.queryType = breakpointTypeIsValid(
+      this.#queryType = breakpointTypeIsValid(
         data2?.queryType,
         "queryType",
         "horizontalScroller"
       );
-      this.forceTranspond = valueIsBooleanAndReturnDefault(
+      this.#forceTranspond = valueIsBooleanAndReturnDefault(
         data2?.forceTranspond,
         "HorizontalScroller: forceTranspond",
         false
       );
-      this.addCss = valueIsBooleanAndReturnDefault(
+      this.#addCss = valueIsBooleanAndReturnDefault(
         data2?.addCss,
         "HorizontalScroller: addCss",
         true
       );
-      this.animateAtStart = valueIsBooleanAndReturnDefault(
+      this.#animateAtStart = valueIsBooleanAndReturnDefault(
         data2?.animateAtStart,
         "HorizontalScroller: animateAtStart",
         false
       );
-      this.ease = valueIsBooleanAndReturnDefault(
+      this.#ease = valueIsBooleanAndReturnDefault(
         data2?.ease,
         "HorizontalScroller: ease",
         false
       );
-      this.easeType = genericEaseTypeIsValid(
+      this.#easeType = genericEaseTypeIsValid(
         data2?.easeType,
         "HorizontalScroller"
       );
-      this.useSticky = valueIsBooleanAndReturnDefault(
+      this.#useSticky = valueIsBooleanAndReturnDefault(
         data2?.useSticky,
         "HorizontalScroller: useSticky",
         false
       );
-      this.animatePin = valueIsBooleanAndReturnDefault(
+      this.#animatePin = valueIsBooleanAndReturnDefault(
         data2?.animatePin,
         "HorizontalScroller: animatePin",
         false
       );
-      this.reverse = valueIsBooleanAndReturnDefault(
+      this.#reverse = valueIsBooleanAndReturnDefault(
         data2?.reverse,
         "HorizontalScroller: reverse",
         false
       );
-      this.useThrottle = valueIsBooleanAndReturnDefault(
+      this.#useThrottle = valueIsBooleanAndReturnDefault(
         data2?.useThrottle,
         "HorizontalScroller: useThrottle",
         false
       );
-      this.columnHeight = valueIsNumberAndReturnDefault(
+      this.#columnHeight = valueIsNumberAndReturnDefault(
         data2?.columnHeight,
         "HorizontalScroller: columnHeight",
         100
       );
-      this.columnWidth = valueIsNumberAndReturnDefault(
+      this.#columnWidth = valueIsNumberAndReturnDefault(
         data2?.columnWidth,
         "HorizontalScroller: columnWidth",
         null
       );
-      this.columnAlign = data2?.columnAlign ? data2.columnAlign.toUpperCase() : horizontalScrollerContstant.START;
-      this.onEnter = valueIsFunctionAndReturnDefault(
+      this.#columnAlign = data2?.columnAlign ? data2.columnAlign.toUpperCase() : horizontalScrollerContstant.START;
+      this.#onEnter = valueIsFunctionAndReturnDefault(
         data2?.onEnter,
         "HorizontalScroller: onEnter",
         NOOP
       );
-      this.onEnterBack = valueIsFunctionAndReturnDefault(
+      this.#onEnterBack = valueIsFunctionAndReturnDefault(
         data2?.onEnterBack,
         "HorizontalScroller: onEnterBack",
         NOOP
       );
-      this.onLeave = valueIsFunctionAndReturnDefault(
+      this.#onLeave = valueIsFunctionAndReturnDefault(
         data2?.onLeave,
         "HorizontalScroller: onLeave",
         NOOP
       );
-      this.onLeaveBack = valueIsFunctionAndReturnDefault(
+      this.#onLeaveBack = valueIsFunctionAndReturnDefault(
         data2?.onLeaveBack,
         "HorizontalScroller: onLeaveBack",
         NOOP
       );
-      this.afterInit = valueIsFunctionAndReturnDefault(
+      this.#afterInit = valueIsFunctionAndReturnDefault(
         data2?.afterInit,
         "HorizontalScroller: afterInit",
         NOOP
       );
-      this.afterRefresh = valueIsFunctionAndReturnDefault(
+      this.#afterRefresh = valueIsFunctionAndReturnDefault(
         data2?.afterRefresh,
         "HorizontalScroller: afterRefresh",
         NOOP
       );
-      this.afterDestroy = valueIsFunctionAndReturnDefault(
+      this.#afterDestroy = valueIsFunctionAndReturnDefault(
         data2?.afterDestroy,
         "HorizontalScroller: afterDestroy",
         NOOP
       );
-      this.onTick = valueIsFunctionAndReturnDefault(
+      this.#onTick = valueIsFunctionAndReturnDefault(
         data2?.onTick,
         "HorizontalScroller: onTick",
         null
       );
-      this.mainContainer = mobCore.checkType(String, data2.root) ? document.querySelector(data2.root) : data2.root;
-      if (!this.mainContainer) {
-        this.propsisValid = false;
+      this.#mainContainer = mobCore.checkType(String, data2.root) ? document.querySelector(data2.root) : data2.root;
+      if (!this.#mainContainer) {
+        this.#propsisValid = false;
         console.warn("horizontal custom: root node not found");
         return;
       }
-      this.container = data2?.container;
-      const scrollerTester = this.mainContainer.querySelector(this.container);
+      this.#container = data2?.container;
+      const scrollerTester = this.#mainContainer.querySelector(
+        this.#container
+      );
       if (!scrollerTester) {
-        this.propsisValid = false;
+        this.#propsisValid = false;
         console.warn("horizontal custom: container node not found");
         return;
       }
-      this.trigger = this.mainContainer.querySelector(data2.trigger);
-      if (!this.trigger) {
-        this.propsisValid = false;
+      this.#trigger = this.#mainContainer.querySelector(data2.trigger);
+      if (!this.#trigger) {
+        this.#propsisValid = false;
         console.warn("horizontal custom: trigger node not found");
         return;
       }
-      this.row = this.mainContainer.querySelector(data2.row);
-      if (!this.row) {
-        this.propsisValid = false;
+      this.#row = this.#mainContainer.querySelector(data2.row);
+      if (!this.#row) {
+        this.#propsisValid = false;
         console.warn("horizontal custom: row node not found");
         return;
       }
-      this.columns = this.mainContainer.querySelectorAll(data2.column);
-      if (this.columns.length === 0) {
-        this.propsisValid = false;
+      this.#columns = this.#mainContainer.querySelectorAll(data2.column);
+      if (this.#columns.length === 0) {
+        this.#propsisValid = false;
         console.warn("horizontal custom: column nodeList not found");
         return;
       }
-      this.shadows = this.mainContainer.querySelectorAll("[data-shadow]");
+      this.#shadows = this.#mainContainer.querySelectorAll("[data-shadow]");
       const originalShadowClass = data2?.shadowClass || "shadow";
-      this.shadowMainClassTransition = originalShadowClass.replace(".", "");
-      this.button = this.row.querySelectorAll("a, button");
-      this.moduleisActive = false;
-      this.horizontalWidth = 0;
-      this.scrollTriggerInstance = {};
-      this.percentRange = 0;
-      this.children = data2?.children || [];
-      this.children.forEach((element) => {
-        element.setScroller(this.row);
+      this.#shadowMainClassTransition = originalShadowClass.replace(".", "");
+      this.#buttons = this.#row.querySelectorAll("a, button");
+      this.#moduleisActive = false;
+      this.#horizontalWidth = 0;
+      this.#scrollTriggerInstance = {};
+      this.#percentRange = 0;
+      this.#children = data2?.children || [];
+      this.#children.forEach((element) => {
+        element.setScroller(this.#row);
         element.setDirection("horizontal");
-        element.setBreakPoint(this.breakpoint);
-        element.setQueryType(this.queryType);
+        element.setBreakPoint(this.#breakpoint);
+        element.setQueryType(this.#queryType);
         element.init();
       });
-      if (this.addCss)
+      if (this.#addCss)
         horizontalScrollerCss({
-          mainContainer: this.mainContainer,
-          queryType: this.queryType,
-          breakpoint: this.breakpoint,
-          container: this.container,
+          mainContainer: this.#mainContainer,
+          queryType: this.#queryType,
+          breakpoint: this.#breakpoint,
+          container: this.#container,
           trigger: data2?.trigger ?? "trigger",
           row: data2.row,
           column: data2.column,
-          shadow: this.shadowMainClassTransition,
-          useSticky: this.useSticky,
-          columnHeight: this.columnHeight,
-          columnWidth: this.columnWidth,
-          columnAlign: this.columnAlign
+          shadow: this.#shadowMainClassTransition,
+          useSticky: this.#useSticky,
+          columnHeight: this.#columnHeight,
+          columnWidth: this.#columnWidth,
+          columnAlign: this.#columnAlign
         });
-      this.onMouseMove = (event) => {
-        if (!this.touchActive) return;
+      this.#onMouseMove = (event) => {
+        if (!this.#touchActive) return;
         const { movementX } = event;
-        const value = this.reverse ? movementX : -movementX;
+        const value = this.#reverse ? movementX : -movementX;
         this.onDrag(value);
-        this.touchStart = false;
       };
-      this.onMouseDown = () => {
-        if (!mq[this.queryType](this.breakpoint)) return;
-        if (this.shouldDragValue) this.row.style.cursor = "move";
-        this.touchActive = true;
-        this.firstTouchValue = this.scrollValue;
+      this.#onMouseDown = () => {
+        if (!mq[this.#queryType](this.#breakpoint)) return;
+        if (this.#shouldDragValue) this.#row.style.cursor = "move";
+        this.#touchActive = true;
+        this.#firstTouchValue = this.#scrollValue;
       };
-      this.onMouseUp = () => {
-        this.touchActive = false;
-        mobCore.useFrame(() => this.row.style.cursor = "");
+      this.#onMouseUp = () => {
+        this.#touchActive = false;
+        mobCore.useFrame(() => this.#row.style.cursor = "");
       };
-      this.onMouseLeave = () => {
-        this.touchActive = false;
-        mobCore.useFrame(() => this.row.style.cursor = "");
+      this.#onMouseLeave = () => {
+        this.#touchActive = false;
+        mobCore.useFrame(() => this.#row.style.cursor = "");
       };
-      this.onTouchStart = (event) => {
-        if (!mq[this.queryType](this.breakpoint)) return;
-        this.lastTouchValueX = -event.touches[0].clientX;
-        this.touchActive = true;
-        this.firstTouchValue = this.scrollValue;
+      this.#onTouchStart = (event) => {
+        if (!mq[this.#queryType](this.#breakpoint)) return;
+        this.#lastTouchValueX = -event.touches[0].clientX;
+        this.#touchActive = true;
+        this.#firstTouchValue = this.#scrollValue;
       };
-      this.onTouchEnd = () => {
-        this.touchActive = false;
+      this.#onTouchEnd = () => {
+        this.#touchActive = false;
       };
-      this.onTouchMove = (event) => {
+      this.#onTouchMove = (event) => {
         const touchValueX = -event.touches[0].clientX;
-        const gapX = this.reverse ? -touchValueX + this.lastTouchValueX : touchValueX - this.lastTouchValueX;
+        const gapX = this.#reverse ? -touchValueX + this.#lastTouchValueX : touchValueX - this.#lastTouchValueX;
         this.onDrag(gapX);
-        this.lastTouchValueX = touchValueX;
-        if (this.shouldDragValue && event.cancelable)
+        this.#lastTouchValueX = touchValueX;
+        if (this.#shouldDragValue && event.cancelable)
           event.preventDefault();
       };
-      this.preventFireClick = (event) => {
-        if (Math.abs(this.scrollValue - this.firstTouchValue) > this.threshold)
+      this.#preventFireClick = (event) => {
+        if (Math.abs(this.#scrollValue - this.#firstTouchValue) > this.#threshold)
           event.preventDefault();
       };
     }
@@ -22011,7 +23568,7 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     init() {
-      if (!this.propsisValid) return;
+      if (!this.#propsisValid) return;
       pipe(
         this.getWidth.bind(this),
         this.setDimension.bind(this),
@@ -22019,14 +23576,14 @@ Loading snippet ...</pre
         this.updateShadow.bind(this)
       )().then(() => {
         this.initScroller();
-        if (this.useDrag) this.addDragListener();
+        if (this.#useDrag) this.addDragListener();
         mobCore.useResize(
           ({ horizontalResize }) => this.onResize(horizontalResize)
         );
         mobCore.useFrameIndex(() => {
           mobCore.useNextTick(() => {
-            this.afterInit?.();
-            this.children.forEach((element) => {
+            this.#afterInit?.();
+            this.#children.forEach((element) => {
               element.refresh();
             });
           });
@@ -22038,7 +23595,7 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     setLinkAttribute() {
-      [...this.button].forEach(
+      [...this.#buttons].forEach(
         (item) => item.setAttribute("draggable", "false")
       );
     }
@@ -22047,14 +23604,14 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     removeLinkAttribute() {
-      [...this.button].forEach((item) => item.removeAttribute("draggable"));
+      [...this.#buttons].forEach((item) => item.removeAttribute("draggable"));
     }
     /**
      * @private
      * @type {(value: number) => void}
      */
     onDrag(value) {
-      if (!this.shouldDragValue) return;
+      if (!this.#shouldDragValue) return;
       mobCore.useFrame(
         () => window.scrollBy({ top: value, left: 0, behavior: "instant" })
       );
@@ -22064,36 +23621,36 @@ Loading snippet ...</pre
      */
     shouldDrag() {
       const documentScrollTop = window.scrollY;
-      this.shouldDragValue = this.triggerTopPosition - this.dragSecureAreaTop < documentScrollTop && this.triggerTopPosition + this.dragSecureAreaBottom + this.horizontalWidth > documentScrollTop + window.innerHeight;
+      this.#shouldDragValue = this.#triggerTopPosition - this.#dragSecureAreaTop < documentScrollTop && this.#triggerTopPosition + this.#dragSecureAreaBottom + this.#horizontalWidth > documentScrollTop + window.innerHeight;
     }
     /**
      * @type {() => void}
      */
     addDragListener() {
-      this.unsubscribeScroll = mobCore.useScroll(() => this.shouldDrag());
+      this.#unsubscribeScroll = mobCore.useScroll(() => this.shouldDrag());
       this.shouldDrag();
-      this.row.addEventListener("click", this.preventFireClick, {
+      this.#row.addEventListener("click", this.#preventFireClick, {
         passive: false
       });
-      this.row.addEventListener("mousedown", this.onMouseDown, {
+      this.#row.addEventListener("mousedown", this.#onMouseDown, {
         passive: true
       });
-      this.row.addEventListener("mouseup", this.onMouseUp, {
+      this.#row.addEventListener("mouseup", this.#onMouseUp, {
         passive: true
       });
-      this.row.addEventListener("mouseleave", this.onMouseLeave, {
+      this.#row.addEventListener("mouseleave", this.#onMouseLeave, {
         passive: true
       });
-      this.row.addEventListener("touchstart", this.onTouchStart, {
+      this.#row.addEventListener("touchstart", this.#onTouchStart, {
         passive: true
       });
-      this.row.addEventListener("touchend", this.onTouchEnd, {
+      this.#row.addEventListener("touchend", this.#onTouchEnd, {
         passive: true
       });
-      this.row.addEventListener("mousemove", this.onMouseMove, {
+      this.#row.addEventListener("mousemove", this.#onMouseMove, {
         passive: true
       });
-      this.row.addEventListener("touchmove", this.onTouchMove, {
+      this.#row.addEventListener("touchmove", this.#onTouchMove, {
         passive: true
       });
     }
@@ -22101,34 +23658,34 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     removeDragListener() {
-      this.unsubscribeScroll();
-      this.row.removeEventListener("click", this.preventFireClick);
-      this.row.removeEventListener("mousedown", this.onMouseDown);
-      this.row.removeEventListener("mouseup", this.onMouseUp);
-      this.row.removeEventListener("mouseleave", this.onMouseLeave);
-      this.row.removeEventListener("touchstart", this.onTouchStart);
-      this.row.removeEventListener("touchend", this.onTouchEnd);
-      this.row.removeEventListener("mousemove", this.onMouseMove);
-      this.row.removeEventListener("touchmove", this.onTouchMove);
+      this.#unsubscribeScroll();
+      this.#row.removeEventListener("click", this.#preventFireClick);
+      this.#row.removeEventListener("mousedown", this.#onMouseDown);
+      this.#row.removeEventListener("mouseup", this.#onMouseUp);
+      this.#row.removeEventListener("mouseleave", this.#onMouseLeave);
+      this.#row.removeEventListener("touchstart", this.#onTouchStart);
+      this.#row.removeEventListener("touchend", this.#onTouchEnd);
+      this.#row.removeEventListener("mousemove", this.#onMouseMove);
+      this.#row.removeEventListener("touchmove", this.#onTouchMove);
     }
     /**
      * @private
      * @type {() => Promise<boolean>}
      */
     setDimension() {
-      if (!this.trigger || !this.mainContainer || !this.row) {
+      if (!this.#trigger || !this.#mainContainer || !this.#row) {
         return new Promise((resolve) => {
           resolve(true);
         });
       }
       return new Promise((resolve) => {
         mobCore.useFrame(() => {
-          const width = this.horizontalWidth;
-          this.percentRange = 100 * (width - window.innerWidth) / width;
+          const width = this.#horizontalWidth;
+          this.#percentRange = 100 * (width - window.innerWidth) / width;
           if (width > 0) {
-            this.trigger.style.height = `${width}px`;
-            this.mainContainer.style.height = `${width}px`;
-            this.row.style.width = `${width}px`;
+            this.#trigger.style.height = `${width}px`;
+            this.#mainContainer.style.height = `${width}px`;
+            this.#row.style.width = `${width}px`;
           }
           resolve(true);
         });
@@ -22141,11 +23698,11 @@ Loading snippet ...</pre
     getWidth() {
       return new Promise((resolve) => {
         mobCore.useFrame(() => {
-          if (!mq[this.queryType](this.breakpoint)) {
+          if (!mq[this.#queryType](this.#breakpoint)) {
             resolve(true);
             return;
           }
-          this.horizontalWidth = [...this.columns].map((item) => {
+          this.#horizontalWidth = [...this.#columns].map((item) => {
             return outerWidth(item);
           }).reduce((a, b) => a + b, 0);
           resolve(true);
@@ -22157,18 +23714,18 @@ Loading snippet ...</pre
      * @type {() => Promise<boolean>}
      */
     createShadow() {
-      if (!this.trigger) {
+      if (!this.#trigger) {
         return new Promise((resolve) => {
           resolve(true);
         });
       }
       return new Promise((resolve) => {
         mobCore.useFrame(() => {
-          if (!mq[this.queryType](this.breakpoint)) {
+          if (!mq[this.#queryType](this.#breakpoint)) {
             resolve(true);
             return;
           }
-          const shadowsTransition = [...this.shadows].map((item) => {
+          const shadowsTransition = [...this.#shadows].map((item) => {
             const shadowLabel = item.dataset["shadow"];
             const useDebug = Object.hasOwn(item.dataset, "debug");
             const debugClass = useDebug ? "debug" : "";
@@ -22179,33 +23736,33 @@ Loading snippet ...</pre
             return (
               /* HTML */
               ` <div
-                            class="${this.shadowMainClassTransition} ${this.shadowMainClassTransition}--${shadowLabel}"
+                            class="${this.#shadowMainClassTransition} ${this.#shadowMainClassTransition}--${shadowLabel}"
                             data-shadow="${shadowLabel}"
                         >
                             <span
-                                class="${this.shadowMainClassTransition}--in-center ${debugClass}"
+                                class="${this.#shadowMainClassTransition}--in-center ${debugClass}"
                             >
                                 ${inCenterLabel}
                             </span>
                             <span
-                                class="${this.shadowMainClassTransition}--out-center ${debugClass}"
+                                class="${this.#shadowMainClassTransition}--out-center ${debugClass}"
                             >
                                 ${outCenterlabel}
                             </span>
                             <span
-                                class="${this.shadowMainClassTransition}--left ${debugClass}"
+                                class="${this.#shadowMainClassTransition}--left ${debugClass}"
                             >
                                 ${leftLabel}
                             </span>
                             <span
-                                class="${this.shadowMainClassTransition}--end ${debugClass}"
+                                class="${this.#shadowMainClassTransition}--end ${debugClass}"
                             >
                                 ${endLabel}
                             </span>
                         </div>`
             );
           }).join("");
-          this.trigger.innerHTML = shadowsTransition;
+          this.#trigger.innerHTML = shadowsTransition;
           resolve(true);
         });
       });
@@ -22215,7 +23772,7 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     removeShadow() {
-      if (this.trigger) this.trigger.innerHTML = "";
+      if (this.#trigger) this.#trigger.innerHTML = "";
     }
     /**
      * @private
@@ -22223,36 +23780,36 @@ Loading snippet ...</pre
      */
     updateShadow() {
       return new Promise((resolve) => {
-        if (!mq[this.queryType](this.breakpoint)) {
+        if (!mq[this.#queryType](this.#breakpoint)) {
           resolve(true);
           return;
         }
         mobCore.useFrame(() => {
-          [...this.shadows].forEach((item) => {
-            const percentrange = this.percentRange / 100;
+          [...this.#shadows].forEach((item) => {
+            const percentrange = this.#percentRange / 100;
             const shadowData = item.dataset["shadow"];
             const width = outerWidth(item);
-            const height = outerHeight(this.row);
-            const { x } = getTranslateValues(this.row);
-            const offset2 = this.reverse ? this.horizontalWidth - (item.getBoundingClientRect().right - x) : item.getBoundingClientRect().left - x;
+            const height = outerHeight(this.#row);
+            const { x } = getTranslateValues(this.#row);
+            const offset2 = this.#reverse ? this.#horizontalWidth - (item.getBoundingClientRect().right - x) : item.getBoundingClientRect().left - x;
             const screenRatio = window.innerWidth / window.innerHeight;
             const windowDifference = window.innerWidth - window.innerHeight;
             const widthAmount = offset2 / screenRatio;
             const diffAmount = offset2 - offset2 / screenRatio;
-            const shadowTransitionEl = this.mainContainer.querySelector(
-              `.${this.shadowMainClassTransition}[data-shadow="${shadowData}"]`
+            const shadowTransitionEl = this.#mainContainer.querySelector(
+              `.${this.#shadowMainClassTransition}[data-shadow="${shadowData}"]`
             );
             const inCenterMarker = shadowTransitionEl?.querySelector(
-              `.${this.shadowMainClassTransition}--in-center`
+              `.${this.#shadowMainClassTransition}--in-center`
             );
             const outCenterMarker = shadowTransitionEl?.querySelector(
-              `.${this.shadowMainClassTransition}--out-center`
+              `.${this.#shadowMainClassTransition}--out-center`
             );
             const leftMarker = shadowTransitionEl?.querySelector(
-              `.${this.shadowMainClassTransition}--left`
+              `.${this.#shadowMainClassTransition}--left`
             );
             const endMarker = shadowTransitionEl?.querySelector(
-              `.${this.shadowMainClassTransition}--end`
+              `.${this.#shadowMainClassTransition}--end`
             );
             const plusFull = window.innerWidth > window.innerHeight ? window.innerHeight : 0;
             const plusHalf = window.innerWidth > window.innerHeight ? window.innerHeight / 2 : 0;
@@ -22285,8 +23842,8 @@ Loading snippet ...</pre
             const inCenter = (() => {
               return end / 2 + plusHalf;
             })();
-            if (this.useSticky) {
-              this.trigger.style["margin-top"] = `-${height}px`;
+            if (this.#useSticky) {
+              this.#trigger.style["margin-top"] = `-${height}px`;
             }
             if (shadowTransitionEl)
               shadowTransitionEl.style.top = `${start}px`;
@@ -22311,25 +23868,25 @@ Loading snippet ...</pre
      * @type {() => void}
      */
     initScroller() {
-      if (!this.trigger || !mq[this.queryType](this.breakpoint)) return;
+      if (!this.#trigger || !mq[this.#queryType](this.#breakpoint)) return;
       const scrollTriggerInstance = new ParallaxClass({
         type: "scrolltrigger",
-        item: this.row,
-        useWillChange: this.useWillChange,
-        trigger: this.trigger,
+        item: this.#row,
+        useWillChange: this.#useWillChange,
+        trigger: this.#trigger,
         propierties: "x",
         breakpoint: "xSmall",
-        pin: !this.useSticky,
-        animatePin: this.animatePin,
-        ease: this.ease,
-        forceTranspond: this.forceTranspond,
-        useThrottle: this.useThrottle,
-        easeType: this.easeType,
+        pin: !this.#useSticky,
+        animatePin: this.#animatePin,
+        ease: this.#ease,
+        forceTranspond: this.#forceTranspond,
+        useThrottle: this.#useThrottle,
+        easeType: this.#easeType,
         springConfig: "scroller",
-        animateAtStart: this.animateAtStart,
-        fromTo: this.reverse,
+        animateAtStart: this.#animateAtStart,
+        fromTo: this.#reverse,
         dynamicRange: () => {
-          return -(this.horizontalWidth - window.innerWidth);
+          return -(this.#horizontalWidth - window.innerWidth);
         },
         dynamicStart: {
           position: "bottom",
@@ -22340,36 +23897,36 @@ Loading snippet ...</pre
         dynamicEnd: {
           position: "bottom",
           value: () => {
-            return this.horizontalWidth;
+            return this.#horizontalWidth;
           }
         },
         onTick: ({ value, parentIsMoving }) => {
           const valueParsed = value ?? 0;
           const percent = Math.abs(
             -Math.round(
-              valueParsed * 100 / (this.horizontalWidth - window.innerWidth)
+              valueParsed * 100 / (this.#horizontalWidth - window.innerWidth)
             )
           );
-          this.scrollValue = valueParsed;
-          if (this.onTick)
-            this.onTick({
+          this.#scrollValue = valueParsed;
+          if (this.#onTick)
+            this.#onTick({
               value: valueParsed,
               parentIsMoving,
-              percent: this.reverse ? 100 - percent : percent
+              percent: this.#reverse ? 100 - percent : percent
             });
-          this.children.forEach((element) => {
+          this.#children.forEach((element) => {
             element.move({ value: valueParsed, parentIsMoving });
           });
         },
-        onEnter: this.onEnter,
-        onEnterBack: this.onEnterBack,
-        onLeave: this.onLeave,
-        onLeaveBack: this.onLeaveBack
+        onEnter: this.#onEnter,
+        onEnterBack: this.#onEnterBack,
+        onLeave: this.#onLeave,
+        onLeaveBack: this.#onLeaveBack
       });
       scrollTriggerInstance.init();
-      this.moduleisActive = true;
-      this.scrollTriggerInstance = scrollTriggerInstance;
-      this.triggerTopPosition = offset(this.trigger).top;
+      this.#moduleisActive = true;
+      this.#scrollTriggerInstance = scrollTriggerInstance;
+      this.#triggerTopPosition = offset(this.#trigger).top;
       this.setLinkAttribute();
     }
     /**
@@ -22394,8 +23951,8 @@ Loading snippet ...</pre
     refreshChildren() {
       mobCore.useFrameIndex(() => {
         mobCore.useNextTick(() => {
-          this.afterRefresh?.();
-          this.children.forEach((element) => {
+          this.#afterRefresh?.();
+          this.#children.forEach((element) => {
             element?.refresh?.();
           });
         });
@@ -22411,7 +23968,7 @@ Loading snippet ...</pre
      * @type {() => Promise<boolean>}
      */
     refresh() {
-      if (!this.moduleisActive || !mq[this.queryType](this.breakpoint))
+      if (!this.#moduleisActive || !mq[this.#queryType](this.#breakpoint))
         return;
       return new Promise((resolve) => {
         pipe(
@@ -22419,10 +23976,10 @@ Loading snippet ...</pre
           this.setDimension.bind(this),
           this.updateShadow.bind(this)
         )().then(() => {
-          this.scrollTriggerInstance?.stopMotion?.();
-          this.triggerTopPosition = offset(this.trigger).top;
-          if (this.moduleisActive) {
-            this.scrollTriggerInstance?.refresh?.();
+          this.#scrollTriggerInstance?.stopMotion?.();
+          this.#triggerTopPosition = offset(this.#trigger).top;
+          if (this.#moduleisActive) {
+            this.#scrollTriggerInstance?.refresh?.();
             this.refreshChildren();
           }
           resolve(true);
@@ -22434,48 +23991,48 @@ Loading snippet ...</pre
      * @type {(arg0: {destroyAll?: boolean}) => void}
      */
     killScroller({ destroyAll = false }) {
-      if (this.moduleisActive || destroyAll) {
-        this.scrollTriggerInstance?.destroy?.();
-        this.scrollTriggerInstance = null;
-        if (this.trigger) this.trigger.style.height = "";
-        if (this.mainContainer) this.mainContainer.style.height = "";
-        if (this.trigger) this.trigger.style.marginTop = "";
+      if (this.#moduleisActive || destroyAll) {
+        this.#scrollTriggerInstance?.destroy?.();
+        this.#scrollTriggerInstance = null;
+        if (this.#trigger) this.#trigger.style.height = "";
+        if (this.#mainContainer) this.#mainContainer.style.height = "";
+        if (this.#trigger) this.#trigger.style.marginTop = "";
         this.removeShadow();
         this.removeLinkAttribute();
-        this.moduleisActive = false;
+        this.#moduleisActive = false;
         mobCore.useFrameIndex(() => {
-          this.row.attributeStyleMap.clear();
-          if (destroyAll && this.mainContainer) {
-            if (this.useDrag) this.removeDragListener();
-            const styleDiv = this.mainContainer.querySelector(".scroller-style");
+          this.#row.attributeStyleMap.clear();
+          if (destroyAll && this.#mainContainer) {
+            if (this.#useDrag) this.removeDragListener();
+            const styleDiv = this.#mainContainer.querySelector(".scroller-style");
             if (styleDiv) styleDiv.remove();
-            this.mainContainer = null;
-            this.trigger = null;
-            this.row = null;
-            this.columns = [];
-            this.shadows = [];
-            this.afterInit = NOOP;
-            this.afterRefresh = NOOP;
-            this.onTick = NOOP;
-            this.onEnter = NOOP;
-            this.onEnterBack = NOOP;
-            this.onLeave = NOOP;
-            this.onLeaveBack = NOOP;
-            this.scrollTriggerInstance = void 0;
-            this.moduleisActive = false;
-            this.button = [];
-            this.mainContainer = null;
-            this.container = null;
-            this.trigger = null;
-            this.row = null;
+            this.#mainContainer = null;
+            this.#trigger = null;
+            this.#row = null;
+            this.#columns = [];
+            this.#shadows = [];
+            this.#afterInit = NOOP;
+            this.#afterRefresh = NOOP;
+            this.#onTick = NOOP;
+            this.#onEnter = NOOP;
+            this.#onEnterBack = NOOP;
+            this.#onLeave = NOOP;
+            this.#onLeaveBack = NOOP;
+            this.#scrollTriggerInstance = void 0;
+            this.#moduleisActive = false;
+            this.#buttons = [];
+            this.#mainContainer = null;
+            this.#container = null;
+            this.#trigger = null;
+            this.#row = null;
             mobCore.useNextTick(() => {
-              this.afterDestroy?.();
-              this.afterDestroy = NOOP;
-              this.children.forEach((element) => {
+              this.#afterDestroy?.();
+              this.#afterDestroy = NOOP;
+              this.#children.forEach((element) => {
                 element?.destroy?.();
                 element = null;
               });
-              this.children = [];
+              this.#children = [];
             });
           }
         }, 3);
@@ -22485,11 +24042,11 @@ Loading snippet ...</pre
      * @type {(horizontalResize: boolean) => void}
      */
     onResize(horizontalResize) {
-      if (this.moduleisActive && mq[this.queryType](this.breakpoint)) {
+      if (this.#moduleisActive && mq[this.#queryType](this.#breakpoint)) {
         if (horizontalResize) this.refresh();
-      } else if (!this.moduleisActive && mq[this.queryType](this.breakpoint)) {
+      } else if (!this.#moduleisActive && mq[this.#queryType](this.#breakpoint)) {
         this.createScroller();
-      } else if (this.moduleisActive && !mq[this.queryType](this.breakpoint)) {
+      } else if (this.#moduleisActive && !mq[this.#queryType](this.#breakpoint)) {
         this.killScroller({ destroyAll: false });
       }
     }

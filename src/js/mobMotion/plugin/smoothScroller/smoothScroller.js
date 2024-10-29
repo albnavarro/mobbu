@@ -24,6 +24,220 @@ import {
 
 export default class SmoothScroller {
     /**
+     * @type {boolean}
+     */
+    #propsIsValid;
+
+    /**
+     * @type {number}
+     */
+    #endValue;
+
+    /**
+     * @type {number}
+     */
+    #percent;
+
+    /**
+     * @type {number}
+     */
+    #screenWidth;
+
+    /**
+     * @type {number}
+     */
+    #screenHeight;
+
+    /**
+     * @type {number}
+     */
+    #firstTouchValue;
+
+    /**
+     * @type {number}
+     */
+    #threshold;
+
+    /**
+     * @type {number}
+     */
+    #maxValue;
+
+    /**
+     * @type {boolean}
+     */
+    #dragEnable;
+
+    /**
+     * @type {number}
+     */
+    #prevTouchVal;
+
+    /**
+     * @type {number}
+     */
+    #touchVal;
+
+    /**
+     * @type {() => void}
+     */
+    #subscribeResize;
+
+    /**
+     * @type {() => void}
+     */
+    #subscribeScrollStart;
+
+    /**
+     * @type {() => void}
+     */
+    #subscribeScrollEnd;
+
+    /**
+     * @type {() => void}
+     */
+    #subscribeTouchStart;
+
+    /**
+     * @type {() => void}
+     */
+    #subscribeTouchEnd;
+
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseDown;
+
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseUp;
+
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseWheel;
+
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseMove;
+
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeTouchMove;
+
+    /**
+     * @type {() => void}
+     * @return {void}
+     */
+    #subscribeMouseClick;
+
+    /**
+     * @type {any}
+     */
+    #motion;
+
+    /**
+     * @type {() => void}
+     */
+    #unsubscribeMotion;
+
+    /**
+     * @type {() => void}
+     */
+    #unsubscribeOnComplete;
+
+    /**
+     * @type {string}
+     */
+    #direction;
+
+    /**
+     * @type {boolean}
+     */
+    #isDestroyed;
+
+    /**
+     * @type {'lerp'|'spring'}
+     */
+    #easeType;
+
+    /**
+     * @type {import('../../utils/type.js').mqValues}
+     */
+    #breakpoint;
+
+    /**
+     * @type {import('../../utils/type.js').mqAction}
+     */
+    #queryType;
+
+    /**
+     */
+    #scroller;
+
+    /**
+     */
+    #screen;
+
+    /**
+     * @type {boolean}
+     */
+    #scopedEvent;
+
+    /**
+     * @type {number}
+     */
+    #speed;
+
+    /**
+     * @type {boolean}
+     */
+    #drag;
+
+    /**
+     * @type {import('./type.d.ts').onTick}
+     */
+    #onTickCallback;
+
+    /**
+     * @type {import('./type.d.ts').onUpdate}
+     */
+    #onUpdateCallback;
+
+    /**
+     * @type {() => void}
+     */
+    #onAfterRefresh;
+
+    /**
+     * @type {() => void}
+     */
+    #afterInit;
+
+    /**
+     * @type {any[]}
+     */
+    #children;
+
+    /**
+     * @type {(arg0: Event) => void}
+     */
+    #scopedWhell;
+
+    /**
+     * @type {(arg0: Event) => void}
+     */
+    #scopedTouchMove;
+
+    /**
      * @param { import('./type.d.ts').SmoothScroller } data
      *
      * @description
@@ -67,209 +281,62 @@ export default class SmoothScroller {
        ```
      */
     constructor(data) {
-        /**
-         * @private
-         */
-        this.propsIsValid = true;
+        this.#propsIsValid = true;
+        this.#endValue = 0;
+        this.#percent = 0;
+        this.#screenWidth = 0;
+        this.#screenHeight = 0;
+        this.#firstTouchValue = 0;
+        this.#threshold = 30;
+        this.#maxValue = 0;
+        this.#dragEnable = null;
+        this.#prevTouchVal = 0;
+        this.#touchVal = 0;
+        this.#subscribeResize = NOOP;
+        this.#subscribeScrollStart = NOOP;
+        this.#subscribeScrollEnd = NOOP;
+        this.#subscribeTouchStart = NOOP;
+        this.#subscribeTouchEnd = NOOP;
+        this.#subscribeMouseDown = NOOP;
+        this.#subscribeMouseUp = NOOP;
+        this.#subscribeMouseWheel = NOOP;
+        this.#subscribeMouseMove = NOOP;
+        this.#subscribeTouchMove = NOOP;
+        this.#subscribeMouseClick = NOOP;
+        this.#motion = null;
+        this.#unsubscribeMotion = NOOP;
+        this.#unsubscribeOnComplete = NOOP;
+        this.#direction = directionIsValid(data?.direction, 'SmoothScroller');
+        this.#isDestroyed = false;
 
-        /**
-         * @private
-         */
-        this.endValue = 0;
-
-        /**
-         * @private
-         */
-        this.percent = 0;
-
-        /**
-         * @private
-         */
-        this.screenWidth = 0;
-
-        /**
-         * @private
-         */
-        this.screenHeight = 0;
-
-        /**
-         * @private
-         */
-        this.firstTouchValue = 0;
-
-        /**
-         * @private
-         */
-        this.threshold = 30;
-
-        /**
-         * @private
-         */
-        this.maxValue = 0;
-
-        /**
-         * @private
-         */
-        this.minValue = 0;
-
-        /**
-         * @private
-         */
-        this.dragEnable = null;
-
-        /**
-         * @private
-         */
-        this.touchend = null;
-
-        /**
-         * @private
-         */
-        this.touchmove = null;
-
-        /**
-         * @private
-         */
-        this.prevTouchVal = 0;
-
-        /**
-         * @private
-         */
-        this.touchVal = 0;
-
-        /**
-         * @private
-         */
-        this.onUpdateScrollBar = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeResize = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeScrollStart = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeScrollEnd = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeTouchStart = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeTouchEnd = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeMouseDown = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeMouseUp = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeMouseWheel = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeMouseMove = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeTouchMove = NOOP;
-
-        /**
-         * @private
-         */
-        this.subscribeMouseClick = NOOP;
-
-        /**
-         * @private
-         */
-        this.motion = null;
-
-        /**
-         * @private
-         */
-        this.unsubscribeMotion = NOOP;
-
-        /**
-         * @private
-         */
-        this.unsubscribeOnComplete = NOOP;
-
-        /**
-         * @private
-         */
-        this.scrollbarIsRunning = false;
-
-        /**
-         * @private
-         */
-        this.direction = directionIsValid(data?.direction, 'SmoothScroller');
-
-        /**
-         * @private
-         */
-        this.isDestroyed = false;
-
-        /**
-         * @private
-         */
-        this.easeType = genericEaseTypeIsValid(
+        this.#easeType = genericEaseTypeIsValid(
             data?.easeType,
             'SmoothScroller'
         );
 
-        /**
-         * @private
-         */
-        this.breakpoint = breakpointIsValid(
+        this.#breakpoint = breakpointIsValid(
             data?.breakpoint,
             'breakpoint',
             'SmoothScroller'
         );
 
-        /**
-         * @private
-         */
-        this.queryType = breakpointTypeIsValid(
+        this.#queryType = breakpointTypeIsValid(
             data?.queryType,
             'queryType',
             'SmoothScroller'
         );
 
-        /**
-         * @private
-         */
-        this.scroller = mobCore.checkType(String, data?.scroller)
+        this.#scroller = mobCore.checkType(String, data?.scroller)
             ? document.querySelector(/** @type{string} */ (data.scroller))
             : data.scroller;
 
-        if (!this.scroller) {
+        if (!this.#scroller) {
             console.warn('SmoothScroller: scroller node not found');
-            this.propsIsValid = false;
+            this.#propsIsValid = false;
             return;
         }
 
-        /**
-         * @private
-         */
-        this.screen = data?.screen
+        this.#screen = data?.screen
             ? (() => {
                   return mobCore.checkType(String, data.screen)
                       ? document.querySelector(
@@ -279,107 +346,72 @@ export default class SmoothScroller {
               })()
             : document.documentElement;
 
-        if (!this.screen) {
-            this.propsIsValid = false;
+        if (!this.#screen) {
+            this.#propsIsValid = false;
             console.warn('SmoothScroller: screen node not found');
             return;
         }
 
-        /**
-         * @private
-         */
-        this.scopedEvent = valueIsBooleanAndReturnDefault(
+        this.#scopedEvent = valueIsBooleanAndReturnDefault(
             data?.scopedEvent,
             'SmoothScroller: scopedEvent',
             false
         );
 
-        /**
-         * @private
-         */
-        this.speed = valueIsNumberAndReturnDefault(
+        this.#speed = valueIsNumberAndReturnDefault(
             data?.speed,
             'SmoothScroller: speed',
             60
         );
 
-        /**
-         * @private
-         */
-        this.drag = valueIsBooleanAndReturnDefault(
+        this.#drag = valueIsBooleanAndReturnDefault(
             data?.drag,
             'SmoothScroller: drag',
             false
         );
 
-        /**
-         * @private
-         * @type {import('./type.d.ts').onTick}
-         */
-        this.onTickCallback = valueIsFunctionAndReturnDefault(
+        this.#onTickCallback = valueIsFunctionAndReturnDefault(
             data?.onTick,
             'SmoothScroller: onTick',
             NOOP
         );
 
-        /**
-         * @private
-         * @type {import('./type.d.ts').onUpdate}
-         */
-        this.onUpdateCallback = valueIsFunctionAndReturnDefault(
+        this.#onUpdateCallback = valueIsFunctionAndReturnDefault(
             data?.onUpdate,
             'SmoothScroller: onUpdate',
             NOOP
         );
 
-        /**
-         * @private
-         */
-        this.onAfterRefresh = valueIsFunctionAndReturnDefault(
+        this.#onAfterRefresh = valueIsFunctionAndReturnDefault(
             data?.afterRefresh,
             'SmoothScroller: afterRefresh',
             NOOP
         );
 
-        /**
-         * @private
-         */
-        this.afterInit = valueIsFunctionAndReturnDefault(
+        this.#afterInit = valueIsFunctionAndReturnDefault(
             data?.afterInit,
             'SmoothScroller: afterInit',
             NOOP
         );
 
-        /**
-         * @private
-         * @type {any[]}
-         */
-        this.children = data?.children || [];
-        this.children.forEach((element) => {
-            element.setScroller(this.scroller);
-            element.setDirection(this.direction);
-            element.setScreen(this.screen);
-            element.setBreakPoint(this.breakpoint);
-            element.setQueryType(this.queryType);
+        this.#children = data?.children || [];
+        this.#children.forEach((element) => {
+            element.setScroller(this.#scroller);
+            element.setDirection(this.#direction);
+            element.setScreen(this.#screen);
+            element.setBreakPoint(this.#breakpoint);
+            element.setQueryType(this.#queryType);
             element.init();
         });
 
-        /**
-         * @private
-         * @type {(arg0: Event) => void}
-         */
-        this.scopedWhell = (event) => {
+        this.#scopedWhell = (event) => {
             const { spinY } = mobCore.normalizeWheel(event);
             this.onScopedWhell({
                 spinY,
             });
         };
 
-        /**
-         * @private
-         * @type {(arg0: Event) => void}
-         */
-        this.scopedTouchMove = (event) => {
+        this.#scopedTouchMove = (event) => {
             // @ts-ignore
             const { clientX, clientY } = event.touches
                 ? // @ts-ignore
@@ -405,16 +437,16 @@ export default class SmoothScroller {
      * @type {() => void}
      */
     init() {
-        if (!this.propsIsValid) return;
+        if (!this.#propsIsValid) return;
 
-        switch (this.easeType) {
+        switch (this.#easeType) {
             case parallaxConstant.EASE_SPRING: {
-                this.motion = new HandleSpring();
+                this.#motion = new HandleSpring();
                 break;
             }
 
             default: {
-                this.motion = new HandleLerp();
+                this.#motion = new HandleLerp();
                 break;
             }
         }
@@ -422,39 +454,39 @@ export default class SmoothScroller {
         /**
          * scoped event
          */
-        if (this.scopedEvent) {
-            /** @type{HTMLElement} */ (this.scroller).addEventListener(
+        if (this.#scopedEvent) {
+            /** @type{HTMLElement} */ (this.#scroller).addEventListener(
                 'wheel',
-                this.scopedWhell,
+                this.#scopedWhell,
                 {
                     passive: true,
                 }
             );
 
-            /** @type{HTMLElement} */ (this.scroller).addEventListener(
+            /** @type{HTMLElement} */ (this.#scroller).addEventListener(
                 'mousemove',
-                this.scopedTouchMove,
+                this.#scopedTouchMove,
                 {
                     passive: true,
                 }
             );
 
-            /** @type{HTMLElement} */ (this.scroller).addEventListener(
+            /** @type{HTMLElement} */ (this.#scroller).addEventListener(
                 'touchmove',
-                this.scopedTouchMove,
+                this.#scopedTouchMove,
                 {
                     passive: true,
                 }
             );
         } else {
-            this.subscribeMouseWheel = mobCore.useMouseWheel((data) =>
+            this.#subscribeMouseWheel = mobCore.useMouseWheel((data) =>
                 this.onWhell(data)
             );
 
-            this.subscribeMouseMove = mobCore.useMouseMove((data) =>
+            this.#subscribeMouseMove = mobCore.useMouseMove((data) =>
                 this.onTouchMove(data)
             );
-            this.subscribeTouchMove = mobCore.useTouchMove((data) =>
+            this.#subscribeTouchMove = mobCore.useTouchMove((data) =>
                 this.onTouchMove(data)
             );
         }
@@ -462,28 +494,28 @@ export default class SmoothScroller {
         /**
          * Common event
          */
-        this.subscribeResize = mobCore.useResize(() => this.refresh());
-        this.subscribeScrollStart = mobCore.useScrollStart(() =>
+        this.#subscribeResize = mobCore.useResize(() => this.refresh());
+        this.#subscribeScrollStart = mobCore.useScrollStart(() =>
             this.refreshScroller()
         );
-        this.subscribeScrollEnd = mobCore.useScrollEnd(() =>
+        this.#subscribeScrollEnd = mobCore.useScrollEnd(() =>
             this.refreshScroller()
         );
-        this.subscribeTouchStart = mobCore.useTouchStart((data) =>
+        this.#subscribeTouchStart = mobCore.useTouchStart((data) =>
             this.onMouseDown(data)
         );
-        this.subscribeTouchEnd = mobCore.useTouchEnd((data) =>
+        this.#subscribeTouchEnd = mobCore.useTouchEnd((data) =>
             this.onMouseUp(data)
         );
-        this.subscribeMouseDown = mobCore.useMouseDown((data) =>
+        this.#subscribeMouseDown = mobCore.useMouseDown((data) =>
             this.onMouseDown(data)
         );
-        this.subscribeMouseUp = mobCore.useMouseUp((data) =>
+        this.#subscribeMouseUp = mobCore.useMouseUp((data) =>
             this.onMouseUp(data)
         );
 
-        if (this.drag) {
-            this.subscribeMouseClick = mobCore.useMouseClick(
+        if (this.#drag) {
+            this.#subscribeMouseClick = mobCore.useMouseClick(
                 ({ target, preventDefault }) => {
                     this.preventChecker({ target, preventDefault });
                 }
@@ -492,17 +524,17 @@ export default class SmoothScroller {
 
         this.initMotion();
 
-        if (mq[this.queryType](this.breakpoint)) {
+        if (mq[this.#queryType](this.#breakpoint)) {
             this.setScrolerStyle();
             this.refreshScroller();
         }
 
         mobCore.useFrameIndex(() => {
             mobCore.useNextTick(() => {
-                if (this.isDestroyed) return;
+                if (this.#isDestroyed) return;
 
-                this.afterInit?.();
-                this.children.forEach((element) => {
+                this.#afterInit?.();
+                this.#children.forEach((element) => {
                     element.refresh();
                 });
             });
@@ -514,10 +546,11 @@ export default class SmoothScroller {
      * @type {() => void}
      */
     setScrolerStyle() {
-        /** @type{HTMLElement} */ (this.scroller).style['user-select'] = 'none';
+        /** @type{HTMLElement} */ (this.#scroller).style['user-select'] =
+            'none';
 
         const activeElement = /** @type{HTMLElement} */ (
-            this.scroller
+            this.#scroller
         ).querySelectorAll('a, button');
 
         [...activeElement].forEach((item) => {
@@ -531,11 +564,11 @@ export default class SmoothScroller {
      * @type {() => void}
      */
     removeScrolerStyle() {
-        if (!this.scroller) return;
+        if (!this.#scroller) return;
 
-        /** @type{HTMLElement} */ (this.scroller).style['user-select'] = '';
+        /** @type{HTMLElement} */ (this.#scroller).style['user-select'] = '';
         const activeElement = /** @type{HTMLElement} */ (
-            this.scroller
+            this.#scroller
         ).querySelectorAll('a, button');
 
         [...activeElement].forEach((item) => {
@@ -549,12 +582,12 @@ export default class SmoothScroller {
      * @type {() => void}
      */
     initMotion() {
-        if (!this.motion) return;
+        if (!this.#motion) return;
 
-        this.motion.setData({ val: 0 });
-        this.unsubscribeMotion = this.motion.subscribe(({ val }) => {
-            /** @type{HTMLElement} */ (this.scroller).style.transform =
-                this.direction == parallaxConstant.DIRECTION_VERTICAL
+        this.#motion.setData({ val: 0 });
+        this.#unsubscribeMotion = this.#motion.subscribe(({ val }) => {
+            /** @type{HTMLElement} */ (this.#scroller).style.transform =
+                this.#direction == parallaxConstant.DIRECTION_VERTICAL
                     ? `translate3d(0px, 0px, 0px) translateY(${-val}px)`
                     : `translate3d(0px, 0px, 0px) translateX(${-val}px)`;
 
@@ -562,18 +595,18 @@ export default class SmoothScroller {
              * TODO Move to scroll Start (scopedEvent or not , wheel touch etc...)
              * Used by instance with ease = true;
              */
-            this.children.forEach((element) => {
+            this.#children.forEach((element) => {
                 element.triggerScrollStart();
             });
 
             mobCore.useNextTick(() => {
-                this.onTickCallback({
+                this.#onTickCallback({
                     value: -val,
-                    percent: this.percent,
+                    percent: this.#percent,
                     parentIsMoving: true,
                 });
 
-                this.children.forEach((element) => {
+                this.#children.forEach((element) => {
                     element.move({
                         value: -val,
                         parentIsMoving: true,
@@ -582,20 +615,20 @@ export default class SmoothScroller {
             });
         });
 
-        this.unsubscribeOnComplete = this.motion.onComplete(({ val }) => {
-            /** @type{HTMLElement} */ (this.scroller).style.transform =
-                this.direction == parallaxConstant.DIRECTION_VERTICAL
+        this.#unsubscribeOnComplete = this.#motion.onComplete(({ val }) => {
+            /** @type{HTMLElement} */ (this.#scroller).style.transform =
+                this.#direction == parallaxConstant.DIRECTION_VERTICAL
                     ? `translateY(${-val}px)`
                     : `translateX(${-val}px)`;
 
             mobCore.useNextTick(() => {
-                this.onTickCallback({
+                this.#onTickCallback({
                     value: -val,
-                    percent: this.percent,
+                    percent: this.#percent,
                     parentIsMoving: false,
                 });
 
-                this.children.forEach((element) => {
+                this.#children.forEach((element) => {
                     element.triggerScrollEnd();
                     element.move({
                         value: -val,
@@ -611,24 +644,24 @@ export default class SmoothScroller {
      * @type {() => void}
      */
     refreshScroller() {
-        if (!this.screen) return;
+        if (!this.#screen) return;
 
-        this.screenWidth =
-            this.screen === document.documentElement
+        this.#screenWidth =
+            this.#screen === document.documentElement
                 ? window.innerWidth
-                : outerWidth(/** @type{HTMLElement} */ (this.screen));
+                : outerWidth(/** @type{HTMLElement} */ (this.#screen));
 
-        this.screenHeight =
-            this.screen === document.documentElement
+        this.#screenHeight =
+            this.#screen === document.documentElement
                 ? window.innerHeight
-                : outerHeight(/** @type{HTMLElement} */ (this.screen));
+                : outerHeight(/** @type{HTMLElement} */ (this.#screen));
 
-        this.maxValue =
-            this.direction === parallaxConstant.DIRECTION_VERTICAL
-                ? /** @type{HTMLElement} */ (this.scroller).offsetHeight -
-                  this.screenHeight
-                : /** @type{HTMLElement} */ (this.scroller).offsetWidth -
-                  this.screenWidth;
+        this.#maxValue =
+            this.#direction === parallaxConstant.DIRECTION_VERTICAL
+                ? /** @type{HTMLElement} */ (this.#scroller).offsetHeight -
+                  this.#screenHeight
+                : /** @type{HTMLElement} */ (this.#scroller).offsetWidth -
+                  this.#screenWidth;
 
         this.calculateValue();
     }
@@ -638,16 +671,15 @@ export default class SmoothScroller {
      * @type {import('./type.d.ts').onMouseEvent}
      */
     onScopedTouchMove({ client }) {
-        if (!this.dragEnable || !this.drag) return;
+        if (!this.#dragEnable || !this.#drag) return;
 
-        this.prevTouchVal = this.touchVal;
-        this.touchVal = this.getMousePos({
+        this.#prevTouchVal = this.#touchVal;
+        this.#touchVal = this.getMousePos({
             x: client.x,
             y: client.y,
         });
-        this.endValue += Math.round(this.prevTouchVal - this.touchVal);
+        this.#endValue += Math.round(this.#prevTouchVal - this.#touchVal);
         this.calculateValue();
-        this.scrollbarIsRunning = false;
     }
 
     /**
@@ -655,12 +687,11 @@ export default class SmoothScroller {
      * @type {(arg0: {spinY: number}) => void}
      */
     onScopedWhell({ spinY }) {
-        if (!mq[this.queryType](this.breakpoint)) return;
+        if (!mq[this.#queryType](this.#breakpoint)) return;
 
-        this.dragEnable = false;
-        this.endValue += spinY * this.speed;
+        this.#dragEnable = false;
+        this.#endValue += spinY * this.#speed;
         this.calculateValue();
-        this.scrollbarIsRunning = false;
     }
 
     /**
@@ -673,26 +704,25 @@ export default class SmoothScroller {
      * @type {import('./type.d.ts').onMouseEvent}
      */
     onMouseDown({ target, client }) {
-        if (!mq[this.queryType](this.breakpoint)) return;
+        if (!mq[this.#queryType](this.#breakpoint)) return;
 
         if (
-            target === this.scroller ||
+            target === this.#scroller ||
             isDescendant(
-                /** @type{HTMLElement} */ (this.scroller),
+                /** @type{HTMLElement} */ (this.#scroller),
                 /** @type{HTMLElement} */ (target)
             )
         ) {
-            this.firstTouchValue = this.endValue;
-            this.dragEnable = true;
-            this.prevTouchVal = this.getMousePos({
+            this.#firstTouchValue = this.#endValue;
+            this.#dragEnable = true;
+            this.#prevTouchVal = this.getMousePos({
                 x: client.x,
                 y: client.y,
             });
-            this.touchVal = this.getMousePos({
+            this.#touchVal = this.getMousePos({
                 x: client.x,
                 y: client.y,
             });
-            this.scrollbarIsRunning = false;
         }
     }
 
@@ -701,8 +731,7 @@ export default class SmoothScroller {
      * @type {import('./type.d.ts').onMouseEvent}
      */
     onMouseUp() {
-        this.dragEnable = false;
-        this.scrollbarIsRunning = false;
+        this.#dragEnable = false;
     }
 
     /**
@@ -711,28 +740,27 @@ export default class SmoothScroller {
      */
     onTouchMove({ target, client, preventDefault }) {
         if (
-            (target === this.scroller ||
+            (target === this.#scroller ||
                 isDescendant(
-                    /** @type{HTMLElement} */ (this.scroller),
+                    /** @type{HTMLElement} */ (this.#scroller),
                     /** @type{HTMLElement} */ (target)
                 )) &&
-            this.dragEnable &&
-            this.drag
+            this.#dragEnable &&
+            this.#drag
         ) {
             // @ts-ignore
             preventDefault();
 
-            this.prevTouchVal = this.touchVal;
-            this.touchVal = this.getMousePos({
+            this.#prevTouchVal = this.#touchVal;
+            this.#touchVal = this.getMousePos({
                 x: client.x,
                 y: client.y,
             });
 
-            const result = Math.round(this.prevTouchVal - this.touchVal);
-            this.endValue += result;
+            const result = Math.round(this.#prevTouchVal - this.#touchVal);
+            this.#endValue += result;
 
             this.calculateValue();
-            this.scrollbarIsRunning = false;
         }
     }
 
@@ -743,22 +771,21 @@ export default class SmoothScroller {
     onWhell({ target, spinY, preventDefault }) {
         const bodyIsOverflow =
             document.body.style.overflow === 'hidden' &&
-            this.direction === parallaxConstant.DIRECTION_VERTICAL;
+            this.#direction === parallaxConstant.DIRECTION_VERTICAL;
 
-        if (!mq[this.queryType](this.breakpoint) || bodyIsOverflow) return;
+        if (!mq[this.#queryType](this.#breakpoint) || bodyIsOverflow) return;
 
         if (
-            target === this.scroller ||
+            target === this.#scroller ||
             isDescendant(
-                /** @type{HTMLElement} */ (this.scroller),
+                /** @type{HTMLElement} */ (this.#scroller),
                 /** @type{HTMLElement} */ (target)
             )
         ) {
-            this.dragEnable = false;
+            this.#dragEnable = false;
             preventDefault?.();
-            this.endValue += spinY * this.speed;
+            this.#endValue += spinY * this.#speed;
             this.calculateValue();
-            this.scrollbarIsRunning = false;
         }
     }
 
@@ -772,11 +799,10 @@ export default class SmoothScroller {
      * myInstance.move(val);
      */
     move(percent) {
-        if (!mq[this.queryType](this.breakpoint)) return;
+        if (!mq[this.#queryType](this.#breakpoint)) return;
 
-        this.scrollbarIsRunning = true;
-        this.percent = percent;
-        this.endValue = (this.percent * this.maxValue) / 100;
+        this.#percent = percent;
+        this.#endValue = (this.#percent * this.#maxValue) / 100;
 
         /**
          * this.motion use spring or lerp, so goTo generic type is not the same.
@@ -784,7 +810,7 @@ export default class SmoothScroller {
          */
 
         // @ts-ignore
-        this.motion.goTo({ val: this.endValue });
+        this.#motion.goTo({ val: this.#endValue });
     }
 
     /**
@@ -798,11 +824,10 @@ export default class SmoothScroller {
      * myInstance.set(val);
      */
     set(percent) {
-        if (!mq[this.queryType](this.breakpoint)) return;
+        if (!mq[this.#queryType](this.#breakpoint)) return;
 
-        this.scrollbarIsRunning = true;
-        this.percent = percent;
-        this.endValue = (this.percent * this.maxValue) / 100;
+        this.#percent = percent;
+        this.#endValue = (this.#percent * this.#maxValue) / 100;
 
         /**
          * this.motion use spring or lerp, so set generic type is not the same.
@@ -810,7 +835,7 @@ export default class SmoothScroller {
          */
 
         // @ts-ignore
-        this.motion.set({ val: this.endValue });
+        this.#motion.set({ val: this.#endValue });
     }
 
     /**
@@ -820,9 +845,9 @@ export default class SmoothScroller {
      * @type {() => void}
      */
     calculateValue() {
-        const percentValue = (this.endValue * 100) / this.maxValue;
-        this.percent = clamp(percentValue, 0, 100);
-        this.endValue = clamp(this.endValue, 0, this.maxValue);
+        const percentValue = (this.#endValue * 100) / this.#maxValue;
+        this.#percent = clamp(percentValue, 0, 100);
+        this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
 
         /**
          * this.motion use spring or lerp, so goTo generic type is not the same.
@@ -830,15 +855,15 @@ export default class SmoothScroller {
          */
 
         // @ts-ignore
-        this.motion.goTo({ val: this.endValue });
+        this.#motion.goTo({ val: this.#endValue });
 
         /**
          * Fire on update callback
          */
-        if (this.onUpdateCallback)
-            this.onUpdateCallback({
-                value: -this.endValue,
-                percent: this.percent,
+        if (this.#onUpdateCallback)
+            this.#onUpdateCallback({
+                value: -this.#endValue,
+                percent: this.#percent,
                 parentIsMoving: true,
             });
     }
@@ -849,13 +874,13 @@ export default class SmoothScroller {
      */
     preventChecker({ target, preventDefault }) {
         if (
-            mq[this.queryType](this.breakpoint) &&
-            (target === this.scroller ||
+            mq[this.#queryType](this.#breakpoint) &&
+            (target === this.#scroller ||
                 isDescendant(
-                    /** @type{HTMLElement} */ (this.scroller),
+                    /** @type{HTMLElement} */ (this.#scroller),
                     /** @type{HTMLElement} */ (target)
                 )) &&
-            Math.abs(this.endValue - this.firstTouchValue) > this.threshold
+            Math.abs(this.#endValue - this.#firstTouchValue) > this.#threshold
         ) {
             // @ts-ignore
             preventDefault();
@@ -868,7 +893,7 @@ export default class SmoothScroller {
     getMousePos({ x, y }) {
         if (!x || !y) return 0;
 
-        return this.direction === parallaxConstant.DIRECTION_VERTICAL ? y : x;
+        return this.#direction === parallaxConstant.DIRECTION_VERTICAL ? y : x;
     }
 
     /**
@@ -881,13 +906,13 @@ export default class SmoothScroller {
      * @type {() => void}
      */
     refresh() {
-        if (!mq[this.queryType](this.breakpoint)) {
+        if (!mq[this.#queryType](this.#breakpoint)) {
             this.removeScrolerStyle();
-            this.motion?.stop?.();
+            this.#motion?.stop?.();
 
             mobCore.useFrame(() => {
                 mobCore.useNextTick(() => {
-                    /** @type{HTMLElement} */ (this.scroller).style.transform =
+                    /** @type{HTMLElement} */ (this.#scroller).style.transform =
                         '';
                 });
             });
@@ -899,9 +924,9 @@ export default class SmoothScroller {
 
         mobCore.useFrameIndex(() => {
             mobCore.useNextTick(() => {
-                if (this.onAfterRefresh) this.onAfterRefresh();
+                if (this.#onAfterRefresh) this.#onAfterRefresh();
 
-                this.children.forEach((element) => {
+                this.#children.forEach((element) => {
                     element.refresh();
                 });
             });
@@ -918,52 +943,51 @@ export default class SmoothScroller {
      * @type {() => void}
      */
     destroy() {
-        this.isDestroyed = true;
+        this.#isDestroyed = true;
         this.removeScrolerStyle();
-        this.subscribeResize();
-        this.subscribeScrollStart();
-        this.subscribeScrollEnd();
-        this.subscribeTouchStart();
-        this.subscribeTouchEnd();
-        this.subscribeMouseDown();
-        this.subscribeMouseUp();
-        this.subscribeMouseWheel();
-        this.subscribeMouseMove();
-        this.subscribeTouchMove();
-        this.subscribeMouseClick();
-        this.unsubscribeMotion();
-        this.unsubscribeOnComplete();
-        this.onUpdateScrollBar = NOOP;
-        this.motion?.destroy();
-        this.motion = null;
-        this.children.forEach((element) => {
+        this.#subscribeResize();
+        this.#subscribeScrollStart();
+        this.#subscribeScrollEnd();
+        this.#subscribeTouchStart();
+        this.#subscribeTouchEnd();
+        this.#subscribeMouseDown();
+        this.#subscribeMouseUp();
+        this.#subscribeMouseWheel();
+        this.#subscribeMouseMove();
+        this.#subscribeTouchMove();
+        this.#subscribeMouseClick();
+        this.#unsubscribeMotion();
+        this.#unsubscribeOnComplete();
+        this.#motion?.destroy();
+        this.#motion = null;
+        this.#children.forEach((element) => {
             element?.destroy?.();
         });
-        this.children = [];
-        this.onTickCallback = NOOP;
-        this.onUpdateCallback = NOOP;
-        this.onAfterRefresh = NOOP;
-        this.afterInit = NOOP;
+        this.#children = [];
+        this.#onTickCallback = NOOP;
+        this.#onUpdateCallback = NOOP;
+        this.#onAfterRefresh = NOOP;
+        this.#afterInit = NOOP;
 
-        if (this.scopedEvent) {
-            /** @type{HTMLElement} */ (this.scroller)?.removeEventListener(
+        if (this.#scopedEvent) {
+            /** @type{HTMLElement} */ (this.#scroller)?.removeEventListener(
                 'wheel',
-                this.scopedWhell
+                this.#scopedWhell
             );
-            /** @type{HTMLElement} */ (this.scroller)?.removeEventListener(
+            /** @type{HTMLElement} */ (this.#scroller)?.removeEventListener(
                 'mousemove',
-                this.scopedTouchMove
+                this.#scopedTouchMove
             );
-            /** @type{HTMLElement} */ (this.scroller)?.removeEventListener(
+            /** @type{HTMLElement} */ (this.#scroller)?.removeEventListener(
                 'touchmove',
-                this.scopedTouchMove
+                this.#scopedTouchMove
             );
         }
 
         mobCore.useFrameIndex(() => {
             mobCore.useNextTick(() => {
-                this.scroller = null;
-                this.screen = null;
+                this.#scroller = null;
+                this.#screen = null;
             });
         }, 3);
     }
