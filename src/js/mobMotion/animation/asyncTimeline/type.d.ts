@@ -50,7 +50,6 @@ export interface asyncTimelineTypeSpecialProps {
     relative?: boolean;
     delay?: number;
     immediate?: boolean;
-    immediateNoPromise?: boolean;
 }
 
 export interface asyncTimelineTween {

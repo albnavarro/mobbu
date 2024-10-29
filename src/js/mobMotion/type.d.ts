@@ -101,7 +101,14 @@ import {
     tweenUpdateEase,
 } from './animation/tween/type';
 import { directionType } from './animation/utils/timeline/type';
-import { GoFrom, GoFromTo, GoTo, Set, SetData } from './utils/type';
+import {
+    GoFrom,
+    GoFromTo,
+    GoTo,
+    Set,
+    SetData,
+    SetImmediate,
+} from './utils/type';
 
 export interface Lerp {
     stop: lerpStop;
@@ -111,6 +118,7 @@ export interface Lerp {
     goFrom: GoFrom;
     goFromTo: GoFromTo;
     set: Set;
+    setImmediate: SetImmediate;
     get: lerpGetValue;
     getInitialData: lerpGetValue;
     getFrom: lerpGetValue;
@@ -135,6 +143,7 @@ export interface Spring {
     goFrom: GoFrom;
     goFromTo: GoFromTo;
     set: Set;
+    setImmediate: SetImmediate;
     get: springGetValue;
     getInitialData: springGetValue;
     getFrom: springGetValue;
@@ -159,6 +168,7 @@ export interface Tween {
     goFrom: GoFrom;
     goFromTo: GoFromTo;
     set: Set;
+    setImmediate: SetImmediate;
     get: tweenGetValue;
     getInitialData: tweenGetValue;
     getFrom: tweenGetValue;

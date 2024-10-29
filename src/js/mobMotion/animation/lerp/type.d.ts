@@ -13,7 +13,6 @@ export interface lerpActions {
     reverse?: boolean;
     relative?: boolean;
     immediate?: boolean;
-    immediateNoPromise?: boolean;
     precision?: number;
     velocity?: number;
 }
@@ -24,7 +23,6 @@ export interface lerpDefault {
     precision: number;
     relative: boolean;
     immediate: boolean;
-    immediateNoPromise: boolean;
 }
 
 export interface lerpInitialData {

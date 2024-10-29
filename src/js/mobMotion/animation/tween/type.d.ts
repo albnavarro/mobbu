@@ -45,7 +45,6 @@ export interface tweenCommonProps {
     reverse?: boolean;
     relative?: boolean;
     immediate?: boolean;
-    immediateNoPromise?: boolean;
 }
 
 export interface tweenCommonPropsTween extends tweenCommonProps {
@@ -57,7 +56,6 @@ export interface tweenAction {
     reverse?: boolean;
     relative?: boolean;
     immediate?: boolean;
-    immediateNoPromise?: boolean;
     ease?: easeTypes;
 }
 
@@ -67,7 +65,6 @@ export interface tweenDefault {
     relative: boolean;
     reverse: boolean;
     immediate: boolean;
-    immediateNoPromise: boolean;
 }
 
 export interface tweenStopProps {

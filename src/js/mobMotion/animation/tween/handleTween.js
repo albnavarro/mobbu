@@ -253,11 +253,10 @@ export default class HandleTween {
         this.fpsInLoading = false;
 
         /**
-        This value is the base value merged with new value in custom prop
-        passed form user in goTo etc..
-         **/
-
-        /**
+         * @description
+         * This value is the base value merged with new value in custom prop
+         * passed form user in goTo etc..
+         *
          * @private
          * @type{import('./type.js').tweenDefault}
          */
@@ -267,7 +266,6 @@ export default class HandleTween {
             relative: this.relative,
             reverse: false,
             immediate: false,
-            immediateNoPromise: false,
         };
 
         /**
@@ -625,7 +623,6 @@ export default class HandleTween {
 
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').tweenAction>} obj to Values
-     * @returns{void|Promise<void>}
      */
     goTo(obj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -636,7 +633,6 @@ export default class HandleTween {
 
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').tweenAction>} obj to Values
-     * @returns{void|Promise<void>}
      */
     goFrom(obj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -647,7 +643,6 @@ export default class HandleTween {
 
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').tweenAction>} obj to Values
-     * @returns{void|Promise<void>}
      */
     goFromTo(fromObj, toObj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -664,7 +659,6 @@ export default class HandleTween {
 
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').tweenAction>} obj to Values
-     * @returns{void|Promise<void>}
      */
     set(obj, props) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -677,6 +671,30 @@ export default class HandleTween {
     }
 
     /**
+     * @type {import('../../utils/type.js').SetImmediate<import('./type.js').tweenAction>} obj to Values
+     */
+    setImmediate(obj, props) {
+        if (this.pauseStatus || this.comeFromResume) this.stop();
+        this.useStagger = false;
+
+        const data = setUtils(obj);
+        const propsParsed = props ? { ...props, duration: 1 } : { duration: 1 };
+        this.values = mergeArrayTween(data, this.values);
+
+        if (this.isActive) this.updateDataWhileRunning();
+
+        const { reverse } = this.mergeProps(propsParsed);
+        if (valueIsBooleanAndTrue(reverse, 'reverse'))
+            this.values = setReverseValues(obj, this.values);
+
+        this.values = setRelativeTween(this.values, this.relative);
+        this.values = setFromCurrentByTo(this.values);
+
+        this.isActive = false;
+        return;
+    }
+
+    /**
      * @private
      * @type {import('../../utils/type.js').DoAction<import('./type.js').tweenAction>} obj to Values
      */
@@ -684,11 +702,9 @@ export default class HandleTween {
         this.values = mergeArrayTween(data, this.values);
         if (this.isActive) this.updateDataWhileRunning();
 
-        const { reverse, immediate, immediateNoPromise } =
-            this.mergeProps(props);
-
+        const { reverse, immediate } = this.mergeProps(props);
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
-            this.value = setReverseValues(obj, this.values);
+            this.values = setReverseValues(obj, this.values);
 
         this.values = setRelativeTween(this.values, this.relative);
 
@@ -696,12 +712,6 @@ export default class HandleTween {
             this.isActive = false;
             this.values = setFromCurrentByTo(this.values);
             return Promise.resolve();
-        }
-
-        if (valueIsBooleanAndTrue(immediateNoPromise, 'immediateNoPromise')) {
-            this.isActive = false;
-            this.values = setFromCurrentByTo(this.values);
-            return;
         }
 
         if (!this.isActive) {

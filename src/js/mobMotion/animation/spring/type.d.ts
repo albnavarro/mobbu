@@ -44,7 +44,6 @@ export interface springActions {
     reverse?: boolean;
     relative?: boolean;
     immediate?: boolean;
-    immediateNoPromise?: boolean;
     config?: springChoiceConfig;
     configProp?: springPropsOptional;
 }
@@ -54,7 +53,6 @@ export interface springDefault {
     configProps: springProps;
     relative: boolean;
     immediate: boolean;
-    immediateNoPromise: boolean;
 }
 
 export interface springInitialData {

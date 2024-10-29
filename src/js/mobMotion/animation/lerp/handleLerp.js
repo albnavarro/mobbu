@@ -221,12 +221,11 @@ export default class HandleLerp {
         this.fpsInLoading = false;
 
         /**
-         * @private
-         *
          * @description
          * This value is the base value merged with new value in custom prop
          * passed form user in goTo etc..
          *
+         * @private
          * @type {import('./type.js').lerpDefault}
          **/
         this.defaultProps = {
@@ -235,7 +234,6 @@ export default class HandleLerp {
             precision: this.precision,
             relative: this.relative,
             immediate: false,
-            immediateNoPromise: false,
         };
 
         /**
@@ -541,7 +539,6 @@ export default class HandleLerp {
 
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').lerpActions>} obj to Values
-     * @returns{void|Promise<void>}
      */
     goTo(obj, props) {
         if (this.pauseStatus) return;
@@ -552,7 +549,6 @@ export default class HandleLerp {
 
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').lerpActions>} obj to Values
-     * @returns{void|Promise<void>}
      */
     goFrom(obj, props) {
         if (this.pauseStatus) return;
@@ -563,7 +559,6 @@ export default class HandleLerp {
 
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').lerpActions>} obj to Values
-     * @returns{void|Promise<void>}
      */
     goFromTo(fromObj, toObj, props) {
         if (this.pauseStatus) return;
@@ -582,7 +577,6 @@ export default class HandleLerp {
 
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').lerpActions>} obj to Values
-     * @returns{void|Promise<void>}
      */
     set(obj, props) {
         if (this.pauseStatus) return;
@@ -592,13 +586,33 @@ export default class HandleLerp {
     }
 
     /**
+     * @type {import('../../utils/type.js').SetImmediate<import('./type.js').lerpActions>} obj to Values
+     */
+    setImmediate(obj, props) {
+        if (this.pauseStatus) return;
+        this.useStagger = false;
+
+        const data = setUtils(obj);
+        this.values = mergeArray(data, this.values);
+
+        const { reverse } = this.mergeProps(props);
+        if (valueIsBooleanAndTrue(reverse, 'reverse'))
+            this.values = setReverseValues(obj, this.values);
+
+        this.values = setRelative(this.values, this.relative);
+        this.values = setFromCurrentByTo(this.values);
+
+        this.isActive = false;
+        return;
+    }
+
+    /**
      * @private
      * @type {import('../../utils/type.js').DoAction<import('./type.js').lerpActions>} obj to Values
      */
     doAction(data, props, obj) {
         this.values = mergeArray(data, this.values);
-        const { reverse, immediate, immediateNoPromise } =
-            this.mergeProps(props);
+        const { reverse, immediate } = this.mergeProps(props);
 
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.values = setReverseValues(obj, this.values);
@@ -609,12 +623,6 @@ export default class HandleLerp {
             this.isActive = false;
             this.values = setFromCurrentByTo(this.values);
             return Promise.resolve();
-        }
-
-        if (valueIsBooleanAndTrue(immediateNoPromise, 'immediateNoPromise')) {
-            this.isActive = false;
-            this.values = setFromCurrentByTo(this.values);
-            return;
         }
 
         if (!this.isActive) {

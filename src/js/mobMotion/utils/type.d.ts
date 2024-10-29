@@ -40,6 +40,11 @@ export type DoAction<K> = (
     data: allActionType[],
     props?: K,
     obj: Record<string, number | (() => number)>
-) => K['immediateNoPromise'] extends true ? void : Promise<void>;
+) => Promise<void>;
+
+export type SetImmediate<K> = <T extends K>(
+    obj: Record<string, number | (() => number)>,
+    props?: T extends K ? K : T
+) => void;
 
 export type tweenMergeProps = (props: tweenAction) => tweenDefault;
