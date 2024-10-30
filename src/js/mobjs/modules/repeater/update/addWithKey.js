@@ -167,6 +167,9 @@ export const addWithKey = ({
 
         /**
          * Get persistent element.
+         * Use find function to get first occurrence.
+         * If use a wrapper use first wrapper occurrence that contain other component
+         * If we don't use a wrapper we have only one component.
          */
         const element = getElementByKeyAndRepeatId({
             key,
