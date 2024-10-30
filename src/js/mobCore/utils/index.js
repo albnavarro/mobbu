@@ -50,7 +50,7 @@ export function offset(element) {
 }
 
 /**
- * @param {HTMLElement} element
+ * @param {HTMLElement|Element} element
  * @returns {{bottom: Number, height:Number, left:Number, right:Number, top:Number, width:Number, x:Number, y:Number}}
  *
  * @description

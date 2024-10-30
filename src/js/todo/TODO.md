@@ -1,6 +1,6 @@
 # Priority
-- HorizontalScroller type
-- bindText: check performance
+- `mobMotion`: private methods.
+- `bindText`: check performance
 
 # General
 - Alias: aggiungere gli alias @ !!!!
