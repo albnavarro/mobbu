@@ -24,6 +24,7 @@ import { getDefaultComponent } from '../../../component/createComponent';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
+import { getComponentNameByElement } from '../../../component/action/component';
 
 /**
  * @param {object} obj
@@ -75,7 +76,6 @@ function getPartialsComponentList({
  * @param {Record<string, any>[]} obj.current
  * @param {Record<string, any>[]} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
- * @param {string} obj.targetComponent
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {import('../type').RepeaterRender} obj.render
@@ -90,7 +90,6 @@ export const addWithKey = ({
     current = [],
     previous = [],
     repeaterParentElement = document.createElement('div'),
-    targetComponent = '',
     key = '',
     id = '',
     render,
@@ -209,13 +208,22 @@ export const addWithKey = ({
             });
 
             if (!persistentElement) return;
-            const { debug } = getDefaultComponent();
 
-            if (debug)
+            /**
+             * If there is no wrapper when cut and paster component
+             * we loose debug information.
+             * Update debug information.
+             */
+            const { debug } = getDefaultComponent();
+            if (debug && !wrapper) {
+                const componentName =
+                    getComponentNameByElement(persistentElement);
+
                 repeaterParentElement.insertAdjacentHTML(
                     'beforeend',
-                    `<!--  ${targetComponent} --> `
+                    `<!-- ${componentName} --> `
                 );
+            }
 
             if (wrapper) {
                 /**

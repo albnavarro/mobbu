@@ -4,7 +4,7 @@ import { removeCurrentIdToBindProps } from '../../../modules/bindProps/removeCur
 import { removeBindTextParentById } from '../../../modules/bindtext';
 import { removeInvalidateId } from '../../../modules/invalidate/action/removeInvalidateId';
 import { removeRepeaterId } from '../../../modules/repeater/action/removeRepeaterId';
-import { removeRepeaterComponentTargetByParentId } from '../../../modules/repeater/targetcomponent';
+import { removeRepeaterComponentTargetByParentId } from '../../../modules/repeater/action/repeaterTargetComponent';
 import { componentMap } from '../../store';
 import { removeItselfFromParent } from './removeItselfFromParent';
 
@@ -58,6 +58,10 @@ export const removeAndDestroyById = ({ id = '' }) => {
      * Unsubscribe component binding.
      */
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+
+    /**
+     * First component destroyed reset repeaterTargetComponentMap
+     */
     removeRepeaterComponentTargetByParentId({ id });
 
     /**

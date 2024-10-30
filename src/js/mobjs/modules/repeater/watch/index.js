@@ -20,7 +20,7 @@ import {
     getActiveRepeater,
     removeActiveRepeat,
 } from '../activeRepeater';
-import { getRepeaterComponentTarget } from '../targetcomponent';
+import { getRepeaterComponentTarget } from '../action/repeaterTargetComponent';
 import { updateRepeater } from '../update';
 import { inizializeNestedInvalidate } from '../../invalidate/action/inizializeNestedInvalidate';
 import { getFallBackParentByElement } from '../../../component/action/parent';
@@ -121,7 +121,9 @@ export const watchRepeat = ({
             }
 
             /**
-             * If clean is active remove previous children.
+             * Get component name of all component inside repeater in same scope
+             * eg:
+             * ['my-coponent','my-component','my-button']
              */
             const targetComponentBeforeParse = getRepeaterComponentTarget({
                 id: repeatId,
@@ -149,7 +151,7 @@ export const watchRepeat = ({
             /**
              * If clean of first time remove DOM from repeater container.
              */
-            if (targetComponentBeforeParse && clean) {
+            if (targetComponentBeforeParse?.length > 0 && clean) {
                 const currentChildern = getIdsByByRepeatId({
                     id,
                     repeatId,
@@ -178,7 +180,6 @@ export const watchRepeat = ({
                 state,
                 persistent,
                 repeaterParentElement,
-                targetComponent: targetComponentBeforeParse,
                 current,
                 previous: clean ? [] : previous,
                 key,

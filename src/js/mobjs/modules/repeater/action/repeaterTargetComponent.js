@@ -1,8 +1,4 @@
-//@ts-check
-
-/**
- */
-export const repeaterTargetComponentMap = new Map();
+import { repeaterTargetComponentMap } from '../repeaterTargetComponentMap';
 
 /**
  * @param {object} mainObject
@@ -13,42 +9,44 @@ export const repeaterTargetComponentMap = new Map();
  * @description
  * Add repeater target component.
  * When placeholder is created if has a repeaterId send information here.
- * So watchRepeater when react get the right target component.
- * All information is detected in constructor of userWebcomponent.
- *
- * - Information arrive from sync prop in repeater.
- * - Assume sync porp is used by the first depth compoenentr,
- *   so we detect the right component recative to repeater..
- * - RepeaterParentIs is used to clean map when parent is destroyed
- *
- * !Important.
- * A placeholder will become a component of the same type
- * ( eg. card-item will be a card-item )
- * But the component is recreated so id instance is different.
- * We can only get the type of component, not the specific instance id.
  */
 export const addRepeatTargetComponent = ({
     repeatId,
     repeaterParentId,
     targetComponent,
 }) => {
-    if (repeaterTargetComponentMap.has(repeatId)) return;
+    if (repeaterTargetComponentMap.has(repeatId)) {
+        const item = repeaterTargetComponentMap.get(repeatId);
+        const { targetComponent: previousTargetComponent } = item;
+
+        const targetComponentParsed =
+            targetComponent?.length === 0
+                ? [targetComponent]
+                : [...previousTargetComponent, targetComponent];
+
+        repeaterTargetComponentMap.set(repeatId, {
+            ...item,
+            targetComponent: targetComponentParsed,
+        });
+
+        return;
+    }
 
     repeaterTargetComponentMap.set(repeatId, {
         repeatId,
         repeaterParentId,
-        targetComponent,
+        targetComponent: [targetComponent],
     });
 };
 
 /**
  * @param {object} obj
  * @param {string} obj.id
- * @return void
+ * @return {string[]}
  *
  *
  * @description
- * Get targetComponent by repeaterId.
+ * Get targetComponent array by repeaterId.
  */
 export const getRepeaterComponentTarget = ({ id }) => {
     const item = repeaterTargetComponentMap.get(id);

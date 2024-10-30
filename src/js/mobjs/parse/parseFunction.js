@@ -26,7 +26,7 @@ import {
     setRepeaterInnerWrap,
     setRepeaterStateById,
 } from '../component/action/repeater';
-import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
+import { addRepeatTargetComponent } from '../modules/repeater/action/repeaterTargetComponent';
 import { getInvalidateFunctions } from '../modules/invalidate/action/getInvalidateFunctions';
 import { getRepeatFunctions } from '../modules/repeater/action/getRepeatFunctions';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';

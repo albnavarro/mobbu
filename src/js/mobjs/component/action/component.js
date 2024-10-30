@@ -23,6 +23,26 @@ export const getComponentNameById = (id = '') => {
 };
 
 /**
+ * @param {HTMLElement} element
+ *
+ * @description
+ * get component name By element
+ */
+export const getComponentNameByElement = (element) => {
+    if (!element) return;
+
+    const componentName = [...componentMap.values()].find(
+        ({ element: currentElement }) => {
+            return currentElement === element;
+        }
+    );
+
+    if (!componentName) return '';
+
+    return componentName?.componentName;
+};
+
+/**
  * @param {string} name
  * @returns {string|undefined}
  *

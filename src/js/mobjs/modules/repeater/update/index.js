@@ -11,7 +11,6 @@ import { listKeyExist } from '../utils';
  * @param {string} obj.state
  * @param {boolean} obj.persistent
  * @param {HTMLElement} obj.repeaterParentElement
- * @param {string} obj.targetComponent
  * @param {array} obj.current
  * @param {array} obj.previous
  * @param {string} obj.key
@@ -28,7 +27,6 @@ export const updateRepeater = async ({
     state = '',
     persistent,
     repeaterParentElement = document.createElement('div'),
-    targetComponent = '',
     current = [],
     previous = [],
     key = '',
@@ -56,7 +54,6 @@ export const updateRepeater = async ({
         current,
         previous,
         repeaterParentElement,
-        targetComponent,
         key,
         id,
         render,

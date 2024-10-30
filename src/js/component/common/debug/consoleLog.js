@@ -9,7 +9,6 @@ import { bindEventMap } from '../../../mobjs/modules/bindEvents';
 import { currentRepeaterValueMap } from '../../../mobjs/modules/repeater/repeaterValue';
 import { onMountCallbackMap } from '../../../mobjs/modules/onMount';
 import { activeRepeatMap } from '../../../mobjs/modules/repeater/activeRepeater';
-import { repeaterTargetComponentMap } from '../../../mobjs/modules/repeater/targetcomponent';
 import { staticPropsMap } from '../../../mobjs/modules/staticProps';
 import { getSlotPlaceholderSize } from '../../../mobjs/modules/slot';
 import { getUserChildPlaceholderSize } from '../../../mobjs/modules/userComponent';
@@ -23,6 +22,7 @@ import { invalidateIdPlaceHolderMap } from '../../../mobjs/modules/invalidate/in
 import { invalidateIdHostMap } from '../../../mobjs/modules/invalidate/invalidateIdHostMap';
 import { invalidateFunctionMap } from '../../../mobjs/modules/invalidate/invalidateFunctionMap';
 import { bindPropsMap } from '../../../mobjs/modules/bindProps/bindPropsMap';
+import { repeaterTargetComponentMap } from '../../../mobjs/modules/repeater/repeaterTargetComponentMap';
 
 export const consoleLogDebug = () => {
     mainStore.debugStore();
@@ -34,12 +34,12 @@ export const consoleLogDebug = () => {
     console.log('onMountCallbackMap', onMountCallbackMap);
     console.log('staticPropsMap', staticPropsMap);
     console.log('dynamicPropsMap', bindPropsMap);
-    console.log('repeaterTargetComponent', repeaterTargetComponentMap);
     console.log('eventDelegationMap', eventDelegationMap);
     console.log('tempDelegateEventMap', tempDelegateEventMap);
     console.log('invalidateIdPlaceHolderMap', invalidateIdPlaceHolderMap);
     console.log('invalidateIdHostMap', invalidateIdHostMap.size);
     console.log('invalidateFunctionMap', invalidateFunctionMap);
+    console.log('repeaterTargetComponent', repeaterTargetComponentMap);
     console.log('repeatIdPlaceHolderMap', repeatIdPlaceHolderMap);
     console.log('repeatFunctionMap', repeatFunctionMap);
     console.log('userChildPlaceholderSize', getUserChildPlaceholderSize());

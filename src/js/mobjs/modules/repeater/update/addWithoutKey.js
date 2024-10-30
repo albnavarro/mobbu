@@ -25,7 +25,6 @@ import { destroyComponentInsideNodeById } from '../../../component/action/remove
  * @param {any[]} obj.current
  * @param {any[]} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
- * @param {string} obj.targetComponent
  * @param {import('../type').RepeaterRender} obj.render
  * @param {string} [ obj.key ]
  * @param {string} obj.id

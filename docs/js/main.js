@@ -16777,6 +16777,16 @@
   };
 
   // src/js/mobjs/component/action/component.js
+  var getComponentNameByElement = (element) => {
+    if (!element) return;
+    const componentName = [...componentMap.values()].find(
+      ({ element: currentElement }) => {
+        return currentElement === element;
+      }
+    );
+    if (!componentName) return "";
+    return componentName?.componentName;
+  };
   var getIdByInstanceName = (name = "") => {
     if (!name) return;
     const instance = [...componentMap.values()].find(({ instanceName }) => {
@@ -17227,18 +17237,29 @@
     }
   };
 
-  // src/js/mobjs/modules/repeater/targetcomponent/index.js
+  // src/js/mobjs/modules/repeater/repeaterTargetComponentMap.js
   var repeaterTargetComponentMap = /* @__PURE__ */ new Map();
+
+  // src/js/mobjs/modules/repeater/action/repeaterTargetComponent.js
   var addRepeatTargetComponent = ({
     repeatId,
     repeaterParentId,
     targetComponent
   }) => {
-    if (repeaterTargetComponentMap.has(repeatId)) return;
+    if (repeaterTargetComponentMap.has(repeatId)) {
+      const item = repeaterTargetComponentMap.get(repeatId);
+      const { targetComponent: previousTargetComponent } = item;
+      const targetComponentParsed = targetComponent?.length === 0 ? [targetComponent] : [...previousTargetComponent, targetComponent];
+      repeaterTargetComponentMap.set(repeatId, {
+        ...item,
+        targetComponent: targetComponentParsed
+      });
+      return;
+    }
     repeaterTargetComponentMap.set(repeatId, {
       repeatId,
       repeaterParentId,
-      targetComponent
+      targetComponent: [targetComponent]
     });
   };
   var getRepeaterComponentTarget = ({ id }) => {
@@ -19516,7 +19537,6 @@
     current = [],
     previous = [],
     repeaterParentElement = document.createElement("div"),
-    targetComponent = "",
     key = "",
     id = "",
     render: render2,
@@ -19571,11 +19591,13 @@
         });
         if (!persistentElement) return;
         const { debug } = getDefaultComponent();
-        if (debug)
+        if (debug && !wrapper2) {
+          const componentName = getComponentNameByElement(persistentElement);
           repeaterParentElement.insertAdjacentHTML(
             "beforeend",
-            `<!--  ${targetComponent} --> `
+            `<!-- ${componentName} --> `
           );
+        }
         if (wrapper2) {
           repeaterParentElement.append(wrapper2);
         } else {
@@ -19675,7 +19697,6 @@
     state = "",
     persistent,
     repeaterParentElement = document.createElement("div"),
-    targetComponent = "",
     current = [],
     previous = [],
     key = "",
@@ -19691,7 +19712,6 @@
       current,
       previous,
       repeaterParentElement,
-      targetComponent,
       key,
       id,
       render: render2,
@@ -19777,7 +19797,7 @@
             childrenId: childrenBeforeUdateFilterdByParent
           });
         }
-        if (targetComponentBeforeParse && clean2) {
+        if (targetComponentBeforeParse?.length > 0 && clean2) {
           const currentChildern = getIdsByByRepeatId({
             id,
             repeatId
@@ -19792,7 +19812,6 @@
           state,
           persistent,
           repeaterParentElement,
-          targetComponent: targetComponentBeforeParse,
           current,
           previous: clean2 ? [] : previous,
           key,
@@ -24884,12 +24903,12 @@ Loading snippet ...</pre
     console.log("onMountCallbackMap", onMountCallbackMap);
     console.log("staticPropsMap", staticPropsMap);
     console.log("dynamicPropsMap", bindPropsMap);
-    console.log("repeaterTargetComponent", repeaterTargetComponentMap);
     console.log("eventDelegationMap", eventDelegationMap);
     console.log("tempDelegateEventMap", tempDelegateEventMap);
     console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
     console.log("invalidateIdHostMap", invalidateIdHostMap.size);
     console.log("invalidateFunctionMap", invalidateFunctionMap);
+    console.log("repeaterTargetComponent", repeaterTargetComponentMap);
     console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
     console.log("repeatFunctionMap", repeatFunctionMap);
     console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
