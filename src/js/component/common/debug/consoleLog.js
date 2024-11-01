@@ -22,7 +22,6 @@ import { invalidateIdPlaceHolderMap } from '../../../mobjs/modules/invalidate/in
 import { invalidateIdHostMap } from '../../../mobjs/modules/invalidate/invalidateIdHostMap';
 import { invalidateFunctionMap } from '../../../mobjs/modules/invalidate/invalidateFunctionMap';
 import { bindPropsMap } from '../../../mobjs/modules/bindProps/bindPropsMap';
-import { repeaterTargetComponentMap } from '../../../mobjs/modules/repeater/repeaterTargetComponentMap';
 
 export const consoleLogDebug = () => {
     mainStore.debugStore();
@@ -39,7 +38,6 @@ export const consoleLogDebug = () => {
     console.log('invalidateIdPlaceHolderMap', invalidateIdPlaceHolderMap);
     console.log('invalidateIdHostMap', invalidateIdHostMap.size);
     console.log('invalidateFunctionMap', invalidateFunctionMap);
-    console.log('repeaterTargetComponent', repeaterTargetComponentMap);
     console.log('repeatIdPlaceHolderMap', repeatIdPlaceHolderMap);
     console.log('repeatFunctionMap', repeatFunctionMap);
     console.log('userChildPlaceholderSize', getUserChildPlaceholderSize());
