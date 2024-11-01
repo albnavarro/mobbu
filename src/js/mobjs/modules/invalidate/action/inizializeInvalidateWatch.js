@@ -13,7 +13,7 @@ import { mainStore } from '../../../mainStore/mainStore';
 import { incrementTickQueuque } from '../../../queque/tick';
 import { incrementInvalidateTickQueuque } from '../../../queque/tickInvalidate';
 import { destroyNestedRepeat } from '../../repeater/action/destroyNestedRepeat';
-import { inizializeNestedRepeat } from '../../repeater/watch/inizializeNestedRepeat';
+import { inizializeNestedRepeat } from '../../repeater/action/inizializeNestedRepeat';
 import { addInvalidateUnsubcribe } from './addInvalidateUnsubcribe';
 import { destroyNestedInvalidate } from './destroyNestedInvalidate';
 import { getInvalidateParent } from './getInvalidateParent';

@@ -25,7 +25,7 @@ import { inizializeNestedInvalidate } from '../../invalidate/action/inizializeNe
 import { getFallBackParentByElement } from '../../../component/action/parent';
 import { chunkIdsByRepeaterWrapper } from '../utils';
 import { getRepeatParent } from '../action/getRepeaterParent';
-import { inizializeNestedRepeat } from './inizializeNestedRepeat';
+import { inizializeNestedRepeat } from '../action/inizializeNestedRepeat';
 
 /**
  * @param {import('../type').watchListType} param
