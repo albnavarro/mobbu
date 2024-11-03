@@ -15,9 +15,10 @@ export const defineBindTextComponent = () => {
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    const host = this.shadowRoot.host;
-                    const componentId = host.getAttribute(ATTR_COMPONENT_ID);
-                    const bindTextId = host.getAttribute(ATTR_BIND_TEXT_ID);
+                    const host = this.shadowRoot?.host;
+                    const componentId = host?.getAttribute(ATTR_COMPONENT_ID);
+                    const bindTextId = host?.getAttribute(ATTR_BIND_TEXT_ID);
+
                     addBindTextPlaceHolderMap({
                         host,
                         componentId,

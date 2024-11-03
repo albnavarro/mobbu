@@ -7,7 +7,9 @@ import { invalidateIdPlaceHolderMap } from '../invalidateIdPlaceHolderMap';
  * @description
  * Get invalidate parent by invalidate id.
  *
- * @returns {HTMLElement}
+ * @param {object} params
+ * @param {string} params.id
+ * @returns {HTMLElement|undefined}
  */
 
 export const getInvalidateParent = ({ id }) => {
@@ -22,7 +24,7 @@ export const getInvalidateParent = ({ id }) => {
         const host = invalidateIdHostMap.get(id);
         // @ts-ignore
         host?.removeCustomComponent();
-        host.remove();
+        host?.remove();
         invalidateIdHostMap.delete(id);
     }
 

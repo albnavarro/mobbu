@@ -7,7 +7,7 @@ import { tick } from '../../queque/tick';
 import { allowFireEvent, getFireEvent, preventFireEvent } from '../commonEvent';
 
 /**
- * @type {Map<string,Array<{[key:string]: (arg0: object, arg1: object) => {}}>>}
+ * @type {Map<string,Array<{[key:string]: (arg0: object, arg1: number) => {}}>>}
  */
 export const bindEventMap = new Map();
 

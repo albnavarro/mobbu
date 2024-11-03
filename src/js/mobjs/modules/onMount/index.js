@@ -32,7 +32,7 @@ export const fireOnMountCallBack = async ({ id, element }) => {
     const callback = onMountCallbackMap.get(id);
 
     /**
-     * @type {Function} destroy callback
+     * @type {() => void} destroy callback
      *
      * @description
      * OnMount callback can be async.

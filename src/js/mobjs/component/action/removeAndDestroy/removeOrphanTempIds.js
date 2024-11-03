@@ -5,7 +5,7 @@ import { removeOrphansBindProps } from '../../../modules/bindProps';
 import { removeOrphansPropsFromParent } from '../../../modules/staticProps';
 
 /**
- * @returns void
+ * @returns { void }
  *
  * @description
  * Remove orphan omponent from store.

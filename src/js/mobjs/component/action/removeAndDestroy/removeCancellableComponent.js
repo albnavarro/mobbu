@@ -4,7 +4,7 @@ import { componentMap } from '../../store';
 import { removeAndDestroyById } from './removeAndDestroyById';
 
 /**
- * @returns void
+ * @returns { void }
  *
  * @description
  * Remove non persistent component from store.

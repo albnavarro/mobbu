@@ -11,8 +11,8 @@ import { listKeyExist } from '../utils';
  * @param {string} obj.state
  * @param {boolean} obj.persistent
  * @param {HTMLElement} obj.repeaterParentElement
- * @param {array} obj.current
- * @param {array} obj.previous
+ * @param {Array<any>} obj.current
+ * @param {Array<any>} obj.previous
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {string} obj.fallBackParentId w

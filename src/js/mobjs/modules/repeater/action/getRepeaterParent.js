@@ -7,7 +7,9 @@ import { repeatIdPlaceHolderMap } from '../repeatIdPlaceHolderMap';
  * @description
  * Get repeat parent by repeat id.
  *
- * @returns {HTMLElement}
+ * @param {object} params
+ * @param {string} params.id
+ * @returns {HTMLElement|undefined}
  */
 export const getRepeatParent = ({ id }) => {
     if (!repeatIdPlaceHolderMap.has(id)) {
@@ -21,7 +23,7 @@ export const getRepeatParent = ({ id }) => {
         const host = repeatIdHostMap.get(id);
         // @ts-ignore
         host?.removeCustomComponent();
-        host.remove();
+        host?.remove();
         repeatIdHostMap.delete(id);
     }
 

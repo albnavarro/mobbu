@@ -36,12 +36,12 @@ export const setStateById = (id = '', prop = '', value, fire = true) => {
         console.warn(
             `setStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
         );
-        return null;
+        return;
     }
 
     if (!state) {
         console.warn(`setStateById failed no id found on prop: ${prop}`);
-        return null;
+        return;
     }
 
     state.set(prop, value, fire);

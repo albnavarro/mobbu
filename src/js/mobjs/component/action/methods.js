@@ -16,6 +16,8 @@ export const addMethodById = ({ id, name, fn }) => {
     const item = componentMap.get(id);
     const methods = item?.methods;
 
+    if (!methods) return;
+
     if (name in methods) {
         console.warn(`Method ${name}, is already used by ${id}`);
         return;
@@ -36,10 +38,13 @@ export const addMethodById = ({ id, name, fn }) => {
  * Get method by id
  */
 export const getMethodsById = ({ id }) => {
-    if (!id || id === '') return;
+    if (!id || id === '') return {};
 
     const item = componentMap.get(id);
     const methods = item?.methods;
+
+    if (!methods) return {};
+
     if (Object.keys(methods).length === 0) {
         console.warn(`no methods available for ${id} component`);
         return {};
@@ -57,7 +62,7 @@ export const getMethodsById = ({ id }) => {
  */
 export const useMethodByName = (name) => {
     const id = getIdByInstanceName(name);
-    if (!id || id === '') return;
+    if (!id || id === '') return {};
 
     const methods = getMethodsById({ id });
     if (Object.keys(methods).length === 0) {

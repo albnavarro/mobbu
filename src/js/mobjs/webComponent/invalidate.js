@@ -15,7 +15,9 @@ export const defineInvalidateComponent = () => {
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    const host = this.shadowRoot.host;
+                    const host = /** @type {HTMLElement} */ (
+                        this.shadowRoot?.host
+                    );
                     const invalidateId = host.getAttribute(ATTR_INVALIDATE);
                     setParentInvalidate({ invalidateId, host });
                 }

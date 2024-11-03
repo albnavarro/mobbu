@@ -25,11 +25,7 @@ export interface componentCommonTypes {
     destroy?: () => void;
     freezedPros?: string[];
     persistent: boolean;
-    child?:
-        | {
-              string: string[];
-          }
-        | object;
+    child?: Record<string, string[]>;
     parentId: string | undefined;
     id: string;
 }

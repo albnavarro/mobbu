@@ -16,6 +16,7 @@ import { repeatIdPlaceHolderMap } from '../repeatIdPlaceHolderMap';
 export const removeRepeaterId = ({ id }) => {
     if (repeatFunctionMap.has(id)) {
         const value = repeatFunctionMap.get(id);
+        if (!value) return;
 
         /**
          *Remove reference to parent Id taken from repeat web component.

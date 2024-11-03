@@ -4,10 +4,10 @@ import { mobCore } from '../../../mobCore';
 import { getRepeaterInnerWrap } from '../../component/action/repeater';
 
 /**
- * @param {Array} current
- * @param {Array} previous
+ * @param {Array<any>} current
+ * @param {Array<any>} previous
  * @param {string} key
- * @return {Array}
+ * @return {Array<any>}
  *
  *
  * @description
@@ -21,8 +21,8 @@ export const getNewElement = (current = [], previous = [], key = '') => {
 };
 
 /**
- * @param {array} current
- * @param {array} previous
+ * @param {Array<any>} current
+ * @param {Array<any>} previous
  * @param {string} key
  * @return {Array.<{isNewElement: boolean, key:string, index:number}>}
  *
@@ -42,7 +42,7 @@ export const mixPreviousAndCurrentData = (current, previous, key) => {
 
 /**
  * @param {object} obj
- * @param {array} obj.arr
+ * @param {Array<any>} obj.arr
  * @param {string} obj.key
  * @return {boolean}
  *
@@ -57,8 +57,8 @@ const arrayhaskey = ({ arr = [], key = '' }) => {
 
 /**
  * @param {object} obj
- * @param {array} obj.current
- * @param {array} obj.previous
+ * @param {Array<any>} obj.current
+ * @param {Array<any>} obj.previous
  * @param {string} obj.key
  * @return {boolean}
  *
@@ -74,7 +74,7 @@ export const listKeyExist = ({ current, previous, key }) => {
 
 /**
  * @param {object} obj
- * @param {array} obj.data
+ * @param {Array<any>} obj.data
  * @param {string} obj.key
  * @return {Record<string, any>[]}
  *
@@ -111,6 +111,8 @@ export const chunkIdsByRepeaterWrapper = ({ children }) => {
 
         if (chunkMap.has(elementWrapper)) {
             const children = chunkMap.get(elementWrapper);
+            if (!children) return;
+
             chunkMap.set(elementWrapper, [...children, child]);
             return;
         }

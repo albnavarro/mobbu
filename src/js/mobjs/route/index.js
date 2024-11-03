@@ -14,9 +14,16 @@ import {
 import { loadRoute } from './loadRoute';
 import { getRouteModule, getTemplateName } from './utils';
 
+/** @type{string} */
 let previousHash = '';
+
+/** @type{string} */
 let previousParamsToPush = '';
+
+/** @type{string} */
 let currentSearch;
+
+/** @type{string} */
 let historyDirection = 'back';
 
 /**

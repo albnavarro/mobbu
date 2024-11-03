@@ -42,7 +42,7 @@ export const getRepeatOrInvalidateInsideElement = ({
                 if (
                     componentId &&
                     !compareIdOrParentIdRecursive({
-                        id: parent.scopeId,
+                        id: parent?.scopeId ?? '',
                         compareValue: componentId,
                     })
                 )

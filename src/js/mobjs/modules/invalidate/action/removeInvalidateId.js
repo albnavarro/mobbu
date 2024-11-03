@@ -17,6 +17,8 @@ export const removeInvalidateId = ({ id }) => {
     if (invalidateFunctionMap.has(id)) {
         const value = invalidateFunctionMap.get(id);
 
+        if (!value) return;
+
         /**
          *Remove reference to parent Id taken from invalidate web component.
          */

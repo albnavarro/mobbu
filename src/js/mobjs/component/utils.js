@@ -2,7 +2,7 @@
 
 /**
  * @param {object} obj
- * @param {{string: Array.<string>}|{}} obj.currentChild
+ * @param {Record<string, string[]>} obj.currentChild
  * @param {string} obj.id
  * @param {string} obj.componentName
  *
@@ -27,7 +27,7 @@ export const updateChildrenArray = ({
 
 /**
  * @param {object} obj
- * @param {{string: Array.<string>}|{}} obj.currentChild
+ * @param {Record<string, string[]>} obj.currentChild
  * @param {string} obj.id
  * @param {string} obj.componentName
  *
@@ -56,8 +56,8 @@ export const removeChildFromChildrenArray = ({
 /**
  * @param {object} obj
  * @param {object} obj.props
- * @param {object} obj.store - SimpleStore instance
- * @returns {object}
+ * @param {import("../../mobCore/store/type").MobStore<any>} obj.store - SimpleStore instance
+ * @returns {void}
  */
 export const addPropsToState = ({ props, store }) => {
     Object.entries(props).forEach(([key, value]) => {

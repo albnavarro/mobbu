@@ -7,7 +7,7 @@ import { getElementById } from './element';
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.componentName
- * @returns {Array.<string>}
+ * @returns {string[]|[]}
  *
  * @description
  * Get children id.

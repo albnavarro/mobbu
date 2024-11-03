@@ -2,6 +2,11 @@
 
 import { componentMap } from '../store';
 
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {(() => void)[]} params.unWatchArray
+ */
 export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
     const item = componentMap.get(id);
     if (!item) return;

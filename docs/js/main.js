@@ -16674,7 +16674,7 @@
     return valuesFiltered?.element;
   };
   var getIdsByByRepeatId = ({ id, repeatId, filterById = false }) => {
-    if (!id || id === "") return;
+    if (!id || id === "") return [];
     const values = [...componentMap.values()];
     return values.filter((item) => {
       return item?.componentRepeatId === repeatId;
@@ -16769,6 +16769,7 @@
     if (!id || id === "") return;
     const item = componentMap.get(id);
     const methods = item?.methods;
+    if (!methods) return;
     if (name in methods) {
       console.warn(`Method ${name}, is already used by ${id}`);
       return;
@@ -16779,9 +16780,10 @@
     });
   };
   var getMethodsById = ({ id }) => {
-    if (!id || id === "") return;
+    if (!id || id === "") return {};
     const item = componentMap.get(id);
     const methods = item?.methods;
+    if (!methods) return {};
     if (Object.keys(methods).length === 0) {
       console.warn(`no methods available for ${id} component`);
       return {};
@@ -16790,7 +16792,7 @@
   };
   var useMethodByName = (name) => {
     const id = getIdByInstanceName(name);
-    if (!id || id === "") return;
+    if (!id || id === "") return {};
     const methods = getMethodsById({ id });
     if (Object.keys(methods).length === 0) {
       console.warn(`no methods available for ${name} component`);
@@ -17144,6 +17146,7 @@
   var removeInvalidateId = ({ id }) => {
     if (invalidateFunctionMap.has(id)) {
       const value = invalidateFunctionMap.get(id);
+      if (!value) return;
       value.forEach(({ invalidateId }) => {
         if (invalidateIdPlaceHolderMap.has(invalidateId)) {
           invalidateIdPlaceHolderMap.delete(invalidateId);
@@ -17163,6 +17166,7 @@
   var removeRepeaterId = ({ id }) => {
     if (repeatFunctionMap.has(id)) {
       const value = repeatFunctionMap.get(id);
+      if (!value) return;
       value.forEach(({ repeatId }) => {
         if (repeatIdPlaceHolderMap.has(repeatId)) {
           repeatIdPlaceHolderMap.delete(repeatId);
@@ -17307,8 +17311,11 @@
           this.attachShadow({ mode: "open" });
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
-            const host = this.shadowRoot.host;
-            const repeatId = host.getAttribute(ATTR_MOBJS_REPEAT);
+            const host = (
+              /** @type {HTMLElement} */
+              this.shadowRoot?.host
+            );
+            const repeatId = host?.getAttribute(ATTR_MOBJS_REPEAT);
             setParentRepeater({ repeatId, host });
           }
         }
@@ -17348,7 +17355,10 @@
           this.attachShadow({ mode: "open" });
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
-            const host = this.shadowRoot.host;
+            const host = (
+              /** @type {HTMLElement} */
+              this.shadowRoot?.host
+            );
             const invalidateId = host.getAttribute(ATTR_INVALIDATE);
             setParentInvalidate({ invalidateId, host });
           }
@@ -17555,7 +17565,7 @@
            */
           #currentKey;
           /**
-           * @type {string}
+           * @type {string|undefined|null}
            */
           #parentId;
           /**
@@ -17799,7 +17809,7 @@
             };
           }
           /**
-           * @param {object} data
+           * @param {import('../type').componentPropsType<import('../type').MobComponentMap,import('../type').MobComponentMap>} data
            */
           inizializeCustomComponent(data2) {
             if (this.active) return;
@@ -17873,9 +17883,9 @@
           this.attachShadow({ mode: "open" });
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
-            const host = this.shadowRoot.host;
-            const componentId = host.getAttribute(ATTR_COMPONENT_ID);
-            const bindTextId = host.getAttribute(ATTR_BIND_TEXT_ID);
+            const host = this.shadowRoot?.host;
+            const componentId = host?.getAttribute(ATTR_COMPONENT_ID);
+            const bindTextId = host?.getAttribute(ATTR_BIND_TEXT_ID);
             addBindTextPlaceHolderMap({
               host,
               componentId,
@@ -17942,11 +17952,11 @@
       console.warn(
         `setStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
       );
-      return null;
+      return;
     }
     if (!state) {
       console.warn(`setStateById failed no id found on prop: ${prop}`);
-      return null;
+      return;
     }
     state.set(prop, value, fire4);
   };
@@ -17976,11 +17986,11 @@
       console.warn(
         `updateStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
       );
-      return null;
+      return;
     }
     if (!state) {
       console.warn(`updateStateById failed no id found on prop: ${prop}`);
-      return null;
+      return;
     }
     state.update(prop, value, fire4);
   };
@@ -18217,7 +18227,7 @@
     if (repeatIdHostMap.has(id)) {
       const host = repeatIdHostMap.get(id);
       host?.removeCustomComponent();
-      host.remove();
+      host?.remove();
       repeatIdHostMap.delete(id);
     }
     const parent = repeatIdPlaceHolderMap.get(id);
@@ -18253,6 +18263,7 @@
     if (!id || id === "") return DEFAULT_CURRENT_REPEATER_STATE;
     const item = componentMap.get(id);
     const currentRepeaterState = item?.currentRepeaterState;
+    if (!currentRepeaterState) return DEFAULT_CURRENT_REPEATER_STATE;
     return currentRepeaterState;
   };
   var setRepeaterInnerWrap = ({ id = "", repeatId = "", element }) => {
@@ -18430,6 +18441,7 @@
     } catch {
       console.log("bindProps error:", componentId);
       const element = getElementById({ id: componentId });
+      if (!element) return;
       if (!document.body.contains(element))
         removeAndDestroyById({ id: componentId });
     }
@@ -18473,7 +18485,7 @@
     if (!dynamicPropsFilteredArray) return;
     for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
       const { bind, props, parentId } = dynamicpropsfiltered;
-      const bindUpdated = repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
+      const bindUpdated = repeatPropBind && repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
       const currentParentId = parentId ?? getParentIdById(componentId);
       if (!inizilizeWatcher) {
         setBindProp({
@@ -18593,7 +18605,7 @@
         type: ELEMENT_TYPE_MIX_NODE_TEXT
       };
     const textContent = node.textContent;
-    if (textContent.length > 0)
+    if (textContent && textContent.length > 0)
       return {
         item: textContent,
         type: ELEMENT_TYPE_TEXT
@@ -18768,7 +18780,7 @@
 
   // src/js/mobjs/component/action/removeAndDestroy/setDestroyCallback.js
   var setDestroyCallback = ({ cb = () => {
-  }, id = null }) => {
+  }, id }) => {
     if (!id) return;
     const item = componentMap.get(id);
     if (!item) return;
@@ -18891,7 +18903,7 @@
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ([_id, parent]) => {
         if (componentId && !compareIdOrParentIdRecursive({
-          id: parent.scopeId,
+          id: parent?.scopeId ?? "",
           compareValue: componentId
         }))
           return;
@@ -18909,6 +18921,7 @@
   var removeRepeatByRepeatId = ({ id, repeatId }) => {
     if (!repeatFunctionMap.has(id)) return;
     const value = repeatFunctionMap.get(id);
+    if (!value) return;
     const valueParsed = value.filter((item) => item.repeatId !== repeatId);
     if (repeatIdPlaceHolderMap.has(repeatId)) {
       repeatIdPlaceHolderMap.delete(repeatId);
@@ -18974,6 +18987,7 @@
   var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
     if (!invalidateFunctionMap.has(id)) return;
     const value = invalidateFunctionMap.get(id);
+    if (!value) return;
     const valueParsed = value.filter(
       (item) => item.invalidateId !== invalidateId
     );
@@ -19016,7 +19030,7 @@
     if (invalidateIdHostMap.has(id)) {
       const host = invalidateIdHostMap.get(id);
       host?.removeCustomComponent();
-      host.remove();
+      host?.remove();
       invalidateIdHostMap.delete(id);
     }
     const parent = invalidateIdPlaceHolderMap.get(id);
@@ -19285,6 +19299,7 @@
       }
       if (chunkMap.has(elementWrapper)) {
         const children2 = chunkMap.get(elementWrapper);
+        if (!children2) return;
         chunkMap.set(elementWrapper, [...children2, child2]);
         return;
       }
@@ -19697,7 +19712,9 @@
           currentChildern.forEach((id2) => {
             removeAndDestroyById({ id: id2 });
           });
-          repeaterParentElement.textContent = "";
+          if (repeaterParentElement) {
+            repeaterParentElement.textContent = "";
+          }
         }
         addActiveRepeat({ id, state, container: repeaterParentElement });
         const currentUnivoque = await updateRepeater({
@@ -20321,7 +20338,7 @@
       element: componentToParse
     });
     if (!useSlotQuery) clearSlotPlaceHolder();
-    newElement.classList.add(...classList);
+    newElement?.classList.add(...classList);
     addParentIdToFutureComponent({ element: newElement, id });
     if (!newElement) {
       const activeParser = decrementParserCounter();

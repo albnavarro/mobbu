@@ -36,12 +36,12 @@ export const updateStateById = (id = '', prop = '', value, fire = true) => {
         console.warn(
             `updateStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
         );
-        return null;
+        return;
     }
 
     if (!state) {
         console.warn(`updateStateById failed no id found on prop: ${prop}`);
-        return null;
+        return;
     }
 
     state.update(prop, value, fire);

@@ -61,7 +61,10 @@ export const watchRepeat = ({
      */
     const unsubscribe = watch(
         state,
-        async (/** @type {Array} */ current, /** @type {Array} */ previous) => {
+        async (
+            /** @type {Array<any>} */ current,
+            /** @type {Array<any>} */ previous
+        ) => {
             if (!mobCore.checkType(Array, current)) return;
 
             const repeaterParentElement = getRepeatParent({
@@ -151,11 +154,13 @@ export const watchRepeat = ({
                     removeAndDestroyById({ id });
                 });
 
-                /**
-                 * Web component trick.
-                 * Sure to delete host element.
-                 */
-                repeaterParentElement.textContent = '';
+                if (repeaterParentElement) {
+                    /**
+                     * Web component trick.
+                     * Sure to delete host element.
+                     */
+                    repeaterParentElement.textContent = '';
+                }
             }
 
             /**

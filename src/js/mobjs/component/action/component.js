@@ -67,6 +67,7 @@ export const getIdByInstanceName = (name = '') => {
 
 /**
  * @param {string} id
+ * @returns {boolean}
  *
  * @description
  * get component name By id

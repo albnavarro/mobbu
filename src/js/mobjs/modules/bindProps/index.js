@@ -136,6 +136,8 @@ const setBindProp = ({
     } catch {
         console.log('bindProps error:', componentId);
         const element = getElementById({ id: componentId });
+        if (!element) return;
+
         if (!document.body.contains(element))
             removeAndDestroyById({ id: componentId });
     }
@@ -238,7 +240,9 @@ export const applyBindProps = async ({
          * Merge watch state inside a repeater with bind array.
          */
         const bindUpdated =
-            repeatPropBind?.length > 0 && !bind.includes(repeatPropBind)
+            repeatPropBind &&
+            repeatPropBind?.length > 0 &&
+            !bind.includes(repeatPropBind)
                 ? [...bind, repeatPropBind]
                 : [...bind];
 

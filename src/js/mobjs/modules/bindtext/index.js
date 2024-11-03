@@ -33,7 +33,7 @@ export const addBindTextPlaceHolderMap = ({
  * Check if there is square brackets in a string with value eg. [0]
  *
  * @param {string} value
- * @returns {any[]}
+ * @returns {RegExpMatchArray | null}
  */
 const arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
 
@@ -171,7 +171,7 @@ export const removeBindTextParentById = ({ id }) => {
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bindTextId
- * @returns {HTMLElement}
+ * @returns {HTMLElement|undefined}
  */
 const getParentBindText = ({ id, bindTextId }) => {
     const item = bindTextMap.get(id);

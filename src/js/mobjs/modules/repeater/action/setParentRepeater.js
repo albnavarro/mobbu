@@ -9,7 +9,7 @@ import { repeatIdPlaceHolderMap } from '../repeatIdPlaceHolderMap';
  *
  * @param {object} params
  * @param {string} params.repeatId - repeat id
- * @param {object} params.host  - webComponent root
+ * @param {HTMLElement} params.host  - webComponent root
  */
 
 export const setParentRepeater = ({ repeatId, host }) => {

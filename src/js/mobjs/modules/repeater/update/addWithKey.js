@@ -80,7 +80,7 @@ function getPartialsComponentList({
  * @param {string} obj.id
  * @param {import('../type').RepeaterRender} obj.render
  * @param {string} obj.repeatId
- * @return {array}
+ * @return {Array<any>}
  *
  * @description
  * Add new children by key.

@@ -51,7 +51,7 @@ import { inizializeRepeatWatch } from '../../modules/repeater/action/inizializeR
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
- * @returns {import('../../type').componentPropsType}
+ * @returns {import('../../type').componentPropsType<import('../../type').MobComponentMap, import('../../type').MobComponentMap>}
  *
  * @description
  * Create component
@@ -71,7 +71,10 @@ export const getParamsForComponentFunction = ({
     debug,
 }) => {
     /**
+     * @description
      * Initialize repeatId collector.
+     *
+     * @type {string[]}
      */
     const repeatIdArray = [];
 

@@ -18,6 +18,8 @@ export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
     if (!invalidateFunctionMap.has(id)) return;
 
     const value = invalidateFunctionMap.get(id);
+    if (!value) return;
+
     const valueParsed = value.filter(
         (item) => item.invalidateId !== invalidateId
     );

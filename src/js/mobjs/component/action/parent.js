@@ -64,6 +64,9 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
 };
 
 /**
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @param {string} params.id
  * @returns void
  *
  * @description
@@ -89,7 +92,7 @@ export const addParentIdToFutureComponent = ({ element, id }) => {
 /**
  * @param {object} params
  * @param {HTMLElement} params.element
- * @returns {string}
+ * @returns {string|undefined}
  *
  * @description
  * Get first element that contains repaterParent start from last map element.

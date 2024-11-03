@@ -163,7 +163,7 @@ export const defineUserComponent = (componentList) => {
                 #currentKey;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #parentId;
 
@@ -440,7 +440,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param {object} data
+                 * @param {import('../type').componentPropsType<import('../type').MobComponentMap,import('../type').MobComponentMap>} data
                  */
                 inizializeCustomComponent(data) {
                     if (this.active) return;

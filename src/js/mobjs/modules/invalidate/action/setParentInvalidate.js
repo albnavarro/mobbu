@@ -9,7 +9,7 @@ import { invalidateIdPlaceHolderMap } from '../invalidateIdPlaceHolderMap';
  *
  * @param {object} params
  * @param {string} params.invalidateId - invalidateId id
- * @param {object} params.host  - webComponent root
+ * @param {HTMLElement} params.host  - webComponent root
  */
 
 export const setParentInvalidate = ({ invalidateId, host }) => {

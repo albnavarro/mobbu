@@ -75,7 +75,7 @@ export const getElementOrTextFromNode = (node) => {
      * Is a textNode
      */
     const textContent = node.textContent;
-    if (textContent.length > 0)
+    if (textContent && textContent.length > 0)
         return {
             item: textContent,
             type: ELEMENT_TYPE_TEXT,

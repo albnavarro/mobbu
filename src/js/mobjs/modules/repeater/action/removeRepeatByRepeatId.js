@@ -18,6 +18,8 @@ export const removeRepeatByRepeatId = ({ id, repeatId }) => {
     if (!repeatFunctionMap.has(id)) return;
 
     const value = repeatFunctionMap.get(id);
+    if (!value) return;
+
     const valueParsed = value.filter((item) => item.repeatId !== repeatId);
 
     if (repeatIdPlaceHolderMap.has(repeatId)) {
