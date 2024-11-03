@@ -26,6 +26,7 @@ function hasAnchor({ label }) {
  * @return void
  */
 const addItemToScrollComponent = async ({ id, label, element }) => {
+    // Wait that all components is mounted.
     await tick();
     useMethodByName('scrollTo')?.addItem?.({ id, label, element });
 
