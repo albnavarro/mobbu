@@ -615,23 +615,22 @@ export const storeComputedAction = ({ state, prop, keys, fn }) => {
     const { callBackComputed } = state;
 
     // Create a temp array with the future computed added to check
-    const tempComputedArray = [...callBackComputed, { prop, keys, fn }];
+    // const tempComputedArray = [...callBackComputed, { prop, keys, fn }];
 
     // Get all prop stored in tempComputedArray
-    const propList = tempComputedArray.flatMap((item) => item.prop);
+    // const propList = tempComputedArray.flatMap((item) => item.prop);
 
     //  Keys can't be a prop used in some computed
-    const keysIsusedInSomeComputed = propList.some((item) =>
-        keys.includes(item)
-    );
+    // const keysIsusedInSomeComputed = propList.some((item) =>
+    //     keys.includes(item)
+    // );
 
     /**
-     * if - Key to watch can't be a prop used in some computed to avoid infinite loop
-     *
-     * @param  {boolean} keysIsusedInSomeComputed
-     * @return {void}
+     * Check only that current keys doesn't contain current prop
      */
-    if (keysIsusedInSomeComputed) {
+    const keyIsusedInProps = keys.includes(prop);
+
+    if (keyIsusedInProps) {
         storeComputedKeyUsedWarning(keys, getLogStyle());
         return;
     }

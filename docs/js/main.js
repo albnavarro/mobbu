@@ -2443,12 +2443,8 @@
   };
   var storeComputedAction = ({ state, prop, keys, fn }) => {
     const { callBackComputed } = state;
-    const tempComputedArray = [...callBackComputed, { prop, keys, fn }];
-    const propList = tempComputedArray.flatMap((item) => item.prop);
-    const keysIsusedInSomeComputed = propList.some(
-      (item) => keys.includes(item)
-    );
-    if (keysIsusedInSomeComputed) {
+    const keyIsusedInProps = keys.includes(prop);
+    if (keyIsusedInProps) {
       storeComputedKeyUsedWarning(keys, getLogStyle());
       return;
     }
