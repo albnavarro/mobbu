@@ -6954,7 +6954,7 @@
   var callBackStore = mobCore.createStore({ id: 0 });
 
   // src/js/mobMotion/animation/utils/callbacks/setCallback.js
-  var setCallBack = (currentCallback, arrayOfCallback) => {
+  var updateSubScribers = (currentCallback, arrayOfCallback) => {
     const { id } = callBackStore.get();
     const arrayOfCallbackUpdated = [
       ...arrayOfCallback,
@@ -6971,7 +6971,7 @@
       })
     };
   };
-  var setCallBackCache = (item, currentCallback, arrayOfCallback, unsubscribeCacheArray) => {
+  var updateSubscribersCache = (item, currentCallback, arrayOfCallback, unsubscribeCacheArray) => {
     const { id } = callBackStore.get();
     const { id: cacheId, unsubscribe: unsubscribe3 } = mobCore.useCache.add(
       item,
@@ -7257,11 +7257,11 @@
      */
     #isActive;
     /**
-     * @type{(value:any) => void|null }
+     * @type{(value:any) => void|undefined }
      */
     #currentResolve;
     /**
-     * @type{(value:any) => void|null}
+     * @type{(value:any) => void|undefined}
      */
     #currentReject;
     /**
@@ -7289,7 +7289,7 @@
      */
     #callbackOnComplete;
     /**
-     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]}
+     * @type {{ cb: () => boolean }[]}
      */
     #callbackStartInPause;
     /**
@@ -7404,7 +7404,7 @@
       };
       this.#slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
       this.#fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
-      const props = data2?.data || null;
+      const props = data2?.data;
       if (props) this.setData(props);
     }
     /**
@@ -7523,7 +7523,7 @@
     }
     /**
      * @param {(arg0: any) => void} res
-     * @param {(value: any) => void|null} reject
+     * @param {(value: any) => void} reject
      *
      * @returns {Promise}
      */
@@ -7701,6 +7701,7 @@
         });
       }
       if (this.#promise) return this.#promise;
+      return Promise.resolve();
     }
     /**
      * @description
@@ -7880,7 +7881,7 @@
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
     subscribe(cb) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callback
       );
@@ -7888,21 +7889,34 @@
       return () => this.#callback = unsubscribeCb(this.#callback);
     }
     /**
+     * @type {import('./type.js').lerpSubscribeCache}
+     *
+     * @description
+     * Callback that returns updated values ready to be usable, specific to manage large staggers.
+     */
+    subscribeCache(item, fn) {
+      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = updateSubscribersCache(
+        item,
+        fn,
+        this.#callbackCache,
+        this.#unsubscribeCache
+      );
+      this.#callbackCache = arrayOfCallbackUpdated;
+      this.#unsubscribeCache = unsubscribeCache;
+      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
+    }
+    /**
      * Support callback to asyncTimeline.
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {() => void} cb cal function
+     * @param  {() => boolean} cb cal function
      * @return {() => void} unsubscribe callback
      *
      */
     onStartInPause(cb) {
-      const { arrayOfCallbackUpdated } = setCallBack(
-        cb,
-        this.#callbackStartInPause
-      );
-      this.#callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
-      arrayOfCallbackUpdated;
+      const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
+      this.#callbackStartInPause = arrayOfCallbackUpdated;
       return () => this.#callbackStartInPause = [];
     }
     /**
@@ -7915,7 +7929,7 @@
      *  A typical example is to remove the teansform3D property:
      **/
     onComplete(cb) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callbackOnComplete
       );
@@ -7923,23 +7937,6 @@
       return () => this.#callbackOnComplete = unsubscribeCb(
         this.#callbackOnComplete
       );
-    }
-    /**
-     * @type {import('./type.js').lerpSubscribeCache}
-     *
-     * @description
-     * Callback that returns updated values ready to be usable, specific to manage large staggers.
-     */
-    subscribeCache(item, fn) {
-      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
-        item,
-        fn,
-        this.#callbackCache,
-        this.#unsubscribeCache
-      );
-      this.#callbackCache = arrayOfCallbackUpdated;
-      this.#unsubscribeCache = unsubscribeCache;
-      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
     }
     /**
      * @description
@@ -8220,7 +8217,7 @@
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
     subscribe(cb) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callback
       );
@@ -8236,7 +8233,7 @@
      * A typical example is to remove the teansform3D property:
      */
     onStop(cb) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callbackOnStop
       );
@@ -8247,7 +8244,7 @@
      * @type {import('./type.js').parallaxTweenSubscribeCache}
      */
     subscribeCache(item, fn) {
-      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
+      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = updateSubscribersCache(
         item,
         fn,
         this.#callbackCache,
@@ -9160,7 +9157,7 @@
      */
     subscribe(cb = () => {
     }) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callback
       );
@@ -9176,7 +9173,7 @@
      *  A typical example is to remove the teansform3D property:
      */
     onStop(cb) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callbackOnStop
       );
@@ -9191,7 +9188,7 @@
      */
     subscribeCache(item, fn = () => {
     }) {
-      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
+      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = updateSubscribersCache(
         item,
         fn,
         this.#callbackCache,
@@ -9318,11 +9315,11 @@
      */
     #isActive;
     /**
-     * @type{(value:any) => void|null}
+     * @type{(value:any) => void|undefined}
      */
     #currentResolve;
     /**
-     * @type{(value:any) => void|null}
+     * @type{(value:any) => void|undefined}
      */
     #currentReject;
     /**
@@ -9350,7 +9347,7 @@
      */
     #callbackOnComplete;
     /**
-     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]}
+     * @type {{ cb: () => boolean }[]}
      */
     #callbackStartInPause;
     /**
@@ -9470,7 +9467,7 @@
       };
       this.#slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
       this.#fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
-      const props = data2?.data || null;
+      const props = data2?.data;
       if (props) this.setData(props);
     }
     /**
@@ -9817,6 +9814,7 @@
         });
       }
       if (this.#promise) return this.#promise;
+      return Promise.resolve();
     }
     /**
      * @description
@@ -9992,7 +9990,7 @@
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
     subscribe(cb) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callback
       );
@@ -10000,21 +9998,34 @@
       return () => this.#callback = unsubscribeCb(this.#callback);
     }
     /**
+     * @type {import('./type.js').springSubscribeCache}
+     *
+     * @description
+     * Callback that returns updated values ready to be usable, specific to manage large staggers.
+     */
+    subscribeCache(item, fn) {
+      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = updateSubscribersCache(
+        item,
+        fn,
+        this.#callbackCache,
+        this.#unsubscribeCache
+      );
+      this.#callbackCache = arrayOfCallbackUpdated;
+      this.#unsubscribeCache = unsubscribeCache;
+      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
+    }
+    /**
      * Support callback to asyncTimeline.
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {() => void} cb cal function
+     * @param  {() => boolean} cb cal function
      * @return {() => void} unsubscribe callback
      *
      */
     onStartInPause(cb) {
-      const { arrayOfCallbackUpdated } = setCallBack(
-        cb,
-        this.#callbackStartInPause
-      );
-      this.#callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
-      arrayOfCallbackUpdated;
+      const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
+      this.#callbackStartInPause = arrayOfCallbackUpdated;
       return () => this.#callbackStartInPause = [];
     }
     /**
@@ -10027,7 +10038,7 @@
      *  A typical example is to remove the teansform3D property:
      **/
     onComplete(cb) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callbackOnComplete
       );
@@ -10035,23 +10046,6 @@
       return () => this.#callbackOnComplete = unsubscribeCb(
         this.#callbackOnComplete
       );
-    }
-    /**
-     * @type {import('./type.js').springSubscribeCache}
-     *
-     * @description
-     * Callback that returns updated values ready to be usable, specific to manage large staggers.
-     */
-    subscribeCache(item, fn) {
-      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
-        item,
-        fn,
-        this.#callbackCache,
-        this.#unsubscribeCache
-      );
-      this.#callbackCache = arrayOfCallbackUpdated;
-      this.#unsubscribeCache = unsubscribeCache;
-      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
     }
     /**
      * @description
@@ -10125,7 +10119,7 @@
      */
     #isActive;
     /**
-     * @type{(value:any) => void|null}
+     * @type{(value:any) => void|undefined}
      */
     #currentReject;
     /**
@@ -10153,7 +10147,7 @@
      */
     #callbackOnComplete;
     /**
-     * @type {import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]}
+     * @type {{ cb: () => boolean }[]}
      */
     #callbackStartInPause;
     /**
@@ -10291,7 +10285,7 @@
       };
       this.#slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
       this.#fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
-      const props = data2?.data || null;
+      const props = data2?.data;
       if (props) this.setData(props);
     }
     /**
@@ -10632,6 +10626,7 @@
         });
       }
       if (this.#promise) return this.#promise;
+      return Promise.resolve();
     }
     /**
      * @description
@@ -10781,7 +10776,7 @@
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
     subscribe(cb) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callback
       );
@@ -10789,21 +10784,34 @@
       return () => this.#callback = unsubscribeCb(this.#callback);
     }
     /**
+     * @type {import('./type.js').tweenSubscribeCache}
+     *
+     * @description
+     * Callback that returns updated values ready to be usable, specific to manage large staggers.
+     */
+    subscribeCache(item, fn) {
+      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = updateSubscribersCache(
+        item,
+        fn,
+        this.#callbackCache,
+        this.#unsubscribeCache
+      );
+      this.#callbackCache = arrayOfCallbackUpdated;
+      this.#unsubscribeCache = unsubscribeCache;
+      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
+    }
+    /**
      * Support callback to asyncTimeline.
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {() => void} cb cal function
+     * @param  {() => boolean} cb cal function
      * @return {() => void} unsubscribe callback
      *
      */
     onStartInPause(cb) {
-      const { arrayOfCallbackUpdated } = setCallBack(
-        cb,
-        this.#callbackStartInPause
-      );
-      this.#callbackStartInPause = /** @type{import('../utils/callbacks/type.js').callbackObject<(arg0:any) => boolean>[]} */
-      arrayOfCallbackUpdated;
+      const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
+      this.#callbackStartInPause = arrayOfCallbackUpdated;
       return () => this.#callbackStartInPause = [];
     }
     /**
@@ -10816,7 +10824,7 @@
      *  A typical example is to remove the teansform3D property:
      **/
     onComplete(cb) {
-      const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+      const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
         cb,
         this.#callbackOnComplete
       );
@@ -10824,23 +10832,6 @@
       return () => this.#callbackOnComplete = unsubscribeCb(
         this.#callbackOnComplete
       );
-    }
-    /**
-     * @type {import('./type.js').tweenSubscribeCache}
-     *
-     * @description
-     * Callback that returns updated values ready to be usable, specific to manage large staggers.
-     */
-    subscribeCache(item, fn) {
-      const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } = setCallBackCache(
-        item,
-        fn,
-        this.#callbackCache,
-        this.#unsubscribeCache
-      );
-      this.#callbackCache = arrayOfCallbackUpdated;
-      this.#unsubscribeCache = unsubscribeCache;
-      return () => this.#callbackCache = unsubscribeCb(this.#callbackCache);
     }
     /**
      * @description
@@ -11543,11 +11534,11 @@
      */
     #callbackComplete;
     /**
-     * @type{(value:any) => void|null}
+     * @type{(value:any) => void|undefined}
      */
     #currentResolve;
     /**
-     * @type{(value:any) => void|null}
+     * @type{(value:any) => void|undefined}
      */
     #currentReject;
     /**
