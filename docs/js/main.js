@@ -103,9 +103,9 @@
          * @param {Tree} parseTree - the parse tree (must support `walk` API)
          * @param {{classPrefix: string}} options
          */
-        constructor(parseTree, options2) {
+        constructor(parseTree, options) {
           this.buffer = "";
-          this.classPrefix = options2.classPrefix;
+          this.classPrefix = options.classPrefix;
           parseTree.walk(this);
         }
         /**
@@ -228,9 +228,9 @@
         /**
          * @param {*} options
          */
-        constructor(options2) {
+        constructor(options) {
           super();
-          this.options = options2;
+          this.options = options;
         }
         /**
          * @param {string} text
@@ -932,7 +932,7 @@
         let SAFE_MODE = true;
         const LANGUAGE_NOT_FOUND = "Could not find the language '{}', did you forget to load/include a language module?";
         const PLAINTEXT_LANGUAGE = { disableAutodetect: true, name: "Plain text", contains: [] };
-        let options2 = {
+        let options = {
           ignoreUnescapedHTML: false,
           throwUnescapedHTML: false,
           noHighlightRe: /^(no-?highlight)$/i,
@@ -945,12 +945,12 @@
           __emitter: TokenTreeEmitter
         };
         function shouldNotHighlight(languageName) {
-          return options2.noHighlightRe.test(languageName);
+          return options.noHighlightRe.test(languageName);
         }
         function blockLanguage(block) {
           let classes = block.className + " ";
           classes += block.parentNode ? block.parentNode.className : "";
-          const match = options2.languageDetectRe.exec(classes);
+          const match = options.languageDetectRe.exec(classes);
           if (match) {
             const language = getLanguage(match[1]);
             if (!language) {
@@ -1245,7 +1245,7 @@
           let result = "";
           let top = continuation || md;
           const continuations = {};
-          const emitter = new options2.__emitter(options2);
+          const emitter = new options.__emitter(options);
           processContinuations();
           let modeBuffer = "";
           let relevance = 0;
@@ -1320,13 +1320,13 @@
             illegal: false,
             relevance: 0,
             _top: PLAINTEXT_LANGUAGE,
-            _emitter: new options2.__emitter(options2)
+            _emitter: new options.__emitter(options)
           };
           result._emitter.addText(code);
           return result;
         }
         function highlightAuto(code, languageSubset) {
-          languageSubset = languageSubset || options2.languages || Object.keys(languages);
+          languageSubset = languageSubset || options.languages || Object.keys(languages);
           const plaintext = justTextHighlightResult(code);
           const results = languageSubset.filter(getLanguage).filter(autoDetection).map(
             (name) => _highlight(name, code, false)
@@ -1366,13 +1366,13 @@
             return;
           }
           if (element.children.length > 0) {
-            if (!options2.ignoreUnescapedHTML) {
+            if (!options.ignoreUnescapedHTML) {
               console.warn("One of your code blocks includes unescaped HTML. This is a potentially serious security risk.");
               console.warn("https://github.com/highlightjs/highlight.js/wiki/security");
               console.warn("The element with unescaped HTML:");
               console.warn(element);
             }
-            if (options2.throwUnescapedHTML) {
+            if (options.throwUnescapedHTML) {
               const err = new HTMLInjectionError(
                 "One of your code blocks includes unescaped HTML.",
                 element.innerHTML
@@ -1401,7 +1401,7 @@
           fire4("after:highlightElement", { el: element, result, text });
         }
         function configure(userOptions) {
-          options2 = inherit(options2, userOptions);
+          options = inherit(options, userOptions);
         }
         const initHighlighting = () => {
           highlightAll();
@@ -1417,7 +1417,7 @@
             wantsHighlight = true;
             return;
           }
-          const blocks = document.querySelectorAll(options2.cssSelector);
+          const blocks = document.querySelectorAll(options.cssSelector);
           blocks.forEach(highlightElement);
         }
         function boot() {
@@ -1649,6 +1649,32 @@
   var getUnivoqueId = () => {
     return `_${Math.random().toString(36).slice(2, 9)}`;
   };
+  function isVisibleInViewport(element) {
+    const elementStyle = globalThis.getComputedStyle(element);
+    if (elementStyle.height == "0px" || elementStyle.display == "none" || elementStyle.opacity == "0" || elementStyle.visibility == "hidden" || elementStyle.clipPath == "circle(0px at 50% 50%)" || elementStyle.transform == "scale(0)" || element.hasAttribute("hidden")) {
+      return false;
+    }
+    const rect = element.getBoundingClientRect();
+    const baseElementLeft = rect.left;
+    const baseElementTop = rect.top;
+    const elementFromStartingPoint = document.elementFromPoint(
+      baseElementLeft,
+      baseElementTop
+    );
+    if (elementFromStartingPoint !== null && !element.isSameNode(elementFromStartingPoint)) {
+      const elementZIndex = elementStyle.zIndex;
+      const elementOverlappingZIndex = globalThis.getComputedStyle(
+        elementFromStartingPoint
+      ).zIndex;
+      if (Number(elementZIndex) < Number(elementOverlappingZIndex)) {
+        return false;
+      }
+      if (elementZIndex === "" && elementOverlappingZIndex === "" && element.compareDocumentPosition(elementFromStartingPoint) & Node.DOCUMENT_POSITION_FOLLOWING) {
+        return false;
+      }
+    }
+    return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+  }
 
   // src/js/mobCore/utils/nextTick.js
   var useNextLoop = (fn) => {
@@ -2370,11 +2396,13 @@
   var fireComputed = (instanceId) => {
     const state = getStateFromMainMap(instanceId);
     const { lastestPropsChanged, callBackComputed, store } = state;
-    const computedFiltered = [...callBackComputed].filter(({ keys }) => {
-      return [...lastestPropsChanged].find((current) => {
-        return keys.includes(current);
-      });
-    });
+    const computedFiltered = [...callBackComputed ?? []].filter(
+      ({ keys }) => {
+        return [...lastestPropsChanged].find((current) => {
+          return keys.includes(current);
+        });
+      }
+    );
     computedFiltered.forEach(({ prop, keys, fn }) => {
       const valuesToObject = keys.map((item) => {
         return { [item]: store[item] };
@@ -21841,56 +21869,31 @@ Loading snippet ...</pre
     }
   });
 
-  // src/js/component/common/scrollTo/scrollToStore.js
-  var anchorStore = mobCore.createStore({
-    items: () => ({
-      value: [],
-      type: Array
-    }),
-    computedItems: () => ({
-      value: [],
-      type: Array
-    }),
-    activeLabelFromObeserver: () => ({
-      value: "",
-      type: String
-    })
-  });
-  anchorStore.computed("computedItems", ["items"], ({ items }) => {
-    return items;
-  });
-  mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
-    anchorStore.set("items", []);
-  });
-
   // src/js/component/common/spacerAnchor/spacerAnchor.js
-  function hasAnchor({ id }) {
-    return id && id.length > 0;
+  function hasAnchor({ label }) {
+    return label?.length > 0;
   }
-  var options = {
-    root: null,
-    rootMargin: "0% 0% -100% 0%",
-    threshold: 0.5
+  var addItemToScrollComponent = async ({ id, label, element }) => {
+    await tick();
+    useMethodByName("scrollTo")?.addItem({ id, label, element });
+    if (isVisibleInViewport(element)) {
+      useMethodByName("scrollTo")?.setActiveLabel(label);
+    }
   };
   var SpacerAnchorFn = ({ html, getState, onMount }) => {
     const { style, line, id, label } = getState();
     const lineClass = line ? "spacer--line" : "";
     onMount(({ element }) => {
-      const shouldAddToAnchor = hasAnchor({ id });
+      const shouldAddToAnchor = hasAnchor({ label });
       if (!shouldAddToAnchor) return;
-      anchorStore.update("items", (val2) => {
-        return [...val2, { id, label, element }];
+      addItemToScrollComponent({ id, label, element });
+      const unsubScribeScroll = mobCore.useScrollThrottle(() => {
+        if (isVisibleInViewport(element)) {
+          useMethodByName("scrollTo")?.setActiveLabel?.(label);
+        }
       });
-      const observer = new IntersectionObserver((entries) => {
-        entries.map((entry) => {
-          if (entry.isIntersecting) {
-            anchorStore.set("activeLabelFromObeserver", label);
-          }
-        });
-      });
-      observer.observe(element, options);
       return () => {
-        observer.unobserve(element);
+        unsubScribeScroll();
       };
     });
     return html`<div id="${id}" class="spacer spacer--${style} ${lineClass}">
@@ -25702,7 +25705,7 @@ Loading snippet ...</pre
   // src/js/component/common/scrollTo/scrollTo.js
   var disableObservereffect = false;
   function getButtons({ delegateEvents, setState, bindProps, getState }) {
-    const { anchorItems } = getState();
+    const anchorItems = getState?.()?.anchorItems ?? [];
     return anchorItems.map((item) => {
       return renderHtml`
                 <li>
@@ -25741,28 +25744,31 @@ Loading snippet ...</pre
     setState,
     getState,
     invalidate,
-    setRef
+    setRef,
+    computed,
+    addMethod,
+    updateState
   }) => {
     onMount(() => {
       if (motionCore.mq("max", "large")) return;
-      const unWatchStoreComputed = anchorStore.watch(
-        "computedItems",
-        async (val2) => {
-          setState("anchorItems", val2.reverse());
-          await tick();
-          console.log("resolve sctollto tick");
-        }
-      );
-      const unWatchStoreActive = anchorStore.watch(
-        "activeLabelFromObeserver",
-        (label) => {
-          if (disableObservereffect) return;
-          setState("activeLabel", label);
+      addMethod("addItem", ({ id, label, element }) => {
+        updateState("anchorItemsToBeComputed", (val2) => {
+          return [...val2, { id, label, element }];
+        });
+      });
+      addMethod("setActiveLabel", (label) => {
+        if (disableObservereffect) return;
+        setState("activeLabel", label);
+      });
+      computed(
+        "anchorItems",
+        ["anchorItemsToBeComputed"],
+        ({ anchorItemsToBeComputed }) => {
+          return anchorItemsToBeComputed.reverse();
         }
       );
       return () => {
-        unWatchStoreComputed();
-        unWatchStoreActive();
+        setState("anchorItems", []);
       };
     });
     return html`
@@ -25793,6 +25799,10 @@ Loading snippet ...</pre
       activeLabel: () => ({
         value: "",
         type: String
+      }),
+      anchorItemsToBeComputed: () => ({
+        value: [],
+        type: Array
       }),
       anchorItems: () => ({
         value: [],
@@ -25830,7 +25840,7 @@ Loading snippet ...</pre
     })}${title}
                 </div></doc-title-small
             >
-            <scroll-to slot="section-links"></scroll-to>
+            <scroll-to name="scrollTo" slot="section-links"></scroll-to>
             <doc-title slot="section-title">${title}</doc-title>
         </div>
     </doc-container>`;
@@ -28316,7 +28326,7 @@ Loading snippet ...</pre
     })}
         ></html-content>
         <doc-title-small slot="section-title-small">Canvas </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
+        <scroll-to name="scrollTo" slot="section-links"></scroll-to>
         <doc-title slot="section-title">Canvas</doc-title>
     </doc-container>`;
   };

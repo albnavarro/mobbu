@@ -8,10 +8,9 @@
  */
 
 import { offset } from '../../../mobCore/utils';
-import { html, tick } from '../../../mobjs';
+import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
-import { anchorStore } from './scrollToStore';
 
 let disableObservereffect = false;
 
@@ -24,7 +23,11 @@ let disableObservereffect = false;
  * @returns {string}
  */
 function getButtons({ delegateEvents, setState, bindProps, getState }) {
-    const { anchorItems } = getState();
+    /**
+     * Component can be destroyed on chenage route.
+     * GetState can firef after component destroy because computed will fired next loop.
+     */
+    const anchorItems = getState?.()?.anchorItems ?? [];
 
     return anchorItems
         .map((item) => {
@@ -82,32 +85,38 @@ export const ScrollToFn = ({
     getState,
     invalidate,
     setRef,
+    computed,
+    addMethod,
+    updateState,
 }) => {
     onMount(() => {
         if (motionCore.mq('max', 'large')) return;
 
-        const unWatchStoreComputed = anchorStore.watch(
-            'computedItems',
-            async (val) => {
-                setState('anchorItems', val.reverse());
-                await tick();
+        addMethod('addItem', ({ id, label, element }) => {
+            updateState('anchorItemsToBeComputed', (val) => {
+                return [...val, { id, label, element }];
+            });
+        });
 
-                console.log('resolve sctollto tick');
-            }
-        );
+        addMethod('setActiveLabel', (label) => {
+            if (disableObservereffect) return;
+            setState('activeLabel', label);
+        });
 
-        const unWatchStoreActive = anchorStore.watch(
-            'activeLabelFromObeserver',
-            (label) => {
-                if (disableObservereffect) return;
-
-                setState('activeLabel', label);
+        /**
+         * SpacerAnchor add label in different time during render.
+         * Use computed to get last array of label completed.
+         */
+        computed(
+            'anchorItems',
+            ['anchorItemsToBeComputed'],
+            ({ anchorItemsToBeComputed }) => {
+                return anchorItemsToBeComputed.reverse();
             }
         );
 
         return () => {
-            unWatchStoreComputed();
-            unWatchStoreActive();
+            setState('anchorItems', []);
         };
     });
 

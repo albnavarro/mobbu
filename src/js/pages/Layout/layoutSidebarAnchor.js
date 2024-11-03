@@ -37,7 +37,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
                     })}${title}
                 </div></doc-title-small
             >
-            <scroll-to slot="section-links"></scroll-to>
+            <scroll-to name="scrollTo" slot="section-links"></scroll-to>
             <doc-title slot="section-title">${title}</doc-title>
         </div>
     </doc-container>`;

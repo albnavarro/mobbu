@@ -519,11 +519,13 @@ const fireComputed = (instanceId) => {
     /**
      * Filter computed callback that has some prop changed as dependencies.
      */
-    const computedFiltered = [...callBackComputed].filter(({ keys }) => {
-        return [...lastestPropsChanged].find((current) => {
-            return keys.includes(current);
-        });
-    });
+    const computedFiltered = [...(callBackComputed ?? [])].filter(
+        ({ keys }) => {
+            return [...lastestPropsChanged].find((current) => {
+                return keys.includes(current);
+            });
+        }
+    );
 
     /**
      * Loop and fire computed with changed value

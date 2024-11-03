@@ -37,7 +37,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "caterpillar",
+                "label": "caterpillar"
             }
         },
         {
@@ -62,7 +64,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "animatedPattern",
+                "label": "animated pattern"
             }
         },
         {
@@ -88,7 +92,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "interactiveAnimatedPattern",
+                "label": "interactive animated pattern"
             }
         },
         {
@@ -111,7 +117,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "scrollPattern",
+                "label": "scroll pattern"
             }
         },
         {
@@ -138,7 +146,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "scrollShape",
+                "label": "scroll Shape"
             }
         },
         {

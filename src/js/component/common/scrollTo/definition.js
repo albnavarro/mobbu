@@ -13,6 +13,10 @@ export const ScrollTo = createComponent({
             value: '',
             type: String,
         }),
+        anchorItemsToBeComputed: () => ({
+            value: [],
+            type: Array,
+        }),
         anchorItems: () => ({
             value: [],
             type: Array,

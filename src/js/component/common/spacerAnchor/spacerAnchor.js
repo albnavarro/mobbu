@@ -5,16 +5,33 @@
  * @import { SpacerAnchor } from './type';
  **/
 
-import { anchorStore } from '../scrollTo/scrollToStore';
+import { mobCore } from '../../../mobCore';
+import { isVisibleInViewport } from '../../../mobCore/utils';
+import { tick, useMethodByName } from '../../../mobjs';
 
-function hasAnchor({ id }) {
-    return id && id.length > 0;
+/**
+ * @param {object} params
+ * @param {string} params.label
+ * @return {boolean}
+ */
+function hasAnchor({ label }) {
+    return label?.length > 0;
 }
 
-const options = {
-    root: null,
-    rootMargin: '0% 0% -100% 0%',
-    threshold: 0.5,
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {string} params.label
+ * @param {HTMLElement} params.element
+ * @return void
+ */
+const addItemToScrollComponent = async ({ id, label, element }) => {
+    await tick();
+    useMethodByName('scrollTo')?.addItem({ id, label, element });
+
+    if (isVisibleInViewport(element)) {
+        useMethodByName('scrollTo')?.setActiveLabel(label);
+    }
 };
 
 /** @type {MobComponent<SpacerAnchor>} */
@@ -23,26 +40,19 @@ export const SpacerAnchorFn = ({ html, getState, onMount }) => {
     const lineClass = line ? 'spacer--line' : '';
 
     onMount(({ element }) => {
-        const shouldAddToAnchor = hasAnchor({ id });
+        const shouldAddToAnchor = hasAnchor({ label });
         if (!shouldAddToAnchor) return;
 
-        anchorStore.update('items', (val) => {
-            return [...val, { id, label, element }];
-        });
+        addItemToScrollComponent({ id, label, element });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.map((entry) => {
-                if (entry.isIntersecting) {
-                    anchorStore.set('activeLabelFromObeserver', label);
-                }
-            });
+        const unsubScribeScroll = mobCore.useScrollThrottle(() => {
+            if (isVisibleInViewport(element)) {
+                useMethodByName('scrollTo')?.setActiveLabel?.(label);
+            }
         });
-
-        // @ts-ignore
-        observer.observe(element, options);
 
         return () => {
-            observer.unobserve(element);
+            unsubScribeScroll();
         };
     });
 
