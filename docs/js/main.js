@@ -16756,10 +16756,7 @@
       return instanceName === name;
     });
     const id = instance?.id;
-    if (!id) {
-      console.warn(`getIdByName failed no name`);
-      return;
-    }
+    if (!id) return;
     return id;
   };
 
@@ -25764,7 +25761,16 @@ Loading snippet ...</pre
         "anchorItems",
         ["anchorItemsToBeComputed"],
         ({ anchorItemsToBeComputed }) => {
-          return anchorItemsToBeComputed.reverse();
+          return anchorItemsToBeComputed.sort(function(a, b) {
+            const { element: elementA } = a;
+            const { element: elementB } = b;
+            if (elementA === elementB || !elementA || !elementB)
+              return 0;
+            if (elementA.compareDocumentPosition(elementB) & 2) {
+              return 1;
+            }
+            return -1;
+          });
         }
       );
     });

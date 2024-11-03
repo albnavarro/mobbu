@@ -57,10 +57,7 @@ export const getIdByInstanceName = (name = '') => {
     });
 
     const id = instance?.id;
-    if (!id) {
-        console.warn(`getIdByName failed no name`);
-        return;
-    }
+    if (!id) return;
 
     return id;
 };
