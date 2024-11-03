@@ -242,14 +242,12 @@ export default class ParallaxTween {
     }
 
     /**
-     * @private
-     *
      * Return the new array maeged with main array created in setData
      *
      * @param  {import('../utils/tweenAction/type.js').goToParamsType[]} newData new datato merge
      * @return {void}
      */
-    mergeData(newData) {
+    #mergeData(newData) {
         this.#values = this.#values.map((item) => {
             const itemToMerge = newData.find((newItem) => {
                 return newItem.prop === item.prop;
@@ -270,7 +268,7 @@ export default class ParallaxTween {
      */
     goTo(obj) {
         const data = goToUtils(obj);
-        this.mergeData(data);
+        this.#mergeData(data);
         return this;
     }
 

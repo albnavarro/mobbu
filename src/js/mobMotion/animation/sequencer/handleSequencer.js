@@ -269,7 +269,7 @@ export default class HandleSequencer {
         direction = directionConstant.NONE,
     }) {
         if (useFrame) {
-            this.onDraw({
+            this.#onDraw({
                 partial,
                 isLastDraw,
                 direction,
@@ -278,7 +278,7 @@ export default class HandleSequencer {
         }
 
         mobCore.useNextTick(() =>
-            this.onDraw({
+            this.#onDraw({
                 partial,
                 isLastDraw,
                 direction,
@@ -287,15 +287,13 @@ export default class HandleSequencer {
     }
 
     /**
-     * @private
-     *
      * @param {object} obj
      * @param {number} obj.partial
      * @param {boolean} obj.isLastDraw
      * @param {import('../utils/timeline/type.js').directionType} obj.direction
      *
      */
-    onDraw({
+    #onDraw({
         partial = 0,
         isLastDraw = false,
         direction = directionConstant.NONE,
@@ -306,7 +304,7 @@ export default class HandleSequencer {
          */
         if (this.#firstRun) {
             this.#lastPartial = partial;
-            this.actionAtFirstRender(partial);
+            this.#actionAtFirstRender(partial);
         }
 
         /**
@@ -366,7 +364,7 @@ export default class HandleSequencer {
             callbackOnStop: this.#callbackOnStop,
         });
 
-        this.fireAddCallBack(partial);
+        this.#fireAddCallBack(partial);
 
         this.#useStagger = true;
         this.#lastPartial = partial;
@@ -384,8 +382,6 @@ export default class HandleSequencer {
     }
 
     /**
-     * @private
-     *
      * @property {number} [ time=0 ]
      *
      * @description
@@ -394,7 +390,7 @@ export default class HandleSequencer {
      * So we fire the callback once
      * To skip this callback, check isForce prop in callback
      */
-    actionAtFirstRender(time = 0) {
+    #actionAtFirstRender(time = 0) {
         if (!this.#forceAddFnAtFirstRun) return;
 
         this.#callbackAdd.forEach(({ fn, time: fnTime }) => {
@@ -424,15 +420,13 @@ export default class HandleSequencer {
     }
 
     /**
-     * @private
-     *
      * @property {number} [ time=0 ]
      *
      * @description
      * Fire callBack at specific time
      *
      */
-    fireAddCallBack(time = 0) {
+    #fireAddCallBack(time = 0) {
         this.#callbackAdd.forEach(({ fn, time: fnTime }) => {
             /*
              * In forward mode current time must be greater or equal than fn time

@@ -361,7 +361,7 @@ export class ParallaxPin {
         this.#end = this.#getEnd();
         this.#prevscrollY = window.scrollY;
         this.#scrollerHeight = data?.scrollerHeight;
-        this.refreshCollisionPoint();
+        this.#refreshCollisionPoint();
 
         this.#collisionStyleProp =
             this.#direction === parallaxConstant.DIRECTION_VERTICAL
@@ -370,10 +370,10 @@ export class ParallaxPin {
         this.#isInizialized = true;
         this.#firstTime = true;
 
-        this.createPin();
-        this.addStyleFromPinToWrapper();
-        this.setPinSize();
-        this.setUpMotion();
+        this.#createPin();
+        this.#addStyleFromPinToWrapper();
+        this.#setPinSize();
+        this.#setUpMotion();
 
         /**
          * Update pix top position when use custom screen ad scroll outside on window
@@ -399,7 +399,7 @@ export class ParallaxPin {
                 this.#screen !== document.documentElement
             ) {
                 if (this.#direction === parallaxConstant.DIRECTION_VERTICAL) {
-                    this.refreshCollisionPoint();
+                    this.#refreshCollisionPoint();
                 }
 
                 const gap = scrollY - this.#prevscrollY;
@@ -426,7 +426,7 @@ export class ParallaxPin {
         });
     }
 
-    setUpMotion() {
+    #setUpMotion() {
         this.#spring = new HandleSpring({
             data: { collision: 0, verticalGap: 0 },
             config: 'wobbly',
@@ -451,12 +451,12 @@ export class ParallaxPin {
         );
     }
 
-    resetSpring() {
+    #resetSpring() {
         if (this.#pin)
             this.#spring.set({ collision: 0, verticalGap: 0 }).catch(() => {});
     }
 
-    createPin() {
+    #createPin() {
         if (!this.#item) this.#item = document.createElement('div');
 
         /**
@@ -488,12 +488,12 @@ export class ParallaxPin {
         /**
          * Get style from parent and add to pin, es text-align
          */
-        const requiredStyleToadd = this.addRquiredStyle();
+        const requiredStyleToadd = this.#addRquiredStyle();
 
         /**
          * Get style from iem and add to pin, es z-index
          */
-        const pinStyleFromItem = this.addPinStyleFromItem();
+        const pinStyleFromItem = this.#addPinStyleFromItem();
 
         const markerWrapperStyle = getMarkerWrapperStyle({
             marker: this.#marker,
@@ -517,10 +517,10 @@ export class ParallaxPin {
             });
         });
 
-        this.checkIfShouldTranspond();
+        this.#checkIfShouldTranspond();
     }
 
-    setPinSize() {
+    #setPinSize() {
         /*
         Firse time ww don't use raf to apply basic
         misureimmediatly on component creation
@@ -540,7 +540,7 @@ export class ParallaxPin {
      * @description
      * Get style from item and apply to wrapper ( es: flex)
      */
-    addStyleFromPinToWrapper() {
+    #addStyleFromPinToWrapper() {
         if (!this.#item) return;
 
         // eslint-disable-next-line unicorn/prefer-global-this
@@ -561,7 +561,7 @@ export class ParallaxPin {
      *
      * @returns {object|undefined}
      */
-    findStyle(target, rule) {
+    #findStyle(target, rule) {
         let node = target.parentNode;
         if (!node) return;
 
@@ -581,13 +581,13 @@ export class ParallaxPin {
     /**
      * @returns {object}
      */
-    addRquiredStyle() {
+    #addRquiredStyle() {
         if (!this.#pin) return {};
 
         return this.#parentRequireStyle
             .map((item) => {
                 // @ts-ignore
-                return this.findStyle(this.#pin, item);
+                return this.#findStyle(this.#pin, item);
             })
             .filter((item) => item !== null)
             .reduce((p, c) => {
@@ -598,7 +598,7 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    checkIfShouldTranspond() {
+    #checkIfShouldTranspond() {
         if (this.#forceTranspond) {
             this.#shoulTranspond = true;
             return;
@@ -607,7 +607,7 @@ export class ParallaxPin {
         this.#shoulTranspond = this.#styleToTranspond
             .map((item) => {
                 // @ts-ignore
-                const style = this.findStyle(this.#wrapper, item);
+                const style = this.#findStyle(this.#wrapper, item);
                 if (!style) return false;
 
                 const [key] = Object.keys(style);
@@ -627,7 +627,7 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    updateStartEndValue() {
+    #updateStartEndValue() {
         this.#start = this.#getStart();
         this.#end = this.#getEnd();
     }
@@ -635,11 +635,11 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    refreshCollisionPoint() {
+    #refreshCollisionPoint() {
         /**
          * Align start && end value to paralllax current values
          */
-        this.updateStartEndValue();
+        this.#updateStartEndValue();
 
         /**
          * Update start position when use custom screen ad scroll outside on window
@@ -695,7 +695,7 @@ export class ParallaxPin {
     /**
      * @returns {number}
      */
-    getGap() {
+    #getGap() {
         if (!this.#wrapper) return 0;
 
         return this.#direction === parallaxConstant.DIRECTION_VERTICAL
@@ -706,26 +706,26 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    animateCollision() {
-        const gap = this.getGap();
-        this.tween(gap);
+    #animateCollision() {
+        const gap = this.#getGap();
+        this.#tween(gap);
     }
 
     /**
      * @returns {void}
      */
-    animateCollisionBack() {
+    #animateCollisionBack() {
         const gap = this.#invertSide
-            ? this.getGap() - this.#end
-            : this.getGap() + this.#end;
+            ? this.#getGap() - this.#end
+            : this.#getGap() + this.#end;
 
-        this.tween(gap);
+        this.#tween(gap);
     }
 
     /**
      * @param {number} gap
      */
-    tween(gap) {
+    #tween(gap) {
         mobCore.useFrame(() => {
             if (!this.#pin || !this.#collisionStyleProp) return;
 
@@ -737,7 +737,7 @@ export class ParallaxPin {
             this.#spring
                 .goFrom({ collision: gap })
                 .then(() => {
-                    this.resetPinTransform();
+                    this.#resetPinTransform();
                 })
                 .catch(() => {});
         }
@@ -746,7 +746,7 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    resetPinTransform() {
+    #resetPinTransform() {
         mobCore.useFrame(() => {
             if (!this.#pin) return;
 
@@ -757,8 +757,8 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    resetStyleWhenUnder() {
-        this.resetSpring();
+    #resetStyleWhenUnder() {
+        this.#resetSpring();
 
         mobCore.useFrame(() => {
             if (!this.#pin) return;
@@ -773,8 +773,8 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    resetStyleWhenOver() {
-        this.resetSpring();
+    #resetStyleWhenOver() {
+        this.#resetSpring();
 
         mobCore.useFrame(() => {
             if (!this.#pin) return;
@@ -795,7 +795,7 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    setFixedPosition() {
+    #setFixedPosition() {
         if (!this.#pin) return;
 
         const left =
@@ -827,7 +827,7 @@ export class ParallaxPin {
     /**
      * @returns {object}
      */
-    addPinStyleFromItem() {
+    #addPinStyleFromItem() {
         if (!this.#item) return {};
 
         // eslint-disable-next-line unicorn/prefer-global-this
@@ -840,7 +840,7 @@ export class ParallaxPin {
     /**
      * @returns {object}
      */
-    addStyleToItem() {
+    #addStyleToItem() {
         if (!this.#item) return {};
 
         // eslint-disable-next-line unicorn/prefer-global-this
@@ -853,7 +853,7 @@ export class ParallaxPin {
     /**
      * @returns {object}
      */
-    removeStyleToItem() {
+    #removeStyleToItem() {
         return this.#itemRequireStyleWhenTraspond.reduce((p, c) => {
             return { ...p, [c]: '' };
         }, {});
@@ -862,14 +862,14 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    activateTrasponder() {
+    #activateTrasponder() {
         if (this.#shoulTranspond) {
             /**
              * Interrogato DOM before rendering, avoid recalculation sryle inside RAF
              */
-            const requiredStyleToAdd = this.addRquiredStyle();
-            const pinStyleFromItem = this.addPinStyleFromItem();
-            const styleToAdd = this.addStyleToItem();
+            const requiredStyleToAdd = this.#addRquiredStyle();
+            const pinStyleFromItem = this.#addPinStyleFromItem();
+            const styleToAdd = this.#addStyleToItem();
 
             mobCore.useFrame(() => {
                 if (!this.#pin) return;
@@ -889,14 +889,14 @@ export class ParallaxPin {
     /**
      * @returns {void}
      */
-    deactivateTrasponder() {
+    #deactivateTrasponder() {
         if (!this.#shoulTranspond || !this.#item || !this.#wrapper) return;
 
         mobCore.useFrame(() => {
             if (!this.#pin) return;
 
             // @ts-ignore
-            Object.assign(this.#item.style, this.removeStyleToItem());
+            Object.assign(this.#item.style, this.#removeStyleToItem());
             this.#wrapper?.append(this.#pin);
         });
     }
@@ -906,7 +906,7 @@ export class ParallaxPin {
      *
      * @returns {number}
      */
-    getAnticipate(scrollTop) {
+    #getAnticipate(scrollTop) {
         /**
          * If come just after pin use the last step to avoid glitch
          * If item is pinned too soon
@@ -942,7 +942,7 @@ export class ParallaxPin {
      *
      * @returns {{anticipateBottom:number,anticipateInnerIn:number,anticipateInnerOut:number}}
      */
-    getAnticipateValue(scrollTop, scrollDirection) {
+    #getAnticipateValue(scrollTop, scrollDirection) {
         if (
             (this.#animatePin && !this.#firstTime) ||
             (this.#firstTime && !this.#anticipatePinOnLoad)
@@ -954,7 +954,7 @@ export class ParallaxPin {
             };
         }
 
-        const anticipate = this.getAnticipate(scrollTop);
+        const anticipate = this.#getAnticipate(scrollTop);
         const anticipateBottom =
             scrollDirection === parallaxConstant.SCROLL_UP ? 0 : anticipate;
         const anticipateInnerIn =
@@ -975,7 +975,7 @@ export class ParallaxPin {
      *
      * @returns {{anticipateBottom:number,anticipateInnerIn:number,anticipateInnerOut:number}}
      */
-    getAnticipateValueInverted(scrollTop, scrollDirection) {
+    #getAnticipateValueInverted(scrollTop, scrollDirection) {
         if (
             (this.#animatePin && !this.#firstTime) ||
             (this.#firstTime && !this.#anticipatePinOnLoad)
@@ -987,7 +987,7 @@ export class ParallaxPin {
             };
         }
 
-        const anticipate = this.getAnticipate(scrollTop);
+        const anticipate = this.#getAnticipate(scrollTop);
         const anticipateBottom =
             scrollDirection === parallaxConstant.SCROLL_UP ? anticipate : 0;
         const anticipateInnerIn =
@@ -1041,8 +1041,8 @@ export class ParallaxPin {
          */
         const { anticipateBottom, anticipateInnerIn, anticipateInnerOut } = this
             .#invertSide
-            ? this.getAnticipateValueInverted(scrollTop, scrollDirection)
-            : this.getAnticipateValue(scrollTop, scrollDirection);
+            ? this.#getAnticipateValueInverted(scrollTop, scrollDirection)
+            : this.#getAnticipateValue(scrollTop, scrollDirection);
 
         const bottomCondition = this.#invertSide
             ? offsetTop < this.#start - anticipateBottom
@@ -1061,8 +1061,8 @@ export class ParallaxPin {
                 /**
                  * Reset style
                  */
-                this.resetStyleWhenUnder();
-                this.deactivateTrasponder();
+                this.#resetStyleWhenUnder();
+                this.#deactivateTrasponder();
 
                 this.#isUnder = true;
                 this.#isInner = false;
@@ -1070,7 +1070,7 @@ export class ParallaxPin {
             }
         } else if (innerCondition) {
             if (!this.#isInner) {
-                this.setFixedPosition();
+                this.#setFixedPosition();
 
                 const fireSpring =
                     (scrollDirection === parallaxConstant.SCROLL_DOWN &&
@@ -1078,11 +1078,11 @@ export class ParallaxPin {
                     (scrollDirection === parallaxConstant.SCROLL_UP &&
                         this.#invertSide);
 
-                this.activateTrasponder();
+                this.#activateTrasponder();
                 if (fireSpring) {
-                    this.animateCollision();
+                    this.#animateCollision();
                 } else {
-                    this.animateCollisionBack();
+                    this.#animateCollisionBack();
                 }
 
                 this.#isUnder = false;
@@ -1091,8 +1091,8 @@ export class ParallaxPin {
             }
         } else {
             if (!this.#isOver) {
-                this.resetStyleWhenOver();
-                this.deactivateTrasponder();
+                this.#resetStyleWhenOver();
+                this.#deactivateTrasponder();
                 this.#isUnder = false;
                 this.#isInner = false;
                 this.#isOver = true;

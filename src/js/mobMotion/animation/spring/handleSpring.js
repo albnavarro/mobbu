@@ -275,7 +275,7 @@ export default class HandleSpring {
      *
      * @returns {void}
      */
-    draw(_time, fps, res = () => {}, tension, friction, mass, precision) {
+    #draw(_time, fps, res = () => {}, tension, friction, mass, precision) {
         this.#isActive = true;
 
         this.#values = springGetValuesOndraw({
@@ -359,7 +359,7 @@ export default class HandleSpring {
         mobCore.useFrame(() => {
             mobCore.useNextTick(({ time, fps }) => {
                 if (this.#isActive)
-                    this.draw(
+                    this.#draw(
                         time,
                         fps,
                         res,
@@ -373,13 +373,11 @@ export default class HandleSpring {
     }
 
     /**
-     * @private
-     *
      * @param {number} time current global time
      * @param {number} fps current FPS
      * @param {Function} res current promise resolve
      **/
-    onReuqestAnim(time, fps, res) {
+    #onReuqestAnim(time, fps, res) {
         this.#values = [...this.#values].map((item) => {
             return {
                 ...item,
@@ -395,7 +393,7 @@ export default class HandleSpring {
         const mass = Math.max(1, this.#configProps.mass);
         const precision = this.#configProps.precision;
 
-        this.draw(time, fps, res, tension, friction, mass, precision);
+        this.#draw(time, fps, res, tension, friction, mass, precision);
     }
 
     /**
@@ -404,7 +402,7 @@ export default class HandleSpring {
      *
      * @returns {Promise<any>}
      */
-    async inzializeStagger() {
+    async #inzializeStagger() {
         /**
          * First time il there is a stagger load fps then go next step
          * next time no need to calcaulte stagger and jump directly next step
@@ -457,26 +455,25 @@ export default class HandleSpring {
     }
 
     /**
-     * @private
      * @param {(value:any) => void} res
      * @param {(value:any) => void} reject
      *
      * @returns {Promise}
      */
-    async startRaf(res, reject) {
+    async #startRaf(res, reject) {
         if (this.#fpsInLoading) return;
         this.#currentResolve = res;
         this.#currentReject = reject;
 
         if (this.#firstRun) {
             this.#fpsInLoading = true;
-            await this.inzializeStagger();
+            await this.#inzializeStagger();
             this.#fpsInLoading = false;
         }
 
         initRaf(
             this.#callbackStartInPause,
-            this.onReuqestAnim.bind(this),
+            this.#onReuqestAnim.bind(this),
             this.pause.bind(this),
             res
         );
@@ -528,7 +525,7 @@ export default class HandleSpring {
         this.#pauseStatus = false;
 
         if (!this.#isActive && this.#currentResolve) {
-            resume(this.onReuqestAnim.bind(this), this.#currentResolve);
+            resume(this.#onReuqestAnim.bind(this), this.#currentResolve);
         }
     }
 
@@ -581,13 +578,12 @@ export default class HandleSpring {
     }
 
     /**
-     * @private
      * @type  {import('./type.js').springMergeProps}
      *
      * @description
      * Merge special props with default props
      */
-    mergeProps(props) {
+    #mergeProps(props) {
         const springParams = handleSetUp.get('spring');
 
         /**
@@ -631,7 +627,7 @@ export default class HandleSpring {
         if (this.#pauseStatus) return;
         this.#useStagger = true;
         const data = goToUtils(obj);
-        return this.doAction(data, props, obj);
+        return this.#doAction(data, props, obj);
     }
 
     /**
@@ -641,7 +637,7 @@ export default class HandleSpring {
         if (this.#pauseStatus) return;
         this.#useStagger = true;
         const data = goFromUtils(obj);
-        return this.doAction(data, props, obj);
+        return this.#doAction(data, props, obj);
     }
 
     /**
@@ -656,7 +652,7 @@ export default class HandleSpring {
         }
 
         const data = goFromToUtils(fromObj, toObj);
-        return this.doAction(data, props, fromObj);
+        return this.#doAction(data, props, fromObj);
     }
 
     /**
@@ -666,7 +662,7 @@ export default class HandleSpring {
         if (this.#pauseStatus) return;
         this.#useStagger = false;
         const data = setUtils(obj);
-        return this.doAction(data, props, obj);
+        return this.#doAction(data, props, obj);
     }
 
     /**
@@ -679,7 +675,7 @@ export default class HandleSpring {
         const data = setUtils(obj);
         this.#values = mergeArray(data, this.#values);
 
-        const { reverse } = this.mergeProps(props);
+        const { reverse } = this.#mergeProps(props);
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.#values = setReverseValues(obj, this.#values);
 
@@ -691,12 +687,11 @@ export default class HandleSpring {
     }
 
     /**
-     * @private
      * @type {import('../../utils/type.js').DoAction<import('./type.js').springActions>} obj to Values
      */
-    doAction(data, props = {}, obj) {
+    #doAction(data, props = {}, obj) {
         this.#values = mergeArray(data, this.#values);
-        const { reverse, immediate } = this.mergeProps(props);
+        const { reverse, immediate } = this.#mergeProps(props);
 
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.#values = setReverseValues(obj, this.#values);
@@ -711,7 +706,7 @@ export default class HandleSpring {
 
         if (!this.#isActive) {
             this.#promise = new Promise((res, reject) => {
-                this.startRaf(res, reject);
+                this.#startRaf(res, reject);
             });
         }
 

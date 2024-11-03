@@ -282,7 +282,7 @@ export default class HandleTween {
      *
      * @returns {void}
      */
-    draw(time, res = () => {}) {
+    #draw(time, res = () => {}) {
         this.#isActive = true;
 
         if (this.#pauseStatus) {
@@ -367,22 +367,21 @@ export default class HandleTween {
 
         mobCore.useFrame(() => {
             mobCore.useNextTick(({ time }) => {
-                if (this.#isActive) this.draw(time, res);
+                if (this.#isActive) this.#draw(time, res);
             });
         });
     }
 
     /**
-     * @private
      * @param {number} time current global time
      * @param {boolean} _fps current FPS
      * @param {Function} res current promise resolve
      *
      * @returns {void}
      **/
-    onReuqestAnim(time, _fps, res) {
+    #onReuqestAnim(time, _fps, res) {
         this.#startTime = time;
-        this.draw(time, res);
+        this.#draw(time, res);
     }
 
     /**
@@ -391,7 +390,7 @@ export default class HandleTween {
      *
      * @returns {Promise<any>}
      */
-    async inzializeStagger() {
+    async #inzializeStagger() {
         /**
          * First time il there is a stagger load fps then go next step
          * next time no need to calcaulte stagger and jump directly next step
@@ -444,25 +443,24 @@ export default class HandleTween {
     }
 
     /**
-     * @private
      * @param {(value:any) => void} res
      * @param {(value:any) => void} reject
      *
      * @returns {Promise}
      */
-    async startRaf(res, reject) {
+    async #startRaf(res, reject) {
         if (this.#fpsInLoading) return;
         this.#currentReject = reject;
 
         if (this.#firstRun) {
             this.#fpsInLoading = true;
-            await this.inzializeStagger();
+            await this.#inzializeStagger();
             this.#fpsInLoading = false;
         }
 
         initRaf(
             this.#callbackStartInPause,
-            this.onReuqestAnim.bind(this),
+            this.#onReuqestAnim.bind(this),
             this.pause.bind(this),
             res
         );
@@ -557,14 +555,12 @@ export default class HandleTween {
     }
 
     /**
-     * @private
-     *
      * @description
      * Reject promise and update form value with current
      *
      * @returns {void}
      */
-    updateDataWhileRunning() {
+    #updateDataWhileRunning() {
         this.#isActive = false;
 
         // Reject promise
@@ -584,15 +580,13 @@ export default class HandleTween {
     }
 
     /**
-     * @private
-     *
      * @type  {import('./type.js').tweenMergeProps}
      *
      * @description
      * Merge special props with default props
      *
      */
-    mergeProps(props) {
+    #mergeProps(props) {
         const newProps = { ...this.#defaultProps, ...props };
         const { ease, duration, relative } = newProps;
         this.#ease = easeTweenIsValidGetFunction(ease);
@@ -608,7 +602,7 @@ export default class HandleTween {
         if (this.#pauseStatus || this.#comeFromResume) this.stop();
         this.#useStagger = true;
         const data = goToUtils(obj);
-        return this.doAction(data, props, obj);
+        return this.#doAction(data, props, obj);
     }
 
     /**
@@ -618,7 +612,7 @@ export default class HandleTween {
         if (this.#pauseStatus || this.#comeFromResume) this.stop();
         this.#useStagger = true;
         const data = goFromUtils(obj);
-        return this.doAction(data, props, obj);
+        return this.#doAction(data, props, obj);
     }
 
     /**
@@ -634,7 +628,7 @@ export default class HandleTween {
         }
 
         const data = goFromToUtils(fromObj, toObj);
-        return this.doAction(data, props, fromObj);
+        return this.#doAction(data, props, fromObj);
     }
 
     /**
@@ -647,7 +641,7 @@ export default class HandleTween {
 
         // In set mode duration is small as possible
         const propsParsed = props ? { ...props, duration: 1 } : { duration: 1 };
-        return this.doAction(data, propsParsed, obj);
+        return this.#doAction(data, propsParsed, obj);
     }
 
     /**
@@ -661,9 +655,9 @@ export default class HandleTween {
         const propsParsed = props ? { ...props, duration: 1 } : { duration: 1 };
         this.#values = mergeArrayTween(data, this.#values);
 
-        if (this.#isActive) this.updateDataWhileRunning();
+        if (this.#isActive) this.#updateDataWhileRunning();
 
-        const { reverse } = this.mergeProps(propsParsed);
+        const { reverse } = this.#mergeProps(propsParsed);
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.#values = setReverseValues(obj, this.#values);
 
@@ -675,14 +669,13 @@ export default class HandleTween {
     }
 
     /**
-     * @private
      * @type {import('../../utils/type.js').DoAction<import('./type.js').tweenAction>} obj to Values
      */
-    doAction(data, props = {}, obj) {
+    #doAction(data, props = {}, obj) {
         this.#values = mergeArrayTween(data, this.#values);
-        if (this.#isActive) this.updateDataWhileRunning();
+        if (this.#isActive) this.#updateDataWhileRunning();
 
-        const { reverse, immediate } = this.mergeProps(props);
+        const { reverse, immediate } = this.#mergeProps(props);
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.#values = setReverseValues(obj, this.#values);
 
@@ -696,7 +689,7 @@ export default class HandleTween {
 
         if (!this.#isActive) {
             this.#promise = new Promise((res, reject) => {
-                this.startRaf(res, reject);
+                this.#startRaf(res, reject);
             });
         }
 
