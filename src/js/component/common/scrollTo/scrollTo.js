@@ -103,24 +103,11 @@ export const ScrollToFn = ({
         /**
          * SpacerAnchor add label in different time during render.
          * Use computed to get last array of label completed.
-         * Order label by document position.
          */
         computed(
             'anchorItems',
             ['anchorItemsToBeComputed'],
-            ({ anchorItemsToBeComputed }) => {
-                return anchorItemsToBeComputed.sort(function (a, b) {
-                    const { element: elementA } = a;
-                    const { element: elementB } = b;
-                    if (elementA === elementB || !elementA || !elementB)
-                        return 0;
-                    if (elementA.compareDocumentPosition(elementB) & 2) {
-                        // b comes before a
-                        return 1;
-                    }
-                    return -1;
-                });
-            }
+            ({ anchorItemsToBeComputed }) => anchorItemsToBeComputed
         );
     });
 

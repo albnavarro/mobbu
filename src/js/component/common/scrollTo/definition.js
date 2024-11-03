@@ -20,6 +20,22 @@ export const ScrollTo = createComponent({
         anchorItems: () => ({
             value: [],
             type: Array,
+            transform: (value) => {
+                // Order label by document position.
+                return value.sort(
+                    function (/** @type{any} */ a, /** @type{any} */ b) {
+                        const { element: elementA } = a;
+                        const { element: elementB } = b;
+                        if (elementA === elementB || !elementA || !elementB)
+                            return 0;
+                        if (elementA.compareDocumentPosition(elementB) & 2) {
+                            // b comes before a
+                            return 1;
+                        }
+                        return -1;
+                    }
+                );
+            },
         }),
     },
     child: [ScrollToButton],
