@@ -21875,9 +21875,9 @@ Loading snippet ...</pre
   }
   var addItemToScrollComponent = async ({ id, label, element }) => {
     await tick();
-    useMethodByName("scrollTo")?.addItem({ id, label, element });
+    useMethodByName("scrollTo")?.addItem?.({ id, label, element });
     if (isVisibleInViewport(element)) {
-      useMethodByName("scrollTo")?.setActiveLabel(label);
+      useMethodByName("scrollTo")?.setActiveLabel?.(label);
     }
   };
   var SpacerAnchorFn = ({ html, getState, onMount }) => {
@@ -25705,7 +25705,7 @@ Loading snippet ...</pre
   // src/js/component/common/scrollTo/scrollTo.js
   var disableObservereffect = false;
   function getButtons({ delegateEvents, setState, bindProps, getState }) {
-    const anchorItems = getState?.()?.anchorItems ?? [];
+    const { anchorItems } = getState();
     return anchorItems.map((item) => {
       return renderHtml`
                 <li>
@@ -25767,9 +25767,6 @@ Loading snippet ...</pre
           return anchorItemsToBeComputed.reverse();
         }
       );
-      return () => {
-        setState("anchorItems", []);
-      };
     });
     return html`
         <div class="c-scroll-to">

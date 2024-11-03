@@ -23,11 +23,8 @@ let disableObservereffect = false;
  * @returns {string}
  */
 function getButtons({ delegateEvents, setState, bindProps, getState }) {
-    /**
-     * Component can be destroyed on chenage route.
-     * GetState can firef after component destroy because computed will fired next loop.
-     */
-    const anchorItems = getState?.()?.anchorItems ?? [];
+    // const anchorItems = getState?.()?.anchorItems ?? [];
+    const { anchorItems } = getState();
 
     return anchorItems
         .map((item) => {
@@ -114,10 +111,6 @@ export const ScrollToFn = ({
                 return anchorItemsToBeComputed.reverse();
             }
         );
-
-        return () => {
-            setState('anchorItems', []);
-        };
     });
 
     return html`

@@ -27,10 +27,10 @@ function hasAnchor({ label }) {
  */
 const addItemToScrollComponent = async ({ id, label, element }) => {
     await tick();
-    useMethodByName('scrollTo')?.addItem({ id, label, element });
+    useMethodByName('scrollTo')?.addItem?.({ id, label, element });
 
     if (isVisibleInViewport(element)) {
-        useMethodByName('scrollTo')?.setActiveLabel(label);
+        useMethodByName('scrollTo')?.setActiveLabel?.(label);
     }
 };
 
