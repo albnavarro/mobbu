@@ -654,7 +654,7 @@ export class HorizontalScroller {
 
             const { movementX } = event;
             const value = this.#reverse ? movementX : -movementX;
-            this.onDrag(value);
+            this.#onDrag(value);
         };
 
         this.#onMouseDown = () => {
@@ -693,7 +693,7 @@ export class HorizontalScroller {
                 ? -touchValueX + this.#lastTouchValueX
                 : touchValueX - this.#lastTouchValueX;
 
-            this.onDrag(gapX);
+            this.#onDrag(gapX);
             this.#lastTouchValueX = touchValueX;
 
             if (this.#shouldDragValue && event.cancelable)
@@ -722,13 +722,13 @@ export class HorizontalScroller {
         if (!this.#propsisValid) return;
 
         pipe(
-            this.getWidth.bind(this),
-            this.setDimension.bind(this),
-            this.createShadow.bind(this),
-            this.updateShadow.bind(this)
+            this.#getWidth.bind(this),
+            this.#setDimension.bind(this),
+            this.#createShadow.bind(this),
+            this.#updateShadow.bind(this)
         )().then(() => {
-            this.initScroller();
-            if (this.#useDrag) this.addDragListener();
+            this.#initScroller();
+            if (this.#useDrag) this.#addDragListener();
 
             mobCore.useResize(({ horizontalResize }) =>
                 this.onResize(horizontalResize)
@@ -746,28 +746,25 @@ export class HorizontalScroller {
     }
 
     /**
-     * @private
      * @type {() => void}
      */
-    setLinkAttribute() {
+    #setLinkAttribute() {
         [...this.#buttons].forEach((item) =>
             item.setAttribute('draggable', 'false')
         );
     }
 
     /**
-     * @private
      * @type {() => void}
      */
-    removeLinkAttribute() {
+    #removeLinkAttribute() {
         [...this.#buttons].forEach((item) => item.removeAttribute('draggable'));
     }
 
     /**
-     * @private
      * @type {(value: number) => void}
      */
-    onDrag(value) {
+    #onDrag(value) {
         if (!this.#shouldDragValue) return;
         mobCore.useFrame(() =>
             window.scrollBy({ top: value, left: 0, behavior: 'instant' })
@@ -777,7 +774,7 @@ export class HorizontalScroller {
     /**
      * @type {() => void}
      */
-    shouldDrag() {
+    #shouldDrag() {
         const documentScrollTop = window.scrollY;
 
         this.#shouldDragValue =
@@ -792,9 +789,9 @@ export class HorizontalScroller {
     /**
      * @type {() => void}
      */
-    addDragListener() {
-        this.#unsubscribeScroll = mobCore.useScroll(() => this.shouldDrag());
-        this.shouldDrag();
+    #addDragListener() {
+        this.#unsubscribeScroll = mobCore.useScroll(() => this.#shouldDrag());
+        this.#shouldDrag();
 
         this.#row.addEventListener('click', this.#preventFireClick, {
             passive: false,
@@ -832,7 +829,7 @@ export class HorizontalScroller {
     /**
      * @type {() => void}
      */
-    removeDragListener() {
+    #removeDragListener() {
         this.#unsubscribeScroll();
         this.#row.removeEventListener('click', this.#preventFireClick);
         this.#row.removeEventListener('mousedown', this.#onMouseDown);
@@ -845,10 +842,9 @@ export class HorizontalScroller {
     }
 
     /**
-     * @private
      * @type {() => Promise<boolean>}
      */
-    setDimension() {
+    #setDimension() {
         if (!this.#trigger || !this.#mainContainer || !this.#row) {
             return new Promise((resolve) => {
                 resolve(true);
@@ -873,10 +869,9 @@ export class HorizontalScroller {
     }
 
     /**
-     * @private
      * @type {() => Promise<boolean>}
      */
-    getWidth() {
+    #getWidth() {
         return new Promise((resolve) => {
             mobCore.useFrame(() => {
                 if (!mq[this.#queryType](this.#breakpoint)) {
@@ -896,10 +891,9 @@ export class HorizontalScroller {
     }
 
     /**
-     * @private
      * @type {() => Promise<boolean>}
      */
-    createShadow() {
+    #createShadow() {
         if (!this.#trigger) {
             return new Promise((resolve) => {
                 resolve(true);
@@ -972,18 +966,16 @@ export class HorizontalScroller {
     }
 
     /**
-     * @private
      * @type {() => void}
      */
-    removeShadow() {
+    #removeShadow() {
         if (this.#trigger) this.#trigger.innerHTML = '';
     }
 
     /**
-     * @private
      * @type {() => Promise<boolean>}
      */
-    updateShadow() {
+    #updateShadow() {
         return new Promise((resolve) => {
             if (!mq[this.#queryType](this.#breakpoint)) {
                 resolve(true);
@@ -1131,10 +1123,9 @@ export class HorizontalScroller {
     }
 
     /**
-     * @private
      * @type {() => void}
      */
-    initScroller() {
+    #initScroller() {
         if (!this.#trigger || !mq[this.#queryType](this.#breakpoint)) return;
 
         const scrollTriggerInstance = new ParallaxClass({
@@ -1203,30 +1194,28 @@ export class HorizontalScroller {
         this.#moduleisActive = true;
         this.#scrollTriggerInstance = scrollTriggerInstance;
         this.#triggerTopPosition = offset(this.#trigger).top;
-        this.setLinkAttribute();
+        this.#setLinkAttribute();
     }
 
     /**
-     * @private
      * @type {() => void}
      */
-    createScroller() {
+    #createScroller() {
         pipe(
-            this.getWidth.bind(this),
-            this.setDimension.bind(this),
-            this.createShadow.bind(this),
-            this.updateShadow.bind(this)
+            this.#getWidth.bind(this),
+            this.#setDimension.bind(this),
+            this.#createShadow.bind(this),
+            this.#updateShadow.bind(this)
         )().then(() => {
-            this.initScroller();
-            this.refreshChildren();
+            this.#initScroller();
+            this.#refreshChildren();
         });
     }
 
     /**
-     * @private
      * @type {() => void}
      */
-    refreshChildren() {
+    #refreshChildren() {
         mobCore.useFrameIndex(() => {
             mobCore.useNextTick(() => {
                 this.#afterRefresh?.();
@@ -1252,16 +1241,16 @@ export class HorizontalScroller {
 
         return new Promise((resolve) => {
             pipe(
-                this.getWidth.bind(this),
-                this.setDimension.bind(this),
-                this.updateShadow.bind(this)
+                this.#getWidth.bind(this),
+                this.#setDimension.bind(this),
+                this.#updateShadow.bind(this)
             )().then(() => {
                 this.#scrollTriggerInstance?.stopMotion?.();
                 this.#triggerTopPosition = offset(this.#trigger).top;
 
                 if (this.#moduleisActive) {
                     this.#scrollTriggerInstance?.refresh?.();
-                    this.refreshChildren();
+                    this.#refreshChildren();
                 }
                 resolve(true);
             });
@@ -1269,10 +1258,9 @@ export class HorizontalScroller {
     }
 
     /**
-     * @private
      * @type {(arg0: {destroyAll?: boolean}) => void}
      */
-    killScroller({ destroyAll = false }) {
+    #killScroller({ destroyAll = false }) {
         if (this.#moduleisActive || destroyAll) {
             this.#scrollTriggerInstance?.destroy?.();
             // @ts-ignore
@@ -1280,8 +1268,8 @@ export class HorizontalScroller {
             if (this.#trigger) this.#trigger.style.height = '';
             if (this.#mainContainer) this.#mainContainer.style.height = '';
             if (this.#trigger) this.#trigger.style.marginTop = '';
-            this.removeShadow();
-            this.removeLinkAttribute();
+            this.#removeShadow();
+            this.#removeLinkAttribute();
             this.#moduleisActive = false;
 
             // Make sure that if component is running with ease the style is removed.
@@ -1290,7 +1278,7 @@ export class HorizontalScroller {
                 this.#row.attributeStyleMap.clear();
 
                 if (destroyAll && this.#mainContainer) {
-                    if (this.#useDrag) this.removeDragListener();
+                    if (this.#useDrag) this.#removeDragListener();
 
                     const styleDiv =
                         this.#mainContainer.querySelector('.scroller-style');
@@ -1356,12 +1344,12 @@ export class HorizontalScroller {
             !this.#moduleisActive &&
             mq[this.#queryType](this.#breakpoint)
         ) {
-            this.createScroller();
+            this.#createScroller();
         } else if (
             this.#moduleisActive &&
             !mq[this.#queryType](this.#breakpoint)
         ) {
-            this.killScroller({ destroyAll: false });
+            this.#killScroller({ destroyAll: false });
         }
     }
 
@@ -1375,6 +1363,6 @@ export class HorizontalScroller {
      * @type {() => void}
      */
     destroy() {
-        this.killScroller({ destroyAll: true });
+        this.#killScroller({ destroyAll: true });
     }
 }
