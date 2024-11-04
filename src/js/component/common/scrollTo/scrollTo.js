@@ -86,19 +86,19 @@ export const ScrollToFn = ({
     addMethod,
     updateState,
 }) => {
+    addMethod('addItem', ({ id, label, element }) => {
+        updateState('anchorItemsToBeComputed', (val) => {
+            return [...val, { id, label, element }];
+        });
+    });
+
+    addMethod('setActiveLabel', (label) => {
+        if (disableObservereffect) return;
+        setState('activeLabel', label);
+    });
+
     onMount(() => {
         if (motionCore.mq('max', 'large')) return;
-
-        addMethod('addItem', ({ id, label, element }) => {
-            updateState('anchorItemsToBeComputed', (val) => {
-                return [...val, { id, label, element }];
-            });
-        });
-
-        addMethod('setActiveLabel', (label) => {
-            if (disableObservereffect) return;
-            setState('activeLabel', label);
-        });
 
         /**
          * SpacerAnchor add label in different time during render.

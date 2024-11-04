@@ -28,6 +28,13 @@
             "content": "It is possible to define <span class='quote'>methods</span> for each single instance of a component to be used across the application<br>It will then be possible to use the defined methods via the <span class='quote'>useMethodByName</span> utility"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is advisable to define the methods in the component <span class='quote'>creation</span> phase so that they are available in the <span class='quote'>onMount</span> phase of the components that will use them."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
