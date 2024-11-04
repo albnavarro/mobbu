@@ -1274,8 +1274,10 @@ export class HorizontalScroller {
 
             // Make sure that if component is running with ease the style is removed.
             mobCore.useFrameIndex(() => {
-                this.#row.style.width = '';
-                this.#row.style.transform = '';
+                if (this.#row) {
+                    this.#row.style.width = '';
+                    this.#row.style.transform = '';
+                }
 
                 if (destroyAll && this.#mainContainer) {
                     if (this.#useDrag) this.#removeDragListener();

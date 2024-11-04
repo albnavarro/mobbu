@@ -23925,8 +23925,10 @@ Loading snippet ...</pre
         this.#removeLinkAttribute();
         this.#moduleisActive = false;
         mobCore.useFrameIndex(() => {
-          this.#row.style.width = "";
-          this.#row.style.transform = "";
+          if (this.#row) {
+            this.#row.style.width = "";
+            this.#row.style.transform = "";
+          }
           if (destroyAll && this.#mainContainer) {
             if (this.#useDrag) this.#removeDragListener();
             const styleDiv = this.#mainContainer.querySelector(".scroller-style");
