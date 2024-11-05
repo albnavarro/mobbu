@@ -759,11 +759,13 @@ export default class SmoothScroller {
      * @type {import('./type.d.ts').onMouseEvent}
      */
     #onWhell({ target, spinY, preventDefault }) {
-        const bodyIsOverflow =
-            document.body.style.overflow === 'hidden' &&
-            this.#direction === parallaxConstant.DIRECTION_VERTICAL;
+        // const bodyIsOverflow =
+        //     document.body.style.overflow === 'hidden' &&
+        //     this.#direction === parallaxConstant.DIRECTION_VERTICAL;
+        //
+        // if (!mq[this.#queryType](this.#breakpoint) || bodyIsOverflow) return;
 
-        if (!mq[this.#queryType](this.#breakpoint) || bodyIsOverflow) return;
+        if (!mq[this.#queryType](this.#breakpoint)) return;
 
         if (
             target === this.#scroller ||
