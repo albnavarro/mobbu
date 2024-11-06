@@ -24,7 +24,7 @@ export const initNavigationScoller = ({ root }) => {
         scroller: scrollerEl,
         direction: 'vertical',
         drag: true,
-        scopedEvent: true,
+        scopedEvent: false,
         breakpoint: 'small',
         onUpdate: ({ percent }) => {
             const { navigationIsOpen } = navigationStore.get();

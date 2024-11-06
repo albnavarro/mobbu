@@ -13,6 +13,7 @@ const createPins = ({ indicators, setState }) => {
             pin: true,
             animateAtStart: false,
             animatePin: true,
+            useThrottle: true,
             dynamicStart: {
                 position: 'right',
                 value: () => {
@@ -120,8 +121,10 @@ export const horizontalScrollerAnimation = ({
         useWillChange: true,
         useDrag: true,
         useSticky: !animatePin,
+        useThrottle: true,
         animateAtStart: false,
         ease: true,
+        easeType: 'spring',
         addCss: true,
         columnHeight: 70,
         columnWidth: 100,

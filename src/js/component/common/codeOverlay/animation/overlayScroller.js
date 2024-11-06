@@ -8,7 +8,7 @@ export const overlayScroller = ({ screen, scroller, scrollbar }) => {
         scroller,
         direction: 'vertical',
         drag: true,
-        scopedEvent: true,
+        scopedEvent: false,
         breakpoint: 'xSmall',
         onTick: ({ percent }) => {
             scrollbar.value = percent;
