@@ -1,6 +1,6 @@
 # Priority
-- `mobMotion`: private methods.
 - `bindText`: check performance
+- `pointerEvent`: Aggiungere pointerEvent esattamante come mouseEvent.
 
 # General
 - Alias: aggiungere gli alias @ !!!!
@@ -22,6 +22,9 @@
 - Dimensione (size) delle mappe di supporto.
 
 # MobJs
+
+### bindText
+- Posissibile che ci sia possibilitá di ottimizzare le performance
 
 ### setState/updateState/setStateByName/updateStateByName
 - Manca la propietá clone ereditata da mobStore `clone`
@@ -55,11 +58,8 @@ beforeNavigate(({props}) => {
 
 # MobCore
 
-### bindText
-- Posissibile che ci sia possibilitá di ottimizzare le performance
-
-### Default:
-- Spostare mq da mobMotion a mobCore.
+### PointerEvent
+- Aggiungere pointerEvent esattamante come mouseEvent.
 
 
 # Mob motion
