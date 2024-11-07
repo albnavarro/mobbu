@@ -8,6 +8,10 @@ import {
     valueIsNumberAndReturnDefault,
 } from '../../animation/utils/tweenAction/tweenValidation.js';
 import { offset, isNode } from '../../../mobCore/utils/index.js';
+import {
+    freezePageScroll,
+    unFreezePageScroll,
+} from '../pageScroll/pageScroller.js';
 
 /** @type {import('../../animation/tween/type.js').easeTypes} */
 const defaultPreset = 'easeOutQuad';
@@ -37,6 +41,7 @@ tween.subscribe(({ val }) => {
 const onComplete = () => {
     if (overflow) document.body.style.overflow = '';
     tween?.updateEase?.(defaultPreset);
+    unFreezePageScroll();
 };
 
 /** @type{() => void} */
@@ -137,6 +142,7 @@ export const bodyScroll = (() => {
 
         return new Promise((resolve) => {
             isRunning = true;
+            freezePageScroll();
 
             tween
                 .goFromTo(

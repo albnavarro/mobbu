@@ -17237,14 +17237,14 @@
       child: child2,
       element,
       state,
-      destroy,
+      destroy: destroy2,
       parentPropsWatcher
     } = instanceValue;
     Object.values(child2 ?? {}).flat().forEach((childId) => {
       removeAndDestroyById({ id: childId });
     });
     removeItselfFromParent({ id, parentId, componentName });
-    destroy?.();
+    destroy2?.();
     state.destroy();
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
     removeInvalidateId({ id });
@@ -17967,8 +17967,8 @@
   // src/js/mobjs/component/action/state/setStateById.js
   var setStateById = (id = "", prop = "", value, fire4 = true) => {
     if ((!id || id === "") && (!prop || prop === "") && !value) return;
-    const isFreezed = getFreezePropStatus({ id, prop });
-    if (isFreezed) {
+    const isFreezed2 = getFreezePropStatus({ id, prop });
+    if (isFreezed2) {
       return;
     }
     const item = componentMap.get(id);
@@ -18001,8 +18001,8 @@
   // src/js/mobjs/component/action/state/updateStateById.js
   var updateStateById = (id = "", prop = "", value, fire4 = true) => {
     if ((!id || id === "") && (!prop || prop === "") && !value) return;
-    const isFreezed = getFreezePropStatus({ id, prop });
-    if (isFreezed) {
+    const isFreezed2 = getFreezePropStatus({ id, prop });
+    if (isFreezed2) {
       return;
     }
     const item = componentMap.get(id);
@@ -20165,7 +20165,7 @@
     parentPropsWatcher = [() => {
     }],
     refs = {},
-    destroy = () => {
+    destroy: destroy2 = () => {
     },
     freezedPros = [],
     persistent = false,
@@ -20180,7 +20180,7 @@
       element,
       componentName,
       instanceName,
-      destroy,
+      destroy: destroy2,
       parentPropsWatcher,
       refs,
       methods,
@@ -20199,14 +20199,14 @@
     return {
       getState: () => store.get(),
       setState: (prop = "", value = {}, fire4 = true) => {
-        const isFreezed = getFreezePropStatus({ id, prop });
-        if (isFreezed) return;
+        const isFreezed2 = getFreezePropStatus({ id, prop });
+        if (isFreezed2) return;
         store.set(prop, value, fire4);
       },
       updateState: (prop = "", updateFunction = () => {
       }, fire4 = true) => {
-        const isFreezed = getFreezePropStatus({ id, prop });
-        if (isFreezed) return;
+        const isFreezed2 = getFreezePropStatus({ id, prop });
+        if (isFreezed2) return;
         store.update(prop, updateFunction, fire4);
       },
       emit: (prop = "") => store.emit(prop),
@@ -20908,8 +20908,8 @@
         }
       });
       watchSync("drawers", (value) => {
-        const isActive = value.length > 0;
-        element.classList.toggle("active", isActive);
+        const isActive2 = value.length > 0;
+        element.classList.toggle("active", isActive2);
       });
       const unsubscribeOpenNav = navigationStore.watch(
         "navigationIsOpen",
@@ -21877,9 +21877,9 @@ Loading snippet ...</pre
   }
   var addItemToScrollComponent = async ({ id, label, element }) => {
     await tick();
-    useMethodByName("scrollTo")?.addItem({ id, label, element });
+    useMethodByName("scrollTo")?.addItem?.({ id, label, element });
     if (isVisibleInViewport(element)) {
-      useMethodByName("scrollTo")?.setActiveLabel(label);
+      useMethodByName("scrollTo")?.setActiveLabel?.(label);
     }
   };
   var SpacerAnchorFn = ({ html, getState, onMount }) => {
@@ -21930,6 +21930,121 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/mobMotion/plugin/pageScroll/pageScroller.js
+  var isActive = false;
+  var lastScrollValue = 0;
+  var smoothIsActive = false;
+  var isFreezed = false;
+  var freeze = () => {
+  };
+  var unFreeze = () => {
+  };
+  var destroy = () => {
+  };
+  var stop = () => {
+  };
+  var update2 = () => {
+  };
+  var PageScroller = ({ velocity }) => {
+    let lerp2 = tween.createLerp({ data: { scrollValue: window.scrollY } });
+    const unsubscribe3 = lerp2.subscribe(({ scrollValue }) => {
+      if (isFreezed) return;
+      window.scrollTo({
+        top: scrollValue,
+        left: 0,
+        behavior: "auto"
+      });
+    });
+    lerp2.onComplete(() => {
+      smoothIsActive = false;
+    });
+    const unsubscribeMouseWheel = mobCore.useMouseWheel((event) => {
+      if (isFreezed) return;
+      event.preventDefault();
+      smoothIsActive = true;
+      const currentValue = motionCore.clamp(
+        // @ts-ignore
+        event.spinY * velocity + lastScrollValue,
+        0,
+        document.body.offsetHeight - window.innerHeight
+      );
+      lastScrollValue = currentValue;
+      lerp2.goTo({ scrollValue: currentValue });
+    });
+    const unsubscribeScroll = mobCore.useScroll(() => {
+      if (smoothIsActive || isFreezed) {
+        return;
+      }
+      const value = window.scrollY;
+      lastScrollValue = value;
+      lerp2.setImmediate({ scrollValue: value });
+    });
+    const unsubscribeMouseDown = mobCore.useMouseDown((event) => {
+      if (isFreezed) return;
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      if (event.page.x > window.innerWidth - scrollBarWidth) {
+        lerp2.stop();
+        smoothIsActive = false;
+      }
+    });
+    return {
+      freeze: () => {
+        lerp2.stop();
+        smoothIsActive = false;
+        isFreezed = true;
+      },
+      unFreeze: () => {
+        isFreezed = false;
+      },
+      destroy: () => {
+        lastScrollValue = 0;
+        smoothIsActive = false;
+        isFreezed = true;
+        lerp2?.stop();
+        lerp2?.destroy();
+        lerp2 = null;
+        unsubscribe3();
+        unsubscribeScroll();
+        unsubscribeMouseWheel();
+        unsubscribeMouseDown();
+        freeze = () => {
+        };
+        unFreeze = () => {
+        };
+        destroy = () => {
+        };
+        stop = () => {
+        };
+        update2 = () => {
+        };
+      },
+      stop: () => {
+        lastScrollValue = 0;
+        lerp2.stop();
+        smoothIsActive = false;
+      },
+      update: () => {
+        lerp2.setImmediate({ scrollValue: window.scrollY });
+      }
+    };
+  };
+  var initPageScroll = ({ velocity = 60 } = {}) => {
+    if (isActive) return;
+    ({ freeze, unFreeze, destroy, stop, update: update2 } = PageScroller({ velocity }));
+    isActive = true;
+    isFreezed = false;
+  };
+  var freezePageScroll = () => {
+    freeze();
+  };
+  var unFreezePageScroll = () => {
+    unFreeze();
+  };
+  var destroyPageScroll = () => {
+    destroy();
+    isActive = false;
+  };
+
   // src/js/mobMotion/plugin/bodyScroll/bodyScroll.js
   var defaultPreset = "easeOutQuad";
   var tween2 = new HandleTween({ ease: defaultPreset, data: { val: 0 } });
@@ -21945,6 +22060,7 @@ Loading snippet ...</pre
   var onComplete = () => {
     if (overflow) document.body.style.overflow = "";
     tween2?.updateEase?.(defaultPreset);
+    unFreezePageScroll();
   };
   var stopTween = () => {
     if (!isRunning) return;
@@ -21999,6 +22115,7 @@ Loading snippet ...</pre
       if (overflow) document.body.style.overflow = "hidden";
       return new Promise((resolve) => {
         isRunning = true;
+        freezePageScroll();
         tween2.goFromTo(
           { val: window.scrollY },
           { val: targetParsed },
@@ -23189,11 +23306,13 @@ Loading snippet ...</pre
       }
       const { tween: tween3 } = currentItem;
       const currentHeight = outerHeight(target);
+      freezePageScroll();
       await tween3.goFromTo(
         { val: currentHeight },
         { val: 0 },
         { duration: 500 }
       );
+      unFreezePageScroll();
     };
     const down = async (target) => {
       if (!isNode2(target)) {
@@ -23209,7 +23328,9 @@ Loading snippet ...</pre
       target.style.height = `auto`;
       const height = outerHeight(target);
       target.style.height = `${currentHeight}px`;
+      freezePageScroll();
       await tween3.goTo({ val: height }, { duration: 500 });
+      unFreezePageScroll();
       mobCore.useNextTick(() => {
         target.style.height = `auto`;
       });
@@ -23631,6 +23752,18 @@ Loading snippet ...</pre
       );
       this.#subscribeMouseUp = mobCore.useMouseUp(
         (data2) => this.#onMouseUp(data2)
+      );
+      this.#scroller.addEventListener(
+        "mouseenter",
+        () => {
+          freezePageScroll();
+        }
+      );
+      this.#scroller.addEventListener(
+        "mouseleave",
+        () => {
+          unFreezePageScroll();
+        }
       );
       if (this.#drag) {
         this.#subscribeMouseClick = mobCore.useMouseClick(
@@ -24547,8 +24680,8 @@ Loading snippet ...</pre
     const activeClass = active ? "active" : "";
     onMount(() => {
       const { logo } = getRef();
-      watchSync("active", (isActive) => {
-        logo.classList.toggle("active", isActive);
+      watchSync("active", (isActive2) => {
+        logo.classList.toggle("active", isActive2);
       });
       return () => {
       };
@@ -24592,8 +24725,8 @@ Loading snippet ...</pre
     onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) return;
       const { prev: prev2, next } = getRef();
-      watchSync("active", (isActive) => {
-        element.classList.toggle("active", isActive);
+      watchSync("active", (isActive2) => {
+        element.classList.toggle("active", isActive2);
       });
       watchSync("nextRoute", (route) => {
         next.classList.toggle("is-disable", !route);
@@ -24701,8 +24834,8 @@ Loading snippet ...</pre
     const { active } = getState();
     const activeClass = active ? "active" : "";
     onMount(({ element }) => {
-      watchSync("active", (isActive) => {
-        element.classList.toggle("active", isActive);
+      watchSync("active", (isActive2) => {
+        element.classList.toggle("active", isActive2);
       });
       return () => {
       };
@@ -24731,8 +24864,8 @@ Loading snippet ...</pre
   // src/js/component/common/scrollToTop/ScrollToTop.js
   var ScrollToTopFn = ({ html, onMount, delegateEvents, watchSync }) => {
     onMount(({ element }) => {
-      watchSync("active", (isActive) => {
-        element.classList.toggle("active", isActive);
+      watchSync("active", (isActive2) => {
+        element.classList.toggle("active", isActive2);
       });
       return () => {
       };
@@ -26453,7 +26586,7 @@ Loading snippet ...</pre
     reorder
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
+    let isActive2 = true;
     let gridData = [];
     let data2 = [];
     let gridTween = {};
@@ -26560,7 +26693,7 @@ Loading snippet ...</pre
     gridTimeline.play();
     const loop = () => {
       draw();
-      if (!isActive) return;
+      if (!isActive2) return;
       mobCore.useNextFrame(() => loop());
     };
     mobCore.useFrame(({ time: time2 }) => {
@@ -26589,11 +26722,11 @@ Loading snippet ...</pre
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
         gridTimeline?.stop();
-        isActive = false;
+        isActive2 = false;
         return;
       }
       setTimeout(async () => {
-        isActive = true;
+        isActive2 = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute.route !== activeRoute.route) return;
         gridTimeline?.play();
@@ -26612,7 +26745,7 @@ Loading snippet ...</pre
       offScreenCtx = null;
       gridData = [];
       data2 = [];
-      isActive = false;
+      isActive2 = false;
     };
   };
 
@@ -26932,7 +27065,7 @@ Loading snippet ...</pre
     disableOffcanvas
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
+    let isActive2 = true;
     let gridData = [];
     let data2 = [];
     let centerTween = {};
@@ -27062,7 +27195,7 @@ Loading snippet ...</pre
     });
     const loop = () => {
       draw();
-      if (!isActive) return;
+      if (!isActive2) return;
       mobCore.useNextFrame(() => loop());
     };
     mobCore.useFrame(({ time: time2 }) => {
@@ -27093,11 +27226,11 @@ Loading snippet ...</pre
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
         gridTimeline?.stop();
-        isActive = false;
+        isActive2 = false;
         return;
       }
       setTimeout(async () => {
-        isActive = true;
+        isActive2 = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute.route !== activeRoute.route) return;
         gridTimeline?.play();
@@ -27120,7 +27253,7 @@ Loading snippet ...</pre
       offScreenCtx = null;
       gridData = [];
       data2 = [];
-      isActive = false;
+      isActive2 = false;
     };
   };
 
@@ -27300,7 +27433,7 @@ Loading snippet ...</pre
     disableOffcanvas
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
+    let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let stemData = [];
     let steamDataReorded = [];
@@ -27398,7 +27531,7 @@ Loading snippet ...</pre
     };
     const loop = ({ time: time2 = 0 }) => {
       draw({ time: time2 });
-      if (!isActive) return;
+      if (!isActive2) return;
       mobCore.useNextFrame(({ time: time3 }) => loop({ time: time3 }));
     };
     mobCore.useFrame(({ time: time2 }) => {
@@ -27428,11 +27561,11 @@ Loading snippet ...</pre
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
-        isActive = false;
+        isActive2 = false;
         return;
       }
       setTimeout(() => {
-        isActive = true;
+        isActive2 = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute.route !== activeRoute.route) return;
         mobCore.useFrame(({ time: time2 }) => loop({ time: time2 }));
@@ -27450,7 +27583,7 @@ Loading snippet ...</pre
       mainTween = null;
       steamDataReorded = [];
       stemData = [];
-      isActive = false;
+      isActive2 = false;
     };
   };
 
@@ -27601,7 +27734,7 @@ Loading snippet ...</pre
     disableOffcanvas
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
+    let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let squareData = [];
     let rotationTween = {};
@@ -27718,7 +27851,7 @@ Loading snippet ...</pre
     rectTimeline.play();
     const loop = () => {
       draw();
-      if (!isActive) return;
+      if (!isActive2) return;
       mobCore.useNextFrame(() => loop());
     };
     mobCore.useFrame(() => loop());
@@ -27757,12 +27890,12 @@ Loading snippet ...</pre
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
-        isActive = false;
+        isActive2 = false;
         rectTimeline?.pause();
         return;
       }
       setTimeout(() => {
-        isActive = true;
+        isActive2 = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute.route !== activeRoute.route) return;
         rectTimeline?.resume();
@@ -27784,7 +27917,7 @@ Loading snippet ...</pre
       offscreen = null;
       offScreenCtx = null;
       squareData = [];
-      isActive = false;
+      isActive2 = false;
     };
   };
 
@@ -27928,7 +28061,7 @@ Loading snippet ...</pre
     disableOffcanvas
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
+    let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let squareData = [];
     let userRotation = rotationDefault;
@@ -28041,7 +28174,7 @@ Loading snippet ...</pre
     };
     const loop = () => {
       draw();
-      if (!isActive) return;
+      if (!isActive2) return;
       mobCore.useNextFrame(() => loop());
     };
     mobCore.useFrame(() => loop());
@@ -28053,12 +28186,12 @@ Loading snippet ...</pre
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
-        isActive = false;
+        isActive2 = false;
         syncTimeline?.pause();
         return;
       }
       setTimeout(() => {
-        isActive = true;
+        isActive2 = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute.route !== activeRoute.route) return;
         syncTimeline?.resume();
@@ -28067,7 +28200,7 @@ Loading snippet ...</pre
     });
     return {
       destroy: () => {
-        isActive = false;
+        isActive2 = false;
         unsubscribeResize();
         unWatchPause();
         infiniteTween.destroy();
@@ -28170,7 +28303,7 @@ Loading snippet ...</pre
         canvas,
         ...getState()
       });
-      const { destroy, setRotation } = animationMethods;
+      const { destroy: destroy2, setRotation } = animationMethods;
       Object.entries(buttons4).forEach(([className, value]) => {
         const { method } = value;
         const btn = element.querySelector(`.${className}`);
@@ -28192,7 +28325,7 @@ Loading snippet ...</pre
         setMainTitleState("title", "");
         setCodeButtonState("drawers", []);
         document.body.style.background = "";
-        destroy();
+        destroy2();
       };
     });
     return html`
@@ -28359,7 +28492,7 @@ Loading snippet ...</pre
     disableOffcanvas
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
+    let isActive2 = true;
     let gridData = [];
     let data2 = [];
     let masterSequencer = tween.createMasterSequencer();
@@ -28500,7 +28633,7 @@ Loading snippet ...</pre
     scrollerInstance.init();
     const loop = () => {
       draw();
-      if (!isActive) return;
+      if (!isActive2) return;
       mobCore.useNextFrame(() => loop());
     };
     mobCore.useFrame(({ time: time2 }) => {
@@ -28528,11 +28661,11 @@ Loading snippet ...</pre
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
-        isActive = false;
+        isActive2 = false;
         return;
       }
       setTimeout(async () => {
-        isActive = true;
+        isActive2 = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute.route !== activeRoute.route) return;
         mobCore.useFrame(() => loop());
@@ -28556,7 +28689,7 @@ Loading snippet ...</pre
       offScreenCtx = null;
       gridData = [];
       data2 = [];
-      isActive = false;
+      isActive2 = false;
     };
   };
 
@@ -28851,7 +28984,7 @@ Loading snippet ...</pre
     disableOffcanvas
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
+    let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let stemData = [];
     const { activeRoute } = mainStore.get();
@@ -28954,7 +29087,7 @@ Loading snippet ...</pre
     scrollerInstance.init();
     const loop = ({ time: time2 = 0 }) => {
       draw({ time: time2 });
-      if (!isActive) return;
+      if (!isActive2) return;
       mobCore.useNextFrame(({ time: time3 }) => loop({ time: time3 }));
     };
     mobCore.useFrame(({ time: time2 }) => {
@@ -28969,11 +29102,11 @@ Loading snippet ...</pre
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
-        isActive = false;
+        isActive2 = false;
         return;
       }
       setTimeout(() => {
-        isActive = true;
+        isActive2 = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute.route !== activeRoute.route) return;
         mobCore.useFrame(({ time: time2 }) => loop({ time: time2 }));
@@ -28992,7 +29125,7 @@ Loading snippet ...</pre
       offScreenCtx = null;
       scrollerTween = null;
       stemData = [];
-      isActive = false;
+      isActive2 = false;
     };
   };
 
@@ -30082,7 +30215,7 @@ Loading snippet ...</pre
     onMount(({ element }) => {
       const { textStagger } = getRefs();
       const svg_group = element.querySelectorAll('[ref="svg_group"]');
-      const { destroy, playIntro, playSvg } = simpleIntroAnimation({
+      const { destroy: destroy2, playIntro, playSvg } = simpleIntroAnimation({
         refs: svg_group
       });
       const { playText, destroyText } = homeTextAnimation({
@@ -30115,7 +30248,7 @@ Loading snippet ...</pre
       ]);
       setCodeButtonState("color", "black");
       return () => {
-        destroy();
+        destroy2();
         destroyText();
         setCodeButtonState("drawers", []);
       };
@@ -30841,7 +30974,7 @@ Loading snippet ...</pre
       const indicators = element.querySelectorAll(".js-indicator");
       const nav = element.querySelector(".js-nav");
       const titles = element.querySelectorAll(".js-title h1");
-      const { destroy } = horizontalScrollerAnimation({
+      const { destroy: destroy2 } = horizontalScrollerAnimation({
         rootRef: getRef().js_root,
         indicators,
         titles,
@@ -30908,7 +31041,7 @@ Loading snippet ...</pre
         bodyScroll.to(scrollValue, { duration: 2e3 });
       });
       return () => {
-        destroy();
+        destroy2();
         setQuickNavState("active", false);
         setQuickNavState("prevRoute", "");
         setQuickNavState("nextRoute", "");
@@ -31319,7 +31452,7 @@ Loading snippet ...</pre
           trail9
         ]
       });
-      const { playIntro, destroy } = childMethods;
+      const { playIntro, destroy: destroy2 } = childMethods;
       playAnimation2({ playIntro });
       return () => {
         setQuickNavState("active", false);
@@ -31327,7 +31460,7 @@ Loading snippet ...</pre
         setQuickNavState("nextRoute", "");
         setMainTitleState("align", "");
         setMainTitleState("title", "");
-        destroy();
+        destroy2();
       };
     });
     return html`<div class="svg-child-container">
@@ -32607,13 +32740,13 @@ Loading snippet ...</pre
       const { screenEl, scrollerEl, scrollbar } = getRef();
       let init7 = () => {
       };
-      let destroy = () => {
+      let destroy2 = () => {
       };
       let move = () => {
       };
       let updateScroller = () => {
       };
-      let isActive = false;
+      let isActive2 = false;
       scrollbar.addEventListener("input", () => {
         move?.(scrollbar.value);
       });
@@ -32634,32 +32767,32 @@ Loading snippet ...</pre
           setState("activeSection", route);
           if (currentData.length > 0) {
             screenEl.classList.add("active");
-            if (isActive) return;
-            ({ init: init7, destroy, move, updateScroller } = verticalScroller(
+            if (isActive2) return;
+            ({ init: init7, destroy: destroy2, move, updateScroller } = verticalScroller(
               {
                 screen: screenEl,
                 scroller: scrollerEl,
                 scrollbar
               }
             ));
-            isActive = true;
+            isActive2 = true;
             init7();
             updateScroller();
             move(0);
           }
           if (currentData.length === 0) {
             screenEl.classList.remove("active");
-            destroy?.();
-            isActive = false;
+            destroy2?.();
+            isActive2 = false;
           }
         }
       );
       return () => {
-        destroy?.();
+        destroy2?.();
         unsubscribeRoute();
         init7 = () => {
         };
-        destroy = () => {
+        destroy2 = () => {
         };
         move = () => {
         };
@@ -32916,7 +33049,7 @@ Loading snippet ...</pre
       scrollbar
     });
     const init7 = methods.init;
-    const destroy = methods.destroy;
+    const destroy2 = methods.destroy;
     const refresh = methods.refresh;
     const move = methods.move;
     const updateScroller = methods.updateScroller;
@@ -32924,7 +33057,7 @@ Loading snippet ...</pre
     updateScroller();
     move(0);
     return {
-      destroy,
+      destroy: destroy2,
       move,
       refresh,
       updateScroller
@@ -32953,7 +33086,7 @@ Loading snippet ...</pre
     let move;
     onMount(() => {
       const {
-        destroy,
+        destroy: destroy2,
         updateScroller,
         move: moveUpdated,
         refresh
@@ -32968,7 +33101,7 @@ Loading snippet ...</pre
         move(0);
       });
       return () => {
-        destroy?.();
+        destroy2?.();
       };
     });
     return html`<div class="c-debug-component" ${setRef("screen")}>
@@ -33086,7 +33219,7 @@ Loading snippet ...</pre
       scrollbar
     });
     const init7 = methods.init;
-    const destroy = methods.destroy;
+    const destroy2 = methods.destroy;
     const refresh = methods.refresh;
     const move = methods.move;
     const updateScroller = methods.updateScroller;
@@ -33094,7 +33227,7 @@ Loading snippet ...</pre
     updateScroller();
     move(0);
     return {
-      destroy,
+      destroy: destroy2,
       move,
       refresh,
       updateScroller
@@ -33141,7 +33274,7 @@ Loading snippet ...</pre
     getState,
     watch
   }) => {
-    let destroy = () => {
+    let destroy2 = () => {
     };
     let move = () => {
     };
@@ -33165,7 +33298,7 @@ Loading snippet ...</pre
     onMount(() => {
       const { loadingRef, noresultRef } = getRef();
       (async () => {
-        ({ destroy, move, refresh, updateScroller } = await initScroller2({
+        ({ destroy: destroy2, move, refresh, updateScroller } = await initScroller2({
           getRef
         }));
       })();
@@ -33179,8 +33312,8 @@ Loading snippet ...</pre
         );
       });
       return () => {
-        destroy?.();
-        destroy = () => {
+        destroy2?.();
+        destroy2 = () => {
         };
         refresh = () => {
         };
@@ -33725,7 +33858,7 @@ Loading snippet ...</pre
       scroller: scroller2,
       scrollbar
     });
-    const destroy = methods.destroy;
+    const destroy2 = methods.destroy;
     const refresh = methods.refresh;
     const move = methods.move;
     const updateScroller = methods.updateScroller;
@@ -33733,7 +33866,7 @@ Loading snippet ...</pre
     updateScroller();
     move(0);
     return {
-      destroy,
+      destroy: destroy2,
       refresh,
       move,
       updateScroller
@@ -33752,7 +33885,7 @@ Loading snippet ...</pre
     delegateEvents,
     watch
   }) => {
-    let destroy = () => {
+    let destroy2 = () => {
     };
     let refresh = () => {
     };
@@ -33773,9 +33906,9 @@ Loading snippet ...</pre
           await tick();
           mobCore.useFrame(() => {
             mobCore.useNextTick(async () => {
-              destroy?.();
+              destroy2?.();
               setState("data", getTree());
-              ({ destroy, move, refresh, updateScroller } = await initScroller3({ getRef }));
+              ({ destroy: destroy2, move, refresh, updateScroller } = await initScroller3({ getRef }));
               setState("isLoading", false);
             });
           });
@@ -33789,17 +33922,17 @@ Loading snippet ...</pre
         await tick();
         mobCore.useFrame(() => {
           mobCore.useNextTick(async () => {
-            destroy?.();
+            destroy2?.();
             setState("data", getTree());
-            ({ destroy, move, refresh, updateScroller } = await initScroller3({ getRef }));
+            ({ destroy: destroy2, move, refresh, updateScroller } = await initScroller3({ getRef }));
             setState("isLoading", false);
           });
         });
       })();
       return () => {
         unsubscrineRoute();
-        destroy?.();
-        destroy = () => {
+        destroy2?.();
+        destroy2 = () => {
         };
         refresh = () => {
         };
@@ -34127,6 +34260,19 @@ Loading snippet ...</pre
     newNode.classList.add("current-route");
   };
 
+  // src/js/utils/pageScroll.js
+  var usePageScroll = () => {
+    initPageScroll();
+    mainStore.watch("beforeRouteChange", () => {
+      destroyPageScroll();
+    });
+    mainStore.watch("afterRouteChange", () => {
+      mobCore.useFrameIndex(() => {
+        initPageScroll();
+      }, 3);
+    });
+  };
+
   // src/js/main.js
   mobCore.useLoad(() => {
     setBrowserClass();
@@ -34178,6 +34324,7 @@ Loading snippet ...</pre
       });
     };
     init7();
+    usePageScroll();
   });
 })();
 //# sourceMappingURL=main.js.map

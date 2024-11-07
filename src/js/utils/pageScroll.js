@@ -1,18 +1,17 @@
+import { mobCore } from '../mobCore';
 import { mainStore } from '../mobjs';
-import {
-    initPageScroll,
-    stopPageScroll,
-    updatePageScroll,
-} from '../mobMotion/plugin';
+import { destroyPageScroll, initPageScroll } from '../mobMotion/plugin';
 
 export const usePageScroll = () => {
     initPageScroll();
 
     mainStore.watch('beforeRouteChange', () => {
-        stopPageScroll();
+        destroyPageScroll();
     });
 
     mainStore.watch('afterRouteChange', () => {
-        updatePageScroll();
+        mobCore.useFrameIndex(() => {
+            initPageScroll();
+        }, 3);
     });
 };

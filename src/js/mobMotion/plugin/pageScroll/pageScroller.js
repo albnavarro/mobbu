@@ -107,7 +107,7 @@ const PageScroller = ({ velocity }) => {
         destroy: () => {
             lastScrollValue = 0;
             smoothIsActive = false;
-
+            isFreezed = true;
             lerp?.stop();
             lerp?.destroy();
             // @ts-ignore
@@ -139,6 +139,7 @@ export const initPageScroll = ({ velocity = 60 } = {}) => {
 
     ({ freeze, unFreeze, destroy, stop, update } = PageScroller({ velocity }));
     isActive = true;
+    isFreezed = false;
 };
 
 /** @type{() => void} */
