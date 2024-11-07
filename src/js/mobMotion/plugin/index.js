@@ -5,6 +5,8 @@ export {
     freezePageScroll,
     initPageScroll,
     unFreezePageScroll,
+    stopPageScroll,
+    updatePageScroll,
 } from './pageScroll/pageScroller.js';
 export { slide } from './slide/slide.js';
 export { default as SmoothScroller } from './smoothScroller/smoothScroller.js';

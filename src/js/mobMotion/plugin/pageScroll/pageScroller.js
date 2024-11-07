@@ -1,7 +1,6 @@
 //@ts-check
 
 import { mobCore } from '../../../mobCore';
-import { mainStore } from '../../../mobjs';
 import { motionCore } from '../../core';
 import { tween } from '../../tween';
 
@@ -24,6 +23,12 @@ let unFreeze = () => {};
 
 /** @type{() => void} */
 let destroy = () => {};
+
+/** @type{() => void} */
+let stop = () => {};
+
+/** @type{() => void} */
+let update = () => {};
 
 /** @type{import('./type').PageScroller} */
 const PageScroller = ({ velocity }) => {
@@ -90,22 +95,6 @@ const PageScroller = ({ velocity }) => {
         }
     });
 
-    /**
-     * Stop lerp on route change.
-     */
-    const unwatchBeforeRouteLeave = mainStore.watch('beforeRouteLeave', () => {
-        lastScrollValue = 0;
-        lerp.stop();
-        smoothIsActive = false;
-    });
-
-    /**
-     * Update lerp value after route change.
-     */
-    const unwatchAfterRoutechange = mainStore.watch('afterRouteChange', () => {
-        lerp.setImmediate({ scrollValue: window.scrollY });
-    });
-
     return {
         freeze: () => {
             lerp.stop();
@@ -120,14 +109,20 @@ const PageScroller = ({ velocity }) => {
             // @ts-ignore
             lerp = null;
             unsubscribe();
-            unwatchAfterRoutechange();
-            unwatchBeforeRouteLeave();
             unsubscribeScroll();
             unsubscribeMouseWheel();
             unsubscribeMouseDown();
             freeze = () => {};
             unFreeze = () => {};
             destroy = () => {};
+        },
+        stop: () => {
+            lastScrollValue = 0;
+            lerp.stop();
+            smoothIsActive = false;
+        },
+        update: () => {
+            lerp.setImmediate({ scrollValue: window.scrollY });
         },
     };
 };
@@ -136,7 +131,7 @@ const PageScroller = ({ velocity }) => {
 export const initPageScroll = ({ velocity = 60 } = {}) => {
     if (isActive) return;
 
-    ({ freeze, unFreeze, destroy } = PageScroller({ velocity }));
+    ({ freeze, unFreeze, destroy, stop, update } = PageScroller({ velocity }));
     isActive = true;
 };
 
@@ -154,4 +149,12 @@ export const unFreezePageScroll = () => {
 export const destroyPageScroll = () => {
     destroy();
     isActive = false;
+};
+
+export const stopPageScroll = () => {
+    stop();
+};
+
+export const updatePageScroll = () => {
+    update();
 };
