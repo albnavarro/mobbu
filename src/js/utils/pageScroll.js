@@ -8,7 +8,7 @@ import {
 export const usePageScroll = () => {
     initPageScroll();
 
-    mainStore.watch('beforeRouteLeave', () => {
+    mainStore.watch('beforeRouteChange', () => {
         stopPageScroll();
     });
 

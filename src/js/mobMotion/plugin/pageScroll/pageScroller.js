@@ -105,6 +105,10 @@ const PageScroller = ({ velocity }) => {
             isFreezed = false;
         },
         destroy: () => {
+            lastScrollValue = 0;
+            smoothIsActive = false;
+
+            lerp?.stop();
             lerp?.destroy();
             // @ts-ignore
             lerp = null;
@@ -115,6 +119,8 @@ const PageScroller = ({ velocity }) => {
             freeze = () => {};
             unFreeze = () => {};
             destroy = () => {};
+            stop = () => {};
+            update = () => {};
         },
         stop: () => {
             lastScrollValue = 0;
