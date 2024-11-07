@@ -21877,9 +21877,9 @@ Loading snippet ...</pre
   }
   var addItemToScrollComponent = async ({ id, label, element }) => {
     await tick();
-    useMethodByName("scrollTo")?.addItem?.({ id, label, element });
+    useMethodByName("scrollTo")?.addItem({ id, label, element });
     if (isVisibleInViewport(element)) {
-      useMethodByName("scrollTo")?.setActiveLabel?.(label);
+      useMethodByName("scrollTo")?.setActiveLabel(label);
     }
   };
   var SpacerAnchorFn = ({ html, getState, onMount }) => {
@@ -21932,7 +21932,7 @@ Loading snippet ...</pre
 
   // src/js/mobMotion/plugin/pageScroll/pageScroller.js
   var isActive = false;
-  var lastScrollValue = 0;
+  var lastScrollValue = window.scrollY;
   var smoothIsActive = false;
   var isFreezed = false;
   var freeze = () => {
@@ -22030,9 +22030,11 @@ Loading snippet ...</pre
   };
   var initPageScroll = ({ velocity = 60 } = {}) => {
     if (isActive) return;
-    ({ freeze, unFreeze, destroy, stop, update: update2 } = PageScroller({ velocity }));
-    isActive = true;
+    lastScrollValue = window.scrollY;
+    smoothIsActive = false;
     isFreezed = false;
+    isActive = true;
+    ({ freeze, unFreeze, destroy, stop, update: update2 } = PageScroller({ velocity }));
   };
   var freezePageScroll = () => {
     freeze();

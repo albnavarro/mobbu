@@ -7,7 +7,7 @@ import { tween } from '../../tween';
 let isActive = false;
 
 /** @type{number} */
-let lastScrollValue = 0;
+let lastScrollValue = window.scrollY;
 
 /** @type{boolean} */
 let smoothIsActive = false;
@@ -137,9 +137,12 @@ const PageScroller = ({ velocity }) => {
 export const initPageScroll = ({ velocity = 60 } = {}) => {
     if (isActive) return;
 
-    ({ freeze, unFreeze, destroy, stop, update } = PageScroller({ velocity }));
-    isActive = true;
+    lastScrollValue = window.scrollY;
+    smoothIsActive = false;
     isFreezed = false;
+    isActive = true;
+
+    ({ freeze, unFreeze, destroy, stop, update } = PageScroller({ velocity }));
 };
 
 /** @type{() => void} */
