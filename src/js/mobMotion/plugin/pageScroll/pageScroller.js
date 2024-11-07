@@ -1,8 +1,9 @@
 //@ts-check
 
-import { mobCore } from '../../mobCore';
-import { mainStore } from '../../mobjs';
-import { motionCore, tween } from '../../mobMotion';
+import { mobCore } from '../../../mobCore';
+import { mainStore } from '../../../mobjs';
+import { motionCore } from '../../core';
+import { tween } from '../../tween';
 
 let isActive = false;
 
