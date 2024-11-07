@@ -20,6 +20,10 @@ import {
     valueIsNumberAndReturnDefault,
 } from '../../../animation/utils/tweenAction/tweenValidation';
 import { mobCore } from '../../../../mobCore';
+import {
+    freezePageScroll,
+    unFreezePageScroll,
+} from '../../pageScroll/pageScroller';
 
 export class HorizontalScroller {
     /**
@@ -660,17 +664,20 @@ export class HorizontalScroller {
         this.#onMouseDown = () => {
             if (!mq[this.#queryType](this.#breakpoint)) return;
 
+            freezePageScroll();
             if (this.#shouldDragValue) this.#row.style.cursor = 'move';
             this.#touchActive = true;
             this.#firstTouchValue = this.#scrollValue;
         };
 
         this.#onMouseUp = () => {
+            unFreezePageScroll();
             this.#touchActive = false;
             mobCore.useFrame(() => (this.#row.style.cursor = ''));
         };
 
         this.#onMouseLeave = () => {
+            unFreezePageScroll();
             this.#touchActive = false;
             mobCore.useFrame(() => (this.#row.style.cursor = ''));
         };
@@ -678,12 +685,14 @@ export class HorizontalScroller {
         this.#onTouchStart = (event) => {
             if (!mq[this.#queryType](this.#breakpoint)) return;
 
+            freezePageScroll();
             this.#lastTouchValueX = -event.touches[0].clientX;
             this.#touchActive = true;
             this.#firstTouchValue = this.#scrollValue;
         };
 
         this.#onTouchEnd = () => {
+            unFreezePageScroll();
             this.#touchActive = false;
         };
 

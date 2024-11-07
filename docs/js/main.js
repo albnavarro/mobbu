@@ -22725,25 +22725,30 @@ Loading snippet ...</pre
       };
       this.#onMouseDown = () => {
         if (!mq[this.#queryType](this.#breakpoint)) return;
+        freezePageScroll();
         if (this.#shouldDragValue) this.#row.style.cursor = "move";
         this.#touchActive = true;
         this.#firstTouchValue = this.#scrollValue;
       };
       this.#onMouseUp = () => {
+        unFreezePageScroll();
         this.#touchActive = false;
         mobCore.useFrame(() => this.#row.style.cursor = "");
       };
       this.#onMouseLeave = () => {
+        unFreezePageScroll();
         this.#touchActive = false;
         mobCore.useFrame(() => this.#row.style.cursor = "");
       };
       this.#onTouchStart = (event) => {
         if (!mq[this.#queryType](this.#breakpoint)) return;
+        freezePageScroll();
         this.#lastTouchValueX = -event.touches[0].clientX;
         this.#touchActive = true;
         this.#firstTouchValue = this.#scrollValue;
       };
       this.#onTouchEnd = () => {
+        unFreezePageScroll();
         this.#touchActive = false;
       };
       this.#onTouchMove = (event) => {
@@ -30872,7 +30877,7 @@ Loading snippet ...</pre
       useThrottle: true,
       animateAtStart: false,
       ease: true,
-      easeType: "spring",
+      easeType: "lerp",
       addCss: true,
       columnHeight: 70,
       columnWidth: 100,
