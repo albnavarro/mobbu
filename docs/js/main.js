@@ -26772,15 +26772,15 @@ Loading snippet ...</pre
   }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = "#000000";
-    const setQuickNavState = setStateByName("quick_nav");
-    const setMainTitleState = setStateByName("animation_title");
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
       const { wrap, canvas } = getRef();
+      const setQuickNavState = setStateByName("quick_nav");
+      const setMainTitleState = setStateByName("animation_title");
+      const setCodeButtonState = setStateByName("global-code-button");
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", prevRoute);
       setQuickNavState("nextRoute", nextRoute);
@@ -27279,15 +27279,15 @@ Loading snippet ...</pre
     getRef
   }) => {
     document.body.style.background = "#000000";
-    const setQuickNavState = setStateByName("quick_nav");
-    const setMainTitleState = setStateByName("animation_title");
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
       const { wrap, canvas } = getRef();
+      const setQuickNavState = setStateByName("quick_nav");
+      const setMainTitleState = setStateByName("animation_title");
+      const setCodeButtonState = setStateByName("global-code-button");
       setQuickNavState("active", true);
       setQuickNavState(
         "prevRoute",
@@ -27609,15 +27609,15 @@ Loading snippet ...</pre
     getRef
   }) => {
     document.body.style.background = "#000000";
-    const setQuickNavState = setStateByName("quick_nav");
-    const setMainTitleState = setStateByName("animation_title");
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
       const { wrap, canvas } = getRef();
+      const setQuickNavState = setStateByName("quick_nav");
+      const setMainTitleState = setStateByName("animation_title");
+      const setCodeButtonState = setStateByName("global-code-button");
       setQuickNavState("active", true);
       setQuickNavState("nextRoute", "#caterpillarN1");
       setQuickNavState("color", "white");
@@ -27943,15 +27943,15 @@ Loading snippet ...</pre
     setRef
   }) => {
     document.body.style.background = "#000000";
-    const setQuickNavState = setStateByName("quick_nav");
-    const setMainTitleState = setStateByName("animation_title");
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
       const { wrap, canvas } = getRef();
+      const setQuickNavState = setStateByName("quick_nav");
+      const setMainTitleState = setStateByName("animation_title");
+      const setCodeButtonState = setStateByName("global-code-button");
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", "#caterpillarN0");
       setQuickNavState("nextRoute", "#caterpillarN2");
@@ -28272,15 +28272,15 @@ Loading snippet ...</pre
   }) => {
     const { buttons: buttons4, rotationDefault } = getState();
     document.body.style.background = "#000000";
-    const setQuickNavState = setStateByName("quick_nav");
-    const setMainTitleState = setStateByName("animation_title");
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
       const { wrap, canvas, rangeValue, rotationButton } = getRef();
+      const setQuickNavState = setStateByName("quick_nav");
+      const setMainTitleState = setStateByName("animation_title");
+      const setCodeButtonState = setStateByName("global-code-button");
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", "#caterpillarN1");
       setQuickNavState(
@@ -28710,15 +28710,15 @@ Loading snippet ...</pre
   var ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = "#000000";
-    const setScrollDownState = setStateByName("scroll_down_label");
-    const setQuickNavState = setStateByName("quick_nav");
-    const setMainTitleState = setStateByName("animation_title");
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
+      const setScrollDownState = setStateByName("scroll_down_label");
+      const setQuickNavState = setStateByName("quick_nav");
+      const setMainTitleState = setStateByName("animation_title");
+      const setCodeButtonState = setStateByName("global-code-button");
       setScrollDownState("active", true);
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", prevRoute);
@@ -29145,15 +29145,15 @@ Loading snippet ...</pre
   // src/js/component/pages/scroller/ScrollerN1/scrollerN1.js
   var ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
     document.body.style.background = "#000000";
-    const setScrollDownState = setStateByName("scroll_down_label");
-    const setQuickNavState = setStateByName("quick_nav");
-    const setMainTitleState = setStateByName("animation_title");
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
+      const setScrollDownState = setStateByName("scroll_down_label");
+      const setQuickNavState = setStateByName("quick_nav");
+      const setMainTitleState = setStateByName("animation_title");
+      const setCodeButtonState = setStateByName("global-code-button");
       setScrollDownState("active", true);
       setQuickNavState("active", true);
       setQuickNavState("nextRoute", "");
@@ -30979,9 +30979,6 @@ Loading snippet ...</pre
     getRef
   }) => {
     const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
-    const setQuickNavState = setStateByName("quick_nav");
-    const setMainTitleState = setStateByName("animation_title");
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) return;
       const indicators = element.querySelectorAll(".js-indicator");
@@ -30995,6 +30992,9 @@ Loading snippet ...</pre
         ...getState(),
         setState
       });
+      const setQuickNavState = setStateByName("quick_nav");
+      const setMainTitleState = setStateByName("animation_title");
+      const setCodeButtonState = setStateByName("global-code-button");
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", prevRoute);
       setQuickNavState("nextRoute", nextRoute);
@@ -31427,10 +31427,10 @@ Loading snippet ...</pre
   var SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
     const isDesktop = motionCore.mq("min", "desktop");
     const { svg, star } = isDesktop ? getState() : { svg: "", star: "" };
-    const setQuickNavState = setStateByName("quick_nav");
-    const setMainTitleState = setStateByName("animation_title");
     onMount(({ element }) => {
       if (!isDesktop) return;
+      const setQuickNavState = setStateByName("quick_nav");
+      const setMainTitleState = setStateByName("animation_title");
       setQuickNavState("active", true);
       setQuickNavState("nextRoute", "#mv1");
       setQuickNavState("color", "black");

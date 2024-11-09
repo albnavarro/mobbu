@@ -90,15 +90,6 @@ export const HorizontalScrollerFn = ({
 }) => {
     const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
 
-    /** @type {SetStateByName<QuickNav>} */
-    const setQuickNavState = setStateByName('quick_nav');
-
-    /** @type {SetStateByName<AnimationTitle>} */
-    const setMainTitleState = setStateByName('animation_title');
-
-    /** @type {SetStateByName<CodeButton>} */
-    const setCodeButtonState = setStateByName('global-code-button');
-
     onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -113,6 +104,15 @@ export const HorizontalScrollerFn = ({
             ...getState(),
             setState,
         });
+
+        /** @type {SetStateByName<QuickNav>} */
+        const setQuickNavState = setStateByName('quick_nav');
+
+        /** @type {SetStateByName<AnimationTitle>} */
+        const setMainTitleState = setStateByName('animation_title');
+
+        /** @type {SetStateByName<CodeButton>} */
+        const setCodeButtonState = setStateByName('global-code-button');
 
         /**
          * Quicknav
