@@ -28,12 +28,12 @@ export const HorizontalScroller = createComponent({
             type: String,
         }),
         svgLeft: () => ({
-            value: 0,
-            type: '',
+            value: '',
+            type: String,
         }),
         svgRight: () => ({
-            value: 0,
-            type: '',
+            value: '',
+            type: String,
         }),
         currentId: () => ({
             value: 0,

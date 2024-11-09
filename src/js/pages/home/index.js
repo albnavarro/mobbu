@@ -9,7 +9,21 @@ export const home = async () => {
         source: './asset/svg/ms.svg',
     });
 
+    const { data: data_left } = await loadTextContent({
+        source: './asset/svg/footer_shape_left.svg',
+    });
+
+    const { data: data_right } = await loadTextContent({
+        source: './asset/svg/footer_shape_right.svg',
+    });
+
     return html`<div class="l-index">
-        <home-component ${staticProps({ svg })}></home-component>
+        <home-component
+            ${staticProps({
+                svg,
+                svgLeft: data_left,
+                svgRight: data_right,
+            })}
+        ></home-component>
     </div>`;
 };

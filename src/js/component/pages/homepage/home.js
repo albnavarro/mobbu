@@ -25,8 +25,9 @@ export const HomeComponentFn = ({
     getState,
     setRef,
     getRefs,
+    staticProps,
 }) => {
-    const { svg } = getState();
+    const { svg, svgLeft, svgRight } = getState();
 
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
@@ -122,5 +123,12 @@ export const HomeComponentFn = ({
         </div>
 
         <div class="l-index__logo">${svg}</div>
+
+        <footer-shape-v1
+            ${staticProps({ position: 'left', svg: svgLeft })}
+        ></footer-shape-v1>
+        <footer-shape-v1
+            ${staticProps({ position: 'right', svg: svgRight })}
+        ></footer-shape-v1>
     </div>`;
 };
