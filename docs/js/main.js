@@ -19591,8 +19591,10 @@
           html: renderHtml
         });
       });
-      const elementsParsed = document.createRange().createContextualFragment(elementToAdd.join(""));
-      repeaterParentElement.append(elementsParsed);
+      elementToAdd.forEach((element) => {
+        const node = document.createRange().createContextualFragment(element).firstElementChild;
+        repeaterParentElement.append(node);
+      });
     }
     if (diff < 0) {
       const idsByRepeatId = getIdsByByRepeatId({

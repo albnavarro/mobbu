@@ -88,21 +88,15 @@ export const addWithoutKey = ({
             });
         });
 
-        // elementToAdd.forEach((element) => {
-        //     const node = document
-        //         .createRange()
-        //         .createContextualFragment(element).firstElementChild;
-        //
-        //     repeaterParentElement.append(node);
-        //
-        //     // repeaterParentElement.insertAdjacentHTML('beforeend', element);
-        // });
+        elementToAdd.forEach((element) => {
+            const node = document
+                .createRange()
+                .createContextualFragment(element).firstElementChild;
 
-        const elementsParsed = document
-            .createRange()
-            .createContextualFragment(elementToAdd.join(''));
+            repeaterParentElement.append(node);
 
-        repeaterParentElement.append(elementsParsed);
+            // repeaterParentElement.insertAdjacentHTML('beforeend', element);
+        });
     }
 
     /**
