@@ -333,9 +333,9 @@ th {
 }
 html {
   box-sizing: border-box;
-  --scrollbar-color-thumb: black;
-  --scrollbar-color-track: white;
-  --scrollbar-width: auto;
+  --scrollbar-color-thumb: white;
+  --scrollbar-color-track: black;
+  --scrollbar-width: thin;
   --scrollbar-width-legacy: 10px;
 }
 @supports (scrollbar-width: auto) {
