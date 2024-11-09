@@ -22019,9 +22019,7 @@ Loading snippet ...</pre
         };
       },
       stop: () => {
-        lastScrollValue = 0;
         lerp2.stop();
-        smoothIsActive = false;
       },
       update: () => {
         lerp2.setImmediate({ scrollValue: window.scrollY });
@@ -22042,9 +22040,17 @@ Loading snippet ...</pre
   var unFreezePageScroll = () => {
     unFreeze();
   };
-  var destroyPageScroll = () => {
-    destroy();
-    isActive = false;
+  var stopPageScroll = () => {
+    lastScrollValue = 0;
+    smoothIsActive = false;
+    isFreezed = true;
+    stop();
+  };
+  var resumePageScroll = () => {
+    lastScrollValue = window.scrollY;
+    smoothIsActive = false;
+    isFreezed = false;
+    update2();
   };
 
   // src/js/mobMotion/plugin/bodyScroll/bodyScroll.js
@@ -34271,11 +34277,11 @@ Loading snippet ...</pre
   var usePageScroll = () => {
     initPageScroll();
     mainStore.watch("beforeRouteChange", () => {
-      destroyPageScroll();
+      stopPageScroll();
     });
     mainStore.watch("afterRouteChange", () => {
       mobCore.useFrameIndex(() => {
-        initPageScroll();
+        resumePageScroll();
       }, 3);
     });
   };

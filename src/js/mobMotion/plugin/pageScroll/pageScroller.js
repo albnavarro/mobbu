@@ -123,9 +123,7 @@ const PageScroller = ({ velocity }) => {
             update = () => {};
         },
         stop: () => {
-            lastScrollValue = 0;
             lerp.stop();
-            smoothIsActive = false;
         },
         update: () => {
             lerp.setImmediate({ scrollValue: window.scrollY });
@@ -161,10 +159,20 @@ export const destroyPageScroll = () => {
     isActive = false;
 };
 
+/** @type{() => void} */
 export const stopPageScroll = () => {
+    lastScrollValue = 0;
+    smoothIsActive = false;
+    isFreezed = true;
+
     stop();
 };
 
-export const updatePageScroll = () => {
+/** @type{() => void} */
+export const resumePageScroll = () => {
+    lastScrollValue = window.scrollY;
+    smoothIsActive = false;
+    isFreezed = false;
+
     update();
 };

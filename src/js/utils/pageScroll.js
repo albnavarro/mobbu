@@ -1,17 +1,25 @@
 import { mobCore } from '../mobCore';
 import { mainStore } from '../mobjs';
-import { destroyPageScroll, initPageScroll } from '../mobMotion/plugin';
+import {
+    initPageScroll,
+    resumePageScroll,
+    stopPageScroll,
+} from '../mobMotion/plugin';
 
 export const usePageScroll = () => {
     initPageScroll();
 
     mainStore.watch('beforeRouteChange', () => {
-        destroyPageScroll();
+        stopPageScroll();
     });
 
     mainStore.watch('afterRouteChange', () => {
+        /**
+         * with 3 frame.
+         * last animation frame will fired one frame after stop
+         */
         mobCore.useFrameIndex(() => {
-            initPageScroll();
+            resumePageScroll();
         }, 3);
     });
 };
