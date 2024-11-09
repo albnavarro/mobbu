@@ -333,6 +333,28 @@ th {
 }
 html {
   box-sizing: border-box;
+  --scrollbar-color-thumb: black;
+  --scrollbar-color-track: white;
+  --scrollbar-width: auto;
+  --scrollbar-width-legacy: 10px;
+}
+@supports (scrollbar-width: auto) {
+  html {
+    scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+    scrollbar-width: var(--scrollbar-width);
+  }
+}
+@supports selector(::-webkit-scrollbar) {
+  html ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color-thumb);
+  }
+  html ::-webkit-scrollbar-track {
+    background: var(--scrollbar-color-track);
+  }
+  html ::-webkit-scrollbar {
+    max-width: var(--scrollbar-width-legacy);
+    max-height: var(--scrollbar-width-legacy);
+  }
 }
 body {
   background: #ccc;
