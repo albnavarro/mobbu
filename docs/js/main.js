@@ -23331,13 +23331,11 @@ Loading snippet ...</pre
       }
       const { tween: tween3 } = currentItem;
       const currentHeight = outerHeight(target);
-      freezePageScroll();
       await tween3.goFromTo(
         { val: currentHeight },
         { val: 0 },
         { duration: 500 }
       );
-      unFreezePageScroll();
     };
     const down = async (target) => {
       if (!isNode2(target)) {
@@ -23353,9 +23351,7 @@ Loading snippet ...</pre
       target.style.height = `auto`;
       const height = outerHeight(target);
       target.style.height = `${currentHeight}px`;
-      freezePageScroll();
       await tween3.goTo({ val: height }, { duration: 500 });
-      unFreezePageScroll();
       mobCore.useNextTick(() => {
         target.style.height = `auto`;
       });

@@ -3,10 +3,6 @@
 import { mobCore } from '../../../mobCore/index.js';
 import { outerHeight } from '../../../mobCore/utils/index.js';
 import HandleTween from '../../animation/tween/handleTween.js';
-import {
-    freezePageScroll,
-    unFreezePageScroll,
-} from '../pageScroll/pageScroller.js';
 
 /** @type {Map<HTMLElement,import('./type.js').Slide>} */
 const slideItems = new Map();
@@ -148,13 +144,11 @@ export const slide = (() => {
         const { tween } = currentItem;
         const currentHeight = outerHeight(target);
 
-        freezePageScroll();
         await tween.goFromTo(
             { val: currentHeight },
             { val: 0 },
             { duration: 500 }
         );
-        unFreezePageScroll();
     };
 
     /**
@@ -191,10 +185,7 @@ export const slide = (() => {
         const height = outerHeight(target);
         target.style.height = `${currentHeight}px`;
 
-        freezePageScroll();
         await tween.goTo({ val: height }, { duration: 500 });
-        unFreezePageScroll();
-
         mobCore.useNextTick(() => {
             target.style.height = `auto`;
         });
