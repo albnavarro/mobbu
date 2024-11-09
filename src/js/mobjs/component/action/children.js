@@ -52,7 +52,7 @@ export const updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
         .filter(({ element }) => {
             return filterBy.length > 0 ? filterBy.includes(element) : true;
         })
-        .sort(function (a, b) {
+        .sort((a, b) => {
             const { element: elementA } = a;
             const { element: elementB } = b;
             if (elementA === elementB || !elementA || !elementB) return 0;
@@ -91,7 +91,7 @@ export const gerOrderedChildrenById = ({ children }) => {
         .map((id) => {
             return { id, element: getElementById({ id }) };
         })
-        .sort(function (a, b) {
+        .sort((a, b) => {
             const { element: elementA } = a;
             const { element: elementB } = b;
             if (elementA === elementB || !elementA || !elementB) return 0;

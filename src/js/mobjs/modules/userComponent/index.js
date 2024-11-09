@@ -91,7 +91,7 @@ export const getUserChildPlaceholderSize = () => {
  * @returns {void}
  */
 export const sortUserPlaceholder = () => {
-    const orderedSet = [...userPlaceholder].sort(function (a, b) {
+    const orderedSet = [...userPlaceholder].sort((a, b) => {
         if (a === b || !a || !b) return 0;
         if (a.compareDocumentPosition(b) & 2) {
             // b comes before a
