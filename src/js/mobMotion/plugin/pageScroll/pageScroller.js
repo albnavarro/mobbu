@@ -134,7 +134,7 @@ const PageScroller = ({ velocity }) => {
 };
 
 /** @type{(arg0?: {velocity?: number}) => void} */
-export const initPageScroll = ({ velocity = 60 } = {}) => {
+export const initPageScroll = ({ velocity = 100 } = {}) => {
     if (isActive) return;
 
     lastScrollValue = window.scrollY;

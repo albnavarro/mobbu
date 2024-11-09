@@ -22028,7 +22028,7 @@ Loading snippet ...</pre
       }
     };
   };
-  var initPageScroll = ({ velocity = 60 } = {}) => {
+  var initPageScroll = ({ velocity = 100 } = {}) => {
     if (isActive) return;
     lastScrollValue = window.scrollY;
     smoothIsActive = false;
