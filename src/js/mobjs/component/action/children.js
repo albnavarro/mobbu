@@ -92,10 +92,7 @@ export const gerOrderedChildrenById = ({ children }) => {
             return { id, element: getElementById({ id }) };
         })
         .toSorted((a, b) => {
-            const { element: elementA } = a;
-            const { element: elementB } = b;
-            if (elementA === elementB || !elementA || !elementB) return 0;
-            if (elementA.compareDocumentPosition(elementB) & 2) {
+            if (a.element.compareDocumentPosition(b.element) & 2) {
                 // b comes before a
                 return 1;
             }

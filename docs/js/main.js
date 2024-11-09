@@ -16734,10 +16734,7 @@
     return children.map((id) => {
       return { id, element: getElementById({ id }) };
     }).toSorted((a, b) => {
-      const { element: elementA } = a;
-      const { element: elementB } = b;
-      if (elementA === elementB || !elementA || !elementB) return 0;
-      if (elementA.compareDocumentPosition(elementB) & 2) {
+      if (a.element.compareDocumentPosition(b.element) & 2) {
         return 1;
       }
       return -1;
