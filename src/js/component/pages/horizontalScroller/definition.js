@@ -1,7 +1,6 @@
 //@ts-check
 
 import { createComponent } from '../../../mobjs';
-import { FooterShapeV1 } from '../../common/shapes/definition';
 import { HorizontalScrollerFn } from './horizontalScroller';
 import { HorizontalScrollerButton } from './horizontalScrollerButton/definition';
 import { HorizontalScrollerSection } from './horizontalScrollerSection/definition';
@@ -15,8 +14,6 @@ export const HorizontalScroller = createComponent({
         'currentId',
         'currentIdFromScroll',
         'animatePin',
-        'svgLeft',
-        'svgRight',
     ],
     state: {
         nextRoute: () => ({
@@ -24,14 +21,6 @@ export const HorizontalScroller = createComponent({
             type: String,
         }),
         prevRoute: () => ({
-            value: '',
-            type: String,
-        }),
-        svgLeft: () => ({
-            value: '',
-            type: String,
-        }),
-        svgRight: () => ({
             value: '',
             type: String,
         }),
@@ -48,5 +37,5 @@ export const HorizontalScroller = createComponent({
             type: Boolean,
         }),
     },
-    child: [HorizontalScrollerButton, HorizontalScrollerSection, FooterShapeV1],
+    child: [HorizontalScrollerButton, HorizontalScrollerSection],
 });

@@ -38,7 +38,7 @@ export const Mv1Component = ({ html, onMount, getState }) => {
          */
         setQuickNavState('active', true);
         setQuickNavState('prevRoute', '#child');
-        setQuickNavState('color', 'black');
+        setQuickNavState('color', 'white');
 
         /**
          * Title.

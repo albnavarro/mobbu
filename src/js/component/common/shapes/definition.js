@@ -6,7 +6,7 @@ import { FooterShapeV1Fn } from './footerShapeV1';
 export const FooterShapeV1 = createComponent({
     name: 'footer-shape-v1',
     component: FooterShapeV1Fn,
-    exportState: ['position', 'svg'],
+    exportState: ['position', 'svg', 'isCenter'],
     state: {
         position: () => ({
             value: 'left',
@@ -15,6 +15,10 @@ export const FooterShapeV1 = createComponent({
         svg: () => ({
             value: '',
             type: String,
+        }),
+        isCenter: () => ({
+            value: true,
+            type: Boolean,
         }),
     },
 });

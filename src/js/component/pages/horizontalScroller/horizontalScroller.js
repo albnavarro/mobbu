@@ -88,7 +88,7 @@ export const HorizontalScrollerFn = ({
     setRef,
     getRef,
 }) => {
-    const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
+    const { animatePin, prevRoute, nextRoute } = getState();
 
     onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) return;
@@ -268,12 +268,5 @@ export const HorizontalScrollerFn = ({
             </div>
         </div>
         <div class="l-h-scroller__bottom">scroll up</div>
-
-        <footer-shape-v1
-            ${staticProps({ position: 'left', svg: svgLeft })}
-        ></footer-shape-v1>
-        <footer-shape-v1
-            ${staticProps({ position: 'right', svg: svgRight })}
-        ></footer-shape-v1>
     </div>`;
 };

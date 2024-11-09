@@ -3,7 +3,9 @@
 .c-quick-nav-container {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.35s, visibility 0.35s;
+    transition:
+        opacity 0.35s,
+        visibility 0.35s;
     pointer-events: none;
 
     &.active {

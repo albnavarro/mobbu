@@ -69,7 +69,7 @@ export const CaterpillarN2Fn = ({
             'nextRoute',
             '#animatedPatternN0?version=0&activeId=0'
         );
-        setQuickNavState('color', 'black');
+        setQuickNavState('color', 'white');
 
         /**
          * Title.

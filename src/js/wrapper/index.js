@@ -14,6 +14,7 @@ import { loadTextContent } from '../utils/utils';
 import { LinksMobJs } from '../component/common/linksMobJs/definition';
 import { OnlyDesktop } from '../component/common/onlyDesktop/definition';
 import { DebugOverlay } from '../component/common/debug/debugOverlay/definition';
+import { FooterShapeV1 } from '../component/common/shapes/definition';
 
 useComponent([
     CodeOverlay,
@@ -30,11 +31,20 @@ useComponent([
     LinksMobJs,
     OnlyDesktop,
     DebugOverlay,
+    FooterShapeV1,
 ]);
 
 export const wrapper = async () => {
     const { data: svg } = await loadTextContent({
         source: './asset/svg/logo.svg',
+    });
+
+    const { data: svgLeft } = await loadTextContent({
+        source: './asset/svg/footer_shape_left.svg',
+    });
+
+    const { data: svgRight } = await loadTextContent({
+        source: './asset/svg/footer_shape_right.svg',
     });
 
     return html`
@@ -62,6 +72,14 @@ export const wrapper = async () => {
             </div>
         </main>
         <mob-footer> </mob-footer>
+        <footer-shape-v1
+            name="footer_shape_left"
+            ${staticProps({ position: 'left', svg: svgLeft })}
+        ></footer-shape-v1>
+        <footer-shape-v1
+            name="footer_shape_right"
+            ${staticProps({ position: 'right', svg: svgRight })}
+        ></footer-shape-v1>
         <quick-nav name="quick_nav"></quick-nav>
         <route-loader></route-loader>
         <animation-title name="animation_title"></animation-title>

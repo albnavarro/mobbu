@@ -7,16 +7,8 @@ import { HomeComponentFn } from './home';
 export const HomeComponent = createComponent({
     name: 'home-component',
     component: HomeComponentFn,
-    exportState: ['svg', 'svgRight', 'svgLeft'],
+    exportState: ['svg'],
     state: {
-        svgLeft: () => ({
-            value: '',
-            type: String,
-        }),
-        svgRight: () => ({
-            value: '',
-            type: String,
-        }),
         svg: () => ({
             value: '',
             type: String,

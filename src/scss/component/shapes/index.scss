@@ -8,7 +8,10 @@
     z-index: 10;
     display: none;
     opacity: 0;
-    transition: opacity 1.55s;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition:
+        opacity 1.55s,
+        transform 1.55s;
 
     &.active {
         opacity: 1;
@@ -26,9 +29,20 @@
 
     &--right {
         left: 40%;
+        transform: translateX(50%);
+
+        &.is-center {
+            transform: translateX(0);
+        }
     }
 
     &--left {
         right: 40%;
+        transform: translateX(-50%);
+
+        &.is-center {
+            right: 40%;
+            transform: translateX(0);
+        }
     }
 }
