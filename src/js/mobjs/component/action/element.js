@@ -37,8 +37,7 @@ export const getElementById = ({ id = '' }) => {
     if (!id || id === '') return;
 
     const item = componentMap.get(id);
-    const element = item?.element;
-    return element;
+    return item?.element;
 };
 
 /**
