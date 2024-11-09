@@ -49,6 +49,7 @@ export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
         setQuickNavState('active', true);
         setQuickNavState('nextRoute', '');
         setQuickNavState('prevRoute', '#scrollerN0?version=4&activeId=4');
+        setQuickNavState('color', 'white');
 
         /**
          * Title.

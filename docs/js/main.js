@@ -28723,6 +28723,7 @@ Loading snippet ...</pre
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", prevRoute);
       setQuickNavState("nextRoute", nextRoute);
+      setQuickNavState("color", "white");
       setMainTitleState("align", "left");
       setMainTitleState("color", "white");
       setMainTitleState("title", title);
@@ -29158,6 +29159,7 @@ Loading snippet ...</pre
       setQuickNavState("active", true);
       setQuickNavState("nextRoute", "");
       setQuickNavState("prevRoute", "#scrollerN0?version=4&activeId=4");
+      setQuickNavState("color", "white");
       setMainTitleState("align", "left");
       setMainTitleState("color", "white");
       setMainTitleState("title", "Scroller N1");
@@ -34315,7 +34317,7 @@ Loading snippet ...</pre
       setDefaultComponent({
         scoped: false,
         maxParseIteration: 1e4,
-        debug: false
+        debug: true
       });
       inizializeApp({
         rootId: "#root",

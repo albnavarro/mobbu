@@ -50,6 +50,7 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
         setQuickNavState('active', true);
         setQuickNavState('prevRoute', prevRoute);
         setQuickNavState('nextRoute', nextRoute);
+        setQuickNavState('color', 'white');
 
         /**
          * Title.
