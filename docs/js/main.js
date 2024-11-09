@@ -21945,7 +21945,7 @@ Loading snippet ...</pre
   };
   var update2 = () => {
   };
-  var PageScroller = ({ velocity }) => {
+  var PageScroller = ({ velocity, rootElement }) => {
     let lerp2 = tween.createLerp({ data: { scrollValue: window.scrollY } });
     const unsubscribe3 = lerp2.subscribe(({ scrollValue }) => {
       if (isFreezed) return;
@@ -21987,6 +21987,10 @@ Loading snippet ...</pre
         smoothIsActive = false;
       }
     });
+    const resizeObserver = new ResizeObserver(() => {
+      lerp2.setImmediate({ scrollValue: window.scrollY });
+    });
+    resizeObserver.observe(rootElement);
     return {
       freeze: () => {
         lerp2.stop();
@@ -22000,6 +22004,8 @@ Loading snippet ...</pre
         lastScrollValue = 0;
         smoothIsActive = false;
         isFreezed = true;
+        resizeObserver.unobserve(document.querySelector("#root"));
+        resizeObserver.disconnect();
         lerp2?.stop();
         lerp2?.destroy();
         lerp2 = null;
@@ -22026,13 +22032,19 @@ Loading snippet ...</pre
       }
     };
   };
-  var initPageScroll = ({ velocity = 100 } = {}) => {
+  var initPageScroll = ({
+    velocity = 100,
+    rootElement = document.createElement("div")
+  } = {}) => {
     if (isActive) return;
     lastScrollValue = window.scrollY;
     smoothIsActive = false;
     isFreezed = false;
     isActive = true;
-    ({ freeze, unFreeze, destroy, stop, update: update2 } = PageScroller({ velocity }));
+    ({ freeze, unFreeze, destroy, stop, update: update2 } = PageScroller({
+      velocity,
+      rootElement
+    }));
   };
   var freezePageScroll = () => {
     freeze();
@@ -34277,7 +34289,7 @@ Loading snippet ...</pre
 
   // src/js/utils/pageScroll.js
   var usePageScroll = () => {
-    initPageScroll();
+    initPageScroll({ rootElement: document.querySelector("#root") });
     mainStore.watch("beforeRouteChange", () => {
       stopPageScroll();
     });
@@ -34317,7 +34329,7 @@ Loading snippet ...</pre
       setDefaultComponent({
         scoped: false,
         maxParseIteration: 1e4,
-        debug: true
+        debug: false
       });
       inizializeApp({
         rootId: "#root",

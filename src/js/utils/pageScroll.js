@@ -7,7 +7,7 @@ import {
 } from '../mobMotion/plugin';
 
 export const usePageScroll = () => {
-    initPageScroll();
+    initPageScroll({ rootElement: document.querySelector('#root') });
 
     mainStore.watch('beforeRouteChange', () => {
         stopPageScroll();

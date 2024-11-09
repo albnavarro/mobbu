@@ -31,7 +31,7 @@ let stop = () => {};
 let update = () => {};
 
 /** @type{import('./type').PageScroller} */
-const PageScroller = ({ velocity }) => {
+const PageScroller = ({ velocity, rootElement }) => {
     let lerp = tween.createLerp({ data: { scrollValue: window.scrollY } });
 
     const unsubscribe = lerp.subscribe(({ scrollValue }) => {
@@ -95,6 +95,15 @@ const PageScroller = ({ velocity }) => {
         }
     });
 
+    /**
+     * Update lerp value on change screen dimension
+     */
+    const resizeObserver = new ResizeObserver(() => {
+        lerp.setImmediate({ scrollValue: window.scrollY });
+    });
+
+    resizeObserver.observe(rootElement);
+
     return {
         freeze: () => {
             lerp.stop();
@@ -108,6 +117,8 @@ const PageScroller = ({ velocity }) => {
             lastScrollValue = 0;
             smoothIsActive = false;
             isFreezed = true;
+            resizeObserver.unobserve(document.querySelector('#root'));
+            resizeObserver.disconnect();
             lerp?.stop();
             lerp?.destroy();
             // @ts-ignore
@@ -131,8 +142,11 @@ const PageScroller = ({ velocity }) => {
     };
 };
 
-/** @type{(arg0?: {velocity?: number}) => void} */
-export const initPageScroll = ({ velocity = 100 } = {}) => {
+/** @type{(arg0?: {velocity?: number, rootElement?: HTMLElement}) => void} */
+export const initPageScroll = ({
+    velocity = 100,
+    rootElement = document.createElement('div'),
+} = {}) => {
     if (isActive) return;
 
     lastScrollValue = window.scrollY;
@@ -140,7 +154,10 @@ export const initPageScroll = ({ velocity = 100 } = {}) => {
     isFreezed = false;
     isActive = true;
 
-    ({ freeze, unFreeze, destroy, stop, update } = PageScroller({ velocity }));
+    ({ freeze, unFreeze, destroy, stop, update } = PageScroller({
+        velocity,
+        rootElement,
+    }));
 };
 
 /** @type{() => void} */
@@ -174,5 +191,10 @@ export const resumePageScroll = () => {
     smoothIsActive = false;
     isFreezed = false;
 
+    update();
+};
+
+/** @type{() => void} */
+export const updatePageScroll = () => {
     update();
 };
