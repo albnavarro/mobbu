@@ -43,15 +43,6 @@ export const CaterpillarN2Fn = ({
     const { buttons, rotationDefault } = getState();
     document.body.style.background = '#000000';
 
-    /** @type {SetStateByName<QuickNav>} */
-    const setQuickNavState = setStateByName('quick_nav');
-
-    /** @type {SetStateByName<AnimationTitle>} */
-    const setMainTitleState = setStateByName('animation_title');
-
-    /** @type {SetStateByName<CodeButton>} */
-    const setCodeButtonState = setStateByName('global-code-button');
-
     onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) {
             document.body.style.background = '';
@@ -59,6 +50,15 @@ export const CaterpillarN2Fn = ({
         }
 
         const { wrap, canvas, rangeValue, rotationButton } = getRef();
+
+        /** @type {SetStateByName<QuickNav>} */
+        const setQuickNavState = setStateByName('quick_nav');
+
+        /** @type {SetStateByName<AnimationTitle>} */
+        const setMainTitleState = setStateByName('animation_title');
+
+        /** @type {SetStateByName<CodeButton>} */
+        const setCodeButtonState = setStateByName('global-code-button');
 
         /**
          * Quicknav

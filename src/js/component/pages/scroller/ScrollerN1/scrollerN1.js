@@ -20,23 +20,23 @@ import { scrollerN1Animation } from './animation/animation';
 export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
     document.body.style.background = '#000000';
 
-    /** @type {SetStateByName<ScrollDownLabel>} */
-    const setScrollDownState = setStateByName('scroll_down_label');
-
-    /** @type {SetStateByName<QuickNav>} */
-    const setQuickNavState = setStateByName('quick_nav');
-
-    /** @type {SetStateByName<AnimationTitle>} */
-    const setMainTitleState = setStateByName('animation_title');
-
-    /** @type {SetStateByName<CodeButton>} */
-    const setCodeButtonState = setStateByName('global-code-button');
-
     onMount(() => {
         if (motionCore.mq('max', 'desktop')) {
             document.body.style.background = '';
             return;
         }
+
+        /** @type {SetStateByName<ScrollDownLabel>} */
+        const setScrollDownState = setStateByName('scroll_down_label');
+
+        /** @type {SetStateByName<QuickNav>} */
+        const setQuickNavState = setStateByName('quick_nav');
+
+        /** @type {SetStateByName<AnimationTitle>} */
+        const setMainTitleState = setStateByName('animation_title');
+
+        /** @type {SetStateByName<CodeButton>} */
+        const setCodeButtonState = setStateByName('global-code-button');
 
         /**
          * Show scroll down label.
@@ -49,6 +49,7 @@ export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
         setQuickNavState('active', true);
         setQuickNavState('nextRoute', '');
         setQuickNavState('prevRoute', '#scrollerN0?version=4&activeId=4');
+        setQuickNavState('color', 'white');
 
         /**
          * Title.

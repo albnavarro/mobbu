@@ -1,8 +1,9 @@
+import { mobCore } from '../mobCore';
 import { mainStore } from '../mobjs';
 import {
     initPageScroll,
+    resumePageScroll,
     stopPageScroll,
-    updatePageScroll,
 } from '../mobMotion/plugin';
 
 export const usePageScroll = () => {
@@ -13,6 +14,12 @@ export const usePageScroll = () => {
     });
 
     mainStore.watch('afterRouteChange', () => {
-        updatePageScroll();
+        /**
+         * with 3 frame.
+         * last animation frame will fired one frame after stop
+         */
+        mobCore.useFrameIndex(() => {
+            resumePageScroll();
+        }, 3);
     });
 };

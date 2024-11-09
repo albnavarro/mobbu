@@ -7,7 +7,7 @@ import { tween } from '../../tween';
 let isActive = false;
 
 /** @type{number} */
-let lastScrollValue = 0;
+let lastScrollValue = window.scrollY;
 
 /** @type{boolean} */
 let smoothIsActive = false;
@@ -107,7 +107,7 @@ const PageScroller = ({ velocity }) => {
         destroy: () => {
             lastScrollValue = 0;
             smoothIsActive = false;
-
+            isFreezed = true;
             lerp?.stop();
             lerp?.destroy();
             // @ts-ignore
@@ -123,9 +123,7 @@ const PageScroller = ({ velocity }) => {
             update = () => {};
         },
         stop: () => {
-            lastScrollValue = 0;
             lerp.stop();
-            smoothIsActive = false;
         },
         update: () => {
             lerp.setImmediate({ scrollValue: window.scrollY });
@@ -134,11 +132,15 @@ const PageScroller = ({ velocity }) => {
 };
 
 /** @type{(arg0?: {velocity?: number}) => void} */
-export const initPageScroll = ({ velocity = 60 } = {}) => {
+export const initPageScroll = ({ velocity = 100 } = {}) => {
     if (isActive) return;
 
-    ({ freeze, unFreeze, destroy, stop, update } = PageScroller({ velocity }));
+    lastScrollValue = window.scrollY;
+    smoothIsActive = false;
+    isFreezed = false;
     isActive = true;
+
+    ({ freeze, unFreeze, destroy, stop, update } = PageScroller({ velocity }));
 };
 
 /** @type{() => void} */
@@ -157,10 +159,20 @@ export const destroyPageScroll = () => {
     isActive = false;
 };
 
+/** @type{() => void} */
 export const stopPageScroll = () => {
+    lastScrollValue = 0;
+    smoothIsActive = false;
+    isFreezed = true;
+
     stop();
 };
 
-export const updatePageScroll = () => {
+/** @type{() => void} */
+export const resumePageScroll = () => {
+    lastScrollValue = window.scrollY;
+    smoothIsActive = false;
+    isFreezed = false;
+
     update();
 };

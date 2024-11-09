@@ -26,15 +26,6 @@ export const AnimatedPatternN0Fn = ({
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = '#000000';
 
-    /** @type {SetStateByName<QuickNav>} */
-    const setQuickNavState = setStateByName('quick_nav');
-
-    /** @type {SetStateByName<AnimationTitle>} */
-    const setMainTitleState = setStateByName('animation_title');
-
-    /** @type {SetStateByName<CodeButton>} */
-    const setCodeButtonState = setStateByName('global-code-button');
-
     onMount(() => {
         if (motionCore.mq('max', 'desktop')) {
             document.body.style.background = '';
@@ -42,6 +33,15 @@ export const AnimatedPatternN0Fn = ({
         }
 
         const { wrap, canvas } = getRef();
+
+        /** @type {SetStateByName<QuickNav>} */
+        const setQuickNavState = setStateByName('quick_nav');
+
+        /** @type {SetStateByName<AnimationTitle>} */
+        const setMainTitleState = setStateByName('animation_title');
+
+        /** @type {SetStateByName<CodeButton>} */
+        const setCodeButtonState = setStateByName('global-code-button');
 
         /**
          * Quicknav

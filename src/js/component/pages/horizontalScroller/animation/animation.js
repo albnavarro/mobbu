@@ -124,7 +124,7 @@ export const horizontalScrollerAnimation = ({
         useThrottle: true,
         animateAtStart: false,
         ease: true,
-        easeType: 'spring',
+        easeType: 'lerp',
         addCss: true,
         columnHeight: 70,
         columnWidth: 100,

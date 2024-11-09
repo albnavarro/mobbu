@@ -39,14 +39,14 @@ export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
 
     const { svg, star } = isDesktop ? getState() : { svg: '', star: '' };
 
-    /** @type {SetStateByName<QuickNav>} */
-    const setQuickNavState = setStateByName('quick_nav');
-
-    /** @type {SetStateByName<AnimationTitle>} */
-    const setMainTitleState = setStateByName('animation_title');
-
     onMount(({ element }) => {
         if (!isDesktop) return;
+
+        /** @type {SetStateByName<QuickNav>} */
+        const setQuickNavState = setStateByName('quick_nav');
+
+        /** @type {SetStateByName<AnimationTitle>} */
+        const setMainTitleState = setStateByName('animation_title');
 
         /**
          * Quicknav

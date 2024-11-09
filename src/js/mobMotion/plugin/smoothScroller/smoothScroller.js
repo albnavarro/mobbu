@@ -21,6 +21,10 @@ import {
     outerHeight,
     outerWidth,
 } from '../../../mobCore/utils/index.js';
+import {
+    freezePageScroll,
+    unFreezePageScroll,
+} from '../pageScroll/pageScroller.js';
 
 export default class SmoothScroller {
     /**
@@ -495,23 +499,49 @@ export default class SmoothScroller {
          * Common event
          */
         this.#subscribeResize = mobCore.useResize(() => this.refresh());
+
         this.#subscribeScrollStart = mobCore.useScrollStart(() =>
             this.#refreshScroller()
         );
+
         this.#subscribeScrollEnd = mobCore.useScrollEnd(() =>
             this.#refreshScroller()
         );
+
         this.#subscribeTouchStart = mobCore.useTouchStart((data) =>
             this.#onMouseDown(data)
         );
+
         this.#subscribeTouchEnd = mobCore.useTouchEnd((data) =>
             this.#onMouseUp(data)
         );
+
         this.#subscribeMouseDown = mobCore.useMouseDown((data) =>
             this.#onMouseDown(data)
         );
+
         this.#subscribeMouseUp = mobCore.useMouseUp((data) =>
             this.#onMouseUp(data)
+        );
+
+        /**
+         * Freeze page scroller
+         */
+        /** @type{HTMLElement} */ (this.#scroller).addEventListener(
+            'mouseenter',
+            () => {
+                freezePageScroll();
+            }
+        );
+
+        /**
+         * UnFreeze page scroller
+         */
+        /** @type{HTMLElement} */ (this.#scroller).addEventListener(
+            'mouseleave',
+            () => {
+                unFreezePageScroll();
+            }
         );
 
         if (this.#drag) {
