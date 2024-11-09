@@ -11,6 +11,7 @@ import { offset, isNode } from '../../../mobCore/utils/index.js';
 import {
     freezePageScroll,
     unFreezePageScroll,
+    updatePageScroll,
 } from '../pageScroll/pageScroller.js';
 
 /** @type {import('../../animation/tween/type.js').easeTypes} */
@@ -35,6 +36,8 @@ tween.subscribe(({ val }) => {
         left: 0,
         behavior: 'auto',
     });
+
+    updatePageScroll();
 });
 
 /** @type{() => void} */
