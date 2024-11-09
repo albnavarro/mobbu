@@ -29528,9 +29528,12 @@ Loading snippet ...</pre
                     class="c-dynamic-list__top__button"
                     ${staticProps2({ label: buttonLabel })}
                     ${delegateEvents({
-        click: () => {
+        click: async () => {
+          stopPageScroll();
           setState("data", data2);
           setState("activeSample", index);
+          await tick();
+          resumePageScroll();
         }
       })}
                     ${bindProps({
@@ -30382,7 +30385,8 @@ Loading snippet ...</pre
                     <dynamic-list-button
                         class="matrioska__button"
                         ${delegateEvents({
-        click: () => {
+        click: async () => {
+          stopPageScroll();
           updateState(
             /** @type {'level1'|'level2'|'level3'} */
             button.state,
@@ -30390,6 +30394,8 @@ Loading snippet ...</pre
               return val2.slice(0, -1);
             }
           );
+          await tick();
+          resumePageScroll();
         }
       })}
                         >${button.label_minus}</dynamic-list-button
@@ -30397,7 +30403,8 @@ Loading snippet ...</pre
                     <dynamic-list-button
                         class="matrioska__button"
                         ${delegateEvents({
-        click: () => {
+        click: async () => {
+          stopPageScroll();
           updateState(
             /** @type {'level1'|'level2'|'level3'} */
             button.state,
@@ -30411,6 +30418,8 @@ Loading snippet ...</pre
               ];
             }
           );
+          await tick();
+          resumePageScroll();
         }
       })}
                         >${button.label_plus}</dynamic-list-button

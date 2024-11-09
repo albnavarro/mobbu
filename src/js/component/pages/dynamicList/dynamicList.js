@@ -10,7 +10,8 @@
  **/
 
 import { getLegendData } from '../../../data';
-import { html, setStateByName } from '../../../mobjs';
+import { html, setStateByName, tick } from '../../../mobjs';
+import { resumePageScroll, stopPageScroll } from '../../../mobMotion/plugin';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -67,9 +68,13 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
                     class="c-dynamic-list__top__button"
                     ${staticProps({ label: buttonLabel })}
                     ${delegateEvents({
-                        click: () => {
+                        click: async () => {
+                            stopPageScroll();
                             setState('data', data);
                             setState('activeSample', index);
+
+                            await tick();
+                            resumePageScroll();
                         },
                     })}
                     ${bindProps({

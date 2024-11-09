@@ -9,7 +9,8 @@
 
 import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
-import { html, setStateByName, updateStateByName } from '../../../mobjs';
+import { html, setStateByName, tick, updateStateByName } from '../../../mobjs';
+import { resumePageScroll, stopPageScroll } from '../../../mobMotion/plugin';
 
 const buttons = [
     {
@@ -55,7 +56,8 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                     <dynamic-list-button
                         class="matrioska__button"
                         ${delegateEvents({
-                            click: () => {
+                            click: async () => {
+                                stopPageScroll();
                                 updateState(
                                     /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
@@ -64,6 +66,9 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                         return val.slice(0, -1);
                                     }
                                 );
+
+                                await tick();
+                                resumePageScroll();
                             },
                         })}
                         >${button.label_minus}</dynamic-list-button
@@ -71,7 +76,8 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                     <dynamic-list-button
                         class="matrioska__button"
                         ${delegateEvents({
-                            click: () => {
+                            click: async () => {
+                                stopPageScroll();
                                 updateState(
                                     /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
@@ -86,6 +92,9 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                         ];
                                     }
                                 );
+
+                                await tick();
+                                resumePageScroll();
                             },
                         })}
                         >${button.label_plus}</dynamic-list-button
