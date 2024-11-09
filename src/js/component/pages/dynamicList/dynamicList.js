@@ -12,6 +12,10 @@
 import { getLegendData } from '../../../data';
 import { html, setStateByName, tick } from '../../../mobjs';
 import { resumePageScroll, stopPageScroll } from '../../../mobMotion/plugin';
+import {
+    hideFooterShape,
+    showFooterShape,
+} from '../../common/shapes/shapUtils';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -168,9 +172,11 @@ export const DynamicListFn = ({
             },
         ]);
         setCodeButtonState('color', 'black');
+        hideFooterShape();
 
         return () => {
             setCodeButtonState('drawers', []);
+            showFooterShape();
         };
     });
 

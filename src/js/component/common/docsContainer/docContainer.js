@@ -6,7 +6,8 @@
  * @import { ScrollToTop } from '../scrollToTop/type';
  **/
 
-import { setStateByName, useMethodByName } from '../../../mobjs';
+import { setStateByName } from '../../../mobjs';
+import { hideFooterShape, showFooterShape } from '../shapes/shapUtils';
 
 /** @type {MobComponent} */
 export const DocContainerFn = ({ html, onMount }) => {
@@ -19,22 +20,12 @@ export const DocContainerFn = ({ html, onMount }) => {
     onMount(() => {
         setLogoState('active', true);
         setToTopState('active', true);
-        useMethodByName('footer_shape_left')?.setPosition({ position: 'side' });
-        useMethodByName('footer_shape_right')?.setPosition({
-            position: 'side',
-        });
+        hideFooterShape();
 
         return () => {
             setLogoState('active', false);
             setToTopState('active', false);
-
-            useMethodByName('footer_shape_left')?.setPosition({
-                position: 'center',
-            });
-
-            useMethodByName('footer_shape_right')?.setPosition({
-                position: 'center',
-            });
+            showFooterShape();
         };
     });
 

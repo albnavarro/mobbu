@@ -11,6 +11,10 @@ import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
 import { html, setStateByName, tick, updateStateByName } from '../../../mobjs';
 import { resumePageScroll, stopPageScroll } from '../../../mobMotion/plugin';
+import {
+    hideFooterShape,
+    showFooterShape,
+} from '../../common/shapes/shapUtils';
 
 const buttons = [
     {
@@ -312,9 +316,11 @@ export const MatrioskaFn = ({
             },
         ]);
         setCodeButtonState('color', 'black');
+        hideFooterShape();
 
         return () => {
             setCodeButtonState('drawers', []);
+            showFooterShape();
         };
     });
 
