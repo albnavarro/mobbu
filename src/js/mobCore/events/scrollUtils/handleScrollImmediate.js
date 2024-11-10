@@ -8,7 +8,7 @@ import { getUnivoqueId } from '../../utils';
 let initialized = false;
 
 /**
- * @type {Map<string,import('./type').handleScrollCallback>}
+ * @type {Map<string,import('./type').HandleScrollCallback<import('./type').HandleScroll>>}
  */
 const callbacks = new Map();
 const UP = 'UP';
@@ -25,12 +25,12 @@ let prev = window.scrollY;
 let val = window.scrollY;
 
 /**
- * @type {import('./type').scrollDirection}
+ * @type {import('./type').ScrollDirection}
  */
 let direction = DOWN;
 
 /**
- * @type {import('./type').handleScrollTypes}
+ * @type {import('./type').HandleScroll}
  */
 let scrollData = {
     scrollY: val,
@@ -89,7 +89,7 @@ function init() {
  * @description
  * Execute a callback immediately on scroll
  *
- * @param {import('./type').handleScrollCallback} cb - callback function
+ * @param {import('./type').HandleScrollCallback<import('./type').HandleScroll>} cb - callback function
  * @return {() => void} unsubscribe callback
  *
  * @example

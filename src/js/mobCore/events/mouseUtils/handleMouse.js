@@ -6,38 +6,39 @@ import { normalizeWheel } from './normalizeWhell.js';
 
 /**
  * @param {Object} obj
- * @param {import('./type.js').mouseEvent} obj.type
- * @param {Object} obj.e
- *
+ * @param {import('./type.js').MouseEventType} obj.type
+ * @param {Object} obj.event
  * @returns { Object }
  */
-function getPageData({ type, e }) {
+function getPageData({ type, event }) {
     // 'touchend'
-    if (type === 'touchend' && e.changedTouches) return e.changedTouches[0];
+    if (type === 'touchend' && event.changedTouches)
+        return event.changedTouches[0];
 
     // 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
-    return e.touches ? e.touches[0] : e;
+    return event.touches ? event.touches[0] : event;
 }
 
 /**
  * @param {Object} obj
- * @param {import('./type.js').mouseEvent} obj.type
- * @param {Object} obj.e
- * @returns Object
+ * @param {import('./type.js').MouseEventType} obj.type
+ * @param {Object} obj.event
+ * @returns { Object }
  * @description
  */
-function getClientData({ type, e }) {
+function getClientData({ type, event }) {
     // 'touchend'
-    if (type === 'touchend' && e.changedTouches) return e.changedTouches[0];
+    if (type === 'touchend' && event.changedTouches)
+        return event.changedTouches[0];
 
     // 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
-    return e.touches ? e.touches[0] : e;
+    return event.touches ? event.touches[0] : event;
 }
 
 /**
- * @param {import('./type.js').mouseEvent} event
+ * @param {import('./type.js').MouseEventType} eventType
  */
-function handleMouse(event) {
+function handleMouse(eventType) {
     /**
      * @type {boolean}
      */
@@ -58,45 +59,44 @@ function handleMouse(event) {
      * Switch passive event on setUp change.
      */
     eventStore.watch('usePassive', () => {
-        globalThis.removeEventListener(event, handler);
+        globalThis.removeEventListener(eventType, handler);
         initialized = false;
 
         init();
     });
 
     /**
-     * @param {Object} e
+     * @param {MouseEvent} event
      */
-    function handler(e) {
+    function handler(event) {
         /**
          * if - if there is no subscritor remove handler
          */
         if (callbacks.size === 0) {
-            globalThis.removeEventListener(event, handler);
+            globalThis.removeEventListener(eventType, handler);
 
             initialized = false;
             return;
         }
 
-        /**
-         * @type {import('./type.js').mouseEvent} event
-         */
-        const type = e.type;
+        const type = /** @type{import('./type.js').MouseEventType} */ (
+            event.type
+        );
 
         /**
          * @type {{ pageX:number, pageY:number }}
          */
-        const { pageX, pageY } = getPageData({ type, e });
+        const { pageX, pageY } = getPageData({ type, event });
 
         /**
          * @type {{ clientX:number, clientY:number }}
          */
-        const { clientX, clientY } = getClientData({ type, e });
+        const { clientX, clientY } = getClientData({ type, event });
 
         /**
-         * @type {HTMLElement}
+         * @type {EventTarget}
          */
-        const target = e.target;
+        const target = event.target;
 
         // Prepare data to callback
         const mouseData = {
@@ -110,12 +110,13 @@ function handleMouse(event) {
             },
             target,
             type,
-            preventDefault: () => (usePassive ? () => {} : e.preventDefault()),
+            preventDefault: () =>
+                usePassive ? () => {} : event.preventDefault(),
         };
 
         // Add spin value if is wheel event
         if (type === 'wheel') {
-            const { spinX, spinY, pixelX, pixelY } = normalizeWheel(e);
+            const { spinX, spinY, pixelX, pixelY } = normalizeWheel(event);
             Object.assign(mouseData, { spinX, spinY, pixelX, pixelY });
         }
 
@@ -135,7 +136,7 @@ function handleMouse(event) {
         initialized = true;
         usePassive = eventStore.getProp('usePassive');
 
-        globalThis.addEventListener(event, handler, {
+        globalThis.addEventListener(eventType, handler, {
             passive: usePassive,
         });
     }

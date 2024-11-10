@@ -11,7 +11,7 @@ import { handleScrollImmediate } from './handleScrollImmediate.js';
 let initialized = false;
 
 /**
- * @type {Map<string,import('./type.js').handleScrollCallback>}
+ * @type {Map<string,import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>>}
  */
 const callbacks = new Map();
 
@@ -21,7 +21,7 @@ const callbacks = new Map();
 let unsubscribe = () => {};
 
 /**
- * @param {Object} scrollData
+ * @param {import('./type.js').HandleScroll} scrollData
  */
 function handler(scrollData) {
     /**
@@ -59,7 +59,7 @@ function init() {
  * @description
  * Perform a callback to the first nextTick available after scrolling
  *
- * @param {import('./type.js').handleScrollCallback} cb - callback function
+ * @param {import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>} cb - callback function
  * @return {() => void} unsubscribe callback
  *
  * @example

@@ -31,7 +31,7 @@ function handleScrollUtils(type) {
     let initialized = false;
 
     /**
-     * @type {Map<string,import('./type.js').handleScrollUtilsCallback>}
+     * @type {Map<string,import('./type.js').HandleScrollCallback<import('./type.js').HandleScrollUtils>>}
      */
     const callbacks = new Map();
 
@@ -113,7 +113,7 @@ function handleScrollUtils(type) {
     }
 
     /**
-     * @param {import('./type.js').handleScrollUtilsCallback} cb - callback function
+     * @param {import('./type.js').HandleScrollCallback<import('./type.js').HandleScrollUtils>} cb - callback function
      * @return {() => void} unsubscribe callback
      */
     const addCb = (cb) => {
