@@ -16,12 +16,6 @@ let smoothIsActive = false;
 let isFreezed = false;
 
 /** @type{() => void} */
-let freeze = () => {};
-
-/** @type{() => void} */
-let unFreeze = () => {};
-
-/** @type{() => void} */
 let destroy = () => {};
 
 /** @type{() => void} */
@@ -105,14 +99,6 @@ const PageScroller = ({ velocity, rootElement }) => {
     resizeObserver.observe(rootElement);
 
     return {
-        freeze: () => {
-            lerp.stop();
-            smoothIsActive = false;
-            isFreezed = true;
-        },
-        unFreeze: () => {
-            isFreezed = false;
-        },
         destroy: () => {
             lastScrollValue = 0;
             smoothIsActive = false;
@@ -127,8 +113,6 @@ const PageScroller = ({ velocity, rootElement }) => {
             unsubscribeScroll();
             unsubscribeMouseWheel();
             unsubscribeMouseDown();
-            freeze = () => {};
-            unFreeze = () => {};
             destroy = () => {};
             stop = () => {};
             update = () => {};
@@ -154,7 +138,7 @@ export const initPageScroll = ({
     isFreezed = false;
     isActive = true;
 
-    ({ freeze, unFreeze, destroy, stop, update } = PageScroller({
+    ({ destroy, stop, update } = PageScroller({
         velocity,
         rootElement,
     }));
@@ -162,39 +146,39 @@ export const initPageScroll = ({
 
 /** @type{() => void} */
 export const freezePageScroll = () => {
-    freeze();
+    if (!isActive || isFreezed) return;
+
+    stop();
+    smoothIsActive = false;
+    isFreezed = true;
 };
 
 /** @type{() => void} */
 export const unFreezePageScroll = () => {
-    unFreeze();
+    if (!isActive) return;
+
+    isFreezed = false;
+};
+
+/** @type{() => void} */
+export const unFreezeAndUPdatePageScroll = () => {
+    if (!isActive) return;
+
+    update();
+    lastScrollValue = window.scrollY;
+    smoothIsActive = false;
+    isFreezed = false;
+};
+
+/** @type{() => void} */
+export const updatePageScroll = () => {
+    if (!isActive) return;
+
+    update();
 };
 
 /** @type{() => void} */
 export const destroyPageScroll = () => {
     destroy();
     isActive = false;
-};
-
-/** @type{() => void} */
-export const stopPageScroll = () => {
-    lastScrollValue = 0;
-    smoothIsActive = false;
-    isFreezed = true;
-
-    stop();
-};
-
-/** @type{() => void} */
-export const resumePageScroll = () => {
-    lastScrollValue = window.scrollY;
-    smoothIsActive = false;
-    isFreezed = false;
-
-    update();
-};
-
-/** @type{() => void} */
-export const updatePageScroll = () => {
-    update();
 };

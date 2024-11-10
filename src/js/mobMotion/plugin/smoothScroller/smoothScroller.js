@@ -525,16 +525,6 @@ export default class SmoothScroller {
         );
 
         /**
-         * Freeze page scroller
-         */
-        /** @type{HTMLElement} */ (this.#scroller).addEventListener(
-            'mouseenter',
-            () => {
-                freezePageScroll();
-            }
-        );
-
-        /**
          * UnFreeze page scroller
          */
         /** @type{HTMLElement} */ (this.#scroller).addEventListener(
@@ -808,6 +798,7 @@ export default class SmoothScroller {
             preventDefault?.();
             this.#endValue += spinY * this.#speed;
             this.#calculateValue();
+            freezePageScroll();
         }
     }
 

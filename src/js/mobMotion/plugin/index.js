@@ -5,8 +5,7 @@ export {
     freezePageScroll,
     initPageScroll,
     unFreezePageScroll,
-    stopPageScroll,
-    resumePageScroll,
+    unFreezeAndUPdatePageScroll,
     updatePageScroll,
 } from './pageScroll/pageScroller.js';
 export { slide } from './slide/slide.js';

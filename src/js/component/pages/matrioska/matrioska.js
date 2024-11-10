@@ -10,7 +10,10 @@
 import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
 import { html, setStateByName, tick, updateStateByName } from '../../../mobjs';
-import { resumePageScroll, stopPageScroll } from '../../../mobMotion/plugin';
+import {
+    freezePageScroll,
+    unFreezeAndUPdatePageScroll,
+} from '../../../mobMotion/plugin';
 import {
     hideFooterShape,
     showFooterShape,
@@ -61,7 +64,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: async () => {
-                                stopPageScroll();
+                                freezePageScroll();
                                 updateState(
                                     /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
@@ -72,7 +75,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                 );
 
                                 await tick();
-                                resumePageScroll();
+                                unFreezeAndUPdatePageScroll();
                             },
                         })}
                         >${button.label_minus}</dynamic-list-button
@@ -81,7 +84,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: async () => {
-                                stopPageScroll();
+                                freezePageScroll();
                                 updateState(
                                     /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
@@ -98,7 +101,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                 );
 
                                 await tick();
-                                resumePageScroll();
+                                unFreezeAndUPdatePageScroll();
                             },
                         })}
                         >${button.label_plus}</dynamic-list-button

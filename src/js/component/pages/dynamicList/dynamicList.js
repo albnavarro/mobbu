@@ -11,7 +11,10 @@
 
 import { getLegendData } from '../../../data';
 import { html, setStateByName, tick } from '../../../mobjs';
-import { resumePageScroll, stopPageScroll } from '../../../mobMotion/plugin';
+import {
+    freezePageScroll,
+    unFreezeAndUPdatePageScroll,
+} from '../../../mobMotion/plugin';
 import {
     hideFooterShape,
     showFooterShape,
@@ -73,12 +76,12 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
                     ${staticProps({ label: buttonLabel })}
                     ${delegateEvents({
                         click: async () => {
-                            stopPageScroll();
+                            freezePageScroll();
                             setState('data', data);
                             setState('activeSample', index);
 
                             await tick();
-                            resumePageScroll();
+                            unFreezeAndUPdatePageScroll();
                         },
                     })}
                     ${bindProps({
