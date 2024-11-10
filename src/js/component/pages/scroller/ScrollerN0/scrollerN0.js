@@ -14,6 +14,10 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import {
+    hideFooterShape,
+    showFooterShape,
+} from '../../../common/shapes/shapUtils';
 import { scrollerN0Animation } from './animation/animation';
 
 /** @type {MobComponent<ScrollerN0>} */
@@ -58,6 +62,9 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
         setMainTitleState('align', 'left');
         setMainTitleState('color', 'white');
         setMainTitleState('title', title);
+
+        // Footer shape
+        hideFooterShape();
 
         /**
          * Code button
@@ -118,6 +125,7 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
             setMainTitleState('title', '');
             setCodeButtonState('drawers', []);
             document.body.style.background = '';
+            showFooterShape();
         };
     });
 

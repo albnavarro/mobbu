@@ -13,6 +13,10 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import {
+    hideFooterShape,
+    showFooterShape,
+} from '../../../common/shapes/shapUtils';
 import { animatedPatternN0Animation } from './animation/animation';
 
 /** @type {MobComponent<AnimatedPatternN0>} */
@@ -58,6 +62,9 @@ export const AnimatedPatternN0Fn = ({
         setMainTitleState('color', 'white');
         setMainTitleState('title', title);
 
+        // Footer shape
+        hideFooterShape();
+
         /**
          * Code button
          */
@@ -100,6 +107,7 @@ export const AnimatedPatternN0Fn = ({
             setMainTitleState('align', '');
             setMainTitleState('title', '');
             setCodeButtonState('drawers', []);
+            showFooterShape();
             document.body.style.background = '';
         };
     });

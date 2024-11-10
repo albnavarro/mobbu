@@ -13,6 +13,10 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import {
+    hideFooterShape,
+    showFooterShape,
+} from '../../../common/shapes/shapUtils';
 import { caterpillarN0Animation } from './animation/animation';
 
 /** @type {MobComponent<CaterpillarN0>} */
@@ -55,6 +59,9 @@ export const CaterpillarN0Fn = ({
         setMainTitleState('align', 'left');
         setMainTitleState('color', 'white');
         setMainTitleState('title', 'Caterpillar N0');
+
+        // Footer shape
+        hideFooterShape();
 
         /**
          * Code button
@@ -102,6 +109,7 @@ export const CaterpillarN0Fn = ({
             setMainTitleState('title', '');
             setCodeButtonState('drawers', []);
             document.body.style.background = '';
+            showFooterShape();
         };
     });
 
