@@ -391,12 +391,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "style": "medium",
                 "id": "useMouseWheel",
                 "label": "useMouseWheel"
@@ -440,6 +434,63 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 19
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "usePointerEvent",
+                "label": "usePointerEvent"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "usePointerEvent"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "... usePointerMove<br/>... usePointerOver<br/>... usePointerDown<br/>... usePointerUp<br/>... usePointerOut<br/>  ... usePointerLeave"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Add callback on pointer event"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": ["<span class='quote'>native event</span>"]
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobCore/usePointerEvent.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 19
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {

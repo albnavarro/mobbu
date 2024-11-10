@@ -1,6 +1,5 @@
 # Priority
 - `bindText`: check performance
-- `pointerEvent`: Aggiungere pointerEvent esattamante come mouseEvent.
 
 # General
 - Alias: aggiungere gli alias @ !!!!
