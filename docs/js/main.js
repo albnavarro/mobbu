@@ -22776,7 +22776,7 @@ Loading snippet ...</pre
         const gapX = this.#reverse ? -touchValueX + this.#lastTouchValueX : touchValueX - this.#lastTouchValueX;
         this.#onDrag(gapX);
         this.#lastTouchValueX = touchValueX;
-        if (this.#shouldDragValue && event.cancelable)
+        if (this.#shouldDragValue && event.cancelable && event.defaultPrevented)
           event.preventDefault();
       };
       this.#preventFireClick = (event) => {
