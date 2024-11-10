@@ -32,6 +32,14 @@ import { checkType, getTypeName } from './store/storeType.js';
 import { mobStore } from './store';
 import { getUnivoqueId } from './utils/index.js';
 import { useNextLoop } from './utils/nextTick.js';
+import {
+    handlePointerDown,
+    handlePointerLeave,
+    handlePointerMove,
+    handlePointerOut,
+    handlePointerOver,
+    handlePointerUp,
+} from './events/pointerEvent/handlePointer.js';
 
 export const mobCore = {
     /**
@@ -568,7 +576,7 @@ export const mobCore = {
      * @description
      * Perform a callback to the first nextTick available after scrolling
      *
-     * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
+     * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScroll>} callback - callback function
      * @return {() => void} unsubscribe callback
      *
      * @example
@@ -589,7 +597,7 @@ export const mobCore = {
      * @description
      * Execute a callback immediately on scroll
      *
-     * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
+     * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScroll>} callback - callback function
      * @return {() => void} unsubscribe callback
      *
      * @example
@@ -610,7 +618,7 @@ export const mobCore = {
      * @description
      * Performs a scroll callback using a throttle function
      *
-     * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
+     * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScroll>} callback - callback function
      * @return {() => void} unsubscribe callback
      *
      * @example
@@ -637,7 +645,7 @@ export const mobCore = {
      * @description
      * Execute a callback at the beginning of the scroll
      *
-     * @param {import('./events/scrollUtils/type.js').handleScrollUtilsCallback} callback - callback function
+     * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScrollUtils>} callback - callback function
      * @return {() => void} unsubscribe callback
      *
      * @example
@@ -658,7 +666,7 @@ export const mobCore = {
      * @description
      * Execute a callback at the end of the scroll
      *
-     * @param {import('./events/scrollUtils/type.js').handleScrollUtilsCallback} callback - callback function
+     * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScrollUtils>} callback - callback function
      * @returns {() => void}
      *
      * @example
@@ -673,6 +681,120 @@ export const mobCore = {
      */
     useScrollEnd(callback = () => {}) {
         return handleScrollEnd(callback);
+    },
+
+    /**
+     * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+     * @returns {() => void}
+     *
+     * @example
+     * ```javascript
+     * const unsubscribe = mobCore.usePointerOver((event) => {
+     *         // code
+     *     }
+     * );
+     *
+     * unsubscribe();
+     *
+     * ```
+     */
+    usePointerOver(callback = () => {}) {
+        return handlePointerOver(callback);
+    },
+
+    /**
+     * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+     * @returns {() => void}
+     *
+     * @example
+     * ```javascript
+     * const unsubscribe = mobCore.usePointerDown((event) => {
+     *         // code
+     *     }
+     * );
+     *
+     * unsubscribe();
+     *
+     * ```
+     */
+    usePointerDown(callback = () => {}) {
+        return handlePointerDown(callback);
+    },
+
+    /**
+     * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+     * @returns {() => void}
+     *
+     * @example
+     * ```javascript
+     * const unsubscribe = mobCore.usePointerMove((event) => {
+     *         // code
+     *     }
+     * );
+     *
+     * unsubscribe();
+     *
+     * ```
+     */
+    usePointerMove(callback = () => {}) {
+        return handlePointerMove(callback);
+    },
+
+    /**
+     * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+     * @returns {() => void}
+     *
+     * @example
+     * ```javascript
+     * const unsubscribe = mobCore.usePointerUp((event) => {
+     *         // code
+     *     }
+     * );
+     *
+     * unsubscribe();
+     *
+     * ```
+     */
+    usePointerUp(callback = () => {}) {
+        return handlePointerUp(callback);
+    },
+
+    /**
+     * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+     * @returns {() => void}
+     *
+     * @example
+     * ```javascript
+     * const unsubscribe = mobCore.usePointerOut((event) => {
+     *         // code
+     *     }
+     * );
+     *
+     * unsubscribe();
+     *
+     * ```
+     */
+    usePointerOut(callback = () => {}) {
+        return handlePointerOut(callback);
+    },
+
+    /**
+     * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+     * @returns {() => void}
+     *
+     * @example
+     * ```javascript
+     * const unsubscribe = mobCore.usePointerLeave((event) => {
+     *         // code
+     *     }
+     * );
+     *
+     * unsubscribe();
+     *
+     * ```
+     */
+    usePointerLeave(callback = () => {}) {
+        return handlePointerLeave(callback);
     },
 
     /**
