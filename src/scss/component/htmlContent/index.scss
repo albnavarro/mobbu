@@ -22,6 +22,11 @@
 
     ul {
         padding: 0;
+
+        &.use-block {
+            display: flex;
+            flex-wrap: wrap;
+        }
     }
 
     /* stylelint-disable-next-line no-descending-specificity */

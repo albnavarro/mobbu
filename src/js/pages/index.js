@@ -15,7 +15,6 @@ import { home } from './home';
 import { matrioska_page } from './matrioska';
 import { horizontalScroller } from './plugin/horizontalScroller';
 import { child } from './svg/child';
-import { mv1 } from './svg/mv1';
 
 export const PAGE_TEMPLATE_DOCS_MOBJS = 'templateMobJsComponent';
 
@@ -778,11 +777,6 @@ export const routes = [
     {
         name: 'child',
         layout: child,
-        props: {},
-    },
-    {
-        name: 'mv1',
-        layout: mv1,
         props: {},
     },
     {

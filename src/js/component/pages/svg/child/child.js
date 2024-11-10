@@ -52,7 +52,7 @@ export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
          * Quicknav
          */
         setQuickNavState('active', true);
-        setQuickNavState('nextRoute', '#mv1');
+        setQuickNavState('nextRoute', '');
         setQuickNavState('color', 'white');
 
         /**

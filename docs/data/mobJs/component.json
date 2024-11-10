@@ -422,6 +422,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
+                "block": true,
                 "items": [
                     "<a href='./#mobJs-html'>html</a>",
                     "<a href='./#mobJs-onMount'>onMount/Destroy</a>",
@@ -461,6 +462,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
+                "block": true,
                 "items": [
                     "<a href='./#mobJs-runtime'>renderComponent</a>",
                     "<a href='./#mobJs-invalidate'>invalidate</a>",
@@ -488,6 +490,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
+                "block": true,
                 "items": [
                     "<a href='./#mobJs-instanceName'>InstanceName</a>",
                     "<a href='./#mobJs-class-list'>ClassList</a>",
@@ -514,6 +517,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
+                "block": true,
                 "items": [
                     "<a href='./#mobJs-unBind'>unBind</a>",
                     "<a href='./#mobJs-emit'>emit</a>",
@@ -548,6 +552,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
+                "block": true,
                 "items": [
                     "<a href='./#mobJs-setStateByName'>setStateByName</a>",
                     "<a href='./#mobJs-updateStateByName'>updateStateByName</a>",

@@ -6,7 +6,7 @@ import { ListFn } from './list';
 export const List = createComponent({
     name: 'mob-list',
     component: ListFn,
-    exportState: ['style', 'color', 'items', 'dots'],
+    exportState: ['style', 'color', 'items', 'dots', 'block'],
     state: {
         style: () => ({
             value: 'medium',
@@ -16,6 +16,10 @@ export const List = createComponent({
         }),
         dots: () => ({
             value: true,
+            type: Boolean,
+        }),
+        block: () => ({
+            value: false,
             type: Boolean,
         }),
         color: () => ({
