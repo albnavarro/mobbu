@@ -1,3 +1,9 @@
 export interface Move3D {
-    test: string;
+    drag: boolean;
+    centerToViewoport: boolean;
+    perspective: number;
+    xDepth: number;
+    yDepth: number;
+    xLimit: number;
+    yLimit: number;
 }

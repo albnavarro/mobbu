@@ -31522,11 +31522,43 @@ Loading snippet ...</pre
   var Move3D = createComponent({
     name: "move-3d",
     component: Move3Dfn,
-    exportState: [],
+    exportState: [
+      "drag",
+      "centerToViewoport",
+      "perspective",
+      "xDepth",
+      "yDepth",
+      "xLimit",
+      "yLimit"
+    ],
     state: {
-      test: () => ({
-        value: "",
-        type: String
+      drag: () => ({
+        value: true,
+        type: Boolean
+      }),
+      centerToViewoport: () => ({
+        value: true,
+        type: Boolean
+      }),
+      perspective: () => ({
+        value: 700,
+        type: Number
+      }),
+      xDepth: () => ({
+        value: 20,
+        type: Number
+      }),
+      yDepth: () => ({
+        value: 20,
+        type: Number
+      }),
+      xLimit: () => ({
+        value: 35,
+        type: Number
+      }),
+      yLimit: () => ({
+        value: 35,
+        type: Number
       })
     },
     child: []
