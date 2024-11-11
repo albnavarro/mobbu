@@ -1,0 +1,10 @@
+@use '../../abstract' as *;
+
+.c-move-3d-item {
+    position: relative;
+    transform-style: preserve-3d;
+
+    > * {
+        outline: 1px solid transparent;
+    }
+}

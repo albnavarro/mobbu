@@ -1843,6 +1843,34 @@ code {
 .l-h-scroller__indicator:hover {
   background: #fff;
 }
+.c-move-3d {
+  display: flex;
+  justify-content: center;
+  padding: 400px 0;
+}
+.c-move-3d * {
+  transform-style: inherit;
+}
+.c-move-3d--drag {
+  cursor: move;
+}
+.c-move-3d__scene {
+  position: relative;
+  transform-style: preserve-3d;
+  user-select: none;
+}
+.c-move-3d__container {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  user-select: none;
+}
+.c-move-3d-item {
+  position: relative;
+  transform-style: preserve-3d;
+}
+.c-move-3d-item > * {
+  outline: 1px solid transparent;
+}
 .c-code-btn {
   border: 0;
   margin: 0;
