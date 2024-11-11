@@ -17,10 +17,17 @@ export const Move3Dfn = ({
     setRef,
     getRef,
     watchSync,
+    computed,
 }) => {
+    /**
+     * Initial props state
+     */
     let { yLimit, xLimit, yDepth, xDepth, centerToViewoport, drag } =
         getState();
 
+    /**
+     * Mutable symbols
+     */
     let height = 0;
     let width = 0;
     let offSetLeft = 0;
@@ -34,19 +41,25 @@ export const Move3Dfn = ({
     let firstDrag = false;
     let pageCoord = { x: 0, y: 0 };
     let lastScrolledTop = 0;
+    let useScroll = drag && centerToViewoport;
     let unsubscribeTouchStart = NOOP;
     let unsubscribeTouchEnd = NOOP;
     let unsubscribeTouchDown = NOOP;
     let unsubscribeTouchUp = NOOP;
     let unsubscribeTouchMove = NOOP;
+    let unsubscribeScroll = NOOP;
 
-    const pageY = drag && centerToViewoport;
+    /**
+     * Create tween
+     */
     const spring = tween.createSpring({ data: { ax: 0, ay: 0 } });
 
+    /** @type{() => void } */
     const onMouseUp = () => {
         onDrag = false;
     };
 
+    /** @type{() => void } */
     const onMove = () => {
         const { vw, vh } = (() => {
             return centerToViewoport || drag
@@ -157,7 +170,7 @@ export const Move3Dfn = ({
 
     /** @type{(scrollY: number) => void} */
     const onScroll = (scrollY) => {
-        if (lastScrolledTop != scrollY) {
+        if (lastScrolledTop !== scrollY) {
             pageCoord.y -= lastScrolledTop;
             lastScrolledTop = scrollY;
             pageCoord.y += lastScrolledTop;
@@ -166,6 +179,7 @@ export const Move3Dfn = ({
         onMove();
     };
 
+    /** @type{(arg0: {page: { x: number, y:number }}) => boolean} */
     const draggable = ({ page }) => {
         return (
             page.y > offSetTop &&
@@ -175,11 +189,22 @@ export const Move3Dfn = ({
         );
     };
 
+    /** @type{(arg0: {page: { x: number, y:number }}) => void } */
     const onMouseDown = ({ page }) => {
         if (draggable({ page })) {
             onDrag = true;
             firstDrag = true;
         }
+    };
+
+    /** @type{() => void } */
+    const addScrollListener = () => {
+        unsubscribeScroll();
+        unsubscribeScroll = useScroll
+            ? mobCore.useScroll(({ scrollY }) => {
+                  onScroll(scrollY);
+              })
+            : () => {};
     };
 
     onMount(({ element }) => {
@@ -201,12 +226,6 @@ export const Move3Dfn = ({
             onMove();
         });
 
-        const unsubscribeScroll = pageY
-            ? mobCore.useScroll(({ scrollY }) => {
-                  onScroll(scrollY);
-              })
-            : () => {};
-
         /**
          * Root size
          */
@@ -221,7 +240,7 @@ export const Move3Dfn = ({
         });
 
         /**
-         * watcher
+         * Update props
          */
         watchSync('perspective', (value) => {
             scene.style.perspective = `${value}px`;
@@ -286,6 +305,27 @@ export const Move3Dfn = ({
             element.classList.remove('move3D--drag');
         });
 
+        /**
+         * Initial useScroll
+         */
+        watchSync('useScroll', (value) => {
+            if (value) {
+                useScroll = value;
+                addScrollListener();
+            }
+        });
+
+        /**
+         * Update useScroll
+         */
+        computed(
+            'useScroll',
+            ['centerToViewoport', 'drag'],
+            ({ drag, centerToViewoport }) => {
+                return !drag && !centerToViewoport;
+            }
+        );
+
         return () => {
             unsubscribeSpring();
             unsubscribeOnComplete();
@@ -301,9 +341,6 @@ export const Move3Dfn = ({
         };
     });
 
-    /**
-     * Desktop
-     */
     return html`<div class="c-move-3d">
         <div class="c-move-3d__scene" ${setRef('scene')}>
             <div class="c-move-3d__container" ${setRef('container')}>

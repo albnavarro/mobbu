@@ -31528,7 +31528,8 @@ Loading snippet ...</pre
     getState,
     setRef,
     getRef,
-    watchSync
+    watchSync,
+    computed
   }) => {
     let { yLimit, xLimit, yDepth, xDepth, centerToViewoport, drag } = getState();
     let height = 0;
@@ -31544,12 +31545,13 @@ Loading snippet ...</pre
     let firstDrag = false;
     let pageCoord = { x: 0, y: 0 };
     let lastScrolledTop = 0;
+    let useScroll = drag && centerToViewoport;
     let unsubscribeTouchStart = NOOP;
     let unsubscribeTouchEnd = NOOP;
     let unsubscribeTouchDown = NOOP;
     let unsubscribeTouchUp = NOOP;
     let unsubscribeTouchMove = NOOP;
-    const pageY = drag && centerToViewoport;
+    let unsubscribeScroll = NOOP;
     const spring = tween.createSpring({ data: { ax: 0, ay: 0 } });
     const onMouseUp = () => {
       onDrag = false;
@@ -31628,7 +31630,7 @@ Loading snippet ...</pre
       console.log(delta, limit);
     };
     const onScroll = (scrollY2) => {
-      if (lastScrolledTop != scrollY2) {
+      if (lastScrolledTop !== scrollY2) {
         pageCoord.y -= lastScrolledTop;
         lastScrolledTop = scrollY2;
         pageCoord.y += lastScrolledTop;
@@ -31644,6 +31646,13 @@ Loading snippet ...</pre
         firstDrag = true;
       }
     };
+    const addScrollListener = () => {
+      unsubscribeScroll();
+      unsubscribeScroll = useScroll ? mobCore.useScroll(({ scrollY: scrollY2 }) => {
+        onScroll(scrollY2);
+      }) : () => {
+      };
+    };
     onMount(({ element }) => {
       const { scene, container } = getRef();
       const unsubscribeSpring = spring.subscribe(({ ax, ay }) => {
@@ -31656,10 +31665,6 @@ Loading snippet ...</pre
         pageCoord = { x: page.x, y: page.y };
         onMove();
       });
-      const unsubscribeScroll = pageY ? mobCore.useScroll(({ scrollY: scrollY2 }) => {
-        onScroll(scrollY2);
-      }) : () => {
-      };
       ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
         element
       }));
@@ -31717,6 +31722,19 @@ Loading snippet ...</pre
         }
         element.classList.remove("move3D--drag");
       });
+      watchSync("useScroll", (value) => {
+        if (value) {
+          useScroll = value;
+          addScrollListener();
+        }
+      });
+      computed(
+        "useScroll",
+        ["centerToViewoport", "drag"],
+        ({ drag: drag2, centerToViewoport: centerToViewoport2 }) => {
+          return !drag2 && !centerToViewoport2;
+        }
+      );
       return () => {
         unsubscribeSpring();
         unsubscribeOnComplete();
@@ -31762,6 +31780,10 @@ Loading snippet ...</pre
         value: true,
         type: Boolean
       }),
+      useScroll: () => ({
+        value: false,
+        type: Boolean
+      }),
       perspective: () => ({
         value: 700,
         type: Number
@@ -31789,7 +31811,9 @@ Loading snippet ...</pre
   // src/js/pages/plugin/move3D/index.js
   useComponent([Move3D]);
   var move3DRoute = async () => {
-    return renderHtml`<div><move-3d></move-3d></div>`;
+    return renderHtml`<div>
+        <move-3d></move-3d>
+    </div>`;
   };
 
   // src/js/component/pages/svg/child/animation/animation.js

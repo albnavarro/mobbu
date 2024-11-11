@@ -24,6 +24,10 @@ export const Move3D = createComponent({
             value: true,
             type: Boolean,
         }),
+        useScroll: () => ({
+            value: false,
+            type: Boolean,
+        }),
         perspective: () => ({
             value: 700,
             type: Number,

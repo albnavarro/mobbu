@@ -22,6 +22,9 @@
 
 # MobJs
 
+### ComputedSync
+- fire compued first time from basic params.
+
 ### bindText
 - Posissibile che ci sia possibilitá di ottimizzare le performance
 
