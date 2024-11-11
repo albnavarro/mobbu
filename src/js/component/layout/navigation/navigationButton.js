@@ -55,7 +55,8 @@ export const NavigationButtonFn = ({
                  */
                 const { activeParams } = mainStore.get();
                 const paramsMatch =
-                    activeId === -1 || activeParams?.['activeId'] === activeId;
+                    activeId === -1 ||
+                    activeParams?.['activeId'] === `${activeId}`;
 
                 const isActiveRoute = route === hash && paramsMatch;
                 element.classList.toggle('current', isActiveRoute);
