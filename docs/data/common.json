@@ -559,6 +559,11 @@
             "scrollToSection": "plugin",
             "url": "horizontalScroller?version=1&activeId=1",
             "activeId": 1
+        },
+        {
+            "label": "move3D",
+            "scrollToSection": "plugin",
+            "url": "move3D"
         }
     ]
 }

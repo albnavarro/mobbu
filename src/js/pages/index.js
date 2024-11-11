@@ -14,6 +14,7 @@ import { dynamic_list } from './dynamicList';
 import { home } from './home';
 import { matrioska_page } from './matrioska';
 import { horizontalScroller } from './plugin/horizontalScroller';
+import { move3DRoute } from './plugin/move3D';
 import { child } from './svg/child';
 
 export const PAGE_TEMPLATE_DOCS_MOBJS = 'templateMobJsComponent';
@@ -773,6 +774,12 @@ export const routes = [
             section: '',
             breadCrumbs: '',
         },
+    },
+    {
+        name: 'move3D',
+        templateName: 'generic',
+        layout: move3DRoute,
+        props: {},
     },
     {
         name: 'child',

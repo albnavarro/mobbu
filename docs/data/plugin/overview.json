@@ -54,7 +54,8 @@
                 "dots": false,
                 "items": [
                     "<a href='./#horizontalScroller?version=0&activeId=0'>horizotnal scroller v1</a>",
-                    "<a href='./#horizontalScroller?version=1&activeId=1'>horizotnal scroller v2</a>"
+                    "<a href='./#horizontalScroller?version=1&activeId=1'>horizotnal scroller v2</a>",
+                    "<a href='./#move3D'>move3D</a>"
                 ]
             }
         }
