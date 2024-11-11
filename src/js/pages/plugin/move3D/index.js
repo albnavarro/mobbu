@@ -1,7 +1,8 @@
+import { Move3D } from '../../../component/pages/move3D/definition';
 import { html, useComponent } from '../../../mobjs';
 
-useComponent([]);
+useComponent([Move3D]);
 
 export const move3DRoute = async () => {
-    return html`<div>pippo</div>`;
+    return html`<div><move-3d></move-3d></div>`;
 };

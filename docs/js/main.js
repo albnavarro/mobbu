@@ -31511,10 +31511,31 @@ Loading snippet ...</pre
     </div>`;
   };
 
+  // src/js/component/pages/move3D/Move3D.js.js
+  var Move3Dfn = ({ onMount, html }) => {
+    onMount(() => {
+    });
+    return html`<div class="c-move-3d">move3d test</div>`;
+  };
+
+  // src/js/component/pages/move3D/definition.js
+  var Move3D = createComponent({
+    name: "move-3d",
+    component: Move3Dfn,
+    exportState: [],
+    state: {
+      test: () => ({
+        value: "",
+        type: String
+      })
+    },
+    child: []
+  });
+
   // src/js/pages/plugin/move3D/index.js
-  useComponent([]);
+  useComponent([Move3D]);
   var move3DRoute = async () => {
-    return renderHtml`<div>pippo</div>`;
+    return renderHtml`<div><move-3d></move-3d></div>`;
   };
 
   // src/js/component/pages/svg/child/animation/animation.js
