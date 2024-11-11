@@ -31511,49 +31511,230 @@ Loading snippet ...</pre
     </div>`;
   };
 
+  // src/js/component/pages/move3D/utils.js
+  var getMove3DDimension = ({ element }) => {
+    return {
+      height: outerHeight(element),
+      width: outerWidth(element),
+      offSetLeft: offset(element).left,
+      offSetTop: offset(element).top
+    };
+  };
+
   // src/js/component/pages/move3D/Move3D.js.js
-  var Move3Dfn = ({ onMount, html, getState, setRef, getRef }) => {
-    const {
-      yLimit,
-      xLimit,
-      yDepth,
-      xDepth,
-      perspective,
-      centerToViewoport,
-      drag
-    } = getState();
-    const pageY = drag && centerToViewoport;
+  var Move3Dfn = ({
+    onMount,
+    html,
+    getState,
+    setRef,
+    getRef,
+    watchSync
+  }) => {
+    let { yLimit, xLimit, yDepth, xDepth, centerToViewoport, drag } = getState();
     let height = 0;
     let width = 0;
     let offSetLeft = 0;
     let offSetTop = 0;
     let delta = 0;
-    let limit = 0;
     let lastX = 0;
     let dragX = 0;
     let lastY = 0;
     let dragY = 0;
     let onDrag = false;
     let firstDrag = false;
+    let pageCoord = { x: 0, y: 0 };
+    let lastScrolledTop = 0;
+    let unsubscribeTouchStart = NOOP;
+    let unsubscribeTouchEnd = NOOP;
+    let unsubscribeTouchDown = NOOP;
+    let unsubscribeTouchUp = NOOP;
+    let unsubscribeTouchMove = NOOP;
+    const pageY = drag && centerToViewoport;
     const spring = tween.createSpring({ data: { ax: 0, ay: 0 } });
-    onMount(() => {
-      const { container } = getRef();
+    const onMouseUp = () => {
+      onDrag = false;
+    };
+    const onMove = () => {
+      const { vw, vh } = (() => {
+        return centerToViewoport || drag ? {
+          vw: window.innerWidth,
+          vh: window.innerHeight
+        } : {
+          vw: width,
+          vh: height
+        };
+      })();
+      const x = pageCoord.x;
+      const y = pageCoord.y;
+      const { xgap, ygap } = (() => {
+        if (!onDrag) return { xgap: 0, ygap: 0 };
+        if (firstDrag) {
+          firstDrag = false;
+          return {
+            xgap: 0,
+            ygap: 0
+          };
+        } else {
+          return {
+            xgap: x - lastX,
+            ygap: y - lastY
+          };
+        }
+      })();
+      if (onDrag) {
+        dragX += xgap;
+        dragY += ygap;
+      }
+      const { xInMotion, yInMotion } = /* @__PURE__ */ (() => {
+        return onDrag ? {
+          xInMotion: dragX,
+          yInMotion: dragY
+        } : {
+          xInMotion: x,
+          yInMotion: y
+        };
+      })();
+      const { ax, ay } = (() => {
+        return centerToViewoport || drag ? {
+          ax: -(vw / 2 - xInMotion) / xDepth,
+          ay: (vh / 2 - yInMotion) / yDepth
+        } : {
+          ax: -(vw / 2 - (xInMotion - offSetLeft)) / xDepth,
+          ay: (vh / 2 - (yInMotion - offSetTop)) / yDepth
+        };
+      })();
+      const xlimitReached = Math.abs(ax) > xLimit;
+      const ylimitReached = Math.abs(ay) > yLimit;
+      const axLimited = (() => {
+        if (!xlimitReached) return ax;
+        return ax > 0 ? xLimit : -xLimit;
+      })();
+      const ayLimited = (() => {
+        if (!ylimitReached) return ay;
+        return ay > 0 ? yLimit : -yLimit;
+      })();
+      if (xlimitReached) dragX -= xgap;
+      if (ylimitReached) dragY -= ygap;
+      lastX = x;
+      lastY = y;
+      delta = Math.sqrt(
+        Math.pow(Math.abs(ayLimited), 2) + Math.pow(Math.abs(axLimited), 2)
+      );
+      const limit = Math.sqrt(
+        Math.pow(Math.abs(xLimit), 2) + Math.pow(Math.abs(yLimit), 2)
+      );
+      spring.goTo({ ax: axLimited, ay: ayLimited }).catch(() => {
+      });
+      console.log(delta, limit);
+    };
+    const onScroll = (scrollY2) => {
+      if (lastScrolledTop != scrollY2) {
+        pageCoord.y -= lastScrolledTop;
+        lastScrolledTop = scrollY2;
+        pageCoord.y += lastScrolledTop;
+      }
+      onMove();
+    };
+    const draggable = ({ page }) => {
+      return page.y > offSetTop && page.y < offSetTop + height && page.x > offSetLeft && page.x < offSetLeft + width;
+    };
+    const onMouseDown = ({ page }) => {
+      if (draggable({ page })) {
+        onDrag = true;
+        firstDrag = true;
+      }
+    };
+    onMount(({ element }) => {
+      const { scene, container } = getRef();
       const unsubscribeSpring = spring.subscribe(({ ax, ay }) => {
         container.style.transform = `translate3D(0,0,0) rotateY(${ax}deg) rotateX(${ay}deg)`;
       });
       const unsubscribeOnComplete = spring.onComplete(({ ax, ay }) => {
         container.style.transform = `rotateY(${ax}deg) rotateX(${ay}deg)`;
       });
+      const unsubscribeMouseMove = mobCore.useMouseMove(({ page }) => {
+        pageCoord = { x: page.x, y: page.y };
+        onMove();
+      });
+      const unsubscribeScroll = pageY ? mobCore.useScroll(({ scrollY: scrollY2 }) => {
+        onScroll(scrollY2);
+      }) : () => {
+      };
+      ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
+        element
+      }));
+      const unsubscribeResize = mobCore.useResize(() => {
+        ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
+          element
+        }));
+      });
+      watchSync("perspective", (value) => {
+        scene.style.perspective = `${value}px`;
+      });
+      watchSync("yLimit", (value) => {
+        yLimit = value;
+      });
+      watchSync("xLimit", (value) => {
+        xLimit = value;
+      });
+      watchSync("yDepth", (value) => {
+        yDepth = value;
+      });
+      watchSync("xDepth", (value) => {
+        xDepth = value;
+      });
+      watchSync("centerToViewoport", (value) => {
+        centerToViewoport = value;
+      });
+      watchSync("drag", (value) => {
+        drag = value;
+        if (drag) {
+          dragX = window.innerWidth / 2;
+          dragY = window.innerHeight / 2;
+          element.classList.add("move3D--drag");
+          unsubscribeTouchStart();
+          unsubscribeTouchStart = mobCore.useTouchStart(({ page }) => {
+            onMouseDown({ page });
+          });
+          unsubscribeTouchEnd();
+          unsubscribeTouchEnd = mobCore.useTouchEnd(() => {
+            onMouseUp();
+          });
+          unsubscribeTouchDown();
+          unsubscribeTouchDown = mobCore.useMouseDown(({ page }) => {
+            onMouseDown({ page });
+          });
+          unsubscribeTouchUp();
+          unsubscribeTouchUp = mobCore.useMouseUp(() => {
+            onMouseUp();
+          });
+          unsubscribeTouchMove();
+          unsubscribeTouchMove = mobCore.useTouchMove(({ page }) => {
+            pageCoord = { x: page.x, y: page.y };
+            onMove();
+          });
+          return;
+        }
+        element.classList.remove("move3D--drag");
+      });
       return () => {
         unsubscribeSpring();
         unsubscribeOnComplete();
+        unsubscribeResize();
+        unsubscribeMouseMove();
+        unsubscribeScroll();
+        unsubscribeTouchStart();
+        unsubscribeTouchEnd();
+        unsubscribeTouchDown();
+        unsubscribeTouchUp();
+        unsubscribeTouchMove();
         spring.destroy();
       };
     });
     return html`<div class="c-move-3d">
-        <div class="c-move-3d__scene">
+        <div class="c-move-3d__scene" ${setRef("scene")}>
             <div class="c-move-3d__container" ${setRef("container")}>
-                container
+                <div class="c-move-3d__test"></div>
             </div>
         </div>
     </div>`;
