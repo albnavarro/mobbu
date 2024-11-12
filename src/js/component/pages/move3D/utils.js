@@ -34,7 +34,9 @@ export const getChildrenMethod = ({ childrenId, data }) => {
     const ids = reduceChildrenId(data);
 
     return ids.map((id) => {
+        const method = useMethodByName(`${childrenId}-${id}`)?.move;
+
         return (/** @type{{delta:number, limit:number}} */ props) =>
-            useMethodByName(`${childrenId}-${id}`)?.move?.(props);
+            method?.(props);
     });
 };

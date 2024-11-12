@@ -2,10 +2,11 @@
 
 ## MobCore
 - Aggiungere `addToComputedWaitLsit({ instanceId, prop })` dopo `runCallbackQueqeAsync` in emit/emitAsync, cosi da lanciare i computed sull' emit.
-- Aggiungere `computedSync` che come `watchSync` lancia gli emit immediatamante.
+- (mobJs): Aggiungere `computedSync` che come `watchSync` lancia gli emit immediatamante.
 
 ## MobJs
 - `Invalidate/repeater`: `after/before` update vanno lanciati anche la prima volta
+- `useMethodByNames`: se do lo stesso name alle istanze il metodo ritorna un array di call back al posto della singola. Puó essere utile in `Move3D` e simili.
 
 # General
 - Alias: aggiungere gli alias @ !!!!
@@ -14,28 +15,8 @@
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
 
-# APP
-### Debug component:
-- tree structure espandibile
-    - Basata su un unico invalidate.
-    - Componente base recursivo.
-    - Filtri per instance name & component name.
-    - refresh button
-- Dettaglio componente.
-    - Cliccabile dalla vista ad albero.
-    - Ricerca per id
-- Dimensione (size) delle mappe di supporto.
 
 # MobJs
-
-### ComputedSync
-- fire compued first time from basic params.
-
-### Repeater/Invalidate
-- Invalidate/repeater: after/before update vanno lanciati anche la prima volta
-
-### bindText
-- Posissibile che ci sia possibilitá di ottimizzare le performance
 
 ### setState/updateState/setStateByName/updateStateByName
 - Manca la propietá clone ereditata da mobStore `clone`
@@ -62,15 +43,6 @@ beforeNavigate(({props}) => {
 ### Methods
 - Capire come gestire i tipi sui metodi.
     - Fare un tipo apposito come per lo stato pasarlo come `Methods<myInterface>`.
-
-### App:
-- Possibilitá di avere multiple istanze che condividono gli stessi componenti.
-
-
-# MobCore
-
-### PointerEvent
-- Aggiungere pointerEvent esattamante come mouseEvent.
 
 
 # Mob motion

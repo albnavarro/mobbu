@@ -31545,7 +31545,8 @@ Loading snippet ...</pre
   var getChildrenMethod = ({ childrenId, data: data2 }) => {
     const ids = reduceChildrenId(data2);
     return ids.map((id) => {
-      return (props) => useMethodByName(`${childrenId}-${id}`)?.move?.(props);
+      const method = useMethodByName(`${childrenId}-${id}`)?.move;
+      return (props) => method?.(props);
     });
   };
 
