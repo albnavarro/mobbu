@@ -32056,15 +32056,15 @@ Loading snippet ...</pre
     ],
     state: {
       drag: () => ({
-        value: true,
+        value: false,
         type: Boolean
       }),
       centerToViewoport: () => ({
-        value: true,
+        value: false,
         type: Boolean
       }),
       useScroll: () => ({
-        value: false,
+        value: true,
         type: Boolean
       }),
       perspective: () => ({
@@ -32099,6 +32099,7 @@ Loading snippet ...</pre
   useComponent([Move3D]);
   var move3DRoute = async () => {
     return renderHtml`<div>
+        <move-3d></move-3d>
         <move-3d></move-3d>
     </div>`;
   };

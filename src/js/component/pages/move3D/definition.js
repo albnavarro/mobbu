@@ -19,15 +19,15 @@ export const Move3D = createComponent({
     ],
     state: {
         drag: () => ({
-            value: true,
+            value: false,
             type: Boolean,
         }),
         centerToViewoport: () => ({
-            value: true,
+            value: false,
             type: Boolean,
         }),
         useScroll: () => ({
-            value: false,
+            value: true,
             type: Boolean,
         }),
         perspective: () => ({
