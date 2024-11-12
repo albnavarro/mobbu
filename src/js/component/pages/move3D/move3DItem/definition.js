@@ -6,7 +6,7 @@ import { Move3DItemfn } from './Move3DItem';
 export const Move3DItem = createComponent({
     name: 'move-3d-item',
     component: Move3DItemfn,
-    exportState: ['root', 'depth', 'rotate', 'range', 'animate'],
+    exportState: ['root', 'depth', 'rotate', 'range', 'animate', 'anchorPoint'],
     state: {
         root: () => ({
             value: true,
@@ -25,7 +25,7 @@ export const Move3DItem = createComponent({
             type: Number,
         }),
         anchorPoint: () => ({
-            value: 'left',
+            value: '',
             type: String,
         }),
         animate: () => ({

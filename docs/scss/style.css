@@ -1848,6 +1848,7 @@ code {
   justify-content: center;
   align-items: center;
   height: calc(100vh - var(--header-height));
+  overflow: hidden;
 }
 .c-move-3d * {
   transform-style: inherit;
@@ -1882,14 +1883,41 @@ code {
 }
 .c-move3d-item.is-children {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+}
+.c-move3d-item.is-children.anchor-left {
+  top: 0;
+  right: calc(100% + 2px);
+}
+.c-move3d-item.is-children.anchor-right {
+  top: 0;
+  left: calc(100% + 2px);
+}
+.c-move3d-item.is-children.anchor-bottom {
+  top: calc(100% + 2px);
+}
+.c-move3d-item.is-children.anchor-top {
+  bottom: calc(100% + 2px);
+}
+.c-move3d-item.is-children.anchor-bottom-left {
+  top: calc(100% + 2px);
+  right: calc(100% + 2px);
+}
+.c-move3d-item.is-children.anchor-bottom-right {
+  top: calc(100% + 2px);
+  left: calc(100% + 2px);
+}
+.c-move3d-item.is-children.anchor-top-left {
+  bottom: calc(100% + 2px);
+  right: calc(100% + 2px);
+}
+.c-move3d-item.is-children.anchor-top-right {
+  bottom: calc(100% + 2px);
+  left: calc(100% + 2px);
 }
 .c-move3d-item__content {
-  width: 13.3333333333rem;
+  width: 10rem;
   aspect-ratio: 1/1;
-  background: red;
+  background: #000;
 }
 .c-code-btn {
   border: 0;

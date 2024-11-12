@@ -14,14 +14,49 @@
 
     &.is-children {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+
+        &.anchor-left {
+            top: 0;
+            right: calc(100% + 2px);
+        }
+
+        &.anchor-right {
+            top: 0;
+            left: calc(100% + 2px);
+        }
+
+        &.anchor-bottom {
+            top: calc(100% + 2px);
+        }
+
+        &.anchor-top {
+            bottom: calc(100% + 2px);
+        }
+
+        &.anchor-bottom-left {
+            top: calc(100% + 2px);
+            right: calc(100% + 2px);
+        }
+
+        &.anchor-bottom-right {
+            top: calc(100% + 2px);
+            left: calc(100% + 2px);
+        }
+
+        &.anchor-top-left {
+            bottom: calc(100% + 2px);
+            right: calc(100% + 2px);
+        }
+
+        &.anchor-top-right {
+            bottom: calc(100% + 2px);
+            left: calc(100% + 2px);
+        }
     }
 
     &__content {
-        width: rem(200);
+        width: rem(150);
         aspect-ratio: 1/1;
-        background: red;
+        background: $black;
     }
 }
