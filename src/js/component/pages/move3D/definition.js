@@ -2,6 +2,8 @@
 
 import { createComponent } from '../../../mobjs';
 import { Move3Dfn } from '../move3D/Move3D.js';
+import { Move3DItem } from './move3DItem/definition.js';
+import { move3DShape1 } from './shape/shape1.js';
 
 export const Move3D = createComponent({
     name: 'move-3d',
@@ -48,6 +50,10 @@ export const Move3D = createComponent({
             value: 35,
             type: Number,
         }),
+        shape: () => ({
+            value: move3DShape1,
+            type: Array,
+        }),
     },
-    child: [],
+    child: [Move3DItem],
 });

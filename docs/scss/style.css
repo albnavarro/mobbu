@@ -1870,12 +1870,26 @@ code {
   aspect-ratio: 1/1;
   background: red;
 }
-.c-move-3d-item {
+.c-move3d-item {
   position: relative;
   transform-style: preserve-3d;
 }
-.c-move-3d-item > * {
+.c-move3d-item > * {
   outline: 1px solid transparent;
+}
+.c-move3d-item.is-root {
+  position: relative;
+}
+.c-move3d-item.is-children {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.c-move3d-item__content {
+  width: 13.3333333333rem;
+  aspect-ratio: 1/1;
+  background: red;
 }
 .c-code-btn {
   border: 0;

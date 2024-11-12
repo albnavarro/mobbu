@@ -7,4 +7,10 @@ export interface Move3D {
     yDepth: number;
     xLimit: number;
     yLimit: number;
+    shape: Move3DChildren[];
+}
+
+export interface Move3DChildren {
+    test: string;
+    children: Move3DChildren[];
 }

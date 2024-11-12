@@ -31511,6 +31511,20 @@ Loading snippet ...</pre
     </div>`;
   };
 
+  // src/js/component/pages/move3D/partials/recursive3Dshape.js
+  var Recursive3Dshape = ({ data: data2, root: root2 }) => {
+    return data2.map(({ test, children }) => {
+      return renderHtml`<move-3d-item
+                ${staticProps({
+        test,
+        root: root2
+      })}
+            >
+                ${Recursive3Dshape({ data: children, root: false })}
+            </move-3d-item>`;
+    }).join("");
+  };
+
   // src/js/component/pages/move3D/utils.js
   var getMove3DDimension = ({ element }) => {
     return {
@@ -31529,7 +31543,8 @@ Loading snippet ...</pre
     setRef,
     getRef,
     watchSync,
-    computed
+    computed,
+    invalidate
   }) => {
     let { yLimit, xLimit, yDepth, xDepth, centerToViewoport, drag } = getState();
     let height = 0;
@@ -31745,11 +31760,95 @@ Loading snippet ...</pre
     return html`<div class="c-move-3d">
         <div class="c-move-3d__scene" ${setRef("scene")}>
             <div class="c-move-3d__container" ${setRef("container")}>
-                <div class="c-move-3d__test"></div>
+                ${invalidate({
+      bind: "shape",
+      render: () => {
+        const { shape } = getState();
+        return Recursive3Dshape({ data: shape, root: true });
+      }
+    })}
             </div>
         </div>
     </div>`;
   };
+
+  // src/js/component/pages/move3D/move3DItem/Move3DItem.js
+  var Move3DItemfn = ({ html, getState }) => {
+    const { test, root: root2 } = getState();
+    const rootClass = root2 ? "is-root" : "is-children";
+    return html`<div class="c-move3d-item ${rootClass}">
+        <div class="c-move3d-item__content">${test}</div>
+        <mobjs-slot></mobjs-slot>
+    </div>`;
+  };
+
+  // src/js/component/pages/move3D/move3DItem/definition.js
+  var Move3DItem = createComponent({
+    name: "move-3d-item",
+    component: Move3DItemfn,
+    exportState: ["test", "root"],
+    state: {
+      test: () => ({
+        value: "",
+        type: String
+      }),
+      root: () => ({
+        value: true,
+        type: Boolean
+      })
+    },
+    child: []
+  });
+
+  // src/js/component/pages/move3D/shape/shape1.js
+  var move3DShape1 = [
+    {
+      test: "1",
+      children: [
+        {
+          test: "1-1",
+          children: [
+            {
+              test: "1-1-1",
+              children: []
+            }
+          ]
+        },
+        {
+          test: "1-2",
+          children: [
+            {
+              test: "1-2-1",
+              children: []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      test: "2",
+      children: [
+        {
+          test: "2-1",
+          children: [
+            {
+              test: "2-1-1",
+              children: []
+            }
+          ]
+        },
+        {
+          test: "2-2",
+          children: [
+            {
+              test: "2-2-1",
+              children: []
+            }
+          ]
+        }
+      ]
+    }
+  ];
 
   // src/js/component/pages/move3D/definition.js
   var Move3D = createComponent({
@@ -31796,9 +31895,13 @@ Loading snippet ...</pre
       yLimit: () => ({
         value: 35,
         type: Number
+      }),
+      shape: () => ({
+        value: move3DShape1,
+        type: Array
       })
     },
-    child: []
+    child: [Move3DItem]
   });
 
   // src/js/pages/plugin/move3D/index.js

@@ -3,6 +3,7 @@
 import { mobCore } from '../../../mobCore';
 import { tween } from '../../../mobMotion';
 import { NOOP } from '../../../mobMotion/utils/functionsUtils';
+import { Recursive3Dshape } from './partials/recursive3Dshape';
 import { getMove3DDimension } from './utils';
 
 /**
@@ -18,6 +19,7 @@ export const Move3Dfn = ({
     getRef,
     watchSync,
     computed,
+    invalidate,
 }) => {
     /**
      * Initial props state
@@ -339,7 +341,13 @@ export const Move3Dfn = ({
     return html`<div class="c-move-3d">
         <div class="c-move-3d__scene" ${setRef('scene')}>
             <div class="c-move-3d__container" ${setRef('container')}>
-                <div class="c-move-3d__test"></div>
+                ${invalidate({
+                    bind: 'shape',
+                    render: () => {
+                        const { shape } = getState();
+                        return Recursive3Dshape({ data: shape, root: true });
+                    },
+                })}
             </div>
         </div>
     </div>`;
