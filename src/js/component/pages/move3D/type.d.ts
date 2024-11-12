@@ -1,3 +1,5 @@
+import { Move3DItem } from './move3DItem/type';
+
 export interface Move3D {
     drag: boolean;
     centerToViewoport: boolean;
@@ -11,6 +13,6 @@ export interface Move3D {
 }
 
 export interface Move3DChildren {
-    test: string;
+    props: Move3DItem;
     children: Move3DChildren[];
 }

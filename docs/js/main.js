@@ -31513,10 +31513,9 @@ Loading snippet ...</pre
 
   // src/js/component/pages/move3D/partials/recursive3Dshape.js
   var Recursive3Dshape = ({ data: data2, root: root2 }) => {
-    return data2.map(({ test, children }) => {
+    return data2.map(({ children }) => {
       return renderHtml`<move-3d-item
                 ${staticProps({
-        test,
         root: root2
       })}
             >
@@ -31774,10 +31773,10 @@ Loading snippet ...</pre
 
   // src/js/component/pages/move3D/move3DItem/Move3DItem.js
   var Move3DItemfn = ({ html, getState }) => {
-    const { test, root: root2 } = getState();
+    const { root: root2 } = getState();
     const rootClass = root2 ? "is-root" : "is-children";
     return html`<div class="c-move3d-item ${rootClass}">
-        <div class="c-move3d-item__content">${test}</div>
+        <div class="c-move3d-item__content"></div>
         <mobjs-slot></mobjs-slot>
     </div>`;
   };
@@ -31786,13 +31785,29 @@ Loading snippet ...</pre
   var Move3DItem = createComponent({
     name: "move-3d-item",
     component: Move3DItemfn,
-    exportState: ["test", "root"],
+    exportState: ["root", "depth", "rotate", "range", "animate"],
     state: {
-      test: () => ({
-        value: "",
+      root: () => ({
+        value: true,
+        type: Boolean
+      }),
+      depth: () => ({
+        value: 0,
+        type: Number
+      }),
+      rotate: () => ({
+        value: "x",
         type: String
       }),
-      root: () => ({
+      range: () => ({
+        value: 20,
+        type: Number
+      }),
+      anchorPoint: () => ({
+        value: "left",
+        type: String
+      }),
+      animate: () => ({
         value: true,
         type: Boolean
       })
@@ -31803,22 +31818,17 @@ Loading snippet ...</pre
   // src/js/component/pages/move3D/shape/shape1.js
   var move3DShape1 = [
     {
-      test: "1",
       children: [
         {
-          test: "1-1",
           children: [
             {
-              test: "1-1-1",
               children: []
             }
           ]
         },
         {
-          test: "1-2",
           children: [
             {
-              test: "1-2-1",
               children: []
             }
           ]
@@ -31826,22 +31836,17 @@ Loading snippet ...</pre
       ]
     },
     {
-      test: "2",
       children: [
         {
-          test: "2-1",
           children: [
             {
-              test: "2-1-1",
               children: []
             }
           ]
         },
         {
-          test: "2-2",
           children: [
             {
-              test: "2-2-1",
               children: []
             }
           ]
