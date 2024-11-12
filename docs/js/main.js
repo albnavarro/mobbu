@@ -31773,9 +31773,9 @@ Loading snippet ...</pre
 
   // src/js/component/pages/move3D/move3DItem/Move3DItem.js
   var Move3DItemfn = ({ html, getState }) => {
-    const { root: root2 } = getState();
+    const { root: root2, anchorPoint } = getState();
     const rootClass = root2 ? "is-root" : "is-children";
-    return html`<div class="c-move3d-item ${rootClass}">
+    return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint}">
         <div class="c-move3d-item__content"></div>
         <mobjs-slot></mobjs-slot>
     </div>`;
@@ -31830,23 +31830,23 @@ Loading snippet ...</pre
           props: {
             depth: 0,
             rotate: "x",
-            range: 30,
+            range: 20,
             anchorPoint: "bottom",
             animate: true
           },
-          children: []
-        }
-      ]
-    },
-    {
-      props: {
-        depth: 0,
-        rotate: "x",
-        range: 20,
-        anchorPoint: "top",
-        animate: true
-      },
-      children: [
+          children: [
+            {
+              props: {
+                depth: 0,
+                rotate: "x",
+                range: 30,
+                anchorPoint: "bottom",
+                animate: true
+              },
+              children: []
+            }
+          ]
+        },
         {
           props: {
             depth: 0,
@@ -31855,24 +31855,24 @@ Loading snippet ...</pre
             anchorPoint: "top",
             animate: true
           },
-          children: []
-        }
-      ]
-    },
-    {
-      props: {
-        depth: 0,
-        rotate: "y",
-        range: 20,
-        anchorPoint: "left",
-        animate: true
-      },
-      children: [
+          children: [
+            {
+              props: {
+                depth: 0,
+                rotate: "x",
+                range: 20,
+                anchorPoint: "top",
+                animate: true
+              },
+              children: []
+            }
+          ]
+        },
         {
           props: {
             depth: 0,
             rotate: "y",
-            range: 30,
+            range: 20,
             anchorPoint: "left",
             animate: true
           },
@@ -31881,30 +31881,30 @@ Loading snippet ...</pre
               props: {
                 depth: 0,
                 rotate: "y",
-                range: 40,
+                range: 30,
                 anchorPoint: "left",
                 animate: true
               },
-              children: []
+              children: [
+                {
+                  props: {
+                    depth: 0,
+                    rotate: "y",
+                    range: 40,
+                    anchorPoint: "left",
+                    animate: true
+                  },
+                  children: []
+                }
+              ]
             }
           ]
-        }
-      ]
-    },
-    {
-      props: {
-        depth: 0,
-        rotate: "y",
-        range: 20,
-        anchorPoint: "right",
-        animate: true
-      },
-      children: [
+        },
         {
           props: {
             depth: 0,
             rotate: "y",
-            range: 30,
+            range: 20,
             anchorPoint: "right",
             animate: true
           },
@@ -31913,66 +31913,77 @@ Loading snippet ...</pre
               props: {
                 depth: 0,
                 rotate: "y",
-                range: 40,
+                range: 30,
                 anchorPoint: "right",
+                animate: true
+              },
+              children: [
+                {
+                  props: {
+                    depth: 0,
+                    rotate: "y",
+                    range: 40,
+                    anchorPoint: "right",
+                    animate: true
+                  },
+                  children: []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          props: {
+            depth: 0,
+            rotate: "xy",
+            range: 20,
+            anchorPoint: "bottom-left",
+            animate: true
+          },
+          children: [
+            {
+              props: {
+                depth: 0,
+                rotate: "xy",
+                range: 30,
+                anchorPoint: "bottom-left",
                 animate: true
               },
               children: []
             }
           ]
-        }
-      ]
-    },
-    {
-      props: {
-        depth: 0,
-        rotate: "xy",
-        range: 20,
-        anchorPoint: "bottom-left",
-        animate: true
-      },
-      children: [
+        },
         {
           props: {
             depth: 0,
             rotate: "xy",
-            range: 30,
-            anchorPoint: "bottom-left",
+            range: 20,
+            anchorPoint: "bottom-right",
+            animate: true
+          },
+          children: []
+        },
+        {
+          props: {
+            depth: 0,
+            rotate: "xy",
+            range: 20,
+            anchorPoint: "top-left",
+            animate: true
+          },
+          children: []
+        },
+        {
+          props: {
+            depth: 0,
+            rotate: "xy",
+            range: 20,
+            anchorPoint: "top-right",
             animate: true
           },
           children: []
         }
       ]
-    },
-    {
-      props: {
-        depth: 0,
-        rotate: "xy",
-        range: 20,
-        anchorPoint: "bottom-right",
-        animate: true
-      },
-      children: []
-    },
-    {
-      props: {
-        depth: 0,
-        rotate: "xy",
-        range: 20,
-        anchorPoint: "top-left",
-        animate: true
-      },
-      children: []
-    },
-    {
-      props: {
-        depth: 0,
-        rotate: "xy",
-        range: 20,
-        anchorPoint: "top-right",
-        animate: true
-      },
-      children: []
     }
   ];
 
