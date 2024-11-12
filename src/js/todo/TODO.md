@@ -1,6 +1,11 @@
 # Priority
+
+## MobCore
 - Aggiungere `addToComputedWaitLsit({ instanceId, prop })` dopo `runCallbackQueqeAsync` in emit/emitAsync, cosi da lanciare i computed sull' emit.
 - Aggiungere `computedSync` che come `watchSync` lancia gli emit immediatamante.
+
+## MobJs
+- `Invalidate/repeater`: `after/before` update vanno lanciati anche la prima volta
 
 # General
 - Alias: aggiungere gli alias @ !!!!
@@ -25,6 +30,9 @@
 
 ### ComputedSync
 - fire compued first time from basic params.
+
+### Repeater/Invalidate
+- Invalidate/repeater: after/before update vanno lanciati anche la prima volta
 
 ### bindText
 - Posissibile che ci sia possibilitá di ottimizzare le performance
