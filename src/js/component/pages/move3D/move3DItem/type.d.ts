@@ -1,8 +1,16 @@
 export interface Move3DItem {
-    root: boolean;
+    root?: boolean;
     depth: number;
-    rotate: 'x' | 'y';
+    rotate: 'x' | 'y' | 'xy';
     range: number;
-    anchorPoint: 'left' | 'top' | 'right' | 'bottom';
+    anchorPoint:
+        | 'left'
+        | 'top'
+        | 'right'
+        | 'bottom'
+        | 'bottom-left'
+        | 'bottom-right'
+        | 'top-left'
+        | 'top-right';
     animate: boolean;
 }
