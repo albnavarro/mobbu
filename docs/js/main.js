@@ -31673,7 +31673,6 @@ Loading snippet ...</pre
       }
     };
     const addScrollListener = () => {
-      unsubscribeScroll();
       unsubscribeScroll = useScroll ? mobCore.useScroll(({ scrollY: scrollY2 }) => {
         onScroll(scrollY2);
       }) : () => {
@@ -31719,27 +31718,27 @@ Loading snippet ...</pre
       });
       watchSync("drag", (value) => {
         drag = value;
+        unsubscribeTouchMove();
+        unsubscribeTouchUp();
+        unsubscribeTouchDown();
+        unsubscribeTouchEnd();
+        unsubscribeTouchStart();
         if (drag) {
           dragX = window.innerWidth / 2;
           dragY = window.innerHeight / 2;
           element.classList.add("move3D--drag");
-          unsubscribeTouchStart();
           unsubscribeTouchStart = mobCore.useTouchStart(({ page }) => {
             onMouseDown({ page });
           });
-          unsubscribeTouchEnd();
           unsubscribeTouchEnd = mobCore.useTouchEnd(() => {
             onMouseUp();
           });
-          unsubscribeTouchDown();
           unsubscribeTouchDown = mobCore.useMouseDown(({ page }) => {
             onMouseDown({ page });
           });
-          unsubscribeTouchUp();
           unsubscribeTouchUp = mobCore.useMouseUp(() => {
             onMouseUp();
           });
-          unsubscribeTouchMove();
           unsubscribeTouchMove = mobCore.useTouchMove(({ page }) => {
             pageCoord = { x: page.x, y: page.y };
             onMove();
@@ -31749,6 +31748,7 @@ Loading snippet ...</pre
         element.classList.remove("move3D--drag");
       });
       watchSync("useScroll", (value) => {
+        unsubscribeScroll();
         if (value) {
           useScroll = value;
           addScrollListener();

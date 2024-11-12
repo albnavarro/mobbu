@@ -202,7 +202,6 @@ export const Move3Dfn = ({
 
     /** @type{() => void } */
     const addScrollListener = () => {
-        unsubscribeScroll();
         unsubscribeScroll = useScroll
             ? mobCore.useScroll(({ scrollY }) => {
                   onScroll(scrollY);
@@ -272,36 +271,38 @@ export const Move3Dfn = ({
         watchSync('drag', (value) => {
             drag = value;
 
+            unsubscribeTouchMove();
+            unsubscribeTouchUp();
+            unsubscribeTouchDown();
+            unsubscribeTouchEnd();
+            unsubscribeTouchStart();
+
             if (drag) {
                 dragX = window.innerWidth / 2;
                 dragY = window.innerHeight / 2;
                 element.classList.add('move3D--drag');
 
-                unsubscribeTouchStart();
                 unsubscribeTouchStart = mobCore.useTouchStart(({ page }) => {
                     onMouseDown({ page });
                 });
 
-                unsubscribeTouchEnd();
                 unsubscribeTouchEnd = mobCore.useTouchEnd(() => {
                     onMouseUp();
                 });
 
-                unsubscribeTouchDown();
                 unsubscribeTouchDown = mobCore.useMouseDown(({ page }) => {
                     onMouseDown({ page });
                 });
 
-                unsubscribeTouchUp();
                 unsubscribeTouchUp = mobCore.useMouseUp(() => {
                     onMouseUp();
                 });
 
-                unsubscribeTouchMove();
                 unsubscribeTouchMove = mobCore.useTouchMove(({ page }) => {
                     pageCoord = { x: page.x, y: page.y };
                     onMove();
                 });
+
                 return;
             }
 
@@ -312,6 +313,8 @@ export const Move3Dfn = ({
          * Initial useScroll
          */
         watchSync('useScroll', (value) => {
+            unsubscribeScroll();
+
             if (value) {
                 useScroll = value;
                 addScrollListener();
