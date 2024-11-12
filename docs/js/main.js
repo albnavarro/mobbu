@@ -31536,7 +31536,6 @@ Loading snippet ...</pre
     let width = 0;
     let offSetLeft = 0;
     let offSetTop = 0;
-    let delta = 0;
     let lastX = 0;
     let dragX = 0;
     let lastY = 0;
@@ -31557,15 +31556,13 @@ Loading snippet ...</pre
       onDrag = false;
     };
     const onMove = () => {
-      const { vw, vh } = (() => {
-        return centerToViewoport || drag ? {
-          vw: window.innerWidth,
-          vh: window.innerHeight
-        } : {
-          vw: width,
-          vh: height
-        };
-      })();
+      const { vw, vh } = centerToViewoport || drag ? {
+        vw: window.innerWidth,
+        vh: window.innerHeight
+      } : {
+        vw: width,
+        vh: height
+      };
       const x = pageCoord.x;
       const y = pageCoord.y;
       const { xgap, ygap } = (() => {
@@ -31587,24 +31584,20 @@ Loading snippet ...</pre
         dragX += xgap;
         dragY += ygap;
       }
-      const { xInMotion, yInMotion } = /* @__PURE__ */ (() => {
-        return onDrag ? {
-          xInMotion: dragX,
-          yInMotion: dragY
-        } : {
-          xInMotion: x,
-          yInMotion: y
-        };
-      })();
-      const { ax, ay } = (() => {
-        return centerToViewoport || drag ? {
-          ax: -(vw / 2 - xInMotion) / xDepth,
-          ay: (vh / 2 - yInMotion) / yDepth
-        } : {
-          ax: -(vw / 2 - (xInMotion - offSetLeft)) / xDepth,
-          ay: (vh / 2 - (yInMotion - offSetTop)) / yDepth
-        };
-      })();
+      const { xInMotion, yInMotion } = onDrag ? {
+        xInMotion: dragX,
+        yInMotion: dragY
+      } : {
+        xInMotion: x,
+        yInMotion: y
+      };
+      const { ax, ay } = centerToViewoport || drag ? {
+        ax: -(vw / 2 - xInMotion) / xDepth,
+        ay: (vh / 2 - yInMotion) / yDepth
+      } : {
+        ax: -(vw / 2 - (xInMotion - offSetLeft)) / xDepth,
+        ay: (vh / 2 - (yInMotion - offSetTop)) / yDepth
+      };
       const xlimitReached = Math.abs(ax) > xLimit;
       const ylimitReached = Math.abs(ay) > yLimit;
       const axLimited = (() => {
@@ -31619,7 +31612,7 @@ Loading snippet ...</pre
       if (ylimitReached) dragY -= ygap;
       lastX = x;
       lastY = y;
-      delta = Math.sqrt(
+      const delta = Math.sqrt(
         Math.pow(Math.abs(ayLimited), 2) + Math.pow(Math.abs(axLimited), 2)
       );
       const limit = Math.sqrt(

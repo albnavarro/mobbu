@@ -32,7 +32,6 @@ export const Move3Dfn = ({
     let width = 0;
     let offSetLeft = 0;
     let offSetTop = 0;
-    let delta = 0;
     let lastX = 0;
     let dragX = 0;
     let lastY = 0;
@@ -61,8 +60,8 @@ export const Move3Dfn = ({
 
     /** @type{() => void } */
     const onMove = () => {
-        const { vw, vh } = (() => {
-            return centerToViewoport || drag
+        const { vw, vh } =
+            centerToViewoport || drag
                 ? {
                       vw: window.innerWidth,
                       vh: window.innerHeight,
@@ -71,7 +70,6 @@ export const Move3Dfn = ({
                       vw: width,
                       vh: height,
                   };
-        })();
 
         const x = pageCoord.x;
         const y = pageCoord.y;
@@ -98,24 +96,22 @@ export const Move3Dfn = ({
             dragY += ygap;
         }
 
-        const { xInMotion, yInMotion } = (() => {
-            return onDrag
-                ? {
-                      xInMotion: dragX,
-                      yInMotion: dragY,
-                  }
-                : {
-                      xInMotion: x,
-                      yInMotion: y,
-                  };
-        })();
+        const { xInMotion, yInMotion } = onDrag
+            ? {
+                  xInMotion: dragX,
+                  yInMotion: dragY,
+              }
+            : {
+                  xInMotion: x,
+                  yInMotion: y,
+              };
 
         /*
          * ax = grado di rotazione sull'asse X
          * ay = grado di rotazione sull'asse Y
          */
-        const { ax, ay } = (() => {
-            return centerToViewoport || drag
+        const { ax, ay } =
+            centerToViewoport || drag
                 ? {
                       ax: -(vw / 2 - xInMotion) / xDepth,
                       ay: (vh / 2 - yInMotion) / yDepth,
@@ -124,7 +120,6 @@ export const Move3Dfn = ({
                       ax: -(vw / 2 - (xInMotion - offSetLeft)) / xDepth,
                       ay: (vh / 2 - (yInMotion - offSetTop)) / yDepth,
                   };
-        })();
 
         const xlimitReached = Math.abs(ax) > xLimit;
         const ylimitReached = Math.abs(ay) > yLimit;
@@ -150,7 +145,7 @@ export const Move3Dfn = ({
          * Calcolo il valore da passare ai componenti figli per animarre l'asse Z.
          * Il delta sarà l'ipotenusa del triangolo formato dai volri ax e ay
          */
-        delta = Math.sqrt(
+        const delta = Math.sqrt(
             Math.pow(Math.abs(ayLimited), 2) + Math.pow(Math.abs(axLimited), 2)
         );
 
