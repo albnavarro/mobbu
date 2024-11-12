@@ -1,5 +1,6 @@
 # Priority
-- `bindText`: check performance
+- Aggiungere `addToComputedWaitLsit({ instanceId, prop })` dopo `runCallbackQueqeAsync` in emit/emitAsync, cosi da lanciare i computed sull' emit.
+- Aggiungere `computedSync` che come `watchSync` lancia gli emit immediatamante.
 
 # General
 - Alias: aggiungere gli alias @ !!!!
