@@ -4,6 +4,7 @@
 export const move3DShape1 = [
     {
         props: {
+            id: 0,
             depth: 0,
             rotate: 'x',
             range: 20,
@@ -13,6 +14,7 @@ export const move3DShape1 = [
         children: [
             {
                 props: {
+                    id: 1,
                     depth: 0,
                     rotate: 'x',
                     range: 20,
@@ -22,6 +24,7 @@ export const move3DShape1 = [
                 children: [
                     {
                         props: {
+                            id: 2,
                             depth: 0,
                             rotate: 'x',
                             range: 30,
@@ -34,6 +37,7 @@ export const move3DShape1 = [
             },
             {
                 props: {
+                    id: 3,
                     depth: 0,
                     rotate: 'x',
                     range: 20,
@@ -43,6 +47,7 @@ export const move3DShape1 = [
                 children: [
                     {
                         props: {
+                            id: 4,
                             depth: 0,
                             rotate: 'x',
                             range: 20,
@@ -55,6 +60,7 @@ export const move3DShape1 = [
             },
             {
                 props: {
+                    id: 5,
                     depth: 0,
                     rotate: 'y',
                     range: 20,
@@ -64,6 +70,7 @@ export const move3DShape1 = [
                 children: [
                     {
                         props: {
+                            id: 6,
                             depth: 0,
                             rotate: 'y',
                             range: 30,
@@ -73,6 +80,7 @@ export const move3DShape1 = [
                         children: [
                             {
                                 props: {
+                                    id: 7,
                                     depth: 0,
                                     rotate: 'y',
                                     range: 40,
@@ -87,6 +95,7 @@ export const move3DShape1 = [
             },
             {
                 props: {
+                    id: 8,
                     depth: 0,
                     rotate: 'y',
                     range: 20,
@@ -96,6 +105,7 @@ export const move3DShape1 = [
                 children: [
                     {
                         props: {
+                            id: 9,
                             depth: 0,
                             rotate: 'y',
                             range: 30,
@@ -105,6 +115,7 @@ export const move3DShape1 = [
                         children: [
                             {
                                 props: {
+                                    id: 10,
                                     depth: 0,
                                     rotate: 'y',
                                     range: 40,
@@ -119,6 +130,7 @@ export const move3DShape1 = [
             },
             {
                 props: {
+                    id: 11,
                     depth: 0,
                     rotate: 'xy',
                     range: 20,
@@ -128,6 +140,7 @@ export const move3DShape1 = [
                 children: [
                     {
                         props: {
+                            id: 12,
                             depth: 0,
                             rotate: 'xy',
                             range: 30,
@@ -140,6 +153,7 @@ export const move3DShape1 = [
             },
             {
                 props: {
+                    id: 13,
                     depth: 0,
                     rotate: 'xy',
                     range: 20,
@@ -150,6 +164,7 @@ export const move3DShape1 = [
             },
             {
                 props: {
+                    id: 14,
                     depth: 0,
                     rotate: 'xy',
                     range: 20,
@@ -160,6 +175,7 @@ export const move3DShape1 = [
             },
             {
                 props: {
+                    id: 15,
                     depth: 0,
                     rotate: 'xy',
                     range: 20,

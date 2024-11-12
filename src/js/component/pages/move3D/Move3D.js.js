@@ -4,7 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { tween } from '../../../mobMotion';
 import { NOOP } from '../../../mobMotion/utils/functionsUtils';
 import { Recursive3Dshape } from './partials/recursive3Dshape';
-import { getMove3DDimension } from './utils';
+import { getChildrenMethod, getMove3DDimension } from './utils';
 
 /**
  * @import { MobComponent} from '../../../mobjs/type';
@@ -21,6 +21,11 @@ export const Move3Dfn = ({
     computed,
     invalidate,
 }) => {
+    /**
+     * base id for checlren instance
+     */
+    const childrenId = mobCore.getUnivoqueId();
+
     /**
      * Initial props state
      */
@@ -49,6 +54,7 @@ export const Move3Dfn = ({
     let unsubscribeTouchUp = NOOP;
     let unsubscribeTouchMove = NOOP;
     let unsubscribeScroll = NOOP;
+    let childrenMethods = [];
 
     /**
      * Create tween
@@ -157,12 +163,12 @@ export const Move3Dfn = ({
 
         spring.goTo({ ax: axLimited, ay: ayLimited }).catch(() => {});
 
-        console.log(delta, limit);
-
-        // // Children
-        // for (const item of childrenInstances) {
-        //     if (item.animate) item.move(delta, limit);
-        // }
+        /**
+         * Move children
+         */
+        childrenMethods.forEach((moveChild) => {
+            moveChild({ delta, limit });
+        });
     };
 
     /** @type{(scrollY: number) => void} */
@@ -323,6 +329,12 @@ export const Move3Dfn = ({
             }
         );
 
+        /**
+         * First children's methods
+         */
+        const { shape } = getState();
+        childrenMethods = getChildrenMethod({ childrenId, data: shape });
+
         return () => {
             unsubscribeSpring();
             unsubscribeOnComplete();
@@ -335,6 +347,7 @@ export const Move3Dfn = ({
             unsubscribeTouchUp();
             unsubscribeTouchMove();
             spring.destroy();
+            childrenMethods = [];
         };
     });
 
@@ -343,9 +356,23 @@ export const Move3Dfn = ({
             <div class="c-move-3d__container" ${setRef('container')}>
                 ${invalidate({
                     bind: 'shape',
+                    afterUpdate: () => {
+                        /**
+                         * Update children's methods
+                         */
+                        const { shape } = getState();
+                        childrenMethods = getChildrenMethod({
+                            childrenId,
+                            data: shape,
+                        });
+                    },
                     render: () => {
                         const { shape } = getState();
-                        return Recursive3Dshape({ data: shape, root: true });
+                        return Recursive3Dshape({
+                            data: shape,
+                            root: true,
+                            childrenId,
+                        });
                     },
                 })}
             </div>

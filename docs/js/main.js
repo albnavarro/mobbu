@@ -31512,15 +31512,16 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/move3D/partials/recursive3Dshape.js
-  var Recursive3Dshape = ({ data: data2, root: root2 }) => {
+  var Recursive3Dshape = ({ data: data2, root: root2, childrenId }) => {
     return data2.map(({ children, props }) => {
       return renderHtml`<move-3d-item
+                name="${childrenId}-${props.id}"
                 ${staticProps({
         root: root2,
         ...props
       })}
             >
-                ${Recursive3Dshape({ data: children, root: false })}
+                ${Recursive3Dshape({ data: children, root: false, childrenId })}
             </move-3d-item>`;
     }).join("");
   };
@@ -31534,6 +31535,19 @@ Loading snippet ...</pre
       offSetTop: offset(element).top
     };
   };
+  var reduceChildrenId = (data2) => {
+    const initialData = [];
+    return data2.reduce((previous, current) => {
+      const childrensId = current.children.length > 0 ? [current.props.id, ...reduceChildrenId(current.children)] : [current.props.id];
+      return [...previous, ...childrensId];
+    }, initialData);
+  };
+  var getChildrenMethod = ({ childrenId, data: data2 }) => {
+    const ids = reduceChildrenId(data2);
+    return ids.map((id) => {
+      return (props) => useMethodByName(`${childrenId}-${id}`)?.move?.(props);
+    });
+  };
 
   // src/js/component/pages/move3D/Move3D.js.js
   var Move3Dfn = ({
@@ -31546,6 +31560,7 @@ Loading snippet ...</pre
     computed,
     invalidate
   }) => {
+    const childrenId = mobCore.getUnivoqueId();
     let { yLimit, xLimit, yDepth, xDepth, centerToViewoport, drag } = getState();
     let height = 0;
     let width = 0;
@@ -31566,6 +31581,7 @@ Loading snippet ...</pre
     let unsubscribeTouchUp = NOOP;
     let unsubscribeTouchMove = NOOP;
     let unsubscribeScroll = NOOP;
+    let childrenMethods = [];
     const spring = tween.createSpring({ data: { ax: 0, ay: 0 } });
     const onMouseUp = () => {
       onDrag = false;
@@ -31635,7 +31651,9 @@ Loading snippet ...</pre
       );
       spring.goTo({ ax: axLimited, ay: ayLimited }).catch(() => {
       });
-      console.log(delta, limit);
+      childrenMethods.forEach((moveChild) => {
+        moveChild({ delta, limit });
+      });
     };
     const onScroll = (scrollY2) => {
       if (lastScrolledTop !== scrollY2) {
@@ -31743,6 +31761,8 @@ Loading snippet ...</pre
           return !drag2 && !centerToViewoport2;
         }
       );
+      const { shape } = getState();
+      childrenMethods = getChildrenMethod({ childrenId, data: shape });
       return () => {
         unsubscribeSpring();
         unsubscribeOnComplete();
@@ -31755,6 +31775,7 @@ Loading snippet ...</pre
         unsubscribeTouchUp();
         unsubscribeTouchMove();
         spring.destroy();
+        childrenMethods = [];
       };
     });
     return html`<div class="c-move-3d">
@@ -31762,9 +31783,20 @@ Loading snippet ...</pre
             <div class="c-move-3d__container" ${setRef("container")}>
                 ${invalidate({
       bind: "shape",
+      afterUpdate: () => {
+        const { shape } = getState();
+        childrenMethods = getChildrenMethod({
+          childrenId,
+          data: shape
+        });
+      },
       render: () => {
         const { shape } = getState();
-        return Recursive3Dshape({ data: shape, root: true });
+        return Recursive3Dshape({
+          data: shape,
+          root: true,
+          childrenId
+        });
       }
     })}
             </div>
@@ -31773,9 +31805,14 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/move3D/move3DItem/Move3DItem.js
-  var Move3DItemfn = ({ html, getState }) => {
-    const { root: root2, anchorPoint } = getState();
+  var Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
+    const { root: root2, anchorPoint, animate } = getState();
     const rootClass = root2 ? "is-root" : "is-children";
+    onMount(() => {
+      addMethod("move", ({ delta, limit }) => {
+        if (animate) console.log(delta, limit);
+      });
+    });
     return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint}">
         <div class="c-move3d-item__content"></div>
         <mobjs-slot></mobjs-slot>
@@ -31820,6 +31857,7 @@ Loading snippet ...</pre
   var move3DShape1 = [
     {
       props: {
+        id: 0,
         depth: 0,
         rotate: "x",
         range: 20,
@@ -31829,6 +31867,7 @@ Loading snippet ...</pre
       children: [
         {
           props: {
+            id: 1,
             depth: 0,
             rotate: "x",
             range: 20,
@@ -31838,6 +31877,7 @@ Loading snippet ...</pre
           children: [
             {
               props: {
+                id: 2,
                 depth: 0,
                 rotate: "x",
                 range: 30,
@@ -31850,6 +31890,7 @@ Loading snippet ...</pre
         },
         {
           props: {
+            id: 3,
             depth: 0,
             rotate: "x",
             range: 20,
@@ -31859,6 +31900,7 @@ Loading snippet ...</pre
           children: [
             {
               props: {
+                id: 4,
                 depth: 0,
                 rotate: "x",
                 range: 20,
@@ -31871,6 +31913,7 @@ Loading snippet ...</pre
         },
         {
           props: {
+            id: 5,
             depth: 0,
             rotate: "y",
             range: 20,
@@ -31880,6 +31923,7 @@ Loading snippet ...</pre
           children: [
             {
               props: {
+                id: 6,
                 depth: 0,
                 rotate: "y",
                 range: 30,
@@ -31889,6 +31933,7 @@ Loading snippet ...</pre
               children: [
                 {
                   props: {
+                    id: 7,
                     depth: 0,
                     rotate: "y",
                     range: 40,
@@ -31903,6 +31948,7 @@ Loading snippet ...</pre
         },
         {
           props: {
+            id: 8,
             depth: 0,
             rotate: "y",
             range: 20,
@@ -31912,6 +31958,7 @@ Loading snippet ...</pre
           children: [
             {
               props: {
+                id: 9,
                 depth: 0,
                 rotate: "y",
                 range: 30,
@@ -31921,6 +31968,7 @@ Loading snippet ...</pre
               children: [
                 {
                   props: {
+                    id: 10,
                     depth: 0,
                     rotate: "y",
                     range: 40,
@@ -31935,6 +31983,7 @@ Loading snippet ...</pre
         },
         {
           props: {
+            id: 11,
             depth: 0,
             rotate: "xy",
             range: 20,
@@ -31944,6 +31993,7 @@ Loading snippet ...</pre
           children: [
             {
               props: {
+                id: 12,
                 depth: 0,
                 rotate: "xy",
                 range: 30,
@@ -31956,6 +32006,7 @@ Loading snippet ...</pre
         },
         {
           props: {
+            id: 13,
             depth: 0,
             rotate: "xy",
             range: 20,
@@ -31966,6 +32017,7 @@ Loading snippet ...</pre
         },
         {
           props: {
+            id: 14,
             depth: 0,
             rotate: "xy",
             range: 20,
@@ -31976,6 +32028,7 @@ Loading snippet ...</pre
         },
         {
           props: {
+            id: 15,
             depth: 0,
             rotate: "xy",
             range: 20,

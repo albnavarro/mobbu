@@ -1,5 +1,6 @@
 export interface Move3DItem {
     root?: boolean;
+    id: number;
     depth: number;
     rotate: 'x' | 'y' | 'xy';
     range: number;
