@@ -31583,7 +31583,7 @@ Loading snippet ...</pre
     let unsubscribeTouchMove = NOOP;
     let unsubscribeScroll = NOOP;
     let childrenMethods = [];
-    const spring = tween.createSpring({ data: { ax: 0, ay: 0 } });
+    let spring = tween.createSpring({ data: { ax: 0, ay: 0 } });
     const onMouseUp = () => {
       onDrag = false;
     };
@@ -31777,6 +31777,7 @@ Loading snippet ...</pre
         unsubscribeTouchMove();
         spring.destroy();
         childrenMethods = [];
+        spring = null;
       };
     });
     return html`<div class="c-move-3d">
@@ -31920,7 +31921,7 @@ Loading snippet ...</pre
   var Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
     const { root: root2, anchorPoint, animate, depth, rotate, range, initialRotate } = getState();
     const rootClass = root2 ? "is-root" : "is-children";
-    const lerp2 = tween.createLerp({
+    let lerp2 = tween.createLerp({
       data: { depth: 0, rotateX: 0, rotateY: 0 }
     });
     const move = ({ delta: currentDelta, limit }) => {
@@ -31968,6 +31969,7 @@ Loading snippet ...</pre
         unsubscribelerp();
         unsubscribeOnComplete();
         lerp2.destroy();
+        lerp2 = null;
       };
     });
     return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint}">

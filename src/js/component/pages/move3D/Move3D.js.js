@@ -59,7 +59,7 @@ export const Move3Dfn = ({
     /**
      * Create tween
      */
-    const spring = tween.createSpring({ data: { ax: 0, ay: 0 } });
+    let spring = tween.createSpring({ data: { ax: 0, ay: 0 } });
 
     /** @type{() => void } */
     const onMouseUp = () => {
@@ -351,6 +351,9 @@ export const Move3Dfn = ({
             unsubscribeTouchMove();
             spring.destroy();
             childrenMethods = [];
+
+            // @ts-ignore
+            spring = null;
         };
     });
 

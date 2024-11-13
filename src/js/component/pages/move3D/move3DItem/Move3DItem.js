@@ -14,7 +14,7 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
 
     const rootClass = root ? 'is-root' : 'is-children';
 
-    const lerp = tween.createLerp({
+    let lerp = tween.createLerp({
         data: { depth: 0, rotateX: 0, rotateY: 0 },
     });
 
@@ -71,6 +71,9 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
             unsubscribelerp();
             unsubscribeOnComplete();
             lerp.destroy();
+
+            // @ts-ignore
+            lerp = null;
         };
     });
 
