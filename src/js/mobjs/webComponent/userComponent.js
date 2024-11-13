@@ -458,6 +458,12 @@ export const defineUserComponent = (componentList) => {
                     this.#watchSync = data.watchSync;
                     this.#watchParent = data.watchParent;
                     this.#isPlaceholder = false;
+
+                    // First connected callback when web-compoennt is initialzied
+                    _connectedCallBack?.({
+                        context: this,
+                        data: this.#getData(),
+                    });
                 }
 
                 connectedCallback() {
@@ -469,6 +475,7 @@ export const defineUserComponent = (componentList) => {
                         return;
                     }
 
+                    // Classic lifecycle of web component
                     _connectedCallBack?.({
                         context: this,
                         data: this.#getData(),
