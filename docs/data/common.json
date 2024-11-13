@@ -561,7 +561,7 @@
             "activeId": 1
         },
         {
-            "label": "move3D",
+            "label": "move3D shape 1",
             "scrollToSection": "plugin",
             "url": "move3D"
         }
