@@ -3,6 +3,7 @@
 import { runCallbackQueqe, runCallbackQueqeAsync } from './fireQueque';
 import { getLogStyle } from './logStyle';
 import { getStateFromMainMap } from './storeMap';
+import { addToComputedWaitLsit } from './storeSet';
 import { storeEmitWarning } from './storeWarining';
 
 /**
@@ -25,6 +26,8 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
             oldValue: store[prop],
             validationValue: validationStatusObject[prop],
         });
+
+        addToComputedWaitLsit({ instanceId, prop });
     } else {
         storeEmitWarning(prop, getLogStyle());
     }
@@ -50,6 +53,8 @@ export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
             oldValue: store[prop],
             validationValue: validationStatusObject[prop],
         });
+
+        addToComputedWaitLsit({ instanceId, prop });
 
         return { success: true };
     } else {
