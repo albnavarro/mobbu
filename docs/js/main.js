@@ -32049,6 +32049,105 @@ Loading snippet ...</pre
     child: []
   });
 
+  // src/js/component/pages/move3D/definition.js
+  var Move3D = createComponent({
+    name: "move-3d",
+    component: Move3Dfn,
+    exportState: [
+      "drag",
+      "centerToViewoport",
+      "perspective",
+      "xDepth",
+      "yDepth",
+      "xLimit",
+      "yLimit",
+      "shape"
+    ],
+    state: {
+      drag: () => ({
+        value: false,
+        type: Boolean
+      }),
+      centerToViewoport: () => ({
+        value: false,
+        type: Boolean
+      }),
+      useScroll: () => ({
+        value: true,
+        type: Boolean
+      }),
+      perspective: () => ({
+        value: 700,
+        type: Number
+      }),
+      xDepth: () => ({
+        value: 20,
+        type: Number
+      }),
+      yDepth: () => ({
+        value: 20,
+        type: Number
+      }),
+      xLimit: () => ({
+        value: 35,
+        type: Number
+      }),
+      yLimit: () => ({
+        value: 35,
+        type: Number
+      }),
+      shape: () => ({
+        value: [],
+        type: Array
+      })
+    },
+    child: [Move3DItem]
+  });
+
+  // src/js/component/pages/move3D/page/move3DPage.js
+  var Move3DPagefn = ({ onMount, html, bindProps }) => {
+    onMount(() => {
+    });
+    return html`<div>
+        <move-3d
+            ${bindProps({
+      bind: ["data"],
+      /** @returns{Partial<import('../type').Move3D>} */
+      props: ({ data: data2 }) => {
+        return {
+          shape: data2
+        };
+      }
+    })}
+        ></move-3d>
+        <move-3d
+            ${bindProps({
+      bind: ["data"],
+      /** @returns{Partial<import('../type').Move3D>} */
+      props: ({ data: data2 }) => {
+        return {
+          shape: data2
+        };
+      }
+    })}
+        ></move-3d>
+    </div>`;
+  };
+
+  // src/js/component/pages/move3D/page/definition.js
+  var Move3DPage = createComponent({
+    name: "move-3d-page",
+    component: Move3DPagefn,
+    exportState: ["data"],
+    state: {
+      data: () => ({
+        value: [],
+        type: Array
+      })
+    },
+    child: [Move3D]
+  });
+
   // src/js/component/pages/move3D/shape/shape1.js
   var move3DShape1 = [
     {
@@ -32253,67 +32352,12 @@ Loading snippet ...</pre
     }
   ];
 
-  // src/js/component/pages/move3D/definition.js
-  var Move3D = createComponent({
-    name: "move-3d",
-    component: Move3Dfn,
-    exportState: [
-      "drag",
-      "centerToViewoport",
-      "perspective",
-      "xDepth",
-      "yDepth",
-      "xLimit",
-      "yLimit"
-    ],
-    state: {
-      drag: () => ({
-        value: false,
-        type: Boolean
-      }),
-      centerToViewoport: () => ({
-        value: false,
-        type: Boolean
-      }),
-      useScroll: () => ({
-        value: true,
-        type: Boolean
-      }),
-      perspective: () => ({
-        value: 700,
-        type: Number
-      }),
-      xDepth: () => ({
-        value: 20,
-        type: Number
-      }),
-      yDepth: () => ({
-        value: 20,
-        type: Number
-      }),
-      xLimit: () => ({
-        value: 35,
-        type: Number
-      }),
-      yLimit: () => ({
-        value: 35,
-        type: Number
-      }),
-      shape: () => ({
-        value: move3DShape1,
-        type: Array
-      })
-    },
-    child: [Move3DItem]
-  });
-
   // src/js/pages/plugin/move3D/index.js
-  useComponent([Move3D]);
+  useComponent([Move3DPage]);
   var move3DRoute = async () => {
-    return renderHtml`<div>
-        <move-3d></move-3d>
-        <move-3d></move-3d>
-    </div>`;
+    return renderHtml`<move-3d-page
+        ${staticProps({ data: move3DShape1 })}
+    ></move-3d-page> `;
   };
 
   // src/js/component/pages/svg/child/animation/animation.js

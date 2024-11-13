@@ -3,7 +3,6 @@
 import { createComponent } from '../../../mobjs';
 import { Move3Dfn } from '../move3D/Move3D.js';
 import { Move3DItem } from './move3DItem/definition.js';
-import { move3DShape1 } from './shape/shape1.js';
 
 export const Move3D = createComponent({
     name: 'move-3d',
@@ -16,6 +15,7 @@ export const Move3D = createComponent({
         'yDepth',
         'xLimit',
         'yLimit',
+        'shape',
     ],
     state: {
         drag: () => ({
@@ -51,7 +51,7 @@ export const Move3D = createComponent({
             type: Number,
         }),
         shape: () => ({
-            value: move3DShape1,
+            value: [],
             type: Array,
         }),
     },

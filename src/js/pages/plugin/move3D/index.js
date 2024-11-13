@@ -1,11 +1,11 @@
-import { Move3D } from '../../../component/pages/move3D/definition';
-import { html, useComponent } from '../../../mobjs';
+import { Move3DPage } from '../../../component/pages/move3D/page/definition';
+import { html, staticProps, useComponent } from '../../../mobjs';
+import { move3DShape1 } from '../../../component/pages/move3D/shape/shape1';
 
-useComponent([Move3D]);
+useComponent([Move3DPage]);
 
 export const move3DRoute = async () => {
-    return html`<div>
-        <move-3d></move-3d>
-        <move-3d></move-3d>
-    </div>`;
+    return html`<move-3d-page
+        ${staticProps({ data: move3DShape1 })}
+    ></move-3d-page> `;
 };
