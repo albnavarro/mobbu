@@ -32,6 +32,10 @@ export const Move3DItem = createComponent({
             value: true,
             type: Boolean,
         }),
+        initialRotate: () => ({
+            value: 0,
+            type: Number,
+        }),
     },
     child: [],
 });

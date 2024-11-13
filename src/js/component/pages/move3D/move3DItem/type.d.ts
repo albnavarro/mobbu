@@ -14,4 +14,5 @@ export interface Move3DItem {
         | 'top-left'
         | 'top-right';
     animate: boolean;
+    initialRotate?: number;
 }

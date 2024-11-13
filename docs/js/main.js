@@ -31805,14 +31805,180 @@ Loading snippet ...</pre
     </div>`;
   };
 
+  // src/js/component/pages/move3D/move3DItem/utils.js
+  var getRotate = ({ startRotation, range, delta, limit }) => {
+    return Number.parseFloat(
+      (range * delta / limit - startRotation).toFixed(2)
+    );
+  };
+  var getRotateFromPosition = ({
+    rotate,
+    anchorPoint,
+    baseRotateX,
+    baseRotateY,
+    item
+  }) => {
+    if (!rotate || !anchorPoint)
+      return {
+        rotateX: 0,
+        rotateY: 0
+      };
+    switch (rotate.toUpperCase()) {
+      case "X": {
+        return (() => {
+          switch (anchorPoint.toUpperCase()) {
+            case "BOTTOM": {
+              item.style.transformOrigin = "bottom";
+              return {
+                rotateX: baseRotateX,
+                rotateY: 0
+              };
+            }
+            case "TOP": {
+              item.style.transformOrigin = "top";
+              return {
+                rotateX: -baseRotateX,
+                rotateY: 0
+              };
+            }
+            default: {
+              return {
+                rotateX: 0,
+                rotateY: 0
+              };
+            }
+          }
+        })();
+      }
+      case "Y": {
+        return (() => {
+          switch (anchorPoint.toUpperCase()) {
+            case "LEFT": {
+              item.style.transformOrigin = "left";
+              return {
+                rotateX: 0,
+                rotateY: baseRotateY
+              };
+            }
+            case "RIGHT": {
+              item.style.transformOrigin = "right";
+              return {
+                rotateX: 0,
+                rotateY: -baseRotateY
+              };
+            }
+            default: {
+              return {
+                rotateX: 0,
+                rotateY: 0
+              };
+            }
+          }
+        })();
+      }
+      case "XY": {
+        return (() => {
+          switch (anchorPoint.toUpperCase()) {
+            case "TOP-LEFT": {
+              item.style.transformOrigin = "top left";
+              return {
+                rotateX: -baseRotateX,
+                rotateY: baseRotateY
+              };
+            }
+            case "TOP-RIGHT": {
+              item.style.transformOrigin = "top right";
+              return {
+                rotateX: -baseRotateX,
+                rotateY: -baseRotateY
+              };
+            }
+            case "BOTTOM-LEFT": {
+              item.style.transformOrigin = "bottom left";
+              return {
+                rotateX: baseRotateX,
+                rotateY: baseRotateY
+              };
+            }
+            case "BOTTOM-RIGHT": {
+              item.style.transformOrigin = "bottom right";
+              return {
+                rotateX: baseRotateX,
+                rotateY: -baseRotateY
+              };
+            }
+            default: {
+              return {
+                rotateX: 0,
+                rotateY: 0
+              };
+            }
+          }
+        })();
+      }
+      default: {
+        return {
+          rotateX: 0,
+          rotateY: 0
+        };
+      }
+    }
+  };
+
   // src/js/component/pages/move3D/move3DItem/Move3DItem.js
   var Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
-    const { root: root2, anchorPoint, animate } = getState();
+    const { root: root2, anchorPoint, animate, depth, rotate, range, initialRotate } = getState();
     const rootClass = root2 ? "is-root" : "is-children";
-    onMount(() => {
-      addMethod("move", ({ delta, limit }) => {
-        if (animate) console.log(delta, limit);
+    const lerp2 = tween.createLerp({
+      data: { depth: 0, rotateX: 0, rotateY: 0 }
+    });
+    const move = ({ delta: currentDelta, limit, element }) => {
+      const currentDepth = Math.round(depth * currentDelta / limit);
+      const getRotateData = {
+        startRotation: initialRotate,
+        range,
+        delta: currentDelta,
+        limit
+      };
+      const baseRotateX = getRotate(getRotateData);
+      const baseRotateY = getRotate(getRotateData);
+      const getRotateFromPositionData = {
+        rotate,
+        anchorPoint,
+        item: element,
+        baseRotateX,
+        baseRotateY
+      };
+      const { rotateX, rotateY } = getRotateFromPosition(
+        getRotateFromPositionData
+      );
+      lerp2.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {
       });
+    };
+    onMount(({ element }) => {
+      addMethod("move", ({ delta, limit }) => {
+        if (animate) {
+          move({ delta, limit, element });
+        }
+      });
+      const unsubscribelerp = lerp2.subscribe(
+        ({ depth: depth2, rotateX, rotateY }) => {
+          element.style.transform = `translate3D(0,0,${depth2}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+      );
+      const unsubscribeOnComplete = lerp2.onComplete(
+        ({ depth: depth2, rotateX, rotateY }) => {
+          element.style.transform = `translateZ(${depth2}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+      );
+      if (!animate) {
+        element.style.transform = `translateZ(${depth}px)`;
+      }
+      return () => {
+        unsubscribelerp();
+        unsubscribeOnComplete();
+        lerp2.destroy();
+      };
     });
     return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint}">
         <div class="c-move3d-item__content"></div>
@@ -31849,6 +32015,10 @@ Loading snippet ...</pre
       animate: () => ({
         value: true,
         type: Boolean
+      }),
+      initialRotate: () => ({
+        value: 0,
+        type: Number
       })
     },
     child: []
@@ -31859,7 +32029,7 @@ Loading snippet ...</pre
     {
       props: {
         id: 0,
-        depth: 0,
+        depth: 200,
         rotate: "x",
         range: 20,
         anchorPoint: "bottom",

@@ -5,7 +5,7 @@ export const move3DShape1 = [
     {
         props: {
             id: 0,
-            depth: 0,
+            depth: 200,
             rotate: 'x',
             range: 20,
             anchorPoint: 'bottom',
