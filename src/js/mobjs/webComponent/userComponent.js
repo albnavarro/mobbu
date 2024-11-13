@@ -457,21 +457,22 @@ export const defineUserComponent = (componentList) => {
                     this.#watch = data.watch;
                     this.#watchSync = data.watchSync;
                     this.#watchParent = data.watchParent;
+                    this.#isPlaceholder = false;
+                }
+
+                connectedCallback() {
+                    if (this.#isPlaceholder) {
+                        const host = this.shadowRoot?.host;
+
+                        // @ts-ignore
+                        if (!useQuery) addUserPlaceholder(host);
+                        return;
+                    }
 
                     _connectedCallBack?.({
                         context: this,
                         data: this.#getData(),
                     });
-
-                    this.#isPlaceholder = false;
-                }
-
-                connectedCallback() {
-                    if (!this.#isPlaceholder) return;
-                    const host = this.shadowRoot?.host;
-
-                    // @ts-ignore
-                    if (!useQuery) addUserPlaceholder(host);
                 }
 
                 disconnectedCallback() {
