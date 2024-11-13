@@ -61,10 +61,10 @@
             right: calc(100% + 2px);
         }
     }
+}
 
-    &__content {
-        width: rem(150);
-        aspect-ratio: 1/1;
-        background: $black;
-    }
+.move3d-square {
+    width: rem(150);
+    aspect-ratio: 1/1;
+    background: $black;
 }

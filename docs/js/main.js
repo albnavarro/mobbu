@@ -31928,7 +31928,16 @@ Loading snippet ...</pre
 
   // src/js/component/pages/move3D/move3DItem/Move3DItem.js
   var Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
-    const { root: root2, anchorPoint, animate, depth, rotate, range, initialRotate } = getState();
+    const {
+      root: root2,
+      anchorPoint,
+      animate,
+      depth,
+      rotate,
+      range,
+      initialRotate,
+      classList
+    } = getState();
     const rootClass = root2 ? "is-root" : "is-children";
     let lerp2 = tween.createLerp({
       data: { depth: 0, rotateX: 0, rotateY: 0 }
@@ -31984,8 +31993,8 @@ Loading snippet ...</pre
         lerp2 = null;
       };
     });
-    return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint}">
-        <div class="c-move3d-item__content"></div>
+    return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint} ">
+        <div class="c-move3d-item__content ${classList}"></div>
         <mobjs-slot></mobjs-slot>
     </div>`;
   };
@@ -31994,7 +32003,15 @@ Loading snippet ...</pre
   var Move3DItem = createComponent({
     name: "move-3d-item",
     component: Move3DItemfn,
-    exportState: ["root", "depth", "rotate", "range", "animate", "anchorPoint"],
+    exportState: [
+      "root",
+      "depth",
+      "rotate",
+      "range",
+      "animate",
+      "anchorPoint",
+      "classList"
+    ],
     state: {
       root: () => ({
         value: true,
@@ -32023,6 +32040,10 @@ Loading snippet ...</pre
       initialRotate: () => ({
         value: 0,
         type: Number
+      }),
+      classList: () => ({
+        value: "",
+        type: String
       })
     },
     child: []
@@ -32037,6 +32058,7 @@ Loading snippet ...</pre
         rotate: "x",
         range: 20,
         anchorPoint: "bottom",
+        classList: "move3d-square",
         animate: true
       },
       children: [
@@ -32047,6 +32069,7 @@ Loading snippet ...</pre
             rotate: "x",
             range: 20,
             anchorPoint: "bottom",
+            classList: "move3d-square",
             animate: true
           },
           children: [
@@ -32057,6 +32080,7 @@ Loading snippet ...</pre
                 rotate: "x",
                 range: 30,
                 anchorPoint: "bottom",
+                classList: "move3d-square",
                 animate: true
               },
               children: []
@@ -32070,6 +32094,7 @@ Loading snippet ...</pre
             rotate: "x",
             range: 20,
             anchorPoint: "top",
+            classList: "move3d-square",
             animate: true
           },
           children: [
@@ -32080,6 +32105,7 @@ Loading snippet ...</pre
                 rotate: "x",
                 range: 20,
                 anchorPoint: "top",
+                classList: "move3d-square",
                 animate: true
               },
               children: []
@@ -32093,6 +32119,7 @@ Loading snippet ...</pre
             rotate: "y",
             range: 20,
             anchorPoint: "left",
+            classList: "move3d-square",
             animate: true
           },
           children: [
@@ -32103,6 +32130,7 @@ Loading snippet ...</pre
                 rotate: "y",
                 range: 30,
                 anchorPoint: "left",
+                classList: "move3d-square",
                 animate: true
               },
               children: [
@@ -32113,6 +32141,7 @@ Loading snippet ...</pre
                     rotate: "y",
                     range: 40,
                     anchorPoint: "left",
+                    classList: "move3d-square",
                     animate: true
                   },
                   children: []
@@ -32128,6 +32157,7 @@ Loading snippet ...</pre
             rotate: "y",
             range: 20,
             anchorPoint: "right",
+            classList: "move3d-square",
             animate: true
           },
           children: [
@@ -32138,6 +32168,7 @@ Loading snippet ...</pre
                 rotate: "y",
                 range: 30,
                 anchorPoint: "right",
+                classList: "move3d-square",
                 animate: true
               },
               children: [
@@ -32148,6 +32179,7 @@ Loading snippet ...</pre
                     rotate: "y",
                     range: 40,
                     anchorPoint: "right",
+                    classList: "move3d-square",
                     animate: true
                   },
                   children: []
@@ -32163,6 +32195,7 @@ Loading snippet ...</pre
             rotate: "xy",
             range: 20,
             anchorPoint: "bottom-left",
+            classList: "move3d-square",
             animate: true
           },
           children: [
@@ -32173,6 +32206,7 @@ Loading snippet ...</pre
                 rotate: "xy",
                 range: 30,
                 anchorPoint: "bottom-left",
+                classList: "move3d-square",
                 animate: true
               },
               children: []
@@ -32186,6 +32220,7 @@ Loading snippet ...</pre
             rotate: "xy",
             range: 20,
             anchorPoint: "bottom-right",
+            classList: "move3d-square",
             animate: true
           },
           children: []
@@ -32197,6 +32232,7 @@ Loading snippet ...</pre
             rotate: "xy",
             range: 20,
             anchorPoint: "top-left",
+            classList: "move3d-square",
             animate: true
           },
           children: []
@@ -32208,6 +32244,7 @@ Loading snippet ...</pre
             rotate: "xy",
             range: 20,
             anchorPoint: "top-right",
+            classList: "move3d-square",
             animate: true
           },
           children: []

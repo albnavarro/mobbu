@@ -1922,7 +1922,7 @@ code {
   top: calc(100% + 2px);
   right: calc(100% + 2px);
 }
-.c-move3d-item__content {
+.move3d-square {
   width: 10rem;
   aspect-ratio: 1/1;
   background: #000;

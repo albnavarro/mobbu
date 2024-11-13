@@ -9,8 +9,16 @@ import { getRotate, getRotateFromPosition } from './utils';
 
 /** @type {MobComponent<import('./type').Move3DItem>} */
 export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
-    const { root, anchorPoint, animate, depth, rotate, range, initialRotate } =
-        getState();
+    const {
+        root,
+        anchorPoint,
+        animate,
+        depth,
+        rotate,
+        range,
+        initialRotate,
+        classList,
+    } = getState();
 
     const rootClass = root ? 'is-root' : 'is-children';
 
@@ -81,8 +89,8 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         };
     });
 
-    return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint}">
-        <div class="c-move3d-item__content"></div>
+    return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint} ">
+        <div class="c-move3d-item__content ${classList}"></div>
         <mobjs-slot></mobjs-slot>
     </div>`;
 };
