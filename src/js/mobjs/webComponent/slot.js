@@ -29,12 +29,6 @@ export const defineSlotComponent = () => {
                 this.#slotName = '';
                 this.isSlot = true;
 
-                const host = this.shadowRoot?.host;
-                if (!host) return;
-
-                // @ts-ignore
-                if (!useSlotQuery) addSlotPlaceholder(host);
-
                 // @ts-ignore
                 const { dataset } = this.shadowRoot?.host ?? {};
 
@@ -46,6 +40,14 @@ export const defineSlotComponent = () => {
                     this.#dynamicProps =
                         this.shadowRoot?.host.getAttribute(ATTR_DYNAMIC);
                 }
+            }
+
+            connectedCallback() {
+                const host = this.shadowRoot?.host;
+                if (!host) return;
+
+                // @ts-ignore
+                if (!useSlotQuery) addSlotPlaceholder(host);
             }
 
             removeCustomComponent() {

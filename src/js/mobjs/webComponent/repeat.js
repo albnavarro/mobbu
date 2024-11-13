@@ -10,7 +10,9 @@ export const defineRepeatComponent = () => {
             constructor() {
                 super();
                 this.attachShadow({ mode: 'open' });
+            }
 
+            connectedCallback() {
                 // @ts-ignore
                 const { dataset } = this.shadowRoot?.host ?? {};
 

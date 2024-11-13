@@ -227,9 +227,6 @@ export const defineUserComponent = (componentList) => {
                     const host = this.shadowRoot?.host;
                     if (!host) return;
 
-                    // @ts-ignore
-                    if (!useQuery) addUserPlaceholder(host);
-
                     /** Get all attribute */
                     [
                         this.#name,
@@ -467,6 +464,14 @@ export const defineUserComponent = (componentList) => {
                     });
 
                     this.#isPlaceholder = false;
+                }
+
+                connectedCallback() {
+                    if (!this.#isPlaceholder) return;
+                    const host = this.shadowRoot?.host;
+
+                    // @ts-ignore
+                    if (!useQuery) addUserPlaceholder(host);
                 }
 
                 disconnectedCallback() {
