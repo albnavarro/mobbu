@@ -18,7 +18,7 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         data: { depth: 0, rotateX: 0, rotateY: 0 },
     });
 
-    const move = ({ delta: currentDelta, limit, element }) => {
+    const move = ({ delta: currentDelta, limit }) => {
         const currentDepth = Math.round((depth * currentDelta) / limit);
 
         const getRotateData = {
@@ -33,7 +33,6 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         const getRotateFromPositionData = {
             rotate: rotate,
             anchorPoint: anchorPoint,
-            item: element,
             baseRotateX,
             baseRotateY,
         };
@@ -45,13 +44,13 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         lerp.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {});
     };
 
-    onMount(({ element }) => {
-        addMethod('move', ({ delta, limit }) => {
-            if (animate) {
-                move({ delta, limit, element });
-            }
-        });
+    addMethod('move', ({ delta, limit }) => {
+        if (animate) {
+            move({ delta, limit });
+        }
+    });
 
+    onMount(({ element }) => {
         const unsubscribelerp = lerp.subscribe(
             ({ depth, rotateX, rotateY }) => {
                 element.style.transform = `translate3D(0,0,${depth}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;

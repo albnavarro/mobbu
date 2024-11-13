@@ -31815,8 +31815,7 @@ Loading snippet ...</pre
     rotate,
     anchorPoint,
     baseRotateX,
-    baseRotateY,
-    item
+    baseRotateY
   }) => {
     if (!rotate || !anchorPoint)
       return {
@@ -31828,14 +31827,12 @@ Loading snippet ...</pre
         return (() => {
           switch (anchorPoint.toUpperCase()) {
             case "BOTTOM": {
-              item.style.transformOrigin = "bottom";
               return {
                 rotateX: baseRotateX,
                 rotateY: 0
               };
             }
             case "TOP": {
-              item.style.transformOrigin = "top";
               return {
                 rotateX: -baseRotateX,
                 rotateY: 0
@@ -31854,14 +31851,12 @@ Loading snippet ...</pre
         return (() => {
           switch (anchorPoint.toUpperCase()) {
             case "LEFT": {
-              item.style.transformOrigin = "left";
               return {
                 rotateX: 0,
                 rotateY: baseRotateY
               };
             }
             case "RIGHT": {
-              item.style.transformOrigin = "right";
               return {
                 rotateX: 0,
                 rotateY: -baseRotateY
@@ -31880,28 +31875,24 @@ Loading snippet ...</pre
         return (() => {
           switch (anchorPoint.toUpperCase()) {
             case "TOP-LEFT": {
-              item.style.transformOrigin = "top left";
               return {
                 rotateX: -baseRotateX,
                 rotateY: baseRotateY
               };
             }
             case "TOP-RIGHT": {
-              item.style.transformOrigin = "top right";
               return {
                 rotateX: -baseRotateX,
                 rotateY: -baseRotateY
               };
             }
             case "BOTTOM-LEFT": {
-              item.style.transformOrigin = "bottom left";
               return {
                 rotateX: baseRotateX,
                 rotateY: baseRotateY
               };
             }
             case "BOTTOM-RIGHT": {
-              item.style.transformOrigin = "bottom right";
               return {
                 rotateX: baseRotateX,
                 rotateY: -baseRotateY
@@ -31932,7 +31923,7 @@ Loading snippet ...</pre
     const lerp2 = tween.createLerp({
       data: { depth: 0, rotateX: 0, rotateY: 0 }
     });
-    const move = ({ delta: currentDelta, limit, element }) => {
+    const move = ({ delta: currentDelta, limit }) => {
       const currentDepth = Math.round(depth * currentDelta / limit);
       const getRotateData = {
         startRotation: initialRotate,
@@ -31945,7 +31936,6 @@ Loading snippet ...</pre
       const getRotateFromPositionData = {
         rotate,
         anchorPoint,
-        item: element,
         baseRotateX,
         baseRotateY
       };
@@ -31955,12 +31945,12 @@ Loading snippet ...</pre
       lerp2.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {
       });
     };
+    addMethod("move", ({ delta, limit }) => {
+      if (animate) {
+        move({ delta, limit });
+      }
+    });
     onMount(({ element }) => {
-      addMethod("move", ({ delta, limit }) => {
-        if (animate) {
-          move({ delta, limit, element });
-        }
-      });
       const unsubscribelerp = lerp2.subscribe(
         ({ depth: depth2, rotateX, rotateY }) => {
           element.style.transform = `translate3D(0,0,${depth2}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;

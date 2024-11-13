@@ -11,7 +11,6 @@ export const getRotateFromPosition = ({
     anchorPoint,
     baseRotateX,
     baseRotateY,
-    item,
 }) => {
     if (!rotate || !anchorPoint)
         return {
@@ -24,7 +23,6 @@ export const getRotateFromPosition = ({
             return (() => {
                 switch (anchorPoint.toUpperCase()) {
                     case 'BOTTOM': {
-                        item.style.transformOrigin = 'bottom';
                         return {
                             rotateX: baseRotateX,
                             rotateY: 0,
@@ -32,7 +30,6 @@ export const getRotateFromPosition = ({
                     }
 
                     case 'TOP': {
-                        item.style.transformOrigin = 'top';
                         return {
                             rotateX: -baseRotateX,
                             rotateY: 0,
@@ -53,7 +50,6 @@ export const getRotateFromPosition = ({
             return (() => {
                 switch (anchorPoint.toUpperCase()) {
                     case 'LEFT': {
-                        item.style.transformOrigin = 'left';
                         return {
                             rotateX: 0,
                             rotateY: baseRotateY,
@@ -61,7 +57,6 @@ export const getRotateFromPosition = ({
                     }
 
                     case 'RIGHT': {
-                        item.style.transformOrigin = 'right';
                         return {
                             rotateX: 0,
                             rotateY: -baseRotateY,
@@ -82,7 +77,6 @@ export const getRotateFromPosition = ({
             return (() => {
                 switch (anchorPoint.toUpperCase()) {
                     case 'TOP-LEFT': {
-                        item.style.transformOrigin = 'top left';
                         return {
                             rotateX: -baseRotateX,
                             rotateY: baseRotateY,
@@ -90,7 +84,6 @@ export const getRotateFromPosition = ({
                     }
 
                     case 'TOP-RIGHT': {
-                        item.style.transformOrigin = 'top right';
                         return {
                             rotateX: -baseRotateX,
                             rotateY: -baseRotateY,
@@ -98,7 +91,6 @@ export const getRotateFromPosition = ({
                     }
 
                     case 'BOTTOM-LEFT': {
-                        item.style.transformOrigin = 'bottom left';
                         return {
                             rotateX: baseRotateX,
                             rotateY: baseRotateY,
@@ -106,7 +98,6 @@ export const getRotateFromPosition = ({
                     }
 
                     case 'BOTTOM-RIGHT': {
-                        item.style.transformOrigin = 'bottom right';
                         return {
                             rotateX: baseRotateX,
                             rotateY: -baseRotateY,
