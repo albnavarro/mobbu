@@ -12,7 +12,7 @@ export const horizontalScrollerParams = [
         animatePin: true,
         nav: {
             prevRoute: '#horizontalScroller?version=0&activeId=0',
-            nextRoute: '',
+            nextRoute: '#move3D-shape1',
         },
     },
 ];

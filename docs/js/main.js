@@ -31488,7 +31488,7 @@ Loading snippet ...</pre
       animatePin: true,
       nav: {
         prevRoute: "#horizontalScroller?version=0&activeId=0",
-        nextRoute: ""
+        nextRoute: "#move3D-shape1"
       }
     }
   ];
@@ -32105,8 +32105,20 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/move3D/page/move3DPage.js
-  var Move3DPagefn = ({ onMount, html, bindProps }) => {
+  var Move3DPagefn = ({ onMount, html, bindProps, getState }) => {
+    const { prevRoute, nextRoute } = getState();
     onMount(() => {
+      const setQuickNavState = setStateByName("quick_nav");
+      setQuickNavState("active", true);
+      setQuickNavState("prevRoute", prevRoute);
+      setQuickNavState("nextRoute", nextRoute);
+      setQuickNavState("color", "white");
+      return () => {
+        setQuickNavState("active", false);
+        setQuickNavState("prevRoute", "");
+        setQuickNavState("nextRoute", "");
+        setQuickNavState("color", "black");
+      };
     });
     return html`<div>
         <move-3d
@@ -32138,15 +32150,32 @@ Loading snippet ...</pre
   var Move3DPage = createComponent({
     name: "move-3d-page",
     component: Move3DPagefn,
-    exportState: ["data"],
+    exportState: ["data", "prevRoute", "nextRoute"],
     state: {
       data: () => ({
         value: [],
         type: Array
+      }),
+      nextRoute: () => ({
+        value: "",
+        type: String
+      }),
+      prevRoute: () => ({
+        value: "",
+        type: String
       })
     },
     child: [Move3D]
   });
+
+  // src/js/pages/plugin/move3D/index.js
+  useComponent([Move3DPage]);
+  var move3DRoute = async ({ props }) => {
+    const { data: data2, prevRoute, nextRoute } = props;
+    return renderHtml`<move-3d-page
+        ${staticProps({ data: data2, prevRoute, nextRoute })}
+    ></move-3d-page> `;
+  };
 
   // src/js/component/pages/move3D/shape/shape1.js
   var move3DShape1 = [
@@ -32352,12 +32381,13 @@ Loading snippet ...</pre
     }
   ];
 
-  // src/js/pages/plugin/move3D/index.js
-  useComponent([Move3DPage]);
-  var move3DRoute = async () => {
-    return renderHtml`<move-3d-page
-        ${staticProps({ data: move3DShape1 })}
-    ></move-3d-page> `;
+  // src/js/pages/plugin/move3D/props.js
+  var move3DrouteProps = {
+    shape1: {
+      prevRoute: "#horizontalScroller?version=1&activeId=1",
+      nextRoute: "",
+      data: move3DShape1
+    }
   };
 
   // src/js/component/pages/svg/child/animation/animation.js
@@ -33349,10 +33379,10 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "move3D",
+      name: "move3D-shape1",
       templateName: "generic",
       layout: move3DRoute,
-      props: {}
+      props: move3DrouteProps.shape1
     },
     {
       name: "child",

@@ -15,6 +15,7 @@ import { home } from './home';
 import { matrioska_page } from './matrioska';
 import { horizontalScroller } from './plugin/horizontalScroller';
 import { move3DRoute } from './plugin/move3D';
+import { move3DrouteProps } from './plugin/move3D/props';
 import { child } from './svg/child';
 
 export const PAGE_TEMPLATE_DOCS_MOBJS = 'templateMobJsComponent';
@@ -787,10 +788,10 @@ export const routes = [
         },
     },
     {
-        name: 'move3D',
+        name: 'move3D-shape1',
         templateName: 'generic',
         layout: move3DRoute,
-        props: {},
+        props: move3DrouteProps.shape1,
     },
     {
         name: 'child',
