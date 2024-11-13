@@ -37,6 +37,11 @@ export const mobJsComponentParams = [
         isLabel: false,
     },
     {
+        label: 'computedSync',
+        url: 'mobJs-computed-sync',
+        isLabel: false,
+    },
+    {
         label: 'watch',
         url: 'mobJs-watch',
         isLabel: false,

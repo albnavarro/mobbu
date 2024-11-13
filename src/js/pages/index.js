@@ -539,6 +539,17 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-computed-sync',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/computedSync.json',
+            title: 'computedSync',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-renderComponent',
         templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,

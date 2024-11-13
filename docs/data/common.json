@@ -260,6 +260,11 @@
                     "url": "mobJs-computed"
                 },
                 {
+                    "label": "computedSync",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-computed-sync"
+                },
+                {
                     "label": "watch",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-watch"

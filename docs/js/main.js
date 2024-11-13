@@ -33020,6 +33020,17 @@ Loading snippet ...</pre
       }
     },
     {
+      name: "mobJs-computed-sync",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/computedSync.json",
+        title: "computedSync",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    {
       name: "mobJs-renderComponent",
       templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
@@ -33359,6 +33370,11 @@ Loading snippet ...</pre
     {
       label: "computed",
       url: "mobJs-computed",
+      isLabel: false
+    },
+    {
+      label: "computedSync",
+      url: "mobJs-computed-sync",
       isLabel: false
     },
     {
