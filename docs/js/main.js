@@ -31946,11 +31946,14 @@ Loading snippet ...</pre
       lerp2.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {
       });
     };
-    addMethod("move", ({ delta, limit }) => {
-      if (animate) {
-        move({ delta, limit });
+    addMethod(
+      "move",
+      ({ delta, limit }) => {
+        if (animate) {
+          move({ delta, limit });
+        }
       }
-    });
+    );
     onMount(({ element }) => {
       const unsubscribelerp = lerp2.subscribe(
         ({ depth: depth2, rotateX, rotateY }) => {

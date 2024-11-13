@@ -18,6 +18,7 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         data: { depth: 0, rotateX: 0, rotateY: 0 },
     });
 
+    /** @type{(arg0: {delta: number, limit: number}) => void} */
     const move = ({ delta: currentDelta, limit }) => {
         const currentDepth = Math.round((depth * currentDelta) / limit);
 
@@ -44,11 +45,14 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         lerp.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {});
     };
 
-    addMethod('move', ({ delta, limit }) => {
-        if (animate) {
-            move({ delta, limit });
+    addMethod(
+        'move',
+        (/** @type{{delta:number, limit:number}} */ { delta, limit }) => {
+            if (animate) {
+                move({ delta, limit });
+            }
         }
-    });
+    );
 
     onMount(({ element }) => {
         const unsubscribelerp = lerp.subscribe(
