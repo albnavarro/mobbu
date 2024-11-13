@@ -23,12 +23,12 @@ export const MyComponent = ({
     onMount(() => {
         const { label } = getRef();
 
-        computed('sum', ['state1', 'state2'], ({ state1, state2 }) => {
-            return state1 + state2;
-        });
-
         watch('sum', (value) => {
             label.textContent = `sum is: ${value}`;
+        });
+
+        computed('sum', ['state1', 'state2'], ({ state1, state2 }) => {
+            return state1 + state2;
         });
     });
 
