@@ -18,7 +18,7 @@ export const Move3Dfn = ({
     setRef,
     getRef,
     watchSync,
-    computed,
+    computedSync,
     invalidate,
 }) => {
     /**
@@ -324,7 +324,7 @@ export const Move3Dfn = ({
         /**
          * Update useScroll
          */
-        computed(
+        computedSync(
             'useScroll',
             ['centerToViewoport', 'drag'],
             ({ drag, centerToViewoport }) => {

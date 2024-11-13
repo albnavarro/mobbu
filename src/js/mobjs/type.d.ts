@@ -45,6 +45,7 @@ export type UpdateState<T> = PartialUpdateState<T>;
 export type Emit<T> = PartialEmit<T>;
 export type EmitAsync<T> = PartialEmitAsync<T>;
 export type Computed<T> = PartialCompunted<T>;
+export type ComputedSync<T> = PartialCompunted<T>;
 export type Watch<T> = PartialWatch<T>;
 export type RemoveDom = PartialRemoveDOM;
 export type Remove = PartialRemove;
@@ -170,24 +171,18 @@ export interface componentPropsType<T, R> {
      * @example
      * ```javascript
      *
-     * //Prop target is not an object, and dependency is not an object:
      * computed('prop', ['prop1', 'prop2'], (val1, val2) => {
      *     return val1 + val2;
      * });
      *
-     * //Prop target is not an object and dependency is an object.
      * computed('prop', ['objectProp'], (obj) => {
      *      return obj.val1 + obj.val2;
      * })
      *
-     * //Prop target is an object and dependency is not an object.
-     * //When target is on object the result will be mergerd with original object.
      * computed('objectProp', ['prop1', 'prop2'], (val1, val2) => {
      *     return { sum: val1 + val2 };
      * });
      *
-     * //Prop target is an object, and dependency is an object.
-     * //When target is on object the result will be mergerd with original object.
      * computed('objectProp', ['objectProp1'], (obj) => {
      *     return { sum: obj.val1 + obj.val2 };
      * });
@@ -195,6 +190,37 @@ export interface componentPropsType<T, R> {
      * ```
      */
     computed: Computed<T>;
+
+    /**
+     *
+     * @description
+     * Update propierties value if some dependency change.
+     * Computed functions are resolved on the nextTick.
+     * If multiple dependencies change at the same time, the computed will be resolved only once.
+     * computedSync is executed once before there is a dependency mutation
+     *
+     * @example
+     * ```javascript
+     *
+     * computed('prop', ['prop1', 'prop2'], (val1, val2) => {
+     *     return val1 + val2;
+     * });
+     *
+     * computed('prop', ['objectProp'], (obj) => {
+     *      return obj.val1 + obj.val2;
+     * })
+     *
+     * computed('objectProp', ['prop1', 'prop2'], (val1, val2) => {
+     *     return { sum: val1 + val2 };
+     * });
+     *
+     * computed('objectProp', ['objectProp1'], (obj) => {
+     *     return { sum: obj.val1 + obj.val2 };
+     * });
+     *
+     * ```
+     */
+    computedSync: ComputedSync<T>;
 
     /**
      * @description

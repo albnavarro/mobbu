@@ -130,6 +130,14 @@ export const getParamsForComponentFunction = ({
             emit(state);
             return unsubscribe;
         },
+        computedSync: (state, dependencies, callback) => {
+            const unsubscribe = computed(state, dependencies, callback);
+            dependencies.forEach((state) => {
+                emit(state);
+            });
+
+            return unsubscribe;
+        },
         freezeProp: (/** @type{string} */ prop) => freezePropById({ id, prop }),
         unFreezeProp: (/** @type{string} */ prop) =>
             unFreezePropById({ id, prop }),

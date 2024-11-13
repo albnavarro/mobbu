@@ -2634,6 +2634,7 @@
         oldValue: store[prop],
         validationValue: validationStatusObject[prop]
       });
+      addToComputedWaitLsit({ instanceId, prop });
     } else {
       storeEmitWarning(prop, getLogStyle());
     }
@@ -2649,6 +2650,7 @@
         oldValue: store[prop],
         validationValue: validationStatusObject[prop]
       });
+      addToComputedWaitLsit({ instanceId, prop });
       return { success: true };
     } else {
       storeEmitWarning(prop, getLogStyle());
@@ -20070,6 +20072,13 @@
         emit(state);
         return unsubscribe3;
       },
+      computedSync: (state, dependencies, callback2) => {
+        const unsubscribe3 = computed(state, dependencies, callback2);
+        dependencies.forEach((state4) => {
+          emit(state4);
+        });
+        return unsubscribe3;
+      },
       freezeProp: (prop) => freezePropById({ id, prop }),
       unFreezeProp: (prop) => unFreezePropById({ id, prop }),
       unBind: () => unBind({ id }),
@@ -31558,7 +31567,7 @@ Loading snippet ...</pre
     setRef,
     getRef,
     watchSync,
-    computed,
+    computedSync,
     invalidate
   }) => {
     const childrenId = mobCore.getUnivoqueId();
@@ -31755,7 +31764,7 @@ Loading snippet ...</pre
           addScrollListener();
         }
       });
-      computed(
+      computedSync(
         "useScroll",
         ["centerToViewoport", "drag"],
         ({ drag: drag2, centerToViewoport: centerToViewoport2 }) => {
