@@ -3329,8 +3329,7 @@ code {
   z-index: 10;
   display: none;
   opacity: 0;
-  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-  transition: opacity 1.55s, transform 1.55s;
+  transition: opacity 1.55s cubic-bezier(0.25, 0.1, 0.25, 1), transform 1.55s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 .shape-v1.active {
   opacity: 1;

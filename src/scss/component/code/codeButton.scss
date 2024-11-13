@@ -6,7 +6,10 @@
     padding: rem(5);
     background: $black;
     color: $white;
-    transition: transform 0.55s, background 0.55s, opacity 0.55s,
+    transition:
+        transform 0.55s,
+        background 0.55s,
+        opacity 0.55s,
         visibility 0.55s;
     display: none;
     width: var(--header-height);
@@ -32,7 +35,7 @@
     }
 
     &--hightlight {
-        background: $hightlight;
+        background: $highlight;
 
         svg {
             fill: $black;

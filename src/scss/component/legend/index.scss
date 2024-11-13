@@ -31,7 +31,7 @@
             left: 0;
             height: 100%;
             width: calc(var(--header-height) / 2);
-            background: $hightlight;
+            background: $highlight;
         }
 
         @include when-inside('.active') {
@@ -46,10 +46,12 @@
         z-index: 15;
         width: var(--header-height);
         height: var(--header-height);
-        background: $hightlight;
+        background: $highlight;
         border: 0;
         transform: translateX(0);
-        transition: transform 0.55s, background 0.55s;
+        transition:
+            transform 0.55s,
+            background 0.55s;
 
         &.hide {
             transform: translateX(calc(var(--header-height) / 2));

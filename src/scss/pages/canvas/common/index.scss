@@ -71,7 +71,7 @@
             min-width: var(--header-height);
             border: 0;
             background: transparent;
-            color: $hightlight;
+            color: $highlight;
             padding: rem(5) rem(20);
             transition: background 0.2s;
             width: 100%;
@@ -95,7 +95,7 @@
                 left: 0;
                 width: 100%;
                 height: 1px;
-                background: rgba($hightlight, 0.5);
+                background: rgba($highlight, 0.5);
                 z-index: 1;
             }
 
@@ -115,7 +115,7 @@
                     height: rem(15);
                     width: rem(15);
                     border-radius: 100%;
-                    background: $hightlight;
+                    background: $highlight;
                     cursor: pointer;
                 }
 
@@ -125,7 +125,7 @@
                     height: rem(15);
                     width: rem(15);
                     border-radius: 100%;
-                    background: $hightlight;
+                    background: $highlight;
                     cursor: pointer;
                 }
             }
