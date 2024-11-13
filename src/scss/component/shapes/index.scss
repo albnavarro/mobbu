@@ -29,7 +29,7 @@
 
     &--right {
         left: 40%;
-        transform: translateX(70%);
+        transform: translateX(100%);
 
         &.is-center {
             transform: translateX(0);
@@ -38,7 +38,7 @@
 
     &--left {
         right: 40%;
-        transform: translateX(-70%);
+        transform: translateX(-100%);
 
         &.is-center {
             right: 40%;

@@ -3347,14 +3347,14 @@ code {
 }
 .shape-v1--right {
   left: 40%;
-  transform: translateX(70%);
+  transform: translateX(100%);
 }
 .shape-v1--right.is-center {
   transform: translateX(0);
 }
 .shape-v1--left {
   right: 40%;
-  transform: translateX(-70%);
+  transform: translateX(-100%);
 }
 .shape-v1--left.is-center {
   right: 40%;
