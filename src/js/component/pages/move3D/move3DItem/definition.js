@@ -10,6 +10,10 @@ export const Move3DItem = createComponent({
         'root',
         'depth',
         'rotate',
+        'width',
+        'height',
+        'offsetX',
+        'offsetY',
         'range',
         'animate',
         'anchorPoint',
@@ -27,6 +31,22 @@ export const Move3DItem = createComponent({
         rotate: () => ({
             value: 'x',
             type: String,
+        }),
+        width: () => ({
+            value: 10,
+            type: Number,
+        }),
+        height: () => ({
+            value: 10,
+            type: Number,
+        }),
+        offsetX: () => ({
+            value: 0,
+            type: Number,
+        }),
+        offsetY: () => ({
+            value: 0,
+            type: Number,
         }),
         range: () => ({
             value: 20,

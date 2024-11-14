@@ -31952,11 +31952,19 @@ Loading snippet ...</pre
       animate,
       depth,
       rotate,
+      width,
+      height,
+      offsetX,
+      offsetY,
       range,
       initialRotate,
       classList
     } = getState();
     const rootClass = root2 ? "is-root" : "is-children";
+    const widthCssVar = `--item-width:${width};`;
+    const heightCssVar = `--item-height:${height};`;
+    const offsetXCssVar = `--offset-x:${offsetX};`;
+    const offsetYCssVar = `--offset-y:${offsetY};`;
     let lerp2 = tween.createLerp({
       data: { depth: 0, rotateX: 0, rotateY: 0 }
     });
@@ -32011,7 +32019,10 @@ Loading snippet ...</pre
         lerp2 = null;
       };
     });
-    return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint} ">
+    return html`<div
+        class="c-move3d-item ${rootClass} anchor-${anchorPoint}"
+        style="${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}"
+    >
         <div class="c-move3d-item__content ${classList}"></div>
         <mobjs-slot></mobjs-slot>
     </div>`;
@@ -32025,6 +32036,10 @@ Loading snippet ...</pre
       "root",
       "depth",
       "rotate",
+      "width",
+      "height",
+      "offsetX",
+      "offsetY",
       "range",
       "animate",
       "anchorPoint",
@@ -32042,6 +32057,22 @@ Loading snippet ...</pre
       rotate: () => ({
         value: "x",
         type: String
+      }),
+      width: () => ({
+        value: 10,
+        type: Number
+      }),
+      height: () => ({
+        value: 10,
+        type: Number
+      }),
+      offsetX: () => ({
+        value: 0,
+        type: Number
+      }),
+      offsetY: () => ({
+        value: 0,
+        type: Number
       }),
       range: () => ({
         value: 20,
@@ -32339,6 +32370,10 @@ Loading snippet ...</pre
             id: 11,
             depth: 0,
             rotate: "xy",
+            width: 8,
+            height: 8,
+            offsetX: 1,
+            offsetY: 1,
             range: 20,
             anchorPoint: "bottom-left",
             classList: "move3d-square",
@@ -32347,9 +32382,25 @@ Loading snippet ...</pre
           children: [
             {
               props: {
+                id: 20,
+                depth: 100,
+                rotate: "",
+                width: 8,
+                height: 8,
+                range: 100,
+                anchorPoint: "center",
+                classList: "move3d-square is-white is-small is-center",
+                animate: true
+              },
+              children: []
+            },
+            {
+              props: {
                 id: 12,
                 depth: 0,
                 rotate: "xy",
+                width: 13,
+                height: 8,
                 range: 30,
                 anchorPoint: "bottom-left",
                 classList: "move3d-square",
@@ -32364,36 +32415,93 @@ Loading snippet ...</pre
             id: 13,
             depth: 0,
             rotate: "xy",
+            width: 8,
+            height: 8,
+            offsetX: 1,
+            offsetY: 1,
             range: 20,
             anchorPoint: "bottom-right",
             classList: "move3d-square",
             animate: true
           },
-          children: []
+          children: [
+            {
+              props: {
+                id: 19,
+                depth: 100,
+                rotate: "",
+                width: 8,
+                height: 8,
+                range: 100,
+                anchorPoint: "center",
+                classList: "move3d-square is-white is-small is-center",
+                animate: true
+              },
+              children: []
+            }
+          ]
         },
         {
           props: {
             id: 14,
             depth: 0,
             rotate: "xy",
+            width: 8,
+            height: 8,
+            offsetX: 1,
+            offsetY: 1,
             range: 20,
             anchorPoint: "top-left",
             classList: "move3d-square",
             animate: true
           },
-          children: []
+          children: [
+            {
+              props: {
+                id: 17,
+                depth: 100,
+                rotate: "",
+                width: 8,
+                height: 8,
+                range: 100,
+                anchorPoint: "center",
+                classList: "move3d-square is-white is-small is-center",
+                animate: true
+              },
+              children: []
+            }
+          ]
         },
         {
           props: {
             id: 15,
             depth: 0,
             rotate: "xy",
+            width: 8,
+            height: 8,
             range: 20,
+            offsetX: 1,
+            offsetY: 1,
             anchorPoint: "top-right",
             classList: "move3d-square",
             animate: true
           },
-          children: []
+          children: [
+            {
+              props: {
+                id: 16,
+                depth: 100,
+                rotate: "",
+                width: 8,
+                height: 8,
+                range: 100,
+                anchorPoint: "center",
+                classList: "move3d-square is-white is-small is-center",
+                animate: true
+              },
+              children: []
+            }
+          ]
         }
       ]
     }

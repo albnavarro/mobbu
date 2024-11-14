@@ -1878,6 +1878,8 @@ code {
 .c-move3d-item {
   position: relative;
   transform-style: preserve-3d;
+  width: calc(var(--item-width) * 1rem);
+  height: calc(var(--item-height) * 1rem);
 }
 .c-move3d-item > * {
   outline: 1px solid transparent;
@@ -1887,49 +1889,67 @@ code {
 }
 .c-move3d-item.is-children {
   position: absolute;
+  display: grid;
+  place-content: center center;
+  grid-template-areas: "content";
 }
 .c-move3d-item.is-children.anchor-left {
   transform-origin: left;
-  bottom: 0;
-  left: calc(100% + 2px);
+  bottom: calc(var(--offset-y) * 1rem);
+  left: calc(100% + var(--offset-x) * 1rem);
 }
 .c-move3d-item.is-children.anchor-right {
   transform-origin: right;
-  bottom: 0;
-  right: calc(100% + 2px);
+  bottom: calc(var(--offset-y) * 1rem);
+  right: calc(100% + var(--offset-x) * 1rem);
 }
 .c-move3d-item.is-children.anchor-bottom {
   transform-origin: bottom;
-  bottom: calc(100% + 2px);
+  bottom: calc(100% + var(--offset-y) * 1rem);
 }
 .c-move3d-item.is-children.anchor-top {
   transform-origin: top;
-  top: calc(100% + 2px);
+  top: calc(100% + var(--offset-y) * 1rem);
 }
 .c-move3d-item.is-children.anchor-bottom-left {
   transform-origin: bottom left;
-  bottom: calc(100% + 2px);
-  left: calc(100% + 2px);
+  bottom: calc(100% + var(--offset-y) * 1rem);
+  left: calc(100% + var(--offset-x) * 1rem);
 }
 .c-move3d-item.is-children.anchor-bottom-right {
   transform-origin: bottom right;
-  bottom: calc(100% + 2px);
-  right: calc(100% + 2px);
+  bottom: calc(100% + var(--offset-y) * 1rem);
+  right: calc(100% + var(--offset-x) * 1rem);
 }
 .c-move3d-item.is-children.anchor-top-left {
   transform-origin: top left;
-  top: calc(100% + 2px);
-  left: calc(100% + 2px);
+  top: calc(100% + var(--offset-y) * 1rem);
+  left: calc(100% + var(--offset-x) * 1rem);
 }
 .c-move3d-item.is-children.anchor-top-right {
   transform-origin: top right;
-  top: calc(100% + 2px);
-  right: calc(100% + 2px);
+  top: calc(100% + var(--offset-y) * 1rem);
+  right: calc(100% + var(--offset-x) * 1rem);
+}
+.c-move3d-item.is-children.anchor-center {
+  transform-origin: center center;
+  top: calc(var(--offset-y) * 1rem);
+  right: calc(var(--offset-x) * 1rem);
+}
+.c-move3d-item__content {
+  grid-area: content;
 }
 .move3d-square {
-  width: 10rem;
-  aspect-ratio: 1/1;
+  width: calc(var(--item-width) * 1rem);
+  height: calc(var(--item-height) * 1rem);
   background: #000;
+}
+.move3d-square.is-white {
+  background: #fff;
+}
+.move3d-square.is-small {
+  width: calc(var(--item-width) * 0.5rem);
+  height: calc(var(--item-height) * 0.5rem);
 }
 .c-code-btn {
   border: 0;

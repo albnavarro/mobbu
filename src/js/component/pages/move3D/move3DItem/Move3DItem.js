@@ -15,12 +15,20 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         animate,
         depth,
         rotate,
+        width,
+        height,
+        offsetX,
+        offsetY,
         range,
         initialRotate,
         classList,
     } = getState();
 
     const rootClass = root ? 'is-root' : 'is-children';
+    const widthCssVar = `--item-width:${width};`;
+    const heightCssVar = `--item-height:${height};`;
+    const offsetXCssVar = `--offset-x:${offsetX};`;
+    const offsetYCssVar = `--offset-y:${offsetY};`;
 
     let lerp = tween.createLerp({
         data: { depth: 0, rotateX: 0, rotateY: 0 },
@@ -89,7 +97,10 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         };
     });
 
-    return html`<div class="c-move3d-item ${rootClass} anchor-${anchorPoint} ">
+    return html`<div
+        class="c-move3d-item ${rootClass} anchor-${anchorPoint}"
+        style="${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}"
+    >
         <div class="c-move3d-item__content ${classList}"></div>
         <mobjs-slot></mobjs-slot>
     </div>`;

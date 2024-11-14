@@ -2,8 +2,8 @@ export interface Move3DItem {
     root?: boolean;
     id: number;
     depth: number;
-    rotate: 'x' | 'y' | 'xy';
-    range: number;
+    rotate?: 'x' | 'y' | 'xy' | '';
+    range?: number;
     anchorPoint:
         | 'left'
         | 'top'
@@ -12,8 +12,13 @@ export interface Move3DItem {
         | 'bottom-left'
         | 'bottom-right'
         | 'top-left'
-        | 'top-right';
-    animate: boolean;
+        | 'top-right'
+        | 'center';
+    animate?: boolean;
+    width?: number;
+    height?: number;
+    offsetX?: number;
+    offsetY?: number;
     initialRotate?: number;
     classList?: string;
 }
