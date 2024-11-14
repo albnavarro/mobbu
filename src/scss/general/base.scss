@@ -71,13 +71,12 @@ html {
 }
 
 body {
-    background: $grey-lightteen;
-
-    // background: radial-gradient(
-    //     circle at bottom center,
-    //     $background 15px,
-    //     $grey-medium
-    // );
+    // background: $grey-lightteen;
+    background: radial-gradient(
+        circle,
+        rgb(232 232 232 / 100%) 0%,
+        rgb(166 182 185) 93%
+    );
     background-attachment: fixed;
     overflow-x: hidden;
 }

@@ -31,7 +31,6 @@
 
     /* stylelint-disable-next-line no-descending-specificity */
     li > a {
-        background: transparent;
         padding: rem(5) rem(10);
         margin-bottom: rem(10);
         margin-right: rem(10);
@@ -42,7 +41,12 @@
         text-align: center;
         transition: background 0.35s;
         font-size: rem(14);
-        border: 1px $black solid;
+        background: $white;
+
+        @include when-inside('.c-code-overlay') {
+            background: $black;
+            color: $white;
+        }
 
         &:hover {
             background: $black;
