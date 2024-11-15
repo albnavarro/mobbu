@@ -1,5 +1,5 @@
 import { componentMap } from '../store';
-import { getIdByInstanceName } from './component';
+import { getIdArrayByInstanceName, getIdByInstanceName } from './component';
 
 /**
  * @param {object} obj
@@ -71,4 +71,16 @@ export const useMethodByName = (name) => {
     }
 
     return methods;
+};
+
+/**
+ * @param {string} name
+ * @returns {{[key:string]:(...args: any[]) => void}[]}
+ *
+ * @description
+ * Get array of  method by id
+ */
+export const useMethodArrayByName = (name) => {
+    const ids = getIdArrayByInstanceName(name);
+    return ids.map((id) => getMethodsById({ id }));
 };

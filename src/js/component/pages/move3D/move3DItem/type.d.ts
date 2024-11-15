@@ -1,19 +1,23 @@
+type AnchorPoint =
+    | 'left'
+    | 'top'
+    | 'right'
+    | 'bottom'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-right'
+    | 'center';
+
+type Rotate = 'x' | 'y' | 'xy' | '';
+
 export interface Move3DItem {
     root?: boolean;
     id: number;
     depth: number;
-    rotate?: 'x' | 'y' | 'xy' | '';
+    rotate?: Rotate;
     range?: number;
-    anchorPoint:
-        | 'left'
-        | 'top'
-        | 'right'
-        | 'bottom'
-        | 'bottom-left'
-        | 'bottom-right'
-        | 'top-left'
-        | 'top-right'
-        | 'center';
+    anchorPoint: AnchorPoint;
     animate?: boolean;
     width?: number;
     height?: number;
@@ -22,3 +26,14 @@ export interface Move3DItem {
     initialRotate?: number;
     classList?: string;
 }
+
+export type Move3DItemMove = (arg0: {
+    delta: number;
+    limit: number;
+    initialRotate?: number;
+    depth: number;
+    range?: number;
+    rotate?: Rotate;
+    anchorPoint: AnchorPoint;
+    lerp: any;
+}) => void;

@@ -6,7 +6,10 @@ export {
     getIdByInstanceName,
 } from './component/action/component';
 export { getTree } from './component/action/getTree';
-export { useMethodByName } from './component/action/methods';
+export {
+    useMethodByName,
+    useMethodArrayByName,
+} from './component/action/methods';
 export { getParentIdById } from './component/action/parent';
 export { removeAndDestroyById } from './component/action/removeAndDestroy/removeAndDestroyById';
 export { getStateById } from './component/action/state/getStateById';

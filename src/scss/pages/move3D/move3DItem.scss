@@ -76,6 +76,13 @@
     &__content {
         grid-area: content;
     }
+
+    &__debug {
+        position: absolute;
+        color: red;
+        top: 0;
+        left: 0;
+    }
 }
 
 .move3d-square {

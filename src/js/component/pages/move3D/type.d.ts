@@ -10,6 +10,7 @@ export interface Move3D {
     xLimit: number;
     yLimit: number;
     shape: Move3DChildren[];
+    debug: boolean;
 }
 
 export interface Move3DChildren {

@@ -31,6 +31,27 @@ const mobJsComponentBreadCrumbs = [
     },
 ];
 
+const mobJsOverviewBreadCrumbs = [
+    {
+        url: './#mobJs-overview',
+        title: 'mobJs',
+    },
+];
+
+const mobCoreOverviewBreadCrumbs = [
+    {
+        url: './#mobCore-overview',
+        title: 'mobCore',
+    },
+];
+
+const mobMotionOverviewBreadCrumbs = [
+    {
+        url: './#mobMotion-overview',
+        title: 'mobMotion',
+    },
+];
+
 /**
  * @type {import('../mobjs/type').Route[]}
  */
@@ -46,8 +67,7 @@ export const routes = [
         props: {
             source: './data/about.json',
             title: 'About',
-            section: '',
-            breadCrumbs: '',
+            breadCrumbs: [],
         },
     },
     {
@@ -111,8 +131,7 @@ export const routes = [
         props: {
             source: './data/mobCore/overview.json',
             title: 'mobCore',
-            section: '',
-            breadCrumbs: '',
+            breadCrumbs: [],
         },
     },
     {
@@ -121,8 +140,7 @@ export const routes = [
         props: {
             source: './data/mobCore/defaults.json',
             title: 'Defaults',
-            section: 'mobCore',
-            breadCrumbs: './#mobCore-overview',
+            breadCrumbs: mobCoreOverviewBreadCrumbs,
         },
     },
     {
@@ -131,8 +149,7 @@ export const routes = [
         props: {
             source: './data/mobCore/events.json',
             title: 'Events',
-            section: 'mobCore',
-            breadCrumbs: './#mobCore-overview',
+            breadCrumbs: mobCoreOverviewBreadCrumbs,
         },
     },
     {
@@ -141,8 +158,7 @@ export const routes = [
         props: {
             source: './data/mobCore/store.json',
             title: 'Store',
-            section: 'mobCore',
-            breadCrumbs: './#mobCore-overview',
+            breadCrumbs: mobCoreOverviewBreadCrumbs,
         },
     },
     {
@@ -151,8 +167,7 @@ export const routes = [
         props: {
             source: './data/mobJs/overview.json',
             title: 'mobJs',
-            section: '',
-            breadCrumbs: '',
+            breadCrumbs: [],
         },
     },
     {
@@ -161,8 +176,7 @@ export const routes = [
         props: {
             source: './data/mobJs/initialization.json',
             title: 'initialization',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
         },
     },
     {
@@ -171,8 +185,7 @@ export const routes = [
         props: {
             source: './data/mobJs/component.json',
             title: 'component',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
         },
     },
     {
@@ -181,8 +194,7 @@ export const routes = [
         props: {
             source: './data/mobJs/webComponent.json',
             title: 'webComponent',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
         },
     },
     {
@@ -191,8 +203,7 @@ export const routes = [
         props: {
             source: './data/mobJs/routing.json',
             title: 'routing',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
         },
     },
     {
@@ -201,8 +212,7 @@ export const routes = [
         props: {
             source: './data/mobJs/setStateByName.json',
             title: 'setStateByName',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
     {
@@ -211,8 +221,7 @@ export const routes = [
         props: {
             source: './data/mobJs/updateStateByName.json',
             title: 'updateStateByName',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
     {
@@ -221,8 +230,7 @@ export const routes = [
         props: {
             source: './data/realWorld/debug-component.json',
             title: 'Debug component',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
         },
     },
     {
@@ -252,8 +260,16 @@ export const routes = [
         props: {
             source: './data/mobJs/useMethodByName.json',
             title: 'useMethodByName',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
+        name: 'mobJs-useMethodArrayByName',
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/useMethodArrayByName.json',
+            title: 'useMethodArrayByName',
+            breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
     {
@@ -262,8 +278,7 @@ export const routes = [
         props: {
             source: './data/mobJs/tick.json',
             title: 'tick',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
         },
     },
     {
@@ -272,8 +287,7 @@ export const routes = [
         props: {
             source: './data/mobJs/utils.json',
             title: 'utils',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
         },
     },
     {
@@ -282,8 +296,7 @@ export const routes = [
         props: {
             source: './data/mobJs/debug.json',
             title: 'debug',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
         },
     },
     {
@@ -293,7 +306,6 @@ export const routes = [
         props: {
             source: './data/mobJs/html.json',
             title: 'html',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -304,7 +316,6 @@ export const routes = [
         props: {
             source: './data/mobJs/onMount.json',
             title: 'onMount',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -315,7 +326,6 @@ export const routes = [
         props: {
             source: './data/mobJs/getState.json',
             title: 'getState',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -326,7 +336,6 @@ export const routes = [
         props: {
             source: './data/mobJs/setState.json',
             title: 'setState',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -337,7 +346,6 @@ export const routes = [
         props: {
             source: './data/mobJs/updateState.json',
             title: 'updateState',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -348,7 +356,6 @@ export const routes = [
         props: {
             source: './data/mobJs/watch.json',
             title: 'watch',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -359,7 +366,6 @@ export const routes = [
         props: {
             source: './data/mobJs/watchSync.json',
             title: 'watchSync',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -370,7 +376,6 @@ export const routes = [
         props: {
             source: './data/mobJs/staticProps.json',
             title: 'staticProps',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -381,7 +386,6 @@ export const routes = [
         props: {
             source: './data/mobJs/bindProps.json',
             title: 'bindProps',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -392,7 +396,6 @@ export const routes = [
         props: {
             source: './data/mobJs/bindEvents.json',
             title: 'bindEvents',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -403,7 +406,6 @@ export const routes = [
         props: {
             source: './data/mobJs/delegateEvents.json',
             title: 'delegateEvents',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -414,7 +416,6 @@ export const routes = [
         props: {
             source: './data/mobJs/bindText.json',
             title: 'bindtext',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -425,7 +426,6 @@ export const routes = [
         props: {
             source: './data/mobJs/bindClassStyle.json',
             title: 'bindClass/Style',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -436,7 +436,6 @@ export const routes = [
         props: {
             source: './data/mobJs/methods.json',
             title: 'methods',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -447,7 +446,6 @@ export const routes = [
         props: {
             source: './data/mobJs/refs.json',
             title: 'refs',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -458,7 +456,6 @@ export const routes = [
         props: {
             source: './data/mobJs/runtime.json',
             title: 'runtime',
-            section: 'mobJs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -469,7 +466,6 @@ export const routes = [
         props: {
             source: './data/mobJs/repeat.json',
             title: 'repeat',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -480,7 +476,6 @@ export const routes = [
         props: {
             source: './data/mobJs/invalidate.json',
             title: 'repeat',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -491,7 +486,6 @@ export const routes = [
         props: {
             source: './data/mobJs/invalidate-vs-repeater.json',
             title: 'repeat',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -502,7 +496,6 @@ export const routes = [
         props: {
             source: './data/mobJs/unBind.json',
             title: 'unBind',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -513,7 +506,6 @@ export const routes = [
         props: {
             source: './data/mobJs/emit.json',
             title: 'emit',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -524,7 +516,6 @@ export const routes = [
         props: {
             source: './data/mobJs/emitAsync.json',
             title: 'emitAsync',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -535,7 +526,6 @@ export const routes = [
         props: {
             source: './data/mobJs/computed.json',
             title: 'computed',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -546,7 +536,6 @@ export const routes = [
         props: {
             source: './data/mobJs/computedSync.json',
             title: 'computedSync',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -557,7 +546,6 @@ export const routes = [
         props: {
             source: './data/mobJs/renderDom.json',
             title: 'renderDom',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -568,7 +556,6 @@ export const routes = [
         props: {
             source: './data/mobJs/removeDom.json',
             title: 'removeDom',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -579,7 +566,6 @@ export const routes = [
         props: {
             source: './data/mobJs/remove.json',
             title: 'remove',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -590,7 +576,6 @@ export const routes = [
         props: {
             source: './data/mobJs/getChildren.json',
             title: 'getChildren',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -601,7 +586,6 @@ export const routes = [
         props: {
             source: './data/mobJs/freezeProp.json',
             title: 'freezeProp',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -612,7 +596,6 @@ export const routes = [
         props: {
             source: './data/mobJs/unFreezeProp.json',
             title: 'unFreezeProp',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -623,7 +606,6 @@ export const routes = [
         props: {
             source: './data/mobJs/getParentId.json',
             title: 'getParentId',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -634,7 +616,6 @@ export const routes = [
         props: {
             source: './data/mobJs/watchParent.json',
             title: 'watchParent',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -645,7 +626,6 @@ export const routes = [
         props: {
             source: './data/mobJs/instanceName.json',
             title: 'instanceName',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -656,7 +636,6 @@ export const routes = [
         props: {
             source: './data/mobJs/classList.json',
             title: 'classList',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -667,7 +646,6 @@ export const routes = [
         props: {
             source: './data/mobJs/slot.json',
             title: 'slot',
-            section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
@@ -677,8 +655,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/stagger.json',
             title: 'Stagger',
-            section: 'mobMotion',
-            breadCrumbs: './#mobMotion-overview',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
     },
     {
@@ -687,8 +664,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/defaults.json',
             title: 'Defaults',
-            section: 'mobMotion',
-            breadCrumbs: './#mobMotion-overview',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
     },
     {
@@ -697,8 +673,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/overview.json',
             title: 'mobMotion',
-            section: '',
-            breadCrumbs: '',
+            breadCrumbs: [],
         },
     },
     {
@@ -707,8 +682,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/parallax.json',
             title: 'Parallax',
-            section: 'mobMotion',
-            breadCrumbs: './#mobMotion-overview',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
     },
     {
@@ -717,8 +691,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/sequencer.json',
             title: 'Sequencer',
-            section: 'mobMotion',
-            breadCrumbs: './#mobMotion-overview',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
     },
     {
@@ -727,8 +700,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/scrollTrigger.json',
             title: 'ScrollTrigger',
-            section: 'mobMotion',
-            breadCrumbs: './#mobMotion-overview',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
     },
     {
@@ -737,8 +709,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/syncTimeline.json',
             title: 'Sync timeline',
-            section: 'mobMotion',
-            breadCrumbs: './#mobMotion-overview',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
     },
     {
@@ -747,8 +718,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/createStagger.json',
             title: 'CreateStagger',
-            section: 'mobMotion',
-            breadCrumbs: './#mobMotion-overview',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
     },
     {
@@ -757,8 +727,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/asyncTimeline.json',
             title: 'Async timeline',
-            section: 'mobMotion',
-            breadCrumbs: './#mobMotion-overview',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
     },
     {
@@ -767,8 +736,7 @@ export const routes = [
         props: {
             source: './data/mobMotion/tweenSpringLerp.json',
             title: 'Tween Spring Lerp',
-            section: 'mobMotion',
-            breadCrumbs: './#mobMotion-overview',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
     },
     {
@@ -783,8 +751,7 @@ export const routes = [
         props: {
             source: './data/plugin/overview.json',
             title: 'Plugin',
-            section: '',
-            breadCrumbs: '',
+            breadCrumbs: [],
         },
     },
     {
@@ -804,8 +771,7 @@ export const routes = [
         props: {
             source: './data/svg/overview.json',
             title: 'Svg',
-            section: '',
-            breadCrumbs: '',
+            breadCrumbs: [],
         },
     },
 ];

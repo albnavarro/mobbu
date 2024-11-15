@@ -1,7 +1,7 @@
 //@ts-check
 
 import { offset, outerHeight, outerWidth } from '../../../mobCore/utils';
-import { useMethodByName } from '../../../mobjs';
+import { useMethodArrayByName } from '../../../mobjs';
 
 /**
  * @type {(arg0: {element: HTMLElement}) => {height: number, width:number, offSetLeft: number, offSetTop: number }}
@@ -15,28 +15,12 @@ export const getMove3DDimension = ({ element }) => {
     };
 };
 
-/** @type{(data: import('./type').Move3DChildren[]) => string[] } */
-const reduceChildrenId = (data) => {
-    const initialData = [];
+/**  @type{(arg0: {childrenId: string }) => ((arg0: {delta:number, limit:number}) => void)[]} */
+export const getChildrenMethod = ({ childrenId }) => {
+    const methods = useMethodArrayByName(childrenId);
 
-    return data.reduce((previous, current) => {
-        const childrensId =
-            current.children.length > 0
-                ? [current.props.id, ...reduceChildrenId(current.children)]
-                : [current.props.id];
-
-        return [...previous, ...childrensId];
-    }, initialData);
-};
-
-/**  @type{(arg0: {childrenId: string, data:import('./type').Move3DChildren[] }) => ((arg0: {delta:number, limit:number}) => void)[]} */
-export const getChildrenMethod = ({ childrenId, data }) => {
-    const ids = reduceChildrenId(data);
-
-    return ids.map((id) => {
-        const method = useMethodByName(`${childrenId}-${id}`)?.move;
-
+    return methods.map((method) => {
         return (/** @type{{delta:number, limit:number}} */ props) =>
-            method?.(props);
+            method?.move?.(props);
     });
 };

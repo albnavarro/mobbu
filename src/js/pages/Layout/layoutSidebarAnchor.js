@@ -5,19 +5,12 @@ import { HtmlContent } from '../../component/common/htmlContent/definition';
 import { ScrollTo } from '../../component/common/scrollTo/definition';
 import { html, staticProps, useComponent } from '../../mobjs';
 import { loadJsonContent } from '../../utils/utils';
+import { getBreadCrumbs } from './utils';
 
 useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
 
-const getBreadCrumbs = ({ breadCrumbs, section }) => {
-    if (breadCrumbs.length > 0) {
-        return html` <a href="${breadCrumbs}">${section}</a> / `;
-    }
-
-    return ``;
-};
-
 export const layoutSidebarAnchor = async ({ props }) => {
-    const { source, title, section, breadCrumbs } = props;
+    const { source, title, breadCrumbs } = props;
     const { data } = await loadJsonContent({ source });
 
     return html` <doc-container>
@@ -33,7 +26,6 @@ export const layoutSidebarAnchor = async ({ props }) => {
                 ><div>
                     ${getBreadCrumbs({
                         breadCrumbs,
-                        section,
                     })}${title}
                 </div></doc-title-small
             >

@@ -63,6 +63,21 @@ export const getIdByInstanceName = (name = '') => {
 };
 
 /**
+ * @param {string} name
+ * @returns {string[]}
+ *
+ * @description
+ * Get Array of id by user definition name.
+ */
+export const getIdArrayByInstanceName = (name = '') => {
+    if (!name) return [];
+
+    return [...componentMap.values()]
+        .filter(({ instanceName }) => instanceName === name)
+        .map(({ id }) => id);
+};
+
+/**
  * @param {string} id
  * @returns {boolean}
  *

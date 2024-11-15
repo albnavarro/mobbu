@@ -62,7 +62,8 @@
                 "style": "small",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>"
+                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>",
+                    "<a href='./#mobJs-useMethodArrayByName'>useMethodArrayByName</a>"
                 ]
             }
         }

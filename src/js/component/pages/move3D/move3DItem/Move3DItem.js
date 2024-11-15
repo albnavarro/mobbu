@@ -7,6 +7,42 @@ import { getRotate, getRotateFromPosition } from './utils';
  * @import { MobComponent} from '../../../../mobjs/type';
  **/
 
+/** @type{import('./type').Move3DItemMove} */
+const move = ({
+    delta: currentDelta,
+    limit,
+    initialRotate,
+    depth,
+    range,
+    rotate,
+    anchorPoint,
+    lerp,
+}) => {
+    const currentDepth = Math.round((depth * currentDelta) / limit);
+
+    const getRotateData = {
+        startRotation: initialRotate,
+        range: range,
+        delta: currentDelta,
+        limit: limit,
+    };
+    const baseRotateX = getRotate(getRotateData);
+    const baseRotateY = getRotate(getRotateData);
+
+    const getRotateFromPositionData = {
+        rotate: rotate,
+        anchorPoint: anchorPoint,
+        baseRotateX,
+        baseRotateY,
+    };
+
+    const { rotateX, rotateY } = getRotateFromPosition(
+        getRotateFromPositionData
+    );
+
+    lerp.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {});
+};
+
 /** @type {MobComponent<import('./type').Move3DItem>} */
 export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
     const {
@@ -34,38 +70,20 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         data: { depth: 0, rotateX: 0, rotateY: 0 },
     });
 
-    /** @type{(arg0: {delta: number, limit: number}) => void} */
-    const move = ({ delta: currentDelta, limit }) => {
-        const currentDepth = Math.round((depth * currentDelta) / limit);
-
-        const getRotateData = {
-            startRotation: initialRotate,
-            range: range,
-            delta: currentDelta,
-            limit: limit,
-        };
-        const baseRotateX = getRotate(getRotateData);
-        const baseRotateY = getRotate(getRotateData);
-
-        const getRotateFromPositionData = {
-            rotate: rotate,
-            anchorPoint: anchorPoint,
-            baseRotateX,
-            baseRotateY,
-        };
-
-        const { rotateX, rotateY } = getRotateFromPosition(
-            getRotateFromPositionData
-        );
-
-        lerp.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {});
-    };
-
     addMethod(
         'move',
         (/** @type{{delta:number, limit:number}} */ { delta, limit }) => {
             if (animate) {
-                move({ delta, limit });
+                move({
+                    delta,
+                    limit,
+                    initialRotate,
+                    depth,
+                    range,
+                    rotate,
+                    anchorPoint,
+                    lerp,
+                });
             }
         }
     );

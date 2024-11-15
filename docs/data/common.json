@@ -437,6 +437,11 @@
                     "label": "useMethodByName",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-useMethodByName"
+                },
+                {
+                    "label": "useMethodArrayByName",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-useMethodArrayByName"
                 }
             ]
         },

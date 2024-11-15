@@ -54,6 +54,10 @@ export const Move3D = createComponent({
             value: [],
             type: Array,
         }),
+        debug: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
     child: [Move3DItem],
 });

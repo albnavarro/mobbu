@@ -32,6 +32,8 @@ export const Move3Dfn = ({
     let { yLimit, xLimit, yDepth, xDepth, centerToViewoport, drag } =
         getState();
 
+    const { debug } = getState();
+
     /**
      * Mutable symbols
      */
@@ -335,8 +337,7 @@ export const Move3Dfn = ({
         /**
          * First children's methods
          */
-        const { shape } = getState();
-        childrenMethods = getChildrenMethod({ childrenId, data: shape });
+        childrenMethods = getChildrenMethod({ childrenId });
 
         return () => {
             unsubscribeSpring();
@@ -366,10 +367,8 @@ export const Move3Dfn = ({
                         /**
                          * Update children's methods
                          */
-                        const { shape } = getState();
                         childrenMethods = getChildrenMethod({
                             childrenId,
-                            data: shape,
                         });
                     },
                     render: () => {
@@ -378,6 +377,7 @@ export const Move3Dfn = ({
                             data: shape,
                             root: true,
                             childrenId,
+                            debug,
                         });
                     },
                 })}
