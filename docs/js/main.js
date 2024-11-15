@@ -22256,7 +22256,7 @@ Loading snippet ...</pre
   var onComplete = () => {
     if (overflow) document.body.style.overflow = "";
     tween2?.updateEase?.(defaultPreset);
-    unFreezePageScroll();
+    unFreezeAndUPdatePageScroll();
   };
   var stopTween = () => {
     if (!isRunning) return;
