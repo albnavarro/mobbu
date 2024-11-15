@@ -111,8 +111,18 @@ export const LinksMobJsFn = ({
 
                 if (currentData.length > 0) {
                     screenEl.classList.add('active');
-                    if (isActive) return;
 
+                    /**
+                     * Update scroller
+                     */
+                    if (isActive) {
+                        updateScroller();
+                        return;
+                    }
+
+                    /**
+                     * Create scroller
+                     */
                     ({ init, destroy, move, updateScroller } = verticalScroller(
                         {
                             screen: screenEl,
