@@ -6,13 +6,17 @@
  **/
 
 import { html, mainStore, tick } from '../../../mobjs';
-import { PAGE_TEMPLATE_DOCS_MOBJS } from '../../../pages';
+import {
+    PAGE_TEMPLATE_COMPONENT_MOBJS,
+    PAGE_TEMPLATE_TRAVERSAL_MOBJS,
+} from '../../../pages';
 import { navigationStore } from '../../layout/navigation/store/navStore';
 import { verticalScroller } from '../../lib/animation/verticalScroller';
-import { mobJsComponentParams } from './data';
+import { mobJsComponentParams, mobJsTraversal } from './data';
 
 const templateData = {
-    [PAGE_TEMPLATE_DOCS_MOBJS]: mobJsComponentParams,
+    [PAGE_TEMPLATE_COMPONENT_MOBJS]: mobJsComponentParams,
+    [PAGE_TEMPLATE_TRAVERSAL_MOBJS]: mobJsTraversal,
 };
 
 /**
@@ -121,7 +125,7 @@ export const LinksMobJsFn = ({
                     init();
                     updateScroller();
                     // @ts-ignore
-                    move(0);
+                    // move(0);
                 }
 
                 if (currentData.length === 0) {

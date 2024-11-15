@@ -6,10 +6,9 @@
     height: var(--links-height);
     overflow: hidden;
     position: fixed;
-    top: rem(120, large);
+    top: rem(160, large);
     left: calc(var(--doc-width) + #{rem(40)});
     z-index: 14;
-    margin-top: rem(40);
     width: rem(250);
     opacity: 0;
     visibility: hidden;
@@ -34,8 +33,9 @@
 
     ul {
         list-style: none;
-        margin-left: 0;
         padding-bottom: rem(100);
+        min-height: var(--links-height);
+        margin: 0;
 
         @media screen and (height <= 825px) {
             margin-top: calc(#{rem(10)} * -1);

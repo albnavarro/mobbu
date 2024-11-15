@@ -6,7 +6,7 @@ import { updateStateByName } from '../../../src/js/mobjs';
  */
 export const MyComponent = ({ onMount, html }) => {
     /**
-     * @type {import('./mobjs/type').UpdateStateByName<import('./otherComponent/type').OtherComponent>}
+     * @type {import('./mobjs/type').UpdateStateByName<import('./other/type').OtherComponent>}
      */
     const setOtherComponentState = updateStateByName('otherComponent');
 

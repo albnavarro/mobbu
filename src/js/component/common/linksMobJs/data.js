@@ -190,3 +190,31 @@ export const mobJsComponentParams = [
         url: 'mobJs-watchParent',
     },
 ];
+
+export const mobJsTraversal = [
+    {
+        label: 'Traversal Operation',
+        url: '',
+        isLabel: true,
+    },
+    {
+        label: 'setStateByName',
+        url: 'mobJs-setStateByName',
+        isLabel: false,
+    },
+    {
+        label: 'updateStateByName',
+        url: 'mobJs-updateStateByName',
+        isLabel: false,
+    },
+    {
+        label: 'useMethodByName',
+        url: 'mobJs-useMethodByName',
+        isLabel: false,
+    },
+    {
+        label: 'useMethodArrayByName',
+        url: 'mobJs-useMethodArrayByName',
+        isLabel: false,
+    },
+];
