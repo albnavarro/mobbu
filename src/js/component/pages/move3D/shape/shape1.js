@@ -5,7 +5,7 @@ export const move3DShape1 = [
     {
         props: {
             id: 0,
-            depth: 200,
+            depth: 0,
             rotate: 'x',
             range: 20,
             anchorPoint: 'bottom',
@@ -15,8 +15,83 @@ export const move3DShape1 = [
         children: [
             {
                 props: {
+                    id: 2,
+                    depth: 400,
+                    width: 4,
+                    height: 4,
+                    offsetX: 3,
+                    offsetY: 3,
+                    rotate: '',
+                    anchorPoint: 'center',
+                    classList: 'move3d-square is-small is-white',
+                    animate: true,
+                },
+                children: [],
+            },
+            {
+                props: {
+                    id: 2,
+                    depth: 300,
+                    width: 4,
+                    height: 4,
+                    offsetX: 1,
+                    offsetY: 1,
+                    rotate: '',
+                    anchorPoint: 'center',
+                    classList: 'move3d-square is-small is-white',
+                    animate: true,
+                },
+                children: [],
+            },
+            {
+                props: {
+                    id: 2,
+                    depth: 300,
+                    width: 4,
+                    height: 4,
+                    offsetX: 5,
+                    offsetY: 5,
+                    rotate: '',
+                    anchorPoint: 'center',
+                    classList: 'move3d-square is-small is-white',
+                    animate: true,
+                },
+                children: [],
+            },
+            {
+                props: {
+                    id: 2,
+                    depth: 300,
+                    width: 4,
+                    height: 4,
+                    offsetX: 1,
+                    offsetY: 5,
+                    rotate: '',
+                    anchorPoint: 'center',
+                    classList: 'move3d-square is-small is-white',
+                    animate: true,
+                },
+                children: [],
+            },
+            {
+                props: {
+                    id: 2,
+                    depth: 300,
+                    width: 4,
+                    height: 4,
+                    offsetX: 5,
+                    offsetY: 1,
+                    rotate: '',
+                    anchorPoint: 'center',
+                    classList: 'move3d-square is-small is-white',
+                    animate: true,
+                },
+                children: [],
+            },
+            {
+                props: {
                     id: 1,
-                    depth: 0,
+                    depth: 100,
                     rotate: 'x',
                     range: 20,
                     anchorPoint: 'bottom',
@@ -41,7 +116,7 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 3,
-                    depth: 0,
+                    depth: 100,
                     rotate: 'x',
                     range: 20,
                     anchorPoint: 'top',
@@ -66,7 +141,7 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 5,
-                    depth: 0,
+                    depth: 100,
                     rotate: 'y',
                     range: 20,
                     anchorPoint: 'left',
@@ -104,7 +179,7 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 8,
-                    depth: 0,
+                    depth: 100,
                     rotate: 'y',
                     range: 20,
                     anchorPoint: 'right',
@@ -142,7 +217,7 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 11,
-                    depth: 0,
+                    depth: 150,
                     rotate: 'xy',
                     width: 8,
                     height: 8,
@@ -169,26 +244,12 @@ export const move3DShape1 = [
                         },
                         children: [],
                     },
-                    {
-                        props: {
-                            id: 12,
-                            depth: 0,
-                            rotate: 'xy',
-                            width: 13,
-                            height: 8,
-                            range: 30,
-                            anchorPoint: 'bottom-left',
-                            classList: 'move3d-square',
-                            animate: true,
-                        },
-                        children: [],
-                    },
                 ],
             },
             {
                 props: {
                     id: 13,
-                    depth: 0,
+                    depth: 150,
                     rotate: 'xy',
                     width: 8,
                     height: 8,
@@ -220,7 +281,7 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 14,
-                    depth: 0,
+                    depth: 150,
                     rotate: 'xy',
                     width: 8,
                     height: 8,
@@ -252,7 +313,7 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 15,
-                    depth: 0,
+                    depth: 150,
                     rotate: 'xy',
                     width: 8,
                     height: 8,
