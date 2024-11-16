@@ -57,5 +57,17 @@ export const verticalScroller = ({ screen, scroller, scrollbar }) => {
         goToTop: () => {
             instance?.set(0);
         },
+        hideScrolBar: () => {
+            const scrollerHeight = outerHeight(scroller);
+            const screenHeight = outerHeight(screen);
+            const scrollBarHeight = outerWidth(scrollbar);
+            const thumbWidth =
+                (screenHeight / scrollerHeight) * scrollBarHeight;
+
+            scrollbar.classList.toggle(
+                'hide-scrollbar',
+                thumbWidth === scrollerHeight
+            );
+        },
     };
 };

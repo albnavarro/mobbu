@@ -77,6 +77,8 @@ export const LinksMobJsFn = ({
         let move = () => {};
         // eslint-disable-next-line unicorn/consistent-function-scoping
         let updateScroller = () => {};
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let hideScrolBar = () => {};
 
         let isActive = false;
 
@@ -117,25 +119,26 @@ export const LinksMobJsFn = ({
                      */
                     if (isActive) {
                         updateScroller();
+                        hideScrolBar();
                         return;
                     }
 
                     /**
                      * Create scroller
                      */
-                    ({ init, destroy, move, updateScroller } = verticalScroller(
-                        {
+                    ({ init, destroy, move, updateScroller, hideScrolBar } =
+                        verticalScroller({
                             screen: screenEl,
                             scroller: scrollerEl,
                             scrollbar,
-                        }
-                    ));
+                        }));
 
                     isActive = true;
                     init();
                     updateScroller();
                     // @ts-ignore
-                    // move(0);
+                    move(0);
+                    hideScrolBar();
                 }
 
                 if (currentData.length === 0) {

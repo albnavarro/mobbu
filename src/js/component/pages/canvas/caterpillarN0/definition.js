@@ -39,7 +39,7 @@ export const CaterpillarN0 = createComponent({
         fill: '',
         stroke: '#fff',
         opacity: 0.05,
-        spacerY: (condition) => (condition ? 300 : -400),
+        spacerY: (/** @type {any} */ condition) => (condition ? 300 : -400),
         intialRotation: 33,
         perpetualRatio: 6,
         mouseMoveRatio: 10,

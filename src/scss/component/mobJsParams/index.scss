@@ -101,6 +101,10 @@
 
         --thumb-width: #{rem(200)};
 
+        &.hide-scrollbar {
+            opacity: 0;
+        }
+
         &:focus {
             outline: none;
         }
