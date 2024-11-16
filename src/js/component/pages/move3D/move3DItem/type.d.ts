@@ -25,6 +25,11 @@ export interface Move3DItem {
     offsetY?: number;
     initialRotate?: number;
     classList?: string;
+    component?: {
+        tagName: string;
+        className?: string;
+        props?: any;
+    };
 }
 
 export type Move3DItemMove = (arg0: {

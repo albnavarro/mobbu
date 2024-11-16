@@ -6,13 +6,31 @@ export const move3DShape1 = [
         props: {
             id: 0,
             depth: 0,
-            rotate: 'x',
-            range: 20,
-            anchorPoint: 'bottom',
+            anchorPoint: 'center',
             classList: 'move3d-square',
             animate: true,
         },
         children: [
+            {
+                props: {
+                    id: 100,
+                    depth: 200,
+                    width: 10,
+                    height: 10,
+                    rotate: '',
+                    anchorPoint: 'center',
+                    classList: 'move3d-square has-star',
+                    component: {
+                        tagName: 'svg-star',
+                        className: 'move3d-square__star',
+                        props: {
+                            fill: '#f28f3b',
+                        },
+                    },
+                    animate: true,
+                },
+                children: [],
+            },
             {
                 props: {
                     id: 2,

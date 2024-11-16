@@ -1,7 +1,21 @@
 //@ts-check
 
+import { html, staticProps } from '../../../../mobjs';
 import { tween } from '../../../../mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
+
+/** @type{(component: {tagName: string, className: string, props: any} ) => string} */
+const getComponent = (component) => {
+    if (component?.tagName.length === 0) {
+        return '';
+    }
+
+    return html`
+        <div class="c-move3d-item__component ${component?.className}">
+            <${component.tagName} ${staticProps(component?.props ?? {})}>
+            </${component.tagName}>
+        </div>`;
+};
 
 /**
  * @import { MobComponent} from '../../../../mobjs/type';
@@ -58,6 +72,7 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         range,
         initialRotate,
         classList,
+        component,
     } = getState();
 
     const rootClass = root ? 'is-root' : 'is-children';
@@ -120,6 +135,11 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         style="${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}"
     >
         <div class="c-move3d-item__content ${classList}"></div>
+        ${getComponent({
+            tagName: component?.tagName ?? '',
+            className: component?.className ?? '',
+            props: component?.props ?? {},
+        })}
         <mobjs-slot></mobjs-slot>
     </div>`;
 };

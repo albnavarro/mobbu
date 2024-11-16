@@ -1,6 +1,7 @@
 //@ts-check
 
 import { createComponent } from '../../../../mobjs';
+import { StarSvg } from '../../../common/SvgShape/Star/definition';
 import { Move3DItemfn } from './Move3DItem';
 
 export const Move3DItem = createComponent({
@@ -18,6 +19,8 @@ export const Move3DItem = createComponent({
         'animate',
         'anchorPoint',
         'classList',
+        'component',
+        'initialRotate',
     ],
     state: {
         root: () => ({
@@ -68,6 +71,20 @@ export const Move3DItem = createComponent({
             value: '',
             type: String,
         }),
+        component: {
+            tagName: () => ({
+                value: '',
+                type: String,
+            }),
+            className: () => ({
+                value: '',
+                type: String,
+            }),
+            props: () => ({
+                value: '',
+                type: 'any',
+            }),
+        },
     },
-    child: [],
+    child: [StarSvg],
 });
