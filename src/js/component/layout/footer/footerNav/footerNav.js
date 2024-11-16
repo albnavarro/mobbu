@@ -14,16 +14,6 @@ const data = [
         section: 'about',
     },
     {
-        label: 'Canvas 2d',
-        url: 'canvas-overview',
-        section: 'canvas',
-    },
-    {
-        label: 'Illustration',
-        url: 'svg-overview',
-        section: 'svg',
-    },
-    {
         label: 'MobCore',
         url: 'mobCore-overview',
         section: 'mobCore',
@@ -39,9 +29,19 @@ const data = [
         section: 'mobMotion',
     },
     {
+        label: 'Illustration',
+        url: 'svg-overview',
+        section: 'svg',
+    },
+    {
         label: 'Plugin',
         url: 'plugin-overview',
         section: 'plugin',
+    },
+    {
+        label: 'Canvas 2d',
+        url: 'canvas-overview',
+        section: 'canvas',
     },
 ];
 

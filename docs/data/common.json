@@ -21,130 +21,6 @@
             "children": null
         },
         {
-            "label": "Canvas 2d animations:",
-            "section": true,
-            "sectioName": "canvas"
-        },
-        {
-            "label": "Overview",
-            "url": "canvas-overview",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "caterpillar n.0",
-            "url": "caterpillarN0",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "caterpillar n.1",
-            "url": "caterpillarN1",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "caterpillar n.2",
-            "url": "caterpillarN2",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "animated pattern n.0",
-            "url": "#",
-            "children": [
-                {
-                    "label": "animated pattern n.0 v0",
-                    "scrollToSection": "canvas",
-                    "url": "animatedPatternN0?version=0&activeId=0",
-                    "activeId": 0
-                },
-                {
-                    "label": "animated pattern n.0 v1",
-                    "scrollToSection": "canvas",
-                    "url": "animatedPatternN0?version=1&activeId=1",
-                    "activeId": 1
-                },
-                {
-                    "label": "animated pattern n.0 v2",
-                    "scrollToSection": "canvas",
-                    "url": "animatedPatternN0?version=2&activeId=2",
-                    "activeId": 2
-                },
-                {
-                    "label": "animated pattern n.0 v3",
-                    "scrollToSection": "canvas",
-                    "url": "animatedPatternN0?version=3&activeId=3",
-                    "activeId": 3
-                }
-            ]
-        },
-        {
-            "label": "animated pattern n.1",
-            "url": "animatedPatternN1",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "scroller n.0",
-            "url": "#",
-            "children": [
-                {
-                    "label": "scroller n.0 v1",
-                    "scrollToSection": "canvas",
-                    "url": "scrollerN0?version=0&activeId=0",
-                    "activeId": 0
-                },
-                {
-                    "label": "scroller n.0 v2",
-                    "scrollToSection": "canvas",
-                    "url": "scrollerN0?version=1&activeId=1",
-                    "activeId": 1
-                },
-                {
-                    "label": "scroller n.0 v3",
-                    "scrollToSection": "canvas",
-                    "url": "scrollerN0?version=2&activeId=2",
-                    "activeId": 2
-                },
-                {
-                    "label": "scroller n.0 v4",
-                    "scrollToSection": "canvas",
-                    "url": "scrollerN0?version=3&activeId=3",
-                    "activeId": 3
-                },
-                {
-                    "label": "scroller n.0 v5",
-                    "scrollToSection": "canvas",
-                    "url": "scrollerN0?version=4&activeId=4",
-                    "activeId": 4
-                }
-            ]
-        },
-        {
-            "label": "scroller n.1",
-            "url": "scrollerN1",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "Illustration",
-            "section": true,
-            "sectioName": "svg"
-        },
-        {
-            "label": "Overview",
-            "url": "svg-overview",
-            "scrollToSection": "svg",
-            "children": null
-        },
-        {
-            "label": "Child",
-            "url": "child",
-            "scrollToSection": "svg",
-            "children": null
-        },
-        {
             "label": "mobCore",
             "section": true,
             "sectioName": "mobCore"
@@ -549,6 +425,23 @@
             "url": "mobMotion-defaults"
         },
         {
+            "label": "Illustration",
+            "section": true,
+            "sectioName": "svg"
+        },
+        {
+            "label": "Overview",
+            "url": "svg-overview",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
+            "label": "Child",
+            "url": "child",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
             "label": "plugin",
             "section": true,
             "sectioName": "plugin"
@@ -574,6 +467,113 @@
             "label": "move3D shape 1",
             "scrollToSection": "plugin",
             "url": "move3D-shape1"
+        },
+        {
+            "label": "Canvas 2d animations:",
+            "section": true,
+            "sectioName": "canvas"
+        },
+        {
+            "label": "Overview",
+            "url": "canvas-overview",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "caterpillar n.0",
+            "url": "caterpillarN0",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "caterpillar n.1",
+            "url": "caterpillarN1",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "caterpillar n.2",
+            "url": "caterpillarN2",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "animated pattern n.0",
+            "url": "#",
+            "children": [
+                {
+                    "label": "animated pattern n.0 v0",
+                    "scrollToSection": "canvas",
+                    "url": "animatedPatternN0?version=0&activeId=0",
+                    "activeId": 0
+                },
+                {
+                    "label": "animated pattern n.0 v1",
+                    "scrollToSection": "canvas",
+                    "url": "animatedPatternN0?version=1&activeId=1",
+                    "activeId": 1
+                },
+                {
+                    "label": "animated pattern n.0 v2",
+                    "scrollToSection": "canvas",
+                    "url": "animatedPatternN0?version=2&activeId=2",
+                    "activeId": 2
+                },
+                {
+                    "label": "animated pattern n.0 v3",
+                    "scrollToSection": "canvas",
+                    "url": "animatedPatternN0?version=3&activeId=3",
+                    "activeId": 3
+                }
+            ]
+        },
+        {
+            "label": "animated pattern n.1",
+            "url": "animatedPatternN1",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "scroller n.0",
+            "url": "#",
+            "children": [
+                {
+                    "label": "scroller n.0 v1",
+                    "scrollToSection": "canvas",
+                    "url": "scrollerN0?version=0&activeId=0",
+                    "activeId": 0
+                },
+                {
+                    "label": "scroller n.0 v2",
+                    "scrollToSection": "canvas",
+                    "url": "scrollerN0?version=1&activeId=1",
+                    "activeId": 1
+                },
+                {
+                    "label": "scroller n.0 v3",
+                    "scrollToSection": "canvas",
+                    "url": "scrollerN0?version=2&activeId=2",
+                    "activeId": 2
+                },
+                {
+                    "label": "scroller n.0 v4",
+                    "scrollToSection": "canvas",
+                    "url": "scrollerN0?version=3&activeId=3",
+                    "activeId": 3
+                },
+                {
+                    "label": "scroller n.0 v5",
+                    "scrollToSection": "canvas",
+                    "url": "scrollerN0?version=4&activeId=4",
+                    "activeId": 4
+                }
+            ]
+        },
+        {
+            "label": "scroller n.1",
+            "url": "scrollerN1",
+            "scrollToSection": "canvas",
+            "children": null
         }
     ]
 }
