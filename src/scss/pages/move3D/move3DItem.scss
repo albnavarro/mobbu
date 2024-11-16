@@ -35,11 +35,13 @@
         &.anchor-bottom {
             transform-origin: bottom;
             bottom: calc(100% + (var(--offset-y) * 1rem));
+            left: calc(var(--offset-x) * 1rem);
         }
 
         &.anchor-top {
             transform-origin: top;
             top: calc(100% + (var(--offset-y) * 1rem));
+            left: calc(var(--offset-x) * 1rem);
         }
 
         &.anchor-bottom-left {
@@ -89,6 +91,7 @@
     width: calc(var(--item-width) * 1rem);
     height: calc(var(--item-height) * 1rem);
     background: $black;
+    border-radius: 100%;
 
     &.is-white {
         background: $white;
