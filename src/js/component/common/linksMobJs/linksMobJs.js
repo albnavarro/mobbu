@@ -5,6 +5,7 @@
  * @import { LinksMobJs, LinksMobJsButton } from './type';]
  **/
 
+import { getCommonData } from '../../../data';
 import { html, mainStore, tick } from '../../../mobjs';
 import {
     PAGE_TEMPLATE_COMPONENT_MOBJS,
@@ -12,12 +13,6 @@ import {
 } from '../../../pages';
 import { navigationStore } from '../../layout/navigation/store/navStore';
 import { verticalScroller } from '../../lib/animation/verticalScroller';
-import { mobJsComponentParams, mobJsTraversal } from './data';
-
-const templateData = {
-    [PAGE_TEMPLATE_COMPONENT_MOBJS]: mobJsComponentParams,
-    [PAGE_TEMPLATE_TRAVERSAL_MOBJS]: mobJsTraversal,
-};
 
 /**
  * @param {object} param
@@ -66,6 +61,14 @@ export const LinksMobJsFn = ({
     invalidate,
     getState,
 }) => {
+    const mainData = getCommonData();
+
+    const templateData = {
+        [PAGE_TEMPLATE_COMPONENT_MOBJS]:
+            mainData.sideBarLinks.mobJsComponentParams,
+        [PAGE_TEMPLATE_TRAVERSAL_MOBJS]: mainData.sideBarLinks.mobJsTraversal,
+    };
+
     onMount(() => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
 

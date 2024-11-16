@@ -4,49 +4,14 @@
  * @import { MobComponent } from '../../../../mobjs/type';
  **/
 
+import { getCommonData } from '../../../../data';
 import { html, loadUrl } from '../../../../mobjs';
 import { navigationStore } from '../../navigation/store/navStore';
 
-const data = [
-    {
-        label: 'About',
-        url: 'about',
-        section: 'about',
-    },
-    {
-        label: 'MobCore',
-        url: 'mobCore-overview',
-        section: 'mobCore',
-    },
-    {
-        label: 'MobJs',
-        url: 'mobJs-overview',
-        section: 'mobJs',
-    },
-    {
-        label: 'MobMotion',
-        url: 'mobMotion-overview',
-        section: 'mobMotion',
-    },
-    {
-        label: 'Illustration',
-        url: 'svg-overview',
-        section: 'svg',
-    },
-    {
-        label: 'Plugin',
-        url: 'plugin-overview',
-        section: 'plugin',
-    },
-    {
-        label: 'Canvas 2d',
-        url: 'canvas-overview',
-        section: 'canvas',
-    },
-];
-
 const getItems = ({ delegateEvents, staticProps }) => {
-    return data
+    const data = getCommonData();
+
+    return data.footer.nav
         .map(({ label, url, section }) => {
             return html`<li class="footer-nav__item">
                 <footer-nav-button
@@ -66,7 +31,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
         .join('');
 };
 
-/** @type {import("../../../../mobjs/type").MobComponent} */
+/** @type {MobComponent} */
 export const FooterNavFn = ({ html, delegateEvents, staticProps }) => {
     return html`
         <ul class="footer-nav">
