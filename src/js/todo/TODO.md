@@ -1,12 +1,36 @@
 # Priority
 
-## MobCore
-- Aggiungere `addToComputedWaitLsit({ instanceId, prop })` dopo `runCallbackQueqeAsync` in emit/emitAsync, cosi da lanciare i computed sull' emit.
-- (mobJs): Aggiungere `computedSync` che come `watchSync` lancia gli emit immediatamante.
-
 ## MobJs
 - `Invalidate/repeater`: `after/before` update vanno lanciati anche la prima volta
-- `useMethodByNames`: se do lo stesso name alle istanze il metodo ritorna un array di call back al posto della singola. Puó essere utile in `Move3D` e simili.
+- Nella funzione inizializeApp aggiungere `globalStore`, `invalidate` potra usare lo store esterno per la reattivitá.
+```js
+    inizializeApp({
+        rootId: '#root',
+        contentId: '#content',
+        wrapper,
+        globalStore: myStore
+        ...
+    });
+
+
+    ${invalidate({
+        bind: 'anchorItems',
+        bindGlobal: 'myState', // Opzionale
+        render: () => {
+            return getButtons({
+                delegateEvents,
+                bindProps,
+                setState,
+                getState,
+            });
+        },
+    })}
+
+```
+
+- `MouseParallax`.
+- `Dragger`.
+
 
 # General
 - Alias: aggiungere gli alias @ !!!!
