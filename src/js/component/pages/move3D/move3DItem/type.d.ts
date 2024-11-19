@@ -15,16 +15,17 @@ export interface Move3DItem {
     root?: boolean;
     id: number;
     depth: number;
-    rotate?: Rotate;
-    range?: number;
+    rotate: Rotate;
+    range: number;
     anchorPoint: AnchorPoint;
-    animate?: boolean;
-    width?: number;
-    height?: number;
-    offsetX?: number;
-    offsetY?: number;
-    initialRotate?: number;
-    classList?: string;
+    animate: boolean;
+    width: number;
+    height: number;
+    offsetX: number;
+    offsetY: number;
+    initialRotate: number;
+    initialDepth: number;
+    classList: string;
     component?: {
         tagName: string;
         className?: string;

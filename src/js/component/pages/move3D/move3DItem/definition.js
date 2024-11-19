@@ -21,6 +21,7 @@ export const Move3DItem = createComponent({
         'classList',
         'component',
         'initialRotate',
+        'initialDepth',
     ],
     state: {
         root: () => ({
@@ -64,6 +65,10 @@ export const Move3DItem = createComponent({
             type: Boolean,
         }),
         initialRotate: () => ({
+            value: 0,
+            type: Number,
+        }),
+        initialDepth: () => ({
             value: 0,
             type: Number,
         }),

@@ -19,6 +19,7 @@ export const move3DShape1 = [
                     height: 10,
                     rotate: '',
                     anchorPoint: 'center',
+                    initialDepth: 100,
                     classList: 'move3d-square has-star',
                     component: {
                         tagName: 'svg-star',
@@ -34,12 +35,13 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 2,
-                    depth: 400,
+                    depth: 200,
                     width: 4,
                     height: 4,
                     offsetX: 3,
                     offsetY: 3,
                     rotate: '',
+                    initialDepth: 200,
                     anchorPoint: 'center',
                     classList: 'move3d-square is-small is-white',
                     animate: true,
@@ -49,12 +51,13 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 2,
-                    depth: 300,
+                    depth: 200,
                     width: 4,
                     height: 4,
                     offsetX: 1,
                     offsetY: 1,
                     rotate: '',
+                    initialDepth: 50,
                     anchorPoint: 'center',
                     classList: 'move3d-square is-small is-white',
                     animate: true,
@@ -64,12 +67,13 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 2,
-                    depth: 300,
+                    depth: 200,
                     width: 4,
                     height: 4,
                     offsetX: 5,
                     offsetY: 5,
                     rotate: '',
+                    initialDepth: 50,
                     anchorPoint: 'center',
                     classList: 'move3d-square is-small is-white',
                     animate: true,
@@ -79,12 +83,13 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 2,
-                    depth: 300,
+                    depth: 200,
                     width: 4,
                     height: 4,
                     offsetX: 1,
                     offsetY: 5,
                     rotate: '',
+                    initialDepth: 50,
                     anchorPoint: 'center',
                     classList: 'move3d-square is-small is-white',
                     animate: true,
@@ -94,12 +99,13 @@ export const move3DShape1 = [
             {
                 props: {
                     id: 2,
-                    depth: 300,
+                    depth: 200,
                     width: 4,
                     height: 4,
                     offsetX: 5,
                     offsetY: 1,
                     rotate: '',
+                    initialDepth: 50,
                     anchorPoint: 'center',
                     classList: 'move3d-square is-small is-white',
                     animate: true,

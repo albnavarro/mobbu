@@ -71,6 +71,7 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         offsetY,
         range,
         initialRotate,
+        initialDepth,
         classList,
         component,
     } = getState();
@@ -106,19 +107,23 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
     onMount(({ element }) => {
         const unsubscribelerp = lerp.subscribe(
             ({ depth, rotateX, rotateY }) => {
-                element.style.transform = `translate3D(0,0,${depth}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                const currentDepth = depth + initialDepth;
+                element.style.transform = `translate3D(0,0,${currentDepth}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             }
         );
 
         const unsubscribeOnComplete = lerp.onComplete(
             ({ depth, rotateX, rotateY }) => {
-                element.style.transform = `translateZ(${depth}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                const currentDepth = depth + initialDepth;
+                element.style.transform = `translateZ(${currentDepth}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             }
         );
 
-        if (!animate) {
-            element.style.transform = `translateZ(${depth}px)`;
-        }
+        /**
+         * Initial z-index state
+         */
+        const currentDepth = initialDepth;
+        element.style.transform = `translateZ(${currentDepth}px)`;
 
         return () => {
             unsubscribelerp();

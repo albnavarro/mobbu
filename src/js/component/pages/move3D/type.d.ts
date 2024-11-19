@@ -14,6 +14,6 @@ export interface Move3D {
 }
 
 export interface Move3DChildren {
-    props: Move3DItem;
+    props: Partial<Move3DItem>;
     children: Move3DChildren[];
 }
