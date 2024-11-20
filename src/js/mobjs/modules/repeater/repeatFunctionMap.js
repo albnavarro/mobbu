@@ -3,7 +3,7 @@
  * Store initialize function map.
  * Key is componentId
  *
- * @type {Map<string, Array<{repeatId:string, fn: () => void, unsubscribe: () => void}>>}
+ * @type {import("./type").RepeatFunctionMap}
  */
 
 export const repeatFunctionMap = new Map();

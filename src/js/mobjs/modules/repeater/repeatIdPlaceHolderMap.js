@@ -6,7 +6,7 @@
  * ( for nested repeater performance check on destroy )
  *
  *
- * @type {Map<string, {element: HTMLElement, initialized: boolean, scopeId: string|undefined }>}
+ * @type {import("./type").RepeatIdPlaceHolderMap}
  */
 
 export const repeatIdPlaceHolderMap = new Map();

@@ -3,7 +3,7 @@
  * Store host of webComponent
  * Key is invalidateId
  *
- * @type {Map<string, HTMLElement>}
+ * @type {import("./type").InvalidateIdHostMap}
  */
 
 export const invalidateIdHostMap = new Map();

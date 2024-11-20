@@ -5,7 +5,7 @@
  * ScopeId is the component id that contains invalidate when is initialized
  * ( for nested invalidate performance check on destroy )
  *
- * @type {Map<string, {element: HTMLElement, initialized: boolean, scopeId: string|undefined }>}
+ * @type {import("./type").InvalidateIdPlaceHolderMap}
  */
 
 export const invalidateIdPlaceHolderMap = new Map();

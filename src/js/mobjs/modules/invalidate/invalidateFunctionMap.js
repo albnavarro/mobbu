@@ -3,7 +3,7 @@
  * Store initialize invalidate function map.
  * Key is componentId
  *
- * @type {Map<string, Array<{invalidateId:string, fn: () => void, unsubscribe: (() => void)[]  }>>}
+ * @type {import("./type").InvalidateFunctionMap}
  */
 
 export const invalidateFunctionMap = new Map();

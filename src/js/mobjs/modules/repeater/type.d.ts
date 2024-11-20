@@ -45,3 +45,15 @@ export interface currentRepeaterState {
     current: object;
     index: number;
 }
+
+export type RepeatFunctionMap = Map<
+    string,
+    { repeatId: string; fn: () => void; unsubscribe: () => void }[]
+>;
+
+export type RepeatIdHostMap = Map<string, HTMLElement>;
+
+export type RepeatIdPlaceHolderMap = Map<
+    string,
+    { element: HTMLElement; initialized: boolean; scopeId: string | undefined }
+>;

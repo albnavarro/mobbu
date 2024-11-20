@@ -3,7 +3,7 @@
  * Store host of webComponent
  * Key is repeatId
  *
- * @type {Map<string, HTMLElement>}
+ * @type {import("./type").RepeatIdHostMap}
  */
 
 export const repeatIdHostMap = new Map();
