@@ -8,9 +8,9 @@ import { setDestroyCallback } from '../../component/action/removeAndDestroy/setD
 export const onMountCallbackMap = new Map();
 
 /**
- * @param {object} obj
- * @param {string} obj.id - random Id
- * @param {(arg0:{ element:HTMLElement,refs:{[key:string]:HTMLElement|HTMLElement[]} })=>void} obj.cb - OnMount callback
+ * @param {object} params
+ * @param {string} params.id - random Id
+ * @param {import('./type').OnMountCallback} params.cb - OnMount callback
  * @return void
  *
  * @description
@@ -21,9 +21,9 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
 };
 
 /**
- * @param {object} obj
- * @param {string} obj.id - component id
- * @param {HTMLElement|import("../../webComponent/type").UserComponent} obj.element - root component HTMLElement.
+ * @param {object} params
+ * @param {string} params.id - component id
+ * @param {HTMLElement|import("../../webComponent/type").UserComponent} params.element - root component HTMLElement.
  *
  * @description
  * Fire onMount callback.
@@ -54,8 +54,8 @@ export const fireOnMountCallBack = async ({ id, element }) => {
 };
 
 /**
- * @param {object} obj
- * @param {string} obj.id - random Id
+ * @param {object} params
+ * @param {string} params.id - random Id
  * @return void
  *
  * @description
