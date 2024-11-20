@@ -6,7 +6,7 @@
  **/
 
 import { mobCore } from '../../../mobCore';
-import { loadUrl, mainStore, MAIN_STORE_ACTIVE_ROUTE } from '../../../mobjs';
+import { loadUrl, afterRouteChange, getActiveParams } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /** @type {MobComponent<NavigationButton>} */
@@ -38,10 +38,7 @@ export const NavigationButtonFn = ({
             });
         });
 
-        /**
-         * Is a link button.
-         */
-        mainStore.watch(MAIN_STORE_ACTIVE_ROUTE, ({ route }) => {
+        afterRouteChange(({ route }) => {
             mobCore.useFrame(() => {
                 const urlParsed = url.split('?');
 
@@ -53,7 +50,8 @@ export const NavigationButtonFn = ({
                 /**
                  * Check is activeId match with route
                  */
-                const { activeParams } = mainStore.get();
+                const activeParams = getActiveParams();
+
                 const paramsMatch =
                     activeId === -1 ||
                     activeParams?.['activeId'] === `${activeId}`;

@@ -9,13 +9,20 @@ import { checkIfStateIsExportable } from './checkIfStateIsExportable';
  * @param {string} prop
  * @param {() => {}} value
  * @param {boolean} fire
+ * @param {boolean} clone
  * @returns {void}
  *
  * @description
  * Update state by Id
  */
 
-export const updateStateById = (id = '', prop = '', value, fire = true) => {
+export const updateStateById = (
+    id = '',
+    prop = '',
+    value,
+    fire = true,
+    clone = false
+) => {
     if ((!id || id === '') && (!prop || prop === '') && !value) return;
 
     const isFreezed = getFreezePropStatus({ id, prop });
@@ -44,5 +51,5 @@ export const updateStateById = (id = '', prop = '', value, fire = true) => {
         return;
     }
 
-    state.update(prop, value, fire);
+    state.update(prop, value, fire, clone);
 };

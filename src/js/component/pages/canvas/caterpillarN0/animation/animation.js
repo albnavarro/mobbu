@@ -1,5 +1,4 @@
 import { tween } from '../../../../../mobMotion';
-import { mainStore } from '../../../../../mobjs';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -10,6 +9,7 @@ import {
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
+import { getActiveRoute } from '../../../../../mobjs';
 // import { detectSafari } from '../../../../../utils/utils';
 
 function getWithRounded({ width, relativeIndex, amountOfPath }) {
@@ -64,7 +64,7 @@ export const caterpillarN0Animation = ({
     let steamDataReorded = [];
     let mainTween = {};
     let { left } = offset(canvas);
-    const { activeRoute } = mainStore.get();
+    const activeRoute = getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -305,7 +305,7 @@ export const caterpillarN0Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const { activeRoute: currentRoute } = mainStore.get();
+            const currentRoute = getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

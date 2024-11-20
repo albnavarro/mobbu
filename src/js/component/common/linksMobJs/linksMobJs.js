@@ -6,7 +6,7 @@
  **/
 
 import { getCommonData } from '../../../data';
-import { html, mainStore, tick } from '../../../mobjs';
+import { afterRouteChange, getActiveRoute, html, tick } from '../../../mobjs';
 import {
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_TRAVERSAL_MOBJS,
@@ -91,19 +91,14 @@ export const LinksMobJsFn = ({
         });
 
         navigationStore.watch('navigationIsOpen', (value) => {
-            const {
-                activeRoute: { templateName },
-            } = mainStore.get();
-
+            const { templateName } = getActiveRoute();
             if (!(templateName in templateData)) return;
 
             screenEl.classList.toggle('active', !value);
         });
 
-        const unsubscribeRoute = mainStore.watch(
-            'afterRouteChange',
-            async (data) => {
-                const { templateName, route } = data;
+        const unsubscribeRoute = afterRouteChange(
+            async ({ templateName, route }) => {
                 const currentData = templateData?.[templateName] ?? [];
                 setState('data', currentData);
 

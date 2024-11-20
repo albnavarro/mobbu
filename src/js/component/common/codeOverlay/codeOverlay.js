@@ -11,11 +11,7 @@
 import { overlayScroller } from './animation/overlayScroller';
 // @ts-ignore
 import copyIcon from '../../../../svg/icon-copy.svg';
-import {
-    html,
-    mainStore,
-    MAIN_STORE_BEFORE_ROUTE_LEAVES,
-} from '../../../mobjs';
+import { html, beforeRouteLeave } from '../../../mobjs';
 
 /**
  * @param {Object} param
@@ -157,7 +153,7 @@ export const CodeOverlayFn = ({
             move(scrollbar.value);
         });
 
-        mainStore.watch(MAIN_STORE_BEFORE_ROUTE_LEAVES, () => {
+        beforeRouteLeave(() => {
             setState('urls', []);
         });
 

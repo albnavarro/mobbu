@@ -58,13 +58,13 @@ export const mobStore = (data = {}) => {
         getProp: (prop) => {
             return storeGetPropEntryPoint({ instanceId, prop });
         },
-        set: (prop, value, fireCallback = true, clone = false) => {
+        set: (prop, value, fireCallback = true) => {
             storeSetEntryPoint({
                 instanceId,
                 prop,
                 value,
                 fireCallback,
-                clone,
+                clone: false,
                 action: STORE_SET,
             });
         },

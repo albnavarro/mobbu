@@ -1,5 +1,5 @@
 import { timeline, tween } from '../../../../../mobMotion';
-import { mainStore } from '../../../../../mobjs';
+import { getActiveRoute } from '../../../../../mobjs';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -38,7 +38,7 @@ export const animatedPatternN0Animation = ({
     let gridTween = {};
     let gridTimeline = {};
     let ctx = canvas.getContext(context, { alpha: false });
-    const { activeRoute } = mainStore.get();
+    const activeRoute = getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -270,7 +270,7 @@ export const animatedPatternN0Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const { activeRoute: currentRoute } = mainStore.get();
+            const currentRoute = getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

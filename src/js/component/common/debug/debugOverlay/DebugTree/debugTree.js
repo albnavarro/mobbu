@@ -5,7 +5,7 @@
  **/
 
 import { mobCore } from '../../../../../mobCore';
-import { getTree, mainStore, tick } from '../../../../../mobjs';
+import { afterRouteChange, getTree, tick } from '../../../../../mobjs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { generateTreeComponents } from './recursiveTree';
 
@@ -68,24 +68,20 @@ export const DebugTreeFn = ({
             updateScroller?.();
         });
 
-        // Update data on route change
-        const unsubscrineRoute = mainStore.watch(
-            'afterRouteChange',
-            async () => {
-                setState('isLoading', true);
-                await tick();
+        const unsubscrineRoute = afterRouteChange(async () => {
+            setState('isLoading', true);
+            await tick();
 
-                mobCore.useFrame(() => {
-                    mobCore.useNextTick(async () => {
-                        destroy?.();
-                        setState('data', getTree());
-                        ({ destroy, move, refresh, updateScroller } =
-                            await initScroller({ getRef }));
-                        setState('isLoading', false);
-                    });
+            mobCore.useFrame(() => {
+                mobCore.useNextTick(async () => {
+                    destroy?.();
+                    setState('data', getTree());
+                    ({ destroy, move, refresh, updateScroller } =
+                        await initScroller({ getRef }));
+                    setState('isLoading', false);
                 });
-            }
-        );
+            });
+        });
 
         watch('isLoading', (isLoading) => {
             loadingRef.classList.toggle('visible', isLoading);

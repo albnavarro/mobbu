@@ -20,3 +20,18 @@ export interface MainStore {
         persistent: boolean;
     };
 }
+
+export type MainStoreWatch = (
+    callback: (arg0: { route: string; templateName: string }) => void
+) => () => void;
+
+export type MainStoreLoading = (
+    callback: (state: boolean) => void
+) => () => void;
+
+export type MainStoreActiveRoute = () => {
+    route: string;
+    templateName: string;
+};
+
+export type MainStoreActiveParams = () => Record<string, any>;

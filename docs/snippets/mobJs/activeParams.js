@@ -1,3 +1,4 @@
-import { mainStore } from '../../../src/js/mobjs';
+import { getActiveParams } from '../../../src/js/mobjs';
 
-const { activeParams } = mainStore.get();
+const activeParams = getActiveParams();
+console.log(activeParams);

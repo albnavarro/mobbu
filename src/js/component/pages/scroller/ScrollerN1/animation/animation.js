@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { tween, scroller } from '../../../../../mobMotion';
-import { mainStore } from '../../../../../mobjs';
+import { getActiveRoute } from '../../../../../mobjs';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -60,7 +60,7 @@ export const scrollerN1Animation = ({
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let stemData = [];
-    const { activeRoute } = mainStore.get();
+    const activeRoute = getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -278,7 +278,7 @@ export const scrollerN1Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const { activeRoute: currentRoute } = mainStore.get();
+            const currentRoute = getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

@@ -1,6 +1,5 @@
 import { timeline, tween } from '../../../../../mobMotion';
 import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
-import { mainStore } from '../../../../../mobjs';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -11,6 +10,7 @@ import {
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
+import { getActiveRoute } from '../../../../../mobjs';
 // import { detectSafari } from '../../../../../utils/utils';
 
 export const caterpillarN1Animation = ({
@@ -41,7 +41,7 @@ export const caterpillarN1Animation = ({
     let centerTween = {};
     let rectTimeline = {};
     let { top, left } = offset(canvas);
-    const { activeRoute } = mainStore.get();
+    const activeRoute = getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -288,7 +288,7 @@ export const caterpillarN1Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const { activeRoute: currentRoute } = mainStore.get();
+            const currentRoute = getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

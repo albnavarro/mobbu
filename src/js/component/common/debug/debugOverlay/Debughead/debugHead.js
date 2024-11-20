@@ -5,11 +5,11 @@
  **/
 
 import {
+    afterRouteChange,
     componentMap,
     getDebugMode,
     getNumberOfActiveInvalidate,
     getNumberOfActiveRepeater,
-    mainStore,
 } from '../../../../../mobjs';
 import { getBindTextParentSize } from '../../../../../mobjs/modules/bindtext';
 
@@ -27,15 +27,12 @@ export const DebugHeadFn = ({
             setState('shouldUpdate', true);
         });
 
-        const unsubscrineRoute = mainStore.watch(
-            'afterRouteChange',
-            async () => {
-                setState('shouldUpdate', true);
-            }
-        );
+        const unsubscribeRoute = afterRouteChange(() => {
+            setState('shouldUpdate', true);
+        });
 
         return () => {
-            unsubscrineRoute();
+            unsubscribeRoute();
         };
     });
 

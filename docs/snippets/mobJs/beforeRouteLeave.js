@@ -1,10 +1,7 @@
-import { mainStore } from '../../../src/js/mobjs';
+import { beforeRouteLeave } from '../../../src/js/mobjs';
 
-const unsubscribe = mainStore.watch(
-    'beforeRouteLeave',
-    ({ route, templateName }) => {
-        //
-    }
-);
+const unsubscribe = beforeRouteLeave(({ route, templateName }) => {
+    console.log(route, templateName);
+});
 
 unsubscribe();

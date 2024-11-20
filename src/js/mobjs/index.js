@@ -1,5 +1,13 @@
 // @ts-check
 
+export {
+    beforeRouteLeave,
+    beforeRouteChange,
+    afterRouteChange,
+    onRouteLoading,
+    getActiveRoute,
+    getActiveParams,
+} from './mainStore/mainStoreApi';
 export { getChildrenIdByName } from './component/action/children';
 export {
     getComponentNameById,
@@ -26,14 +34,6 @@ export {
 } from './component/createComponent';
 export { componentMap } from './component/store';
 export { inizializeApp } from './inizializeApp';
-export {
-    MAIN_STORE_ACTIVE_PARAMS,
-    MAIN_STORE_ACTIVE_ROUTE,
-    MAIN_STORE_AFTER_ROUTE_CHANGE,
-    MAIN_STORE_BEFORE_ROUTE_CHANGE,
-    MAIN_STORE_BEFORE_ROUTE_LEAVES,
-    MAIN_STORE_ROUTE_IS_LOADING,
-} from './mainStore/constant';
 export { mainStore } from './mainStore/mainStore';
 export {
     eventDelegationMap,

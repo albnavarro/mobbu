@@ -1,5 +1,4 @@
 import { timeline, tween } from '../../../../../mobMotion';
-import { mainStore } from '../../../../../mobjs';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -9,6 +8,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { mobCore } from '../../../../../mobCore';
+import { getActiveRoute } from '../../../../../mobjs/index.js';
 // import { detectSafari } from '../../../../../utils/utils';
 
 const logAddMethods = ({ value, direction, isForced }) => {
@@ -43,7 +43,7 @@ export const caterpillarN2Animation = ({
     let ctx = canvas.getContext(context, { alpha: false });
     let squareData = [];
     let userRotation = rotationDefault;
-    const { activeRoute } = mainStore.get();
+    const activeRoute = getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -262,7 +262,7 @@ export const caterpillarN2Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const { activeRoute: currentRoute } = mainStore.get();
+            const currentRoute = getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

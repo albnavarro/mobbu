@@ -70,8 +70,7 @@ export type getPropType<T> = <K extends keyof T>(
 export type setType<T> = <K extends keyof T>(
     prop: Extract<K, string>,
     value: T[K],
-    fireCallback?: boolean,
-    clone?: boolean
+    fireCallback?: boolean
 ) => void;
 
 export type updateType<T> = <K extends keyof T>(

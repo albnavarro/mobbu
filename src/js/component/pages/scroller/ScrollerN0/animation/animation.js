@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { scroller, tween } from '../../../../../mobMotion';
-import { mainStore } from '../../../../../mobjs';
+import { getActiveRoute } from '../../../../../mobjs';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -42,7 +42,7 @@ export const scrollerN0Animation = ({
     let data = [];
     let masterSequencer = tween.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: false });
-    const { activeRoute } = mainStore.get();
+    const activeRoute = getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -306,7 +306,7 @@ export const scrollerN0Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const { activeRoute: currentRoute } = mainStore.get();
+            const currentRoute = getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

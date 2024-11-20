@@ -1,3 +1,4 @@
-import { mainStore } from '../../../src/js/mobjs';
+import { getActiveRoute } from '../../../src/js/mobjs';
 
-const { activeRoute } = mainStore.get();
+const activeRoute = getActiveRoute();
+console.log(activeRoute.route, activeRoute.templateName);

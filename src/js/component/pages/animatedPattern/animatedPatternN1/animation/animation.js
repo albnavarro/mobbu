@@ -1,6 +1,5 @@
 import { timeline, tween } from '../../../../../mobMotion';
 import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
-import { mainStore } from '../../../../../mobjs';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -13,6 +12,7 @@ import {
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
+import { getActiveRoute } from '../../../../../mobjs';
 
 export const animatedPatternN1Animation = ({
     canvas,
@@ -41,7 +41,7 @@ export const animatedPatternN1Animation = ({
     let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
 
-    const { activeRoute } = mainStore.get();
+    const activeRoute = getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -328,7 +328,7 @@ export const animatedPatternN1Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const { activeRoute: currentRoute } = mainStore.get();
+            const currentRoute = getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

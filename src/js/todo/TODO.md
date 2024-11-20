@@ -48,9 +48,6 @@
 
 # MobJs
 
-### setState/updateState/setStateByName/updateStateByName
-- Manca la propietá clone ereditata da mobStore `clone`
-
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
 
@@ -59,16 +56,6 @@
 
 ### Component
 - props per diabilitare il `restoreScroll` nella singola definizione del componente ( vedi `horizontalScroll` ).
-
-### Events
-- esporre delle funzioni che ritarno i vari `afterRouteChange` etc... come svelte.
-- sempre che possano convivere con i generic.
-
-```js
-beforeNavigate(({props}) => {
-    ///
-})
-```
 
 ### Methods
 - Capire come gestire i tipi sui metodi.
