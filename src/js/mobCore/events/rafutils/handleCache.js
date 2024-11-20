@@ -14,7 +14,7 @@ import { eventStore } from '../eventStore';
 let cacheCoutner = 0;
 
 /**
- * @type {Map.<string, { el: (Object|HTMLElement), fn: (arg0: any, arg1: Object|HTMLElement) => void, data: Map.<number, Object> }>}
+ * @type {import('./type').HandleCacheSubscriberMap}
  */
 const subscriberMap = new Map();
 
@@ -121,7 +121,7 @@ const clean = (id) => {
 /**
  * @memberof module:handleCache
  * @param {string} id
- * @returns {Record<number, { el: (Object|HTMLElement), fn: (arg0: any, arg1: Object|HTMLElement) => void, data: Record<number, number> }>}
+ * @returns {import('./type').HandleCacheSubscriberValue|{}}
  *
  * @description
  * Get item object
