@@ -61,7 +61,7 @@ export const loadRoute = async ({
 
     mainStore.set(MAIN_STORE_BEFORE_ROUTE_LEAVES, {
         route: activeRoute.route,
-        templateName,
+        templateName: activeRoute.templateName,
     });
 
     /**
