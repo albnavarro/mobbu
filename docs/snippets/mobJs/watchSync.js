@@ -2,7 +2,7 @@
 export type Watch<T> = <K extends keyof T>(
     prop: K,
     callback: (current: T[K], previous: T[K], validate: boolean) => void
-) => void;
+) => () => void;
 **/
 
 /**
@@ -26,7 +26,7 @@ export const MyComponent = ({
          * Sent the first time as soon as the onMount function is launched.
          *
          */
-        watchSync('myState', (value) => {
+        const unwatch = watchSync('myState', (value) => {
             labelRef.classList.toggle('myClass', value);
         });
 

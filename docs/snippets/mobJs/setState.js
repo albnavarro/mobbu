@@ -3,7 +3,6 @@ export type SetState<T> = <K extends keyof T>(
     prop: K,
     value: T[K],
     fireCallback?: boolean,
-    clone?: boolean
 ) => void;
 **/
 

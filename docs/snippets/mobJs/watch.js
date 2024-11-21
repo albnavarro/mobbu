@@ -2,7 +2,7 @@
 export type Watch<T> = <K extends keyof T>(
     prop: K,
     callback: (current: T[K], previous: T[K], validate: boolean) => void
-) => void;
+) => () => void;
 **/
 
 /**
@@ -24,7 +24,7 @@ export const MyComponent = ({
         /**
          * React to the state mutation.
          */
-        watch('myState', (value) => {
+        const unwatch = watch('myState', (value) => {
             labelRef.classList.toggle('myClass', value);
         });
 
