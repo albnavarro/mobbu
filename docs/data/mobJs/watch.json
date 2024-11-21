@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Using the watch function you can react to the change of state whether it occurs from outside the component (for example from a parent through bindProps) or from the component itself."
+            "content": "Using the watch function you can <span class='quote'>react</span> to the change of state whether it occurs from outside the component (for example from a parent through bindProps) or from the component itself."
         },
         {
             "component": "mob-paragraph",
@@ -33,6 +33,13 @@
                 "style": "medium"
             },
             "content": "The default value will not be detected, the reactivity will start from the first mutation. To execute the callback as soon as the onMount function is launched before any mutation use the <a href='./#mobJs-watchSync'>watchSync</a> function"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The watch function is automatically <span class='quote'>trashed</span> when the component is <span class='quote'>destroyed</span>. You can use the returned unwatch function to <span class='quote'>disconnect</span> the watch before the component is destroyed."
         },
         {
             "component": "mob-snippet",
