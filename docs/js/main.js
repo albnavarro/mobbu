@@ -17541,6 +17541,9 @@
     return freezedPros.includes(prop);
   };
 
+  // src/js/mobjs/modules/repeater/repeatIdHostMap.js
+  var repeatIdHostMap = /* @__PURE__ */ new Map();
+
   // src/js/mobjs/modules/repeater/action/setParentRepeater.js
   var setParentRepeater = ({ repeatId, host }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
@@ -17553,6 +17556,7 @@
       ...item,
       element: parent
     });
+    repeatIdHostMap.set(repeatId, host);
   };
 
   // src/js/mobjs/constant.js
@@ -17609,6 +17613,9 @@
     );
   };
 
+  // src/js/mobjs/modules/invalidate/invalidateIdHostMap.js
+  var invalidateIdHostMap = /* @__PURE__ */ new Map();
+
   // src/js/mobjs/modules/invalidate/action/setParentInvalidate.js
   var setParentInvalidate = ({ invalidateId, host }) => {
     const item = invalidateIdPlaceHolderMap.get(invalidateId);
@@ -17621,6 +17628,7 @@
       ...item,
       element: parent
     });
+    invalidateIdHostMap.set(invalidateId, host);
   };
 
   // src/js/mobjs/webComponent/invalidate.js
@@ -18459,6 +18467,12 @@
     if (!repeatIdPlaceHolderMap.has(id)) {
       return;
     }
+    if (repeatIdHostMap.has(id)) {
+      const host = repeatIdHostMap.get(id);
+      host?.removeCustomComponent();
+      host?.remove();
+      repeatIdHostMap.delete(id);
+    }
     const parent = repeatIdPlaceHolderMap.get(id);
     return parent?.element;
   };
@@ -19255,6 +19269,12 @@
   var getInvalidateParent = ({ id }) => {
     if (!invalidateIdPlaceHolderMap.has(id)) {
       return;
+    }
+    if (invalidateIdHostMap.has(id)) {
+      const host = invalidateIdHostMap.get(id);
+      host?.removeCustomComponent();
+      host?.remove();
+      invalidateIdHostMap.delete(id);
     }
     const parent = invalidateIdPlaceHolderMap.get(id);
     return parent?.element;
@@ -25138,6 +25158,7 @@ Loading snippet ...</pre
     console.log("eventDelegationMap", eventDelegationMap);
     console.log("tempDelegateEventMap", tempDelegateEventMap);
     console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
+    console.log("invalidateIdHostMap", invalidateIdHostMap.size);
     console.log("invalidateFunctionMap", invalidateFunctionMap);
     console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
     console.log("repeatFunctionMap", repeatFunctionMap);
