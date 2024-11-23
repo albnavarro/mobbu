@@ -19,6 +19,7 @@ import {
 import { repeatIdPlaceHolderMap } from '../../../mobjs/modules/repeater/repeatIdPlaceHolderMap';
 import { repeatFunctionMap } from '../../../mobjs/modules/repeater/repeatFunctionMap';
 import { invalidateIdPlaceHolderMap } from '../../../mobjs/modules/invalidate/invalidateIdPlaceHolderMap';
+import { invalidateIdHostMap } from '../../../mobjs/modules/invalidate/invalidateIdHostMap';
 import { invalidateFunctionMap } from '../../../mobjs/modules/invalidate/invalidateFunctionMap';
 import { bindPropsMap } from '../../../mobjs/modules/bindProps/bindPropsMap';
 
@@ -35,6 +36,7 @@ export const consoleLogDebug = () => {
     console.log('eventDelegationMap', eventDelegationMap);
     console.log('tempDelegateEventMap', tempDelegateEventMap);
     console.log('invalidateIdPlaceHolderMap', invalidateIdPlaceHolderMap);
+    console.log('invalidateIdHostMap', invalidateIdHostMap.size);
     console.log('invalidateFunctionMap', invalidateFunctionMap);
     console.log('repeatIdPlaceHolderMap', repeatIdPlaceHolderMap);
     console.log('repeatFunctionMap', repeatFunctionMap);

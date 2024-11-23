@@ -1,5 +1,6 @@
 // @ts-check
 
+import { invalidateIdHostMap } from '../invalidateIdHostMap';
 import { invalidateIdPlaceHolderMap } from '../invalidateIdPlaceHolderMap';
 
 /**
@@ -20,4 +21,5 @@ export const setParentInvalidate = ({ invalidateId, host }) => {
         ...item,
         element: parent,
     });
+    invalidateIdHostMap.set(invalidateId, host);
 };

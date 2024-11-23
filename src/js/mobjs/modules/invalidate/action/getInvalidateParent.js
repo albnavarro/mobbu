@@ -1,5 +1,6 @@
 // @ts-check
 
+import { invalidateIdHostMap } from '../invalidateIdHostMap';
 import { invalidateIdPlaceHolderMap } from '../invalidateIdPlaceHolderMap';
 
 /**
@@ -14,6 +15,17 @@ import { invalidateIdPlaceHolderMap } from '../invalidateIdPlaceHolderMap';
 export const getInvalidateParent = ({ id }) => {
     if (!invalidateIdPlaceHolderMap.has(id)) {
         return;
+    }
+
+    /**
+     * Remove webComponent after first call to invalidateParent
+     */
+    if (invalidateIdHostMap.has(id)) {
+        const host = invalidateIdHostMap.get(id);
+        // @ts-ignore
+        host?.removeCustomComponent();
+        host?.remove();
+        invalidateIdHostMap.delete(id);
     }
 
     const parent = invalidateIdPlaceHolderMap.get(id);
