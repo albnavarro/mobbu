@@ -1,6 +1,5 @@
 // @ts-check
 
-import { repeatIdHostMap } from '../repeatIdHostMap';
 import { repeatIdPlaceHolderMap } from '../repeatIdPlaceHolderMap';
 
 /**
@@ -14,17 +13,6 @@ import { repeatIdPlaceHolderMap } from '../repeatIdPlaceHolderMap';
 export const getRepeatParent = ({ id }) => {
     if (!repeatIdPlaceHolderMap.has(id)) {
         return;
-    }
-
-    /**
-     * Remove webComponent after first call to repeaterParent
-     */
-    if (repeatIdHostMap.has(id)) {
-        const host = repeatIdHostMap.get(id);
-        // @ts-ignore
-        host?.removeCustomComponent();
-        host?.remove();
-        repeatIdHostMap.delete(id);
     }
 
     const parent = repeatIdPlaceHolderMap.get(id);

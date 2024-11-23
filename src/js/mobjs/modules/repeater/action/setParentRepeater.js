@@ -1,6 +1,5 @@
 // @ts-check
 
-import { repeatIdHostMap } from '../repeatIdHostMap';
 import { repeatIdPlaceHolderMap } from '../repeatIdPlaceHolderMap';
 
 /**
@@ -21,6 +20,4 @@ export const setParentRepeater = ({ repeatId, host }) => {
         ...item,
         element: parent,
     });
-
-    repeatIdHostMap.set(repeatId, host);
 };
