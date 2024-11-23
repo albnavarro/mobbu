@@ -8,7 +8,7 @@
 export const DebugButtonFn = ({ html }) => {
     return html`
         <button type="button" class="c-btn-debug">
-            <mobjs_slot></mobjs_slot>
+            <mobjs-slot></mobjs-slot>
         </button>
     `;
 };
