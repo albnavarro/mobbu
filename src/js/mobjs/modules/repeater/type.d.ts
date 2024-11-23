@@ -51,8 +51,6 @@ export type RepeatFunctionMap = Map<
     { repeatId: string; fn: () => void; unsubscribe: () => void }[]
 >;
 
-export type RepeatIdHostMap = Map<string, HTMLElement>;
-
 export type RepeatIdPlaceHolderMap = Map<
     string,
     { element: HTMLElement; initialized: boolean; scopeId: string | undefined }
