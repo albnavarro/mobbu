@@ -4,7 +4,6 @@
  * @import { MobComponent } from '../../../../mobjs/type';
  * @import { AnimatedPatternN0 } from './type';
  * @import { SetStateByName } from '../../../../mobjs/type';
- * @import { QuickNav } from '../../../common/nextPage/type';
  * @import { AnimationTitle } from '../../../common/animationTitle/type';
  * @import { CodeButton } from '../../../common/codeButton/type';]
  **/
@@ -13,6 +12,10 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import {
+    resetQuickNavState,
+    updateQuickNavState,
+} from '../../../common/quickNav/utils';
 import {
     hideFooterShape,
     showFooterShape,
@@ -38,22 +41,19 @@ export const AnimatedPatternN0Fn = ({
 
         const { wrap, canvas } = getRef();
 
-        /** @type {SetStateByName<QuickNav>} */
-        const setQuickNavState = setStateByName('quick_nav');
-
         /** @type {SetStateByName<AnimationTitle>} */
         const setMainTitleState = setStateByName('animation_title');
 
         /** @type {SetStateByName<CodeButton>} */
         const setCodeButtonState = setStateByName('global-code-button');
 
-        /**
-         * Quicknav
-         */
-        setQuickNavState('active', true);
-        setQuickNavState('prevRoute', prevRoute);
-        setQuickNavState('nextRoute', nextRoute);
-        setQuickNavState('color', 'white');
+        /** Quicknav */
+        updateQuickNavState({
+            active: true,
+            prevRoute,
+            nextRoute,
+            color: 'white',
+        });
 
         /**
          * Title.
@@ -101,9 +101,7 @@ export const AnimatedPatternN0Fn = ({
 
         return () => {
             destroyAnimation();
-            setQuickNavState('active', false);
-            setQuickNavState('prevRoute', '');
-            setQuickNavState('nextRoute', '');
+            resetQuickNavState();
             setMainTitleState('align', '');
             setMainTitleState('title', '');
             setCodeButtonState('drawers', []);

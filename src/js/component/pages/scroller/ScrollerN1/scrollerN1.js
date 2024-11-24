@@ -5,7 +5,6 @@
  * @import { ScrollerN1 } from './type';
  * @import { SetStateByName } from '../../../../mobjs/type';
  * @import { ScrollDownLabel } from '../../../common/scrolldownLabel/type';
- * @import { QuickNav } from '../../../common/nextPage/type';
  * @import { AnimationTitle } from '../../../common/animationTitle/type';
  * @import { CodeButton } from '../../../common/codeButton/type';]
  **/
@@ -14,6 +13,10 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import {
+    resetQuickNavState,
+    updateQuickNavState,
+} from '../../../common/quickNav/utils';
 import {
     hideFooterShape,
     showFooterShape,
@@ -33,9 +36,6 @@ export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
         /** @type {SetStateByName<ScrollDownLabel>} */
         const setScrollDownState = setStateByName('scroll_down_label');
 
-        /** @type {SetStateByName<QuickNav>} */
-        const setQuickNavState = setStateByName('quick_nav');
-
         /** @type {SetStateByName<AnimationTitle>} */
         const setMainTitleState = setStateByName('animation_title');
 
@@ -47,13 +47,13 @@ export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
          */
         setScrollDownState('active', true);
 
-        /**
-         * Quicknav
-         */
-        setQuickNavState('active', true);
-        setQuickNavState('nextRoute', '');
-        setQuickNavState('prevRoute', '#scrollerN0?version=4&activeId=4');
-        setQuickNavState('color', 'white');
+        /** Quicknav */
+        updateQuickNavState({
+            active: true,
+            prevRoute: '#scrollerN0?version=4&activeId=4',
+            nextRoute: '',
+            color: 'white',
+        });
 
         /**
          * Title.
@@ -112,9 +112,7 @@ export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
              * Hide scroll down label.
              */
             setScrollDownState('active', false);
-            setQuickNavState('active', false);
-            setQuickNavState('prevRoute', '');
-            setQuickNavState('nextRoute', '');
+            resetQuickNavState();
             setMainTitleState('align', '');
             setMainTitleState('title', '');
             setCodeButtonState('drawers', []);

@@ -5,7 +5,6 @@
  * @import { HorizontalScroller } from './type';
  * @import { HorizontalScrollerButton } from './horizontalScrollerButton/type';
  * @import { SetStateByName } from '../../../mobjs/type';
- * @import { QuickNav } from '../../common/nextPage/type';
  * @import { AnimationTitle } from '../../common/animationTitle/type';
  * @import { CodeButton } from '../../common/codeButton/type';]
  **/
@@ -15,6 +14,10 @@ import { offset, outerHeight } from '../../../mobCore/utils';
 import { html, setStateByName } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
+import {
+    resetQuickNavState,
+    updateQuickNavState,
+} from '../../common/quickNav/utils';
 import { horizontalScrollerAnimation } from './animation/animation';
 
 const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
@@ -105,22 +108,19 @@ export const HorizontalScrollerFn = ({
             setState,
         });
 
-        /** @type {SetStateByName<QuickNav>} */
-        const setQuickNavState = setStateByName('quick_nav');
-
         /** @type {SetStateByName<AnimationTitle>} */
         const setMainTitleState = setStateByName('animation_title');
 
         /** @type {SetStateByName<CodeButton>} */
         const setCodeButtonState = setStateByName('global-code-button');
 
-        /**
-         * Quicknav
-         */
-        setQuickNavState('active', true);
-        setQuickNavState('prevRoute', prevRoute);
-        setQuickNavState('nextRoute', nextRoute);
-        setQuickNavState('color', 'white');
+        /** Quicknav */
+        updateQuickNavState({
+            active: true,
+            prevRoute,
+            nextRoute,
+            color: 'white',
+        });
 
         /**
          * Title.
@@ -214,10 +214,7 @@ export const HorizontalScrollerFn = ({
 
         return () => {
             destroy();
-            setQuickNavState('active', false);
-            setQuickNavState('prevRoute', '');
-            setQuickNavState('nextRoute', '');
-            setQuickNavState('color', 'black');
+            resetQuickNavState();
             setMainTitleState('align', '');
             setMainTitleState('title', '');
             setCodeButtonState('drawers', []);

@@ -4,7 +4,6 @@
  * @import { MobComponent } from '../../../../mobjs/type';
  * @import { AnimatedPatternN1 } from './type';
  * @import { SetStateByName } from '../../../../mobjs/type';
- * @import { QuickNav } from '../../../common/nextPage/type';
  * @import { AnimationTitle } from '../../../common/animationTitle/type';
  * @import { CodeButton } from '../../../common/codeButton/type';]
  **/
@@ -13,6 +12,10 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import {
+    resetQuickNavState,
+    updateQuickNavState,
+} from '../../../common/quickNav/utils';
 import {
     hideFooterShape,
     showFooterShape,
@@ -37,25 +40,19 @@ export const AnimatedPatternN1Fn = ({
 
         const { wrap, canvas } = getRef();
 
-        /** @type {SetStateByName<QuickNav>} */
-        const setQuickNavState = setStateByName('quick_nav');
-
         /** @type {SetStateByName<AnimationTitle>} */
         const setMainTitleState = setStateByName('animation_title');
 
         /** @type {SetStateByName<CodeButton>} */
         const setCodeButtonState = setStateByName('global-code-button');
 
-        /**
-         * Quicknav
-         */
-        setQuickNavState('active', true);
-        setQuickNavState(
-            'prevRoute',
-            '#animatedPatternN0?version=3&activeId=3'
-        );
-        setQuickNavState('nextRoute', '#scrollerN0?version=0&activeId=0');
-        setQuickNavState('color', 'white');
+        /** Quicknav */
+        updateQuickNavState({
+            active: true,
+            prevRoute: '#animatedPatternN0?version=3&activeId=3',
+            nextRoute: '#scrollerN0?version=0&activeId=0',
+            color: 'white',
+        });
 
         /**
          * Title.
@@ -102,9 +99,7 @@ export const AnimatedPatternN1Fn = ({
         });
 
         return () => {
-            setQuickNavState('active', false);
-            setQuickNavState('prevRoute', '');
-            setQuickNavState('nextRoute', '');
+            resetQuickNavState();
             setMainTitleState('align', '');
             setMainTitleState('title', '');
             setCodeButtonState('drawers', []);

@@ -1,10 +1,12 @@
 //@ts-check
 
-import { setStateByName } from '../../../../mobjs';
+import {
+    resetQuickNavState,
+    updateQuickNavState,
+} from '../../../common/quickNav/utils';
 
 /**
- * @import { MobComponent, SetStateByName} from '../../../../mobjs/type';
- * @import { QuickNav } from '../../../common/nextPage/type';
+ * @import { MobComponent } from '../../../../mobjs/type';
  **/
 
 /** @type {MobComponent<import('./type').Move3DPage>} */
@@ -12,22 +14,16 @@ export const Move3DPagefn = ({ onMount, html, bindProps, getState }) => {
     const { prevRoute, nextRoute } = getState();
 
     onMount(() => {
-        /** @type {SetStateByName<QuickNav>} */
-        const setQuickNavState = setStateByName('quick_nav');
-
-        /**
-         * Quicknav
-         */
-        setQuickNavState('active', true);
-        setQuickNavState('prevRoute', prevRoute);
-        setQuickNavState('nextRoute', nextRoute);
-        setQuickNavState('color', 'white');
+        /** Quicknav */
+        updateQuickNavState({
+            active: true,
+            prevRoute,
+            nextRoute,
+            color: 'white',
+        });
 
         return () => {
-            setQuickNavState('active', false);
-            setQuickNavState('prevRoute', '');
-            setQuickNavState('nextRoute', '');
-            setQuickNavState('color', 'black');
+            resetQuickNavState();
         };
     });
 

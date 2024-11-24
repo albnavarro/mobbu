@@ -1,8 +1,10 @@
+// @ts-check
+
 import { AnimationTitle } from '../component/common/animationTitle/definition';
 import { CodeButton } from '../component/common/codeButton/definition';
 import { CodeOverlay } from '../component/common/codeOverlay/definition';
 import { MLogo1 } from '../component/common/mLogo1/definition';
-import { QuickNav } from '../component/common/nextPage/definition';
+import { QuickNav } from '../component/common/quickNav/definition';
 import { RouteLoader } from '../component/common/routeLoader/definition';
 import { ScrollDownLabel } from '../component/common/scrolldownLabel/definition';
 import { ScrollToTop } from '../component/common/scrollToTop/definition';
