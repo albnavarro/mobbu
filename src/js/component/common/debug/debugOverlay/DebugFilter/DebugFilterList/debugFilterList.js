@@ -41,7 +41,7 @@ const FAKE_REPLACMENT = '{{fake}}';
 /**
  * @param {object} params
  * @param {string} params.testString
- * @returns {import('./DebugFilterLitItem/type').DebugFilterListItem[]} params
+ * @returns {import('./DebugFilterLitItem/type').DebugFilterListItem['state'][]} params
  */
 const getDataFiltered = ({ testString }) => {
     const stringParsed =

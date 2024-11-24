@@ -2,7 +2,7 @@ import { DebugFilterListItem } from './DebugFilterLitItem/type';
 
 export interface DebugFilterList {
     state: {
-        data: DebugFilterListItem[];
+        data: DebugFilterListItem['state'][];
         isLoading: boolean;
     };
     methods: {
