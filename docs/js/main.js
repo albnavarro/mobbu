@@ -28749,6 +28749,16 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
+  // src/js/component/common/scrolldownLabel/utils.js
+  var activateScrollDownArrow = () => {
+    const setScrollDownState = setStateByName("scroll_down_label");
+    setScrollDownState("active", true);
+  };
+  var deactivateScrollDownArrow = () => {
+    const setScrollDownState = setStateByName("scroll_down_label");
+    setScrollDownState("active", false);
+  };
+
   // src/js/component/pages/scroller/ScrollerN0/animation/animation.js
   var scrollerN0Animation = ({
     canvas,
@@ -28974,8 +28984,7 @@ Loading snippet ...</pre
         document.body.style.background = "";
         return;
       }
-      const setScrollDownState = setStateByName("scroll_down_label");
-      setScrollDownState("active", true);
+      activateScrollDownArrow();
       updateQuickNavState({
         active: true,
         prevRoute,
@@ -29023,7 +29032,7 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
-        setScrollDownState("active", false);
+        deactivateScrollDownArrow();
         resetQuickNavState();
         resetAnimationTitle();
         resetCodeButton();
@@ -29412,8 +29421,7 @@ Loading snippet ...</pre
         document.body.style.background = "";
         return;
       }
-      const setScrollDownState = setStateByName("scroll_down_label");
-      setScrollDownState("active", true);
+      activateScrollDownArrow();
       updateQuickNavState({
         active: true,
         prevRoute: "#scrollerN0?version=4&activeId=4",
@@ -29460,7 +29468,7 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
-        setScrollDownState("active", false);
+        deactivateScrollDownArrow();
         resetQuickNavState();
         resetAnimationTitle();
         resetCodeButton();

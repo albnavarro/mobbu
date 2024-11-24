@@ -3,13 +3,10 @@
 /**
  * @import { MobComponent } from '../../../../mobjs/type';
  * @import { ScrollerN0 } from './type';
- * @import { SetStateByName } from '../../../../mobjs/type';
- * @import { ScrollDownLabel } from '../../../common/scrolldownLabel/type';
  **/
 
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
-import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import {
     resetAnimationTitle,
@@ -23,6 +20,10 @@ import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
+import {
+    activateScrollDownArrow,
+    deactivateScrollDownArrow,
+} from '../../../common/scrolldownLabel/utils';
 import {
     hideFooterShape,
     showFooterShape,
@@ -40,13 +41,8 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
             return;
         }
 
-        /** @type {SetStateByName<ScrollDownLabel>} */
-        const setScrollDownState = setStateByName('scroll_down_label');
-
-        /**
-         * Show scroll down label.
-         */
-        setScrollDownState('active', true);
+        /** Show scroll down label. */
+        activateScrollDownArrow();
 
         /** Quicknav */
         updateQuickNavState({
@@ -115,11 +111,7 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
 
         return () => {
             destroyAnimation();
-
-            /**
-             * Hide scroll down label.
-             */
-            setScrollDownState('active', false);
+            deactivateScrollDownArrow();
             resetQuickNavState();
             resetAnimationTitle();
             resetCodeButton();
