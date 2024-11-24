@@ -1,18 +1,27 @@
+// @ts-check
+
 import { useMethodByName } from '../../../mobjs';
 
+/**
+ * @import {UseMethodByName} from '../../../mobjs/type'
+ */
+
 export const hideFooterShape = () => {
-    useMethodByName('footer_shape_left')?.setPosition({ position: 'side' });
-    useMethodByName('footer_shape_right')?.setPosition({
-        position: 'side',
-    });
+    /** @type  {UseMethodByName<import('./type').FooterShapeV1>} */
+    const footerLeftMethods = useMethodByName('footer_shape_left');
+    footerLeftMethods?.setPosition({ position: '' });
+
+    /** @type  {UseMethodByName<import('./type').FooterShapeV1>} */
+    const footerRightMethods = useMethodByName('footer_shape_right');
+    footerRightMethods?.setPosition({ position: '' });
 };
 
 export const showFooterShape = () => {
-    useMethodByName('footer_shape_left')?.setPosition({
-        position: 'center',
-    });
+    /** @type  {UseMethodByName<import('./type').FooterShapeV1>} */
+    const footerLeftMethods = useMethodByName('footer_shape_left');
+    footerLeftMethods?.setPosition({ position: 'center' });
 
-    useMethodByName('footer_shape_right')?.setPosition({
-        position: 'center',
-    });
+    /** @type  {UseMethodByName<import('./type').FooterShapeV1>} */
+    const footerRightMethods = useMethodByName('footer_shape_right');
+    footerRightMethods?.setPosition({ position: 'center' });
 };

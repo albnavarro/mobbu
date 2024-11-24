@@ -349,6 +349,8 @@ export type PartialMethods<T> = <
     fn: GetMethods<T>[K]
 ) => void;
 
+export type PartialUseMethodByName<T> = GetMethods<T>;
+
 /**
  * Bind refs
  */

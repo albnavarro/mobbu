@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { GetRef, MobComponent } from '../../../../../../../mobjs/type';
+ * @import { GetRef, MobComponent, UseMethodByName } from '../../../../../../../mobjs/type';
  **/
 
 import { useMethodByName } from '../../../../../../../mobjs';
@@ -61,7 +61,9 @@ export const DebugFilterListItemFn = ({
                 class="c-debug-filter-list-item__expand"
                 ${delegateEvents({
                     click: () => {
-                        useMethodByName('debug_component')?.updateId(id);
+                        /** @type{UseMethodByName<import('../../../DebugComponent/type').DebugComponent>} */
+                        const methods = useMethodByName('debug_component');
+                        methods?.updateId(id);
                     },
                 })}
             >

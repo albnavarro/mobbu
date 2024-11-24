@@ -51,15 +51,13 @@
 ### Type
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
 
-### Methods
-- Trovare il modo di usare nei tipi la propietá `methods` metodi su `useMethodByName` e `useMethodArrayByName`
-
 ### Docs
-- Sezione specifica per usare i typi
+- In ognisezione corrispondente aggiungere glie sempi tipi.
     - `MobComponent` ( state && methods ).
     - `MobComponentAsync` ( state && methods.
     - Singoli come `SetState`.
     - `ReturnBindProps`.
+    - `UseMethodByName` && `useMethodArrayByName`
 
 
 # Mob motion

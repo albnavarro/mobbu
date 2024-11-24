@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @import { GetRef, GetState, MobComponent } from '../../../../../../mobjs/type';
+ * @import { GetRef, GetState, MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
 import { componentMap, useMethodByName } from '../../../../../../mobjs';
@@ -77,7 +77,10 @@ export const DebugTreeItemFn = ({
             head.classList.toggle('open', isOpen);
             const action = isOpen ? 'down' : 'up';
             await slide[action](content);
-            useMethodByName('debug_tree')?.refresh();
+
+            /** @type{UseMethodByName<import('../type').DebugTree>} */
+            const methods = useMethodByName('debug_tree');
+            methods?.refresh();
         });
 
         const unsubscribeActiveItem = debugActiveComponentStore.watch(
@@ -112,7 +115,9 @@ export const DebugTreeItemFn = ({
                 class="c-debug-tree-item__expand"
                 ${delegateEvents({
                     click: () => {
-                        useMethodByName('debug_component')?.updateId(id);
+                        /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+                        const methods = useMethodByName('debug_component');
+                        methods?.updateId(id);
                     },
                 })}
             >

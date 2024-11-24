@@ -7,6 +7,10 @@ import { bodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
 
+/**
+ * @import {UseMethodByName} from '../../../mobjs/type'
+ */
+
 function closeNavigation({ element, main }) {
     mobCore.useFrame(() => {
         document.body.style.overflow = '';
@@ -16,7 +20,9 @@ function closeNavigation({ element, main }) {
 }
 
 function openNavigation({ element, main }) {
-    useMethodByName('navigation-container')?.refresh();
+    /** @type{UseMethodByName<import('./type').NavigationContainer>} */
+    const methods = useMethodByName('navigation-container');
+    methods?.refresh();
 
     mobCore.useFrame(() => {
         document.body.style.overflow = 'hidden';
@@ -31,8 +37,13 @@ function addHandler({ main, toTopBtn }) {
     });
 
     toTopBtn.addEventListener('click', () => {
-        useMethodByName('navigation-container')?.scrollTop();
-        useMethodByName('main_navigation')?.closeAllAccordion();
+        /** @type{UseMethodByName<import('./type').NavigationContainer>} */
+        const navContainerMethods = useMethodByName('navigation-container');
+        navContainerMethods?.scrollTop();
+
+        /** @type{UseMethodByName<import('./type').Navigation>} */
+        const mainNavigationMethods = useMethodByName('main_navigation');
+        mainNavigationMethods?.closeAllAccordion();
 
         const { navigationIsOpen } = navigationStore.get();
         if (!navigationIsOpen) bodyScroll.to(0);

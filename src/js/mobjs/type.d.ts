@@ -35,6 +35,7 @@ import {
     PartialGetRefs,
     PartialBindText,
     PartialReturnBindProps,
+    PartialUseMethodByName,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -69,6 +70,9 @@ export type GetRef = PartialGetRef;
 export type GetRefs = PartialGetRefs;
 export type Bindtext = PartialBindText;
 export type ReturnBindProps<T> = PartialReturnBindProps<T>;
+export type UseMethodByName<T = { methods: any }> = PartialUseMethodByName<T>;
+export type UseMethodArrayByName<T = { methods: any }> =
+    PartialUseMethodByName<T>[];
 
 /**
  * Main component.

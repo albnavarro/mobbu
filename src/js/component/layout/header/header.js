@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent, UseMethodByName } from '../../../mobjs/type';
  **/
 
 import { mobCore } from '../../../mobCore';
@@ -23,8 +23,14 @@ function closeInfo({ navInfo }) {
 function titleHandler() {
     loadUrl({ url: '#home' });
     navigationStore.set('navigationIsOpen', false);
-    useMethodByName('main_navigation')?.closeAllAccordion();
-    useMethodByName('navigation-container')?.scrollTop();
+
+    /** @type{UseMethodByName<import('../navigation/type').Navigation>} */
+    const mainNavigationMethods = useMethodByName('main_navigation');
+    mainNavigationMethods?.closeAllAccordion();
+
+    /** @type{UseMethodByName<import('../navigation/type').NavigationContainer>} */
+    const navContainerMethods = useMethodByName('navigation-container');
+    navContainerMethods?.scrollTop();
 }
 
 /** @type {MobComponent} */

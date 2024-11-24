@@ -1,5 +1,5 @@
 /**
- * @import { MobComponent } from '../../../../../../mobjs/type';
+ * @import { MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
 import { getIdByInstanceName, useMethodByName } from '../../../../../../mobjs';
@@ -20,11 +20,11 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                     keypress: (event) => {
                         if (event.keyCode === 13) {
                             event.preventDefault();
-
                             const id = event.target.value;
-                            useMethodByName('debug_component')?.updateId(
-                                id ?? ''
-                            );
+
+                            /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+                            const methods = useMethodByName('debug_component');
+                            methods?.updateId(id ?? '');
                         }
                     },
                 })}
@@ -37,7 +37,9 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                         const { id_input } = getRef();
                         const id = id_input.value;
 
-                        useMethodByName('debug_component')?.updateId(id ?? '');
+                        /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+                        const methods = useMethodByName('debug_component');
+                        methods?.updateId(id ?? '');
                     },
                 })}
             >
@@ -59,9 +61,10 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
 
                             const instanceName = event.target.value;
                             const id = getIdByInstanceName(instanceName);
-                            useMethodByName('debug_component')?.updateId(
-                                id ?? ''
-                            );
+
+                            /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+                            const methods = useMethodByName('debug_component');
+                            methods?.updateId(id ?? '');
                         }
                     },
                 })}
@@ -74,7 +77,10 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                         const { instance_input } = getRef();
                         const instanceName = instance_input.value;
                         const id = getIdByInstanceName(instanceName);
-                        useMethodByName('debug_component')?.updateId(id ?? '');
+
+                        /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+                        const methods = useMethodByName('debug_component');
+                        methods?.updateId(id ?? '');
                     },
                 })}
             >
@@ -92,9 +98,10 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                             const { instance_input, id_input } = getRef();
                             instance_input.value = '';
                             id_input.value = '';
-                            useMethodByName('debug_component')?.updateId(
-                                RESET_FILTER_DEBUG
-                            );
+
+                            /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+                            const methods = useMethodByName('debug_component');
+                            methods?.updateId(RESET_FILTER_DEBUG);
                         },
                     })}
                 >
@@ -110,7 +117,9 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                     type="button"
                     ${delegateEvents({
                         click: () => {
-                            useMethodByName('debug_component')?.refreshId();
+                            /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+                            const methods = useMethodByName('debug_component');
+                            methods?.refreshId();
                         },
                     })}
                 >

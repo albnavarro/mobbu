@@ -55,7 +55,7 @@ export const getMethodsById = ({ id }) => {
 
 /**
  * @param {string} name
- * @returns {Record<string, (arg0?: any) => void>}
+ * @returns {import('../../type').UseMethodByName}
  *
  * @description
  * Get method by id
@@ -75,7 +75,7 @@ export const useMethodByName = (name) => {
 
 /**
  * @param {string} name
- * @returns {object}
+ * @returns {import('../../type').UseMethodByName[]}
  *
  * @description
  * Get array of  method by id

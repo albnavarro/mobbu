@@ -33,7 +33,7 @@ export interface Navigation {
         currentAccordionId: number;
     };
     methods: {
-        closeAllAccordion: (arg0: { fireCallback?: boolean }) => void;
+        closeAllAccordion: (arg0?: { fireCallback?: boolean }) => void;
     };
 }
 
