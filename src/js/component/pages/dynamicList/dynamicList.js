@@ -2,19 +2,22 @@
 
 /**
  * @import { MobComponent } from '../../../mobjs/type';
- * @import { SetState, StaticProps, DelegateEvents, BindProps, SetStateByName  } from '../../../mobjs/type';
+ * @import { SetState, StaticProps, DelegateEvents, BindProps } from '../../../mobjs/type';
  * @import { DynamicList } from './type';
  * @import { DynamicListButton } from './button/type';]
  * @import { DynamicListRepeater } from './repeaters/type';]
- * @import { CodeButton } from '../../common/codeButton/type';
  **/
 
 import { getLegendData } from '../../../data';
-import { html, setStateByName, tick } from '../../../mobjs';
+import { html, tick } from '../../../mobjs';
 import {
     freezePageScroll,
     unFreezeAndUPdatePageScroll,
 } from '../../../mobMotion/plugin';
+import {
+    resetCodeButton,
+    updateCodeButton,
+} from '../../common/codeButton/utils';
 import {
     hideFooterShape,
     showFooterShape,
@@ -135,50 +138,50 @@ export const DynamicListFn = ({
     invalidate,
     bindText,
 }) => {
-    /** @type {SetStateByName<CodeButton>} */
-    const setCodeButtonState = setStateByName('global-code-button');
-
     onMount(() => {
         /**
          * Code button
          */
         const { repeater } = getLegendData();
         const { source } = repeater;
-        setCodeButtonState('drawers', [
-            {
-                label: 'description',
-                source: source.description,
-            },
-            {
-                label: 'definition',
-                source: source.definition,
-            },
-            {
-                label: 'main',
-                source: source.mainComponent,
-            },
-            {
-                label: 'repeater',
-                source: source.repeaters,
-            },
-            {
-                label: 'buttons',
-                source: source.buttons,
-            },
-            {
-                label: 'cards',
-                source: source.cards,
-            },
-            {
-                label: 'data',
-                source: source.data,
-            },
-        ]);
-        setCodeButtonState('color', 'black');
+        updateCodeButton({
+            drawers: [
+                {
+                    label: 'description',
+                    source: source.description,
+                },
+                {
+                    label: 'definition',
+                    source: source.definition,
+                },
+                {
+                    label: 'main',
+                    source: source.mainComponent,
+                },
+                {
+                    label: 'repeater',
+                    source: source.repeaters,
+                },
+                {
+                    label: 'buttons',
+                    source: source.buttons,
+                },
+                {
+                    label: 'cards',
+                    source: source.cards,
+                },
+                {
+                    label: 'data',
+                    source: source.data,
+                },
+            ],
+            color: 'black',
+        });
+
         hideFooterShape();
 
         return () => {
-            setCodeButtonState('drawers', []);
+            resetCodeButton();
             showFooterShape();
         };
     });

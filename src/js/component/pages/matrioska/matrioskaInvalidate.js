@@ -1,15 +1,18 @@
 //@ts-check
 
 /**
- * @import {  MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps,  SetStateByName, UpdateStateByName, GetState, Invalidate } from '../../../mobjs/type'
+ * @import {  MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, UpdateStateByName, GetState, Invalidate } from '../../../mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
- * @import { CodeButton } from '../../common/codeButton/type';
  */
 
 import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
-import { html, setStateByName, updateStateByName } from '../../../mobjs';
+import { html, updateStateByName } from '../../../mobjs';
+import {
+    resetCodeButton,
+    updateCodeButton,
+} from '../../common/codeButton/utils';
 import {
     hideFooterShape,
     showFooterShape,
@@ -297,38 +300,37 @@ export const MatrioskaInvalidateFn = ({
     invalidate,
     getState,
 }) => {
-    /** @type { SetStateByName<CodeButton> } */
-    const setCodeButtonState = setStateByName('global-code-button');
-
     onMount(() => {
         /**
          * Code button
          */
         const { matrioska } = getLegendData();
         const { source } = matrioska;
-        setCodeButtonState('drawers', [
-            {
-                label: 'description',
-                source: source.description,
-            },
-            {
-                label: 'definition',
-                source: source.definition,
-            },
-            {
-                label: 'main',
-                source: source.mainComponent,
-            },
-            {
-                label: 'cards',
-                source: source.cards,
-            },
-        ]);
-        setCodeButtonState('color', 'black');
+        updateCodeButton({
+            drawers: [
+                {
+                    label: 'description',
+                    source: source.description,
+                },
+                {
+                    label: 'definition',
+                    source: source.definition,
+                },
+                {
+                    label: 'main',
+                    source: source.mainComponent,
+                },
+                {
+                    label: 'cards',
+                    source: source.cards,
+                },
+            ],
+            color: 'black',
+        });
         hideFooterShape();
 
         return () => {
-            setCodeButtonState('drawers', []);
+            resetCodeButton();
             showFooterShape();
         };
     });

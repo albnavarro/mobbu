@@ -3,12 +3,13 @@
 /**
  * @import { MobComponent } from '../../../mobjs/type';
  * @import { HomeComponent } from './type';
- * @import { SetStateByName } from '../../../mobjs/type';
- * @import { CodeButton } from '../../common/codeButton/type';
  **/
 
 import { getLegendData } from '../../../data';
-import { setStateByName } from '../../../mobjs';
+import {
+    resetCodeButton,
+    updateCodeButton,
+} from '../../common/codeButton/utils';
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
 import { homeTextAnimation } from './animation/text';
 
@@ -27,9 +28,6 @@ export const HomeComponentFn = ({
     getRefs,
 }) => {
     const { svg } = getState();
-
-    /** @type {SetStateByName<CodeButton>} */
-    const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(({ element }) => {
         const { textStagger } = getRefs();
@@ -50,34 +48,36 @@ export const HomeComponentFn = ({
          */
         const { home } = getLegendData();
         const { source } = home;
-        setCodeButtonState('drawers', [
-            {
-                label: 'description',
-                source: source.description,
-            },
-            {
-                label: 'definition',
-                source: source.definition,
-            },
-            {
-                label: 'component',
-                source: source.component,
-            },
-            {
-                label: 'Logo animation',
-                source: source.logoAnimation,
-            },
-            {
-                label: 'text animation',
-                source: source.textAnimation,
-            },
-        ]);
-        setCodeButtonState('color', 'black');
+        updateCodeButton({
+            drawers: [
+                {
+                    label: 'description',
+                    source: source.description,
+                },
+                {
+                    label: 'definition',
+                    source: source.definition,
+                },
+                {
+                    label: 'component',
+                    source: source.component,
+                },
+                {
+                    label: 'Logo animation',
+                    source: source.logoAnimation,
+                },
+                {
+                    label: 'text animation',
+                    source: source.textAnimation,
+                },
+            ],
+            color: 'black',
+        });
 
         return () => {
             destroy();
             destroyText();
-            setCodeButtonState('drawers', []);
+            resetCodeButton();
         };
     });
 

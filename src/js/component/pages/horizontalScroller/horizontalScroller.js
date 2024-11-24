@@ -4,19 +4,21 @@
  * @import { MobComponent, SetState, BindProps, StaticProps, DelegateEvents } from '../../../mobjs/type';
  * @import { HorizontalScroller } from './type';
  * @import { HorizontalScrollerButton } from './horizontalScrollerButton/type';
- * @import { SetStateByName } from '../../../mobjs/type';
- * @import { CodeButton } from '../../common/codeButton/type';]
  **/
 
 import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
-import { html, setStateByName } from '../../../mobjs';
+import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
 } from '../../common/animationTitle/utils';
+import {
+    resetCodeButton,
+    updateCodeButton,
+} from '../../common/codeButton/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -111,9 +113,6 @@ export const HorizontalScrollerFn = ({
             setState,
         });
 
-        /** @type {SetStateByName<CodeButton>} */
-        const setCodeButtonState = setStateByName('global-code-button');
-
         /** Quicknav */
         updateQuickNavState({
             active: true,
@@ -136,33 +135,35 @@ export const HorizontalScrollerFn = ({
          */
         const { horizontalScroller } = getLegendData();
         const { source } = horizontalScroller;
-        setCodeButtonState('drawers', [
-            {
-                label: 'description',
-                source: source.description,
-            },
-            {
-                label: 'definition',
-                source: source.definition,
-            },
-            {
-                label: 'scroller',
-                source: source.scroller,
-            },
-            {
-                label: 'section',
-                source: source.section,
-            },
-            {
-                label: 'buttons',
-                source: source.buttons,
-            },
-            {
-                label: 'animation',
-                source: source.animation,
-            },
-        ]);
-        setCodeButtonState('color', 'white');
+        updateCodeButton({
+            drawers: [
+                {
+                    label: 'description',
+                    source: source.description,
+                },
+                {
+                    label: 'definition',
+                    source: source.definition,
+                },
+                {
+                    label: 'scroller',
+                    source: source.scroller,
+                },
+                {
+                    label: 'section',
+                    source: source.section,
+                },
+                {
+                    label: 'buttons',
+                    source: source.buttons,
+                },
+                {
+                    label: 'animation',
+                    source: source.animation,
+                },
+            ],
+            color: 'white',
+        });
 
         /**
          * Prevent landing at bottom of the page.
@@ -213,7 +214,7 @@ export const HorizontalScrollerFn = ({
             destroy();
             resetQuickNavState();
             resetAnimationTitle();
-            setCodeButtonState('drawers', []);
+            resetCodeButton();
         };
     });
 

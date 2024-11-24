@@ -3,18 +3,20 @@
 /**
  * @import { MobComponent } from '../../../../mobjs/type';
  * @import { CaterpillarN2 } from './type';
- * @import { SetStateByName } from '../../../../mobjs/type';
- * @import { CodeButton } from '../../../common/codeButton/type';]
  **/
 
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
-import { html, setStateByName } from '../../../../mobjs';
+import { html } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
 } from '../../../common/animationTitle/utils';
+import {
+    resetCodeButton,
+    updateCodeButton,
+} from '../../../common/codeButton/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -61,9 +63,6 @@ export const CaterpillarN2Fn = ({
 
         const { wrap, canvas, rangeValue, rotationButton } = getRef();
 
-        /** @type {SetStateByName<CodeButton>} */
-        const setCodeButtonState = setStateByName('global-code-button');
-
         /** Quicknav */
         updateQuickNavState({
             active: true,
@@ -87,25 +86,27 @@ export const CaterpillarN2Fn = ({
          */
         const { caterpillarN2 } = getLegendData();
         const { source } = caterpillarN2;
-        setCodeButtonState('drawers', [
-            {
-                label: 'description',
-                source: source.description,
-            },
-            {
-                label: 'definition',
-                source: source.definition,
-            },
-            {
-                label: 'component',
-                source: source.component,
-            },
-            {
-                label: 'animation',
-                source: source.animation,
-            },
-        ]);
-        setCodeButtonState('color', 'white');
+        updateCodeButton({
+            drawers: [
+                {
+                    label: 'description',
+                    source: source.description,
+                },
+                {
+                    label: 'definition',
+                    source: source.definition,
+                },
+                {
+                    label: 'component',
+                    source: source.component,
+                },
+                {
+                    label: 'animation',
+                    source: source.animation,
+                },
+            ],
+            color: 'white',
+        });
 
         /**
          * Inizializa animation and get anima methods.
@@ -146,7 +147,7 @@ export const CaterpillarN2Fn = ({
         return () => {
             resetQuickNavState();
             resetAnimationTitle();
-            setCodeButtonState('drawers', []);
+            resetCodeButton();
             document.body.style.background = '';
             destroy();
             showFooterShape();

@@ -26709,6 +26709,18 @@ Loading snippet ...</pre
     setMainTitleState("color", "white");
   };
 
+  // src/js/component/common/codeButton/utils.js
+  var updateCodeButton = ({ drawers = [], color = "black" }) => {
+    const setCodeButtonState = setStateByName("global-code-button");
+    setCodeButtonState("drawers", drawers);
+    setCodeButtonState("color", color);
+  };
+  var resetCodeButton = () => {
+    const setCodeButtonState = setStateByName("global-code-button");
+    setCodeButtonState("drawers", []);
+    setCodeButtonState("color", "black");
+  };
+
   // src/js/component/common/quickNav/utils.js
   var updateQuickNavState = ({
     active = true,
@@ -27020,7 +27032,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = getRef();
-      const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
         prevRoute,
@@ -27035,25 +27046,27 @@ Loading snippet ...</pre
       hideFooterShape();
       const { animatedPatternN0: animatedPatternN02 } = getLegendData();
       const { source } = animatedPatternN02;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setCodeButtonState("color", "white");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "component",
+            source: source.component
+          },
+          {
+            label: "animation",
+            source: source.animation
+          }
+        ],
+        color: "white"
+      });
       const destroyAnimation = animatedPatternN0Animation({
         canvas,
         ...getState()
@@ -27065,7 +27078,7 @@ Loading snippet ...</pre
         destroyAnimation();
         resetQuickNavState();
         resetAnimationTitle();
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
         showFooterShape();
         document.body.style.background = "";
       };
@@ -27528,7 +27541,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = getRef();
-      const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
         prevRoute: "#animatedPatternN0?version=3&activeId=3",
@@ -27543,25 +27555,27 @@ Loading snippet ...</pre
       hideFooterShape();
       const { animatedPatternN1: animatedPatternN12 } = getLegendData();
       const { source } = animatedPatternN12;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setCodeButtonState("color", "white");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "component",
+            source: source.component
+          },
+          {
+            label: "animation",
+            source: source.animation
+          }
+        ],
+        color: "white"
+      });
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
         ...getState()
@@ -27572,7 +27586,7 @@ Loading snippet ...</pre
       return () => {
         resetQuickNavState();
         resetAnimationTitle();
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
         document.body.style.background = "";
         destroyAnimation();
         showFooterShape();
@@ -27856,7 +27870,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = getRef();
-      const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
         prevRoute: "",
@@ -27871,25 +27884,27 @@ Loading snippet ...</pre
       hideFooterShape();
       const { caterpillarN0: caterpillarN02 } = getLegendData();
       const { source } = caterpillarN02;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setCodeButtonState("color", "white");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "component",
+            source: source.component
+          },
+          {
+            label: "animation",
+            source: source.animation
+          }
+        ],
+        color: "white"
+      });
       const destroyAnimation = caterpillarN0Animation({
         canvas,
         ...getState()
@@ -27901,7 +27916,7 @@ Loading snippet ...</pre
         destroyAnimation();
         resetQuickNavState();
         resetAnimationTitle();
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
         document.body.style.background = "";
         showFooterShape();
       };
@@ -28192,7 +28207,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = getRef();
-      const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
         prevRoute: "#caterpillarN0",
@@ -28207,25 +28221,27 @@ Loading snippet ...</pre
       hideFooterShape();
       const { caterpillarN1: caterpillarN12 } = getLegendData();
       const { source } = caterpillarN12;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setCodeButtonState("color", "white");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "component",
+            source: source.component
+          },
+          {
+            label: "animation",
+            source: source.animation
+          }
+        ],
+        color: "white"
+      });
       const destroyAnimation = caterpillarN1Animation({
         canvas,
         ...getState()
@@ -28237,7 +28253,7 @@ Loading snippet ...</pre
         destroyAnimation();
         resetQuickNavState();
         resetAnimationTitle();
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
         document.body.style.background = "";
         showFooterShape();
       };
@@ -28522,7 +28538,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas, rangeValue, rotationButton } = getRef();
-      const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
         prevRoute: "#caterpillarN1",
@@ -28537,25 +28552,27 @@ Loading snippet ...</pre
       hideFooterShape();
       const { caterpillarN2: caterpillarN22 } = getLegendData();
       const { source } = caterpillarN22;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setCodeButtonState("color", "white");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "component",
+            source: source.component
+          },
+          {
+            label: "animation",
+            source: source.animation
+          }
+        ],
+        color: "white"
+      });
       const animationMethods = caterpillarN2Animation({
         canvas,
         ...getState()
@@ -28577,7 +28594,7 @@ Loading snippet ...</pre
       return () => {
         resetQuickNavState();
         resetAnimationTitle();
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
         document.body.style.background = "";
         destroy2();
         showFooterShape();
@@ -28958,7 +28975,6 @@ Loading snippet ...</pre
         return;
       }
       const setScrollDownState = setStateByName("scroll_down_label");
-      const setCodeButtonState = setStateByName("global-code-button");
       setScrollDownState("active", true);
       updateQuickNavState({
         active: true,
@@ -28974,25 +28990,27 @@ Loading snippet ...</pre
       hideFooterShape();
       const { scrollerN0: scrollerN02 } = getLegendData();
       const { source } = scrollerN02;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setCodeButtonState("color", "white");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "component",
+            source: source.component
+          },
+          {
+            label: "animation",
+            source: source.animation
+          }
+        ],
+        color: "white"
+      });
       const { wrap, canvas, canvasScroller } = getRef();
       window.scrollTo(0, 0);
       const destroyAnimation = scrollerN0Animation({
@@ -29008,7 +29026,7 @@ Loading snippet ...</pre
         setScrollDownState("active", false);
         resetQuickNavState();
         resetAnimationTitle();
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
         document.body.style.background = "";
         showFooterShape();
       };
@@ -29395,7 +29413,6 @@ Loading snippet ...</pre
         return;
       }
       const setScrollDownState = setStateByName("scroll_down_label");
-      const setCodeButtonState = setStateByName("global-code-button");
       setScrollDownState("active", true);
       updateQuickNavState({
         active: true,
@@ -29411,25 +29428,27 @@ Loading snippet ...</pre
       hideFooterShape();
       const { scrollerN1: scrollerN12 } = getLegendData();
       const { source } = scrollerN12;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setCodeButtonState("color", "white");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "component",
+            source: source.component
+          },
+          {
+            label: "animation",
+            source: source.animation
+          }
+        ],
+        color: "white"
+      });
       const { wrap, canvas, canvasScroller } = getRef();
       const destroyAnimation = scrollerN1Animation({
         canvas,
@@ -29444,7 +29463,7 @@ Loading snippet ...</pre
         setScrollDownState("active", false);
         resetQuickNavState();
         resetAnimationTitle();
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
         document.body.style.background = "";
         showFooterShape();
       };
@@ -29807,44 +29826,45 @@ Loading snippet ...</pre
     invalidate,
     bindText
   }) => {
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
       const { repeater } = getLegendData();
       const { source } = repeater;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "main",
-          source: source.mainComponent
-        },
-        {
-          label: "repeater",
-          source: source.repeaters
-        },
-        {
-          label: "buttons",
-          source: source.buttons
-        },
-        {
-          label: "cards",
-          source: source.cards
-        },
-        {
-          label: "data",
-          source: source.data
-        }
-      ]);
-      setCodeButtonState("color", "black");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "main",
+            source: source.mainComponent
+          },
+          {
+            label: "repeater",
+            source: source.repeaters
+          },
+          {
+            label: "buttons",
+            source: source.buttons
+          },
+          {
+            label: "cards",
+            source: source.cards
+          },
+          {
+            label: "data",
+            source: source.data
+          }
+        ],
+        color: "black"
+      });
       hideFooterShape();
       return () => {
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
         showFooterShape();
       };
     });
@@ -30527,7 +30547,6 @@ Loading snippet ...</pre
     getRefs
   }) => {
     const { svg } = getState();
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ element }) => {
       const { textStagger } = getRefs();
       const svg_group = element.querySelectorAll('[ref="svg_group"]');
@@ -30540,33 +30559,35 @@ Loading snippet ...</pre
       playAnimation({ playIntro, playText, playSvg });
       const { home: home2 } = getLegendData();
       const { source } = home2;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "Logo animation",
-          source: source.logoAnimation
-        },
-        {
-          label: "text animation",
-          source: source.textAnimation
-        }
-      ]);
-      setCodeButtonState("color", "black");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "component",
+            source: source.component
+          },
+          {
+            label: "Logo animation",
+            source: source.logoAnimation
+          },
+          {
+            label: "text animation",
+            source: source.textAnimation
+          }
+        ],
+        color: "black"
+      });
       return () => {
         destroy2();
         destroyText();
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
       };
     });
     return html`<div>
@@ -30880,32 +30901,33 @@ Loading snippet ...</pre
     invalidate,
     getState
   }) => {
-    const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
       const { matrioska } = getLegendData();
       const { source } = matrioska;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "main",
-          source: source.mainComponent
-        },
-        {
-          label: "cards",
-          source: source.cards
-        }
-      ]);
-      setCodeButtonState("color", "black");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "main",
+            source: source.mainComponent
+          },
+          {
+            label: "cards",
+            source: source.cards
+          }
+        ],
+        color: "black"
+      });
       hideFooterShape();
       return () => {
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
         showFooterShape();
       };
     });
@@ -31285,7 +31307,6 @@ Loading snippet ...</pre
         ...getState(),
         setState
       });
-      const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
         prevRoute,
@@ -31299,33 +31320,35 @@ Loading snippet ...</pre
       });
       const { horizontalScroller: horizontalScroller2 } = getLegendData();
       const { source } = horizontalScroller2;
-      setCodeButtonState("drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "scroller",
-          source: source.scroller
-        },
-        {
-          label: "section",
-          source: source.section
-        },
-        {
-          label: "buttons",
-          source: source.buttons
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setCodeButtonState("color", "white");
+      updateCodeButton({
+        drawers: [
+          {
+            label: "description",
+            source: source.description
+          },
+          {
+            label: "definition",
+            source: source.definition
+          },
+          {
+            label: "scroller",
+            source: source.scroller
+          },
+          {
+            label: "section",
+            source: source.section
+          },
+          {
+            label: "buttons",
+            source: source.buttons
+          },
+          {
+            label: "animation",
+            source: source.animation
+          }
+        ],
+        color: "white"
+      });
       window.scrollTo(0, 0);
       watch("currentId", (id) => {
         if (id === -1) return;
@@ -31349,7 +31372,7 @@ Loading snippet ...</pre
         destroy2();
         resetQuickNavState();
         resetAnimationTitle();
-        setCodeButtonState("drawers", []);
+        resetCodeButton();
       };
     });
     if (motionCore.mq("max", "desktop"))

@@ -5,7 +5,6 @@
  * @import { ScrollerN1 } from './type';
  * @import { SetStateByName } from '../../../../mobjs/type';
  * @import { ScrollDownLabel } from '../../../common/scrolldownLabel/type';
- * @import { CodeButton } from '../../../common/codeButton/type';]
  **/
 
 import { getLegendData } from '../../../../data';
@@ -16,6 +15,10 @@ import {
     resetAnimationTitle,
     updateAnimationTitle,
 } from '../../../common/animationTitle/utils';
+import {
+    resetCodeButton,
+    updateCodeButton,
+} from '../../../common/codeButton/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -38,9 +41,6 @@ export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
 
         /** @type {SetStateByName<ScrollDownLabel>} */
         const setScrollDownState = setStateByName('scroll_down_label');
-
-        /** @type {SetStateByName<CodeButton>} */
-        const setCodeButtonState = setStateByName('global-code-button');
 
         /**
          * Show scroll down label.
@@ -70,25 +70,27 @@ export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
          */
         const { scrollerN1 } = getLegendData();
         const { source } = scrollerN1;
-        setCodeButtonState('drawers', [
-            {
-                label: 'description',
-                source: source.description,
-            },
-            {
-                label: 'definition',
-                source: source.definition,
-            },
-            {
-                label: 'component',
-                source: source.component,
-            },
-            {
-                label: 'animation',
-                source: source.animation,
-            },
-        ]);
-        setCodeButtonState('color', 'white');
+        updateCodeButton({
+            drawers: [
+                {
+                    label: 'description',
+                    source: source.description,
+                },
+                {
+                    label: 'definition',
+                    source: source.definition,
+                },
+                {
+                    label: 'component',
+                    source: source.component,
+                },
+                {
+                    label: 'animation',
+                    source: source.animation,
+                },
+            ],
+            color: 'white',
+        });
 
         /**
          * Refs
@@ -114,7 +116,7 @@ export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
             setScrollDownState('active', false);
             resetQuickNavState();
             resetAnimationTitle();
-            setCodeButtonState('drawers', []);
+            resetCodeButton();
             document.body.style.background = '';
             showFooterShape();
         };
