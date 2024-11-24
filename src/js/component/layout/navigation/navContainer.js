@@ -39,7 +39,7 @@ function addHandler({ main, toTopBtn }) {
     });
 }
 
-/** @type {import('../../../mobjs/type').MobComponent} */
+/** @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationContainer>} */
 export const NavigationContainerFn = ({
     html,
     onMount,

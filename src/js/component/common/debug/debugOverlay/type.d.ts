@@ -3,4 +3,7 @@ export interface DebugOverlay {
         active: boolean;
         listType: string;
     };
+    methods: {
+        toggle: () => void;
+    };
 }

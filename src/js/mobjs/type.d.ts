@@ -63,7 +63,7 @@ export type Invalidate<T> = PartialInvalidateComponent<T>;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 export type SetStateByName<T> = PartialSetStateByName<T>;
 export type UpdateStateByName<T> = PartialUpdateStateByName<T>;
-export type Methods = PartialMethods;
+export type Methods<T> = PartialMethods<T>;
 export type SetRef = PartialSetRef;
 export type GetRef = PartialGetRef;
 export type GetRefs = PartialGetRefs;
@@ -495,7 +495,7 @@ export interface componentPropsType<T, R> {
      * };
      * ```
      */
-    addMethod: PartialMethods;
+    addMethod: PartialMethods<T>;
 
     /**
      * @description

@@ -86,23 +86,20 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         data: { depth: 0, rotateX: 0, rotateY: 0 },
     });
 
-    addMethod(
-        'move',
-        (/** @type{{delta:number, limit:number}} */ { delta, limit }) => {
-            if (animate) {
-                move({
-                    delta,
-                    limit,
-                    initialRotate,
-                    depth,
-                    range,
-                    rotate,
-                    anchorPoint,
-                    lerp,
-                });
-            }
+    addMethod('move', ({ delta, limit }) => {
+        if (animate) {
+            move({
+                delta,
+                limit,
+                initialRotate,
+                depth,
+                range,
+                rotate,
+                anchorPoint,
+                lerp,
+            });
         }
-    );
+    });
 
     onMount(({ element }) => {
         const unsubscribelerp = lerp.subscribe(

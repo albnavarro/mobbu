@@ -75,7 +75,7 @@ export const useMethodByName = (name) => {
 
 /**
  * @param {string} name
- * @returns {{[key:string]:(...args: any[]) => void}[]}
+ * @returns {object}
  *
  * @description
  * Get array of  method by id

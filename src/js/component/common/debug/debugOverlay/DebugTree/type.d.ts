@@ -5,4 +5,7 @@ export interface DebugTree {
         data: DebugTreeItem[];
         isLoading: boolean;
     };
+    methods: {
+        refresh: () => void;
+    };
 }

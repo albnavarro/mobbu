@@ -7,7 +7,7 @@ import { Recursive3Dshape } from './partials/recursive3Dshape';
 import { getChildrenMethod, getMove3DDimension } from './utils';
 
 /**
- * @import { MobComponent} from '../../../mobjs/type';
+ * @import { MobComponent } from '../../../mobjs/type';
  **/
 
 /** @type {MobComponent<import('./type').Move3D>} */

@@ -5,4 +5,7 @@ export interface DebugFilterList {
         data: DebugFilterListItem[];
         isLoading: boolean;
     };
+    methods: {
+        refreshList: (arg0: { testString: string }) => void;
+    };
 }

@@ -32,4 +32,14 @@ export interface Navigation {
     state: {
         currentAccordionId: number;
     };
+    methods: {
+        closeAllAccordion: (arg0: { fireCallback?: boolean }) => void;
+    };
+}
+
+export interface NavigationContainer {
+    methods: {
+        scrollTop: () => void;
+        refresh: () => void;
+    };
 }

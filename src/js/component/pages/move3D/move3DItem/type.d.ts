@@ -33,6 +33,9 @@ export interface Move3DItem {
             props?: any;
         };
     };
+    methods: {
+        move: (arg0: { delta: number; limit: number }) => void;
+    };
 }
 
 export type Move3DItemMove = (arg0: {

@@ -1,5 +1,3 @@
 export interface DebugActiveComponentStore {
-    state: {
-        currentId: string;
-    };
+    currentId: string;
 }

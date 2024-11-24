@@ -3,6 +3,7 @@ import { delegateEventObject } from '../modules/delegateEvents/type';
 import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 
 type GetState<T> = T['state'];
+type GetMethods<T> = T['methods'];
 
 /**
  * bindProps.
@@ -341,9 +342,11 @@ export type PartialStaticProps<R> = (arg0: Partial<GetState<R>>) => string;
 /**
  * Methods
  */
-export type PartialMethods = (
-    name: string,
-    fn: (...args: any[]) => void
+export type PartialMethods<T> = <
+    K extends keyof Record<string & keyof GetMethods<T>, function>,
+>(
+    name: K,
+    fn: GetMethods<T>[K]
 ) => void;
 
 /**
