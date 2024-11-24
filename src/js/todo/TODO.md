@@ -38,9 +38,6 @@
 - `Dragger`.
 
 
-# General
-- Alias: aggiungere gli alias @ !!!!
-
 # DOCS
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
@@ -55,16 +52,19 @@
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
 
 ### Methods
-- Capire come gestire i tipi sui metodi.
-    - Fare un tipo apposito come per lo stato pasarlo come `Methods<myInterface>`.
+- Trovare il modo di usare nei tipi la propietá `methods` metodi su `useMethodByName` e `useMethodArrayByName`
+
+### Docs
+- Sezione specifica per usare i typi
+    - `MobComponent` ( state && methods ).
+    - `MobComponentAsync` ( state && methods.
+    - Singoli come `SetState`.
+    - `ReturnBindProps`.
 
 
 # Mob motion
 
 ### Plugin
-- Sostiuire i typedef con delle interfaccie.
-- Abilitare TS check.
-- Slide passare da Array a Map con Element come chiave.
 
 ### AsyncTimeline
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.
