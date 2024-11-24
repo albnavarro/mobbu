@@ -1,4 +1,6 @@
 export interface HorizontalScrollerButton {
-    id: number;
-    active: boolean;
+    state: {
+        id: number;
+        active: boolean;
+    };
 }

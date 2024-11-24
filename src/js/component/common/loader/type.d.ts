@@ -1,4 +1,6 @@
 export interface Loader {
-    shouldRemove: boolean;
-    position: 'center-viewport' | 'center-component';
+    state: {
+        shouldRemove: boolean;
+        position: 'center-viewport' | 'center-component';
+    };
 }

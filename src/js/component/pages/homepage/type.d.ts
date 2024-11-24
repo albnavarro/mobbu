@@ -1,3 +1,5 @@
 export interface HomeComponent {
-    svg: string;
+    state: {
+        svg: string;
+    };
 }

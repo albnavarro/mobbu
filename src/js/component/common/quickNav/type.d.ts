@@ -1,8 +1,10 @@
 export interface QuickNav {
-    color: 'white' | 'black';
-    active: boolean;
-    prevRoute: string;
-    nextRoute: string;
+    state: {
+        color: 'white' | 'black';
+        active: boolean;
+        prevRoute: string;
+        nextRoute: string;
+    };
 }
 
 export type updateQuickNavState = (arg0: {

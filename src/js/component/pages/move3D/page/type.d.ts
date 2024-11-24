@@ -1,7 +1,9 @@
 import { Move3DChildren } from '../type';
 
 export interface Move3DPage {
-    data: Move3DChildren[];
-    prevRoute: string;
-    nextRoute: string;
+    state: {
+        data: Move3DChildren[];
+        prevRoute: string;
+        nextRoute: string;
+    };
 }

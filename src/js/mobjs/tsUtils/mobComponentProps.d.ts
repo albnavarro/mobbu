@@ -2,13 +2,15 @@ import { bindEventsObject } from '../modules/bindEvents/type';
 import { delegateEventObject } from '../modules/delegateEvents/type';
 import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 
+type GetState<T> = T['state'];
+
 /**
  * bindProps.
  */
 export type PartialBindProps<T, R> = (arg0: {
-    bind?: OnlyStringKey<T>[];
+    bind?: OnlyStringKey<GetState<T>>[];
     forceParent?: boolean;
-    props: (arg0: T, index: number) => Partial<R>;
+    props: (arg0: GetState<T>, index: number) => Partial<GetState<R>>;
 }) => string;
 
 /**
@@ -28,23 +30,23 @@ export type PartialBindEvents = (
 /**
  * getState
  */
-export type PartialGetState<T> = () => T;
+export type PartialGetState<T> = () => GetState<T>;
 
 /**
  * setState
  */
-export type PartialSetState<T> = <K extends keyof T>(
+export type PartialSetState<T> = <K extends keyof GetState<T>>(
     prop: K,
-    value: T[K],
+    value: GetState<T>[K],
     fireCallback?: boolean
 ) => void;
 
 /**
  * afterState
  */
-export type PartialUpdateState<T> = <K extends keyof T>(
+export type PartialUpdateState<T> = <K extends keyof GetState<T>>(
     prop: K,
-    value: (arg0: T[K]) => Partial<T[K]>,
+    value: (arg0: GetState<T>[K]) => Partial<GetState<T>[K]>,
     fireCallback?: boolean,
     clone?: boolean
 ) => void;
@@ -52,9 +54,9 @@ export type PartialUpdateState<T> = <K extends keyof T>(
 /**
  * setStateByName
  */
-export type PartialSetStateByName<T> = <K extends keyof T>(
+export type PartialSetStateByName<T> = <K extends keyof GetState<T>>(
     prop: K,
-    value: T[K],
+    value: GetState<T>[K],
     fireCallback?: boolean,
     clone?: boolean
 ) => void;
@@ -62,9 +64,9 @@ export type PartialSetStateByName<T> = <K extends keyof T>(
 /**
  * updateStetByName
  */
-export type PartialUpdateStateByName<T> = <K extends keyof T>(
+export type PartialUpdateStateByName<T> = <K extends keyof GetState<T>>(
     prop: K,
-    value: (arg0: T[K]) => T[K],
+    value: (arg0: GetState<T>[K]) => GetState<T>[K],
     fireCallback?: boolean,
     clone?: boolean
 ) => void;
@@ -72,30 +74,34 @@ export type PartialUpdateStateByName<T> = <K extends keyof T>(
 /**
  * emit
  */
-export type PartialEmit<T> = (prop: keyof T) => void;
+export type PartialEmit<T> = (prop: keyof GetState<T>) => void;
 
 /**
  * emitAsync
  */
 export type PartialEmitAsync<T> = (
-    prop: keyof T
+    prop: keyof GetState<T>
 ) => Promise<{ success: boolean }>;
 
 /**
  * computed
  */
-export type PartialCompunted<T> = <K extends keyof T>(
+export type PartialCompunted<T> = <K extends keyof GetState<T>>(
     prop: K,
-    keys: NotValue<keyof T, K>[],
-    callback: (arg0: T) => T[K]
+    keys: NotValue<keyof GetState<T>, K>[],
+    callback: (arg0: GetState<T>) => GetState<T>[K]
 ) => void;
 
 /**
  * watch
  */
-export type PartialWatch<T> = <K extends keyof T>(
+export type PartialWatch<T> = <K extends keyof GetState<T>>(
     prop: K,
-    callback: (current: T[K], previous: T[K], validate: boolean) => void
+    callback: (
+        current: GetState<T>[K],
+        previous: GetState<T>[K],
+        validate: boolean
+    ) => void
 ) => () => void;
 
 /**
@@ -116,12 +122,12 @@ export type PartialGetChildren = (componentName: string) => string[];
 /**
  * freezeProp
  */
-export type PartialFreezeProp<T> = (prop: keyof T) => void;
+export type PartialFreezeProp<T> = (prop: keyof GetState<T>) => void;
 
 /**
  * unFreezeProp
  */
-export type PartialUnFreezeProp<T> = (prop: keyof T) => void;
+export type PartialUnFreezeProp<T> = (prop: keyof GetState<T>) => void;
 
 /**
  * getParentId
@@ -153,7 +159,7 @@ export type PartialOnMount = (
 /**
  * repeat
  */
-export type PartialRepeat<T> = <K extends keyof T>(arg0: {
+export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
     /**
      * @description
      * Clean previous item.
@@ -170,7 +176,7 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
      * @description
      * Array of object used to create list
      */
-    bind: OnlyStringKey<T>;
+    bind: OnlyStringKey<GetState<T>>;
 
     /**
      * @description
@@ -292,7 +298,7 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
     render: (arg0: {
         sync: () => string;
         index: number;
-        currentValue: ArrayElement<T[K]>;
+        currentValue: ArrayElement<GetState<T>[K]>;
         html: (
             template: { raw: readonly string[] | ArrayLike<string> },
             ...substitutions: any[]
@@ -315,7 +321,7 @@ export type PartialRenderComponent = (arg0: {
  * Invalidate component
  */
 export type PartialInvalidateComponent<T> = (arg0: {
-    bind?: OnlyStringKey<T>[] | OnlyStringKey<T>;
+    bind?: OnlyStringKey<GetState<T>>[] | OnlyStringKey<GetState<T>>;
     persistent?: boolean;
     beforeUpdate?(): Promise<void>;
     afterUpdate?(): void;
@@ -330,7 +336,7 @@ export type PartialInvalidateComponent<T> = (arg0: {
 /**
  * StaticProps
  */
-export type PartialStaticProps<R> = (arg0: Partial<R>) => string;
+export type PartialStaticProps<R> = (arg0: Partial<GetState<R>>) => string;
 
 /**
  * Methods
@@ -347,3 +353,4 @@ export type PartialSetRef = (string) => string;
 export type PartialGetRef = () => Record<string, HTMLElement>;
 export type PartialGetRefs = () => Record<string, HTMLElement[]>;
 export type PartialBindText = (TemplateStringsArray, ...any) => string;
+export type PartialReturnBindProps<T> = Partial<GetState<T>>;

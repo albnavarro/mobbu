@@ -8,7 +8,7 @@ import { benchMarkGarbagePartial } from '../partials/benchMarkGarbagePartial';
 import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
  **/
 
 /** @type {MobComponent<import('../type').BenchMark>} */
@@ -76,7 +76,7 @@ export const BenchMarkInvalidateFn = ({
                                         })}
                                         ${bindProps({
                                             bind: ['counter'],
-                                            /** @returns{Partial<import('../fakeComponent/type').BenchMarkFakeComponent>} */
+                                            /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
                                             props: ({ counter }) => {
                                                 return {
                                                     counter,

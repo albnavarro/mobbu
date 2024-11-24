@@ -1,3 +1,5 @@
 export interface DebugComponent {
-    id: string;
+    state: {
+        id: string;
+    };
 }

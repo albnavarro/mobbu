@@ -1,4 +1,6 @@
 export interface AnchorBUtton {
-    anchor: string;
-    content: string;
+    state: {
+        anchor: string;
+        content: string;
+    };
 }

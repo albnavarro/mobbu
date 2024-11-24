@@ -1,4 +1,6 @@
 export interface HorizontalScrollerSection {
-    id: number;
-    pinClass: string;
+    state: {
+        id: number;
+        pinClass: string;
+    };
 }

@@ -1,5 +1,7 @@
 export interface Title {
-    tag: string;
-    color: 'white' | 'hightlight';
-    isBold: boolean;
+    state: {
+        tag: string;
+        color: 'white' | 'hightlight';
+        isBold: boolean;
+    };
 }

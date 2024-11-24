@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
- * @import { NavigationSubmenu } from './type';
+ * @import { MobComponent, ReturnBindProps } from '../../../mobjs/type';
+ * @import { NavigationButton, NavigationSubmenu } from './type';
  **/
 
 import { html, useMethodByName } from '../../../mobjs';
@@ -93,7 +93,7 @@ export const NavigationSubmenuFn = ({
                 })}
                 ${bindProps({
                     bind: ['isOpen'],
-                    /** @returns {Partial<import('./type').NavigationButton>} */
+                    /** @returns {ReturnBindProps<NavigationButton>} */
                     props: ({ isOpen }) => {
                         return { isOpen };
                     },

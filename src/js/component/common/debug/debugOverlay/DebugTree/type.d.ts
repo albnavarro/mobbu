@@ -1,6 +1,8 @@
 import { DebugTreeItem } from './DebugTreeItem/type';
 
 export interface DebugTree {
-    data: DebugTreeItem[];
-    isLoading: boolean;
+    state: {
+        data: DebugTreeItem[];
+        isLoading: boolean;
+    };
 }

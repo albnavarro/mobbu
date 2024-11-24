@@ -1,7 +1,9 @@
 export interface MatrioskaItem {
-    level: string;
-    key: string;
-    value: string;
-    active: boolean;
-    counter: number;
+    state: {
+        level: string;
+        key: string;
+        value: string;
+        active: boolean;
+        counter: number;
+    };
 }

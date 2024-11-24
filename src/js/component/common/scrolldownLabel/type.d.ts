@@ -1,3 +1,5 @@
 export interface ScrollDownLabel {
-    active: boolean;
+    state: {
+        active: boolean;
+    };
 }

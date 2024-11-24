@@ -1,3 +1,5 @@
 export interface RouteLoader {
-    isLoading: boolean;
+    state: {
+        isLoading: boolean;
+    };
 }

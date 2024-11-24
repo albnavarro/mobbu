@@ -1,4 +1,6 @@
 export interface BenchMarkFakeComponent {
-    counter: number;
-    label: string;
+    state: {
+        counter: number;
+        label: string;
+    };
 }

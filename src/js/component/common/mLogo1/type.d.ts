@@ -1,4 +1,6 @@
 export interface MLogo1 {
-    svg: string;
-    active: boolean;
+    state: {
+        svg: string;
+        active: boolean;
+    };
 }

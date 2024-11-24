@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat,  UpdateStateByName, Invalidate, GetState } from '../../../mobjs/type'
+ * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat,  UpdateStateByName, Invalidate, GetState, ReturnBindProps } from '../../../mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
  */
@@ -358,7 +358,7 @@ export const MatrioskaFn = ({
                                     ${staticProps({ level: 'level 1' })}
                                     ${bindProps({
                                         bind: ['counter'],
-                                        /** @returns{Partial<MatrioskaItem>} */
+                                        /** @returns{ReturnBindProps<MatrioskaItem>} */
                                         props: ({ level1, counter }, index) => {
                                             return {
                                                 key: `${level1[index]?.key}`,

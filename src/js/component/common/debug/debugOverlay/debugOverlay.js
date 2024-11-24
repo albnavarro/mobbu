@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
  **/
 
 import { consoleLogDebug } from '../consoleLog';
@@ -78,7 +78,7 @@ export const DebugOverlayFn = ({
                 <debug-head
                     ${bindProps({
                         bind: ['active'],
-                        /** @returns{Partial<import('./Debughead/type').DebugHead>} */
+                        /** @returns{ReturnBindProps<import('./Debughead/type').DebugHead>} */
                         props: ({ active }) => {
                             return {
                                 active,

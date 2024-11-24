@@ -1,3 +1,5 @@
 export interface OnlyDesktop {
-    active: boolean;
+    state: {
+        active: boolean;
+    };
 }

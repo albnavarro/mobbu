@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { GetState, MobComponent, SetState } from '../../../mobjs/type';
+ * @import { GetState, MobComponent } from '../../../mobjs/type';
  **/
 
 import { mobCore } from '../../../mobCore';

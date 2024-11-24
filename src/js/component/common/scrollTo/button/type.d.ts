@@ -1,4 +1,6 @@
 export interface ScrollToButton {
-    label: string;
-    active: boolean;
+    state: {
+        label: string;
+        active: boolean;
+    };
 }

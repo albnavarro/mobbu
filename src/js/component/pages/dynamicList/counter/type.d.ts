@@ -1,4 +1,6 @@
 export interface DynamicCounter {
-    parentListId: number;
-    counter: number;
+    state: {
+        parentListId: number;
+        counter: number;
+    };
 }

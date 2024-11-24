@@ -10,7 +10,7 @@ import {
 } from '../../../common/quickNav/utils';
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
  **/
 
 /** @type {MobComponent<import('./type').Move3DPage>} */
@@ -43,7 +43,7 @@ export const Move3DPagefn = ({ onMount, html, bindProps, getState }) => {
         <move-3d
             ${bindProps({
                 bind: ['data'],
-                /** @returns{Partial<import('../type').Move3D>} */
+                /** @returns{ReturnBindProps<import('../type').Move3D>} */
                 props: ({ data }) => {
                     return {
                         shape: data,
@@ -54,7 +54,7 @@ export const Move3DPagefn = ({ onMount, html, bindProps, getState }) => {
         <move-3d
             ${bindProps({
                 bind: ['data'],
-                /** @returns{Partial<import('../type').Move3D>} */
+                /** @returns{ReturnBindProps<import('../type').Move3D>} */
                 props: ({ data }) => {
                     return {
                         shape: data,

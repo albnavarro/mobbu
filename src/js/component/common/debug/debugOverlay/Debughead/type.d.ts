@@ -1,4 +1,6 @@
 export interface DebugHead {
-    active: boolean;
-    shouldUpdate: boolean;
+    state: {
+        active: boolean;
+        shouldUpdate: boolean;
+    };
 }

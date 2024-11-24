@@ -1,4 +1,6 @@
 export interface SvgChild {
-    star: string;
-    svg: string;
+    state: {
+        star: string;
+        svg: string;
+    };
 }

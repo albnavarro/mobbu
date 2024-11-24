@@ -12,24 +12,26 @@ type AnchorPoint =
 type Rotate = 'x' | 'y' | 'xy' | '';
 
 export interface Move3DItem {
-    root?: boolean;
-    id: number;
-    depth: number;
-    rotate: Rotate;
-    range: number;
-    anchorPoint: AnchorPoint;
-    animate: boolean;
-    width: number;
-    height: number;
-    offsetX: number;
-    offsetY: number;
-    initialRotate: number;
-    initialDepth: number;
-    classList: string;
-    component?: {
-        tagName: string;
-        className?: string;
-        props?: any;
+    state: {
+        root?: boolean;
+        id: number;
+        depth: number;
+        rotate: Rotate;
+        range: number;
+        anchorPoint: AnchorPoint;
+        animate: boolean;
+        width: number;
+        height: number;
+        offsetX: number;
+        offsetY: number;
+        initialRotate: number;
+        initialDepth: number;
+        classList: string;
+        component?: {
+            tagName: string;
+            className?: string;
+            props?: any;
+        };
     };
 }
 

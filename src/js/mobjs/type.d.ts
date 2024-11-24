@@ -34,6 +34,7 @@ import {
     PartialGetRef,
     PartialGetRefs,
     PartialBindText,
+    PartialReturnBindProps,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -67,6 +68,7 @@ export type SetRef = PartialSetRef;
 export type GetRef = PartialGetRef;
 export type GetRefs = PartialGetRefs;
 export type Bindtext = PartialBindText;
+export type ReturnBindProps<T> = PartialReturnBindProps<T>;
 
 /**
  * Main component.

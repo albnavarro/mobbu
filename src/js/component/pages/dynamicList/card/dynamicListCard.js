@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
  * @import { StaticProps, DelegateEvents, GetState } from '../../../../mobjs/type';
  * @import { DynamicListCardInner } from './innerCard/type';
  * @import { DynamicListCard } from './type';
@@ -128,7 +128,7 @@ export const DynamicListCardFn = ({
                         })}
                         ${bindProps({
                             bind: ['counter'],
-                            /** @return {Partial<DynamicCounter>} */
+                            /** @return {ReturnBindProps<DynamicCounter>} */
                             props: ({ counter }) => {
                                 return { counter };
                             },
@@ -163,7 +163,7 @@ export const DynamicListCardFn = ({
                             render: ({ sync, html }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
-                                        /** @return {Partial<DynamicListCardInner>} */
+                                        /** @return {ReturnBindProps<DynamicListCardInner>} */
                                         props: ({ innerData }, index) => {
                                             return {
                                                 key: `${innerData[index].key}`,
@@ -183,7 +183,7 @@ export const DynamicListCardFn = ({
                             render: ({ sync, html }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
-                                        /** @return {Partial<DynamicListCardInner>} */
+                                        /** @return {ReturnBindProps<DynamicListCardInner>} */
                                         props: ({ innerData }, index) => {
                                             return {
                                                 key: `${innerData[index].key}`,

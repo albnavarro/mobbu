@@ -1,3 +1,5 @@
 export interface StarSvg {
-    fill: string;
+    state: {
+        fill: string;
+    };
 }

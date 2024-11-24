@@ -1,3 +1,5 @@
 export interface ScrollToTop {
-    active: boolean;
+    state: {
+        active: boolean;
+    };
 }

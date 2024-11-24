@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
  * @import { StaticProps, GetState, BindProps, DelegateEvents } from '../../../../mobjs/type';
  * @import { DynamicListCard } from '../card/type';
  * @import { DynamicListRepeater } from './type';
@@ -34,7 +34,7 @@ function getRepeaterCard({
                 })}
                 ${bindProps({
                     bind: ['counter'],
-                    /** @returns {Partial<import('../card/type').DynamicListCard>} */
+                    /** @returns {ReturnBindProps<DynamicListCard>} */
                     props: ({ counter, data }, index) => {
                         return {
                             counter,
@@ -57,7 +57,7 @@ function getRepeaterCard({
                     slot="card-label-slot"
                     ${bindProps({
                         bind: ['counter'],
-                        /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
+                        /** @returns {ReturnBindProps<import('../slottedLabel/type').DynamicListSlottedLabel>} */
                         props: ({ data, counter }, index) => {
                             return {
                                 label: `label: ${data[index].label} <br/> counter: ${counter}`,

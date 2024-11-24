@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import {  MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, UpdateStateByName, GetState, Invalidate } from '../../../mobjs/type'
+ * @import {  MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, UpdateStateByName, GetState, Invalidate, ReturnBindProps } from '../../../mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
  */
@@ -272,6 +272,7 @@ const getThirdLevel = ({
                                             /** @type {UpdateStateByName<MatrioskaItem>} */
                                             const updateActiveState =
                                                 updateStateByName(name2);
+
                                             updateActiveState(
                                                 'active',
                                                 (val) => !val
@@ -367,7 +368,7 @@ export const MatrioskaInvalidateFn = ({
                                             ${staticProps({ level: 'level 1' })}
                                             ${bindProps({
                                                 bind: ['counter'],
-                                                /** @returns{Partial<MatrioskaItem>} */
+                                                /** @returns{ReturnBindProps<MatrioskaItem>} */
                                                 props: ({ counter }) => {
                                                     return {
                                                         key: `${item.key}`,

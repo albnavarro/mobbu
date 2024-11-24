@@ -1,4 +1,6 @@
 export interface FooterNavButton {
-    label: string;
-    section: string;
+    state: {
+        label: string;
+        section: string;
+    };
 }
