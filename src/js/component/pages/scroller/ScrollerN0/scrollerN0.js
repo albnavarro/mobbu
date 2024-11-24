@@ -5,7 +5,6 @@
  * @import { ScrollerN0 } from './type';
  * @import { SetStateByName } from '../../../../mobjs/type';
  * @import { ScrollDownLabel } from '../../../common/scrolldownLabel/type';
- * @import { AnimationTitle } from '../../../common/animationTitle/type';
  * @import { CodeButton } from '../../../common/codeButton/type';]
  **/
 
@@ -13,6 +12,10 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import {
+    resetAnimationTitle,
+    updateAnimationTitle,
+} from '../../../common/animationTitle/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -37,9 +40,6 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
         /** @type {SetStateByName<ScrollDownLabel>} */
         const setScrollDownState = setStateByName('scroll_down_label');
 
-        /** @type {SetStateByName<AnimationTitle>} */
-        const setMainTitleState = setStateByName('animation_title');
-
         /** @type {SetStateByName<CodeButton>} */
         const setCodeButtonState = setStateByName('global-code-button');
 
@@ -56,12 +56,12 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
             color: 'white',
         });
 
-        /**
-         * Title.
-         */
-        setMainTitleState('align', 'left');
-        setMainTitleState('color', 'white');
-        setMainTitleState('title', title);
+        /** Title */
+        updateAnimationTitle({
+            align: 'left',
+            title,
+            color: 'white',
+        });
 
         // Footer shape
         hideFooterShape();
@@ -119,8 +119,7 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
              */
             setScrollDownState('active', false);
             resetQuickNavState();
-            setMainTitleState('align', '');
-            setMainTitleState('title', '');
+            resetAnimationTitle();
             setCodeButtonState('drawers', []);
             document.body.style.background = '';
             showFooterShape();

@@ -26691,6 +26691,24 @@ Loading snippet ...</pre
     return renderHtml`<div class="l-benchMark"><${rootComponent}></${rootComponent}></div>`;
   };
 
+  // src/js/component/common/animationTitle/utils.js
+  var updateAnimationTitle = ({
+    align = "left",
+    color = "white",
+    title = ""
+  }) => {
+    const setMainTitleState = setStateByName("animation_title");
+    setMainTitleState("align", align);
+    setMainTitleState("title", title);
+    setMainTitleState("color", color);
+  };
+  var resetAnimationTitle = () => {
+    const setMainTitleState = setStateByName("animation_title");
+    setMainTitleState("align", "");
+    setMainTitleState("title", "");
+    setMainTitleState("color", "white");
+  };
+
   // src/js/component/common/quickNav/utils.js
   var updateQuickNavState = ({
     active = true,
@@ -27002,7 +27020,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = getRef();
-      const setMainTitleState = setStateByName("animation_title");
       const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
@@ -27010,9 +27027,11 @@ Loading snippet ...</pre
         nextRoute,
         color: "white"
       });
-      setMainTitleState("align", "left");
-      setMainTitleState("color", "white");
-      setMainTitleState("title", title);
+      updateAnimationTitle({
+        align: "left",
+        title,
+        color: "white"
+      });
       hideFooterShape();
       const { animatedPatternN0: animatedPatternN02 } = getLegendData();
       const { source } = animatedPatternN02;
@@ -27045,8 +27064,7 @@ Loading snippet ...</pre
       return () => {
         destroyAnimation();
         resetQuickNavState();
-        setMainTitleState("align", "");
-        setMainTitleState("title", "");
+        resetAnimationTitle();
         setCodeButtonState("drawers", []);
         showFooterShape();
         document.body.style.background = "";
@@ -27510,7 +27528,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = getRef();
-      const setMainTitleState = setStateByName("animation_title");
       const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
@@ -27518,9 +27535,11 @@ Loading snippet ...</pre
         nextRoute: "#scrollerN0?version=0&activeId=0",
         color: "white"
       });
-      setMainTitleState("align", "left");
-      setMainTitleState("color", "white");
-      setMainTitleState("title", "Animated pattern N1");
+      updateAnimationTitle({
+        align: "left",
+        title: "Animated pattern N1",
+        color: "white"
+      });
       hideFooterShape();
       const { animatedPatternN1: animatedPatternN12 } = getLegendData();
       const { source } = animatedPatternN12;
@@ -27552,8 +27571,7 @@ Loading snippet ...</pre
       });
       return () => {
         resetQuickNavState();
-        setMainTitleState("align", "");
-        setMainTitleState("title", "");
+        resetAnimationTitle();
         setCodeButtonState("drawers", []);
         document.body.style.background = "";
         destroyAnimation();
@@ -27838,7 +27856,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = getRef();
-      const setMainTitleState = setStateByName("animation_title");
       const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
@@ -27846,9 +27863,11 @@ Loading snippet ...</pre
         nextRoute: "#caterpillarN1",
         color: "white"
       });
-      setMainTitleState("align", "left");
-      setMainTitleState("color", "white");
-      setMainTitleState("title", "Caterpillar N0");
+      updateAnimationTitle({
+        align: "left",
+        title: "Caterpillar N0",
+        color: "white"
+      });
       hideFooterShape();
       const { caterpillarN0: caterpillarN02 } = getLegendData();
       const { source } = caterpillarN02;
@@ -27881,8 +27900,7 @@ Loading snippet ...</pre
       return () => {
         destroyAnimation();
         resetQuickNavState();
-        setMainTitleState("align", "");
-        setMainTitleState("title", "");
+        resetAnimationTitle();
         setCodeButtonState("drawers", []);
         document.body.style.background = "";
         showFooterShape();
@@ -28174,7 +28192,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = getRef();
-      const setMainTitleState = setStateByName("animation_title");
       const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
@@ -28182,9 +28199,11 @@ Loading snippet ...</pre
         nextRoute: "#caterpillarN2",
         color: "white"
       });
-      setMainTitleState("align", "left");
-      setMainTitleState("color", "white");
-      setMainTitleState("title", "Caterpillar N1");
+      updateAnimationTitle({
+        align: "left",
+        title: "Caterpillar N1",
+        color: "white"
+      });
       hideFooterShape();
       const { caterpillarN1: caterpillarN12 } = getLegendData();
       const { source } = caterpillarN12;
@@ -28217,8 +28236,7 @@ Loading snippet ...</pre
       return () => {
         destroyAnimation();
         resetQuickNavState();
-        setMainTitleState("align", "");
-        setMainTitleState("title", "");
+        resetAnimationTitle();
         setCodeButtonState("drawers", []);
         document.body.style.background = "";
         showFooterShape();
@@ -28504,7 +28522,6 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas, rangeValue, rotationButton } = getRef();
-      const setMainTitleState = setStateByName("animation_title");
       const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
@@ -28512,9 +28529,11 @@ Loading snippet ...</pre
         nextRoute: "#animatedPatternN0?version=0&activeId=0",
         color: "white"
       });
-      setMainTitleState("align", "left");
-      setMainTitleState("color", "white");
-      setMainTitleState("title", "Caterpillar N2");
+      updateAnimationTitle({
+        align: "left",
+        title: "Caterpillar N2",
+        color: "white"
+      });
       hideFooterShape();
       const { caterpillarN2: caterpillarN22 } = getLegendData();
       const { source } = caterpillarN22;
@@ -28557,8 +28576,7 @@ Loading snippet ...</pre
       });
       return () => {
         resetQuickNavState();
-        setMainTitleState("align", "");
-        setMainTitleState("title", "");
+        resetAnimationTitle();
         setCodeButtonState("drawers", []);
         document.body.style.background = "";
         destroy2();
@@ -28940,7 +28958,6 @@ Loading snippet ...</pre
         return;
       }
       const setScrollDownState = setStateByName("scroll_down_label");
-      const setMainTitleState = setStateByName("animation_title");
       const setCodeButtonState = setStateByName("global-code-button");
       setScrollDownState("active", true);
       updateQuickNavState({
@@ -28949,9 +28966,11 @@ Loading snippet ...</pre
         nextRoute,
         color: "white"
       });
-      setMainTitleState("align", "left");
-      setMainTitleState("color", "white");
-      setMainTitleState("title", title);
+      updateAnimationTitle({
+        align: "left",
+        title,
+        color: "white"
+      });
       hideFooterShape();
       const { scrollerN0: scrollerN02 } = getLegendData();
       const { source } = scrollerN02;
@@ -28988,8 +29007,7 @@ Loading snippet ...</pre
         destroyAnimation();
         setScrollDownState("active", false);
         resetQuickNavState();
-        setMainTitleState("align", "");
-        setMainTitleState("title", "");
+        resetAnimationTitle();
         setCodeButtonState("drawers", []);
         document.body.style.background = "";
         showFooterShape();
@@ -29377,7 +29395,6 @@ Loading snippet ...</pre
         return;
       }
       const setScrollDownState = setStateByName("scroll_down_label");
-      const setMainTitleState = setStateByName("animation_title");
       const setCodeButtonState = setStateByName("global-code-button");
       setScrollDownState("active", true);
       updateQuickNavState({
@@ -29386,9 +29403,11 @@ Loading snippet ...</pre
         nextRoute: "",
         color: "white"
       });
-      setMainTitleState("align", "left");
-      setMainTitleState("color", "white");
-      setMainTitleState("title", "Scroller N1");
+      updateAnimationTitle({
+        align: "left",
+        title: "Scroller N1",
+        color: "white"
+      });
       hideFooterShape();
       const { scrollerN1: scrollerN12 } = getLegendData();
       const { source } = scrollerN12;
@@ -29424,8 +29443,7 @@ Loading snippet ...</pre
         destroyAnimation();
         setScrollDownState("active", false);
         resetQuickNavState();
-        setMainTitleState("align", "");
-        setMainTitleState("title", "");
+        resetAnimationTitle();
         setCodeButtonState("drawers", []);
         document.body.style.background = "";
         showFooterShape();
@@ -31267,7 +31285,6 @@ Loading snippet ...</pre
         ...getState(),
         setState
       });
-      const setMainTitleState = setStateByName("animation_title");
       const setCodeButtonState = setStateByName("global-code-button");
       updateQuickNavState({
         active: true,
@@ -31275,12 +31292,11 @@ Loading snippet ...</pre
         nextRoute,
         color: "white"
       });
-      setMainTitleState("align", "right");
-      setMainTitleState("color", "white");
-      setMainTitleState(
-        "title",
-        animatePin ? "HorizontalScroller: smooth pin" : "HorizontalScroller: classic pin"
-      );
+      updateAnimationTitle({
+        align: "right",
+        title: animatePin ? "HorizontalScroller: smooth pin" : "HorizontalScroller: classic pin",
+        color: "white"
+      });
       const { horizontalScroller: horizontalScroller2 } = getLegendData();
       const { source } = horizontalScroller2;
       setCodeButtonState("drawers", [
@@ -31332,8 +31348,7 @@ Loading snippet ...</pre
       return () => {
         destroy2();
         resetQuickNavState();
-        setMainTitleState("align", "");
-        setMainTitleState("title", "");
+        resetAnimationTitle();
         setCodeButtonState("drawers", []);
       };
     });
@@ -32265,8 +32280,14 @@ Loading snippet ...</pre
         nextRoute,
         color: "white"
       });
+      updateAnimationTitle({
+        align: "left",
+        title: "Move3D",
+        color: "black"
+      });
       return () => {
         resetQuickNavState();
+        resetAnimationTitle();
       };
     });
     return html`<div>
@@ -32840,14 +32861,17 @@ Loading snippet ...</pre
     const { svg, star } = isDesktop ? getState() : { svg: "", star: "" };
     onMount(({ element }) => {
       if (!isDesktop) return;
-      const setQuickNavState = setStateByName("quick_nav");
-      const setMainTitleState = setStateByName("animation_title");
-      setQuickNavState("active", true);
-      setQuickNavState("nextRoute", "");
-      setQuickNavState("color", "white");
-      setMainTitleState("align", "left");
-      setMainTitleState("color", "black");
-      setMainTitleState("title", "Child");
+      updateQuickNavState({
+        active: true,
+        prevRoute: "",
+        nextRoute: "",
+        color: "white"
+      });
+      updateAnimationTitle({
+        align: "left",
+        title: "Child",
+        color: "black"
+      });
       const stagger = element.querySelectorAll('[ref="stagger"]');
       const {
         trail0,
@@ -32879,11 +32903,8 @@ Loading snippet ...</pre
       const { playIntro, destroy: destroy2 } = childMethods;
       playAnimation2({ playIntro });
       return () => {
-        setQuickNavState("active", false);
-        setQuickNavState("prevRoute", "");
-        setQuickNavState("nextRoute", "");
-        setMainTitleState("align", "");
-        setMainTitleState("title", "");
+        resetQuickNavState();
+        resetAnimationTitle();
         destroy2();
       };
     });

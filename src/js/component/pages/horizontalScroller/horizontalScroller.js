@@ -5,7 +5,6 @@
  * @import { HorizontalScroller } from './type';
  * @import { HorizontalScrollerButton } from './horizontalScrollerButton/type';
  * @import { SetStateByName } from '../../../mobjs/type';
- * @import { AnimationTitle } from '../../common/animationTitle/type';
  * @import { CodeButton } from '../../common/codeButton/type';]
  **/
 
@@ -14,6 +13,10 @@ import { offset, outerHeight } from '../../../mobCore/utils';
 import { html, setStateByName } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
+import {
+    resetAnimationTitle,
+    updateAnimationTitle,
+} from '../../common/animationTitle/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -108,9 +111,6 @@ export const HorizontalScrollerFn = ({
             setState,
         });
 
-        /** @type {SetStateByName<AnimationTitle>} */
-        const setMainTitleState = setStateByName('animation_title');
-
         /** @type {SetStateByName<CodeButton>} */
         const setCodeButtonState = setStateByName('global-code-button');
 
@@ -122,17 +122,14 @@ export const HorizontalScrollerFn = ({
             color: 'white',
         });
 
-        /**
-         * Title.
-         */
-        setMainTitleState('align', 'right');
-        setMainTitleState('color', 'white');
-        setMainTitleState(
-            'title',
-            animatePin
+        /** Title */
+        updateAnimationTitle({
+            align: 'right',
+            title: animatePin
                 ? 'HorizontalScroller: smooth pin'
-                : 'HorizontalScroller: classic pin'
-        );
+                : 'HorizontalScroller: classic pin',
+            color: 'white',
+        });
 
         /**
          * Code button
@@ -215,8 +212,7 @@ export const HorizontalScrollerFn = ({
         return () => {
             destroy();
             resetQuickNavState();
-            setMainTitleState('align', '');
-            setMainTitleState('title', '');
+            resetAnimationTitle();
             setCodeButtonState('drawers', []);
         };
     });

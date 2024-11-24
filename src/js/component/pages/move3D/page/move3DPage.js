@@ -1,6 +1,10 @@
 //@ts-check
 
 import {
+    resetAnimationTitle,
+    updateAnimationTitle,
+} from '../../../common/animationTitle/utils';
+import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
@@ -22,8 +26,16 @@ export const Move3DPagefn = ({ onMount, html, bindProps, getState }) => {
             color: 'white',
         });
 
+        /** Title */
+        updateAnimationTitle({
+            align: 'left',
+            title: 'Move3D',
+            color: 'black',
+        });
+
         return () => {
             resetQuickNavState();
+            resetAnimationTitle();
         };
     });
 

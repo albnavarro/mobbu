@@ -4,7 +4,6 @@
  * @import { MobComponent } from '../../../../mobjs/type';
  * @import { CaterpillarN1 } from './type';
  * @import { SetStateByName } from '../../../../mobjs/type';
- * @import { AnimationTitle } from '../../../common/animationTitle/type';
  * @import { CodeButton } from '../../../common/codeButton/type';]
  **/
 
@@ -12,6 +11,10 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import {
+    resetAnimationTitle,
+    updateAnimationTitle,
+} from '../../../common/animationTitle/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -40,9 +43,6 @@ export const CaterpillarN1Fn = ({
 
         const { wrap, canvas } = getRef();
 
-        /** @type {SetStateByName<AnimationTitle>} */
-        const setMainTitleState = setStateByName('animation_title');
-
         /** @type {SetStateByName<CodeButton>} */
         const setCodeButtonState = setStateByName('global-code-button');
 
@@ -54,12 +54,12 @@ export const CaterpillarN1Fn = ({
             color: 'white',
         });
 
-        /**
-         * Title.
-         */
-        setMainTitleState('align', 'left');
-        setMainTitleState('color', 'white');
-        setMainTitleState('title', 'Caterpillar N1');
+        /** Title */
+        updateAnimationTitle({
+            align: 'left',
+            title: 'Caterpillar N1',
+            color: 'white',
+        });
 
         // Footer shape
         hideFooterShape();
@@ -101,8 +101,7 @@ export const CaterpillarN1Fn = ({
         return () => {
             destroyAnimation();
             resetQuickNavState();
-            setMainTitleState('align', '');
-            setMainTitleState('title', '');
+            resetAnimationTitle();
             setCodeButtonState('drawers', []);
             document.body.style.background = '';
             showFooterShape();

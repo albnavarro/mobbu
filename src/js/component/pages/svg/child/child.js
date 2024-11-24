@@ -3,13 +3,18 @@
 /**
  * @import { MobComponent } from '../../../../mobjs/type';
  * @import { SvgChild } from './type';
- * @import { SetStateByName } from '../../../../mobjs/type';
- * @import { QuickNav } from '../../../common/nextPage/type';
- * @import { AnimationTitle } from '../../../common/animationTitle/type';
  **/
 
-import { html, setStateByName } from '../../../../mobjs';
+import { html } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import {
+    resetAnimationTitle,
+    updateAnimationTitle,
+} from '../../../common/animationTitle/utils';
+import {
+    resetQuickNavState,
+    updateQuickNavState,
+} from '../../../common/quickNav/utils';
 import { childAnimations } from './animation/animation';
 
 const numberOfStar = 10;
@@ -42,25 +47,20 @@ export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
     onMount(({ element }) => {
         if (!isDesktop) return;
 
-        /** @type {SetStateByName<QuickNav>} */
-        const setQuickNavState = setStateByName('quick_nav');
+        /** Quicknav */
+        updateQuickNavState({
+            active: true,
+            prevRoute: '',
+            nextRoute: '',
+            color: 'white',
+        });
 
-        /** @type {SetStateByName<AnimationTitle>} */
-        const setMainTitleState = setStateByName('animation_title');
-
-        /**
-         * Quicknav
-         */
-        setQuickNavState('active', true);
-        setQuickNavState('nextRoute', '');
-        setQuickNavState('color', 'white');
-
-        /**
-         * Title.
-         */
-        setMainTitleState('align', 'left');
-        setMainTitleState('color', 'black');
-        setMainTitleState('title', 'Child');
+        /** Title */
+        updateAnimationTitle({
+            align: 'left',
+            title: 'Child',
+            color: 'black',
+        });
 
         const stagger = element.querySelectorAll('[ref="stagger"]');
 
@@ -97,11 +97,8 @@ export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
         playAnimation({ playIntro });
 
         return () => {
-            setQuickNavState('active', false);
-            setQuickNavState('prevRoute', '');
-            setQuickNavState('nextRoute', '');
-            setMainTitleState('align', '');
-            setMainTitleState('title', '');
+            resetQuickNavState();
+            resetAnimationTitle();
             destroy();
         };
     });

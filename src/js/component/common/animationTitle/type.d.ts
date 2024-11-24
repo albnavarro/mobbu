@@ -3,3 +3,5 @@ export interface AnimationTitle {
     align: string;
     color: string;
 }
+
+export type UpdateAnimationTitle = (arg0: AnimationTitle) => void;
