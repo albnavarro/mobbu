@@ -146,6 +146,7 @@
                 "items": [
                     "<span class='quote'>name</span> route name.",
                     "<span class='quote'>layout</span> function to use",
+                    "<span class='quote'>restoreScroll</span> override <span class='quote'>restoreScroll</span> global value",
                     "<span class='quote'>props</span> the props (object) to pass to the layout function "
                 ]
             }

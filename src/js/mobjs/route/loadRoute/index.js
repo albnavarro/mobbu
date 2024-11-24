@@ -22,6 +22,7 @@ import { tick } from '../../queque/tick';
  * @param {object} param
  * @param {string} param.route
  * @param {string} param.templateName
+ * @param {boolean} param.restoreScroll
  * @param {{[key:string]: any}} param.params
  * @param {boolean} param.comeFromHistory
  * @param {number} param.scrollY
@@ -32,6 +33,7 @@ import { tick } from '../../queque/tick';
 export const loadRoute = async ({
     route = '',
     templateName = '',
+    restoreScroll = true,
     params = {},
     scrollY,
     comeFromHistory = false,
@@ -156,7 +158,7 @@ export const loadRoute = async ({
     /**
      * Scroll to 0 or if use history from history scrollY value
      */
-    if (getRestoreScroll()) scrollTo(0, scrollY);
+    if (getRestoreScroll() && restoreScroll) scrollTo(0, scrollY);
 
     /**
      * Animate pgae teansition.

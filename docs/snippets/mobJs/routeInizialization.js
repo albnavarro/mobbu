@@ -34,6 +34,7 @@ export const routes = [
         name: 'myRoute',
         templateName: 'myTemplate',
         layout: my_route,
+        restoreScroll: false,
         props: {
             myProp: 'hello',
         },

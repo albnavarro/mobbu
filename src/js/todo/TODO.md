@@ -54,9 +54,6 @@
 ### Type
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
 
-### Component
-- props per diabilitare il `restoreScroll` nella singola definizione del componente ( vedi `horizontalScroll` ).
-
 ### Methods
 - Capire come gestire i tipi sui metodi.
     - Fare un tipo apposito come per lo stato pasarlo come `Methods<myInterface>`.

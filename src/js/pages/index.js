@@ -1,3 +1,4 @@
+// @ts-check
 import { pageNotFound } from './404';
 import { layoutSidebarAnchor } from './Layout/layoutSidebarAnchor';
 import { layoutSidebarLinks } from './Layout/layoutSidebarLinks';
@@ -748,6 +749,7 @@ export const routes = [
         name: 'horizontalScroller',
         templateName: 'generic',
         layout: horizontalScroller,
+        restoreScroll: false,
         props: {},
     },
     {

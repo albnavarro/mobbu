@@ -30,3 +30,15 @@ export const getRouteModule = ({ url = '' }) => {
 export const getTemplateName = ({ url = '' }) => {
     return getRouteByName({ routeName: url })?.templateName ?? '';
 };
+
+/**
+ * @param {object} obj
+ * @param {string} obj.url
+ * @returns {boolean}
+ *
+ * @description
+ * Validate url, in not exist return pageNotFound.
+ */
+export const getRestoreScrollVale = ({ url = '' }) => {
+    return getRouteByName({ routeName: url })?.restoreScroll ?? true;
+};
