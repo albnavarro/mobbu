@@ -21,7 +21,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Use methods by <span class='quote'>instance name</span>, instance.</br>The instance can be called from <span class='quote'>anywhere</span> in the app "
+            "content": "Use methods by <span class='quote'>instance name</span>.</br>The instance can be called from <span class='quote'>anywhere</span> in the app "
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If there are <span class='quote'>multiple instances</span> with the same name, the <span class='quote'>first match</span> will be used"
         },
         {
             "component": "mob-spacer",
@@ -59,7 +66,8 @@
                 "dots": false,
                 "items": [
                     "<a href='./#mobJs-methods'>Create method</a>",
-                    "<a href='./#mobJs-instanceName'>Instance name</a>"
+                    "<a href='./#mobJs-instanceName'>Instance name</a>",
+                    "<a href='./#mobJs-useMethodArrayByName'>useMethodArrayByName</a>"
                 ]
             }
         },
