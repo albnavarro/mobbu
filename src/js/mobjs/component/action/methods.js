@@ -32,7 +32,7 @@ export const addMethodById = ({ id, name, fn }) => {
 /**
  * @param {object} obj
  * @param {string} obj.id
- * @returns {{[key:string]:(arg0: any) => void}|{}}
+ * @returns {Partial<Record<string, (arg0: any) => void>>}
  *
  * @description
  * Get method by id
@@ -55,7 +55,7 @@ export const getMethodsById = ({ id }) => {
 
 /**
  * @param {string} name
- * @returns {{[key:string]:(...args: any[]) => void}}
+ * @returns {Record<string, (arg0?: any) => void>}
  *
  * @description
  * Get method by id
