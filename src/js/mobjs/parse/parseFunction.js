@@ -3,7 +3,6 @@
 import { setElementById } from '../component/action/element';
 import { convertToRealElement } from './steps/convertToRealElement';
 import { getComponentList } from '../component/getComponentList';
-// import { removeOrphanComponent } from '../component/action/removeAndDestroy';
 import { getDefaultComponent } from '../component/createComponent';
 import {
     getCurrentIterationCounter,
@@ -13,7 +12,6 @@ import {
 import { fireOnMountCallBack } from '../modules/onMount';
 import { applyBindEvents } from '../modules/bindEvents';
 import { addCurrentIdToBindProps, applyBindProps } from '../modules/bindProps';
-import { decrementParserCounter } from './counter';
 import { getParamsForComponentFunction } from './steps/getParamsForComponent';
 import {
     addParentIdToFutureComponent,
@@ -80,18 +78,6 @@ export const parseComponentsRecursive = async ({
      * If there is no component or parse limit is reached.
      */
     if (!componentToParse || parseLimitReached) {
-        /**
-         * If all the parser is ended.
-         * ( remove active parser and return how many parser is active)
-         * Check if there is element in store that is not in real DOM and delete from store
-         * When component is deleted delete the nested component too.
-         * This is a additional level of security
-         */
-        const activeParser = decrementParserCounter();
-        if (!activeParser) {
-            // removeOrphanComponent();
-        }
-
         /**
          * Get all dynamic refs.
          */
@@ -314,11 +300,6 @@ export const parseComponentsRecursive = async ({
      * return without render dom component.
      */
     if (!newElement) {
-        const activeParser = decrementParserCounter();
-        if (!activeParser) {
-            // removeOrphanComponent();
-        }
-
         return;
     }
 

@@ -2,11 +2,12 @@
 
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
-import { incrementParserCounter } from './counter';
+import { decrementParserCounter, incrementParserCounter } from './counter';
 import { clearUserPlaceHolder } from '../modules/userComponent';
 import { parseComponentsRecursive } from './parseFunction';
 import { useQuery } from './useQuery';
 import { resetCurrentIterationCounter } from './utils';
+import { mobCore } from '../../mobCore';
 
 /**
  * @param {object} obj
@@ -31,7 +32,18 @@ export const parseComponents = async ({
     });
 
     resetCurrentIterationCounter();
-    if (!useQuery) clearUserPlaceHolder();
+
+    /**
+     * Next parse start one frame after previous
+     * Check end of all parse one frame after
+     */
+    mobCore.useNextTick(() => {
+        const activeParser = decrementParserCounter();
+
+        if (!useQuery && activeParser === 0) {
+            clearUserPlaceHolder();
+        }
+    });
 };
 
 /**

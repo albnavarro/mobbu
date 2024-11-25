@@ -1,7 +1,5 @@
 // @ts-check
 
-import { tick } from '../../queque/tick';
-
 /**
  * @type {Set<import('../../webComponent/type').UserComponent>}
  */
@@ -115,6 +113,5 @@ export const sortUserPlaceholder = () => {
  * Issue with element that switch position and there no real.
  */
 export const clearUserPlaceHolder = async () => {
-    await tick();
     userPlaceholder.clear();
 };
