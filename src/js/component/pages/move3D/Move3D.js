@@ -334,11 +334,6 @@ export const Move3Dfn = ({
             }
         );
 
-        /**
-         * First children's methods
-         */
-        childrenMethods = getChildrenMethod({ childrenId });
-
         return () => {
             unsubscribeSpring();
             unsubscribeOnComplete();

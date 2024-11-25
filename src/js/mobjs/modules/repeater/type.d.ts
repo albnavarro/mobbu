@@ -16,16 +16,8 @@ export type RepeaterRender = (arg0: {
  * Tehe repeater will execute after component render.
  */
 export interface repeaterType {
-    beforeUpdate(arg0: {
-        element: HTMLElement;
-        container: HTMLElement;
-        childrenId: string[];
-    }): Promise<void> | void;
-    afterUpdate(arg0: {
-        element: HTMLElement;
-        container: HTMLElement;
-        childrenId: string[];
-    }): void;
+    beforeUpdate(): Promise<void> | void;
+    afterUpdate(): void;
     id: string;
     clean: boolean;
     persistent?: boolean;

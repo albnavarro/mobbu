@@ -57,6 +57,12 @@ export const MyComponent = ({
             ${invalidate({
                 bind: ['myState', 'myState2'],
                 persistent: false,
+                beforeUpdate: () => {
+                    //
+                },
+                afterUpdate: () => {
+                    //
+                },
                 render: () => {
                     return getInvalidateRender({
                         getState,

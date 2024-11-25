@@ -58,6 +58,12 @@ export const inizializeInvalidateWatch = async ({
     });
 
     /**
+     * Fire first callback
+     * The main parse is ended.
+     */
+    afterUpdate();
+
+    /**
      * Update component
      */
     const unsubScribeArray = bind.map((state) => {

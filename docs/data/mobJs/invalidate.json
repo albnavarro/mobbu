@@ -74,6 +74,34 @@
             "props": {
                 "tag": "h5"
             },
+            "content": "beforeUpdate ( optional )"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Event triggered before list update. The function will be active only after the first rendering"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "afterUpdate ( optional )"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Event triggered after list update."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
             "content": "render"
         },
         {

@@ -127,18 +127,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event triggered before list update. The function has as parameter an object composed as follows:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": [
-                    "<strong>element</strong>: Root component HTMLElement ",
-                    "<strong>container</strong>: List container HTMLElement.",
-                    "<strong>childrenId</strong>: Active Children ids."
-                ]
-            }
+            "content": "Event triggered before list update. The function will be active only after the first rendering"
         },
         {
             "component": "mob-title",
@@ -152,18 +141,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event triggered after list update. The function has as parameter an object composed as follows:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": [
-                    "<strong>element</strong>: Root component HTMLElement ",
-                    "<strong>container</strong>: List container HTMLElement.",
-                    "<strong>childrenId</strong>: Active Children ids."
-                ]
-            }
+            "content": "Event triggered after list update."
         },
         {
             "component": "mob-title",

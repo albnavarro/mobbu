@@ -56,6 +56,12 @@ export const watchRepeat = ({
     });
 
     /**
+     * Fire first callback
+     * The main parse is ended.
+     */
+    afterUpdate();
+
+    /**
      * Watcher is destroyed with the component tahu implement list repeater.
      * repater works if data is an array ( is a list so data must be an array )
      */
@@ -127,18 +133,8 @@ export const watchRepeat = ({
                 repeatId,
             });
 
-            const childrenBeforeUdateFilterdByParent = getIdsByByRepeatId({
-                id,
-                repeatId,
-                filterById: true,
-            });
-
             if (mainComponent) {
-                await beforeUpdate({
-                    element: mainComponent,
-                    container: repeaterParentElement,
-                    childrenId: childrenBeforeUdateFilterdByParent,
-                });
+                await beforeUpdate();
             }
 
             /**
@@ -191,12 +187,6 @@ export const watchRepeat = ({
             const childrenFilteredByRepeatId = getIdsByByRepeatId({
                 id,
                 repeatId,
-            });
-
-            const childrenFilteredByParent = getIdsByByRepeatId({
-                id,
-                repeatId,
-                filterById: true,
             });
 
             /**
@@ -268,11 +258,7 @@ export const watchRepeat = ({
                  * Execute afterUpdate function
                  */
                 if (mainComponent) {
-                    afterUpdate({
-                        element: mainComponent,
-                        container: repeaterParentElement,
-                        childrenId: childrenFilteredByParent,
-                    });
+                    afterUpdate();
                 }
 
                 /**

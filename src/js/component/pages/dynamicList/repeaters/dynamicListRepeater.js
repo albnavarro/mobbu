@@ -72,28 +72,6 @@ function getRepeaterCard({
     `;
 }
 
-/** @param {string[]} id **/
-function updateNewElement(id) {
-    return `<strong>Current cards id:</strong> ${id
-        .join(',')
-        // @ts-ignore
-        .replaceAll(',', ' | ')}`;
-}
-
-/**
- * @param {object} params
- * @param {HTMLElement} params.element
- * @param {string} params.className
- * @param {string[]} params.childrenId
- **/
-function afterUpdateList({ element, className, childrenId }) {
-    const newElement = element.querySelector(className);
-    if (!newElement) return;
-
-    newElement.textContent = '';
-    newElement.insertAdjacentHTML('afterbegin', updateNewElement(childrenId));
-}
-
 /** @type {MobComponent<DynamicListRepeater>} */
 export const DynamicListRepeaterFn = ({
     getState,
@@ -109,18 +87,13 @@ export const DynamicListRepeaterFn = ({
     return html`
         <div class="c-dynamic-list-repeater">
             <h4 class="c-dynamic-list-repeater__title">${label}</h4>
-            <p class="c-dynamic-list-repeater__new js-list"></p>
             <div class="c-dynamic-list-repeater__list">
                 ${repeat({
                     bind: 'data',
                     clean,
                     key: keyParsed,
-                    afterUpdate: ({ childrenId, element }) => {
-                        afterUpdateList({
-                            className: `.js-list`,
-                            childrenId,
-                            element,
-                        });
+                    afterUpdate: () => {
+                        console.log('repeater updated');
                     },
                     render: ({ sync }) => {
                         return getRepeaterCard({

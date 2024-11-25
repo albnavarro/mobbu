@@ -192,30 +192,12 @@ export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
      * @example
      *
      * ${repeat({
-     *     beforeUpdate: ({ container, childrenId }) => {
+     *     beforeUpdate: () => {
      *         ....
      *     },
      * })}
      */
-    beforeUpdate?(arg0: {
-        /**
-         * @description
-         * Main component
-         */
-        element: HTMLElement;
-
-        /**
-         * @description
-         * List container element.
-         */
-        container: HTMLElement;
-
-        /**
-         * @description
-         * Active Children ids
-         */
-        childrenId: string[];
-    }): Promise<void> | void;
+    beforeUpdate?(): Promise<void> | void;
 
     /**
      * @description
@@ -224,30 +206,12 @@ export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
      * @example
      *
      * ${repeat({
-     *     afterUpdate: ({ container, childrenId }) => {
+     *     afterUpdate: () => {
      *         ....
      *     },
      * })}
      */
-    afterUpdate?(arg0: {
-        /**
-         * @description
-         * Main component
-         */
-        element: HTMLElement;
-
-        /**
-         * @description
-         * List container element.
-         */
-        container: HTMLElement;
-
-        /**
-         * @description
-         * New Children ids
-         */
-        childrenId: string[];
-    }): void;
+    afterUpdate?(): void;
 
     /**
      * @description

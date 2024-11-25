@@ -4,16 +4,8 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
     persistent: boolean;
     bind: OnlyStringKey<T>;
     key?: string | undefined;
-    beforeUpdate?(arg0: {
-        element: HTMLElement;
-        container: HTMLElement;
-        childrenId: string[];
-    }): void;
-    afterUpdate?(arg0: {
-        element: HTMLElement;
-        container: HTMLElement;
-        childrenId: string[];
-    }): void;
+    beforeUpdate?: () => void;
+    afterUpdate?: () => void;
     render: (arg0: {
         sync: () => string;
         index: number;
@@ -97,10 +89,10 @@ export const MyComponent = ({
                 persistent: false,
                 clean: false,
                 key: 'myKey',
-                beforeUpdate: ({ element, container, childrenId }) => {
+                beforeUpdate: () => {
                     //
                 },
-                afterUpdate: ({ element, childrenId, element }) => {
+                afterUpdate: () => {
                     //
                 },
                 render: ({ sync, currentValue, index }) => {

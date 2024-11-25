@@ -1,9 +1,5 @@
 # Priority
 
-## MobJs
-### Ivalidate/repeater
-- `Invalidate/repeater`: `after/before` update vanno lanciati anche la prima volta
-
 ### Global store
 - Nella funzione inizializeApp aggiungere `globalStore`, `invalidate` potrá usare uno store esterno per la reattivitá.
 - Il contenuto del watcher corrente `inizializeInvalidateWatch` dovrá essere estratto per essere unato anche dalla nuova funzione watch
