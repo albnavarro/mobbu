@@ -41,6 +41,13 @@
 
 # MobJs
 
+### bindText
+- i moduli innesatati in componenti figli nello stesso scope vengono al momnento eliminati alla fine del watch con un controllo dell'esistenza dell' elemento all' internod el DOM.
+- Il controllo viene fatto quando l'app si ferma.
+- Non si ha un glitch viusale ma non  e il massimo.
+- WeakSet non si puo usare perche l'emento e memorizzato come referenza.
+- Cercare una soluzione piu performante cenrcando di usare `weak`.
+
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
 

@@ -3,6 +3,7 @@
 import { mobCore } from '../../../mobCore';
 import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
+import { tick } from '../../queque/tick';
 
 /** @type {Map<string, import("./type").BindText[]>} */
 export const bindTextMap = new Map();
@@ -134,6 +135,18 @@ export const addBindTextParent = ({ id, bindTextId, parentElement }) => {
 };
 
 /**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {string} params.bindTextId
+ * @returns {void}
+ */
+export const removeBindTextByBindTextId = ({ id, bindTextId }) => {
+    const items = bindTextMap.get(id);
+    const itemsUpdated = items.filter((item) => item.bindTextId !== bindTextId);
+    bindTextMap.set(id, itemsUpdated);
+};
+
+/**
  * @description
  * At the end of parse delete web component and add data to real map
  * New map has componentId as key, so easy to destroy, one map for every bindText in component.
@@ -235,7 +248,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
 
         if (!finalStateTowatch) return;
 
-        watchById(id, finalStateTowatch, () => {
+        const unwatch = watchById(id, finalStateTowatch, () => {
             /**
              * Wait for all all props is settled.
              */
@@ -254,6 +267,25 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
                     parentNode.textContent = '';
                     parentNode.insertAdjacentHTML('afterbegin', render());
                     watchIsRunning = false;
+
+                    /**
+                     * Await one frame + one tick
+                     * unwatch and remove item from bindTextMap if parentElement
+                     * is removed from DOM
+                     *
+                     * NOTE:
+                     * - contains operation is heavy, TODO: better solution.
+                     * - Module is destroyed after.
+                     * - Something with WeakSet is better, but parentElement is stored as reference.
+                     */
+                    mobCore.useNextTick(async () => {
+                        await tick();
+
+                        if (!document.contains(parentNode)) {
+                            unwatch();
+                            removeBindTextByBindTextId({ id, bindTextId });
+                        }
+                    });
                 });
             });
         });
