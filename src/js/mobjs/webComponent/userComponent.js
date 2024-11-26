@@ -17,7 +17,10 @@ import {
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
 import { useQuery } from '../parse/useQuery';
-import { addUserPlaceholder } from '../modules/userComponent';
+import {
+    addUserPlaceholder,
+    removeUserPlaceholder,
+} from '../modules/userComponent';
 
 /**
  * @param {{[key:string]:import('../mainStore/type').componentListMapType}} componentList
@@ -483,7 +486,15 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 disconnectedCallback() {
-                    if (!this.shadowRoot || !this.active) return;
+                    if (!this.shadowRoot) return;
+
+                    if (!useQuery) {
+                        const host = this.shadowRoot?.host;
+                        // @ts-ignore
+                        removeUserPlaceholder(host);
+                    }
+
+                    if (!this.active) return;
 
                     _disconnectedCallback?.({
                         context: this,

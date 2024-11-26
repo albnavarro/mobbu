@@ -14,6 +14,14 @@ export const addUserPlaceholder = (element) => {
 };
 
 /**
+ * @param {import('../../webComponent/type').UserComponent} element
+ * @returns {void}
+ */
+export const removeUserPlaceholder = (element) => {
+    userPlaceholder.delete(element);
+};
+
+/**
  * @param {Element} element
  * @returns {import('../../webComponent/type').UserComponent[]}
  *
