@@ -3,6 +3,7 @@
 import { mobCore } from '../../../mobCore';
 import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
+import { tick } from '../../queque/tick';
 
 /** @type {Map<string, import("./type").BindText[]>} */
 export const bindTextMap = new Map();
@@ -267,15 +268,16 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
                         removeBindTextByBindTextId({ id, bindTextId });
                     }
 
-                    if (!ref.deref()) {
-                        unwatch();
-                        watchIsRunning = false;
-                        return;
+                    if (ref.deref()) {
+                        ref.deref().textContent = '';
+                        ref.deref().insertAdjacentHTML('afterbegin', render());
                     }
 
-                    ref.deref().textContent = '';
-                    ref.deref().insertAdjacentHTML('afterbegin', render());
                     watchIsRunning = false;
+
+                    mobCore.useNextTick(async () => {
+                        if (!ref.deref()) unwatch();
+                    });
                 });
             });
         });
