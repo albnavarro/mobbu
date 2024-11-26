@@ -3,7 +3,6 @@
 import { mobCore } from '../../../mobCore';
 import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
-import { tick } from '../../queque/tick';
 
 /** @type {Map<string, import("./type").BindText[]>} */
 export const bindTextMap = new Map();

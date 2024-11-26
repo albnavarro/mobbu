@@ -17264,47 +17264,6 @@
     return state?.watch(prop, cb);
   };
 
-  // src/js/mobjs/queque/utils.js
-  function awaitNextLoop() {
-    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
-  }
-
-  // src/js/mobjs/queque/tick.js
-  var queque = /* @__PURE__ */ new Map();
-  var maxQueuqueSize = 1e5;
-  var incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
-      return () => {
-      };
-    }
-    const id = mobCore.getUnivoqueId();
-    queque.set(id, props);
-    return () => queque.delete(id);
-  };
-  var queueIsResolved = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize;
-  };
-  var tick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      queque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved()) {
-        resolve();
-        return;
-      }
-      tick({ debug, previousResolve: previousResolve ?? resolve });
-    });
-  };
-
   // src/js/mobjs/modules/bindtext/index.js
   var bindTextMap = /* @__PURE__ */ new Map();
   var bindTextPlaceHolderMap = /* @__PURE__ */ new Map();
@@ -18564,6 +18523,47 @@
     const parentPropsWatcher = item?.parentPropsWatcher ?? [];
     parentPropsWatcher.forEach((unwatch) => {
       unwatch();
+    });
+  };
+
+  // src/js/mobjs/queque/utils.js
+  function awaitNextLoop() {
+    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
+  }
+
+  // src/js/mobjs/queque/tick.js
+  var queque = /* @__PURE__ */ new Map();
+  var maxQueuqueSize = 1e5;
+  var incrementTickQueuque = (props) => {
+    if (queque.size >= maxQueuqueSize) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+      return () => {
+      };
+    }
+    const id = mobCore.getUnivoqueId();
+    queque.set(id, props);
+    return () => queque.delete(id);
+  };
+  var queueIsResolved = () => {
+    return queque.size === 0 || queque.size >= maxQueuqueSize;
+  };
+  var tick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      queque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved()) {
+        resolve();
+        return;
+      }
+      tick({ debug, previousResolve: previousResolve ?? resolve });
     });
   };
 
