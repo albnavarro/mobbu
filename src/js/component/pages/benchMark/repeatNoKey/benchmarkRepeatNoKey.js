@@ -1,5 +1,6 @@
 //@ts-check
 
+import { bindTextMap } from '../../../../mobjs/modules/bindtext';
 import {
     hideFooterShape,
     showFooterShape,
@@ -25,6 +26,7 @@ export const BenchMarkRepeatNoKyFn = ({
     bindProps,
     watch,
     repeat,
+    debug,
 }) => {
     onMount(() => {
         const { loading } = getRef();
@@ -54,6 +56,16 @@ export const BenchMarkRepeatNoKyFn = ({
                 delegateEvents,
                 getState,
             })}
+            <button
+                ${delegateEvents({
+                    click: () => {
+                        debug();
+                        console.log([...bindTextMap]);
+                    },
+                })}
+            >
+                pippo
+            </button>
 
             <div class="benchmark__head__time">
                 ${bindText`components generate in <strong>${'time'}ms</strong>`}
@@ -76,7 +88,9 @@ export const BenchMarkRepeatNoKyFn = ({
                                     };
                                 },
                             })}
-                        ></benchmark-fake-component>
+                        >
+                            <div>${bindText`${'time'}`}</div>
+                        </benchmark-fake-component>
                     `;
                 },
             })}
