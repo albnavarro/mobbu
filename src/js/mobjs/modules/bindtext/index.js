@@ -3,7 +3,6 @@
 import { mobCore } from '../../../mobCore';
 import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
-import { tick } from '../../queque/tick';
 
 /** @type {Map<string, import("./type").BindText[]>} */
 export const bindTextMap = new Map();
@@ -226,6 +225,9 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
      */
     let watchIsRunning = false;
 
+    /** @type{WeakRef<HTMLElement>} */
+    let ref;
+
     props.forEach((state) => {
         /**
          * Get state to watch if prop is:
@@ -257,35 +259,35 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
 
             mobCore.useNextLoop(() => {
                 mobCore.useFrame(() => {
-                    const parentNode = getParentBindText({ id, bindTextId });
-
-                    if (!parentNode) {
-                        watchIsRunning = false;
-                        return;
+                    if (!ref) {
+                        ref = new WeakRef(
+                            getParentBindText({
+                                id,
+                                bindTextId,
+                            })
+                        );
+                        removeBindTextByBindTextId({ id, bindTextId });
                     }
 
-                    parentNode.textContent = '';
-                    parentNode.insertAdjacentHTML('afterbegin', render());
+                    if (ref.deref()) {
+                        ref.deref().textContent = '';
+                        ref.deref().insertAdjacentHTML('afterbegin', render());
+                    }
+
                     watchIsRunning = false;
 
-                    /**
-                     * Await one frame + one tick
-                     * unwatch and remove item from bindTextMap if parentElement
-                     * is removed from DOM
-                     *
-                     * NOTE:
-                     * - contains operation is heavy, TODO: better solution.
-                     * - Module is destroyed after.
-                     * - Something with WeakSet is better, but parentElement is stored as reference.
-                     */
                     mobCore.useNextTick(async () => {
-                        await tick();
-
-                        if (!document.contains(parentNode)) {
-                            unwatch();
-                            removeBindTextByBindTextId({ id, bindTextId });
-                        }
+                        if (!ref.deref()) unwatch();
                     });
+
+                    // mobCore.useNextTick(async () => {
+                    //     await tick();
+                    //
+                    //     if (!document.contains(parentNode)) {
+                    //         unwatch();
+                    //         removeBindTextByBindTextId({ id, bindTextId });
+                    //     }
+                    // });
                 });
             });
         });
