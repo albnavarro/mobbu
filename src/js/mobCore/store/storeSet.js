@@ -530,7 +530,7 @@ const fireComputed = (instanceId) => {
     /**
      * Loop and fire computed with changed value
      */
-    computedFiltered.forEach(({ prop, keys, fn }) => {
+    const computedValues = computedFiltered.map(({ prop, keys, fn }) => {
         /**
          * Get dependencies current state;
          */
@@ -542,40 +542,31 @@ const fireComputed = (instanceId) => {
                 return { ...previous, ...current };
             }, {});
 
-        /**
-         * Fire callback computed
-         */
-        // @ts-ignore
-        const computedValue = fn(valuesToObject);
-
-        /**
-         * Await next loop to enable computed pipe.
-         */
-        useNextLoop(() => {
-            /**
-             * Set the result value to computed prop.
-             */
-            storeSetEntryPoint({
-                instanceId,
-                prop,
-                value: computedValue,
-                action: STORE_SET,
-            });
-        });
+        return {
+            prop,
+            value: fn(valuesToObject),
+        };
     });
 
     /**
-     * Get last state after new value is settled from computed.
-     */
-    const stateAfterComputed = getStateFromMainMap(instanceId);
-
-    /**
-     * Update all
+     * Reset running mode.
      */
     updateMainMap(instanceId, {
-        ...stateAfterComputed,
+        ...state,
         lastestPropsChanged: new Set(),
         computedRunning: false,
+    });
+
+    /**
+     * Update computed value after computedRunning is ended.
+     */
+    computedValues.forEach(({ prop, value }) => {
+        storeSetEntryPoint({
+            instanceId,
+            prop,
+            value,
+            action: STORE_SET,
+        });
     });
 };
 
