@@ -1,4 +1,41 @@
-# Priority
+# DOCS
+- Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
+- `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
+
+# mobCore
+- Set, impedire set successivi nell stesso tick.
+- Aggiungere un analogo di `computedPropsQueque` => `propsQueque`
+- Usare solo la prima chiamata e saltare le successive chiamate di `set/update`
+
+
+```js
+const state = getStateFromMainMap(instanceId);
+if (!state) return;
+
+const { propsQueque } = state;
+if(propsQueque.has(prop)) return;
+propsQueque.add(prop)
+
+mobCore.useNextLoop(() => {
+    const newState = storeSetAction({
+        instanceId,
+        state,
+        prop,
+        value,
+        fireCallback,
+        clone,
+        action,
+    });
+
+    propsQueque.delete(prop)
+
+    if (!newState) return;
+    updateMainMap(instanceId, {... newState, propsQueque });
+})
+```
+
+
+# MobJs
 
 ### Global store
 - Nella funzione inizializeApp aggiungere `globalStore`, `invalidate` potrá usare uno store esterno per la reattivitá.
@@ -29,17 +66,6 @@
     })}
 
 ```
-
-- `MouseParallax`.
-- `Dragger`.
-
-
-# DOCS
-- Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
-- `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
-
-
-# MobJs
 
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.

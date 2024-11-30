@@ -21,7 +21,7 @@ export const inizializeInstance = (data) => {
     return {
         callBackWatcher: new Map(),
         callBackComputed: new Set(),
-        lastestPropsChanged: new Set(),
+        computedPropsQueque: new Set(),
         validationStatusObject: {},
         dataDepth,
         computedRunning: false,

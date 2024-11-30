@@ -514,14 +514,14 @@ const fireComputed = (instanceId) => {
      * Get fresh data.
      */
     const state = getStateFromMainMap(instanceId);
-    const { lastestPropsChanged, callBackComputed, store } = state;
+    const { computedPropsQueque, callBackComputed, store } = state;
 
     /**
      * Filter computed callback that has some prop changed as dependencies.
      */
     const computedFiltered = [...(callBackComputed ?? [])].filter(
         ({ keys }) => {
-            return [...lastestPropsChanged].find((current) => {
+            return [...computedPropsQueque].find((current) => {
                 return keys.includes(current);
             });
         }
@@ -553,7 +553,7 @@ const fireComputed = (instanceId) => {
      */
     updateMainMap(instanceId, {
         ...state,
-        lastestPropsChanged: new Set(),
+        computedPropsQueque: new Set(),
         computedRunning: false,
     });
 
@@ -578,17 +578,17 @@ const fireComputed = (instanceId) => {
  */
 export const addToComputedWaitLsit = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
-    const { callBackComputed, lastestPropsChanged, computedRunning } = state;
+    const { callBackComputed, computedPropsQueque, computedRunning } = state;
 
     if (!callBackComputed || callBackComputed.size === 0) return;
 
     /**
-     * Update lastestPropsChanged.
+     * Update computedPropsQueque.
      */
-    lastestPropsChanged.add(prop);
+    computedPropsQueque.add(prop);
     updateMainMap(instanceId, {
         ...state,
-        lastestPropsChanged,
+        computedPropsQueque,
     });
 
     if (!computedRunning) {

@@ -35,7 +35,7 @@ import { switchBindTextMap } from '../modules/bindtext';
  * @param {object} obj
  * @param {HTMLElement} obj.element
  * @param {boolean} [ obj.persistent  ]
- * @param {Array<{onMount:Function, fireDynamic:function, fireInvalidateFunction:function, fireRepeatFunction:function}>} [ obj.functionToFireAtTheEnd ]
+ * @param {Array<{onMount:Function, initializeBindPropsWatcher:function, fireInvalidateFunction:function, fireRepeatFunction:function}>} [ obj.functionToFireAtTheEnd ]
  * @param {Array<import("../webComponent/type").UserComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
  * @param {boolean} [ obj.checkBindRef ]
@@ -95,7 +95,7 @@ export const parseComponentsRecursive = async ({
         for (const item of functionToFireAtTheEnd.reverse()) {
             const {
                 onMount,
-                fireDynamic,
+                initializeBindPropsWatcher,
                 fireInvalidateFunction,
                 fireRepeatFunction,
             } = item;
@@ -103,7 +103,7 @@ export const parseComponentsRecursive = async ({
             await onMount();
             fireRepeatFunction();
             fireInvalidateFunction();
-            fireDynamic();
+            initializeBindPropsWatcher();
         }
 
         /**
@@ -361,7 +361,7 @@ export const parseComponentsRecursive = async ({
                 element: newElement,
             });
         },
-        fireDynamic: () => {
+        initializeBindPropsWatcher: () => {
             applyBindProps({
                 componentId: id,
                 repeatPropBind,

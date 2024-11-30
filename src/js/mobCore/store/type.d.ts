@@ -18,7 +18,7 @@ export interface storeMapValue {
         fn: (arg0: Record<string, any>) => void;
         keys: string[];
     }>;
-    lastestPropsChanged: Set<string>;
+    computedPropsQueque: Set<string>;
     validationStatusObject: Record<string, validateState>;
     dataDepth: number;
     computedRunning: boolean;
