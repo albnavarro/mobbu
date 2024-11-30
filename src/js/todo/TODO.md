@@ -2,40 +2,54 @@
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
 
-# mobCore
-- Set, impedire set successivi nell stesso tick.
-- Aggiungere un analogo di `computedPropsQueque` => `propsQueque`
-- Usare solo la prima chiamata e saltare le successive chiamate di `set/update`
-
-
-```js
-const state = getStateFromMainMap(instanceId);
-if (!state) return;
-
-const { propsQueque } = state;
-if(propsQueque.has(prop)) return;
-propsQueque.add(prop)
-
-mobCore.useNextLoop(() => {
-    const newState = storeSetAction({
-        instanceId,
-        state,
-        prop,
-        value,
-        fireCallback,
-        clone,
-        action,
-    });
-
-    propsQueque.delete(prop)
-
-    if (!newState) return;
-    updateMainMap(instanceId, {... newState, propsQueque });
-})
-```
-
 
 # MobJs
+
+### setState/updateState
+- Evitare la mutazione dello stato piu volte nellos tesso loop ( similare a `computed` )
+- Il seguente approccio funziona, ma sul destroy `setState/updateState` possono non essere lanciati, o cmq danno problemi.
+```js
+// src/js/mobjs/component/index.js
+
+/**
+ * Avoid multiple state mutation of same prop in same javascript loop.
+ */
+const propsQueque = new Set();
+
+return {
+    getState: () => store.get(),
+    setState: (prop = '', value = {}, fire = true) => {
+        const isFreezed = getFreezePropStatus({ id, prop });
+        const propsIsRunning = propsQueque.has(prop);
+
+        if (propsIsRunning || isFreezed) return;
+
+        propsQueque.add(prop);
+        store.set(prop, value, fire);
+
+        mobCore.useNextLoop(() => {
+            propsQueque.delete(prop);
+        });
+    },
+    updateState: (
+        prop = '',
+        updateFunction = () => {},
+        fire = true,
+        clone = false
+    ) => {
+        const isFreezed = getFreezePropStatus({ id, prop });
+        const propsIsRunning = propsQueque.has(prop);
+
+        if (propsIsRunning || isFreezed) return;
+
+        propsQueque.add(prop);
+        store.update(prop, updateFunction, fire, clone);
+
+        mobCore.useNextLoop(() => {
+            propsQueque.delete(prop);
+        });
+    },
+```
 
 ### Global store
 - Nella funzione inizializeApp aggiungere `globalStore`, `invalidate` potrá usare uno store esterno per la reattivitá.
