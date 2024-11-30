@@ -2,6 +2,7 @@
 
 import { mobCore } from '../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
+import { getRouteIsLoading } from '../mainStore/routeIsLoading';
 import { getFreezePropStatus } from './action/freeze';
 import { componentMap } from './store';
 import { addPropsToState } from './utils';
@@ -59,13 +60,26 @@ export const addComponentToStore = ({
         state: store,
     });
 
+    /**
+     * Avoid multiple state mutation of same prop in same javascript loop.
+     */
+    const propsQueque = new Set();
+
     return {
         getState: () => store.get(),
         setState: (prop = '', value = {}, fire = true) => {
             const isFreezed = getFreezePropStatus({ id, prop });
-            if (isFreezed) return;
+            const propsIsRunning = propsQueque.has(prop);
+            const routeIsLoading = getRouteIsLoading();
 
+            if ((propsIsRunning || isFreezed) && !routeIsLoading) return;
+
+            propsQueque.add(prop);
             store.set(prop, value, fire);
+
+            mobCore.useNextLoop(() => {
+                propsQueque.delete(prop);
+            });
         },
         updateState: (
             prop = '',
@@ -74,9 +88,17 @@ export const addComponentToStore = ({
             clone = false
         ) => {
             const isFreezed = getFreezePropStatus({ id, prop });
-            if (isFreezed) return;
+            const propsIsRunning = propsQueque.has(prop);
+            const routeIsLoading = getRouteIsLoading();
 
+            if ((propsIsRunning || isFreezed) && !routeIsLoading) return;
+
+            propsQueque.add(prop);
             store.update(prop, updateFunction, fire, clone);
+
+            mobCore.useNextLoop(() => {
+                propsQueque.delete(prop);
+            });
         },
         emit: (prop = '') => store.emit(prop),
         emitAsync: async (prop = '') => await store.emitAsync(prop),
