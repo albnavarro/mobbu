@@ -605,23 +605,18 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
 export const storeComputedAction = ({ state, prop, keys, fn }) => {
     const { callBackComputed } = state;
 
-    // Create a temp array with the future computed added to check
-    // const tempComputedArray = [...callBackComputed, { prop, keys, fn }];
+    const hasCircularDependecies = [...callBackComputed].reduce(
+        (previous, { prop: currentProp, keys: currentKeys }) => {
+            return (
+                currentKeys.includes(prop) &&
+                keys.includes(currentProp) &&
+                !previous
+            );
+        },
+        false
+    );
 
-    // Get all prop stored in tempComputedArray
-    // const propList = tempComputedArray.flatMap((item) => item.prop);
-
-    //  Keys can't be a prop used in some computed
-    // const keysIsusedInSomeComputed = propList.some((item) =>
-    //     keys.includes(item)
-    // );
-
-    /**
-     * Check only that current keys doesn't contain current prop
-     */
-    const keyIsusedInProps = keys.includes(prop);
-
-    if (keyIsusedInProps) {
+    if (keys.includes(prop) || hasCircularDependecies) {
         storeComputedKeyUsedWarning(keys, getLogStyle());
         return;
     }
