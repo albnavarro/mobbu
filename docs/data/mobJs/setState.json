@@ -34,8 +34,8 @@
                 "dots": true,
                 "items": [
                     "Component states are declared in the <span class='quote'>component's definition</span>",
-                    "Once current route is rendered, every single state can be updated only once in each <span class='quote'>JavaScript loop</span>, thus avoiding multiple operations in the same loop.",
-                    "During the route render process it is useful to be able to update the state in the same javascript loop to allow other components through, for example, methods, to pass information without getting bogged down at the first call."
+                    "Once <span class='quote'>current route</span>, is rendered every single state can be updated only once in each <span class='quote'>JavaScript loop</span>, thus avoiding multiple operations in the same loop.",
+                    "During the <span class='quote'>route render</span> process it is useful to be able to update the state in the same javascript loop to allow other components through, for example, methods, to pass information without getting bogged down at the first call."
                 ]
             }
         },
