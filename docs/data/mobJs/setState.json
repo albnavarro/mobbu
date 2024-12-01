@@ -25,21 +25,25 @@
             "props": {
                 "style": "medium"
             },
-            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The setState() function is equivalent to myStore.set()."
+            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and <span class='quote'>inherits</span> all its functionality. The setState() function is equivalent to myStore.set()."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "The setState function is often used in conjunction with the <a href='#mobJs-watch'>watch</a> function to update the DOM."
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "Component states are declared in the <span class='quote'>component's definition</span>",
+                    "Once the component is rendered, and the onMount() function is executed, every single state can be updated only once in each <span class='quote'>JavaScript loop</span>, thus avoiding multiple operations in the same loop.",
+                    "During the entire initialization phase of the component it is useful to be able to update the state in the same javascript loop to allow other components through, for example, methods, to pass information without getting bogged down at the first call."
+                ]
+            }
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            },
-            "content": "Component states are declared in the component's <a href='#mobJs-component'>definition</a>"
+            }
         },
         {
             "component": "mob-snippet",
