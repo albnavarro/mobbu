@@ -20500,6 +20500,7 @@
     parentIdForced = ""
   }) => {
     if (!element) return;
+    setParseIsRunning(true);
     const componentList = getComponentList();
     const { componentToParse, parseSourceArray } = getParseSourceArray({
       element,
@@ -20525,6 +20526,7 @@
         fireRepeatFunction();
         fireInvalidateFunction();
         initializeBindPropsWatcher();
+        setParseIsRunning(false);
       }
       functionToFireAtTheEnd.length = 0;
       currentSelectors.length = 0;
@@ -20693,14 +20695,12 @@
     persistent = false,
     parentIdForced = ""
   }) => {
-    setParseIsRunning(true);
     await parseComponentsRecursive({
       element,
       persistent,
       parentIdForced
     });
     resetCurrentIterationCounter();
-    setParseIsRunning(false);
   };
   var initParseWatcher = () => {
     mainStore.watch(

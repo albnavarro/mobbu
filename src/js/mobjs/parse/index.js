@@ -3,7 +3,6 @@
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { parseComponentsRecursive } from './parseFunction';
-import { setParseIsRunning } from './parseIsRunnung';
 import { resetCurrentIterationCounter } from './utils';
 
 /**
@@ -20,8 +19,6 @@ export const parseComponents = async ({
     persistent = false,
     parentIdForced = '',
 }) => {
-    setParseIsRunning(true);
-
     await parseComponentsRecursive({
         element,
         persistent,
@@ -29,7 +26,6 @@ export const parseComponents = async ({
     });
 
     resetCurrentIterationCounter();
-    setParseIsRunning(false);
 };
 
 /**

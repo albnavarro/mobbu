@@ -30,6 +30,8 @@ import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
 import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './useQuery';
 import { switchBindTextMap } from '../modules/bindtext';
+import { setParseIsRunning } from './parseIsRunnung';
+import { mobCore } from '../../mobCore';
 
 /**
  * @param {object} obj
@@ -52,6 +54,7 @@ export const parseComponentsRecursive = async ({
     parentIdForced = '',
 }) => {
     if (!element) return;
+    setParseIsRunning(true);
 
     const componentList = getComponentList();
 
@@ -104,6 +107,14 @@ export const parseComponentsRecursive = async ({
             fireRepeatFunction();
             fireInvalidateFunction();
             initializeBindPropsWatcher();
+
+            /**
+             * BindProp use useNextLoop to fire props
+             * Reset parseIsRunning after bind prop completed
+             */
+            mobCore.useNextLoop(() => {
+                setParseIsRunning(false);
+            });
         }
 
         /**
