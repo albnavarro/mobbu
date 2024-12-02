@@ -2,7 +2,8 @@
 
 import { mobCore } from '../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
-import { getRouteIsLoading } from '../mainStore/routeIsLoading';
+import { getParseIsRunning } from '../parse/parseIsRunnung';
+import { getRouteIsLoading } from '../route/routeIsLoading';
 import { getFreezePropStatus } from './action/freeze';
 import { componentMap } from './store';
 import { addPropsToState } from './utils';
@@ -71,8 +72,17 @@ export const addComponentToStore = ({
             const isFreezed = getFreezePropStatus({ id, prop });
             const propsIsRunning = propsQueque.has(prop);
             const routeIsLoading = getRouteIsLoading();
+            const parseIsRunnung = getParseIsRunning();
 
-            if ((propsIsRunning || isFreezed) && !routeIsLoading) return;
+            /**
+             * Use one mutation X prop in single javascript loop.
+             * Only outside route change or parse dom component.
+             */
+            if (
+                isFreezed ||
+                (propsIsRunning && !routeIsLoading && !parseIsRunnung)
+            )
+                return;
 
             propsQueque.add(prop);
             store.set(prop, value, fire);
@@ -90,8 +100,17 @@ export const addComponentToStore = ({
             const isFreezed = getFreezePropStatus({ id, prop });
             const propsIsRunning = propsQueque.has(prop);
             const routeIsLoading = getRouteIsLoading();
+            const parseIsRunnung = getParseIsRunning();
 
-            if ((propsIsRunning || isFreezed) && !routeIsLoading) return;
+            /**
+             * Use one mutation X prop in single javascript loop.
+             * Only outside route change or parse dom component.
+             */
+            if (
+                isFreezed ||
+                (propsIsRunning && !routeIsLoading && !parseIsRunnung)
+            )
+                return;
 
             propsQueque.add(prop);
             store.update(prop, updateFunction, fire, clone);

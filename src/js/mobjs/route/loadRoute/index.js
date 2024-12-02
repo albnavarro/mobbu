@@ -17,7 +17,7 @@ import { getBeforePageTransition, getPageTransition } from '../pageTransition';
 import { parseComponents } from '../../parse';
 import { getRestoreScroll } from '../scroll/restoreScroll';
 import { tick } from '../../queque/tick';
-import { setRouteIsLoading } from '../../mainStore/routeIsLoading';
+import { setRouteIsLoading } from '../routeIsLoading';
 
 /**
  * @param {object} param
