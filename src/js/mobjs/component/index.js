@@ -2,8 +2,6 @@
 
 import { mobCore } from '../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
-import { getParseIsRunning } from '../parse/parseIsRunnung';
-import { getRouteIsLoading } from '../route/routeIsLoading';
 import { getFreezePropStatus } from './action/freeze';
 import { componentMap } from './store';
 import { addPropsToState } from './utils';
@@ -61,35 +59,13 @@ export const addComponentToStore = ({
         state: store,
     });
 
-    /**
-     * Avoid multiple state mutation of same prop in same javascript loop.
-     */
-    const propsQueque = new Set();
-
     return {
         getState: () => store.get(),
         setState: (prop = '', value = {}, fire = true) => {
             const isFreezed = getFreezePropStatus({ id, prop });
-            const propsIsRunning = propsQueque.has(prop);
-            const routeIsLoading = getRouteIsLoading();
-            const parseIsRunnung = getParseIsRunning();
+            if (isFreezed) return;
 
-            /**
-             * Use one mutation X prop in single javascript loop.
-             * Only outside route change or parse dom component.
-             */
-            if (
-                isFreezed ||
-                (propsIsRunning && !routeIsLoading && !parseIsRunnung)
-            )
-                return;
-
-            propsQueque.add(prop);
             store.set(prop, value, fire);
-
-            mobCore.useNextLoop(() => {
-                propsQueque.delete(prop);
-            });
         },
         updateState: (
             prop = '',
@@ -98,26 +74,9 @@ export const addComponentToStore = ({
             clone = false
         ) => {
             const isFreezed = getFreezePropStatus({ id, prop });
-            const propsIsRunning = propsQueque.has(prop);
-            const routeIsLoading = getRouteIsLoading();
-            const parseIsRunnung = getParseIsRunning();
+            if (isFreezed) return;
 
-            /**
-             * Use one mutation X prop in single javascript loop.
-             * Only outside route change or parse dom component.
-             */
-            if (
-                isFreezed ||
-                (propsIsRunning && !routeIsLoading && !parseIsRunnung)
-            )
-                return;
-
-            propsQueque.add(prop);
             store.update(prop, updateFunction, fire, clone);
-
-            mobCore.useNextLoop(() => {
-                propsQueque.delete(prop);
-            });
         },
         emit: (prop = '') => store.emit(prop),
         emitAsync: async (prop = '') => await store.emitAsync(prop),

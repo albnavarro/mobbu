@@ -61,8 +61,8 @@
           this.isMatchIgnored = true;
         }
       };
-      function escapeHTML(value3) {
-        return value3.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#x27;");
+      function escapeHTML(value) {
+        return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#x27;");
       }
       function inherit$1(original, ...objects) {
         const result = /* @__PURE__ */ Object.create(null);
@@ -713,9 +713,9 @@
         endMultiClass(mode);
       }
       function compileLanguage(language) {
-        function langRe(value3, global) {
+        function langRe(value, global) {
           return new RegExp(
-            source(value3),
+            source(value),
             "m" + (language.case_insensitive ? "i" : "") + (language.unicodeRegex ? "u" : "") + (global ? "g" : "")
           );
         }
@@ -1705,17 +1705,17 @@
   var SET = "SET";
   var MAP = "MAP";
   var storeType = {
-    isString: (value3) => Object.prototype.toString.call(value3) === "[object String]",
-    isNumber: (value3) => Object.prototype.toString.call(value3) === "[object Number]" && Number.isFinite(value3),
-    isObject: (value3) => Object.prototype.toString.call(value3) === "[object Object]",
-    isFunction: (value3) => Object.prototype.toString.call(value3) === "[object Function]",
-    isArray: (value3) => Object.prototype.toString.call(value3) === "[object Array]",
-    isBoolean: (value3) => Object.prototype.toString.call(value3) === "[object Boolean]",
-    isElement: (value3) => value3 instanceof Element || value3 instanceof Document,
-    isHTMLElement: (value3) => value3 instanceof HTMLElement,
-    isSet: (value3) => value3 instanceof Set,
-    isMap: (value3) => value3 instanceof Map,
-    isNodeList: (value3) => Object.prototype.isPrototypeOf.call(NodeList.prototype, value3)
+    isString: (value) => Object.prototype.toString.call(value) === "[object String]",
+    isNumber: (value) => Object.prototype.toString.call(value) === "[object Number]" && Number.isFinite(value),
+    isObject: (value) => Object.prototype.toString.call(value) === "[object Object]",
+    isFunction: (value) => Object.prototype.toString.call(value) === "[object Function]",
+    isArray: (value) => Object.prototype.toString.call(value) === "[object Array]",
+    isBoolean: (value) => Object.prototype.toString.call(value) === "[object Boolean]",
+    isElement: (value) => value instanceof Element || value instanceof Document,
+    isHTMLElement: (value) => value instanceof HTMLElement,
+    isSet: (value) => value instanceof Set,
+    isMap: (value) => value instanceof Map,
+    isNodeList: (value) => Object.prototype.isPrototypeOf.call(NodeList.prototype, value)
   };
   var getTypeName = (type) => {
     switch (type) {
@@ -1771,51 +1771,51 @@
       }
     }
   };
-  var checkType = (type, value3) => {
+  var checkType = (type, value) => {
     switch (type) {
       case String:
       case STRING: {
-        return storeType.isString(value3);
+        return storeType.isString(value);
       }
       case Number:
       case NUMBER: {
-        return storeType.isNumber(value3);
+        return storeType.isNumber(value);
       }
       case Object:
       case OBJECT: {
-        return storeType.isObject(value3);
+        return storeType.isObject(value);
       }
       case Function:
       case FUNCTION: {
-        return storeType.isFunction(value3);
+        return storeType.isFunction(value);
       }
       case Array:
       case ARRAY: {
-        return storeType.isArray(value3);
+        return storeType.isArray(value);
       }
       case Boolean:
       case BOOLEAN: {
-        return storeType.isBoolean(value3);
+        return storeType.isBoolean(value);
       }
       case Element:
       case ELEMENT: {
-        return storeType.isElement(value3);
+        return storeType.isElement(value);
       }
       case HTMLElement:
       case HTMLELEMENT: {
-        return storeType.isHTMLElement(value3);
+        return storeType.isHTMLElement(value);
       }
       case NodeList:
       case NODELIST: {
-        return storeType.isNodeList(value3);
+        return storeType.isNodeList(value);
       }
       case Set:
       case SET: {
-        return storeType.isSet(value3);
+        return storeType.isSet(value);
       }
       case Map:
       case MAP: {
-        return storeType.isMap(value3);
+        return storeType.isMap(value);
       }
       case TYPE_IS_ANY: {
         return true;
@@ -1828,7 +1828,7 @@
 
   // src/js/mobCore/store/checkEquality.js
   var mapsAreEqual = (m1, m2) => m1.size === m2.size && [...m1.keys()].every((key) => m1.get(key) === m2.get(key));
-  var setsAreEqual = (a, b) => a.size === b.size && [...a].every((value3) => b.has(value3));
+  var setsAreEqual = (a, b) => a.size === b.size && [...a].every((value) => b.has(value));
   var arrayAreEquals = (a, b) => {
     if (a.length !== b.length) return false;
     const elements = /* @__PURE__ */ new Set([...a, ...b]);
@@ -2056,51 +2056,51 @@
     if (!storeType.isObject(object)) return 0;
     const values = Object.values(object);
     if (values.length === 0) return 1;
-    return Math.max(...values.map((value3) => maxDepth(value3))) + 1;
+    return Math.max(...values.map((value) => maxDepth(value))) + 1;
   };
   var getDataRecursive = (data, shouldRecursive = true) => {
     return Object.entries(data).reduce((p, c) => {
-      const [key, value3] = c;
-      const functionResult = storeType.isFunction(value3) ? (
+      const [key, value] = c;
+      const functionResult = storeType.isFunction(value) ? (
         /** @type {Function} */
-        value3()
+        value()
       ) : {};
-      if (storeType.isObject(value3) && shouldRecursive) {
+      if (storeType.isObject(value) && shouldRecursive) {
         return {
           ...p,
           [key]: getDataRecursive(
             /** @type {import('./type.js').mobStoreBaseData} */
-            value3,
+            value,
             false
           )
         };
       }
-      if (storeType.isFunction(value3) && storeType.isObject(functionResult) && "value" in functionResult && ("validate" in functionResult || "type" in functionResult || "skipEqual" in functionResult)) {
+      if (storeType.isFunction(value) && storeType.isObject(functionResult) && "value" in functionResult && ("validate" in functionResult || "type" in functionResult || "skipEqual" in functionResult)) {
         return { ...p, [key]: functionResult.value };
       }
-      return { ...p, [key]: value3 };
+      return { ...p, [key]: value };
     }, {});
   };
   var getPropRecursive = (data, prop, fallback, shouldRecursive = true) => {
     return Object.entries(data).reduce((p, c) => {
-      const [key, value3] = c;
-      const functionResult = storeType.isFunction(value3) ? (
+      const [key, value] = c;
+      const functionResult = storeType.isFunction(value) ? (
         /** @type{Function} */
-        value3()
+        value()
       ) : {};
-      if (storeType.isObject(value3) && shouldRecursive) {
+      if (storeType.isObject(value) && shouldRecursive) {
         return {
           ...p,
           [key]: getPropRecursive(
             /** @type{import('./type.js').mobStoreBaseData} */
-            value3,
+            value,
             prop,
             fallback,
             false
           )
         };
       }
-      if (storeType.isFunction(value3) && storeType.isObject(functionResult) && "value" in functionResult && prop in functionResult) {
+      if (storeType.isFunction(value) && storeType.isObject(functionResult) && "value" in functionResult && prop in functionResult) {
         const propParsed = storeType.isString(functionResult[prop]) ? functionResult[prop].toUpperCase() : functionResult[prop];
         return { ...p, [key]: propParsed };
       }
@@ -2127,20 +2127,20 @@
     }
     return getPropRecursive(data, prop, fallback);
   };
-  var cloneValueOrGet = ({ value: value3 }) => {
-    if (checkType(Map, value3)) {
-      return new Map(value3);
+  var cloneValueOrGet = ({ value }) => {
+    if (checkType(Map, value)) {
+      return new Map(value);
     }
-    if (checkType(Set, value3)) {
-      return new Set(value3);
+    if (checkType(Set, value)) {
+      return new Set(value);
     }
-    if (checkType(Object, value3)) {
-      return { ...value3 };
+    if (checkType(Object, value)) {
+      return { ...value };
     }
-    if (checkType(Array, value3)) {
-      return [...value3];
+    if (checkType(Array, value)) {
+      return [...value];
     }
-    return value3;
+    return value;
   };
 
   // src/js/mobCore/store/storeSet.js
@@ -2298,9 +2298,9 @@
     const shouldSkipEqual = Object.keys(newValParsedByStrict).every(
       (subProp) => skipEqual[prop][subProp] === true
     );
-    const prevValueIsEqualNew = shouldSkipEqual ? Object.entries(newObjectValues).every(([key, value3]) => {
+    const prevValueIsEqualNew = shouldSkipEqual ? Object.entries(newObjectValues).every(([key, value]) => {
       const isCustomObject = type[prop][key] === TYPE_IS_ANY;
-      const dataDepth = maxDepth(value3);
+      const dataDepth = maxDepth(value);
       if (dataDepth > 1 && !isCustomObject) {
         storeSetObjDepthWarning(prop, valueTransformed, logStyle2);
         return;
@@ -2308,7 +2308,7 @@
       return checkEquality(
         type[prop][key],
         oldObjectValues[key],
-        value3
+        value
       );
     }) : false;
     if (prevValueIsEqualNew) return;
@@ -2333,7 +2333,7 @@
     instanceId,
     state,
     prop,
-    value: value3,
+    value,
     fireCallback = true,
     clone = false,
     useStrict = true,
@@ -2347,7 +2347,7 @@
       return;
     }
     const previousValue = clone ? cloneValueOrGet({ value: store[prop] }) : store[prop];
-    const valueParsed = action2 === STORE_UPDATE ? value3(previousValue) : value3;
+    const valueParsed = action2 === STORE_UPDATE ? value(previousValue) : value;
     const isCustomObject = type[prop] === TYPE_IS_ANY;
     return storeType.isObject(previousValue) && !isCustomObject ? setObj({
       instanceId,
@@ -2368,7 +2368,7 @@
   var storeSetEntryPoint = ({
     instanceId,
     prop,
-    value: value3,
+    value,
     fireCallback,
     clone,
     action: action2
@@ -2379,7 +2379,7 @@
       instanceId,
       state,
       prop,
-      value: value3,
+      value,
       fireCallback,
       clone,
       action: action2
@@ -2387,16 +2387,16 @@
     if (!newState) return;
     updateMainMap(instanceId, newState);
   };
-  var storeQuickSetEntrypoint = ({ instanceId, prop, value: value3 }) => {
+  var storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
     const { store, callBackWatcher } = state;
     const oldVal = store[prop];
-    store[prop] = value3;
+    store[prop] = value;
     runCallbackQueqe({
       callBackWatcher,
       prop,
-      newValue: value3,
+      newValue: value,
       oldValue: oldVal,
       validationValue: true
     });
@@ -2428,11 +2428,11 @@
       computedPropsQueque: /* @__PURE__ */ new Set(),
       computedRunning: false
     });
-    computedValues.forEach(({ prop, value: value3 }) => {
+    computedValues.forEach(({ prop, value }) => {
       storeSetEntryPoint({
         instanceId,
         prop,
-        value: value3,
+        value,
         action: STORE_SET
       });
     });
@@ -2497,8 +2497,8 @@
     const { store } = initialState;
     const validationStatusObject = Object.entries(store).reduce(
       (previous, current) => {
-        const [key, value3] = current;
-        return storeType.isObject(value3) ? { ...previous, [key]: {} } : previous;
+        const [key, value] = current;
+        return storeType.isObject(value) ? { ...previous, [key]: {} } : previous;
       },
       {}
     );
@@ -2507,13 +2507,13 @@
   var inizializeAllProps = (instanceId, initialState) => {
     const { store } = initialState;
     Object.entries(store).forEach((item) => {
-      const [prop, value3] = item;
+      const [prop, value] = item;
       const state = getStateFromMainMap(instanceId);
       const newState = storeSetAction({
         instanceId,
         state,
         prop,
-        value: value3,
+        value,
         fireCallback: false,
         useStrict: false,
         action: STORE_SET
@@ -2596,7 +2596,7 @@
         prop: "transform",
         depth: dataDepth,
         logStyle: getLogStyle(),
-        fallback: (value3) => value3
+        fallback: (value) => value
       }),
       fnValidate: inizializeSpecificProp({
         data,
@@ -2706,28 +2706,28 @@
       getProp: (prop) => {
         return storeGetPropEntryPoint({ instanceId, prop });
       },
-      set: (prop, value3, fireCallback = true) => {
+      set: (prop, value, fireCallback = true) => {
         storeSetEntryPoint({
           instanceId,
           prop,
-          value: value3,
+          value,
           fireCallback,
           clone: false,
           action: STORE_SET
         });
       },
-      update: (prop, value3, fireCallback = true, clone = false) => {
+      update: (prop, value, fireCallback = true, clone = false) => {
         storeSetEntryPoint({
           instanceId,
           prop,
-          value: value3,
+          value,
           fireCallback,
           clone,
           action: STORE_UPDATE
         });
       },
-      quickSetProp: (prop, value3) => {
-        storeQuickSetEntrypoint({ instanceId, prop, value: value3 });
+      quickSetProp: (prop, value) => {
+        storeQuickSetEntrypoint({ instanceId, prop, value });
       },
       watch: (prop, callback2) => {
         return watchEntryPoint({ instanceId, prop, callback: callback2 });
@@ -2826,8 +2826,8 @@
       initialized = false;
       return;
     }
-    for (const value3 of callbacks.values()) {
-      value3();
+    for (const value of callbacks.values()) {
+      value();
     }
     callbacks.clear();
   }
@@ -2947,8 +2947,8 @@
         const { spinX, spinY, pixelX, pixelY } = normalizeWheel(event);
         Object.assign(mouseData, { spinX, spinY, pixelX, pixelY });
       }
-      for (const value3 of callbacks9.values()) {
-        value3(mouseData);
+      for (const value of callbacks9.values()) {
+        value(mouseData);
       }
     }
     function init7() {
@@ -3027,8 +3027,8 @@
     return subscriberMap.get(id) ?? {};
   };
   var fire = (frameCounter) => {
-    for (const value3 of subscriberMap.values()) {
-      const { data, fn, el } = value3;
+    for (const value of subscriberMap.values()) {
+      const { data, fn, el } = value;
       const callBackObject = data.get(frameCounter);
       if (callBackObject) {
         fn(callBackObject, el);
@@ -3046,8 +3046,8 @@
   };
   var getCacheCounter = () => cacheCoutner;
   var updateFrameId = (maxFramecounter) => {
-    for (const [key, value3] of subscriberMap) {
-      const { data, fn, el } = value3;
+    for (const [key, value] of subscriberMap) {
+      const { data, fn, el } = value;
       const newMap = /* @__PURE__ */ new Map();
       for (const [frame, object] of data) {
         newMap.set(frame - maxFramecounter, object);
@@ -3082,8 +3082,8 @@
     const visibilityData = {
       visibilityState: document.visibilityState
     };
-    for (const value3 of callbacks2.values()) {
-      value3(visibilityData);
+    for (const value of callbacks2.values()) {
+      value(visibilityData);
     }
   }
   function init2() {
@@ -3138,8 +3138,8 @@
   var updateKeys = (currentFrameLimit2) => {
     const oldMapToArray = [...indexCallbackMap.entries()];
     indexCallbackMap.clear();
-    oldMapToArray.forEach(([index, value3]) => {
-      indexCallbackMap.set(index - currentFrameLimit2, value3);
+    oldMapToArray.forEach(([index, value]) => {
+      indexCallbackMap.set(index - currentFrameLimit2, value);
     });
   };
   var fire3 = ({ currentFrame: currentFrame2, time: time2, fps: fps2 }) => {
@@ -3383,8 +3383,8 @@
       verticalResize,
       horizontalResize
     };
-    for (const value3 of callbacks5.values()) {
-      value3(resizeData);
+    for (const value of callbacks5.values()) {
+      value(resizeData);
     }
   }
   function init3() {
@@ -3430,8 +3430,8 @@
       scrollY: val,
       direction
     };
-    for (const value3 of callbacks6.values()) {
-      value3(scrollData);
+    for (const value of callbacks6.values()) {
+      value(scrollData);
     }
   }
   function init4() {
@@ -3466,8 +3466,8 @@
     }
     handleFrame.add(() => {
       handleNextTick.add(() => {
-        for (const value3 of callbacks7.values()) {
-          value3(scrollData2);
+        for (const value of callbacks7.values()) {
+          value(scrollData2);
         }
       }, 0);
     });
@@ -3526,8 +3526,8 @@
     }
     handleFrame.add(() => {
       handleNextTick.add(() => {
-        for (const value3 of callbacks8.values()) {
-          value3(scrollData2);
+        for (const value of callbacks8.values()) {
+          value(scrollData2);
         }
       }, 0);
     });
@@ -3578,8 +3578,8 @@
             scrollY: window.scrollY
           };
           if (type === "END") {
-            for (const value3 of callbacks9.values()) {
-              value3(scrollData2);
+            for (const value of callbacks9.values()) {
+              value(scrollData2);
             }
           }
         }, 0);
@@ -3597,8 +3597,8 @@
           };
           if (!isScrolling) {
             isScrolling = true;
-            for (const value3 of callbacks9.values()) {
-              value3(scrollData2);
+            for (const value of callbacks9.values()) {
+              value(scrollData2);
             }
           }
         });
@@ -3627,8 +3627,8 @@
         initialized7 = false;
         return;
       }
-      for (const value3 of callbacks9.values()) {
-        value3(event);
+      for (const value of callbacks9.values()) {
+        value(event);
       }
     }
     function init7() {
@@ -4412,8 +4412,8 @@
      * @description
      * Check type of variable.
      */
-    checkType(type, value3) {
-      return checkType(type, value3);
+    checkType(type, value) {
+      return checkType(type, value);
     },
     /**
      * @param {any} type
@@ -4815,19 +4815,19 @@
     };
     return result;
   };
-  var checkSetUpType = ({ prop, value: value3, defaultValue, type }) => {
-    const isValid = mobCore.checkType(type, value3);
+  var checkSetUpType = ({ prop, value, defaultValue, type }) => {
+    const isValid = mobCore.checkType(type, value);
     if (!isValid)
       console.warn(
-        `handleSetUp error: ${prop}: ${value3}, is not valid must be a ${mobCore.getTypeName(
+        `handleSetUp error: ${prop}: ${value}, is not valid must be a ${mobCore.getTypeName(
           type
         )}`
       );
-    return isValid ? value3 : defaultValue;
+    return isValid ? value : defaultValue;
   };
   var checkSetUpMq = (obj) => {
-    const isValid = mobCore.checkType(Object, obj) && Object.values(obj).every((value3) => {
-      return mobCore.checkType(Number, value3);
+    const isValid = mobCore.checkType(Object, obj) && Object.values(obj).every((value) => {
+      return mobCore.checkType(Number, value);
     });
     if (!isValid)
       console.warn(
@@ -4835,13 +4835,13 @@
       );
     return isValid ? obj : mqDefault;
   };
-  var checkSetUpEase = (value3, label) => {
-    const isValid = Object.keys(easeReference).includes(value3);
-    if (!isValid && value3 !== void 0 && value3 !== null)
+  var checkSetUpEase = (value, label) => {
+    const isValid = Object.keys(easeReference).includes(value);
+    if (!isValid && value !== void 0 && value !== null)
       console.warn(
         `handleSetUp error: ${label}.ease properties is not valid`
       );
-    return isValid ? value3 : easeDefault;
+    return isValid ? value : easeDefault;
   };
 
   // src/js/mobMotion/utils/mergeDeep.js
@@ -5582,19 +5582,19 @@
       `Stagger error: from: ${from} is not a valid value, must be a string start/end/center/edges or a number or a Object {x:Number,y:Number}`
     );
   };
-  var durationWarining = (value3) => {
+  var durationWarining = (value) => {
     console.warn(
-      `duration error: ${value3} is not valid duration must be a number`
+      `duration error: ${value} is not valid duration must be a number`
     );
   };
-  var durationNumberOrFunctionWarining = (value3) => {
+  var durationNumberOrFunctionWarining = (value) => {
     console.warn(
-      `duration error: ${value3} is not valid duration must be a number or a Function that return a number`
+      `duration error: ${value} is not valid duration must be a number or a Function that return a number`
     );
   };
-  var repeatWarining = (value3) => {
+  var repeatWarining = (value) => {
     console.warn(
-      `repeat error: ${value3} is not valid repeat value must be a Number`
+      `repeat error: ${value} is not valid repeat value must be a Number`
     );
   };
   var initialDataPropWarining = (prop) => {
@@ -5602,9 +5602,9 @@
       `data inizializiation error; ${prop} is not a valid value, must be a string`
     );
   };
-  var initialDataValueWarining = (value3) => {
+  var initialDataValueWarining = (value) => {
     console.warn(
-      `data inizializiation error; ${value3} is not a valid value, must be a number`
+      `data inizializiation error; ${value} is not a valid value, must be a number`
     );
   };
   var createStaggerItemsWarning = () => {
@@ -5671,12 +5671,12 @@
   var playLabelWarining = (label) => {
     console.warn(`${label} not found`);
   };
-  var addAsyncFunctionWarining = (value3) => {
-    console.warn(`timeline add async function, ${value3} is not a function `);
+  var addAsyncFunctionWarining = (value) => {
+    console.warn(`timeline add async function, ${value} is not a function `);
   };
-  var parallaxDirectionWarining = (value3, component) => {
+  var parallaxDirectionWarining = (value, component) => {
     console.warn(
-      `${component} direction: ${value3} is not valid value: must be ${parallaxConstant.DIRECTION_VERTICAL} | ${parallaxConstant.DIRECTION_HORIZONTAL}`
+      `${component} direction: ${value} is not valid value: must be ${parallaxConstant.DIRECTION_VERTICAL} | ${parallaxConstant.DIRECTION_HORIZONTAL}`
     );
   };
   var parallaxDynmicValueWarining = (label) => {
@@ -5694,16 +5694,16 @@
       "parallax|scrolTrigger error: tween is not valid, must be an instance of HandleSequencer || ParallaxTween"
     );
   };
-  var parallaxAlignWarining = (value3, choice) => {
+  var parallaxAlignWarining = (value, choice) => {
     console.warn(
-      `parallax error align propierties: ${value3} is not valid must be one of ${possibleChoice(
+      `parallax error align propierties: ${value} is not valid must be one of ${possibleChoice(
         choice
       )} or a Number between 0 and 100`
     );
   };
-  var parallaxOnSwitchWarining = (value3, choice) => {
+  var parallaxOnSwitchWarining = (value, choice) => {
     console.warn(
-      `parallax error align propierties: ${value3} is not valid must be one of ${possibleChoice(
+      `parallax error align propierties: ${value} is not valid must be one of ${possibleChoice(
         choice
       )}`
     );
@@ -5713,30 +5713,30 @@
       `${label}: '${val2}' is not Number, must be a number between 0 and 100`
     );
   };
-  var parallaxTypeWarining = (value3, choice) => {
+  var parallaxTypeWarining = (value, choice) => {
     console.warn(
-      `parallax error type propierties: ${value3} is not valid must be one of ${possibleChoice(
+      `parallax error type propierties: ${value} is not valid must be one of ${possibleChoice(
         choice
       )}`
     );
   };
-  var parallaxPropiertiesWarining = (value3, choice) => {
+  var parallaxPropiertiesWarining = (value, choice) => {
     console.warn(
-      `parallax/scrollTrigger error propierties props: ${value3} is not valid must be one of ${possibleChoice(
+      `parallax/scrollTrigger error propierties props: ${value} is not valid must be one of ${possibleChoice(
         choice
       )} or a custom css propierites like margin|line-height|...`
     );
   };
-  var parallaxEaseTypeWarining = (value3, choice) => {
+  var parallaxEaseTypeWarining = (value, choice) => {
     console.warn(
-      `parallax error easeType props: ${value3} is not valid must be one of ${possibleChoice(
+      `parallax error easeType props: ${value} is not valid must be one of ${possibleChoice(
         choice
       )}`
     );
   };
-  var genericEaseTypeWarining = (value3, choice, component) => {
+  var genericEaseTypeWarining = (value, choice, component) => {
     console.warn(
-      `${component} error easeType props: ${value3} is not valid must be one of ${possibleChoice(
+      `${component} error easeType props: ${value} is not valid must be one of ${possibleChoice(
         choice
       )}`
     );
@@ -5746,21 +5746,21 @@
       'Scrolltrigger warning: spring animation is only available for native properties and scrollerTween, Check that with the "propierties" property set to "tween" no HandleSequencer is associated with the "tween" property'
     );
   };
-  var parallaxSpringCongifWarining = (value3, choice) => {
+  var parallaxSpringCongifWarining = (value, choice) => {
     console.warn(
-      `parallax/scrollTrigger error springConfig props: ${value3} is not valid must be one of ${possibleChoice(
+      `parallax/scrollTrigger error springConfig props: ${value} is not valid must be one of ${possibleChoice(
         choice
       )}`
     );
   };
-  var parallaxRangeNumberWarning = (value3) => {
+  var parallaxRangeNumberWarning = (value) => {
     console.warn(
-      `parallax error range propierties, current value: ${value3}, the value must be a number between 0 and 9.99`
+      `parallax error range propierties, current value: ${value}, the value must be a number between 0 and 9.99`
     );
   };
-  var parallaxRangeStringWarning = (value3) => {
+  var parallaxRangeStringWarning = (value) => {
     console.warn(
-      `scrollTrigger error range propierties: ${value3} is not a String`
+      `scrollTrigger error range propierties: ${value} is not a String`
     );
   };
   var breakpointWarning = (mq2, choice, label, component) => {
@@ -5790,8 +5790,8 @@
       'parallax/ScrollTrrigger: there is tween associated but pros "propierties" is not set to "tween"'
     );
   };
-  var functionIsValidAndReturnDefaultWarining = (label, value3) => {
-    console.warn(`${label}: ${value3} is not a function`);
+  var functionIsValidAndReturnDefaultWarining = (label, value) => {
+    console.warn(`${label}: ${value} is not a function`);
   };
   var scrollTriggerRangeWarning = (string, properties, choice) => {
     console.warn(
@@ -6064,29 +6064,29 @@
   };
 
   // src/js/mobMotion/animation/parallax/getConstantFromRegex.js
-  var getPropiertiesValueFromConstant = (value3) => {
-    if (!value3) return value3;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_VERTICAL))
+  var getPropiertiesValueFromConstant = (value) => {
+    if (!value) return value;
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_VERTICAL))
       return parallaxConstant.PROP_VERTICAL;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_HORIZONTAL))
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_HORIZONTAL))
       return parallaxConstant.PROP_HORIZONTAL;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_ROTATE))
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_ROTATE))
       return parallaxConstant.PROP_ROTATE;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_ROTATEY))
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_ROTATEY))
       return parallaxConstant.PROP_ROTATEY;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_ROTATEX))
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_ROTATEX))
       return parallaxConstant.PROP_ROTATEX;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_OPACITY))
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_OPACITY))
       return parallaxConstant.PROP_OPACITY;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_SCALE))
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_SCALE))
       return parallaxConstant.PROP_SCALE;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_SCALE_X))
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_SCALE_X))
       return parallaxConstant.PROP_SCALE_X;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_SCALE_Y))
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_SCALE_Y))
       return parallaxConstant.PROP_SCALE_Y;
-    if (exactMatchInsensitive(value3, parallaxConstant.PROP_TWEEN))
+    if (exactMatchInsensitive(value, parallaxConstant.PROP_TWEEN))
       return parallaxConstant.PROP_TWEEN;
-    return value3;
+    return value;
   };
   var getStartEndUnitMisure = (pattern) => {
     if (pattern) {
@@ -6158,11 +6158,11 @@
     if (!isValid && ease) tweenEaseWarning(ease);
     return isValid ? getTweenFn(ease) : getTweenFn(handleSetUp.get("parallaxTween").ease);
   };
-  var initialDataPropValidate = (prop, value3) => {
+  var initialDataPropValidate = (prop, value) => {
     const propIsValid = mobCore.checkType(String, prop);
-    const valueIsValid = mobCore.checkType(Number, value3);
+    const valueIsValid = mobCore.checkType(Number, value);
     if (!propIsValid) initialDataPropWarining(prop);
-    if (!valueIsValid) initialDataValueWarining(value3);
+    if (!valueIsValid) initialDataValueWarining(value);
     return propIsValid && valueIsValid;
   };
   var validateStaggerEach = (each) => {
@@ -6281,50 +6281,50 @@
     if (!isValid && duration2) durationNumberOrFunctionWarining(duration2);
     return isValid ? durationResult : handleSetUp.get("tween").duration;
   };
-  var valueIsBooleanAndTrue = (value3, label) => {
-    const isValid = mobCore.checkType(Boolean, value3);
-    if (!isValid && value3) booleanWarning(value3, label);
-    return isValid && value3 === true;
+  var valueIsBooleanAndTrue = (value, label) => {
+    const isValid = mobCore.checkType(Boolean, value);
+    if (!isValid && value) booleanWarning(value, label);
+    return isValid && value === true;
   };
-  var valueIsBooleanAndReturnDefault = (value3, label, defaultValue) => {
-    const isValid = mobCore.checkType(Boolean, value3);
-    if (!isValid && value3) booleanWarning(value3, label);
-    return isValid ? value3 : defaultValue;
+  var valueIsBooleanAndReturnDefault = (value, label, defaultValue) => {
+    const isValid = mobCore.checkType(Boolean, value);
+    if (!isValid && value) booleanWarning(value, label);
+    return isValid ? value : defaultValue;
   };
-  var valueIsStringAndReturnDefault = (value3, label, defaultValue) => {
-    const isValid = mobCore.checkType(String, value3);
-    if (!isValid && value3) stringWarning(value3, label);
-    return isValid ? value3 : defaultValue;
+  var valueIsStringAndReturnDefault = (value, label, defaultValue) => {
+    const isValid = mobCore.checkType(String, value);
+    if (!isValid && value) stringWarning(value, label);
+    return isValid ? value : defaultValue;
   };
-  var valueIsNumberAndReturnDefault = (value3, label, defaultValue) => {
-    const isValid = mobCore.checkType(Number, value3);
-    if (!isValid && value3) naumberWarning(value3, label);
-    return isValid ? value3 : defaultValue;
+  var valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
+    const isValid = mobCore.checkType(Number, value);
+    if (!isValid && value) naumberWarning(value, label);
+    return isValid ? value : defaultValue;
   };
-  var valueIsFunctionAndReturnDefault = (value3, label, defaultValue) => {
-    const isValid = mobCore.checkType(Function, value3);
-    if (!isValid && value3) functionWarning(value3, label);
-    return isValid ? value3 : defaultValue;
+  var valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
+    const isValid = mobCore.checkType(Function, value);
+    if (!isValid && value) functionWarning(value, label);
+    return isValid ? value : defaultValue;
   };
-  var lerpVelocityIsValid = (value3) => {
-    const isValid = mobCore.checkType(Number, value3) && value3 > 0 && value3 <= 1;
-    if (!isValid && value3) lerpVelocityWarining();
-    return isValid ? value3 : handleSetUp.get("lerp").velocity;
+  var lerpVelocityIsValid = (value) => {
+    const isValid = mobCore.checkType(Number, value) && value > 0 && value <= 1;
+    if (!isValid && value) lerpVelocityWarining();
+    return isValid ? value : handleSetUp.get("lerp").velocity;
   };
-  var lerpPrecisionIsValid = (value3) => {
-    const isValid = mobCore.checkType(Number, value3);
-    if (!isValid && value3) lerpPrecisionWarining();
-    return isValid ? value3 : handleSetUp.get("lerp").precision;
+  var lerpPrecisionIsValid = (value) => {
+    const isValid = mobCore.checkType(Number, value);
+    if (!isValid && value) lerpPrecisionWarining();
+    return isValid ? value : handleSetUp.get("lerp").precision;
   };
-  var valueStringIsValid = (value3, label) => {
-    const isValid = mobCore.checkType(String, value3);
-    if (!isValid && value3) valueStringWarning(label);
+  var valueStringIsValid = (value, label) => {
+    const isValid = mobCore.checkType(String, value);
+    if (!isValid && value) valueStringWarning(label);
     return isValid;
   };
-  var asyncTimelineDelayIsValid = (value3) => {
-    const isValid = mobCore.checkType(Number, value3);
-    if (!isValid && value3) asyncTimelineDelayWarning();
-    return isValid ? value3 : void 0;
+  var asyncTimelineDelayIsValid = (value) => {
+    const isValid = mobCore.checkType(Number, value);
+    if (!isValid && value) asyncTimelineDelayWarning();
+    return isValid ? value : void 0;
   };
   var asyncTimelineTweenIsValid = (instance) => {
     const isValid = instance?.getType?.() && (instance.getType() === "LERP" || instance.getType() === "SPRING" || instance.getType() === "TWEEN");
@@ -6403,8 +6403,8 @@
     if (!isValid && instance) parallaxTweenWarning();
     return isValid ? instance : {};
   };
-  var parallaxAlignIsValid = (value3) => {
-    if (!value3) return parallaxConstant.ALIGN_CENTER;
+  var parallaxAlignIsValid = (value) => {
+    if (!value) return parallaxConstant.ALIGN_CENTER;
     const choice = [
       parallaxConstant.ALIGN_START,
       parallaxConstant.ALIGN_TOP,
@@ -6414,31 +6414,31 @@
       parallaxConstant.ALIGN_LEFT,
       parallaxConstant.ALIGN_END
     ];
-    const isValid = choice.includes(value3) || mobCore.checkType(Number, value3);
-    if (!isValid && value3) parallaxAlignWarining(value3, choice);
-    return isValid ? value3 : parallaxConstant.ALIGN_CENTER;
+    const isValid = choice.includes(value) || mobCore.checkType(Number, value);
+    if (!isValid && value) parallaxAlignWarining(value, choice);
+    return isValid ? value : parallaxConstant.ALIGN_CENTER;
   };
-  var parallaxOnSwitchIsValid = (value3) => {
-    if (!value3) return false;
+  var parallaxOnSwitchIsValid = (value) => {
+    if (!value) return false;
     const choice = [
       parallaxConstant.IN_BACK,
       parallaxConstant.IN_STOP,
       parallaxConstant.OUT_BACK,
       parallaxConstant.OUT_STOP
     ];
-    const isValid = choice.includes(value3);
-    if (!isValid && value3) parallaxOnSwitchWarining(value3, choice);
-    return isValid ? value3 : false;
+    const isValid = choice.includes(value);
+    if (!isValid && value) parallaxOnSwitchWarining(value, choice);
+    return isValid ? value : false;
   };
-  var parallaxOpacityIsValid = (value3, label, defaultValue) => {
-    if (!value3) return defaultValue;
-    const isValid = mobCore.checkType(Number, value3);
-    if (!isValid && value3) parallaxOpacityWarning(value3, label);
-    return isValid ? value3 : defaultValue;
+  var parallaxOpacityIsValid = (value, label, defaultValue) => {
+    if (!value) return defaultValue;
+    const isValid = mobCore.checkType(Number, value);
+    if (!isValid && value) parallaxOpacityWarning(value, label);
+    return isValid ? value : defaultValue;
   };
-  var parallaxTypeIsValid = (value3) => {
-    if (!value3) return parallaxConstant.TYPE_PARALLAX;
-    const valueLowerCase = value3?.toLowerCase();
+  var parallaxTypeIsValid = (value) => {
+    if (!value) return parallaxConstant.TYPE_PARALLAX;
+    const valueLowerCase = value?.toLowerCase();
     const choice = [
       parallaxConstant.TYPE_PARALLAX,
       parallaxConstant.TYPE_SCROLLTRIGGER
@@ -6448,22 +6448,22 @@
       parallaxTypeWarining(valueLowerCase, choice);
     return isValid ? valueLowerCase : parallaxConstant.TYPE_PARALLAX;
   };
-  var parallaxRangeIsValid = (value3, type) => {
+  var parallaxRangeIsValid = (value, type) => {
     const parsedValue = () => {
       if (type === parallaxConstant.TYPE_PARALLAX) {
-        const isOnlyNumber = checkIfIsOnlyNumber(value3);
-        const isValid = mobCore.checkType(Number, Number(value3)) && isOnlyNumber && // @ts-ignore
-        value3 >= 0 && // @ts-ignore
-        value3 < 10;
-        if (!isValid && value3) parallaxRangeNumberWarning(value3);
+        const isOnlyNumber = checkIfIsOnlyNumber(value);
+        const isValid = mobCore.checkType(Number, Number(value)) && isOnlyNumber && // @ts-ignore
+        value >= 0 && // @ts-ignore
+        value < 10;
+        if (!isValid && value) parallaxRangeNumberWarning(value);
         return isValid ? (
           // @ts-ignore
-          10 - value3
+          10 - value
         ) : 10 - handleSetUp.get("parallax").defaultRange;
       } else {
-        const isValid = mobCore.checkType(String, value3);
-        if (!isValid && value3) parallaxRangeStringWarning(value3);
-        return isValid ? value3 : "0px";
+        const isValid = mobCore.checkType(String, value);
+        if (!isValid && value) parallaxRangeStringWarning(value);
+        return isValid ? value : "0px";
       }
     };
     return parsedValue();
@@ -6485,18 +6485,18 @@
     if (!isValid && type) breakpointWarning(type, choice, label, component);
     return isValid ? type : defaultType;
   };
-  var parallaxPropiertiesIsValid = (value3, type, tweenIsParallaxTween, tweenIsSequencer) => {
-    if (!value3 && tweenIsSequencer)
+  var parallaxPropiertiesIsValid = (value, type, tweenIsParallaxTween, tweenIsSequencer) => {
+    if (!value && tweenIsSequencer)
       return {
         propierties: parallaxConstant.PROP_VERTICAL,
         shouldTrackOnlyEvents: true
       };
-    if (!value3 && tweenIsParallaxTween)
+    if (!value && tweenIsParallaxTween)
       return {
         propierties: parallaxConstant.PROP_VERTICAL,
         shouldTrackOnlyEvents: false
       };
-    const shouldTrackOnlyEvents = type === parallaxConstant.TYPE_SCROLLTRIGGER && !value3;
+    const shouldTrackOnlyEvents = type === parallaxConstant.TYPE_SCROLLTRIGGER && !value;
     const choice = [
       parallaxConstant.PROP_VERTICAL,
       parallaxConstant.PROP_HORIZONTAL,
@@ -6510,34 +6510,34 @@
       parallaxConstant.PROP_SCALE_Y,
       parallaxConstant.PROP_TWEEN
     ];
-    const isValid = mobCore.checkType(String, value3);
-    if (!isValid && value3) parallaxPropiertiesWarining(value3, choice);
-    const notParallaxTweenInsideParallax = type === parallaxConstant.TYPE_PARALLAX && value3 === parallaxConstant.PROP_TWEEN && !tweenIsParallaxTween;
-    if (!tweenIsParallaxTween && !tweenIsSequencer && value3 === parallaxConstant.PROP_TWEEN)
+    const isValid = mobCore.checkType(String, value);
+    if (!isValid && value) parallaxPropiertiesWarining(value, choice);
+    const notParallaxTweenInsideParallax = type === parallaxConstant.TYPE_PARALLAX && value === parallaxConstant.PROP_TWEEN && !tweenIsParallaxTween;
+    if (!tweenIsParallaxTween && !tweenIsSequencer && value === parallaxConstant.PROP_TWEEN)
       parallaxNoTweenDefinedWarning();
-    if ((tweenIsParallaxTween || tweenIsSequencer) && value3 !== parallaxConstant.PROP_TWEEN)
+    if ((tweenIsParallaxTween || tweenIsSequencer) && value !== parallaxConstant.PROP_TWEEN)
       parallaxUseTweenButNotProsDefinedWarning();
     if (notParallaxTweenInsideParallax) parallaxUseSequencerWarining();
-    const valueParsed = notParallaxTweenInsideParallax ? parallaxConstant.PROP_VERTICAL : value3;
+    const valueParsed = notParallaxTweenInsideParallax ? parallaxConstant.PROP_VERTICAL : value;
     const valueFromConstant = getPropiertiesValueFromConstant(valueParsed);
     return {
       propierties: isValid ? valueFromConstant ?? parallaxConstant.PROP_VERTICAL : parallaxConstant.PROP_VERTICAL,
       shouldTrackOnlyEvents
     };
   };
-  var parallaxEaseTypeIsValid = (value3) => {
-    if (!value3) return parallaxConstant.EASE_LERP;
+  var parallaxEaseTypeIsValid = (value) => {
+    if (!value) return parallaxConstant.EASE_LERP;
     const choice = [parallaxConstant.EASE_SPRING, parallaxConstant.EASE_LERP];
-    const isValid = choice.includes(value3);
-    if (!isValid) parallaxEaseTypeWarining(value3, choice);
-    const fallback = isValid ? value3 : parallaxConstant.EASE_LERP;
-    return isValid ? value3 : fallback;
+    const isValid = choice.includes(value);
+    if (!isValid) parallaxEaseTypeWarining(value, choice);
+    const fallback = isValid ? value : parallaxConstant.EASE_LERP;
+    return isValid ? value : fallback;
   };
-  var genericEaseTypeIsValid = (value3, component) => {
+  var genericEaseTypeIsValid = (value, component) => {
     const choice = [parallaxConstant.EASE_SPRING, parallaxConstant.EASE_LERP];
-    const isValid = choice.includes(value3);
-    if (!isValid && value3) genericEaseTypeWarining(value3, choice, component);
-    return isValid ? value3 : parallaxConstant.EASE_LERP;
+    const isValid = choice.includes(value);
+    if (!isValid && value) genericEaseTypeWarining(value, choice, component);
+    return isValid ? value : parallaxConstant.EASE_LERP;
   };
   var parallaxSpringConfigIsValid = (config, type) => {
     const defaultConfig = type === parallaxConstant.TYPE_PARALLAX ? handleSetUp.get("parallax").springConfig : handleSetUp.get("scrollTrigger").springConfig;
@@ -6548,16 +6548,16 @@
     if (!isValid && config) parallaxSpringCongifWarining(config, choice);
     return isValid ? config : defaultConfig;
   };
-  var parallaxLerpConfigIsValid = (value3, type) => {
+  var parallaxLerpConfigIsValid = (value, type) => {
     const isValid = (
       // @ts-ignore
-      mobCore.checkType(Number, Number(value3)) && value3 > 0 && value3 <= 1
+      mobCore.checkType(Number, Number(value)) && value > 0 && value <= 1
     );
-    if (!isValid && value3) parallaxLerpConfigWarning();
+    if (!isValid && value) parallaxLerpConfigWarning();
     const defaultConfig = type === parallaxConstant.TYPE_PARALLAX ? handleSetUp.get("parallax").lerpConfig : handleSetUp.get("scrollTrigger").lerpConfig;
-    return isValid ? value3 : defaultConfig;
+    return isValid ? value : defaultConfig;
   };
-  var checkStringRangeOnPropierties = (value3, properties) => {
+  var checkStringRangeOnPropierties = (value, properties) => {
     const parallalxXYRangeChoice = [
       parallaxConstant.PX,
       parallaxConstant.VW,
@@ -6568,35 +6568,35 @@
     if (properties === parallaxConstant.PROP_VERTICAL || properties === parallaxConstant.PROP_HORIZONTAL) {
       const isValid2 = exactMatchInsesitiveNumberPropArray(
         parallalxXYRangeChoice,
-        value3
+        value
       );
       if (!isValid2)
         scrollTriggerRangeWarning(
-          value3,
+          value,
           properties,
           parallalxXYRangeChoice
         );
-      return isValid2 ? value3 : "0px";
+      return isValid2 ? value : "0px";
     }
     if (properties === parallaxConstant.PROP_ROTATE || properties === parallaxConstant.PROP_ROTATEX || properties === parallaxConstant.PROP_ROTATEY || properties === parallaxConstant.PROP_ROTATEZ) {
       const isValid2 = exactMatchInsesitiveNumberPropArray(
         [parallaxConstant.DEGREE],
-        value3
+        value
       );
       if (!isValid2)
-        scrollTriggerRangeWarning(value3, properties, [
+        scrollTriggerRangeWarning(value, properties, [
           parallaxConstant.DEGREE
         ]);
-      return isValid2 ? value3 : "0";
+      return isValid2 ? value : "0";
     }
     if (properties === parallaxConstant.PROP_SCALE || properties === parallaxConstant.PROP_SCALE_X || properties === parallaxConstant.PROP_SCALE_Y) {
-      const isValid2 = checkIfIsOnlyNumberPositiveNegative(value3);
-      if (!isValid2) scrollTriggerRangeScaleWarning(value3, properties);
-      return isValid2 ? value3 : "0";
+      const isValid2 = checkIfIsOnlyNumberPositiveNegative(value);
+      if (!isValid2) scrollTriggerRangeScaleWarning(value, properties);
+      return isValid2 ? value : "0";
     }
-    const isValid = checkIfIsOnlyNumberPositiveNegative(value3);
+    const isValid = checkIfIsOnlyNumberPositiveNegative(value);
     if (!isValid) scrollTriggerCustomRangeWarning(properties);
-    return isValid ? value3 : "0";
+    return isValid ? value : "0";
   };
 
   // src/js/mobMotion/animation/utils/stagger/staggerUtils.js
@@ -7245,14 +7245,14 @@
           settled: false
         };
       }
-      const value3 = mobCore.checkType(Number, obj[item]) ? obj[item] : (
+      const value = mobCore.checkType(Number, obj[item]) ? obj[item] : (
         // @ts-ignore
         obj[item]?.() ?? 0
       );
       return {
         prop: item,
-        fromValue: value3,
-        currentValue: value3,
+        fromValue: value,
+        currentValue: value,
         fromFn: (
           /** @type{() => number} */
           obj[item]
@@ -7323,20 +7323,20 @@
           settled: false
         };
       }
-      const value3 = mobCore.checkType(Number, obj[item]) ? obj[item] : (
+      const value = mobCore.checkType(Number, obj[item]) ? obj[item] : (
         // @ts-ignore
         obj[item]?.() ?? 0
       );
       return {
         prop: item,
-        fromValue: value3,
+        fromValue: value,
         fromFn: (
           /** @type{() => number} */
           obj[item]
         ),
         fromIsFn: mobCore.checkType(Function, obj[item]),
-        currentValue: value3,
-        toValue: value3,
+        currentValue: value,
+        toValue: value,
         toFn: (
           /** @type{() => number} */
           obj[item]
@@ -7792,12 +7792,12 @@
      */
     setData(obj) {
       this.#values = Object.entries(obj).map((item) => {
-        const [prop, value3] = item;
+        const [prop, value] = item;
         return {
           prop,
-          toValue: value3,
-          fromValue: value3,
-          currentValue: value3,
+          toValue: value,
+          fromValue: value,
+          currentValue: value,
           fromFn: () => 0,
           fromIsFn: false,
           toFn: () => 0,
@@ -8372,13 +8372,13 @@
     setData(obj) {
       const valToArray = Object.entries(obj);
       this.#values = valToArray.map((item) => {
-        const [prop, value3] = item;
+        const [prop, value] = item;
         return {
           prop,
-          toValue: value3,
-          toValProcessed: value3,
-          fromValue: value3,
-          currentValue: value3,
+          toValue: value,
+          toValProcessed: value,
+          fromValue: value,
+          currentValue: value,
           settled: false,
           /**
            * Only for type check.
@@ -9179,9 +9179,9 @@
      */
     setData(obj = {}) {
       this.#values = Object.entries(obj).map((item) => {
-        const [prop, value3] = item;
-        const isValid = initialDataPropValidate(prop, value3);
-        const valueSanitized = isValid ? value3 : 0;
+        const [prop, value] = item;
+        const isValid = initialDataPropValidate(prop, value);
+        const valueSanitized = isValid ? value : 0;
         return {
           prop: isValid ? prop : "invalidProp",
           toValue: valueSanitized,
@@ -9890,13 +9890,13 @@
      */
     setData(obj) {
       this.#values = Object.entries(obj).map((item) => {
-        const [prop, value3] = item;
+        const [prop, value] = item;
         return {
           prop,
-          toValue: value3,
-          fromValue: value3,
+          toValue: value,
+          fromValue: value,
           velocity: this.#configProps.velocity,
-          currentValue: value3,
+          currentValue: value,
           fromFn: () => 0,
           fromIsFn: false,
           toFn: () => 0,
@@ -10678,14 +10678,14 @@
      */
     setData(obj) {
       this.#values = Object.entries(obj).map((item) => {
-        const [prop, value3] = item;
+        const [prop, value] = item;
         return {
           prop,
-          toValue: value3,
-          toValueOnPause: value3,
-          toValProcessed: value3,
-          fromValue: value3,
-          currentValue: value3,
+          toValue: value,
+          toValueOnPause: value,
+          toValProcessed: value,
+          fromValue: value,
+          currentValue: value,
           shouldUpdate: false,
           fromFn: () => 0,
           fromIsFn: false,
@@ -13275,11 +13275,11 @@
          * @description
          * Plays the timeline forward starting from the specific time or from a label defined in a Handle Sequencer | HandleMasterSequencer instance
          */
-    playFrom(value3 = 0) {
+    playFrom(value = 0) {
       return new Promise((resolve, reject) => {
         if (this.fpsIsInLoading) return;
-        const isNumber = mobCore.checkType(Number, value3);
-        const labelTime = isNumber ? value3 : this.#getTimeFromLabel(value3);
+        const isNumber = mobCore.checkType(Number, value);
+        const labelTime = isNumber ? value : this.#getTimeFromLabel(value);
         this.#rejectPromise();
         this.currentResolve = resolve;
         this.currentReject = reject;
@@ -13319,11 +13319,11 @@
          * @description
          * Plays the timeline backward starting from the specific time or from a label defined in a Handle Sequencer | HandleMasterSequencer instance
          */
-    playFromReverse(value3) {
+    playFromReverse(value) {
       return new Promise((resolve, reject) => {
         if (this.fpsIsInLoading) return;
-        const isNumber = mobCore.checkType(Number, value3);
-        const labelTime = isNumber ? value3 : this.#getTimeFromLabel(value3);
+        const isNumber = mobCore.checkType(Number, value);
+        const labelTime = isNumber ? value : this.#getTimeFromLabel(value);
         this.#rejectPromise();
         this.currentResolve = resolve;
         this.currentReject = reject;
@@ -13766,20 +13766,20 @@
   };
 
   // src/js/mobMotion/animation/parallax/parallaxEmitter.js
-  var action = ({ prevValue, value: value3, maxVal }) => {
-    if (value3 >= maxVal && prevValue <= maxVal && maxVal >= 0 || value3 <= maxVal && prevValue >= maxVal && maxVal <= 0)
+  var action = ({ prevValue, value, maxVal }) => {
+    if (value >= maxVal && prevValue <= maxVal && maxVal >= 0 || value <= maxVal && prevValue >= maxVal && maxVal <= 0)
       return parallaxConstant.ON_LEAVE;
-    if (value3 > maxVal && prevValue <= maxVal && maxVal <= 0 || value3 < maxVal && prevValue >= maxVal && maxVal >= 0)
+    if (value > maxVal && prevValue <= maxVal && maxVal <= 0 || value < maxVal && prevValue >= maxVal && maxVal >= 0)
       return parallaxConstant.ON_ENTER_BACK;
-    if (value3 >= 0 && prevValue <= 0 && maxVal <= 0 || value3 <= 0 && prevValue >= 0 && maxVal >= 0)
+    if (value >= 0 && prevValue <= 0 && maxVal <= 0 || value <= 0 && prevValue >= 0 && maxVal >= 0)
       return parallaxConstant.ON_LEAVE_BACK;
-    if (value3 > 0 && value3 < maxVal && prevValue <= 0 && maxVal >= 0 || value3 < 0 && prevValue >= 0 && maxVal <= 0)
+    if (value > 0 && value < maxVal && prevValue <= 0 && maxVal >= 0 || value < 0 && prevValue >= 0 && maxVal <= 0)
       return parallaxConstant.ON_ENTER;
     return parallaxConstant.ON_NOOP;
   };
   function parallaxEmitter({
     prevValue,
-    value: value3,
+    value,
     maxVal,
     onEnter,
     onEnterBack,
@@ -13802,7 +13802,7 @@
       [parallaxConstant.ON_NOOP]: () => {
       }
     };
-    fn[action({ prevValue, value: value3, maxVal })]();
+    fn[action({ prevValue, value, maxVal })]();
   }
 
   // src/js/mobMotion/animation/parallax/parallaxMarker.js
@@ -14470,9 +14470,9 @@
         const style = this.#findStyle(this.#wrapper, item);
         if (!style) return false;
         const [key] = Object.keys(style);
-        const [value3] = Object.values(style);
+        const [value] = Object.values(style);
         if (key === "position") {
-          return value3 === "fixed" || value3 === "absolute" ? true : false;
+          return value === "fixed" || value === "absolute" ? true : false;
         } else {
           return true;
         }
@@ -14985,50 +14985,50 @@
       position: positionFromConstant
     };
   };
-  var processFixedLimit = (value3, stringValue, height, width) => {
+  var processFixedLimit = (value, stringValue, height, width) => {
     const str = String(stringValue);
     if (exactMatchInsensitive(str, parallaxConstant.PLUS_HEIGHT_HALF)) {
-      return value3 + height / 2;
+      return value + height / 2;
     }
     if (exactMatchInsensitive(str, parallaxConstant.PLUS_HEIGHT)) {
-      return value3 + height;
+      return value + height;
     }
     if (exactMatchInsensitive(str, parallaxConstant.PLUS_WIDTH_HALF)) {
-      return value3 + width / 2;
+      return value + width / 2;
     }
     if (exactMatchInsensitive(str, parallaxConstant.PLUS_WIDTH)) {
-      return value3 + width;
+      return value + width;
     }
     if (exactMatchInsensitive(str, parallaxConstant.MINUS_HEIGHT_HALF)) {
-      return value3 - height / 2;
+      return value - height / 2;
     }
     if (exactMatchInsensitive(str, parallaxConstant.MINUS_HEIGHT)) {
-      return value3 - height;
+      return value - height;
     }
     if (exactMatchInsensitive(str, parallaxConstant.MINUS_WIDTH_HALF)) {
-      return value3 - width / 2;
+      return value - width / 2;
     }
     if (exactMatchInsensitive(str, parallaxConstant.MINUS_WIDTH)) {
-      return value3 - width;
+      return value - width;
     }
-    return value3;
+    return value;
   };
-  var getValueOnSwitch = ({ switchPropierties, isReverse, value: value3 }) => {
+  var getValueOnSwitch = ({ switchPropierties, isReverse, value }) => {
     switch (switchPropierties) {
       case parallaxConstant.IN_STOP: {
-        return !isReverse && value3 > 0 || isReverse && value3 < 0 ? 0 : value3;
+        return !isReverse && value > 0 || isReverse && value < 0 ? 0 : value;
       }
       case parallaxConstant.IN_BACK: {
-        return !isReverse && value3 > 0 || isReverse && value3 < 0 ? -value3 : value3;
+        return !isReverse && value > 0 || isReverse && value < 0 ? -value : value;
       }
       case parallaxConstant.OUT_STOP: {
-        return !isReverse && value3 < 0 || isReverse && value3 > 0 ? 0 : value3;
+        return !isReverse && value < 0 || isReverse && value > 0 ? 0 : value;
       }
       case parallaxConstant.OUT_BACK: {
-        return !isReverse && value3 < 0 || isReverse && value3 > 0 ? -value3 : value3;
+        return !isReverse && value < 0 || isReverse && value > 0 ? -value : value;
       }
       default: {
-        return value3;
+        return value;
       }
     }
   };
@@ -16260,10 +16260,10 @@
      * @param {import('./type.js').parallaxMoveType} obj
      *
      */
-    move({ value: value3, parentIsMoving = false }) {
-      if (!mq[this.#queryType](this.#breakpoint) || !value3) return;
+    move({ value, parentIsMoving = false }) {
+      if (!mq[this.#queryType](this.#breakpoint) || !value) return;
       this.#iSControlledFromOutside = true;
-      const scrollVal = this.#getScrollValueOnMove(value3);
+      const scrollVal = this.#getScrollValueOnMove(value);
       if (this.#ease) {
         this.#smoothParallaxJs(scrollVal);
       } else {
@@ -16293,10 +16293,10 @@
     /**
      * @param {number|undefined} value
      */
-    #getScrollValueOnMove(value3) {
-      if (value3 === void 0) return;
-      if (this.#screen !== window) return value3 + this.#screenPosition;
-      return value3;
+    #getScrollValueOnMove(value) {
+      if (value === void 0) return;
+      if (this.#screen !== window) return value + this.#screenPosition;
+      return value;
     }
     /**
      * @description
@@ -16409,13 +16409,13 @@
     /**
      * @param {number} value
      */
-    #updateStyle(value3) {
+    #updateStyle(value) {
       if (this.#applyTo) {
-        Object.assign(this.#applyTo.style, this.#getStyle(value3));
+        Object.assign(this.#applyTo.style, this.#getStyle(value));
       } else if (this.#item) {
-        Object.assign(this.#item.style, this.#getStyle(value3));
+        Object.assign(this.#item.style, this.#getStyle(value));
       }
-      this.#lastValue = value3;
+      this.#lastValue = value;
       this.#firstTime = false;
     }
     /**
@@ -16493,8 +16493,8 @@
     #getOpacityValue() {
       const vhLimit = this.#scrollerHeight / 100 * this.#opacityEnd;
       const vhStart = this.#scrollerHeight - this.#scrollerHeight / 100 * this.#opacityStart;
-      const value3 = this.#align == parallaxConstant.ALIGN_START ? -this.#scrollerScroll * -1 : (this.#scrollerScroll + vhLimit - this.#offset) * -1;
-      const valClamped = this.#align == parallaxConstant.ALIGN_START ? 1 - value3 / this.#offset : 1 - value3 / (this.#scrollerHeight - vhStart - vhLimit);
+      const value = this.#align == parallaxConstant.ALIGN_START ? -this.#scrollerScroll * -1 : (this.#scrollerScroll + vhLimit - this.#offset) * -1;
+      const valClamped = this.#align == parallaxConstant.ALIGN_START ? 1 - value / this.#offset : 1 - value / (this.#scrollerHeight - vhStart - vhLimit);
       return clamp(valClamped, 0, 1);
     }
     /**
@@ -16539,22 +16539,22 @@
     /**
      * @param {number} value
      */
-    #getSwitchAfterZeroValue(value3) {
+    #getSwitchAfterZeroValue(value) {
       return getValueOnSwitch({
         switchPropierties: this.#onSwitch,
         isReverse: this.#reverse,
-        value: value3
+        value
       });
     }
     /**
      * @param {number} value
      */
-    #getStyle(value3) {
+    #getStyle(value) {
       if (this.#shouldTrackOnlyEvents) return;
       const force3DStyle = this.#force3D ? "translate3D(0px, 0px, 0px)" : "";
       this.#willChangeIsActive = this.#useWillChange ? mobCore.mustMakeSomething() : false;
       const shouldWill = this.#willChangeIsActive && this.#force3D ? "transform" : "";
-      const valueParsed = mobCore.shouldMakeSomething() ? Math.round(value3) : value3;
+      const valueParsed = mobCore.shouldMakeSomething() ? Math.round(value) : value;
       switch (this.#propierties) {
         case parallaxConstant.PROP_VERTICAL: {
           return {
@@ -16595,24 +16595,24 @@
           };
         }
         case parallaxConstant.PROP_OPACITY: {
-          return { opacity: `${value3}` };
+          return { opacity: `${value}` };
         }
         case parallaxConstant.PROP_SCALE: {
-          const scaleVal = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? value3 : 1 + value3 / 1e3;
+          const scaleVal = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
           return {
             transform: `${force3DStyle} scale(${scaleVal})`,
             willChange: shouldWill
           };
         }
         case parallaxConstant.PROP_SCALE_X: {
-          const scaleVal = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? value3 : 1 + value3 / 1e3;
+          const scaleVal = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
           return {
             transform: `${force3DStyle} scaleX(${scaleVal})`,
             willChange: shouldWill
           };
         }
         case parallaxConstant.PROP_SCALE_Y: {
-          const scaleVal = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? value3 : 1 + value3 / 1e3;
+          const scaleVal = this.#type === parallaxConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
           return {
             transform: `${force3DStyle} scaleY(${scaleVal})`,
             willChange: shouldWill
@@ -16620,7 +16620,7 @@
         }
         default: {
           return {
-            [this.#propierties.toLowerCase()]: `${value3}px`
+            [this.#propierties.toLowerCase()]: `${value}px`
           };
         }
       }
@@ -17034,8 +17034,8 @@
   // src/js/mobjs/component/action/getTree.js
   var getTreeRecursive = ({ chunk }) => {
     return chunk.reduce((previous, current) => {
-      const [key, value3] = current;
-      const { child: child2, componentName, instanceName } = value3;
+      const [key, value] = current;
+      const { child: child2, componentName, instanceName } = value;
       const childrenId = new Set(Object.values(child2 ?? {}).flat());
       const childrenChunk = [...componentMap.entries()].filter(
         ([key2]) => childrenId.has(key2)
@@ -17055,7 +17055,7 @@
   };
   var getTree = () => {
     const chunk = [...componentMap.entries()].filter(
-      ([, value3]) => !value3?.parentId || value3?.parentId === ""
+      ([, value]) => !value?.parentId || value?.parentId === ""
     );
     return getTreeRecursive({ chunk });
   };
@@ -17186,8 +17186,8 @@
     return currentChild;
   };
   var addPropsToState = ({ props, store }) => {
-    Object.entries(props).forEach(([key, value3]) => {
-      store.set(key, value3);
+    Object.entries(props).forEach(([key, value]) => {
+      store.set(key, value);
     });
   };
 
@@ -17207,12 +17207,12 @@
     const parentId = item?.parentId;
     const componentName = item?.componentName ?? "";
     if (!parentId) return;
-    const value3 = componentMap.get(parentId);
-    if (!value3) return;
-    const { child: child2 } = value3;
+    const value = componentMap.get(parentId);
+    if (!value) return;
+    const { child: child2 } = value;
     if (!child2) return;
     componentMap.set(parentId, {
-      ...value3,
+      ...value,
       child: {
         ...child2,
         ...updateChildrenArray({
@@ -17255,8 +17255,8 @@
   // src/js/mobjs/modules/bindProps/removeCurrentIdToBindProps.js
   var removeCurrentIdToBindProps = ({ componentId }) => {
     if (!componentId) return;
-    for (const [key, value3] of bindPropsMap) {
-      const { componentId: currentComponentId } = value3;
+    for (const [key, value] of bindPropsMap) {
+      const { componentId: currentComponentId } = value;
       if (currentComponentId === componentId) {
         bindPropsMap.delete(key);
       }
@@ -17293,8 +17293,8 @@
       bindTextId
     });
   };
-  var arrayValuesFromProp = (value3) => value3.match(/(?<=\[).+?(?=])/g);
-  var splitPropUntilSquare = (value3) => value3.split("[")?.[0];
+  var arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
+  var splitPropUntilSquare = (value) => value.split("[")?.[0];
   var parsePropValue = ({ previous, current }) => {
     const arrayValues = arrayValuesFromProp(current);
     const isArray = arrayValues?.length > 0;
@@ -17418,9 +17418,9 @@
   // src/js/mobjs/modules/invalidate/action/removeInvalidateId.js
   var removeInvalidateId = ({ id }) => {
     if (invalidateFunctionMap.has(id)) {
-      const value3 = invalidateFunctionMap.get(id);
-      if (!value3) return;
-      value3.forEach(({ invalidateId }) => {
+      const value = invalidateFunctionMap.get(id);
+      if (!value) return;
+      value.forEach(({ invalidateId }) => {
         if (invalidateIdPlaceHolderMap.has(invalidateId)) {
           invalidateIdPlaceHolderMap.delete(invalidateId);
         }
@@ -17438,9 +17438,9 @@
   // src/js/mobjs/modules/repeater/action/removeRepeaterId.js
   var removeRepeaterId = ({ id }) => {
     if (repeatFunctionMap.has(id)) {
-      const value3 = repeatFunctionMap.get(id);
-      if (!value3) return;
-      value3.forEach(({ repeatId }) => {
+      const value = repeatFunctionMap.get(id);
+      if (!value) return;
+      value.forEach(({ repeatId }) => {
         if (repeatIdPlaceHolderMap.has(repeatId)) {
           repeatIdPlaceHolderMap.delete(repeatId);
         }
@@ -17452,12 +17452,12 @@
   // src/js/mobjs/component/action/removeAndDestroy/removeItselfFromParent.js
   var removeItselfFromParent = ({ id, parentId, componentName }) => {
     if (!id) return;
-    const value3 = componentMap.get(parentId ?? "");
-    if (!value3) return;
-    const { child: child2 } = value3;
+    const value = componentMap.get(parentId ?? "");
+    if (!value) return;
+    const { child: child2 } = value;
     if (!parentId || !child2) return;
     componentMap.set(parentId, {
-      ...value3,
+      ...value,
       child: {
         ...child2,
         ...removeChildFromChildrenArray({
@@ -17730,7 +17730,7 @@
 
   // src/js/mobjs/webComponent/userComponent.js
   var defineUserComponent = (componentList) => {
-    Object.entries(componentList).forEach(([key, value3]) => {
+    Object.entries(componentList).forEach(([key, value]) => {
       const {
         constructorCallback: _constructorCallback,
         connectedCallback: _connectedCallBack,
@@ -17739,7 +17739,7 @@
         attributeChangedCallback: _attributeChangedCallback,
         style,
         attributeToObserve
-      } = value3.componentParams;
+      } = value.componentParams;
       customElements.define(
         key,
         class extends HTMLElement {
@@ -17957,8 +17957,8 @@
           /**
            * @param { string } value
            */
-          setId(value4) {
-            this.#componentId = value4;
+          setId(value2) {
+            this.#componentId = value2;
           }
           getId() {
             return this.#componentId;
@@ -17993,8 +17993,8 @@
           /**
            * @param {string} value
            */
-          setDynamicPropsFromSlotId(value4) {
-            this.#dynamicPropsFromSlotId = value4;
+          setDynamicPropsFromSlotId(value2) {
+            this.#dynamicPropsFromSlotId = value2;
           }
           getDynamicPropsFromSlotId() {
             return this.#dynamicPropsFromSlotId;
@@ -18002,8 +18002,8 @@
           /**
            * @param {string} value
            */
-          setPropsFromSlotId(value4) {
-            this.#propsFromSlotId = value4;
+          setPropsFromSlotId(value2) {
+            this.#propsFromSlotId = value2;
           }
           getPropsFromSlotId() {
             return this.#propsFromSlotId;
@@ -18011,8 +18011,8 @@
           /**
            * @param {any} value
            */
-          setRepeatValue(value4) {
-            this.#currentRepeatValueId = value4;
+          setRepeatValue(value2) {
+            this.#currentRepeatValueId = value2;
           }
           getRepeatValue() {
             return this.#currentRepeatValueId;
@@ -18029,8 +18029,8 @@
           /**
            * @param {string} value
            */
-          setRepeaterPropBind(value4) {
-            this.#repeatPropBind = value4;
+          setRepeaterPropBind(value2) {
+            this.#repeatPropBind = value2;
           }
           getComponentRepeatId() {
             return this.#componentRepeatId;
@@ -18231,8 +18231,8 @@
   };
 
   // src/js/mobjs/component/action/state/setStateById.js
-  var setStateById = (id = "", prop = "", value3, fire4 = true) => {
-    if ((!id || id === "") && (!prop || prop === "") && !value3) return;
+  var setStateById = (id = "", prop = "", value, fire4 = true) => {
+    if ((!id || id === "") && (!prop || prop === "") && !value) return;
     const isFreezed2 = getFreezePropStatus({ id, prop });
     if (isFreezed2) {
       return;
@@ -18254,19 +18254,19 @@
       console.warn(`setStateById failed no id found on prop: ${prop}`);
       return;
     }
-    state.set(prop, value3, fire4);
+    state.set(prop, value, fire4);
   };
 
   // src/js/mobjs/component/action/state/setStateByName.js
   var setStateByName = (name = "") => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
-    return (prop, value3, fire4) => setStateById(id, prop, value3, fire4);
+    return (prop, value, fire4) => setStateById(id, prop, value, fire4);
   };
 
   // src/js/mobjs/component/action/state/updateStateById.js
-  var updateStateById = (id = "", prop = "", value3, fire4 = true, clone = false) => {
-    if ((!id || id === "") && (!prop || prop === "") && !value3) return;
+  var updateStateById = (id = "", prop = "", value, fire4 = true, clone = false) => {
+    if ((!id || id === "") && (!prop || prop === "") && !value) return;
     const isFreezed2 = getFreezePropStatus({ id, prop });
     if (isFreezed2) {
       return;
@@ -18288,14 +18288,14 @@
       console.warn(`updateStateById failed no id found on prop: ${prop}`);
       return;
     }
-    state.update(prop, value3, fire4, clone);
+    state.update(prop, value, fire4, clone);
   };
 
   // src/js/mobjs/component/action/state/updateStateByName.js
   var updateStateByName = (name = "") => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
-    return (prop, value3, fire4, clone) => updateStateById(id, prop, value3, fire4, clone);
+    return (prop, value, fire4, clone) => updateStateById(id, prop, value, fire4, clone);
   };
 
   // src/js/mobjs/component/createComponent/index.js
@@ -18462,13 +18462,13 @@
   };
 
   // src/js/mobjs/component/action/repeater.js
-  var setRepeaterStateById = ({ id = "", value: value3 }) => {
+  var setRepeaterStateById = ({ id = "", value }) => {
     if (!id || id === "") return;
     const item = componentMap.get(id);
     if (!item) return;
     componentMap.set(id, {
       ...item,
-      currentRepeaterState: value3
+      currentRepeaterState: value
     });
   };
   var getFirstChildOfElementParentOfElement = ({ rootNode, currentNode }) => {
@@ -18566,8 +18566,8 @@
   var tick = async ({ debug = false, previousResolve } = {}) => {
     await awaitNextLoop();
     if (debug) {
-      queque.forEach((value3) => {
-        console.log(value3);
+      queque.forEach((value) => {
+        console.log(value);
       });
     }
     if (queueIsResolved() && previousResolve) {
@@ -18603,8 +18603,8 @@
   var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
     await awaitNextLoop();
     if (debug) {
-      repeaterQueque.forEach((value3) => {
-        console.log(value3);
+      repeaterQueque.forEach((value) => {
+        console.log(value);
       });
     }
     if (queueIsResolved2() && previousResolve) {
@@ -18643,8 +18643,8 @@
   } = {}) => {
     await awaitNextLoop();
     if (debug) {
-      invalidateQueque.forEach((value3) => {
-        console.log(value3);
+      invalidateQueque.forEach((value) => {
+        console.log(value);
       });
     }
     if (queueIsResolved3() && previousResolve) {
@@ -18714,8 +18714,8 @@
         removeAndDestroyById({ id: componentId });
     }
     if (!newProps) return;
-    Object.entries(newProps).forEach(([key, value3]) => {
-      setStateById(componentId, key, value3, fireCallback);
+    Object.entries(newProps).forEach(([key, value]) => {
+      setStateById(componentId, key, value, fireCallback);
     });
   };
   var addCurrentIdToBindProps = ({
@@ -18724,9 +18724,9 @@
     componentId
   }) => {
     if (!propsId) return;
-    for (const [key, value3] of bindPropsMap) {
+    for (const [key, value] of bindPropsMap) {
       if (key === propsId) {
-        bindPropsMap.set(key, { ...value3, componentId });
+        bindPropsMap.set(key, { ...value, componentId });
       }
     }
     applyBindProps({
@@ -18813,8 +18813,8 @@
       setDynamicPropsWatch({ id: componentId, unWatchArray });
     }
     if (!inizilizeWatcher) return;
-    for (const [key, value3] of bindPropsMap) {
-      const { componentId: currentComponentId } = value3;
+    for (const [key, value] of bindPropsMap) {
+      const { componentId: currentComponentId } = value;
       if (currentComponentId === componentId) {
         bindPropsMap.delete(key);
       }
@@ -19188,9 +19188,9 @@
   // src/js/mobjs/modules/repeater/action/removeRepeatByRepeatId.js
   var removeRepeatByRepeatId = ({ id, repeatId }) => {
     if (!repeatFunctionMap.has(id)) return;
-    const value3 = repeatFunctionMap.get(id);
-    if (!value3) return;
-    const valueParsed = value3.filter((item) => item.repeatId !== repeatId);
+    const value = repeatFunctionMap.get(id);
+    if (!value) return;
+    const valueParsed = value.filter((item) => item.repeatId !== repeatId);
     if (repeatIdPlaceHolderMap.has(repeatId)) {
       repeatIdPlaceHolderMap.delete(repeatId);
     }
@@ -19254,9 +19254,9 @@
   // src/js/mobjs/modules/invalidate/action/removeInvalidateByInvalidateId.js
   var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
     if (!invalidateFunctionMap.has(id)) return;
-    const value3 = invalidateFunctionMap.get(id);
-    if (!value3) return;
-    const valueParsed = value3.filter(
+    const value = invalidateFunctionMap.get(id);
+    if (!value) return;
+    const valueParsed = value.filter(
       (item) => item.invalidateId !== invalidateId
     );
     if (invalidateIdPlaceHolderMap.has(invalidateId)) {
@@ -19526,22 +19526,22 @@
   };
   var getComponentRepeaterState = (id = "") => {
     if (!id) return DEFAULT_CURRENT_REPEATER_STATE;
-    const value3 = currentRepeaterValueMap.get(id);
+    const value = currentRepeaterValueMap.get(id);
     currentRepeaterValueMap.delete(id);
-    return value3 ?? DEFAULT_CURRENT_REPEATER_STATE;
+    return value ?? DEFAULT_CURRENT_REPEATER_STATE;
   };
 
   // src/js/mobjs/modules/repeater/utils.js
   var getNewElement2 = (current = [], previous = [], key = "") => {
     return current.filter((el) => {
-      const value3 = el?.[key];
-      return !previous.some((a) => a?.[key] === value3);
+      const value = el?.[key];
+      return !previous.some((a) => a?.[key] === value);
     });
   };
   var mixPreviousAndCurrentData = (current, previous, key) => {
     return current.map((el, index) => {
-      const value3 = el?.[key];
-      const isNewElement = !previous.some((a) => a?.[key] === value3);
+      const value = el?.[key];
+      const isNewElement = !previous.some((a) => a?.[key] === value);
       return isNewElement ? { isNewElement: true, key: el?.[key], index } : { isNewElement: false, key: el?.[key], index };
     });
   };
@@ -20009,8 +20009,8 @@
           childArray.forEach((id2) => {
             const currentValue = currentUnivoque?.[index];
             if (!currentValue) return;
-            const realIndex = hasKey ? current.findIndex((value3) => {
-              return `${value3?.[key]}` === `${currentUnivoque?.[index]?.[key]}`;
+            const realIndex = hasKey ? current.findIndex((value) => {
+              return `${value?.[key]}` === `${currentUnivoque?.[index]?.[key]}`;
             }) : index;
             setRepeaterStateById({
               id: id2,
@@ -20185,8 +20185,8 @@
       addMethod: (name, fn) => {
         addMethodById({ id, name, fn });
       },
-      setRef: (value3) => {
-        return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value3}"`;
+      setRef: (value) => {
+        return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value}"`;
       },
       getRef: () => {
         return getBindRefById({ id });
@@ -20322,8 +20322,8 @@
     return Object.entries(currentProps).filter(([key]) => {
       return exportableState.includes(key);
     }).reduce((previous, current) => {
-      const [key, value3] = current;
-      return { ...previous, [key]: value3 };
+      const [key, value] = current;
+      return { ...previous, [key]: value };
     }, {});
   };
 
@@ -20381,20 +20381,6 @@
     };
   };
 
-  // src/js/mobjs/parse/parseIsRunnung.js
-  var value = false;
-  var setParseIsRunning = (newValue) => {
-    value = newValue;
-  };
-  var getParseIsRunning = () => value;
-
-  // src/js/mobjs/route/routeIsLoading.js
-  var value2 = false;
-  var setRouteIsLoading = (newValue) => {
-    value2 = newValue;
-  };
-  var getRouteIsLoading = () => value2;
-
   // src/js/mobjs/component/index.js
   var addComponentToStore = ({
     element,
@@ -20441,35 +20427,18 @@
       child: child2,
       state: store
     });
-    const propsQueque = /* @__PURE__ */ new Set();
     return {
       getState: () => store.get(),
-      setState: (prop = "", value3 = {}, fire4 = true) => {
+      setState: (prop = "", value = {}, fire4 = true) => {
         const isFreezed2 = getFreezePropStatus({ id, prop });
-        const propsIsRunning = propsQueque.has(prop);
-        const routeIsLoading = getRouteIsLoading();
-        const parseIsRunnung = getParseIsRunning();
-        if (isFreezed2 || propsIsRunning && !routeIsLoading && !parseIsRunnung)
-          return;
-        propsQueque.add(prop);
-        store.set(prop, value3, fire4);
-        mobCore.useNextLoop(() => {
-          propsQueque.delete(prop);
-        });
+        if (isFreezed2) return;
+        store.set(prop, value, fire4);
       },
       updateState: (prop = "", updateFunction = () => {
       }, fire4 = true, clone = false) => {
         const isFreezed2 = getFreezePropStatus({ id, prop });
-        const propsIsRunning = propsQueque.has(prop);
-        const routeIsLoading = getRouteIsLoading();
-        const parseIsRunnung = getParseIsRunning();
-        if (isFreezed2 || propsIsRunning && !routeIsLoading && !parseIsRunnung)
-          return;
-        propsQueque.add(prop);
+        if (isFreezed2) return;
         store.update(prop, updateFunction, fire4, clone);
-        mobCore.useNextLoop(() => {
-          propsQueque.delete(prop);
-        });
       },
       emit: (prop = "") => store.emit(prop),
       emitAsync: async (prop = "") => await store.emitAsync(prop),
@@ -20500,7 +20469,6 @@
     parentIdForced = ""
   }) => {
     if (!element) return;
-    setParseIsRunning(true);
     const componentList = getComponentList();
     const { componentToParse, parseSourceArray } = getParseSourceArray({
       element,
@@ -20526,7 +20494,6 @@
         fireRepeatFunction();
         fireInvalidateFunction();
         initializeBindPropsWatcher();
-        setParseIsRunning(false);
       }
       functionToFireAtTheEnd.length = 0;
       currentSelectors.length = 0;
@@ -20730,11 +20697,11 @@
     const arrayLenght = historyNext.length;
     if (arrayLenght >= 1) historyNext.length = historyNext.length - 1;
   };
-  var setHistoryBack = (value3) => {
-    historyBack.push(value3);
+  var setHistoryBack = (value) => {
+    historyBack.push(value);
   };
-  var setHistoryNext = (value3) => {
-    historyNext.push(value3);
+  var setHistoryNext = (value) => {
+    historyNext.push(value);
   };
   var resetNext = () => {
     historyNext = [];
@@ -20743,18 +20710,18 @@
     return historyBack.length;
   };
   var getLastHistoryBack = () => {
-    const value3 = historyBack.at(-1);
+    const value = historyBack.at(-1);
     deleteLastHistoryBack();
-    return value3;
+    return value;
   };
   var getPenultimateHistoryNext = () => {
-    const value3 = historyNext.at(-2);
+    const value = historyNext.at(-2);
     deleteLastHistoryNext();
-    return value3;
+    return value;
   };
   var getLastHistoryNext = () => {
-    const value3 = historyNext.at(-1);
-    return value3;
+    const value = historyNext.at(-1);
+    return value;
   };
   var getLastHistory = (direction2) => {
     if (direction2 === HISTORY_BACK) {
@@ -20803,8 +20770,8 @@
 
   // src/js/mobjs/route/scroll/restoreScroll.js
   var restoreScroll = true;
-  var setRestoreScroll = (value3) => {
-    restoreScroll = value3;
+  var setRestoreScroll = (value) => {
+    restoreScroll = value;
   };
   var getRestoreScroll = () => restoreScroll;
 
@@ -20818,7 +20785,6 @@
     comeFromHistory = false
   }) => {
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
-    setRouteIsLoading(true);
     await tick();
     const contentId = getContentId();
     const contentEl = document?.querySelector(contentId);
@@ -20879,7 +20845,6 @@
     document.body.dataset["template"] = templateName;
     unWatchRouteChange?.();
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
-    setRouteIsLoading(false);
   };
 
   // src/js/mobjs/route/utils.js
@@ -20903,18 +20868,18 @@
   var historyDirection = "back";
   var previousHistory;
   var currentHistory;
-  var sanitizeParams = (value3) => {
-    return value3.replace("?", "").replace("/", "");
+  var sanitizeParams = (value) => {
+    return value.replace("?", "").replace("/", "");
   };
-  var sanitizeHash = (value3) => {
-    return value3.replace("#", "").replace("/", "").replace(".", "");
+  var sanitizeHash = (value) => {
+    return value.replace("#", "").replace("/", "").replace(".", "");
   };
-  var getParams = (value3) => {
-    return value3.split("&").reduce((previous, current) => {
+  var getParams = (value) => {
+    return value.split("&").reduce((previous, current) => {
       const currentParams = current.split("=");
       const key = sanitizeParams(currentParams?.[0] ?? "");
-      const value4 = currentParams?.[1];
-      return key && key.length > 0 ? { ...previous, [key]: value4 } : previous;
+      const value2 = currentParams?.[1];
+      return key && key.length > 0 ? { ...previous, [key]: value2 } : previous;
     }, {});
   };
   var hashHandler = async () => {
@@ -21085,16 +21050,16 @@
     onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) return;
       const { titleEl } = getRef();
-      watchSync("align", (value3) => {
+      watchSync("align", (value) => {
         element.classList.remove("is-left");
         element.classList.remove("is-right");
-        element.classList.add(`is-${value3}`);
+        element.classList.add(`is-${value}`);
       });
-      watchSync("color", (value3) => {
+      watchSync("color", (value) => {
         titleEl.classList.remove("is-white");
         titleEl.classList.remove("is-black");
         titleEl.classList.remove("is-highlight");
-        titleEl.classList.add(`is-${value3}`);
+        titleEl.classList.add(`is-${value}`);
       });
       mobCore.useFrame(() => {
         titleEl.classList.add("visible");
@@ -21120,15 +21085,15 @@
       align: () => ({
         value: "left",
         type: String,
-        validate: (value3) => {
-          return ["left", "right"].includes(value3);
+        validate: (value) => {
+          return ["left", "right"].includes(value);
         }
       }),
       color: () => ({
         value: "white",
         type: String,
-        validate: (value3) => {
-          return ["white", "black", "highlight"].includes(value3);
+        validate: (value) => {
+          return ["white", "black", "highlight"].includes(value);
         }
       })
     }
@@ -21160,18 +21125,18 @@
   }) => {
     const setCodeOvrlayState = setStateByName("codeOverlay");
     onMount(({ element }) => {
-      watchSync("color", (value3) => {
-        if (value3 === "black") {
+      watchSync("color", (value) => {
+        if (value === "black") {
           element.classList.remove("c-code-btn--white");
           element.classList.add("c-code-btn--black");
         }
-        if (value3 === "white") {
+        if (value === "white") {
           element.classList.add("c-code-btn--white");
           element.classList.remove("c-code-btn--black");
         }
       });
-      watchSync("drawers", (value3) => {
-        const isActive2 = value3.length > 0;
+      watchSync("drawers", (value) => {
+        const isActive2 = value.length > 0;
         element.classList.toggle("active", isActive2);
       });
       const unsubscribeOpenNav = navigationStore.watch(
@@ -22236,9 +22201,9 @@ Loading snippet ...</pre
       if (smoothIsActive || isFreezed) {
         return;
       }
-      const value3 = window.scrollY;
-      lastScrollValue = value3;
-      lerp2.setImmediate({ scrollValue: value3 });
+      const value = window.scrollY;
+      lastScrollValue = value;
+      lerp2.setImmediate({ scrollValue: value });
     });
     const unsubscribeMouseDown = mobCore.useMouseDown((event) => {
       if (isFreezed) return;
@@ -22991,8 +22956,8 @@ Loading snippet ...</pre
       this.#onMouseMove = (event) => {
         if (!this.#touchActive) return;
         const { movementX } = event;
-        const value3 = this.#reverse ? movementX : -movementX;
-        this.#onDrag(value3);
+        const value = this.#reverse ? movementX : -movementX;
+        this.#onDrag(value);
       };
       this.#onMouseDown = () => {
         if (!mq[this.#queryType](this.#breakpoint)) return;
@@ -23084,10 +23049,10 @@ Loading snippet ...</pre
     /**
      * @type {(value: number) => void}
      */
-    #onDrag(value3) {
+    #onDrag(value) {
       if (!this.#shouldDragValue) return;
       mobCore.useFrame(
-        () => window.scrollBy({ top: value3, left: 0, behavior: "instant" })
+        () => window.scrollBy({ top: value, left: 0, behavior: "instant" })
       );
     }
     /**
@@ -23368,8 +23333,8 @@ Loading snippet ...</pre
             return this.#horizontalWidth;
           }
         },
-        onTick: ({ value: value3, parentIsMoving }) => {
-          const valueParsed = value3 ?? 0;
+        onTick: ({ value, parentIsMoving }) => {
+          const valueParsed = value ?? 0;
           const percent = Math.abs(
             -Math.round(
               valueParsed * 100 / (this.#horizontalWidth - window.innerWidth)
@@ -25042,8 +25007,8 @@ Loading snippet ...</pre
       color: () => ({
         value: "white",
         type: String,
-        validate: (value3) => {
-          return ["white", "black"].includes(value3);
+        validate: (value) => {
+          return ["white", "black"].includes(value);
         }
       }),
       active: () => ({
@@ -26203,8 +26168,8 @@ Loading snippet ...</pre
       anchorItems: () => ({
         value: [],
         type: Array,
-        transform: (value3) => {
-          return value3.sort(
+        transform: (value) => {
+          return value.sort(
             function(a, b) {
               const { element: elementA } = a;
               const { element: elementB } = b;
@@ -26349,14 +26314,14 @@ Loading snippet ...</pre
       data: () => ({
         value: [],
         type: Array,
-        validate: (value3) => value3.length < 2001,
+        validate: (value) => value.length < 2001,
         strict: true,
         skipEqual: false
       }),
       time: () => ({
         value: 0,
         type: Number,
-        transform: (value3) => Math.round(value3),
+        transform: (value) => Math.round(value),
         skipEqual: false
       }),
       isLoading: () => ({
@@ -26393,7 +26358,7 @@ Loading snippet ...</pre
       label: `comp-${i + 1}`
     }));
   };
-  var setData = async ({ setState, value: value3, useShuffle = false }) => {
+  var setData = async ({ setState, value, useShuffle = false }) => {
     setState("isLoading", true);
     await tick();
     mobCore.useFrame(() => {
@@ -26401,7 +26366,7 @@ Loading snippet ...</pre
         const startTime2 = performance.now();
         setState(
           "data",
-          useShuffle ? shuffle(createBenchMarkArray(value3)) : createBenchMarkArray(value3)
+          useShuffle ? shuffle(createBenchMarkArray(value)) : createBenchMarkArray(value)
         );
         await tick();
         const endTime = performance.now();
@@ -26433,11 +26398,11 @@ Loading snippet ...</pre
       keypress: (event) => {
         if (event.keyCode === 13) {
           event.preventDefault();
-          const value3 = Number(
+          const value = Number(
             /** @type{HTMLInputElement} */
             event.target?.value ?? 0
           );
-          setData({ setState, value: value3 });
+          setData({ setState, value });
         }
       }
     })}
@@ -26448,11 +26413,11 @@ Loading snippet ...</pre
                 ${delegateEvents({
       click: () => {
         const { input } = getRef();
-        const value3 = Number(
+        const value = Number(
           /** @type{HTMLInputElement} */
           input?.value ?? 0
         );
-        setData({ setState, value: value3 });
+        setData({ setState, value });
       }
     })}
             >
@@ -26479,7 +26444,7 @@ Loading snippet ...</pre
                 class="benchmark__head__button"
                 ${delegateEvents({
       click: () => {
-        updateState("counter", (value3) => value3 + 1);
+        updateState("counter", (value) => value + 1);
       }
     })}
             >
@@ -26508,8 +26473,8 @@ Loading snippet ...</pre
     onMount(() => {
       const { loading } = getRef();
       hideFooterShape();
-      watch("isLoading", (value3) => {
-        loading.classList.toggle("active", value3);
+      watch("isLoading", (value) => {
+        loading.classList.toggle("active", value);
       });
       return () => {
         showFooterShape();
@@ -26591,8 +26556,8 @@ Loading snippet ...</pre
     onMount(() => {
       const { loading } = getRef();
       hideFooterShape();
-      watch("isLoading", (value3) => {
-        loading.classList.toggle("active", value3);
+      watch("isLoading", (value) => {
+        loading.classList.toggle("active", value);
       });
       return () => {
         showFooterShape();
@@ -26669,8 +26634,8 @@ Loading snippet ...</pre
     onMount(() => {
       const { loading } = getRef();
       hideFooterShape();
-      watch("isLoading", (value3) => {
-        loading.classList.toggle("active", value3);
+      watch("isLoading", (value) => {
+        loading.classList.toggle("active", value);
       });
       return () => {
         showFooterShape();
@@ -26927,7 +26892,7 @@ Loading snippet ...</pre
         rotate: 0,
         hasFill: fill.includes(i)
       };
-    }).sort((value3) => value3.hasFill ? -1 : 1).reverse() : gridData.map((item, i) => {
+    }).sort((value) => value.hasFill ? -1 : 1).reverse() : gridData.map((item, i) => {
       const hasFill = fill.includes(i);
       return {
         ...item,
@@ -27411,7 +27376,7 @@ Loading snippet ...</pre
         mouseY: 0,
         hasFill: fill.includes(i)
       };
-    }).sort((value3) => value3.hasFill ? -1 : 1);
+    }).sort((value) => value.hasFill ? -1 : 1);
     centerTween = tween.createLerp({
       data: { mouseX: 0, mouseY: 0 }
     });
@@ -28363,9 +28328,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/canvas/caterpillarN2/animation/animation.js
-  var logAddMethods = ({ value: value3, direction: direction2, isForced }) => {
+  var logAddMethods = ({ value, direction: direction2, isForced }) => {
     if (isForced) return;
-    console.log(`current: ${value3}, direction: ${direction2}`);
+    console.log(`current: ${value}, direction: ${direction2}`);
   };
   var caterpillarN2Animation = ({
     canvas,
@@ -28554,14 +28519,14 @@ Loading snippet ...</pre
       pause: () => syncTimeline.pause(),
       resume: () => syncTimeline.resume(),
       reverse: () => syncTimeline.reverse(),
-      setRotation: (value3) => userRotation = value3
+      setRotation: (value) => userRotation = value
     };
   };
 
   // src/js/component/pages/canvas/caterpillarN2/caterpillarN2.js
   function getControls({ buttons: buttons4 }) {
-    return Object.entries(buttons4).map(([className, value3]) => {
-      const { label } = value3;
+    return Object.entries(buttons4).map(([className, value]) => {
+      const { label } = value;
       return renderHtml` <li class="c-canvas__controls__item">
                 <button
                     type="button"
@@ -28627,15 +28592,15 @@ Loading snippet ...</pre
         ...getState()
       });
       const { destroy: destroy2, setRotation } = animationMethods;
-      Object.entries(buttons4).forEach(([className, value3]) => {
-        const { method } = value3;
+      Object.entries(buttons4).forEach(([className, value]) => {
+        const { method } = value;
         const btn = element.querySelector(`.${className}`);
         btn?.addEventListener("click", () => animationMethods?.[method]());
       });
       rotationButton.addEventListener("change", () => {
-        const value3 = rotationButton.value;
-        setRotation(value3);
-        rangeValue.textContent = value3;
+        const value = rotationButton.value;
+        setRotation(value);
+        rangeValue.textContent = value;
       });
       mobCore.useFrame(() => {
         wrap.classList.add("active");
@@ -28850,7 +28815,7 @@ Loading snippet ...</pre
         rotate: 0,
         hasFill: fill.includes(i)
       };
-    }).sort((value3) => value3.hasFill ? -1 : 1) : gridData.map((item, i) => {
+    }).sort((value) => value.hasFill ? -1 : 1) : gridData.map((item, i) => {
       return {
         ...item,
         scale: 0,
@@ -29581,8 +29546,8 @@ Loading snippet ...</pre
   var DynamicListButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label } = getState();
     onMount(({ element }) => {
-      watchSync("active", (value3) => {
-        element.classList.toggle("active", value3);
+      watchSync("active", (value) => {
+        element.classList.toggle("active", value);
       });
       return () => {
       };
@@ -31817,26 +31782,26 @@ Loading snippet ...</pre
           element
         }));
       });
-      watchSync("perspective", (value3) => {
-        scene.style.perspective = `${value3}px`;
+      watchSync("perspective", (value) => {
+        scene.style.perspective = `${value}px`;
       });
-      watchSync("yLimit", (value3) => {
-        yLimit = value3;
+      watchSync("yLimit", (value) => {
+        yLimit = value;
       });
-      watchSync("xLimit", (value3) => {
-        xLimit = value3;
+      watchSync("xLimit", (value) => {
+        xLimit = value;
       });
-      watchSync("yDepth", (value3) => {
-        yDepth = value3;
+      watchSync("yDepth", (value) => {
+        yDepth = value;
       });
-      watchSync("xDepth", (value3) => {
-        xDepth = value3;
+      watchSync("xDepth", (value) => {
+        xDepth = value;
       });
-      watchSync("centerToViewoport", (value3) => {
-        centerToViewoport = value3;
+      watchSync("centerToViewoport", (value) => {
+        centerToViewoport = value;
       });
-      watchSync("drag", (value3) => {
-        drag = value3;
+      watchSync("drag", (value) => {
+        drag = value;
         unsubscribeTouchMove();
         unsubscribeTouchUp();
         unsubscribeTouchDown();
@@ -31866,10 +31831,10 @@ Loading snippet ...</pre
         }
         element.classList.remove("move3D--drag");
       });
-      watchSync("useScroll", (value3) => {
+      watchSync("useScroll", (value) => {
         unsubscribeScroll();
-        if (value3) {
-          useScroll = value3;
+        if (value) {
+          useScroll = value;
           addScrollListener();
         }
       });
@@ -33874,10 +33839,10 @@ Loading snippet ...</pre
       scrollbar.addEventListener("input", () => {
         move2?.(scrollbar.value);
       });
-      navigationStore.watch("navigationIsOpen", (value3) => {
+      navigationStore.watch("navigationIsOpen", (value) => {
         const { templateName } = getActiveRoute();
         if (!(templateName in templateData)) return;
-        screenEl.classList.toggle("active", !value3);
+        screenEl.classList.toggle("active", !value);
       });
       const unsubscribeRoute = afterRouteChange(
         async ({ templateName, route }) => {
@@ -33955,8 +33920,8 @@ Loading snippet ...</pre
   var LinksMobJsButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label, url } = getState();
     onMount(({ element }) => {
-      watchSync("active", (value3) => {
-        element.classList.toggle("current", value3);
+      watchSync("active", (value) => {
+        element.classList.toggle("current", value);
       });
       return () => {
       };
@@ -34067,9 +34032,9 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/debug/debugOverlay/DebugComponent/debugComponent.js
-  var getClassList = (value3) => {
-    if (!value3) return "";
-    return [...value3].reduce(
+  var getClassList = (value) => {
+    if (!value) return "";
+    return [...value].reduce(
       (previous, current) => `${previous}.${current}`,
       ""
     );
@@ -34080,10 +34045,10 @@ Loading snippet ...</pre
     }, "");
   };
   var getChild = (child2) => {
-    return Object.entries(child2).map(([key, value3]) => {
+    return Object.entries(child2).map(([key, value]) => {
       return renderHtml`<div>
                 <strong>${key}:</strong>
-                ${value3.map((item) => renderHtml`${item}, `).join(".")}
+                ${value.map((item) => renderHtml`${item}, `).join(".")}
             </div>`;
     }).join("");
   };
@@ -34092,10 +34057,10 @@ Loading snippet ...</pre
     return props.map((prop) => `${prop}, `).join("");
   };
   var getStateProps = (states) => {
-    return Object.entries(states).map(([key, value3]) => {
+    return Object.entries(states).map(([key, value]) => {
       return renderHtml`<div>
                 <strong>${key}:</strong>
-                ${JSON.stringify(value3)}
+                ${JSON.stringify(value)}
             </div>`;
     }).join("");
   };
@@ -34506,9 +34471,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/debugFilterListItem.js
-  var setActiveItems = ({ id, value: value3, getRef }) => {
+  var setActiveItems = ({ id, value, getRef }) => {
     const { selected } = getRef();
-    selected.classList.toggle("active", value3 === id);
+    selected.classList.toggle("active", value === id);
   };
   var DebugFilterListItemFn = ({
     html,
@@ -34525,8 +34490,8 @@ Loading snippet ...</pre
       setActiveItems({ id, value: currentId, getRef });
       const unsubscribeActiveItem = debugActiveComponentStore.watch(
         "currentId",
-        (value3) => {
-          setActiveItems({ id, value: value3, getRef });
+        (value) => {
+          setActiveItems({ id, value, getRef });
         }
       );
       return () => {
@@ -34814,15 +34779,15 @@ Loading snippet ...</pre
     getRef
   }) => {
     addMethod("toggle", () => {
-      updateState("active", (value3) => !value3);
+      updateState("active", (value) => !value);
     });
     onMount(({ element }) => {
       const { toggle_tree, toggle_filter } = getRef();
-      watchSync("active", (value3) => {
-        element.classList.toggle("active", value3);
+      watchSync("active", (value) => {
+        element.classList.toggle("active", value);
       });
-      watchSync("listType", (value3) => {
-        const isTree = value3 === DEBUG_USE_TREE;
+      watchSync("listType", (value) => {
+        const isTree = value === DEBUG_USE_TREE;
         toggle_tree.classList.toggle("active", isTree);
         toggle_filter.classList.toggle("active", !isTree);
       });
@@ -35097,22 +35062,22 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/debugTreeItem.js
-  var getCounter = (value3) => {
-    return value3 > 0 ? `( ${value3} ) ` : "";
+  var getCounter = (value) => {
+    return value > 0 ? `( ${value} ) ` : "";
   };
-  var activeItemChildren = ({ id, value: value3 }) => {
+  var activeItemChildren = ({ id, value }) => {
     const component = componentMap.get(id);
     const children = component?.child;
     if (!children) return false;
     const flatChildren = Object.values(children).flat();
-    const hasOccurrence = flatChildren.includes(value3);
+    const hasOccurrence = flatChildren.includes(value);
     if (hasOccurrence) return true;
-    return flatChildren.some((id2) => activeItemChildren({ id: id2, value: value3 }));
+    return flatChildren.some((id2) => activeItemChildren({ id: id2, value }));
   };
-  var setActiveItems2 = ({ id, value: value3, getRef }) => {
+  var setActiveItems2 = ({ id, value, getRef }) => {
     const { selected, head } = getRef();
-    selected.classList.toggle("active", value3 === id);
-    const hasActiveChildren = activeItemChildren({ id, value: value3 });
+    selected.classList.toggle("active", value === id);
+    const hasActiveChildren = activeItemChildren({ id, value });
     head.classList.toggle("has-children-selected", hasActiveChildren);
   };
   var DebugTreeItemFn = ({
@@ -35143,8 +35108,8 @@ Loading snippet ...</pre
       });
       const unsubscribeActiveItem = debugActiveComponentStore.watch(
         "currentId",
-        (value3) => {
-          setActiveItems2({ id, value: value3, getRef });
+        (value) => {
+          setActiveItems2({ id, value, getRef });
         }
       );
       return () => {
@@ -35158,7 +35123,7 @@ Loading snippet ...</pre
             ${setRef("head")}
             ${delegateEvents({
       click: () => {
-        updateState("isOpen", (value3) => !value3);
+        updateState("isOpen", (value) => !value);
       }
     })}
         >
@@ -35333,10 +35298,10 @@ Loading snippet ...</pre
 
   // src/js/utils/scrollbarWith.js
   var setValue = () => {
-    const value3 = window.innerWidth - document.documentElement.clientWidth;
+    const value = window.innerWidth - document.documentElement.clientWidth;
     document.documentElement.style.setProperty(
       "--scrollbar-with",
-      `${value3}px`
+      `${value}px`
     );
   };
   var getScrollbarWith = () => {

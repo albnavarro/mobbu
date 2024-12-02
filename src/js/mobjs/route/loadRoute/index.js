@@ -17,7 +17,6 @@ import { getBeforePageTransition, getPageTransition } from '../pageTransition';
 import { parseComponents } from '../../parse';
 import { getRestoreScroll } from '../scroll/restoreScroll';
 import { tick } from '../../queque/tick';
-import { setRouteIsLoading } from '../routeIsLoading';
 
 /**
  * @param {object} param
@@ -40,7 +39,6 @@ export const loadRoute = async ({
     comeFromHistory = false,
 }) => {
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
-    setRouteIsLoading(true);
 
     /**
      * Await that all operation is completed before load next route
@@ -197,5 +195,4 @@ export const loadRoute = async ({
     unWatchRouteChange?.();
 
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
-    setRouteIsLoading(false);
 };

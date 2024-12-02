@@ -33,9 +33,7 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "Component states are declared in the <span class='quote'>component's definition</span>",
-                    "Once all components have been <span class='quote'>created</span> (route change or any other runtime generation), the state can be updated only <span class='quote'>once</span> for each <span class='quote'>javascript loop</span>.",
-                    "During the <span class='quote'>render</span> process it is useful to be able to update the state multiple time in the same javascript loop to allow other components through, for example, methods, to pass information without getting bogged down at the first call."
+                    "Component states are declared in the <span class='quote'>component's definition</span>"
                 ]
             }
         },
