@@ -34,6 +34,10 @@
     })}
 
 ```
+- La stessa cosa sará fatta anche per `bindText`, creare una nuova utility `bindGlobalText`.
+```js
+    ${bindGlobalText`my text ${'globalProp'}`}
+```
 
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
