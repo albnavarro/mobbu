@@ -3,7 +3,15 @@
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
 
 
+# MobCore
+
+### Store
+- `Watch`: provare a fare in modo che il non ci siano piu di un watch nello stesso javascript loop, il valore buono é l'ultimo.
+
 # MobJs
+
+### Repeat
+- Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
 ### Global store
 - Nella funzione inizializeApp aggiungere `globalStore`, `invalidate` potrá usare uno store esterno per la reattivitá.
