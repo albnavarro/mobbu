@@ -12,9 +12,11 @@
 
 ## Store
 
+
 ### Set/Update
 - Passare un oggetto come opzioni, i parametri singoli risultano troppo confusi.
 - La props `fireCallback` diventerá `emit`
+- Le `docs` in `mobStore` sono cmq. sbagliate e obsolete, adeguarle con il refactoring.
 
 ```js
 // src/js/mobCore/store/index.js
