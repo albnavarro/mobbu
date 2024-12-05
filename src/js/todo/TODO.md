@@ -93,6 +93,9 @@ export interface callbackQueue {
 }
 ```
 
+### Quickset
+- Aggiungere `Quickset`.
+
 
 # MobJs
 
