@@ -1,15 +1,24 @@
-/**
- * module1.js
- * Define async callback.
- */
-myStore.watch('prop', async (value) => {
-    await myAsyncFunction(value);
+import { mobCore } from '../../../src/js/mobCore';
+
+const myStore = mobCore.createStore({
+    prop: () => ({
+        value: '',
+        type: 'any',
+    }),
 });
 
-/**
- * module2.js
- * Set prop without execute related callBack.
- * Fire related async callBack.
- */
-myStore.set('myProp', value, false);
+const myAsyncFunction = async (value) => {
+    return new Promise((resolve) => {
+        return setTimeout(() => {
+            resolve(value + 1);
+        }, 1000);
+    });
+};
+
+myStore.watch('prop', async (value) => {
+    const valueParsed = await myAsyncFunction(value);
+    console.log(valueParsed);
+});
+
+myStore.set('myProp', 'test', { emit: false });
 await myStore.emitAsync('myProp');
