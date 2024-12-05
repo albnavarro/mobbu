@@ -9,6 +9,10 @@
 
 ## Store
 
+### set/update
+- Sostuire le strighe rimaste in tutto il progetto `fireCallback ` con `emit` per pulizia.
+- ( stringhe non referenze ).
+
 ### Watch
 - Fare in modo che il non ci siano piu di un watch nello stesso javascript loop, il valore buono é l'ultimo.
 - Propietá opzionale.
