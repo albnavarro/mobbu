@@ -74,7 +74,7 @@ export type PartialSetStateByName<T> = <K extends keyof GetState<T>>(
 export type PartialUpdateStateByName<T> = <K extends keyof GetState<T>>(
     prop: K,
     value: (arg0: GetState<T>[K]) => GetState<T>[K],
-    options: {
+    options?: {
         emit?: boolean;
         clone?: boolean;
     }
