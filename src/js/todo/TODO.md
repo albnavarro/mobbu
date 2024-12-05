@@ -1,8 +1,5 @@
 # Priority:
 
-###  Set/Update
-
-
 # DOCS
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
@@ -12,60 +9,17 @@
 
 ## Store
 
-
-### Set/Update
-- Passare un oggetto come opzioni, i parametri singoli risultano troppo confusi.
-- La props `fireCallback` diventerá `emit`
-- Le `docs` in `mobStore` sono cmq. sbagliate e obsolete, adeguarle con il refactoring.
-
-```js
-// src/js/mobCore/store/index.js
-
-set: (prop, value, { emit = true } = {}) => {
-    storeSetEntryPoint({
-        instanceId,
-        prop,
-        value,
-        fireCallback: emit,
-        clone: false,
-        action: STORE_SET,
-    });
-},
-update: (prop, value, { emit = true, clone = false } = {}) => {
-    storeSetEntryPoint({
-        instanceId,
-        prop,
-        value,
-        fireCallback: emit,
-        clone,
-        action: STORE_UPDATE,
-    });
-},
-```
-
-```js
-export interface storeSet {
-    prop: string;
-    value: any | ((arg0: any) => any);
-    options?: {
-        fireCallback?: boolean;
-        clone?: boolean;
-    };
-}
-```
-
-
 ### Watch
 - Fare in modo che il non ci siano piu di un watch nello stesso javascript loop, il valore buono é l'ultimo.
 - Propietá opzionale.
-- Aggiungere come terzo parametro `usesingleLoop = false`.
+- Aggiungere come terzo parametro `useSingleLoop = false`.
 - Nel `useFrame(() => {})` e il altre situazioni é utile avere un watch immediato.
 
 ```js
 // src/js/mobCore/store/index.js
 
-watch: (prop, callback, { usesingleLoop = false } = {}) => {
-    return watchEntryPoint({ instanceId, prop, callback });
+watch: (prop, callback, { useSingleLoop = false } = {}) => {
+    return watchEntryPoint({ instanceId, prop, callback, useSingleLoop: useSingleLoop ?? false });
 },
 ```
 - Il tipo diventrá perció:
@@ -82,7 +36,7 @@ export interface callbackQueue {
                 arg2: boolean | Record<string, boolean>
             ) => void | Promise<void>;
             options?: {
-                usesingleLoop?: boolean;
+                useSingleLoop?: boolean;
             };
         }
     >;
@@ -93,11 +47,18 @@ export interface callbackQueue {
 }
 ```
 
-### Quickset
-- Aggiungere `Quickset`.
+### getProxi ?:
+- Creare un set di valori `parallelo` al valore dello store generale quando viene chiamata la propieta:</br>
+    `const proxiProp = myStore.getProxi('myProp')`.
+- Alla mutazione del `proxi` si eseguirá un `setState('myProp', proxiProp)`.
+- Se si chiama un `setState/updateState` bisognerá aggiornare il valore del `proxi`.
+- Come gestire oggetti, etc.. vs primitive standard.
 
 
 # MobJs
+
+### Quickset
+- Aggiungere `Quickset`.
 
 ### Repeat
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
