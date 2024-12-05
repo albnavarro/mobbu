@@ -14,12 +14,5 @@ const myStore = mobCore.createStore({
     },
 });
 
-// Default
-myStore.update('prop', (oldValue) => {
-    return oldValue + 1;
-});
-
-// Object
-myStore.update('myObject', (obj) => {
-    return { ...obj, prop: 10 };
-});
+// Clone data before mutate the stored data.
+myStore.update('prop', (value) => value + 1, { emit: true, clone: true });

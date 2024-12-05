@@ -1,4 +1,4 @@
-import { mobCore } from '../mobCore';
+import { mobCore } from '../../../src/js/mobCore';
 
 const myStore = mobCore.createStore({
     prop: 0,
@@ -14,8 +14,5 @@ const myStore = mobCore.createStore({
     },
 });
 
-// Default
 myStore.set('prop', 2);
-
-// Object
 myStore.set('myObject', { prop: 10 });
