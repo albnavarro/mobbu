@@ -8,8 +8,7 @@ import { checkIfStateIsExportable } from './checkIfStateIsExportable';
  * @param {string} id
  * @param {string} prop
  * @param {() => {}} value
- * @param {boolean} fire
- * @param {boolean} clone
+ * @param {{emit?: boolean, clone?: boolean}} [ options ]
  * @returns {void}
  *
  * @description
@@ -20,8 +19,7 @@ export const updateStateById = (
     id = '',
     prop = '',
     value,
-    fire = true,
-    clone = false
+    { emit = true, clone = false } = {}
 ) => {
     if ((!id || id === '') && (!prop || prop === '') && !value) return;
 
@@ -51,5 +49,5 @@ export const updateStateById = (
         return;
     }
 
-    state.update(prop, value, fire, clone);
+    state.update(prop, value, { emit, clone });
 };

@@ -61,22 +61,24 @@ export const addComponentToStore = ({
 
     return {
         getState: () => store.get(),
-        setState: (prop = '', value = {}, fire = true) => {
+        setState: (prop = '', value = {}, { emit = true } = {}) => {
             const isFreezed = getFreezePropStatus({ id, prop });
             if (isFreezed) return;
 
-            store.set(prop, value, fire);
+            store.set(prop, value, { emit: emit ?? true });
         },
         updateState: (
             prop = '',
             updateFunction = () => {},
-            fire = true,
-            clone = false
+            { emit = true, clone = false } = {}
         ) => {
             const isFreezed = getFreezePropStatus({ id, prop });
             if (isFreezed) return;
 
-            store.update(prop, updateFunction, fire, clone);
+            store.update(prop, updateFunction, {
+                emit: emit ?? true,
+                clone: clone ?? false,
+            });
         },
         emit: (prop = '') => store.emit(prop),
         emitAsync: async (prop = '') => await store.emitAsync(prop),

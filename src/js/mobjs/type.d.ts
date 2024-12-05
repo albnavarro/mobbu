@@ -728,8 +728,10 @@ interface WebComponentParmas {
     setState(
         prop: string,
         newValue: any,
-        fireCallback?: boolean,
-        clone?: boolean
+        options?: {
+            emit?: boolean;
+            clone?: boolean;
+        }
     ): void;
     unBind: (arg0: { id: string }) => void;
     unFreezeProp(prop: string): void;

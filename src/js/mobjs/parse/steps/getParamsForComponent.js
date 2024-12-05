@@ -118,7 +118,7 @@ export const getParamsForComponentFunction = ({
             mainStore.set(
                 MAIN_STORE_ASYNC_PARSER,
                 { element: attachTo, parentId: id, persistent },
-                false
+                { emit: false }
             );
             return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
         },

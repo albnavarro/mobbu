@@ -73,7 +73,7 @@ export const updateRepeater = async ({
             parentId: fallBackParentId ?? id,
             persistent,
         },
-        false
+        { emit: false }
     );
     await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
 

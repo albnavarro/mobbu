@@ -8,14 +8,19 @@ import { checkIfStateIsExportable } from './checkIfStateIsExportable';
  * @param {string} id
  * @param {string} prop
  * @param {any} value
- * @param {boolean} fire
+ * @param {{emit?: boolean}} [ options ]
  * @returns {void}
  *
  * @description
  * Set state
  */
 
-export const setStateById = (id = '', prop = '', value, fire = true) => {
+export const setStateById = (
+    id = '',
+    prop = '',
+    value,
+    { emit = true } = {}
+) => {
     if ((!id || id === '') && (!prop || prop === '') && !value) return;
 
     const isFreezed = getFreezePropStatus({ id, prop });
@@ -44,5 +49,5 @@ export const setStateById = (id = '', prop = '', value, fire = true) => {
         return;
     }
 
-    state.set(prop, value, fire);
+    state.set(prop, value, { emit });
 };

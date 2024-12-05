@@ -94,7 +94,7 @@ export const NavigationFn = ({
      * Close all accordion.
      */
     addMethod('closeAllAccordion', ({ fireCallback = true } = {}) => {
-        setState('currentAccordionId', -1, fireCallback);
+        setState('currentAccordionId', -1, { emit: fireCallback });
     });
 
     return html`

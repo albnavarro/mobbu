@@ -145,7 +145,7 @@ const setBindProp = ({
     if (!newProps) return;
 
     Object.entries(newProps).forEach(([key, value]) => {
-        setStateById(componentId, key, value, fireCallback);
+        setStateById(componentId, key, value, { emit: fireCallback });
     });
 };
 

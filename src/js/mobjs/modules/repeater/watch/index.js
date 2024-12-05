@@ -118,7 +118,7 @@ export const watchRepeat = ({
                  * back to previous state without fire callback
                  */
                 unFreezePropById({ id, prop: state });
-                setState(state, previous, false);
+                setState(state, previous, { emit: false });
 
                 /**
                  * Remove watcher to active queuqe operation.

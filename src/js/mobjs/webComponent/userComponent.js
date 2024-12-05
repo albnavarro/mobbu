@@ -86,7 +86,7 @@ export const defineUserComponent = (componentList) => {
                 #remove;
 
                 /**
-                 * @type {( prop: string, newValue: any, fireCallback?: boolean, clone?: boolean ) => void}
+                 * @type {( prop: string, newValue: any, options: { emit?: boolean, clone?: boolean } ) => void}
                  */
                 #setState;
 
