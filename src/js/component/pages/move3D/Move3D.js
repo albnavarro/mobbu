@@ -20,6 +20,7 @@ export const Move3Dfn = ({
     watchSync,
     computedSync,
     invalidate,
+    getProxi,
 }) => {
     /**
      * base id for checlren instance
@@ -27,15 +28,17 @@ export const Move3Dfn = ({
     const childrenId = mobCore.getUnivoqueId();
 
     /**
-     * Initial props state
+     * State
      */
-    let { yLimit, xLimit, yDepth, xDepth, centerToViewoport, drag } =
-        getState();
+    const proxiState = getProxi();
 
+    /**
+     * State
+     */
     const { debug } = getState();
 
     /**
-     * Mutable symbols
+     * Mutable scoped reference
      */
     let height = 0;
     let width = 0;
@@ -49,7 +52,7 @@ export const Move3Dfn = ({
     let firstDrag = false;
     let pageCoord = { x: 0, y: 0 };
     let lastScrolledTop = 0;
-    let useScroll = drag && centerToViewoport;
+    let useScroll = proxiState.drag && proxiState.centerToViewoport;
     let unsubscribeTouchStart = NOOP;
     let unsubscribeTouchEnd = NOOP;
     let unsubscribeTouchDown = NOOP;
@@ -71,7 +74,7 @@ export const Move3Dfn = ({
     /** @type{() => void } */
     const onMove = () => {
         const { vw, vh } =
-            centerToViewoport || drag
+            proxiState.centerToViewoport || proxiState.drag
                 ? {
                       vw: window.innerWidth,
                       vh: window.innerHeight,
@@ -121,27 +124,31 @@ export const Move3Dfn = ({
          * ay = grado di rotazione sull'asse Y
          */
         const { ax, ay } =
-            centerToViewoport || drag
+            proxiState.centerToViewoport || proxiState.drag
                 ? {
-                      ax: -(vw / 2 - xInMotion) / xDepth,
-                      ay: (vh / 2 - yInMotion) / yDepth,
+                      ax: -(vw / 2 - xInMotion) / proxiState.xDepth,
+                      ay: (vh / 2 - yInMotion) / proxiState.yDepth,
                   }
                 : {
-                      ax: -(vw / 2 - (xInMotion - offSetLeft)) / xDepth,
-                      ay: (vh / 2 - (yInMotion - offSetTop)) / yDepth,
+                      ax:
+                          -(vw / 2 - (xInMotion - offSetLeft)) /
+                          proxiState.xDepth,
+                      ay:
+                          (vh / 2 - (yInMotion - offSetTop)) /
+                          proxiState.yDepth,
                   };
 
-        const xlimitReached = Math.abs(ax) > xLimit;
-        const ylimitReached = Math.abs(ay) > yLimit;
+        const xlimitReached = Math.abs(ax) > proxiState.xLimit;
+        const ylimitReached = Math.abs(ay) > proxiState.yLimit;
 
         const axLimited = (() => {
             if (!xlimitReached) return ax;
-            return ax > 0 ? xLimit : -xLimit;
+            return ax > 0 ? proxiState.xLimit : -proxiState.xLimit;
         })();
 
         const ayLimited = (() => {
             if (!ylimitReached) return ay;
-            return ay > 0 ? yLimit : -yLimit;
+            return ay > 0 ? proxiState.yLimit : -proxiState.yLimit;
         })();
 
         // TODO: calcolare il valore x y corrspondente all 'angolo limit e assegnarlo
@@ -160,7 +167,8 @@ export const Move3Dfn = ({
         );
 
         const limit = Math.sqrt(
-            Math.pow(Math.abs(xLimit), 2) + Math.pow(Math.abs(yLimit), 2)
+            Math.pow(Math.abs(proxiState.xLimit), 2) +
+                Math.pow(Math.abs(proxiState.yLimit), 2)
         );
 
         spring.goTo({ ax: axLimited, ay: ayLimited }).catch(() => {});
@@ -243,43 +251,18 @@ export const Move3Dfn = ({
             }));
         });
 
-        /**
-         * Update props
-         */
         watchSync('perspective', (value) => {
             scene.style.perspective = `${value}px`;
         });
 
-        watchSync('yLimit', (value) => {
-            yLimit = value;
-        });
-
-        watchSync('xLimit', (value) => {
-            xLimit = value;
-        });
-
-        watchSync('yDepth', (value) => {
-            yDepth = value;
-        });
-
-        watchSync('xDepth', (value) => {
-            xDepth = value;
-        });
-
-        watchSync('centerToViewoport', (value) => {
-            centerToViewoport = value;
-        });
-
         watchSync('drag', (value) => {
-            drag = value;
-
             unsubscribeTouchMove();
             unsubscribeTouchUp();
             unsubscribeTouchDown();
             unsubscribeTouchEnd();
             unsubscribeTouchStart();
 
-            if (drag) {
+            if (value) {
                 dragX = window.innerWidth / 2;
                 dragY = window.innerHeight / 2;
                 element.classList.add('move3D--drag');
