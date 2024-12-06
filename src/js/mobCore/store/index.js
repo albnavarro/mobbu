@@ -6,7 +6,7 @@ import {
     storeQuickSetEntrypoint,
     storeSetEntryPoint,
 } from './storeSet';
-import { removeStateFromMainMap, updateMainMap } from './storeMap';
+import { removeStateFromMainMap, storeMap, updateMainMap } from './storeMap';
 import { inizializeAllProps, inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
 import { inizializeInstance } from './inizializeInstance';
@@ -19,6 +19,8 @@ import {
     storeGetValidationEntryPoint,
 } from './storeDebug';
 import { STORE_SET, STORE_UPDATE } from './constant';
+import { storePropInProxiWarning } from './storeWarining';
+import { getLogStyle } from './logStyle';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
@@ -76,6 +78,32 @@ export const mobStore = (data = {}) => {
                 fireCallback: emit ?? true,
                 clone,
                 action: STORE_UPDATE,
+            });
+        },
+        getProxi: () => {
+            const state = storeMap.get(instanceId).store;
+
+            return new Proxy(state, {
+                set(target, /** @type{string} */ prop, value) {
+                    if (prop in target) {
+                        // Mutiamo l'oggetto originale con i metodi giá presenti
+                        storeSetEntryPoint({
+                            instanceId,
+                            prop,
+                            value,
+                            fireCallback: true,
+                            clone: false,
+                            action: STORE_SET,
+                        });
+
+                        // Assicurarsi che l'oggetto venga mutato solo dall' operazioen sopra.
+                        return true;
+                    }
+
+                    const logStyle = getLogStyle();
+                    storePropInProxiWarning(prop, logStyle);
+                    return false;
+                },
             });
         },
         quickSetProp: (prop, value) => {

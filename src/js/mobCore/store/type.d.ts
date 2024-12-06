@@ -54,6 +54,7 @@ export interface MobStore<T extends StoreDefaultMap> {
     computed: computedType<T>;
     emit: emitType<T>;
     emitAsync: emitAsyncType<T>;
+    getProxi: storeProxiType<T>;
     getValidation: () => object;
     debug: () => void;
     debugStore: () => void;
@@ -105,6 +106,8 @@ export type emitType<T> = (props: Extract<keyof T, string>) => void;
 export type emitAsyncType<T> = (
     props: Extract<keyof T, string>
 ) => Promise<{ success: boolean }>;
+
+export type storeProxiType<T> = () => T;
 
 export type mobStoreTypeAlias =
     | 'String'

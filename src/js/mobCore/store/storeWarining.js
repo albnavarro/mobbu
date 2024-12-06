@@ -213,3 +213,15 @@ export const storeObjectIsNotAnyWarning = (style, CUSTOM_OBJECT) => {
         style
     );
 };
+
+/**
+ * @param {string} prop
+ * @param {string} style
+ * @returns void
+ */
+export const storePropInProxiWarning = (prop, style) => {
+    console.warn(
+        `%c SimpleStore error: the property ${prop} does not exist in proxi`,
+        style
+    );
+};
