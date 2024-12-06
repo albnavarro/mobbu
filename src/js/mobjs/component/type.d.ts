@@ -8,6 +8,7 @@ import {
     updateType,
     watchType,
     MobStore,
+    storeProxiType,
 } from '../../mobCore/store/type';
 import { UserComponent } from '../webComponent/type';
 
@@ -53,6 +54,7 @@ export interface componentStoreReturnType {
     getState: getType;
     setState: setType;
     updateState: updateType;
+    getProxi: storeProxiType;
     emit: emitType;
     emitAsync: emitAsyncType;
     computed: computedType;

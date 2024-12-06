@@ -80,6 +80,7 @@ export const addComponentToStore = ({
                 clone: clone ?? false,
             });
         },
+        getProxi: () => store.getProxi(),
         emit: (prop = '') => store.emit(prop),
         emitAsync: async (prop = '') => await store.emitAsync(prop),
         computed: (

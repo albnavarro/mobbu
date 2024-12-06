@@ -36,6 +36,7 @@ import {
     PartialBindText,
     PartialReturnBindProps,
     PartialUseMethodByName,
+    PartialGetProxi,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -44,6 +45,7 @@ export type BindEvents = PartialBindEvents;
 export type GetState<T> = PartialGetState<T>;
 export type SetState<T> = PartialSetState<T>;
 export type UpdateState<T> = PartialUpdateState<T>;
+export type GetProxi<T> = PartialGetProxi<T>;
 export type Emit<T> = PartialEmit<T>;
 export type EmitAsync<T> = PartialEmitAsync<T>;
 export type Computed<T> = PartialCompunted<T>;
@@ -136,6 +138,19 @@ export interface componentPropsType<T, R> {
      * ```
      */
     updateState: UpdateState<T>;
+
+    /**
+     * @example
+     * ```javascript
+     *
+     * Function that return a proxi;
+     * const proxiState = getProxi()
+     *
+     * proxiState.myProp = ''
+     * console.log(proxiState.myProp)
+     * ```
+     */
+    getProxi: GetProxi<T>;
 
     /**
      * @example

@@ -84,6 +84,7 @@ getProxi: () => {
 ```
 
 ```js
+/** @type{import('./mobCore/store/type').MobStore<{test: string, pluto:2}>} */
 const testStore = mobCore.createStore({
     test: () => ({
         value: '',
@@ -101,11 +102,11 @@ testStore.update('test', (value) => {
 });
 
 const proxiTest = testStore.getProxi();
-console.log('get:', proxiTest);
+console.log('get:', proxiTest.test);
 proxiTest.test = 'pippo';
 proxiTest.test = 'pippo 2';
 proxiTest.test = 'pippo 3';
-console.log('get:', proxiTest);
+console.log('get:', proxiTest.test);
 ```
 
 
