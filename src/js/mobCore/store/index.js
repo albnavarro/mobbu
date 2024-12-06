@@ -51,6 +51,14 @@ export const mobStore = (data = {}) => {
     inizializeAllProps(instanceId, initialState);
 
     /**
+     * Use reference to proxiObject
+     * set to null on destroy.
+     * Make sure that there is no active reference in store instance
+     * on destroy.
+     */
+    let proxiObject;
+
+    /**
      * Methods
      */
     return {
@@ -83,7 +91,12 @@ export const mobStore = (data = {}) => {
         getProxi: () => {
             const state = storeMap.get(instanceId).store;
 
-            return new Proxy(state, {
+            /**
+             * Use once
+             */
+            if (proxiObject) return;
+
+            proxiObject = new Proxy(state, {
                 set(target, /** @type{string} */ prop, value) {
                     if (prop in target) {
                         // Mutiamo l'oggetto originale con i metodi giá presenti
@@ -105,6 +118,8 @@ export const mobStore = (data = {}) => {
                     return false;
                 },
             });
+
+            return proxiObject;
         },
         quickSetProp: (prop, value) => {
             storeQuickSetEntrypoint({ instanceId, prop, value });
@@ -140,6 +155,7 @@ export const mobStore = (data = {}) => {
         },
         destroy: () => {
             removeStateFromMainMap(instanceId);
+            proxiObject = null;
         },
     };
 };
