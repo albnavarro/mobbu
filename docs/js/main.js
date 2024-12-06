@@ -2705,6 +2705,7 @@
     const stateUpdated = inizializeValidation(initialState);
     updateMainMap(instanceId, stateUpdated);
     inizializeAllProps(instanceId, initialState);
+    let proxiObject;
     return {
       get: () => {
         return storeGetEntryPoint(instanceId);
@@ -2734,7 +2735,8 @@
       },
       getProxi: () => {
         const state = storeMap.get(instanceId).store;
-        return new Proxy(state, {
+        if (proxiObject) return;
+        proxiObject = new Proxy(state, {
           set(target, prop, value) {
             if (prop in target) {
               storeSetEntryPoint({
@@ -2752,6 +2754,7 @@
             return false;
           }
         });
+        return proxiObject;
       },
       quickSetProp: (prop, value) => {
         storeQuickSetEntrypoint({ instanceId, prop, value });
@@ -2787,6 +2790,7 @@
       },
       destroy: () => {
         removeStateFromMainMap(instanceId);
+        proxiObject = null;
       }
     };
   };
