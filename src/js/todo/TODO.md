@@ -112,6 +112,12 @@ console.log('get:', proxiTest.test);
 
 # MobJs
 
+### bindProxi
+- Ora che abbiamo una getter reattivo sullo stato si puó implementare:
+```js
+<div>${bindProxi`value: ${proxiState.myProp}`}</div>
+```
+
 ### Quickset
 - Aggiungere `Quickset`.
 
