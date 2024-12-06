@@ -115,8 +115,29 @@ console.log('get:', proxiTest.test);
 ### bindProxi
 - Ora che abbiamo una getter reattivo sullo stato si puó implementare:
 ```js
-<div>${bindProxi`value: ${proxiState.myProp}`}</div>
+<div class="benchmark-fake__row">
+    ${bindProxi`<strong>label:</strong><br/> ${() => proxiState.label}`}
+</div>
 ```
+
+```js
+/**
+ * @param {TemplateStringsArray} strings
+ * @param {any[]} values
+ * @returns { string }
+ */
+export const renderBindProxi = (strings, ...values) => {
+    return strings.raw.reduce(
+        (accumulator, currentText, i) =>
+            mobCore.checkType(Function, values?.[i])
+                ? accumulator + currentText + (values?.[i]?.() ?? '')
+                : accumulator,
+        ''
+    );
+};
+```
+- Problema: come tracciare lo stato da cambaire nel watch in `createBindTextWatcher`?
+- Usare tutti gli stati del componente ?
 
 ### Quickset
 - Aggiungere `Quickset`.
