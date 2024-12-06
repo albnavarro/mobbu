@@ -51,12 +51,62 @@ export interface callbackQueue {
 }
 ```
 
-### getProxi ?:
+### getProxi:
 - Creare un set di valori `parallelo` al valore dello store generale quando viene chiamata la propieta:</br>
-    `const proxiProp = myStore.getProxi('myProp')`.
-- Alla mutazione del `proxi` si eseguirá un `setState('myProp', proxiProp)`.
-- Se si chiama un `setState/updateState` bisognerá aggiornare il valore del `proxi`.
-- Come gestire oggetti, etc.. vs primitive standard.
+
+```js
+getProxi: () => {
+    const state = storeMap.get(instanceId).store;
+
+    return new Proxy(state, {
+        set(target, prop, value) {
+            if (prop in target) {
+                // Mutiamo l'oggetto originale con i metodi giá presenti
+                storeSetEntryPoint({
+                    instanceId,
+                    prop,
+                    value,
+                    fireCallback: true,
+                    clone: false,
+                    action: STORE_SET,
+                });
+
+                // Assicurarsi che l'oggetto venga mutato solo dall' operazioen sopra.
+                return true;
+            }
+
+            console.log('no pros in proxi');
+            return false;
+        },
+    });
+},
+
+```
+
+```js
+const testStore = mobCore.createStore({
+    test: () => ({
+        value: '',
+        type: String,
+    }),
+});
+
+testStore.watch('test', (value) => {
+    console.log('waitch', value);
+});
+
+testStore.set('test', 'original');
+testStore.update('test', (value) => {
+    return value + 2;
+});
+
+const proxiTest = testStore.getProxi();
+console.log('get:', proxiTest);
+proxiTest.test = 'pippo';
+proxiTest.test = 'pippo 2';
+proxiTest.test = 'pippo 3';
+console.log('get:', proxiTest);
+```
 
 
 # MobJs
@@ -139,4 +189,3 @@ export interface callbackQueue {
 - 1: parte da 2 e finisce a 4. ( logica corrente ).
 - 2: parte da 4 e finisce a 6.
 - 3: parte da 2 e finisce a 4.
-
