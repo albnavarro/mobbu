@@ -2735,7 +2735,9 @@
       },
       getProxi: () => {
         const state = storeMap.get(instanceId).store;
-        if (proxiObject) return;
+        if (proxiObject) {
+          return proxiObject;
+        }
         proxiObject = new Proxy(state, {
           set(target, prop, value) {
             if (prop in target) {

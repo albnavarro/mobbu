@@ -92,9 +92,11 @@ export const mobStore = (data = {}) => {
             const state = storeMap.get(instanceId).store;
 
             /**
-             * Use once
+             * Create only one proxi.
              */
-            if (proxiObject) return;
+            if (proxiObject) {
+                return proxiObject;
+            }
 
             proxiObject = new Proxy(state, {
                 set(target, /** @type{string} */ prop, value) {
@@ -109,7 +111,6 @@ export const mobStore = (data = {}) => {
                             action: STORE_SET,
                         });
 
-                        // Assicurarsi che l'oggetto venga mutato solo dall' operazioen sopra.
                         return true;
                     }
 
