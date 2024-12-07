@@ -32363,27 +32363,6 @@ Loading snippet ...</pre
             <div>${bindText`yDepth: ${"yDepth"}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
-                <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    value=${proxiState.perspective}
-                    ${delegateEvents({
-      // @ts-ignore
-      input: debounceFuncion(
-        (event) => {
-          const value = event?.target?.value ?? 0;
-          proxiState.perspective = Number(value);
-        },
-        200
-      )
-    })}
-                />
-            </div>
-            <div>${bindText`perspective: ${"perspective"} ( debunced )`}</div>
-        </div>
-        <div class="c-move3d-page__controls__block">
             <button
                 type="button"
                 class="c-move3d-page__controls__button"
@@ -32430,14 +32409,7 @@ Loading snippet ...</pre
         ${getControls2({ delegateEvents, bindText, proxiState })}
         <move-3d
             ${bindProps({
-      bind: [
-        "data",
-        "xDepth",
-        "yDepth",
-        "factor",
-        "debug",
-        "perspective"
-      ],
+      bind: ["data", "xDepth", "yDepth", "factor", "debug"],
       /** @returns{ReturnBindProps<import('../type').Move3D>} */
       props: () => {
         return {
@@ -32445,22 +32417,14 @@ Loading snippet ...</pre
           xDepth: proxiState.xDepth,
           yDepth: proxiState.yDepth,
           factor: proxiState.factor,
-          debug: proxiState.debug,
-          perspective: proxiState.perspective
+          debug: proxiState.debug
         };
       }
     })}
         ></move-3d>
         <move-3d
             ${bindProps({
-      bind: [
-        "data",
-        "xDepth",
-        "yDepth",
-        "factor",
-        "debug",
-        "perspective"
-      ],
+      bind: ["data", "xDepth", "yDepth", "factor", "debug"],
       /** @returns{ReturnBindProps<import('../type').Move3D>} */
       props: () => {
         return {
@@ -32468,8 +32432,7 @@ Loading snippet ...</pre
           xDepth: proxiState.xDepth,
           yDepth: proxiState.yDepth,
           factor: proxiState.factor,
-          debug: proxiState.debug,
-          perspective: proxiState.perspective
+          debug: proxiState.debug
         };
       }
     })}
