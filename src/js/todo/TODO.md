@@ -58,6 +58,8 @@ export interface callbackQueue {
 
 ### bindProxi
 - Ora che abbiamo una getter reattivo sullo stato si puó implementare:
+- Creare un nuovo modulo `bindProxi`
+
 ```js
 <div class="benchmark-fake__row">
     ${bindProxi`<strong>label:</strong><br/> ${() => proxiState.label}`}
@@ -65,16 +67,16 @@ export interface callbackQueue {
 ```
 
 ```js
-bindText: (strings, ...values) => {
+bindProxi: (strings, ...values) => {
     const keys = values
         .map((item) => `${item}`.split('.')?.[1])
         .filter(Boolean);
 
-    const bindTextId = mobCore.getUnivoqueId();
-    const render = () => renderBindText(id, strings, ...values);
-    createBindTextWatcher(id, bindTextId, keys, render);
+    const bindProxiId = mobCore.getUnivoqueId();
+    const render = () => renderBindProxi(id, strings, ...values);
+    createBindProxiWatcher(id, bindTextId, keys, render);
 
-    return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
+    return `<mobjs-bind-proxi ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_PROXI_ID}="${bindProxiId}"></mobjs-bind-proxi>${render()}`;
 },
 ```
 
@@ -103,7 +105,7 @@ export const renderBindProxi = (strings, ...values) => {
  * @param {() => string} render
  * @returns {void}
  */
-export const createBindTextWatcher = (id, bindTextId, keys, render) => {
+export const createBindProxiWatcher = (id, bindProxiId, keys, render) => {
     /**
      * Watch props on change
      */
@@ -124,12 +126,12 @@ export const createBindTextWatcher = (id, bindTextId, keys, render) => {
                 mobCore.useFrame(() => {
                     if (!ref) {
                         ref = new WeakRef(
-                            getParentBindText({
+                            getParentBindProxi({
                                 id,
                                 bindTextId,
                             })
                         );
-                        removeBindTextByBindTextId({ id, bindTextId });
+                        removeBindProxiByBindProxiId({ id, bindTextId });
                     }
 
                     if (ref.deref()) {
@@ -148,9 +150,6 @@ export const createBindTextWatcher = (id, bindTextId, keys, render) => {
     });
 };
 ```
-
-- Problema: come tracciare lo stato da cambaire nel watch in `createBindTextWatcher`?
-- Usare tutti gli stati del componente ?
 
 ### Quickset
 - Aggiungere `Quickset`.
