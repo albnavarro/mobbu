@@ -34,13 +34,13 @@ export interface Move3DItem {
         };
     };
     methods: {
-        move: (arg0: { delta: number; limit: number }) => void;
+        move: (arg0: { delta: number; factor: number }) => void;
     };
 }
 
 export type Move3DItemMove = (arg0: {
     delta: number;
-    limit: number;
+    factor: number;
     initialRotate?: number;
     depth: number;
     range?: number;

@@ -138,23 +138,6 @@ export const Move3Dfn = ({
                           proxiState.yDepth,
                   };
 
-        const xlimitReached = Math.abs(ax) > proxiState.xLimit;
-        const ylimitReached = Math.abs(ay) > proxiState.yLimit;
-
-        const axLimited = (() => {
-            if (!xlimitReached) return ax;
-            return ax > 0 ? proxiState.xLimit : -proxiState.xLimit;
-        })();
-
-        const ayLimited = (() => {
-            if (!ylimitReached) return ay;
-            return ay > 0 ? proxiState.yLimit : -proxiState.yLimit;
-        })();
-
-        // TODO: calcolare il valore x y corrspondente all 'angolo limit e assegnarlo
-        if (xlimitReached) dragX -= xgap;
-        if (ylimitReached) dragY -= ygap;
-
         lastX = x;
         lastY = y;
 
@@ -163,21 +146,16 @@ export const Move3Dfn = ({
          * Il delta sarà l'ipotenusa del triangolo formato dai volri ax e ay
          */
         const delta = Math.sqrt(
-            Math.pow(Math.abs(ayLimited), 2) + Math.pow(Math.abs(axLimited), 2)
+            Math.pow(Math.abs(ay), 2) + Math.pow(Math.abs(ax), 2)
         );
 
-        const limit = Math.sqrt(
-            Math.pow(Math.abs(proxiState.xLimit), 2) +
-                Math.pow(Math.abs(proxiState.yLimit), 2)
-        );
-
-        spring.goTo({ ax: axLimited, ay: ayLimited }).catch(() => {});
+        spring.goTo({ ax, ay }).catch(() => {});
 
         /**
          * Move children
          */
         childrenMethods.forEach((moveChild) => {
-            moveChild({ delta, limit });
+            moveChild({ delta, factor: proxiState.factor });
         });
     };
 

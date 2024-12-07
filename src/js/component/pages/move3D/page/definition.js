@@ -21,13 +21,13 @@ export const Move3DPage = createComponent({
             value: 20,
             type: Number,
         }),
-        xLimit: () => ({
-            value: 35,
+        factor: () => ({
+            value: 45,
             type: Number,
-        }),
-        yLimit: () => ({
-            value: 35,
-            type: Number,
+            validate: (value) => {
+                return value > 1;
+            },
+            strict: true,
         }),
         nextRoute: () => ({
             value: '',

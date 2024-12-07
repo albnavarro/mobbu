@@ -26,6 +26,22 @@ const getControls = ({ delegateEvents, bindText, proxiState }) => {
             <div class="c-move3d-page__controls__range">
                 <input
                     type="range"
+                    value=${proxiState.factor}
+                    ${delegateEvents({
+                        input: (event) => {
+                            // @ts-ignore
+                            const value = event?.target?.value ?? 0;
+                            proxiState.factor = Number(value);
+                        },
+                    })}
+                />
+            </div>
+            <div>${bindText`factor: ${'factor'}`}</div>
+        </div>
+        <div class="c-move3d-page__controls__block">
+            <div class="c-move3d-page__controls__range">
+                <input
+                    type="range"
                     value=${proxiState.xDepth}
                     ${delegateEvents({
                         input: (event) => {
@@ -42,22 +58,6 @@ const getControls = ({ delegateEvents, bindText, proxiState }) => {
             <div class="c-move3d-page__controls__range">
                 <input
                     type="range"
-                    value=${proxiState.xLimit}
-                    ${delegateEvents({
-                        input: (event) => {
-                            // @ts-ignore
-                            const value = event?.target?.value ?? 0;
-                            proxiState.xLimit = Number(value);
-                        },
-                    })}
-                />
-            </div>
-            <div>${bindText`xLimit: ${'xLimit'}`}</div>
-        </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
-                <input
-                    type="range"
                     value=${proxiState.yDepth}
                     ${delegateEvents({
                         input: (event) => {
@@ -69,22 +69,6 @@ const getControls = ({ delegateEvents, bindText, proxiState }) => {
                 />
             </div>
             <div>${bindText`yDepth: ${'yDepth'}`}</div>
-        </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
-                <input
-                    type="range"
-                    value=${proxiState.yLimit}
-                    ${delegateEvents({
-                        input: (event) => {
-                            // @ts-ignore
-                            const value = event?.target?.value ?? 0;
-                            proxiState.yLimit = Number(value);
-                        },
-                    })}
-                />
-            </div>
-            <div>${bindText`yLimit: ${'yLimit'}`}</div>
         </div>
     </div>`;
 };
@@ -128,30 +112,28 @@ export const Move3DPagefn = ({
         ${getControls({ delegateEvents, bindText, proxiState })}
         <move-3d
             ${bindProps({
-                bind: ['data', 'xDepth', 'xLimit', 'yDepth', 'yLimit'],
+                bind: ['data', 'xDepth', 'yDepth', 'factor'],
                 /** @returns{ReturnBindProps<import('../type').Move3D>} */
                 props: () => {
                     return {
                         shape: proxiState.data,
                         xDepth: proxiState.xDepth,
-                        xLimit: proxiState.xLimit,
                         yDepth: proxiState.yDepth,
-                        yLimit: proxiState.yLimit,
+                        factor: proxiState.factor,
                     };
                 },
             })}
         ></move-3d>
         <move-3d
             ${bindProps({
-                bind: ['data', 'xDepth', 'xLimit', 'yDepth', 'yLimit'],
+                bind: ['data', 'xDepth', 'yDepth', 'factor'],
                 /** @returns{ReturnBindProps<import('../type').Move3D>} */
                 props: () => {
                     return {
                         shape: proxiState.data,
                         xDepth: proxiState.xDepth,
-                        xLimit: proxiState.xLimit,
                         yDepth: proxiState.yDepth,
-                        yLimit: proxiState.yLimit,
+                        factor: proxiState.factor,
                     };
                 },
             })}

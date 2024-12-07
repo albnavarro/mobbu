@@ -13,8 +13,7 @@ export const Move3D = createComponent({
         'perspective',
         'xDepth',
         'yDepth',
-        'xLimit',
-        'yLimit',
+        'factor',
         'shape',
     ],
     state: {
@@ -50,16 +49,8 @@ export const Move3D = createComponent({
             },
             strict: true,
         }),
-        xLimit: () => ({
-            value: 35,
-            type: Number,
-            validate: (value) => {
-                return value > 1;
-            },
-            strict: true,
-        }),
-        yLimit: () => ({
-            value: 35,
+        factor: () => ({
+            value: 45,
             type: Number,
             validate: (value) => {
                 return value > 1;

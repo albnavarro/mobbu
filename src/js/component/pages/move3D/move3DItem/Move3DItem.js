@@ -24,7 +24,7 @@ const getComponent = (component) => {
 /** @type{import('./type').Move3DItemMove} */
 const move = ({
     delta: currentDelta,
-    limit,
+    factor,
     initialRotate,
     depth,
     range,
@@ -32,13 +32,13 @@ const move = ({
     anchorPoint,
     lerp,
 }) => {
-    const currentDepth = Math.round((depth * currentDelta) / limit);
+    const currentDepth = Math.round((depth * currentDelta) / factor);
 
     const getRotateData = {
         startRotation: initialRotate,
         range: range,
         delta: currentDelta,
-        limit: limit,
+        limit: factor,
     };
     const baseRotateX = getRotate(getRotateData);
     const baseRotateY = getRotate(getRotateData);
@@ -86,11 +86,11 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
         data: { depth: 0, rotateX: 0, rotateY: 0 },
     });
 
-    addMethod('move', ({ delta, limit }) => {
+    addMethod('move', ({ delta, factor }) => {
         if (animate) {
             move({
                 delta,
-                limit,
+                factor,
                 initialRotate,
                 depth,
                 range,

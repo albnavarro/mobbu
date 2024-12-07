@@ -31753,30 +31753,15 @@ Loading snippet ...</pre
         ax: -(vw / 2 - (xInMotion - offSetLeft)) / proxiState.xDepth,
         ay: (vh / 2 - (yInMotion - offSetTop)) / proxiState.yDepth
       };
-      const xlimitReached = Math.abs(ax) > proxiState.xLimit;
-      const ylimitReached = Math.abs(ay) > proxiState.yLimit;
-      const axLimited = (() => {
-        if (!xlimitReached) return ax;
-        return ax > 0 ? proxiState.xLimit : -proxiState.xLimit;
-      })();
-      const ayLimited = (() => {
-        if (!ylimitReached) return ay;
-        return ay > 0 ? proxiState.yLimit : -proxiState.yLimit;
-      })();
-      if (xlimitReached) dragX -= xgap;
-      if (ylimitReached) dragY -= ygap;
       lastX = x;
       lastY = y;
       const delta = Math.sqrt(
-        Math.pow(Math.abs(ayLimited), 2) + Math.pow(Math.abs(axLimited), 2)
+        Math.pow(Math.abs(ay), 2) + Math.pow(Math.abs(ax), 2)
       );
-      const limit = Math.sqrt(
-        Math.pow(Math.abs(proxiState.xLimit), 2) + Math.pow(Math.abs(proxiState.yLimit), 2)
-      );
-      spring.goTo({ ax: axLimited, ay: ayLimited }).catch(() => {
+      spring.goTo({ ax, ay }).catch(() => {
       });
       childrenMethods.forEach((moveChild) => {
-        moveChild({ delta, limit });
+        moveChild({ delta, factor: proxiState.factor });
       });
     };
     const onScroll = (scrollY2) => {
@@ -32067,7 +32052,7 @@ Loading snippet ...</pre
   };
   var move = ({
     delta: currentDelta,
-    limit,
+    factor,
     initialRotate,
     depth,
     range,
@@ -32075,12 +32060,12 @@ Loading snippet ...</pre
     anchorPoint,
     lerp: lerp2
   }) => {
-    const currentDepth = Math.round(depth * currentDelta / limit);
+    const currentDepth = Math.round(depth * currentDelta / factor);
     const getRotateData = {
       startRotation: initialRotate,
       range,
       delta: currentDelta,
-      limit
+      limit: factor
     };
     const baseRotateX = getRotate(getRotateData);
     const baseRotateY = getRotate(getRotateData);
@@ -32121,11 +32106,11 @@ Loading snippet ...</pre
     let lerp2 = tween.createLerp({
       data: { depth: 0, rotateX: 0, rotateY: 0 }
     });
-    addMethod("move", ({ delta, limit }) => {
+    addMethod("move", ({ delta, factor }) => {
       if (animate) {
         move({
           delta,
-          limit,
+          factor,
           initialRotate,
           depth,
           range,
@@ -32272,8 +32257,7 @@ Loading snippet ...</pre
       "perspective",
       "xDepth",
       "yDepth",
-      "xLimit",
-      "yLimit",
+      "factor",
       "shape"
     ],
     state: {
@@ -32309,16 +32293,8 @@ Loading snippet ...</pre
         },
         strict: true
       }),
-      xLimit: () => ({
-        value: 35,
-        type: Number,
-        validate: (value) => {
-          return value > 1;
-        },
-        strict: true
-      }),
-      yLimit: () => ({
-        value: 35,
+      factor: () => ({
+        value: 45,
         type: Number,
         validate: (value) => {
           return value > 1;
@@ -32344,6 +32320,21 @@ Loading snippet ...</pre
             <div class="c-move3d-page__controls__range">
                 <input
                     type="range"
+                    value=${proxiState.factor}
+                    ${delegateEvents({
+      input: (event) => {
+        const value = event?.target?.value ?? 0;
+        proxiState.factor = Number(value);
+      }
+    })}
+                />
+            </div>
+            <div>${bindText`factor: ${"factor"}`}</div>
+        </div>
+        <div class="c-move3d-page__controls__block">
+            <div class="c-move3d-page__controls__range">
+                <input
+                    type="range"
                     value=${proxiState.xDepth}
                     ${delegateEvents({
       input: (event) => {
@@ -32359,21 +32350,6 @@ Loading snippet ...</pre
             <div class="c-move3d-page__controls__range">
                 <input
                     type="range"
-                    value=${proxiState.xLimit}
-                    ${delegateEvents({
-      input: (event) => {
-        const value = event?.target?.value ?? 0;
-        proxiState.xLimit = Number(value);
-      }
-    })}
-                />
-            </div>
-            <div>${bindText`xLimit: ${"xLimit"}`}</div>
-        </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
-                <input
-                    type="range"
                     value=${proxiState.yDepth}
                     ${delegateEvents({
       input: (event) => {
@@ -32384,21 +32360,6 @@ Loading snippet ...</pre
                 />
             </div>
             <div>${bindText`yDepth: ${"yDepth"}`}</div>
-        </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
-                <input
-                    type="range"
-                    value=${proxiState.yLimit}
-                    ${delegateEvents({
-      input: (event) => {
-        const value = event?.target?.value ?? 0;
-        proxiState.yLimit = Number(value);
-      }
-    })}
-                />
-            </div>
-            <div>${bindText`yLimit: ${"yLimit"}`}</div>
         </div>
     </div>`;
   };
@@ -32434,30 +32395,28 @@ Loading snippet ...</pre
         ${getControls2({ delegateEvents, bindText, proxiState })}
         <move-3d
             ${bindProps({
-      bind: ["data", "xDepth", "xLimit", "yDepth", "yLimit"],
+      bind: ["data", "xDepth", "yDepth", "factor"],
       /** @returns{ReturnBindProps<import('../type').Move3D>} */
       props: () => {
         return {
           shape: proxiState.data,
           xDepth: proxiState.xDepth,
-          xLimit: proxiState.xLimit,
           yDepth: proxiState.yDepth,
-          yLimit: proxiState.yLimit
+          factor: proxiState.factor
         };
       }
     })}
         ></move-3d>
         <move-3d
             ${bindProps({
-      bind: ["data", "xDepth", "xLimit", "yDepth", "yLimit"],
+      bind: ["data", "xDepth", "yDepth", "factor"],
       /** @returns{ReturnBindProps<import('../type').Move3D>} */
       props: () => {
         return {
           shape: proxiState.data,
           xDepth: proxiState.xDepth,
-          xLimit: proxiState.xLimit,
           yDepth: proxiState.yDepth,
-          yLimit: proxiState.yLimit
+          factor: proxiState.factor
         };
       }
     })}
@@ -32483,13 +32442,13 @@ Loading snippet ...</pre
         value: 20,
         type: Number
       }),
-      xLimit: () => ({
-        value: 35,
-        type: Number
-      }),
-      yLimit: () => ({
-        value: 35,
-        type: Number
+      factor: () => ({
+        value: 45,
+        type: Number,
+        validate: (value) => {
+          return value > 1;
+        },
+        strict: true
       }),
       nextRoute: () => ({
         value: "",
