@@ -7,12 +7,12 @@ const myStore = mobCore.createStore({
     }),
 });
 
-const proxiTest = myStore.getProxi();
+const proxiState = myStore.getProxi();
 
 myStore.watch('myProp', (value) => {
     console.log(value);
 });
 
-proxiTest.myProp = 'test value';
-proxiTest.myProp = 'test value 2';
-proxiTest.myProp = 'test value 3';
+proxiState.myProp = 'test value';
+proxiState.myProp = 'test value 2';
+proxiState.myProp = 'test value 3';

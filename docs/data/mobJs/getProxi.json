@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "updateState"
+            "content": "getProxi"
         },
         {
             "component": "mob-spacer",
@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The updateState() function is equivalent to myStore.update()."
+            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and <span class='quote'>inherits</span> all its functionality. The getProxi() function is equivalent to myStore.getProxi()."
         },
         {
             "component": "mob-list",
@@ -46,41 +46,11 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/updateState.js",
+                "source": "./snippets/mobJs/getProxi.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 27
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "UpdateStateByName"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "It is possible to change the status of a component starting from the instance name:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "tag": "h3",
-                "dots": false,
-                "items": [
-                    "<a href='./#mobJs-updateStateByName'>UpdateStateByName</a>"
-                ]
             }
         },
         {

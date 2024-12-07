@@ -109,6 +109,16 @@
             "content": "The props property is a function that takes as input an object with all state values of the parent component (not just the monitored states).<br/> This function will return an object with the values to assign to the state of the child component."
         },
         {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "if you use the state as a proxy this property is superfluous."
+                ]
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
@@ -122,6 +132,42 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 48
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "With proxi:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Using a proxy you do not need to reference the updated properties in the function bound to the props object."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindPropsProxi.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 27
             }
         },
         {

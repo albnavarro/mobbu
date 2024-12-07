@@ -30,6 +30,7 @@ export const MyComponent = ({ html, onMount, watch, setState, bindProps }) => {
          */
         return () => {};
     });
+
     return html`
         <div>
             <my-child-component

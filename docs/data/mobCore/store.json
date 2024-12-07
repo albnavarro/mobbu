@@ -521,7 +521,7 @@
                 "block": true,
                 "items": [
                     "<span class='quote'>get</span>: The object will always remain updated to the current state of values",
-                    "<span class='quote'>set</span>: Behind the scenes, a setState() will be executed when setting the object, in fact they are equivalent"
+                    "<span class='quote'>set</span>: Behind the scenes, a <span class='quote'>setState()</span> will be executed when setting the object."
                 ]
             }
         },

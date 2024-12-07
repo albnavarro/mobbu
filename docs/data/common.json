@@ -80,6 +80,11 @@
                 "isLabel": false
             },
             {
+                "label": "getProxi",
+                "url": "mobJs-getProxi",
+                "isLabel": false
+            },
+            {
                 "label": "computed",
                 "url": "mobJs-computed",
                 "isLabel": false
@@ -387,6 +392,11 @@
                     "label": "updateState",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-updateState"
+                },
+                {
+                    "label": "getProxi",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-getProxi"
                 },
                 {
                     "label": "computed",

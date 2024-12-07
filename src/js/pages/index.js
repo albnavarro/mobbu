@@ -356,6 +356,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-getProxi',
+        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/getProxi.json',
+            title: 'getProxi',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-watch',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
