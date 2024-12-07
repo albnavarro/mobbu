@@ -37,18 +37,34 @@ export const Move3D = createComponent({
         xDepth: () => ({
             value: 20,
             type: Number,
+            validate: (value) => {
+                return value > 1;
+            },
+            strict: true,
         }),
         yDepth: () => ({
             value: 20,
             type: Number,
+            validate: (value) => {
+                return value > 1;
+            },
+            strict: true,
         }),
         xLimit: () => ({
             value: 35,
             type: Number,
+            validate: (value) => {
+                return value > 1;
+            },
+            strict: true,
         }),
         yLimit: () => ({
             value: 35,
             type: Number,
+            validate: (value) => {
+                return value > 1;
+            },
+            strict: true,
         }),
         shape: () => ({
             value: [],

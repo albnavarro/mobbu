@@ -1,0 +1,64 @@
+@use '../../abstract' as *;
+
+.c-move3d-page {
+    &__controls {
+        position: fixed;
+        top: calc(var(--header-height) + rem(40));
+        right: rem(40);
+        z-index: 10;
+
+        &__block {
+            padding: rem(20);
+            border: 1px $grey solid;
+            margin-bottom: rem(20);
+        }
+
+        &__range {
+            position: relative;
+            pointer-events: none;
+            margin-bottom: rem(5);
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background: $grey;
+                z-index: 1;
+            }
+
+            input {
+                width: 100%;
+                margin: auto;
+                appearance: none;
+                background: transparent;
+                cursor: pointer;
+                position: relative;
+                display: block;
+                pointer-events: all;
+
+                &::-webkit-slider-thumb {
+                    appearance: none;
+                    border: 0;
+                    height: rem(15);
+                    width: rem(15);
+                    border-radius: 100%;
+                    background: $grey;
+                    cursor: pointer;
+                }
+
+                &::-moz-range-thumb {
+                    appearance: none;
+                    border: 0;
+                    height: rem(15);
+                    width: rem(15);
+                    border-radius: 100%;
+                    background: $grey;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

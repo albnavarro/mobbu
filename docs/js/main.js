@@ -32295,19 +32295,35 @@ Loading snippet ...</pre
       }),
       xDepth: () => ({
         value: 20,
-        type: Number
+        type: Number,
+        validate: (value) => {
+          return value > 1;
+        },
+        strict: true
       }),
       yDepth: () => ({
         value: 20,
-        type: Number
+        type: Number,
+        validate: (value) => {
+          return value > 1;
+        },
+        strict: true
       }),
       xLimit: () => ({
         value: 35,
-        type: Number
+        type: Number,
+        validate: (value) => {
+          return value > 1;
+        },
+        strict: true
       }),
       yLimit: () => ({
         value: 35,
-        type: Number
+        type: Number,
+        validate: (value) => {
+          return value > 1;
+        },
+        strict: true
       }),
       shape: () => ({
         value: [],
@@ -32322,8 +32338,81 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/move3D/page/move3DPage.js
-  var Move3DPagefn = ({ onMount, html, bindProps, getState }) => {
+  var getControls2 = ({ delegateEvents, bindText, proxiState }) => {
+    return renderHtml`<div class="c-move3d-page__controls">
+        <div class="c-move3d-page__controls__block">
+            <div class="c-move3d-page__controls__range">
+                <input
+                    type="range"
+                    value=${proxiState.xDepth}
+                    ${delegateEvents({
+      input: (event) => {
+        const value = event?.target?.value ?? 0;
+        proxiState.xDepth = Number(value);
+      }
+    })}
+                />
+            </div>
+            <div>${bindText`xDepth: ${"xDepth"}`}</div>
+        </div>
+        <div class="c-move3d-page__controls__block">
+            <div class="c-move3d-page__controls__range">
+                <input
+                    type="range"
+                    value=${proxiState.xLimit}
+                    ${delegateEvents({
+      input: (event) => {
+        const value = event?.target?.value ?? 0;
+        proxiState.xLimit = Number(value);
+      }
+    })}
+                />
+            </div>
+            <div>${bindText`xLimit: ${"xLimit"}`}</div>
+        </div>
+        <div class="c-move3d-page__controls__block">
+            <div class="c-move3d-page__controls__range">
+                <input
+                    type="range"
+                    value=${proxiState.yDepth}
+                    ${delegateEvents({
+      input: (event) => {
+        const value = event?.target?.value ?? 0;
+        proxiState.yDepth = Number(value);
+      }
+    })}
+                />
+            </div>
+            <div>${bindText`yDepth: ${"yDepth"}`}</div>
+        </div>
+        <div class="c-move3d-page__controls__block">
+            <div class="c-move3d-page__controls__range">
+                <input
+                    type="range"
+                    value=${proxiState.yLimit}
+                    ${delegateEvents({
+      input: (event) => {
+        const value = event?.target?.value ?? 0;
+        proxiState.yLimit = Number(value);
+      }
+    })}
+                />
+            </div>
+            <div>${bindText`yLimit: ${"yLimit"}`}</div>
+        </div>
+    </div>`;
+  };
+  var Move3DPagefn = ({
+    onMount,
+    html,
+    bindProps,
+    getState,
+    delegateEvents,
+    bindText,
+    getProxi
+  }) => {
     const { prevRoute, nextRoute } = getState();
+    const proxiState = getProxi();
     onMount(() => {
       updateQuickNavState({
         active: true,
@@ -32342,24 +32431,33 @@ Loading snippet ...</pre
       };
     });
     return html`<div>
+        ${getControls2({ delegateEvents, bindText, proxiState })}
         <move-3d
             ${bindProps({
-      bind: ["data"],
+      bind: ["data", "xDepth", "xLimit", "yDepth", "yLimit"],
       /** @returns{ReturnBindProps<import('../type').Move3D>} */
-      props: ({ data }) => {
+      props: () => {
         return {
-          shape: data
+          shape: proxiState.data,
+          xDepth: proxiState.xDepth,
+          xLimit: proxiState.xLimit,
+          yDepth: proxiState.yDepth,
+          yLimit: proxiState.yLimit
         };
       }
     })}
         ></move-3d>
         <move-3d
             ${bindProps({
-      bind: ["data"],
+      bind: ["data", "xDepth", "xLimit", "yDepth", "yLimit"],
       /** @returns{ReturnBindProps<import('../type').Move3D>} */
-      props: ({ data }) => {
+      props: () => {
         return {
-          shape: data
+          shape: proxiState.data,
+          xDepth: proxiState.xDepth,
+          xLimit: proxiState.xLimit,
+          yDepth: proxiState.yDepth,
+          yLimit: proxiState.yLimit
         };
       }
     })}
@@ -32376,6 +32474,22 @@ Loading snippet ...</pre
       data: () => ({
         value: [],
         type: Array
+      }),
+      xDepth: () => ({
+        value: 20,
+        type: Number
+      }),
+      yDepth: () => ({
+        value: 20,
+        type: Number
+      }),
+      xLimit: () => ({
+        value: 35,
+        type: Number
+      }),
+      yLimit: () => ({
+        value: 35,
+        type: Number
       }),
       nextRoute: () => ({
         value: "",

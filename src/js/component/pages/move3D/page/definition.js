@@ -13,6 +13,22 @@ export const Move3DPage = createComponent({
             value: [],
             type: Array,
         }),
+        xDepth: () => ({
+            value: 20,
+            type: Number,
+        }),
+        yDepth: () => ({
+            value: 20,
+            type: Number,
+        }),
+        xLimit: () => ({
+            value: 35,
+            type: Number,
+        }),
+        yLimit: () => ({
+            value: 35,
+            type: Number,
+        }),
         nextRoute: () => ({
             value: '',
             type: String,
