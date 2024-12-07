@@ -9,6 +9,9 @@
 
 ## Store
 
+### DOCS
+- Aggiungere i tipi allo store.
+
 ### set/update
 - Sostuire le strighe rimaste in tutto il progetto `fireCallback ` con `emit` per pulizia.
 - ( stringhe non referenze ).
@@ -52,25 +55,6 @@ export interface callbackQueue {
 ```
 
 # MobJs
-
-### BindPros:
-- Ora che abbiamo `proxiState` possiamo evitare di dichiare le dipendenze e dedurre i bind direttamante dall' oggetto ritornato.
-- Se non é presente l' oggetto bind viene dedotto dalle chiavi ( necessita di usare `getProxi` )
-
-```js
-${bindProps({
-    /** @returns{ReturnBindProps<import('../type').Move3D>} */
-    props: () => {
-        return {
-            shape: proxiState.data,
-            xDepth: proxiState.xDepth,
-            xLimit: proxiState.xLimit,
-            yDepth: proxiState.yDepth,
-            yLimit: proxiState.yLimit,
-        };
-    },
-})}
-```
 
 ### bindProxi
 - Ora che abbiamo una getter reattivo sullo stato si puó implementare:
