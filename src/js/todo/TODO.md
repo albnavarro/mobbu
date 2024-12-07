@@ -51,66 +51,26 @@ export interface callbackQueue {
 }
 ```
 
-### getProxi:
-- Creare un set di valori `parallelo` al valore dello store generale quando viene chiamata la propieta:</br>
-
-```js
-getProxi: () => {
-    const state = storeMap.get(instanceId).store;
-
-    return new Proxy(state, {
-        set(target, prop, value) {
-            if (prop in target) {
-                // Mutiamo l'oggetto originale con i metodi giá presenti
-                storeSetEntryPoint({
-                    instanceId,
-                    prop,
-                    value,
-                    fireCallback: true,
-                    clone: false,
-                    action: STORE_SET,
-                });
-
-                // Assicurarsi che l'oggetto venga mutato solo dall' operazioen sopra.
-                return true;
-            }
-
-            console.log('no pros in proxi');
-            return false;
-        },
-    });
-},
-
-```
-
-```js
-/** @type{import('./mobCore/store/type').MobStore<{test: string, pluto:2}>} */
-const testStore = mobCore.createStore({
-    test: () => ({
-        value: '',
-        type: String,
-    }),
-});
-
-testStore.watch('test', (value) => {
-    console.log('waitch', value);
-});
-
-testStore.set('test', 'original');
-testStore.update('test', (value) => {
-    return value + 2;
-});
-
-const proxiTest = testStore.getProxi();
-console.log('get:', proxiTest.test);
-proxiTest.test = 'pippo';
-proxiTest.test = 'pippo 2';
-proxiTest.test = 'pippo 3';
-console.log('get:', proxiTest.test);
-```
-
-
 # MobJs
+
+### BindPros:
+- Ora che abbiamo `proxiState` possiamo evitare di dichiare le dipendenze e dedurre i bind direttamante dall' oggetto ritornato.
+- Se non é presente l' oggetto bind viene dedotto dalle chiavi ( necessita di usare `getProxi` )
+
+```js
+${bindProps({
+    /** @returns{ReturnBindProps<import('../type').Move3D>} */
+    props: () => {
+        return {
+            shape: proxiState.data,
+            xDepth: proxiState.xDepth,
+            xLimit: proxiState.xLimit,
+            yDepth: proxiState.yDepth,
+            yLimit: proxiState.yLimit,
+        };
+    },
+})}
+```
 
 ### bindProxi
 - Ora che abbiamo una getter reattivo sullo stato si puó implementare:
