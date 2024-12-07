@@ -495,6 +495,50 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
+                "id": "store-get-proxi",
+                "label": "GetProxi"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "GetProxi"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Returns a proxy of the original object."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "block": true,
+                "items": [
+                    "<span class='quote'>get</span>: The object will always remain updated to the current state of values",
+                    "<span class='quote'>set</span>: Behind the scenes, a setState() will be executed when setting the object, in fact they are equivalent"
+                ]
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobCore/getProxi.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 18
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
                 "id": "store-watch",
                 "label": "Watch"
             }
