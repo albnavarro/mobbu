@@ -57,9 +57,14 @@ export type PartialUpdateState<T> = <K extends keyof GetState<T>>(
 ) => void;
 
 /**
- * get proxi
+ * get proxi function
  */
 export type PartialGetProxi<T> = () => GetState<T>;
+
+/**
+ * get proxi state
+ */
+export type PartialGetProxiState<T> = GetState<T>;
 
 /**
  * setStateByName

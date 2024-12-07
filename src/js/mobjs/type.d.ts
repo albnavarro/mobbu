@@ -37,6 +37,7 @@ import {
     PartialReturnBindProps,
     PartialUseMethodByName,
     PartialGetProxi,
+    PartialGetProxiState,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -46,6 +47,7 @@ export type GetState<T> = PartialGetState<T>;
 export type SetState<T> = PartialSetState<T>;
 export type UpdateState<T> = PartialUpdateState<T>;
 export type GetProxi<T> = PartialGetProxi<T>;
+export type ProxiState<T> = PartialGetProxiState<T>;
 export type Emit<T> = PartialEmit<T>;
 export type EmitAsync<T> = PartialEmitAsync<T>;
 export type Computed<T> = PartialCompunted<T>;

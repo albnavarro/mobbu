@@ -11,10 +11,14 @@ import {
 } from '../../../common/quickNav/utils';
 
 /**
+ * @import { Bindtext, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '../../../../mobjs/type';
+ **/
+
+/**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
  * @param {Bindtext} params.bindText
- * @param {import('./type').Move3DPage} params.proxiState
+ * @param {ProxiState<import('./type').Move3DPage>} params.proxiState
  */
 const getControls = ({ delegateEvents, bindText, proxiState }) => {
     return html`<div class="c-move3d-page__controls">
@@ -84,10 +88,6 @@ const getControls = ({ delegateEvents, bindText, proxiState }) => {
         </div>
     </div>`;
 };
-
-/**
- * @import { Bindtext, DelegateEvents, MobComponent, ReturnBindProps, SetState } from '../../../../mobjs/type';
- **/
 
 /** @type {MobComponent<import('./type').Move3DPage>} */
 export const Move3DPagefn = ({
