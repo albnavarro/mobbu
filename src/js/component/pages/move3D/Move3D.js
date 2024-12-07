@@ -14,7 +14,6 @@ import { getChildrenMethod, getMove3DDimension } from './utils';
 export const Move3Dfn = ({
     onMount,
     html,
-    getState,
     setRef,
     getRef,
     watchSync,
@@ -31,11 +30,6 @@ export const Move3Dfn = ({
      * State
      */
     const proxiState = getProxi();
-
-    /**
-     * State
-     */
-    const { debug } = getState();
 
     /**
      * Mutable scoped reference
@@ -318,7 +312,7 @@ export const Move3Dfn = ({
         <div class="c-move-3d__scene" ${setRef('scene')}>
             <div class="c-move-3d__container" ${setRef('container')}>
                 ${invalidate({
-                    bind: 'shape',
+                    bind: ['shape', 'debug'],
                     afterUpdate: () => {
                         /**
                          * Update children's methods
@@ -328,12 +322,11 @@ export const Move3Dfn = ({
                         });
                     },
                     render: () => {
-                        const { shape } = getState();
                         return Recursive3Dshape({
-                            data: shape,
+                            data: proxiState.shape,
                             root: true,
                             childrenId,
-                            debug,
+                            debug: proxiState.debug,
                         });
                     },
                 })}

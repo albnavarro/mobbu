@@ -15,6 +15,8 @@ export const Move3D = createComponent({
         'yDepth',
         'factor',
         'shape',
+        'debug',
+        'perspective',
     ],
     state: {
         drag: () => ({

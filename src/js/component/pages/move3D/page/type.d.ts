@@ -6,6 +6,8 @@ export interface Move3DPage {
         xDepth: number;
         yDepth: number;
         factor: number;
+        debug: boolean;
+        perspective: number;
         prevRoute: string;
         nextRoute: string;
     };

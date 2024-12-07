@@ -1,5 +1,6 @@
 //@ts-check
 
+import { debounceFuncion } from '../../../../mobCore/events/debounce';
 import { html } from '../../../../mobjs';
 import {
     resetAnimationTitle,
@@ -70,6 +71,43 @@ const getControls = ({ delegateEvents, bindText, proxiState }) => {
             </div>
             <div>${bindText`yDepth: ${'yDepth'}`}</div>
         </div>
+        <div class="c-move3d-page__controls__block">
+            <div class="c-move3d-page__controls__range">
+                <input
+                    type="range"
+                    min="0"
+                    max="1000"
+                    value=${proxiState.perspective}
+                    ${delegateEvents({
+                        // @ts-ignore
+                        input: debounceFuncion(
+                            (
+                                /** @type {{ target: { value: number; }; }} */ event
+                            ) => {
+                                // @ts-ignore
+                                const value = event?.target?.value ?? 0;
+                                proxiState.perspective = Number(value);
+                            },
+                            200
+                        ),
+                    })}
+                />
+            </div>
+            <div>${bindText`perspective: ${'perspective'} ( debunced )`}</div>
+        </div>
+        <div class="c-move3d-page__controls__block">
+            <button
+                type="button"
+                class="c-move3d-page__controls__button"
+                ${delegateEvents({
+                    click: () => {
+                        proxiState.debug = !proxiState.debug;
+                    },
+                })}
+            >
+                Toggle Debug
+            </button>
+        </div>
     </div>`;
 };
 
@@ -112,7 +150,14 @@ export const Move3DPagefn = ({
         ${getControls({ delegateEvents, bindText, proxiState })}
         <move-3d
             ${bindProps({
-                bind: ['data', 'xDepth', 'yDepth', 'factor'],
+                bind: [
+                    'data',
+                    'xDepth',
+                    'yDepth',
+                    'factor',
+                    'debug',
+                    'perspective',
+                ],
                 /** @returns{ReturnBindProps<import('../type').Move3D>} */
                 props: () => {
                     return {
@@ -120,13 +165,22 @@ export const Move3DPagefn = ({
                         xDepth: proxiState.xDepth,
                         yDepth: proxiState.yDepth,
                         factor: proxiState.factor,
+                        debug: proxiState.debug,
+                        perspective: proxiState.perspective,
                     };
                 },
             })}
         ></move-3d>
         <move-3d
             ${bindProps({
-                bind: ['data', 'xDepth', 'yDepth', 'factor'],
+                bind: [
+                    'data',
+                    'xDepth',
+                    'yDepth',
+                    'factor',
+                    'debug',
+                    'perspective',
+                ],
                 /** @returns{ReturnBindProps<import('../type').Move3D>} */
                 props: () => {
                     return {
@@ -134,6 +188,8 @@ export const Move3DPagefn = ({
                         xDepth: proxiState.xDepth,
                         yDepth: proxiState.yDepth,
                         factor: proxiState.factor,
+                        debug: proxiState.debug,
+                        perspective: proxiState.perspective,
                     };
                 },
             })}

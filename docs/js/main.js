@@ -31677,7 +31677,6 @@ Loading snippet ...</pre
   var Move3Dfn = ({
     onMount,
     html,
-    getState,
     setRef,
     getRef,
     watchSync,
@@ -31687,7 +31686,6 @@ Loading snippet ...</pre
   }) => {
     const childrenId = mobCore.getUnivoqueId();
     const proxiState = getProxi();
-    const { debug } = getState();
     let height = 0;
     let width = 0;
     let offSetLeft = 0;
@@ -31876,19 +31874,18 @@ Loading snippet ...</pre
         <div class="c-move-3d__scene" ${setRef("scene")}>
             <div class="c-move-3d__container" ${setRef("container")}>
                 ${invalidate({
-      bind: "shape",
+      bind: ["shape", "debug"],
       afterUpdate: () => {
         childrenMethods = getChildrenMethod({
           childrenId
         });
       },
       render: () => {
-        const { shape } = getState();
         return Recursive3Dshape({
-          data: shape,
+          data: proxiState.shape,
           root: true,
           childrenId,
-          debug
+          debug: proxiState.debug
         });
       }
     })}
@@ -32260,7 +32257,9 @@ Loading snippet ...</pre
       "xDepth",
       "yDepth",
       "factor",
-      "shape"
+      "shape",
+      "debug",
+      "perspective"
     ],
     state: {
       drag: () => ({
@@ -32363,6 +32362,40 @@ Loading snippet ...</pre
             </div>
             <div>${bindText`yDepth: ${"yDepth"}`}</div>
         </div>
+        <div class="c-move3d-page__controls__block">
+            <div class="c-move3d-page__controls__range">
+                <input
+                    type="range"
+                    min="0"
+                    max="1000"
+                    value=${proxiState.perspective}
+                    ${delegateEvents({
+      // @ts-ignore
+      input: debounceFuncion(
+        (event) => {
+          const value = event?.target?.value ?? 0;
+          proxiState.perspective = Number(value);
+        },
+        200
+      )
+    })}
+                />
+            </div>
+            <div>${bindText`perspective: ${"perspective"} ( debunced )`}</div>
+        </div>
+        <div class="c-move3d-page__controls__block">
+            <button
+                type="button"
+                class="c-move3d-page__controls__button"
+                ${delegateEvents({
+      click: () => {
+        proxiState.debug = !proxiState.debug;
+      }
+    })}
+            >
+                Toggle Debug
+            </button>
+        </div>
     </div>`;
   };
   var Move3DPagefn = ({
@@ -32397,28 +32430,46 @@ Loading snippet ...</pre
         ${getControls2({ delegateEvents, bindText, proxiState })}
         <move-3d
             ${bindProps({
-      bind: ["data", "xDepth", "yDepth", "factor"],
+      bind: [
+        "data",
+        "xDepth",
+        "yDepth",
+        "factor",
+        "debug",
+        "perspective"
+      ],
       /** @returns{ReturnBindProps<import('../type').Move3D>} */
       props: () => {
         return {
           shape: proxiState.data,
           xDepth: proxiState.xDepth,
           yDepth: proxiState.yDepth,
-          factor: proxiState.factor
+          factor: proxiState.factor,
+          debug: proxiState.debug,
+          perspective: proxiState.perspective
         };
       }
     })}
         ></move-3d>
         <move-3d
             ${bindProps({
-      bind: ["data", "xDepth", "yDepth", "factor"],
+      bind: [
+        "data",
+        "xDepth",
+        "yDepth",
+        "factor",
+        "debug",
+        "perspective"
+      ],
       /** @returns{ReturnBindProps<import('../type').Move3D>} */
       props: () => {
         return {
           shape: proxiState.data,
           xDepth: proxiState.xDepth,
           yDepth: proxiState.yDepth,
-          factor: proxiState.factor
+          factor: proxiState.factor,
+          debug: proxiState.debug,
+          perspective: proxiState.perspective
         };
       }
     })}
@@ -32443,6 +32494,14 @@ Loading snippet ...</pre
       yDepth: () => ({
         value: 20,
         type: Number
+      }),
+      perspective: () => ({
+        value: 700,
+        type: Number
+      }),
+      debug: () => ({
+        value: false,
+        type: Boolean
       }),
       factor: () => ({
         value: 45,

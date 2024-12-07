@@ -2023,6 +2023,24 @@ code {
   background: #eee;
   cursor: pointer;
 }
+.c-move3d-page__controls__button {
+  padding: 0.3333333333rem 0.6666666667rem;
+  margin-bottom: 0.6666666667rem;
+  margin-right: 0.6666666667rem;
+  display: inline-block;
+  text-decoration: none;
+  min-width: 13.3333333333rem;
+  color: #000;
+  text-align: center;
+  transition: background 0.35s;
+  font-size: 0.9333333333rem;
+  background: #fff;
+  border: 0;
+}
+.c-move3d-page__controls__button:hover {
+  background: #000;
+  color: #fff;
+}
 .c-code-btn {
   border: 0;
   margin: 0;

@@ -21,6 +21,14 @@ export const Move3DPage = createComponent({
             value: 20,
             type: Number,
         }),
+        perspective: () => ({
+            value: 700,
+            type: Number,
+        }),
+        debug: () => ({
+            value: false,
+            type: Boolean,
+        }),
         factor: () => ({
             value: 45,
             type: Number,
