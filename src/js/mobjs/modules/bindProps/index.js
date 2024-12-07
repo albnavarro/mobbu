@@ -20,7 +20,7 @@ import { removeAndDestroyById } from '../../component/action/removeAndDestroy/re
 import { bindPropsMap } from './bindPropsMap';
 
 /**
- * @param {{bind?:string[],parentId:string|undefined,props:{[key:string]: any}, forceParent? :boolean}} propsObj
+ * @param {{bind?:string[],parentId:string|undefined,props:(arg0: any, index: number) => Partial<any>, forceParent? :boolean}} propsObj
  * @return {string|undefined} props id in store.
  *
  * @description
