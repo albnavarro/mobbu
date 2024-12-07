@@ -526,13 +526,33 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Deep watch"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The proxy for performance reasons does not implement <span class='quote'>deep watch</span>. It is recommended to use the proxi object as a <span class='quote'>getter</span> rather than a <span class='quote'>setter</span>.<br/> In case you want to modify the content of a nested object, it is necessary to reassign the entire property"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobCore/getProxi.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 18
+                "numLines": 35
             }
         },
         {

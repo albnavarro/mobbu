@@ -65,6 +65,20 @@ export interface callbackQueue {
 ```
 
 ```js
+bindText: (strings, ...values) => {
+    const keys = values
+        .map((item) => `${item}`.split('.')?.[1])
+        .filter(Boolean);
+
+    const bindTextId = mobCore.getUnivoqueId();
+    const render = () => renderBindText(id, strings, ...values);
+    createBindTextWatcher(id, bindTextId, keys, render);
+
+    return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
+},
+```
+
+```js
 /**
  * @param {TemplateStringsArray} strings
  * @param {any[]} values
@@ -80,6 +94,61 @@ export const renderBindProxi = (strings, ...values) => {
     );
 };
 ```
+
+```js
+/**
+ * @param {string} id
+ * @param {string} bindTextId
+ * @param {string[]} keys
+ * @param {() => string} render
+ * @returns {void}
+ */
+export const createBindTextWatcher = (id, bindTextId, keys, render) => {
+    /**
+     * Watch props on change
+     */
+    let watchIsRunning = false;
+
+    /** @type{WeakRef<HTMLElement>} */
+    let ref;
+
+    keys.forEach((state) => {
+        const unwatch = watchById(id, state, () => {
+            /**
+             * Wait for all all props is settled.
+             */
+            if (watchIsRunning) return;
+            watchIsRunning = true;
+
+            mobCore.useNextLoop(() => {
+                mobCore.useFrame(() => {
+                    if (!ref) {
+                        ref = new WeakRef(
+                            getParentBindText({
+                                id,
+                                bindTextId,
+                            })
+                        );
+                        removeBindTextByBindTextId({ id, bindTextId });
+                    }
+
+                    if (ref.deref()) {
+                        ref.deref().textContent = '';
+                        ref.deref().insertAdjacentHTML('afterbegin', render());
+                    }
+
+                    watchIsRunning = false;
+
+                    mobCore.useNextTick(async () => {
+                        if (!ref.deref()) unwatch();
+                    });
+                });
+            });
+        });
+    });
+};
+```
+
 - Problema: come tracciare lo stato da cambaire nel watch in `createBindTextWatcher`?
 - Usare tutti gli stati del componente ?
 
