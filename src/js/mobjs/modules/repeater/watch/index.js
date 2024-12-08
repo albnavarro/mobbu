@@ -1,7 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../../../mobCore';
-import { gerOrderedChildrenById } from '../../../component/action/children';
+import { gerOrderedChunkChildrenById } from '../../../component/action/children';
 import { setRepeaterStateById } from '../../../component/action/repeater';
 import {
     getElementById,
@@ -195,27 +195,27 @@ export const watchRepeat = ({
             const hasKey = key && key !== '';
 
             /**
-             * Ik key is used and element change position
-             * Order children by DOM position.
-             * Withiut key element is rendered in traversal order.
-             */
-            const childrenFilteredSorted = hasKey
-                ? [
-                      ...gerOrderedChildrenById({
-                          children: childrenFilteredByRepeatId,
-                      }),
-                  ]
-                : childrenFilteredByRepeatId;
-
-            /**
              * For singling component inside same repeater item.
              * Group all children by wrapper ( or undefined if there is no wrapper )
              * So the index and current value is fine.
-             * Sorted operation is fine in this step.
              */
             const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
-                children: childrenFilteredSorted,
+                children: childrenFilteredByRepeatId,
             });
+
+            /**
+             * Ik key is used and element change position
+             * Order children by DOM position.
+             * Withiut key element is rendered in traversal order.
+             * Compare first item of chunk
+             */
+            const chunkChildrenOrdered = hasKey
+                ? [
+                      ...gerOrderedChunkChildrenById({
+                          children: childrenChunkedByWrapper,
+                      }),
+                  ]
+                : childrenChunkedByWrapper;
 
             /**
              * Update children current value ( for "immutable" children ).
@@ -224,7 +224,7 @@ export const watchRepeat = ({
              * Update storeComponent currentRepeaterState
              * propierties so bindPros get last current/index value when watch.
              */
-            childrenChunkedByWrapper.forEach((childArray, index) => {
+            chunkChildrenOrdered.forEach((childArray, index) => {
                 childArray.forEach((id) => {
                     const currentValue = currentUnivoque?.[index];
                     if (!currentValue) return;

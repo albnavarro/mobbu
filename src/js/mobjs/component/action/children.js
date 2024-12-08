@@ -79,17 +79,21 @@ export const updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
 
 /**
  * @param {object} obj
- * @param {string[]} obj.children
- * @return {string[]}
+ * @param {string[][]} obj.children
+ * @return {string[][]}
  *
  *
  * @description
- * Get an array of children sorted by DOM position
+ * Get a chunked array of children sorted by DOM position
+ * Compare the first element of each chunk
  */
-export const gerOrderedChildrenById = ({ children }) => {
+export const gerOrderedChunkChildrenById = ({ children }) => {
     return children
-        .map((id) => {
-            return { id, element: getElementById({ id }) };
+        .map((currentChildren) => {
+            return {
+                childrenId: currentChildren,
+                element: getElementById({ id: currentChildren?.[0] }),
+            };
         })
         .toSorted((a, b) => {
             if (a.element.compareDocumentPosition(b.element) & 2) {
@@ -98,5 +102,5 @@ export const gerOrderedChildrenById = ({ children }) => {
             }
             return -1;
         })
-        .map(({ id }) => id);
+        .map(({ childrenId }) => childrenId);
 };
