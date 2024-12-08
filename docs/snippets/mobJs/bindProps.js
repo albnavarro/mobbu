@@ -9,13 +9,20 @@ export type BindProps<T, R> = (arg0: {
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, watch, setState, bindProps }) => {
+export const MyComponent = ({
+    html,
+    onMount,
+    watch,
+    setState,
+    updateState,
+    bindProps,
+}) => {
     onMount(() => {
         /**
          * Update counter state every 500 ms.
          */
         setTimeout(() => {
-            setState('counter', (value) => (value += 1));
+            updateState('counter', (value) => (value += 1));
         }, 500);
 
         /**
