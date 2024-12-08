@@ -188,7 +188,8 @@
                 "style": "medium",
                 "items": [
                     "<strong>Container</strong>: Each repeater must be initialized inside a <span class='quote'>dedicated HTML node</span>",
-                    "<strong>DOM structure:</strong>: The function must return a DOM where the <span class='quote'>first node</span> must be a <span class='quote'>single node</span> regardless of whether it is a generic <span class='quote'>DOM element</span> or a <span class='quote'>component</span>.",
+                    "<strong>DOM structure:</strong>: The function must return a DOM where the <span class='quote'>first node</span> must be a <span class='quote'>single node</span>.",
+                    "<strong>Multiple components:</strong>: If the function returns <span class='quote'>multiple components</span> it is necessary to wrap them inside a dedicated HTML node.",
                     "<strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same <span class='quote'>component/scope</span>"
                 ]
             }
