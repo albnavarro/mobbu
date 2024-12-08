@@ -5,6 +5,7 @@ import { defineInvalidateComponent } from '../webComponent/invalidate';
 import { defineSlotComponent } from '../webComponent/slot';
 import { defineUserComponent } from '../webComponent/userComponent';
 import { defineBindTextComponent } from '../webComponent/bindText';
+import { defineBindProxiComponent } from '../webComponent/bindProxi';
 
 /**
  * @type {{[key:string]:import('../mainStore/type').componentListMapType}}
@@ -40,6 +41,7 @@ export const setComponentList = () => {
     defineInvalidateComponent();
     defineRepeatComponent();
     defineBindTextComponent();
+    defineBindProxiComponent();
 };
 
 /**

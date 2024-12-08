@@ -18,6 +18,11 @@ export const ATTR_BIND_TEXT_ID = 'bindtextid';
 /**
  * @type {string};
  */
+export const ATTR_BIND_PROXI_ID = 'bindproxiid';
+
+/**
+ * @type {string};
+ */
 export const ATTR_IS_COMPONENT_VALUE = 'mobjs';
 
 /**

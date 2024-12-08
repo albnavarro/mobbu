@@ -7,13 +7,16 @@
 /** @type {MobComponent<import('./type').BenchMarkFakeComponent>} */
 export const BenchMarkFakeComponentFn = ({
     html,
-    bindText,
+    getProxi,
+    bindProxi,
     delegateEvents,
     onMount,
     id,
 }) => {
     let isSelected = false;
     let rootRef;
+
+    const proxiState = getProxi();
 
     onMount(({ element }) => {
         rootRef = element;
@@ -27,10 +30,10 @@ export const BenchMarkFakeComponentFn = ({
             ${id}
         </div>
         <div class="benchmark-fake__row">
-            ${bindText`<strong>label:</strong><br/> ${'label'}`}
+            ${bindProxi`<strong>label:</strong><br/> ${() => proxiState.label}`}
         </div>
         <div class="benchmark-fake__row">
-            ${bindText`<strong>counter: </strong><br/> ${'counter'}`}
+            ${bindProxi`<strong>counter: </strong><br/> ${() => proxiState.counter}`}
         </div>
         <div class="benchmark-fake__row">
             <button

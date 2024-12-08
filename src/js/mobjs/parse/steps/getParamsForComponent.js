@@ -20,6 +20,7 @@ import { removeAndDestroyById } from '../../component/action/removeAndDestroy/re
 import { watchById } from '../../component/action/watch';
 import {
     ATTR_BIND_EVENTS,
+    ATTR_BIND_PROXI_ID,
     ATTR_BIND_REFS_ID,
     ATTR_BIND_REFS_NAME,
     ATTR_BIND_TEXT_ID,
@@ -48,6 +49,10 @@ import { addMethodById } from '../../component/action/methods';
 import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
 import { createBindTextWatcher, renderBindText } from '../../modules/bindtext';
 import { inizializeRepeatWatch } from '../../modules/repeater/action/inizializeRepeatWatch';
+import {
+    createBindProxiWatcher,
+    renderBindProxi,
+} from '../../modules/bindProxi';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -193,6 +198,17 @@ export const getParamsForComponentFunction = ({
             createBindTextWatcher(id, bindTextId, render, ...values);
 
             return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
+        },
+        bindProxi: (strings, ...values) => {
+            const keys = values
+                .map((item) => `${item}`.split('.')?.[1])
+                .filter(Boolean);
+
+            const bindProxiId = mobCore.getUnivoqueId();
+            const render = () => renderBindProxi(strings, ...values);
+            createBindProxiWatcher(id, bindProxiId, keys, render);
+
+            return `<mobjs-bind-proxi ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_PROXI_ID}="${bindProxiId}"></mobjs-bind-proxi>${render()}`;
         },
         invalidate: ({
             bind,

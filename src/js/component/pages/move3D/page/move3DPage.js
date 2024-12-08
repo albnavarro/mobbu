@@ -1,6 +1,5 @@
 //@ts-check
 
-import { debounceFuncion } from '../../../../mobCore/events/debounce';
 import { html } from '../../../../mobjs';
 import {
     resetAnimationTitle,
@@ -12,16 +11,16 @@ import {
 } from '../../../common/quickNav/utils';
 
 /**
- * @import { Bindtext, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '../../../../mobjs/type';
+ * @import { BindProxi, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '../../../../mobjs/type';
  **/
 
 /**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @param {Bindtext} params.bindText
+ * @param {BindProxi} params.bindProxi
  * @param {ProxiState<import('./type').Move3DPage>} params.proxiState
  */
-const getControls = ({ delegateEvents, bindText, proxiState }) => {
+const getControls = ({ delegateEvents, bindProxi, proxiState }) => {
     return html`<div class="c-move3d-page__controls">
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
@@ -37,7 +36,7 @@ const getControls = ({ delegateEvents, bindText, proxiState }) => {
                     })}
                 />
             </div>
-            <div>${bindText`factor: ${'factor'}`}</div>
+            <div>${bindProxi`factor: ${() => proxiState.factor}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
@@ -53,7 +52,7 @@ const getControls = ({ delegateEvents, bindText, proxiState }) => {
                     })}
                 />
             </div>
-            <div>${bindText`xDepth: ${'xDepth'}`}</div>
+            <div>${bindProxi`xDepth: ${() => proxiState.xDepth}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
@@ -69,7 +68,7 @@ const getControls = ({ delegateEvents, bindText, proxiState }) => {
                     })}
                 />
             </div>
-            <div>${bindText`yDepth: ${'yDepth'}`}</div>
+            <div>${bindProxi`yDepth: ${() => proxiState.yDepth}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <button
@@ -94,7 +93,7 @@ export const Move3DPagefn = ({
     bindProps,
     getState,
     delegateEvents,
-    bindText,
+    bindProxi,
     getProxi,
 }) => {
     const { prevRoute, nextRoute } = getState();
@@ -123,7 +122,7 @@ export const Move3DPagefn = ({
     });
 
     return html`<div>
-        ${getControls({ delegateEvents, bindText, proxiState })}
+        ${getControls({ delegateEvents, bindProxi, proxiState })}
         <move-3d
             ${bindProps({
                 bind: ['data', 'xDepth', 'yDepth', 'factor', 'debug'],
