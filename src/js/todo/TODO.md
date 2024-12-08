@@ -63,13 +63,6 @@ export interface callbackQueue {
 - Rimane da trovare un' alternativa per l' `ordinamento con chiave`.
 - Abbiamo per ora ridotto il numero di compare usando solo il primo elemento dell' array chunk.
 
-### Repeater
-- la situazione con un componente ha uno slot non funziona per la mancanza di un elementWrapper.
-- Riusce a creare un chunk con un elemento singolo e il suo elemento slot.
-- Non fondamentale ma utile per chiarenzza in modo da avere un solo nodo interno a prescindere che si un DOM o un Componente.
-- la funzione incriminata é `chunkIdsByRepeaterWrapper`, testare sulle dynamic card.
-
-
 ### RepeaterSync.
 - Dopo che il DOM e stato aggiunto con una query sui webComponent si possono aggiungere manulmente gli attributi ?.
 
