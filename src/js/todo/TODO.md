@@ -56,6 +56,11 @@ export interface callbackQueue {
 
 # MobJs
 
+### Repater
+- La comparazione con `compareDocumentPosition` risulta una delle ultime operazioni pesanti del flusso, potenzialmente un collo di bottiglia.
+- L' orinamanto denza chiave non ne ha bisogno, gli elementi arrivano gia in `traversal order`
+- Rimane da trovare un' alternativa per l' `ordinamento con chiave`.
+
 ### Quickset
 - Aggiungere `Quickset`.
 
