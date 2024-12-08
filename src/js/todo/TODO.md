@@ -61,6 +61,9 @@ export interface callbackQueue {
 - L' orinamanto denza chiave non ne ha bisogno, gli elementi arrivano gia in `traversal order`
 - Rimane da trovare un' alternativa per l' `ordinamento con chiave`.
 
+### RepeaterSync.
+- Dopo che il DOM e stato aggiunto con una query sui webComponent si possono aggiungere manulmente gli attributi ?.
+
 ### Quickset
 - Aggiungere `Quickset`.
 
