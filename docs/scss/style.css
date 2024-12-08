@@ -2530,7 +2530,7 @@ code {
   display: grid;
   grid-template-areas: "head head" "list component";
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 10.6666666667rem 40vh;
+  grid-template-rows: 12rem 40vh;
   width: 100%;
   max-width: 80%;
   border: 1px #fff solid;

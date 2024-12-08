@@ -17369,6 +17369,13 @@
     });
     return current?.parentNode;
   };
+  var getBindProxiParentSize = () => {
+    return [...bindProxiMap].reduce(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (previous, [_, values]) => previous + values.length,
+      0
+    );
+  };
   var createBindProxiWatcher = (id, bindProxiId, keys, render2) => {
     let watchIsRunning = false;
     let ref;
@@ -34882,6 +34889,10 @@ Loading snippet ...</pre
                         <div class="c-debug-head__invalidate">
                             <strong>Active bindText: </strong>:
                             ${getBindTextParentSize()}
+                        </div>
+                        <div class="c-debug-head__invalidate">
+                            <strong>Active bindProxi: </strong>:
+                            ${getBindProxiParentSize()}
                         </div>
                     `;
       }
