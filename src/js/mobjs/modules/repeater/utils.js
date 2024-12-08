@@ -1,6 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../../mobCore';
+import { getChildrenById } from '../../component/action/children';
 import { getRepeaterInnerWrap } from '../../component/action/repeater';
 
 /**
@@ -101,26 +102,69 @@ export const chunkIdsByRepeaterWrapper = ({ children }) => {
      */
     const chunkMap = new Map();
 
-    children.forEach((child) => {
-        const elementWrapper = getRepeaterInnerWrap({ id: child });
+    /**
+     * Check firs chunk elementWrapper.
+     * All check is equal.
+     */
+    const hasWrapper = getRepeaterInnerWrap({ id: children[0] });
 
-        if (!elementWrapper) {
-            chunkMap.set(mobCore.getUnivoqueId(), [child]);
-            return;
-        }
+    /**
+     * Group children by elementWrapper
+     */
+    if (hasWrapper) {
+        children.forEach((child) => {
+            const elementWrapper = getRepeaterInnerWrap({ id: child });
 
-        if (chunkMap.has(elementWrapper)) {
-            const children = chunkMap.get(elementWrapper);
-            if (!children) return;
+            if (chunkMap.has(elementWrapper)) {
+                const children = chunkMap.get(elementWrapper);
+                if (!children) return;
 
-            chunkMap.set(elementWrapper, [...children, child]);
-            return;
-        }
+                chunkMap.set(elementWrapper, [...children, child]);
+                return;
+            }
 
-        chunkMap.set(elementWrapper, [child]);
-    });
+            chunkMap.set(elementWrapper, [child]);
+        });
+    }
 
-    const childrenChunkedByWrapper = [...chunkMap.values()];
+    /**
+     * Group element by relationShip
+     */
+    if (!hasWrapper) {
+        const elementGroupByRelationShip = children
+            .map((child) => {
+                const childrenAndSelf = [
+                    ...getChildrenById({ id: child }),
+                    child,
+                ];
+
+                /**
+                 * Filter result by input children
+                 */
+                return childrenAndSelf.filter((item) =>
+                    children.includes(item)
+                );
+            })
+            // Remove root parent
+            .filter((item) => item.length > 1);
+
+        /**
+         * Update main chunk Map
+         */
+        elementGroupByRelationShip.forEach((item) => {
+            chunkMap.set(mobCore.getUnivoqueId(), item);
+        });
+    }
+
+    /**
+     * If there is no chunk is a component without child
+     * so return a chunk with one element.
+     */
+    const childrenChunkedByWrapper =
+        chunkMap.size === 0
+            ? children.map((item) => [item])
+            : [...chunkMap.values()];
+
     chunkMap.clear();
     return childrenChunkedByWrapper;
 };
