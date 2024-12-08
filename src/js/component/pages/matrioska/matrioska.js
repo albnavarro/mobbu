@@ -169,6 +169,7 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                         return {
                                             key: `${level2[index]?.key}`,
                                             value: `${level2[index]?.value}`,
+                                            index: index,
                                             counter,
                                         };
                                     },
@@ -225,6 +226,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                         return {
                                             key: `${level3[index]?.key}`,
                                             value: `${level3[index]?.value}`,
+                                            index: index,
                                             counter,
                                         };
                                     },
@@ -256,6 +258,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                         return {
                                             key: `${level3[index]?.key}`,
                                             value: `${level3[index]?.value}`,
+                                            index: index,
                                             counter,
                                         };
                                     },
@@ -363,6 +366,7 @@ export const MatrioskaFn = ({
                                             return {
                                                 key: `${level1[index]?.key}`,
                                                 value: `${level1[index]?.value}`,
+                                                index: index,
                                                 counter,
                                             };
                                         },

@@ -30,6 +30,9 @@ export const MatrioskaItemFn = ({
             <h6 class="matrioska-item__key">
                 ${bindText`key: <span>${'key'}</span>`}
             </h6>
+            <h6 class="matrioska-item__key">
+                ${bindText`index: <span>${'index'}</span>`}
+            </h6>
             <h6 class="matrioska-item__value">
                 ${bindText`Value: <span>${'value'}</span>`}
             </h6>

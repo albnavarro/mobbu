@@ -190,13 +190,22 @@ export const watchRepeat = ({
             });
 
             /**
-             * Order children by DOM position.
+             * Use key ?
              */
-            const childrenFilteredSorted = [
-                ...gerOrderedChildrenById({
-                    children: childrenFilteredByRepeatId,
-                }),
-            ];
+            const hasKey = key && key !== '';
+
+            /**
+             * Ik key is used and element change position
+             * Order children by DOM position.
+             * Withiut key element is rendered in traversal order.
+             */
+            const childrenFilteredSorted = hasKey
+                ? [
+                      ...gerOrderedChildrenById({
+                          children: childrenFilteredByRepeatId,
+                      }),
+                  ]
+                : childrenFilteredByRepeatId;
 
             /**
              * For singling component inside same repeater item.
@@ -207,11 +216,6 @@ export const watchRepeat = ({
             const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
                 children: childrenFilteredSorted,
             });
-
-            /**
-             * Use key ?
-             */
-            const hasKey = key && key !== '';
 
             /**
              * Update children current value ( for "immutable" children ).
