@@ -72,7 +72,7 @@ export type Methods<T> = PartialMethods<T>;
 export type SetRef = PartialSetRef;
 export type GetRef = PartialGetRef;
 export type GetRefs = PartialGetRefs;
-export type Bindtext = PartialBindText;
+export type BindText = PartialBindText;
 export type BindProxi = PartialBindText;
 export type ReturnBindProps<T> = PartialReturnBindProps<T>;
 export type UseMethodByName<T = { methods: any }> = PartialUseMethodByName<T>;

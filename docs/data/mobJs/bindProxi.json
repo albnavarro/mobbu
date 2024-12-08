@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "bindText"
+            "content": "bindProxi"
         },
         {
             "component": "mob-spacer",
@@ -42,7 +42,7 @@
                 "items": [
                     "based on <span class='quote'>String.raw</span>",
                     "requires a <span class='quote'>unique parent node</span>, each update will delete the previous contents of the node.",
-                    "States must be specified as <span class='quote'>strings</span> in order to be identified as keys to the component's state object.",
+                    "states are used in the form of a <span class='quote'>function</span> that returns the proxy state",
                     "Can be used as content of a <span class='quote'>slotted component</span>."
                 ]
             }
@@ -62,7 +62,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/bindText.js",
+                "source": "./snippets/mobJs/bindProxi.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

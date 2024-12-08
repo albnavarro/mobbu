@@ -130,6 +130,11 @@
                 "isLabel": false
             },
             {
+                "label": "bindProxi",
+                "url": "mobJs-bindproxi",
+                "isLabel": false
+            },
+            {
                 "label": "bindClass/Style",
                 "url": "mobJs-bind-class-style",
                 "isLabel": false
@@ -442,6 +447,11 @@
                     "label": "bindText",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-bindtext"
+                },
+                {
+                    "label": "bindProxi",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-bindproxi"
                 },
                 {
                     "label": "bindClass/Style",

@@ -431,7 +431,17 @@ export const routes = [
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/bindText.json',
-            title: 'bindtext',
+            title: 'bindText',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
+        name: 'mobJs-bindproxi',
+        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/bindProxi.json',
+            title: 'bindProxi',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
