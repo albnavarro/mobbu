@@ -75,7 +75,7 @@
             'list component';
         grid-template-columns: repeat(2, 1fr);
         /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
-        grid-template-rows: rem(160) 40vh;
+        grid-template-rows: rem(180) 40vh;
         width: 100%;
         max-width: 80%;
         border: 1px $white solid;
