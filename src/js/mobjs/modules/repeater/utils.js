@@ -1,8 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../../mobCore';
-import { getChildrenById } from '../../component/action/children';
-import { getRepeaterInnerWrap } from '../../component/action/repeater';
+import { getRepeaterStateById } from '../../component/action/repeater';
 
 /**
  * @param {Array<any>} current
@@ -91,80 +90,64 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
 /**
  * @param {object} obj
  * @param {string[]} obj.children
+ * @param {Array<string>} [ obj.previousChildren ]
  * @return {Array<string[]>}
  *
  * @description
  * Group all childrn by wrapper ( or undefined if there is no wrapper )
  */
-export const chunkIdsByRepeaterWrapper = ({ children }) => {
+export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
     /**
-     * @type {Map<HTMLElement|Element|string, string[]>}
+     * @type {Map<number|string, string[]>}
      */
     const chunkMap = new Map();
 
     /**
-     * Check firs chunk elementWrapper.
-     * All check is equal.
+     * Chunk children by currentValue clean.
      */
-    const hasWrapper = getRepeaterInnerWrap({ id: children[0] });
-
-    /**
-     * Group children by elementWrapper
-     */
-    if (hasWrapper) {
+    if (previousChildren.length === 0) {
         children.forEach((child) => {
-            const elementWrapper = getRepeaterInnerWrap({ id: child });
+            const { index } = getRepeaterStateById({ id: child });
 
-            if (chunkMap.has(elementWrapper)) {
-                const children = chunkMap.get(elementWrapper);
-                if (!children) return;
-
-                chunkMap.set(elementWrapper, [...children, child]);
+            if (chunkMap.has(index)) {
+                const values = chunkMap.get(index);
+                chunkMap.set(index, [...values, child]);
                 return;
             }
 
-            chunkMap.set(elementWrapper, [child]);
+            chunkMap.set(index, [child]);
         });
+
+        const result = [...chunkMap.values()];
+        chunkMap.clear();
+
+        return result;
     }
 
     /**
-     * Group element by relationShip
+     * New element has the same index of persistent element.
+     * Current value of persistent element is not updated.
+     * Mark new index element with `_` char
      */
-    if (!hasWrapper) {
-        const elementGroupByRelationShip = children
-            .map((child) => {
-                const childrenAndSelf = [
-                    ...getChildrenById({ id: child }),
-                    child,
-                ];
+    children.forEach((child) => {
+        const { index } = getRepeaterStateById({ id: child });
 
-                /**
-                 * Filter result by input children
-                 */
-                return childrenAndSelf.filter((item) =>
-                    children.includes(item)
-                );
-            })
-            // Remove root parent
-            .filter((item) => item.length > 1);
+        const indexParsed = previousChildren.includes(child)
+            ? `${index}`
+            : `_${index}`;
 
-        /**
-         * Update main chunk Map
-         */
-        elementGroupByRelationShip.forEach((item) => {
-            chunkMap.set(mobCore.getUnivoqueId(), item);
-        });
-    }
+        const values = chunkMap.get(indexParsed);
 
-    /**
-     * If there is no chunk is a component without child
-     * so return a chunk with one element.
-     */
-    const childrenChunkedByWrapper =
-        chunkMap.size === 0
-            ? children.map((item) => [item])
-            : [...chunkMap.values()];
+        if (values) {
+            chunkMap.set(`${indexParsed}`, [...values, child]);
+            return;
+        }
 
+        chunkMap.set(`${indexParsed}`, [child]);
+    });
+
+    const result = [...chunkMap.values()];
     chunkMap.clear();
-    return childrenChunkedByWrapper;
+
+    return result;
 };

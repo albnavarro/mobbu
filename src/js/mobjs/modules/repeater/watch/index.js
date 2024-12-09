@@ -23,7 +23,7 @@ import {
 import { updateRepeater } from '../update';
 import { inizializeNestedInvalidate } from '../../invalidate/action/inizializeNestedInvalidate';
 import { getFallBackParentByElement } from '../../../component/action/parent';
-import { chunkIdsByRepeaterWrapper } from '../utils';
+import { chunkIdsByCurrentValue } from '../utils';
 import { getRepeatParent } from '../action/getRepeaterParent';
 import { inizializeNestedRepeat } from '../action/inizializeNestedRepeat';
 
@@ -199,8 +199,9 @@ export const watchRepeat = ({
              * Group all children by wrapper ( or undefined if there is no wrapper )
              * So the index and current value is fine.
              */
-            const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
+            const childrenChunkedByWrapper = chunkIdsByCurrentValue({
                 children: childrenFilteredByRepeatId,
+                previousChildren: childrenBeforeUdateByRepeatId,
             });
 
             /**

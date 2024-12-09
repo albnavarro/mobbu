@@ -16,7 +16,7 @@ import { destroyNestedInvalidate } from '../../invalidate/action/destroyNestedIn
 import { destroyNestedRepeat } from '../action/destroyNestedRepeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
-import { chunkIdsByRepeaterWrapper } from '../utils';
+import { chunkIdsByCurrentValue } from '../utils';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
 
 /**
@@ -125,7 +125,7 @@ export const addWithoutKey = ({
          * Group all childrn by wrapper ( or undefined if there is no wrapper )
          * So destroy all right element by index
          */
-        const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
+        const childrenChunkedByWrapper = chunkIdsByCurrentValue({
             children: idsByRepeatId,
         });
 
