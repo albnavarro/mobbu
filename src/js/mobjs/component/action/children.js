@@ -137,43 +137,55 @@ export const gerOrderedChunkByDOMPosition = ({ children }) => {
  * @param {string[][]} obj.children
  * @param {string} obj.key
  * @param {{ key: string }[]} obj.current
+ * @param {boolean} [ obj.useIndex ]
  * @return {string[][]}
  *
  * @description
  * Get a chunked array of children sorted by Key
  */
-export const gerOrderedChunkByKey = ({ children, key, current }) => {
-    const currentUnivoque = getUnivoqueByKey({ data: current, key });
+export const getOrderedChunkByCurrentRepeatValue = ({
+    children,
+    key,
+    current,
+    useIndex = false,
+}) => {
+    const currentUnivoque = useIndex
+        ? current
+        : getUnivoqueByKey({ data: current, key });
 
     /**
      * Current children after parse.
      */
-    const childrenParsed = children.map((item) => {
+    const childrenParsed = children.map((items) => {
         const { index: indexValue, current: currentValue } =
             getRepeaterStateById({
-                id: item?.[0],
+                id: items?.[0],
             });
 
         return {
             index: indexValue,
             key: currentValue?.[key],
-            items: item,
+            items,
         };
     });
 
-    const currentParsed = currentUnivoque.map((item, index) => ({
-        index,
-        key: item?.[key],
-    }));
+    const currentParsed = currentUnivoque.map(
+        (/** @type{{key: string}} */ item, /** @type{number} */ index) => ({
+            index,
+            key: item?.[key],
+        })
+    );
 
     /**
      * Order children by compare currentUnivoque key.
      */
-    const orderdChildren = currentParsed.map((currentItem) =>
-        childrenParsed.find(
-            (childrenItem) => childrenItem.key === currentItem.key
-        )
-    );
+    const orderdChildren = currentParsed.map((currentItem) => {
+        const prop = useIndex ? 'index' : 'key';
+
+        return childrenParsed.find(
+            (childrenItem) => childrenItem[prop] === currentItem[prop]
+        );
+    });
 
     /**
      * return chunk of ids.

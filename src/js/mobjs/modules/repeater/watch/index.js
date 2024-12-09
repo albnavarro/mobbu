@@ -1,7 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../../../mobCore';
-import { gerOrderedChunkByKey } from '../../../component/action/children';
+import { getOrderedChunkByCurrentRepeatValue } from '../../../component/action/children';
 import { setRepeaterStateById } from '../../../component/action/repeater';
 import {
     getElementById,
@@ -211,11 +211,18 @@ export const watchRepeat = ({
              * Compare first item of chunk
              *
              * If no key is used, children only update it's state.
-             * No order is required
+             * Element are add to componentMap in tree traversal order.
+             * So is natuarally ordered.
+             *
+             * In case is necessary (in case of ?):
+             * It is possible use `getOrderedChunkByCurrentRepeatValue` with useIndex
+             * The key is undefined here.
+             * Only component added has new index, the index is added on creation.
+             * So the index of new element here is the right index.
              */
             const chunkChildrenOrdered = hasKey
                 ? [
-                      ...gerOrderedChunkByKey({
+                      ...getOrderedChunkByCurrentRepeatValue({
                           children: childrenChunkedByWrapper,
                           key,
                           current,
