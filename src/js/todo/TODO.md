@@ -1,5 +1,4 @@
 # Priority:
-- Repeater first node con slot
 
 # DOCS
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
@@ -56,12 +55,6 @@ export interface callbackQueue {
 ```
 
 # MobJs
-
-### Repater
-- La comparazione con `compareDocumentPosition` risulta una delle ultime operazioni pesanti del flusso, potenzialmente un collo di bottiglia.
-- L' orinamanto denza chiave non ne ha bisogno, gli elementi arrivano gia in `traversal order`
-- Rimane da trovare un' alternativa per l' `ordinamento con chiave`.
-- Abbiamo per ora ridotto il numero di compare usando solo il primo elemento dell' array chunk.
 
 ### RepeaterSync.
 - Dopo che il DOM e stato aggiunto con una query sui webComponent si possono aggiungere manulmente gli attributi ?.

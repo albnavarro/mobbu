@@ -1,7 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../../../mobCore';
-import { gerOrderedChunkChildrenById } from '../../../component/action/children';
+import { gerOrderedChunkByKey } from '../../../component/action/children';
 import { setRepeaterStateById } from '../../../component/action/repeater';
 import {
     getElementById,
@@ -209,14 +209,27 @@ export const watchRepeat = ({
              * Order children by DOM position.
              * Withiut key element is rendered in traversal order.
              * Compare first item of chunk
+             *
+             * If no key is used, children only update it's state.
+             * No order is required
              */
             const chunkChildrenOrdered = hasKey
                 ? [
-                      ...gerOrderedChunkChildrenById({
+                      ...gerOrderedChunkByKey({
                           children: childrenChunkedByWrapper,
+                          key,
+                          current,
                       }),
                   ]
                 : childrenChunkedByWrapper;
+
+            // const chunkChildrenOrdered = hasKey
+            //     ? [
+            //           ...gerOrderedChunkByDOMPosition({
+            //               children: childrenChunkedByWrapper,
+            //           }),
+            //       ]
+            //     : childrenChunkedByWrapper;
 
             /**
              * Update children current value ( for "immutable" children ).

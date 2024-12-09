@@ -1,7 +1,9 @@
 // @ts-check
 
+import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { componentMap } from '../store';
 import { getElementById } from './element';
+import { getRepeaterStateById } from './repeater';
 
 /**
  * @param {object} obj
@@ -112,7 +114,7 @@ export const updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
  * Get a chunked array of children sorted by DOM position
  * Compare the first element of each chunk
  */
-export const gerOrderedChunkChildrenById = ({ children }) => {
+export const gerOrderedChunkByDOMPosition = ({ children }) => {
     return children
         .map((currentChildren) => {
             return {
@@ -128,4 +130,53 @@ export const gerOrderedChunkChildrenById = ({ children }) => {
             return -1;
         })
         .map(({ childrenId }) => childrenId);
+};
+
+/**
+ * @param {object} obj
+ * @param {string[][]} obj.children
+ * @param {string} obj.key
+ * @param {{ key: string }[]} obj.current
+ * @return {string[][]}
+ *
+ * @description
+ * Get a chunked array of children sorted by Key
+ */
+export const gerOrderedChunkByKey = ({ children, key, current }) => {
+    const currentUnivoque = getUnivoqueByKey({ data: current, key });
+
+    /**
+     * Current children after parse.
+     */
+    const childrenParsed = children.map((item) => {
+        const { index: indexValue, current: currentValue } =
+            getRepeaterStateById({
+                id: item?.[0],
+            });
+
+        return {
+            index: indexValue,
+            key: currentValue?.[key],
+            items: item,
+        };
+    });
+
+    const currentParsed = currentUnivoque.map((item, index) => ({
+        index,
+        key: item?.[key],
+    }));
+
+    /**
+     * Order children by compare currentUnivoque key.
+     */
+    const orderdChildren = currentParsed.map((currentItem) =>
+        childrenParsed.find(
+            (childrenItem) => childrenItem.key === currentItem.key
+        )
+    );
+
+    /**
+     * return chunk of ids.
+     */
+    return orderdChildren.map(({ items }) => items);
 };
