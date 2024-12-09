@@ -97,57 +97,47 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
  * Group all childrn by wrapper ( or undefined if there is no wrapper )
  */
 export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
-    /**
-     * @type {Map<number|string, string[]>}
-     */
-    const chunkMap = new Map();
+    return previousChildren.length === 0
+        ? Object.values(
+              /**
+               * Chunk children by currentValue clean.
+               */
+              children.reduce((previous, current) => {
+                  const { index } = getRepeaterStateById({ id: current });
 
-    /**
-     * Chunk children by currentValue clean.
-     */
-    if (previousChildren.length === 0) {
-        children.forEach((child) => {
-            const { index } = getRepeaterStateById({ id: child });
+                  if (index in previous) {
+                      return {
+                          ...previous,
+                          [index]: [...previous[index], current],
+                      };
+                  }
 
-            if (chunkMap.has(index)) {
-                const values = chunkMap.get(index);
-                chunkMap.set(index, [...values, child]);
-                return;
-            }
+                  return { ...previous, [index]: [current] };
+              }, {})
+          )
+        : Object.values(
+              /**
+               * New element has the same index of persistent element.
+               * Current value of persistent element is not updated.
+               * Mark new index element with `_` char
+               */
+              children.reduce((previous, current) => {
+                  const { index } = getRepeaterStateById({ id: current });
 
-            chunkMap.set(index, [child]);
-        });
+                  const indexParsed = previousChildren.includes(current)
+                      ? `${index}`
+                      : `_${index}`;
 
-        const result = [...chunkMap.values()];
-        chunkMap.clear();
+                  const values = previous?.[indexParsed];
 
-        return result;
-    }
+                  if (values) {
+                      return {
+                          ...previous,
+                          [indexParsed]: [...values, current],
+                      };
+                  }
 
-    /**
-     * New element has the same index of persistent element.
-     * Current value of persistent element is not updated.
-     * Mark new index element with `_` char
-     */
-    children.forEach((child) => {
-        const { index } = getRepeaterStateById({ id: child });
-
-        const indexParsed = previousChildren.includes(child)
-            ? `${index}`
-            : `_${index}`;
-
-        const values = chunkMap.get(indexParsed);
-
-        if (values) {
-            chunkMap.set(`${indexParsed}`, [...values, child]);
-            return;
-        }
-
-        chunkMap.set(`${indexParsed}`, [child]);
-    });
-
-    const result = [...chunkMap.values()];
-    chunkMap.clear();
-
-    return result;
+                  return { ...previous, [indexParsed]: [current] };
+              }, {})
+          );
 };
