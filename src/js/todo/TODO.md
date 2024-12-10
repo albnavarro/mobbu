@@ -60,15 +60,11 @@ export interface callbackQueue {
 - Evitare di passare l; attributo `${sync()}`
 
 ##### test n1
-- Linea teorica potrebbe essere una strada.
-- A livello di performance non sembra impattante.
-- L' idea e di trasformare il DOM da stringa a HTML reale.
-- Fare una query specifica per aggiungere gli attributi.
-- E riconverlo in stringa.
 - Bozza veloce del meccanismo sul primo render, risolto questo i successivi render `withKey` `withoutKey` dovrebbero essere piu semplici non essendoci la necessita di riconvertire il blocco in stringa.
+- Prevedere anche un setter/getter globale che inibisce userComponent ad aggiungersi alla mappa.
 
 ```js
-repeat: ({
+    repeat: ({
         bind,
         clean = false,
         persistent = false,
@@ -91,19 +87,15 @@ repeat: ({
          */
         const firstRender = currentUnique.map(
             (/** @type{any} */ item, /** @type{number} */ index) => {
-                const sync = () => 'test';
-
                 return {
                     render: render({
-                        sync,
+                        sync: () => '',
                         index,
                         currentValue: item,
                         html: renderHtml,
                     }),
-                    currentValue: setComponentRepeaterState({
-                        current: item,
-                        index: index,
-                    }),
+                    current: item,
+                    index,
                     key: hasKey ? item?.[key] : '',
                     bind,
                     repeatId,
@@ -111,11 +103,8 @@ repeat: ({
             }
         );
 
-        //
         const last = firstRender
-            .map(({ render, currentValue, repeatId, key, bind }) => {
-                console.log(currentValue, repeatId, key, bind);
-
+            .map(({ render, current, index, repeatId, key, bind }) => {
                 const node = document
                     .createRange()
                     .createContextualFragment(render);
@@ -123,10 +112,12 @@ repeat: ({
                 const components = queryAllFutureComponent(node, false);
 
                 components.forEach((component) => {
-                    console.log(component);
                     component.setAttribute(
                         ATTR_CURRENT_LIST_VALUE,
-                        currentValue
+                        setComponentRepeaterState({
+                            current,
+                            index,
+                        })
                     );
                     component.setAttribute(ATTR_KEY, `${key}`);
                     component.setAttribute(
@@ -148,7 +139,6 @@ repeat: ({
                 return newstr;
             })
             .join('');
-        //
 
         /**
          * When repeater is inizilized runtime, all neseted repater is initialized.
@@ -197,8 +187,6 @@ repeat: ({
     },
 ```
 
-- Sembra che il parse avvenga in modo asincono non immediato e i componenti eseguono il logo ciclo constructor/connected etc..
-- Con una prova con una variabile globale ( gett/setter ) per inibire il constructor/connected durante la fare di parse/fragment non si hanno risultati.
 
 ### Quickset
 - Aggiungere `Quickset`.
