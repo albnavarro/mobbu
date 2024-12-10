@@ -57,7 +57,148 @@ export interface callbackQueue {
 # MobJs
 
 ### RepeaterSync.
-- Dopo che il DOM e stato aggiunto con una query sui webComponent si possono aggiungere manulmente gli attributi ?.
+- Evitare di passare l; attributo `${sync()}`
+
+##### test n1
+- Linea teorica potrebbe essere una strada.
+- A livello di performance non sembra impattante.
+- L' idea e di trasformare il DOM da stringa a HTML reale.
+- Fare una query specifica per aggiungere gli attributi.
+- E riconverlo in stringa.
+- Bozza veloce del meccanismo sul primo render, risolto questo i successivi render `withKey` `withoutKey` dovrebbero essere piu semplici non essendoci la necessita di riconvertire il blocco in stringa.
+
+```js
+repeat: ({
+        bind,
+        clean = false,
+        persistent = false,
+        beforeUpdate = () => Promise.resolve(),
+        afterUpdate = () => {},
+        key,
+        render,
+    }) => {
+        const repeatId = mobCore.getUnivoqueId();
+        const hasKey = key && key !== '';
+
+        /** type @type{Record<string, any>[]} */
+        const initialState = getState()?.[bind];
+        const currentUnique = hasKey
+            ? getUnivoqueByKey({ data: initialState, key })
+            : initialState;
+
+        /**
+         * Render immediately first DOM
+         */
+        const firstRender = currentUnique.map(
+            (/** @type{any} */ item, /** @type{number} */ index) => {
+                const sync = () => 'test';
+
+                return {
+                    render: render({
+                        sync,
+                        index,
+                        currentValue: item,
+                        html: renderHtml,
+                    }),
+                    currentValue: setComponentRepeaterState({
+                        current: item,
+                        index: index,
+                    }),
+                    key: hasKey ? item?.[key] : '',
+                    bind,
+                    repeatId,
+                };
+            }
+        );
+
+        //
+        const last = firstRender
+            .map(({ render, currentValue, repeatId, key, bind }) => {
+                console.log(currentValue, repeatId, key, bind);
+
+                const node = document
+                    .createRange()
+                    .createContextualFragment(render);
+
+                const components = queryAllFutureComponent(node, false);
+
+                components.forEach((component) => {
+                    console.log(component);
+                    component.setAttribute(
+                        ATTR_CURRENT_LIST_VALUE,
+                        currentValue
+                    );
+                    component.setAttribute(ATTR_KEY, `${key}`);
+                    component.setAttribute(
+                        ATTR_REPEATER_PROP_BIND,
+                        `${bind}`
+                    );
+                    component.setAttribute(
+                        ATTR_CHILD_REPEATID,
+                        `${repeatId}`
+                    );
+                });
+
+                const serializer = new XMLSerializer();
+                const xmlnAttribute =
+                    ' xmlns="http://www.w3.org/1999/xhtml"';
+                const pippo = serializer.serializeToString(node);
+                const regEx = new RegExp(xmlnAttribute, 'g');
+                const newstr = pippo.replaceAll(regEx, '');
+                return newstr;
+            })
+            .join('');
+        //
+
+        /**
+         * When repeater is inizilized runtime, all neseted repater is initialized.
+         * Fire each repeater once.
+         */
+        let isInizialized = false;
+
+        setRepeaterPlaceholderMapScopeId({
+            repeatId,
+            scopeId: id,
+        });
+
+        setRepeatFunction({
+            id,
+            repeatId,
+            fn: () => {
+                if (isInizialized) return;
+
+                /**
+                 * Fire invalidate id after component parse
+                 */
+                inizializeRepeatWatch({
+                    repeatId,
+                    persistent,
+                    state: bind,
+                    setState,
+                    emit,
+                    watch,
+                    clean,
+                    beforeUpdate,
+                    afterUpdate,
+                    key,
+                    id,
+                    render,
+                });
+
+                isInizialized = true;
+
+                setRepeaterPlaceholderMapInitialized({
+                    repeatId,
+                });
+            },
+        });
+
+        return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${last}`;
+    },
+```
+
+- Sembra che il parse avvenga in modo asincono non immediato e i componenti eseguono il logo ciclo constructor/connected etc..
+- Con una prova con una variabile globale ( gett/setter ) per inibire il constructor/connected durante la fare di parse/fragment non si hanno risultati.
 
 ### Quickset
 - Aggiungere `Quickset`.
