@@ -160,7 +160,7 @@ export const DynamicListCardFn = ({
                         ${repeat({
                             bind: 'innerData',
                             key: 'key',
-                            render: ({ sync, html }) => {
+                            render: ({ html }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */
@@ -170,7 +170,6 @@ export const DynamicListCardFn = ({
                                             };
                                         },
                                     })}
-                                    ${sync()}
                                 ></dynamic-list-card-inner>`;
                             },
                         })}
@@ -180,7 +179,7 @@ export const DynamicListCardFn = ({
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
                             bind: 'innerData',
-                            render: ({ sync, html }) => {
+                            render: ({ html }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */
@@ -190,7 +189,6 @@ export const DynamicListCardFn = ({
                                             };
                                         },
                                     })}
-                                    ${sync()}
                                 ></dynamic-list-card-inner>`;
                             },
                         })}

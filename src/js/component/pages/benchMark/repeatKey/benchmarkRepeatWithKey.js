@@ -63,10 +63,9 @@ export const BenchMarkRepeatWithKyFn = ({
             ${repeat({
                 bind: 'data',
                 key: 'label',
-                render: ({ html, sync }) => {
+                render: ({ html }) => {
                     return html`
                         <benchmark-fake-component
-                            ${sync()}
                             ${bindProps({
                                 bind: ['counter'],
                                 /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */

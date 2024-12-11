@@ -1,6 +1,13 @@
 // @ts-check
 
 import {
+    ATTR_CHILD_REPEATID,
+    ATTR_CURRENT_LIST_VALUE,
+    ATTR_KEY,
+    ATTR_REPEATER_PROP_BIND,
+} from '../../constant';
+import { setComponentRepeaterState } from '../../modules/repeater/repeaterValue';
+import {
     ELEMENT_TYPE_MIX_NODE_TEXT,
     ELEMENT_TYPE_NODE,
     ELEMENT_TYPE_NOT_VALID,
@@ -123,4 +130,49 @@ export const insertElementOrText = ({
     }
 
     return;
+};
+
+/**
+ * @param {object} params
+ * @param {import('../../webComponent/type').UserComponent[]} params.components
+ * @param {Record<string, any>} params.current
+ * @param {number} params.index
+ * @param {string} params.bind
+ * @param {string} params.repeatId
+ * @param {string} params.key
+ * @returns {void}
+ *
+ */
+export const setRepeatAttribute = ({
+    components,
+    current,
+    index,
+    bind,
+    repeatId,
+    key,
+}) => {
+    components.forEach((component) => {
+        component.setAttribute(
+            ATTR_CURRENT_LIST_VALUE,
+            setComponentRepeaterState({
+                current,
+                index,
+            })
+        );
+        component.setAttribute(ATTR_KEY, `${key}`);
+        component.setAttribute(ATTR_REPEATER_PROP_BIND, `${bind}`);
+        component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
+    });
+};
+
+/**
+ * @param {DocumentFragment} fragment
+ * @returns {string}
+ */
+export const serializeFragment = (fragment) => {
+    const serializer = new XMLSerializer();
+    const xmlnAttribute = ' xmlns="http://www.w3.org/1999/xhtml"';
+    const rawString = serializer.serializeToString(fragment);
+    const regEx = new RegExp(xmlnAttribute, 'g');
+    return rawString.replaceAll(regEx, '');
 };

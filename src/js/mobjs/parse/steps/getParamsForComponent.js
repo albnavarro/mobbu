@@ -24,15 +24,11 @@ import {
     ATTR_BIND_REFS_ID,
     ATTR_BIND_REFS_NAME,
     ATTR_BIND_TEXT_ID,
-    ATTR_CHILD_REPEATID,
     ATTR_COMPONENT_ID,
-    ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_INVALIDATE,
-    ATTR_KEY,
     ATTR_MOBJS_REPEAT,
     ATTR_PROPS,
-    ATTR_REPEATER_PROP_BIND,
     ATTR_WEAK_BIND_EVENTS,
 } from '../../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../../mainStore/constant';
@@ -42,8 +38,7 @@ import { setBindProps } from '../../modules/bindProps';
 import { addOnMoutCallback } from '../../modules/onMount';
 import { setStaticProps } from '../../modules/staticProps';
 import { setDelegateBindEvent } from '../../modules/delegateEvents';
-import { renderHtml } from './utils';
-import { setComponentRepeaterState } from '../../modules/repeater/repeaterValue';
+import { renderHtml, serializeFragment, setRepeatAttribute } from './utils';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
 import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
@@ -53,6 +48,8 @@ import {
     createBindProxiWatcher,
     renderBindProxi,
 } from '../../modules/bindProxi';
+import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
+import { setSkipAddUserComponent } from '../../modules/userComponent';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -282,34 +279,47 @@ export const getParamsForComponentFunction = ({
             /**
              * Render immediately first DOM
              */
-            const firstRender = () => {
-                return currentUnique
-                    .map(
-                        (
-                            /** @type{any} */ item,
-                            /** @type{number} */ index
-                        ) => {
-                            const sync =
-                                /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-                                    {
-                                        current: item,
-                                        index: index,
-                                    }
-                                )}"
-                            ${ATTR_KEY}="${hasKey ? item?.[key] : ''}"
-                            ${ATTR_REPEATER_PROP_BIND}="${bind}"
-                            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+            const rawRender = currentUnique.map(
+                (/** @type{any} */ item, /** @type{number} */ index) => {
+                    return {
+                        render: render({
+                            index,
+                            currentValue: item,
+                            html: renderHtml,
+                        }),
+                        current: item,
+                        index,
+                        key: hasKey ? item?.[key] : '',
+                        bind,
+                        repeatId,
+                    };
+                }
+            );
 
-                            return render({
-                                sync,
-                                index,
-                                currentValue: item,
-                                html: renderHtml,
-                            });
-                        }
-                    )
-                    .join('');
-            };
+            setSkipAddUserComponent(true);
+
+            const renderWithAttributes = rawRender
+                .map(({ render, current, index, repeatId, key, bind }) => {
+                    const fragment = document
+                        .createRange()
+                        .createContextualFragment(render);
+
+                    const components = queryAllFutureComponent(fragment, false);
+
+                    setRepeatAttribute({
+                        components,
+                        current,
+                        index,
+                        bind,
+                        repeatId,
+                        key,
+                    });
+
+                    return serializeFragment(fragment);
+                })
+                .join('');
+
+            setSkipAddUserComponent(false);
 
             /**
              * When repeater is inizilized runtime, all neseted repater is initialized.
@@ -354,7 +364,7 @@ export const getParamsForComponentFunction = ({
                 },
             });
 
-            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${firstRender()}`;
+            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${renderWithAttributes}`;
         },
     };
 };

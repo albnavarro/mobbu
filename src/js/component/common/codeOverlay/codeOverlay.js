@@ -24,23 +24,15 @@ const copyToClipboard = ({ getState }) => {
 
 /**
  * @param {Object} param
- * @param {() => string} param.sync
  * @param {BindProps<CodeOverlay,CodeOverlayButton>} param.bindProps
  * @param {SetState<CodeOverlay>} param.setState
  * @param {GetState<CodeOverlay>} param.getState
  * @param {DelegateEvents} param.delegateEvents
  * @returns {string}
  */
-function getRepeaterCard({
-    sync,
-    bindProps,
-    setState,
-    delegateEvents,
-    getState,
-}) {
+function getRepeaterCard({ bindProps, setState, delegateEvents, getState }) {
     return html`
         <code-overlay-button
-            ${sync()}
             ${bindProps({
                 bind: ['activeContent'],
                 props: ({ activeContent, urls }, index) => {
@@ -245,9 +237,8 @@ export const CodeOverlayFn = ({
                     ${repeat({
                         clean: true,
                         bind: 'urls',
-                        render: ({ sync }) => {
+                        render: () => {
                             return getRepeaterCard({
-                                sync,
                                 bindProps,
                                 delegateEvents,
                                 setState,

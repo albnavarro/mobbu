@@ -19,6 +19,7 @@ import {
 import { useQuery } from '../parse/useQuery';
 import {
     addUserPlaceholder,
+    getSkipAddUserComponent,
     removeUserPlaceholder,
 } from '../modules/userComponent';
 
@@ -201,6 +202,7 @@ export const defineUserComponent = (componentList) => {
 
                 constructor() {
                     super();
+
                     this.attachShadow({ mode: 'open' });
                     this.active = false;
                     this.#componentId = mobCore.getUnivoqueId();
@@ -229,6 +231,13 @@ export const defineUserComponent = (componentList) => {
                     /** host exist */
                     const host = this.shadowRoot?.host;
                     if (!host) return;
+
+                    /**
+                     * When fragment to repeater item is created to add attribute
+                     * skip
+                     */
+                    const skip = getSkipAddUserComponent();
+                    if (skip) return;
 
                     /** Get all attribute */
                     [
@@ -470,6 +479,13 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 connectedCallback() {
+                    /**
+                     * When fragment to repeater item is created to add attribute
+                     * skip
+                     */
+                    const skip = getSkipAddUserComponent();
+                    if (skip) return;
+
                     if (this.#isPlaceholder) {
                         const host = this.shadowRoot?.host;
 

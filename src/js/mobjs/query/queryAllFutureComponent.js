@@ -42,7 +42,7 @@ function selectAll(root, firstOccurrence) {
 }
 
 /**
- * @param {Element} node
+ * @param {Element|DocumentFragment} node
  * @param {boolean} firstOccurence
  * @returns {Array<import("../webComponent/type").UserComponent>}
  */

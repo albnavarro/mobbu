@@ -11,7 +11,6 @@ import { html } from '../../../../mobjs';
 
 /**
  * @param {object} param
- * @param {() => string} param.sync
  * @param {StaticProps<DynamicListCard>} param.staticProps
  * @param {GetState<DynamicListRepeater>} param.getState
  * @param {BindProps<DynamicListRepeater>} param.bindProps
@@ -19,7 +18,6 @@ import { html } from '../../../../mobjs';
  * @param {DelegateEvents} param.delegateEvents
  */
 function getRepeaterCard({
-    sync,
     staticProps,
     bindProps,
     listId,
@@ -51,7 +49,6 @@ function getRepeaterCard({
                         console.log(current, index);
                     },
                 })}
-                ${sync()}
             >
                 <dynamic-slotted-label
                     slot="card-label-slot"
@@ -64,7 +61,6 @@ function getRepeaterCard({
                             };
                         },
                     })}
-                    ${sync()}
                 >
                 </dynamic-slotted-label>
             </dynamic-list-card>
@@ -95,9 +91,8 @@ export const DynamicListRepeaterFn = ({
                     afterUpdate: () => {
                         console.log('repeater updated');
                     },
-                    render: ({ sync }) => {
+                    render: () => {
                         return getRepeaterCard({
-                            sync,
                             staticProps,
                             getState,
                             bindProps,

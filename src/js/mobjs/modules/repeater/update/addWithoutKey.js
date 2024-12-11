@@ -2,22 +2,22 @@
 
 import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/removeAndDestroyById';
 import {
-    ATTR_CHILD_REPEATID,
-    ATTR_CURRENT_LIST_VALUE,
-    ATTR_REPEATER_PROP_BIND,
-} from '../../../constant';
-import {
     getElementById,
     getIdsByByRepeatId,
 } from '../../../component/action/element';
-import { setComponentRepeaterState } from '../repeaterValue';
-import { renderHtml } from '../../../parse/steps/utils';
+import {
+    renderHtml,
+    serializeFragment,
+    setRepeatAttribute,
+} from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate/action/destroyNestedInvalidate';
 import { destroyNestedRepeat } from '../action/destroyNestedRepeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
+import { setSkipAddUserComponent } from '../../userComponent';
+import { queryAllFutureComponent } from '../../../query/queryAllFutureComponent';
 
 /**
  * @param {object} obj
@@ -63,48 +63,47 @@ export const addWithoutKey = ({
      * Add
      */
     if (diff > 0) {
+        setSkipAddUserComponent(true);
+
         /**
          * Create palcehodler component
          */
-        const elementToAdd = [...new Array(diff).keys()].map((_item, index) => {
-            const currentValue = current?.[index + previousLenght];
-            const currentIndex = index + previousLenght;
+        const serializedFragment = [...new Array(diff).keys()]
+            .map((_item, index) => {
+                const currentValue = current?.[index + previousLenght];
+                const currentIndex = index + previousLenght;
 
-            const sync =
-                /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-                    {
-                        current: currentValue,
-                        index: currentIndex,
-                    }
-                )}"
-            ${ATTR_REPEATER_PROP_BIND}="${state}"
-            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+                const rawRender = render({
+                    index: currentIndex,
+                    currentValue,
+                    html: renderHtml,
+                });
 
-            return render({
-                sync,
-                index,
-                currentValue,
-                html: renderHtml,
-            });
-        });
+                const fragment = document
+                    .createRange()
+                    .createContextualFragment(rawRender);
 
-        // elementToAdd.forEach((element) => {
-        //     const node = document
-        //         .createRange()
-        //         .createContextualFragment(element).firstElementChild;
-        //
-        //     repeaterParentElement.append(node);
-        //
-        //     // repeaterParentElement.insertAdjacentHTML('beforeend', element);
-        // });
+                const components = queryAllFutureComponent(fragment, false);
 
-        const node = document
-            .createRange()
-            .createContextualFragment(
-                elementToAdd.map((element) => element).join('')
-            );
+                setRepeatAttribute({
+                    components,
+                    current: currentValue,
+                    index: currentIndex,
+                    bind: state,
+                    repeatId,
+                    key: undefined,
+                });
 
-        repeaterParentElement.append(node);
+                return serializeFragment(fragment);
+            })
+            .join('');
+
+        setSkipAddUserComponent(false);
+
+        repeaterParentElement.insertAdjacentHTML(
+            'beforeend',
+            serializedFragment
+        );
     }
 
     /**

@@ -6,18 +6,15 @@ import {
     mixPreviousAndCurrentData,
 } from '../utils';
 import {
-    ATTR_CHILD_REPEATID,
-    ATTR_CURRENT_LIST_VALUE,
-    ATTR_KEY,
-    ATTR_REPEATER_PROP_BIND,
-} from '../../../constant';
-import {
     getElementByKeyAndRepeatId,
     getIdByElement,
 } from '../../../component/action/element';
 import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/removeAndDestroyById';
-import { setComponentRepeaterState } from '../repeaterValue';
-import { renderHtml } from '../../../parse/steps/utils';
+import {
+    renderHtml,
+    serializeFragment,
+    setRepeatAttribute,
+} from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate/action/destroyNestedInvalidate';
 import { destroyNestedRepeat } from '../action/destroyNestedRepeat';
 import { getDefaultComponent } from '../../../component/createComponent';
@@ -25,49 +22,34 @@ import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
 import { getComponentNameByElement } from '../../../component/action/component';
+import { queryAllFutureComponent } from '../../../query/queryAllFutureComponent';
+import { setSkipAddUserComponent } from '../../userComponent';
 
 /**
  * @param {object} obj
- * @param {string} obj.state
- * @param {string} obj.key
- * @param {string} obj.repeatId
  * @param {Record<string, any>[]} obj.currentUnique
  * @param {number} obj.index
  * @param {import('../type').RepeaterRender} obj.render
- *
- * @return {string}
+ * @returns {{render: string, current: Record<string, any> }}
  *
  * @description
  * Get partial list to add from chunked array of components.
  */
-function getPartialsComponentList({
-    state,
-    key,
-    currentUnique,
-    index,
-    render,
-    repeatId,
-}) {
+function getPartialsComponentList({ currentUnique, index, render }) {
     /**
      * Execute prop function.
      * Get current value and save in component store item.
      */
     const currentValue = currentUnique?.[index];
 
-    const sync = /* HTML */ () => ` ${ATTR_KEY}="${key}"
-    ${ATTR_REPEATER_PROP_BIND}="${state}"
-    ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
+    return {
+        render: render({
+            index,
+            currentValue,
+            html: renderHtml,
+        }),
         current: currentValue,
-        index,
-    })}"
-    ${ATTR_CHILD_REPEATID}="${repeatId}"`;
-
-    return render({
-        sync,
-        index,
-        currentValue,
-        html: renderHtml,
-    });
+    };
 }
 
 /**
@@ -243,30 +225,38 @@ export const addWithKey = ({
             return;
         }
 
-        const node = document.createRange().createContextualFragment(
+        const { render: rawRender, current: currentValue } =
             getPartialsComponentList({
-                state,
-                key,
                 currentUnique,
                 index,
                 render,
-                repeatId,
-            })
-        ).firstElementChild;
+            });
 
-        repeaterParentElement.append(node);
+        setSkipAddUserComponent(true);
 
-        // repeaterParentElement.insertAdjacentHTML(
-        //     'beforeend',
-        //     getPartialsComponentList({
-        //         state,
-        //         key,
-        //         currentUnique,
-        //         index,
-        //         render,
-        //         repeatId,
-        //     })
-        // );
+        const fragment = document
+            .createRange()
+            .createContextualFragment(rawRender);
+
+        const components = queryAllFutureComponent(fragment, false);
+
+        setRepeatAttribute({
+            components,
+            current: currentValue,
+            index,
+            bind: state,
+            repeatId,
+            key,
+        });
+
+        setSkipAddUserComponent(false);
+
+        const serializedFragment = serializeFragment(fragment);
+
+        repeaterParentElement.insertAdjacentHTML(
+            'beforeend',
+            serializedFragment
+        );
     });
 
     return currentUnique;

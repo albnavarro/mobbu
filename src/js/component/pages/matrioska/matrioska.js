@@ -153,7 +153,7 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
                 bind: 'level2',
-                render: ({ html, sync }) => {
+                render: ({ html }) => {
                     return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--2"
@@ -174,7 +174,6 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                         };
                                     },
                                 })}
-                                ${sync()}
                             >
                                 ${getThirdLevel({
                                     repeat,
@@ -203,7 +202,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
                 bind: 'level3',
-                render: ({ html, sync }) => {
+                render: ({ html }) => {
                     const name = mobCore.getUnivoqueId();
                     const name2 = mobCore.getUnivoqueId();
 
@@ -243,7 +242,6 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                         );
                                     },
                                 })}
-                                ${sync()}
                             >
                             </matrioska-item>
                             <matrioska-item
@@ -274,7 +272,6 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                         );
                                     },
                                 })}
-                                ${sync()}
                             >
                             </matrioska-item>
                         </div>
@@ -351,7 +348,7 @@ export const MatrioskaFn = ({
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
                     bind: 'level1',
-                    render: ({ html, sync }) => {
+                    render: ({ html }) => {
                         return html`
                             <div
                                 class="matrioska__item-wrap matrioska__item-wrap--1"
@@ -371,7 +368,6 @@ export const MatrioskaFn = ({
                                             };
                                         },
                                     })}
-                                    ${sync()}
                                 >
                                     ${getSecondLevel({
                                         repeat,
