@@ -2,6 +2,7 @@
 
 import { setParentRepeater } from '../modules/repeater/action/setParentRepeater';
 import { ATTR_MOBJS_REPEAT } from '../constant';
+import { getSkipAddUserComponent } from '../modules/userComponent';
 
 export const defineRepeatComponent = () => {
     customElements.define(
@@ -13,6 +14,9 @@ export const defineRepeatComponent = () => {
             }
 
             connectedCallback() {
+                const skip = getSkipAddUserComponent();
+                if (skip) return;
+
                 // @ts-ignore
                 const { dataset } = this.shadowRoot?.host ?? {};
 

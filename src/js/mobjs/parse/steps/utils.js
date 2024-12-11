@@ -152,16 +152,27 @@ export const setRepeatAttribute = ({
     key,
 }) => {
     components.forEach((component) => {
-        component.setAttribute(
-            ATTR_CURRENT_LIST_VALUE,
-            setComponentRepeaterState({
-                current,
-                index,
-            })
-        );
-        component.setAttribute(ATTR_KEY, `${key}`);
-        component.setAttribute(ATTR_REPEATER_PROP_BIND, `${bind}`);
-        component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
+        if (!component.hasAttribute(ATTR_CURRENT_LIST_VALUE)) {
+            component.setAttribute(
+                ATTR_CURRENT_LIST_VALUE,
+                setComponentRepeaterState({
+                    current,
+                    index,
+                })
+            );
+        }
+
+        if (!component.hasAttribute(ATTR_KEY)) {
+            component.setAttribute(ATTR_KEY, `${key}`);
+        }
+
+        if (!component.hasAttribute(ATTR_REPEATER_PROP_BIND)) {
+            component.setAttribute(ATTR_REPEATER_PROP_BIND, `${bind}`);
+        }
+
+        if (!component.hasAttribute(ATTR_CHILD_REPEATID)) {
+            component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
+        }
     });
 };
 
