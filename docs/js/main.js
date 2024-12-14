@@ -20058,7 +20058,7 @@
       );
       return render2({
         sync,
-        index,
+        index: currentIndex,
         currentValue,
         html: renderHtml
       });

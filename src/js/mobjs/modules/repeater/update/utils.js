@@ -106,7 +106,7 @@ export const updateRepeaterRuntimeItemWithoutKeyUseSync = ({
 
             return render({
                 sync,
-                index,
+                index: currentIndex,
                 currentValue,
                 html: renderHtml,
             });
