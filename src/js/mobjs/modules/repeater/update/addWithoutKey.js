@@ -11,7 +11,10 @@ import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
-import { getRepeaterRuntimeItemWitoutKeySync } from './utils';
+import {
+    getRepeaterRuntimeItemWitoutKey,
+    updateRepeaterRuntimeItemWithoutKeyUseSync,
+} from './utils';
 
 /**
  * @param {object} obj
@@ -23,6 +26,7 @@ import { getRepeaterRuntimeItemWitoutKeySync } from './utils';
  * @param {string} [ obj.key ]
  * @param {string} obj.id
  * @param {string} obj.repeatId
+ * @param {boolean} obj.useSync
  * @return {any[]}
  *
  * @description
@@ -37,6 +41,7 @@ export const addWithoutKey = ({
     render,
     repeatId,
     id,
+    useSync,
 }) => {
     /**
      * @type {number}
@@ -57,14 +62,23 @@ export const addWithoutKey = ({
      * Add
      */
     if (diff > 0) {
-        const currentRender = getRepeaterRuntimeItemWitoutKeySync({
-            diff,
-            current,
-            previousLenght,
-            render,
-            state,
-            repeatId,
-        });
+        const currentRender = useSync
+            ? updateRepeaterRuntimeItemWithoutKeyUseSync({
+                  diff,
+                  previousLenght,
+                  current,
+                  state,
+                  repeatId,
+                  render,
+              })
+            : getRepeaterRuntimeItemWitoutKey({
+                  diff,
+                  current,
+                  previousLenght,
+                  render,
+                  state,
+                  repeatId,
+              });
 
         repeaterParentElement.insertAdjacentHTML('beforeend', currentRender);
     }

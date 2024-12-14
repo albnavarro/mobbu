@@ -38,7 +38,7 @@ import { setBindProps } from '../../modules/bindProps';
 import { addOnMoutCallback } from '../../modules/onMount';
 import { setStaticProps } from '../../modules/staticProps';
 import { setDelegateBindEvent } from '../../modules/delegateEvents';
-import { getRenderWithoutSync, renderHtml } from './utils';
+import { getRenderWithoutSync, getRenderWithSync, renderHtml } from './utils';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
 import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
@@ -265,6 +265,7 @@ export const getParamsForComponentFunction = ({
             afterUpdate = () => {},
             key,
             render,
+            useSync = false,
         }) => {
             const repeatId = mobCore.getUnivoqueId();
             const hasKey = key && key !== '';
@@ -277,14 +278,23 @@ export const getParamsForComponentFunction = ({
 
             setSkipAddUserComponent(true);
 
-            const initialRender = getRenderWithoutSync({
-                currentUnique,
-                render,
-                bind,
-                repeatId,
-                key,
-                hasKey,
-            });
+            const initialRender = useSync
+                ? getRenderWithSync({
+                      currentUnique,
+                      key,
+                      bind,
+                      repeatId,
+                      hasKey,
+                      render,
+                  })
+                : getRenderWithoutSync({
+                      currentUnique,
+                      render,
+                      bind,
+                      repeatId,
+                      key,
+                      hasKey,
+                  });
 
             setSkipAddUserComponent(false);
 
@@ -321,6 +331,7 @@ export const getParamsForComponentFunction = ({
                         key,
                         id,
                         render,
+                        useSync,
                     });
 
                     isInizialized = true;

@@ -18,7 +18,7 @@ import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
 import { getComponentNameByElement } from '../../../component/action/component';
-import { getRepeaterRuntimeItemWithtKeySync } from './utils';
+import { getRepeaterRuntimeItemWithtKey } from './utils';
 
 /**
  * @param {object} obj
@@ -42,6 +42,7 @@ function getPartialsComponentList({ currentUnique, index, render }) {
             index,
             currentValue,
             html: renderHtml,
+            sync: () => '',
         }),
         current: currentValue,
     };
@@ -57,6 +58,7 @@ function getPartialsComponentList({ currentUnique, index, render }) {
  * @param {string} obj.id
  * @param {import('../type').RepeaterRender} obj.render
  * @param {string} obj.repeatId
+ * @param {boolean} obj.useSync
  * @return {Array<any>}
  *
  * @description
@@ -71,6 +73,7 @@ export const addWithKey = ({
     id = '',
     render,
     repeatId,
+    useSync,
 }) => {
     /**
      * @description
@@ -227,7 +230,7 @@ export const addWithKey = ({
                 render,
             });
 
-        const currentRender = getRepeaterRuntimeItemWithtKeySync({
+        const currentRender = getRepeaterRuntimeItemWithtKey({
             currentValue,
             index,
             state,

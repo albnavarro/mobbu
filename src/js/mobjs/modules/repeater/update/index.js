@@ -18,6 +18,7 @@ import { listKeyExist } from '../utils';
  * @param {string} obj.fallBackParentId w
  * @param {string} obj.repeatId
  * @param {import('../type').RepeaterRender} obj.render
+ * @param {boolean} obj.useSync
  * @return {Promise.<Array.<object>>}
  *
  * @description
@@ -34,6 +35,7 @@ export const updateRepeater = async ({
     fallBackParentId,
     render,
     repeatId,
+    useSync,
 }) => {
     /**
      * Check if thereis a key
@@ -58,6 +60,7 @@ export const updateRepeater = async ({
         id,
         render,
         repeatId,
+        useSync,
     });
 
     /**

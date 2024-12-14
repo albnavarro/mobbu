@@ -226,6 +226,7 @@ export const getRenderWithoutSync = ({
                     index,
                     currentValue: item,
                     html: renderHtml,
+                    sync: () => '',
                 })
             );
 
@@ -247,4 +248,49 @@ export const getRenderWithoutSync = ({
     setSkipAddUserComponent(false);
 
     return rawRender;
+};
+
+/**
+ * @param {object} params
+ * @param {Record<string, any>[]} params.currentUnique
+ * @param {import('../../modules/repeater/type').RepeaterRender} params.render
+ * @param {string} params.bind
+ * @param {string} params.repeatId
+ * @param {string} params.key
+ * @param {boolean} params.hasKey
+ * @returns {string}
+ */
+export const getRenderWithSync = ({
+    currentUnique,
+    key,
+    bind,
+    repeatId,
+    hasKey,
+    render,
+}) => {
+    const rawRender = () => {
+        return currentUnique
+            .map((/** @type{any} */ item, /** @type{number} */ index) => {
+                const sync =
+                    /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+                        {
+                            current: item,
+                            index: index,
+                        }
+                    )}"
+                            ${ATTR_KEY}="${hasKey ? item?.[key] : ''}"
+                            ${ATTR_REPEATER_PROP_BIND}="${bind}"
+                            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+
+                return render({
+                    sync,
+                    index,
+                    currentValue: item,
+                    html: renderHtml,
+                });
+            })
+            .join('');
+    };
+
+    return rawRender();
 };

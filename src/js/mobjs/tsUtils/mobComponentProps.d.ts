@@ -205,6 +205,12 @@ export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
 
     /**
      * @description
+     * Add manually sync attributes to repeater child.
+     */
+    useSync?: boolean;
+
+    /**
+     * @description
      * Function fired before update
      *
      * @example
@@ -279,6 +285,7 @@ export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
      * ```
      */
     render: (arg0: {
+        sync: () => string;
         index: number;
         currentValue: ArrayElement<GetState<T>[K]>;
         html: (

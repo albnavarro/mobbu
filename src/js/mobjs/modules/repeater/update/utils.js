@@ -1,10 +1,16 @@
 import {
+    ATTR_CHILD_REPEATID,
+    ATTR_CURRENT_LIST_VALUE,
+    ATTR_REPEATER_PROP_BIND,
+} from '../../../constant';
+import {
     renderHtml,
     serializeFragment,
     setRepeatAttribute,
 } from '../../../parse/steps/utils';
 import { queryAllFutureComponent } from '../../../query/queryAllFutureComponent';
 import { setSkipAddUserComponent } from '../../userComponent';
+import { setComponentRepeaterState } from '../repeaterValue';
 
 /**
  * @param {object} params
@@ -16,7 +22,7 @@ import { setSkipAddUserComponent } from '../../userComponent';
  * @param {import('../type').RepeaterRender} params.render
  * @returns {string}
  */
-export const getRepeaterRuntimeItemWitoutKeySync = ({
+export const getRepeaterRuntimeItemWitoutKey = ({
     diff,
     current,
     previousLenght,
@@ -38,6 +44,7 @@ export const getRepeaterRuntimeItemWitoutKeySync = ({
                 index: currentIndex,
                 currentValue,
                 html: renderHtml,
+                sync: () => '',
             });
 
             const fragment = document
@@ -66,6 +73,49 @@ export const getRepeaterRuntimeItemWitoutKeySync = ({
 
 /**
  * @param {object} params
+ * @param {number} params.diff
+ * @param {any} params.current
+ * @param {number} params.previousLenght
+ * @param {string} params.state
+ * @param {string} params.repeatId
+ * @param {import('../type').RepeaterRender} params.render
+ * @returns {string}
+ */
+export const updateRepeaterRuntimeItemWithoutKeyUseSync = ({
+    diff,
+    previousLenght,
+    current,
+    state,
+    repeatId,
+    render,
+}) => {
+    return [...new Array(diff).keys()]
+        .map((_item, index) => {
+            const currentValue = current?.[index + previousLenght];
+            const currentIndex = index + previousLenght;
+
+            const sync =
+                /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+                    {
+                        current: currentValue,
+                        index: currentIndex,
+                    }
+                )}"
+            ${ATTR_REPEATER_PROP_BIND}="${state}"
+            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+
+            return render({
+                sync,
+                index,
+                currentValue,
+                html: renderHtml,
+            });
+        })
+        .join('');
+};
+
+/**
+ * @param {object} params
  * @param {Record<string, any>} params.currentValue
  * @param {number} params.index
  * @param {string} params.state
@@ -74,7 +124,7 @@ export const getRepeaterRuntimeItemWitoutKeySync = ({
  * @param {string} params.rawRender
  * @returns {string}
  */
-export const getRepeaterRuntimeItemWithtKeySync = ({
+export const getRepeaterRuntimeItemWithtKey = ({
     currentValue,
     index,
     state,

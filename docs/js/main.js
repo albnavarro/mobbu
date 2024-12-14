@@ -19243,7 +19243,8 @@
         render2({
           index,
           currentValue: item,
-          html: renderHtml
+          html: renderHtml,
+          sync: () => ""
         })
       );
       const components = queryAllFutureComponent(fragment, false);
@@ -19259,6 +19260,38 @@
     }).join("");
     setSkipAddUserComponent(false);
     return rawRender;
+  };
+  var getRenderWithSync = ({
+    currentUnique,
+    key,
+    bind,
+    repeatId,
+    hasKey,
+    render: render2
+  }) => {
+    const rawRender = () => {
+      return currentUnique.map((item, index) => {
+        const sync = (
+          /* HTML */
+          () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+            {
+              current: item,
+              index
+            }
+          )}"
+                            ${ATTR_KEY}="${hasKey ? item?.[key] : ""}"
+                            ${ATTR_REPEATER_PROP_BIND}="${bind}"
+                            ${ATTR_CHILD_REPEATID}="${repeatId}"`
+        );
+        return render2({
+          sync,
+          index,
+          currentValue: item,
+          html: renderHtml
+        });
+      }).join("");
+    };
+    return rawRender();
   };
 
   // src/js/mobjs/parse/steps/convertToRealElement.js
@@ -19968,7 +20001,7 @@
   };
 
   // src/js/mobjs/modules/repeater/update/utils.js
-  var getRepeaterRuntimeItemWitoutKeySync = ({
+  var getRepeaterRuntimeItemWitoutKey = ({
     diff,
     current,
     previousLenght,
@@ -19983,7 +20016,8 @@
       const rawRender = render2({
         index: currentIndex,
         currentValue,
-        html: renderHtml
+        html: renderHtml,
+        sync: () => ""
       });
       const fragment = document.createRange().createContextualFragment(rawRender);
       const components = queryAllFutureComponent(fragment, false);
@@ -20000,7 +20034,37 @@
     setSkipAddUserComponent(false);
     return serializedFragment;
   };
-  var getRepeaterRuntimeItemWithtKeySync = ({
+  var updateRepeaterRuntimeItemWithoutKeyUseSync = ({
+    diff,
+    previousLenght,
+    current,
+    state,
+    repeatId,
+    render: render2
+  }) => {
+    return [...new Array(diff).keys()].map((_item, index) => {
+      const currentValue = current?.[index + previousLenght];
+      const currentIndex = index + previousLenght;
+      const sync = (
+        /* HTML */
+        () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+          {
+            current: currentValue,
+            index: currentIndex
+          }
+        )}"
+            ${ATTR_REPEATER_PROP_BIND}="${state}"
+            ${ATTR_CHILD_REPEATID}="${repeatId}"`
+      );
+      return render2({
+        sync,
+        index,
+        currentValue,
+        html: renderHtml
+      });
+    }).join("");
+  };
+  var getRepeaterRuntimeItemWithtKey = ({
     currentValue,
     index,
     state,
@@ -20030,7 +20094,8 @@
       render: render2({
         index,
         currentValue,
-        html: renderHtml
+        html: renderHtml,
+        sync: () => ""
       }),
       current: currentValue
     };
@@ -20043,7 +20108,8 @@
     key = "",
     id = "",
     render: render2,
-    repeatId
+    repeatId,
+    useSync
   }) => {
     const currentUnique = getUnivoqueByKey({ data: current, key });
     const keyToRemove = getNewElement(previous, currentUnique, key);
@@ -20113,7 +20179,7 @@
         index,
         render: render2
       });
-      const currentRender = getRepeaterRuntimeItemWithtKeySync({
+      const currentRender = getRepeaterRuntimeItemWithtKey({
         currentValue,
         index,
         state,
@@ -20134,13 +20200,21 @@
     repeaterParentElement = document.createElement("div"),
     render: render2,
     repeatId,
-    id
+    id,
+    useSync
   }) => {
     const currentLenght = current.length;
     const previousLenght = previous.length;
     const diff = currentLenght - previousLenght;
     if (diff > 0) {
-      const currentRender = getRepeaterRuntimeItemWitoutKeySync({
+      const currentRender = useSync ? updateRepeaterRuntimeItemWithoutKeyUseSync({
+        diff,
+        previousLenght,
+        current,
+        state,
+        repeatId,
+        render: render2
+      }) : getRepeaterRuntimeItemWitoutKey({
         diff,
         current,
         previousLenght,
@@ -20195,7 +20269,8 @@
     id,
     fallBackParentId,
     render: render2,
-    repeatId
+    repeatId,
+    useSync
   }) => {
     const hasKey = listKeyExist({ current, previous, key });
     const fn = hasKey ? addWithKey : addWithoutKey;
@@ -20207,7 +20282,8 @@
       key,
       id,
       render: render2,
-      repeatId
+      repeatId,
+      useSync
     });
     mainStore.set(
       MAIN_STORE_ASYNC_PARSER,
@@ -20234,7 +20310,8 @@
     key = "",
     id = "",
     repeatId = "",
-    render: render2
+    render: render2,
+    useSync = false
   }) => {
     const mainComponent = getElementById({ id });
     const fallBackParentId = getFallBackParentByElement({
@@ -20301,7 +20378,8 @@
           id,
           fallBackParentId,
           render: render2,
-          repeatId
+          repeatId,
+          useSync
         });
         const childrenFilteredByRepeatId = getIdsByByRepeatId({
           id,
@@ -20377,7 +20455,8 @@
     afterUpdate,
     key,
     id,
-    render: render2
+    render: render2,
+    useSync
   }) => {
     const unsubscribe3 = watchRepeat({
       state,
@@ -20391,7 +20470,8 @@
       key,
       id,
       repeatId,
-      render: render2
+      render: render2,
+      useSync
     });
     addRepeatUnsubcribe({
       id,
@@ -20570,14 +20650,22 @@
         afterUpdate = () => {
         },
         key: key2,
-        render: render2
+        render: render2,
+        useSync = false
       }) => {
         const repeatId = mobCore.getUnivoqueId();
         const hasKey = key2 && key2 !== "";
         const initialState = getState()?.[bind];
         const currentUnique = hasKey ? getUnivoqueByKey({ data: initialState, key: key2 }) : initialState;
         setSkipAddUserComponent(true);
-        const initialRender = getRenderWithoutSync({
+        const initialRender = useSync ? getRenderWithSync({
+          currentUnique,
+          key: key2,
+          bind,
+          repeatId,
+          hasKey,
+          render: render2
+        }) : getRenderWithoutSync({
           currentUnique,
           render: render2,
           bind,
@@ -20608,7 +20696,8 @@
               afterUpdate,
               key: key2,
               id,
-              render: render2
+              render: render2,
+              useSync
             });
             isInizialized = true;
             setRepeaterPlaceholderMapInitialized({
@@ -26973,7 +27062,8 @@ Loading snippet ...</pre
         <div class="benchmark__list">
             ${repeat({
       bind: "data",
-      render: ({ html: html2 }) => {
+      useSync: true,
+      render: ({ html: html2, sync }) => {
         return html2`
                         <benchmark-fake-component
                             ${bindProps({
@@ -26986,6 +27076,7 @@ Loading snippet ...</pre
             };
           }
         })}
+                            ${sync()}
                         ></benchmark-fake-component>
                     `;
       }

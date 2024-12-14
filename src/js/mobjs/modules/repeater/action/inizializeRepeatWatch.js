@@ -21,6 +21,7 @@ export const inizializeRepeatWatch = ({
     key,
     id,
     render,
+    useSync,
 }) => {
     /**
      * Update component
@@ -38,6 +39,7 @@ export const inizializeRepeatWatch = ({
         id,
         repeatId,
         render,
+        useSync,
     });
 
     addRepeatUnsubcribe({

@@ -43,6 +43,7 @@ export const watchRepeat = ({
     id = '',
     repeatId = '',
     render,
+    useSync = false,
 }) => {
     const mainComponent = getElementById({ id });
 
@@ -178,6 +179,7 @@ export const watchRepeat = ({
                 fallBackParentId,
                 render,
                 repeatId,
+                useSync,
             });
 
             /**
