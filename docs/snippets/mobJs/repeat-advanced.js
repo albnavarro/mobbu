@@ -73,7 +73,7 @@ function getItems({
 }
 
 /**
- * @type {import("../mobjs/type").mobComponent<'myStateArray'|'counter'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({
     html,
@@ -86,6 +86,7 @@ export const MyComponent = ({
         <div class="repeater-container">
             ${repeat({
                 bind: 'myStateArray',
+                useSync: true,
                 persistent: false,
                 clean: false,
                 key: 'myKey',

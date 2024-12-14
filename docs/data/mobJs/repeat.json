@@ -120,6 +120,20 @@
             "props": {
                 "tag": "h5"
             },
+            "content": "useSync ( optional )"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span class='quote'>rendering</span> of components always starts from a webComponent, and as such it works by attributes.<br/> In the case of a component inserted inside a repeat, additional attributes are needed, these attributes are added automatically when redenring the components, but this process when we have <span class='quote'>large lists</span> of components to update can lead to performance drops. Enabling this attribute allows the app to not have to perform additional operations and directly add the attributes it needs. The attributes will be returned by the <span class='quote'>sync()</span> function."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
             "content": "beforeUpdate ( optional )"
         },
         {
@@ -163,9 +177,9 @@
                 "style": "medium",
                 "items": [
                     "<strong>html</strong>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
-                    "<strong>sync</strong>: <span class='quote'>sync function</span> is necessary <span class='quote'>obbligatorie</span> for tracking key and and the current value of the state observed.",
-                    "<strong>currentValue</strong>: The current value of the array indicated in the bind parameter, this is not reactive, it is possible to use it with <span class='quote'>clean=true</span> or with a <span class='quote'>key</span>.",
-                    "<strong>index</strong>: The index value of the array indicated in the bind parameter, this is not reactive, it is possible to use it with <span class='quote'>clean=true</span> or with a <span class='quote'>key</span>."
+                    "<strong>sync ( optional )</strong>: <span class='quote'>sync function</span> is necessary for tracking key and and the current value of the state observed if <span class='quote'>useSync</span> is settled.",
+                    "<strong>currentValue ( optional )</strong>: The current value of the array indicated in the bind parameter, this is not reactive, it is possible to use it with <span class='quote'>clean=true</span> or with a <span class='quote'>key</span>.",
+                    "<strong>index ( optional )</strong>: The index value of the array indicated in the bind parameter, this is not reactive, it is possible to use it with <span class='quote'>clean=true</span> or with a <span class='quote'>key</span>."
                 ]
             }
         },
@@ -221,6 +235,13 @@
             "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Simple:"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -229,7 +250,30 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/repeat.js",
+                "source": "./snippets/mobJs/repeat-simple.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 118
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Advanced:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/repeat-advanced.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
