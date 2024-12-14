@@ -38,7 +38,7 @@ import { setBindProps } from '../../modules/bindProps';
 import { addOnMoutCallback } from '../../modules/onMount';
 import { setStaticProps } from '../../modules/staticProps';
 import { setDelegateBindEvent } from '../../modules/delegateEvents';
-import { renderHtml, serializeFragment, setRepeatAttribute } from './utils';
+import { getRenderWithoutSync, renderHtml } from './utils';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
 import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
@@ -48,7 +48,6 @@ import {
     createBindProxiWatcher,
     renderBindProxi,
 } from '../../modules/bindProxi';
-import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
 import { setSkipAddUserComponent } from '../../modules/userComponent';
 
 /**
@@ -276,48 +275,16 @@ export const getParamsForComponentFunction = ({
                 ? getUnivoqueByKey({ data: initialState, key })
                 : initialState;
 
-            /**
-             * Render immediately first DOM
-             */
-            const rawRender = currentUnique.map(
-                (/** @type{any} */ item, /** @type{number} */ index) => {
-                    return {
-                        render: render({
-                            index,
-                            currentValue: item,
-                            html: renderHtml,
-                        }),
-                        current: item,
-                        index,
-                        key: hasKey ? item?.[key] : '',
-                        bind,
-                        repeatId,
-                    };
-                }
-            );
-
             setSkipAddUserComponent(true);
 
-            const renderWithAttributes = rawRender
-                .map(({ render, current, index, repeatId, key, bind }) => {
-                    const fragment = document
-                        .createRange()
-                        .createContextualFragment(render);
-
-                    const components = queryAllFutureComponent(fragment, false);
-
-                    setRepeatAttribute({
-                        components,
-                        current,
-                        index,
-                        bind,
-                        repeatId,
-                        key,
-                    });
-
-                    return serializeFragment(fragment);
-                })
-                .join('');
+            const initialRender = getRenderWithoutSync({
+                currentUnique,
+                render,
+                bind,
+                repeatId,
+                key,
+                hasKey,
+            });
 
             setSkipAddUserComponent(false);
 
@@ -364,7 +331,7 @@ export const getParamsForComponentFunction = ({
                 },
             });
 
-            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${renderWithAttributes}`;
+            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialRender}`;
         },
     };
 };

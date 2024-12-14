@@ -7,6 +7,8 @@ import {
     ATTR_REPEATER_PROP_BIND,
 } from '../../constant';
 import { setComponentRepeaterState } from '../../modules/repeater/repeaterValue';
+import { setSkipAddUserComponent } from '../../modules/userComponent';
+import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
 import {
     ELEMENT_TYPE_MIX_NODE_TEXT,
     ELEMENT_TYPE_NODE,
@@ -133,6 +135,13 @@ export const insertElementOrText = ({
 };
 
 /**
+ * @description
+ * With more repeat in same scope, we have multiple render() function nested.
+ * The first render() fired is the inneer function ( deepest ).
+ * So the other override attributes.
+ * Add attributes only if there is no correspondences.
+ *
+ *
  * @param {object} params
  * @param {import('../../webComponent/type').UserComponent[]} params.components
  * @param {Record<string, any>} params.current
@@ -141,7 +150,6 @@ export const insertElementOrText = ({
  * @param {string} params.repeatId
  * @param {string} params.key
  * @returns {void}
- *
  */
 export const setRepeatAttribute = ({
     components,
@@ -186,4 +194,57 @@ export const serializeFragment = (fragment) => {
     const rawString = serializer.serializeToString(fragment);
     const regEx = new RegExp(xmlnAttribute, 'g');
     return rawString.replaceAll(regEx, '');
+};
+
+/**
+ * @param {object} params
+ * @param {Record<string, any>[]} params.currentUnique
+ * @param {import('../../modules/repeater/type').RepeaterRender} params.render
+ * @param {string} params.bind
+ * @param {string} params.repeatId
+ * @param {string} params.key
+ * @param {boolean} params.hasKey
+ * @returns {string}
+ */
+export const getRenderWithoutSync = ({
+    currentUnique,
+    render,
+    bind,
+    repeatId,
+    key,
+    hasKey,
+}) => {
+    setSkipAddUserComponent(true);
+
+    /**
+     * Render immediately first DOM
+     */
+    const rawRender = currentUnique
+        .map((/** @type{any} */ item, /** @type{number} */ index) => {
+            const fragment = document.createRange().createContextualFragment(
+                render({
+                    index,
+                    currentValue: item,
+                    html: renderHtml,
+                })
+            );
+
+            const components = queryAllFutureComponent(fragment, false);
+
+            setRepeatAttribute({
+                components,
+                current: item,
+                index,
+                bind,
+                repeatId,
+                key: hasKey ? item?.[key] : '',
+            });
+
+            return serializeFragment(fragment);
+        })
+        .join('');
+
+    setSkipAddUserComponent(false);
+
+    return rawRender;
 };

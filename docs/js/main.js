@@ -19229,6 +19229,37 @@
     const regEx = new RegExp(xmlnAttribute, "g");
     return rawString.replaceAll(regEx, "");
   };
+  var getRenderWithoutSync = ({
+    currentUnique,
+    render: render2,
+    bind,
+    repeatId,
+    key,
+    hasKey
+  }) => {
+    setSkipAddUserComponent(true);
+    const rawRender = currentUnique.map((item, index) => {
+      const fragment = document.createRange().createContextualFragment(
+        render2({
+          index,
+          currentValue: item,
+          html: renderHtml
+        })
+      );
+      const components = queryAllFutureComponent(fragment, false);
+      setRepeatAttribute({
+        components,
+        current: item,
+        index,
+        bind,
+        repeatId,
+        key: hasKey ? item?.[key] : ""
+      });
+      return serializeFragment(fragment);
+    }).join("");
+    setSkipAddUserComponent(false);
+    return rawRender;
+  };
 
   // src/js/mobjs/parse/steps/convertToRealElement.js
   var getNewElement2 = ({ element, content }) => {
@@ -20514,36 +20545,15 @@
         const hasKey = key2 && key2 !== "";
         const initialState = getState()?.[bind];
         const currentUnique = hasKey ? getUnivoqueByKey({ data: initialState, key: key2 }) : initialState;
-        const rawRender = currentUnique.map(
-          (item, index) => {
-            return {
-              render: render2({
-                index,
-                currentValue: item,
-                html: renderHtml
-              }),
-              current: item,
-              index,
-              key: hasKey ? item?.[key2] : "",
-              bind,
-              repeatId
-            };
-          }
-        );
         setSkipAddUserComponent(true);
-        const renderWithAttributes = rawRender.map(({ render: render3, current, index, repeatId: repeatId2, key: key3, bind: bind2 }) => {
-          const fragment = document.createRange().createContextualFragment(render3);
-          const components = queryAllFutureComponent(fragment, false);
-          setRepeatAttribute({
-            components,
-            current,
-            index,
-            bind: bind2,
-            repeatId: repeatId2,
-            key: key3
-          });
-          return serializeFragment(fragment);
-        }).join("");
+        const initialRender = getRenderWithoutSync({
+          currentUnique,
+          render: render2,
+          bind,
+          repeatId,
+          key: key2,
+          hasKey
+        });
         setSkipAddUserComponent(false);
         let isInizialized = false;
         setRepeaterPlaceholderMapScopeId({
@@ -20575,7 +20585,7 @@
             });
           }
         });
-        return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${renderWithAttributes}`;
+        return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialRender}`;
       }
     };
   };
