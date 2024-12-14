@@ -10,11 +10,7 @@ import {
     getIdByElement,
 } from '../../../component/action/element';
 import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/removeAndDestroyById';
-import {
-    renderHtml,
-    serializeFragment,
-    setRepeatAttribute,
-} from '../../../parse/steps/utils';
+import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate/action/destroyNestedInvalidate';
 import { destroyNestedRepeat } from '../action/destroyNestedRepeat';
 import { getDefaultComponent } from '../../../component/createComponent';
@@ -22,8 +18,7 @@ import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
 import { getComponentNameByElement } from '../../../component/action/component';
-import { queryAllFutureComponent } from '../../../query/queryAllFutureComponent';
-import { setSkipAddUserComponent } from '../../userComponent';
+import { getRepeaterRuntimeItemWithtKeySync } from './utils';
 
 /**
  * @param {object} obj
@@ -232,31 +227,16 @@ export const addWithKey = ({
                 render,
             });
 
-        setSkipAddUserComponent(true);
-
-        const fragment = document
-            .createRange()
-            .createContextualFragment(rawRender);
-
-        const components = queryAllFutureComponent(fragment, false);
-
-        setRepeatAttribute({
-            components,
-            current: currentValue,
+        const currentRender = getRepeaterRuntimeItemWithtKeySync({
+            currentValue,
             index,
-            bind: state,
+            state,
             repeatId,
             key,
+            rawRender,
         });
 
-        setSkipAddUserComponent(false);
-
-        const serializedFragment = serializeFragment(fragment);
-
-        repeaterParentElement.insertAdjacentHTML(
-            'beforeend',
-            serializedFragment
-        );
+        repeaterParentElement.insertAdjacentHTML('beforeend', currentRender);
     });
 
     return currentUnique;

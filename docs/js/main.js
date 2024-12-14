@@ -19967,6 +19967,62 @@
     return repeatIsActive;
   };
 
+  // src/js/mobjs/modules/repeater/update/utils.js
+  var getRepeaterRuntimeItemWitoutKeySync = ({
+    diff,
+    current,
+    previousLenght,
+    render: render2,
+    state,
+    repeatId
+  }) => {
+    setSkipAddUserComponent(true);
+    const serializedFragment = [...new Array(diff).keys()].map((_item, index) => {
+      const currentValue = current?.[index + previousLenght];
+      const currentIndex = index + previousLenght;
+      const rawRender = render2({
+        index: currentIndex,
+        currentValue,
+        html: renderHtml
+      });
+      const fragment = document.createRange().createContextualFragment(rawRender);
+      const components = queryAllFutureComponent(fragment, false);
+      setRepeatAttribute({
+        components,
+        current: currentValue,
+        index: currentIndex,
+        bind: state,
+        repeatId,
+        key: void 0
+      });
+      return serializeFragment(fragment);
+    }).join("");
+    setSkipAddUserComponent(false);
+    return serializedFragment;
+  };
+  var getRepeaterRuntimeItemWithtKeySync = ({
+    currentValue,
+    index,
+    state,
+    repeatId,
+    key,
+    rawRender
+  }) => {
+    setSkipAddUserComponent(true);
+    const fragment = document.createRange().createContextualFragment(rawRender);
+    const components = queryAllFutureComponent(fragment, false);
+    setRepeatAttribute({
+      components,
+      current: currentValue,
+      index,
+      bind: state,
+      repeatId,
+      key
+    });
+    setSkipAddUserComponent(false);
+    return serializeFragment(fragment);
+  };
+
   // src/js/mobjs/modules/repeater/update/addWithKey.js
   function getPartialsComponentList({ currentUnique, index, render: render2 }) {
     const currentValue = currentUnique?.[index];
@@ -20057,59 +20113,17 @@
         index,
         render: render2
       });
-      setSkipAddUserComponent(true);
-      const fragment = document.createRange().createContextualFragment(rawRender);
-      const components = queryAllFutureComponent(fragment, false);
-      setRepeatAttribute({
-        components,
-        current: currentValue,
+      const currentRender = getRepeaterRuntimeItemWithtKeySync({
+        currentValue,
         index,
-        bind: state,
+        state,
         repeatId,
-        key: key2
+        key: key2,
+        rawRender
       });
-      setSkipAddUserComponent(false);
-      const serializedFragment = serializeFragment(fragment);
-      repeaterParentElement.insertAdjacentHTML(
-        "beforeend",
-        serializedFragment
-      );
+      repeaterParentElement.insertAdjacentHTML("beforeend", currentRender);
     });
     return currentUnique;
-  };
-
-  // src/js/mobjs/modules/repeater/update/utils.js
-  var getRepeaterRuntimeItemWitoutKeySync = ({
-    diff,
-    current,
-    previousLenght,
-    render: render2,
-    state,
-    repeatId
-  }) => {
-    setSkipAddUserComponent(true);
-    const serializedFragment = [...new Array(diff).keys()].map((_item, index) => {
-      const currentValue = current?.[index + previousLenght];
-      const currentIndex = index + previousLenght;
-      const rawRender = render2({
-        index: currentIndex,
-        currentValue,
-        html: renderHtml
-      });
-      const fragment = document.createRange().createContextualFragment(rawRender);
-      const components = queryAllFutureComponent(fragment, false);
-      setRepeatAttribute({
-        components,
-        current: currentValue,
-        index: currentIndex,
-        bind: state,
-        repeatId,
-        key: void 0
-      });
-      return serializeFragment(fragment);
-    }).join("");
-    setSkipAddUserComponent(false);
-    return serializedFragment;
   };
 
   // src/js/mobjs/modules/repeater/update/addWithoutKey.js

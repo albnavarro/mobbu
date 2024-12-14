@@ -63,3 +63,40 @@ export const getRepeaterRuntimeItemWitoutKeySync = ({
 
     return serializedFragment;
 };
+
+/**
+ * @param {object} params
+ * @param {Record<string, any>} params.currentValue
+ * @param {number} params.index
+ * @param {string} params.state
+ * @param {string} params.repeatId
+ * @param {string} params.key
+ * @param {string} params.rawRender
+ * @returns {string}
+ */
+export const getRepeaterRuntimeItemWithtKeySync = ({
+    currentValue,
+    index,
+    state,
+    repeatId,
+    key,
+    rawRender,
+}) => {
+    setSkipAddUserComponent(true);
+
+    const fragment = document.createRange().createContextualFragment(rawRender);
+    const components = queryAllFutureComponent(fragment, false);
+
+    setRepeatAttribute({
+        components,
+        current: currentValue,
+        index,
+        bind: state,
+        repeatId,
+        key,
+    });
+
+    setSkipAddUserComponent(false);
+
+    return serializeFragment(fragment);
+};
