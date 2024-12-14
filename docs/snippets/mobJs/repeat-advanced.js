@@ -28,7 +28,7 @@ function getItems({
      * Use with clean = false || key
      * Without key use bindProps to update the component.
      */
-    const { myProps } = currentValue;
+    const { label } = currentValue;
 
     /**
      * 'myStateArray' in bindProps can be omitted.
@@ -38,13 +38,20 @@ function getItems({
         <my-child-component
             ${sync()}
             ${staticProps({
-                staticProp: myProps,
+                /**
+                 * In case key is used and component is not recycled.
+                 */
+                label,
             })}
             ${bindProps({
                 bind: ['counter'],
                 props: ({ counter, myStateArray }, index) => {
                     return {
                         counter,
+
+                        /**
+                         * In case no key is used and component is recycled.
+                         */
                         label: myStateArray[index].label,
                         index,
                     };
