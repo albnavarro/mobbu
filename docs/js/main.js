@@ -20078,6 +20078,40 @@
     return currentUnique;
   };
 
+  // src/js/mobjs/modules/repeater/update/utils.js
+  var getRepeaterRuntimeItemWitoutKeySync = ({
+    diff,
+    current,
+    previousLenght,
+    render: render2,
+    state,
+    repeatId
+  }) => {
+    setSkipAddUserComponent(true);
+    const serializedFragment = [...new Array(diff).keys()].map((_item, index) => {
+      const currentValue = current?.[index + previousLenght];
+      const currentIndex = index + previousLenght;
+      const rawRender = render2({
+        index: currentIndex,
+        currentValue,
+        html: renderHtml
+      });
+      const fragment = document.createRange().createContextualFragment(rawRender);
+      const components = queryAllFutureComponent(fragment, false);
+      setRepeatAttribute({
+        components,
+        current: currentValue,
+        index: currentIndex,
+        bind: state,
+        repeatId,
+        key: void 0
+      });
+      return serializeFragment(fragment);
+    }).join("");
+    setSkipAddUserComponent(false);
+    return serializedFragment;
+  };
+
   // src/js/mobjs/modules/repeater/update/addWithoutKey.js
   var addWithoutKey = ({
     state = "",
@@ -20092,32 +20126,15 @@
     const previousLenght = previous.length;
     const diff = currentLenght - previousLenght;
     if (diff > 0) {
-      setSkipAddUserComponent(true);
-      const serializedFragment = [...new Array(diff).keys()].map((_item, index) => {
-        const currentValue = current?.[index + previousLenght];
-        const currentIndex = index + previousLenght;
-        const rawRender = render2({
-          index: currentIndex,
-          currentValue,
-          html: renderHtml
-        });
-        const fragment = document.createRange().createContextualFragment(rawRender);
-        const components = queryAllFutureComponent(fragment, false);
-        setRepeatAttribute({
-          components,
-          current: currentValue,
-          index: currentIndex,
-          bind: state,
-          repeatId,
-          key: void 0
-        });
-        return serializeFragment(fragment);
-      }).join("");
-      setSkipAddUserComponent(false);
-      repeaterParentElement.insertAdjacentHTML(
-        "beforeend",
-        serializedFragment
-      );
+      const currentRender = getRepeaterRuntimeItemWitoutKeySync({
+        diff,
+        current,
+        previousLenght,
+        render: render2,
+        state,
+        repeatId
+      });
+      repeaterParentElement.insertAdjacentHTML("beforeend", currentRender);
     }
     if (diff < 0) {
       const idsByRepeatId = getIdsByByRepeatId({

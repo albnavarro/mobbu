@@ -5,19 +5,13 @@ import {
     getElementById,
     getIdsByByRepeatId,
 } from '../../../component/action/element';
-import {
-    renderHtml,
-    serializeFragment,
-    setRepeatAttribute,
-} from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate/action/destroyNestedInvalidate';
 import { destroyNestedRepeat } from '../action/destroyNestedRepeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
-import { setSkipAddUserComponent } from '../../userComponent';
-import { queryAllFutureComponent } from '../../../query/queryAllFutureComponent';
+import { getRepeaterRuntimeItemWitoutKeySync } from './utils';
 
 /**
  * @param {object} obj
@@ -63,47 +57,16 @@ export const addWithoutKey = ({
      * Add
      */
     if (diff > 0) {
-        setSkipAddUserComponent(true);
+        const currentRender = getRepeaterRuntimeItemWitoutKeySync({
+            diff,
+            current,
+            previousLenght,
+            render,
+            state,
+            repeatId,
+        });
 
-        /**
-         * Create palcehodler component
-         */
-        const serializedFragment = [...new Array(diff).keys()]
-            .map((_item, index) => {
-                const currentValue = current?.[index + previousLenght];
-                const currentIndex = index + previousLenght;
-
-                const rawRender = render({
-                    index: currentIndex,
-                    currentValue,
-                    html: renderHtml,
-                });
-
-                const fragment = document
-                    .createRange()
-                    .createContextualFragment(rawRender);
-
-                const components = queryAllFutureComponent(fragment, false);
-
-                setRepeatAttribute({
-                    components,
-                    current: currentValue,
-                    index: currentIndex,
-                    bind: state,
-                    repeatId,
-                    key: undefined,
-                });
-
-                return serializeFragment(fragment);
-            })
-            .join('');
-
-        setSkipAddUserComponent(false);
-
-        repeaterParentElement.insertAdjacentHTML(
-            'beforeend',
-            serializedFragment
-        );
+        repeaterParentElement.insertAdjacentHTML('beforeend', currentRender);
     }
 
     /**
