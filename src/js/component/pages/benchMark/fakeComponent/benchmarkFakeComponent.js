@@ -30,6 +30,9 @@ export const BenchMarkFakeComponentFn = ({
             ${id}
         </div>
         <div class="benchmark-fake__row">
+            ${bindProxi`<strong>index:</strong><br/> ${() => proxiState.index}`}
+        </div>
+        <div class="benchmark-fake__row">
             ${bindProxi`<strong>label:</strong><br/> ${() => proxiState.label}`}
         </div>
         <div class="benchmark-fake__row">

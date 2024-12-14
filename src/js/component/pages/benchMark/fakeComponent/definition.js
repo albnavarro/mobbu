@@ -6,7 +6,7 @@ import { BenchMarkFakeComponentFn } from './benchmarkFakeComponent';
 export const BenchMarkFakeComponent = createComponent({
     name: 'benchmark-fake-component',
     component: BenchMarkFakeComponentFn,
-    exportState: ['counter', 'label'],
+    exportState: ['index', 'counter', 'label'],
     state: {
         counter: () => ({
             value: 0,
@@ -15,6 +15,10 @@ export const BenchMarkFakeComponent = createComponent({
         label: () => ({
             value: '',
             type: String,
+        }),
+        index: () => ({
+            value: 0,
+            type: Number,
         }),
     },
 });

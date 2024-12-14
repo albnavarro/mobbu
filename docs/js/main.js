@@ -26685,6 +26685,9 @@ Loading snippet ...</pre
             ${id}
         </div>
         <div class="benchmark-fake__row">
+            ${bindProxi`<strong>index:</strong><br/> ${() => proxiState.index}`}
+        </div>
+        <div class="benchmark-fake__row">
             ${bindProxi`<strong>label:</strong><br/> ${() => proxiState.label}`}
         </div>
         <div class="benchmark-fake__row">
@@ -26711,7 +26714,7 @@ Loading snippet ...</pre
   var BenchMarkFakeComponent = createComponent({
     name: "benchmark-fake-component",
     component: BenchMarkFakeComponentFn,
-    exportState: ["counter", "label"],
+    exportState: ["index", "counter", "label"],
     state: {
       counter: () => ({
         value: 0,
@@ -26720,6 +26723,10 @@ Loading snippet ...</pre
       label: () => ({
         value: "",
         type: String
+      }),
+      index: () => ({
+        value: 0,
+        type: Number
       })
     }
   });
@@ -27019,8 +27026,9 @@ Loading snippet ...</pre
                             ${bindProps({
           bind: ["counter"],
           /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-          props: ({ counter }) => {
+          props: ({ counter }, index) => {
             return {
+              index,
               counter
             };
           }
@@ -27098,6 +27106,7 @@ Loading snippet ...</pre
           /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
           props: ({ counter, data }, index) => {
             return {
+              index,
               label: data[index]?.label,
               counter
             };
