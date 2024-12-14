@@ -34969,6 +34969,7 @@ Loading snippet ...</pre
                     ${repeat({
       bind: "data",
       key: "id",
+      useSync: true,
       render: ({ html: html2, sync, currentValue }) => {
         return html2`
                                 <debug-filter-list-item

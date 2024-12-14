@@ -204,6 +204,7 @@ export const DebugFilterListFn = ({
                     ${repeat({
                         bind: 'data',
                         key: 'id',
+                        useSync: true,
                         render: ({ html, sync, currentValue }) => {
                             return html`
                                 <debug-filter-list-item
