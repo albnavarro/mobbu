@@ -20088,14 +20088,32 @@
   };
 
   // src/js/mobjs/modules/repeater/update/addWithKey.js
-  function getPartialsComponentList({ currentUnique, index, render: render2 }) {
+  function getPartialsComponentList({
+    currentUnique,
+    index,
+    render: render2,
+    useSync,
+    key,
+    state,
+    repeatId
+  }) {
     const currentValue = currentUnique?.[index];
+    const sync = useSync ? () => (
+      /* HTML */
+      ` ${ATTR_KEY}="${key}"
+              ${ATTR_REPEATER_PROP_BIND}="${state}"
+              ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
+        current: currentValue,
+        index
+      })}"
+              ${ATTR_CHILD_REPEATID}="${repeatId}"`
+    ) : () => "";
     return {
       render: render2({
         index,
         currentValue,
         html: renderHtml,
-        sync: () => ""
+        sync
       }),
       current: currentValue
     };
@@ -20177,9 +20195,13 @@
       const { render: rawRender, current: currentValue } = getPartialsComponentList({
         currentUnique,
         index,
-        render: render2
+        render: render2,
+        useSync,
+        state,
+        key: key2,
+        repeatId
       });
-      const currentRender = getRepeaterRuntimeItemWithtKey({
+      const currentRender = useSync ? rawRender : getRepeaterRuntimeItemWithtKey({
         currentValue,
         index,
         state,
@@ -26985,8 +27007,9 @@ Loading snippet ...</pre
         <div class="benchmark__list">
             ${repeat({
       bind: "data",
+      useSync: true,
       key: "label",
-      render: ({ html: html2 }) => {
+      render: ({ html: html2, sync }) => {
         return html2`
                         <benchmark-fake-component
                             ${bindProps({
@@ -26999,6 +27022,7 @@ Loading snippet ...</pre
             };
           }
         })}
+                            ${sync()}
                         ></benchmark-fake-component>
                     `;
       }
