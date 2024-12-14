@@ -25,6 +25,7 @@ export const BenchMarkRepeatWithKyFn = ({
     bindProps,
     watch,
     repeat,
+    staticProps,
 }) => {
     onMount(() => {
         const { loading } = getRef();
@@ -64,15 +65,17 @@ export const BenchMarkRepeatWithKyFn = ({
                 bind: 'data',
                 useSync: true,
                 key: 'label',
-                render: ({ html, sync }) => {
+                render: ({ html, sync, currentValue }) => {
                     return html`
                         <benchmark-fake-component
+                            ${staticProps({
+                                label: currentValue?.label,
+                            })}
                             ${bindProps({
                                 bind: ['counter'],
                                 /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-                                props: ({ counter, data }, index) => {
+                                props: ({ counter }) => {
                                     return {
-                                        label: data[index]?.label,
                                         counter,
                                     };
                                 },

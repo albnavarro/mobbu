@@ -26972,7 +26972,8 @@ Loading snippet ...</pre
     updateState,
     bindProps,
     watch,
-    repeat
+    repeat,
+    staticProps: staticProps2
   }) => {
     onMount(() => {
       const { loading } = getRef();
@@ -27009,15 +27010,17 @@ Loading snippet ...</pre
       bind: "data",
       useSync: true,
       key: "label",
-      render: ({ html: html2, sync }) => {
+      render: ({ html: html2, sync, currentValue }) => {
         return html2`
                         <benchmark-fake-component
+                            ${staticProps2({
+          label: currentValue?.label
+        })}
                             ${bindProps({
           bind: ["counter"],
           /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-          props: ({ counter, data }, index) => {
+          props: ({ counter }) => {
             return {
-              label: data[index]?.label,
               counter
             };
           }
