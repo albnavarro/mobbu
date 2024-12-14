@@ -56,14 +56,8 @@ export interface callbackQueue {
 
 # MobJs
 
-### RepeaterSync.
-- Eliminare le closure.
-- Estrapolare le logiche vecchie e nuove.
-- Di default utilizzeremo il nuovo metodo, prevedere useSync per grosse ( 1000+ elementi ) in cui il passaggio dell' attributo `${sync()}` manuale risulta piu performante.
-
 ### bindProxi
 - Aggiungere dei controlli per eliminare caratteri come `;` quanso si estrapolano le props da monitorare.
-
 
 ### Quickset
 - Aggiungere `Quickset`.
