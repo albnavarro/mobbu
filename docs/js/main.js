@@ -20003,7 +20003,7 @@
   };
 
   // src/js/mobjs/modules/repeater/update/utils.js
-  var getRepeaterRuntimeItemWitoutKey = ({
+  var updateRepeaterWitoutKey = ({
     diff,
     current,
     previousLenght,
@@ -20038,7 +20038,7 @@
     setSkipAddUserComponent(false);
     return serializedFragment;
   };
-  var updateRepeaterRuntimeItemWithoutKeyUseSync = ({
+  var updateRepeaterWithoutKeyUseSync = ({
     diff,
     previousLenght,
     current,
@@ -20068,16 +20068,23 @@
       });
     }).join("");
   };
-  var getRepeaterRuntimeItemWithtKey = ({
+  var updateRepeaterWithtKey = ({
     currentValue,
     index,
     state,
     repeatId,
     key,
-    rawRender
+    render: render2
   }) => {
     setSkipAddUserComponent(true);
-    let fragment = document.createRange().createContextualFragment(rawRender);
+    let fragment = document.createRange().createContextualFragment(
+      render2({
+        index,
+        currentValue,
+        html: renderHtml,
+        sync: () => ""
+      })
+    );
     const components = queryAllFutureComponent(fragment, false);
     setRepeatAttribute({
       components,
@@ -20092,38 +20099,32 @@
     fragment = null;
     return serializedRender;
   };
-
-  // src/js/mobjs/modules/repeater/update/addWithKey.js
-  function getPartialsComponentList({
-    currentUnique,
+  var updateRepeaterWithtKeyUseSync = ({
+    currentValue,
     index,
-    render: render2,
-    useSync,
-    key,
     state,
-    repeatId
-  }) {
-    const currentValue = currentUnique?.[index];
-    const sync = useSync ? () => (
+    repeatId,
+    key,
+    render: render2
+  }) => {
+    const sync = () => (
       /* HTML */
-      ` ${ATTR_KEY}="${key}"
-              ${ATTR_REPEATER_PROP_BIND}="${state}"
-              ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
+      ` ${ATTR_KEY}="${key}" ${ATTR_REPEATER_PROP_BIND}="${state}"
+        ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
         current: currentValue,
         index
       })}"
-              ${ATTR_CHILD_REPEATID}="${repeatId}"`
-    ) : () => "";
-    return {
-      render: render2({
-        index,
-        currentValue,
-        html: renderHtml,
-        sync
-      }),
-      current: currentValue
-    };
-  }
+        ${ATTR_CHILD_REPEATID}="${repeatId}"`
+    );
+    return render2({
+      index,
+      currentValue,
+      html: renderHtml,
+      sync
+    });
+  };
+
+  // src/js/mobjs/modules/repeater/update/addWithKey.js
   var addWithKey = ({
     state = "",
     current = [],
@@ -20198,22 +20199,21 @@
         }
         return;
       }
-      const { render: rawRender, current: currentValue } = getPartialsComponentList({
-        currentUnique,
-        index,
-        render: render2,
-        useSync,
-        state,
-        key: key2,
-        repeatId
-      });
-      const currentRender = useSync ? rawRender : getRepeaterRuntimeItemWithtKey({
+      const currentValue = currentUnique?.[index];
+      const currentRender = useSync ? updateRepeaterWithtKeyUseSync({
         currentValue,
         index,
         state,
         repeatId,
         key: key2,
-        rawRender
+        render: render2
+      }) : updateRepeaterWithtKey({
+        currentValue,
+        index,
+        state,
+        repeatId,
+        key: key2,
+        render: render2
       });
       repeaterParentElement.insertAdjacentHTML("beforeend", currentRender);
     });
@@ -20235,14 +20235,14 @@
     const previousLenght = previous.length;
     const diff = currentLenght - previousLenght;
     if (diff > 0) {
-      const currentRender = useSync ? updateRepeaterRuntimeItemWithoutKeyUseSync({
+      const currentRender = useSync ? updateRepeaterWithoutKeyUseSync({
         diff,
         previousLenght,
         current,
         state,
         repeatId,
         render: render2
-      }) : getRepeaterRuntimeItemWitoutKey({
+      }) : updateRepeaterWitoutKey({
         diff,
         current,
         previousLenght,

@@ -10,7 +10,6 @@ import {
     getIdByElement,
 } from '../../../component/action/element';
 import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/removeAndDestroyById';
-import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate/action/destroyNestedInvalidate';
 import { destroyNestedRepeat } from '../action/destroyNestedRepeat';
 import { getDefaultComponent } from '../../../component/createComponent';
@@ -18,65 +17,7 @@ import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
 import { getComponentNameByElement } from '../../../component/action/component';
-import { getRepeaterRuntimeItemWithtKey } from './utils';
-import {
-    ATTR_CHILD_REPEATID,
-    ATTR_CURRENT_LIST_VALUE,
-    ATTR_KEY,
-    ATTR_REPEATER_PROP_BIND,
-} from '../../../constant';
-import { setComponentRepeaterState } from '../repeaterValue';
-
-/**
- * @param {object} obj
- * @param {string} obj.state
- * @param {string} obj.key
- * @param {string} obj.repeatId
- * @param {Record<string, any>[]} obj.currentUnique
- * @param {number} obj.index
- * @param {boolean} obj.useSync
- * @param {import('../type').RepeaterRender} obj.render
- * @return {{render: string, current : Record<string, any>}}
- *
- * @description
- * Get partial list to add from chunked array of components.
- */
-function getPartialsComponentList({
-    currentUnique,
-    index,
-    render,
-    useSync,
-    key,
-    state,
-    repeatId,
-}) {
-    /**
-     * Execute prop function.
-     * Get current value and save in component store item.
-     */
-    const currentValue = currentUnique?.[index];
-
-    const sync = useSync
-        ? () =>
-              /* HTML */ ` ${ATTR_KEY}="${key}"
-              ${ATTR_REPEATER_PROP_BIND}="${state}"
-              ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
-                  current: currentValue,
-                  index,
-              })}"
-              ${ATTR_CHILD_REPEATID}="${repeatId}"`
-        : () => '';
-
-    return {
-        render: render({
-            index,
-            currentValue,
-            html: renderHtml,
-            sync,
-        }),
-        current: currentValue,
-    };
-}
+import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
 
 /**
  * @param {object} obj
@@ -253,26 +194,24 @@ export const addWithKey = ({
             return;
         }
 
-        const { render: rawRender, current: currentValue } =
-            getPartialsComponentList({
-                currentUnique,
-                index,
-                render,
-                useSync,
-                state,
-                key,
-                repeatId,
-            });
+        const currentValue = currentUnique?.[index];
 
         const currentRender = useSync
-            ? rawRender
-            : getRepeaterRuntimeItemWithtKey({
+            ? updateRepeaterWithtKeyUseSync({
                   currentValue,
                   index,
                   state,
                   repeatId,
                   key,
-                  rawRender,
+                  render,
+              })
+            : updateRepeaterWithtKey({
+                  currentValue,
+                  index,
+                  state,
+                  repeatId,
+                  key,
+                  render,
               });
 
         repeaterParentElement.insertAdjacentHTML('beforeend', currentRender);

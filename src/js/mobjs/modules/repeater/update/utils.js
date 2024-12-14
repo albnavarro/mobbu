@@ -1,6 +1,7 @@
 import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
+    ATTR_KEY,
     ATTR_REPEATER_PROP_BIND,
 } from '../../../constant';
 import {
@@ -22,7 +23,7 @@ import { setComponentRepeaterState } from '../repeaterValue';
  * @param {import('../type').RepeaterRender} params.render
  * @returns {string}
  */
-export const getRepeaterRuntimeItemWitoutKey = ({
+export const updateRepeaterWitoutKey = ({
     diff,
     current,
     previousLenght,
@@ -88,7 +89,7 @@ export const getRepeaterRuntimeItemWitoutKey = ({
  * @param {import('../type').RepeaterRender} params.render
  * @returns {string}
  */
-export const updateRepeaterRuntimeItemWithoutKeyUseSync = ({
+export const updateRepeaterWithoutKeyUseSync = ({
     diff,
     previousLenght,
     current,
@@ -128,20 +129,27 @@ export const updateRepeaterRuntimeItemWithoutKeyUseSync = ({
  * @param {string} params.state
  * @param {string} params.repeatId
  * @param {string} params.key
- * @param {string} params.rawRender
+ * @param {import('../type').RepeaterRender} params.render
  * @returns {string}
  */
-export const getRepeaterRuntimeItemWithtKey = ({
+export const updateRepeaterWithtKey = ({
     currentValue,
     index,
     state,
     repeatId,
     key,
-    rawRender,
+    render,
 }) => {
     setSkipAddUserComponent(true);
 
-    let fragment = document.createRange().createContextualFragment(rawRender);
+    let fragment = document.createRange().createContextualFragment(
+        render({
+            index,
+            currentValue,
+            html: renderHtml,
+            sync: () => '',
+        })
+    );
     const components = queryAllFutureComponent(fragment, false);
 
     setRepeatAttribute({
@@ -163,4 +171,38 @@ export const getRepeaterRuntimeItemWithtKey = ({
      */
     fragment = null;
     return serializedRender;
+};
+
+/**
+ * @param {object} params
+ * @param {Record<string, any>} params.currentValue
+ * @param {number} params.index
+ * @param {string} params.state
+ * @param {string} params.repeatId
+ * @param {string} params.key
+ * @param {import('../type').RepeaterRender} params.render
+ * @returns {string}
+ */
+export const updateRepeaterWithtKeyUseSync = ({
+    currentValue,
+    index,
+    state,
+    repeatId,
+    key,
+    render,
+}) => {
+    const sync = () =>
+        /* HTML */ ` ${ATTR_KEY}="${key}" ${ATTR_REPEATER_PROP_BIND}="${state}"
+        ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
+            current: currentValue,
+            index,
+        })}"
+        ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+
+    return render({
+        index,
+        currentValue,
+        html: renderHtml,
+        sync,
+    });
 };

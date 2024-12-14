@@ -12,8 +12,8 @@ import { getParentIdById } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
 import {
-    getRepeaterRuntimeItemWitoutKey,
-    updateRepeaterRuntimeItemWithoutKeyUseSync,
+    updateRepeaterWitoutKey,
+    updateRepeaterWithoutKeyUseSync,
 } from './utils';
 
 /**
@@ -63,7 +63,7 @@ export const addWithoutKey = ({
      */
     if (diff > 0) {
         const currentRender = useSync
-            ? updateRepeaterRuntimeItemWithoutKeyUseSync({
+            ? updateRepeaterWithoutKeyUseSync({
                   diff,
                   previousLenght,
                   current,
@@ -71,7 +71,7 @@ export const addWithoutKey = ({
                   repeatId,
                   render,
               })
-            : getRepeaterRuntimeItemWitoutKey({
+            : updateRepeaterWitoutKey({
                   diff,
                   current,
                   previousLenght,
