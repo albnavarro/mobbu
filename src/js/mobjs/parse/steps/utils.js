@@ -220,7 +220,7 @@ export const getRenderWithoutSync = ({
      * Render immediately first DOM
      */
     const rawRender = currentUnique
-        .map((/** @type{any} */ item, /** @type{number} */ index) => {
+        .map((item, index) => {
             const fragment = document.createRange().createContextualFragment(
                 render({
                     index,
@@ -270,7 +270,7 @@ export const getRenderWithSync = ({
 }) => {
     const rawRender = () => {
         return currentUnique
-            .map((/** @type{any} */ item, /** @type{number} */ index) => {
+            .map((item, index) => {
                 const sync =
                     /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
                         {
