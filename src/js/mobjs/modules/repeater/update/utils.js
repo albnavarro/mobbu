@@ -47,7 +47,7 @@ export const getRepeaterRuntimeItemWitoutKey = ({
                 sync: () => '',
             });
 
-            const fragment = document
+            let fragment = document
                 .createRange()
                 .createContextualFragment(rawRender);
 
@@ -62,7 +62,14 @@ export const getRepeaterRuntimeItemWitoutKey = ({
                 key: undefined,
             });
 
-            return serializeFragment(fragment);
+            const serializedRender = serializeFragment(fragment);
+
+            /**
+             * Remove fragment as soon as possible from GC.
+             * TODO Is really necessary ?
+             */
+            fragment = null;
+            return serializedRender;
         })
         .join('');
 
@@ -134,7 +141,7 @@ export const getRepeaterRuntimeItemWithtKey = ({
 }) => {
     setSkipAddUserComponent(true);
 
-    const fragment = document.createRange().createContextualFragment(rawRender);
+    let fragment = document.createRange().createContextualFragment(rawRender);
     const components = queryAllFutureComponent(fragment, false);
 
     setRepeatAttribute({
@@ -148,5 +155,12 @@ export const getRepeaterRuntimeItemWithtKey = ({
 
     setSkipAddUserComponent(false);
 
-    return serializeFragment(fragment);
+    const serializedRender = serializeFragment(fragment);
+
+    /**
+     * Remove fragment as soon as possible from GC.
+     * TODO Is really necessary ?
+     */
+    fragment = null;
+    return serializedRender;
 };

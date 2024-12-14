@@ -19239,7 +19239,7 @@
   }) => {
     setSkipAddUserComponent(true);
     const rawRender = currentUnique.map((item, index) => {
-      const fragment = document.createRange().createContextualFragment(
+      let fragment = document.createRange().createContextualFragment(
         render2({
           index,
           currentValue: item,
@@ -19256,7 +19256,9 @@
         repeatId,
         key: hasKey ? item?.[key] : ""
       });
-      return serializeFragment(fragment);
+      const serializedRender = serializeFragment(fragment);
+      fragment = null;
+      return serializedRender;
     }).join("");
     setSkipAddUserComponent(false);
     return rawRender;
@@ -20019,7 +20021,7 @@
         html: renderHtml,
         sync: () => ""
       });
-      const fragment = document.createRange().createContextualFragment(rawRender);
+      let fragment = document.createRange().createContextualFragment(rawRender);
       const components = queryAllFutureComponent(fragment, false);
       setRepeatAttribute({
         components,
@@ -20029,7 +20031,9 @@
         repeatId,
         key: void 0
       });
-      return serializeFragment(fragment);
+      const serializedRender = serializeFragment(fragment);
+      fragment = null;
+      return serializedRender;
     }).join("");
     setSkipAddUserComponent(false);
     return serializedFragment;
@@ -20073,7 +20077,7 @@
     rawRender
   }) => {
     setSkipAddUserComponent(true);
-    const fragment = document.createRange().createContextualFragment(rawRender);
+    let fragment = document.createRange().createContextualFragment(rawRender);
     const components = queryAllFutureComponent(fragment, false);
     setRepeatAttribute({
       components,
@@ -20084,7 +20088,9 @@
       key
     });
     setSkipAddUserComponent(false);
-    return serializeFragment(fragment);
+    const serializedRender = serializeFragment(fragment);
+    fragment = null;
+    return serializedRender;
   };
 
   // src/js/mobjs/modules/repeater/update/addWithKey.js

@@ -221,7 +221,7 @@ export const getRenderWithoutSync = ({
      */
     const rawRender = currentUnique
         .map((item, index) => {
-            const fragment = document.createRange().createContextualFragment(
+            let fragment = document.createRange().createContextualFragment(
                 render({
                     index,
                     currentValue: item,
@@ -241,7 +241,14 @@ export const getRenderWithoutSync = ({
                 key: hasKey ? item?.[key] : '',
             });
 
-            return serializeFragment(fragment);
+            const serializedRender = serializeFragment(fragment);
+
+            /**
+             * Remove fragment as soon as possible from GC.
+             * TODO Is really necessary ?
+             */
+            fragment = null;
+            return serializedRender;
         })
         .join('');
 
