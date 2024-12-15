@@ -239,7 +239,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Simple:"
+            "content": "Type:"
         },
         {
             "component": "mob-spacer",
@@ -250,7 +250,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/repeat-simple.js",
+                "source": "./snippets/mobJs/repeat-type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -262,7 +262,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Advanced:"
+            "content": "Without key:"
         },
         {
             "component": "mob-spacer",
@@ -273,7 +273,76 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/repeat-advanced.js",
+                "source": "./snippets/mobJs/repeat-no-key.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 118
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "With key:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/repeat-with-key.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 118
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "useSync ( performance )"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/repeat-useSync.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 118
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "render complex dom"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/repeat-multiple-element.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
