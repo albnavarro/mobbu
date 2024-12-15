@@ -9,6 +9,64 @@
 
 ## Store
 
+### BindStore
+- Ogni store potrá essere collegato a un altro store.
+- Lo store corrente potrá `leggere` lo stato di un altro store o `osservarlo ( watch )` ma non potrá modificarlo.
+- `Il bind é in sola lettura, e osservazione.`
+- E' importante che gli store rimangano separati, stiamo solo creando un `legame debole`.
+- Ogni store ritornerá l'`id` dello e un apropietá `bind` per usare i metodi su piú store.
+- Dovrebbe bastare creare un bind con `get()` e `watch`.
+- MobJs potrá cosi nativamente creare collegamanti con piu store al di fuoti del componente da usare con `repeat/invalidate`
+- `mobJs` Nel tipo del componente sará necessario aggiungere gli stati degli store collegati.
+
+```js
+bindedInstance = [];
+
+return {
+    getId: () => instanceId,
+    bindStore: (value) => {
+        const ids = checkType(Array, stores)
+            ? value.map((store) => store.getId())
+            : [value.getId()];
+
+        bindedInstance = [...bindedInstance, ...ids]
+    },
+    get: () => {
+        // Senza bind ritrna semplicemente i suoi dati.
+        if(bindedInstance.length === 0) {
+            return storeGetEntryPoint(instanceId);
+        }
+
+        // Ritorna tutti gli stati degli store in un unico oggetto.
+        return [... bindedInstance, instanceId ].map((id) => {
+            return storeGetEntryPoint(id);
+        }).reduce(() => {...previous, ...current}, {})
+    },
+    watch: (prop, callback) => {
+        const currentId = [... bindedInstance, instanceId ].find((id) => {
+            // ritorna il primo instanceId che usa la prop specificata.
+        }):
+
+        return watchEntryPoint({ instanceId: currentId, prop, callback });
+    },
+```
+
+```js
+export const MyComponent = createComponent({
+    name: 'my-component',
+    component: MyComponentFn,
+    exportState: [],
+    state: {
+        label: () => ({
+            value: '',
+            type: String,
+        }),
+    },
+    bindStore: [externalStore, externalStore2]
+})
+```
+
+
 ### DOCS
 - Aggiungere i tipi allo store.
 
@@ -64,40 +122,6 @@ export interface callbackQueue {
 
 ### Repeat
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
-
-### Global store
-- Nella funzione inizializeApp aggiungere `globalStore`, `invalidate` potrá usare uno store esterno per la reattivitá.
-- Il contenuto del watcher corrente `inizializeInvalidateWatch` dovrá essere estratto per essere unato anche dalla nuova funzione watch
-- La distruzione del watcher avvine come ora per il watcher di default ( legato allo stato del componente ).
-
-```js
-    inizializeApp({
-        rootId: '#root',
-        contentId: '#content',
-        wrapper,
-        globalStore: myStore
-        ...
-    });
-
-
-    ${invalidate({
-        bind: 'anchorItems',
-        bindGlobal: 'myState', // Opzionale
-        render: () => {
-            return getButtons({
-                delegateEvents,
-                bindProps,
-                setState,
-                getState,
-            });
-        },
-    })}
-
-```
-- La stessa cosa sará fatta anche per `bindText`, creare una nuova utility `bindGlobalText`.
-```js
-    ${bindGlobalText`my text ${'globalProp'}`}
-```
 
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
