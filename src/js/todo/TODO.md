@@ -20,34 +20,50 @@
 - `mobJs` Nel tipo del componente sará necessario aggiungere gli stati degli store collegati.
 
 ```js
-bindedInstance = [];
+let bindedInstance = [];
 
+/**
+ * Methods
+ */
 return {
     getId: () => instanceId,
     bindStore: (value) => {
-        const ids = checkType(Array, stores)
+        const ids = checkType(Array, value)
             ? value.map((store) => store.getId())
             : [value.getId()];
 
-        bindedInstance = [...bindedInstance, ...ids]
+        bindedInstance = [...bindedInstance, ...ids];
     },
     get: () => {
-        // Senza bind ritrna semplicemente i suoi dati.
-        if(bindedInstance.length === 0) {
+        if (bindedInstance.length === 0) {
             return storeGetEntryPoint(instanceId);
         }
 
-        // Ritorna tutti gli stati degli store in un unico oggetto.
-        return [... bindedInstance, instanceId ].map((id) => {
-            return storeGetEntryPoint(id);
-        }).reduce(() => {...previous, ...current}, {})
+        return [...bindedInstance, instanceId]
+            .map((id) => storeGetEntryPoint(id))
+            .reduce(
+                (previous, current) => ({ ...previous, ...current }),
+                {}
+            );
     },
+    ...
     watch: (prop, callback) => {
-        const currentId = [... bindedInstance, instanceId ].find((id) => {
-            // ritorna il primo instanceId che usa la prop specificata.
-        }):
+        if (bindedInstance.length === 0) {
+            return watchEntryPoint({ instanceId, prop, callback });
+        }
+
+        const currentId =
+            [instanceId, ...bindedInstance].find(
+                (id) => prop in storeMap.get(id).store
+            ) ?? '';
 
         return watchEntryPoint({ instanceId: currentId, prop, callback });
+    },
+    ...
+    destroy: () => {
+        removeStateFromMainMap(instanceId);
+        proxiObject = null;
+        bindedInstance = [];
     },
 ```
 
