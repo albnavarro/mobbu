@@ -19,8 +19,14 @@
 - MobJs potrá cosi nativamente creare collegamanti con piu store al di fuoti del componente da usare con `repeat/invalidate`
 - `mobJs` Nel tipo del componente sará necessario aggiungere gli stati degli store collegati.
 
+#### mancanti nello snippet:
+- Aggiungere un array per salvare gli un watch
+- Lanciare gli unwatch al destroy
+- Controllare che lo store esista quando di aggiunge
+
 ```js
 let bindedInstance = [];
+let unsubScribeBindStore = [];
 
 /**
  * Methods
@@ -57,29 +63,30 @@ return {
                 (id) => prop in storeMap.get(id).store
             ) ?? '';
 
-        return watchEntryPoint({ instanceId: currentId, prop, callback });
+        const unsubscribe = watchEntryPoint({
+            instanceId: currentId,
+            prop,
+            callback,
+        });
+
+        unsubScribeBindStore = [...unsubScribeBindStore, unsubscribe];
+        return unsubscribe;
     },
     ...
     destroy: () => {
-        removeStateFromMainMap(instanceId);
-        proxiObject = null;
         bindedInstance = [];
+        unsubScribeBindStore.forEach((unsubscribe) => {
+            unsubscribe?.();
+        });
+
+        removeStateFromMainMap(instanceId);
     },
 ```
 
 ```js
-export const MyComponent = createComponent({
-    name: 'my-component',
-    component: MyComponentFn,
-    exportState: [],
-    state: {
-        label: () => ({
-            value: '',
-            type: String,
-        }),
-    },
-    bindStore: [externalStore, externalStore2]
-})
+export const MyComponentFn = ({ bindStore }) => {
+    bindStore(myStore);
+}
 ```
 
 
