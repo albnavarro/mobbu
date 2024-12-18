@@ -37,6 +37,7 @@ export interface storeMapValue {
     fnValidate: Record<string, (() => boolean) | Record<string, () => boolean>>;
     strict: Record<string, boolean | Record<string, boolean>>;
     skipEqual: Record<string, boolean | Record<string, boolean>>;
+    proxiObject?: Record<string, any>;
 }
 
 /**

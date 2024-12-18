@@ -65,5 +65,6 @@ export const inizializeInstance = (data) => {
             logStyle: getLogStyle(),
             fallback: true,
         }),
+        proxiObject: undefined,
     };
 };

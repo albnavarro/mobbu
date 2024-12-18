@@ -6,7 +6,7 @@ import {
     storeQuickSetEntrypoint,
     storeSetEntryPoint,
 } from './storeSet';
-import { removeStateFromMainMap, storeMap, updateMainMap } from './storeMap';
+import { removeStateFromMainMap, updateMainMap } from './storeMap';
 import { inizializeAllProps, inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
 import { inizializeInstance } from './inizializeInstance';
@@ -19,8 +19,7 @@ import {
     storeGetValidationEntryPoint,
 } from './storeDebug';
 import { STORE_SET, STORE_UPDATE } from './constant';
-import { storePropInProxiWarning } from './storeWarining';
-import { getLogStyle } from './logStyle';
+import { getProxiEntryPoint } from './proxi';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
@@ -56,7 +55,6 @@ export const mobStore = (data = {}) => {
      * Make sure that there is no active reference in store instance
      * on destroy.
      */
-    let proxiObject;
 
     /**
      * Methods
@@ -89,38 +87,7 @@ export const mobStore = (data = {}) => {
             });
         },
         getProxi: () => {
-            const state = storeMap.get(instanceId).store;
-
-            /**
-             * Create only one proxi.
-             */
-            if (proxiObject) {
-                return proxiObject;
-            }
-
-            proxiObject = new Proxy(state, {
-                set(target, /** @type{string} */ prop, value) {
-                    if (prop in target) {
-                        // Mutiamo l'oggetto originale con i metodi giá presenti
-                        storeSetEntryPoint({
-                            instanceId,
-                            prop,
-                            value,
-                            fireCallback: true,
-                            clone: false,
-                            action: STORE_SET,
-                        });
-
-                        return true;
-                    }
-
-                    const logStyle = getLogStyle();
-                    storePropInProxiWarning(prop, logStyle);
-                    return false;
-                },
-            });
-
-            return proxiObject;
+            return getProxiEntryPoint({ instanceId });
         },
         quickSetProp: (prop, value) => {
             storeQuickSetEntrypoint({ instanceId, prop, value });
@@ -156,7 +123,6 @@ export const mobStore = (data = {}) => {
         },
         destroy: () => {
             removeStateFromMainMap(instanceId);
-            proxiObject = null;
         },
     };
 };
