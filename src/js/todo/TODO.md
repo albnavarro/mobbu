@@ -10,19 +10,13 @@
 ## Store
 
 ### BindStore
-- Ogni store potrá essere collegato a un altro store.
-- Lo store corrente potrá `leggere` lo stato di un altro store o `osservarlo ( watch )` ma non potrá modificarlo.
-- `Il bind é in sola lettura, e osservazione.`
-- E' importante che gli store rimangano separati, stiamo solo creando un `legame debole`.
-- Ogni store ritornerá l'`id` dello e un apropietá `bind` per usare i metodi su piú store.
-- Dovrebbe bastare creare un bind con `get()` e `watch`.
-- MobJs potrá cosi nativamente creare collegamanti con piu store al di fuoti del componente da usare con `repeat/invalidate`
-- `mobJs` Nel tipo del componente sará necessario aggiungere gli stati degli store collegati.
 
 #### mancanti nello snippet:
-- Aggiungere un array per salvare gli un watch
-- Lanciare gli unwatch al destroy
 - Controllare che lo store esista quando di aggiunge
+- `getProxi()`: quando si usa come getter potrebbe resituire il valore, in modo da poter essere usato nella utils `bindProxi`
+
+#### Rifinitura.
+- Portare tutte le nuove funzioni come `entryPoint` e lasciare pulito l'oggetto restituito.
 
 ```js
 let bindedInstance = [];
