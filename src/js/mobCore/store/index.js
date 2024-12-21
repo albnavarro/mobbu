@@ -133,6 +133,7 @@ export const mobStore = (data = {}) => {
                 return previousProxiObject;
             }
 
+            // https://stackoverflow.com/questions/44469447/apparent-pollution-with-multiple-proxy-objects-for-the-same-target
             const proxiObject = new Proxy(store, {
                 set(target, /** @type{string} */ prop, value) {
                     if (prop in target) {

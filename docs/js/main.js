@@ -36030,12 +36030,13 @@ Loading snippet ...</pre
     const unsubscribe3 = store2.watch("prop1", (value) => {
       console.log("watch value:", value);
       console.log("get prop:", store2.getProp("prop1"));
+      console.log("proxi value original", proxiObject);
       console.log("proxi value prop1", proxiObject.prop1);
     });
     let cont = 0;
     document.body.addEventListener("click", () => {
       store1.update("prop1", (value) => value + 1);
-      console.log(store2.get());
+      console.log("get on click", store2.get());
       cont++;
       if (cont === 5) {
         store2.destroy();
