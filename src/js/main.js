@@ -87,7 +87,7 @@ mobCore.useLoad(() => {
     // stateTest();
 
     const store1 = mobCore.createStore({
-        prop1: 0,
+        store1Prop: 0,
     });
 
     const store2 = mobCore.createStore({
@@ -99,17 +99,17 @@ mobCore.useLoad(() => {
     const proxiObject = store2.getProxi();
     console.log(proxiObject);
 
-    const unsubscribe = store2.watch('prop1', (value) => {
+    const unsubscribe = store2.watch('store1Prop', (value) => {
         console.log('watch value:', value);
-        console.log('get prop:', store2.getProp('prop1'));
+        console.log('get prop:', store2.getProp('store1Prop'));
         console.log('proxi value original', proxiObject);
-        console.log('proxi value prop1', proxiObject.prop1);
+        console.log('proxi value store1Prop', proxiObject.store1Prop);
     });
 
     let cont = 0;
 
     document.body.addEventListener('click', () => {
-        store1.update('prop1', (value) => value + 1);
+        store1.update('store1Prop', (value) => value + 1);
         console.log('get on click', store2.get());
 
         cont++;
