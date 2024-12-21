@@ -2050,12 +2050,6 @@
       style
     );
   };
-  var storePropInProxiWarning = (prop, style) => {
-    console.warn(
-      `%c SimpleStore error: the property ${prop} does not exist in proxi`,
-      style
-    );
-  };
 
   // src/js/mobCore/store/storeUtils.js
   var maxDepth = (object) => {
@@ -2752,13 +2746,14 @@
           action: STORE_UPDATE
         });
       },
+      // Use getProxi after add a proxi.
       getProxi: () => {
         const state = getStateFromMainMap(instanceId);
-        const { store, proxiObject: previousProxiObject } = state;
+        const { store: selfStore, proxiObject: previousProxiObject } = state;
         if (previousProxiObject) {
           return previousProxiObject;
         }
-        const proxiObject = new Proxy(store, {
+        const selfProxi = new Proxy(selfStore, {
           set(target, prop, value) {
             if (prop in target) {
               storeSetEntryPoint({
@@ -2771,25 +2766,98 @@
               });
               return true;
             }
-            const logStyle2 = getLogStyle();
-            storePropInProxiWarning(prop, logStyle2);
             return false;
-          },
-          get(target, prop) {
-            if (bindedInstance.length === 0) {
-              return target[prop];
-            }
-            const currentBindId = [instanceId, ...bindedInstance].find(
-              (id) => prop in storeMap.get(id).store
-            ) ?? "";
-            const bindedState = getStateFromMainMap(currentBindId);
-            const { store: bindedStore } = bindedState;
-            return bindedStore[prop];
           }
         });
-        updateMainMap(instanceId, { ...state, proxiObject });
-        return proxiObject;
+        if (bindedInstance.length === 0) {
+          updateMainMap(instanceId, {
+            ...state,
+            proxiObject: selfProxi
+          });
+          return selfProxi;
+        }
+        const bindedProxi = bindedInstance.map((id) => {
+          const state4 = getStateFromMainMap(id);
+          const { store } = state4;
+          return new Proxy(store, {
+            set() {
+              return false;
+            }
+          });
+        });
+        const bindedProxiArray = new Proxy([selfProxi, ...bindedProxi], {
+          set(proxies, prop, value) {
+            const currentProxi = proxies.find((proxi) => prop in proxi);
+            if (!currentProxi) return false;
+            Reflect.set(currentProxi, prop, value);
+            return true;
+          },
+          get(proxies, prop) {
+            const currentProxi = proxies.find((proxi) => prop in proxi);
+            if (!currentProxi) return false;
+            return Reflect.get(currentProxi, prop);
+          }
+        });
+        updateMainMap(instanceId, {
+          ...state,
+          proxiObject: bindedProxiArray
+        });
+        return bindedProxiArray;
       },
+      // getProxi: () => {
+      //     const state = getStateFromMainMap(instanceId);
+      //     const { store, proxiObject: previousProxiObject } = state;
+      //
+      //     /**
+      //      * Create only one proxi.
+      //      */
+      //     if (previousProxiObject) {
+      //         return previousProxiObject;
+      //     }
+      //
+      //     // https://stackoverflow.com/questions/44469447/apparent-pollution-with-multiple-proxy-objects-for-the-same-target
+      //     const proxiObject = new Proxy(store, {
+      //         set(target, /** @type{string} */ prop, value) {
+      //             if (prop in target) {
+      //                 // Mutiamo l'oggetto originale con i metodi giá presenti
+      //                 storeSetEntryPoint({
+      //                     instanceId,
+      //                     prop,
+      //                     value,
+      //                     fireCallback: true,
+      //                     clone: false,
+      //                     action: STORE_SET,
+      //                 });
+      //
+      //                 return true;
+      //             }
+      //
+      //             const logStyle = getLogStyle();
+      //             storePropInProxiWarning(prop, logStyle);
+      //             return false;
+      //         },
+      //         get(target, /** @type{string} */ prop) {
+      //             // default.
+      //             if (bindedInstance.length === 0) {
+      //                 return target[prop];
+      //             }
+      //
+      //             // return binded state that match prop.
+      //             const currentBindId =
+      //                 [instanceId, ...bindedInstance].find(
+      //                     (id) => prop in storeMap.get(id).store
+      //                 ) ?? '';
+      //
+      //             const bindedState = getStateFromMainMap(currentBindId);
+      //             const { store: bindedStore } = bindedState;
+      //             return bindedStore[prop];
+      //         },
+      //     });
+      //
+      //     updateMainMap(instanceId, { ...state, proxiObject });
+      //
+      //     return proxiObject;
+      // },
       quickSetProp: (prop, value) => {
         storeQuickSetEntrypoint({ instanceId, prop, value });
       },
@@ -36025,17 +36093,28 @@ Loading snippet ...</pre
       pippo: 10
     });
     store2.bindStore(store1);
-    const proxiObject = store2.getProxi();
-    console.log(proxiObject);
+    const proxi1 = store1.getProxi();
+    const proxi2_a = store2.getProxi();
+    console.log(proxi2_a);
+    const proxie2_b = store2.getProxi();
+    console.log(proxie2_b);
+    proxie2_b.store1Prop = 1e5;
+    proxie2_b.prop2 = 1;
+    console.log(proxie2_b);
     const unsubscribe3 = store2.watch("store1Prop", (value) => {
       console.log("watch value:", value);
+      console.log("get", store2.get());
       console.log("get prop:", store2.getProp("store1Prop"));
-      console.log("proxi value original", proxiObject);
-      console.log("proxi value store1Prop", proxiObject.store1Prop);
+      console.log("proxi1 value", proxi1);
+      console.log("proxi2_a value", proxi2_a);
+      console.log("proxie2_b value", proxie2_b);
+      console.log("proxi2_a value store1Prop", proxi2_a.store1Prop);
+      console.log("proxie2_b value store1Prop", proxie2_b.store1Prop);
     });
     let cont = 0;
     document.body.addEventListener("click", () => {
-      store1.update("store1Prop", (value) => value + 1);
+      store2.update("prop2", (value) => value + 1);
+      proxi1.store1Prop++;
       console.log("get on click", store2.get());
       cont++;
       if (cont === 5) {

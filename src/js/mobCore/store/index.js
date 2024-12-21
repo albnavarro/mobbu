@@ -122,22 +122,25 @@ export const mobStore = (data = {}) => {
                 action: STORE_UPDATE,
             });
         },
+        // Use getProxi after add a proxi.
         getProxi: () => {
             const state = getStateFromMainMap(instanceId);
-            const { store, proxiObject: previousProxiObject } = state;
+            const { store: selfStore, proxiObject: previousProxiObject } =
+                state;
 
             /**
-             * Create only one proxi.
+             * Return previous proxi if exist.
              */
             if (previousProxiObject) {
                 return previousProxiObject;
             }
 
-            // https://stackoverflow.com/questions/44469447/apparent-pollution-with-multiple-proxy-objects-for-the-same-target
-            const proxiObject = new Proxy(store, {
+            /**
+             * Create self proxi
+             */
+            const selfProxi = new Proxy(selfStore, {
                 set(target, /** @type{string} */ prop, value) {
                     if (prop in target) {
-                        // Mutiamo l'oggetto originale con i metodi giá presenti
                         storeSetEntryPoint({
                             instanceId,
                             prop,
@@ -150,32 +153,118 @@ export const mobStore = (data = {}) => {
                         return true;
                     }
 
-                    const logStyle = getLogStyle();
-                    storePropInProxiWarning(prop, logStyle);
                     return false;
-                },
-                get(target, /** @type{string} */ prop) {
-                    // default.
-                    if (bindedInstance.length === 0) {
-                        return target[prop];
-                    }
-
-                    // return binded state that match prop.
-                    const currentBindId =
-                        [instanceId, ...bindedInstance].find(
-                            (id) => prop in storeMap.get(id).store
-                        ) ?? '';
-
-                    const bindedState = getStateFromMainMap(currentBindId);
-                    const { store: bindedStore } = bindedState;
-                    return bindedStore[prop];
                 },
             });
 
-            updateMainMap(instanceId, { ...state, proxiObject });
+            /**
+             * Rerturn self proxi if no bindedInstace is used.
+             */
+            if (bindedInstance.length === 0) {
+                updateMainMap(instanceId, {
+                    ...state,
+                    proxiObject: selfProxi,
+                });
 
-            return proxiObject;
+                return selfProxi;
+            }
+
+            /**
+             * Create proxi for binded store.
+             * Binded proxi has only read operation.
+             */
+            const bindedProxi = bindedInstance.map((id) => {
+                const state = getStateFromMainMap(id);
+                const { store } = state;
+
+                return new Proxy(store, {
+                    set() {
+                        return false;
+                    },
+                });
+            });
+
+            /**
+             * Create a proxy with all new proxi.
+             * Reflect operation to the proxies with prop
+             */
+            const bindedProxiArray = new Proxy([selfProxi, ...bindedProxi], {
+                set(proxies, prop, value) {
+                    const currentProxi = proxies.find((proxi) => prop in proxi);
+                    if (!currentProxi) return false;
+
+                    Reflect.set(currentProxi, prop, value);
+                    return true;
+                },
+                get(proxies, prop) {
+                    const currentProxi = proxies.find((proxi) => prop in proxi);
+                    if (!currentProxi) return false;
+
+                    return Reflect.get(currentProxi, prop);
+                },
+            });
+
+            updateMainMap(instanceId, {
+                ...state,
+                proxiObject: bindedProxiArray,
+            });
+
+            return bindedProxiArray;
         },
+        // getProxi: () => {
+        //     const state = getStateFromMainMap(instanceId);
+        //     const { store, proxiObject: previousProxiObject } = state;
+        //
+        //     /**
+        //      * Create only one proxi.
+        //      */
+        //     if (previousProxiObject) {
+        //         return previousProxiObject;
+        //     }
+        //
+        //     // https://stackoverflow.com/questions/44469447/apparent-pollution-with-multiple-proxy-objects-for-the-same-target
+        //     const proxiObject = new Proxy(store, {
+        //         set(target, /** @type{string} */ prop, value) {
+        //             if (prop in target) {
+        //                 // Mutiamo l'oggetto originale con i metodi giá presenti
+        //                 storeSetEntryPoint({
+        //                     instanceId,
+        //                     prop,
+        //                     value,
+        //                     fireCallback: true,
+        //                     clone: false,
+        //                     action: STORE_SET,
+        //                 });
+        //
+        //                 return true;
+        //             }
+        //
+        //             const logStyle = getLogStyle();
+        //             storePropInProxiWarning(prop, logStyle);
+        //             return false;
+        //         },
+        //         get(target, /** @type{string} */ prop) {
+        //             // default.
+        //             if (bindedInstance.length === 0) {
+        //                 return target[prop];
+        //             }
+        //
+        //             // return binded state that match prop.
+        //             const currentBindId =
+        //                 [instanceId, ...bindedInstance].find(
+        //                     (id) => prop in storeMap.get(id).store
+        //                 ) ?? '';
+        //
+        //             const bindedState = getStateFromMainMap(currentBindId);
+        //             const { store: bindedStore } = bindedState;
+        //             return bindedStore[prop];
+        //         },
+        //     });
+        //
+        //     updateMainMap(instanceId, { ...state, proxiObject });
+        //
+        //     return proxiObject;
+        // },
         quickSetProp: (prop, value) => {
             storeQuickSetEntrypoint({ instanceId, prop, value });
         },
