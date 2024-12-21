@@ -85,7 +85,16 @@ export const mobStore = (data = {}) => {
                 );
         },
         getProp: (prop) => {
-            return storeGetPropEntryPoint({ instanceId, prop });
+            if (bindedInstance.length === 0) {
+                return storeGetPropEntryPoint({ instanceId, prop });
+            }
+
+            const currentBindId =
+                [instanceId, ...bindedInstance].find(
+                    (id) => prop in storeMap.get(id).store
+                ) ?? '';
+
+            return storeGetPropEntryPoint({ instanceId: currentBindId, prop });
         },
         set: (prop, value, { emit = true } = {}) => {
             storeSetEntryPoint({
@@ -118,13 +127,13 @@ export const mobStore = (data = {}) => {
                 return watchEntryPoint({ instanceId, prop, callback });
             }
 
-            const currentId =
+            const currentBindId =
                 [instanceId, ...bindedInstance].find(
                     (id) => prop in storeMap.get(id).store
                 ) ?? '';
 
             const unsubscribe = watchEntryPoint({
-                instanceId: currentId,
+                instanceId: currentBindId,
                 prop,
                 callback,
             });

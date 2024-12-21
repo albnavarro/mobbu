@@ -99,10 +99,12 @@ mobCore.useLoad(() => {
 
     const unsubscribe = store2.watch('prop1', (value) => {
         console.log('watch value:', value);
+        console.log('get prop:', store2.getProp('prop1'));
         // console.log('proxi value', console.log(proxiObject));
     });
 
     let cont = 0;
+
     document.body.addEventListener('click', () => {
         store1.update('prop1', (value) => value + 1);
         console.log(store2.get());

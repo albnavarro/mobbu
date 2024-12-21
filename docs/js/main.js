@@ -2753,7 +2753,13 @@
         );
       },
       getProp: (prop) => {
-        return storeGetPropEntryPoint({ instanceId, prop });
+        if (bindedInstance.length === 0) {
+          return storeGetPropEntryPoint({ instanceId, prop });
+        }
+        const currentBindId = [instanceId, ...bindedInstance].find(
+          (id) => prop in storeMap.get(id).store
+        ) ?? "";
+        return storeGetPropEntryPoint({ instanceId: currentBindId, prop });
       },
       set: (prop, value, { emit = true } = {}) => {
         storeSetEntryPoint({
@@ -2785,11 +2791,11 @@
         if (bindedInstance.length === 0) {
           return watchEntryPoint({ instanceId, prop, callback: callback2 });
         }
-        const currentId = [instanceId, ...bindedInstance].find(
+        const currentBindId = [instanceId, ...bindedInstance].find(
           (id) => prop in storeMap.get(id).store
         ) ?? "";
         const unsubscribe3 = watchEntryPoint({
-          instanceId: currentId,
+          instanceId: currentBindId,
           prop,
           callback: callback2
         });
@@ -36014,6 +36020,7 @@ Loading snippet ...</pre
     store2.bindStore(store1);
     const unsubscribe3 = store2.watch("prop1", (value) => {
       console.log("watch value:", value);
+      console.log("get prop:", store2.getProp("prop1"));
     });
     let cont = 0;
     document.body.addEventListener("click", () => {
