@@ -6,7 +6,12 @@ import {
     storeQuickSetEntrypoint,
     storeSetEntryPoint,
 } from './storeSet';
-import { removeStateFromMainMap, storeMap, updateMainMap } from './storeMap';
+import {
+    getStateFromMainMap,
+    removeStateFromMainMap,
+    storeMap,
+    updateMainMap,
+} from './storeMap';
 import { inizializeAllProps, inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
 import { inizializeInstance } from './inizializeInstance';
@@ -21,6 +26,8 @@ import {
 import { STORE_SET, STORE_UPDATE } from './constant';
 import { getProxiEntryPoint } from './proxi';
 import { checkType } from './storeType';
+import { getLogStyle } from './logStyle';
+import { storePropInProxiWarning } from './storeWarining';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
@@ -117,7 +124,41 @@ export const mobStore = (data = {}) => {
             });
         },
         getProxi: () => {
-            return getProxiEntryPoint({ instanceId });
+            const state = getStateFromMainMap(instanceId);
+            const { store, proxiObject: previousProxiObject } = state;
+
+            /**
+             * Create only one proxi.
+             */
+            if (previousProxiObject) {
+                return previousProxiObject;
+            }
+
+            const proxiObject = new Proxy(store, {
+                set(target, /** @type{string} */ prop, value) {
+                    if (prop in target) {
+                        // Mutiamo l'oggetto originale con i metodi giá presenti
+                        storeSetEntryPoint({
+                            instanceId,
+                            prop,
+                            value,
+                            fireCallback: true,
+                            clone: false,
+                            action: STORE_SET,
+                        });
+
+                        return true;
+                    }
+
+                    const logStyle = getLogStyle();
+                    storePropInProxiWarning(prop, logStyle);
+                    return false;
+                },
+            });
+
+            updateMainMap(instanceId, { ...state, proxiObject });
+
+            return proxiObject;
         },
         quickSetProp: (prop, value) => {
             storeQuickSetEntrypoint({ instanceId, prop, value });

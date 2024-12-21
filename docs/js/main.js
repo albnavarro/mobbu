@@ -2699,35 +2699,6 @@
     console.log(state);
   };
 
-  // src/js/mobCore/store/proxi.js
-  var getProxiEntryPoint = ({ instanceId }) => {
-    const state = getStateFromMainMap(instanceId);
-    const { store, proxiObject: previousProxiObject } = state;
-    if (previousProxiObject) {
-      return previousProxiObject;
-    }
-    const proxiObject = new Proxy(store, {
-      set(target, prop, value) {
-        if (prop in target) {
-          storeSetEntryPoint({
-            instanceId,
-            prop,
-            value,
-            fireCallback: true,
-            clone: false,
-            action: STORE_SET
-          });
-          return true;
-        }
-        const logStyle2 = getLogStyle();
-        storePropInProxiWarning(prop, logStyle2);
-        return false;
-      }
-    });
-    updateMainMap(instanceId, { ...state, proxiObject });
-    return proxiObject;
-  };
-
   // src/js/mobCore/store/index.js
   var mobStore = (data = {}) => {
     const instanceId = getUnivoqueId();
@@ -2782,7 +2753,31 @@
         });
       },
       getProxi: () => {
-        return getProxiEntryPoint({ instanceId });
+        const state = getStateFromMainMap(instanceId);
+        const { store, proxiObject: previousProxiObject } = state;
+        if (previousProxiObject) {
+          return previousProxiObject;
+        }
+        const proxiObject = new Proxy(store, {
+          set(target, prop, value) {
+            if (prop in target) {
+              storeSetEntryPoint({
+                instanceId,
+                prop,
+                value,
+                fireCallback: true,
+                clone: false,
+                action: STORE_SET
+              });
+              return true;
+            }
+            const logStyle2 = getLogStyle();
+            storePropInProxiWarning(prop, logStyle2);
+            return false;
+          }
+        });
+        updateMainMap(instanceId, { ...state, proxiObject });
+        return proxiObject;
       },
       quickSetProp: (prop, value) => {
         storeQuickSetEntrypoint({ instanceId, prop, value });
