@@ -2774,6 +2774,17 @@
             const logStyle2 = getLogStyle();
             storePropInProxiWarning(prop, logStyle2);
             return false;
+          },
+          get(target, prop) {
+            if (bindedInstance.length === 0) {
+              return target[prop];
+            }
+            const currentBindId = [instanceId, ...bindedInstance].find(
+              (id) => prop in storeMap.get(id).store
+            ) ?? "";
+            const bindedState = getStateFromMainMap(currentBindId);
+            const { store: bindedStore } = bindedState;
+            return bindedStore[prop];
           }
         });
         updateMainMap(instanceId, { ...state, proxiObject });
@@ -36010,12 +36021,16 @@ Loading snippet ...</pre
       prop1: 0
     });
     const store2 = mobCore.createStore({
-      prop2: 0
+      prop2: 0,
+      pippo: 10
     });
     store2.bindStore(store1);
+    const proxiObject = store2.getProxi();
+    console.log(proxiObject);
     const unsubscribe3 = store2.watch("prop1", (value) => {
       console.log("watch value:", value);
       console.log("get prop:", store2.getProp("prop1"));
+      console.log("proxi value prop1", proxiObject.prop1);
     });
     let cont = 0;
     document.body.addEventListener("click", () => {

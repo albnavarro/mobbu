@@ -92,15 +92,17 @@ mobCore.useLoad(() => {
 
     const store2 = mobCore.createStore({
         prop2: 0,
+        pippo: 10,
     });
 
     store2.bindStore(store1);
-    // const proxiObject = store2.getProxi();
+    const proxiObject = store2.getProxi();
+    console.log(proxiObject);
 
     const unsubscribe = store2.watch('prop1', (value) => {
         console.log('watch value:', value);
         console.log('get prop:', store2.getProp('prop1'));
-        // console.log('proxi value', console.log(proxiObject));
+        console.log('proxi value prop1', proxiObject.prop1);
     });
 
     let cont = 0;

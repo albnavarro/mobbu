@@ -24,7 +24,6 @@ import {
     storeGetValidationEntryPoint,
 } from './storeDebug';
 import { STORE_SET, STORE_UPDATE } from './constant';
-import { getProxiEntryPoint } from './proxi';
 import { checkType } from './storeType';
 import { getLogStyle } from './logStyle';
 import { storePropInProxiWarning } from './storeWarining';
@@ -153,6 +152,22 @@ export const mobStore = (data = {}) => {
                     const logStyle = getLogStyle();
                     storePropInProxiWarning(prop, logStyle);
                     return false;
+                },
+                get(target, /** @type{string} */ prop) {
+                    // default.
+                    if (bindedInstance.length === 0) {
+                        return target[prop];
+                    }
+
+                    // return binded state that match prop.
+                    const currentBindId =
+                        [instanceId, ...bindedInstance].find(
+                            (id) => prop in storeMap.get(id).store
+                        ) ?? '';
+
+                    const bindedState = getStateFromMainMap(currentBindId);
+                    const { store: bindedStore } = bindedState;
+                    return bindedStore[prop];
                 },
             });
 
