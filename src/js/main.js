@@ -85,4 +85,33 @@ mobCore.useLoad(() => {
     // storeTest();
     // initTestMapStore();
     // stateTest();
+
+    const store1 = mobCore.createStore({
+        prop1: 0,
+    });
+
+    const store2 = mobCore.createStore({
+        prop2: 0,
+    });
+
+    store2.bindStore(store1);
+    // const proxiObject = store2.getProxi();
+
+    const unsubscribe = store2.watch('prop1', (value) => {
+        console.log('watch value:', value);
+        // console.log('proxi value', console.log(proxiObject));
+    });
+
+    let cont = 0;
+    document.body.addEventListener('click', () => {
+        store1.update('prop1', (value) => value + 1);
+        console.log(store2.get());
+
+        cont++;
+
+        if (cont === 5) {
+            // unsubscribe();
+            store2.destroy();
+        }
+    });
 });

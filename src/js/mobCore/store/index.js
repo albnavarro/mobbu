@@ -6,7 +6,7 @@ import {
     storeQuickSetEntrypoint,
     storeSetEntryPoint,
 } from './storeSet';
-import { removeStateFromMainMap, updateMainMap } from './storeMap';
+import { removeStateFromMainMap, storeMap, updateMainMap } from './storeMap';
 import { inizializeAllProps, inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
 import { inizializeInstance } from './inizializeInstance';
@@ -20,6 +20,7 @@ import {
 } from './storeDebug';
 import { STORE_SET, STORE_UPDATE } from './constant';
 import { getProxiEntryPoint } from './proxi';
+import { checkType } from './storeType';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
@@ -56,12 +57,32 @@ export const mobStore = (data = {}) => {
      * on destroy.
      */
 
+    let bindedInstance = [];
+    let unsubScribeBindStore = [];
+
     /**
      * Methods
      */
     return {
+        getId: () => instanceId,
+        bindStore: (value) => {
+            const ids = checkType(Array, value)
+                ? value.map((store) => store.getId())
+                : [value.getId()];
+
+            bindedInstance = [...bindedInstance, ...ids];
+        },
         get: () => {
-            return storeGetEntryPoint(instanceId);
+            if (bindedInstance.length === 0) {
+                return storeGetEntryPoint(instanceId);
+            }
+
+            return [...bindedInstance, instanceId]
+                .map((id) => storeGetEntryPoint(id))
+                .reduce(
+                    (previous, current) => ({ ...previous, ...current }),
+                    {}
+                );
         },
         getProp: (prop) => {
             return storeGetPropEntryPoint({ instanceId, prop });
@@ -93,7 +114,23 @@ export const mobStore = (data = {}) => {
             storeQuickSetEntrypoint({ instanceId, prop, value });
         },
         watch: (prop, callback) => {
-            return watchEntryPoint({ instanceId, prop, callback });
+            if (bindedInstance.length === 0) {
+                return watchEntryPoint({ instanceId, prop, callback });
+            }
+
+            const currentId =
+                [instanceId, ...bindedInstance].find(
+                    (id) => prop in storeMap.get(id).store
+                ) ?? '';
+
+            const unsubscribe = watchEntryPoint({
+                instanceId: currentId,
+                prop,
+                callback,
+            });
+
+            unsubScribeBindStore = [...unsubScribeBindStore, unsubscribe];
+            return unsubscribe;
         },
         computed: (prop, keys, callback) => {
             storeComputedEntryPoint({
@@ -122,6 +159,11 @@ export const mobStore = (data = {}) => {
             storeDebugValidateEntryPoint({ instanceId });
         },
         destroy: () => {
+            bindedInstance = [];
+            unsubScribeBindStore.forEach((unsubscribe) => {
+                unsubscribe?.();
+            });
+
             removeStateFromMainMap(instanceId);
         },
     };
