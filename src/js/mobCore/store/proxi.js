@@ -1,8 +1,6 @@
 import { STORE_SET } from './constant';
-import { getLogStyle } from './logStyle';
 import { getStateFromMainMap, updateMainMap } from './storeMap';
 import { storeSetEntryPoint } from './storeSet';
-import { storePropInProxiWarning } from './storeWarining';
 
 /**
  * @param {object} params
@@ -11,19 +9,25 @@ import { storePropInProxiWarning } from './storeWarining';
  */
 export const getProxiEntryPoint = ({ instanceId }) => {
     const state = getStateFromMainMap(instanceId);
-    const { store, proxiObject: previousProxiObject } = state;
+    const {
+        bindInstance,
+        store: selfStore,
+        proxiObject: previousProxiObject,
+    } = state;
 
     /**
-     * Create only one proxi.
+     * Return previous proxi if exist.
      */
     if (previousProxiObject) {
         return previousProxiObject;
     }
 
-    const proxiObject = new Proxy(store, {
+    /**
+     * Create self proxi
+     */
+    const selfProxi = new Proxy(selfStore, {
         set(target, /** @type{string} */ prop, value) {
             if (prop in target) {
-                // Mutiamo l'oggetto originale con i metodi giá presenti
                 storeSetEntryPoint({
                     instanceId,
                     prop,
@@ -36,13 +40,62 @@ export const getProxiEntryPoint = ({ instanceId }) => {
                 return true;
             }
 
-            const logStyle = getLogStyle();
-            storePropInProxiWarning(prop, logStyle);
             return false;
         },
     });
 
-    updateMainMap(instanceId, { ...state, proxiObject });
+    /**
+     * Rerturn self proxi if no bindedInstace is used.
+     */
 
-    return proxiObject;
+    if (!bindInstance || bindInstance.length === 0) {
+        updateMainMap(instanceId, {
+            ...state,
+            proxiObject: selfProxi,
+        });
+
+        return selfProxi;
+    }
+
+    /**
+     * Create proxi for binded store.
+     * Binded proxi has only read operation.
+     */
+    const bindedProxi = bindInstance.map((id) => {
+        const state = getStateFromMainMap(id);
+        const { store } = state;
+
+        return new Proxy(store, {
+            set() {
+                return false;
+            },
+        });
+    });
+
+    /**
+     * Create a proxy with all new proxi.
+     * Reflect operation to the proxies with prop
+     */
+    const bindedProxiArray = new Proxy([selfProxi, ...bindedProxi], {
+        set(proxies, prop, value) {
+            const currentProxi = proxies.find((proxi) => prop in proxi);
+            if (!currentProxi) return false;
+
+            Reflect.set(currentProxi, prop, value);
+            return true;
+        },
+        get(proxies, prop) {
+            const currentProxi = proxies.find((proxi) => prop in proxi);
+            if (!currentProxi) return false;
+
+            return Reflect.get(currentProxi, prop);
+        },
+    });
+
+    updateMainMap(instanceId, {
+        ...state,
+        proxiObject: bindedProxiArray,
+    });
+
+    return bindedProxiArray;
 };
