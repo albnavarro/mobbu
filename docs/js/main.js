@@ -17633,6 +17633,14 @@
     }
   };
 
+  // src/js/mobjs/component/action/state/getStateById.js
+  var getStateById = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const state = item?.state;
+    return state?.get();
+  };
+
   // src/js/mobjs/component/action/watch.js
   var watchById = (id = "", prop = "", cb = () => {
   }) => {
@@ -17716,8 +17724,10 @@
   var createBindProxiWatcher = (id, bindProxiId, keys, render2) => {
     let watchIsRunning = false;
     let ref;
+    const states = getStateById(id);
     keys.forEach((state) => {
-      const unwatch = watchById(id, state, () => {
+      const isArray = checkType(Array, states?.[state]);
+      const unwatch = watchById(id, state, (value) => {
         if (watchIsRunning) return;
         watchIsRunning = true;
         mobCore.useNextLoop(() => {
@@ -17731,7 +17741,8 @@
               );
               removeBindProxiByBindProxiId({ id, bindProxiId });
             }
-            if (ref.deref()) {
+            const shouldRender = !isArray || value.length > 0;
+            if (ref.deref() && shouldRender) {
               ref.deref().textContent = "";
               ref.deref().insertAdjacentHTML("afterbegin", render2());
             }
@@ -17743,14 +17754,6 @@
         });
       });
     });
-  };
-
-  // src/js/mobjs/component/action/state/getStateById.js
-  var getStateById = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const state = item?.state;
-    return state?.get();
   };
 
   // src/js/mobjs/modules/bindtext/index.js

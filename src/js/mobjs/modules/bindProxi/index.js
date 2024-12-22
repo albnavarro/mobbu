@@ -1,4 +1,6 @@
 import { mobCore } from '../../../mobCore';
+import { checkType } from '../../../mobCore/store/storeType';
+import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
 
 /** @type {Map<string, import("./type").BindProxi[]>} */
@@ -169,8 +171,16 @@ export const createBindProxiWatcher = (id, bindProxiId, keys, render) => {
     /** @type{WeakRef<HTMLElement>} */
     let ref;
 
+    /**
+     * proxiIndex issue.
+     * Get states to check if there is an array
+     * Will check that array has always a length > 0
+     */
+    const states = getStateById(id);
+
     keys.forEach((state) => {
-        const unwatch = watchById(id, state, () => {
+        const isArray = checkType(Array, states?.[state]);
+        const unwatch = watchById(id, state, (value) => {
             /**
              * Wait for all all props is settled.
              */
@@ -189,7 +199,14 @@ export const createBindProxiWatcher = (id, bindProxiId, keys, render) => {
                         removeBindProxiByBindProxiId({ id, bindProxiId });
                     }
 
-                    if (ref.deref()) {
+                    /**
+                     * Repeat ProxiIndex issue.
+                     * Array che be destroyed before element will removed.
+                     * proxi.data[proxiIndex.value].prop can fail when array is empty.
+                     */
+                    const shouldRender = !isArray || value.length > 0;
+
+                    if (ref.deref() && shouldRender) {
                         ref.deref().textContent = '';
                         ref.deref().insertAdjacentHTML('afterbegin', render());
                     }
