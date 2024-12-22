@@ -2626,11 +2626,19 @@
   };
 
   // src/js/mobCore/store/storeGet.js
-  var storeGetEntryPoint = (instanceId) => {
+  var storeGet = (instanceId) => {
     const { store } = getStateFromMainMap(instanceId);
     return store;
   };
-  var storeGetPropEntryPoint = ({ instanceId, prop }) => {
+  var storeGetEntryPoint = (instanceId) => {
+    const state = getStateFromMainMap(instanceId);
+    const { bindInstance } = state;
+    if (!bindInstance || bindInstance.length === 0) {
+      return storeGet(instanceId);
+    }
+    return [...bindInstance, instanceId].map((id) => storeGet(id)).reduce((previous, current) => ({ ...previous, ...current }), {});
+  };
+  var storeGetProp = ({ instanceId, prop }) => {
     const { store } = getStateFromMainMap(instanceId);
     if (!store) return;
     if (prop in store) {
@@ -2639,6 +2647,17 @@
       storeGetPropWarning(prop, getLogStyle());
       return;
     }
+  };
+  var storeGetPropEntryPoint = ({ instanceId, prop }) => {
+    const state = getStateFromMainMap(instanceId);
+    const { bindInstance } = state;
+    if (!bindInstance || bindInstance.length === 0) {
+      return storeGetProp({ instanceId, prop });
+    }
+    const currentBindId = [instanceId, ...bindInstance].find(
+      (id) => prop in storeMap.get(id).store
+    ) ?? "";
+    return storeGetProp({ instanceId: currentBindId, prop });
   };
 
   // src/js/mobCore/store/storeEmit.js
@@ -2792,26 +2811,10 @@
         bindStoreEntryPoint({ value, instanceId });
       },
       get: () => {
-        const state = getStateFromMainMap(instanceId);
-        const { bindInstance } = state;
-        if (!bindInstance || bindInstance.length === 0) {
-          return storeGetEntryPoint(instanceId);
-        }
-        return [...bindInstance, instanceId].map((id) => storeGetEntryPoint(id)).reduce(
-          (previous, current) => ({ ...previous, ...current }),
-          {}
-        );
+        return storeGetEntryPoint(instanceId);
       },
       getProp: (prop) => {
-        const state = getStateFromMainMap(instanceId);
-        const { bindInstance } = state;
-        if (!bindInstance || bindInstance.length === 0) {
-          return storeGetPropEntryPoint({ instanceId, prop });
-        }
-        const currentBindId = [instanceId, ...bindInstance].find(
-          (id) => prop in storeMap.get(id).store
-        ) ?? "";
-        return storeGetPropEntryPoint({ instanceId: currentBindId, prop });
+        return storeGetPropEntryPoint({ instanceId, prop });
       },
       set: (prop, value, { emit = true } = {}) => {
         storeSetEntryPoint({

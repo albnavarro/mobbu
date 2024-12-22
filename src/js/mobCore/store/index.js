@@ -24,7 +24,6 @@ import {
     storeGetValidationEntryPoint,
 } from './storeDebug';
 import { STORE_SET, STORE_UPDATE } from './constant';
-import { checkType } from './storeType';
 import { getProxiEntryPoint } from './proxi';
 import { bindStoreEntryPoint } from './bindStore';
 
@@ -65,34 +64,10 @@ export const mobStore = (data = {}) => {
             bindStoreEntryPoint({ value, instanceId });
         },
         get: () => {
-            const state = getStateFromMainMap(instanceId);
-            const { bindInstance } = state;
-
-            if (!bindInstance || bindInstance.length === 0) {
-                return storeGetEntryPoint(instanceId);
-            }
-
-            return [...bindInstance, instanceId]
-                .map((id) => storeGetEntryPoint(id))
-                .reduce(
-                    (previous, current) => ({ ...previous, ...current }),
-                    {}
-                );
+            return storeGetEntryPoint(instanceId);
         },
         getProp: (prop) => {
-            const state = getStateFromMainMap(instanceId);
-            const { bindInstance } = state;
-
-            if (!bindInstance || bindInstance.length === 0) {
-                return storeGetPropEntryPoint({ instanceId, prop });
-            }
-
-            const currentBindId =
-                [instanceId, ...bindInstance].find(
-                    (id) => prop in storeMap.get(id).store
-                ) ?? '';
-
-            return storeGetPropEntryPoint({ instanceId: currentBindId, prop });
+            return storeGetPropEntryPoint({ instanceId, prop });
         },
         set: (prop, value, { emit = true } = {}) => {
             storeSetEntryPoint({
