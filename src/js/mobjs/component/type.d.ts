@@ -9,6 +9,7 @@ import {
     watchType,
     MobStore,
     storeProxiType,
+    bindStoreType,
 } from '../../mobCore/store/type';
 import { UserComponent } from '../webComponent/type';
 
@@ -59,5 +60,6 @@ export interface componentStoreReturnType {
     emitAsync: emitAsyncType;
     computed: computedType;
     watch: watchType;
+    bindStore: bindStoreType;
     debug: () => void;
 }

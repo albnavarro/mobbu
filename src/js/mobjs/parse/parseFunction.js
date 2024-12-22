@@ -193,6 +193,7 @@ export const parseComponentsRecursive = async ({
         computed,
         watch,
         debug,
+        bindStore,
     } = addComponentToStore({
         element: componentToParse,
         props,
@@ -259,6 +260,7 @@ export const parseComponentsRecursive = async ({
         key,
         bindEventsId,
         debug,
+        bindStore,
     });
 
     /**

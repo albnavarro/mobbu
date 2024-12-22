@@ -20654,6 +20654,7 @@
     emitAsync,
     computed,
     watch,
+    bindStore,
     id,
     key,
     bindEventsId,
@@ -20672,6 +20673,7 @@
       emitAsync,
       computed,
       watch,
+      bindStore,
       debug,
       repeatIdArray,
       renderComponent: async ({
@@ -21012,6 +21014,9 @@
       }) => store.computed(prop, keys, fn),
       watch: (prop = "", cb = () => {
       }) => store.watch(prop, cb),
+      bindStore: (value) => {
+        store.bindStore(value);
+      },
       debug: () => store.debug()
     };
   };
@@ -21111,7 +21116,8 @@
       emitAsync,
       computed,
       watch,
-      debug
+      debug,
+      bindStore
     } = addComponentToStore({
       element: componentToParse,
       props,
@@ -21155,7 +21161,8 @@
       id,
       key,
       bindEventsId,
-      debug
+      debug,
+      bindStore
     });
     const content = await userFunctionComponent(objectFromComponentFunction);
     const classList = componentToParse.classList;
@@ -36106,43 +36113,6 @@ Loading snippet ...</pre
     };
     init7();
     usePageScroll();
-    const store1 = mobCore.createStore({
-      store1Prop: 0
-    });
-    const store2 = mobCore.createStore({
-      prop2: 0,
-      pippo: 10
-    });
-    store2.bindStore(store1);
-    const proxi1 = store1.getProxi();
-    const proxi2_a = store2.getProxi();
-    console.log(proxi2_a);
-    const proxie2_b = store2.getProxi();
-    console.log(proxie2_b);
-    proxie2_b.store1Prop = 1e5;
-    proxie2_b.prop2 = 1;
-    console.log(proxie2_b);
-    const unsubscribe3 = store2.watch("store1Prop", (value) => {
-      console.log("watch value:", value);
-      console.log("get", store2.get());
-      console.log("get prop:", store2.getProp("store1Prop"));
-      console.log("proxi1 value", proxi1);
-      console.log("proxi2_a value", proxi2_a);
-      console.log("proxie2_b value", proxie2_b);
-      console.log("proxi2_a value store1Prop", proxi2_a.store1Prop);
-      console.log("proxie2_b value store1Prop", proxie2_b.store1Prop);
-    });
-    store2.emit("store1Prop");
-    let cont = 0;
-    document.body.addEventListener("click", () => {
-      store2.update("prop2", (value) => value + 1);
-      proxi1.store1Prop++;
-      console.log("get on click", store2.get());
-      cont++;
-      if (cont === 5) {
-        store2.destroy();
-      }
-    });
   });
 })();
 //# sourceMappingURL=main.js.map

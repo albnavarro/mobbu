@@ -1,3 +1,4 @@
+import { MobStore } from '../../mobCore/store/type';
 import { bindEventsObject } from '../modules/bindEvents/type';
 import { delegateEventObject } from '../modules/delegateEvents/type';
 import { ArrayElement, NotValue, OnlyStringKey } from './utils';
@@ -122,6 +123,13 @@ export type PartialWatch<T> = <K extends keyof GetState<T>>(
         validate: boolean
     ) => void
 ) => () => void;
+
+/**
+ * bindStore
+ */
+export type PartialBindStore = (
+    value: MobStore<StoreDefaultMap> | MobStore<StoreDefaultMap>[]
+) => void;
 
 /**
  * RemoveDom

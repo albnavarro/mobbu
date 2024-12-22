@@ -38,6 +38,7 @@ import {
     PartialUseMethodByName,
     PartialGetProxi,
     PartialGetProxiState,
+    PartialBindStore,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -53,6 +54,7 @@ export type EmitAsync<T> = PartialEmitAsync<T>;
 export type Computed<T> = PartialCompunted<T>;
 export type ComputedSync<T> = PartialCompunted<T>;
 export type Watch<T> = PartialWatch<T>;
+export type BindStore = PartialBindStore;
 export type RemoveDom = PartialRemoveDOM;
 export type Remove = PartialRemove;
 export type GetChildren = PartialGetChildren;
@@ -262,6 +264,22 @@ export interface componentPropsType<T, R> {
      *
      */
     watch: Watch<T>;
+
+    /**
+     * @description
+     * Bind a store to self state object.
+     * Will be possible use in only read-mode the get/watch/proxi.
+     *
+     * @example
+     * ```javascript
+     *
+     * bindStore([myStore, myStore2]);
+     * bindStore(myStore);
+     *
+     * ```
+     *
+     */
+    bindStore: PartialBindStore;
 
     /**
      * @description

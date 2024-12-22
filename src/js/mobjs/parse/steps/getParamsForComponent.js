@@ -67,6 +67,7 @@ export const getParamsForComponentFunction = ({
     emitAsync,
     computed,
     watch,
+    bindStore,
     id,
     key,
     bindEventsId,
@@ -92,6 +93,7 @@ export const getParamsForComponentFunction = ({
         emitAsync,
         computed,
         watch,
+        bindStore,
         debug,
         repeatIdArray,
         renderComponent: async ({
