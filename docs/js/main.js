@@ -2758,6 +2758,27 @@
     return bindedProxiArray;
   };
 
+  // src/js/mobCore/store/bindStore.js
+  var bindStoreEntryPoint = ({ value, instanceId }) => {
+    const state = getStateFromMainMap(instanceId);
+    const { bindInstance } = state;
+    if (!bindInstance) return;
+    const ids = checkType(Array, value) ? (
+      // @ts-ignore
+      value.map(
+        (store) => store.getId()
+      )
+    ) : (
+      // @ts-ignore
+      [value.getId()]
+    );
+    const bindInstanceUpdated = [...bindInstance, ...ids];
+    updateMainMap(instanceId, {
+      ...state,
+      bindInstance: bindInstanceUpdated
+    });
+  };
+
   // src/js/mobCore/store/index.js
   var mobStore = (data = {}) => {
     const instanceId = getUnivoqueId();
@@ -2768,23 +2789,7 @@
     return {
       getId: () => instanceId,
       bindStore: (value) => {
-        const state = getStateFromMainMap(instanceId);
-        const { bindInstance } = state;
-        if (!bindInstance) return;
-        const ids = checkType(Array, value) ? (
-          // @ts-ignore
-          value.map(
-            (store) => store.getId()
-          )
-        ) : (
-          // @ts-ignore
-          [value.getId()]
-        );
-        const bindInstanceUpdated = [...bindInstance, ...ids];
-        updateMainMap(instanceId, {
-          ...state,
-          bindInstance: bindInstanceUpdated
-        });
+        bindStoreEntryPoint({ value, instanceId });
       },
       get: () => {
         const state = getStateFromMainMap(instanceId);

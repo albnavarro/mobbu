@@ -26,6 +26,7 @@ import {
 import { STORE_SET, STORE_UPDATE } from './constant';
 import { checkType } from './storeType';
 import { getProxiEntryPoint } from './proxi';
+import { bindStoreEntryPoint } from './bindStore';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
@@ -61,23 +62,7 @@ export const mobStore = (data = {}) => {
     return {
         getId: () => instanceId,
         bindStore: (value) => {
-            const state = getStateFromMainMap(instanceId);
-            const { bindInstance } = state;
-            if (!bindInstance) return;
-
-            const ids = checkType(Array, value)
-                ? // @ts-ignore
-                  value.map((/** @type {getIdI: () => string} */ store) =>
-                      store.getId()
-                  )
-                : // @ts-ignore
-                  [value.getId()];
-
-            const bindInstanceUpdated = [...bindInstance, ...ids];
-            updateMainMap(instanceId, {
-                ...state,
-                bindInstance: bindInstanceUpdated,
-            });
+            bindStoreEntryPoint({ value, instanceId });
         },
         get: () => {
             const state = getStateFromMainMap(instanceId);

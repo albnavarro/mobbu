@@ -49,9 +49,7 @@ type StoreDefaultMap = Record<string, any>;
 
 export interface MobStore<T extends StoreDefaultMap> {
     getId: getIdType;
-    bindStore: (
-        value: MobStore<StoreDefaultMap> | MobStore<StoreDefaultMap>[]
-    ) => void;
+    bindStore: bindStoreType;
     get: getType<T>;
     getProp: getPropType<T>;
     set: setType<T>;
@@ -68,6 +66,12 @@ export interface MobStore<T extends StoreDefaultMap> {
     debugValidate: () => void;
     destroy: () => void;
 }
+
+export type bindStoreValueType =
+    | MobStore<StoreDefaultMap>
+    | MobStore<StoreDefaultMap>[];
+
+export type bindStoreType = (value: bindStoreValueType) => void;
 
 export type getType<T> = () => T;
 
