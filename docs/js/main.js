@@ -17733,8 +17733,15 @@
               removeBindProxiByBindProxiId({ id, bindProxiId });
             }
             if (ref.deref()) {
-              ref.deref().textContent = "";
-              ref.deref().insertAdjacentHTML("afterbegin", render2());
+              try {
+                ref.deref().textContent = "";
+                ref.deref().insertAdjacentHTML(
+                  "afterbegin",
+                  render2()
+                );
+              } catch (error) {
+                console.log(error);
+              }
             }
             watchIsRunning = false;
             mobCore.useNextTick(async () => {
