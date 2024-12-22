@@ -64,6 +64,7 @@ export const addWithoutKey = ({
     if (diff > 0) {
         const currentRender = useSync
             ? updateRepeaterWithoutKeyUseSync({
+                  id,
                   diff,
                   previousLenght,
                   current,
@@ -72,6 +73,7 @@ export const addWithoutKey = ({
                   render,
               })
             : updateRepeaterWitoutKey({
+                  id,
                   diff,
                   current,
                   previousLenght,

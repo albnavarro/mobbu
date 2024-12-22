@@ -12,9 +12,11 @@ import {
 import { queryAllFutureComponent } from '../../../query/queryAllFutureComponent';
 import { setSkipAddUserComponent } from '../../userComponent';
 import { setComponentRepeaterState } from '../repeaterValue';
+import { getRepeatProxi } from './getProxi';
 
 /**
  * @param {object} params
+ * @param {string} params.id
  * @param {number} params.diff
  * @param {any} params.current
  * @param {number} params.previousLenght
@@ -24,6 +26,7 @@ import { setComponentRepeaterState } from '../repeaterValue';
  * @returns {string}
  */
 export const updateRepeaterWitoutKey = ({
+    id,
     diff,
     current,
     previousLenght,
@@ -41,9 +44,17 @@ export const updateRepeaterWitoutKey = ({
             const currentValue = current?.[index + previousLenght];
             const currentIndex = index + previousLenght;
 
+            const proxiObject = getRepeatProxi({
+                id,
+                bind: state,
+                hasKey: false,
+                index: currentIndex,
+            });
+
             const rawRender = render({
                 index: currentIndex,
                 currentValue,
+                proxiIndex: proxiObject,
                 html: renderHtml,
                 sync: () => '',
             });
@@ -81,6 +92,7 @@ export const updateRepeaterWitoutKey = ({
 
 /**
  * @param {object} params
+ * @param {string} params.id
  * @param {number} params.diff
  * @param {any} params.current
  * @param {number} params.previousLenght
@@ -90,6 +102,7 @@ export const updateRepeaterWitoutKey = ({
  * @returns {string}
  */
 export const updateRepeaterWithoutKeyUseSync = ({
+    id,
     diff,
     previousLenght,
     current,
@@ -112,10 +125,18 @@ export const updateRepeaterWithoutKeyUseSync = ({
             ${ATTR_REPEATER_PROP_BIND}="${state}"
             ${ATTR_CHILD_REPEATID}="${repeatId}"`;
 
+            const proxiObject = getRepeatProxi({
+                id,
+                bind: state,
+                hasKey: false,
+                index: currentIndex,
+            });
+
             return render({
                 sync,
                 index: currentIndex,
                 currentValue,
+                proxiIndex: proxiObject,
                 html: renderHtml,
             });
         })
@@ -124,28 +145,42 @@ export const updateRepeaterWithoutKeyUseSync = ({
 
 /**
  * @param {object} params
+ * @param {string} params.id
  * @param {Record<string, any>} params.currentValue
  * @param {number} params.index
  * @param {string} params.state
  * @param {string} params.repeatId
+ * @param {any} params.keyValue
  * @param {string} params.key
  * @param {import('../type').RepeaterRender} params.render
  * @returns {string}
  */
 export const updateRepeaterWithtKey = ({
+    id,
     currentValue,
     index,
     state,
     repeatId,
     key,
+    keyValue,
     render,
 }) => {
     setSkipAddUserComponent(true);
+
+    const proxiObject = getRepeatProxi({
+        id,
+        bind: state,
+        hasKey: true,
+        key,
+        keyValue,
+        index,
+    });
 
     let fragment = document.createRange().createContextualFragment(
         render({
             index,
             currentValue,
+            proxiIndex: proxiObject,
             html: renderHtml,
             sync: () => '',
         })
@@ -158,7 +193,7 @@ export const updateRepeaterWithtKey = ({
         index,
         bind: state,
         repeatId,
-        key,
+        key: keyValue,
     });
 
     setSkipAddUserComponent(false);
@@ -175,24 +210,38 @@ export const updateRepeaterWithtKey = ({
 
 /**
  * @param {object} params
+ * @param {string} params.id
  * @param {Record<string, any>} params.currentValue
  * @param {number} params.index
  * @param {string} params.state
  * @param {string} params.repeatId
  * @param {string} params.key
+ * @param {any} params.keyValue
  * @param {import('../type').RepeaterRender} params.render
  * @returns {string}
  */
 export const updateRepeaterWithtKeyUseSync = ({
+    id,
     currentValue,
     index,
     state,
     repeatId,
     key,
+    keyValue,
     render,
 }) => {
+    const proxiObject = getRepeatProxi({
+        id,
+        bind: state,
+        hasKey: true,
+        key,
+        keyValue,
+        index,
+    });
+
     const sync = () =>
-        /* HTML */ ` ${ATTR_KEY}="${key}" ${ATTR_REPEATER_PROP_BIND}="${state}"
+        /* HTML */ ` ${ATTR_KEY}="${keyValue}"
+        ${ATTR_REPEATER_PROP_BIND}="${state}"
         ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
             current: currentValue,
             index,
@@ -202,7 +251,138 @@ export const updateRepeaterWithtKeyUseSync = ({
     return render({
         index,
         currentValue,
+        proxiIndex: proxiObject,
         html: renderHtml,
         sync,
     });
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {Record<string, any>[]} params.currentUnique
+ * @param {import('../type').RepeaterRender} params.render
+ * @param {string} params.bind
+ * @param {string} params.repeatId
+ * @param {string} params.key
+ * @param {boolean} params.hasKey
+ * @returns {string}
+ */
+export const getRenderWithoutSync = ({
+    id,
+    currentUnique,
+    render,
+    bind,
+    repeatId,
+    key,
+    hasKey,
+}) => {
+    setSkipAddUserComponent(true);
+
+    /**
+     * Render immediately first DOM
+     */
+    const rawRender = currentUnique
+        .map((item, index) => {
+            const proxiObject = getRepeatProxi({
+                id,
+                bind,
+                hasKey,
+                key,
+                keyValue: hasKey ? item?.[key] : '',
+                index,
+            });
+
+            let fragment = document.createRange().createContextualFragment(
+                render({
+                    index,
+                    currentValue: item,
+                    proxiIndex: proxiObject,
+                    html: renderHtml,
+                    sync: () => '',
+                })
+            );
+
+            const components = queryAllFutureComponent(fragment, false);
+
+            setRepeatAttribute({
+                components,
+                current: item,
+                index,
+                bind,
+                repeatId,
+                key: hasKey ? item?.[key] : '',
+            });
+
+            const serializedRender = serializeFragment(fragment);
+
+            /**
+             * Remove fragment as soon as possible from GC.
+             * TODO Is really necessary ?
+             */
+            fragment = null;
+            return serializedRender;
+        })
+        .join('');
+
+    setSkipAddUserComponent(false);
+
+    return rawRender;
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {Record<string, any>[]} params.currentUnique
+ * @param {import('../type').RepeaterRender} params.render
+ * @param {string} params.bind
+ * @param {string} params.repeatId
+ * @param {string} params.key
+ * @param {boolean} params.hasKey
+ * @returns {string}
+ */
+export const getRenderWithSync = ({
+    id,
+    currentUnique,
+    key,
+    bind,
+    repeatId,
+    hasKey,
+    render,
+}) => {
+    const rawRender = () => {
+        return currentUnique
+            .map((item, index) => {
+                const sync =
+                    /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+                        {
+                            current: item,
+                            index: index,
+                        }
+                    )}"
+                            ${ATTR_KEY}="${hasKey ? item?.[key] : ''}"
+                            ${ATTR_REPEATER_PROP_BIND}="${bind}"
+                            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+
+                const proxiObject = getRepeatProxi({
+                    id,
+                    bind,
+                    hasKey,
+                    key,
+                    keyValue: hasKey ? item?.[key] : '',
+                    index,
+                });
+
+                return render({
+                    sync,
+                    index,
+                    currentValue: item,
+                    proxiIndex: proxiObject,
+                    html: renderHtml,
+                });
+            })
+            .join('');
+    };
+
+    return rawRender();
 };

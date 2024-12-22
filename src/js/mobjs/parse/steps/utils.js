@@ -7,8 +7,6 @@ import {
     ATTR_REPEATER_PROP_BIND,
 } from '../../constant';
 import { setComponentRepeaterState } from '../../modules/repeater/repeaterValue';
-import { setSkipAddUserComponent } from '../../modules/userComponent';
-import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
 import {
     ELEMENT_TYPE_MIX_NODE_TEXT,
     ELEMENT_TYPE_NODE,
@@ -194,110 +192,4 @@ export const serializeFragment = (fragment) => {
     const rawString = serializer.serializeToString(fragment);
     const regEx = new RegExp(xmlnAttribute, 'g');
     return rawString.replaceAll(regEx, '');
-};
-
-/**
- * @param {object} params
- * @param {Record<string, any>[]} params.currentUnique
- * @param {import('../../modules/repeater/type').RepeaterRender} params.render
- * @param {string} params.bind
- * @param {string} params.repeatId
- * @param {string} params.key
- * @param {boolean} params.hasKey
- * @returns {string}
- */
-export const getRenderWithoutSync = ({
-    currentUnique,
-    render,
-    bind,
-    repeatId,
-    key,
-    hasKey,
-}) => {
-    setSkipAddUserComponent(true);
-
-    /**
-     * Render immediately first DOM
-     */
-    const rawRender = currentUnique
-        .map((item, index) => {
-            let fragment = document.createRange().createContextualFragment(
-                render({
-                    index,
-                    currentValue: item,
-                    html: renderHtml,
-                    sync: () => '',
-                })
-            );
-
-            const components = queryAllFutureComponent(fragment, false);
-
-            setRepeatAttribute({
-                components,
-                current: item,
-                index,
-                bind,
-                repeatId,
-                key: hasKey ? item?.[key] : '',
-            });
-
-            const serializedRender = serializeFragment(fragment);
-
-            /**
-             * Remove fragment as soon as possible from GC.
-             * TODO Is really necessary ?
-             */
-            fragment = null;
-            return serializedRender;
-        })
-        .join('');
-
-    setSkipAddUserComponent(false);
-
-    return rawRender;
-};
-
-/**
- * @param {object} params
- * @param {Record<string, any>[]} params.currentUnique
- * @param {import('../../modules/repeater/type').RepeaterRender} params.render
- * @param {string} params.bind
- * @param {string} params.repeatId
- * @param {string} params.key
- * @param {boolean} params.hasKey
- * @returns {string}
- */
-export const getRenderWithSync = ({
-    currentUnique,
-    key,
-    bind,
-    repeatId,
-    hasKey,
-    render,
-}) => {
-    const rawRender = () => {
-        return currentUnique
-            .map((item, index) => {
-                const sync =
-                    /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-                        {
-                            current: item,
-                            index: index,
-                        }
-                    )}"
-                            ${ATTR_KEY}="${hasKey ? item?.[key] : ''}"
-                            ${ATTR_REPEATER_PROP_BIND}="${bind}"
-                            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
-
-                return render({
-                    sync,
-                    index,
-                    currentValue: item,
-                    html: renderHtml,
-                });
-            })
-            .join('');
-    };
-
-    return rawRender();
 };

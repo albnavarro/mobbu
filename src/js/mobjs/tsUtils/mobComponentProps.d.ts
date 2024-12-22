@@ -296,6 +296,7 @@ export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
         sync: () => string;
         index: number;
         currentValue: ArrayElement<GetState<T>[K]>;
+        proxiIndex: any;
         html: (
             template: { raw: readonly string[] | ArrayLike<string> },
             ...substitutions: any[]

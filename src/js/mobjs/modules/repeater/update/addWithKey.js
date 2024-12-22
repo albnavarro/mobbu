@@ -154,68 +154,77 @@ export const addWithKey = ({
      *
      * Add persistent element or new element to parse.
      */
-    newSequenceByKey.forEach(({ isNewElement, key, index, wrapper }) => {
-        if (!isNewElement) {
-            const persistentElement = getElementByKeyAndRepeatId({
-                key,
-                repeatId,
-            });
+    newSequenceByKey.forEach(
+        ({ isNewElement, key: keyValue, index, wrapper }) => {
+            if (!isNewElement) {
+                const persistentElement = getElementByKeyAndRepeatId({
+                    key: keyValue,
+                    repeatId,
+                });
 
-            if (!persistentElement) return;
+                if (!persistentElement) return;
 
-            /**
-             * If there is no wrapper when cut and paster component
-             * we loose debug information.
-             * Update debug information.
-             */
-            const { debug } = getDefaultComponent();
-            if (debug && !wrapper) {
-                const componentName =
-                    getComponentNameByElement(persistentElement);
+                /**
+                 * If there is no wrapper when cut and paster component
+                 * we loose debug information.
+                 * Update debug information.
+                 */
+                const { debug } = getDefaultComponent();
+                if (debug && !wrapper) {
+                    const componentName =
+                        getComponentNameByElement(persistentElement);
 
-                repeaterParentElement.insertAdjacentHTML(
-                    'beforeend',
-                    `<!-- ${componentName} --> `
-                );
+                    repeaterParentElement.insertAdjacentHTML(
+                        'beforeend',
+                        `<!-- ${componentName} --> `
+                    );
+                }
+
+                if (wrapper) {
+                    /**
+                     * Wrapper
+                     */
+                    repeaterParentElement.append(wrapper);
+                } else {
+                    /**
+                     * No wrapper
+                     */
+                    repeaterParentElement.append(persistentElement);
+                }
+
+                return;
             }
 
-            if (wrapper) {
-                /**
-                 * Wrapper
-                 */
-                repeaterParentElement.append(wrapper);
-            } else {
-                /**
-                 * No wrapper
-                 */
-                repeaterParentElement.append(persistentElement);
-            }
+            const currentValue = currentUnique?.[index];
 
-            return;
+            const currentRender = useSync
+                ? updateRepeaterWithtKeyUseSync({
+                      id,
+                      currentValue,
+                      index,
+                      state,
+                      repeatId,
+                      key,
+                      keyValue,
+                      render,
+                  })
+                : updateRepeaterWithtKey({
+                      id,
+                      currentValue,
+                      index,
+                      state,
+                      repeatId,
+                      key,
+                      keyValue,
+                      render,
+                  });
+
+            repeaterParentElement.insertAdjacentHTML(
+                'beforeend',
+                currentRender
+            );
         }
-
-        const currentValue = currentUnique?.[index];
-
-        const currentRender = useSync
-            ? updateRepeaterWithtKeyUseSync({
-                  currentValue,
-                  index,
-                  state,
-                  repeatId,
-                  key,
-                  render,
-              })
-            : updateRepeaterWithtKey({
-                  currentValue,
-                  index,
-                  state,
-                  repeatId,
-                  key,
-                  render,
-              });
-
-        repeaterParentElement.insertAdjacentHTML('beforeend', currentRender);
-    });
+    );
 
     return currentUnique;
 };

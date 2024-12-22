@@ -65,26 +65,13 @@ export interface callbackQueue {
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
 #### current value
-- La funzione `repeat` puó tornare un proxi che ha solo un `get` `trap` che ritorna il valore dell' array corrispondente alla `chiave iniziale` o all' `index iniziale` se la chiave non é usata
-- La funzioen `set` ritorna sempre false.
-- Il verrá generato un proxi per ogni item aggiunto.
-- Come eliminarlo poi ?
+- Il meccanismo funziona ma:
+- Quando si rimuovono elementi la funzione proxi fallisce se non si usa un optional-chaining.
 
 ```js
-${repeat({
-    bind: 'data',
-    key: 'label',
-    render: ({ html, current }) => {
-        return html`
-            <div>
-                <my-component>
-                    ${bindProxi`index: ${() => current.index}`}
-                    ${bindProxi`value: ${() => current.value.label}`}
-                </my-component>
-            </div>
-        `;
-    },
-})}
+<div>
+    ${bindProxi`value: ${() => proxi.data[proxiIndex.value]?.label}`}
+</div>
 ```
 
 ### Debug

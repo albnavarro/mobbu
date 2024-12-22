@@ -21,12 +21,16 @@ export const BenchMarkRepeatWithKyFn = ({
     getRef,
     getState,
     setState,
+    bindProxi,
+    getProxi,
     updateState,
     bindProps,
     watch,
     repeat,
     staticProps,
 }) => {
+    const proxi = getProxi();
+
     onMount(() => {
         const { loading } = getRef();
         hideFooterShape();
@@ -65,7 +69,7 @@ export const BenchMarkRepeatWithKyFn = ({
                 bind: 'data',
                 useSync: true,
                 key: 'label',
-                render: ({ html, sync, currentValue }) => {
+                render: ({ html, sync, currentValue, proxiIndex }) => {
                     return html`
                         <benchmark-fake-component
                             ${staticProps({
@@ -82,7 +86,11 @@ export const BenchMarkRepeatWithKyFn = ({
                                 },
                             })}
                             ${sync()}
-                        ></benchmark-fake-component>
+                        >
+                            <div>
+                                ${bindProxi`value: ${() => proxi.data[proxiIndex.value]?.label}`}
+                            </div>
+                        </benchmark-fake-component>
                     `;
                 },
             })}

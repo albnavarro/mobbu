@@ -4,6 +4,7 @@ export type RepeaterRender = (arg0: {
     sync: () => string;
     index: number;
     currentValue: Record<string, any>;
+    proxiIndex: any;
     html?: (
         template: { raw: readonly string[] | ArrayLike<string> },
         ...substitutions: any[]

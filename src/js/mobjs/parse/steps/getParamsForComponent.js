@@ -38,7 +38,7 @@ import { setBindProps } from '../../modules/bindProps';
 import { addOnMoutCallback } from '../../modules/onMount';
 import { setStaticProps } from '../../modules/staticProps';
 import { setDelegateBindEvent } from '../../modules/delegateEvents';
-import { getRenderWithoutSync, getRenderWithSync, renderHtml } from './utils';
+import { renderHtml } from './utils';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
 import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
@@ -49,6 +49,10 @@ import {
     renderBindProxi,
 } from '../../modules/bindProxi';
 import { setSkipAddUserComponent } from '../../modules/userComponent';
+import {
+    getRenderWithoutSync,
+    getRenderWithSync,
+} from '../../modules/repeater/update/utils';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -199,7 +203,11 @@ export const getParamsForComponentFunction = ({
         },
         bindProxi: (strings, ...values) => {
             const keys = values
-                .map((item) => `${item}`.split('.')?.[1])
+                .map((item) => {
+                    const splitByDot = `${item}`.split('.')?.[1];
+                    const splitBySquare = `${splitByDot}`.split('[')?.[0];
+                    return splitBySquare;
+                })
                 .filter(Boolean);
 
             const bindProxiId = mobCore.getUnivoqueId();
@@ -282,6 +290,7 @@ export const getParamsForComponentFunction = ({
 
             const initialRender = useSync
                 ? getRenderWithSync({
+                      id,
                       currentUnique,
                       key,
                       bind,
@@ -290,6 +299,7 @@ export const getParamsForComponentFunction = ({
                       render,
                   })
                 : getRenderWithoutSync({
+                      id,
                       currentUnique,
                       render,
                       bind,
