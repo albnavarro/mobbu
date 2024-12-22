@@ -38,6 +38,8 @@ export interface storeMapValue {
     strict: Record<string, boolean | Record<string, boolean>>;
     skipEqual: Record<string, boolean | Record<string, boolean>>;
     proxiObject?: Record<string, any>;
+    bindInstance: string[];
+    unsubscribeBindInstance: (() => void)[];
 }
 
 /**

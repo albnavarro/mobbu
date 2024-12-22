@@ -55,21 +55,15 @@ export const mobStore = (data = {}) => {
     inizializeAllProps(instanceId, initialState);
 
     /**
-     * Use reference to proxiObject
-     * set to null on destroy.
-     * Make sure that there is no active reference in store instance
-     * on destroy.
-     */
-
-    let bindedInstance = [];
-    let unsubScribeBindStore = [];
-
-    /**
      * Methods
      */
     return {
         getId: () => instanceId,
         bindStore: (value) => {
+            const state = getStateFromMainMap(instanceId);
+            const { bindInstance } = state;
+            if (!bindInstance) return;
+
             const ids = checkType(Array, value)
                 ? // @ts-ignore
                   value.map((/** @type {getIdI: () => string} */ store) =>
@@ -78,14 +72,21 @@ export const mobStore = (data = {}) => {
                 : // @ts-ignore
                   [value.getId()];
 
-            bindedInstance = [...bindedInstance, ...ids];
+            const bindInstanceUpdated = [...bindInstance, ...ids];
+            updateMainMap(instanceId, {
+                ...state,
+                bindInstance: bindInstanceUpdated,
+            });
         },
         get: () => {
-            if (bindedInstance.length === 0) {
+            const state = getStateFromMainMap(instanceId);
+            const { bindInstance } = state;
+
+            if (!bindInstance || bindInstance.length === 0) {
                 return storeGetEntryPoint(instanceId);
             }
 
-            return [...bindedInstance, instanceId]
+            return [...bindInstance, instanceId]
                 .map((id) => storeGetEntryPoint(id))
                 .reduce(
                     (previous, current) => ({ ...previous, ...current }),
@@ -93,12 +94,15 @@ export const mobStore = (data = {}) => {
                 );
         },
         getProp: (prop) => {
-            if (bindedInstance.length === 0) {
+            const state = getStateFromMainMap(instanceId);
+            const { bindInstance } = state;
+
+            if (!bindInstance || bindInstance.length === 0) {
                 return storeGetPropEntryPoint({ instanceId, prop });
             }
 
             const currentBindId =
-                [instanceId, ...bindedInstance].find(
+                [instanceId, ...bindInstance].find(
                     (id) => prop in storeMap.get(id).store
                 ) ?? '';
 
@@ -127,8 +131,11 @@ export const mobStore = (data = {}) => {
         // Use getProxi after add a proxi.
         getProxi: () => {
             const state = getStateFromMainMap(instanceId);
-            const { store: selfStore, proxiObject: previousProxiObject } =
-                state;
+            const {
+                bindInstance,
+                store: selfStore,
+                proxiObject: previousProxiObject,
+            } = state;
 
             /**
              * Return previous proxi if exist.
@@ -162,7 +169,8 @@ export const mobStore = (data = {}) => {
             /**
              * Rerturn self proxi if no bindedInstace is used.
              */
-            if (bindedInstance.length === 0) {
+
+            if (!bindInstance || bindInstance.length === 0) {
                 updateMainMap(instanceId, {
                     ...state,
                     proxiObject: selfProxi,
@@ -175,7 +183,7 @@ export const mobStore = (data = {}) => {
              * Create proxi for binded store.
              * Binded proxi has only read operation.
              */
-            const bindedProxi = bindedInstance.map((id) => {
+            const bindedProxi = bindInstance.map((id) => {
                 const state = getStateFromMainMap(id);
                 const { store } = state;
 
@@ -217,12 +225,15 @@ export const mobStore = (data = {}) => {
             storeQuickSetEntrypoint({ instanceId, prop, value });
         },
         watch: (prop, callback) => {
-            if (bindedInstance.length === 0) {
+            const state = getStateFromMainMap(instanceId);
+            const { bindInstance, unsubscribeBindInstance } = state;
+
+            if (!bindInstance || bindInstance.length === 0) {
                 return watchEntryPoint({ instanceId, prop, callback });
             }
 
             const currentBindId =
-                [instanceId, ...bindedInstance].find(
+                [instanceId, ...bindInstance].find(
                     (id) => prop in storeMap.get(id).store
                 ) ?? '';
 
@@ -232,7 +243,14 @@ export const mobStore = (data = {}) => {
                 callback,
             });
 
-            unsubScribeBindStore = [...unsubScribeBindStore, unsubscribe];
+            updateMainMap(instanceId, {
+                ...state,
+                unsubscribeBindInstance: [
+                    ...unsubscribeBindInstance,
+                    unsubscribe,
+                ],
+            });
+
             return unsubscribe;
         },
         computed: (prop, keys, callback) => {
@@ -244,24 +262,30 @@ export const mobStore = (data = {}) => {
             });
         },
         emit: (prop) => {
-            if (bindedInstance.length === 0) {
+            const state = getStateFromMainMap(instanceId);
+            const { bindInstance } = state;
+
+            if (!bindInstance || bindInstance.length === 0) {
                 storeEmitEntryPoint({ instanceId, prop });
             }
 
             const currentBindId =
-                [instanceId, ...bindedInstance].find(
+                [instanceId, ...bindInstance].find(
                     (id) => prop in storeMap.get(id).store
                 ) ?? '';
 
             return storeEmitEntryPoint({ instanceId: currentBindId, prop });
         },
         emitAsync: async (prop) => {
-            if (bindedInstance.length === 0) {
+            const state = getStateFromMainMap(instanceId);
+            const { bindInstance } = state;
+
+            if (!bindInstance || bindInstance.length === 0) {
                 return storeEmitAsyncEntryPoint({ instanceId, prop });
             }
 
             const currentBindId =
-                [instanceId, ...bindedInstance].find(
+                [instanceId, ...bindInstance].find(
                     (id) => prop in storeMap.get(id).store
                 ) ?? '';
 
@@ -283,8 +307,10 @@ export const mobStore = (data = {}) => {
             storeDebugValidateEntryPoint({ instanceId });
         },
         destroy: () => {
-            bindedInstance = [];
-            unsubScribeBindStore.forEach((unsubscribe) => {
+            const state = getStateFromMainMap(instanceId);
+            const { unsubscribeBindInstance } = state;
+
+            unsubscribeBindInstance.forEach((unsubscribe) => {
                 unsubscribe?.();
             });
 

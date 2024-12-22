@@ -66,5 +66,7 @@ export const inizializeInstance = (data) => {
             fallback: true,
         }),
         proxiObject: undefined,
+        bindInstance: [],
+        unsubscribeBindInstance: [],
     };
 };
