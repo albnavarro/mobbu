@@ -426,6 +426,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-bindStore',
+        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/bindStore.json',
+            title: 'bindStore',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-bindtext',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,

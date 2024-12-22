@@ -1,0 +1,88 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "bindStore"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span class='quote'>bindStore</span> allows you to couple the component state to another store ( <a href='#mobCore-store'>mobStore</a> ) taking advantage of its reactivity."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "To add multiple stores pass an <span class='quote'>array</span> as an argument.",
+                    "The bindStore function must be <span class='quote'>called first</span> before receiving the <span class='quote'>proxy</span> object, or using the <span class='quote'>watch</span> function."
+                ]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Once added, you will be able to use the new store's statuses in the following cases:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "getState",
+                    "getProxi",
+                    "watch",
+                    "watchSync",
+                    "bindText",
+                    "binsProxi",
+                    "invalidate",
+                    "repeat"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindStore.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 26
+            }
+        }
+    ]
+}

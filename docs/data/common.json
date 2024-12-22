@@ -125,6 +125,11 @@
                 "isLabel": false
             },
             {
+                "label": "bindStore",
+                "url": "mobJs-bindStore",
+                "isLabel": false
+            },
+            {
                 "label": "bindText",
                 "url": "mobJs-bindtext",
                 "isLabel": false
@@ -442,6 +447,11 @@
                     "label": "delegateEvents",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-delegateEvents"
+                },
+                {
+                    "label": "bindStore",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-bindStore"
                 },
                 {
                     "label": "bindText",

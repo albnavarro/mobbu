@@ -512,6 +512,7 @@
                     "<a href='./#mobJs-bindProps'>bindProps</a>",
                     "<a href='./#mobJs-bindEvents'>bindEvents</a>",
                     "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
+                    "<a href='./#mobJs-bindStore'>bindStore</a>",
                     "<a href='./#mobJs-bindtext'>bindText</a>",
                     "<a href='./#mobJs-bindproxi'>bindProxi</a>",
                     "<a href='./#mobJs-bind-class-style'>bindClassStyle</a>",
