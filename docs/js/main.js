@@ -2681,7 +2681,7 @@
   };
 
   // src/js/mobCore/store/storeEmit.js
-  var storeEmitEntryPoint = ({ instanceId, prop }) => {
+  var storeEmit = ({ instanceId, prop }) => {
     const { store, callBackWatcher, validationStatusObject } = getStateFromMainMap(instanceId);
     if (!store) return;
     if (prop in store) {
@@ -2697,7 +2697,18 @@
       storeEmitWarning(prop, getLogStyle());
     }
   };
-  var storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
+  var storeEmitEntryPoint = ({ instanceId, prop }) => {
+    const state = getStateFromMainMap(instanceId);
+    const { bindInstance } = state;
+    if (!bindInstance || bindInstance.length === 0) {
+      storeEmit({ instanceId, prop });
+    }
+    const currentBindId = [instanceId, ...bindInstance].find(
+      (id) => prop in storeMap.get(id).store
+    ) ?? "";
+    return storeEmit({ instanceId: currentBindId, prop });
+  };
+  var storeEmitAsync = async ({ instanceId, prop }) => {
     const { store, callBackWatcher, validationStatusObject } = getStateFromMainMap(instanceId);
     if (!store) return { success: false };
     if (prop in store) {
@@ -2714,6 +2725,20 @@
       storeEmitWarning(prop, getLogStyle());
       return { success: false };
     }
+  };
+  var storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
+    const state = getStateFromMainMap(instanceId);
+    const { bindInstance } = state;
+    if (!bindInstance || bindInstance.length === 0) {
+      return storeEmitAsync({ instanceId, prop });
+    }
+    const currentBindId = [instanceId, ...bindInstance].find(
+      (id) => prop in storeMap.get(id).store
+    ) ?? "";
+    return storeEmitAsync({
+      instanceId: currentBindId,
+      prop
+    });
   };
 
   // src/js/mobCore/store/storeDebug.js
@@ -2875,29 +2900,10 @@
         });
       },
       emit: (prop) => {
-        const state = getStateFromMainMap(instanceId);
-        const { bindInstance } = state;
-        if (!bindInstance || bindInstance.length === 0) {
-          storeEmitEntryPoint({ instanceId, prop });
-        }
-        const currentBindId = [instanceId, ...bindInstance].find(
-          (id) => prop in storeMap.get(id).store
-        ) ?? "";
-        return storeEmitEntryPoint({ instanceId: currentBindId, prop });
+        return storeEmitEntryPoint({ instanceId, prop });
       },
       emitAsync: async (prop) => {
-        const state = getStateFromMainMap(instanceId);
-        const { bindInstance } = state;
-        if (!bindInstance || bindInstance.length === 0) {
-          return storeEmitAsyncEntryPoint({ instanceId, prop });
-        }
-        const currentBindId = [instanceId, ...bindInstance].find(
-          (id) => prop in storeMap.get(id).store
-        ) ?? "";
-        return storeEmitAsyncEntryPoint({
-          instanceId: currentBindId,
-          prop
-        });
+        return storeEmitAsyncEntryPoint({ instanceId, prop });
       },
       getValidation: () => {
         return storeGetValidationEntryPoint({ instanceId });

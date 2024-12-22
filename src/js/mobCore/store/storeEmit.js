@@ -2,7 +2,7 @@
 
 import { runCallbackQueqe, runCallbackQueqeAsync } from './fireQueque';
 import { getLogStyle } from './logStyle';
-import { getStateFromMainMap } from './storeMap';
+import { getStateFromMainMap, storeMap } from './storeMap';
 import { addToComputedWaitLsit } from './storeSet';
 import { storeEmitWarning } from './storeWarining';
 
@@ -12,7 +12,7 @@ import { storeEmitWarning } from './storeWarining';
  * @param {string} param.prop
  * @returns {void}
  */
-export const storeEmitEntryPoint = ({ instanceId, prop }) => {
+export const storeEmit = ({ instanceId, prop }) => {
     const { store, callBackWatcher, validationStatusObject } =
         getStateFromMainMap(instanceId);
 
@@ -37,9 +37,31 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
  * @param {Object} param
  * @param {string} param.instanceId
  * @param {string} param.prop
+ * @returns {void}
+ */
+export const storeEmitEntryPoint = ({ instanceId, prop }) => {
+    const state = getStateFromMainMap(instanceId);
+    const { bindInstance } = state;
+
+    if (!bindInstance || bindInstance.length === 0) {
+        storeEmit({ instanceId, prop });
+    }
+
+    const currentBindId =
+        [instanceId, ...bindInstance].find(
+            (id) => prop in storeMap.get(id).store
+        ) ?? '';
+
+    return storeEmit({ instanceId: currentBindId, prop });
+};
+
+/**
+ * @param {Object} param
+ * @param {string} param.instanceId
+ * @param {string} param.prop
  * @returns {Promise<any>}
  */
-export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
+export const storeEmitAsync = async ({ instanceId, prop }) => {
     const { store, callBackWatcher, validationStatusObject } =
         getStateFromMainMap(instanceId);
 
@@ -61,4 +83,29 @@ export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
         storeEmitWarning(prop, getLogStyle());
         return { success: false };
     }
+};
+
+/**
+ * @param {Object} param
+ * @param {string} param.instanceId
+ * @param {string} param.prop
+ * @returns {Promise<any>}
+ */
+export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
+    const state = getStateFromMainMap(instanceId);
+    const { bindInstance } = state;
+
+    if (!bindInstance || bindInstance.length === 0) {
+        return storeEmitAsync({ instanceId, prop });
+    }
+
+    const currentBindId =
+        [instanceId, ...bindInstance].find(
+            (id) => prop in storeMap.get(id).store
+        ) ?? '';
+
+    return storeEmitAsync({
+        instanceId: currentBindId,
+        prop,
+    });
 };

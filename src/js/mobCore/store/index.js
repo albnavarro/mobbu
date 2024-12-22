@@ -9,7 +9,6 @@ import {
 import {
     getStateFromMainMap,
     removeStateFromMainMap,
-    storeMap,
     updateMainMap,
 } from './storeMap';
 import { inizializeAllProps, inizializeValidation } from './initialValidation';
@@ -108,37 +107,10 @@ export const mobStore = (data = {}) => {
             });
         },
         emit: (prop) => {
-            const state = getStateFromMainMap(instanceId);
-            const { bindInstance } = state;
-
-            if (!bindInstance || bindInstance.length === 0) {
-                storeEmitEntryPoint({ instanceId, prop });
-            }
-
-            const currentBindId =
-                [instanceId, ...bindInstance].find(
-                    (id) => prop in storeMap.get(id).store
-                ) ?? '';
-
-            return storeEmitEntryPoint({ instanceId: currentBindId, prop });
+            return storeEmitEntryPoint({ instanceId, prop });
         },
         emitAsync: async (prop) => {
-            const state = getStateFromMainMap(instanceId);
-            const { bindInstance } = state;
-
-            if (!bindInstance || bindInstance.length === 0) {
-                return storeEmitAsyncEntryPoint({ instanceId, prop });
-            }
-
-            const currentBindId =
-                [instanceId, ...bindInstance].find(
-                    (id) => prop in storeMap.get(id).store
-                ) ?? '';
-
-            return storeEmitAsyncEntryPoint({
-                instanceId: currentBindId,
-                prop,
-            });
+            return storeEmitAsyncEntryPoint({ instanceId, prop });
         },
         getValidation: () => {
             return storeGetValidationEntryPoint({ instanceId });
