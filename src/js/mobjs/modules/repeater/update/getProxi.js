@@ -1,5 +1,9 @@
 import { getStateById } from '../../../component/action/state/getStateById';
 
+function clamp(num, lower, upper) {
+    return Math.min(Math.max(num, lower), upper);
+}
+
 export const getRepeatProxi = ({
     id,
     bind,
@@ -13,6 +17,8 @@ export const getRepeatProxi = ({
     return new Proxy(state, {
         get(target, prop) {
             if (prop === 'value') {
+                const maxValue = target?.[bind].length - 1;
+
                 /**
                  * Return index by key.
                  */
@@ -21,13 +27,13 @@ export const getRepeatProxi = ({
                         (item) => item[key] === keyValue
                     );
 
-                    return currentIndex;
+                    return clamp(currentIndex, 0, maxValue);
                 }
 
                 /**
                  * Return index without key.
                  */
-                return index;
+                return clamp(index, 0, maxValue);
             }
 
             return false;

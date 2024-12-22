@@ -190,15 +190,8 @@ export const createBindProxiWatcher = (id, bindProxiId, keys, render) => {
                     }
 
                     if (ref.deref()) {
-                        try {
-                            ref.deref().textContent = '';
-                            ref.deref().insertAdjacentHTML(
-                                'afterbegin',
-                                render()
-                            );
-                        } catch (error) {
-                            console.log(error);
-                        }
+                        ref.deref().textContent = '';
+                        ref.deref().insertAdjacentHTML('afterbegin', render());
                     }
 
                     watchIsRunning = false;

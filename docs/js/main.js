@@ -17309,7 +17309,6 @@
     repeatId = ""
   }) => {
     if (keyValue?.length === 0) return;
-    console.log(keyValue);
     const values = [...componentMap.values()];
     const valuesFiltered = values.find(
       (item) => `${item.key}` === `${keyValue}` && item.componentRepeatId === repeatId
@@ -17733,15 +17732,8 @@
               removeBindProxiByBindProxiId({ id, bindProxiId });
             }
             if (ref.deref()) {
-              try {
-                ref.deref().textContent = "";
-                ref.deref().insertAdjacentHTML(
-                  "afterbegin",
-                  render2()
-                );
-              } catch (error) {
-                console.log(error);
-              }
+              ref.deref().textContent = "";
+              ref.deref().insertAdjacentHTML("afterbegin", render2());
             }
             watchIsRunning = false;
             mobCore.useNextTick(async () => {
@@ -20084,6 +20076,9 @@
   };
 
   // src/js/mobjs/modules/repeater/update/getProxi.js
+  function clamp2(num, lower, upper) {
+    return Math.min(Math.max(num, lower), upper);
+  }
   var getRepeatProxi = ({
     id,
     bind,
@@ -20096,13 +20091,14 @@
     return new Proxy(state, {
       get(target, prop) {
         if (prop === "value") {
+          const maxValue = target?.[bind].length - 1;
           if (hasKey) {
             const currentIndex = target?.[bind].findIndex(
               (item) => item[key] === keyValue
             );
-            return currentIndex;
+            return clamp2(currentIndex, 0, maxValue);
           }
-          return index;
+          return clamp2(index, 0, maxValue);
         }
         return false;
       },
@@ -27299,7 +27295,7 @@ Loading snippet ...</pre
                             ${sync()}
                         >
                             <div>
-                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value]?.label}`}
+                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value].label}`}
                             </div>
                         </benchmark-fake-component>
                     `;
@@ -27385,7 +27381,7 @@ Loading snippet ...</pre
                             ${sync()}
                         >
                             <div>
-                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value]?.label}`}
+                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value].label}`}
                             </div>
                         </benchmark-fake-component>
                     `;

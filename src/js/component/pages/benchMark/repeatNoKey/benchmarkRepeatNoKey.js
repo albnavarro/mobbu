@@ -84,7 +84,7 @@ export const BenchMarkRepeatNoKyFn = ({
                             ${sync()}
                         >
                             <div>
-                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value]?.label}`}
+                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value].label}`}
                             </div>
                         </benchmark-fake-component>
                     `;

@@ -65,29 +65,7 @@ export interface callbackQueue {
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
 #### current value
-- Il meccanismo funziona ma:
-- Quando si rimuovono elementi la funzione proxi fallisce se non si usa un optional-chaining.
-- La soluzione del try/catch` andrebbe evitata.
-
-```js
-<div>
-    ${bindProxi`value: ${() => proxi.data[proxiIndex.value]?.label}`}
-</div>
-```
-
-```js
-if (ref.deref()) {
-    try {
-        ref.deref().textContent = '';
-        ref.deref().insertAdjacentHTML(
-            'afterbegin',
-            render()
-        );
-    } catch (error) {
-        console.log(error);
-    }
-}
-```
+- Il meccanismo funziona, fare test.
 
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.

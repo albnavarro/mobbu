@@ -74,7 +74,6 @@ export const getElementByKeyAndRepeatId = ({
     repeatId = '',
 }) => {
     if (keyValue?.length === 0) return;
-    console.log(keyValue);
 
     const values = [...componentMap.values()];
     const valuesFiltered = values.find(
