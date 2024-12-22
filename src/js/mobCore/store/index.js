@@ -25,6 +25,7 @@ import {
 import { STORE_SET, STORE_UPDATE } from './constant';
 import { getProxiEntryPoint } from './proxi';
 import { bindStoreEntryPoint } from './bindStore';
+import { destroyStoreEntryPoint } from './destroy';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
@@ -125,14 +126,7 @@ export const mobStore = (data = {}) => {
             storeDebugValidateEntryPoint({ instanceId });
         },
         destroy: () => {
-            const state = getStateFromMainMap(instanceId);
-            const { unsubscribeBindInstance } = state;
-
-            unsubscribeBindInstance.forEach((unsubscribe) => {
-                unsubscribe?.();
-            });
-
-            removeStateFromMainMap(instanceId);
+            destroyStoreEntryPoint(instanceId);
         },
     };
 };

@@ -2843,6 +2843,16 @@
     });
   };
 
+  // src/js/mobCore/store/destroy.js
+  var destroyStoreEntryPoint = (instanceId) => {
+    const state = getStateFromMainMap(instanceId);
+    const { unsubscribeBindInstance } = state;
+    unsubscribeBindInstance.forEach((unsubscribe3) => {
+      unsubscribe3?.();
+    });
+    removeStateFromMainMap(instanceId);
+  };
+
   // src/js/mobCore/store/index.js
   var mobStore = (data = {}) => {
     const instanceId = getUnivoqueId();
@@ -2918,12 +2928,7 @@
         storeDebugValidateEntryPoint({ instanceId });
       },
       destroy: () => {
-        const state = getStateFromMainMap(instanceId);
-        const { unsubscribeBindInstance } = state;
-        unsubscribeBindInstance.forEach((unsubscribe3) => {
-          unsubscribe3?.();
-        });
-        removeStateFromMainMap(instanceId);
+        destroyStoreEntryPoint(instanceId);
       }
     };
   };
