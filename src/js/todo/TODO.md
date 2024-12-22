@@ -64,8 +64,24 @@ export interface callbackQueue {
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
-#### current value
-- Il meccanismo funziona, fare test.
+#### proxiIndex
+- Rinominare currentValue / index.
+- Possibilità di passare `value` nello steso modo, il problem e che `bindProxi` non potrá dedurre le dipendenze.
+
+```js
+${repeat({
+    bind: 'data',
+    render: ({ html, index, initialIndex, intialValue }) => {
+        return html`
+            <benchmark-fake-component>
+                <div>
+                    ${bindProxi`proxi: ${() => proxi.data[index.value].label}`}
+                </div>
+            </benchmark-fake-component>
+        `;
+    },
+})}
+```
 
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
