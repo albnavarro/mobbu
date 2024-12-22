@@ -296,10 +296,31 @@ export const mobStore = (data = {}) => {
             });
         },
         emit: (prop) => {
-            storeEmitEntryPoint({ instanceId, prop });
+            if (bindedInstance.length === 0) {
+                storeEmitEntryPoint({ instanceId, prop });
+            }
+
+            const currentBindId =
+                [instanceId, ...bindedInstance].find(
+                    (id) => prop in storeMap.get(id).store
+                ) ?? '';
+
+            return storeEmitEntryPoint({ instanceId: currentBindId, prop });
         },
         emitAsync: async (prop) => {
-            return storeEmitAsyncEntryPoint({ instanceId, prop });
+            if (bindedInstance.length === 0) {
+                return storeEmitAsyncEntryPoint({ instanceId, prop });
+            }
+
+            const currentBindId =
+                [instanceId, ...bindedInstance].find(
+                    (id) => prop in storeMap.get(id).store
+                ) ?? '';
+
+            return storeEmitAsyncEntryPoint({
+                instanceId: currentBindId,
+                prop,
+            });
         },
         getValidation: () => {
             return storeGetValidationEntryPoint({ instanceId });

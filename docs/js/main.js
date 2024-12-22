@@ -2885,10 +2885,25 @@
         });
       },
       emit: (prop) => {
-        storeEmitEntryPoint({ instanceId, prop });
+        if (bindedInstance.length === 0) {
+          storeEmitEntryPoint({ instanceId, prop });
+        }
+        const currentBindId = [instanceId, ...bindedInstance].find(
+          (id) => prop in storeMap.get(id).store
+        ) ?? "";
+        return storeEmitEntryPoint({ instanceId: currentBindId, prop });
       },
       emitAsync: async (prop) => {
-        return storeEmitAsyncEntryPoint({ instanceId, prop });
+        if (bindedInstance.length === 0) {
+          return storeEmitAsyncEntryPoint({ instanceId, prop });
+        }
+        const currentBindId = [instanceId, ...bindedInstance].find(
+          (id) => prop in storeMap.get(id).store
+        ) ?? "";
+        return storeEmitAsyncEntryPoint({
+          instanceId: currentBindId,
+          prop
+        });
       },
       getValidation: () => {
         return storeGetValidationEntryPoint({ instanceId });
@@ -36111,6 +36126,7 @@ Loading snippet ...</pre
       console.log("proxi2_a value store1Prop", proxi2_a.store1Prop);
       console.log("proxie2_b value store1Prop", proxie2_b.store1Prop);
     });
+    store2.emit("store1Prop");
     let cont = 0;
     document.body.addEventListener("click", () => {
       store2.update("prop2", (value) => value + 1);

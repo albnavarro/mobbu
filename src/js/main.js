@@ -117,6 +117,8 @@ mobCore.useLoad(() => {
         console.log('proxie2_b value store1Prop', proxie2_b.store1Prop);
     });
 
+    store2.emit('store1Prop');
+
     let cont = 0;
 
     document.body.addEventListener('click', () => {
