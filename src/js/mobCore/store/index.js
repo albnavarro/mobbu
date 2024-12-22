@@ -97,33 +97,7 @@ export const mobStore = (data = {}) => {
             storeQuickSetEntrypoint({ instanceId, prop, value });
         },
         watch: (prop, callback) => {
-            const state = getStateFromMainMap(instanceId);
-            const { bindInstance, unsubscribeBindInstance } = state;
-
-            if (!bindInstance || bindInstance.length === 0) {
-                return watchEntryPoint({ instanceId, prop, callback });
-            }
-
-            const currentBindId =
-                [instanceId, ...bindInstance].find(
-                    (id) => prop in storeMap.get(id).store
-                ) ?? '';
-
-            const unsubscribe = watchEntryPoint({
-                instanceId: currentBindId,
-                prop,
-                callback,
-            });
-
-            updateMainMap(instanceId, {
-                ...state,
-                unsubscribeBindInstance: [
-                    ...unsubscribeBindInstance,
-                    unsubscribe,
-                ],
-            });
-
-            return unsubscribe;
+            return watchEntryPoint({ instanceId, prop, callback });
         },
         computed: (prop, keys, callback) => {
             storeComputedEntryPoint({

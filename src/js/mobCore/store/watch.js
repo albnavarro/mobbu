@@ -2,7 +2,7 @@
 
 import { getUnivoqueId } from '../utils';
 import { getLogStyle } from './logStyle';
-import { getStateFromMainMap, updateMainMap } from './storeMap';
+import { getStateFromMainMap, storeMap, updateMainMap } from './storeMap';
 import { storeWatchWarning } from './storeWarining';
 
 /**
@@ -56,7 +56,7 @@ export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
  * @param {(current: any, previous: any, validate: boolean | { [key: string]: boolean }) => void} param.callback
  * @returns {() => any}
  */
-export const watchEntryPoint = ({ instanceId, prop, callback }) => {
+export const watchMobStore = ({ instanceId, prop, callback }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return () => {};
 
@@ -72,4 +72,38 @@ export const watchEntryPoint = ({ instanceId, prop, callback }) => {
     return () => {
         unsubScribeWatch({ instanceId, unsubscribeId });
     };
+};
+
+/**
+ * @param {Object} param
+ * @param {string} param.instanceId
+ * @param {string} param.prop
+ * @param {(current: any, previous: any, validate: boolean | { [key: string]: boolean }) => void} param.callback
+ * @returns {() => any}
+ */
+export const watchEntryPoint = ({ instanceId, prop, callback }) => {
+    const state = getStateFromMainMap(instanceId);
+    const { bindInstance, unsubscribeBindInstance } = state;
+
+    if (!bindInstance || bindInstance.length === 0) {
+        return watchMobStore({ instanceId, prop, callback });
+    }
+
+    const currentBindId =
+        [instanceId, ...bindInstance].find(
+            (id) => prop in storeMap.get(id).store
+        ) ?? '';
+
+    const unsubscribe = watchMobStore({
+        instanceId: currentBindId,
+        prop,
+        callback,
+    });
+
+    updateMainMap(instanceId, {
+        ...state,
+        unsubscribeBindInstance: [...unsubscribeBindInstance, unsubscribe],
+    });
+
+    return unsubscribe;
 };

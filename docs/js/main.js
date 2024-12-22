@@ -2552,7 +2552,7 @@
     callBackWatcher.delete(unsubscribeId);
     updateMainMap(instanceId, { ...state, callBackWatcher });
   };
-  var watchEntryPoint = ({ instanceId, prop, callback: callback2 }) => {
+  var watchMobStore = ({ instanceId, prop, callback: callback2 }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return () => {
     };
@@ -2567,6 +2567,26 @@
     return () => {
       unsubScribeWatch({ instanceId, unsubscribeId });
     };
+  };
+  var watchEntryPoint = ({ instanceId, prop, callback: callback2 }) => {
+    const state = getStateFromMainMap(instanceId);
+    const { bindInstance, unsubscribeBindInstance } = state;
+    if (!bindInstance || bindInstance.length === 0) {
+      return watchMobStore({ instanceId, prop, callback: callback2 });
+    }
+    const currentBindId = [instanceId, ...bindInstance].find(
+      (id) => prop in storeMap.get(id).store
+    ) ?? "";
+    const unsubscribe3 = watchMobStore({
+      instanceId: currentBindId,
+      prop,
+      callback: callback2
+    });
+    updateMainMap(instanceId, {
+      ...state,
+      unsubscribeBindInstance: [...unsubscribeBindInstance, unsubscribe3]
+    });
+    return unsubscribe3;
   };
 
   // src/js/mobCore/store/inizializeInstance.js
@@ -2844,27 +2864,7 @@
         storeQuickSetEntrypoint({ instanceId, prop, value });
       },
       watch: (prop, callback2) => {
-        const state = getStateFromMainMap(instanceId);
-        const { bindInstance, unsubscribeBindInstance } = state;
-        if (!bindInstance || bindInstance.length === 0) {
-          return watchEntryPoint({ instanceId, prop, callback: callback2 });
-        }
-        const currentBindId = [instanceId, ...bindInstance].find(
-          (id) => prop in storeMap.get(id).store
-        ) ?? "";
-        const unsubscribe3 = watchEntryPoint({
-          instanceId: currentBindId,
-          prop,
-          callback: callback2
-        });
-        updateMainMap(instanceId, {
-          ...state,
-          unsubscribeBindInstance: [
-            ...unsubscribeBindInstance,
-            unsubscribe3
-          ]
-        });
-        return unsubscribe3;
+        return watchEntryPoint({ instanceId, prop, callback: callback2 });
       },
       computed: (prop, keys, callback2) => {
         storeComputedEntryPoint({
