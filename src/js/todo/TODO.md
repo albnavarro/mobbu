@@ -1,4 +1,5 @@
 # Priority:
+## Repeat - current value.
 
 # DOCS
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
@@ -60,7 +61,31 @@ export interface callbackQueue {
 - Aggiungere `Quickset`.
 
 ### Repeat
+#### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
+
+#### current value
+- La funzione `repeat` puó tornare un proxi che ha solo un `get` `trap` che ritorna il valore dell' array corrispondente alla `chiave iniziale` o all' `index iniziale` se la chiave non é usata
+- La funzioen `set` ritorna sempre false.
+- Il verrá generato un proxi per ogni item aggiunto.
+- Come eliminarlo poi ?
+
+```js
+${repeat({
+    bind: 'data',
+    key: 'label',
+    render: ({ html, current }) => {
+        return html`
+            <div>
+                <my-component>
+                    ${bindProxi`index: ${() => current.index}`}
+                    ${bindProxi`value: ${() => current.value.label}`}
+                </my-component>
+            </div>
+        `;
+    },
+})}
+```
 
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
