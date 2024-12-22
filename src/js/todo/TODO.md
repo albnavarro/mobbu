@@ -83,6 +83,27 @@ ${repeat({
 })}
 ```
 
+- oppure:
+- In questo caso current.value puó essere valorizzato da TS.
+
+```js
+${repeat({
+    bind: 'data',
+    render: ({ html, current, initialIndex, intialValue }) => {
+        // current.index
+        // current.value
+
+        return html`
+            <benchmark-fake-component>
+                <div>
+                    ${bindProxi`proxi: ${() => proxi.data[current.index].label}`}
+                </div>
+            </benchmark-fake-component>
+        `;
+    },
+})}
+```
+
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
 
