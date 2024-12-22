@@ -24,7 +24,7 @@ export const getNewElement = (current = [], previous = [], key = '') => {
  * @param {Array<any>} current
  * @param {Array<any>} previous
  * @param {string} key
- * @return {Array.<{isNewElement: boolean, key:string, index:number}>}
+ * @return {Array.<{isNewElement: boolean, keyValue:string, index:number}>}
  *
  * @description
  * Mix previous and current data to manage the insertion of new component
@@ -35,8 +35,8 @@ export const mixPreviousAndCurrentData = (current, previous, key) => {
         const value = el?.[key];
         const isNewElement = !previous.some((a) => a?.[key] === value);
         return isNewElement
-            ? { isNewElement: true, key: el?.[key], index }
-            : { isNewElement: false, key: el?.[key], index };
+            ? { isNewElement: true, keyValue: el?.[key], index }
+            : { isNewElement: false, keyValue: el?.[key], index };
     });
 };
 

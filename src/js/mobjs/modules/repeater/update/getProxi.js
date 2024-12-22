@@ -4,7 +4,7 @@ export const getRepeatProxi = ({
     id,
     bind,
     hasKey,
-    key,
+    key = '',
     keyValue = '',
     index,
 }) => {

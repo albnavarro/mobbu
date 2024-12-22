@@ -63,7 +63,7 @@ export const addWithKey = ({
     const elementToRemoveByKey = keyToRemove.map((item) => {
         const keyValue = item?.[key];
         return getElementByKeyAndRepeatId({
-            key: keyValue,
+            keyValue,
             repeatId,
         });
     });
@@ -112,9 +112,9 @@ export const addWithKey = ({
         currentUnique,
         previous,
         key
-    ).map(({ key, isNewElement, index }) => {
+    ).map(({ keyValue, isNewElement, index }) => {
         if (isNewElement)
-            return { key, isNewElement, index, wrapper: undefined };
+            return { keyValue, isNewElement, index, wrapper: undefined };
 
         /**
          * Get persistent element.
@@ -123,7 +123,7 @@ export const addWithKey = ({
          * If we don't use a wrapper we have only one component.
          */
         const element = getElementByKeyAndRepeatId({
-            key,
+            keyValue,
             repeatId,
         });
 
@@ -134,7 +134,7 @@ export const addWithKey = ({
         const id = getIdByElement({ element });
         const wrapper = getRepeaterInnerWrap({ id });
 
-        return { key, isNewElement, index, wrapper };
+        return { keyValue, isNewElement, index, wrapper };
     });
 
     /**
@@ -154,77 +154,72 @@ export const addWithKey = ({
      *
      * Add persistent element or new element to parse.
      */
-    newSequenceByKey.forEach(
-        ({ isNewElement, key: keyValue, index, wrapper }) => {
-            if (!isNewElement) {
-                const persistentElement = getElementByKeyAndRepeatId({
-                    key: keyValue,
-                    repeatId,
-                });
+    newSequenceByKey.forEach(({ isNewElement, keyValue, index, wrapper }) => {
+        if (!isNewElement) {
+            const persistentElement = getElementByKeyAndRepeatId({
+                keyValue,
+                repeatId,
+            });
 
-                if (!persistentElement) return;
+            if (!persistentElement) return;
 
-                /**
-                 * If there is no wrapper when cut and paster component
-                 * we loose debug information.
-                 * Update debug information.
-                 */
-                const { debug } = getDefaultComponent();
-                if (debug && !wrapper) {
-                    const componentName =
-                        getComponentNameByElement(persistentElement);
+            /**
+             * If there is no wrapper when cut and paster component
+             * we loose debug information.
+             * Update debug information.
+             */
+            const { debug } = getDefaultComponent();
+            if (debug && !wrapper) {
+                const componentName =
+                    getComponentNameByElement(persistentElement);
 
-                    repeaterParentElement.insertAdjacentHTML(
-                        'beforeend',
-                        `<!-- ${componentName} --> `
-                    );
-                }
-
-                if (wrapper) {
-                    /**
-                     * Wrapper
-                     */
-                    repeaterParentElement.append(wrapper);
-                } else {
-                    /**
-                     * No wrapper
-                     */
-                    repeaterParentElement.append(persistentElement);
-                }
-
-                return;
+                repeaterParentElement.insertAdjacentHTML(
+                    'beforeend',
+                    `<!-- ${componentName} --> `
+                );
             }
 
-            const currentValue = currentUnique?.[index];
+            if (wrapper) {
+                /**
+                 * Wrapper
+                 */
+                repeaterParentElement.append(wrapper);
+            } else {
+                /**
+                 * No wrapper
+                 */
+                repeaterParentElement.append(persistentElement);
+            }
 
-            const currentRender = useSync
-                ? updateRepeaterWithtKeyUseSync({
-                      id,
-                      currentValue,
-                      index,
-                      state,
-                      repeatId,
-                      key,
-                      keyValue,
-                      render,
-                  })
-                : updateRepeaterWithtKey({
-                      id,
-                      currentValue,
-                      index,
-                      state,
-                      repeatId,
-                      key,
-                      keyValue,
-                      render,
-                  });
-
-            repeaterParentElement.insertAdjacentHTML(
-                'beforeend',
-                currentRender
-            );
+            return;
         }
-    );
+
+        const currentValue = currentUnique?.[index];
+
+        const currentRender = useSync
+            ? updateRepeaterWithtKeyUseSync({
+                  id,
+                  currentValue,
+                  index,
+                  state,
+                  repeatId,
+                  key,
+                  keyValue,
+                  render,
+              })
+            : updateRepeaterWithtKey({
+                  id,
+                  currentValue,
+                  index,
+                  state,
+                  repeatId,
+                  key,
+                  keyValue,
+                  render,
+              });
+
+        repeaterParentElement.insertAdjacentHTML('beforeend', currentRender);
+    });
 
     return currentUnique;
 };

@@ -61,7 +61,7 @@ export const getIdByElement = ({ element }) => {
 /**
  *
  * @param {object} obj
- * @param {string} obj.key
+ * @param {string} obj.keyValue
  * @param {string} obj.repeatId
  * @return {HTMLElement|undefined}
  *
@@ -69,13 +69,18 @@ export const getIdByElement = ({ element }) => {
  * @description
  * Get element by key and repeatId.
  */
-export const getElementByKeyAndRepeatId = ({ key = '', repeatId = '' }) => {
-    if (key?.length === 0) return;
+export const getElementByKeyAndRepeatId = ({
+    keyValue = '',
+    repeatId = '',
+}) => {
+    if (keyValue?.length === 0) return;
+    console.log(keyValue);
 
     const values = [...componentMap.values()];
     const valuesFiltered = values.find(
         (item) =>
-            `${item.key}` === `${key}` && item.componentRepeatId === repeatId
+            `${item.key}` === `${keyValue}` &&
+            item.componentRepeatId === repeatId
     );
 
     return valuesFiltered?.element;

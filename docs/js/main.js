@@ -17230,7 +17230,7 @@
     return current.map((el, index) => {
       const value = el?.[key];
       const isNewElement = !previous.some((a) => a?.[key] === value);
-      return isNewElement ? { isNewElement: true, key: el?.[key], index } : { isNewElement: false, key: el?.[key], index };
+      return isNewElement ? { isNewElement: true, keyValue: el?.[key], index } : { isNewElement: false, keyValue: el?.[key], index };
     });
   };
   var arrayhaskey = ({ arr = [], key = "" }) => {
@@ -17304,11 +17304,15 @@
     });
     return item?.id ?? "";
   };
-  var getElementByKeyAndRepeatId = ({ key = "", repeatId = "" }) => {
-    if (key?.length === 0) return;
+  var getElementByKeyAndRepeatId = ({
+    keyValue = "",
+    repeatId = ""
+  }) => {
+    if (keyValue?.length === 0) return;
+    console.log(keyValue);
     const values = [...componentMap.values()];
     const valuesFiltered = values.find(
-      (item) => `${item.key}` === `${key}` && item.componentRepeatId === repeatId
+      (item) => `${item.key}` === `${keyValue}` && item.componentRepeatId === repeatId
     );
     return valuesFiltered?.element;
   };
@@ -20077,7 +20081,7 @@
     id,
     bind,
     hasKey,
-    key,
+    key = "",
     keyValue = "",
     index
   }) => {
@@ -20365,7 +20369,7 @@
     const elementToRemoveByKey = keyToRemove.map((item) => {
       const keyValue = item?.[key];
       return getElementByKeyAndRepeatId({
-        key: keyValue,
+        keyValue,
         repeatId
       });
     });
@@ -20389,67 +20393,62 @@
       currentUnique,
       previous,
       key
-    ).map(({ key: key2, isNewElement, index }) => {
+    ).map(({ keyValue, isNewElement, index }) => {
       if (isNewElement)
-        return { key: key2, isNewElement, index, wrapper: void 0 };
+        return { keyValue, isNewElement, index, wrapper: void 0 };
       const element = getElementByKeyAndRepeatId({
-        key: key2,
+        keyValue,
         repeatId
       });
       const id2 = getIdByElement({ element });
       const wrapper2 = getRepeaterInnerWrap({ id: id2 });
-      return { key: key2, isNewElement, index, wrapper: wrapper2 };
+      return { keyValue, isNewElement, index, wrapper: wrapper2 };
     });
     repeaterParentElement.replaceChildren();
-    newSequenceByKey.forEach(
-      ({ isNewElement, key: keyValue, index, wrapper: wrapper2 }) => {
-        if (!isNewElement) {
-          const persistentElement = getElementByKeyAndRepeatId({
-            key: keyValue,
-            repeatId
-          });
-          if (!persistentElement) return;
-          const { debug } = getDefaultComponent();
-          if (debug && !wrapper2) {
-            const componentName = getComponentNameByElement(persistentElement);
-            repeaterParentElement.insertAdjacentHTML(
-              "beforeend",
-              `<!-- ${componentName} --> `
-            );
-          }
-          if (wrapper2) {
-            repeaterParentElement.append(wrapper2);
-          } else {
-            repeaterParentElement.append(persistentElement);
-          }
-          return;
-        }
-        const currentValue = currentUnique?.[index];
-        const currentRender = useSync ? updateRepeaterWithtKeyUseSync({
-          id,
-          currentValue,
-          index,
-          state,
-          repeatId,
-          key,
+    newSequenceByKey.forEach(({ isNewElement, keyValue, index, wrapper: wrapper2 }) => {
+      if (!isNewElement) {
+        const persistentElement = getElementByKeyAndRepeatId({
           keyValue,
-          render: render2
-        }) : updateRepeaterWithtKey({
-          id,
-          currentValue,
-          index,
-          state,
-          repeatId,
-          key,
-          keyValue,
-          render: render2
+          repeatId
         });
-        repeaterParentElement.insertAdjacentHTML(
-          "beforeend",
-          currentRender
-        );
+        if (!persistentElement) return;
+        const { debug } = getDefaultComponent();
+        if (debug && !wrapper2) {
+          const componentName = getComponentNameByElement(persistentElement);
+          repeaterParentElement.insertAdjacentHTML(
+            "beforeend",
+            `<!-- ${componentName} --> `
+          );
+        }
+        if (wrapper2) {
+          repeaterParentElement.append(wrapper2);
+        } else {
+          repeaterParentElement.append(persistentElement);
+        }
+        return;
       }
-    );
+      const currentValue = currentUnique?.[index];
+      const currentRender = useSync ? updateRepeaterWithtKeyUseSync({
+        id,
+        currentValue,
+        index,
+        state,
+        repeatId,
+        key,
+        keyValue,
+        render: render2
+      }) : updateRepeaterWithtKey({
+        id,
+        currentValue,
+        index,
+        state,
+        repeatId,
+        key,
+        keyValue,
+        render: render2
+      });
+      repeaterParentElement.insertAdjacentHTML("beforeend", currentRender);
+    });
     return currentUnique;
   };
 
@@ -27293,7 +27292,7 @@ Loading snippet ...</pre
                             ${sync()}
                         >
                             <div>
-                                ${bindProxi`value: ${() => proxi.data[proxiIndex.value]?.label}`}
+                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value]?.label}`}
                             </div>
                         </benchmark-fake-component>
                     `;
@@ -27379,7 +27378,7 @@ Loading snippet ...</pre
                             ${sync()}
                         >
                             <div>
-                                ${bindProxi`value: ${() => proxi.data[proxiIndex.value]?.label}`}
+                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value]?.label}`}
                             </div>
                         </benchmark-fake-component>
                     `;
