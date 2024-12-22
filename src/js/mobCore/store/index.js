@@ -6,11 +6,7 @@ import {
     storeQuickSetEntrypoint,
     storeSetEntryPoint,
 } from './storeSet';
-import {
-    getStateFromMainMap,
-    removeStateFromMainMap,
-    updateMainMap,
-} from './storeMap';
+import { updateMainMap } from './storeMap';
 import { inizializeAllProps, inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
 import { inizializeInstance } from './inizializeInstance';
