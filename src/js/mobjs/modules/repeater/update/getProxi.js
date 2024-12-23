@@ -51,8 +51,8 @@ export const getRepeatProxi = ({
             }
 
             /**
-             * Return current.value
-             * Return index by key by default.
+             * Return current.value ( default ).
+             * Return value by key
              */
             if (hasKey) {
                 return target?.[bind]?.find(
@@ -62,7 +62,7 @@ export const getRepeatProxi = ({
             }
 
             /**
-             * Return index without key.
+             * Return value without key.
              */
             return target?.[bind]?.[index];
         },
