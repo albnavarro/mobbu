@@ -20102,10 +20102,10 @@
         if (prop === REPEAT_PROXI_INDEX) {
           const maxValue = target?.[bind].length - 1;
           if (hasKey) {
-            const currentIndex = target?.[bind]?.findIndex(
+            const indexByKey = target?.[bind]?.findIndex(
               (item) => item[key] === keyValue
             );
-            return clamp2(currentIndex, 0, maxValue);
+            return clamp2(indexByKey, 0, maxValue);
           }
           return clamp2(index, 0, maxValue);
         }
@@ -27301,9 +27301,6 @@ Loading snippet ...</pre
         })}
                             ${sync()}
                         >
-                            <div>
-                                ${bindProxi`proxi: ${() => proxi.data[current.index].label}`}
-                            </div>
                         </benchmark-fake-component>
                     `;
       }
@@ -27387,9 +27384,6 @@ Loading snippet ...</pre
         })}
                             ${sync()}
                         >
-                            <div>
-                                ${bindProxi`proxi: ${() => proxi.data[current.index].label}`}
-                            </div>
                         </benchmark-fake-component>
                     `;
       }

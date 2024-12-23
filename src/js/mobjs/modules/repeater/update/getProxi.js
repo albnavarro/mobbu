@@ -4,6 +4,13 @@ import { clamp } from '../../../utils';
 const REPEAT_PROXI_INDEX = 'index';
 
 /**
+ * @description
+ * Reactive state for repeat.
+ * Note:
+ * bindProxi can run after 'item' is destroyed ( wekRef issue ).
+ * So clamp index value with current array length.
+ * The item is not visible but can fire error.
+ *
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bind
@@ -36,12 +43,12 @@ export const getRepeatProxi = ({
                  * Return index by key.
                  */
                 if (hasKey) {
-                    const currentIndex = target?.[bind]?.findIndex(
+                    const indexByKey = target?.[bind]?.findIndex(
                         (/** @type {{ [x: string]: any; }} */ item) =>
                             item[key] === keyValue
                     );
 
-                    return clamp(currentIndex, 0, maxValue);
+                    return clamp(indexByKey, 0, maxValue);
                 }
 
                 /**
