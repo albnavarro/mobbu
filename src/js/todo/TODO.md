@@ -67,6 +67,7 @@ export interface callbackQueue {
 #### proxiIndex
 - `Type`: Il tipo vede opzionale current.value es: `current.value?.myProp`, bisogna renderlo non opzionale.
 - `bindProxi` puó usare solo index, sarebbe carino poterlgi passare anche `current.value.myProp`
+- Testare `current` con `bindStore`.
 
 ```js
 ${repeat({
