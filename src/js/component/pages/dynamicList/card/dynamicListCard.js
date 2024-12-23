@@ -160,13 +160,13 @@ export const DynamicListCardFn = ({
                         ${repeat({
                             bind: 'innerData',
                             key: 'key',
-                            render: ({ html }) => {
+                            render: ({ html, current }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */
-                                        props: ({ innerData }, index) => {
+                                        props: () => {
                                             return {
-                                                key: `${innerData[index].key}`,
+                                                key: `${current.value?.key}`,
                                             };
                                         },
                                     })}
@@ -179,13 +179,13 @@ export const DynamicListCardFn = ({
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
                             bind: 'innerData',
-                            render: ({ html }) => {
+                            render: ({ html, current }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */
-                                        props: ({ innerData }, index) => {
+                                        props: () => {
                                             return {
-                                                key: `${innerData[index].key}`,
+                                                key: `${current.value?.key}`,
                                             };
                                         },
                                     })}

@@ -164,7 +164,11 @@ export type PartialGetParentId = () => string | undefined;
 /**
  * Current repeat proxi value
  */
-export type PartialCurrent<T, K> = ArrayElement<GetState<T>[K]>;
+
+export interface PartialCurrent<T, K> {
+    index: number;
+    value: ArrayElement<GetState<T>[K]>;
+}
 
 /**
  * watchParent
@@ -301,10 +305,7 @@ export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
         sync: () => string;
         initialIndex: number;
         initialValue: ArrayElement<GetState<T>[K]>;
-        current: {
-            index: number;
-            value: PartialCurrent<T, K>;
-        };
+        current: PartialCurrent<T, K>;
         html: (
             template: { raw: readonly string[] | ArrayLike<string> },
             ...substitutions: any[]

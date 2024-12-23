@@ -153,7 +153,7 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
                 bind: 'level2',
-                render: ({ html }) => {
+                render: ({ html, current }) => {
                     return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--2"
@@ -165,11 +165,11 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                 })}
                                 ${bindProps({
                                     bind: ['counter'],
-                                    props: ({ level2, counter }, index) => {
+                                    props: ({ counter }) => {
                                         return {
-                                            key: `${level2[index]?.key}`,
-                                            value: `${level2[index]?.value}`,
-                                            index: index,
+                                            key: `${current.value?.key}`,
+                                            value: `${current.value?.value}`,
+                                            index: current.index,
                                             counter,
                                         };
                                     },
@@ -202,7 +202,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
                 bind: 'level3',
-                render: ({ html }) => {
+                render: ({ html, current }) => {
                     const name = mobCore.getUnivoqueId();
                     const name2 = mobCore.getUnivoqueId();
 
@@ -221,11 +221,11 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                 })}
                                 ${bindProps({
                                     bind: ['counter'],
-                                    props: ({ level3, counter }, index) => {
+                                    props: ({ counter }) => {
                                         return {
-                                            key: `${level3[index]?.key}`,
-                                            value: `${level3[index]?.value}`,
-                                            index: index,
+                                            key: `${current.value?.key}`,
+                                            value: `${current.value?.value}`,
+                                            index: current.index,
                                             counter,
                                         };
                                     },
@@ -348,7 +348,7 @@ export const MatrioskaFn = ({
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
                     bind: 'level1',
-                    render: ({ html }) => {
+                    render: ({ html, current }) => {
                         return html`
                             <div
                                 class="matrioska__item-wrap matrioska__item-wrap--1"
@@ -359,11 +359,11 @@ export const MatrioskaFn = ({
                                     ${bindProps({
                                         bind: ['counter'],
                                         /** @returns{ReturnBindProps<MatrioskaItem>} */
-                                        props: ({ level1, counter }, index) => {
+                                        props: ({ counter }) => {
                                             return {
-                                                key: `${level1[index]?.key}`,
-                                                value: `${level1[index]?.value}`,
-                                                index: index,
+                                                key: `${current.value?.key}`,
+                                                value: `${current.value?.value}`,
+                                                index: current.index,
                                                 counter,
                                             };
                                         },

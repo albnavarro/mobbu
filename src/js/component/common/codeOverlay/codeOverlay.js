@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { Current, MobComponent } from '../../../mobjs/type';
  * @import { GetState, BindProps, SetState, DelegateEvents, StaticProps, RenderComponent } from '../../../mobjs/type';
  * @import { CodeOverlay, CodeOverlayButton } from './type';
  * @import { HtmlContent } from '../htmlContent/type';
@@ -26,17 +26,17 @@ const copyToClipboard = ({ getState }) => {
  * @param {Object} param
  * @param {BindProps<CodeOverlay,CodeOverlayButton>} param.bindProps
  * @param {SetState<CodeOverlay>} param.setState
- * @param {GetState<CodeOverlay>} param.getState
  * @param {DelegateEvents} param.delegateEvents
+ * @param {Current<CodeOverlay, 'urls'>} param.current
  * @returns {string}
  */
-function getRepeaterCard({ bindProps, setState, delegateEvents, getState }) {
+function getRepeaterCard({ bindProps, setState, delegateEvents, current }) {
     return html`
         <code-overlay-button
             ${bindProps({
                 bind: ['activeContent'],
-                props: ({ activeContent, urls }, index) => {
-                    const { label, source } = urls[index];
+                props: ({ activeContent }) => {
+                    const { label, source } = current.value;
 
                     return {
                         key: label,
@@ -46,10 +46,8 @@ function getRepeaterCard({ bindProps, setState, delegateEvents, getState }) {
                 },
             })}
             ${delegateEvents({
-                click: (_e, index) => {
-                    const { urls } = getState();
-                    const { label } = urls[index];
-                    setState('activeContent', label);
+                click: () => {
+                    setState('activeContent', current.value.label);
                 },
             })}
         >
@@ -237,12 +235,12 @@ export const CodeOverlayFn = ({
                     ${repeat({
                         clean: true,
                         bind: 'urls',
-                        render: () => {
+                        render: ({ current }) => {
                             return getRepeaterCard({
                                 bindProps,
                                 delegateEvents,
                                 setState,
-                                getState,
+                                current,
                             });
                         },
                     })}

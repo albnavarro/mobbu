@@ -25357,13 +25357,13 @@ Loading snippet ...</pre
     const { rawContent } = getState();
     navigator.clipboard.writeText(rawContent);
   };
-  function getRepeaterCard({ bindProps, setState, delegateEvents, getState }) {
+  function getRepeaterCard({ bindProps, setState, delegateEvents, current }) {
     return renderHtml`
         <code-overlay-button
             ${bindProps({
       bind: ["activeContent"],
-      props: ({ activeContent, urls }, index) => {
-        const { label, source } = urls[index];
+      props: ({ activeContent }) => {
+        const { label, source } = current.value;
         return {
           key: label,
           disable: !source || source.length === 0,
@@ -25372,10 +25372,8 @@ Loading snippet ...</pre
       }
     })}
             ${delegateEvents({
-      click: (_e, index) => {
-        const { urls } = getState();
-        const { label } = urls[index];
-        setState("activeContent", label);
+      click: () => {
+        setState("activeContent", current.value.label);
       }
     })}
         >
@@ -25503,12 +25501,12 @@ Loading snippet ...</pre
                     ${repeat({
       clean: true,
       bind: "urls",
-      render: () => {
+      render: ({ current }) => {
         return getRepeaterCard({
           bindProps,
           delegateEvents,
           setState,
-          getState
+          current
         });
       }
     })}
@@ -27384,7 +27382,7 @@ Loading snippet ...</pre
           props: ({ counter }) => {
             return {
               index: current.index,
-              label: current.value.label,
+              label: current.value?.label,
               counter
             };
           }
@@ -30848,13 +30846,13 @@ Loading snippet ...</pre
                         ${repeat({
       bind: "innerData",
       key: "key",
-      render: ({ html: html2 }) => {
+      render: ({ html: html2, current }) => {
         return html2`<dynamic-list-card-inner
                                     ${bindProps({
           /** @return {ReturnBindProps<DynamicListCardInner>} */
-          props: ({ innerData: innerData2 }, index) => {
+          props: () => {
             return {
-              key: `${innerData2[index].key}`
+              key: `${current.value?.key}`
             };
           }
         })}
@@ -30867,13 +30865,13 @@ Loading snippet ...</pre
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
       bind: "innerData",
-      render: ({ html: html2 }) => {
+      render: ({ html: html2, current }) => {
         return html2`<dynamic-list-card-inner
                                     ${bindProps({
           /** @return {ReturnBindProps<DynamicListCardInner>} */
-          props: ({ innerData: innerData2 }, index) => {
+          props: () => {
             return {
-              key: `${innerData2[index].key}`
+              key: `${current.value?.key}`
             };
           }
         })}
@@ -31497,7 +31495,7 @@ Loading snippet ...</pre
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
       bind: "level2",
-      render: ({ html }) => {
+      render: ({ html, current }) => {
         return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--2"
@@ -31509,11 +31507,11 @@ Loading snippet ...</pre
         })}
                                 ${bindProps({
           bind: ["counter"],
-          props: ({ level2, counter }, index) => {
+          props: ({ counter }) => {
             return {
-              key: `${level2[index]?.key}`,
-              value: `${level2[index]?.value}`,
-              index,
+              key: `${current.value?.key}`,
+              value: `${current.value?.value}`,
+              index: current.index,
               counter
             };
           }
@@ -31538,7 +31536,7 @@ Loading snippet ...</pre
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
       bind: "level3",
-      render: ({ html }) => {
+      render: ({ html, current }) => {
         const name = mobCore.getUnivoqueId();
         const name2 = mobCore.getUnivoqueId();
         return html`
@@ -31553,11 +31551,11 @@ Loading snippet ...</pre
         })}
                                 ${bindProps({
           bind: ["counter"],
-          props: ({ level3, counter }, index) => {
+          props: ({ counter }) => {
             return {
-              key: `${level3[index]?.key}`,
-              value: `${level3[index]?.value}`,
-              index,
+              key: `${current.value?.key}`,
+              value: `${current.value?.value}`,
+              index: current.index,
               counter
             };
           }
@@ -31667,7 +31665,7 @@ Loading snippet ...</pre
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
       bind: "level1",
-      render: ({ html: html2 }) => {
+      render: ({ html: html2, current }) => {
         return html2`
                             <div
                                 class="matrioska__item-wrap matrioska__item-wrap--1"
@@ -31678,11 +31676,11 @@ Loading snippet ...</pre
                                     ${bindProps({
           bind: ["counter"],
           /** @returns{ReturnBindProps<MatrioskaItem>} */
-          props: ({ level1, counter }, index) => {
+          props: ({ counter }) => {
             return {
-              key: `${level1[index]?.key}`,
-              value: `${level1[index]?.value}`,
-              index,
+              key: `${current.value?.key}`,
+              value: `${current.value?.value}`,
+              index: current.index,
               counter
             };
           }
