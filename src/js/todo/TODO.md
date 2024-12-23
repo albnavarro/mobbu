@@ -65,26 +65,8 @@ export interface callbackQueue {
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
 #### proxiIndex
-- Rinominare currentValue / index.
-- Possibilità di passare `value` nello steso modo, il problem e che `bindProxi` non potrá dedurre le dipendenze.
-
-```js
-${repeat({
-    bind: 'data',
-    render: ({ html, index, initialIndex, intialValue }) => {
-        return html`
-            <benchmark-fake-component>
-                <div>
-                    ${bindProxi`proxi: ${() => proxi.data[index.value].label}`}
-                </div>
-            </benchmark-fake-component>
-        `;
-    },
-})}
-```
-
-- oppure:
-- In questo caso current.value puó essere valorizzato da TS.
+- `Type`: Il tipo vede opzionale current.value es: `current.value?.myProp`, bisogna renderlo non opzionale.
+- `bindProxi` puó usare solo index, sarebbe carino poterlgi passare anche `current.value.myProp`
 
 ```js
 ${repeat({
