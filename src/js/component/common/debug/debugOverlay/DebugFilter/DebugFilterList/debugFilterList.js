@@ -209,14 +209,14 @@ export const DebugFilterListFn = ({
                             return html`
                                 <debug-filter-list-item
                                     ${staticProps({
-                                        id: current.value.id,
-                                        name: current.value.name,
+                                        id: current.value?.id,
+                                        name: current.value?.name,
                                     })}
                                     ${bindProps({
                                         /** @returns{ReturnBindProps<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
                                         props: () => {
                                             return {
-                                                tag: current.value.tag,
+                                                tag: current.value?.tag,
                                             };
                                         },
                                     })}
