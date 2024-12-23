@@ -30976,7 +30976,7 @@ Loading snippet ...</pre
     bindProps,
     listId,
     delegateEvents,
-    getState
+    current
   }) {
     return renderHtml`
         <div class="c-dynamic-list-repeater__item">
@@ -30987,19 +30987,17 @@ Loading snippet ...</pre
                 ${bindProps({
       bind: ["counter"],
       /** @returns {ReturnBindProps<DynamicListCard>} */
-      props: ({ counter, data }, index) => {
+      props: ({ counter }) => {
         return {
           counter,
-          label: data[index].label,
-          index
+          label: current.value.label,
+          index: current.index
         };
       }
     })}
                 ${delegateEvents({
-      click: (_e, index) => {
-        const { data } = getState();
-        const current = data[index].label;
-        console.log(current, index);
+      click: () => {
+        console.log(current.value?.label, current.index);
       }
     })}
             >
@@ -31008,9 +31006,9 @@ Loading snippet ...</pre
                     ${bindProps({
       bind: ["counter"],
       /** @returns {ReturnBindProps<import('../slottedLabel/type').DynamicListSlottedLabel>} */
-      props: ({ data, counter }, index) => {
+      props: ({ counter }) => {
         return {
-          label: `label: ${data[index].label} <br/> counter: ${counter}`
+          label: `label: ${current.value.label} <br/> counter: ${counter}`
         };
       }
     })}
@@ -31041,13 +31039,13 @@ Loading snippet ...</pre
       afterUpdate: () => {
         console.log("repeater updated");
       },
-      render: () => {
+      render: ({ current }) => {
         return getRepeaterCard2({
           staticProps: staticProps2,
-          getState,
           bindProps,
           delegateEvents,
-          listId
+          listId,
+          current
         });
       }
     })}

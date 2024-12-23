@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
- * @import { StaticProps, GetState, BindProps, DelegateEvents } from '../../../../mobjs/type';
+ * @import { Current, MobComponent, ReturnBindProps } from '../../../../mobjs/type';
+ * @import { StaticProps, BindProps, DelegateEvents } from '../../../../mobjs/type';
  * @import { DynamicListCard } from '../card/type';
  * @import { DynamicListRepeater } from './type';
  **/
@@ -12,17 +12,18 @@ import { html } from '../../../../mobjs';
 /**
  * @param {object} param
  * @param {StaticProps<DynamicListCard>} param.staticProps
- * @param {GetState<DynamicListRepeater>} param.getState
  * @param {BindProps<DynamicListRepeater>} param.bindProps
  * @param {number} param.listId
  * @param {DelegateEvents} param.delegateEvents
+ * @param {Current<DynamicListRepeater,'data'>} param.current
+ *
  */
 function getRepeaterCard({
     staticProps,
     bindProps,
     listId,
     delegateEvents,
-    getState,
+    current,
 }) {
     return html`
         <div class="c-dynamic-list-repeater__item">
@@ -33,20 +34,17 @@ function getRepeaterCard({
                 ${bindProps({
                     bind: ['counter'],
                     /** @returns {ReturnBindProps<DynamicListCard>} */
-                    props: ({ counter, data }, index) => {
+                    props: ({ counter }) => {
                         return {
                             counter,
-                            label: data[index].label,
-                            index: index,
+                            label: current.value.label,
+                            index: current.index,
                         };
                     },
                 })}
                 ${delegateEvents({
-                    click: (_e, index) => {
-                        const { data } = getState();
-                        const current = data[index].label;
-
-                        console.log(current, index);
+                    click: () => {
+                        console.log(current.value?.label, current.index);
                     },
                 })}
             >
@@ -55,9 +53,9 @@ function getRepeaterCard({
                     ${bindProps({
                         bind: ['counter'],
                         /** @returns {ReturnBindProps<import('../slottedLabel/type').DynamicListSlottedLabel>} */
-                        props: ({ data, counter }, index) => {
+                        props: ({ counter }) => {
                             return {
-                                label: `label: ${data[index].label} <br/> counter: ${counter}`,
+                                label: `label: ${current.value.label} <br/> counter: ${counter}`,
                             };
                         },
                     })}
@@ -91,13 +89,13 @@ export const DynamicListRepeaterFn = ({
                     afterUpdate: () => {
                         console.log('repeater updated');
                     },
-                    render: () => {
+                    render: ({ current }) => {
                         return getRepeaterCard({
                             staticProps,
-                            getState,
                             bindProps,
                             delegateEvents,
                             listId,
+                            current,
                         });
                     },
                 })}
