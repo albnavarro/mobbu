@@ -39,6 +39,7 @@ import {
     PartialGetProxi,
     PartialGetProxiState,
     PartialBindStore,
+    PartialCurrent,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -65,6 +66,7 @@ export type WatchParent = PartialWatchParent;
 export type UnBind = PartialUnBind;
 export type OnMount = PartialOnMount;
 export type Repeat<T> = PartialRepeat<T>;
+export type Current<T, K> = PartialCurrent<T, K>;
 export type RenderComponent = PartialRenderComponent;
 export type Invalidate<T> = PartialInvalidateComponent<T>;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;

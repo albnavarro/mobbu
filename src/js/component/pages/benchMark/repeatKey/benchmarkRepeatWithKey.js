@@ -73,7 +73,7 @@ export const BenchMarkRepeatWithKyFn = ({
                     return html`
                         <benchmark-fake-component
                             ${staticProps({
-                                label: current.value.label,
+                                label: current.value?.label,
                             })}
                             ${bindProps({
                                 bind: ['counter'],

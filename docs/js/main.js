@@ -27291,7 +27291,7 @@ Loading snippet ...</pre
         return html2`
                         <benchmark-fake-component
                             ${staticProps2({
-          label: current.value.label
+          label: current.value?.label
         })}
                             ${bindProps({
           bind: ["counter"],
