@@ -36,6 +36,22 @@ export const getRepeatProxi = ({
                 return clamp(index, 0, maxValue);
             }
 
+            if (prop === 'value') {
+                /**
+                 * Return index by key.
+                 */
+                if (hasKey) {
+                    return target?.[bind]?.find(
+                        (item) => item[key] === keyValue
+                    );
+                }
+
+                /**
+                 * Return index without key.
+                 */
+                return target?.[bind]?.[index];
+            }
+
             return false;
         },
         set() {

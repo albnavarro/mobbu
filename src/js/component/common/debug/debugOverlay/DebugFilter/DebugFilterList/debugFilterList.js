@@ -205,18 +205,18 @@ export const DebugFilterListFn = ({
                         bind: 'data',
                         key: 'id',
                         useSync: true,
-                        render: ({ html, sync, intitialValue }) => {
+                        render: ({ html, sync, current }) => {
                             return html`
                                 <debug-filter-list-item
                                     ${staticProps({
-                                        id: intitialValue?.id,
-                                        name: intitialValue?.name,
+                                        id: current.value.id,
+                                        name: current.value.name,
                                     })}
                                     ${bindProps({
                                         /** @returns{ReturnBindProps<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
-                                        props: ({ data }, index) => {
+                                        props: () => {
                                             return {
-                                                tag: data[index].tag,
+                                                tag: current.value.tag,
                                             };
                                         },
                                     })}

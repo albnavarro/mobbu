@@ -3,7 +3,7 @@ import { emitType, setType, watchType } from '../../../mobCore/store/type';
 export type RepeaterRender = (arg0: {
     sync: () => string;
     initialIndex: number;
-    intitialValue: Record<string, any>;
+    initialValue: Record<string, any>;
     current: any;
     html?: (
         template: { raw: readonly string[] | ArrayLike<string> },

@@ -41,7 +41,7 @@ export const updateRepeaterWitoutKey = ({
      */
     const serializedFragment = [...new Array(diff).keys()]
         .map((_item, index) => {
-            const intitialValue = current?.[index + previousLenght];
+            const initialValue = current?.[index + previousLenght];
             const initialIndex = index + previousLenght;
 
             const proxiObject = getRepeatProxi({
@@ -53,7 +53,7 @@ export const updateRepeaterWitoutKey = ({
 
             const rawRender = render({
                 initialIndex,
-                intitialValue,
+                initialValue,
                 current: proxiObject,
                 html: renderHtml,
                 sync: () => '',
@@ -67,7 +67,7 @@ export const updateRepeaterWitoutKey = ({
 
             setRepeatAttribute({
                 components,
-                current: intitialValue,
+                current: initialValue,
                 index: initialIndex,
                 bind: state,
                 repeatId,
@@ -112,13 +112,13 @@ export const updateRepeaterWithoutKeyUseSync = ({
 }) => {
     return [...new Array(diff).keys()]
         .map((_item, index) => {
-            const intitialValue = current?.[index + previousLenght];
+            const initialValue = current?.[index + previousLenght];
             const initialIndex = index + previousLenght;
 
             const sync =
                 /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
                     {
-                        current: intitialValue,
+                        current: initialValue,
                         index: initialIndex,
                     }
                 )}"
@@ -135,7 +135,7 @@ export const updateRepeaterWithoutKeyUseSync = ({
             return render({
                 sync,
                 initialIndex,
-                intitialValue,
+                initialValue,
                 current: proxiObject,
                 html: renderHtml,
             });
@@ -179,7 +179,7 @@ export const updateRepeaterWithtKey = ({
     let fragment = document.createRange().createContextualFragment(
         render({
             initialIndex: index,
-            intitialValue: currentValue,
+            initialValue: currentValue,
             current: proxiObject,
             html: renderHtml,
             sync: () => '',
@@ -250,7 +250,7 @@ export const updateRepeaterWithtKeyUseSync = ({
 
     return render({
         initialIndex: index,
-        intitialValue: currentValue,
+        initialValue: currentValue,
         current: proxiObject,
         html: renderHtml,
         sync,
@@ -296,7 +296,7 @@ export const getRenderWithoutSync = ({
             let fragment = document.createRange().createContextualFragment(
                 render({
                     initialIndex: index,
-                    intitialValue: item,
+                    initialValue: item,
                     current: proxiObject,
                     html: renderHtml,
                     sync: () => '',
@@ -376,7 +376,7 @@ export const getRenderWithSync = ({
                 return render({
                     sync,
                     initialIndex: index,
-                    intitialValue: item,
+                    initialValue: item,
                     current: proxiObject,
                     html: renderHtml,
                 });

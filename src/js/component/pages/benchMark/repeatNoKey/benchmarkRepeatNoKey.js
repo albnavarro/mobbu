@@ -73,10 +73,10 @@ export const BenchMarkRepeatNoKyFn = ({
                             ${bindProps({
                                 bind: ['counter'],
                                 /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-                                props: ({ counter, data }, index) => {
+                                props: ({ counter }) => {
                                     return {
-                                        index,
-                                        label: data[index]?.label,
+                                        index: current.index,
+                                        label: current.value.label,
                                         counter,
                                     };
                                 },

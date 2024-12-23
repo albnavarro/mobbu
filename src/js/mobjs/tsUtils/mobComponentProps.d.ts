@@ -295,7 +295,7 @@ export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
     render: (arg0: {
         sync: () => string;
         initialIndex: number;
-        intitialValue: ArrayElement<GetState<T>[K]>;
+        initialValue: ArrayElement<GetState<T>[K]>;
         current: any;
         html: (
             template: { raw: readonly string[] | ArrayLike<string> },

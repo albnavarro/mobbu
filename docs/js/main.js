@@ -20103,6 +20103,14 @@
           }
           return clamp2(index, 0, maxValue);
         }
+        if (prop === "value") {
+          if (hasKey) {
+            return target?.[bind]?.find(
+              (item) => item[key] === keyValue
+            );
+          }
+          return target?.[bind]?.[index];
+        }
         return false;
       },
       set() {
@@ -20123,7 +20131,7 @@
   }) => {
     setSkipAddUserComponent(true);
     const serializedFragment = [...new Array(diff).keys()].map((_item, index) => {
-      const intitialValue = current?.[index + previousLenght];
+      const initialValue = current?.[index + previousLenght];
       const initialIndex = index + previousLenght;
       const proxiObject = getRepeatProxi({
         id,
@@ -20133,7 +20141,7 @@
       });
       const rawRender = render2({
         initialIndex,
-        intitialValue,
+        initialValue,
         current: proxiObject,
         html: renderHtml,
         sync: () => ""
@@ -20142,7 +20150,7 @@
       const components = queryAllFutureComponent(fragment, false);
       setRepeatAttribute({
         components,
-        current: intitialValue,
+        current: initialValue,
         index: initialIndex,
         bind: state,
         repeatId,
@@ -20165,13 +20173,13 @@
     render: render2
   }) => {
     return [...new Array(diff).keys()].map((_item, index) => {
-      const intitialValue = current?.[index + previousLenght];
+      const initialValue = current?.[index + previousLenght];
       const initialIndex = index + previousLenght;
       const sync = (
         /* HTML */
         () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
           {
-            current: intitialValue,
+            current: initialValue,
             index: initialIndex
           }
         )}"
@@ -20187,7 +20195,7 @@
       return render2({
         sync,
         initialIndex,
-        intitialValue,
+        initialValue,
         current: proxiObject,
         html: renderHtml
       });
@@ -20215,7 +20223,7 @@
     let fragment = document.createRange().createContextualFragment(
       render2({
         initialIndex: index,
-        intitialValue: currentValue,
+        initialValue: currentValue,
         current: proxiObject,
         html: renderHtml,
         sync: () => ""
@@ -20265,7 +20273,7 @@
     );
     return render2({
       initialIndex: index,
-      intitialValue: currentValue,
+      initialValue: currentValue,
       current: proxiObject,
       html: renderHtml,
       sync
@@ -20293,7 +20301,7 @@
       let fragment = document.createRange().createContextualFragment(
         render2({
           initialIndex: index,
-          intitialValue: item,
+          initialValue: item,
           current: proxiObject,
           html: renderHtml,
           sync: () => ""
@@ -20349,7 +20357,7 @@
         return render2({
           sync,
           initialIndex: index,
-          intitialValue: item,
+          initialValue: item,
           current: proxiObject,
           html: renderHtml
         });
@@ -27279,18 +27287,18 @@ Loading snippet ...</pre
       bind: "data",
       useSync: true,
       key: "label",
-      render: ({ html: html2, sync, intitialValue, current }) => {
+      render: ({ html: html2, sync, current }) => {
         return html2`
                         <benchmark-fake-component
                             ${staticProps2({
-          label: intitialValue?.label
+          label: current.value.label
         })}
                             ${bindProps({
           bind: ["counter"],
           /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-          props: ({ counter }, index) => {
+          props: ({ counter }) => {
             return {
-              index,
+              index: current.index,
               counter
             };
           }
@@ -27373,10 +27381,10 @@ Loading snippet ...</pre
                             ${bindProps({
           bind: ["counter"],
           /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-          props: ({ counter, data }, index) => {
+          props: ({ counter }) => {
             return {
-              index,
-              label: data[index]?.label,
+              index: current.index,
+              label: current.value.label,
               counter
             };
           }
@@ -35265,18 +35273,18 @@ Loading snippet ...</pre
       bind: "data",
       key: "id",
       useSync: true,
-      render: ({ html: html2, sync, intitialValue }) => {
+      render: ({ html: html2, sync, current }) => {
         return html2`
                                 <debug-filter-list-item
                                     ${staticProps2({
-          id: intitialValue?.id,
-          name: intitialValue?.name
+          id: current.value.id,
+          name: current.value.name
         })}
                                     ${bindProps({
           /** @returns{ReturnBindProps<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
-          props: ({ data }, index) => {
+          props: () => {
             return {
-              tag: data[index].tag
+              tag: current.value.tag
             };
           }
         })}
