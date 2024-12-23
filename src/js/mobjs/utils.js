@@ -25,3 +25,13 @@ import { setStaticProps } from './modules/staticProps';
 export const staticProps = (props = {}) => {
     return `${ATTR_PROPS}="${setStaticProps(props)}"`;
 };
+
+/**
+ * @param {number} num
+ * @param {number} lower
+ * @param {number} upper
+ * @returns {number}
+ */
+export const clamp = (num, lower, upper) => {
+    return Math.min(Math.max(num, lower), upper);
+};

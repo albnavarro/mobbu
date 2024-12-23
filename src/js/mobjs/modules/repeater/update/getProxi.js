@@ -1,9 +1,18 @@
 import { getStateById } from '../../../component/action/state/getStateById';
+import { clamp } from '../../../utils';
 
-function clamp(num, lower, upper) {
-    return Math.min(Math.max(num, lower), upper);
-}
+const REPEAT_PROXI_INDEX = 'index';
 
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {string} params.bind
+ * @param {boolean} params.hasKey
+ * @param {string} [ params.key ]
+ * @param {any} [ params.keyValue ]
+ * @param {number} params.index
+ * @returns {Record<string, any>}
+ */
 export const getRepeatProxi = ({
     id,
     bind,
@@ -12,19 +21,24 @@ export const getRepeatProxi = ({
     keyValue = '',
     index,
 }) => {
+    /** @type{Record<string, any>} */
     const state = getStateById(id);
 
     return new Proxy(state, {
         get(target, prop) {
-            if (prop === 'index') {
+            /**
+             * Return current.index
+             */
+            if (prop === REPEAT_PROXI_INDEX) {
                 const maxValue = target?.[bind].length - 1;
 
                 /**
                  * Return index by key.
                  */
                 if (hasKey) {
-                    const currentIndex = target?.[bind].findIndex(
-                        (item) => item[key] === keyValue
+                    const currentIndex = target?.[bind]?.findIndex(
+                        (/** @type {{ [x: string]: any; }} */ item) =>
+                            item[key] === keyValue
                     );
 
                     return clamp(currentIndex, 0, maxValue);
@@ -36,27 +50,25 @@ export const getRepeatProxi = ({
                 return clamp(index, 0, maxValue);
             }
 
-            if (prop === 'value') {
-                /**
-                 * Return index by key.
-                 */
-                if (hasKey) {
-                    return target?.[bind]?.find(
-                        (item) => item[key] === keyValue
-                    );
-                }
-
-                /**
-                 * Return index without key.
-                 */
-                return target?.[bind]?.[index];
+            /**
+             * Return current.value
+             * Return index by key by default.
+             */
+            if (hasKey) {
+                return target?.[bind]?.find(
+                    (/** @type {{ [x: string]: any; }} */ item) =>
+                        item[key] === keyValue
+                );
             }
 
-            return false;
+            /**
+             * Return index without key.
+             */
+            return target?.[bind]?.[index];
         },
         set() {
             /**
-             * No set allowed
+             * Set action not allowed.
              */
             return false;
         },

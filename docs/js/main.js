@@ -20078,10 +20078,16 @@
     return repeatIsActive;
   };
 
-  // src/js/mobjs/modules/repeater/update/getProxi.js
-  function clamp2(num, lower, upper) {
+  // src/js/mobjs/utils.js
+  var staticProps = (props = {}) => {
+    return `${ATTR_PROPS}="${setStaticProps(props)}"`;
+  };
+  var clamp2 = (num, lower, upper) => {
     return Math.min(Math.max(num, lower), upper);
-  }
+  };
+
+  // src/js/mobjs/modules/repeater/update/getProxi.js
+  var REPEAT_PROXI_INDEX = "index";
   var getRepeatProxi = ({
     id,
     bind,
@@ -20093,25 +20099,22 @@
     const state = getStateById(id);
     return new Proxy(state, {
       get(target, prop) {
-        if (prop === "index") {
+        if (prop === REPEAT_PROXI_INDEX) {
           const maxValue = target?.[bind].length - 1;
           if (hasKey) {
-            const currentIndex = target?.[bind].findIndex(
+            const currentIndex = target?.[bind]?.findIndex(
               (item) => item[key] === keyValue
             );
             return clamp2(currentIndex, 0, maxValue);
           }
           return clamp2(index, 0, maxValue);
         }
-        if (prop === "value") {
-          if (hasKey) {
-            return target?.[bind]?.find(
-              (item) => item[key] === keyValue
-            );
-          }
-          return target?.[bind]?.[index];
+        if (hasKey) {
+          return target?.[bind]?.find(
+            (item) => item[key] === keyValue
+          );
         }
-        return false;
+        return target?.[bind]?.[index];
       },
       set() {
         return false;
@@ -21725,11 +21728,6 @@
   // src/js/mobjs/modules/repeater/action/getNumberOfActiveRepeater.js
   var getNumberOfActiveRepeater = () => {
     return repeatIdPlaceHolderMap.size;
-  };
-
-  // src/js/mobjs/utils.js
-  var staticProps = (props = {}) => {
-    return `${ATTR_PROPS}="${setStaticProps(props)}"`;
   };
 
   // src/js/component/common/animationTitle/animationTitle.js
