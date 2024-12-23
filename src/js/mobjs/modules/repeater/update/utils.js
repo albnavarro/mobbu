@@ -54,7 +54,7 @@ export const updateRepeaterWitoutKey = ({
             const rawRender = render({
                 initialIndex,
                 intitialValue,
-                proxiIndex: proxiObject,
+                current: proxiObject,
                 html: renderHtml,
                 sync: () => '',
             });
@@ -136,7 +136,7 @@ export const updateRepeaterWithoutKeyUseSync = ({
                 sync,
                 initialIndex,
                 intitialValue,
-                proxiIndex: proxiObject,
+                current: proxiObject,
                 html: renderHtml,
             });
         })
@@ -180,7 +180,7 @@ export const updateRepeaterWithtKey = ({
         render({
             initialIndex: index,
             intitialValue: currentValue,
-            proxiIndex: proxiObject,
+            current: proxiObject,
             html: renderHtml,
             sync: () => '',
         })
@@ -251,7 +251,7 @@ export const updateRepeaterWithtKeyUseSync = ({
     return render({
         initialIndex: index,
         intitialValue: currentValue,
-        proxiIndex: proxiObject,
+        current: proxiObject,
         html: renderHtml,
         sync,
     });
@@ -297,7 +297,7 @@ export const getRenderWithoutSync = ({
                 render({
                     initialIndex: index,
                     intitialValue: item,
-                    proxiIndex: proxiObject,
+                    current: proxiObject,
                     html: renderHtml,
                     sync: () => '',
                 })
@@ -377,7 +377,7 @@ export const getRenderWithSync = ({
                     sync,
                     initialIndex: index,
                     intitialValue: item,
-                    proxiIndex: proxiObject,
+                    current: proxiObject,
                     html: renderHtml,
                 });
             })

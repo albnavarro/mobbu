@@ -16,7 +16,7 @@ export const getRepeatProxi = ({
 
     return new Proxy(state, {
         get(target, prop) {
-            if (prop === 'value') {
+            if (prop === 'index') {
                 const maxValue = target?.[bind].length - 1;
 
                 /**

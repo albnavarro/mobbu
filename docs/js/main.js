@@ -20093,7 +20093,7 @@
     const state = getStateById(id);
     return new Proxy(state, {
       get(target, prop) {
-        if (prop === "value") {
+        if (prop === "index") {
           const maxValue = target?.[bind].length - 1;
           if (hasKey) {
             const currentIndex = target?.[bind].findIndex(
@@ -20134,7 +20134,7 @@
       const rawRender = render2({
         initialIndex,
         intitialValue,
-        proxiIndex: proxiObject,
+        current: proxiObject,
         html: renderHtml,
         sync: () => ""
       });
@@ -20188,7 +20188,7 @@
         sync,
         initialIndex,
         intitialValue,
-        proxiIndex: proxiObject,
+        current: proxiObject,
         html: renderHtml
       });
     }).join("");
@@ -20216,7 +20216,7 @@
       render2({
         initialIndex: index,
         intitialValue: currentValue,
-        proxiIndex: proxiObject,
+        current: proxiObject,
         html: renderHtml,
         sync: () => ""
       })
@@ -20266,7 +20266,7 @@
     return render2({
       initialIndex: index,
       intitialValue: currentValue,
-      proxiIndex: proxiObject,
+      current: proxiObject,
       html: renderHtml,
       sync
     });
@@ -20294,7 +20294,7 @@
         render2({
           initialIndex: index,
           intitialValue: item,
-          proxiIndex: proxiObject,
+          current: proxiObject,
           html: renderHtml,
           sync: () => ""
         })
@@ -20350,7 +20350,7 @@
           sync,
           initialIndex: index,
           intitialValue: item,
-          proxiIndex: proxiObject,
+          current: proxiObject,
           html: renderHtml
         });
       }).join("");
@@ -27279,7 +27279,7 @@ Loading snippet ...</pre
       bind: "data",
       useSync: true,
       key: "label",
-      render: ({ html: html2, sync, intitialValue, proxiIndex }) => {
+      render: ({ html: html2, sync, intitialValue, current }) => {
         return html2`
                         <benchmark-fake-component
                             ${staticProps2({
@@ -27298,7 +27298,7 @@ Loading snippet ...</pre
                             ${sync()}
                         >
                             <div>
-                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value].label}`}
+                                ${bindProxi`proxi: ${() => proxi.data[current.index].label}`}
                             </div>
                         </benchmark-fake-component>
                     `;
@@ -27367,7 +27367,7 @@ Loading snippet ...</pre
             ${repeat({
       bind: "data",
       useSync: true,
-      render: ({ html: html2, sync, proxiIndex }) => {
+      render: ({ html: html2, sync, current }) => {
         return html2`
                         <benchmark-fake-component
                             ${bindProps({
@@ -27384,7 +27384,7 @@ Loading snippet ...</pre
                             ${sync()}
                         >
                             <div>
-                                ${bindProxi`proxi: ${() => proxi.data[proxiIndex.value].label}`}
+                                ${bindProxi`proxi: ${() => proxi.data[current.index].label}`}
                             </div>
                         </benchmark-fake-component>
                     `;
