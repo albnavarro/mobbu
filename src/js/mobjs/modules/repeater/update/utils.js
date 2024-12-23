@@ -41,19 +41,19 @@ export const updateRepeaterWitoutKey = ({
      */
     const serializedFragment = [...new Array(diff).keys()]
         .map((_item, index) => {
-            const currentValue = current?.[index + previousLenght];
-            const currentIndex = index + previousLenght;
+            const intitialValue = current?.[index + previousLenght];
+            const initialIndex = index + previousLenght;
 
             const proxiObject = getRepeatProxi({
                 id,
                 bind: state,
                 hasKey: false,
-                index: currentIndex,
+                index: initialIndex,
             });
 
             const rawRender = render({
-                index: currentIndex,
-                currentValue,
+                initialIndex,
+                intitialValue,
                 proxiIndex: proxiObject,
                 html: renderHtml,
                 sync: () => '',
@@ -67,8 +67,8 @@ export const updateRepeaterWitoutKey = ({
 
             setRepeatAttribute({
                 components,
-                current: currentValue,
-                index: currentIndex,
+                current: intitialValue,
+                index: initialIndex,
                 bind: state,
                 repeatId,
                 key: undefined,
@@ -112,14 +112,14 @@ export const updateRepeaterWithoutKeyUseSync = ({
 }) => {
     return [...new Array(diff).keys()]
         .map((_item, index) => {
-            const currentValue = current?.[index + previousLenght];
-            const currentIndex = index + previousLenght;
+            const intitialValue = current?.[index + previousLenght];
+            const initialIndex = index + previousLenght;
 
             const sync =
                 /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
                     {
-                        current: currentValue,
-                        index: currentIndex,
+                        current: intitialValue,
+                        index: initialIndex,
                     }
                 )}"
             ${ATTR_REPEATER_PROP_BIND}="${state}"
@@ -129,13 +129,13 @@ export const updateRepeaterWithoutKeyUseSync = ({
                 id,
                 bind: state,
                 hasKey: false,
-                index: currentIndex,
+                index: initialIndex,
             });
 
             return render({
                 sync,
-                index: currentIndex,
-                currentValue,
+                initialIndex,
+                intitialValue,
                 proxiIndex: proxiObject,
                 html: renderHtml,
             });
@@ -178,8 +178,8 @@ export const updateRepeaterWithtKey = ({
 
     let fragment = document.createRange().createContextualFragment(
         render({
-            index,
-            currentValue,
+            initialIndex: index,
+            intitialValue: currentValue,
             proxiIndex: proxiObject,
             html: renderHtml,
             sync: () => '',
@@ -249,8 +249,8 @@ export const updateRepeaterWithtKeyUseSync = ({
         ${ATTR_CHILD_REPEATID}="${repeatId}"`;
 
     return render({
-        index,
-        currentValue,
+        initialIndex: index,
+        intitialValue: currentValue,
         proxiIndex: proxiObject,
         html: renderHtml,
         sync,
@@ -295,8 +295,8 @@ export const getRenderWithoutSync = ({
 
             let fragment = document.createRange().createContextualFragment(
                 render({
-                    index,
-                    currentValue: item,
+                    initialIndex: index,
+                    intitialValue: item,
                     proxiIndex: proxiObject,
                     html: renderHtml,
                     sync: () => '',
@@ -375,8 +375,8 @@ export const getRenderWithSync = ({
 
                 return render({
                     sync,
-                    index,
-                    currentValue: item,
+                    initialIndex: index,
+                    intitialValue: item,
                     proxiIndex: proxiObject,
                     html: renderHtml,
                 });

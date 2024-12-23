@@ -20123,17 +20123,17 @@
   }) => {
     setSkipAddUserComponent(true);
     const serializedFragment = [...new Array(diff).keys()].map((_item, index) => {
-      const currentValue = current?.[index + previousLenght];
-      const currentIndex = index + previousLenght;
+      const intitialValue = current?.[index + previousLenght];
+      const initialIndex = index + previousLenght;
       const proxiObject = getRepeatProxi({
         id,
         bind: state,
         hasKey: false,
-        index: currentIndex
+        index: initialIndex
       });
       const rawRender = render2({
-        index: currentIndex,
-        currentValue,
+        initialIndex,
+        intitialValue,
         proxiIndex: proxiObject,
         html: renderHtml,
         sync: () => ""
@@ -20142,8 +20142,8 @@
       const components = queryAllFutureComponent(fragment, false);
       setRepeatAttribute({
         components,
-        current: currentValue,
-        index: currentIndex,
+        current: intitialValue,
+        index: initialIndex,
         bind: state,
         repeatId,
         key: void 0
@@ -20165,14 +20165,14 @@
     render: render2
   }) => {
     return [...new Array(diff).keys()].map((_item, index) => {
-      const currentValue = current?.[index + previousLenght];
-      const currentIndex = index + previousLenght;
+      const intitialValue = current?.[index + previousLenght];
+      const initialIndex = index + previousLenght;
       const sync = (
         /* HTML */
         () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
           {
-            current: currentValue,
-            index: currentIndex
+            current: intitialValue,
+            index: initialIndex
           }
         )}"
             ${ATTR_REPEATER_PROP_BIND}="${state}"
@@ -20182,12 +20182,12 @@
         id,
         bind: state,
         hasKey: false,
-        index: currentIndex
+        index: initialIndex
       });
       return render2({
         sync,
-        index: currentIndex,
-        currentValue,
+        initialIndex,
+        intitialValue,
         proxiIndex: proxiObject,
         html: renderHtml
       });
@@ -20214,8 +20214,8 @@
     });
     let fragment = document.createRange().createContextualFragment(
       render2({
-        index,
-        currentValue,
+        initialIndex: index,
+        intitialValue: currentValue,
         proxiIndex: proxiObject,
         html: renderHtml,
         sync: () => ""
@@ -20264,8 +20264,8 @@
         ${ATTR_CHILD_REPEATID}="${repeatId}"`
     );
     return render2({
-      index,
-      currentValue,
+      initialIndex: index,
+      intitialValue: currentValue,
       proxiIndex: proxiObject,
       html: renderHtml,
       sync
@@ -20292,8 +20292,8 @@
       });
       let fragment = document.createRange().createContextualFragment(
         render2({
-          index,
-          currentValue: item,
+          initialIndex: index,
+          intitialValue: item,
           proxiIndex: proxiObject,
           html: renderHtml,
           sync: () => ""
@@ -20348,8 +20348,8 @@
         });
         return render2({
           sync,
-          index,
-          currentValue: item,
+          initialIndex: index,
+          intitialValue: item,
           proxiIndex: proxiObject,
           html: renderHtml
         });
@@ -27279,11 +27279,11 @@ Loading snippet ...</pre
       bind: "data",
       useSync: true,
       key: "label",
-      render: ({ html: html2, sync, currentValue, proxiIndex }) => {
+      render: ({ html: html2, sync, intitialValue, proxiIndex }) => {
         return html2`
                         <benchmark-fake-component
                             ${staticProps2({
-          label: currentValue?.label
+          label: intitialValue?.label
         })}
                             ${bindProps({
           bind: ["counter"],
@@ -35265,12 +35265,12 @@ Loading snippet ...</pre
       bind: "data",
       key: "id",
       useSync: true,
-      render: ({ html: html2, sync, currentValue }) => {
+      render: ({ html: html2, sync, intitialValue }) => {
         return html2`
                                 <debug-filter-list-item
                                     ${staticProps2({
-          id: currentValue?.id,
-          name: currentValue?.name
+          id: intitialValue?.id,
+          name: intitialValue?.name
         })}
                                     ${bindProps({
           /** @returns{ReturnBindProps<import('./DebugFilterLitItem/type').DebugFilterListItem>} */

@@ -69,11 +69,11 @@ export const BenchMarkRepeatWithKyFn = ({
                 bind: 'data',
                 useSync: true,
                 key: 'label',
-                render: ({ html, sync, currentValue, proxiIndex }) => {
+                render: ({ html, sync, intitialValue, proxiIndex }) => {
                     return html`
                         <benchmark-fake-component
                             ${staticProps({
-                                label: currentValue?.label,
+                                label: intitialValue?.label,
                             })}
                             ${bindProps({
                                 bind: ['counter'],

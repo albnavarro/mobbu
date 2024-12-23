@@ -205,12 +205,12 @@ export const DebugFilterListFn = ({
                         bind: 'data',
                         key: 'id',
                         useSync: true,
-                        render: ({ html, sync, currentValue }) => {
+                        render: ({ html, sync, intitialValue }) => {
                             return html`
                                 <debug-filter-list-item
                                     ${staticProps({
-                                        id: currentValue?.id,
-                                        name: currentValue?.name,
+                                        id: intitialValue?.id,
+                                        name: intitialValue?.name,
                                     })}
                                     ${bindProps({
                                         /** @returns{ReturnBindProps<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
