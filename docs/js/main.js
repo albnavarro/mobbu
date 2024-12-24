@@ -20098,11 +20098,12 @@
   }) => {
     const state = getStateById(id);
     return new Proxy(state, {
-      get(target, prop) {
+      get(_, prop) {
+        const stateNow = getStateById(id);
         if (prop === REPEAT_PROXI_INDEX) {
-          const maxValue = target?.[bind].length - 1;
+          const maxValue = stateNow?.[bind].length - 1;
           if (hasKey) {
-            const indexByKey = target?.[bind]?.findIndex(
+            const indexByKey = stateNow?.[bind]?.findIndex(
               (item) => item[key] === keyValue
             );
             return clamp2(indexByKey, 0, maxValue);
@@ -20110,11 +20111,11 @@
           return clamp2(index, 0, maxValue);
         }
         if (hasKey) {
-          return target?.[bind]?.find(
+          return stateNow?.[bind]?.find(
             (item) => item[key] === keyValue
           );
         }
-        return target?.[bind]?.[index];
+        return stateNow?.[bind]?.[index];
       },
       set() {
         return false;

@@ -32,18 +32,24 @@ export const getRepeatProxi = ({
     const state = getStateById(id);
 
     return new Proxy(state, {
-        get(target, prop) {
+        get(_, prop) {
+            /**
+             * Use last updated state
+             * Proxi target should be not last value.
+             */
+            const stateNow = getStateById(id);
+
             /**
              * Return current.index
              */
             if (prop === REPEAT_PROXI_INDEX) {
-                const maxValue = target?.[bind].length - 1;
+                const maxValue = stateNow?.[bind].length - 1;
 
                 /**
                  * Return index by key.
                  */
                 if (hasKey) {
-                    const indexByKey = target?.[bind]?.findIndex(
+                    const indexByKey = stateNow?.[bind]?.findIndex(
                         (/** @type {{ [x: string]: any; }} */ item) =>
                             item[key] === keyValue
                     );
@@ -62,7 +68,7 @@ export const getRepeatProxi = ({
              * Return value by key
              */
             if (hasKey) {
-                return target?.[bind]?.find(
+                return stateNow?.[bind]?.find(
                     (/** @type {{ [x: string]: any; }} */ item) =>
                         item[key] === keyValue
                 );
@@ -71,7 +77,7 @@ export const getRepeatProxi = ({
             /**
              * Return value without key.
              */
-            return target?.[bind]?.[index];
+            return stateNow?.[bind]?.[index];
         },
         set() {
             /**

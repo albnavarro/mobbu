@@ -68,23 +68,13 @@ export interface callbackQueue {
 - `Type`: Il tipo vede opzionale current.value es: `current.value?.myProp`, bisogna renderlo non opzionale.
 - `bindProxi` puó usare solo index, sarebbe carino poterlgi passare anche `current.value.myProp`
 - Testare `current` con `bindStore`.
+- il tipo  fallisce quando ci sono piu di un array.
 
 ```js
-${repeat({
-    bind: 'data',
-    render: ({ html, current, initialIndex, intialValue }) => {
-        // current.index
-        // current.value
-
-        return html`
-            <benchmark-fake-component>
-                <div>
-                    ${bindProxi`proxi: ${() => proxi.data[current.index].label}`}
-                </div>
-            </benchmark-fake-component>
-        `;
-    },
-})}
+export interface PartialCurrent<T, K> {
+    index: number;
+    value: ArrayElement<GetState<T>[K]>;
+}
 ```
 
 ### Debug
