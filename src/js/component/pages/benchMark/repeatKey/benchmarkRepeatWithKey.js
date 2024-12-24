@@ -21,16 +21,12 @@ export const BenchMarkRepeatWithKyFn = ({
     getRef,
     getState,
     setState,
-    bindProxi,
-    getProxi,
     updateState,
     bindProps,
     watch,
     repeat,
     staticProps,
 }) => {
-    const proxi = getProxi();
-
     onMount(() => {
         const { loading } = getRef();
         hideFooterShape();

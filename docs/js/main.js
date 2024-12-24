@@ -27239,15 +27239,12 @@ Loading snippet ...</pre
     getRef,
     getState,
     setState,
-    bindProxi,
-    getProxi,
     updateState,
     bindProps,
     watch,
     repeat,
     staticProps: staticProps2
   }) => {
-    const proxi = getProxi();
     onMount(() => {
       const { loading } = getRef();
       hideFooterShape();
@@ -27322,8 +27319,6 @@ Loading snippet ...</pre
     html,
     delegateEvents,
     bindText,
-    bindProxi,
-    getProxi,
     setRef,
     getRef,
     getState,
@@ -27333,7 +27328,6 @@ Loading snippet ...</pre
     watch,
     repeat
   }) => {
-    const proxi = getProxi();
     onMount(() => {
       const { loading } = getRef();
       hideFooterShape();
