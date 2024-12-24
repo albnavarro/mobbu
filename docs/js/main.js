@@ -2761,16 +2761,12 @@
 
   // src/js/mobCore/store/proxi.js
   var getProxiEntryPoint = ({ instanceId }) => {
-    const state = getStateFromMainMap(instanceId);
-    const {
-      bindInstance,
-      store: selfStore,
-      proxiObject: previousProxiObject
-    } = state;
+    const state = storeMap.get(instanceId);
+    const { bindInstance, proxiObject: previousProxiObject } = state;
     if (previousProxiObject) {
       return previousProxiObject;
     }
-    const selfProxi = new Proxy(selfStore, {
+    const selfProxi = new Proxy(state.store, {
       set(target, prop, value) {
         if (prop in target) {
           storeSetEntryPoint({
@@ -2794,9 +2790,8 @@
       return selfProxi;
     }
     const bindedProxi = bindInstance.map((id) => {
-      const state4 = getStateFromMainMap(id);
-      const { store } = state4;
-      return new Proxy(store, {
+      const state4 = storeMap.get(id);
+      return new Proxy(state4.store, {
         set() {
           return false;
         }
