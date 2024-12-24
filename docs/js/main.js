@@ -2766,7 +2766,7 @@
     if (previousProxiObject) {
       return previousProxiObject;
     }
-    const selfProxi = new Proxy(state.store, {
+    const selfProxi = new Proxy(storeMap.get(instanceId).store, {
       set(target, prop, value) {
         if (prop in target) {
           storeSetEntryPoint({
@@ -2790,8 +2790,7 @@
       return selfProxi;
     }
     const bindedProxi = bindInstance.map((id) => {
-      const state4 = storeMap.get(id);
-      return new Proxy(state4.store, {
+      return new Proxy(storeMap.get(id).store, {
         set() {
           return false;
         }
