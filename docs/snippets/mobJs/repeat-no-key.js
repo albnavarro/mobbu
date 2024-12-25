@@ -6,22 +6,22 @@ export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
         <div class="repeater-container">
             ${repeat({
                 bind: 'myStateArray',
-                render: ({ html }) => {
+                render: ({ html, current }) => {
                     return html`
                         <my-child-component
                             ${bindProps({
                                 bind: ['counter'],
-                                props: ({ counter, myStateArray }, index) => {
+                                props: ({ counter }) => {
                                     return {
                                         counter,
-                                        label: myStateArray[index].label,
+                                        label: current.value.label,
                                         index,
                                     };
                                 },
                             })}
                             ${delegateEvents({
-                                click: (event, index) =>
-                                    console.log(event, index),
+                                click: (event) =>
+                                    console.log(event, current.index),
                             })}
                         >
                         </my-child-component>

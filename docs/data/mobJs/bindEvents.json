@@ -102,13 +102,21 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Inside Repeater"
+            "content": "Additional props"
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-title",
             "props": {
-                "style": "small"
-            }
+                "tag": "h4"
+            },
+            "content": "index"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Indicates the current position of the component inside a repeater."
         },
         {
             "component": "mob-snippet",

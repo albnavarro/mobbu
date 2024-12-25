@@ -8,8 +8,12 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
     afterUpdate?: () => void;
     render: (arg0: {
         sync: () => string;
-        index: number;
-        currentValue: ArrayElement<T[K]>;
+        initialIndex: number;
+        initialValue: Record<string, any>;
+        current: {
+            index: number;
+            value: Record<string, any>;
+        };
         html?: (arg0: string) => string;
     }) => string;
 }) => string;

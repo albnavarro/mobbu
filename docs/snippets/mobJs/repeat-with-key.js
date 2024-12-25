@@ -13,29 +13,26 @@ export const MyComponent = ({
             ${repeat({
                 bind: 'myStateArray',
                 key: 'myKey',
-                render: ({ html, currentValue }) => {
-                    const { label } = currentValue;
-
+                render: ({ html, current }) => {
                     return html`
                         <my-child-component
                             ${staticProps({
-                                label,
+                                label: current.value.label,
                             })}
                             ${bindProps({
                                 bind: ['counter'],
-                                props: ({ counter }, index) => {
+                                props: ({ counter }) => {
                                     return {
                                         counter,
-                                        index,
+                                        index: current.index,
                                     };
                                 },
                             })}
                             ${delegateEvents({
-                                click: (event, index) =>
-                                    console.log(event, index),
+                                click: (event) =>
+                                    console.log(event, current.index),
                             })}
                         >
-                            <h2>${label}</h2>
                         </my-child-component>
                     `;
                 },
