@@ -1,7 +1,7 @@
 <div>
     <button
         ${delegateEvents({
-            click: (event, index) => {
+            click: (event, value, index) => {
                 setState('counter', (value) => (value += 1));
                 event.preventDefault(); 
             },
@@ -11,11 +11,11 @@
     </button>
     <my-child-component
         ${delegateEvents({
-            click: (event, index) => {
+            click: (event, value, index) => {
                 setState('counter', (value) => (value += 1));
                 event.preventDefault(); 
             },
-            mousemove: (event, index) => {
+            mousemove: (event, value, index) => {
                 setState('counter', (value) => (value += 1));
             },
         })}

@@ -68,20 +68,6 @@
             }
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "index"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/bindEvents.js",
@@ -109,14 +95,14 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "index"
+            "content": "value/index"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Indicates the current position of the component inside a repeater."
+            "content": "Indicates the current value and position of the component inside a repeater."
         },
         {
             "component": "mob-snippet",

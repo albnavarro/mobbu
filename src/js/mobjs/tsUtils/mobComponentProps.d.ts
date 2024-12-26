@@ -12,7 +12,11 @@ type GetMethods<T> = T['methods'];
 export type PartialBindProps<T, R> = (arg0: {
     bind?: OnlyStringKey<GetState<T>>[];
     forceParent?: boolean;
-    props: (arg0: GetState<T>, index: number) => Partial<GetState<R>>;
+    props: (
+        arg0: GetState<T>,
+        value: Record<string, any>,
+        index: number
+    ) => Partial<GetState<R>>;
 }) => string;
 
 /**

@@ -19105,7 +19105,11 @@
     });
     let newProps;
     try {
-      newProps = props?.(parentState, currentRepeaterState?.index);
+      newProps = props?.(
+        parentState,
+        currentRepeaterState.current,
+        currentRepeaterState?.index
+      );
     } catch {
       console.log("bindProps error:", componentId);
       const element = getElementById({ id: componentId });
@@ -19553,7 +19557,11 @@
         const currentRepeaterState = getRepeaterStateById({
           id: componentId
         });
-        callback2(e, currentRepeaterState?.index);
+        callback2(
+          e,
+          currentRepeaterState?.current,
+          currentRepeaterState?.index
+        );
       });
     });
     bindEventMap.delete(bindEventsId);
@@ -19935,7 +19943,7 @@
       id: componentId
     }) : DEFAULT_CURRENT_REPEATER_STATE;
     Object.defineProperty(event, "target", { value: targetParsed });
-    callback2(event, currentRepeaterState?.index);
+    callback2(event, currentRepeaterState?.current, currentRepeaterState?.index);
   }
   var applyDelegationBindEvent = async (root2) => {
     await repeaterTick();

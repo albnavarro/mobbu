@@ -7,7 +7,7 @@ import { tick } from '../../queque/tick';
 import { allowFireEvent, getFireEvent, preventFireEvent } from '../commonEvent';
 
 /**
- * @type {Map<string,Array<{[key:string]: (arg0: object, arg1: number) => {}}>>}
+ * @type {Map<string,Array<{[key:string]: (arg0: object, arg1:Record<string, any>, arg2: number) => {}}>>}
  */
 export const bindEventMap = new Map();
 
@@ -73,7 +73,11 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
                 id: componentId,
             });
 
-            callback(e, currentRepeaterState?.index);
+            callback(
+                e,
+                currentRepeaterState?.current,
+                currentRepeaterState?.index
+            );
         });
     });
 

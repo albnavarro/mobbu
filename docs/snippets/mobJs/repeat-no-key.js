@@ -15,7 +15,7 @@ export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
                                     return {
                                         counter,
                                         label: current.value.label,
-                                        index,
+                                        index: current.index,
                                     };
                                 },
                             })}

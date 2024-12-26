@@ -217,14 +217,14 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "index"
+            "content": "value/index"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Indicates the current position of the component inside a repeater."
+            "content": "Indicates the current value and position of the component inside a repeater."
         },
         {
             "component": "mob-snippet",

@@ -141,7 +141,7 @@ async function handleAction(eventKey, event) {
     /**
      * Fire callback.
      */
-    callback(event, currentRepeaterState?.index);
+    callback(event, currentRepeaterState?.current, currentRepeaterState?.index);
 }
 
 /**

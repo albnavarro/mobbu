@@ -20,7 +20,7 @@ import { removeAndDestroyById } from '../../component/action/removeAndDestroy/re
 import { bindPropsMap } from './bindPropsMap';
 
 /**
- * @param {{bind?:string[],parentId:string|undefined,props:(arg0: any, index: number) => Partial<any>, forceParent? :boolean}} propsObj
+ * @param {{bind?:string[],parentId:string|undefined,props:(arg0: any,value:Record<string, any>, index: number) => Partial<any>, forceParent? :boolean}} propsObj
  * @return {string|undefined} props id in store.
  *
  * @description
@@ -70,7 +70,7 @@ export const setBindProps = (propsObj) => {
  * @param {object} obj
  * @param {string} obj.componentId
  * @param {Array<string>} obj.bind
- * @param {(args0: object, index: number ) => object} obj.props
+ * @param {(args0: object, value:Record<string, any>, index: number ) => object} obj.props
  * @param {string} obj.currentParentId
  * @param {boolean} obj.fireCallback
  * @return void
@@ -131,8 +131,15 @@ const setBindProp = ({
 
     let newProps;
 
+    /**
+     * TODOL should be removed, use only for debug.
+     */
     try {
-        newProps = props?.(parentState, currentRepeaterState?.index);
+        newProps = props?.(
+            parentState,
+            currentRepeaterState.current,
+            currentRepeaterState?.index
+        );
     } catch {
         console.log('bindProps error:', componentId);
         const element = getElementById({ id: componentId });

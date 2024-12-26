@@ -1,13 +1,7 @@
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({
-    html,
-    repeat,
-    staticProps,
-    bindProps,
-    delegateEvents,
-}) => {
+export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
     return html`
         <div class="repeater-container">
             ${repeat({
@@ -16,14 +10,12 @@ export const MyComponent = ({
                 render: ({ html, current }) => {
                     return html`
                         <my-child-component
-                            ${staticProps({
-                                label: current.value.label,
-                            })}
                             ${bindProps({
                                 bind: ['counter'],
                                 props: ({ counter }) => {
                                     return {
                                         counter,
+                                        label: current.value.label,
                                         index: current.index,
                                     };
                                 },

@@ -5,6 +5,10 @@ export type BindPropsMap = Map<
         parentId: string | undefined;
         componentId: string;
         propsId: string;
-        props: (args0: object, index: number) => object;
+        props: (
+            args0: object,
+            value: Record<string, any>,
+            index: number
+        ) => object;
     }
 >;
