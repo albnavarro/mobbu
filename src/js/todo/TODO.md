@@ -53,21 +53,6 @@ export interface callbackQueue {
 
 ### bindProxi
 - Aggiungere dei controlli per eliminare caratteri come `;` quanso si estrapolano le props da monitorare.
-
-### Quickset
-- Aggiungere `Quickset`.
-
-### Repeat
-#### No component
-- Repeat funziona solo con componenti innestati al momento.
-- La traccia dell' item `root` di ogni repeat potrebbe essere salvata nella mappa del repeat.
-- Cosi si possono fare dei repeat senza componenti innestati
-
-#### Use object
-- Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
-
-#### proxiIndex
-- `Type`: Il tipo vede opzionale current.value es: `current.value?.myProp`, bisogna renderlo non opzionale.
 - `bindProxi` puó usare solo index, sarebbe carino poterlgi passare anche `current.value.myProp`
 - il tipo  fallisce quando ci sono piu di un array.
 
@@ -77,6 +62,28 @@ export interface PartialCurrent<T, K> {
     value: ArrayElement<GetState<T>[K]>;
 }
 ```
+
+### Repeat
+#### No component
+- Repeat funziona solo con componenti innestati al momento.
+- La traccia dell' item `root` di ogni repeat potrebbe essere salvata nella mappa del repeat.
+- Cosi si possono fare dei repeat senza componenti innestati
+- Si puó usare la mappa `repeatIdPlaceHolderMap` dove giá abbiamo salbato la root del repeat.
+- aggiungere un oggetto come:
+```js
+{
+    index: 2,
+    prop: key,
+    value: keyValue
+    element: <root-item-element>
+}
+```
+
+#### Use object
+- Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
+
+#### proxiIndex
+- `Type`: Il tipo vede opzionale current.value es: `current.value?.myProp`, bisogna renderlo non opzionale.
 
 ### bindProps/bindEvent/delegateEvents
 - Per coerenza ripristinare value insieme a index.
@@ -94,6 +101,8 @@ ${bindProps({
     },
 })}
 ```
+### Quickset
+- Aggiungere `Quickset`.
 
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
