@@ -27280,15 +27280,13 @@ Loading snippet ...</pre
       render: ({ html: html2, sync, current }) => {
         return html2`
                         <benchmark-fake-component
-                            ${staticProps2({
-          label: current.value?.label
-        })}
                             ${bindProps({
           bind: ["counter"],
           /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
           props: ({ counter }) => {
             return {
               index: current.index,
+              label: current.value?.label,
               counter
             };
           }
