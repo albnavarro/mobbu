@@ -94,6 +94,12 @@ export interface callbackQueue {
 - Tutti i riferimenti a `repeaterInnerWrap, currentRepeaterState, repeatPropBind` all'interno del componente potranno essere eliminati.
 - `bindProp/bindEvents/delegateEvents` non useranno piú `value` e `index`.
 
+#### Roadmap
+1) Aggiungere i valori alla mappa, e creare la funzione che genera l'array.
+2) Aggiornate le due update function con e senza chiave
+3) aggiornare il nuovo array alla fine dell' update.
+4) cominicare a rimuovere 1 a 1 le vecchie funzioni ormai superflue.
+
 
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
