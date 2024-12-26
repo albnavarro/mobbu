@@ -1,3 +1,7 @@
+# Priority:
+- `bindProxi`: miglior tracciamento delle dipendenze per pote rusare `current.value.myProp` all' interno di un repeater.
+- `repeater`: refactor, Salvare i nodi root dei singoli repeater nella mappa del repeater e eliminare i riferimenti current,index dai componenti.
+
 # DOCS
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
@@ -56,25 +60,40 @@ export interface callbackQueue {
 - `bindProxi` puó usare solo index, sarebbe carino poterlgi passare anche `current.value.myProp`
 
 ### Repeat
-#### No component
+#### Refactor per utilizzare repeat anche senza componenti.
+- L' introduzione del proxi all' interno del repeater apre nuove strade:
 - Repeat funziona solo con componenti innestati al momento.
 - La traccia dell' item `root` di ogni repeat potrebbe essere salvata nella mappa del repeat.
-- Cosi si possono fare dei repeat senza componenti innestati
 - Si puó usare la mappa `repeatIdPlaceHolderMap` dove giá abbiamo salbato la root del repeat.
-- aggiungere un oggetto come:
+- La chiave di questa mappa é il repeat id.
+- La mappa andra aggiornata con i valori:
 ```js
+
 {
-    index: 2,
-    prop: key,
-    value: keyValue
-    element: <root-item-element>
+    element : div.c-dynamic-card__repeater,
+    initialized : true,
+    scopeId : "_zqk8q70",
+    key: < repeatPropBind >,
+    children: [
+        {
+            index: 1,
+            value: <key value>
+            element: <root-item-element>
+        },
+        {
+            index: 2,
+            value: <key value>
+            element: <root-item-element>
+        }
+    ]
 }
 ```
-- Difficoltá:
-- Il posto giusto sarebbe `src/js/mobjs/modules/repeater/update/utils.js`
-- Ma qui abbiamo per lo piu stringhe da cui non si puó dedurre l'elemento html.
-- Al momento il primo nodo del `item-repeat` viene dedotto di componenti in fase di rendering.
-- `Dirottare all' invalidate se non ci sono componenti potrebbe essere la cosa giusta, nel caso aggiornare la doc. In questo caso si perderebbero eventuali calssi aggiunte runtime.`
+- Creare una funzione che partendo dal repeater ( element in `repeatIdPlaceHolderMap` ) prenda tutti i childNodes di primo livello, e gli abbini value e index nell' ordine in cui si trova lo stato a quel momento..
+- La funzione verra lanciata alla fine del parse e dopo ogni update del repeater ( in tutti e due i casi l' array children verra cancellato, e ricreato ).
+- update with e without key usaranno questo array che sará sempre aggiornato con le giuste posizioni.
+- Tutti i riferimenti a `repeaterInnerWrap, currentRepeaterState, repeatPropBind` all'interno del componente potranno essere eliminati.
+- `bindProp/bindEvents/delegateEvents` non useranno piú `value` e `index`.
+
 
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
