@@ -82,6 +82,7 @@ export interface PartialCurrent<T, K> {
 - Il posto giusto sarebbe `src/js/mobjs/modules/repeater/update/utils.js`
 - Ma qui abbiamo per lo piu stringhe da cui non si puó dedurre l'elemento html.
 - Al momento il primo nodo del `item-repeat` viene dedotto di componenti in fase di rendering.
+- `Dirottare all' invalidate se non ci sono componenti potrebbe essere la cosa giusta, nel caso aggiornare la doc. In questo caso si perderebbero eventuali calssi aggiunte runtime.`
 
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
