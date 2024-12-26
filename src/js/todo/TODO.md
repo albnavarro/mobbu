@@ -78,6 +78,10 @@ export interface PartialCurrent<T, K> {
     element: <root-item-element>
 }
 ```
+- Difficoltá:
+- Il posto giusto sarebbe `src/js/mobjs/modules/repeater/update/utils.js`
+- Ma qui abbiamo per lo piu stringhe da cui non si puó dedurre l'elemento html.
+- Al momento il primo nodo del `item-repeat` viene dedotto di componenti in fase di rendering.
 
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
