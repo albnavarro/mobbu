@@ -27293,7 +27293,7 @@ Loading snippet ...</pre
           props: ({ counter }) => {
             return {
               index: current.index,
-              label: current.value?.label,
+              label: current.value.label,
               counter
             };
           }
@@ -27373,7 +27373,7 @@ Loading snippet ...</pre
           props: ({ counter }) => {
             return {
               index: current.index,
-              label: current.value?.label,
+              label: current.value.label,
               counter
             };
           }
@@ -30840,7 +30840,7 @@ Loading snippet ...</pre
           /** @return {ReturnBindProps<DynamicListCardInner>} */
           props: () => {
             return {
-              key: `${current.value?.key}`
+              key: `${current.value.key}`
             };
           }
         })}
@@ -30859,7 +30859,7 @@ Loading snippet ...</pre
           /** @return {ReturnBindProps<DynamicListCardInner>} */
           props: () => {
             return {
-              key: `${current.value?.key}`
+              key: `${current.value.key}`
             };
           }
         })}
@@ -31495,8 +31495,8 @@ Loading snippet ...</pre
           bind: ["counter"],
           props: ({ counter }) => {
             return {
-              key: `${current.value?.key}`,
-              value: `${current.value?.value}`,
+              key: `${current.value.key}`,
+              value: `${current.value.value}`,
               index: current.index,
               counter
             };
@@ -31539,8 +31539,8 @@ Loading snippet ...</pre
           bind: ["counter"],
           props: ({ counter }) => {
             return {
-              key: `${current.value?.key}`,
-              value: `${current.value?.value}`,
+              key: `${current.value.key}`,
+              value: `${current.value.value}`,
               index: current.index,
               counter
             };
@@ -31565,11 +31565,11 @@ Loading snippet ...</pre
         })}
                                 ${bindProps({
           bind: ["counter"],
-          props: ({ level3, counter }, index) => {
+          props: ({ counter }) => {
             return {
-              key: `${level3[index]?.key}`,
-              value: `${level3[index]?.value}`,
-              index,
+              key: `${current.value.key}`,
+              value: `${current.value.value}`,
+              index: current.index,
               counter
             };
           }
@@ -31664,8 +31664,8 @@ Loading snippet ...</pre
           /** @returns{ReturnBindProps<MatrioskaItem>} */
           props: ({ counter }) => {
             return {
-              key: `${current.value?.key}`,
-              value: `${current.value?.value}`,
+              key: `${current.value.key}`,
+              value: `${current.value.value}`,
               index: current.index,
               counter
             };
@@ -35261,14 +35261,14 @@ Loading snippet ...</pre
         return html2`
                                 <debug-filter-list-item
                                     ${staticProps2({
-          id: current.value?.id,
-          name: current.value?.name
+          id: current.value.id,
+          name: current.value.name
         })}
                                     ${bindProps({
           /** @returns{ReturnBindProps<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
           props: () => {
             return {
-              tag: current.value?.tag
+              tag: current.value.tag
             };
           }
         })}

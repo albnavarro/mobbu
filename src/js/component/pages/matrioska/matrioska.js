@@ -167,8 +167,8 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     bind: ['counter'],
                                     props: ({ counter }) => {
                                         return {
-                                            key: `${current.value?.key}`,
-                                            value: `${current.value?.value}`,
+                                            key: `${current.value.key}`,
+                                            value: `${current.value.value}`,
                                             index: current.index,
                                             counter,
                                         };
@@ -223,8 +223,8 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     bind: ['counter'],
                                     props: ({ counter }) => {
                                         return {
-                                            key: `${current.value?.key}`,
-                                            value: `${current.value?.value}`,
+                                            key: `${current.value.key}`,
+                                            value: `${current.value.value}`,
                                             index: current.index,
                                             counter,
                                         };
@@ -252,11 +252,11 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                 })}
                                 ${bindProps({
                                     bind: ['counter'],
-                                    props: ({ level3, counter }, index) => {
+                                    props: ({ counter }) => {
                                         return {
-                                            key: `${level3[index]?.key}`,
-                                            value: `${level3[index]?.value}`,
-                                            index: index,
+                                            key: `${current.value.key}`,
+                                            value: `${current.value.value}`,
+                                            index: current.index,
                                             counter,
                                         };
                                     },
@@ -361,8 +361,8 @@ export const MatrioskaFn = ({
                                         /** @returns{ReturnBindProps<MatrioskaItem>} */
                                         props: ({ counter }) => {
                                             return {
-                                                key: `${current.value?.key}`,
-                                                value: `${current.value?.value}`,
+                                                key: `${current.value.key}`,
+                                                value: `${current.value.value}`,
                                                 index: current.index,
                                                 counter,
                                             };

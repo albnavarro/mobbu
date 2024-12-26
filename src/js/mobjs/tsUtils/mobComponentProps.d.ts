@@ -199,7 +199,7 @@ export type PartialOnMount = (
 /**
  * repeat
  */
-export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
+export type PartialRepeat<T> = <K extends keyof GetState<T> & string>(arg0: {
     /**
      * @description
      * Clean previous item.
@@ -216,7 +216,7 @@ export type PartialRepeat<T> = <K extends keyof GetState<T>>(arg0: {
      * @description
      * Array of object used to create list
      */
-    bind: OnlyStringKey<GetState<T>>;
+    bind: K;
 
     /**
      * @description

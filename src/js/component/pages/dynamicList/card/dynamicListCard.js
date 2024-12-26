@@ -166,7 +166,7 @@ export const DynamicListCardFn = ({
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */
                                         props: () => {
                                             return {
-                                                key: `${current.value?.key}`,
+                                                key: `${current.value.key}`,
                                             };
                                         },
                                     })}
@@ -185,7 +185,7 @@ export const DynamicListCardFn = ({
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */
                                         props: () => {
                                             return {
-                                                key: `${current.value?.key}`,
+                                                key: `${current.value.key}`,
                                             };
                                         },
                                     })}

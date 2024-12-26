@@ -73,7 +73,7 @@ export const BenchMarkRepeatWithKyFn = ({
                                 props: ({ counter }) => {
                                     return {
                                         index: current.index,
-                                        label: current.value?.label,
+                                        label: current.value.label,
                                         counter,
                                     };
                                 },

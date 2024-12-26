@@ -54,14 +54,6 @@ export interface callbackQueue {
 ### bindProxi
 - Aggiungere dei controlli per eliminare caratteri come `;` quanso si estrapolano le props da monitorare.
 - `bindProxi` puó usare solo index, sarebbe carino poterlgi passare anche `current.value.myProp`
-- il tipo  fallisce quando ci sono piu di un array.
-
-```js
-export interface PartialCurrent<T, K> {
-    index: number;
-    value: ArrayElement<GetState<T>[K]>;
-}
-```
 
 ### Repeat
 #### No component
@@ -87,25 +79,6 @@ export interface PartialCurrent<T, K> {
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
-#### proxiIndex
-- `Type`: Il tipo vede opzionale current.value es: `current.value?.myProp`, bisogna renderlo non opzionale.
-
-### bindProps/bindEvent/delegateEvents
-- Per coerenza ripristinare value insieme a index.
-- Cmq. non verrá utilizzato, di base si usa `current` proxie from repeat.
-
-```js
-${bindProps({
-    bind: ['counter'],
-    props: ({ counter }, value, index) => {
-        return {
-            index: index,
-            label: value.label,
-            counter,
-        };
-    },
-})}
-```
 ### Quickset
 - Aggiungere `Quickset`.
 
