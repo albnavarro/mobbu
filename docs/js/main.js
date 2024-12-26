@@ -27239,8 +27239,7 @@ Loading snippet ...</pre
     updateState,
     bindProps,
     watch,
-    repeat,
-    staticProps: staticProps2
+    repeat
   }) => {
     onMount(() => {
       const { loading } = getRef();

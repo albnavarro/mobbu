@@ -25,7 +25,6 @@ export const BenchMarkRepeatWithKyFn = ({
     bindProps,
     watch,
     repeat,
-    staticProps,
 }) => {
     onMount(() => {
         const { loading } = getRef();
