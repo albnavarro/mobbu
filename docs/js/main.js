@@ -20090,31 +20090,33 @@
     keyValue = "",
     index
   }) => {
-    const state = getStateById(id);
-    return new Proxy(state, {
-      get(_, prop) {
-        const stateNow = getStateById(id);
-        if (prop === REPEAT_PROXI_INDEX) {
-          const maxValue = stateNow?.[bind].length - 1;
+    return new Proxy(
+      {},
+      {
+        get(_, prop) {
+          const state = getStateById(id);
+          if (prop === REPEAT_PROXI_INDEX) {
+            const maxValue = state?.[bind].length - 1;
+            if (hasKey) {
+              const indexByKey = state?.[bind]?.findIndex(
+                (item) => item[key] === keyValue
+              );
+              return clamp2(indexByKey, 0, maxValue);
+            }
+            return clamp2(index, 0, maxValue);
+          }
           if (hasKey) {
-            const indexByKey = stateNow?.[bind]?.findIndex(
+            return state?.[bind]?.find(
               (item) => item[key] === keyValue
             );
-            return clamp2(indexByKey, 0, maxValue);
           }
-          return clamp2(index, 0, maxValue);
+          return state?.[bind]?.[index];
+        },
+        set() {
+          return false;
         }
-        if (hasKey) {
-          return stateNow?.[bind]?.find(
-            (item) => item[key] === keyValue
-          );
-        }
-        return stateNow?.[bind]?.[index];
-      },
-      set() {
-        return false;
       }
-    });
+    );
   };
 
   // src/js/mobjs/modules/repeater/update/utils.js

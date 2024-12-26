@@ -1,6 +1,3 @@
-# Priority:
-## Repeat - current value.
-
 # DOCS
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
@@ -61,13 +58,17 @@ export interface callbackQueue {
 - Aggiungere `Quickset`.
 
 ### Repeat
+#### No component
+- Repeat funziona solo con componenti innestati al momento.
+- La traccia dell' item `root` di ogni repeat potrebbe essere salvata nella mappa del repeat.
+- Cosi si possono fare dei repeat senza componenti innestati
+
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
 #### proxiIndex
 - `Type`: Il tipo vede opzionale current.value es: `current.value?.myProp`, bisogna renderlo non opzionale.
 - `bindProxi` puó usare solo index, sarebbe carino poterlgi passare anche `current.value.myProp`
-- Testare `current` con `bindStore`.
 - il tipo  fallisce quando ci sono piu di un array.
 
 ```js
@@ -75,6 +76,23 @@ export interface PartialCurrent<T, K> {
     index: number;
     value: ArrayElement<GetState<T>[K]>;
 }
+```
+
+### bindProps/bindEvent/delegateEvents
+- Per coerenza ripristinare value insieme a index.
+- Cmq. non verrá utilizzato, di base si usa `current` proxie from repeat.
+
+```js
+${bindProps({
+    bind: ['counter'],
+    props: ({ counter }, value, index) => {
+        return {
+            index: index,
+            label: value.label,
+            counter,
+        };
+    },
+})}
 ```
 
 ### Debug
