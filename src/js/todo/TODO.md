@@ -89,10 +89,14 @@ export interface callbackQueue {
 }
 ```
 - Creare una funzione che partendo dal repeater ( element in `repeatIdPlaceHolderMap` ) prenda tutti i childNodes di primo livello, e gli abbini value e index nell' ordine in cui si trova lo stato a quel momento..
-- La funzione verra lanciata alla fine del parse e dopo ogni update del repeater ( in tutti e due i casi l' array children verra cancellato, e ricreato ).
+- La funzione verra lanciata per inizializarsi qui:
+- Il posto devo lanciare la funzione la prima volta sembra questo: `src/js/mobjs/modules/repeater/action/setRepeaterPlaceholderMapInitialized.js`
+- E rilanciata dopo ogni update.
 - update with e without key usaranno questo array che sará sempre aggiornato con le giuste posizioni.
 - Tutti i riferimenti a `repeaterInnerWrap, currentRepeaterState, repeatPropBind` all'interno del componente potranno essere eliminati.
 - `bindProp/bindEvents/delegateEvents` non useranno piú `value` e `index`.
+- `useSync` non servirá piú, non si prevedono piú data da passare ai componenti.
+- Il webComponent use potrá essere ripultito.
 
 #### Roadmap
 1) Aggiungere i valori alla mappa, e creare la funzione che genera l'array.
