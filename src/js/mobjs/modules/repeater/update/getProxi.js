@@ -28,6 +28,20 @@ export const getRepeatProxi = ({
     keyValue = '',
     index,
 }) => {
+    /**
+     * Initial value.
+     */
+    const inistalState = getStateById(id);
+    const startValue = hasKey
+        ? inistalState?.[bind]?.find(
+              (/** @type {{ [x: string]: any; }} */ item) =>
+                  item[key] === keyValue
+          )
+        : inistalState?.[bind]?.[index];
+
+    let currentValue = startValue;
+    let lastValue = startValue;
+
     return new Proxy(
         {},
         {
@@ -37,13 +51,12 @@ export const getRepeatProxi = ({
                  * Proxi target should be not last value.
                  */
                 const state = getStateById(id);
+                const maxValue = Math.max(state?.[bind].length - 1, 0);
 
                 /**
                  * Return current.index
                  */
                 if (prop === REPEAT_PROXI_INDEX) {
-                    const maxValue = state?.[bind].length - 1;
-
                     /**
                      * Return index by key.
                      */
@@ -65,18 +78,25 @@ export const getRepeatProxi = ({
                 /**
                  * Return current.value ( default ).
                  * Return value by key
+                 * Prevent undefined, return last value fallback
                  */
                 if (hasKey) {
-                    return state?.[bind]?.find(
+                    lastValue = currentValue;
+                    currentValue = state?.[bind]?.find(
                         (/** @type {{ [x: string]: any; }} */ item) =>
                             item[key] === keyValue
                     );
+
+                    return currentValue ?? lastValue;
                 }
 
                 /**
                  * Return value without key.
+                 * Prevent undefined, return last value fallback
                  */
-                return state?.[bind]?.[index];
+                lastValue = currentValue;
+                currentValue = state?.[bind]?.[clamp(index, 0, maxValue)];
+                return currentValue ?? lastValue;
             },
             set() {
                 /**
