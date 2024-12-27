@@ -26,6 +26,7 @@ import { getFallBackParentByElement } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
 import { getRepeatParent } from '../action/getRepeaterParent';
 import { inizializeNestedRepeat } from '../action/inizializeNestedRepeat';
+import { setRepeaterChild } from '../action/setRepeatChild';
 
 /**
  * @param {import('../type').watchListType} param
@@ -276,6 +277,8 @@ export const watchRepeat = ({
                     });
                 });
             });
+
+            setRepeaterChild({ repeatId, id, bind: state });
 
             /**
              * Fire onComplete next tick;

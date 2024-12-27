@@ -22,5 +22,7 @@ export const setRepeaterPlaceholderMapScopeId = ({ repeatId, scopeId }) => {
         element: undefined,
         initialized: false,
         scopeId,
+        key: '',
+        children: [],
     });
 };

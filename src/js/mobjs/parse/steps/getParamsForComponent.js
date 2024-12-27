@@ -53,6 +53,7 @@ import {
     getRenderWithoutSync,
     getRenderWithSync,
 } from '../../modules/repeater/update/utils';
+import { setRepeaterChild } from '../../modules/repeater/action/setRepeatChild';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -351,6 +352,8 @@ export const getParamsForComponentFunction = ({
                     setRepeaterPlaceholderMapInitialized({
                         repeatId,
                     });
+
+                    setRepeaterChild({ repeatId, id, bind });
                 },
             });
 

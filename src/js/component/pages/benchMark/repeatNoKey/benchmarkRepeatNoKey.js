@@ -25,7 +25,10 @@ export const BenchMarkRepeatNoKyFn = ({
     bindProps,
     watch,
     repeat,
+    bindProxi,
+    getProxi,
 }) => {
+    const proxi = getProxi();
     onMount(() => {
         const { loading } = getRef();
         hideFooterShape();
@@ -58,6 +61,45 @@ export const BenchMarkRepeatNoKyFn = ({
             <div class="benchmark__head__time">
                 ${bindText`components generate in <strong>${'time'}ms</strong>`}
             </div>
+        </div>
+        <div class="benchmark__list">
+            ${repeat({
+                bind: 'data',
+                useSync: true,
+                render: ({ html, current }) => {
+                    return html`<div>
+                        <div>
+                            ${bindProxi`${() => proxi.data[current.index].label}`}
+                        </div>
+                        <div class="hu">
+                            ${repeat({
+                                bind: 'data',
+                                useSync: true,
+                                render: ({ html, sync, current }) => {
+                                    return html`
+                                        <benchmark-fake-component
+                                            ${bindProps({
+                                                bind: ['counter'],
+                                                /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
+                                                props: ({ counter }) => {
+                                                    return {
+                                                        index: current.index,
+                                                        label: current.value
+                                                            .label,
+                                                        counter,
+                                                    };
+                                                },
+                                            })}
+                                            ${sync()}
+                                        >
+                                        </benchmark-fake-component>
+                                    `;
+                                },
+                            })}
+                        </div>
+                    </div>`;
+                },
+            })}
         </div>
         <div class="benchmark__list">
             ${repeat({

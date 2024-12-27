@@ -15,6 +15,7 @@ import {
     updateRepeaterWitoutKey,
     updateRepeaterWithoutKeyUseSync,
 } from './utils';
+import { getRepeaterChild } from '../action/setRepeatChild';
 
 /**
  * @param {object} obj
@@ -154,6 +155,40 @@ export const addWithoutKey = ({
                     removeAndDestroyById({ id: childId });
                 }
             });
+        });
+
+        /**
+         * Fall  back for repeater without component inside.
+         * If there is no component in repeater fallback to element in repeater map.
+         */
+        if (childrenChunkedByWrapper.length > 0) return;
+
+        const childrenFromRepeater = getRepeaterChild({ repeatId });
+        if (!childrenFromRepeater) return;
+
+        const childrenFromRepeaterToRemove = childrenFromRepeater.filter(
+            ({ index }) => {
+                return index >= current.length;
+            }
+        );
+
+        childrenFromRepeaterToRemove.forEach((item) => {
+            const { element: currentElement } = item;
+
+            /**
+             * First destroy all repeater/invalidate inside
+             */
+            destroyNestedInvalidate({ id, invalidateParent: currentElement });
+            destroyNestedRepeat({ id, repeatParent: currentElement });
+
+            /**
+             * Destroy inner component child.
+             */
+            destroyComponentInsideNodeById({
+                id,
+                container: currentElement,
+            });
+            currentElement.remove();
         });
     }
 

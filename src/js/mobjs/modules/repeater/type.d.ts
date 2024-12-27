@@ -49,5 +49,15 @@ export type RepeatIdHostMap = Map<string, HTMLElement>;
 
 export type RepeatIdPlaceHolderMap = Map<
     string,
-    { element: HTMLElement; initialized: boolean; scopeId: string | undefined }
+    {
+        element: HTMLElement;
+        initialized: boolean;
+        scopeId: string | undefined;
+        key: string;
+        children: {
+            index: number;
+            value: any;
+            element: HTMLElement;
+        }[];
+    }
 >;
