@@ -314,27 +314,16 @@ export const watchRepeat = ({
                 descrementRepeaterQueue();
 
                 /**
-                 * Initialize repeater/invalidate in same scope
-                 * Nesessary because main component is not parsed here
-                 * Get new children
-                 * Initialize repeater/invalidate inside each new component.
+                 * Initialize nested repeater/invalidate.
                  */
-                const newChildren = childrenFilteredByRepeatId.filter(
-                    (x) => !childrenBeforeUdateByRepeatId.includes(x)
-                );
+                inizializeNestedInvalidate({
+                    invalidateParent: repeaterParentElement,
+                    id,
+                });
 
-                newChildren.forEach((childId) => {
-                    const element = getElementById({ id: childId });
-
-                    inizializeNestedInvalidate({
-                        invalidateParent: element,
-                        id,
-                    });
-
-                    inizializeNestedRepeat({
-                        repeatParent: element,
-                        id,
-                    });
+                inizializeNestedRepeat({
+                    repeatParent: repeaterParentElement,
+                    id,
                 });
             });
         }
