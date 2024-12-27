@@ -20757,7 +20757,6 @@
             });
           });
         });
-        setRepeaterChild({ repeatId, id, bind: state });
         mobCore.useNextLoop(async () => {
           if (mainComponent) {
             afterUpdate();
@@ -20778,6 +20777,9 @@
             repeatParent: repeaterParentElement,
             id
           });
+          if (chunkChildrenOrdered.length === 0) {
+            setRepeaterChild({ repeatId, id, bind: state });
+          }
         });
       }
     );

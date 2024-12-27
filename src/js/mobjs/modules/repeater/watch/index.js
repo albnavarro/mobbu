@@ -278,8 +278,6 @@ export const watchRepeat = ({
                 });
             });
 
-            setRepeaterChild({ repeatId, id, bind: state });
-
             /**
              * Fire onComplete next tick;
              */
@@ -328,6 +326,14 @@ export const watchRepeat = ({
                     repeatParent: repeaterParentElement,
                     id,
                 });
+
+                /**
+                 * If there is no component in repeater update repaaterMapChildren.
+                 * This utils is used only when repeat has no component inside.
+                 */
+                if (chunkChildrenOrdered.length === 0) {
+                    setRepeaterChild({ repeatId, id, bind: state });
+                }
             });
         }
     );
