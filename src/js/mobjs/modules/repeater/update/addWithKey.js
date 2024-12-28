@@ -18,6 +18,7 @@ import { getParentIdById } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroyComponentInsideNodeById';
 import { getComponentNameByElement } from '../../../component/action/component';
 import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
+import { getRepeaterChild } from '../action/setRepeatChild';
 
 /**
  * @param {object} obj
@@ -60,15 +61,20 @@ export const addWithKey = ({
      * Get element to delete from DOM and from componentMap
      */
     const keyToRemove = getNewElement(previous, currentUnique, key);
-    const elementToRemoveByKey = keyToRemove.map((item) => {
-        const keyValue = item?.[key];
-        return getElementByKeyAndRepeatId({
-            keyValue,
-            repeatId,
-        });
-    });
+    const elementToRemoveByKey = keyToRemove
+        .map((item) => {
+            const keyValue = item?.[key];
+            return getElementByKeyAndRepeatId({
+                keyValue,
+                repeatId,
+            });
+        })
+        .filter(Boolean);
+
+    const useComponent = elementToRemoveByKey.length > 0;
 
     /**
+     * Component inside repeater.
      * Remove at the end old element to avoid viual jump
      */
     elementToRemoveByKey.forEach((element) => {
@@ -105,6 +111,38 @@ export const addWithKey = ({
     });
 
     /**
+     * No Component inside repeater.
+     * Remove at the end old element to avoid viual jump
+     */
+    if (!useComponent) {
+        const childrenFromRepeater = getRepeaterChild({ repeatId });
+        const itemToRemove = childrenFromRepeater.filter((item) => {
+            return keyToRemove
+                .map((item) => item?.[key])
+                .includes(item.value?.[key]);
+        });
+
+        itemToRemove.forEach((item) => {
+            const { element: currentElement } = item;
+
+            /**
+             * First destroy all repeater/invalidate inside
+             */
+            destroyNestedInvalidate({ id, invalidateParent: currentElement });
+            destroyNestedRepeat({ id, repeatParent: currentElement });
+
+            /**
+             * Destroy inner component child.
+             */
+            destroyComponentInsideNodeById({
+                id,
+                container: currentElement,
+            });
+            currentElement.remove();
+        });
+    }
+
+    /**
      * -------------------
      *  NEW DATA
      * ------------------
@@ -126,19 +164,34 @@ export const addWithKey = ({
          * If use a wrapper use first wrapper occurrence that contain other component
          * If we don't use a wrapper we have only one component.
          */
-        const element = getElementByKeyAndRepeatId({
-            keyValue,
-            repeatId,
-        });
+        const element = useComponent
+            ? getElementByKeyAndRepeatId({
+                  keyValue,
+                  repeatId,
+              })
+            : undefined;
+
+        const id = useComponent ? getIdByElement({ element }) : undefined;
 
         /**
-         * If persistent Element use a wrapper save it.
+         * useComponent:
+         * If persistent Element use a wrapper save it ( or undefined ).
          * Than this element will added to DOM instead component.
+         *
+         * do not useComponent
+         * Get item by key && keyValue from repeater map.
+         * Use wrapper filed to save persistent item/element.
          */
-        const id = getIdByElement({ element });
-        const wrapper = getRepeaterInnerWrap({ id });
+        const wrapperParsed = useComponent
+            ? getRepeaterInnerWrap({ id })
+            : (() => {
+                  const childrenFromRepeater = getRepeaterChild({ repeatId });
+                  return childrenFromRepeater.find(
+                      (item) => item.value?.[key] === keyValue
+                  )?.element;
+              })();
 
-        return { keyValue, isNewElement, index, wrapper };
+        return { keyValue, isNewElement, index, wrapper: wrapperParsed };
     });
 
     /**
@@ -165,7 +218,7 @@ export const addWithKey = ({
                 repeatId,
             });
 
-            if (!persistentElement) return;
+            if (!persistentElement && useComponent) return;
 
             /**
              * If there is no wrapper when cut and paster component
@@ -173,7 +226,7 @@ export const addWithKey = ({
              * Update debug information.
              */
             const { debug } = getDefaultComponent();
-            if (debug && !wrapper) {
+            if (debug && !wrapper && useComponent) {
                 const componentName =
                     getComponentNameByElement(persistentElement);
 

@@ -179,13 +179,15 @@ export const getOrderedChunkByCurrentRepeatValue = ({
     /**
      * Order children by compare currentUnivoque key.
      */
-    const orderdChildren = currentParsed.map((currentItem) => {
-        const prop = useIndex ? 'index' : 'key';
+    const orderdChildren = currentParsed
+        .map((currentItem) => {
+            const prop = useIndex ? 'index' : 'key';
 
-        return childrenParsed.find(
-            (childrenItem) => childrenItem[prop] === currentItem[prop]
-        );
-    });
+            return childrenParsed.find(
+                (childrenItem) => childrenItem[prop] === currentItem[prop]
+            );
+        })
+        .filter(Boolean);
 
     /**
      * return chunk of ids.

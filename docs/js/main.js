@@ -17361,7 +17361,7 @@
       return childrenParsed.find(
         (childrenItem) => childrenItem[prop] === currentItem[prop]
       );
-    });
+    }).filter(Boolean);
     return orderdChildren.map(({ items }) => items);
   };
 
@@ -20386,6 +20386,29 @@
     return rawRender();
   };
 
+  // src/js/mobjs/modules/repeater/action/setRepeatChild.js
+  var setRepeaterChild = ({ repeatId, id, bind }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    const { element } = item;
+    const children = [...element.children];
+    const state = getStateById(id);
+    const stateByProp = state[bind];
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      key: bind,
+      children: children.map((child2, index) => {
+        return { index, value: stateByProp[index], element: child2 };
+      })
+    });
+  };
+  var getRepeaterChild = ({ repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    const { children } = item;
+    return children;
+  };
+
   // src/js/mobjs/modules/repeater/update/addWithKey.js
   var addWithKey = ({
     state = "",
@@ -20406,7 +20429,8 @@
         keyValue,
         repeatId
       });
-    });
+    }).filter(Boolean);
+    const useComponent2 = elementToRemoveByKey.length > 0;
     elementToRemoveByKey.forEach((element) => {
       const currentId = getIdByElement({ element });
       if (!currentId) return;
@@ -20427,6 +20451,22 @@
         removeAndDestroyById({ id: currentId });
       }
     });
+    if (!useComponent2) {
+      const childrenFromRepeater = getRepeaterChild({ repeatId });
+      const itemToRemove = childrenFromRepeater.filter((item) => {
+        return keyToRemove.map((item2) => item2?.[key]).includes(item.value?.[key]);
+      });
+      itemToRemove.forEach((item) => {
+        const { element: currentElement } = item;
+        destroyNestedInvalidate({ id, invalidateParent: currentElement });
+        destroyNestedRepeat({ id, repeatParent: currentElement });
+        destroyComponentInsideNodeById({
+          id,
+          container: currentElement
+        });
+        currentElement.remove();
+      });
+    }
     const newSequenceByKey = mixPreviousAndCurrentData(
       currentUnique,
       previous,
@@ -20434,13 +20474,18 @@
     ).map(({ keyValue, isNewElement, index }) => {
       if (isNewElement)
         return { keyValue, isNewElement, index, wrapper: void 0 };
-      const element = getElementByKeyAndRepeatId({
+      const element = useComponent2 ? getElementByKeyAndRepeatId({
         keyValue,
         repeatId
-      });
-      const id2 = getIdByElement({ element });
-      const wrapper2 = getRepeaterInnerWrap({ id: id2 });
-      return { keyValue, isNewElement, index, wrapper: wrapper2 };
+      }) : void 0;
+      const id2 = useComponent2 ? getIdByElement({ element }) : void 0;
+      const wrapperParsed = useComponent2 ? getRepeaterInnerWrap({ id: id2 }) : (() => {
+        const childrenFromRepeater = getRepeaterChild({ repeatId });
+        return childrenFromRepeater.find(
+          (item) => item.value?.[key] === keyValue
+        )?.element;
+      })();
+      return { keyValue, isNewElement, index, wrapper: wrapperParsed };
     });
     repeaterParentElement.replaceChildren();
     newSequenceByKey.forEach(({ isNewElement, keyValue, index, wrapper: wrapper2 }) => {
@@ -20449,9 +20494,9 @@
           keyValue,
           repeatId
         });
-        if (!persistentElement) return;
+        if (!persistentElement && useComponent2) return;
         const { debug } = getDefaultComponent();
-        if (debug && !wrapper2) {
+        if (debug && !wrapper2 && useComponent2) {
           const componentName = getComponentNameByElement(persistentElement);
           repeaterParentElement.insertAdjacentHTML(
             "beforeend",
@@ -20488,29 +20533,6 @@
       repeaterParentElement.insertAdjacentHTML("beforeend", currentRender);
     });
     return currentUnique;
-  };
-
-  // src/js/mobjs/modules/repeater/action/setRepeatChild.js
-  var setRepeaterChild = ({ repeatId, id, bind }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
-    if (!item) return;
-    const { element } = item;
-    const children = [...element.children];
-    const state = getStateById(id);
-    const stateByProp = state[bind];
-    repeatIdPlaceHolderMap.set(repeatId, {
-      ...item,
-      key: bind,
-      children: children.map((child2, index) => {
-        return { index, value: stateByProp[index], element: child2 };
-      })
-    });
-  };
-  var getRepeaterChild = ({ repeatId }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
-    if (!item) return;
-    const { children } = item;
-    return children;
   };
 
   // src/js/mobjs/modules/repeater/update/addWithoutKey.js
@@ -27308,8 +27330,11 @@ Loading snippet ...</pre
     updateState,
     bindProps,
     watch,
-    repeat
+    repeat,
+    getProxi,
+    bindProxi
   }) => {
+    const proxi = getProxi();
     onMount(() => {
       const { loading } = getRef();
       hideFooterShape();
@@ -27339,6 +27364,20 @@ Loading snippet ...</pre
             <div class="benchmark__head__time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
+        </div>
+        <div class="benchmark__list">
+            ${repeat({
+      bind: "data",
+      key: "label",
+      useSync: true,
+      render: ({ html: html2, current }) => {
+        return html2`<div>
+                        <div>
+                            ${bindProxi`${() => proxi.data[current.index].label}`}
+                        </div>
+                    </div>`;
+      }
+    })}
         </div>
         <div class="benchmark__list">
             ${repeat({
