@@ -1,6 +1,6 @@
 import { BenchMarkFakeComponent } from '../fakeComponent/definition';
 
-export const benchMarkDefinitionPartial = {
+export const benchMarkDefinitionPartial = (maxItem = 2001) => ({
     exportState: ['svg'],
     state: {
         counter: () => ({
@@ -10,7 +10,7 @@ export const benchMarkDefinitionPartial = {
         data: () => ({
             value: [],
             type: Array,
-            validate: (value) => value.length < 2001,
+            validate: (value) => value.length < maxItem,
             strict: true,
             skipEqual: false,
         }),
@@ -26,4 +26,4 @@ export const benchMarkDefinitionPartial = {
         }),
     },
     child: [BenchMarkFakeComponent],
-};
+});

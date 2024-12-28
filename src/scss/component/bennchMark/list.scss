@@ -77,4 +77,13 @@
         gap: rem(10);
         margin-bottom: rem(100);
     }
+
+    &__static-item {
+        flex: 1 1 10%;
+
+        &__inner {
+            margin-bottom: rem(20);
+            font-weight: 600;
+        }
+    }
 }

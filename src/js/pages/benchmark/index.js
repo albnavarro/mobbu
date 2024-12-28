@@ -1,12 +1,16 @@
 import { BenchMarkInvalidate } from '../../component/pages/benchMark/invalidate/definition';
 import { BenchMarkRepeatWithKey } from '../../component/pages/benchMark/repeatKey/definition';
+import { BenchMarkRepeatWithKeyNested } from '../../component/pages/benchMark/repeatKeyNested/definition';
 import { BenchMarkRepeatNoKey } from '../../component/pages/benchMark/repeatNoKey/definition';
+import { BenchMarkRepeatWithNoKeyNested } from '../../component/pages/benchMark/repeatNoKeyKeyNested/definition';
 import { html, useComponent } from '../../mobjs';
 
 useComponent([
     BenchMarkInvalidate,
     BenchMarkRepeatNoKey,
     BenchMarkRepeatWithKey,
+    BenchMarkRepeatWithKeyNested,
+    BenchMarkRepeatWithNoKeyNested,
 ]);
 
 export const benchMark = async ({ props }) => {

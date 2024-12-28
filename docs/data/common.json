@@ -638,6 +638,16 @@
                     "label": "Repeat with key",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-benchmark-repeat-key"
+                },
+                {
+                    "label": "Repeat with no key nested ( test )",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-benchmark-repeat-no-key-nested"
+                },
+                {
+                    "label": "Repeat with key nested ( test )",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-benchmark-repeat-key-nested"
                 }
             ]
         },

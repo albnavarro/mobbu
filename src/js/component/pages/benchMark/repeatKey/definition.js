@@ -7,5 +7,5 @@ import { BenchMarkRepeatWithKyFn } from './benchmarkRepeatWithKey';
 export const BenchMarkRepeatWithKey = createComponent({
     name: 'benchmark-repeat-key',
     component: BenchMarkRepeatWithKyFn,
-    ...benchMarkDefinitionPartial,
+    ...benchMarkDefinitionPartial(),
 });

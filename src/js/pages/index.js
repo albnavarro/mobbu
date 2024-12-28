@@ -279,6 +279,20 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-benchmark-repeat-no-key-nested',
+        layout: benchMark,
+        props: {
+            rootComponent: 'benchmark-repeat-key-no-nested',
+        },
+    },
+    {
+        name: 'mobJs-benchmark-repeat-key-nested',
+        layout: benchMark,
+        props: {
+            rootComponent: 'benchmark-repeat-key-nested',
+        },
+    },
+    {
         name: 'mobJs-tick',
         layout: layoutSidebarAnchor,
         props: {
