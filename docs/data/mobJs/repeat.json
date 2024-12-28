@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The repeat function allows you to keep updated a list of components whose display depends on an array of any type. If you use an array of objects it will be possible to use a key to maintain the order of the elements at each update."
+            "content": "Repat represents the <span class='quote'>reactive</span> counterpart of array.map().<br/>Work on either <span class='quote'>native DOM</span> elements or <span class='quote'>components</span>."
         },
         {
             "component": "mob-list",
@@ -275,6 +275,29 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 118
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "render native DOM without component"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/repeat-native-dom.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 21
             }
         },
         {
