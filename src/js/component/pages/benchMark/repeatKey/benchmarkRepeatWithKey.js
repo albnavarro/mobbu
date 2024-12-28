@@ -66,48 +66,6 @@ export const BenchMarkRepeatWithKyFn = ({
         <div class="benchmark__list">
             ${repeat({
                 bind: 'data',
-                key: 'label',
-                useSync: true,
-                render: ({ html, current }) => {
-                    return html`<div>
-                        <div>
-                            ${bindProxi`${() => proxi.data[current.index].label}`}
-                        </div>
-                        <div class="hu">
-                            ${repeat({
-                                bind: 'data',
-                                useSync: true,
-                                key: 'label',
-                                render: ({ html, sync, current }) => {
-                                    return html`
-                                        <benchmark-fake-component
-                                            class="new"
-                                            ${bindProps({
-                                                bind: ['counter'],
-                                                /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-                                                props: ({ counter }) => {
-                                                    return {
-                                                        index: current.index,
-                                                        label: current.value
-                                                            .label,
-                                                        counter,
-                                                    };
-                                                },
-                                            })}
-                                            ${sync()}
-                                        >
-                                        </benchmark-fake-component>
-                                    `;
-                                },
-                            })}
-                        </div>
-                    </div>`;
-                },
-            })}
-        </div>
-        <div class="benchmark__list">
-            ${repeat({
-                bind: 'data',
                 useSync: true,
                 key: 'label',
                 render: ({ html, sync, current }) => {

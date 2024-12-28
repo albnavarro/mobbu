@@ -27381,47 +27381,6 @@ Loading snippet ...</pre
         <div class="benchmark__list">
             ${repeat({
       bind: "data",
-      key: "label",
-      useSync: true,
-      render: ({ html: html2, current }) => {
-        return html2`<div>
-                        <div>
-                            ${bindProxi`${() => proxi.data[current.index].label}`}
-                        </div>
-                        <div class="hu">
-                            ${repeat({
-          bind: "data",
-          useSync: true,
-          key: "label",
-          render: ({ html: html3, sync, current: current2 }) => {
-            return html3`
-                                        <benchmark-fake-component
-                                            class="new"
-                                            ${bindProps({
-              bind: ["counter"],
-              /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-              props: ({ counter }) => {
-                return {
-                  index: current2.index,
-                  label: current2.value.label,
-                  counter
-                };
-              }
-            })}
-                                            ${sync()}
-                                        >
-                                        </benchmark-fake-component>
-                                    `;
-          }
-        })}
-                        </div>
-                    </div>`;
-      }
-    })}
-        </div>
-        <div class="benchmark__list">
-            ${repeat({
-      bind: "data",
       useSync: true,
       key: "label",
       render: ({ html: html2, sync, current }) => {
@@ -27503,44 +27462,6 @@ Loading snippet ...</pre
             <div class="benchmark__head__time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
-        </div>
-        <div class="benchmark__list">
-            ${repeat({
-      bind: "data",
-      useSync: true,
-      render: ({ html: html2, current }) => {
-        return html2`<div>
-                        <div>
-                            ${bindProxi`${() => proxi.data[current.index].label}`}
-                        </div>
-                        <div class="hu">
-                            ${repeat({
-          bind: "data",
-          useSync: true,
-          render: ({ html: html3, sync, current: current2 }) => {
-            return html3`
-                                        <benchmark-fake-component
-                                            ${bindProps({
-              bind: ["counter"],
-              /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-              props: ({ counter }) => {
-                return {
-                  index: current2.index,
-                  label: current2.value.label,
-                  counter
-                };
-              }
-            })}
-                                            ${sync()}
-                                        >
-                                        </benchmark-fake-component>
-                                    `;
-          }
-        })}
-                        </div>
-                    </div>`;
-      }
-    })}
         </div>
         <div class="benchmark__list">
             ${repeat({
