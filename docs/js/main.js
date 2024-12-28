@@ -20485,52 +20485,66 @@
           (item) => item.value?.[key] === keyValue
         )?.element;
       })();
-      return { keyValue, isNewElement, index, wrapper: wrapperParsed };
+      return {
+        keyValue,
+        isNewElement,
+        index,
+        persistentElement: element,
+        persistentDOMwrapper: wrapperParsed
+      };
     });
     repeaterParentElement.replaceChildren();
-    newSequenceByKey.forEach(({ isNewElement, keyValue, index, wrapper: wrapper2 }) => {
-      if (!isNewElement) {
-        const persistentElement = getElementByKeyAndRepeatId({
+    newSequenceByKey.forEach(
+      ({
+        isNewElement,
+        keyValue,
+        index,
+        persistentElement,
+        persistentDOMwrapper
+      }) => {
+        if (!isNewElement) {
+          const { debug } = getDefaultComponent();
+          if (debug && !persistentDOMwrapper && elementToRemoveByComponent) {
+            const componentName = getComponentNameByElement(persistentElement);
+            repeaterParentElement.insertAdjacentHTML(
+              "beforeend",
+              `<!-- ${componentName} --> `
+            );
+          }
+          if (persistentDOMwrapper) {
+            repeaterParentElement.append(persistentDOMwrapper);
+          }
+          if (!persistentDOMwrapper && persistentElement) {
+            repeaterParentElement.append(persistentElement);
+          }
+          return;
+        }
+        const currentValue = currentUnique?.[index];
+        const currentRender = useSync ? updateRepeaterWithtKeyUseSync({
+          id,
+          currentValue,
+          index,
+          state,
+          repeatId,
+          key,
           keyValue,
-          repeatId
+          render: render2
+        }) : updateRepeaterWithtKey({
+          id,
+          currentValue,
+          index,
+          state,
+          repeatId,
+          key,
+          keyValue,
+          render: render2
         });
-        const { debug } = getDefaultComponent();
-        if (debug && !wrapper2 && elementToRemoveByComponent) {
-          const componentName = getComponentNameByElement(persistentElement);
-          repeaterParentElement.insertAdjacentHTML(
-            "beforeend",
-            `<!-- ${componentName} --> `
-          );
-        }
-        if (wrapper2) {
-          repeaterParentElement.append(wrapper2);
-        } else {
-          repeaterParentElement.append(persistentElement);
-        }
-        return;
+        repeaterParentElement.insertAdjacentHTML(
+          "beforeend",
+          currentRender
+        );
       }
-      const currentValue = currentUnique?.[index];
-      const currentRender = useSync ? updateRepeaterWithtKeyUseSync({
-        id,
-        currentValue,
-        index,
-        state,
-        repeatId,
-        key,
-        keyValue,
-        render: render2
-      }) : updateRepeaterWithtKey({
-        id,
-        currentValue,
-        index,
-        state,
-        repeatId,
-        key,
-        keyValue,
-        render: render2
-      });
-      repeaterParentElement.insertAdjacentHTML("beforeend", currentRender);
-    });
+    );
     return currentUnique;
   };
 
