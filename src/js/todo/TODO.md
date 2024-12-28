@@ -58,6 +58,7 @@ export interface callbackQueue {
 ### bindProxi
 - Aggiungere dei controlli per eliminare caratteri come `;` quanso si estrapolano le props da monitorare.
 - `bindProxi` puó usare solo index, sarebbe carino poterlgi passare anche `current.value.myProp`
+    - Dedurre le dipendenze facendo un `render iniziale` e confrontare i valori con quelli degli stati.
 
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
