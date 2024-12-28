@@ -116,6 +116,8 @@ export const addWithKey = ({
      */
     if (!useComponent) {
         const childrenFromRepeater = getRepeaterChild({ repeatId });
+        if (!childrenFromRepeater) return;
+
         const itemToRemove = childrenFromRepeater.filter((item) => {
             return keyToRemove
                 .map((item) => item?.[key])
