@@ -20430,7 +20430,7 @@
         repeatId
       });
     }).filter(Boolean);
-    const useComponent2 = elementToRemoveByKey.length > 0;
+    const elementToRemoveByComponent = elementToRemoveByKey.length > 0;
     elementToRemoveByKey.forEach((element) => {
       const currentId = getIdByElement({ element });
       if (!currentId) return;
@@ -20451,8 +20451,9 @@
         removeAndDestroyById({ id: currentId });
       }
     });
-    if (!useComponent2) {
+    if (!elementToRemoveByComponent) {
       const childrenFromRepeater = getRepeaterChild({ repeatId });
+      if (!childrenFromRepeater) return;
       const itemToRemove = childrenFromRepeater.filter((item) => {
         return keyToRemove.map((item2) => item2?.[key]).includes(item.value?.[key]);
       });
@@ -20464,7 +20465,6 @@
           id,
           container: currentElement
         });
-        currentElement.remove();
       });
     }
     const newSequenceByKey = mixPreviousAndCurrentData(
@@ -20474,12 +20474,12 @@
     ).map(({ keyValue, isNewElement, index }) => {
       if (isNewElement)
         return { keyValue, isNewElement, index, wrapper: void 0 };
-      const element = useComponent2 ? getElementByKeyAndRepeatId({
+      const element = getElementByKeyAndRepeatId({
         keyValue,
         repeatId
-      }) : void 0;
-      const id2 = useComponent2 ? getIdByElement({ element }) : void 0;
-      const wrapperParsed = useComponent2 ? getRepeaterInnerWrap({ id: id2 }) : (() => {
+      });
+      const id2 = element ? getIdByElement({ element }) : void 0;
+      const wrapperParsed = element ? getRepeaterInnerWrap({ id: id2 }) : (() => {
         const childrenFromRepeater = getRepeaterChild({ repeatId });
         return childrenFromRepeater.find(
           (item) => item.value?.[key] === keyValue
@@ -20494,9 +20494,8 @@
           keyValue,
           repeatId
         });
-        if (!persistentElement && useComponent2) return;
         const { debug } = getDefaultComponent();
-        if (debug && !wrapper2 && useComponent2) {
+        if (debug && !wrapper2 && elementToRemoveByComponent) {
           const componentName = getComponentNameByElement(persistentElement);
           repeaterParentElement.insertAdjacentHTML(
             "beforeend",
@@ -27375,6 +27374,33 @@ Loading snippet ...</pre
                         <div>
                             ${bindProxi`${() => proxi.data[current.index].label}`}
                         </div>
+                        <div class="hu">
+                            ${repeat({
+          bind: "data",
+          useSync: true,
+          key: "label",
+          render: ({ html: html3, sync, current: current2 }) => {
+            return html3`
+                                        <benchmark-fake-component
+                                            class="new"
+                                            ${bindProps({
+              bind: ["counter"],
+              /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
+              props: ({ counter }) => {
+                return {
+                  index: current2.index,
+                  label: current2.value.label,
+                  counter
+                };
+              }
+            })}
+                                            ${sync()}
+                                        >
+                                        </benchmark-fake-component>
+                                    `;
+          }
+        })}
+                        </div>
                     </div>`;
       }
     })}
@@ -27387,6 +27413,7 @@ Loading snippet ...</pre
       render: ({ html: html2, sync, current }) => {
         return html2`
                         <benchmark-fake-component
+                            class="old"
                             ${bindProps({
           bind: ["counter"],
           /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */

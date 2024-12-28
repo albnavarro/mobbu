@@ -71,7 +71,7 @@ export const addWithKey = ({
         })
         .filter(Boolean);
 
-    const useComponent = elementToRemoveByKey.length > 0;
+    const elementToRemoveByComponent = elementToRemoveByKey.length > 0;
 
     /**
      * Component inside repeater.
@@ -114,7 +114,7 @@ export const addWithKey = ({
      * No Component inside repeater.
      * Remove at the end old element to avoid viual jump
      */
-    if (!useComponent) {
+    if (!elementToRemoveByComponent) {
         const childrenFromRepeater = getRepeaterChild({ repeatId });
         if (!childrenFromRepeater) return;
 
@@ -140,7 +140,6 @@ export const addWithKey = ({
                 id,
                 container: currentElement,
             });
-            currentElement.remove();
         });
     }
 
@@ -166,14 +165,12 @@ export const addWithKey = ({
          * If use a wrapper use first wrapper occurrence that contain other component
          * If we don't use a wrapper we have only one component.
          */
-        const element = useComponent
-            ? getElementByKeyAndRepeatId({
-                  keyValue,
-                  repeatId,
-              })
-            : undefined;
+        const element = getElementByKeyAndRepeatId({
+            keyValue,
+            repeatId,
+        });
 
-        const id = useComponent ? getIdByElement({ element }) : undefined;
+        const id = element ? getIdByElement({ element }) : undefined;
 
         /**
          * useComponent:
@@ -184,7 +181,7 @@ export const addWithKey = ({
          * Get item by key && keyValue from repeater map.
          * Use wrapper filed to save persistent item/element.
          */
-        const wrapperParsed = useComponent
+        const wrapperParsed = element
             ? getRepeaterInnerWrap({ id })
             : (() => {
                   const childrenFromRepeater = getRepeaterChild({ repeatId });
@@ -220,15 +217,13 @@ export const addWithKey = ({
                 repeatId,
             });
 
-            if (!persistentElement && useComponent) return;
-
             /**
              * If there is no wrapper when cut and paster component
              * we loose debug information.
              * Update debug information.
              */
             const { debug } = getDefaultComponent();
-            if (debug && !wrapper && useComponent) {
+            if (debug && !wrapper && elementToRemoveByComponent) {
                 const componentName =
                     getComponentNameByElement(persistentElement);
 

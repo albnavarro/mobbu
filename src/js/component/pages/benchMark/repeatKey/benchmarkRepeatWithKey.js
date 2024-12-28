@@ -73,6 +73,34 @@ export const BenchMarkRepeatWithKyFn = ({
                         <div>
                             ${bindProxi`${() => proxi.data[current.index].label}`}
                         </div>
+                        <div class="hu">
+                            ${repeat({
+                                bind: 'data',
+                                useSync: true,
+                                key: 'label',
+                                render: ({ html, sync, current }) => {
+                                    return html`
+                                        <benchmark-fake-component
+                                            class="new"
+                                            ${bindProps({
+                                                bind: ['counter'],
+                                                /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
+                                                props: ({ counter }) => {
+                                                    return {
+                                                        index: current.index,
+                                                        label: current.value
+                                                            .label,
+                                                        counter,
+                                                    };
+                                                },
+                                            })}
+                                            ${sync()}
+                                        >
+                                        </benchmark-fake-component>
+                                    `;
+                                },
+                            })}
+                        </div>
                     </div>`;
                 },
             })}
@@ -85,6 +113,7 @@ export const BenchMarkRepeatWithKyFn = ({
                 render: ({ html, sync, current }) => {
                     return html`
                         <benchmark-fake-component
+                            class="old"
                             ${bindProps({
                                 bind: ['counter'],
                                 /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
