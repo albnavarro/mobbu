@@ -1,11 +1,11 @@
 //@ts-check
 
-import { ATTR_BIND_PROXI_ID, ATTR_COMPONENT_ID } from '../constant';
-import { addBindProxiPlaceHolderMap } from '../modules/bindProxi';
+import { ATTR_BIND_OBJECT_ID, ATTR_COMPONENT_ID } from '../constant';
+import { addBindObjectPlaceHolderMap } from '../modules/bindObject';
 
-export const defineBindProxiComponent = () => {
+export const defineBindObjectComponent = () => {
     customElements.define(
-        'mobjs-bind-proxi',
+        'mobjs-bind-object',
         class extends HTMLElement {
             constructor() {
                 super();
@@ -19,12 +19,13 @@ export const defineBindProxiComponent = () => {
                 if (dataset) {
                     const host = this.shadowRoot?.host;
                     const componentId = host?.getAttribute(ATTR_COMPONENT_ID);
-                    const bindProxiId = host?.getAttribute(ATTR_BIND_PROXI_ID);
+                    const bindObjectId =
+                        host?.getAttribute(ATTR_BIND_OBJECT_ID);
 
-                    addBindProxiPlaceHolderMap({
+                    addBindObjectPlaceHolderMap({
                         host,
                         componentId,
-                        bindProxiId,
+                        bindObjectId,
                     });
                 }
             }

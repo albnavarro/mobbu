@@ -77,7 +77,7 @@ export type SetRef = PartialSetRef;
 export type GetRef = PartialGetRef;
 export type GetRefs = PartialGetRefs;
 export type BindText = PartialBindText;
-export type BindProxi = PartialBindText;
+export type BindObject = PartialBindText;
 export type ReturnBindProps<T> = PartialReturnBindProps<T>;
 export type UseMethodByName<T = { methods: any }> = PartialUseMethodByName<T>;
 export type UseMethodArrayByName<T = { methods: any }> =
@@ -606,7 +606,7 @@ export interface componentPropsType<T, R> {
     /**
      *
      */
-    bindProxi: PartialBindText;
+    bindObject: PartialBindText;
 
     /**
      *

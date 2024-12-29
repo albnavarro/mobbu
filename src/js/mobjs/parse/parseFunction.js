@@ -30,7 +30,7 @@ import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
 import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './useQuery';
 import { switchBindTextMap } from '../modules/bindtext';
-import { switchBindProxiMap } from '../modules/bindProxi';
+import { switchBindObjectMap } from '../modules/bindObject';
 
 /**
  * @param {object} obj
@@ -121,7 +121,7 @@ export const parseComponentsRecursive = async ({
          */
         applyDelegationBindEvent(element);
         switchBindTextMap();
-        switchBindProxiMap();
+        switchBindObjectMap();
 
         return;
     }

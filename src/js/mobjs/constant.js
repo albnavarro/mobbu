@@ -18,7 +18,7 @@ export const ATTR_BIND_TEXT_ID = 'bindtextid';
 /**
  * @type {string};
  */
-export const ATTR_BIND_PROXI_ID = 'bindproxiid';
+export const ATTR_BIND_OBJECT_ID = 'bindobjectid';
 
 /**
  * @type {string};

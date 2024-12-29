@@ -1,7 +1,7 @@
 // @ts-check
 
 import { removeCurrentIdToBindProps } from '../../../modules/bindProps/removeCurrentIdToBindProps';
-import { removeBindProxiParentById } from '../../../modules/bindProxi';
+import { removeBindObjectParentById } from '../../../modules/bindObject';
 import { removeBindTextParentById } from '../../../modules/bindtext';
 import { removeInvalidateId } from '../../../modules/invalidate/action/removeInvalidateId';
 import { removeRepeaterId } from '../../../modules/repeater/action/removeRepeaterId';
@@ -65,7 +65,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
     removeInvalidateId({ id });
     removeRepeaterId({ id });
     removeBindTextParentById({ id });
-    removeBindProxiParentById({ id });
+    removeBindObjectParentById({ id });
 
     /**
      * Secure check: remove orphas reference from mainStore

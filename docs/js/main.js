@@ -17106,7 +17106,7 @@
   var ATTR_IS_COMPONENT = "data-mobjs";
   var ATTR_COMPONENT_ID = "componentid";
   var ATTR_BIND_TEXT_ID = "bindtextid";
-  var ATTR_BIND_PROXI_ID = "bindproxiid";
+  var ATTR_BIND_OBJECT_ID = "bindobjectid";
   var ATTR_PROPS = "staticprops";
   var ATTR_DYNAMIC = "bindprops";
   var ATTR_INSTANCENAME = "name";
@@ -17645,78 +17645,78 @@
     return state?.watch(prop, cb);
   };
 
-  // src/js/mobjs/modules/bindProxi/index.js
-  var bindProxiMap = /* @__PURE__ */ new Map();
-  var bindProxiPlaceHolderMap = /* @__PURE__ */ new Map();
-  var addBindProxiPlaceHolderMap = ({
+  // src/js/mobjs/modules/bindObject/index.js
+  var bindObjectMap = /* @__PURE__ */ new Map();
+  var bindObjectPlaceHolderMap = /* @__PURE__ */ new Map();
+  var addBindObjectPlaceHolderMap = ({
     host,
     componentId,
-    bindProxiId
+    bindObjectId
   }) => {
-    bindProxiPlaceHolderMap.set(host, {
+    bindObjectPlaceHolderMap.set(host, {
       componentId,
-      bindProxiId
+      bindObjectId
     });
   };
-  var renderBindProxi = (strings, ...values) => {
+  var renderBindObject = (strings, ...values) => {
     return strings.raw.reduce(
       (accumulator, currentText, i) => mobCore.checkType(Function, values?.[i]) ? accumulator + currentText + (values?.[i]?.()?.value ?? "") : accumulator,
       ""
     );
   };
-  var addBindProxiParent = ({ id, bindProxiId, parentElement }) => {
-    const items = bindProxiMap.get(id);
+  var addBindObjectParent = ({ id, bindObjectId, parentElement }) => {
+    const items = bindObjectMap.get(id);
     const itemsUpdated = items && items.length > 0 ? (() => {
       const itemsFiltered = items.filter(
-        (item) => item.bindProxiId !== bindProxiId
+        (item) => item.bindObjectId !== bindObjectId
       );
       return [
         ...itemsFiltered,
-        { parentNode: parentElement, bindProxiId }
+        { parentNode: parentElement, bindObjectId }
       ];
-    })() : [{ parentNode: parentElement, bindProxiId }];
-    bindProxiMap.set(id, itemsUpdated);
+    })() : [{ parentNode: parentElement, bindObjectId }];
+    bindObjectMap.set(id, itemsUpdated);
   };
-  var removeBindProxiByBindProxiId = ({ id, bindProxiId }) => {
-    const items = bindProxiMap.get(id);
+  var removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
+    const items = bindObjectMap.get(id);
     const itemsUpdated = items.filter(
-      (item) => item.bindProxiId !== bindProxiId
+      (item) => item.bindObjectId !== bindObjectId
     );
-    bindProxiMap.set(id, itemsUpdated);
+    bindObjectMap.set(id, itemsUpdated);
   };
-  var switchBindProxiMap = () => {
-    [...bindProxiPlaceHolderMap].forEach(
-      ([placeholder, { componentId, bindProxiId }]) => {
-        addBindProxiParent({
+  var switchBindObjectMap = () => {
+    [...bindObjectPlaceHolderMap].forEach(
+      ([placeholder, { componentId, bindObjectId }]) => {
+        addBindObjectParent({
           id: componentId,
-          bindProxiId,
+          bindObjectId,
           parentElement: placeholder.parentElement
         });
         placeholder?.removeCustomComponent?.();
         placeholder?.remove();
       }
     );
-    bindProxiPlaceHolderMap.clear();
+    bindObjectPlaceHolderMap.clear();
   };
-  var removeBindProxiParentById = ({ id }) => {
-    bindProxiMap.delete(id);
+  var removeBindObjectParentById = ({ id }) => {
+    bindObjectMap.delete(id);
   };
-  var getParentBindProxi = ({ id, bindProxiId }) => {
-    const item = bindProxiMap.get(id);
+  var getParentBindObject = ({ id, bindObjectId }) => {
+    const item = bindObjectMap.get(id);
     if (!item) return;
     const current = item.find((item2) => {
-      return bindProxiId === item2.bindProxiId;
+      return bindObjectId === item2.bindObjectId;
     });
     return current?.parentNode;
   };
-  var getBindProxiParentSize = () => {
-    return [...bindProxiMap].reduce(
+  var getBindObjectParentSize = () => {
+    return [...bindObjectMap].reduce(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       (previous, [_, values]) => previous + values.length,
       0
     );
   };
-  var createBindProxiWatcher = (id, bindProxiId, keys, render2) => {
+  var createBindObjectWatcher = (id, bindObjectId, keys, render2) => {
     let watchIsRunning = false;
     let ref;
     const states = getStateById(id);
@@ -17729,12 +17729,12 @@
           mobCore.useFrame(() => {
             if (!ref) {
               ref = new WeakRef(
-                getParentBindProxi({
+                getParentBindObject({
                   id,
-                  bindProxiId
+                  bindObjectId
                 })
               );
-              removeBindProxiByBindProxiId({ id, bindProxiId });
+              removeBindObjectByBindObjectId({ id, bindObjectId });
             }
             const shouldRender = !isArray || value.length > 0;
             if (ref.deref() && shouldRender) {
@@ -17961,7 +17961,7 @@
     removeInvalidateId({ id });
     removeRepeaterId({ id });
     removeBindTextParentById({ id });
-    removeBindProxiParentById({ id });
+    removeBindObjectParentById({ id });
     removeCurrentIdToBindProps({ componentId: id });
     componentMap.delete(id);
     element?.removeCustomComponent?.();
@@ -18643,10 +18643,10 @@
     );
   };
 
-  // src/js/mobjs/webComponent/bindProxi.js
-  var defineBindProxiComponent = () => {
+  // src/js/mobjs/webComponent/bindObject.js
+  var defineBindObjectComponent = () => {
     customElements.define(
-      "mobjs-bind-proxi",
+      "mobjs-bind-object",
       class extends HTMLElement {
         constructor() {
           super();
@@ -18657,11 +18657,11 @@
           if (dataset) {
             const host = this.shadowRoot?.host;
             const componentId = host?.getAttribute(ATTR_COMPONENT_ID);
-            const bindProxiId = host?.getAttribute(ATTR_BIND_PROXI_ID);
-            addBindProxiPlaceHolderMap({
+            const bindObjectId = host?.getAttribute(ATTR_BIND_OBJECT_ID);
+            addBindObjectPlaceHolderMap({
               host,
               componentId,
-              bindProxiId
+              bindObjectId
             });
           }
         }
@@ -18687,7 +18687,7 @@
     defineInvalidateComponent();
     defineRepeatComponent();
     defineBindTextComponent();
-    defineBindProxiComponent();
+    defineBindObjectComponent();
   };
   var useComponent = (components) => {
     components.forEach((component) => {
@@ -20978,12 +20978,12 @@
         createBindTextWatcher(id, bindTextId, render2, ...values);
         return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render2()}`;
       },
-      bindProxi: (strings, ...values) => {
+      bindObject: (strings, ...values) => {
         const keys = values.map((item) => item?.()?.bind ?? "");
-        const bindProxiId = mobCore.getUnivoqueId();
-        const render2 = () => renderBindProxi(strings, ...values);
-        createBindProxiWatcher(id, bindProxiId, keys, render2);
-        return `<mobjs-bind-proxi ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_PROXI_ID}="${bindProxiId}"></mobjs-bind-proxi>${render2()}`;
+        const bindObjectId = mobCore.getUnivoqueId();
+        const render2 = () => renderBindObject(strings, ...values);
+        createBindObjectWatcher(id, bindObjectId, keys, render2);
+        return `<mobjs-bind-object ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_OBJECT_ID}="${bindObjectId}"></mobjs-bind-object>${render2()}`;
       },
       invalidate: ({
         bind,
@@ -21289,7 +21289,7 @@
       currentSelectors.length = 0;
       applyDelegationBindEvent(element);
       switchBindTextMap();
-      switchBindProxiMap();
+      switchBindObjectMap();
       return;
     }
     const componentToParseName = componentToParse.getComponentName();
@@ -27029,7 +27029,7 @@ Loading snippet ...</pre
   var BenchMarkFakeComponentFn = ({
     html,
     getProxi,
-    bindProxi,
+    bindObject,
     delegateEvents,
     onMount,
     id
@@ -27048,13 +27048,13 @@ Loading snippet ...</pre
             ${id}
         </div>
         <div class="benchmark-fake__row">
-            ${bindProxi`<strong>index:</strong><br/> ${() => ({ bind: "index", value: proxiState.index })}`}
+            ${bindObject`<strong>index:</strong><br/> ${() => ({ bind: "index", value: proxiState.index })}`}
         </div>
         <div class="benchmark-fake__row">
-            ${bindProxi`<strong>label:</strong><br/> ${() => ({ bind: "label", value: proxiState.label })}`}
+            ${bindObject`<strong>label:</strong><br/> ${() => ({ bind: "label", value: proxiState.label })}`}
         </div>
         <div class="benchmark-fake__row">
-            ${bindProxi`<strong>counter: </strong><br/> ${() => ({ bind: "counter", value: proxiState.counter })}`}
+            ${bindObject`<strong>counter: </strong><br/> ${() => ({ bind: "counter", value: proxiState.counter })}`}
         </div>
         <div class="benchmark-fake__row">
             <button
@@ -27425,10 +27425,8 @@ Loading snippet ...</pre
     bindProps,
     watch,
     repeat,
-    getProxi,
-    bindProxi
+    bindObject
   }) => {
-    const proxi = getProxi();
     onMount(() => {
       const { loading } = getRef();
       hideFooterShape();
@@ -27466,7 +27464,7 @@ Loading snippet ...</pre
       render: ({ html: html2, current }) => {
         return html2`<div class="benchmark__static-item">
                         <div class="benchmark__static-item__inner">
-                            ${bindProxi`${() => ({ bind: "data", value: current.value.label })}`}
+                            ${bindObject`${() => ({ bind: "data", value: current.value.label })}`}
                         </div>
                         <div>
                             ${repeat({
@@ -27602,10 +27600,8 @@ Loading snippet ...</pre
     bindProps,
     watch,
     repeat,
-    getProxi,
-    bindProxi
+    bindObject
   }) => {
-    const proxi = getProxi();
     onMount(() => {
       const { loading } = getRef();
       hideFooterShape();
@@ -27642,7 +27638,7 @@ Loading snippet ...</pre
       render: ({ html: html2, current }) => {
         return html2`<div class="benchmark__static-item">
                         <div class="benchmark__static-item__inner">
-                            ${bindProxi`${() => ({ bind: "data", value: current.value.label })}`}
+                            ${bindObject`${() => ({ bind: "data", value: current.value.label })}`}
                         </div>
                         <div>
                             ${repeat({
@@ -33266,7 +33262,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/move3D/page/move3DPage.js
-  var getControls2 = ({ delegateEvents, bindProxi, proxiState }) => {
+  var getControls2 = ({ delegateEvents, bindObject, proxiState }) => {
     return renderHtml`<div class="c-move3d-page__controls">
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
@@ -33282,7 +33278,7 @@ Loading snippet ...</pre
                 />
             </div>
             <div>
-                ${bindProxi`factor: ${() => ({ bind: "factor", value: proxiState.factor })}`}
+                ${bindObject`factor: ${() => ({ bind: "factor", value: proxiState.factor })}`}
             </div>
         </div>
         <div class="c-move3d-page__controls__block">
@@ -33299,7 +33295,7 @@ Loading snippet ...</pre
                 />
             </div>
             <div>
-                ${bindProxi`xDepth: ${() => ({ bind: "xDepth", value: proxiState.xDepth })}`}
+                ${bindObject`xDepth: ${() => ({ bind: "xDepth", value: proxiState.xDepth })}`}
             </div>
         </div>
         <div class="c-move3d-page__controls__block">
@@ -33316,7 +33312,7 @@ Loading snippet ...</pre
                 />
             </div>
             <div>
-                ${bindProxi`yDepth: ${() => ({ bind: "yDepth", value: proxiState.yDepth })}`}
+                ${bindObject`yDepth: ${() => ({ bind: "yDepth", value: proxiState.yDepth })}`}
             </div>
         </div>
         <div class="c-move3d-page__controls__block">
@@ -33340,7 +33336,7 @@ Loading snippet ...</pre
     bindProps,
     getState,
     delegateEvents,
-    bindProxi,
+    bindObject,
     getProxi
   }) => {
     const { prevRoute, nextRoute } = getState();
@@ -33363,7 +33359,7 @@ Loading snippet ...</pre
       };
     });
     return html`<div>
-        ${getControls2({ delegateEvents, bindProxi, proxiState })}
+        ${getControls2({ delegateEvents, bindObject, proxiState })}
         <move-3d
             ${bindProps({
       bind: ["data", "xDepth", "yDepth", "factor", "debug"],
@@ -35737,8 +35733,8 @@ Loading snippet ...</pre
                             ${getBindTextParentSize()}
                         </div>
                         <div class="c-debug-head__invalidate">
-                            <strong>Active bindProxi: </strong>:
-                            ${getBindProxiParentSize()}
+                            <strong>Active bindObject: </strong>:
+                            ${getBindObjectParentSize()}
                         </div>
                     `;
       }

@@ -24,11 +24,8 @@ export const BenchMarkRepeatWithKyFnNested = ({
     bindProps,
     watch,
     repeat,
-    getProxi,
-    bindProxi,
+    bindObject,
 }) => {
-    const proxi = getProxi();
-
     onMount(() => {
         const { loading } = getRef();
         hideFooterShape();
@@ -69,7 +66,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
                 render: ({ html, current }) => {
                     return html`<div class="benchmark__static-item">
                         <div class="benchmark__static-item__inner">
-                            ${bindProxi`${() => ({ bind: 'data', value: current.value.label })}`}
+                            ${bindObject`${() => ({ bind: 'data', value: current.value.label })}`}
                         </div>
                         <div>
                             ${repeat({

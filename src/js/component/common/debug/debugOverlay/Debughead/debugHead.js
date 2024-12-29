@@ -11,7 +11,7 @@ import {
     getNumberOfActiveInvalidate,
     getNumberOfActiveRepeater,
 } from '../../../../../mobjs';
-import { getBindProxiParentSize } from '../../../../../mobjs/modules/bindProxi';
+import { getBindObjectParentSize } from '../../../../../mobjs/modules/bindObject';
 import { getBindTextParentSize } from '../../../../../mobjs/modules/bindtext';
 
 /** @type{MobComponent<import('./type').DebugHead>} */
@@ -67,8 +67,8 @@ export const DebugHeadFn = ({
                             ${getBindTextParentSize()}
                         </div>
                         <div class="c-debug-head__invalidate">
-                            <strong>Active bindProxi: </strong>:
-                            ${getBindProxiParentSize()}
+                            <strong>Active bindObject: </strong>:
+                            ${getBindObjectParentSize()}
                         </div>
                     `;
                 },
