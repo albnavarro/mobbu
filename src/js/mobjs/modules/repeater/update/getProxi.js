@@ -7,7 +7,7 @@ const REPEAT_PROXI_INDEX = 'index';
  * @description
  * Reactive state for repeat.
  * Note:
- * bindProxi can run after 'item' is destroyed ( wekRef issue ).
+ * bindObject can run after 'item' is destroyed ( wekRef issue ).
  * So clamp index value with current array length.
  * The item is not visible but can fire error.
  *

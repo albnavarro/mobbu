@@ -514,7 +514,7 @@
                     "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
                     "<a href='./#mobJs-bindStore'>bindStore</a>",
                     "<a href='./#mobJs-bindtext'>bindText</a>",
-                    "<a href='./#mobJs-bindproxi'>bindProxi</a>",
+                    "<a href='./#mobJs-bindObject'>bindObject</a>",
                     "<a href='./#mobJs-bind-class-style'>bindClassStyle</a>",
                     "<a href='./#mobJs-methods'>methods</a>",
                     "<a href='./#mobJs-refs'>Refs</a>"
