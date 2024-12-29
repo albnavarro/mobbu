@@ -460,12 +460,12 @@ export const routes = [
         },
     },
     {
-        name: 'mobJs-bindproxi',
+        name: 'mobJs-bindObject',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         props: {
-            source: './data/mobJs/bindProxi.json',
-            title: 'bindProxi',
+            source: './data/mobJs/bindObject.json',
+            title: 'bindObject',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },

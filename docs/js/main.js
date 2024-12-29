@@ -20123,13 +20123,13 @@
             return clamp2(index, 0, maxValue);
           }
           if (hasKey) {
-            lastValue = currentValue;
+            lastValue = currentValue ?? lastValue;
             currentValue = state?.[bind]?.find(
               (item) => item[key] === keyValue
             );
             return currentValue ?? lastValue;
           }
-          lastValue = currentValue;
+          lastValue = currentValue ?? lastValue;
           currentValue = state?.[bind]?.[clamp2(index, 0, maxValue)];
           return currentValue ?? lastValue;
         },
@@ -27464,7 +27464,7 @@ Loading snippet ...</pre
       render: ({ html: html2, current }) => {
         return html2`<div class="benchmark__static-item">
                         <div class="benchmark__static-item__inner">
-                            ${bindObject`${() => ({ bind: "data", value: current.value.label })}`}
+                            ${bindObject`label: ${() => ({ bind: "data", value: current.value.label })}`}
                         </div>
                         <div>
                             ${repeat({
@@ -27638,7 +27638,7 @@ Loading snippet ...</pre
       render: ({ html: html2, current }) => {
         return html2`<div class="benchmark__static-item">
                         <div class="benchmark__static-item__inner">
-                            ${bindObject`${() => ({ bind: "data", value: current.value.label })}`}
+                            ${bindObject`label: ${() => ({ bind: "data", value: current.value.label })}`}
                         </div>
                         <div>
                             ${repeat({
@@ -34480,12 +34480,12 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs-bindproxi",
+      name: "mobJs-bindObject",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mobJs/bindProxi.json",
-        title: "bindProxi",
+        source: "./data/mobJs/bindObject.json",
+        title: "bindObject",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },

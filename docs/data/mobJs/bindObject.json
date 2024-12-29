@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "bindProxi"
+            "content": "bindObject"
         },
         {
             "component": "mob-spacer",
@@ -25,14 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bindText allows you to update the contents of a node when one or more application states change."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "While <span class='quote'>bindProxi</span> uses the reactive state to update itself <span class='quote'>bindtText</span> has the key corresponding to the state as a string."
+            "content": "bindObject is actually a simplified version of invalidate that allows you to print a value when a specified property is mutated."
         },
         {
             "component": "mob-list",
@@ -42,8 +35,9 @@
                 "items": [
                     "based on <span class='quote'>String.raw</span>",
                     "requires a <span class='quote'>unique parent node</span>, each update will delete the previous contents of the node.",
-                    "states are used in the form of a <span class='quote'>function</span> that returns the proxy state",
-                    "Can be used as content of a <span class='quote'>slotted component</span>."
+                    "similarly to <span class='quote'>bindText</span> it allows you to mix texts and variables.",
+                    "Useful if you want to use the value of a <span class='quote'>proxy</span>.",
+                    "Useful if you want to print the value of <span class='quote'>current.value</span> inside a repeat"
                 ]
             }
         },
@@ -62,7 +56,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/bindProxi.js",
+                "source": "./snippets/mobJs/bindObject.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -80,7 +74,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "For more <span class='quote'>complex situations</span> it is always possible to use the <a href='#mobJs-invalidate'>invalidate</a> function to handle complex situations in a cleaner way, invalidate can in fact also return a simple text."
+            "content": "For more <span class='quote'>complex situations</span> it is always possible to use the <a href='#mobJs-invalidate'>invalidate</a> function to handle complex situations in a cleaner way."
         },
         {
             "component": "mob-spacer",
