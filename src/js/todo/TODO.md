@@ -55,11 +55,36 @@ export interface callbackQueue {
 
 # MobJs
 
-### bindProxi
+## bindProxi
+#### Current solution:
 - Aggiungere dei controlli per eliminare caratteri come `;` quanso si estrapolano le props da monitorare.
-- `bindProxi` puó usare solo index, sarebbe carino poterlgi passare anche `current.value.myProp`
-    - Dedurre le dipendenze facendo un `render iniziale` e confrontare i valori con quelli degli stati.
 
+
+#### New implementation:
+- Definire la dipendenza come parametro della funzione.
+- Permette di usare `current.value` || `current.index` o qualsiasi altra cosa.
+- Todo: `regex` che estragga il contenuto da `('<>')` o `("<>")`.
+- Rinominare in `bindContent` ?
+
+```js
+<div class="my-class">
+    ${bindProxi`some test: ${('data') => current.value.label}`}
+</div>
+```
+
+- Extract from `(" || (\'`.
+```js
+const txt =
+    'I expect five hundred dollars ("500"). and new brackets (\'600\')';
+const regExp = /\(([^)]+)\)/g;
+const matches = [...txt.matchAll(regExp)]
+    .flat()
+    .filter((item) => !item.includes('('))
+    .map((item) => item.replaceAll("'", '').replaceAll('"', ''));
+console.log(matches);
+```
+
+## Repeat
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
