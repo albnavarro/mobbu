@@ -140,8 +140,8 @@
                 "isLabel": false
             },
             {
-                "label": "bindClass/Style",
-                "url": "mobJs-bind-class-style",
+                "label": "bindClass",
+                "url": "mobJs-bind-class",
                 "isLabel": false
             },
             {
@@ -464,9 +464,9 @@
                     "url": "mobJs-bindObject"
                 },
                 {
-                    "label": "bindClass/Style",
+                    "label": "bindClass",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs-bind-class-style"
+                    "url": "mobJs-bind-class"
                 },
                 {
                     "label": "methods",

@@ -34490,12 +34490,12 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs-bind-class-style",
+      name: "mobJs-bind-class",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mobJs/bindClassStyle.json",
-        title: "bindClass/Style",
+        source: "./data/mobJs/bindClass.json",
+        title: "bindClass",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
