@@ -65,7 +65,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
                 render: ({ html, current }) => {
                     return html`<div class="benchmark__static-item">
                         <div class="benchmark__static-item__inner">
-                            ${bindObject`label: ${() => ({ bind: 'data', value: current.value.label })}`}
+                            ${bindObject`label: ${{ bind: 'data', value: () => current.value.label }}`}
                         </div>
                         <div>
                             ${repeat({

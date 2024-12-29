@@ -35,9 +35,7 @@ export const addBindObjectPlaceHolderMap = ({
 export const renderBindObject = (strings, ...values) => {
     return strings.raw.reduce(
         (accumulator, currentText, i) =>
-            mobCore.checkType(Function, values?.[i])
-                ? accumulator + currentText + (values?.[i]?.()?.value ?? '')
-                : accumulator,
+            accumulator + currentText + (values?.[i]?.value?.() ?? ''),
         ''
     );
 };

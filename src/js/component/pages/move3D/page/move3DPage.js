@@ -37,7 +37,7 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                 />
             </div>
             <div>
-                ${bindObject`factor: ${() => ({ bind: 'factor', value: proxiState.factor })}`}
+                ${bindObject`factor: ${{ bind: 'factor', value: () => proxiState.factor }}`}
             </div>
         </div>
         <div class="c-move3d-page__controls__block">
@@ -55,7 +55,7 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                 />
             </div>
             <div>
-                ${bindObject`xDepth: ${() => ({ bind: 'xDepth', value: proxiState.xDepth })}`}
+                ${bindObject`xDepth: ${{ bind: 'xDepth', value: () => proxiState.xDepth }}`}
             </div>
         </div>
         <div class="c-move3d-page__controls__block">
@@ -73,7 +73,7 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                 />
             </div>
             <div>
-                ${bindObject`yDepth: ${() => ({ bind: 'yDepth', value: proxiState.yDepth })}`}
+                ${bindObject`yDepth: ${{ bind: 'yDepth', value: () => proxiState.yDepth }}`}
             </div>
         </div>
         <div class="c-move3d-page__controls__block">

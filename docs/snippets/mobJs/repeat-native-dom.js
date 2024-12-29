@@ -9,10 +9,10 @@ export const MyComponent = ({ html, repeat, bindObject }) => {
                 render: ({ html, current }) => {
                     return html` <div class="item">
                         <div>
-                            ${bindObject`${() => ({
+                            ${bindObject`${{
                                 bind: 'data',
-                                value: current.value.label,
-                            })}`}
+                                value: () => current.value.label,
+                            }}`}
                         </div>
                     </div>`;
                 },
