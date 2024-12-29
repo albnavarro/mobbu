@@ -2,8 +2,6 @@
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, repeat, bindObject }) => {
-    const proxi = getProxi();
-
     return html`
         <div class="repeater-container">
             ${repeat({
