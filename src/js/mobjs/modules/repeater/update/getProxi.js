@@ -81,7 +81,7 @@ export const getRepeatProxi = ({
                  * Prevent undefined, return last value fallback
                  */
                 if (hasKey) {
-                    lastValue = currentValue;
+                    lastValue = currentValue ?? lastValue;
                     currentValue = state?.[bind]?.find(
                         (/** @type {{ [x: string]: any; }} */ item) =>
                             item[key] === keyValue
@@ -94,7 +94,7 @@ export const getRepeatProxi = ({
                  * Return value without key.
                  * Prevent undefined, return last value fallback
                  */
-                lastValue = currentValue;
+                lastValue = currentValue ?? lastValue;
                 currentValue = state?.[bind]?.[clamp(index, 0, maxValue)];
                 return currentValue ?? lastValue;
             },
