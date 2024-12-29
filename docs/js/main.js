@@ -499,7 +499,7 @@ Loading snippet ...</pre
                                 `).join("")}
                     `}})}
         </div>
-    </div>`);var zv=x({name:"benchmark-invalidate",component:Uv,...rr});var jv=({onMount:e,html:t,delegateEvents:r,bindText:o,setRef:n,getRef:s,getState:i,setState:a,updateState:c,bindProps:l,watch:p,repeat:m})=>(e(()=>{let{loading:h}=s();return be(),p("isLoading",g=>{h.classList.toggle("active",g)}),()=>{ve()}}),t`<div class="benchmark">
+    </div>`);var zv=x({name:"benchmark-invalidate",component:Uv,...rr()});var jv=({onMount:e,html:t,delegateEvents:r,bindText:o,setRef:n,getRef:s,getState:i,setState:a,updateState:c,bindProps:l,watch:p,repeat:m})=>(e(()=>{let{loading:h}=s();return be(),p("isLoading",g=>{h.classList.toggle("active",g)}),()=>{ve()}}),t`<div class="benchmark">
         <div class="benchmark__head">
             <h3 class="benchmark__head__subtitle">Repeat ( with key ):</h3>
             <h2 class="benchmark__head__title">

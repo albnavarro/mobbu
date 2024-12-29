@@ -7,5 +7,5 @@ import { BenchMarkInvalidateFn } from './benchmarkInvalidate';
 export const BenchMarkInvalidate = createComponent({
     name: 'benchmark-invalidate',
     component: BenchMarkInvalidateFn,
-    ...benchMarkDefinitionPartial,
+    ...benchMarkDefinitionPartial(),
 });
