@@ -1,7 +1,7 @@
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, repeat, bindProxi, getProxi }) => {
+export const MyComponent = ({ html, repeat, bindObject }) => {
     const proxi = getProxi();
 
     return html`
@@ -11,7 +11,10 @@ export const MyComponent = ({ html, repeat, bindProxi, getProxi }) => {
                 render: ({ html, current }) => {
                     return html` <div class="item">
                         <div>
-                            ${bindProxi`${() => proxi.data[current.index].label}`}
+                            ${bindObject`${() => ({
+                                bind: 'data',
+                                value: current.value.label,
+                            })}`}
                         </div>
                     </div>`;
                 },

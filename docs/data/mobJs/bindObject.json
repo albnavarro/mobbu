@@ -28,6 +28,24 @@
             "content": "bindObject is actually a simplified version of invalidate that allows you to print a value when a specified property is mutated."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Inside String.raw each dynamic value will have to be written as a function that returns an <span class='quote'>object</span> with the following parameters:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "<span class='quote'>bind</span>: Observed status",
+                    "<span class='quote'>value</span>: A function that will return the updated value."
+                ]
+            }
+        },
+        {
             "component": "mob-list",
             "props": {
                 "style": "medium",
