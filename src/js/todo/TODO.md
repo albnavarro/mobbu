@@ -58,6 +58,9 @@ export interface callbackQueue {
 ##  bindClass
 - l'inizializzazione avverra con un querySelctoreAll come per `delegateEvents` alla fine del parse.
 - Verrá utilizzata una `weakRef` come per bindObject
+- `Performance`: inizializzare una variabile `shouldQueryBindClass` che si mette su `true` al primo bindClass usato, si rimetterá su `false` alla fine del parse.
+- Il query selectorAll verrá inizializzato solo se `shouldQueryBindClass` é `true`.
+- Lo stesso meccanismo puó essere utilizzato per `delegateEvents`.
 
 ```js
 <div
