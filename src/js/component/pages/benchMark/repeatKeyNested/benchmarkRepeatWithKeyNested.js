@@ -69,7 +69,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
                 render: ({ html, current }) => {
                     return html`<div class="benchmark__static-item">
                         <div class="benchmark__static-item__inner">
-                            ${bindProxi`${() => proxi.data[current.index].label}`}
+                            ${bindProxi`${() => ({ bind: 'data', value: current.value.label })}`}
                         </div>
                         <div>
                             ${repeat({

@@ -203,14 +203,7 @@ export const getParamsForComponentFunction = ({
             return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
         },
         bindProxi: (strings, ...values) => {
-            const keys = values
-                .map((item) => {
-                    const splitByDot = `${item}`.split('.')?.[1];
-                    const splitBySquare = `${splitByDot}`.split('[')?.[0];
-                    return splitBySquare;
-                })
-                .filter(Boolean);
-
+            const keys = values.map((item) => item?.()?.bind ?? '');
             const bindProxiId = mobCore.getUnivoqueId();
             const render = () => renderBindProxi(strings, ...values);
             createBindProxiWatcher(id, bindProxiId, keys, render);

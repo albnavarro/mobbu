@@ -36,7 +36,7 @@ export const renderBindProxi = (strings, ...values) => {
     return strings.raw.reduce(
         (accumulator, currentText, i) =>
             mobCore.checkType(Function, values?.[i])
-                ? accumulator + currentText + (values?.[i]?.() ?? '')
+                ? accumulator + currentText + (values?.[i]?.()?.value ?? '')
                 : accumulator,
         ''
     );
