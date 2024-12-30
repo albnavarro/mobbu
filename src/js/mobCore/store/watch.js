@@ -45,6 +45,8 @@ export const storeWatchAction = ({ state, prop, callback }) => {
 export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
     const state = getStateFromMainMap(instanceId);
     const { callBackWatcher } = state;
+    if (!callBackWatcher) return;
+
     callBackWatcher.delete(unsubscribeId);
     updateMainMap(instanceId, { ...state, callBackWatcher });
 };
@@ -90,9 +92,10 @@ export const watchEntryPoint = ({ instanceId, prop, callback }) => {
     }
 
     const currentBindId =
-        [instanceId, ...bindInstance].find(
-            (id) => prop in storeMap.get(id).store
-        ) ?? '';
+        [instanceId, ...bindInstance].find((id) => {
+            const store = storeMap.get(id)?.store;
+            return store && prop in store;
+        }) ?? '';
 
     const unsubscribe = watchMobStore({
         instanceId: currentBindId,
