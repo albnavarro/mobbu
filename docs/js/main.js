@@ -2550,6 +2550,7 @@
   var unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
     const state = getStateFromMainMap(instanceId);
     const { callBackWatcher } = state;
+    if (!callBackWatcher) return;
     callBackWatcher.delete(unsubscribeId);
     updateMainMap(instanceId, { ...state, callBackWatcher });
   };
@@ -2575,9 +2576,10 @@
     if (!bindInstance || bindInstance.length === 0) {
       return watchMobStore({ instanceId, prop, callback: callback2 });
     }
-    const currentBindId = [instanceId, ...bindInstance].find(
-      (id) => prop in storeMap.get(id).store
-    ) ?? "";
+    const currentBindId = [instanceId, ...bindInstance].find((id) => {
+      const store = storeMap.get(id)?.store;
+      return store && prop in store;
+    }) ?? "";
     const unsubscribe3 = watchMobStore({
       instanceId: currentBindId,
       prop,
@@ -27590,33 +27592,38 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/benchMark/repeatNoKeyBindStore/store.js
-  var externalStore = mobCore.createStore({
-    data: () => ({
-      value: [],
-      type: Array,
-      validate: (value) => value.length < 2e3,
-      strict: true,
-      skipEqual: false
-    }),
-    counter: () => ({
-      value: 0,
-      type: Number
-    }),
-    time: () => ({
-      value: 0,
-      type: Number,
-      transform: (value) => Math.round(value),
-      skipEqual: false
-    }),
-    isLoading: () => ({
-      value: false,
-      type: Boolean
-    })
-  });
+  var externalStore;
+  var createExternalStore = () => {
+    externalStore = mobCore.createStore({
+      data: () => ({
+        value: [],
+        type: Array,
+        validate: (value) => value.length < 2e3,
+        strict: true,
+        skipEqual: false
+      }),
+      counter: () => ({
+        value: 0,
+        type: Number
+      }),
+      time: () => ({
+        value: 0,
+        type: Number,
+        transform: (value) => Math.round(value),
+        skipEqual: false
+      }),
+      isLoading: () => ({
+        value: false,
+        type: Boolean
+      })
+    });
+  };
+  var getExternalStore = () => externalStore;
 
   // src/js/component/pages/benchMark/repeatNoKeyBindStore/benchMarkListExternalPartial.js
   var setData2 = async ({ value, useShuffle = false }) => {
-    const { set } = externalStore;
+    const externalStore2 = getExternalStore();
+    const { set } = externalStore2;
     set("isLoading", true);
     await tick();
     mobCore.useFrame(() => {
@@ -27640,7 +27647,8 @@ Loading snippet ...</pre
     getRef,
     getState
   }) => {
-    const { update: update3 } = externalStore;
+    const externalStore2 = getExternalStore();
+    const { update: update3 } = externalStore2;
     return renderHtml`
         <div class="benchmark__loading" ${setRef("loading")}>
             generate components
@@ -27724,7 +27732,9 @@ Loading snippet ...</pre
     repeat,
     bindStore
   }) => {
-    bindStore(externalStore);
+    createExternalStore();
+    const externalStore2 = getExternalStore();
+    bindStore(externalStore2);
     onMount(() => {
       const { loading } = getRef();
       hideFooterShape();
@@ -27733,6 +27743,7 @@ Loading snippet ...</pre
       });
       return () => {
         showFooterShape();
+        externalStore2.destroy();
       };
     });
     return html`<div class="benchmark">

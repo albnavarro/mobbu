@@ -6,7 +6,7 @@ import {
     createBenchMarkArray,
     shuffle,
 } from '../partials/benchMarkListPartial';
-import { externalStore } from './store';
+import { getExternalStore } from './store';
 
 /**
  * @import { DelegateEvents, SetRef, GetRef, GetState } from '../../../../mobjs/type';
@@ -18,6 +18,7 @@ import { externalStore } from './store';
  * @param {boolean} [ params.useShuffle ]
  */
 const setData = async ({ value, useShuffle = false }) => {
+    const externalStore = getExternalStore();
     const { set } = externalStore;
 
     set('isLoading', true);
@@ -56,6 +57,7 @@ export const benchMarkListExternalPartial = ({
     getRef,
     getState,
 }) => {
+    const externalStore = getExternalStore();
     const { update } = externalStore;
 
     return html`
