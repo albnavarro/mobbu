@@ -66,6 +66,9 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
             ${repeat({
                 bind: 'data',
                 useSync: true,
+                afterUpdate: () => {
+                    // externalStore.debug();
+                },
                 render: ({ html, sync, current }) => {
                     return html`
                         <benchmark-fake-component

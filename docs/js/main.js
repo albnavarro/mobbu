@@ -27769,6 +27769,8 @@ Loading snippet ...</pre
             ${repeat({
       bind: "data",
       useSync: true,
+      afterUpdate: () => {
+      },
       render: ({ html: html2, sync, current }) => {
         return html2`
                         <benchmark-fake-component
