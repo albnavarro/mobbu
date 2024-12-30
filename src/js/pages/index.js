@@ -293,6 +293,13 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-benchmark-repeat-key-bind-store',
+        layout: benchMark,
+        props: {
+            rootComponent: 'benchmark-repeat-no-key-bind-store',
+        },
+    },
+    {
         name: 'mobJs-tick',
         layout: layoutSidebarAnchor,
         props: {

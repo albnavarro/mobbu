@@ -640,6 +640,11 @@
                     "url": "mobJs-benchmark-repeat-key"
                 },
                 {
+                    "label": "Repeat bind external store",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-benchmark-repeat-key-bind-store"
+                },
+                {
                     "label": "Repeat with no key nested ( test )",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-benchmark-repeat-no-key-nested"

@@ -2,6 +2,7 @@ import { BenchMarkInvalidate } from '../../component/pages/benchMark/invalidate/
 import { BenchMarkRepeatWithKey } from '../../component/pages/benchMark/repeatKey/definition';
 import { BenchMarkRepeatWithKeyNested } from '../../component/pages/benchMark/repeatKeyNested/definition';
 import { BenchMarkRepeatNoKey } from '../../component/pages/benchMark/repeatNoKey/definition';
+import { BenchMarkRepeatNoKeyBindStore } from '../../component/pages/benchMark/repeatNoKeyBindStore/definition';
 import { BenchMarkRepeatWithNoKeyNested } from '../../component/pages/benchMark/repeatNoKeyKeyNested/definition';
 import { html, useComponent } from '../../mobjs';
 
@@ -11,6 +12,7 @@ useComponent([
     BenchMarkRepeatWithKey,
     BenchMarkRepeatWithKeyNested,
     BenchMarkRepeatWithNoKeyNested,
+    BenchMarkRepeatNoKeyBindStore,
 ]);
 
 export const benchMark = async ({ props }) => {

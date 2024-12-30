@@ -2,53 +2,32 @@
 
 import { mobCore } from '../../../../mobCore';
 import { html, tick } from '../../../../mobjs';
+import {
+    createBenchMarkArray,
+    shuffle,
+} from '../partials/benchMarkListPartial';
+import { externalStore } from './store';
 
 /**
- * @import { DelegateEvents, SetRef, GetRef,  SetState, UpdateState, GetState } from '../../../../mobjs/type';
+ * @import { DelegateEvents, SetRef, GetRef, GetState } from '../../../../mobjs/type';
  **/
 
 /**
- * @param {Array<{label:string}>} array
- * @returns {Array<{label:string}>}
- */
-export const shuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-
-    return array;
-};
-
-/**
- * @param {number} numberOfItem
- * @returns {{label:string}[]}
- */
-export const createBenchMarkArray = (numberOfItem) => {
-    const valueSanitized = mobCore.checkType(Number, numberOfItem)
-        ? numberOfItem
-        : 0;
-
-    return [...new Array(valueSanitized).keys()].map((i) => ({
-        label: `comp-${i + 1}`,
-    }));
-};
-
-/**
  * @param {object} params
- * @param {SetState<import('../type').BenchMark>} params.setState
  * @param {number} params.value
  * @param {boolean} [ params.useShuffle ]
  */
-const setData = async ({ setState, value, useShuffle = false }) => {
-    setState('isLoading', true);
+const setData = async ({ value, useShuffle = false }) => {
+    const { set } = externalStore;
+
+    set('isLoading', true);
     await tick();
 
     // await loading class is applied before saturate thread.
     mobCore.useFrame(() => {
         mobCore.useNextTick(async () => {
             const startTime = performance.now();
-            setState(
+            set(
                 'data',
                 useShuffle
                     ? shuffle(createBenchMarkArray(value))
@@ -58,8 +37,8 @@ const setData = async ({ setState, value, useShuffle = false }) => {
 
             const endTime = performance.now();
             const difference = endTime - startTime;
-            setState('time', difference);
-            setState('isLoading', false);
+            set('time', difference);
+            set('isLoading', false);
         });
     });
 };
@@ -69,18 +48,16 @@ const setData = async ({ setState, value, useShuffle = false }) => {
  * @param {DelegateEvents} params.delegateEvents
  * @param {SetRef} params.setRef
  * @param {GetRef} params.getRef
- * @param {UpdateState<import('../type').BenchMark>} params.updateState
  * @param {GetState<import('../type').BenchMark>} params.getState
- * @param {SetState<import('../type').BenchMark>} params.setState
  */
-export const benchMarkListPartial = ({
+export const benchMarkListExternalPartial = ({
     delegateEvents,
     setRef,
     getRef,
-    updateState,
     getState,
-    setState,
 }) => {
+    const { update } = externalStore;
+
     return html`
         <div class="benchmark__loading" ${setRef('loading')}>
             generate components
@@ -102,7 +79,7 @@ export const benchMarkListPartial = ({
                                     ?.value ?? 0
                             );
 
-                            setData({ setState, value });
+                            setData({ value });
                         }
                     },
                 })}
@@ -117,7 +94,7 @@ export const benchMarkListPartial = ({
                             /** @type{HTMLInputElement} */ (input)?.value ?? 0
                         );
 
-                        setData({ setState, value });
+                        setData({ value });
                     },
                 })}
             >
@@ -130,7 +107,6 @@ export const benchMarkListPartial = ({
                     click: () => {
                         const { data } = getState();
                         setData({
-                            setState,
                             value: data.length,
                             useShuffle: true,
                         });
@@ -144,7 +120,7 @@ export const benchMarkListPartial = ({
                 class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
-                        updateState('counter', (value) => value + 1);
+                        update('counter', (value) => value + 1);
                     },
                 })}
             >

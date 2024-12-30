@@ -41,10 +41,13 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
 
     return html`<div class="benchmark">
         <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">Test page</h3>
             <h3 class="benchmark__head__subtitle">
                 Repeat ( nested without key ):
             </h3>
+            <p class="benchmark__head__title">
+                Repater without component with the same repeater with component
+                inside.
+            </p>
             ${benchMarkListPartial({
                 setRef,
                 getRef,
