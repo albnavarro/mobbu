@@ -4,6 +4,8 @@ import { mobCore } from '../../../../mobCore';
 let externalStore;
 
 export const createExternalStore = () => {
+    if (externalStore) return;
+
     externalStore = mobCore.createStore({
         data: () => ({
             value: [],
@@ -30,3 +32,8 @@ export const createExternalStore = () => {
 };
 
 export const getExternalStore = () => externalStore;
+
+export const destroyExternalStore = () => {
+    externalStore.destroy();
+    externalStore = null;
+};

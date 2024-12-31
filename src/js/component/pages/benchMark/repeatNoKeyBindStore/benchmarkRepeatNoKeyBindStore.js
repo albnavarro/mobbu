@@ -5,7 +5,11 @@ import {
     showFooterShape,
 } from '../../../common/shapes/shapUtils';
 import { benchMarkListExternalPartial } from './benchMarkListExternalPartial';
-import { createExternalStore, getExternalStore } from './store';
+import {
+    createExternalStore,
+    destroyExternalStore,
+    getExternalStore,
+} from './store';
 
 /**
  * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
@@ -39,7 +43,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
 
         return () => {
             showFooterShape();
-            externalStore.destroy();
+            destroyExternalStore();
         };
     });
 
