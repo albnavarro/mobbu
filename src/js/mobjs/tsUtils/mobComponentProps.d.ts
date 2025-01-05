@@ -125,7 +125,10 @@ export type PartialWatch<T> = <K extends keyof GetState<T>>(
         current: GetState<T>[K],
         previous: GetState<T>[K],
         validate: boolean
-    ) => void
+    ) => void,
+    options?: {
+        wait?: boolean;
+    }
 ) => () => void;
 
 /**

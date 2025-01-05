@@ -20946,8 +20946,8 @@
       getChildren: (componentName) => {
         return getChildrenIdByName({ id, componentName });
       },
-      watchSync: (state, callback2) => {
-        const unsubscribe3 = watch(state, callback2);
+      watchSync: (state, callback2, options) => {
+        const unsubscribe3 = watch(state, callback2, options);
         emit(state);
         return unsubscribe3;
       },

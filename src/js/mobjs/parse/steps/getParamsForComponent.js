@@ -135,8 +135,8 @@ export const getParamsForComponentFunction = ({
         getChildren: (/** @type{string} */ componentName) => {
             return getChildrenIdByName({ id, componentName });
         },
-        watchSync: (state, callback) => {
-            const unsubscribe = watch(state, callback);
+        watchSync: (state, callback, options) => {
+            const unsubscribe = watch(state, callback, options);
             emit(state);
             return unsubscribe;
         },
