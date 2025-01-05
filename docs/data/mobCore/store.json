@@ -347,7 +347,7 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<span class='quote'>emit: </span>&nbsp;Changing data without a reaction ( no callback will be fired ). Default value is true."
+                    "<span class='quote'>emit: </span>&nbsp;Changing data without a reaction ( no callback will be fired ). Default value is <strong>true</strong>."
                 ]
             }
         },
@@ -412,8 +412,8 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<span class='quote'>emit: </span>&nbsp;Changing data without a reaction ( no callback will be fired ). Default value is true.",
-                    "<span class='quote'>clone: </span>&nbsp;Clone the original data if using a function and make a copy of the original data. Default value is false."
+                    "<span class='quote'>emit: </span>&nbsp;Changing data without a reaction ( no callback will be fired ). Default value is <strong>true</strong>.",
+                    "<span class='quote'>clone: </span>&nbsp;Clone the original data if using a function and make a copy of the original data. Default value is <strong>false</strong>."
                 ]
             }
         },
@@ -585,6 +585,33 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 6
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Watch Options: ( optional )"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "<span class='quote'>wait: </span>&nbsp;Wait for the end of the current <span class='quote'>javascript loop</span> to execute the callback using the most recent value. This option only has effect if <span class='quote'>emit-async</span> is not used.</br> Default is <strong>false</strong>"
+                ]
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobCore/watchWait.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 18
             }
         },
         {

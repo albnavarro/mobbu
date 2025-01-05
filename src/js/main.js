@@ -113,7 +113,7 @@ mobCore.useLoad(() => {
 
     proxi.prop = 2;
     proxi.prop = 5;
-    proxi.prop = 7;
+    proxi.prop = 70;
 
     proxi.prop2 = 2;
     proxi.prop2 = 5;

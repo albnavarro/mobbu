@@ -39,44 +39,6 @@ export = mobJs;
 - Sostuire le strighe rimaste in tutto il progetto `fireCallback ` con `emit` per pulizia.
 - ( stringhe non referenze ).
 
-### Watch
-- Fare in modo che il non ci siano piu di un watch nello stesso javascript loop, il valore buono é l'ultimo.
-- Propietá opzionale.
-- Aggiungere come terzo parametro `useSingleLoop = false`.
-- Nel `useFrame(() => {})` e il altre situazioni é utile avere un watch immediato.
-
-```js
-// src/js/mobCore/store/index.js
-
-watch: (prop, callback, { useSingleLoop = false } = {}) => {
-    return watchEntryPoint({ instanceId, prop, callback, useSingleLoop: useSingleLoop ?? false });
-},
-```
-- Il tipo diventrá perció:
-
-```js
-export interface callbackQueue {
-    callBackWatcher: Map<
-        string,
-        {
-            prop: string;
-            fn: (
-                arg0: any,
-                arg1: any,
-                arg2: boolean | Record<string, boolean>
-            ) => void | Promise<void>;
-            options?: {
-                useSingleLoop?: boolean;
-            };
-        }
-    >;
-    prop: string;
-    newValue: any;
-    oldValue: any;
-    validationValue: boolean | Record<string, boolean>;
-}
-```
-
 # MobJs
 
 ##  bindClass
