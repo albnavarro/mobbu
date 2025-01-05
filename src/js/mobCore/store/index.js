@@ -92,8 +92,8 @@ export const mobStore = (data = {}) => {
         quickSetProp: (prop, value) => {
             storeQuickSetEntrypoint({ instanceId, prop, value });
         },
-        watch: (prop, callback) => {
-            return watchEntryPoint({ instanceId, prop, callback });
+        watch: (prop, callback, { wait = false } = {}) => {
+            return watchEntryPoint({ instanceId, prop, callback, wait });
         },
         computed: (prop, keys, callback) => {
             storeComputedEntryPoint({

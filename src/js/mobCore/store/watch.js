@@ -9,7 +9,7 @@ import { storeWatchWarning } from './storeWarining';
  * @param {import("./type").storeWatchAction} param
  * @returns {import('./type').storeWatchReturnObject}
  */
-export const storeWatchAction = ({ state, prop, callback }) => {
+export const storeWatchAction = ({ state, prop, callback, wait }) => {
     const { store, callBackWatcher } = state;
     const logStyle = getLogStyle();
 
@@ -29,7 +29,7 @@ export const storeWatchAction = ({ state, prop, callback }) => {
     }
 
     const id = getUnivoqueId();
-    callBackWatcher.set(id, { fn: callback, prop });
+    callBackWatcher.set(id, { fn: callback, prop, wait });
 
     return {
         state: { ...state, callBackWatcher },
@@ -55,10 +55,11 @@ export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
  * @param {Object} param
  * @param {string} param.instanceId
  * @param {string} param.prop
+ * @param {boolean} param.wait
  * @param {(current: any, previous: any, validate: boolean | { [key: string]: boolean }) => void} param.callback
  * @returns {() => any}
  */
-export const watchMobStore = ({ instanceId, prop, callback }) => {
+export const watchMobStore = ({ instanceId, prop, callback, wait }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return () => {};
 
@@ -66,6 +67,7 @@ export const watchMobStore = ({ instanceId, prop, callback }) => {
         state,
         prop,
         callback,
+        wait,
     });
 
     if (!newState) return () => {};
@@ -81,14 +83,15 @@ export const watchMobStore = ({ instanceId, prop, callback }) => {
  * @param {string} param.instanceId
  * @param {string} param.prop
  * @param {(current: any, previous: any, validate: boolean | { [key: string]: boolean }) => void} param.callback
+ * @param {boolean} param.wait
  * @returns {() => any}
  */
-export const watchEntryPoint = ({ instanceId, prop, callback }) => {
+export const watchEntryPoint = ({ instanceId, prop, callback, wait }) => {
     const state = getStateFromMainMap(instanceId);
     const { bindInstance, unsubscribeBindInstance } = state;
 
     if (!bindInstance || bindInstance.length === 0) {
-        return watchMobStore({ instanceId, prop, callback });
+        return watchMobStore({ instanceId, prop, callback, wait });
     }
 
     const currentBindId =
@@ -101,6 +104,7 @@ export const watchEntryPoint = ({ instanceId, prop, callback }) => {
         instanceId: currentBindId,
         prop,
         callback,
+        wait,
     });
 
     updateMainMap(instanceId, {

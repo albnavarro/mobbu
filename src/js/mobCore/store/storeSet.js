@@ -136,6 +136,7 @@ const setProp = ({
             newValue: valueTransformed,
             oldValue: oldVal,
             validationValue: validationStatusObject[prop],
+            instanceId,
         });
 
         addToComputedWaitLsit({ instanceId, prop });
@@ -363,6 +364,7 @@ const setObj = ({
             newValue: store[prop],
             oldValue: oldObjectValues,
             validationValue: validationStatusObject[prop],
+            instanceId,
         });
 
         addToComputedWaitLsit({ instanceId, prop });
@@ -495,6 +497,7 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
         newValue: value,
         oldValue: oldVal,
         validationValue: true,
+        instanceId,
     });
 
     updateMainMap(instanceId, { ...state, store });

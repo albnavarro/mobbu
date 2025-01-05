@@ -82,57 +82,48 @@ mobCore.useLoad(() => {
     init();
     usePageScroll();
 
-    // storeTest();
-    // initTestMapStore();
-    // stateTest();
+    const test = mobCore.createStore({
+        prop: () => ({
+            value: 0,
+            type: Number,
+        }),
+        prop2: () => ({
+            value: 0,
+            type: Number,
+        }),
+    });
 
-    // const store1 = mobCore.createStore({
-    //     store1Prop: 0,
-    // });
-    //
-    // const store2 = mobCore.createStore({
-    //     prop2: 0,
-    //     pippo: 10,
-    // });
-    //
-    // store2.bindStore(store1);
-    //
-    // const proxi1 = store1.getProxi();
-    // const proxi2_a = store2.getProxi();
-    // console.log(proxi2_a);
-    // const proxie2_b = store2.getProxi();
-    // console.log(proxie2_b);
-    // proxie2_b.store1Prop = 100000;
-    // proxie2_b.prop2 = 1;
-    // console.log(proxie2_b);
-    //
-    // const unsubscribe = store2.watch('store1Prop', (value) => {
-    //     console.log('watch value:', value);
-    //     console.log('get', store2.get());
-    //     console.log('get prop:', store2.getProp('store1Prop'));
-    //     console.log('proxi1 value', proxi1);
-    //     console.log('proxi2_a value', proxi2_a);
-    //     console.log('proxie2_b value', proxie2_b);
-    //     console.log('proxi2_a value store1Prop', proxi2_a.store1Prop);
-    //     console.log('proxie2_b value store1Prop', proxie2_b.store1Prop);
-    // });
-    //
-    // store2.emit('store1Prop');
-    //
-    // let cont = 0;
-    //
-    // document.body.addEventListener('click', () => {
-    //     // store1.update('store1Prop', (value) => value + 1);
-    //     store2.update('prop2', (value) => value + 1);
-    //     proxi1.store1Prop++;
-    //
-    //     console.log('get on click', store2.get());
-    //
-    //     cont++;
-    //
-    //     if (cont === 5) {
-    //         // unsubscribe();
-    //         store2.destroy();
-    //     }
-    // });
+    const proxi = test.getProxi();
+
+    test.watch(
+        'prop',
+        (value) => {
+            console.log('prop', value);
+        },
+        { wait: true }
+    );
+
+    test.watch(
+        'prop2',
+        (value) => {
+            console.log('prop2', value);
+        },
+        { wait: true }
+    );
+
+    proxi.prop = 2;
+    proxi.prop = 5;
+    proxi.prop = 7;
+
+    proxi.prop2 = 2;
+    proxi.prop2 = 5;
+    proxi.prop2 = 7;
+
+    setTimeout(() => {
+        proxi.prop = 14;
+        proxi.prop = 32;
+
+        proxi.prop2 = 14;
+        proxi.prop2 = 34;
+    });
 });

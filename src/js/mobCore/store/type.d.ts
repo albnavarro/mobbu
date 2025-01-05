@@ -1,3 +1,5 @@
+import { runCallbackQueqe } from './fireQueque';
+
 export type OnlyStringKey<T> = Extract<keyof T, string>;
 export type NotValue<T, K> = T extends K ? never : T;
 
@@ -11,6 +13,7 @@ export interface storeMapValue {
         {
             prop: string;
             fn: (current: any, previous: any, validate: validateState) => void;
+            wait: boolean;
         }
     >;
     callBackComputed: Set<{
@@ -105,7 +108,8 @@ export type quickSetPropType<T> = <K extends keyof T>(
 
 export type watchType<T> = <K extends keyof T>(
     prop: Extract<K, string>,
-    callback: (current: T[K], previous: T[K], validate: validateState) => void
+    callback: (current: T[K], previous: T[K], validate: validateState) => void,
+    options?: { wait?: boolean }
 ) => () => void;
 
 export type computedType<T> = <K extends keyof T>(
@@ -179,6 +183,7 @@ export interface storeQuickSetEntryPoint {
 export interface storeWatch {
     prop: string;
     callback: (current: any, previous: any, validate: validateState) => void;
+    wait: boolean;
 }
 
 export interface storeWatchAction extends storeWatch {
@@ -210,12 +215,14 @@ export interface callbackQueue {
                 arg1: any,
                 arg2: boolean | Record<string, boolean>
             ) => void | Promise<void>;
+            wait: boolean;
         }
     >;
     prop: string;
     newValue: any;
     oldValue: any;
     validationValue: boolean | Record<string, boolean>;
+    instanceId?: string;
 }
 
 export type simpleStoreCustomValue = () => {
@@ -272,3 +279,5 @@ export interface mobStoreBaseData {
         | mobStoreTypeNative
         | mobStoreBaseData;
 }
+
+export type WatchWaintList = Map<string, Map<string, any>>;
