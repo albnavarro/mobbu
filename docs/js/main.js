@@ -17670,11 +17670,11 @@
 
   // src/js/mobjs/component/action/watch.js
   var watchById = (id = "", prop = "", cb = () => {
-  }) => {
+  }, { wait = false } = {}) => {
     if ((!id || id === "") && (!prop || prop === "")) return;
     const item = componentMap.get(id);
     const state = item?.state;
-    return state?.watch(prop, cb);
+    return state?.watch(prop, cb, { wait: wait ?? false });
   };
 
   // src/js/mobjs/modules/bindObject/index.js
@@ -21264,7 +21264,7 @@
       computed: (prop = "", keys = [], fn = () => {
       }) => store.computed(prop, keys, fn),
       watch: (prop = "", cb = () => {
-      }) => store.watch(prop, cb),
+      }, { wait = false } = {}) => store.watch(prop, cb, { wait: wait ?? false }),
       bindStore: (value) => {
         store.bindStore(value);
       },

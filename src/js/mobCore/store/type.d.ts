@@ -1,5 +1,3 @@
-import { runCallbackQueqe } from './fireQueque';
-
 export type OnlyStringKey<T> = Extract<keyof T, string>;
 export type NotValue<T, K> = T extends K ? never : T;
 
