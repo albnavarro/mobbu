@@ -17275,6 +17275,7 @@
     );
   };
   var chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
+    const initialState = {};
     return previousChildren.length === 0 ? Object.values(
       /**
        * Chunk children by currentValue clean.
@@ -17288,7 +17289,7 @@
           };
         }
         return { ...previous, [index]: [current] };
-      }, {})
+      }, initialState)
     ) : Object.values(
       /**
        * New element has the same index of persistent element.
@@ -17306,7 +17307,7 @@
           };
         }
         return { ...previous, [indexParsed]: [current] };
-      }, {})
+      }, initialState)
     );
   };
 

@@ -97,6 +97,9 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
  * Group all childrn by wrapper ( or undefined if there is no wrapper )
  */
 export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
+    /** @type {Record<string, any>} */
+    const initialState = {};
+
     return previousChildren.length === 0
         ? Object.values(
               /**
@@ -113,7 +116,7 @@ export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
                   }
 
                   return { ...previous, [index]: [current] };
-              }, {})
+              }, initialState)
           )
         : Object.values(
               /**
@@ -138,6 +141,6 @@ export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
                   }
 
                   return { ...previous, [indexParsed]: [current] };
-              }, {})
+              }, initialState)
           );
 };
