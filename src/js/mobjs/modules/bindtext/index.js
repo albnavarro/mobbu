@@ -54,7 +54,7 @@ const splitPropUntilSquare = (value) => value.split('[')?.[0];
  */
 const parsePropValue = ({ previous, current }) => {
     const arrayValues = arrayValuesFromProp(current);
-    const isArray = arrayValues?.length > 0;
+    const isArray = arrayValues && arrayValues?.length > 0;
 
     return isArray
         ? arrayValues.reduce(
@@ -141,6 +141,8 @@ export const addBindTextParent = ({ id, bindTextId, parentElement }) => {
  */
 export const removeBindTextByBindTextId = ({ id, bindTextId }) => {
     const items = bindTextMap.get(id);
+    if (!items) return;
+
     const itemsUpdated = items.filter((item) => item.bindTextId !== bindTextId);
     bindTextMap.set(id, itemsUpdated);
 };
@@ -155,10 +157,13 @@ export const removeBindTextByBindTextId = ({ id, bindTextId }) => {
 export const switchBindTextMap = () => {
     [...bindTextPlaceHolderMap].forEach(
         ([placeholder, { componentId, bindTextId }]) => {
+            const parentElement = placeholder.parentElement;
+            if (!parentElement) return;
+
             addBindTextParent({
                 id: componentId,
                 bindTextId,
-                parentElement: placeholder.parentElement,
+                parentElement,
             });
 
             // @ts-ignore
@@ -241,7 +246,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
         const arrayValues = arrayValuesFromProp(stateToWatch);
 
         // prop is array
-        const isArray = arrayValues?.length > 0;
+        const isArray = arrayValues && arrayValues?.length > 0;
 
         // in case of myProps[0] watch only myprops
         const finalStateTowatch = isArray
@@ -260,24 +265,36 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
             mobCore.useNextLoop(() => {
                 mobCore.useFrame(() => {
                     if (!ref) {
-                        ref = new WeakRef(
-                            getParentBindText({
-                                id,
-                                bindTextId,
-                            })
-                        );
-                        removeBindTextByBindTextId({ id, bindTextId });
+                        let refElement = getParentBindText({
+                            id,
+                            bindTextId,
+                        });
+
+                        /**
+                         * skip if refElement is undefined.
+                         * refElement is settled to null to remove any reference.
+                         */
+                        if (refElement) {
+                            ref = new WeakRef(refElement);
+                            removeBindTextByBindTextId({ id, bindTextId });
+                            // @ts-ignore
+                            refElement = null;
+                        }
                     }
 
                     if (ref.deref()) {
+                        // @ts-ignore
                         ref.deref().textContent = '';
+                        // @ts-ignore
                         ref.deref().insertAdjacentHTML('afterbegin', render());
                     }
 
                     watchIsRunning = false;
 
                     mobCore.useNextTick(async () => {
-                        if (!ref.deref()) unwatch();
+                        if (!ref.deref() && unwatch) {
+                            unwatch();
+                        }
                     });
 
                     // mobCore.useNextTick(async () => {

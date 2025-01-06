@@ -17805,7 +17805,7 @@
   var splitPropUntilSquare = (value) => value.split("[")?.[0];
   var parsePropValue = ({ previous, current }) => {
     const arrayValues = arrayValuesFromProp(current);
-    const isArray = arrayValues?.length > 0;
+    const isArray = arrayValues && arrayValues?.length > 0;
     return isArray ? arrayValues.reduce(
       (accumulator, currentProp) => accumulator?.[currentProp],
       previous[splitPropUntilSquare(current)]
@@ -17843,16 +17843,19 @@
   };
   var removeBindTextByBindTextId = ({ id, bindTextId }) => {
     const items = bindTextMap.get(id);
+    if (!items) return;
     const itemsUpdated = items.filter((item) => item.bindTextId !== bindTextId);
     bindTextMap.set(id, itemsUpdated);
   };
   var switchBindTextMap = () => {
     [...bindTextPlaceHolderMap].forEach(
       ([placeholder, { componentId, bindTextId }]) => {
+        const parentElement = placeholder.parentElement;
+        if (!parentElement) return;
         addBindTextParent({
           id: componentId,
           bindTextId,
-          parentElement: placeholder.parentElement
+          parentElement
         });
         placeholder?.removeCustomComponent?.();
         placeholder?.remove();
@@ -17886,7 +17889,7 @@
       const propsToArray = state.split(".");
       const stateToWatch = propsToArray?.[0];
       const arrayValues = arrayValuesFromProp(stateToWatch);
-      const isArray = arrayValues?.length > 0;
+      const isArray = arrayValues && arrayValues?.length > 0;
       const finalStateTowatch = isArray ? splitPropUntilSquare(stateToWatch) : stateToWatch;
       if (!finalStateTowatch) return;
       const unwatch = watchById(id, finalStateTowatch, () => {
@@ -17895,13 +17898,15 @@
         mobCore.useNextLoop(() => {
           mobCore.useFrame(() => {
             if (!ref) {
-              ref = new WeakRef(
-                getParentBindText({
-                  id,
-                  bindTextId
-                })
-              );
-              removeBindTextByBindTextId({ id, bindTextId });
+              let refElement = getParentBindText({
+                id,
+                bindTextId
+              });
+              if (refElement) {
+                ref = new WeakRef(refElement);
+                removeBindTextByBindTextId({ id, bindTextId });
+                refElement = null;
+              }
             }
             if (ref.deref()) {
               ref.deref().textContent = "";
@@ -17909,7 +17914,9 @@
             }
             watchIsRunning = false;
             mobCore.useNextTick(async () => {
-              if (!ref.deref()) unwatch();
+              if (!ref.deref() && unwatch) {
+                unwatch();
+              }
             });
           });
         });
