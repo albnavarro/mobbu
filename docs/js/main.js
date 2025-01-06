@@ -19718,6 +19718,7 @@
 
   // src/js/mobjs/modules/repeater/action/inizializeNestedRepeat.js
   var inizializeNestedRepeat = ({ repeatParent, id }) => {
+    if (!repeatParent) return;
     const newRepeatChild = getRepeatOrInvalidateInsideElement({
       element: repeatParent,
       skipInitialized: true,
@@ -19803,6 +19804,7 @@
 
   // src/js/mobjs/modules/invalidate/action/inizializeNestedInvalidate.js
   var inizializeNestedInvalidate = ({ invalidateParent, id }) => {
+    if (!invalidateParent) return;
     const newInvalidateChild = getRepeatOrInvalidateInsideElement({
       element: invalidateParent,
       skipInitialized: true,
@@ -20105,6 +20107,7 @@
     activeRepeatMap.add({ id, state, container });
   };
   var removeActiveRepeat = ({ id, state, container }) => {
+    if (!container) return;
     activeRepeatMap.forEach((repeat) => {
       if (id === repeat.id && state === repeat.state && container === repeat.container) {
         activeRepeatMap.delete(repeat);
@@ -20685,7 +20688,7 @@
     previous = [],
     key = "",
     id,
-    fallBackParentId,
+    fallBackParentId = "",
     render: render2,
     repeatId,
     useSync
@@ -20720,7 +20723,7 @@
   var watchRepeat = ({
     state = "",
     setState,
-    persistent,
+    persistent = false,
     watch,
     clean: clean2 = false,
     beforeUpdate,
@@ -20732,9 +20735,8 @@
     useSync = false
   }) => {
     const mainComponent = getElementById({ id });
-    const fallBackParentId = getFallBackParentByElement({
-      element: getRepeatParent({ id: repeatId })
-    });
+    const parentByElement = getRepeatParent({ id: repeatId });
+    const fallBackParentId = parentByElement ? getFallBackParentByElement({ element: parentByElement }) ?? "" : "";
     afterUpdate();
     const unsubscribe3 = watch(
       state,
@@ -20785,11 +20787,16 @@
             repeaterParentElement.textContent = "";
           }
         }
-        addActiveRepeat({ id, state, container: repeaterParentElement });
+        if (repeaterParentElement)
+          addActiveRepeat({
+            id,
+            state,
+            container: repeaterParentElement
+          });
         const currentUnivoque = await updateRepeater({
           state,
           persistent,
-          repeaterParentElement,
+          repeaterParentElement: repeaterParentElement ?? document.createElement("div"),
           current,
           previous: clean2 ? [] : previous,
           key,

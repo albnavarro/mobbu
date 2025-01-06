@@ -15,11 +15,11 @@ import { listKeyExist } from '../utils';
  * @param {Array<any>} obj.previous
  * @param {string} obj.key
  * @param {string} obj.id
- * @param {string} obj.fallBackParentId w
+ * @param {string} obj.fallBackParentId
  * @param {string} obj.repeatId
  * @param {import('../type').RepeaterRender} obj.render
  * @param {boolean} obj.useSync
- * @return {Promise.<Array.<object>>}
+ * @return {Promise.<Array.<any>>}
  *
  * @description
  * Update repater list.
@@ -32,7 +32,7 @@ export const updateRepeater = async ({
     previous = [],
     key = '',
     id,
-    fallBackParentId,
+    fallBackParentId = '',
     render,
     repeatId,
     useSync,

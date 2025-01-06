@@ -10,11 +10,13 @@ import {
  * Start initialize from older one, so child repeat is render after parent repeat
  *
  * @param {object} params
- * @param {HTMLElement} params.repeatParent
+ * @param {HTMLElement|undefined} params.repeatParent
  * @param {string} params.id - componentId
  * @returns {void}
  */
 export const inizializeNestedRepeat = ({ repeatParent, id }) => {
+    if (!repeatParent) return;
+
     const newRepeatChild = getRepeatOrInvalidateInsideElement({
         element: repeatParent,
         skipInitialized: true,

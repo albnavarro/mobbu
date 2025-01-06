@@ -12,12 +12,14 @@ import { invalidateFunctionMap } from '../invalidateFunctionMap';
  * Start initialize from older one, so child invalidate is render after parent invalidate
  *
  * @param {object} params
- * @param {HTMLElement} params.invalidateParent
+ * @param {HTMLElement|undefined} params.invalidateParent
  * @param {string} params.id - componentId
  * @returns {void}
  */
 
 export const inizializeNestedInvalidate = ({ invalidateParent, id }) => {
+    if (!invalidateParent) return;
+
     const newInvalidateChild = getRepeatOrInvalidateInsideElement({
         element: invalidateParent,
         skipInitialized: true,

@@ -23,13 +23,15 @@ export const addActiveRepeat = ({ id, state, container }) => {
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.state
- * @param {HTMLElement} obj.container
+ * @param {HTMLElement|undefined} obj.container
  * @return void
  *
  * @description
  * Remove active repeat
  */
 export const removeActiveRepeat = ({ id, state, container }) => {
+    if (!container) return;
+
     activeRepeatMap.forEach((repeat) => {
         if (
             id === repeat.id &&
@@ -45,7 +47,7 @@ export const removeActiveRepeat = ({ id, state, container }) => {
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.state
- * @param {HTMLElement} obj.container
+ * @param {HTMLElement|undefined} obj.container
  * @return {boolean}
  *
  * @description

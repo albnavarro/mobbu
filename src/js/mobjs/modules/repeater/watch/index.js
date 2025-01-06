@@ -35,7 +35,7 @@ import { setRepeaterChild } from '../action/setRepeatChild';
 export const watchRepeat = ({
     state = '',
     setState,
-    persistent,
+    persistent = false,
     watch,
     clean = false,
     beforeUpdate,
@@ -53,9 +53,10 @@ export const watchRepeat = ({
      * So addSelfIdToParentComponent doesn't work.
      * Get first element that contains repaterParent start from last map element.
      */
-    const fallBackParentId = getFallBackParentByElement({
-        element: getRepeatParent({ id: repeatId }),
-    });
+    const parentByElement = getRepeatParent({ id: repeatId });
+    const fallBackParentId = parentByElement
+        ? (getFallBackParentByElement({ element: parentByElement }) ?? '')
+        : '';
 
     /**
      * Fire first callback
@@ -164,7 +165,12 @@ export const watchRepeat = ({
             /**
              * Set current active repeater in mainStore.
              */
-            addActiveRepeat({ id, state, container: repeaterParentElement });
+            if (repeaterParentElement)
+                addActiveRepeat({
+                    id,
+                    state,
+                    container: repeaterParentElement,
+                });
 
             /**
              * Start main update list function
@@ -172,7 +178,8 @@ export const watchRepeat = ({
             const currentUnivoque = await updateRepeater({
                 state,
                 persistent,
-                repeaterParentElement,
+                repeaterParentElement:
+                    repeaterParentElement ?? document.createElement('div'),
                 current,
                 previous: clean ? [] : previous,
                 key,
