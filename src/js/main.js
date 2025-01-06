@@ -81,49 +81,4 @@ mobCore.useLoad(() => {
 
     init();
     usePageScroll();
-
-    const test = mobCore.createStore({
-        prop: () => ({
-            value: 0,
-            type: Number,
-        }),
-        prop2: () => ({
-            value: 0,
-            type: Number,
-        }),
-    });
-
-    const proxi = test.getProxi();
-
-    test.watch(
-        'prop',
-        (value) => {
-            console.log('prop', value);
-        },
-        { wait: true }
-    );
-
-    test.watch(
-        'prop2',
-        (value) => {
-            console.log('prop2', value);
-        },
-        { wait: true }
-    );
-
-    proxi.prop = 2;
-    proxi.prop = 5;
-    proxi.prop = 70;
-
-    proxi.prop2 = 2;
-    proxi.prop2 = 5;
-    proxi.prop2 = 7;
-
-    setTimeout(() => {
-        proxi.prop = 14;
-        proxi.prop = 32;
-
-        proxi.prop2 = 14;
-        proxi.prop2 = 34;
-    });
 });
