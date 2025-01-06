@@ -146,7 +146,7 @@ export const addWithoutKey = ({
                      * First destroy all repeater/invalidate inside
                      */
                     destroyComponentInsideNodeById({
-                        id: getParentIdById(childId),
+                        id: getParentIdById(childId) ?? '',
                         container: elementWrapper,
                     });
 
@@ -161,10 +161,10 @@ export const addWithoutKey = ({
          * Fall  back for repeater without component inside.
          * If there is no component in repeater fallback to element in repeater map.
          */
-        if (childrenChunkedByWrapper.length > 0) return;
+        if (childrenChunkedByWrapper.length > 0) return [];
 
         const childrenFromRepeater = getRepeaterChild({ repeatId });
-        if (!childrenFromRepeater) return;
+        if (!childrenFromRepeater) return [];
 
         const childrenFromRepeaterToRemove = childrenFromRepeater.filter(
             ({ index }) => {

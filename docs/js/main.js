@@ -20649,7 +20649,7 @@
           destroyNestedRepeat({ id, repeatParent: nestedParent });
           if (elementWrapper) {
             destroyComponentInsideNodeById({
-              id: getParentIdById(childId),
+              id: getParentIdById(childId) ?? "",
               container: elementWrapper
             });
             elementWrapper.remove();
@@ -20658,9 +20658,9 @@
           }
         });
       });
-      if (childrenChunkedByWrapper.length > 0) return;
+      if (childrenChunkedByWrapper.length > 0) return [];
       const childrenFromRepeater = getRepeaterChild({ repeatId });
-      if (!childrenFromRepeater) return;
+      if (!childrenFromRepeater) return [];
       const childrenFromRepeaterToRemove = childrenFromRepeater.filter(
         ({ index }) => {
           return index >= current.length;
