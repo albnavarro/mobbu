@@ -198,6 +198,10 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                             bindObjectId,
                         });
 
+                        /**
+                         * skip if refElement is undefined.
+                         * refElement is settled to null to remove any reference.
+                         */
                         if (refElement) {
                             ref = new WeakRef(refElement);
                             removeBindObjectByBindObjectId({
