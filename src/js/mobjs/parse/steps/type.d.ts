@@ -12,7 +12,7 @@ export interface componentDataType {
     bindEventsId: string | undefined;
     parentId: string | undefined;
     currentRepeatValue: any;
-    componentRepeatId: string | null | undefined;
+    componentRepeatId: string | undefined;
     repeatPropBind: string | undefined;
 }
 

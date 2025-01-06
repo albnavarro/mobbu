@@ -17539,6 +17539,7 @@
     const userComponent = [...userPlaceholder].find((item) => {
       return element?.contains(item) && item.getIsPlaceholder();
     });
+    if (!userComponent) return [];
     userPlaceholder.delete(userComponent);
     return [userComponent];
   };
@@ -17622,6 +17623,7 @@
     });
   };
   var addParentIdToFutureComponent = ({ element, id }) => {
+    if (!element) return;
     if (useQuery || forceComponentChildQuery) {
       const children = queryAllFutureComponent(element, false);
       children.forEach((child2) => {
@@ -21362,7 +21364,7 @@
       element: componentToParse,
       parentIdForced
     });
-    const { state } = componentParams;
+    const state = componentParams?.state ?? {};
     const {
       getState,
       setState,

@@ -41,7 +41,7 @@ export const getUnamedPlaceholderSlot = ({ element }) => {
  * @param {object} params
  * @param {string} params.name
  * @param {HTMLElement|import('../../webComponent/type').UserComponent} params.element
- * @returns {import('../../webComponent/type').SlotComponent}
+ * @returns {import('../../webComponent/type').SlotComponent|undefined}
  */
 export const getSlotByName = ({ name, element }) => {
     return [...slotPlaceholder].find((slot) => {

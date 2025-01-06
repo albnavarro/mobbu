@@ -41,6 +41,8 @@ export const getFirstUserChildPlaceHolder = (element) => {
         return element?.contains(item) && item.getIsPlaceholder();
     });
 
+    if (!userComponent) return [];
+
     userPlaceholder.delete(userComponent);
     return [userComponent];
 };

@@ -65,7 +65,7 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
 
 /**
  * @param {object} params
- * @param {HTMLElement} params.element
+ * @param {HTMLElement|undefined} params.element
  * @param {string} params.id
  * @returns void
  *
@@ -74,6 +74,8 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
  * If id is assigned to component nested in next cycle will be override.
  */
 export const addParentIdToFutureComponent = ({ element, id }) => {
+    if (!element) return;
+
     if (useQuery || forceComponentChildQuery) {
         const children = queryAllFutureComponent(element, false);
         children.forEach((child) => {

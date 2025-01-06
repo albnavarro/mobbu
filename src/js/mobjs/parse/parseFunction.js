@@ -178,7 +178,7 @@ export const parseComponentsRecursive = async ({
     /**
      * Get state from componentParams
      */
-    const { state } = componentParams;
+    const state = componentParams?.state ?? {};
 
     /**
      * Add component to store
