@@ -85,7 +85,7 @@ export const getIdArrayByInstanceName = (name = '') => {
  * get component name By id
  */
 export const componentHasKey = (id = '') => {
-    if (!id || id === '') return;
+    if (!id || id === '') return false;
 
     const item = componentMap.get(id);
     const key = item?.key;

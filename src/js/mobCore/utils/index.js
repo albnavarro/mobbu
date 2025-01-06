@@ -137,7 +137,7 @@ export function isDescendant(parent, child) {
 
 /**
  * @param {HTMLElement} element
- * @returns {Object}
+ * @returns {{x:number, y:number, z:number}|undefined}
  *
  * @description
  * Gets computed translate values

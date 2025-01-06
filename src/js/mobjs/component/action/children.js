@@ -123,6 +123,7 @@ export const gerOrderedChunkByDOMPosition = ({ children }) => {
             };
         })
         .toSorted((a, b) => {
+            // @ts-ignore
             if (a.element.compareDocumentPosition(b.element) & 2) {
                 // b comes before a
                 return 1;
