@@ -18,11 +18,16 @@ export const getBindRefs = ({ element }) => {
 
     const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
 
+    /** @type{Record<string, any>} */
+    const initialValue = {};
+
     return [...refs].reduce((previous, current) => {
         const refId = current.getAttribute(ATTR_BIND_REFS_ID);
         const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
         current.removeAttribute(ATTR_BIND_REFS_ID);
         current.removeAttribute(ATTR_BIND_REFS_NAME);
+
+        if (!refName) return previous;
 
         const newRefsByName =
             refName in previous
@@ -30,7 +35,7 @@ export const getBindRefs = ({ element }) => {
                 : [{ element: current, scopeId: refId }];
 
         return { ...previous, [refName]: newRefsByName };
-    }, {});
+    }, initialValue);
 };
 
 /**

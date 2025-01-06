@@ -20029,14 +20029,16 @@
     const hasRef = element.querySelector(`[${ATTR_BIND_REFS_ID}]`);
     if (!hasRef) return {};
     const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
+    const initialValue = {};
     return [...refs].reduce((previous, current) => {
       const refId = current.getAttribute(ATTR_BIND_REFS_ID);
       const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
       current.removeAttribute(ATTR_BIND_REFS_ID);
       current.removeAttribute(ATTR_BIND_REFS_NAME);
+      if (!refName) return previous;
       const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
       return { ...previous, [refName]: newRefsByName };
-    }, {});
+    }, initialValue);
   };
   var getRefsSorter = (refs) => {
     return [
