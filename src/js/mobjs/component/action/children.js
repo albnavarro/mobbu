@@ -136,7 +136,7 @@ export const gerOrderedChunkByDOMPosition = ({ children }) => {
  * @param {object} obj
  * @param {string[][]} obj.children
  * @param {string} obj.key
- * @param {{ key: string }[]} obj.current
+ * @param {Record<string, any>[]} obj.current
  * @param {boolean} [ obj.useIndex ]
  * @return {string[][]}
  *
@@ -169,12 +169,10 @@ export const getOrderedChunkByCurrentRepeatValue = ({
         };
     });
 
-    const currentParsed = currentUnivoque.map(
-        (/** @type{{key: string}} */ item, /** @type{number} */ index) => ({
-            index,
-            key: item?.[key],
-        })
-    );
+    const currentParsed = currentUnivoque.map((item, index) => ({
+        index,
+        key: item?.[key],
+    }));
 
     /**
      * Order children by compare currentUnivoque key.
@@ -187,7 +185,7 @@ export const getOrderedChunkByCurrentRepeatValue = ({
                 (childrenItem) => childrenItem[prop] === currentItem[prop]
             );
         })
-        .filter(Boolean);
+        .filter((item) => item !== undefined);
 
     /**
      * return chunk of ids.

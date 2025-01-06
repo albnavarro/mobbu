@@ -17385,18 +17385,16 @@
         items
       };
     });
-    const currentParsed = currentUnivoque.map(
-      (item, index) => ({
-        index,
-        key: item?.[key]
-      })
-    );
+    const currentParsed = currentUnivoque.map((item, index) => ({
+      index,
+      key: item?.[key]
+    }));
     const orderdChildren = currentParsed.map((currentItem) => {
       const prop = useIndex ? "index" : "key";
       return childrenParsed.find(
         (childrenItem) => childrenItem[prop] === currentItem[prop]
       );
-    }).filter(Boolean);
+    }).filter((item) => item !== void 0);
     return orderdChildren.map(({ items }) => items);
   };
 

@@ -36,7 +36,7 @@ export interface watchListType extends repeaterType {
 }
 
 export interface currentRepeaterState {
-    current: object;
+    current: Record<string, any>;
     index: number;
 }
 
