@@ -80,6 +80,8 @@ export const addBindObjectParent = ({ id, bindObjectId, parentElement }) => {
  */
 export const removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
     const items = bindObjectMap.get(id);
+    if (!items) return;
+
     const itemsUpdated = items.filter(
         (item) => item.bindObjectId !== bindObjectId
     );
@@ -96,10 +98,13 @@ export const removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
 export const switchBindObjectMap = () => {
     [...bindObjectPlaceHolderMap].forEach(
         ([placeholder, { componentId, bindObjectId }]) => {
+            const parentElement = placeholder.parentElement;
+            if (!parentElement) return;
+
             addBindObjectParent({
                 id: componentId,
                 bindObjectId,
-                parentElement: placeholder.parentElement,
+                parentElement,
             });
 
             // @ts-ignore
@@ -188,13 +193,20 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
             mobCore.useNextLoop(() => {
                 mobCore.useFrame(() => {
                     if (!ref) {
-                        ref = new WeakRef(
-                            getParentBindObject({
+                        let refElement = getParentBindObject({
+                            id,
+                            bindObjectId,
+                        });
+
+                        if (refElement) {
+                            ref = new WeakRef(refElement);
+                            removeBindObjectByBindObjectId({
                                 id,
                                 bindObjectId,
-                            })
-                        );
-                        removeBindObjectByBindObjectId({ id, bindObjectId });
+                            });
+                            // @ts-ignore
+                            refElement = null;
+                        }
                     }
 
                     /**
@@ -205,14 +217,18 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                     const shouldRender = !isArray || value.length > 0;
 
                     if (ref.deref() && shouldRender) {
+                        // @ts-ignore
                         ref.deref().textContent = '';
+                        // @ts-ignore
                         ref.deref().insertAdjacentHTML('afterbegin', render());
                     }
 
                     watchIsRunning = false;
 
                     mobCore.useNextTick(async () => {
-                        if (!ref.deref()) unwatch();
+                        if (!ref.deref() && unwatch) {
+                            unwatch();
+                        }
                     });
                 });
             });

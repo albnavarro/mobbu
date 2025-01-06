@@ -17716,6 +17716,7 @@
   };
   var removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
     const items = bindObjectMap.get(id);
+    if (!items) return;
     const itemsUpdated = items.filter(
       (item) => item.bindObjectId !== bindObjectId
     );
@@ -17724,10 +17725,12 @@
   var switchBindObjectMap = () => {
     [...bindObjectPlaceHolderMap].forEach(
       ([placeholder, { componentId, bindObjectId }]) => {
+        const parentElement = placeholder.parentElement;
+        if (!parentElement) return;
         addBindObjectParent({
           id: componentId,
           bindObjectId,
-          parentElement: placeholder.parentElement
+          parentElement
         });
         placeholder?.removeCustomComponent?.();
         placeholder?.remove();
@@ -17765,13 +17768,18 @@
         mobCore.useNextLoop(() => {
           mobCore.useFrame(() => {
             if (!ref) {
-              ref = new WeakRef(
-                getParentBindObject({
+              let refElement = getParentBindObject({
+                id,
+                bindObjectId
+              });
+              if (refElement) {
+                ref = new WeakRef(refElement);
+                removeBindObjectByBindObjectId({
                   id,
                   bindObjectId
-                })
-              );
-              removeBindObjectByBindObjectId({ id, bindObjectId });
+                });
+                refElement = null;
+              }
             }
             const shouldRender = !isArray || value.length > 0;
             if (ref.deref() && shouldRender) {
@@ -17780,7 +17788,9 @@
             }
             watchIsRunning = false;
             mobCore.useNextTick(async () => {
-              if (!ref.deref()) unwatch();
+              if (!ref.deref() && unwatch) {
+                unwatch();
+              }
             });
           });
         });
