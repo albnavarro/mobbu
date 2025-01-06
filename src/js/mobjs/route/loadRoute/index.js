@@ -56,6 +56,8 @@ export const loadRoute = async ({
     const contentEl = document?.querySelector(contentId);
     if (!contentEl) return;
 
+    if (comeFromHistory) contentEl.style.visibility = 'hidden';
+
     /**
      * Set before Route leave.
      */
@@ -148,6 +150,7 @@ export const loadRoute = async ({
      * Wait for all render.
      */
     await parseComponents({ element: contentEl });
+    if (comeFromHistory) contentEl.style.visibility = '';
 
     /**
      * SKit after route change if another route is called.
