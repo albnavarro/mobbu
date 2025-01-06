@@ -20444,7 +20444,7 @@
   };
   var getRepeaterChild = ({ repeatId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
-    if (!item) return;
+    if (!item) return [];
     const { children } = item;
     return children;
   };
@@ -20493,7 +20493,6 @@
     });
     if (!elementToRemoveByComponent) {
       const childrenFromRepeater = getRepeaterChild({ repeatId });
-      if (!childrenFromRepeater) return [];
       const itemToRemove = childrenFromRepeater.filter((item) => {
         return keyToRemove.map((item2) => item2?.[key]).includes(item.value?.[key]);
       });

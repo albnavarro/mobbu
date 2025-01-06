@@ -50,7 +50,7 @@ export type RepeatIdHostMap = Map<string, HTMLElement>;
 export type RepeatIdPlaceHolderMap = Map<
     string,
     {
-        element: HTMLElement;
+        element: HTMLElement | undefined;
         initialized: boolean;
         scopeId: string | undefined;
         key: string;

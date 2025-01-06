@@ -37,7 +37,7 @@ export const setRepeaterChild = ({ repeatId, id, bind }) => {
  */
 export const getRepeaterChild = ({ repeatId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
-    if (!item) return;
+    if (!item) return [];
 
     const { children } = item;
     return children;
