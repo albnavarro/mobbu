@@ -17644,8 +17644,8 @@
   var compareIdOrParentIdRecursive = ({ id, compareValue }) => {
     if (id === compareValue) return true;
     const item = componentMap.get(id);
-    if (!item) return;
-    const { parentId } = item;
+    if (!item) return false;
+    const parentId = item?.parentId ?? "";
     return compareIdOrParentIdRecursive({ id: parentId, compareValue });
   };
 
