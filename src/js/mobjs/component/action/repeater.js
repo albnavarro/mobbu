@@ -143,7 +143,7 @@ export const setRepeaterInnerWrap = ({ id = '', repeatId = '', element }) => {
 /**
  *
  * @param {object} obj
- * @param {string} obj.id
+ * @param {string|undefined} obj.id
  * @return {HTMLElement|Element|undefined}
  *
  * @description

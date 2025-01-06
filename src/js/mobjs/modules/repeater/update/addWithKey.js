@@ -100,7 +100,7 @@ export const addWithKey = ({
 
         if (elementWrapper) {
             destroyComponentInsideNodeById({
-                id: getParentIdById(currentId),
+                id: getParentIdById(currentId) ?? '',
                 container: elementWrapper,
             });
 
@@ -116,7 +116,7 @@ export const addWithKey = ({
      */
     if (!elementToRemoveByComponent) {
         const childrenFromRepeater = getRepeaterChild({ repeatId });
-        if (!childrenFromRepeater) return;
+        if (!childrenFromRepeater) return [];
 
         const itemToRemove = childrenFromRepeater.filter((item) => {
             return keyToRemove

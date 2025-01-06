@@ -20483,7 +20483,7 @@
       destroyNestedRepeat({ id, repeatParent: nestedParent });
       if (elementWrapper) {
         destroyComponentInsideNodeById({
-          id: getParentIdById(currentId),
+          id: getParentIdById(currentId) ?? "",
           container: elementWrapper
         });
         elementWrapper.remove();
@@ -20493,7 +20493,7 @@
     });
     if (!elementToRemoveByComponent) {
       const childrenFromRepeater = getRepeaterChild({ repeatId });
-      if (!childrenFromRepeater) return;
+      if (!childrenFromRepeater) return [];
       const itemToRemove = childrenFromRepeater.filter((item) => {
         return keyToRemove.map((item2) => item2?.[key]).includes(item.value?.[key]);
       });

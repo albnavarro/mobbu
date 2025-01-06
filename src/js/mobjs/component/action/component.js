@@ -23,7 +23,7 @@ export const getComponentNameById = (id = '') => {
 };
 
 /**
- * @param {HTMLElement} element
+ * @param {HTMLElement|undefined} element
  *
  * @description
  * get component name By element
