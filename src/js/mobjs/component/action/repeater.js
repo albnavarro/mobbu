@@ -33,11 +33,11 @@ export const setRepeaterStateById = ({ id = '', value }) => {
  *
  * @param {object} params
  * @param {HTMLElement} params.rootNode
- * @param {HTMLElement} params.currentNode
+ * @param {HTMLElement|null} params.currentNode
  * @returns {HTMLElement|undefined}
  */
 const getFirstChildOfElementParentOfElement = ({ rootNode, currentNode }) => {
-    if (!rootNode.contains(currentNode)) return;
+    if (!currentNode || !rootNode.contains(currentNode)) return;
     if (currentNode.parentElement === rootNode) return currentNode;
 
     return getFirstChildOfElementParentOfElement({

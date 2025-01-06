@@ -17197,7 +17197,7 @@
     });
   };
   var getFirstChildOfElementParentOfElement = ({ rootNode, currentNode }) => {
-    if (!rootNode.contains(currentNode)) return;
+    if (!currentNode || !rootNode.contains(currentNode)) return;
     if (currentNode.parentElement === rootNode) return currentNode;
     return getFirstChildOfElementParentOfElement({
       rootNode,
