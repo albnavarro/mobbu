@@ -7,5 +7,9 @@ export type InvalidateIdHostMap = Map<string, HTMLElement>;
 
 export type InvalidateIdPlaceHolderMap = Map<
     string,
-    { element: HTMLElement; initialized: boolean; scopeId: string | undefined }
+    {
+        element: HTMLElement | undefined;
+        initialized: boolean;
+        scopeId: string | undefined;
+    }
 >;

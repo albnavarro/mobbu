@@ -17638,6 +17638,7 @@
     });
   };
   var getFallBackParentByElement = ({ element }) => {
+    if (!element) return;
     return [...componentMap.values()].findLast((item) => {
       return item.element.contains(element) && item.element !== element;
     })?.id;
@@ -19666,15 +19667,15 @@
     const entries = module === MODULE_REPEATER ? [...repeatIdPlaceHolderMap.entries()] : [...invalidateIdPlaceHolderMap.entries()];
     return entries.filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_id, parent]) => {
+      ([_id, { element: currentElement, initialized: initialized7, scopeId }]) => {
         if (componentId && !compareIdOrParentIdRecursive({
-          id: parent?.scopeId ?? "",
+          id: scopeId ?? "",
           compareValue: componentId
         }))
           return;
-        if (skipInitialized && parent?.initialized) return false;
-        if (onlyInitialized && !parent?.initialized) return false;
-        return element?.contains(parent.element) && element !== parent.element;
+        if (skipInitialized && initialized7) return false;
+        if (onlyInitialized && !initialized7) return false;
+        return currentElement && element?.contains(currentElement) && element !== currentElement;
       }
     ).map(([id, parent]) => ({
       id,
@@ -20431,7 +20432,11 @@
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
     const { element } = item;
-    const children = [...element.children];
+    if (!element) return;
+    const children = (
+      /** @type{HTMLElement[]} */
+      [...element.children]
+    );
     const state = getStateById(id);
     const stateByProp = state[bind];
     repeatIdPlaceHolderMap.set(repeatId, {

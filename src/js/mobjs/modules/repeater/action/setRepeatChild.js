@@ -13,18 +13,19 @@ export const setRepeaterChild = ({ repeatId, id, bind }) => {
     if (!item) return;
 
     const { element } = item;
+    if (!element) return;
 
     /**
      * Fall  back for repeater without component inside.
      */
-    const children = [...element.children];
+    const children = /** @type{HTMLElement[]} */ ([...element.children]);
     const state = getStateById(id);
     const stateByProp = state[bind];
 
     repeatIdPlaceHolderMap.set(repeatId, {
         ...item,
         key: bind,
-        children: children.map((/** @type{HTMLElement} */ child, index) => {
+        children: children.map((child, index) => {
             return { index, value: stateByProp[index], element: child };
         }),
     });

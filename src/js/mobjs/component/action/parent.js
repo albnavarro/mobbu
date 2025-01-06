@@ -93,13 +93,15 @@ export const addParentIdToFutureComponent = ({ element, id }) => {
 
 /**
  * @param {object} params
- * @param {HTMLElement} params.element
+ * @param {HTMLElement|undefined} params.element
  * @returns {string|undefined}
  *
  * @description
  * Get first element that contains repaterParent start from last map element.
  */
 export const getFallBackParentByElement = ({ element }) => {
+    if (!element) return;
+
     return [...componentMap.values()].findLast((item) => {
         return item.element.contains(element) && item.element !== element;
     })?.id;

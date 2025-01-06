@@ -17,7 +17,7 @@ export const MODULE_INVALIDATE = 'invalidate';
  * @param {boolean} [ params.onlyInitialized ]
  * @param {string} [ params.componentId ]
  * @param {string} params.module
- * @returns {{id: string, parent:HTMLElement}[]}
+ * @returns {{id: string, parent:HTMLElement|undefined}[]}
  */
 export const getRepeatOrInvalidateInsideElement = ({
     element,
@@ -34,7 +34,7 @@ export const getRepeatOrInvalidateInsideElement = ({
     return entries
         .filter(
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            ([_id, parent]) => {
+            ([_id, { element: currentElement, initialized, scopeId }]) => {
                 /**
                  * When destroy nested repat compare the the scope id is the same or a parent id
                  * Check only repeate descendants by scopeId
@@ -42,7 +42,7 @@ export const getRepeatOrInvalidateInsideElement = ({
                 if (
                     componentId &&
                     !compareIdOrParentIdRecursive({
-                        id: parent?.scopeId ?? '',
+                        id: scopeId ?? '',
                         compareValue: componentId,
                     })
                 )
@@ -52,20 +52,21 @@ export const getRepeatOrInvalidateInsideElement = ({
                  * Only not initialized.
                  * Use on create nested modules
                  */
-                if (skipInitialized && parent?.initialized) return false;
+                if (skipInitialized && initialized) return false;
 
                 /**
                  * Only initialized.
                  * Use on destroy nested modules
                  */
-                if (onlyInitialized && !parent?.initialized) return false;
+                if (onlyInitialized && !initialized) return false;
 
                 /**
                  * Last DOM check
                  */
                 return (
-                    element?.contains(parent.element) &&
-                    element !== parent.element
+                    currentElement &&
+                    element?.contains(currentElement) &&
+                    element !== currentElement
                 );
             }
         )
