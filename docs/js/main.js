@@ -19259,7 +19259,10 @@
           });
         });
       });
-      setDynamicPropsWatch({ id: componentId, unWatchArray });
+      setDynamicPropsWatch({
+        id: componentId,
+        unWatchArray: unWatchArray.filter((item) => item !== void 0)
+      });
     }
     if (!inizilizeWatcher) return;
     for (const [key, value] of bindPropsMap) {

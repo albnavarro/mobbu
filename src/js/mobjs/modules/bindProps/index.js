@@ -380,7 +380,10 @@ export const applyBindProps = async ({
          * Add unwatch function to store.
          * So we lounch them on destroy.
          */
-        setDynamicPropsWatch({ id: componentId, unWatchArray });
+        setDynamicPropsWatch({
+            id: componentId,
+            unWatchArray: unWatchArray.filter((item) => item !== undefined),
+        });
 
         /**
          * Remove current dynamic prop from store.
