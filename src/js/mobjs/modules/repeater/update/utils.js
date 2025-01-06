@@ -151,7 +151,7 @@ export const updateRepeaterWithoutKeyUseSync = ({
  * @param {string} params.state
  * @param {string} params.repeatId
  * @param {any} params.keyValue
- * @param {string} params.key
+ * @param {string|undefined} params.key
  * @param {import('../type').RepeaterRender} params.render
  * @returns {string}
  */
@@ -204,6 +204,7 @@ export const updateRepeaterWithtKey = ({
      * Remove fragment as soon as possible from GC.
      * TODO Is really necessary ?
      */
+    // @ts-ignore
     fragment = null;
     return serializedRender;
 };
@@ -215,7 +216,7 @@ export const updateRepeaterWithtKey = ({
  * @param {number} params.index
  * @param {string} params.state
  * @param {string} params.repeatId
- * @param {string} params.key
+ * @param {string|undefined} params.key
  * @param {any} params.keyValue
  * @param {import('../type').RepeaterRender} params.render
  * @returns {string}
@@ -264,7 +265,7 @@ export const updateRepeaterWithtKeyUseSync = ({
  * @param {import('../type').RepeaterRender} params.render
  * @param {string} params.bind
  * @param {string} params.repeatId
- * @param {string} params.key
+ * @param {string|undefined} params.key
  * @param {boolean} params.hasKey
  * @returns {string}
  */
@@ -337,7 +338,7 @@ export const getRenderWithoutSync = ({
  * @param {import('../type').RepeaterRender} params.render
  * @param {string} params.bind
  * @param {string} params.repeatId
- * @param {string} params.key
+ * @param {string|undefined} params.key
  * @param {boolean} params.hasKey
  * @returns {string}
  */

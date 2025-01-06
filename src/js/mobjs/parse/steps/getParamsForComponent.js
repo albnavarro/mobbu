@@ -148,9 +148,11 @@ export const getParamsForComponentFunction = ({
 
             return unsubscribe;
         },
-        freezeProp: (/** @type{string} */ prop) => freezePropById({ id, prop }),
-        unFreezeProp: (/** @type{string} */ prop) =>
-            unFreezePropById({ id, prop }),
+        /**
+         * ts issue, prop coem as string\number\symbol, convert in string.
+         */
+        freezeProp: (prop) => freezePropById({ id, prop: prop.toString() }),
+        unFreezeProp: (prop) => unFreezePropById({ id, prop: prop.toString() }),
         unBind: () => unBind({ id }),
         bindProps: (obj) => {
             return `${ATTR_DYNAMIC}="${setBindProps({
@@ -169,7 +171,9 @@ export const getParamsForComponentFunction = ({
         getParentId: () => getParentIdById(id),
         watchParent: (prop, cb) => {
             const unsubscribeParent = watchById(getParentIdById(id), prop, cb);
-            setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
+
+            if (unsubscribeParent)
+                setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
         },
         html: (strings, ...values) => {
             return renderHtml(strings, ...values);
@@ -267,12 +271,12 @@ export const getParamsForComponentFunction = ({
             persistent = false,
             beforeUpdate = () => Promise.resolve(),
             afterUpdate = () => {},
-            key,
+            key = '',
             render,
             useSync = false,
         }) => {
             const repeatId = mobCore.getUnivoqueId();
-            const hasKey = key && key !== '';
+            const hasKey = key !== '';
 
             /** type @type{Record<string, any>[]} */
             const initialState = getState()?.[bind];

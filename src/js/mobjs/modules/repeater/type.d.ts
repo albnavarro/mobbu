@@ -5,7 +5,7 @@ export type RepeaterRender = (arg0: {
     initialIndex: number;
     initialValue: Record<string, any>;
     current: any;
-    html?: (
+    html: (
         template: { raw: readonly string[] | ArrayLike<string> },
         ...substitutions: any[]
     ) => string;

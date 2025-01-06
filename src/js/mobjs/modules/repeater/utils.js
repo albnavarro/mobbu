@@ -75,7 +75,7 @@ export const listKeyExist = ({ current, previous, key }) => {
 /**
  * @param {object} obj
  * @param {Array<any>} obj.data
- * @param {string} obj.key
+ * @param {string|undefined} obj.key
  * @return {Record<string, any>[]}
  *
  * @description

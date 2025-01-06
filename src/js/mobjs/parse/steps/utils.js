@@ -103,7 +103,7 @@ export const getElementOrTextFromNode = (node) => {
  *
  * @param {object} params
  * @param {Element} params.parent
- * @param {{item: Element|string, type: string}} params.itemObject
+ * @param {{item: Element|string|undefined, type: string}} params.itemObject
  * @param {InsertPosition} params.position
  * @returns {void}
  */

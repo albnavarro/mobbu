@@ -47,7 +47,7 @@ const getNewElement = ({ element, content }) => {
             .createRange()
             .createContextualFragment(content).firstElementChild;
 
-        element.after(node);
+        if (node) element.after(node);
 
         /**
          * Add component name in debug mode

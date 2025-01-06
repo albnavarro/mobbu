@@ -1,3 +1,4 @@
+"use strict";
 (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -19408,7 +19409,7 @@
     const { debug } = getDefaultComponent();
     if (element.parentNode) {
       const node = document.createRange().createContextualFragment(content).firstElementChild;
-      element.after(node);
+      if (node) element.after(node);
       if (debug)
         element.insertAdjacentHTML(
           "afterend",
@@ -20958,8 +20959,11 @@
         });
         return unsubscribe3;
       },
-      freezeProp: (prop) => freezePropById({ id, prop }),
-      unFreezeProp: (prop) => unFreezePropById({ id, prop }),
+      /**
+       * ts issue, prop coem as string\number\symbol, convert in string.
+       */
+      freezeProp: (prop) => freezePropById({ id, prop: prop.toString() }),
+      unFreezeProp: (prop) => unFreezePropById({ id, prop: prop.toString() }),
       unBind: () => unBind({ id }),
       bindProps: (obj) => {
         return `${ATTR_DYNAMIC}="${setBindProps({
@@ -20978,7 +20982,8 @@
       getParentId: () => getParentIdById(id),
       watchParent: (prop, cb) => {
         const unsubscribeParent = watchById(getParentIdById(id), prop, cb);
-        setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
+        if (unsubscribeParent)
+          setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
       },
       html: (strings, ...values) => {
         return renderHtml(strings, ...values);
@@ -21063,12 +21068,12 @@
         beforeUpdate = () => Promise.resolve(),
         afterUpdate = () => {
         },
-        key: key2,
+        key: key2 = "",
         render: render2,
         useSync = false
       }) => {
         const repeatId = mobCore.getUnivoqueId();
-        const hasKey = key2 && key2 !== "";
+        const hasKey = key2 !== "";
         const initialState = getState()?.[bind];
         const currentUnique = hasKey ? getUnivoqueByKey({ data: initialState, key: key2 }) : initialState;
         setSkipAddUserComponent(true);
