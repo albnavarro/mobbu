@@ -146,7 +146,7 @@ export const insertElementOrText = ({
  * @param {number} params.index
  * @param {string} params.bind
  * @param {string} params.repeatId
- * @param {string} params.key
+ * @param {string|undefined} params.key
  * @returns {void}
  */
 export const setRepeatAttribute = ({

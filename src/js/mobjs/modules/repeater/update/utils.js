@@ -80,6 +80,7 @@ export const updateRepeaterWitoutKey = ({
              * Remove fragment as soon as possible from GC.
              * TODO Is really necessary ?
              */
+            // @ts-ignore
             fragment = null;
             return serializedRender;
         })
@@ -275,7 +276,7 @@ export const getRenderWithoutSync = ({
     render,
     bind,
     repeatId,
-    key,
+    key = '',
     hasKey,
 }) => {
     setSkipAddUserComponent(true);
@@ -321,6 +322,7 @@ export const getRenderWithoutSync = ({
              * Remove fragment as soon as possible from GC.
              * TODO Is really necessary ?
              */
+            // @ts-ignore
             fragment = null;
             return serializedRender;
         })
@@ -338,14 +340,14 @@ export const getRenderWithoutSync = ({
  * @param {import('../type').RepeaterRender} params.render
  * @param {string} params.bind
  * @param {string} params.repeatId
- * @param {string|undefined} params.key
+ * @param {string} params.key
  * @param {boolean} params.hasKey
  * @returns {string}
  */
 export const getRenderWithSync = ({
     id,
     currentUnique,
-    key,
+    key = '',
     bind,
     repeatId,
     hasKey,

@@ -20345,7 +20345,7 @@
     render: render2,
     bind,
     repeatId,
-    key,
+    key = "",
     hasKey
   }) => {
     setSkipAddUserComponent(true);
@@ -20386,7 +20386,7 @@
   var getRenderWithSync = ({
     id,
     currentUnique,
-    key,
+    key = "",
     bind,
     repeatId,
     hasKey,
