@@ -21,6 +21,7 @@ function selectAll(root) {
  * @returns {import("../webComponent/type").SlotComponent[]}
  */
 export const queryGenericSlot = (node) => {
+    /** @type {any[]} */
     let result = [];
     const root = node || document.body;
 

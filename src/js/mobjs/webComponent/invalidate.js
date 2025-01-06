@@ -20,7 +20,8 @@ export const defineInvalidateComponent = () => {
                     const host = /** @type {HTMLElement} */ (
                         this.shadowRoot?.host
                     );
-                    const invalidateId = host.getAttribute(ATTR_INVALIDATE);
+                    const invalidateId =
+                        host.getAttribute(ATTR_INVALIDATE) ?? '';
                     setParentInvalidate({ invalidateId, host });
                 }
             }

@@ -7,6 +7,7 @@
  * @param {Element} node
  * @yields {HTMLElement}
  */
+// @ts-ignore
 export function* walkPreOrder(node) {
     if (!node) return;
 
@@ -47,6 +48,7 @@ function selectAll(root, firstOccurrence) {
  * @returns {Array<import("../webComponent/type").UserComponent>}
  */
 export const queryAllFutureComponent = (node, firstOccurence = true) => {
+    /** @type {any[]} */
     let result = [];
     const root = node || document.body;
 

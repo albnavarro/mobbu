@@ -24,7 +24,8 @@ export const defineRepeatComponent = () => {
                     const host = /** @type {HTMLElement} */ (
                         this.shadowRoot?.host
                     );
-                    const repeatId = host?.getAttribute(ATTR_MOBJS_REPEAT);
+                    const repeatId =
+                        host?.getAttribute(ATTR_MOBJS_REPEAT) ?? '';
                     setParentRepeater({ repeatId, host });
                 }
             }

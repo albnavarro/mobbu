@@ -17,10 +17,12 @@ export const defineBindObjectComponent = () => {
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    const host = this.shadowRoot?.host;
-                    const componentId = host?.getAttribute(ATTR_COMPONENT_ID);
+                    const host =
+                        this.shadowRoot?.host ?? document.createElement('div');
+                    const componentId =
+                        host?.getAttribute(ATTR_COMPONENT_ID) ?? '';
                     const bindObjectId =
-                        host?.getAttribute(ATTR_BIND_OBJECT_ID);
+                        host?.getAttribute(ATTR_BIND_OBJECT_ID) ?? '';
 
                     addBindObjectPlaceHolderMap({
                         host,

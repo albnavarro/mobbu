@@ -29,7 +29,7 @@ export const setRouteList = (list) => {
 /**
  * @param {object} obj
  * @param {string} obj.routeName
- * @return {import("../../type").Route}
+ * @return {import("../../type").Route|undefined}
  *
  * @description
  * Get route list to store.

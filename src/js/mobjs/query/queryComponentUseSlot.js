@@ -25,6 +25,7 @@ function selectAll(root) {
  * @returns {Array<Element>}
  */
 export const queryComponentUseSlot = (node) => {
+    /** @type {any[]} */
     let result = [];
     const root = node || document.body;
 

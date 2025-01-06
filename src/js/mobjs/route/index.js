@@ -20,19 +20,19 @@ let previousHash = '';
 /** @type{string} */
 let previousParamsToPush = '';
 
-/** @type{string} */
+/** @type{string|undefined} */
 let currentSearch;
 
 /** @type{string} */
 let historyDirection = 'back';
 
 /**
- * @type {import('./type').historyType}
+ * @type {import('./type').historyType|undefined}
  */
 let previousHistory;
 
 /**
- * @type {import('./type').historyType}
+ * @type {import('./type').historyType|undefined}
  */
 let currentHistory;
 
@@ -157,7 +157,9 @@ const hashHandler = async () => {
         templateName: getTemplateName({ url: hash }),
         restoreScroll: getRestoreScrollVale({ url: hash }),
         params,
-        scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY : 0,
+        scrollY: currentHistory
+            ? (getLastHistory(historyDirection)?.scrollY ?? 0)
+            : 0,
         comeFromHistory: currentHistory ? true : false,
     });
 };
@@ -186,6 +188,7 @@ export const router = () => {
          */
         if (
             currentHistory &&
+            previousHistory &&
             previousHistory?.time > currentHistory?.time &&
             historyBackSize() > 0
         ) {
@@ -197,7 +200,11 @@ export const router = () => {
         /**
          * prev
          */
-        if (currentHistory && previousHistory?.time < currentHistory?.time) {
+        if (
+            currentHistory &&
+            previousHistory &&
+            previousHistory?.time < currentHistory?.time
+        ) {
             previousHistory = currentHistory;
             historyDirection = HISTORY_NEXT;
             return;

@@ -25,6 +25,7 @@ function selectAll(root) {
  * @returns {import("../webComponent/type").RepeaterComponent[]}
  */
 export const queryGenericRepeater = (node) => {
+    /** @type {any[]} */
     let result = [];
     const root = node || document.body;
 

@@ -42,7 +42,7 @@ export const renderHtml = String.raw;
  * Detect if child of element is element / text / mix text and element
  *
  * @param {Element} node
- * @returns {{item: Element|string, type: string}}
+ * @returns {{item: Element|string|undefined, type: string}}
  */
 export const getElementOrTextFromNode = (node) => {
     const childNodes = node.childNodes;
