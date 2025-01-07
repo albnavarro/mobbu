@@ -10,6 +10,11 @@ export const destroyStoreEntryPoint = (instanceId) => {
 
     const { unsubscribeBindInstance } = state;
 
+    /**
+     * Delete reference to proxi for avoid leake of memory.
+     */
+    state.proxiObject = null;
+
     unsubscribeBindInstance.forEach((unsubscribe) => {
         unsubscribe?.();
     });

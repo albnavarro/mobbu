@@ -2911,6 +2911,7 @@
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
     const { unsubscribeBindInstance } = state;
+    state.proxiObject = null;
     unsubscribeBindInstance.forEach((unsubscribe3) => {
       unsubscribe3?.();
     });

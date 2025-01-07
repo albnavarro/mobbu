@@ -29,7 +29,7 @@ export interface storeMapValue {
     fnValidate: Record<string, any>;
     strict: Record<string, any>;
     skipEqual: Record<string, any>;
-    proxiObject?: Record<string, any>;
+    proxiObject?: Record<string, any> | null | undefined;
     bindInstance: string[];
     unsubscribeBindInstance: (() => void)[];
 }
