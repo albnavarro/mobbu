@@ -20,25 +20,16 @@ export interface storeMapValue {
         keys: string[];
     }>;
     computedPropsQueque: Set<string>;
-    validationStatusObject: Record<string, validateState>;
+    validationStatusObject: Record<string, any>;
     dataDepth: number;
     computedRunning: boolean;
-    store: Record<string, any | Record<string, any>>;
-    type: Record<
-        string,
-        | mobStoreTypeNative
-        | mobStoreTypeAlias
-        | Record<string, mobStoreTypeNative | mobStoreTypeAlias>
-    >;
-    fnTransformation: Record<
-        string,
-        | ((current: any, previous: any) => any)
-        | Record<string, (current: any, previous: any) => any>
-    >;
-    fnValidate: Record<string, (() => boolean) | Record<string, () => boolean>>;
-    strict: Record<string, boolean | Record<string, boolean>>;
-    skipEqual: Record<string, boolean | Record<string, boolean>>;
-    proxiObject?: Record<string, any> | Record<string, any>[];
+    store: Record<string, any>;
+    type: Record<string, any>;
+    fnTransformation: Record<string, any>;
+    fnValidate: Record<string, any>;
+    strict: Record<string, any>;
+    skipEqual: Record<string, any>;
+    proxiObject?: Record<string, any>;
     bindInstance: string[];
     unsubscribeBindInstance: (() => void)[];
 }
@@ -61,7 +52,7 @@ export interface MobStore<T extends StoreDefaultMap> {
     emit: emitType<T>;
     emitAsync: emitAsyncType<T>;
     getProxi: storeProxiType<T>;
-    getValidation: () => object;
+    getValidation: () => object | undefined;
     debug: () => void;
     debugStore: () => void;
     debugValidate: () => void;

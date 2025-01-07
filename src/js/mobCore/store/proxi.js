@@ -12,6 +12,8 @@ import { storeSetEntryPoint } from './storeSet';
  */
 export const getProxiEntryPoint = ({ instanceId }) => {
     const state = storeMap.get(instanceId);
+    if (!state) return {};
+
     const { bindInstance, proxiObject: previousProxiObject } = state;
 
     /**
@@ -21,10 +23,12 @@ export const getProxiEntryPoint = ({ instanceId }) => {
         return previousProxiObject;
     }
 
+    const store = state?.store;
+
     /**
      * Create self proxi
      */
-    const selfProxi = new Proxy(storeMap.get(instanceId).store, {
+    const selfProxi = new Proxy(store, {
         set(target, /** @type{string} */ prop, value) {
             if (prop in target) {
                 storeSetEntryPoint({
@@ -61,7 +65,10 @@ export const getProxiEntryPoint = ({ instanceId }) => {
      * Binded proxi has only read operation.
      */
     const bindedProxi = bindInstance.map((id) => {
-        return new Proxy(storeMap.get(id).store, {
+        const state = storeMap.get(id);
+        const store = state?.store ?? {};
+
+        return new Proxy(store, {
             set() {
                 return false;
             },

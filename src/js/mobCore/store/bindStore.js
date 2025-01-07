@@ -9,6 +9,8 @@ import { checkType } from './storeType';
  */
 export const bindStoreEntryPoint = ({ value, instanceId }) => {
     const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const { bindInstance } = state;
     if (!bindInstance) return;
 

@@ -5,9 +5,12 @@ export const storeMap = new Map();
 
 /**
  * @param {string} id
- * @returns {import("./type").storeMapValue}
+ * @returns {import("./type").storeMapValue|undefined}
  */
-export const getStateFromMainMap = (id) => ({ ...storeMap.get(id) });
+export const getStateFromMainMap = (id) => {
+    const valueNow = storeMap.get(id);
+    return valueNow ? { ...valueNow } : undefined;
+};
 
 /**
  * @param {string} id

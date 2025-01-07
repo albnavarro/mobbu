@@ -28,7 +28,7 @@ export const runCallbackQueqe = ({
         /*
          * Wait next loop
          */
-        if (currentProp === prop && wait) {
+        if (instanceId && currentProp === prop && wait) {
             /**
              * Get all props for current instanceId.
              */
@@ -64,7 +64,7 @@ export const runCallbackQueqe = ({
                  * Get last updated value
                  */
                 const propsPerIdNow = waitMap.get(instanceId);
-                const valueNow = propsPerIdNow.get(prop);
+                const valueNow = propsPerIdNow?.get(prop);
 
                 if (valueNow) {
                     fn(valueNow, oldValue, validationValue);
@@ -73,12 +73,12 @@ export const runCallbackQueqe = ({
                 /**
                  * Remove prop in instanceId map once fired.
                  */
-                propsPerIdNow.delete(prop);
+                propsPerIdNow?.delete(prop);
 
                 /**
                  * if instanceId has no more prop in queque delete.
                  */
-                if (propsPerIdNow.size === 0) {
+                if (propsPerIdNow?.size === 0) {
                     waitMap.delete(instanceId);
                 }
             });

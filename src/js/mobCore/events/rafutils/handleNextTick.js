@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {Array}
+ * @type {[]}
  */
 const callbacks = [];
 

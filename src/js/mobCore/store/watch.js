@@ -44,6 +44,8 @@ export const storeWatchAction = ({ state, prop, callback, wait }) => {
  */
 export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
     const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const { callBackWatcher } = state;
     if (!callBackWatcher) return;
 
@@ -88,6 +90,8 @@ export const watchMobStore = ({ instanceId, prop, callback, wait }) => {
  */
 export const watchEntryPoint = ({ instanceId, prop, callback, wait }) => {
     const state = getStateFromMainMap(instanceId);
+    if (!state) return () => {};
+
     const { bindInstance, unsubscribeBindInstance } = state;
 
     if (!bindInstance || bindInstance.length === 0) {

@@ -48,6 +48,8 @@ export const inizializeAllProps = (instanceId, initialState) => {
          * Get last updated state.
          */
         const state = getStateFromMainMap(instanceId);
+        if (!state) return;
+
         const newState = storeSetAction({
             instanceId,
             state,

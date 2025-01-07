@@ -25,7 +25,7 @@ import { destroyStoreEntryPoint } from './destroy';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
- * @returns {import('./type').MobStore}
+ * @returns {import('./type').MobStore<any>}
  */
 export const mobStore = (data = {}) => {
     /**

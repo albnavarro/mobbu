@@ -6,6 +6,8 @@ import { getStateFromMainMap, removeStateFromMainMap } from './storeMap';
  */
 export const destroyStoreEntryPoint = (instanceId) => {
     const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const { unsubscribeBindInstance } = state;
 
     unsubscribeBindInstance.forEach((unsubscribe) => {

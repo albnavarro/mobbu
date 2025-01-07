@@ -9,8 +9,11 @@ import { storeGetPropWarning } from './storeWarining';
  * @returns {{[key: string]: any|{ [key: string]: any }}}
  */
 const storeGet = (instanceId) => {
-    const { store } = getStateFromMainMap(instanceId);
-    return store;
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return {};
+
+    const { store } = state;
+    return store ?? {};
 };
 
 /**
@@ -19,6 +22,8 @@ const storeGet = (instanceId) => {
  */
 export const storeGetEntryPoint = (instanceId) => {
     const state = getStateFromMainMap(instanceId);
+    if (!state) return {};
+
     const { bindInstance } = state;
 
     if (!bindInstance || bindInstance.length === 0) {
@@ -37,10 +42,12 @@ export const storeGetEntryPoint = (instanceId) => {
  * @returns {any}
  */
 export const storeGetProp = ({ instanceId, prop }) => {
-    const { store } = getStateFromMainMap(instanceId);
-    if (!store) return;
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return;
 
-    if (prop in store) {
+    const store = state?.store;
+
+    if (store && prop in store) {
         return store[prop];
     } else {
         storeGetPropWarning(prop, getLogStyle());
@@ -56,6 +63,8 @@ export const storeGetProp = ({ instanceId, prop }) => {
  */
 export const storeGetPropEntryPoint = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const { bindInstance } = state;
 
     if (!bindInstance || bindInstance.length === 0) {
@@ -63,9 +72,10 @@ export const storeGetPropEntryPoint = ({ instanceId, prop }) => {
     }
 
     const currentBindId =
-        [instanceId, ...bindInstance].find(
-            (id) => prop in storeMap.get(id).store
-        ) ?? '';
+        [instanceId, ...bindInstance].find((id) => {
+            const store = storeMap.get(id)?.store;
+            return store && prop in store;
+        }) ?? '';
 
     return storeGetProp({ instanceId: currentBindId, prop });
 };

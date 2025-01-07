@@ -13,8 +13,9 @@ import { storeEmitWarning } from './storeWarining';
  * @returns {void}
  */
 export const storeEmit = ({ instanceId, prop }) => {
-    const { store, callBackWatcher, validationStatusObject } =
-        getStateFromMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+    const { store, callBackWatcher, validationStatusObject } = state;
 
     if (!store) return;
 
@@ -42,6 +43,8 @@ export const storeEmit = ({ instanceId, prop }) => {
  */
 export const storeEmitEntryPoint = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const { bindInstance } = state;
 
     if (!bindInstance || bindInstance.length === 0) {
@@ -49,9 +52,10 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
     }
 
     const currentBindId =
-        [instanceId, ...bindInstance].find(
-            (id) => prop in storeMap.get(id).store
-        ) ?? '';
+        [instanceId, ...bindInstance].find((id) => {
+            const store = storeMap.get(id)?.store;
+            return store && prop in store;
+        }) ?? '';
 
     return storeEmit({ instanceId: currentBindId, prop });
 };
@@ -63,8 +67,9 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
  * @returns {Promise<any>}
  */
 export const storeEmitAsync = async ({ instanceId, prop }) => {
-    const { store, callBackWatcher, validationStatusObject } =
-        getStateFromMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return new Promise((resolve) => resolve(''));
+    const { store, callBackWatcher, validationStatusObject } = state;
 
     if (!store) return { success: false };
 
@@ -95,6 +100,8 @@ export const storeEmitAsync = async ({ instanceId, prop }) => {
  */
 export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
+    if (!state) return new Promise((resolve) => resolve(''));
+
     const { bindInstance } = state;
 
     if (!bindInstance || bindInstance.length === 0) {
@@ -102,9 +109,10 @@ export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
     }
 
     const currentBindId =
-        [instanceId, ...bindInstance].find(
-            (id) => prop in storeMap.get(id).store
-        ) ?? '';
+        [instanceId, ...bindInstance].find((id) => {
+            const store = storeMap.get(id)?.store;
+            return store && prop in store;
+        }) ?? '';
 
     return storeEmitAsync({
         instanceId: currentBindId,

@@ -517,6 +517,8 @@ const fireComputed = (instanceId) => {
      * Get fresh data.
      */
     const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const { computedPropsQueque, callBackComputed, store } = state;
 
     /**
@@ -581,6 +583,8 @@ const fireComputed = (instanceId) => {
  */
 export const addToComputedWaitLsit = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const { callBackComputed, computedPropsQueque, computedRunning } = state;
 
     if (!callBackComputed || callBackComputed.size === 0) return;
@@ -596,6 +600,8 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
 
     if (!computedRunning) {
         const state = getStateFromMainMap(instanceId);
+        if (!state) return;
+
         updateMainMap(instanceId, { ...state, computedRunning: true });
         useNextLoop(() => fireComputed(instanceId));
     }
