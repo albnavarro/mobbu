@@ -8,31 +8,45 @@ import { normalizeWheel } from './normalizeWhell.js';
  * @param {Object} obj
  * @param {import('./type.js').MouseEventType} obj.type
  * @param {Object} obj.event
- * @returns { Object }
+ * @returns {any}
  */
 function getPageData({ type, event }) {
-    // 'touchend'
-    if (type === 'touchend' && event.changedTouches)
-        return event.changedTouches[0];
+    const touchEvent = /** @type{TouchEvent} */ (event);
 
-    // 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
-    return event.touches ? event.touches[0] : event;
+    /**
+     * 'touchend'
+     */
+    if (type === 'touchend' && 'changedTouches' in event) {
+        return touchEvent.changedTouches[0];
+    }
+
+    /**
+     * 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
+     */
+    return 'touches' in touchEvent ? touchEvent.touches[0] : event;
 }
 
 /**
  * @param {Object} obj
  * @param {import('./type.js').MouseEventType} obj.type
  * @param {Object} obj.event
- * @returns { Object }
+ * @returns {any}
  * @description
  */
 function getClientData({ type, event }) {
-    // 'touchend'
-    if (type === 'touchend' && event.changedTouches)
-        return event.changedTouches[0];
+    const touchEvent = /** @type{TouchEvent} */ (event);
 
-    // 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
-    return event.touches ? event.touches[0] : event;
+    /**
+     * 'touchend'
+     */
+    if (type === 'touchend' && 'changedTouches' in event) {
+        return touchEvent.changedTouches[0];
+    }
+
+    /**
+     * 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
+     */
+    return 'touches' in touchEvent ? touchEvent.touches[0] : event;
 }
 
 /**
@@ -66,7 +80,7 @@ function handleMouse(eventType) {
     });
 
     /**
-     * @param {MouseEvent} event
+     * @param {MouseEvent|TouchEvent} event
      */
     function handler(event) {
         /**
@@ -93,9 +107,7 @@ function handleMouse(eventType) {
          */
         const { clientX, clientY } = getClientData({ type, event });
 
-        /**
-         * @type {EventTarget}
-         */
+        /** @type {EventTarget|null} */
         const target = event.target;
 
         // Prepare data to callback

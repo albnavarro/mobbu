@@ -3131,14 +3131,24 @@
 
   // src/js/mobCore/events/mouseUtils/handleMouse.js
   function getPageData({ type, event }) {
-    if (type === "touchend" && event.changedTouches)
-      return event.changedTouches[0];
-    return event.touches ? event.touches[0] : event;
+    const touchEvent = (
+      /** @type{TouchEvent} */
+      event
+    );
+    if (type === "touchend" && "changedTouches" in event) {
+      return touchEvent.changedTouches[0];
+    }
+    return "touches" in touchEvent ? touchEvent.touches[0] : event;
   }
   function getClientData({ type, event }) {
-    if (type === "touchend" && event.changedTouches)
-      return event.changedTouches[0];
-    return event.touches ? event.touches[0] : event;
+    const touchEvent = (
+      /** @type{TouchEvent} */
+      event
+    );
+    if (type === "touchend" && "changedTouches" in event) {
+      return touchEvent.changedTouches[0];
+    }
+    return "touches" in touchEvent ? touchEvent.touches[0] : event;
   }
   function handleMouse(eventType) {
     let initialized7 = false;

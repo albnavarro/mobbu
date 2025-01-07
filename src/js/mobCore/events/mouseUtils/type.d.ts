@@ -17,7 +17,7 @@ export interface MouseEventParsed {
         x: number;
         y: number;
     };
-    target: EventTarget;
+    target: EventTarget | null;
     type: MouseEventType;
     preventDefault: () => void;
 
