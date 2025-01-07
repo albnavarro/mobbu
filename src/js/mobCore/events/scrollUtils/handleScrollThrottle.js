@@ -61,7 +61,7 @@ function init() {
 
     // @ts-ignore
     throttleFunctionReference = throttle(
-        (/** @type{Object} */ scrollData) => handler(scrollData),
+        (/** @type{any} */ scrollData) => handler(scrollData),
         eventStore.getProp('throttle')
     );
 

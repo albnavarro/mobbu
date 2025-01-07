@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-this-assignment */
-// @ts-check
+/* eslint-disable @typescript-eslint/no-this-alias */
 
 import { getTime } from './rafutils/time';
 
@@ -11,11 +11,14 @@ import { getTime } from './rafutils/time';
  * @description
  */
 export const throttle = (func, limit) => {
+    /** @type{any} */
     let lastFunc;
+
+    /** @type{any} */
     let lastRan;
 
     return function () {
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        // @ts-ignore
         const context = this;
         const args = arguments;
 

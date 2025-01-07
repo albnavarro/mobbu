@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {[]}
+ * @type {{priority: number, cb: (arg0: {time: number, fps: number}) => void}[]}
  */
 const callbacks = [];
 
