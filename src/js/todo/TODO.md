@@ -1,30 +1,6 @@
-# Type
-```js
-declare namespace mobJs {
-    type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
-
-    ...
-
-    export interface InizializeApp {
-        rootId: string;
-        wrapper: () => Promise<any>;
-        contentId: string;
-        routes: Route[];
-        afterInit: () => void;
-        index: string;
-        pageNotFound: string;
-        beforePageTransition?: BeforePageTransition;
-        pageTransition?: PageTransition;
-        restoreScroll?: boolean;
-    }
-}
-
-export = mobJs;
-```
-
-# Priority:
-- `bindProxi`: miglior tracciamento delle dipendenze per pote rusare `current.value.myProp` all' interno di un repeater.
-- `repeater`: refactor, Salvare i nodi root dei singoli repeater nella mappa del repeater e eliminare i riferimenti current,index dai componenti.
+# TYPE:
+- Usare `strict` per `mobCore` && `mobJs`.
+- Togliere `mobMotion` da tsconfig ( abilitare con `strict=false` secondo necessitá ).
 
 # DOCS
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
