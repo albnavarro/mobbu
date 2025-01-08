@@ -134,9 +134,7 @@ export type PartialWatch<T> = <K extends keyof GetState<T>>(
 /**
  * bindStore
  */
-export type PartialBindStore = (
-    value: MobStore<StoreDefaultMap> | MobStore<StoreDefaultMap>[]
-) => void;
+export type PartialBindStore = (value: MobStore<any> | MobStore<any>[]) => void;
 
 /**
  * RemoveDom

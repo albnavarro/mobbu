@@ -59,9 +59,7 @@ export interface MobStore<T extends StoreDefaultMap> {
     destroy: () => void;
 }
 
-export type bindStoreValueType =
-    | MobStore<StoreDefaultMap>
-    | MobStore<StoreDefaultMap>[];
+export type bindStoreValueType = MobStore<any> | MobStore<any>[];
 
 export type bindStoreType = (value: bindStoreValueType) => void;
 
