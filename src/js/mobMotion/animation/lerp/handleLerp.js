@@ -84,12 +84,12 @@ export default class HandleLerp {
     #isActive;
 
     /**
-     * @type{(value:any) => void|undefined }
+     * @type{((value:any) => void)|undefined }
      */
     #currentResolve;
 
     /**
-     * @type{(value:any) => void|undefined}
+     * @type{((value:any) => void)|undefined}
      */
     #currentReject;
 
@@ -173,7 +173,7 @@ export default class HandleLerp {
     #fastestStagger;
 
     /**
-     * @param {import('./type.js').lerpTweenProps} [ data  = {}]
+     * @param {import('./type.js').lerpTweenProps} data
      *
      * @example
      * ```javascript
@@ -304,7 +304,7 @@ export default class HandleLerp {
 
                 // On complete
                 if (!this.#pauseStatus) {
-                    res();
+                    res(true);
 
                     // Set promise reference to null once resolved
                     this.#promise = undefined;
@@ -413,7 +413,7 @@ export default class HandleLerp {
      * @param {(arg0: any) => void} res
      * @param {(value: any) => void} reject
      *
-     * @returns {Promise}
+     * @returns {Promise<any>}
      */
     async #startRaf(res, reject) {
         if (this.#fpsInLoading) return;
@@ -539,6 +539,7 @@ export default class HandleLerp {
      */
     goTo(obj, props) {
         if (this.#pauseStatus) return;
+
         this.#useStagger = true;
         const data = goToUtils(obj);
         return this.#doAction(data, props, obj);
@@ -549,6 +550,7 @@ export default class HandleLerp {
      */
     goFrom(obj, props) {
         if (this.#pauseStatus) return;
+
         this.#useStagger = true;
         const data = goFromUtils(obj);
         return this.#doAction(data, props, obj);
@@ -559,6 +561,7 @@ export default class HandleLerp {
      */
     goFromTo(fromObj, toObj, props) {
         if (this.#pauseStatus) return;
+
         this.#useStagger = true;
 
         // Check if fromObj has the same keys of toObj
