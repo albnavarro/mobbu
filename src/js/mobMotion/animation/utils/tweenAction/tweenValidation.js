@@ -287,7 +287,7 @@ export const validateStaggerWaitComplete = (waitComplete) => {
 };
 
 /**
- * @param {array|undefined} arr
+ * @param {[]|undefined} arr
  * @returns {boolean}
  *
  * @description
@@ -301,8 +301,8 @@ export const validateStaggerItems = (arr = []) => {
 };
 
 /**
- * @param {array|undefined} arr
- * @returns {Array}
+ * @param {[]|undefined} arr
+ * @returns {[]}
  *
  * @description
  * Return the array fallback
@@ -575,7 +575,9 @@ export const valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
 
 /**
  *
- * @param {Function|undefined} value
+ * @param {(() => void)|undefined} value
+ * @param {string} label
+ * @param {() => void} defaultValue
  * @returns {() => void}
  *
  * @description
@@ -585,6 +587,7 @@ export const valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(Function, value);
     if (!isValid && value) functionWarning(value, label);
 
+    // @ts-ignore
     return isValid ? value : defaultValue;
 };
 
@@ -652,7 +655,7 @@ export const asyncTimelineDelayIsValid = (value) => {
 
 /**
  *
- * @param {Object|undefined} instance
+ * @param {any} instance
  * @returns {boolean}
  *
  * @description
@@ -700,7 +703,8 @@ export const functionIsValidAndReturnDefault = (fn, defaultValue, label) => {
 
 /**
  *
- * @param {Function|undefined} fn
+ * @param {() => void|undefined} fn
+ * @returns {(arg0: {resolve: () => void }) => void}
  *
  * @description
  * Check if value is A function
@@ -718,7 +722,7 @@ export const addAsyncFunctionIsValid = (fn) => {
 
 /**
  *
- * @param {Array|undefined} arr
+ * @param {[]|undefined} arr
  *
  * @description
  * Check if value is an Array
@@ -814,9 +818,9 @@ export const directionIsValid = (direction, component) => {
 
 /**
  *
- * @param {Object|undefined} obj
+ * @param {any|undefined} obj
  * @param {string} label
- * @returns {Object} dynamicStart|dynamicEnd|null Object
+ * @returns {any} dynamicStart|dynamicEnd|null Object
  *
  * @description
  * Check if dynamicStart|dynamicEnd is a valid direction
@@ -870,8 +874,8 @@ export const parallaxDynamicRangeIsValid = (fn) => {
 
 /**
  *
- * @param {Object|undefined} instance
- * @returns {Object} parallaxTween|HandleSequencer|{}
+ * @param {any|undefined} instance
+ * @returns {any} parallaxTween|HandleSequencer|{}
  *
  * @description
  * Check if tween is parallaxTween|HandleSequencer
@@ -1195,6 +1199,11 @@ export const parallaxEaseTypeIsValid = (value) => {
     return isValid ? value : fallback;
 };
 
+/**
+ * @param {string} value
+ * @param {string} component
+ * @returns {string}
+ */
 export const genericEaseTypeIsValid = (value, component) => {
     const choice = [parallaxConstant.EASE_SPRING, parallaxConstant.EASE_LERP];
 

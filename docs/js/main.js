@@ -4900,7 +4900,7 @@
       defaultValue: mobCore.store.getProp("throttle"),
       type: Number
     });
-    const mq2 = checkSetUpMq(obj?.mq);
+    const mq2 = checkSetUpMq(obj?.mq ?? {});
     const defaultMqValue = checkSetUpType({
       prop: "defaultMq.value",
       value: obj?.defaultMq?.value,
@@ -7707,11 +7707,11 @@
      */
     #isActive;
     /**
-     * @type{(value:any) => void|undefined }
+     * @type{((value:any) => void)|undefined }
      */
     #currentResolve;
     /**
-     * @type{(value:any) => void|undefined}
+     * @type{((value:any) => void)|undefined}
      */
     #currentReject;
     /**
@@ -7779,7 +7779,7 @@
      */
     #fastestStagger;
     /**
-     * @param {import('./type.js').lerpTweenProps} [ data  = {}]
+     * @param {import('./type.js').lerpTweenProps} [ data ]
      *
      * @example
      * ```javascript
@@ -7825,7 +7825,7 @@
      * ```
      */
     constructor(data) {
-      this.#stagger = getStaggerFromProps(data);
+      this.#stagger = getStaggerFromProps(data ?? {});
       this.#relative = relativeIsValid(data?.relative, "lerp");
       this.#velocity = lerpVelocityIsValid(data?.velocity);
       this.#precision = lerpPrecisionIsValid(data?.precision);
@@ -7889,7 +7889,7 @@
             return { ...item, fromValue: item.toValue };
           });
           if (!this.#pauseStatus) {
-            res();
+            res(true);
             this.#promise = void 0;
             this.#currentReject = void 0;
             this.#currentResolve = void 0;
@@ -7975,7 +7975,7 @@
      * @param {(arg0: any) => void} res
      * @param {(value: any) => void} reject
      *
-     * @returns {Promise}
+     * @returns {Promise<any>}
      */
     async #startRaf(res, reject) {
       if (this.#fpsInLoading) return;
@@ -8079,7 +8079,7 @@
      * @type {import('../../utils/type.js').GoTo<import('./type.js').lerpActions>} obj to Values
      */
     goTo(obj, props) {
-      if (this.#pauseStatus) return;
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = true;
       const data = goToUtils(obj);
       return this.#doAction(data, props, obj);
@@ -8088,7 +8088,7 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').lerpActions>} obj to Values
      */
     goFrom(obj, props) {
-      if (this.#pauseStatus) return;
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = true;
       const data = goFromUtils(obj);
       return this.#doAction(data, props, obj);
@@ -8097,11 +8097,11 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').lerpActions>} obj to Values
      */
     goFromTo(fromObj, toObj, props) {
-      if (this.#pauseStatus) return;
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = true;
       if (!compareKeys(fromObj, toObj)) {
         compareKeysWarning("lerp goFromTo:", fromObj, toObj);
-        return this.#promise;
+        return new Promise((resolve) => resolve);
       }
       const data = goFromToUtils(fromObj, toObj);
       return this.#doAction(data, props, fromObj);
@@ -8110,7 +8110,7 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').lerpActions>} obj to Values
      */
     set(obj, props) {
-      if (this.#pauseStatus) return;
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = false;
       const data = setUtils(obj);
       return this.#doAction(data, props, obj);
@@ -8123,7 +8123,7 @@
       this.#useStagger = false;
       const data = setUtils(obj);
       this.#values = mergeArray(data, this.#values);
-      const { reverse } = this.#mergeProps(props);
+      const { reverse } = this.#mergeProps(props ?? {});
       if (valueIsBooleanAndTrue(reverse, "reverse"))
         this.#values = setReverseValues(obj, this.#values);
       this.#values = setRelative(this.#values, this.#relative);
@@ -8136,7 +8136,7 @@
      */
     #doAction(data, props, obj) {
       this.#values = mergeArray(data, this.#values);
-      const { reverse, immediate } = this.#mergeProps(props);
+      const { reverse, immediate } = this.#mergeProps(props ?? {});
       if (valueIsBooleanAndTrue(reverse, "reverse"))
         this.#values = setReverseValues(obj, this.#values);
       this.#values = setRelative(this.#values, this.#relative);
@@ -9765,11 +9765,11 @@
      */
     #isActive;
     /**
-     * @type{(value:any) => void|undefined}
+     * @type{((value:any) => void)|undefined }
      */
     #currentResolve;
     /**
-     * @type{(value:any) => void|undefined}
+     * @type{((value:any) => void)|undefined }
      */
     #currentReject;
     /**
@@ -9837,7 +9837,7 @@
      */
     #fastestStagger;
     /**
-     * @param {import('./type.js').springTweenProps} [ data = {} ]
+     * @param {import('./type.js').springTweenProps} [ data ]
      *
      * @example
      * ```javascript
@@ -9889,10 +9889,10 @@
      * ```
      */
     constructor(data) {
-      this.#stagger = getStaggerFromProps(data);
+      this.#stagger = getStaggerFromProps(data ?? {});
       this.#relative = relativeIsValid(data?.relative, "spring");
       this.#configProps = springConfigIsValidAndGetNew(data?.config);
-      this.updateConfigProp(data?.configProp);
+      this.updateConfigProp(data?.configProp ?? {});
       this.#uniqueId = mobCore.getUnivoqueId();
       this.#isActive = false;
       this.#currentResolve = void 0;
@@ -10063,7 +10063,7 @@
      * @param {(value:any) => void} res
      * @param {(value:any) => void} reject
      *
-     * @returns {Promise}
+     * @returns {Promise<any>}
      */
     async #startRaf(res, reject) {
       if (this.#fpsInLoading) return;
@@ -10192,7 +10192,7 @@
      * @type {import('../../utils/type.js').GoTo<import('./type.js').springActions>} obj to Values
      */
     goTo(obj, props) {
-      if (this.#pauseStatus) return;
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = true;
       const data = goToUtils(obj);
       return this.#doAction(data, props, obj);
@@ -10201,7 +10201,7 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').springActions>} obj to Values
      */
     goFrom(obj, props) {
-      if (this.#pauseStatus) return;
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = true;
       const data = goFromUtils(obj);
       return this.#doAction(data, props, obj);
@@ -10210,11 +10210,11 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').springActions>} obj to Values
      */
     goFromTo(fromObj, toObj, props) {
-      if (this.#pauseStatus) return;
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = true;
       if (!compareKeys(fromObj, toObj)) {
         compareKeysWarning("spring goFromTo:", fromObj, toObj);
-        return this.#promise;
+        return new Promise((resolve) => resolve);
       }
       const data = goFromToUtils(fromObj, toObj);
       return this.#doAction(data, props, fromObj);
@@ -10223,7 +10223,7 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').springActions>} obj to Values
      */
     set(obj, props) {
-      if (this.#pauseStatus) return;
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = false;
       const data = setUtils(obj);
       return this.#doAction(data, props, obj);
@@ -10236,7 +10236,7 @@
       this.#useStagger = false;
       const data = setUtils(obj);
       this.#values = mergeArray(data, this.#values);
-      const { reverse } = this.#mergeProps(props);
+      const { reverse } = this.#mergeProps(props ?? {});
       if (valueIsBooleanAndTrue(reverse, "reverse"))
         this.#values = setReverseValues(obj, this.#values);
       this.#values = setRelative(this.#values, this.#relative);
@@ -10569,7 +10569,7 @@
      */
     #isActive;
     /**
-     * @type{(value:any) => void|undefined}
+     * @type{((value:any) => void)|undefined }
      */
     #currentReject;
     /**
@@ -10705,7 +10705,7 @@
       this.#ease = easeTweenIsValidGetFunction(data?.ease);
       this.#duration = durationIsNumberOrFunctionIsValid(data?.duration);
       this.#relative = relativeIsValid(data?.relative, "tween");
-      this.#stagger = getStaggerFromProps(data);
+      this.#stagger = getStaggerFromProps(data ?? {});
       this.#uniqueId = mobCore.getUnivoqueId();
       this.#isActive = false;
       this.#currentReject = void 0;
@@ -10868,7 +10868,7 @@
      * @param {(value:any) => void} res
      * @param {(value:any) => void} reject
      *
-     * @returns {Promise}
+     * @returns {Promise<any>}
      */
     async #startRaf(res, reject) {
       if (this.#fpsInLoading) return;
@@ -11022,7 +11022,7 @@
       this.#useStagger = true;
       if (!compareKeys(fromObj, toObj)) {
         compareKeysWarning("tween goFromTo:", fromObj, toObj);
-        return this.#promise;
+        return new Promise((resolve) => resolve);
       }
       const data = goFromToUtils(fromObj, toObj);
       return this.#doAction(data, props, fromObj);

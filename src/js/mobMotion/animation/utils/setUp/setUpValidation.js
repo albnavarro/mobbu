@@ -88,7 +88,7 @@ export const setupValidation = (obj) => {
         type: Number,
     });
 
-    const mq = checkSetUpMq(obj?.mq);
+    const mq = checkSetUpMq(obj?.mq ?? {});
 
     const defaultMqValue = checkSetUpType({
         prop: 'defaultMq.value',
