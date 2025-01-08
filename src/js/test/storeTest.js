@@ -1,8 +1,10 @@
 // @ts-check
 
 import { mobCore } from '../mobCore';
+import { mainStore } from '../mobjs';
 
 export const storeTest = () => {
+    /** @type{import('../mobCore/store/type').MobStore<import('./type').proxiStore>} */
     const proxiStore = mobCore.createStore({
         proxiProp: 0,
     });
@@ -17,7 +19,7 @@ export const storeTest = () => {
         myComputed3: 0,
     });
 
-    storeTest.bindStore(proxiStore);
+    storeTest.bindStore([proxiStore, mainStore]);
     const proxi = storeTest.getProxi();
 
     storeTest.watch(
@@ -38,6 +40,10 @@ export const storeTest = () => {
 
     storeTest.watch('prop', (value) => {
         console.log('prop', value);
+    });
+
+    storeTest.watch('afterRouteChange', (value) => {
+        console.log('mainStore', value.route);
     });
 
     storeTest.watch('myComputed', (value) => {

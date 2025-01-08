@@ -6,16 +6,20 @@ import { mainStore } from '../../../src/js/mobjs';
 export const MyComponent = ({
     html,
     getProxi,
-    bindProxi,
+    bindObject,
     bindStore,
     invalidate,
 }) => {
     bindStore(mainStore);
+    // bindStore([mainStore, otherStore]);
     const proxiState = getProxi();
 
     return html`
         <div>
-            ${bindProxi`route ${() => proxiState.beforeRouteChange.route}`}
+            ${bindObject`route: ${{
+                bind: 'beforeRouteChange',
+                value: () => proxiState.beforeRouteChange.route,
+            }}.`}
         </div>
         <div>
             ${invalidate({
