@@ -49,6 +49,7 @@ import {
     getScrollFunction,
 } from './parallaxUtils.js';
 import { parallaxEaseTypeSpringWarining } from '../utils/warning.js';
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ParallaxTween from './parallaxTween.js';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -509,7 +510,7 @@ export default class ParallaxClass {
      * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
      * In case return a lerp
      *
-     * @type {string}
+     * @type {import('../spring/type.js').springChoiceConfig}
      */
     #springConfig;
 
@@ -534,7 +535,7 @@ export default class ParallaxClass {
      * @description
      * Add more precision to motion spring/lerp to trigger better force3D
      *
-     * @type { HandleLerp | HandleSpring }
+     * @type {import('./type.js').ParallaxMotion}
      */
     #motion;
 
@@ -1214,14 +1215,15 @@ export default class ParallaxClass {
 
         switch (this.#easeType) {
             case parallaxConstant.EASE_LERP: {
-                if (this.#lerpConfig) {
-                    this.#motion.updateVelocity(this.#lerpConfig);
+                if (this.#lerpConfig && 'updateVelocity' in this.#motion) {
+                    this.#motion?.updateVelocity?.(this.#lerpConfig);
                 }
                 break;
             }
+
             case parallaxConstant.EASE_SPRING: {
-                if (this.#springConfig) {
-                    this.#motion.updateConfig(this.#springConfig);
+                if (this.#springConfig && 'updateConfig' in this.#motion) {
+                    this.#motion?.updateConfig?.(this.#springConfig);
                 }
                 break;
             }
@@ -1410,9 +1412,9 @@ export default class ParallaxClass {
         let z = 0;
 
         if (this.#trigger) {
-            x = getTranslateValues(this.#trigger).x;
-            y = getTranslateValues(this.#trigger).y;
-            z = getTranslateValues(this.#trigger).z;
+            x = getTranslateValues(this.#trigger)?.x ?? 0;
+            y = getTranslateValues(this.#trigger)?.y ?? 0;
+            z = getTranslateValues(this.#trigger)?.z ?? 0;
         }
 
         /**
@@ -2280,7 +2282,7 @@ export default class ParallaxClass {
         if (this.#endMarker) this.#endMarker?.remove?.();
         this.#startMarker = undefined;
         this.#endMarker = undefined;
-        this.#pinInstance = null;
+        this.#pinInstance = undefined;
         this.#endValue = 0;
 
         // Remove style from element, if style prop exist.

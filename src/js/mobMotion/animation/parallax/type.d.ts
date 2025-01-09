@@ -431,3 +431,16 @@ export type parallaxTweenSubscribeCache = (
 
 export type parallaxTweenGetDuration = () => number;
 export type parallaxTweenGetType = () => string;
+
+export interface ParallaxMotion {
+    stop: () => void;
+    setData: (arg0: any) => void;
+    goTo: (arg0: any, ar1: any) => Promise<any>;
+    set: (arg0: any, ar1: any) => Promise<any>;
+    updateVelocity?: (number) => void;
+    updateConfig?: (arg0: springPropsOptional) => void;
+    subscribe: (cb: (arg0: any) => void) => () => void;
+    subscribeCache: any;
+    onComplete: (cb: (arg0: any) => void) => () => void;
+    destroy: () => void;
+}

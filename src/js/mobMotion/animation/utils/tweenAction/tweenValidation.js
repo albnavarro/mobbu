@@ -1217,7 +1217,7 @@ export const genericEaseTypeIsValid = (value, component) => {
  *
  * @param {string|undefined} config
  * @param {string} type
- * @returns {string}
+ * @returns {import('../../spring/type').springChoiceConfig}
  *
  * @description
  * Check if springConfig is valid

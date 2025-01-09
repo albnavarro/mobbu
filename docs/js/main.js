@@ -5379,13 +5379,13 @@
     mq(action2, breakpoint) {
       switch (action2) {
         case "min": {
-          return mq.min(breakpoint);
+          return mq["min"](breakpoint);
         }
         case "max": {
-          return mq.max(breakpoint);
+          return mq["max"](breakpoint);
         }
         case "get": {
-          return mq.getBreackpoint(breakpoint);
+          return mq["getBreackpoint"](breakpoint);
         }
       }
     },
@@ -8567,7 +8567,8 @@
      * @param {object} obj
      * @param {number} obj.partial - render at specific partial between 0 and duration
      * @param {boolean} obj.isLastDraw - use the callback defined by the onStop method
-     *
+     * @param {boolean} obj.isLastDraw - compatibiliey with sequencer for Parallxx
+     * @param {boolean} obj.useFrame - compatibiliey with sequencer for Parallxx
      * @example
      * ```js
      * myParallaxTween.draw(
@@ -15682,7 +15683,7 @@
      * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
      * In case return a lerp
      *
-     * @type {string}
+     * @type {import('../spring/type.js').springChoiceConfig}
      */
     #springConfig;
     /**
@@ -15704,7 +15705,7 @@
      * @description
      * Add more precision to motion spring/lerp to trigger better force3D
      *
-     * @type { HandleLerp | HandleSpring }
+     * @type {import('./type.js').ParallaxMotion}
      */
     #motion;
     /**
@@ -16228,14 +16229,14 @@
       });
       switch (this.#easeType) {
         case parallaxConstant.EASE_LERP: {
-          if (this.#lerpConfig) {
-            this.#motion.updateVelocity(this.#lerpConfig);
+          if (this.#lerpConfig && "updateVelocity" in this.#motion) {
+            this.#motion?.updateVelocity?.(this.#lerpConfig);
           }
           break;
         }
         case parallaxConstant.EASE_SPRING: {
-          if (this.#springConfig) {
-            this.#motion.updateConfig(this.#springConfig);
+          if (this.#springConfig && "updateConfig" in this.#motion) {
+            this.#motion?.updateConfig?.(this.#springConfig);
           }
           break;
         }
@@ -16350,9 +16351,9 @@
       let y = 0;
       let z = 0;
       if (this.#trigger) {
-        x = getTranslateValues(this.#trigger).x;
-        y = getTranslateValues(this.#trigger).y;
-        z = getTranslateValues(this.#trigger).z;
+        x = getTranslateValues(this.#trigger)?.x ?? 0;
+        y = getTranslateValues(this.#trigger)?.y ?? 0;
+        z = getTranslateValues(this.#trigger)?.z ?? 0;
       }
       el.style.transform = "";
       if (this.#direction === parallaxConstant.DIRECTION_VERTICAL) {
@@ -16949,7 +16950,7 @@
       if (this.#endMarker) this.#endMarker?.remove?.();
       this.#startMarker = void 0;
       this.#endMarker = void 0;
-      this.#pinInstance = null;
+      this.#pinInstance = void 0;
       this.#endValue = 0;
       const el = this.#applyTo ?? this.#item;
       if (el && "style" in el) el.style = "";
