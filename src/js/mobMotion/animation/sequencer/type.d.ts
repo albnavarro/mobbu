@@ -33,7 +33,7 @@ export interface sequencerValue {
     toValue: number;
 }
 
-export type propToFind = 'toValue' | 'fromValue' | '';
+export type propToFind = 'toValue' | 'fromValue';
 
 export interface sequencerRow {
     start: number;

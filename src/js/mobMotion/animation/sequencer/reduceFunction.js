@@ -17,14 +17,17 @@ export const propToSet = {
  * @param {string} prop
  * @param {import("./type").propToFind} propToFind
  *
- * @returns {import("./type").sequencerRow[]|undefined}
+ * @returns {number|undefined}
  */
 export const getFirstValidValueBack = (arr, index, prop, propToFind) => {
     return arr
         .slice(0, index)
         .reduceRight((previous, { values: valuesForward }) => {
             /**
+             * @description
              * Find active prop if exist
+             *
+             * @type {Record<string, any>|undefined }
              */
             const result = valuesForward.find(
                 ({ prop: propToCompare, active }) => {
