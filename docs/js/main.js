@@ -15577,7 +15577,7 @@
     #useWillChange;
     /**
      * @description
-     * @type {object}
+     * @type {Partial<import('../../type.js').Spring & import('../../type.js').Lerp & import('../../type.js').ParallaxTween>}
      */
     #tween;
     /**

@@ -1079,8 +1079,8 @@ export const breakpointTypeIsValid = (type, label, component) => {
  *
  * @param {string|undefined} value
  * @param {string} type
- * @param {boolean} tweenIsParallaxTween
- * @param {boolean} tweenIsSequencer
+ * @param {boolean|undefined} tweenIsParallaxTween
+ * @param {boolean|undefined} tweenIsSequencer
  * @returns {{ propierties:string, shouldTrackOnlyEvents:boolean }}
  */
 export const parallaxPropiertiesIsValid = (
