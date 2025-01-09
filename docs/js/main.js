@@ -7626,7 +7626,7 @@
 
   // src/js/mobMotion/animation/utils/tweenAction/getValues.js
   var getValueObj = (arr, key) => {
-    return arr.map((item) => ({ [item.prop]: Number.parseFloat(item[key]) })).reduce((p, c) => ({ ...p, ...c }), {});
+    return arr.map((item) => ({ [item["prop"]]: Number.parseFloat(item[key]) })).reduce((p, c) => ({ ...p, ...c }), {});
   };
   var getValueObjToNative = (arr) => {
     return arr.map((item) => {
@@ -9540,7 +9540,7 @@
       if (!sequencerRangeValidate({ start, end })) return this;
       if (!compareKeys(fromObj, toObj)) {
         compareKeysWarning("sequencer goFromTo:", fromObj, toObj);
-        return;
+        return this;
       }
       const data = goFromToSyncUtils(fromObj, toObj, ease);
       const newValues = mergeNewValues({ data, values: this.#values });
@@ -10810,12 +10810,12 @@
     }
     /**
      * @param {number} time current global time
-     * @param {boolean} _fps current FPS
+     * @param {number} fps current FPS
      * @param {Function} res current promise resolve
      *
      * @returns {void}
      **/
-    #onReuqestAnim(time2, _fps, res) {
+    #onReuqestAnim(time2, fps2, res) {
       this.#startTime = time2;
       this.#draw(time2, res);
     }
@@ -13419,7 +13419,7 @@
         this.startTime = time2;
         if (this.isReverse) this.isReverse = false;
         this.callbackComplete.forEach(({ cb }) => cb());
-        if (this.currentResolve) this.currentResolve();
+        if (this.currentResolve) this.currentResolve(true);
         return;
       }
       if (this.yoyo) {
@@ -13645,7 +13645,7 @@
      * Find label than match the occurrency and return the time
      *
      * @param {number} partial
-     * @returns {Promise}
+     * @returns {Promise<any>}
      */
     async #startAnimation(partial) {
       if (this.repeat === 0) return;
@@ -13704,6 +13704,7 @@
     }
     /**
      * @type {import('./type.js').syncTimelineStop}
+     * @returns {void}
      */
     stop({ clearCache = true } = {}) {
       this.isStopped = true;

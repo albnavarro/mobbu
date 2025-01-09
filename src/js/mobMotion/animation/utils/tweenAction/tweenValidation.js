@@ -287,7 +287,7 @@ export const validateStaggerWaitComplete = (waitComplete) => {
 };
 
 /**
- * @param {[]|undefined} arr
+ * @param {[] | (object | HTMLElement)[]} arr
  * @returns {boolean}
  *
  * @description
@@ -301,8 +301,8 @@ export const validateStaggerItems = (arr = []) => {
 };
 
 /**
- * @param {[]|undefined} arr
- * @returns {[]}
+ * @param {(object | HTMLElement)[]} arr
+ * @returns {( object | HTMLElement )[]|[]}
  *
  * @description
  * Return the array fallback
@@ -403,7 +403,7 @@ export const easeTweenIsValid = (ease) => {
 /**
  *
  * @param {string|undefined} config
- * @returns {Object}
+ * @returns {import('../../spring/type').springProps}
  *
  * @description
  * Check if spring config is valid and return new config
@@ -703,8 +703,8 @@ export const functionIsValidAndReturnDefault = (fn, defaultValue, label) => {
 
 /**
  *
- * @param {() => void|undefined} fn
- * @returns {(arg0: {resolve: () => void }) => void}
+ * @param {(arg0: import('../timeline/type').directionTypeAsync) => void} fn
+ * @returns {(arg0: import('../timeline/type').directionTypeAsync) => void}
  *
  * @description
  * Check if value is A function
@@ -722,7 +722,7 @@ export const addAsyncFunctionIsValid = (fn) => {
 
 /**
  *
- * @param {[]|undefined} arr
+ * @param {any[]|undefined} arr
  *
  * @description
  * Check if value is an Array

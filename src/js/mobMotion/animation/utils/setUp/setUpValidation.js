@@ -301,7 +301,7 @@ const checkSetUpType = ({ prop, value, defaultValue, type }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {Record<string, any>} obj
  *
  * @returns any
  */

@@ -374,12 +374,12 @@ export default class HandleTween {
 
     /**
      * @param {number} time current global time
-     * @param {boolean} _fps current FPS
+     * @param {number} fps current FPS
      * @param {Function} res current promise resolve
      *
      * @returns {void}
      **/
-    #onReuqestAnim(time, _fps, res) {
+    #onReuqestAnim(time, fps, res) {
         this.#startTime = time;
         this.#draw(time, res);
     }
