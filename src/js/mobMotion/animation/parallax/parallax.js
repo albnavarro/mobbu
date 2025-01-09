@@ -192,7 +192,7 @@ export default class ParallaxClass {
     #force3D;
 
     /**
-     * @type {object|undefined}
+     * @type {ParallaxPin|undefined}
      */
     #pinInstance;
 
