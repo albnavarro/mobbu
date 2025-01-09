@@ -15,7 +15,7 @@ export const propToSet = {
  * @param {import("./type").sequencerRow[]} arr
  * @param {number} index
  * @param {string} prop
- * @param {import("./type").propToFind} propToFind
+ * @param {import("./type").PropToFindPartial} propToFind
  *
  * @returns {number|undefined}
  */
