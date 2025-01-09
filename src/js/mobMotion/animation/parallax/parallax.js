@@ -49,6 +49,10 @@ import {
     getScrollFunction,
 } from './parallaxUtils.js';
 import { parallaxEaseTypeSpringWarining } from '../utils/warning.js';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import ParallaxTween from './parallaxTween.js';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import HandleSequencer from '../sequencer/handleSequencer.js';
 
 export default class ParallaxClass {
     /**
@@ -381,7 +385,7 @@ export default class ParallaxClass {
 
     /**
      * @description
-     * @type {Partial<import('../../type.js').Spring & import('../../type.js').Lerp & import('../../type.js').ParallaxTween>}
+     * @type {HandleLerp & HandleSpring & ParallaxTween & HandleSequencer}
      */
     #tween;
 
@@ -530,7 +534,7 @@ export default class ParallaxClass {
      * @description
      * Add more precision to motion spring/lerp to trigger better force3D
      *
-     * @type {object}
+     * @type { HandleLerp | HandleSpring }
      */
     #motion;
 

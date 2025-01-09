@@ -15577,7 +15577,7 @@
     #useWillChange;
     /**
      * @description
-     * @type {Partial<import('../../type.js').Spring & import('../../type.js').Lerp & import('../../type.js').ParallaxTween>}
+     * @type {HandleLerp & HandleSpring & ParallaxTween & HandleSequencer}
      */
     #tween;
     /**
@@ -15704,7 +15704,7 @@
      * @description
      * Add more precision to motion spring/lerp to trigger better force3D
      *
-     * @type {object}
+     * @type { HandleLerp | HandleSpring }
      */
     #motion;
     /**
