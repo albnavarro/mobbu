@@ -39,7 +39,7 @@ export const getFirstValidValueBack = (arr, index, prop, propToFind) => {
              * Return only first valid value then skip the successive
              * we return the value only when the accumulatore is null, so the first time we fond a value
              */
-            return result && !previous
+            return result && !previous && previous !== 0
                 ? result[propToSet[propToFind].get]
                 : previous;
 
