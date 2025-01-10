@@ -565,15 +565,15 @@ export class ParallaxPin {
      * @param {HTMLElement} target
      * @param {string} rule
      *
-     * @returns {object|undefined}
+     * @returns {Record<string, any>|undefined}
      */
     #findStyle(target, rule) {
         let node = target.parentNode;
         if (!node) return;
 
         while (node !== null && node !== document) {
-            // @ts-ignore
-            const style = getComputedStyle(node);
+            /** @type {Record<string, any>} */
+            const style = getComputedStyle(/** @type{Element} */ (node));
 
             if (style[rule] && !this.#nonRelevantRule.includes(style[rule])) {
                 return { [rule]: style[rule] };
@@ -737,8 +737,9 @@ export class ParallaxPin {
         mobCore.useFrame(() => {
             if (!this.#pin || !this.#collisionStyleProp) return;
 
-            this.#pin.style[this.#collisionStyleProp] =
-                `${this.#startFromTop}px`;
+            /** @type{Record<string, any>} */
+            const style = this.#pin?.style ?? {};
+            style[this.#collisionStyleProp] = `${this.#startFromTop}px`;
         });
 
         if (this.#animatePin && !this.#firstTime && this.#pin && this.#spring) {

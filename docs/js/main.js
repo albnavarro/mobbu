@@ -14697,13 +14697,16 @@
      * @param {HTMLElement} target
      * @param {string} rule
      *
-     * @returns {object|undefined}
+     * @returns {Record<string, any>|undefined}
      */
     #findStyle(target, rule) {
       let node = target.parentNode;
       if (!node) return;
       while (node !== null && node !== document) {
-        const style = getComputedStyle(node);
+        const style = getComputedStyle(
+          /** @type{Element} */
+          node
+        );
         if (style[rule] && !this.#nonRelevantRule.includes(style[rule])) {
           return { [rule]: style[rule] };
         }
@@ -14819,7 +14822,8 @@
     #tween(gap) {
       mobCore.useFrame(() => {
         if (!this.#pin || !this.#collisionStyleProp) return;
-        this.#pin.style[this.#collisionStyleProp] = `${this.#startFromTop}px`;
+        const style = this.#pin?.style ?? {};
+        style[this.#collisionStyleProp] = `${this.#startFromTop}px`;
       });
       if (this.#animatePin && !this.#firstTime && this.#pin && this.#spring) {
         this.#spring.goFrom({ collision: gap }).then(() => {
