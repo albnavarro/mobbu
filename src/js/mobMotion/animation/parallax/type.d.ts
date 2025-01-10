@@ -444,3 +444,17 @@ export interface ParallaxMotion {
     onComplete: (cb: (arg0: any) => void) => () => void;
     destroy: () => void;
 }
+
+export interface PinParams {
+    item: HTMLElement | null | undefined;
+    marker: string | undefined;
+    screen: (Window & globalThis) | HTMLElement;
+    animatePin: boolean;
+    anticipatePinOnLoad: boolean;
+    forceTranspond: boolean;
+    invertSide: boolean;
+    direction: string;
+    scrollerHeight: number;
+    getStart: () => number;
+    getEnd: () => number;
+}

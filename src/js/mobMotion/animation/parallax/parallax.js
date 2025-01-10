@@ -1071,8 +1071,6 @@ export default class ParallaxClass {
         return {
             item: this.#item,
             marker: this.#marker,
-            trigger: this.#trigger,
-            scroller: this.#scroller,
             screen: this.#screen,
             animatePin: this.#animatePin,
             anticipatePinOnLoad: this.#anticipatePinOnLoad,
@@ -1082,7 +1080,6 @@ export default class ParallaxClass {
             scrollerHeight: this.#scrollerHeight,
             getStart: () => this.#startPoint,
             getEnd: () => this.#endPoint,
-            instance: this,
         };
     }
 

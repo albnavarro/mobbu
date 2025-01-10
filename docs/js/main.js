@@ -14301,7 +14301,7 @@
     #compesateValue;
     /**
      * @description
-     * @type {HTMLElement|undefined}
+     * @type {HTMLElement|null|undefined}
      */
     #item;
     /**
@@ -14316,7 +14316,7 @@
     #wrapper;
     /**
      * @description
-     * @type {String}
+     * @type {String|undefined}
      */
     #marker;
     /**
@@ -14505,6 +14505,11 @@
       this.#unsubscribeSpring = () => {
       };
       this.#firstTime = true;
+      this.#marker = void 0;
+      this.#screen = window;
+      this.#collisionStyleProp = "left";
+      this.#anticipatePinOnLoad = true;
+      this.#shoulTranspond = false;
       this.#itemRequireStyleToWrapper = [
         "flex",
         "flex-shrink",
@@ -14553,7 +14558,7 @@
       this.#numeCycleToFreeze = 3;
     }
     /**
-     * @param {Object} data
+     * @param {import('./type.js').PinParams} data
      */
     init(data) {
       this.#item = data.item;
@@ -16112,8 +16117,6 @@
       return {
         item: this.#item,
         marker: this.#marker,
-        trigger: this.#trigger,
-        scroller: this.#scroller,
         screen: this.#screen,
         animatePin: this.#animatePin,
         anticipatePinOnLoad: this.#anticipatePinOnLoad,
@@ -16122,8 +16125,7 @@
         direction: this.#direction,
         scrollerHeight: this.#scrollerHeight,
         getStart: () => this.#startPoint,
-        getEnd: () => this.#endPoint,
-        instance: this
+        getEnd: () => this.#endPoint
       };
     }
     /**

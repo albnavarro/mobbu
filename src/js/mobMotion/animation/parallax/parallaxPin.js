@@ -55,7 +55,7 @@ export class ParallaxPin {
 
     /**
      * @description
-     * @type {HTMLElement|undefined}
+     * @type {HTMLElement|null|undefined}
      */
     #item;
 
@@ -73,7 +73,7 @@ export class ParallaxPin {
 
     /**
      * @description
-     * @type {String}
+     * @type {String|undefined}
      */
     #marker;
 
@@ -290,6 +290,12 @@ export class ParallaxPin {
         this.#unsubscribeScrollStart = () => {};
         this.#unsubscribeSpring = () => {};
         this.#firstTime = true;
+        this.#marker = undefined;
+        // eslint-disable-next-line unicorn/prefer-global-this
+        this.#screen = window;
+        this.#collisionStyleProp = 'left';
+        this.#anticipatePinOnLoad = true;
+        this.#shoulTranspond = false;
 
         this.#itemRequireStyleToWrapper = [
             'flex',
@@ -344,7 +350,7 @@ export class ParallaxPin {
     }
 
     /**
-     * @param {Object} data
+     * @param {import('./type.js').PinParams} data
      */
     init(data) {
         this.#item = data.item;
