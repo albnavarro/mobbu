@@ -57,7 +57,7 @@ const getFreezeProp = (props) => {
 };
 
 /**
- * @param {{}|{[ key:string ]: any }} states
+ * @param {object|undefined} states
  * @returns {string}
  */
 const getStateProps = (states) => {
@@ -146,6 +146,11 @@ const getContent = ({ getState }) => {
 const initScroller = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();
 
+    scrollbar.addEventListener('input', () => {
+        // @ts-ignore
+        move(scrollbar.value);
+    });
+
     const methods = verticalScroller({
         screen,
         scroller,
@@ -181,7 +186,6 @@ export const DebugComponentFn = ({
     setRef,
     getRef,
     watch,
-    delegateEvents,
 }) => {
     addMethod('updateId', (id) => {
         setState('id', id);
@@ -233,12 +237,6 @@ export const DebugComponentFn = ({
             step=".5"
             ${setRef('scrollbar')}
             class="c-debug-component__scrollbar"
-            ${delegateEvents({
-                input: (event) => {
-                    // @ts-ignore
-                    move?.(event.target.value);
-                },
-            })}
         />
         <div class="c-debug-component__container" ${setRef('scroller')}>
             ${invalidate({

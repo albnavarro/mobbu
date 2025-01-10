@@ -2,7 +2,7 @@ import { DebugTreeItem } from './DebugTreeItem/type';
 
 export interface DebugTree {
     state: {
-        data: DebugTreeItem[];
+        data: TreeRecursive[];
         isLoading: boolean;
     };
     methods: {

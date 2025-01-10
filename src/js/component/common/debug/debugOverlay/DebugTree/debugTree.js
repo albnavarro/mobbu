@@ -48,7 +48,6 @@ export const DebugTreeFn = ({
     setRef,
     getRef,
     addMethod,
-    delegateEvents,
     watch,
 }) => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -61,7 +60,12 @@ export const DebugTreeFn = ({
     let move = () => {};
 
     onMount(() => {
-        const { loadingRef } = getRef();
+        const { loadingRef, scrollbar } = getRef();
+
+        scrollbar.addEventListener('input', () => {
+            // @ts-ignore
+            move(scrollbar.value);
+        });
 
         addMethod('refresh', () => {
             refresh?.();
@@ -125,12 +129,6 @@ export const DebugTreeFn = ({
                     step=".5"
                     ${setRef('scrollbar')}
                     class="c-debug-tree__scrollbar"
-                    ${delegateEvents({
-                        input: (event) => {
-                            // @ts-ignore
-                            move?.(event.target.value);
-                        },
-                    })}
                 />
                 <span ${setRef('loadingRef')} class="c-debug-tree__status"
                     >Generate tree</span

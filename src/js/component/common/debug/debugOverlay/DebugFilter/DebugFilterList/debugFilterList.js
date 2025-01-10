@@ -139,7 +139,12 @@ export const DebugFilterListFn = ({
     });
 
     onMount(() => {
-        const { loadingRef, noresultRef } = getRef();
+        const { loadingRef, noresultRef, scrollbar } = getRef();
+
+        scrollbar.addEventListener('input', () => {
+            // @ts-ignore
+            move(scrollbar.value);
+        });
 
         (async () => {
             ({ destroy, move, refresh, updateScroller } = await initScroller({
@@ -180,12 +185,6 @@ export const DebugFilterListFn = ({
                     step=".5"
                     ${setRef('scrollbar')}
                     class="c-debug-filter-list__scrollbar"
-                    ${delegateEvents({
-                        input: (event) => {
-                            // @ts-ignore
-                            move?.(event.target.value);
-                        },
-                    })}
                 />
                 <span
                     ${setRef('loadingRef')}

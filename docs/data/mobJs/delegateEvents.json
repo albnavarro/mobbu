@@ -35,6 +35,13 @@
             "content": "During the execution of each event, further calls made before the entire app has updated will be inhibited."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Due to the <span class='quote'>asynchronous</span> nature of the event, delegateEvents is not suitable for animations, use the native <span class='quote'>addEventListener</span> for this."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
