@@ -1,3 +1,5 @@
+//@ts-check
+
 import { html } from '../../../../../mobjs';
 
 /**
@@ -6,7 +8,7 @@ import { html } from '../../../../../mobjs';
 
 /**
  * @param {object} params
- * @param {import('./DebugTreeItem/type').DebugTreeItem[]} params.data
+ * @param {import('./DebugTreeItem/type').DebugTreeItem['state'][]} params.data
  * @param {StaticProps<import('./DebugTreeItem/type').DebugTreeItem>} params.staticProps
  *
  * @return { string }

@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @import { GetRef, GetState, MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
+ * @import { GetRef, MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
 import { componentMap, useMethodByName } from '../../../../../../mobjs';
