@@ -14306,7 +14306,7 @@
     #item;
     /**
      * @description
-     * @type {Object|undefined}
+     * @type {HandleSpring|undefined|null}
      */
     #spring;
     /**
@@ -14603,7 +14603,7 @@
           }
           const gap = scrollY2 - this.#prevscrollY;
           this.#prevscrollY = scrollY2;
-          if (this.#isInner && this.#pin) {
+          if (this.#isInner && this.#pin && this.#spring) {
             const { verticalGap } = this.#spring.get();
             const translateValue = verticalGap - gap;
             this.#spring.setData({
@@ -14634,7 +14634,7 @@
       );
     }
     #resetSpring() {
-      if (this.#pin)
+      if (this.#pin && this.#spring)
         this.#spring.set({ collision: 0, verticalGap: 0 }).catch(() => {
         });
     }
@@ -14712,15 +14712,16 @@
       return;
     }
     /**
-     * @returns {object}
+     * @returns {Record<string, string>|{}}
      */
     #addRquiredStyle() {
       if (!this.#pin) return {};
-      return this.#parentRequireStyle.map((item) => {
+      const stylesObject = this.#parentRequireStyle.map((item) => {
         return this.#findStyle(this.#pin, item);
       }).filter((item) => item !== null).reduce((p, c) => {
         return { ...p, ...c };
       }, {});
+      return stylesObject ?? {};
     }
     /**
      * @returns {void}
@@ -14771,11 +14772,11 @@
      */
     destroy() {
       if (!this.#isInizialized) return;
-      this.#spring.stop();
+      this.#spring?.stop?.();
       this.#unsubscribeSpring();
       this.#unsubscribeScroll();
       this.#unsubscribeScrollStart();
-      this.#spring.destroy();
+      this.#spring?.destroy?.();
       this.#spring = null;
       this.#afterPinCounter = 0;
       this.#justPinned = false;
@@ -14820,7 +14821,7 @@
         if (!this.#pin || !this.#collisionStyleProp) return;
         this.#pin.style[this.#collisionStyleProp] = `${this.#startFromTop}px`;
       });
-      if (this.#animatePin && !this.#firstTime && this.#pin) {
+      if (this.#animatePin && !this.#firstTime && this.#pin && this.#spring) {
         this.#spring.goFrom({ collision: gap }).then(() => {
           this.#resetPinTransform();
         }).catch(() => {
