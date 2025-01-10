@@ -116,8 +116,12 @@ const PageScroller = ({ velocity, rootElement }) => {
 
             lerp?.stop();
             lerp?.destroy();
+
             // @ts-ignore
             lerp = null;
+
+            // @ts-ignore
+            rootElementToObserve = null;
             unsubscribe();
             unsubscribeScroll();
             unsubscribeMouseWheel();
