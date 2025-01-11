@@ -23348,7 +23348,7 @@ Loading snippet ...</pre
     columnWidth,
     columnAlign
   }) => {
-    const media = mq.getBreackpoint(breakpoint);
+    const media = mq["getBreackpoint"](breakpoint);
     const userSelect = `user-select:none`;
     const triggerPosition = useSticky ? "relative" : "absolute";
     const rowSticky = useSticky ? "position:sticky;top:0;" : "";
