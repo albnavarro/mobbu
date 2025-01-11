@@ -26,6 +26,9 @@ export interface NavigationSubmenu {
         children: any[];
         isOpen: boolean;
     };
+    ref: {
+        content: HTMLElement;
+    };
 }
 
 export interface Navigation {
@@ -41,5 +44,9 @@ export interface NavigationContainer {
     methods: {
         scrollTop: () => void;
         refresh: () => void;
+    };
+    ref: {
+        toTopBtn: HTMLElement;
+        wrap: HTMLElement;
     };
 }

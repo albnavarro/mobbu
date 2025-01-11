@@ -73,9 +73,9 @@ export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 export type SetStateByName<T> = PartialSetStateByName<T>;
 export type UpdateStateByName<T> = PartialUpdateStateByName<T>;
 export type Methods<T> = PartialMethods<T>;
-export type SetRef = PartialSetRef;
-export type GetRef = PartialGetRef;
-export type GetRefs = PartialGetRefs;
+export type SetRef = PartialSetRef<T>;
+export type GetRef = PartialGetRef<T>;
+export type GetRefs = PartialGetRefs<T>;
 export type BindText = PartialBindText;
 export type BindObject = PartialBindText;
 export type ReturnBindProps<T> = PartialReturnBindProps<T>;
@@ -551,7 +551,7 @@ export interface componentPropsType<T, R> {
      * };
      * ```
      */
-    setRef: PartialSetRef;
+    setRef: PartialSetRef<T>;
 
     /**
      * @description
@@ -571,7 +571,7 @@ export interface componentPropsType<T, R> {
      * };
      * ```
      */
-    getRef: PartialGetRef;
+    getRef: PartialGetRef<T>;
 
     /**
      * @description
@@ -596,7 +596,7 @@ export interface componentPropsType<T, R> {
      * };
      * ```
      */
-    getRefs: PartialGetRefs;
+    getRefs: PartialGetRefs<T>;
 
     /**
      *

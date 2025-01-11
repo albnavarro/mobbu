@@ -5,6 +5,8 @@ import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 
 type GetState<T> = T['state'];
 type GetMethods<T> = T['methods'];
+type GetRef<T> = T['ref'];
+type GetRefs<T> = T['refs'];
 
 /**
  * bindProps.
@@ -365,8 +367,10 @@ export type PartialUseMethodByName<T> = GetMethods<T>;
 /**
  * Bind refs
  */
-export type PartialSetRef = (string) => string;
-export type PartialGetRef = () => Record<string, HTMLElement>;
-export type PartialGetRefs = () => Record<string, HTMLElement[]>;
+export type PartialSetRef<T> = (
+    arg0: OnlyStringKey<GetRef<T> & GetRefs<T>>
+) => string;
+export type PartialGetRef<T> = () => GetRef<T>;
+export type PartialGetRefs<T> = () => GetRefs<T>;
 export type PartialBindText = (TemplateStringsArray, ...any) => string;
 export type PartialReturnBindProps<T> = Partial<GetState<T>>;

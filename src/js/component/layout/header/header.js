@@ -33,7 +33,7 @@ function titleHandler() {
     navContainerMethods?.scrollTop();
 }
 
-/** @type {MobComponent} */
+/** @type {MobComponent<import('./type').Header>} */
 export const HeaderFn = ({ html, onMount, delegateEvents, setRef, getRef }) => {
     onMount(() => {
         const { navInfo, title, beta } = getRef();
