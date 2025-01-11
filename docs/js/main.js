@@ -24617,7 +24617,7 @@ Loading snippet ...</pre
      */
     #subscribeMouseClick;
     /**
-     * @type {any}
+     * @type {HandleLerp|HandleSpring}
      */
     #motion;
     /**
@@ -24746,7 +24746,7 @@ Loading snippet ...</pre
       this.#firstTouchValue = 0;
       this.#threshold = 30;
       this.#maxValue = 0;
-      this.#dragEnable = null;
+      this.#dragEnable = false;
       this.#prevTouchVal = 0;
       this.#touchVal = 0;
       this.#subscribeResize = NOOP;
@@ -24760,13 +24760,13 @@ Loading snippet ...</pre
       this.#subscribeMouseMove = NOOP;
       this.#subscribeTouchMove = NOOP;
       this.#subscribeMouseClick = NOOP;
-      this.#motion = null;
+      this.#motion = {};
       this.#unsubscribeMotion = NOOP;
       this.#unsubscribeOnComplete = NOOP;
       this.#direction = directionIsValid(data?.direction, "SmoothScroller");
       this.#isDestroyed = false;
       this.#easeType = genericEaseTypeIsValid(
-        data?.easeType,
+        data?.easeType ?? "",
         "SmoothScroller"
       );
       this.#breakpoint = breakpointIsValid(
@@ -24786,7 +24786,6 @@ Loading snippet ...</pre
       if (!this.#scroller) {
         console.warn("SmoothScroller: scroller node not found");
         this.#propsIsValid = false;
-        return;
       }
       this.#screen = data?.screen ? (() => {
         return mobCore.checkType(String, data.screen) ? document.querySelector(
@@ -24797,7 +24796,6 @@ Loading snippet ...</pre
       if (!this.#screen) {
         this.#propsIsValid = false;
         console.warn("SmoothScroller: screen node not found");
-        return;
       }
       this.#scopedEvent = valueIsBooleanAndReturnDefault(
         data?.scopedEvent,
@@ -25064,8 +25062,8 @@ Loading snippet ...</pre
       if (!this.#dragEnable || !this.#drag) return;
       this.#prevTouchVal = this.#touchVal;
       this.#touchVal = this.#getMousePos({
-        x: client.x,
-        y: client.y
+        x: client?.x ?? 0,
+        y: client?.y ?? 0
       });
       this.#endValue += Math.round(this.#prevTouchVal - this.#touchVal);
       this.#calculateValue();
@@ -25097,12 +25095,12 @@ Loading snippet ...</pre
         this.#firstTouchValue = this.#endValue;
         this.#dragEnable = true;
         this.#prevTouchVal = this.#getMousePos({
-          x: client.x,
-          y: client.y
+          x: client?.x ?? 0,
+          y: client?.y ?? 0
         });
         this.#touchVal = this.#getMousePos({
-          x: client.x,
-          y: client.y
+          x: client?.x ?? 0,
+          y: client?.y ?? 0
         });
       }
     }
@@ -25125,8 +25123,8 @@ Loading snippet ...</pre
         preventDefault();
         this.#prevTouchVal = this.#touchVal;
         this.#touchVal = this.#getMousePos({
-          x: client.x,
-          y: client.y
+          x: client?.x ?? 0,
+          y: client?.y ?? 0
         });
         const result = Math.round(this.#prevTouchVal - this.#touchVal);
         this.#endValue += result;
@@ -25137,7 +25135,7 @@ Loading snippet ...</pre
      * @type {import('./type.d.ts').onMouseEvent}
      */
     #onWhell({ target, spinY, preventDefault }) {
-      if (!mq[this.#queryType](this.#breakpoint)) return;
+      if (!mq[this.#queryType](this.#breakpoint) || !spinY) return;
       if (target === this.#scroller || isDescendant(
         /** @type{HTMLElement} */
         this.#scroller,
@@ -25193,12 +25191,11 @@ Loading snippet ...</pre
       this.#percent = clamp(percentValue, 0, 100);
       this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
       this.#motion.goTo({ val: this.#endValue });
-      if (this.#onUpdateCallback)
-        this.#onUpdateCallback({
-          value: -this.#endValue,
-          percent: this.#percent,
-          parentIsMoving: true
-        });
+      this.#onUpdateCallback?.({
+        value: -this.#endValue,
+        percent: this.#percent,
+        parentIsMoving: true
+      });
     }
     /**
      * @type {import('./type.d.ts').onMouseEvent}
@@ -25244,7 +25241,7 @@ Loading snippet ...</pre
       this.#setScrolerStyle();
       mobCore.useFrameIndex(() => {
         mobCore.useNextTick(() => {
-          if (this.#onAfterRefresh) this.#onAfterRefresh();
+          this.#onAfterRefresh?.();
           this.#children.forEach((element) => {
             element.refresh();
           });
