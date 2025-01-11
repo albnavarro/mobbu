@@ -17,6 +17,24 @@
 
 # MobJs
 
+## Type
+### Aggiungere refs al tipo componente:
+
+```js
+export interface Navigation {
+    state: {
+        currentAccordionId: number;
+    };
+    methods: {
+        closeAllAccordion: (arg0?: { fireCallback?: boolean }) => void;
+    };
+    refs: {
+        myRefs: HTMLElement;
+        myRefsArray: HTMLElement[];
+    }
+}
+```
+
 ##  bindClass
 - l'inizializzazione avverra con un querySelctoreAll come per `delegateEvents` alla fine del parse.
 - Verrá utilizzata una `weakRef` come per bindObject
