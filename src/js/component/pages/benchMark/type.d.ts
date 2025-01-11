@@ -5,4 +5,8 @@ export interface BenchMark {
         data: { label: string }[];
         isLoading: boolean;
     };
+    ref: {
+        loading: HTMLElement;
+        input: HTMLInputElement;
+    };
 }

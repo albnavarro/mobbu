@@ -47,9 +47,9 @@ const setData = async ({ value, useShuffle = false }) => {
 /**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @param {SetRef} params.setRef
- * @param {GetRef} params.getRef
- * @param {GetState<import('../type').BenchMark>} params.getState
+ * @param {SetRef<import('./type').BenchMarkExternal>} params.setRef
+ * @param {GetRef<import('./type').BenchMarkExternal>} params.getRef
+ * @param {GetState<import('./type').BenchMarkExternal>} params.getState
  */
 export const benchMarkListExternalPartial = ({
     delegateEvents,
@@ -71,9 +71,8 @@ export const benchMarkListExternalPartial = ({
                 placeholder="Number of component"
                 ${setRef('input')}
                 ${delegateEvents({
-                    keypress: (event) => {
-                        // @ts-ignore
-                        if (event.keyCode === 13) {
+                    keypress: (/** @type{KeyboardEvent} */ event) => {
+                        if (event.code.toLowerCase() === 'enter') {
                             event.preventDefault();
 
                             const value = Number(

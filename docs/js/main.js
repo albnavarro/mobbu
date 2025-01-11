@@ -27812,7 +27812,7 @@ Loading snippet ...</pre
                 ${setRef("input")}
                 ${delegateEvents({
       keypress: (event) => {
-        if (event.keyCode === 13) {
+        if (event.code.toLowerCase() === "enter") {
           event.preventDefault();
           const value = Number(
             /** @type{HTMLInputElement} */

@@ -7,4 +7,8 @@ export interface ExternalStore {
 
 export interface BenchMarkExternal {
     state: ExternalStore;
+    ref: {
+        loading: HTMLElement;
+        input: HTMLInputElement;
+    };
 }

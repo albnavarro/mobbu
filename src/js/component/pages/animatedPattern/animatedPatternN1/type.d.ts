@@ -8,4 +8,8 @@ export interface AnimatedPatternN1 {
         fill: number[];
         disableOffcanvas: boolean;
     };
+    ref: {
+        wrap: HTMLElement;
+        canvas: HTMLCanvasElement;
+    };
 }

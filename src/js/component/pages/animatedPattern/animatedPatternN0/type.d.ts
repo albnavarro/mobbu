@@ -23,4 +23,8 @@ export interface AnimatedPatternN0 {
         reorder: string;
         disableOffcanvas: boolean;
     };
+    ref: {
+        wrap: HTMLElement;
+        canvas: HTMLCanvasElement;
+    };
 }

@@ -67,8 +67,8 @@ const setData = async ({ setState, value, useShuffle = false }) => {
 /**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @param {SetRef} params.setRef
- * @param {GetRef} params.getRef
+ * @param {SetRef<import('../type').BenchMark>} params.setRef
+ * @param {GetRef<import('../type').BenchMark>} params.getRef
  * @param {UpdateState<import('../type').BenchMark>} params.updateState
  * @param {GetState<import('../type').BenchMark>} params.getState
  * @param {SetState<import('../type').BenchMark>} params.setState
