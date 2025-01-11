@@ -1,5 +1,5 @@
 /**
-- State.d.ts
+type.d.ts
 
 export interface MyComponent {
     state: {
@@ -10,6 +10,14 @@ export interface MyComponent {
     methods: {
         myMethod: (arg0: { prop1: number; prop2: number }) => void;
     };
+    ref: {
+        myRef: HTMLElement;
+        myRef2: HTMLElement;
+    }
+    refs: {
+        myRefCollection: HTMLElement[];
+        myRefCollection2: HTMLElement[];
+    }
 }
 **/
 

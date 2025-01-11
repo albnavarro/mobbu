@@ -48,7 +48,7 @@
             "component": "anchor-button",
             "props": {
                 "anchor": "#type",
-                "content": "Function Type"
+                "content": "Type"
             }
         },
         {
@@ -387,7 +387,7 @@
             "props": {
                 "style": "medium",
                 "id": "type",
-                "label": "Function type"
+                "label": "Type"
             }
         },
         {
@@ -421,7 +421,22 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to associate an interface with the function so that all the functions/properties used inside it use the type defined in the generic. The interface is composed of two parameters <span class='quote'>state</span> and <span class='quote'>methods</span>."
+            "content": "It is possible to associate an interface with the function so that all the functions/properties used inside it use the type defined in the generic."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span class='quote'>interface</span> is composed of four parameters:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": ["state", "methods", "ref", "refs"]
+            }
         },
         {
             "component": "mob-spacer",
