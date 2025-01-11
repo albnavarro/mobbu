@@ -32,13 +32,11 @@ export const QuickNavFn = ({
 
         watchSync('nextRoute', (route) => {
             next.classList.toggle('is-disable', !route);
-            // @ts-ignore
             next.href = route;
         });
 
         watchSync('prevRoute', (route) => {
             prev.classList.toggle('is-disable', !route);
-            // @ts-ignore
             prev.href = route;
         });
 

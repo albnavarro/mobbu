@@ -7,7 +7,7 @@ import { setStateByName } from '../../../mobjs';
  **/
 
 /**
- * @type {import('./type').updateQuickNavState}
+ * @type {import('./type').UpdateQuickNavState}
  */
 export const updateQuickNavState = ({
     active = true,

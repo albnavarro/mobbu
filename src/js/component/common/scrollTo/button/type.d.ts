@@ -3,4 +3,7 @@ export interface ScrollToButton {
         label: string;
         active: boolean;
     };
+    ref: {
+        labelRef: HTMLSpanElement;
+    };
 }

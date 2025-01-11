@@ -8,4 +8,7 @@ export interface Snippet {
         numLines: number;
         awaitLoad: boolean;
     };
+    ref: {
+        codeEl: HTMLPreElement;
+    };
 }

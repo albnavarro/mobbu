@@ -5,9 +5,13 @@ export interface QuickNav {
         prevRoute: string;
         nextRoute: string;
     };
+    ref: {
+        prev: HTMLLinkElement;
+        next: HTMLLinkElement;
+    };
 }
 
-export type updateQuickNavState = (arg0: {
+export type UpdateQuickNavState = (arg0: {
     active: booleane;
     nextRoute: string;
     prevRoute: string;

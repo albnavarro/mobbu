@@ -16,4 +16,7 @@ export interface ScrollTo {
         }) => void;
         setActiveLabel: (arg0: string) => void;
     };
+    ref: {
+        list: HTMLUListElement;
+    };
 }
