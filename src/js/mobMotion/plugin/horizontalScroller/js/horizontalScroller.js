@@ -592,7 +592,6 @@ export class HorizontalScroller {
             console.warn('horizontal custom: root node not found');
         }
 
-        // @ts-ignore
         const scrollerTester = this.#mainContainer.querySelector(
             this.#container
         );
@@ -625,7 +624,6 @@ export class HorizontalScroller {
         this.#shadows = this.#mainContainer.querySelectorAll('[data-shadow]');
         const originalShadowClass = data?.shadowClass || 'shadow';
         this.#shadowMainClassTransition = originalShadowClass.replace('.', '');
-        // @ts-ignore
         this.#buttons = this.#row.querySelectorAll('a, button');
 
         this.#children.forEach((element) => {
