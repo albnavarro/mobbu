@@ -1,7 +1,3 @@
-# TYPE:
-- Usare `strict` per `mobCore` && `mobJs`.
-- Togliere `mobMotion` da tsconfig ( abilitare con `strict=false` secondo necessitá ).
-
 # DOCS
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
@@ -16,24 +12,6 @@
 - ( stringhe non referenze ).
 
 # MobJs
-
-## Type
-### Aggiungere refs al tipo componente:
-
-```js
-export interface Navigation {
-    state: {
-        currentAccordionId: number;
-    };
-    methods: {
-        closeAllAccordion: (arg0?: { fireCallback?: boolean }) => void;
-    };
-    refs: {
-        myRefs: HTMLElement;
-        myRefsArray: HTMLElement[];
-    }
-}
-```
 
 ##  bindClass
 - l'inizializzazione avverra con un querySelctoreAll come per `delegateEvents` alla fine del parse.
