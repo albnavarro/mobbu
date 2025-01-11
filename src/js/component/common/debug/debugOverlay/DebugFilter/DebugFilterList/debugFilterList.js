@@ -93,7 +93,6 @@ export const DebugFilterListFn = ({
     setState,
     staticProps,
     bindProps,
-    delegateEvents,
     getState,
     watch,
 }) => {

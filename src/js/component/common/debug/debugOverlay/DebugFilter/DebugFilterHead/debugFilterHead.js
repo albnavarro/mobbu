@@ -8,7 +8,7 @@ import { tick, useMethodByName } from '../../../../../../mobjs';
 
 let lastSearch = '';
 
-/** @type{MobComponent} */
+/** @type{MobComponent<import('./type').DebugFilterHead>} */
 export const DebugFilterHeadFn = ({
     html,
     onMount,
@@ -37,13 +37,14 @@ export const DebugFilterHeadFn = ({
             value="${lastSearch}"
             ${setRef('input')}
             ${delegateEvents({
-                keypress: (event) => {
-                    // @ts-ignore
-                    if (event.keyCode === 13) {
+                keypress: (/** @type{KeyboardEvent} */ event) => {
+                    if (event.code.toLowerCase() === 'enter') {
                         event.preventDefault();
 
-                        // @ts-ignore
-                        const testString = event.target.value;
+                        const testString = /** @type{HTMLInputElement} */ (
+                            event.target
+                        ).value;
+
                         lastSearch = testString;
 
                         /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
@@ -59,7 +60,6 @@ export const DebugFilterHeadFn = ({
             ${delegateEvents({
                 click: () => {
                     const { input } = getRef();
-                    // @ts-ignore
                     const testString = input.value;
                     lastSearch = testString;
 

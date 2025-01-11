@@ -12,4 +12,10 @@ export interface CodeOverlay {
         activeContent: string;
         rawContent: string;
     };
+    ref: {
+        screenEl: HTMLElement;
+        scrollerEl: HTMLElement;
+        codeEl: HTMLElement;
+        scrollbar: HTMLInputElement;
+    };
 }

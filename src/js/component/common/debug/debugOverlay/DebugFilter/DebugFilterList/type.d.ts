@@ -8,4 +8,11 @@ export interface DebugFilterList {
     methods: {
         refreshList: (arg0: { testString: string }) => void;
     };
+    ref: {
+        loadingRef: HTMLElement;
+        noresultRef: HTMLElement;
+        scrollbar: HTMLInputElement;
+        screen: HTMLElement;
+        scroller: HTMLElement;
+    };
 }

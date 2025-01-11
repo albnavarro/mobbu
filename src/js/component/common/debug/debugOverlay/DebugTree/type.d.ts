@@ -1,5 +1,3 @@
-import { DebugTreeItem } from './DebugTreeItem/type';
-
 export interface DebugTree {
     state: {
         data: TreeRecursive[];
@@ -7,5 +5,11 @@ export interface DebugTree {
     };
     methods: {
         refresh: () => void;
+    };
+    ref: {
+        loadingRef: HTMLElement;
+        scrollbar: HTMLElement;
+        screen: HTMLElement;
+        scroller: HTMLElement;
     };
 }

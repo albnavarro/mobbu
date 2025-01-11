@@ -4,4 +4,7 @@ export interface DebugFilterListItem {
         tag: string;
         name: string;
     };
+    ref: {
+        selected: HTMLSpanElement;
+    };
 }

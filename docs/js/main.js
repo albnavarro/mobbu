@@ -35755,9 +35755,12 @@ Loading snippet ...</pre
             ${setRef("input")}
             ${delegateEvents({
       keypress: (event) => {
-        if (event.keyCode === 13) {
+        if (event.code.toLowerCase() === "enter") {
           event.preventDefault();
-          const testString = event.target.value;
+          const testString = (
+            /** @type{HTMLInputElement} */
+            event.target.value
+          );
           lastSearch = testString;
           const methods = useMethodByName("debug_filter_list");
           methods?.refreshList({ testString });
@@ -35850,7 +35853,6 @@ Loading snippet ...</pre
     setState,
     staticProps: staticProps2,
     bindProps,
-    delegateEvents,
     getState,
     watch
   }) => {
@@ -36136,9 +36138,12 @@ Loading snippet ...</pre
                 ${setRef("id_input")}
                 ${delegateEvents({
       keypress: (event) => {
-        if (event.keyCode === 13) {
+        if (event.code.toLowerCase() === "enter") {
           event.preventDefault();
-          const id = event.target.value;
+          const id = (
+            /** @type{HTMLInputElement} */
+            event.target.value
+          );
           const methods = useMethodByName("debug_component");
           methods?.updateId(id ?? "");
         }
@@ -36151,7 +36156,10 @@ Loading snippet ...</pre
                 ${delegateEvents({
       click: () => {
         const { id_input } = getRef();
-        const id = id_input.value;
+        const id = (
+          /** @type{HTMLInputElement} */
+          id_input.value
+        );
         const methods = useMethodByName("debug_component");
         methods?.updateId(id ?? "");
       }
@@ -36170,9 +36178,12 @@ Loading snippet ...</pre
                 ${setRef("instance_input")}
                 ${delegateEvents({
       keypress: (event) => {
-        if (event.keyCode === 13) {
+        if (event.code.toLowerCase() === "enter") {
           event.preventDefault();
-          const instanceName = event.target.value;
+          const instanceName = (
+            /** @type{HTMLInputElement} */
+            event.target.value
+          );
           const id = getIdByInstanceName(instanceName);
           const methods = useMethodByName("debug_component");
           methods?.updateId(id ?? "");

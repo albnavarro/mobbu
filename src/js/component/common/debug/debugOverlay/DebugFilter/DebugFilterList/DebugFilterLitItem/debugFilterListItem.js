@@ -11,7 +11,7 @@ import { debugActiveComponentStore } from '../../../Store/DebugActiveComponent';
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.value
- * @param {GetRef} params.getRef
+ * @param {GetRef<import('./type').DebugFilterListItem>} params.getRef
  * @returns {void}
  */
 const setActiveItems = ({ id, value, getRef }) => {

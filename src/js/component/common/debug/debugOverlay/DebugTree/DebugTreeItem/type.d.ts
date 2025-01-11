@@ -6,4 +6,9 @@ export interface DebugTreeItem {
         children: DebugTreeItem['state'][];
         isOpen: boolean;
     };
+    ref: {
+        content: HTMLElement;
+        head: HTMLElement;
+        selected: HTMLSpanElement;
+    };
 }

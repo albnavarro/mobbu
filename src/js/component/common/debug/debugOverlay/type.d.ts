@@ -6,4 +6,8 @@ export interface DebugOverlay {
     methods: {
         toggle: () => void;
     };
+    ref: {
+        toggle_tree: HTMLElement;
+        toggle_filter: HTMLElement;
+    };
 }

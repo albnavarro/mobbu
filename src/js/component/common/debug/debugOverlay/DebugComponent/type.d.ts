@@ -6,4 +6,9 @@ export interface DebugComponent {
         updateId: (id: string) => void;
         refreshId: () => void;
     };
+    ref: {
+        screen: HTMLElement;
+        scrollbar: HTMLInputElement;
+        scroller: HTMLElement;
+    };
 }

@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { GetState, MobComponent } from '../../../../../mobjs/type';
+ * @import { GetRef, GetState, MobComponent } from '../../../../../mobjs/type';
  **/
 
 import { componentMap, html, tick } from '../../../../../mobjs';
@@ -143,6 +143,10 @@ const getContent = ({ getState }) => {
     </div>`;
 };
 
+/**
+ * @param {object} params
+ * @param {GetRef<import('./type').DebugComponent>} params.getRef
+ */
 const initScroller = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();
 
