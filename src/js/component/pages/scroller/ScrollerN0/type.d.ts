@@ -20,4 +20,9 @@ export interface ScrollerN0 {
         reorder: boolean;
         disableOffcanvas: boolean;
     };
+    ref: {
+        wrap: HTMLElement;
+        canvas: HTMLCanvasElement;
+        canvasScroller: HTMLCanvasElement;
+    };
 }

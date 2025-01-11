@@ -14,4 +14,10 @@ export interface CaterpillarN2 {
         disableOffcanvas: boolean;
         buttons: any;
     };
+    ref: {
+        wrap: HTMLElement;
+        canvas: HTMLCanvasElement;
+        rangeValue: HTMLSpanElement;
+        rotationButton: HTMLButtonElement;
+    };
 }

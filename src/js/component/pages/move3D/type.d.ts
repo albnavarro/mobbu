@@ -12,6 +12,10 @@ export interface Move3D {
         shape: Move3DChildren[];
         debug: boolean;
     };
+    ref: {
+        scene: HTMLElement;
+        container: HTMLElement;
+    };
 }
 
 export interface Move3DChildren {

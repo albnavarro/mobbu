@@ -15,4 +15,8 @@ export interface CaterpillarN0 {
         mouseMoveRatio: 10;
         disableOffcanvas: boolean;
     };
+    ref: {
+        wrap: HTMLElement;
+        canvas: HTMLCanvasElement;
+    };
 }

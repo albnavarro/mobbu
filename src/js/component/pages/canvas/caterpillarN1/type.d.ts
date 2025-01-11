@@ -11,4 +11,8 @@ export interface CaterpillarN1 {
         rotationDuration: number;
         disableOffcanvas: boolean;
     };
+    ref: {
+        wrap: HTMLElement;
+        canvas: HTMLCanvasElement;
+    };
 }

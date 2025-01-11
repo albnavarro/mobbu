@@ -33644,7 +33644,10 @@ Loading snippet ...</pre
                     value=${proxiState.factor}
                     ${delegateEvents({
       input: (event) => {
-        const value = event?.target?.value ?? 0;
+        const value = (
+          /** @type{HTMLInputElement} */
+          event.target.value ?? 0
+        );
         proxiState.factor = Number(value);
       }
     })}
@@ -33661,7 +33664,10 @@ Loading snippet ...</pre
                     value=${proxiState.xDepth}
                     ${delegateEvents({
       input: (event) => {
-        const value = event?.target?.value ?? 0;
+        const value = (
+          /** @type{HTMLInputElement} */
+          event.target.value ?? 0
+        );
         proxiState.xDepth = Number(value);
       }
     })}
@@ -33678,7 +33684,10 @@ Loading snippet ...</pre
                     value=${proxiState.yDepth}
                     ${delegateEvents({
       input: (event) => {
-        const value = event?.target?.value ?? 0;
+        const value = (
+          /** @type{HTMLInputElement} */
+          event.target.value ?? 0
+        );
         proxiState.yDepth = Number(value);
       }
     })}

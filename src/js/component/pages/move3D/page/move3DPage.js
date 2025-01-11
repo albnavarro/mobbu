@@ -28,9 +28,10 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     type="range"
                     value=${proxiState.factor}
                     ${delegateEvents({
-                        input: (event) => {
-                            // @ts-ignore
-                            const value = event?.target?.value ?? 0;
+                        input: (/** @type{KeyboardEvent} */ event) => {
+                            const value =
+                                /** @type{HTMLInputElement} */ (event.target)
+                                    .value ?? 0;
                             proxiState.factor = Number(value);
                         },
                     })}
@@ -46,9 +47,10 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     type="range"
                     value=${proxiState.xDepth}
                     ${delegateEvents({
-                        input: (event) => {
-                            // @ts-ignore
-                            const value = event?.target?.value ?? 0;
+                        input: (/** @type{KeyboardEvent} */ event) => {
+                            const value =
+                                /** @type{HTMLInputElement} */ (event.target)
+                                    .value ?? 0;
                             proxiState.xDepth = Number(value);
                         },
                     })}
@@ -64,9 +66,10 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     type="range"
                     value=${proxiState.yDepth}
                     ${delegateEvents({
-                        input: (event) => {
-                            // @ts-ignore
-                            const value = event?.target?.value ?? 0;
+                        input: (/** @type{KeyboardEvent} */ event) => {
+                            const value =
+                                /** @type{HTMLInputElement} */ (event.target)
+                                    .value ?? 0;
                             proxiState.yDepth = Number(value);
                         },
                     })}

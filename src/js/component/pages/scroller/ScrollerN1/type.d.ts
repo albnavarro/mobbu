@@ -9,4 +9,9 @@ export interface ScrollerN1 {
         endRotation: number;
         disableOffcanvas: boolean;
     };
+    ref: {
+        wrap: HTMLElement;
+        canvas: HTMLCanvasElement;
+        canvasScroller: HTMLCanvasElement;
+    };
 }

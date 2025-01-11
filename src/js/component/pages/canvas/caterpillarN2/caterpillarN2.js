@@ -134,7 +134,6 @@ export const CaterpillarN2Fn = ({
          * Rotation handler
          */
         rotationButton.addEventListener('change', () => {
-            // @ts-ignore
             const value = rotationButton.value;
             setRotation(value);
             rangeValue.textContent = value;
