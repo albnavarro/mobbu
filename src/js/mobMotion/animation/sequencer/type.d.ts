@@ -70,12 +70,13 @@ export interface masterSequencerItem {
         partial: number;
         isLastDraw: boolean;
         useFrame: boolean;
+        direction?: directionType;
     }) => void;
     inzializeStagger: () => void;
     setDuration: (arg0: number) => void;
     getDuration: () => number;
     setStretchFactor: (arg0: number) => void;
-    getLabels: () => string;
+    getLabels: sequencerGetLabels;
     disableStagger: () => void;
     resetLastValue: () => void;
     cleanCachedId: () => void;

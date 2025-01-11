@@ -247,7 +247,7 @@ export default class HandleSequencer {
      * @param {number} obj.partial
      * @param {boolean} obj.isLastDraw
      * @param {boolean} obj.useFrame
-     * @param {import('../utils/timeline/type.js').directionType} obj.direction
+     * @param {import('../utils/timeline/type.js').directionType} [ obj.direction ]
      *
      * @example
      * ```javascript
@@ -290,7 +290,7 @@ export default class HandleSequencer {
      * @param {object} obj
      * @param {number} obj.partial
      * @param {boolean} obj.isLastDraw
-     * @param {import('../utils/timeline/type.js').directionType} obj.direction
+     * @param {import('../utils/timeline/type.js').directionType} [ obj.direction ]
      *
      */
     #onDraw({
