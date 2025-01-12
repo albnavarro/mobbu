@@ -1,6 +1,6 @@
-import { callbackObject } from '../callbacks/type.js';
+import { CallbackObject } from '../callbacks/type.js';
 
-export interface staggerObject {
+export interface StaggerObject {
     /**
      * @description
      * Stagger type for createStagger
@@ -43,7 +43,7 @@ export interface staggerObject {
     };
 }
 
-export interface staggerObjectOptional {
+export interface StaggerObjectOptional {
     /**
      * @description
      * Stagger type for createStagger
@@ -86,59 +86,46 @@ export interface staggerObjectOptional {
     };
 }
 
-export interface staggerPropiertiesObject {
-    stagger: staggerObject;
+export interface StaggerPropiertiesObject {
+    stagger: StaggerObject;
 }
 
-export interface staggerDefaultIndex {
+export interface StaggerDefaultIndex {
     index: number;
     frame: number;
 }
 
-/**
- * arrayDefault can be:
- * callbackObject || callbackCache || custom array in createStagger
- * this line create problem for use generic, we does not now which array we use.
- *
- * ```js
- * const cb = getStaggerArray(this.#callbackCache, this.#callback);
- * ```
- * arrayDefault is union Type of callbackObject && callbackCache.
- * So return a union type.
- * When we update value we can't update value with a union type.
- *
- *```js
- * if (this.#callbackCache.length > this.#callback.length) {
- *     this.#callbackCache = staggerArray;
- * } else {
- *     this.#callback = staggerArray;
- * }
- *```
- *
- * TODO:
- * any[] must be a generic that extend staggerDefaultIndex ?
- */
-export type setStagger = (arg0: {
-    arrayDefault: any[];
-    arrayOnStop: any[];
-    stagger: staggerObject;
-    slowlestStagger: staggerDefaultIndex;
-    fastestStagger: staggerDefaultIndex;
+export type setStagger = <T extends any[], S extends any[]>(arg0: {
+    arrayDefault: T;
+    arrayOnStop: S;
+    stagger: StaggerObject;
+    slowlestStagger: StaggerDefaultIndex;
+    fastestStagger: StaggerDefaultIndex;
 }) => {
-    staggerArray: any[];
-    staggerArrayOnComplete: any[];
-    fastestStagger: staggerDefaultIndex;
-    slowlestStagger: staggerDefaultIndex;
+    staggerArray: CallbackArrayStagger<T> | [];
+    staggerArrayOnComplete: CallbackArrayStagger<S> | [];
+    fastestStagger: StaggerDefaultIndex;
+    slowlestStagger: StaggerDefaultIndex;
 };
 
-export type shouldInizializzeStagger = (
+/**
+ * Map type.
+ * Merge original callBackObject with stagger props: index && frame.
+ * Set stagger return callbackObject updated
+ * ( arrayDefault | arrayOnStop | createStagger )
+ */
+type CallbackArrayStagger<Type> = {
+    [Property in keyof Type]: Type[Property] & StaggerDefaultIndex;
+};
+
+export type ShouldInizializzeStagger = (
     each: number,
     firstRun: boolean,
-    arrayToCompare1: callbackObject<any>[],
-    arrayToCompare2: callbackObject<any>[]
+    arrayToCompare1: CallbackObject<any>[],
+    arrayToCompare2: CallbackObject<any>[]
 ) => boolean | undefined;
 
-export type getStaggerArray = <C extends any[], D extends any[]>(
+export type GetStaggerArray = <C extends any[], D extends any[]>(
     callbackCache: C,
     callbackDefault: D
 ) => C | D;

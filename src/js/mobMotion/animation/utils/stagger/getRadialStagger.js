@@ -94,7 +94,7 @@ const isAvailableIntoChunk = (arr, i, i2) => {
 /**
  * @template {any[]}T
  * @param {T} arr
- * @param {import('./type.js').staggerObject} stagger
+ * @param {import('./type.js').StaggerObject} stagger
  *
  * @returns {{cleanArray: Array<T> }}
  */

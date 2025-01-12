@@ -1,12 +1,12 @@
 import { easeTypes } from '../tween/type';
-import { staggerObjectOptional } from '../utils/stagger/type';
+import { StaggerObjectOptional } from '../utils/stagger/type';
 import { directionType } from '../utils/timeline/type';
 import HandleSequencer from './handleSequencer';
 
 export interface sequencerProps {
     data: Record<string, number>;
     duration?: number;
-    stagger?: staggerObjectOptional;
+    stagger?: StaggerObjectOptional;
     ease?: easeTypes;
 }
 

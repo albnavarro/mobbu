@@ -52,7 +52,7 @@ export const getRandomChoice = (arrayChunk, each, index) => {
 /**
  * @param {number} index
  * @param {number} arraylenght
- * @param {import('./type.js').staggerObject} stagger
+ * @param {import('./type.js').StaggerObject} stagger
  * @param {number[]} randomChoice
  * @returns {{'index':number, 'frame':number}}
  *
@@ -221,7 +221,7 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
 /**
  * @template {any[]} T
  * @param {T} arrayDefault
- * @param {import('./type.js').staggerObject} stagger
+ * @param {import('./type.js').StaggerObject} stagger
  * @param {number} chunckSizeCol
  *
  * @returns {T} arr
