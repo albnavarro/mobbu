@@ -162,12 +162,12 @@ export default class HandleSpring {
     #defaultProps;
 
     /**
-     * @type {import('../utils/stagger/type.js').StaggerDefaultIndex}
+     * @type {import('../utils/stagger/type.js').StaggerFrameIndexObject}
      */
     #slowlestStagger;
 
     /**
-     * @type {import('../utils/stagger/type.js').StaggerDefaultIndex}
+     * @type {import('../utils/stagger/type.js').StaggerFrameIndexObject}
      */
     #fastestStagger;
 

@@ -35,7 +35,7 @@ export const STAGGER_DEFAULT_OBJ = {
 };
 
 /**
- * @type {import("./type").StaggerDefaultIndex}
+ * @type {import("./type").StaggerFrameIndexObject}
  */
 export const STAGGER_DEFAULT_INDEX_OBJ = {
     index: 0,

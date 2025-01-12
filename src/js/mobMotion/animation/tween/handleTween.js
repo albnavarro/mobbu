@@ -183,12 +183,12 @@ export default class HandleTween {
     #defaultProps;
 
     /**
-     * @type {import('../utils/stagger/type.js').StaggerDefaultIndex}
+     * @type {import('../utils/stagger/type.js').StaggerFrameIndexObject}
      */
     #slowlestStagger;
 
     /**
-     * @type {import('../utils/stagger/type.js').StaggerDefaultIndex}
+     * @type {import('../utils/stagger/type.js').StaggerFrameIndexObject}
      */
     #fastestStagger;
 

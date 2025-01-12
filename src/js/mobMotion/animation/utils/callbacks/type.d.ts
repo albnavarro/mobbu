@@ -1,4 +1,4 @@
-import { StaggerDefaultIndex, StaggerObject } from '../stagger/type';
+import { StaggerFrameIndexObject, StaggerObject } from '../stagger/type';
 
 export interface CallbackObject<T> {
     cb: T;
@@ -39,8 +39,8 @@ export type DefaultCallbackOnComplete = (arg0: {
         (arg0: Record<string, number>) => void
     >[];
     callBackObject: Record<string, number>;
-    slowlestStagger: StaggerDefaultIndex;
-    fastestStagger: StaggerDefaultIndex;
+    slowlestStagger: StaggerFrameIndexObject;
+    fastestStagger: StaggerFrameIndexObject;
     useStagger: boolean;
 }) => void;
 

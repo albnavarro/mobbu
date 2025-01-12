@@ -90,7 +90,7 @@ export interface StaggerPropiertiesObject {
     stagger: StaggerObject;
 }
 
-export interface StaggerDefaultIndex {
+export interface StaggerFrameIndexObject {
     index: number;
     frame: number;
 }
@@ -99,13 +99,13 @@ export type setStagger = <T extends any[], S extends any[]>(arg0: {
     arrayDefault: T;
     arrayOnStop: S;
     stagger: StaggerObject;
-    slowlestStagger: StaggerDefaultIndex;
-    fastestStagger: StaggerDefaultIndex;
+    slowlestStagger: StaggerFrameIndexObject;
+    fastestStagger: StaggerFrameIndexObject;
 }) => {
     staggerArray: CallbackArrayStagger<T> | [];
     staggerArrayOnComplete: CallbackArrayStagger<S> | [];
-    fastestStagger: StaggerDefaultIndex;
-    slowlestStagger: StaggerDefaultIndex;
+    fastestStagger: StaggerFrameIndexObject;
+    slowlestStagger: StaggerFrameIndexObject;
 };
 
 /**
@@ -115,7 +115,7 @@ export type setStagger = <T extends any[], S extends any[]>(arg0: {
  * ( arrayDefault | arrayOnStop | createStagger )
  */
 type CallbackArrayStagger<Type> = {
-    [Property in keyof Type]: Type[Property] & StaggerDefaultIndex;
+    [Property in keyof Type]: Type[Property] & StaggerFrameIndexObject;
 };
 
 export type ShouldInizializzeStagger = (
