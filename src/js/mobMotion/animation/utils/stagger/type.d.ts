@@ -115,7 +115,7 @@ export type shouldInizializzeStagger = (
     arrayToCompare2: callbackObject<any>[]
 ) => boolean | undefined;
 
-export type getStaggerArray = (
-    callbackCache: callbackObject<string>[],
-    callbackDefault: callbackObject<(arg0: Record<string, number>) => void>[]
-) => callbackObject<string | ((arg0: Record<string, number>) => void)>[];
+export type getStaggerArray = <C extends any[], D extends any[]>(
+    callbackCache: C,
+    callbackDefault: D
+) => C | D;
