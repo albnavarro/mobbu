@@ -92,10 +92,11 @@ const isAvailableIntoChunk = (arr, i, i2) => {
 };
 
 /**
- * @param {any[]} arr
+ * @template {any[]}T
+ * @param {T} arr
  * @param {import('./type.js').staggerObject} stagger
  *
- * @returns Array<Array>
+ * @returns {{cleanArray: Array<T> }}
  */
 export const getRadialArray = (arr, stagger) => {
     const { col } = stagger.grid;

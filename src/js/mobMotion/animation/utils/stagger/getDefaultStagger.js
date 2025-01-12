@@ -250,12 +250,7 @@ const getItemsByRow = (arrayDefault, stagger, chunckSizeCol) => {
 };
 
 /**
- * @param {object} obj
- * @param {import('../callbacks/type.js').callbackObject<(arg0: Record<string, number>) => void>[]} obj.arrayDefault
- * @param {import('../callbacks/type.js').callbackObject<(arg0: Record<string, number>) => void>[]} obj.arrayOnStop
- * @param {import('./type.js').staggerObject} obj.stagger
- * @param {import('./type.js').staggerDefaultIndex} obj.slowlestStagger
- * @param {import('./type.js').staggerDefaultIndex} obj.fastestStagger
+ * @type {import('./type.js').setStagger}
  */
 export const getDefaultStagger = ({
     arrayDefault,

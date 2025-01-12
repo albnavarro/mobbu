@@ -95,26 +95,7 @@ export interface staggerDefaultIndex {
     frame: number;
 }
 
-export interface setStagger {
-    frame: number;
-    index: number;
-    item: Record<string, number>;
-}
-
-export type getStagger = (arg0: {
-    arrayDefault: callbackObject<(arg0: Record<string, number>) => void>[];
-    arrayOnStop: callbackObject<(arg0: Record<string, number>) => void>[];
-    stagger: staggerObject;
-    slowlestStagger: staggerDefaultIndex;
-    fastestStagger: staggerDefaultIndex;
-}) => {
-    staggerArray: any[];
-    staggerArrayOnComplete: any[];
-    fastestStagger: staggerDefaultIndex;
-    slowlestStagger: staggerDefaultIndex;
-};
-
-export type setSatgger = (arg0: {
+export type setStagger = (arg0: {
     arrayDefault: any[];
     arrayOnStop: any[];
     stagger: staggerObject;
