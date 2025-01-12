@@ -95,6 +95,29 @@ export interface staggerDefaultIndex {
     frame: number;
 }
 
+/**
+ * arrayDefault can be:
+ * callbackObject || callbackCache || custom array in createStagger
+ * this line create problem for use generic, we does not now which array we use.
+ *
+ * ```js
+ * const cb = getStaggerArray(this.#callbackCache, this.#callback);
+ * ```
+ * arrayDefault is union Type of callbackObject && callbackCache.
+ * So return a union type.
+ * When we update value we can't update value with a union type.
+ *
+ *```js
+ * if (this.#callbackCache.length > this.#callback.length) {
+ *     this.#callbackCache = staggerArray;
+ * } else {
+ *     this.#callback = staggerArray;
+ * }
+ *```
+ *
+ * TODO:
+ * any[] must be a generic that extend staggerDefaultIndex ?
+ */
 export type setStagger = (arg0: {
     arrayDefault: any[];
     arrayOnStop: any[];
