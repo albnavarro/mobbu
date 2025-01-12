@@ -2,7 +2,7 @@ export interface HomeComponent {
     state: {
         svg: string;
     };
-    refs: {
-        textStagger: HTMLElement[];
+    ref: {
+        textStagger: HTMLElement;
     };
 }

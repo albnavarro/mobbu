@@ -14,11 +14,6 @@ export interface MyComponent {
         myRef: HTMLElement;
         myRef2: HTMLElement;
     }
-    refs: {
-        myRefCollection: HTMLElement[];
-        myRefCollection2: HTMLElement[];
-    }
-}
 **/
 
 /**

@@ -6,7 +6,6 @@ import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 type GetState<T> = T['state'];
 type GetMethods<T> = T['methods'];
 type GetRef<T> = T['ref'];
-type GetRefs<T> = T['refs'];
 
 /**
  * bindProps.
@@ -365,12 +364,18 @@ export type PartialMethods<T> = <
 export type PartialUseMethodByName<T> = GetMethods<T>;
 
 /**
+ * Mapped type:
+ * Transform each propierties in array.
+ */
+type RefToArray<Type> = {
+    [Property in keyof Type]: Type[Property][];
+};
+
+/**
  * Bind refs
  */
-export type PartialSetRef<T> = (
-    arg0: OnlyStringKey<GetRef<T> & GetRefs<T>>
-) => string;
+export type PartialSetRef<T> = (arg0: OnlyStringKey<GetRef<T>>) => string;
 export type PartialGetRef<T> = () => GetRef<T>;
-export type PartialGetRefs<T> = () => GetRefs<T>;
+export type PartialGetRefs<T> = () => RefToArray<GetRef<T>>;
 export type PartialBindText = (TemplateStringsArray, ...any) => string;
 export type PartialReturnBindProps<T> = Partial<GetState<T>>;

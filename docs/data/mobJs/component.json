@@ -435,8 +435,15 @@
             "props": {
                 "style": "medium",
                 "dots": true,
-                "items": ["state", "methods", "ref", "refs"]
+                "items": ["state", "methods", "ref"]
             }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span class='quote'>getRef</span> and <span class='quote'>getRefs</span> will return e.g. <span class='quote'>HTMLElement</span> or <span class='quote'>HTMLElement[]</span> automatically.</br>The type must be specified as a single element"
         },
         {
             "component": "mob-spacer",
