@@ -12,7 +12,7 @@ import { allowFireEvent, getFireEvent, preventFireEvent } from '../commonEvent';
 export const bindEventMap = new Map();
 
 /**
- * @param {( import('./type').bindEventsObject|import('./type').bindEventsObject[] )} [ eventsData ]
+ * @param {( import('./type').bindEventsObject<Event>|import('./type').bindEventsObject<Event>[] )} [ eventsData ]
  * @return {string} props id in store.
  *
  * @description
