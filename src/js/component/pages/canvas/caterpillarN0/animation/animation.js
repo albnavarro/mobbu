@@ -1,4 +1,3 @@
-// @ts-check
 import { tween } from '../../../../../mobMotion';
 import {
     canvasBackground,

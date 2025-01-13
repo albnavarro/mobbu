@@ -29388,9 +29388,6 @@ Loading snippet ...</pre
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let squareData = [];
-    let rotationTween = {};
-    let centerTween = {};
-    let rectTimeline = {};
     let { top, left } = offset(canvas);
     const activeRoute = getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -29412,7 +29409,7 @@ Loading snippet ...</pre
         relativeIndex
       };
     });
-    rotationTween = tween.createTween({
+    let rotationTween = tween.createTween({
       data: { rotate: 0 },
       stagger: { each: rotationEach, from: "center" },
       ease: "easeLinear",
@@ -29423,7 +29420,7 @@ Loading snippet ...</pre
         item.rotate = rotate;
       });
     });
-    centerTween = tween.createSpring({
+    let centerTween = tween.createSpring({
       data: { x: 0, y: 0 },
       stagger: { each: centerEach, from: "end" }
     });
@@ -29490,7 +29487,7 @@ Loading snippet ...</pre
       );
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
-    rectTimeline = timeline.createAsyncTimeline({
+    let rectTimeline = timeline.createAsyncTimeline({
       repeat: -1,
       yoyo: false
     });
@@ -29739,7 +29736,7 @@ Loading snippet ...</pre
     });
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    const infiniteTween = tween.createSequencer({
+    let infiniteTween = tween.createSequencer({
       stagger: { each: 6 },
       data: { x: duration2 / 4, rotate: 0 },
       duration: duration2
@@ -29767,7 +29764,7 @@ Loading snippet ...</pre
         item.rotate = rotate;
       });
     });
-    const syncTimeline = timeline.createSyncTimeline({
+    let syncTimeline = timeline.createSyncTimeline({
       repeat: -1,
       yoyo: false,
       duration: 4e3
@@ -29857,7 +29854,9 @@ Loading snippet ...</pre
         unsubscribeResize();
         unWatchPause();
         infiniteTween.destroy();
+        infiniteTween = null;
         syncTimeline.destroy();
+        syncTimeline = null;
         ctx = null;
         offscreen = null;
         offScreenCtx = null;

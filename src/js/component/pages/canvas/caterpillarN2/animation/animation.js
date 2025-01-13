@@ -88,7 +88,7 @@ export const caterpillarN2Animation = ({
      * @type {import('../../../../../mobMotion/type.d.ts').Sequencer}
      * Create sequencer.
      */
-    const infiniteTween = tween
+    let infiniteTween = tween
         .createSequencer({
             stagger: { each: 6 },
             data: { x: duration / 4, rotate: 0 },
@@ -132,7 +132,7 @@ export const caterpillarN2Animation = ({
     /**
      * Create timeline.
      */
-    const syncTimeline = timeline
+    let syncTimeline = timeline
         .createSyncTimeline({
             repeat: -1,
             yoyo: false,
@@ -279,7 +279,9 @@ export const caterpillarN2Animation = ({
             unsubscribeResize();
             unWatchPause();
             infiniteTween.destroy();
+            infiniteTween = null;
             syncTimeline.destroy();
+            syncTimeline = null;
             ctx = null;
             offscreen = null;
             offScreenCtx = null;

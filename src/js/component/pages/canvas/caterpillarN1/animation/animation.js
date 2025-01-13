@@ -37,9 +37,6 @@ export const caterpillarN1Animation = ({
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let squareData = [];
-    let rotationTween = {};
-    let centerTween = {};
-    let rectTimeline = {};
     let { top, left } = offset(canvas);
     const activeRoute = getActiveRoute();
 
@@ -84,7 +81,7 @@ export const caterpillarN1Animation = ({
     /**
      * Create rotation tween.
      */
-    rotationTween = tween.createTween({
+    let rotationTween = tween.createTween({
         data: { rotate: 0 },
         stagger: { each: rotationEach, from: 'center' },
         ease: 'easeLinear',
@@ -103,7 +100,7 @@ export const caterpillarN1Animation = ({
     /**
      * Create rotation tween.
      */
-    centerTween = tween.createSpring({
+    let centerTween = tween.createSpring({
         data: { x: 0, y: 0 },
         stagger: { each: centerEach, from: 'end' },
     });
@@ -201,7 +198,7 @@ export const caterpillarN1Animation = ({
     /**
      * Create timeline
      */
-    rectTimeline = timeline.createAsyncTimeline({
+    let rectTimeline = timeline.createAsyncTimeline({
         repeat: -1,
         yoyo: false,
     });
@@ -307,8 +304,11 @@ export const caterpillarN1Animation = ({
         unsubscribeMouseMove();
         unsubscribeTouchMove();
         unWatchPause();
+        // @ts-ignore
         rotationTween = null;
+        // @ts-ignore
         centerTween = null;
+        // @ts-ignore
         rectTimeline = null;
         ctx = null;
         offscreen = null;
