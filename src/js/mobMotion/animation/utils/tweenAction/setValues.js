@@ -76,10 +76,7 @@ export const setReverseValues = (obj, arr) => {
  * Set toValue in relative mode, sum value from currentValue
  * Used by spring and lerp
  *
- * @param {Record<'toValue'|'currentValue', any>[]} arr
- * @param {boolean} relative
- * @returns {any[]} arr
- *
+ * @type {import("./type").SetRelative}
  */
 export const setRelative = (arr, relative) => {
     return arr.map((item) => {

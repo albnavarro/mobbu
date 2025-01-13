@@ -44,15 +44,29 @@ export interface tweenParam {
     toValueOnPause: number;
 }
 
-export type MergeTweenData = <T extends Record<'prop', any>[]>(
-    newData: allActionType[],
-    data: T
-) => MergetTweenReturnType<allActionType[], T>;
-
 /**
+ * Merge tween data
  * Mapped type.
  * Merge Type with TargetType
  */
 type MergetTweenReturnType<Type, TargetType> = {
     [Property in keyof Type]: TargetType[Property];
 };
+
+export type MergeTweenData = <T extends Record<'prop', any>[]>(
+    newData: allActionType[],
+    data: T
+) => MergetTweenReturnType<allActionType[], T>;
+
+/**
+ * Set Relative
+ */
+interface SetRelativeRequiredFileds {
+    toValue: number;
+    currentValue: number;
+}
+
+type SetRelative = <T extends Record<string, any>>(
+    arr: (SetRelativeRequiredFileds & T)[],
+    relative: boolean
+) => (SetRelativeRequiredFileds & T)[];
