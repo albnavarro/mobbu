@@ -59,9 +59,9 @@ export type MergeTweenData = <T extends Record<'prop', any>[]>(
 ) => MergetTweenReturnType<allActionType[], T>;
 
 /**
- * Set Relative
+ * Set Relative Spring & Lerp
  */
-interface CommonTweenField {
+interface RequiredCommonTweenField {
     fromValue: number;
     toValue: number;
     currentValue: number;
@@ -69,13 +69,30 @@ interface CommonTweenField {
 }
 
 type SetRelative = <T extends Record<string, any>>(
-    arr: (CommonTweenField & T)[],
+    arr: (RequiredCommonTweenField & T)[],
     relative: boolean
-) => (CommonTweenField & T)[];
+) => (RequiredCommonTweenField & T)[];
+
+/**
+ * Set Relative Tween
+ */
+export interface RequiredTwenFileds {
+    currentValue: number;
+    fromValue: number;
+    settled: boolean;
+    shouldUpdate: boolean;
+    toValProcessed: number;
+    toValue: number;
+}
+
+type SetRelativeTween = <T extends Record<string, any>>(
+    arr: (RequiredTwenFileds & T)[],
+    relative: boolean
+) => (RequiredTwenFileds & T)[];
 
 /**
  * Update tween value from another.
  */
 type UpdateTweenValue = <T extends Record<string, any>>(
-    arr: (CommonTweenField & T)[]
-) => (CommonTweenField & T)[];
+    arr: (RequiredCommonTweenField & T)[]
+) => (RequiredCommonTweenField & T)[];

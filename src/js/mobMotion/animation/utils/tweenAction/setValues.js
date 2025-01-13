@@ -94,10 +94,7 @@ const tweenSmallNumber = 0.000_01;
  * Set toValue in relative mode, sum value from currentValue
  * Used by classic tween
  *
- * @param {Record<'shouldUpdate'|'toValProcessed'|'toValue'|'currentValue'|'fromValue', any>[]} arr
- * @param {boolean} relative
- * @returns {any[]} arr
- *
+ * @type {import("./type").SetRelativeTween}
  */
 export const setRelativeTween = (arr, relative) => {
     return arr.map((item) => {
