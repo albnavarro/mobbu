@@ -101,7 +101,7 @@ export interface StaggerFrameIndexObject {
  * Create stagger come without index && frame type.
  * So T && S extend any[].
  *
- * The return array staggerArray && staggerArrayOnComplete has index and fame created/updated.
+ * The return array staggerArray && staggerArrayOnComplete has index and frame created/updated.
  */
 export type setStagger = <T extends any[], S extends any[]>(arg0: {
     arrayDefault: T;
