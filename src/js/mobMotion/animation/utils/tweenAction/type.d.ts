@@ -61,12 +61,21 @@ export type MergeTweenData = <T extends Record<'prop', any>[]>(
 /**
  * Set Relative
  */
-interface SetRelativeRequiredFileds {
+interface CommonTweenField {
+    fromValue: number;
     toValue: number;
     currentValue: number;
+    settled: boolean;
 }
 
 type SetRelative = <T extends Record<string, any>>(
-    arr: (SetRelativeRequiredFileds & T)[],
+    arr: (CommonTweenField & T)[],
     relative: boolean
-) => (SetRelativeRequiredFileds & T)[];
+) => (CommonTweenField & T)[];
+
+/**
+ * Update tween value from another.
+ */
+type UpdateTweenValue = <T extends Record<string, any>>(
+    arr: (CommonTweenField & T)[]
+) => (CommonTweenField & T)[];

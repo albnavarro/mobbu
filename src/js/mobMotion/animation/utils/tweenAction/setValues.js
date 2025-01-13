@@ -4,8 +4,7 @@
  * @description
  * Set fromValue with currentValue
  *
- * @param {Record<'settled'|'fromValue'|'currentValue', any>[]} arr
- * @returns {any[]}
+ * @type {import("./type").UpdateTweenValue}
  */
 export const setFromByCurrent = (arr) => {
     return arr.map((item) => {
@@ -21,8 +20,7 @@ export const setFromByCurrent = (arr) => {
  * @description
  * Set fromValue and currentValue with toValue
  *
- * @param {Record<'toValue'|'fromValue'|'currentValue', any>[]} arr
- * @returns {any[]}
+ * @type {import("./type").UpdateTweenValue}
  */
 export const setFromCurrentByTo = (arr) => {
     return arr.map((item) => {
@@ -37,8 +35,7 @@ export const setFromCurrentByTo = (arr) => {
  * @description
  * Set toValue and fromValue with currentValue
  *
- * @param {Record<'toValue'|'fromValue'|'currentValue', any>[]} arr
- * @returns {any[]}
+ * @type {import("./type").UpdateTweenValue}
  */
 export const setFromToByCurrent = (arr) => {
     return arr.map((item) => {
