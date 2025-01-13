@@ -42,7 +42,7 @@ export type DoAction<K> = (
     obj: Record<string, number | (() => number)>
 ) => Promise<void>;
 
-export type SetImmediate<K> = <T extends K>(
+export type SetImmediate<K> = (
     obj: Record<string, number | (() => number)>,
     props?: K
 ) => void;
