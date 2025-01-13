@@ -29086,7 +29086,6 @@ Loading snippet ...</pre
     let ctx = canvas.getContext(context, { alpha: false });
     let stemData = [];
     let steamDataReorded = [];
-    let mainTween = {};
     let { left } = offset(canvas);
     const activeRoute = getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -29114,7 +29113,7 @@ Loading snippet ...</pre
       };
     });
     steamDataReorded = stemData.splice(0, stemData.length / 2).concat(stemData.reverse());
-    mainTween = tween.createSpring({
+    let mainTween = tween.createSpring({
       data: { rotate: 0, y: 0 },
       stagger: { each: 5, from: "center" }
     });

@@ -1,3 +1,4 @@
+// @ts-check
 import { tween } from '../../../../../mobMotion';
 import {
     canvasBackground,
@@ -62,7 +63,6 @@ export const caterpillarN0Animation = ({
     let ctx = canvas.getContext(context, { alpha: false });
     let stemData = [];
     let steamDataReorded = [];
-    let mainTween = {};
     let { left } = offset(canvas);
     const activeRoute = getActiveRoute();
 
@@ -118,7 +118,7 @@ export const caterpillarN0Animation = ({
     /**
      * Create tween.
      */
-    mainTween = tween.createSpring({
+    let mainTween = tween.createSpring({
         data: { rotate: 0, y: 0 },
         stagger: { each: 5, from: 'center' },
     });
@@ -324,6 +324,7 @@ export const caterpillarN0Animation = ({
         ctx = null;
         offscreen = null;
         offScreenCtx = null;
+        // @ts-ignore
         mainTween = null;
         steamDataReorded = [];
         stemData = [];
