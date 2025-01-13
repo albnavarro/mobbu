@@ -43,3 +43,16 @@ export interface tweenParam {
     toValue: number;
     toValueOnPause: number;
 }
+
+export type MergeTweenData = <T extends Record<'prop', any>[]>(
+    newData: allActionType[],
+    data: T
+) => MergetTweenReturnType<allActionType[], T>;
+
+/**
+ * Mapped type.
+ * Merge Type with TargetType
+ */
+type MergetTweenReturnType<Type, TargetType> = {
+    [Property in keyof Type]: TargetType[Property];
+};
