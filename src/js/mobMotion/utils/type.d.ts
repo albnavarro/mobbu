@@ -17,23 +17,23 @@ export type SetData = (arg0: Record<string, number>) => void;
 
 export type GoTo<K> = <T extends K>(
     obj: Record<string, number | (() => number)>,
-    props?: T extends K ? K : T
+    props?: K
 ) => ReturnType<DoAction<T>>;
 
 export type GoFrom<K> = <T extends K>(
     obj: Record<string, number | (() => number)>,
-    props?: T extends K ? K : T
+    props?: K
 ) => ReturnType<DoAction<T>>;
 
 export type GoFromTo<K> = <T extends K>(
     fromObj: Record<string, number | (() => number)>,
     toObj: Record<string, number | (() => number)>,
-    props?: T extends K ? K : T
+    props?: K
 ) => ReturnType<DoAction<T>>;
 
 export type Set<K> = <T extends K>(
     obj: Record<string, number | (() => number)>,
-    props?: T extends K ? K : T
+    props?: K
 ) => ReturnType<DoAction<T>>;
 
 export type DoAction<K> = (
@@ -44,7 +44,7 @@ export type DoAction<K> = (
 
 export type SetImmediate<K> = <T extends K>(
     obj: Record<string, number | (() => number)>,
-    props?: T extends K ? K : T
+    props?: K
 ) => void;
 
 export type tweenMergeProps = (props: tweenAction) => tweenDefault;
