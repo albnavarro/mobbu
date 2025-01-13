@@ -66,6 +66,7 @@ interface RequiredCommonTweenField {
     toValue: number;
     currentValue: number;
     settled: boolean;
+    prop: string;
 }
 
 type SetRelative = <T extends Record<string, any>>(
@@ -85,7 +86,7 @@ export interface RequiredTwenFileds {
     toValue: number;
 }
 
-type SetRelativeTween = <T extends Record<string, any>>(
+export type SetRelativeTween = <T extends Record<string, any>>(
     arr: (RequiredTwenFileds & T)[],
     relative: boolean
 ) => (RequiredTwenFileds & T)[];
@@ -93,6 +94,22 @@ type SetRelativeTween = <T extends Record<string, any>>(
 /**
  * Update tween value from another.
  */
-type UpdateTweenValue = <T extends Record<string, any>>(
+export type UpdateTweenValue = <T extends Record<string, any>>(
     arr: (RequiredCommonTweenField & T)[]
 ) => (RequiredCommonTweenField & T)[];
+
+/**
+ * Reverse tween value: froValue => toValue & toValue => fromValue
+ */
+export interface SetReverseValueReuiredProps {
+    fromValue: number;
+    toValue: number;
+}
+
+export type SetReverseValues = <
+    O extends Record<'prop', any>,
+    T extends Record<string, any>,
+>(
+    obj: O,
+    arr: (SetReverseValueReuiredProps & T)[]
+) => (SetReverseValueReuiredProps & T)[];

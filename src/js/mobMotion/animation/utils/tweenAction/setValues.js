@@ -50,15 +50,12 @@ export const setFromToByCurrent = (arr) => {
  * @description
  * Revert fromValue and toValue
  *
- * @param {Record<string, number | (() => number)>} obj
- * @param {Record<'prop'|'toValue'|'fromValue'|'currentValue', any>[]} arr
- * @returns {any[]} arr
- *
+ * @type {import("./type").SetReverseValues}
  */
 export const setReverseValues = (obj, arr) => {
     const keysTorevert = Object.keys(obj);
     return arr.map((item) => {
-        if (keysTorevert.includes(item.prop)) {
+        if (keysTorevert.includes(item['prop'])) {
             const fromValue = item.fromValue;
             const toValue = item.toValue;
             item.fromValue = toValue;
