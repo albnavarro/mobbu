@@ -53,6 +53,7 @@ import {
 } from '../utils/tweenAction/getValues.js';
 import { mergeArray } from '../utils/tweenAction/mergeArray.js';
 import { springGetValuesOndraw } from './getValuesOndraw.js';
+import { springPresetConfig } from './springConfig.js';
 
 export default class HandleSpring {
     /**
@@ -599,8 +600,8 @@ export default class HandleSpring {
          */
         const allPresetConfig = springParams.config;
         const newConfigPreset = springConfigIsValid(props?.config)
-            ? // @ts-ignore
-              allPresetConfig[props.config]
+            ? (allPresetConfig?.[props?.config ?? 'default'] ??
+              springPresetConfig.default)
             : this.#defaultProps.configProps;
 
         /*

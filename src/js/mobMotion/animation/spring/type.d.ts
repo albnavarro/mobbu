@@ -17,11 +17,11 @@ export interface springPropsOptional {
 }
 
 export interface springPresentConfigType {
-    gentle?: springProps;
-    wobbly?: springProps;
-    bounce?: springProps;
-    scroller?: springProps;
-    default?: springProps;
+    gentle: springProps;
+    wobbly: springProps;
+    bounce: springProps;
+    scroller: springProps;
+    default: springProps;
     [key: string]: springProps;
 }
 
