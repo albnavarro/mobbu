@@ -620,6 +620,11 @@ export default class HandleSpring {
         };
 
         const { configProps, relative } = newProps;
+
+        /**
+         * Current spring config used in next draw function.
+         * Current relative value used in next draw function.
+         */
         this.#configProps = configProps;
         this.#relative = relative;
 
