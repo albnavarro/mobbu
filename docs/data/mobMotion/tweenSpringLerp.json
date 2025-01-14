@@ -293,7 +293,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "configProp"
+            "content": "configProps"
         },
         {
             "component": "mob-paragraph",

@@ -29,7 +29,7 @@ export interface springTweenProps {
     relative?: boolean;
     stagger?: StaggerObjectOptional;
     config?: springChoiceConfig;
-    configProp?: Partial<springProps>;
+    configProps?: Partial<springProps>;
 }
 
 export interface springActions {
@@ -37,7 +37,7 @@ export interface springActions {
     relative?: boolean;
     immediate?: boolean;
     config?: springChoiceConfig;
-    configProp?: Partial<springProps>;
+    configProps?: Partial<springProps>;
 }
 
 export interface springDefault {

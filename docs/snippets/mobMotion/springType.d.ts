@@ -2,7 +2,7 @@ interface spring {
     data: { [key: string]: number | (() => number) };
     relative?: boolean;
     config?: 'default' | 'gentle' | 'wobbly' | 'bounce' | 'scroller';
-    configProp?: {
+    configProps?: {
         friction?: number;
         mass?: number;
         precision?: number;

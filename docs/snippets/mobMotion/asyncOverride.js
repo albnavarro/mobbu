@@ -8,7 +8,7 @@ myTimeline
     .goTo(
         mySpring,
         { x: 100, y: 200 },
-        { config: 'bounce', configProp: { mass: 10, friction: 2 } }
+        { config: 'bounce', configProps: { mass: 10, friction: 2 } }
     )
     .goTo(myTween, { x: 300, y: 0 }, { duration: 1000, ease: 'easeInExpo' })
     .goTo(mySpring, { x: 200, y: 50 }, { config: 'gentle', delay: 100 });
