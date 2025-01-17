@@ -213,10 +213,15 @@ export const Move3Dfn = ({
         /**
          * Root size
          */
-        ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
-            element,
-        }));
+        mobCore.useNextLoop(() => {
+            ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
+                element,
+            }));
+        });
 
+        /**
+         * Update root size
+         */
         const unsubscribeResize = mobCore.useResize(() => {
             ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
                 element,
