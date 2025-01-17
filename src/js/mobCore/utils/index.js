@@ -184,7 +184,7 @@ export function getTranslateValues(element) {
 }
 
 /**
- * @param {Element} element
+ * @param {any} element
  * @returns {boolean}
  *
  * @description
@@ -200,7 +200,7 @@ export function isNode(element) {
 }
 
 /**
- * @param {Element} element
+ * @param {any} element
  * @returns {boolean}
  *
  * @description
