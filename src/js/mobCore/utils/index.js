@@ -42,8 +42,8 @@ export function outerWidth(element) {
 export function offset(element) {
     const rect = element.getBoundingClientRect();
     const offset = {
-        top: rect.top + window.pageYOffset,
-        left: rect.left + window.pageXOffset,
+        top: rect.top + window.scrollY,
+        left: rect.left + window.scrollY,
     };
 
     return offset;
