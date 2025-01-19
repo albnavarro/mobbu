@@ -8,6 +8,8 @@
  * Return HTMLElement height with margin.
  */
 export function outerHeight(element) {
+    if (!element) return 0;
+
     let height = element.offsetHeight;
     const style = getComputedStyle(element);
 
@@ -24,6 +26,8 @@ export function outerHeight(element) {
  * Return HTMLElement width with margin.
  */
 export function outerWidth(element) {
+    if (!element) return 0;
+
     let width = element.offsetWidth;
     const style = getComputedStyle(element);
 
@@ -40,6 +44,12 @@ export function outerWidth(element) {
  * Return HTMLElement offset top/left value.
  */
 export function offset(element) {
+    if (!element)
+        return {
+            top: 0,
+            left: 0,
+        };
+
     const rect = element.getBoundingClientRect();
     const offset = {
         top: rect.top + window.scrollY,
@@ -57,8 +67,19 @@ export function offset(element) {
  * Return HTMLElement position object.
  */
 export function position(element) {
-    const rect = element.getBoundingClientRect();
+    if (!element)
+        return {
+            bottom: 0,
+            height: 0,
+            left: 0,
+            right: 0,
+            top: 0,
+            width: 0,
+            x: 0,
+            y: 0,
+        };
 
+    const rect = element.getBoundingClientRect();
     return rect;
 }
 
@@ -132,6 +153,7 @@ export function isDescendant(parent, child) {
         if (node === parent) return true;
         node = node?.parentNode;
     }
+
     return false;
 }
 
@@ -232,6 +254,7 @@ export const getUnivoqueId = () => {
  */
 export function isVisibleInViewport(element) {
     const elementStyle = globalThis.getComputedStyle(element);
+
     //Particular cases when the element is not visible at all
     if (
         elementStyle.height == '0px' ||

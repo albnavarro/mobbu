@@ -1584,18 +1584,25 @@
 
   // src/js/mobCore/utils/index.js
   function outerHeight(element) {
+    if (!element) return 0;
     let height = element.offsetHeight;
     const style = getComputedStyle(element);
     height += Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
     return height;
   }
   function outerWidth(element) {
+    if (!element) return 0;
     let width = element.offsetWidth;
     const style = getComputedStyle(element);
     width += Number.parseInt(style.marginLeft) + Number.parseInt(style.marginRight);
     return width;
   }
   function offset(element) {
+    if (!element)
+      return {
+        top: 0,
+        left: 0
+      };
     const rect = element.getBoundingClientRect();
     const offset2 = {
       top: rect.top + window.scrollY,
@@ -1604,6 +1611,17 @@
     return offset2;
   }
   function position(element) {
+    if (!element)
+      return {
+        bottom: 0,
+        height: 0,
+        left: 0,
+        right: 0,
+        top: 0,
+        width: 0,
+        x: 0,
+        y: 0
+      };
     const rect = element.getBoundingClientRect();
     return rect;
   }
