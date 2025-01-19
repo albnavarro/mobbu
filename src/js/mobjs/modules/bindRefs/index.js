@@ -13,9 +13,6 @@ import { ATTR_BIND_REFS_ID, ATTR_BIND_REFS_NAME } from '../../constant';
  * @returns {{ [key: string ]: {element:HTMLElement, scopeId:string}[] }}
  */
 export const getBindRefs = ({ element }) => {
-    const hasRef = element.querySelector(`[${ATTR_BIND_REFS_ID}]`);
-    if (!hasRef) return {};
-
     const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
 
     /** @type{Record<string, any>} */
