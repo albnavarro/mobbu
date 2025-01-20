@@ -1,7 +1,6 @@
 //@ts-check
 
 import { createComponent } from '../../../../mobjs';
-import { StarSvg } from '../../../common/SvgShape/Star/definition';
 import { Move3DItemfn } from './Move3DItem';
 
 export const Move3DItem = createComponent({
@@ -91,5 +90,4 @@ export const Move3DItem = createComponent({
             }),
         },
     },
-    child: [StarSvg],
 });

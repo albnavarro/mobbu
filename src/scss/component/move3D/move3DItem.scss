@@ -88,30 +88,3 @@
         left: 0;
     }
 }
-
-.move3d-square {
-    width: calc(var(--item-width) * 1rem);
-    height: calc(var(--item-height) * 1rem);
-    background: $black;
-    border-radius: 100%;
-
-    &.is-white {
-        background: $white;
-    }
-
-    &.is-small {
-        width: calc(var(--item-width) * 0.5rem);
-        height: calc(var(--item-height) * 0.5rem);
-    }
-
-    &.has-star {
-        opacity: 0;
-    }
-
-    &__star {
-        svg {
-            width: 100%;
-            height: 100%;
-        }
-    }
-}

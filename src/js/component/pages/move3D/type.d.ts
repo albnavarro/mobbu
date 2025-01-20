@@ -1,24 +1,14 @@
-import { Move3DItem } from './move3DItem/type';
+import { Move3DChildren } from '../type';
 
-export interface Move3D {
+export interface Move3DPage {
     state: {
-        drag: boolean;
-        centerToViewoport: boolean;
-        useScroll: boolean;
-        perspective: number;
+        data: Move3DChildren[];
         xDepth: number;
         yDepth: number;
         factor: number;
-        shape: Move3DChildren[];
         debug: boolean;
+        perspective: number;
+        prevRoute: string;
+        nextRoute: string;
     };
-    ref: {
-        scene: HTMLElement;
-        container: HTMLElement;
-    };
-}
-
-export interface Move3DChildren {
-    props: Partial<Move3DItem['state']>;
-    children: Move3DChildren[];
 }

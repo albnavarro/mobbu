@@ -1,55 +1,33 @@
 //@ts-check
 
 import { createComponent } from '../../../mobjs';
-import { Move3Dfn } from '../move3D/Move3D.js';
-import { Move3DItem } from './move3DItem/definition.js';
+import { Move3D } from '../../common/Move3D/definition';
+import { Move3DPagefn } from './move3DPage';
 
-export const Move3D = createComponent({
-    name: 'move-3d',
-    component: Move3Dfn,
-    exportState: [
-        'drag',
-        'centerToViewoport',
-        'perspective',
-        'xDepth',
-        'yDepth',
-        'factor',
-        'shape',
-        'debug',
-        'perspective',
-    ],
+export const Move3DPage = createComponent({
+    name: 'move-3d-page',
+    component: Move3DPagefn,
+    exportState: ['data', 'prevRoute', 'nextRoute'],
     state: {
-        drag: () => ({
-            value: false,
-            type: Boolean,
+        data: () => ({
+            value: [],
+            type: Array,
         }),
-        centerToViewoport: () => ({
-            value: false,
-            type: Boolean,
+        xDepth: () => ({
+            value: 20,
+            type: Number,
         }),
-        useScroll: () => ({
-            value: true,
-            type: Boolean,
+        yDepth: () => ({
+            value: 20,
+            type: Number,
         }),
         perspective: () => ({
             value: 700,
             type: Number,
         }),
-        xDepth: () => ({
-            value: 20,
-            type: Number,
-            validate: (value) => {
-                return value > 1;
-            },
-            strict: true,
-        }),
-        yDepth: () => ({
-            value: 20,
-            type: Number,
-            validate: (value) => {
-                return value > 1;
-            },
-            strict: true,
+        debug: () => ({
+            value: false,
+            type: Boolean,
         }),
         factor: () => ({
             value: 45,
@@ -59,14 +37,14 @@ export const Move3D = createComponent({
             },
             strict: true,
         }),
-        shape: () => ({
-            value: [],
-            type: Array,
+        nextRoute: () => ({
+            value: '',
+            type: String,
         }),
-        debug: () => ({
-            value: false,
-            type: Boolean,
+        prevRoute: () => ({
+            value: '',
+            type: String,
         }),
     },
-    child: [Move3DItem],
+    child: [Move3D],
 });

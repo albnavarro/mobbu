@@ -1,17 +1,17 @@
 //@ts-check
 
-import { html } from '../../../../mobjs';
+import { html } from '../../../mobjs';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
-} from '../../../common/animationTitle/utils';
+} from '../../common/animationTitle/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
-} from '../../../common/quickNav/utils';
+} from '../../common/quickNav/utils';
 
 /**
- * @import { BindObject, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '../../../../mobjs/type';
+ * @import { BindObject, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '../../../mobjs/type';
  **/
 
 /**
@@ -135,7 +135,7 @@ export const Move3DPagefn = ({
         <move-3d
             ${bindProps({
                 bind: ['data', 'xDepth', 'yDepth', 'factor', 'debug'],
-                /** @returns{ReturnBindProps<import('../type').Move3D>} */
+                /** @returns{ReturnBindProps<import('../../common/Move3D/type').Move3D>} */
                 props: () => {
                     return {
                         shape: proxiState.data,
@@ -150,7 +150,7 @@ export const Move3DPagefn = ({
         <move-3d
             ${bindProps({
                 bind: ['data', 'xDepth', 'yDepth', 'factor', 'debug'],
-                /** @returns{ReturnBindProps<import('../type').Move3D>} */
+                /** @returns{ReturnBindProps<import('../../common/Move3D/type').Move3D>} */
                 props: () => {
                     return {
                         shape: proxiState.data,
