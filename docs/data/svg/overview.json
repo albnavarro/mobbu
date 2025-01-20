@@ -45,7 +45,10 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "items": ["<a href='./#child'>Child</a>"]
+                "items": [
+                    "<a href='./#lettering01'>Lettering 01</a>",
+                    "<a href='./#child'>Child</a>"
+                ]
             }
         }
     ]

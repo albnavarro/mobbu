@@ -18,6 +18,7 @@ import { horizontalScroller } from './plugin/horizontalScroller';
 import { move3DRoute } from './plugin/move3D';
 import { move3DrouteProps } from './plugin/move3D/props';
 import { child } from './svg/child';
+import { lettering01 } from './svg/lettering01';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
 export const PAGE_TEMPLATE_TRAVERSAL_MOBJS = 'templateMobJsTraversal';
@@ -819,11 +820,6 @@ export const routes = [
         props: move3DrouteProps.shape1,
     },
     {
-        name: 'child',
-        layout: child,
-        props: {},
-    },
-    {
         name: 'svg-overview',
         layout: layoutSidebarAnchor,
         props: {
@@ -831,5 +827,15 @@ export const routes = [
             title: 'Svg',
             breadCrumbs: [],
         },
+    },
+    {
+        name: 'child',
+        layout: child,
+        props: {},
+    },
+    {
+        name: 'lettering01',
+        layout: lettering01,
+        props: {},
     },
 ];

@@ -739,6 +739,12 @@
             "children": null
         },
         {
+            "label": "Lettering 01",
+            "url": "lettering01",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
             "label": "Child",
             "url": "child",
             "scrollToSection": "svg",
