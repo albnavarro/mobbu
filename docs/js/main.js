@@ -33190,11 +33190,6 @@ Loading snippet ...</pre
         pageCoord = { x: page.x, y: page.y };
         onMove();
       });
-      mobCore.useNextLoop(() => {
-        ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
-          element
-        }));
-      });
       const unsubscribeResize = mobCore.useResize(() => {
         ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
           element
@@ -33247,6 +33242,13 @@ Loading snippet ...</pre
           return !drag && !centerToViewoport;
         }
       );
+      mobCore.useNextLoop(() => {
+        ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
+          element
+        }));
+        pageCoord = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        onMove();
+      });
       return () => {
         unsubscribeSpring();
         unsubscribeOnComplete();
@@ -34545,7 +34547,7 @@ Loading snippet ...</pre
               {
                 props: {
                   id: 0,
-                  depth: 50,
+                  depth: 20,
                   anchorPoint: "center",
                   rotate: "y",
                   classList: "",
@@ -34633,7 +34635,7 @@ Loading snippet ...</pre
               {
                 props: {
                   id: 0,
-                  depth: 40,
+                  depth: 10,
                   anchorPoint: "center",
                   classList: "",
                   animate: true,
@@ -34686,7 +34688,7 @@ Loading snippet ...</pre
               {
                 props: {
                   id: 0,
-                  depth: 50,
+                  depth: 20,
                   anchorPoint: "center",
                   classList: "",
                   animate: true,

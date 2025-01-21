@@ -745,12 +745,6 @@
             "children": null
         },
         {
-            "label": "Child",
-            "url": "child",
-            "scrollToSection": "svg",
-            "children": null
-        },
-        {
             "label": "plugin",
             "section": true,
             "sectioName": "plugin"

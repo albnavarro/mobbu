@@ -211,15 +211,6 @@ export const Move3Dfn = ({
         });
 
         /**
-         * Root size
-         */
-        mobCore.useNextLoop(() => {
-            ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
-                element,
-            }));
-        });
-
-        /**
          * Update root size
          */
         const unsubscribeResize = mobCore.useResize(() => {
@@ -293,6 +284,15 @@ export const Move3Dfn = ({
                 return !drag && !centerToViewoport;
             }
         );
+
+        mobCore.useNextLoop(() => {
+            ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
+                element,
+            }));
+
+            pageCoord = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            onMove();
+        });
 
         return () => {
             unsubscribeSpring();
