@@ -34467,6 +34467,25 @@ Loading snippet ...</pre
     </div>`;
   };
 
+  // src/js/component/common/AnyComponent/AnyComponent.js
+  var AnyComponentFn = ({ html, getState }) => {
+    const { content } = getState();
+    return html`${content}`;
+  };
+
+  // src/js/component/common/AnyComponent/definition.js
+  var AnyComponent = createComponent({
+    name: "any-component",
+    component: AnyComponentFn,
+    exportState: ["content"],
+    state: {
+      content: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
   // src/js/utils/parseSvg.js
   var parseSvg = ({ svg, id }) => {
     let fragment = document.createRange().createContextualFragment(svg);
@@ -34480,8 +34499,72 @@ Loading snippet ...</pre
     return serialized;
   };
 
+  // src/js/pages/svg/lettering01/lettering01Data.js
+  var getLettering01 = ({
+    letter_o,
+    letter_o_oultine,
+    letter_o_star
+  }) => {
+    return [
+      {
+        props: {
+          id: 0,
+          depth: 200,
+          anchorPoint: "center",
+          classList: "",
+          animate: true,
+          component: {
+            tagName: "any-component",
+            className: "u-any-center-svg",
+            props: {
+              content: letter_o
+            }
+          }
+        },
+        children: [
+          {
+            props: {
+              id: 0,
+              depth: 40,
+              offsetY: -5,
+              anchorPoint: "center",
+              classList: "",
+              animate: true,
+              component: {
+                tagName: "any-component",
+                className: "u-any-center-svg",
+                props: {
+                  content: letter_o_oultine
+                }
+              }
+            },
+            children: []
+          },
+          {
+            props: {
+              id: 0,
+              depth: -20,
+              offsetY: -5,
+              anchorPoint: "center",
+              classList: "",
+              animate: true,
+              component: {
+                tagName: "any-component",
+                className: "u-any-center-svg",
+                props: {
+                  content: letter_o_star
+                }
+              }
+            },
+            children: []
+          }
+        ]
+      }
+    ];
+  };
+
   // src/js/pages/svg/lettering01/index.js
-  useComponent([Move3DPage]);
+  useComponent([Move3D, AnyComponent]);
   var lettering01 = async () => {
     const { data: lettering012 } = await loadTextContent({
       source: "./asset/svg/lettering01.svg"
@@ -34518,21 +34601,22 @@ Loading snippet ...</pre
         id
       });
     });
-    console.log(
-      letter_b_star,
-      letter_b,
-      letter_b_over,
-      letter_b_outline,
-      letter_m,
-      letter_m_star,
-      letter_o_star,
-      letter_o,
-      letter_m_outline,
-      letter_m_over,
-      letter_o_oultine,
-      letter_m_star_top
-    );
-    return renderHtml`<div>lettering01</div>`;
+    return renderHtml`<div>
+        <move-3d
+            ${staticProps(
+      /** @type{import('../../../component/common/Move3D/type').Move3D['state']} */
+      {
+        shape: getLettering01({
+          letter_o,
+          letter_o_oultine,
+          letter_o_star
+        }),
+        factor: 50,
+        xDepth: 30
+      }
+    )}
+        ></move-3d>
+    </div>`;
   };
 
   // src/js/pages/index.js
