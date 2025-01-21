@@ -53,9 +53,13 @@ export const lettering01 = async () => {
                         letter_o,
                         letter_o_oultine,
                         letter_o_star,
+                        letter_m,
+                        letter_m_outline,
+                        letter_m_over,
+                        letter_m_star,
                     }),
+                    xDepth: 50,
                     factor: 50,
-                    xDepth: 30,
                 })
             )}
         ></move-3d>

@@ -3703,9 +3703,6 @@ code {
   height: calc(100vh - var(--header-height));
   overflow: hidden;
 }
-.c-move-3d * {
-  transform-style: inherit;
-}
 .c-move-3d--drag {
   cursor: move;
 }

@@ -3,6 +3,10 @@ export const getLettering01 = ({
     letter_o,
     letter_o_oultine,
     letter_o_star,
+    letter_m,
+    letter_m_outline,
+    letter_m_over,
+    letter_m_star,
 }) => {
     return [
         {
@@ -12,38 +16,85 @@ export const getLettering01 = ({
                 anchorPoint: 'center',
                 classList: '',
                 animate: true,
-                component: {
-                    tagName: 'any-component',
-                    className: 'u-any-center-svg',
-                    props: {
-                        content: letter_o,
-                    },
-                },
             },
             children: [
                 {
                     props: {
                         id: 0,
-                        depth: 40,
-                        offsetY: -5,
-                        anchorPoint: 'center',
+                        depth: -100,
+                        offsetX: -8,
+                        anchorPoint: 'right',
+                        rotate: 'y',
                         classList: '',
                         animate: true,
                         component: {
                             tagName: 'any-component',
                             className: 'u-any-center-svg',
                             props: {
-                                content: letter_o_oultine,
+                                content: letter_m,
                             },
                         },
                     },
-                    children: [],
+                    children: [
+                        {
+                            props: {
+                                id: 0,
+                                depth: 50,
+                                anchorPoint: 'center',
+                                rotate: 'y',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_m_outline,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: 80,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_m_star,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: 100,
+                                anchorPoint: 'center',
+                                rotate: 'y',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_m_over,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                    ],
                 },
                 {
                     props: {
                         id: 0,
-                        depth: -20,
-                        offsetY: -5,
+                        depth: 200,
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
@@ -51,11 +102,46 @@ export const getLettering01 = ({
                             tagName: 'any-component',
                             className: 'u-any-center-svg',
                             props: {
-                                content: letter_o_star,
+                                content: letter_o,
                             },
                         },
                     },
-                    children: [],
+                    children: [
+                        {
+                            props: {
+                                id: 0,
+                                depth: 40,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_o_oultine,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: -100,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_o_star,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                    ],
                 },
             ],
         },
