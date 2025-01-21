@@ -34467,9 +34467,71 @@ Loading snippet ...</pre
     </div>`;
   };
 
+  // src/js/utils/parseSvg.js
+  var parseSvg = ({ svg, id }) => {
+    let fragment = document.createRange().createContextualFragment(svg);
+    const layers = fragment.querySelectorAll("[type]");
+    [...layers].forEach((layer) => {
+      const currentId = layer.id;
+      if (currentId !== id) layer.remove();
+    });
+    const serialized = serializeFragment(fragment);
+    fragment = null;
+    return serialized;
+  };
+
   // src/js/pages/svg/lettering01/index.js
   useComponent([Move3DPage]);
   var lettering01 = async () => {
+    const { data: lettering012 } = await loadTextContent({
+      source: "./asset/svg/lettering01.svg"
+    });
+    const [
+      letter_b_star,
+      letter_b,
+      letter_b_over,
+      letter_b_outline,
+      letter_m,
+      letter_m_star,
+      letter_o_star,
+      letter_o,
+      letter_m_outline,
+      letter_m_over,
+      letter_o_oultine,
+      letter_m_star_top
+    ] = [
+      "letter_b_star",
+      "letter_b",
+      "letter_b_over",
+      "letter_b_outline",
+      "letter_m",
+      "letter_m_star",
+      "letter_o_star",
+      "letter_o",
+      "letter_m_outline",
+      "letter_m_over",
+      "letter_o_oultine",
+      "letter_m_star_top"
+    ].map((id) => {
+      return parseSvg({
+        svg: lettering012,
+        id
+      });
+    });
+    console.log(
+      letter_b_star,
+      letter_b,
+      letter_b_over,
+      letter_b_outline,
+      letter_m,
+      letter_m_star,
+      letter_o_star,
+      letter_o,
+      letter_m_outline,
+      letter_m_over,
+      letter_o_oultine,
+      letter_m_star_top
+    );
     return renderHtml`<div>lettering01</div>`;
   };
 
