@@ -6,7 +6,7 @@ useComponent([HomeComponent]);
 
 export const home = async () => {
     const { data: svg } = await loadTextContent({
-        source: './asset/svg/ms.svg',
+        source: './asset/svg/ms.svg?v=1.1',
     });
 
     const { data: data_left } = await loadTextContent({
