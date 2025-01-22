@@ -25,6 +25,9 @@ export const lettering01 = async () => {
         letter_m_over,
         letter_o_oultine,
         letter_m_star_top,
+        letter_m_shadow,
+        letter_b_shadow,
+        letter_o_shadow,
     ] = [
         'letter_b_star',
         'letter_b',
@@ -38,6 +41,9 @@ export const lettering01 = async () => {
         'letter_m_over',
         'letter_o_oultine',
         'letter_m_star_top',
+        'letter_m_shadow',
+        'letter_b_shadow',
+        'letter_o_shadow',
     ].map((id) => {
         return parseSvg({
             svg: lettering01,
@@ -62,6 +68,9 @@ export const lettering01 = async () => {
                         letter_b_outline,
                         letter_b_over,
                         letter_b_star,
+                        letter_m_shadow,
+                        letter_b_shadow,
+                        letter_o_shadow,
                     }),
                     xDepth: 50,
                     factor: 50,

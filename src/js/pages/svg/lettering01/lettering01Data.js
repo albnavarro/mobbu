@@ -12,6 +12,9 @@ export const getLettering01 = ({
     letter_b_outline,
     letter_b_over,
     letter_b_star,
+    letter_m_shadow,
+    letter_b_shadow,
+    letter_o_shadow,
 }) => {
     return [
         {
@@ -44,7 +47,25 @@ export const getLettering01 = ({
                         {
                             props: {
                                 id: 0,
-                                depth: 20,
+                                depth: -150,
+                                anchorPoint: 'center',
+                                rotate: 'y',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_m_shadow,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: 5,
                                 anchorPoint: 'center',
                                 rotate: 'y',
                                 classList: '',
@@ -115,6 +136,91 @@ export const getLettering01 = ({
                         {
                             props: {
                                 id: 0,
+                                depth: -20,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_o_shadow,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: -30,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_o_shadow,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: -60,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_o_shadow,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: -70,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_o_shadow,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: -100,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_o_shadow,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
                                 depth: -100,
                                 anchorPoint: 'center',
                                 classList: '',
@@ -132,7 +238,7 @@ export const getLettering01 = ({
                         {
                             props: {
                                 id: 0,
-                                depth: 10,
+                                depth: 2,
                                 anchorPoint: 'center',
                                 classList: '',
                                 animate: true,
@@ -185,7 +291,24 @@ export const getLettering01 = ({
                         {
                             props: {
                                 id: 0,
-                                depth: 20,
+                                depth: -150,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_b_shadow,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: 5,
                                 anchorPoint: 'center',
                                 classList: '',
                                 animate: true,
