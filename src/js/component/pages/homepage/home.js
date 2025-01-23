@@ -41,8 +41,6 @@ export const HomeComponentFn = ({
             refs: textStagger,
         });
 
-        playAnimation({ playIntro, playText, playSvg });
-
         /**
          * Code button
          */
@@ -73,6 +71,10 @@ export const HomeComponentFn = ({
             ],
             color: 'black',
         });
+
+        setTimeout(() => {
+            playAnimation({ playIntro, playText, playSvg });
+        }, 500);
 
         return () => {
             destroy();
