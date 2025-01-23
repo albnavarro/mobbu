@@ -9,21 +9,18 @@ useComponent([Move3D, AnyComponent]);
 
 export const lettering01 = async () => {
     const { data: lettering01 } = await loadTextContent({
-        source: './asset/svg/lettering01.svg?v=1.1',
+        source: './asset/svg/lettering01.svg?v=1.2',
     });
 
     const [
         letter_b_star,
         letter_b,
         letter_b_over,
-        letter_b_outline,
         letter_m,
         letter_m_star,
         letter_o_star,
         letter_o,
-        letter_m_outline,
         letter_m_over,
-        letter_o_oultine,
         letter_m_star_top,
         letter_m_shadow,
         letter_b_shadow,
@@ -32,14 +29,11 @@ export const lettering01 = async () => {
         'letter_b_star',
         'letter_b',
         'letter_b_over',
-        'letter_b_outline',
         'letter_m',
         'letter_m_star',
         'letter_o_star',
         'letter_o',
-        'letter_m_outline',
         'letter_m_over',
-        'letter_o_oultine',
         'letter_m_star_top',
         'letter_m_shadow',
         'letter_b_shadow',
@@ -57,15 +51,12 @@ export const lettering01 = async () => {
                 /** @type{import('../../../component/common/Move3D/type').Move3D['state']} */ ({
                     shape: getLettering01({
                         letter_o,
-                        letter_o_oultine,
                         letter_o_star,
                         letter_m,
-                        letter_m_outline,
                         letter_m_over,
                         letter_m_star,
                         letter_m_star_top,
                         letter_b,
-                        letter_b_outline,
                         letter_b_over,
                         letter_b_star,
                         letter_m_shadow,
