@@ -20,10 +20,6 @@ import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
-import {
-    hideFooterShape,
-    showFooterShape,
-} from '../../../common/shapes/shapUtils';
 import { animatedPatternN0Animation } from './animation/animation';
 
 /** @type {MobComponent<AnimatedPatternN0>} */
@@ -59,9 +55,6 @@ export const AnimatedPatternN0Fn = ({
             title,
             color: 'white',
         });
-
-        // Footer shape
-        hideFooterShape();
 
         /**
          * Code button
@@ -104,7 +97,6 @@ export const AnimatedPatternN0Fn = ({
             resetQuickNavState();
             resetAnimationTitle();
             resetCodeButton();
-            showFooterShape();
             document.body.style.background = '';
         };
     });

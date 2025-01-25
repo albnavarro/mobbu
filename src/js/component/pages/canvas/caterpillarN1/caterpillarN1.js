@@ -20,10 +20,6 @@ import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
-import {
-    hideFooterShape,
-    showFooterShape,
-} from '../../../common/shapes/shapUtils';
 import { caterpillarN1Animation } from './animation/animation';
 
 /** @type {MobComponent<CaterpillarN1>} */
@@ -58,9 +54,6 @@ export const CaterpillarN1Fn = ({
             title: 'Caterpillar N1',
             color: 'white',
         });
-
-        // Footer shape
-        hideFooterShape();
 
         /**
          * Code button
@@ -104,7 +97,6 @@ export const CaterpillarN1Fn = ({
             resetAnimationTitle();
             resetCodeButton();
             document.body.style.background = '';
-            showFooterShape();
         };
     });
 

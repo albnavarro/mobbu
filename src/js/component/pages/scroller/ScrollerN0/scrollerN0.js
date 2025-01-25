@@ -24,10 +24,6 @@ import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
 } from '../../../common/scrolldownLabel/utils';
-import {
-    hideFooterShape,
-    showFooterShape,
-} from '../../../common/shapes/shapUtils';
 import { scrollerN0Animation } from './animation/animation';
 
 /** @type {MobComponent<ScrollerN0>} */
@@ -58,9 +54,6 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
             title,
             color: 'white',
         });
-
-        // Footer shape
-        hideFooterShape();
 
         /**
          * Code button
@@ -116,7 +109,6 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
             resetAnimationTitle();
             resetCodeButton();
             document.body.style.background = '';
-            showFooterShape();
         };
     });
 

@@ -17,10 +17,6 @@ import {
     resetCodeButton,
     updateCodeButton,
 } from '../../common/codeButton/utils';
-import {
-    hideFooterShape,
-    showFooterShape,
-} from '../../common/shapes/shapUtils';
 
 const buttons = [
     {
@@ -322,11 +318,8 @@ export const MatrioskaFn = ({
             color: 'black',
         });
 
-        hideFooterShape();
-
         return () => {
             resetCodeButton();
-            showFooterShape();
         };
     });
 

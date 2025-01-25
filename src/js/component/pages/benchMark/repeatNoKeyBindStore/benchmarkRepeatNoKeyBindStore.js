@@ -1,9 +1,5 @@
 //@ts-check
 
-import {
-    hideFooterShape,
-    showFooterShape,
-} from '../../../common/shapes/shapUtils';
 import { benchMarkListExternalPartial } from './benchMarkListExternalPartial';
 import {
     createExternalStore,
@@ -35,14 +31,12 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
 
     onMount(() => {
         const { loading } = getRef();
-        hideFooterShape();
 
         watch('isLoading', (value) => {
             loading.classList.toggle('active', value);
         });
 
         return () => {
-            showFooterShape();
             destroyExternalStore();
         };
     });

@@ -18,10 +18,6 @@ import {
     resetCodeButton,
     updateCodeButton,
 } from '../../common/codeButton/utils';
-import {
-    hideFooterShape,
-    showFooterShape,
-} from '../../common/shapes/shapUtils';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -178,11 +174,8 @@ export const DynamicListFn = ({
             color: 'black',
         });
 
-        hideFooterShape();
-
         return () => {
             resetCodeButton();
-            showFooterShape();
         };
     });
 

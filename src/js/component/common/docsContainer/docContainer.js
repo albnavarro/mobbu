@@ -7,7 +7,6 @@
  **/
 
 import { setStateByName } from '../../../mobjs';
-import { hideFooterShape, showFooterShape } from '../shapes/shapUtils';
 
 /** @type {MobComponent} */
 export const DocContainerFn = ({ html, onMount }) => {
@@ -20,12 +19,10 @@ export const DocContainerFn = ({ html, onMount }) => {
     onMount(() => {
         setLogoState('active', true);
         setToTopState('active', true);
-        hideFooterShape();
 
         return () => {
             setLogoState('active', false);
             setToTopState('active', false);
-            showFooterShape();
         };
     });
 

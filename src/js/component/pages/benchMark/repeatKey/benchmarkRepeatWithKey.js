@@ -1,9 +1,5 @@
 //@ts-check
 
-import {
-    hideFooterShape,
-    showFooterShape,
-} from '../../../common/shapes/shapUtils';
 import { benchMarkGarbagePartial } from '../partials/benchMarkGarbagePartial';
 import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 
@@ -28,15 +24,12 @@ export const BenchMarkRepeatWithKyFn = ({
 }) => {
     onMount(() => {
         const { loading } = getRef();
-        hideFooterShape();
 
         watch('isLoading', (value) => {
             loading.classList.toggle('active', value);
         });
 
-        return () => {
-            showFooterShape();
-        };
+        return () => {};
     });
 
     return html`<div class="benchmark">

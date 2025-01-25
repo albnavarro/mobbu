@@ -1,7 +1,6 @@
 //@ts-check
 
 import { createComponent } from '../../../mobjs';
-import { FooterShapeV1 } from '../../common/shapes/definition';
 import { HomeComponentFn } from './home';
 
 export const HomeComponent = createComponent({
@@ -14,5 +13,5 @@ export const HomeComponent = createComponent({
             type: String,
         }),
     },
-    child: [FooterShapeV1],
+    child: [],
 });

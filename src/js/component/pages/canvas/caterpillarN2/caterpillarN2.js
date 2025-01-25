@@ -21,10 +21,6 @@ import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
-import {
-    hideFooterShape,
-    showFooterShape,
-} from '../../../common/shapes/shapUtils';
 import { caterpillarN2Animation } from './animation/animation';
 
 function getControls({ buttons }) {
@@ -77,9 +73,6 @@ export const CaterpillarN2Fn = ({
             title: 'Caterpillar N2',
             color: 'white',
         });
-
-        // Footer shape
-        hideFooterShape();
 
         /**
          * Code button
@@ -149,7 +142,6 @@ export const CaterpillarN2Fn = ({
             resetCodeButton();
             document.body.style.background = '';
             destroy();
-            showFooterShape();
         };
     });
 
