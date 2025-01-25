@@ -9,7 +9,7 @@ useComponent([Move3D, AnyComponent]);
 
 export const lettering01 = async () => {
     const { data: lettering01 } = await loadTextContent({
-        source: './asset/svg/lettering01.svg?v=1.4',
+        source: './asset/svg/lettering01.svg?v=1.5',
     });
 
     const [
@@ -21,10 +21,12 @@ export const lettering01 = async () => {
         letter_o_star,
         letter_o,
         letter_m_over,
+        letter_m_pieces,
         letter_m_star_top,
         letter_m_shadow,
         letter_b_shadow,
         letter_o_shadow,
+        letter_o_pieces,
     ] = [
         'letter_b_star',
         'letter_b',
@@ -34,10 +36,12 @@ export const lettering01 = async () => {
         'letter_o_star',
         'letter_o',
         'letter_m_over',
+        'letter_m_pieces',
         'letter_m_star_top',
         'letter_m_shadow',
         'letter_b_shadow',
         'letter_o_shadow',
+        'letter_o_pieces',
     ].map((id) => {
         return parseSvg({
             svg: lettering01,
@@ -62,6 +66,8 @@ export const lettering01 = async () => {
                         letter_m_shadow,
                         letter_b_shadow,
                         letter_o_shadow,
+                        letter_o_pieces,
+                        letter_m_pieces,
                     }),
                     xDepth: 50,
                     factor: 50,

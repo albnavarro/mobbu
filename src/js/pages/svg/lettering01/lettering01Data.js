@@ -12,6 +12,8 @@ export const getLettering01 = ({
     letter_m_shadow,
     letter_b_shadow,
     letter_o_shadow,
+    letter_o_pieces,
+    letter_m_pieces,
 }) => {
     return [
         {
@@ -41,6 +43,24 @@ export const getLettering01 = ({
                         },
                     },
                     children: [
+                        {
+                            props: {
+                                id: 0,
+                                depth: 50,
+                                anchorPoint: 'center',
+                                rotate: 'y',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_m_pieces,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
                         {
                             props: {
                                 id: 0,
@@ -115,7 +135,7 @@ export const getLettering01 = ({
                         {
                             props: {
                                 id: 0,
-                                depth: -20,
+                                depth: 60,
                                 anchorPoint: 'center',
                                 classList: '',
                                 animate: true,
@@ -123,58 +143,7 @@ export const getLettering01 = ({
                                     tagName: 'any-component',
                                     className: 'u-any-center-svg',
                                     props: {
-                                        content: letter_o_shadow,
-                                    },
-                                },
-                            },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: -30,
-                                anchorPoint: 'center',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
-                                    props: {
-                                        content: letter_o_shadow,
-                                    },
-                                },
-                            },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: -60,
-                                anchorPoint: 'center',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
-                                    props: {
-                                        content: letter_o_shadow,
-                                    },
-                                },
-                            },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: -70,
-                                anchorPoint: 'center',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
-                                    props: {
-                                        content: letter_o_shadow,
+                                        content: letter_o_pieces,
                                     },
                                 },
                             },
@@ -184,6 +153,23 @@ export const getLettering01 = ({
                             props: {
                                 id: 0,
                                 depth: -100,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_o_shadow,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: -50,
                                 anchorPoint: 'center',
                                 classList: '',
                                 animate: true,
