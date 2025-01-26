@@ -9,6 +9,15 @@
         min-height: calc(100vh - var(--header-height) - #{rem(80)});
     }
 
+    &__triangle {
+        width: rem(200);
+        height: rem(200);
+        position: absolute;
+        top: calc(#{rem(10)} * -1);
+        left: 0;
+        fill: $white;
+    }
+
     a {
         transition:
             opacity 0.35s,
@@ -99,6 +108,16 @@
             border-left: 10px solid $black;
             rotate: -45deg;
             transform-origin: top left;
+        }
+
+        svg {
+            position: absolute;
+            top: calc(#{rem(5)} * -1);
+            left: 0;
+            fill: $white;
+            width: rem(100);
+            height: rem(100);
+            z-index: -1;
         }
     }
 

@@ -8,6 +8,7 @@
 
 import { html } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
+import { getTrinangle } from '../../lib/utils/getTriangle';
 
 /**
  * @param {object} params
@@ -88,6 +89,7 @@ export const HtmlContentFn = async ({
 
     return html`
         <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
+            <div>${getTrinangle('html-content__triangle')}</div>
             ${getLoader({ data, bindProps })}
             ${getComponents({
                 data: currentData,
