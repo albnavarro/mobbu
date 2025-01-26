@@ -2,7 +2,6 @@
 
 /**
  * @import { MobComponent, SetStateByName } from '../../../mobjs/type';
- * @import { MLogo1 } from '../mLogo1/type';
  * @import { ScrollToTop } from '../scrollToTop/type';
  **/
 
@@ -10,18 +9,13 @@ import { setStateByName } from '../../../mobjs';
 
 /** @type {MobComponent} */
 export const DocContainerFn = ({ html, onMount }) => {
-    /** @type {SetStateByName<MLogo1>} */
-    const setLogoState = setStateByName('m1_logo');
-
     /** @type {SetStateByName<ScrollToTop>} */
     const setToTopState = setStateByName('scroll-to-top');
 
     onMount(() => {
-        setLogoState('active', true);
         setToTopState('active', true);
 
         return () => {
-            setLogoState('active', false);
             setToTopState('active', false);
         };
     });
