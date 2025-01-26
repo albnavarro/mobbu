@@ -6,17 +6,8 @@
  * @import { MatrioskaItem } from './matrioskaItem/type'
  */
 
-import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
 import { html, updateStateByName } from '../../../mobjs';
-import {
-    resetCodeButton,
-    updateCodeButton,
-} from '../../common/codeButton/utils';
-import {
-    hideFooterShape,
-    showFooterShape,
-} from '../../common/shapes/shapUtils';
 
 const buttons = [
     {
@@ -293,7 +284,6 @@ const getThirdLevel = ({
 /** @type { MobComponent<Matrioska> } */
 export const MatrioskaInvalidateFn = ({
     html,
-    onMount,
     delegateEvents,
     updateState,
     staticProps,
@@ -301,41 +291,6 @@ export const MatrioskaInvalidateFn = ({
     invalidate,
     getState,
 }) => {
-    onMount(() => {
-        /**
-         * Code button
-         */
-        const { matrioska } = getLegendData();
-        const { source } = matrioska;
-        updateCodeButton({
-            drawers: [
-                {
-                    label: 'description',
-                    source: source.description,
-                },
-                {
-                    label: 'definition',
-                    source: source.definition,
-                },
-                {
-                    label: 'main',
-                    source: source.mainComponent,
-                },
-                {
-                    label: 'cards',
-                    source: source.cards,
-                },
-            ],
-            color: 'black',
-        });
-        hideFooterShape();
-
-        return () => {
-            resetCodeButton();
-            showFooterShape();
-        };
-    });
-
     return html`<div class="matrioska">
         <div class="matrioska__head">
             ${getButtons({
