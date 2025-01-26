@@ -1,8 +1,6 @@
 // @ts-check
 
 import { AnimationTitle } from '../component/common/animationTitle/definition';
-import { CodeButton } from '../component/common/codeButton/definition';
-import { CodeOverlay } from '../component/common/codeOverlay/definition';
 import { MLogo1 } from '../component/common/mLogo1/definition';
 import { QuickNav } from '../component/common/quickNav/definition';
 import { RouteLoader } from '../component/common/routeLoader/definition';
@@ -18,7 +16,6 @@ import { OnlyDesktop } from '../component/common/onlyDesktop/definition';
 import { DebugOverlay } from '../component/common/debug/debugOverlay/definition';
 
 useComponent([
-    CodeOverlay,
     Header,
     NavigationContainer,
     Footer,
@@ -27,7 +24,6 @@ useComponent([
     AnimationTitle,
     MLogo1,
     ScrollDownLabel,
-    CodeButton,
     ScrollToTop,
     LinksMobJs,
     OnlyDesktop,
@@ -51,7 +47,6 @@ export const wrapper = async () => {
 
         <only-desktop></only-desktop>
         <debug-overlay name="debugOverlay"></debug-overlay>
-        <code-overlay name="codeOverlay"></code-overlay>
         <mob-header></mob-header>
         <mob-navigation-container
             name="navigation-container"
@@ -69,7 +64,6 @@ export const wrapper = async () => {
         <animation-title name="animation_title"></animation-title>
         <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
         <scroll-down-label name="scroll_down_label"></scroll-down-label>
-        <code-button name="global-code-button"></code-button>
         <scroll-to-top name="scroll-to-top"></scroll-to-top>
         <links-mobjs></links-mobjs>
     `;

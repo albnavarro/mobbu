@@ -5,17 +5,12 @@
  * @import { CaterpillarN0 } from './type';
  **/
 
-import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { motionCore } from '../../../../mobMotion';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
 } from '../../../common/animationTitle/utils';
-import {
-    resetCodeButton,
-    updateCodeButton,
-} from '../../../common/codeButton/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -56,33 +51,6 @@ export const CaterpillarN0Fn = ({
         });
 
         /**
-         * Code button
-         */
-        const { caterpillarN0 } = getLegendData();
-        const { source } = caterpillarN0;
-        updateCodeButton({
-            drawers: [
-                {
-                    label: 'description',
-                    source: source.description,
-                },
-                {
-                    label: 'definition',
-                    source: source.definition,
-                },
-                {
-                    label: 'component',
-                    source: source.component,
-                },
-                {
-                    label: 'animation',
-                    source: source.animation,
-                },
-            ],
-            color: 'white',
-        });
-
-        /**
          * Animation.
          */
         const destroyAnimation = caterpillarN0Animation({
@@ -98,7 +66,6 @@ export const CaterpillarN0Fn = ({
             destroyAnimation();
             resetQuickNavState();
             resetAnimationTitle();
-            resetCodeButton();
             document.body.style.background = '';
         };
     });

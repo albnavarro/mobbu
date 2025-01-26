@@ -5,7 +5,6 @@
  * @import { CaterpillarN2 } from './type';
  **/
 
-import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { html } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
@@ -13,10 +12,6 @@ import {
     resetAnimationTitle,
     updateAnimationTitle,
 } from '../../../common/animationTitle/utils';
-import {
-    resetCodeButton,
-    updateCodeButton,
-} from '../../../common/codeButton/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -75,33 +70,6 @@ export const CaterpillarN2Fn = ({
         });
 
         /**
-         * Code button
-         */
-        const { caterpillarN2 } = getLegendData();
-        const { source } = caterpillarN2;
-        updateCodeButton({
-            drawers: [
-                {
-                    label: 'description',
-                    source: source.description,
-                },
-                {
-                    label: 'definition',
-                    source: source.definition,
-                },
-                {
-                    label: 'component',
-                    source: source.component,
-                },
-                {
-                    label: 'animation',
-                    source: source.animation,
-                },
-            ],
-            color: 'white',
-        });
-
-        /**
          * Inizializa animation and get anima methods.
          */
         const animationMethods = caterpillarN2Animation({
@@ -139,7 +107,6 @@ export const CaterpillarN2Fn = ({
         return () => {
             resetQuickNavState();
             resetAnimationTitle();
-            resetCodeButton();
             document.body.style.background = '';
             destroy();
         };

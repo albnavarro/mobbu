@@ -5,11 +5,6 @@
  * @import { HomeComponent } from './type';
  **/
 
-import { getLegendData } from '../../../data';
-import {
-    resetCodeButton,
-    updateCodeButton,
-} from '../../common/codeButton/utils';
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
 import { homeTextAnimation } from './animation/text';
 
@@ -41,37 +36,6 @@ export const HomeComponentFn = ({
             refs: textStagger,
         });
 
-        /**
-         * Code button
-         */
-        const { home } = getLegendData();
-        const { source } = home;
-        updateCodeButton({
-            drawers: [
-                {
-                    label: 'description',
-                    source: source.description,
-                },
-                {
-                    label: 'definition',
-                    source: source.definition,
-                },
-                {
-                    label: 'component',
-                    source: source.component,
-                },
-                {
-                    label: 'Logo animation',
-                    source: source.logoAnimation,
-                },
-                {
-                    label: 'text animation',
-                    source: source.textAnimation,
-                },
-            ],
-            color: 'black',
-        });
-
         setTimeout(() => {
             playAnimation({ playIntro, playText, playSvg });
         }, 500);
@@ -79,7 +43,6 @@ export const HomeComponentFn = ({
         return () => {
             destroy();
             destroyText();
-            resetCodeButton();
         };
     });
 

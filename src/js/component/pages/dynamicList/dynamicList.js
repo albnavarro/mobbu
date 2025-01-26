@@ -8,16 +8,11 @@
  * @import { DynamicListRepeater } from './repeaters/type';]
  **/
 
-import { getLegendData } from '../../../data';
 import { html, tick } from '../../../mobjs';
 import {
     freezePageScroll,
     unFreezeAndUPdatePageScroll,
 } from '../../../mobMotion/plugin';
-import {
-    resetCodeButton,
-    updateCodeButton,
-} from '../../common/codeButton/utils';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -127,58 +122,12 @@ export const DynamicListFn = ({
     setState,
     updateState,
     html,
-    onMount,
     staticProps,
     bindProps,
     delegateEvents,
     invalidate,
     bindText,
 }) => {
-    onMount(() => {
-        /**
-         * Code button
-         */
-        const { repeater } = getLegendData();
-        const { source } = repeater;
-        updateCodeButton({
-            drawers: [
-                {
-                    label: 'description',
-                    source: source.description,
-                },
-                {
-                    label: 'definition',
-                    source: source.definition,
-                },
-                {
-                    label: 'main',
-                    source: source.mainComponent,
-                },
-                {
-                    label: 'repeater',
-                    source: source.repeaters,
-                },
-                {
-                    label: 'buttons',
-                    source: source.buttons,
-                },
-                {
-                    label: 'cards',
-                    source: source.cards,
-                },
-                {
-                    label: 'data',
-                    source: source.data,
-                },
-            ],
-            color: 'black',
-        });
-
-        return () => {
-            resetCodeButton();
-        };
-    });
-
     return html`
         <div class="c-dynamic-list">
             <div class="c-dynamic-list__header">

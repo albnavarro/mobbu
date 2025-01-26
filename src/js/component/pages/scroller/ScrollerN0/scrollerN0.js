@@ -5,17 +5,12 @@
  * @import { ScrollerN0 } from './type';
  **/
 
-import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { motionCore } from '../../../../mobMotion';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
 } from '../../../common/animationTitle/utils';
-import {
-    resetCodeButton,
-    updateCodeButton,
-} from '../../../common/codeButton/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -56,33 +51,6 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
         });
 
         /**
-         * Code button
-         */
-        const { scrollerN0 } = getLegendData();
-        const { source } = scrollerN0;
-        updateCodeButton({
-            drawers: [
-                {
-                    label: 'description',
-                    source: source.description,
-                },
-                {
-                    label: 'definition',
-                    source: source.definition,
-                },
-                {
-                    label: 'component',
-                    source: source.component,
-                },
-                {
-                    label: 'animation',
-                    source: source.animation,
-                },
-            ],
-            color: 'white',
-        });
-
-        /**
          * Refs
          */
         const { wrap, canvas, canvasScroller } = getRef();
@@ -107,7 +75,6 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
             deactivateScrollDownArrow();
             resetQuickNavState();
             resetAnimationTitle();
-            resetCodeButton();
             document.body.style.background = '';
         };
     });

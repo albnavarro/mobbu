@@ -5,17 +5,12 @@
  * @import { AnimatedPatternN1 } from './type';
  **/
 
-import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { motionCore } from '../../../../mobMotion';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
 } from '../../../common/animationTitle/utils';
-import {
-    resetCodeButton,
-    updateCodeButton,
-} from '../../../common/codeButton/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -55,33 +50,6 @@ export const AnimatedPatternN1Fn = ({
             color: 'white',
         });
 
-        /**
-         * Code button
-         */
-        const { animatedPatternN1 } = getLegendData();
-        const { source } = animatedPatternN1;
-        updateCodeButton({
-            drawers: [
-                {
-                    label: 'description',
-                    source: source.description,
-                },
-                {
-                    label: 'definition',
-                    source: source.definition,
-                },
-                {
-                    label: 'component',
-                    source: source.component,
-                },
-                {
-                    label: 'animation',
-                    source: source.animation,
-                },
-            ],
-            color: 'white',
-        });
-
         const destroyAnimation = animatedPatternN1Animation({
             canvas,
             ...getState(),
@@ -94,7 +62,6 @@ export const AnimatedPatternN1Fn = ({
         return () => {
             resetQuickNavState();
             resetAnimationTitle();
-            resetCodeButton();
             document.body.style.background = '';
             destroyAnimation();
         };

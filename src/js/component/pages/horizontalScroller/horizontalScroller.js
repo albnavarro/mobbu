@@ -6,7 +6,6 @@
  * @import { HorizontalScrollerButton } from './horizontalScrollerButton/type';
  **/
 
-import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
 import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
@@ -15,10 +14,6 @@ import {
     resetAnimationTitle,
     updateAnimationTitle,
 } from '../../common/animationTitle/utils';
-import {
-    resetCodeButton,
-    updateCodeButton,
-} from '../../common/codeButton/utils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -131,41 +126,6 @@ export const HorizontalScrollerFn = ({
         });
 
         /**
-         * Code button
-         */
-        const { horizontalScroller } = getLegendData();
-        const { source } = horizontalScroller;
-        updateCodeButton({
-            drawers: [
-                {
-                    label: 'description',
-                    source: source.description,
-                },
-                {
-                    label: 'definition',
-                    source: source.definition,
-                },
-                {
-                    label: 'scroller',
-                    source: source.scroller,
-                },
-                {
-                    label: 'section',
-                    source: source.section,
-                },
-                {
-                    label: 'buttons',
-                    source: source.buttons,
-                },
-                {
-                    label: 'animation',
-                    source: source.animation,
-                },
-            ],
-            color: 'white',
-        });
-
-        /**
          * Prevent landing at bottom of the page.
          */
         window.scrollTo(0, 0);
@@ -214,7 +174,6 @@ export const HorizontalScrollerFn = ({
             destroy();
             resetQuickNavState();
             resetAnimationTitle();
-            resetCodeButton();
         };
     });
 

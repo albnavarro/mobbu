@@ -6,17 +6,12 @@
  * @import { MatrioskaItem } from './matrioskaItem/type'
  */
 
-import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
 import { html, tick, updateStateByName } from '../../../mobjs';
 import {
     freezePageScroll,
     unFreezeAndUPdatePageScroll,
 } from '../../../mobMotion/plugin';
-import {
-    resetCodeButton,
-    updateCodeButton,
-} from '../../common/codeButton/utils';
 
 const buttons = [
     {
@@ -281,7 +276,6 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
 /** @type { MobComponent<Matrioska> } */
 export const MatrioskaFn = ({
     html,
-    onMount,
     delegateEvents,
     updateState,
     repeat,
@@ -290,39 +284,6 @@ export const MatrioskaFn = ({
     invalidate,
     getState,
 }) => {
-    onMount(() => {
-        /**
-         * Code button
-         */
-        const { matrioska } = getLegendData();
-        const { source } = matrioska;
-        updateCodeButton({
-            drawers: [
-                {
-                    label: 'description',
-                    source: source.description,
-                },
-                {
-                    label: 'definition',
-                    source: source.definition,
-                },
-                {
-                    label: 'main',
-                    source: source.mainComponent,
-                },
-                {
-                    label: 'cards',
-                    source: source.cards,
-                },
-            ],
-            color: 'black',
-        });
-
-        return () => {
-            resetCodeButton();
-        };
-    });
-
     return html`<div class="matrioska">
         <div class="matrioska__head">
             ${getButtons({
