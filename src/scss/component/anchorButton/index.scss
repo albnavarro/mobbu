@@ -1,7 +1,6 @@
 @use '../../abstract' as *;
 
 .anchor-button {
-    background: $white;
     padding: rem(5) rem(10);
     margin-bottom: rem(10);
     margin-right: rem(10);
@@ -12,11 +11,32 @@
     text-align: center;
     transition: background 0.35s;
     font-size: rem(14);
-    border: 0;
-    margin-left: rem(10);
+    background: transparent;
+    border: 1px $black solid;
+    position: relative;
+
+    @include when-inside('.c-code-overlay') {
+        background: $black;
+        color: $white;
+    }
 
     &:hover {
         background: $black;
         color: $white;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: transparent;
+        width: 10px;
+        height: 10px;
+        border-top: 7px solid transparent;
+        border-bottom: 7px solid transparent;
+        border-left: 7px solid $black;
+        rotate: -45deg;
+        transform-origin: top left;
     }
 }

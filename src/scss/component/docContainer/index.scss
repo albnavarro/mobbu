@@ -19,6 +19,17 @@
         background-attachment: fixed;
         transition: background 0.2s;
         max-width: var(--doc-width);
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: $black;
+        }
 
         @include mq('large') {
             width: auto;

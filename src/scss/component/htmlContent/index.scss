@@ -41,7 +41,9 @@
         text-align: center;
         transition: background 0.35s;
         font-size: rem(14);
-        background: $white;
+        background: transparent;
+        border: 1px $black solid;
+        position: relative;
 
         @include when-inside('.c-code-overlay') {
             background: $black;
@@ -52,6 +54,21 @@
             background: $black;
             color: $white;
         }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: transparent;
+            width: 10px;
+            height: 10px;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-left: 7px solid $black;
+            rotate: -45deg;
+            transform-origin: top left;
+        }
     }
 
     p,
@@ -61,6 +78,28 @@
     h5,
     h6 {
         margin-left: rem(10);
+    }
+
+    h1 {
+        padding: rem(20);
+        border: 2px $black solid;
+        margin-bottom: rem(70);
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: calc(#{rem(18)} * -1);
+            background: transparent;
+            width: 60px;
+            height: 60px;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid $black;
+            rotate: -45deg;
+            transform-origin: top left;
+        }
     }
 
     h3 {
