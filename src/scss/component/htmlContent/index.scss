@@ -94,6 +94,7 @@
         border: 2px $black solid;
         margin-bottom: rem(70);
         position: relative;
+        overflow: hidden;
 
         &::after {
             content: '';
