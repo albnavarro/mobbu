@@ -1,3 +1,5 @@
+import { StaggerObject } from '../../../../mobMotion/animation/utils/stagger/type';
+
 export interface AnimatedPatternN0 {
     state: {
         title: string;
@@ -8,18 +10,8 @@ export interface AnimatedPatternN0 {
         cellWidth: number;
         cellHeight: number;
         gutter: number;
-        fill: string;
-        stagger: {
-            value: {
-                each: number;
-                grid: {
-                    col: number;
-                    row: number;
-                    direction: string;
-                };
-            };
-            type: string;
-        };
+        fill: number[];
+        stagger: Partial<StaggerObject>;
         reorder: string;
         disableOffcanvas: boolean;
     };
@@ -28,3 +20,16 @@ export interface AnimatedPatternN0 {
         canvas: HTMLCanvasElement;
     };
 }
+
+export type AnimatedPatternN0Animation = (arg0: {
+    canvas: HTMLCanvasElement;
+    numberOfRow: number;
+    numberOfColumn: number;
+    cellWidth: number;
+    cellHeight: number;
+    gutter: number;
+    fill: number[];
+    disableOffcanvas: boolean;
+    stagger: Partial<StaggerObject>;
+    reorder: string;
+}) => () => void;
