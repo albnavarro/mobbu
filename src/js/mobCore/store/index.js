@@ -6,7 +6,7 @@ import {
     storeQuickSetEntrypoint,
     storeSetEntryPoint,
 } from './storeSet';
-import { updateMainMap } from './storeMap';
+import { storeProcessAsync, updateMainMap } from './storeMap';
 import { inizializeAllProps, inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
 import { inizializeInstance } from './inizializeInstance';
@@ -107,7 +107,9 @@ export const mobStore = (data = {}) => {
             return storeEmitEntryPoint({ instanceId, prop });
         },
         emitAsync: async (prop) => {
-            return storeEmitAsyncEntryPoint({ instanceId, prop });
+            return storeProcessAsync((state) =>
+                storeEmitAsyncEntryPoint({ instanceId, prop, state })
+            )(instanceId);
         },
         getValidation: () => {
             return storeGetValidationEntryPoint({ instanceId });

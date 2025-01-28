@@ -28,3 +28,13 @@ export const updateMainMap = (id, state) => {
 export const removeStateFromMainMap = (id) => {
     storeMap.delete(id);
 };
+
+/**
+ * @template T
+ * @param {(arg0: import('./type').storeMapValue) => T} fn
+ * @returns {(instanceId: string) => T|Promise<any>}
+ */
+export const storeProcessAsync = (fn) => (instanceId) => {
+    const state = getStateFromMainMap(instanceId);
+    return state ? fn(state) : new Promise((resolve) => resolve(''));
+};

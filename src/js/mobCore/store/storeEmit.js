@@ -2,7 +2,7 @@
 
 import { runCallbackQueqe, runCallbackQueqeAsync } from './fireQueque';
 import { getLogStyle } from './logStyle';
-import { getStateFromMainMap, storeMap } from './storeMap';
+import { storeProcessAsync, getStateFromMainMap, storeMap } from './storeMap';
 import { addToComputedWaitLsit } from './storeSet';
 import { storeEmitWarning } from './storeWarining';
 
@@ -64,11 +64,10 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
  * @param {Object} param
  * @param {string} param.instanceId
  * @param {string} param.prop
+ * @param {import('./type').storeMapValue} param.state
  * @returns {Promise<any>}
  */
-export const storeEmitAsync = async ({ instanceId, prop }) => {
-    const state = getStateFromMainMap(instanceId);
-    if (!state) return new Promise((resolve) => resolve(''));
+export const storeEmitAsync = async ({ instanceId, prop, state }) => {
     const { store, callBackWatcher, validationStatusObject } = state;
 
     if (!store) return { success: false };
@@ -96,16 +95,20 @@ export const storeEmitAsync = async ({ instanceId, prop }) => {
  * @param {Object} param
  * @param {string} param.instanceId
  * @param {string} param.prop
+ * @param {import('./type').storeMapValue} param.state
  * @returns {Promise<any>}
  */
-export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
-    const state = getStateFromMainMap(instanceId);
-    if (!state) return new Promise((resolve) => resolve(''));
-
+export const storeEmitAsyncEntryPoint = async ({ instanceId, prop, state }) => {
     const { bindInstance } = state;
 
     if (!bindInstance || bindInstance.length === 0) {
-        return storeEmitAsync({ instanceId, prop });
+        return storeProcessAsync((state) =>
+            storeEmitAsync({
+                instanceId,
+                prop,
+                state,
+            })
+        )(instanceId);
     }
 
     const currentBindId =
@@ -114,8 +117,11 @@ export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
             return store && prop in store;
         }) ?? '';
 
-    return storeEmitAsync({
-        instanceId: currentBindId,
-        prop,
-    });
+    return storeProcessAsync((state) =>
+        storeEmitAsync({
+            instanceId: currentBindId,
+            prop,
+            state,
+        })
+    )(instanceId);
 };
