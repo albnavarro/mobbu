@@ -17,6 +17,8 @@ export const Move3D = createComponent({
         'shape',
         'debug',
         'perspective',
+        'afterInit',
+        'onUpdate',
     ],
     state: {
         drag: () => ({
@@ -66,6 +68,14 @@ export const Move3D = createComponent({
         debug: () => ({
             value: false,
             type: Boolean,
+        }),
+        afterInit: () => ({
+            value: () => {},
+            type: Function,
+        }),
+        onUpdate: () => ({
+            value: () => {},
+            type: Function,
         }),
     },
     child: [Move3DItem],

@@ -4,6 +4,7 @@ import { html, staticProps, useComponent } from '../../../mobjs';
 import { parseSvg } from '../../../utils/parseSvg';
 import { loadTextContent } from '../../../utils/utils';
 import { getLettering01 } from './lettering01Data';
+// import { afterInit, onUpdate } from './utils';
 
 useComponent([Move3D, AnyComponent]);
 
@@ -71,6 +72,8 @@ export const lettering01 = async () => {
                     }),
                     xDepth: 50,
                     factor: 50,
+                    //afterInit,
+                    //onUpdate,
                 })
             )}
         ></move-3d>

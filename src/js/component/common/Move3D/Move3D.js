@@ -59,7 +59,7 @@ export const Move3Dfn = ({
     /**
      * Create tween
      */
-    let spring = tween.createSpring({ data: { ax: 0, ay: 0 } });
+    let spring = tween.createSpring({ data: { delta: 0, ax: 0, ay: 0 } });
 
     /** @type{() => void } */
     const onMouseUp = () => {
@@ -144,7 +144,7 @@ export const Move3Dfn = ({
             Math.pow(Math.abs(ay), 2) + Math.pow(Math.abs(ax), 2)
         );
 
-        spring.goTo({ ax, ay }).catch(() => {});
+        spring.goTo({ delta, ax, ay }).catch(() => {});
 
         /**
          * Move children
@@ -194,12 +194,16 @@ export const Move3Dfn = ({
 
     onMount(({ element }) => {
         const { scene, container } = getRef();
+        proxiState.afterInit(element);
 
         /**
          * Handler
          */
-        const unsubscribeSpring = spring.subscribe(({ ax, ay }) => {
+        const unsubscribeSpring = spring.subscribe(({ delta, ax, ay }) => {
             container.style.transform = `translate3D(0,0,0) rotateY(${ax}deg) rotateX(${ay}deg)`;
+
+            // Callback
+            proxiState.onUpdate({ delta, deltaX: ax, deltaY: ay });
         });
 
         const unsubscribeOnComplete = spring.onComplete(({ ax, ay }) => {

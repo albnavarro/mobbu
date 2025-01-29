@@ -11,6 +11,12 @@ export interface Move3D {
         factor: number;
         shape: Move3DChildren[];
         debug: boolean;
+        afterInit: (element: HTMLElement) => void;
+        onUpdate: (arg0: {
+            delta: number;
+            deltaX: number;
+            deltaY: number;
+        }) => void;
     };
     ref: {
         scene: HTMLElement;
