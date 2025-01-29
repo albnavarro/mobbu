@@ -16,3 +16,11 @@ export interface SvgChild {
         trail9: SVGGElement;
     };
 }
+
+export type ChildAnimation = (arg0: {
+    groups: HTMLElement[];
+    trails: SVGGElement[];
+}) => {
+    playIntro: () => Promise<void>;
+    destroy: () => void;
+};

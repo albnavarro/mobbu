@@ -33493,6 +33493,7 @@ Loading snippet ...</pre
       stagger: { each: 8, from: "start" }
     });
     tranilRotateElement.forEach((item) => {
+      if (!item) return;
       mouseTweenRotate.subscribeCache(item, ({ rotation }) => {
         item.style.rotate = `${rotation}deg`;
       });
@@ -33540,7 +33541,7 @@ Loading snippet ...</pre
     groups.forEach((item) => {
       introTween.subscribeCache(item, ({ scale, opacity }) => {
         item.style.scale = `${scale}`;
-        item.style.opacity = opacity;
+        item.style.opacity = `${opacity}`;
       });
     });
     let introTl = timeline.createAsyncTimeline({ repeat: 1 }).createGroup().goTo(introTween, {
@@ -33630,7 +33631,10 @@ Loading snippet ...</pre
         trail9
       } = getRef();
       const childMethods = childAnimations({
-        groups: stagger,
+        groups: (
+          /** @type{HTMLElement[]} */
+          [...stagger]
+        ),
         trails: [
           trail0,
           trail1,

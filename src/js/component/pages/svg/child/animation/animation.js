@@ -1,7 +1,10 @@
+//@ts-check
+
 import { mobCore } from '../../../../../mobCore';
 import { timeline, tween } from '../../../../../mobMotion';
 import { detectSafari } from '../../../../../utils/utils';
 
+/** @type{import('../type').ChildAnimation} */
 export const childAnimations = ({ groups, trails }) => {
     const RAD2DEG = 180 / Math.PI;
 
@@ -54,6 +57,8 @@ export const childAnimations = ({ groups, trails }) => {
     });
 
     tranilRotateElement.forEach((item) => {
+        if (!item) return;
+
         mouseTweenRotate.subscribeCache(item, ({ rotation }) => {
             item.style.rotate = `${rotation}deg`;
         });
@@ -144,7 +149,7 @@ export const childAnimations = ({ groups, trails }) => {
     groups.forEach((item) => {
         introTween.subscribeCache(item, ({ scale, opacity }) => {
             item.style.scale = `${scale}`;
-            item.style.opacity = opacity;
+            item.style.opacity = `${opacity}`;
         });
     });
 
@@ -173,23 +178,35 @@ export const childAnimations = ({ groups, trails }) => {
         },
         destroy: () => {
             introTween.destroy();
+            // @ts-ignore
             introTween = null;
             introTl.destroy();
+            // @ts-ignore
             introTl = null;
             mouseTween.destroy();
+            // @ts-ignore
             mouseTween = null;
             mouseTweenRotate.destroy();
+            // @ts-ignore
             mouseTweenRotate = null;
             trailIntro.destroy();
+            // @ts-ignore
             trailIntro = null;
             unsubScribeResize();
             unsubscribeMouseMove();
+            // @ts-ignore
             windowWidth = null;
+            // @ts-ignore
             windowHeight = null;
+            // @ts-ignore
             lastY = null;
+            // @ts-ignore
             lastX = null;
+            // @ts-ignore
             lastRotation = null;
+            // @ts-ignore
             loopToAdd = null;
+            // @ts-ignore
             tranilRotateElement = null;
         },
     };

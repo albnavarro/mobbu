@@ -78,7 +78,7 @@ export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
         } = getRef();
 
         const childMethods = childAnimations({
-            groups: stagger,
+            groups: /** @type{HTMLElement[]} */ ([...stagger]),
             trails: [
                 trail0,
                 trail1,
