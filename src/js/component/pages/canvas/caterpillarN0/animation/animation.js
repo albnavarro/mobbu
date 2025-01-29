@@ -286,6 +286,11 @@ export const caterpillarN0Animation = ({
         });
     });
 
+    /**
+     * @param {object} params
+     * @param {number} params.x
+     * @returns {void}
+     */
     const move = ({ x }) => {
         const xCenter = x - canvas.width / 2 - left;
         mainTween.goTo({

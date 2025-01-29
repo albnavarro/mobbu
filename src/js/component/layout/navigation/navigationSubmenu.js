@@ -1,13 +1,20 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps, UseMethodByName } from '../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps, StaticProps, UseMethodByName } from '../../../mobjs/type';
  * @import { Navigation, NavigationButton, NavigationContainer, NavigationSubmenu } from './type';
  **/
 
 import { html, useMethodByName } from '../../../mobjs';
 import { slide } from '../../../mobMotion/plugin';
 
+/**
+ * @param {object} params
+ * @param {import('../../../data/type').NavigationChildren[]} params.children
+ * @param {StaticProps<NavigationButton>} params.staticProps
+ * @param {() => void} params.callback
+ * @returns {string}
+ */
 function getSubmenu({ children, staticProps, callback }) {
     return children
         .map((child) => {

@@ -11,6 +11,12 @@ import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { mobCore } from '../../../../../mobCore';
 import { getActiveRoute } from '../../../../../mobjs/index.js';
 
+/**
+ * @param {object} params
+ * @param {any} params.value
+ * @param {import('../../../../../mobMotion/animation/utils/timeline/type').directionType} params.direction
+ * @param {boolean} params.isForced
+ */
 const logAddMethods = ({ value, direction, isForced }) => {
     if (isForced) return;
     console.log(`current: ${value}, direction: ${direction}`);

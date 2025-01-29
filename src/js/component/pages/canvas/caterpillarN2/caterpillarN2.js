@@ -2,7 +2,7 @@
 
 /**
  * @import { MobComponent } from '../../../../mobjs/type';
- * @import { CaterpillarN2 } from './type';
+ * @import { CaterpillarN2, CaterpillarN2Button } from './type';
  **/
 
 import { mobCore } from '../../../../mobCore';
@@ -18,6 +18,11 @@ import {
 } from '../../../common/quickNav/utils';
 import { caterpillarN2Animation } from './animation/animation';
 
+/**
+ * @param {object} params
+ * @param {CaterpillarN2Button} params.buttons
+ * @returns {string}
+ */
 function getControls({ buttons }) {
     return Object.entries(buttons)
         .map(([className, value]) => {
@@ -88,6 +93,7 @@ export const CaterpillarN2Fn = ({
         Object.entries(buttons).forEach(([className, value]) => {
             const { method } = value;
             const btn = element.querySelector(`.${className}`);
+            // @ts-ignore
             btn?.addEventListener('click', () => animationMethods?.[method]());
         });
 
@@ -96,7 +102,7 @@ export const CaterpillarN2Fn = ({
          */
         rotationButton.addEventListener('change', () => {
             const value = rotationButton.value;
-            setRotation(value);
+            setRotation(Number(value));
             rangeValue.textContent = value;
         });
 

@@ -14,6 +14,7 @@ export const BenchMarkFakeComponentFn = ({
     id,
 }) => {
     let isSelected = false;
+    /** @type{HTMLElement} */
     let rootRef;
 
     const proxiState = getProxi();

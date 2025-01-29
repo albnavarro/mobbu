@@ -16,9 +16,7 @@ import { navigationStore } from '../../navigation/store/navStore';
 const getItems = ({ delegateEvents, staticProps }) => {
     const data = getCommonData();
 
-    return /** @type{{label: string, url:string, section:string}[]} */ (
-        data.footer.nav
-    )
+    return data.footer.nav
         .map(({ label, url, section }) => {
             return html`<li class="footer-nav__item">
                 <footer-nav-button

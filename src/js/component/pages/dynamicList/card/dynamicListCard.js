@@ -78,6 +78,8 @@ export const DynamicListCardFn = ({
 }) => {
     const { isFull, parentListId } = getState();
     let repeaterIndex = 0;
+
+    /** @type{HTMLElement} */
     let elementRef;
 
     onMount(({ element }) => {

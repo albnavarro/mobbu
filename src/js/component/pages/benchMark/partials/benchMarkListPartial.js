@@ -92,7 +92,7 @@ export const benchMarkListPartial = ({
                 placeholder="Number of component"
                 ${setRef('input')}
                 ${delegateEvents({
-                    keypress: (event) => {
+                    keypress: (/** @type{Event} */ event) => {
                         // @ts-ignore
                         if (event.keyCode === 13) {
                             event.preventDefault();

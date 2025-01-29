@@ -35,5 +35,6 @@ export const getExternalStore = () => externalStore;
 
 export const destroyExternalStore = () => {
     externalStore.destroy();
+    // @ts-ignore
     externalStore = null;
 };

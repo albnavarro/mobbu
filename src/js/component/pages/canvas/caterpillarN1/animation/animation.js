@@ -244,6 +244,12 @@ export const caterpillarN1Animation = ({
         draw();
     });
 
+    /**
+     * @param {object} params
+     * @param {number} params.x
+     * @param {number} params.y
+     * @returns {void}
+     */
     const move = ({ x, y }) => {
         const winWidth = window.innerWidth;
         const winHeight = window.innerHeight;

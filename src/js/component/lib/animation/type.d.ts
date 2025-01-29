@@ -13,7 +13,7 @@ export type VerticalScroller = (arg0: {
 };
 
 export type SimpleIntroAnimation = (arg0: { refs: HTMLElement[] }) => {
-    playIntro: () => void;
+    playIntro: () => Promise<void>;
     playSvg: () => void;
     destroy: () => void;
 };

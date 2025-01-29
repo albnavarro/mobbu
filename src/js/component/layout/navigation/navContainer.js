@@ -11,6 +11,12 @@ import { navigationStore } from './store/navStore';
  * @import {UseMethodByName} from '../../../mobjs/type'
  */
 
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @param {HTMLElement} params.main
+ * @returns {void}
+ */
 function closeNavigation({ element, main }) {
     mobCore.useFrame(() => {
         document.body.style.overflow = '';
@@ -19,6 +25,12 @@ function closeNavigation({ element, main }) {
     });
 }
 
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @param {HTMLElement} params.main
+ * @returns {void}
+ */
 function openNavigation({ element, main }) {
     /** @type{UseMethodByName<import('./type').NavigationContainer>} */
     const methods = useMethodByName('navigation-container');
@@ -31,6 +43,12 @@ function openNavigation({ element, main }) {
     });
 }
 
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.main
+ * @param {HTMLElement} params.toTopBtn
+ * @returns {void}
+ */
 function addHandler({ main, toTopBtn }) {
     main.addEventListener('click', () => {
         navigationStore.set('navigationIsOpen', false);
@@ -59,7 +77,9 @@ export const NavigationContainerFn = ({
     getRef,
 }) => {
     onMount(({ element }) => {
-        const main = document.querySelector('main.main');
+        const main = /** @type{HTMLElement} */ (
+            document.querySelector('main.main')
+        );
         let lastMq = '';
         const { toTopBtn, wrap } = getRef();
 
@@ -67,7 +87,7 @@ export const NavigationContainerFn = ({
          * Open/Close navigation.
          */
         navigationStore.watch('navigationIsOpen', (val) => {
-            if (val) {
+            if (val && main) {
                 openNavigation({ element, main });
                 return;
             }

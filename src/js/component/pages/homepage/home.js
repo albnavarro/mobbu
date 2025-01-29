@@ -8,6 +8,13 @@
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
 import { homeTextAnimation } from './animation/text';
 
+/**
+ * @param {object} params
+ * @param {() => Promise<void>} params.playIntro
+ * @param {() => void} params.playText
+ * @param {() => void} params.playSvg
+ * @returns {Promise<void>}
+ */
 const playAnimation = async ({ playIntro, playText, playSvg }) => {
     playText();
     await playIntro();

@@ -250,6 +250,12 @@ export const animatedPatternN1Animation = ({
      */
     gridTimeline.play();
 
+    /**
+     * @param {object} params
+     * @param {number} params.x
+     * @param {number} params.y
+     * @returns {void}
+     **/
     const move = ({ x, y }) => {
         centerTween.goTo({ mouseX: x - left, mouseY: y - top });
     };

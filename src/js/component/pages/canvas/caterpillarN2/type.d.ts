@@ -1,3 +1,11 @@
+export type CaterpillarN2Button = Record<
+    string,
+    {
+        label: string;
+        method: string;
+    }
+>;
+
 export interface CaterpillarN2 {
     state: {
         numItems: number;
@@ -12,7 +20,7 @@ export interface CaterpillarN2 {
         rotationDefault: number;
         friction: number;
         disableOffcanvas: boolean;
-        buttons: any;
+        buttons: CaterpillarN2Button;
     };
     ref: {
         wrap: HTMLElement;

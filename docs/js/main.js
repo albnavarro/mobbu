@@ -1565,7 +1565,7 @@
   });
 
   // src/js/data/index.js
-  var commonData = {};
+  var commonData;
   var getCommonData = () => commonData;
   var loadData = async () => {
     commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data) => data).catch((error) => console.warn("Something went wrong.", error));
@@ -24565,25 +24565,22 @@
   // src/js/component/layout/footer/footerNav/footerNav.js
   var getItems = ({ delegateEvents, staticProps: staticProps2 }) => {
     const data = getCommonData();
-    return (
-      /** @type{{label: string, url:string, section:string}[]} */
-      data.footer.nav.map(({ label, url, section }) => {
-        return renderHtml`<li class="footer-nav__item">
+    return data.footer.nav.map(({ label, url, section }) => {
+      return renderHtml`<li class="footer-nav__item">
                 <footer-nav-button
                     ${delegateEvents({
-          click: () => {
-            loadUrl({ url });
-            navigationStore.set("navigationIsOpen", false);
-          }
-        })}
+        click: () => {
+          loadUrl({ url });
+          navigationStore.set("navigationIsOpen", false);
+        }
+      })}
                     ${staticProps2({
-          label,
-          section
-        })}
+        label,
+        section
+      })}
                 ></footer-nav-button>
             </li> `;
-      }).join("")
-    );
+    }).join("");
   };
   var FooterNavFn = ({ html, delegateEvents, staticProps: staticProps2 }) => {
     return html`
@@ -24889,11 +24886,14 @@
     getRef
   }) => {
     onMount(({ element }) => {
-      const main = document.querySelector("main.main");
+      const main = (
+        /** @type{HTMLElement} */
+        document.querySelector("main.main")
+      );
       let lastMq = "";
       const { toTopBtn, wrap } = getRef();
       navigationStore.watch("navigationIsOpen", (val2) => {
-        if (val2) {
+        if (val2 && main) {
           openNavigation({ element, main });
           return;
         }
@@ -29468,7 +29468,7 @@ Loading snippet ...</pre
       });
       rotationButton.addEventListener("change", () => {
         const value = rotationButton.value;
-        setRotation(value);
+        setRotation(Number(value));
         rangeValue.textContent = value;
       });
       mobCore.useFrame(() => {

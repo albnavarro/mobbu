@@ -1,6 +1,9 @@
 import { easeTypes } from '../tween/type';
 import { StaggerObject } from '../utils/stagger/type';
-import { directionType } from '../utils/timeline/type';
+import {
+    directionType,
+    directionTypeObjectSequencer,
+} from '../utils/timeline/type';
 import HandleSequencer from './handleSequencer';
 
 export interface sequencerProps {
@@ -115,7 +118,7 @@ export type sequencerLabel = (arg0: string, arg0?: number) => HandleSequencer;
 export type sequencerGetLabels = () => labelType[];
 
 export type sequencerAdd = (
-    arg0: (directionTypeObjectSequencer) => void,
+    arg0: (arg0: directionTypeObjectSequencer) => void,
     arg1: number
 ) => HandleSequencer;
 

@@ -5,6 +5,7 @@ import { SmoothScroller } from '../../../mobMotion/plugin';
 
 /** @type{import('./type').VerticalScroller} */
 export const verticalScroller = ({ screen, scroller, scrollbar }) => {
+    /** @type{SmoothScroller} */
     let instance;
 
     return {
@@ -27,6 +28,7 @@ export const verticalScroller = ({ screen, scroller, scrollbar }) => {
         },
         destroy: () => {
             instance?.destroy();
+            // @ts-ignore
             instance = null;
         },
         refresh: () => {

@@ -1,5 +1,6 @@
-/** @type{any} */
-let commonData = {};
+/** @type{import('./type.d.ts').CommonData} */
+let commonData;
+
 export const getCommonData = () => commonData;
 
 /**

@@ -14,7 +14,7 @@ import { html } from '../../../mobjs';
  * Create first level items.
  *
  * @param {object} param
- * @param {any} param.data
+ * @param {import('../../../data/type').CommonData['navigation']} param.data
  * @param {StaticProps} param.staticProps
  * @param {SetState<Navigation>} param.setState
  * @param {BindProps<Navigation,NavigationSubmenu>} param.bindProps

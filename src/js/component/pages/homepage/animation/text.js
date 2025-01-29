@@ -1,5 +1,10 @@
 import { tween } from '../../../../mobMotion';
 
+/**
+ * @param {object} params
+ * @param {HTMLElement[]} params.refs
+ * @returns {{ playText: () => void, destroyText: () => void}}
+ */
 export const homeTextAnimation = ({ refs }) => {
     let textTween = tween.createTween({
         data: { y: 100 },
@@ -18,6 +23,7 @@ export const homeTextAnimation = ({ refs }) => {
         playText: () => textTween.goTo({ y: 0 }),
         destroyText: () => {
             textTween.destroy();
+            // @ts-ignore
             textTween = null;
         },
     };
