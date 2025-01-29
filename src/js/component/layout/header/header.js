@@ -8,12 +8,22 @@ import { mobCore } from '../../../mobCore';
 import { beforeRouteChange, loadUrl, useMethodByName } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.navInfo
+ * @returns {void}
+ */
 function openInfo({ navInfo }) {
     mobCore.useFrame(() => {
         navInfo.classList.add('open');
     });
 }
 
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.navInfo
+ * @returns {void}
+ */
 function closeInfo({ navInfo }) {
     mobCore.useFrame(() => {
         navInfo.classList.remove('open');

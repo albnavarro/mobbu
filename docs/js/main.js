@@ -24565,22 +24565,25 @@
   // src/js/component/layout/footer/footerNav/footerNav.js
   var getItems = ({ delegateEvents, staticProps: staticProps2 }) => {
     const data = getCommonData();
-    return data.footer.nav.map(({ label, url, section }) => {
-      return renderHtml`<li class="footer-nav__item">
+    return (
+      /** @type{{label: string, url:string, section:string}[]} */
+      data.footer.nav.map(({ label, url, section }) => {
+        return renderHtml`<li class="footer-nav__item">
                 <footer-nav-button
                     ${delegateEvents({
-        click: () => {
-          loadUrl({ url });
-          navigationStore.set("navigationIsOpen", false);
-        }
-      })}
+          click: () => {
+            loadUrl({ url });
+            navigationStore.set("navigationIsOpen", false);
+          }
+        })}
                     ${staticProps2({
-        label,
-        section
-      })}
+          label,
+          section
+        })}
                 ></footer-nav-button>
             </li> `;
-    }).join("");
+      }).join("")
+    );
   };
   var FooterNavFn = ({ html, delegateEvents, staticProps: staticProps2 }) => {
     return html`
@@ -24699,12 +24702,15 @@
   var onClick = ({ event }) => {
     const button = event.target;
     console.log(button);
-    const { url } = button.dataset;
+    const { url } = (
+      /** @type{HTMLButtonElement} */
+      button?.dataset ?? ""
+    );
     loadUrl({ url });
     navigationStore.set("navigationIsOpen", false);
   };
   function additems({ delegateEvents }) {
-    const { header } = getCommonData();
+    const header = getCommonData().header;
     const { links } = header;
     return links.map((link) => {
       const { svg, url, internal } = link;

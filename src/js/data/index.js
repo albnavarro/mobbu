@@ -1,3 +1,4 @@
+/** @type{any} */
 let commonData = {};
 export const getCommonData = () => commonData;
 

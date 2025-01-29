@@ -11,6 +11,11 @@ import { loadTextContent } from '../../../utils/utils';
 
 hljs.registerLanguage('javascript', javascript);
 
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.ref
+ * @param {string} params.source
+ */
 const loadSnippet = async ({ ref, source }) => {
     if (!ref) return;
 

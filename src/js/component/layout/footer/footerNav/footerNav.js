@@ -1,17 +1,24 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { DelegateEvents, MobComponent, StaticProps } from '../../../../mobjs/type';
  **/
 
 import { getCommonData } from '../../../../data';
 import { html, loadUrl } from '../../../../mobjs';
 import { navigationStore } from '../../navigation/store/navStore';
 
+/**
+ * @param {object} params
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {StaticProps<import('./type').FooterNavButton>} params.staticProps
+ */
 const getItems = ({ delegateEvents, staticProps }) => {
     const data = getCommonData();
 
-    return data.footer.nav
+    return /** @type{{label: string, url:string, section:string}[]} */ (
+        data.footer.nav
+    )
         .map(({ label, url, section }) => {
             return html`<li class="footer-nav__item">
                 <footer-nav-button

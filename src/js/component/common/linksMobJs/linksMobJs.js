@@ -63,6 +63,7 @@ export const LinksMobJsFn = ({
 }) => {
     const mainData = getCommonData();
 
+    /** @type{Record<string, any>} */
     const templateData = {
         [PAGE_TEMPLATE_COMPONENT_MOBJS]:
             mainData.sideBarLinks.mobJsComponentParams,
@@ -124,6 +125,7 @@ export const LinksMobJsFn = ({
                     /**
                      * Create scroller
                      */
+                    // @ts-ignore
                     ({ init, destroy, move, updateScroller, hideScrolBar } =
                         verticalScroller({
                             screen: screenEl,
