@@ -106,6 +106,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                 button.state
                             ),
                             render: ({ html }) => {
+                                // @ts-ignore
                                 const data = getState()?.[button.state];
 
                                 return html`

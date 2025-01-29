@@ -20,6 +20,13 @@ import {
 } from '../../common/quickNav/utils';
 import { horizontalScrollerAnimation } from './animation/animation';
 
+/**
+ * @param {object} params
+ * @param {number} params.numOfCol
+ * @param {boolean} params.pinIsVisible
+ * @param {StaticProps<import('./horizontalScrollerSection/type').HorizontalScrollerSection>} params.staticProps
+ * @returns {string}
+ */
 const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
     const pinClass = pinIsVisible ? '' : 'hidden';
 
@@ -96,13 +103,16 @@ export const HorizontalScrollerFn = ({
     onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
-        const indicators = element.querySelectorAll('.js-indicator');
+        const indicators = [...element.querySelectorAll('.js-indicator')];
         const nav = element.querySelector('.js-nav');
-        const titles = element.querySelectorAll('.js-title h1');
+        const titles = [...element.querySelectorAll('.js-title h1')];
         const { destroy } = horizontalScrollerAnimation({
             rootRef: getRef().js_root,
+            // @ts-ignore
             indicators,
+            // @ts-ignore
             titles,
+            // @ts-ignore
             nav,
             ...getState(),
             setState,

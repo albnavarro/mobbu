@@ -22956,7 +22956,10 @@
         // eslint-disable-next-line unicorn/no-useless-undefined
         void 0
       );
-      this.#mainContainer = mobCore.checkType(String, data.root) ? document.querySelector(data.root) : data.root;
+      this.#mainContainer = mobCore.checkType(String, data.root) ? (
+        // @ts-ignore
+        document.querySelector(data.root)
+      ) : data.root;
       if (!this.#mainContainer) {
         this.#propsisValid = false;
         console.warn("horizontal custom: root node not found");
@@ -31969,13 +31972,16 @@ Loading snippet ...</pre
     const { animatePin, prevRoute, nextRoute } = getState();
     onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) return;
-      const indicators = element.querySelectorAll(".js-indicator");
+      const indicators = [...element.querySelectorAll(".js-indicator")];
       const nav = element.querySelector(".js-nav");
-      const titles = element.querySelectorAll(".js-title h1");
+      const titles = [...element.querySelectorAll(".js-title h1")];
       const { destroy: destroy2 } = horizontalScrollerAnimation({
         rootRef: getRef().js_root,
+        // @ts-ignore
         indicators,
+        // @ts-ignore
         titles,
+        // @ts-ignore
         nav,
         ...getState(),
         setState

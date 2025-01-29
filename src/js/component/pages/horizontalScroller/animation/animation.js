@@ -2,10 +2,18 @@
 import { mobCore } from '../../../../mobCore';
 import { outerWidth } from '../../../../mobCore/utils';
 import { scroller } from '../../../../mobMotion';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import ParallaxClass from '../../../../mobMotion/animation/parallax/parallax';
 import { HorizontalScroller } from '../../../../mobMotion/plugin';
 
 let sideWidth = 0;
 
+/**
+ * @param {object} params
+ * @param {HTMLElement[]} params.indicators
+ * @param {import('../../../../mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
+ * @returns {ParallaxClass[]}
+ */
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
         return scroller.createScrollTrigger({
@@ -44,14 +52,17 @@ const createPins = ({ indicators, setState }) => {
 };
 
 /**
- * Refresh pins position
+ * @param {object} params
+ * @param {ParallaxClass[]} params.pins
  */
 const refreshPins = ({ pins }) => {
     pins.forEach((pin) => pin.refresh());
 };
 
 /**
- * Create parallax titles
+ * @param {object} params
+ * @param {HTMLElement[]} params.titles
+ * @returns {ParallaxClass[]}
  */
 const createParallax = ({ titles }) => {
     return [...titles].map((title) => {
@@ -65,7 +76,9 @@ const createParallax = ({ titles }) => {
 };
 
 /**
- * Hide navigation on scroll unpin
+ * @param {object} params
+ * @param {HTMLElement} params.nav
+ * @returns {void}
  */
 const showNav = ({ nav }) => {
     nav.classList.add('active');
@@ -77,7 +90,9 @@ const showNav = ({ nav }) => {
 };
 
 /**
- * Shor navigation on scroll pin
+ * @param {object} params
+ * @param {HTMLElement} params.nav
+ * @returns {void}
  */
 const hideNav = ({ nav }) => {
     nav.classList.remove('active');
@@ -89,7 +104,13 @@ const hideNav = ({ nav }) => {
 };
 
 /**
- * Create main scroller.
+ * @param {object} params
+ * @param {HTMLElement[]} params.indicators
+ * @param {HTMLElement[]} params.titles
+ * @param {HTMLElement} params.nav
+ * @param {boolean} params.animatePin
+ * @param {import('../../../../mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
+ * @param {HTMLElement} params.rootRef
  */
 export const horizontalScrollerAnimation = ({
     indicators,
