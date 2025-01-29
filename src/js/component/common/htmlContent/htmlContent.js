@@ -32,7 +32,9 @@ const getComponents = ({ data, staticProps, awaitLoadSnippet }) => {
 };
 
 /**
- * Get data from props or fetch.
+ * @param {object} param
+ * @param {string} param.source
+ * @param {any} param.data
  */
 const getData = async ({ source, data }) => {
     if (data && data.length > 0) return data;

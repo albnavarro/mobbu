@@ -1,11 +1,26 @@
 //@ts-check
 
+/**
+ * @param {object} params
+ * @param {number} params.startRotation
+ * @param {number} params.range
+ * @param {number} params.delta
+ * @param {number} params.limit
+ * @returns {number}
+ */
 export const getRotate = ({ startRotation, range, delta, limit }) => {
     return Number.parseFloat(
         ((range * delta) / limit - startRotation).toFixed(2)
     );
 };
 
+/**
+ * @param {object} params
+ * @param {string} params.rotate
+ * @param {string} params.anchorPoint
+ * @param {number} params.baseRotateX
+ * @param {number} params.baseRotateY
+ */
 export const getRotateFromPosition = ({
     rotate,
     anchorPoint,

@@ -38,7 +38,7 @@ const activeItemChildren = ({ id, value }) => {
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.value
- * @param {GetRef} params.getRef
+ * @param {GetRef<any>} params.getRef
  * @returns {void}
  */
 const setActiveItems = ({ id, value, getRef }) => {

@@ -2,6 +2,12 @@
 
 import { html, staticProps } from '../../../../mobjs';
 
+/**
+ * @param {object} params
+ * @param {boolean} params.debug
+ * @param {number} [ params.id ]
+ * @returns {string}
+ */
 const getDebug = ({ debug, id }) => {
     return debug ? html`<span class="c-move3d-item__debug">${id}</span>` : '';
 };

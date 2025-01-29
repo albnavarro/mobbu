@@ -32643,15 +32643,15 @@ Loading snippet ...</pre
   }) => {
     const currentDepth = Math.round(depth * currentDelta / factor);
     const getRotateData = {
-      startRotation: initialRotate,
-      range,
+      startRotation: initialRotate ?? 0,
+      range: range ?? 20,
       delta: currentDelta,
       limit: factor
     };
     const baseRotateX = getRotate(getRotateData);
     const baseRotateY = getRotate(getRotateData);
     const getRotateFromPositionData = {
-      rotate,
+      rotate: rotate ?? "center",
       anchorPoint,
       baseRotateX,
       baseRotateY
@@ -35233,7 +35233,10 @@ Loading snippet ...</pre
     return props.map((prop) => `${prop}, `).join("");
   };
   var getStateProps = (states) => {
-    return Object.entries(states).map(([key, value]) => {
+    return Object.entries(
+      /** @type{any[]} */
+      states
+    ).map(([key, value]) => {
       return renderHtml`<div>
                 <strong>${key}:</strong>
                 ${JSON.stringify(value)}

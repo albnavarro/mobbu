@@ -8,6 +8,7 @@ import { mobCore } from '../../../../../../mobCore';
 import { componentMap, tick } from '../../../../../../mobjs';
 import { verticalScroller } from '../../../../../lib/animation/verticalScroller';
 
+/** @type{import('./type').DebugInitScroller} */
 const initScroller = async ({ getRef }) => {
     await tick();
 
@@ -146,6 +147,7 @@ export const DebugFilterListFn = ({
         });
 
         (async () => {
+            // @ts-ignore
             ({ destroy, move, refresh, updateScroller } = await initScroller({
                 getRef,
             }));

@@ -53,6 +53,7 @@ export const Move3Dfn = ({
     let unsubscribeTouchUp = NOOP;
     let unsubscribeTouchMove = NOOP;
     let unsubscribeScroll = NOOP;
+    /** @type{any[]} */
     let childrenMethods = [];
 
     /**

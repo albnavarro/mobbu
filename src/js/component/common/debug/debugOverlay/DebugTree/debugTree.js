@@ -9,6 +9,7 @@ import { afterRouteChange, getTree, tick } from '../../../../../mobjs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { generateTreeComponents } from './recursiveTree';
 
+/** @type{import('../DebugFilter/DebugFilterList/type').DebugInitScroller} */
 const initScroller = async ({ getRef }) => {
     await tick();
 
@@ -80,6 +81,7 @@ export const DebugTreeFn = ({
                 mobCore.useNextTick(async () => {
                     destroy?.();
                     setState('data', getTree());
+                    // @ts-ignore
                     ({ destroy, move, refresh, updateScroller } =
                         await initScroller({ getRef }));
                     setState('isLoading', false);
@@ -99,6 +101,7 @@ export const DebugTreeFn = ({
                 mobCore.useNextTick(async () => {
                     destroy?.();
                     setState('data', getTree());
+                    // @ts-ignore
                     ({ destroy, move, refresh, updateScroller } =
                         await initScroller({ getRef }));
                     setState('isLoading', false);

@@ -35,8 +35,8 @@ const move = ({
     const currentDepth = Math.round((depth * currentDelta) / factor);
 
     const getRotateData = {
-        startRotation: initialRotate,
-        range: range,
+        startRotation: initialRotate ?? 0,
+        range: range ?? 20,
         delta: currentDelta,
         limit: factor,
     };
@@ -44,7 +44,7 @@ const move = ({
     const baseRotateY = getRotate(getRotateData);
 
     const getRotateFromPositionData = {
-        rotate: rotate,
+        rotate: rotate ?? 'center',
         anchorPoint: anchorPoint,
         baseRotateX,
         baseRotateY,

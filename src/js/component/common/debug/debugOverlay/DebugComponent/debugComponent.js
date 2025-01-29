@@ -61,7 +61,7 @@ const getFreezeProp = (props) => {
  * @returns {string}
  */
 const getStateProps = (states) => {
-    return Object.entries(states)
+    return Object.entries(/** @type{any[]} */ (states))
         .map(([key, value]) => {
             return html`<div>
                 <strong>${key}:</strong>
@@ -200,7 +200,7 @@ export const DebugComponentFn = ({
         updateState('id', (id) => id);
     });
 
-    // Slide move reference
+    /** @type{(val:number) => void} */
     let move;
 
     onMount(() => {
