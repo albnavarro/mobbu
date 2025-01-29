@@ -11582,8 +11582,9 @@
       return new HandleMasterSequencer();
     },
     /**
-     * @param { import('./animation/sequencer/type.js').createSequencerType & import('./animation/utils/stagger/type.js').StaggerPropiertiesObject } data
-     * @returns {Array<{ start: Number, end: Number,index: Number, item: (HTMLElement|Object) }>} Stagger array
+     * @template T
+     * @param { import('./animation/sequencer/type.js').createSequencerType<T> & import('./animation/utils/stagger/type.js').StaggerPropiertiesObject } data
+     * @returns {Array<{ start: Number, end: Number,index: Number, item: (T) }>} Stagger array
      *
      * @example
      * ```javascript

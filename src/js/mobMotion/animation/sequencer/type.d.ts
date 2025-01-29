@@ -47,11 +47,11 @@ export interface sequencerRow {
     propToFind: PropToFind;
 }
 
-export interface createStagger {
+export interface createStagger<T> {
     start: number;
     end: number;
     index: number;
-    item: HTMLElement | object;
+    item: T;
 }
 
 export interface labelType {
@@ -86,8 +86,8 @@ export interface masterSequencerItem {
     destroy: () => void;
 }
 
-export interface createSequencerType {
-    items: (HTMLElement | object)[];
+export interface createSequencerType<T> {
+    items: T[];
     duration?: number;
 }
 
@@ -122,8 +122,8 @@ export type sequencerAdd = (
     arg1: number
 ) => HandleSequencer;
 
-export type sequencerSubscribe = (arg0: () => void) => () => void;
-export type sequencerOnStop = (arg0: () => void) => () => void;
+export type sequencerSubscribe = (arg0: (arg0: any) => void) => () => void;
+export type sequencerOnStop = (arg0: (arg0: any) => void) => () => void;
 
 export type sequencerSubscribeCache = (
     item: object | HTMLElement,
