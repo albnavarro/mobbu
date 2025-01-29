@@ -908,12 +908,12 @@ export interface InizializeApp {
     restoreScroll?: boolean;
 }
 
-export type PageAsync = (arg0: {
-    params: Record<string, string>;
-    props: Record<string, any>;
-}) => Promise<string>;
+export type PageAsync<
+    T = Record<string, any>,
+    P = Record<string, any>,
+> = (arg0: { params: T; props: P }) => Promise<string>;
 
-export type Page = (arg0: {
-    params: Record<string, string>;
-    props: Record<string, any>;
+export type Page<T = Record<string, any>, P = Record<string, any>> = (arg0: {
+    params: T;
+    props: P;
 }) => string;

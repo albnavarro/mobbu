@@ -2,7 +2,7 @@ import { html } from '../../mobjs';
 
 /**
  * @param {object} params
- * @param {{url:string, title:string}[]} params.breadCrumbs
+ * @param {import('./type').LayoutSidebarAnchorBreadCrumbs[]} params.breadCrumbs
  */
 export const getBreadCrumbs = ({ breadCrumbs }) =>
     breadCrumbs
