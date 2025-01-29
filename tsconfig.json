@@ -19,6 +19,7 @@
         "src/js/mobjs",
         "src/js/mobMotion",
         "src/js/mobCore",
-        "src/js/component"
+        "src/js/component",
+        "src/js/pages"
     ]
 }
