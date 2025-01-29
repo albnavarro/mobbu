@@ -1,4 +1,5 @@
-// @ts-nocheck
+// @ts-check
+
 import { scroller, tween } from '../../../../../mobMotion';
 import { getActiveRoute } from '../../../../../mobjs';
 import {
@@ -16,6 +17,7 @@ import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { outerHeight } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
 
+/** @type{import('../type').ScrollerN0Animation} */
 export const scrollerN0Animation = ({
     canvas,
     canvasScroller,
@@ -38,8 +40,6 @@ export const scrollerN0Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let gridData = [];
-    let data = [];
     let masterSequencer = tween.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: false });
     const activeRoute = getActiveRoute();
@@ -49,7 +49,9 @@ export const scrollerN0Animation = ({
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = roundRectIsSupported(wichContext);
+    const useRadius = roundRectIsSupported(
+        /** @type {CanvasRenderingContext2D} */ (wichContext)
+    );
     wichContext = null;
 
     canvas.width = canvas.clientWidth;
@@ -58,7 +60,7 @@ export const scrollerN0Animation = ({
     /**
      * Create basic grid.
      */
-    gridData = createGrid({
+    let gridData = createGrid({
         canvas,
         numberOfRow,
         numberOfColumn,
@@ -71,7 +73,7 @@ export const scrollerN0Animation = ({
      * Add props to transform.
      * Order by hasFill, so is like z-index: -1.
      */
-    data = reorder
+    let data = reorder
         ? gridData
               .map((item, i) => {
                   return {
@@ -124,12 +126,18 @@ export const scrollerN0Animation = ({
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen) {
+        if (useOffscreen && offscreen) {
             offscreen.width = canvas.width;
             offscreen.height = canvas.height;
         }
 
-        const context = useOffscreen ? offScreenCtx : ctx;
+        const context = useOffscreen
+            ? offScreenCtx
+            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+                  ctx
+              );
+
+        if (!context) return;
 
         /**
          * Clear rpevious render.
@@ -171,7 +179,7 @@ export const scrollerN0Animation = ({
                  * Draw.
                  */
                 roundRectCustom(
-                    context,
+                    /** @type{CanvasRenderingContext2D} */ (context),
                     Math.round(-centerX + x),
                     Math.round(-centerY + y),
                     width,
@@ -215,6 +223,7 @@ export const scrollerN0Animation = ({
             }
         );
 
+        // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
 
@@ -256,8 +265,8 @@ export const scrollerN0Animation = ({
     /**
      * Start loop.
      */
-    mobCore.useFrame(({ time }) => {
-        loop({ time });
+    mobCore.useFrame(() => {
+        loop();
     });
 
     const unsubscribeResize = mobCore.useResize(() => {
@@ -328,9 +337,11 @@ export const scrollerN0Animation = ({
         });
         sequencersInstances = [];
         masterSequencer.destroy();
+        // @ts-ignore
         masterSequencer = null;
         staggers = [];
         scrollerInstance.destroy();
+        // @ts-ignore
         scrollerInstance = null;
         ctx = null;
         offscreen = null;

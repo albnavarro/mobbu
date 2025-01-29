@@ -1,4 +1,5 @@
-// @ts-nocheck
+// @ts-check
+
 import { tween, scroller } from '../../../../../mobMotion';
 import { getActiveRoute } from '../../../../../mobjs';
 import {
@@ -6,13 +7,18 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-    // roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { outerHeight } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
-// import { detectSafari } from '../../../../../utils/utils';
 
+/**
+ * @param {object} params
+ * @param {number} params.width
+ * @param {number} params.relativeIndex
+ * @param {number} params.amountOfPath
+ * @returns {number}
+ */
 function getWithRounded({ width, relativeIndex, amountOfPath }) {
     return (
         Math.sqrt(
@@ -25,6 +31,13 @@ function getWithRounded({ width, relativeIndex, amountOfPath }) {
     );
 }
 
+/**
+ * @param {object} params
+ * @param {number} params.height
+ * @param {number} params.relativeIndex
+ * @param {number} params.amountOfPath
+ * @returns {number}
+ */
 function getHeightRounded({ height, relativeIndex, amountOfPath }) {
     return (
         Math.sqrt(
@@ -37,13 +50,13 @@ function getHeightRounded({ height, relativeIndex, amountOfPath }) {
     );
 }
 
+/** @type{import('../type').ScrollerN1Animation} */
 export const scrollerN1Animation = ({
     canvas,
     canvasScroller,
     amountOfPath,
     width,
     height,
-    radius,
     opacity,
     intialRotation,
     endRotation,
@@ -59,7 +72,6 @@ export const scrollerN1Animation = ({
      */
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
-    let stemData = [];
     const activeRoute = getActiveRoute();
 
     /**
@@ -81,7 +93,7 @@ export const scrollerN1Animation = ({
     /**
      * Setup data.
      */
-    stemData = [...new Array(amountOfPath).keys()].map((_item, i) => {
+    let stemData = [...new Array(amountOfPath).keys()].map((_item, i) => {
         const relativeIndex =
             i >= amountOfPath / 2
                 ? amountOfPath / 2 + (amountOfPath / 2 - i)
@@ -125,12 +137,18 @@ export const scrollerN1Animation = ({
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen) {
+        if (useOffscreen && offscreen) {
             offscreen.width = canvas.width;
             offscreen.height = canvas.height;
         }
 
-        const context = useOffscreen ? offScreenCtx : ctx;
+        const context = useOffscreen
+            ? offScreenCtx
+            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+                  ctx
+              );
+
+        if (!context) return;
 
         /**
          * Get center of canvas.
@@ -184,11 +202,10 @@ export const scrollerN1Animation = ({
             } else {
                 context.beginPath();
                 context.rect(
-                    Number.parseInt(-width / 2),
-                    Number.parseInt(-height / 2),
+                    Math.round(-width / 2),
+                    Math.round(-height / 2),
                     width,
-                    height,
-                    radius
+                    height
                 );
             }
 
@@ -206,6 +223,7 @@ export const scrollerN1Animation = ({
             context.setTransform(1, 0, 0, 1, 0, 0);
         });
 
+        // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
 
@@ -236,19 +254,18 @@ export const scrollerN1Animation = ({
     /**
      * Loop
      */
-    const loop = ({ time = 0 }) => {
-        draw({ time });
-
+    const loop = () => {
+        draw();
         if (!isActive) return;
 
-        mobCore.useNextFrame(({ time }) => loop({ time }));
+        mobCore.useNextFrame(() => loop());
     };
 
     /**
      * Start loop.
      */
-    mobCore.useFrame(({ time }) => {
-        loop({ time });
+    mobCore.useFrame(() => {
+        loop();
     });
 
     /**
@@ -284,7 +301,7 @@ export const scrollerN1Animation = ({
             /**
              * Restart loop
              */
-            mobCore.useFrame(({ time }) => loop({ time }));
+            mobCore.useFrame(() => loop());
         }, 500);
     });
 
@@ -293,12 +310,15 @@ export const scrollerN1Animation = ({
         unsubscribeResize();
         unWatchPause();
         scrollerTween.destroy();
+        // @ts-ignore
         scrollerTween = null;
         scrollerInstance.destroy();
+        // @ts-ignore
         scrollerInstance = null;
         ctx = null;
         offscreen = null;
         offScreenCtx = null;
+        // @ts-ignore
         scrollerTween = null;
         stemData = [];
         isActive = false;
