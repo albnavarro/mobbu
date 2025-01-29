@@ -41,6 +41,11 @@ export function setBrowserClass() {
     }
 }
 
+/**
+ * @param {object} params
+ * @param {string} params.source
+ * @returns {Promise<{success:boolean, data: any}>}
+ */
 export const loadTextContent = async ({ source }) => {
     const response = await fetch(source);
     if (!response.ok) {
@@ -58,6 +63,11 @@ export const loadTextContent = async ({ source }) => {
     };
 };
 
+/**
+ * @param {object} params
+ * @param {string} params.source
+ * @returns {Promise<{success:boolean, data: any}>}
+ */
 export const loadJsonContent = async ({ source }) => {
     const response = await fetch(source);
     if (!response.ok) {

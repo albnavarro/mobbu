@@ -16,6 +16,7 @@ export const parseSvg = ({ svg, id }) => {
     });
 
     const serialized = serializeFragment(fragment);
+    // @ts-ignore
     fragment = null;
 
     return serialized;

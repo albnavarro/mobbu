@@ -33607,7 +33607,10 @@ Loading snippet ...</pre
       return renderHtml`
                 <div
                     class="child-trail child-trail--${index}"
-                    ${setRef(`trail${index}`)}
+                    ${setRef(
+        // @ts-ignore
+        `trail${index}`
+      )}
                 >
                     ${star}
                 </div>

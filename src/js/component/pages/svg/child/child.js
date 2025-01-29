@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { MobComponent, SetRef } from '../../../../mobjs/type';
  * @import { SvgChild } from './type';
  **/
 
@@ -19,17 +19,30 @@ import { childAnimations } from './animation/animation';
 
 const numberOfStar = 10;
 
+/**
+ * @param {object} params
+ * @param {() => Promise<void>} params.playIntro
+ * @returns {Promise<void>}
+ */
 const playAnimation = async ({ playIntro }) => {
     await playIntro();
 };
 
+/**
+ * @param {object} params
+ * @param {string} params.star
+ * @param {SetRef<import('./type.d.ts').SvgChild>} params.setRef
+ */
 const getTrail = ({ star, setRef }) => {
     return [...new Array(numberOfStar).keys()]
         .map((_item, index) => {
             return html`
                 <div
                     class="child-trail child-trail--${index}"
-                    ${setRef(`trail${index}`)}
+                    ${setRef(
+                        // @ts-ignore
+                        `trail${index}`
+                    )}
                 >
                     ${star}
                 </div>
