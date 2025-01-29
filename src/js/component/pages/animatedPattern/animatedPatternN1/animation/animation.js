@@ -1,3 +1,5 @@
+//@ts-check
+
 import { timeline, tween } from '../../../../../mobMotion';
 import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
 import {
@@ -14,6 +16,7 @@ import { offset } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
 import { getActiveRoute } from '../../../../../mobjs';
 
+/** @type{import('../type').AnimatedPatternN1Animation} */
 export const animatedPatternN1Animation = ({
     canvas,
     numberOfRow,
@@ -33,11 +36,6 @@ export const animatedPatternN1Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let gridData = [];
-    let data = [];
-    let centerTween = {};
-    let gridTween = {};
-    let gridTimeline = {};
     let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
 
@@ -54,7 +52,7 @@ export const animatedPatternN1Animation = ({
     /**
      * Create basic grid.
      */
-    gridData = createGrid({
+    let gridData = createGrid({
         canvas,
         numberOfRow,
         numberOfColumn,
@@ -66,7 +64,7 @@ export const animatedPatternN1Animation = ({
     /**
      * Add props to transform.
      */
-    data = gridData
+    let data = gridData
         .map((item, i) => {
             return {
                 ...item,
@@ -81,7 +79,7 @@ export const animatedPatternN1Animation = ({
     /**
      * Create mouse tween.
      */
-    centerTween = tween.createLerp({
+    let centerTween = tween.createLerp({
         data: { mouseX: 0, mouseY: 0 },
     });
 
@@ -98,7 +96,7 @@ export const animatedPatternN1Animation = ({
     /**
      * Create tween
      */
-    gridTween = tween.createTween({
+    let gridTween = tween.createTween({
         ease: 'easeInOutSine',
         stagger: {
             each: 5,
@@ -124,12 +122,18 @@ export const animatedPatternN1Animation = ({
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen) {
+        if (useOffscreen && offscreen) {
             offscreen.width = canvas.width;
             offscreen.height = canvas.height;
         }
 
-        const context = useOffscreen ? offScreenCtx : ctx;
+        const context = useOffscreen
+            ? offScreenCtx
+            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+                  ctx
+              );
+
+        if (!context) return;
 
         /**
          * Clear rpevious render.
@@ -230,13 +234,14 @@ export const animatedPatternN1Animation = ({
             }
         );
 
+        // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
 
     /**
      * Create timeline.
      */
-    gridTimeline = timeline
+    let gridTimeline = timeline
         .createAsyncTimeline({ repeat: -1, yoyo: true })
         .goTo(gridTween, { scale: 0.3 }, { duration: 1000 });
 
@@ -272,8 +277,8 @@ export const animatedPatternN1Animation = ({
     /**
      * Start loop.
      */
-    mobCore.useFrame(({ time }) => {
-        loop({ time });
+    mobCore.useFrame(() => {
+        loop();
     });
 
     /**
@@ -350,8 +355,11 @@ export const animatedPatternN1Animation = ({
         unsubscribeMouseMove();
         unsubscribeTouchMove();
         unWatchPause();
+        // @ts-ignore
         gridTween = null;
+        // @ts-ignore
         gridTimeline = null;
+        // @ts-ignore
         centerTween = null;
         ctx = null;
         offscreen = null;

@@ -1,21 +1,22 @@
+//@ts-check
+
 import { timeline, tween } from '../../../../../mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-    // roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { mobCore } from '../../../../../mobCore';
 import { getActiveRoute } from '../../../../../mobjs/index.js';
-// import { detectSafari } from '../../../../../utils/utils';
 
 const logAddMethods = ({ value, direction, isForced }) => {
     if (isForced) return;
     console.log(`current: ${value}, direction: ${direction}`);
 };
 
+/** @type{import('../type').CaterpillarN2Animation} */
 export const caterpillarN2Animation = ({
     canvas,
     numItems,
@@ -41,7 +42,6 @@ export const caterpillarN2Animation = ({
      */
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
-    let squareData = [];
     let userRotation = rotationDefault;
     const activeRoute = getActiveRoute();
 
@@ -58,7 +58,7 @@ export const caterpillarN2Animation = ({
     /**
      *
      */
-    squareData = [...new Array(numItems).keys()].map((_item, i) => {
+    let squareData = [...new Array(numItems).keys()].map((_item, i) => {
         const relativeIndex =
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
@@ -84,10 +84,6 @@ export const caterpillarN2Animation = ({
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    /**
-     * @type {import('../../../../../mobMotion/type.d.ts').Sequencer}
-     * Create sequencer.
-     */
     let infiniteTween = tween
         .createSequencer({
             stagger: { each: 6 },
@@ -150,18 +146,24 @@ export const caterpillarN2Animation = ({
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen) {
+        if (useOffscreen && offscreen) {
             offscreen.width = canvas.width;
             offscreen.height = canvas.height;
         }
 
-        const context = useOffscreen ? offScreenCtx : ctx;
+        const context = useOffscreen
+            ? offScreenCtx
+            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+                  ctx
+              );
+
+        if (!context) return;
 
         context.fillStyle = canvasBackground;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         squareData.forEach(
-            ({ width, height, x, y, radius, rotate, hasFill, opacity }) => {
+            ({ width, height, x, y, rotate, hasFill, opacity }) => {
                 const centerX = canvas.width / 2;
                 const centerY = canvas.height / 2;
 
@@ -185,8 +187,8 @@ export const caterpillarN2Animation = ({
                 if (useRadius) {
                     context.beginPath();
                     context.roundRect(
-                        Number.parseInt(-width / 2),
-                        Number.parseInt(-height / 2),
+                        Math.round(-width / 2),
+                        Math.round(-height / 2),
                         width,
                         height,
                         [150, 0]
@@ -194,11 +196,10 @@ export const caterpillarN2Animation = ({
                 } else {
                     context.beginPath();
                     context.rect(
-                        Number.parseInt(-width / 2),
-                        Number.parseInt(-height / 2),
+                        Math.round(-width / 2),
+                        Math.round(-height / 2),
                         width,
-                        height,
-                        radius
+                        height
                     );
                 }
 
@@ -218,6 +219,7 @@ export const caterpillarN2Animation = ({
             }
         );
 
+        // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
 
@@ -279,8 +281,10 @@ export const caterpillarN2Animation = ({
             unsubscribeResize();
             unWatchPause();
             infiniteTween.destroy();
+            // @ts-ignore
             infiniteTween = null;
             syncTimeline.destroy();
+            // @ts-ignore
             syncTimeline = null;
             ctx = null;
             offscreen = null;

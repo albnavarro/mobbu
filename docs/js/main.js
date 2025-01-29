@@ -28310,18 +28310,13 @@ Loading snippet ...</pre
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
-    let gridData = [];
-    let data = [];
-    let centerTween = {};
-    let gridTween = {};
-    let gridTimeline = {};
     let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
     const activeRoute = getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    gridData = createGrid({
+    let gridData = createGrid({
       canvas,
       numberOfRow,
       numberOfColumn,
@@ -28329,7 +28324,7 @@ Loading snippet ...</pre
       cellHeight,
       gutter
     }).items;
-    data = gridData.map((item, i) => {
+    let data = gridData.map((item, i) => {
       return {
         ...item,
         scale: 0,
@@ -28338,7 +28333,7 @@ Loading snippet ...</pre
         hasFill: fill.includes(i)
       };
     }).sort((value) => value.hasFill ? -1 : 1);
-    centerTween = tween.createLerp({
+    let centerTween = tween.createLerp({
       data: { mouseX: 0, mouseY: 0 }
     });
     data.forEach((item) => {
@@ -28347,7 +28342,7 @@ Loading snippet ...</pre
         item.mouseY = mouseY;
       });
     });
-    gridTween = tween.createTween({
+    let gridTween = tween.createTween({
       ease: "easeInOutSine",
       stagger: {
         each: 5,
@@ -28364,11 +28359,15 @@ Loading snippet ...</pre
     });
     const draw = () => {
       if (!ctx) return;
-      if (useOffscreen) {
+      if (useOffscreen && offscreen) {
         offscreen.width = canvas.width;
         offscreen.height = canvas.height;
       }
-      const context2 = useOffscreen ? offScreenCtx : ctx;
+      const context2 = useOffscreen ? offScreenCtx : (
+        /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */
+        ctx
+      );
+      if (!context2) return;
       context2.fillStyle = canvasBackground;
       context2.fillRect(0, 0, canvas.width, canvas.height);
       data.forEach(
@@ -28424,7 +28423,7 @@ Loading snippet ...</pre
       );
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
-    gridTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(gridTween, { scale: 0.3 }, { duration: 1e3 });
+    let gridTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(gridTween, { scale: 0.3 }, { duration: 1e3 });
     gridTimeline.play();
     const move2 = ({ x, y }) => {
       centerTween.goTo({ mouseX: x - left, mouseY: y - top });
@@ -28442,8 +28441,8 @@ Loading snippet ...</pre
       if (!isActive2) return;
       mobCore.useNextFrame(() => loop());
     };
-    mobCore.useFrame(({ time: time2 }) => {
-      loop({ time: time2 });
+    mobCore.useFrame(() => {
+      loop();
     });
     const unsubscribeResize = mobCore.useResize(() => {
       canvas.width = canvas.clientWidth;
@@ -28652,15 +28651,13 @@ Loading snippet ...</pre
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: false });
-    let stemData = [];
-    let steamDataReorded = [];
     let { left } = offset(canvas);
     const activeRoute = getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     const useRadius = false;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    stemData = [...new Array(amountOfPath).keys()].map((_item, i) => {
+    let stemData = [...new Array(amountOfPath).keys()].map((_item, i) => {
       const count = i;
       const index = count < amountOfPath / 2 ? amountOfPath - count : count;
       const relativeIndex = index - (amountOfPath - index);
@@ -28680,7 +28677,7 @@ Loading snippet ...</pre
         index: i
       };
     });
-    steamDataReorded = stemData.splice(0, stemData.length / 2).concat(stemData.reverse());
+    let steamDataReorded = stemData.splice(0, stemData.length / 2).concat(stemData.reverse());
     let mainTween = tween.createSpring({
       data: { rotate: 0, y: 0 },
       stagger: { each: 5, from: "center" }
@@ -28692,11 +28689,15 @@ Loading snippet ...</pre
     });
     const draw = ({ time: time2 = 0 }) => {
       if (!ctx) return;
-      if (useOffscreen) {
+      if (useOffscreen && offscreen) {
         offscreen.width = canvas.width;
         offscreen.height = canvas.height;
       }
-      const context2 = useOffscreen ? offScreenCtx : ctx;
+      const context2 = useOffscreen ? offScreenCtx : (
+        /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */
+        ctx
+      );
+      if (!context2) return;
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       context2.fillStyle = canvasBackground;
@@ -28929,14 +28930,13 @@ Loading snippet ...</pre
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: false });
-    let squareData = [];
     let { top, left } = offset(canvas);
     const activeRoute = getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     const useRadius = false;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    squareData = [...new Array(numItems).keys()].map((_item, i) => {
+    let squareData = [...new Array(numItems).keys()].map((_item, i) => {
       const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
       const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
       return {
@@ -28974,11 +28974,15 @@ Loading snippet ...</pre
     });
     const draw = () => {
       if (!ctx) return;
-      if (useOffscreen) {
+      if (useOffscreen && offscreen) {
         offscreen.width = canvas.width;
         offscreen.height = canvas.height;
       }
-      const context2 = useOffscreen ? offScreenCtx : ctx;
+      const context2 = useOffscreen ? offScreenCtx : (
+        /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */
+        ctx
+      );
+      if (!context2) return;
       context2.fillStyle = canvasBackground;
       context2.fillRect(0, 0, canvas.width, canvas.height);
       squareData.forEach(
@@ -29001,8 +29005,8 @@ Loading snippet ...</pre
           if (useRadius) {
             context2.beginPath();
             context2.roundRect(
-              Number.parseInt(-width2 / 2),
-              Number.parseInt(-height2 / 2),
+              Math.round(-width2 / 2),
+              Math.round(-height2 / 2),
               width2,
               height2,
               [200, 0]
@@ -29010,8 +29014,8 @@ Loading snippet ...</pre
           } else {
             context2.beginPath();
             context2.rect(
-              Number.parseInt(-width2 / 2),
-              Number.parseInt(-height2 / 2),
+              Math.round(-width2 / 2),
+              Math.round(-height2 / 2),
               width2,
               height2
             );
@@ -29229,12 +29233,11 @@ Loading snippet ...</pre
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: false });
-    let squareData = [];
     let userRotation = rotationDefault;
     const activeRoute = getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     const useRadius = false;
-    squareData = [...new Array(numItems).keys()].map((_item, i) => {
+    let squareData = [...new Array(numItems).keys()].map((_item, i) => {
       const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
       const itemWidth = width + width / 3 * relativeIndex;
       const itemHeight = height + height / 3 * relativeIndex;
@@ -29290,15 +29293,19 @@ Loading snippet ...</pre
     });
     const draw = () => {
       if (!ctx) return;
-      if (useOffscreen) {
+      if (useOffscreen && offscreen) {
         offscreen.width = canvas.width;
         offscreen.height = canvas.height;
       }
-      const context2 = useOffscreen ? offScreenCtx : ctx;
+      const context2 = useOffscreen ? offScreenCtx : (
+        /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */
+        ctx
+      );
+      if (!context2) return;
       context2.fillStyle = canvasBackground;
       context2.fillRect(0, 0, canvas.width, canvas.height);
       squareData.forEach(
-        ({ width: width2, height: height2, x, y, radius: radius2, rotate, hasFill, opacity: opacity2 }) => {
+        ({ width: width2, height: height2, x, y, rotate, hasFill, opacity: opacity2 }) => {
           const centerX = canvas.width / 2;
           const centerY = canvas.height / 2;
           const scale = 1;
@@ -29309,8 +29316,8 @@ Loading snippet ...</pre
           if (useRadius) {
             context2.beginPath();
             context2.roundRect(
-              Number.parseInt(-width2 / 2),
-              Number.parseInt(-height2 / 2),
+              Math.round(-width2 / 2),
+              Math.round(-height2 / 2),
               width2,
               height2,
               [150, 0]
@@ -29318,11 +29325,10 @@ Loading snippet ...</pre
           } else {
             context2.beginPath();
             context2.rect(
-              Number.parseInt(-width2 / 2),
-              Number.parseInt(-height2 / 2),
+              Math.round(-width2 / 2),
+              Math.round(-height2 / 2),
               width2,
-              height2,
-              radius2
+              height2
             );
           }
           if (hasFill) {

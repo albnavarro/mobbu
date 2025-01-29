@@ -1,3 +1,5 @@
+//@ts-check
+
 import { timeline, tween } from '../../../../../mobMotion';
 import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
 import {
@@ -5,14 +7,13 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-    // roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
 import { getActiveRoute } from '../../../../../mobjs';
-// import { detectSafari } from '../../../../../utils/utils';
 
+/** @type{import('../type').CaterpillarN1Animation} */
 export const caterpillarN1Animation = ({
     canvas,
     numItems,
@@ -36,7 +37,6 @@ export const caterpillarN1Animation = ({
      */
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
-    let squareData = [];
     let { top, left } = offset(canvas);
     const activeRoute = getActiveRoute();
 
@@ -44,9 +44,6 @@ export const caterpillarN1Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    // let wichContext = useOffscreen ? offScreenCtx : ctx;
-    // const useRadius = roundRectIsSupported(wichContext) && !detectSafari();
-    // wichContext = null;
 
     const useRadius = false;
 
@@ -59,7 +56,7 @@ export const caterpillarN1Animation = ({
     /**
      *
      */
-    squareData = [...new Array(numItems).keys()].map((_item, i) => {
+    let squareData = [...new Array(numItems).keys()].map((_item, i) => {
         const relativeIndex =
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
@@ -121,12 +118,18 @@ export const caterpillarN1Animation = ({
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen) {
+        if (useOffscreen && offscreen) {
             offscreen.width = canvas.width;
             offscreen.height = canvas.height;
         }
 
-        const context = useOffscreen ? offScreenCtx : ctx;
+        const context = useOffscreen
+            ? offScreenCtx
+            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+                  ctx
+              );
+
+        if (!context) return;
 
         context.fillStyle = canvasBackground;
         context.fillRect(0, 0, canvas.width, canvas.height);
@@ -160,8 +163,8 @@ export const caterpillarN1Animation = ({
                 if (useRadius) {
                     context.beginPath();
                     context.roundRect(
-                        Number.parseInt(-width / 2),
-                        Number.parseInt(-height / 2),
+                        Math.round(-width / 2),
+                        Math.round(-height / 2),
                         width,
                         height,
                         [200, 0]
@@ -169,8 +172,8 @@ export const caterpillarN1Animation = ({
                 } else {
                     context.beginPath();
                     context.rect(
-                        Number.parseInt(-width / 2),
-                        Number.parseInt(-height / 2),
+                        Math.round(-width / 2),
+                        Math.round(-height / 2),
                         width,
                         height
                     );
@@ -192,6 +195,7 @@ export const caterpillarN1Animation = ({
             }
         );
 
+        // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
 
