@@ -1,5 +1,8 @@
+//@ts-check
+
 import { timeline, tween } from '../../../mobMotion';
 
+/** @type {import('./type').SimpleIntroAnimation} */
 export const simpleIntroAnimation = ({ refs }) => {
     let introTween = tween.createTween({
         data: { opacity: 0, scale: 0.5 },
@@ -18,7 +21,7 @@ export const simpleIntroAnimation = ({ refs }) => {
     refs.forEach((item) => {
         introTween.subscribeCache(item, ({ scale, opacity }) => {
             item.style.scale = `${scale}`;
-            item.style.opacity = opacity;
+            item.style.opacity = `${opacity}`;
         });
 
         loopTween.subscribe(({ scale }) => {
@@ -44,12 +47,16 @@ export const simpleIntroAnimation = ({ refs }) => {
         },
         destroy: () => {
             introTween.destroy();
+            // @ts-ignore
             introTween = null;
             introTl.destroy();
+            // @ts-ignore
             introTl = null;
             loopTween.destroy();
+            // @ts-ignore
             loopTween = null;
             loopTimeline.destroy();
+            // @ts-ignore
             loopTimeline = null;
         },
     };

@@ -26,10 +26,10 @@ export const HomeComponentFn = ({
 
     onMount(({ element }) => {
         const { textStagger } = getRefs();
-        const svg_group = element.querySelectorAll('[ref="svg_group"]');
+        const svg_group = [...element.querySelectorAll('[ref="svg_group"]')];
 
         const { destroy, playIntro, playSvg } = simpleIntroAnimation({
-            refs: svg_group,
+            refs: /** @type{HTMLElement[]} */ (svg_group),
         });
 
         const { playText, destroyText } = homeTextAnimation({

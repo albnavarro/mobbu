@@ -3,6 +3,7 @@
 import { outerHeight, outerWidth } from '../../../mobCore/utils';
 import { SmoothScroller } from '../../../mobMotion/plugin';
 
+/** @type{import('./type').VerticalScroller} */
 export const verticalScroller = ({ screen, scroller, scrollbar }) => {
     let instance;
 
@@ -18,7 +19,7 @@ export const verticalScroller = ({ screen, scroller, scrollbar }) => {
                 scopedEvent: false,
                 breakpoint: 'desktop',
                 onTick: ({ percent }) => {
-                    scrollbar.value = percent;
+                    scrollbar.value = `${percent}`;
                 },
             });
 
@@ -49,7 +50,7 @@ export const verticalScroller = ({ screen, scroller, scrollbar }) => {
              */
             instance?.refresh();
         },
-        move: (/** @type{number} */ val) => {
+        move: (val) => {
             if (!instance) return;
 
             instance.move(val);

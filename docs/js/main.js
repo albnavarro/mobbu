@@ -31201,7 +31201,7 @@ Loading snippet ...</pre
     refs.forEach((item) => {
       introTween.subscribeCache(item, ({ scale, opacity }) => {
         item.style.scale = `${scale}`;
-        item.style.opacity = opacity;
+        item.style.opacity = `${opacity}`;
       });
       loopTween.subscribe(({ scale }) => {
         item.style.scale = `${scale}`;
@@ -31270,9 +31270,12 @@ Loading snippet ...</pre
     const { svg } = getState();
     onMount(({ element }) => {
       const { textStagger } = getRefs();
-      const svg_group = element.querySelectorAll('[ref="svg_group"]');
+      const svg_group = [...element.querySelectorAll('[ref="svg_group"]')];
       const { destroy: destroy2, playIntro, playSvg } = simpleIntroAnimation({
-        refs: svg_group
+        refs: (
+          /** @type{HTMLElement[]} */
+          svg_group
+        )
       });
       const { playText, destroyText } = homeTextAnimation({
         refs: textStagger
@@ -34912,7 +34915,7 @@ Loading snippet ...</pre
           scopedEvent: false,
           breakpoint: "desktop",
           onTick: ({ percent }) => {
-            scrollbar.value = percent;
+            scrollbar.value = `${percent}`;
           }
         });
         instance.init();

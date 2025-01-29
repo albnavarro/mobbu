@@ -1,5 +1,9 @@
 import { html } from '../../../mobjs';
 
+/**
+ * @param {string} className
+ * @returns {string}
+ */
 export const getTrinangle = (className = '') => {
     return html`
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
