@@ -15,11 +15,10 @@
         "target": "ESNext"
     },
     "ts-node": { "esm": true },
-    "include": ["src/js/mobjs", "src/js/mobMotion", "src/js/mobCore"]
-    //"include": [
-    //    "src/js/mobjs",
-    //    "src/js/mobMotion",
-    //    "src/js/mobCore",
-    //    "src/js/component"
-    //]
+    "include": [
+        "src/js/mobjs",
+        "src/js/mobMotion",
+        "src/js/mobCore",
+        "src/js/component"
+    ]
 }

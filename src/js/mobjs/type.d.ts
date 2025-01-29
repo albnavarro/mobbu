@@ -907,3 +907,13 @@ export interface InizializeApp {
     pageTransition?: PageTransition;
     restoreScroll?: boolean;
 }
+
+export type PageAsync = (arg0: {
+    params: Record<string, string>;
+    props: Record<string, any>;
+}) => Promise<string>;
+
+export type Page = (arg0: {
+    params: Record<string, string>;
+    props: Record<string, any>;
+}) => string;

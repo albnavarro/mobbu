@@ -15,6 +15,7 @@ useComponent([
     BenchMarkRepeatNoKeyBindStore,
 ]);
 
+/** @type{import('../../mobjs/type').PageAsync} */
 export const benchMark = async ({ props }) => {
     const { rootComponent } = props;
     console.log(rootComponent);

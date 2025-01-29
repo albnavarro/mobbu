@@ -1,4 +1,4 @@
-/** @returns{import("../../../component/common/Move3D/type").Move3DChildren[]} */
+/** @type {import('./type.d.ts').GetLettering01} */
 export const getLettering01 = ({
     letter_o,
     letter_o_star,

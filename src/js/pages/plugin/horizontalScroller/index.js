@@ -4,6 +4,7 @@ import { horizontalScrollerParams } from './horizontalScrollerParams';
 
 useComponent([HorizontalScroller]);
 
+/** @type{import('../../../mobjs/type').PageAsync} */
 export const horizontalScroller = async ({ params }) => {
     const { version } = params;
 

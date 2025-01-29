@@ -9,6 +9,7 @@ import { getBreadCrumbs } from './utils';
 
 useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
 
+/** @type{import('../../mobjs/type').PageAsync} */
 export const layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs } = props;
     const { data } = await loadJsonContent({ source });

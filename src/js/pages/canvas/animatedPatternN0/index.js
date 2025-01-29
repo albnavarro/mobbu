@@ -4,6 +4,7 @@ import { animatedPatternN0Params } from './animatedPatternN0Params';
 
 useComponent([AnimatedPatternN0]);
 
+/** @type{import('../../../mobjs/type').Page} */
 export const animatedPatternN0 = ({ params }) => {
     const { version } = params;
 

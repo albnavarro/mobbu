@@ -4,6 +4,7 @@ import { html, staticProps, useComponent } from '../../../mobjs';
 
 useComponent([Move3DPage, StarSvg]);
 
+/** @type{import('../../../mobjs/type').PageAsync} */
 export const move3DRoute = async ({ props }) => {
     const { data, prevRoute, nextRoute } = props;
 

@@ -4,6 +4,7 @@ import { scrollerParams } from './scrollerParams';
 
 useComponent([ScrollerN0]);
 
+/** @type{import('../../../mobjs/type').Page} */
 export const scrollerN0 = ({ params }) => {
     const { version } = params;
 
