@@ -16,20 +16,29 @@
 ##  bindClass
 - l'inizializzazione avverra con un querySelctoreAll come per `delegateEvents` alla fine del parse.
 - Verrá utilizzata una `weakRef` come per bindObject
-- `Performance`: inizializzare una variabile `shouldQueryBindClass` che si mette su `true` al primo bindClass usato, si rimetterá su `false` alla fine del parse.
-- Il query selectorAll verrá inizializzato solo se `shouldQueryBindClass` é `true`.
-- Lo stesso meccanismo puó essere utilizzato per `delegateEvents`.
+- Nella seguente soluzione `bind` sará un classe non usabile, `ma una stringa protetta`.
+- Le classi saranno tutte le chiavi diverse da `bind`
 
 ```js
 <div
     ${bindClass([
         {
-            bind: ['myProp'], // bind: 'myProp'
-            className: 'my-class-name',
-            toggle: () => proxi.value,
-        },
+            bind: ['myProp'], // stringa o array di stringhe.
+            'my-class-name': () => proxi.value === proxi.currentIndex
+        }
     ])}
 ></div>
+```
+
+- Segue la stessa logica di `delegateEvents`
+- In piú avrá il traccimanto del component id per per ritrancciare lo stato per il watch.
+- La funzione `setBindClass` aggiungerá i dati alla `mappa` e restituirá un `id uivoco`.
+
+```js
+// getParamsForComponent.js
+bindClass: (classData) => {
+    return `${ATTR_WEAK_BIND_CLASS}="${setBindClass({ classData, id })}"`;
+},
 ```
 
 ## Repeat
