@@ -21064,6 +21064,7 @@
       watchBindClass({ data, element: target });
       bindClassMap.delete(id);
     });
+    occurrences.length = 0;
   };
   var watchBindClass = ({ data, element }) => {
     console.log(data, element);

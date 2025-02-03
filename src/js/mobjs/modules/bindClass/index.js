@@ -58,6 +58,11 @@ export const applyBindClass = (element) => {
         watchBindClass({ data, element: target });
         bindClassMap.delete(id);
     });
+
+    /**
+     * Trigger target remove grom garbage collector as soon as possible.
+     */
+    occurrences.length = 0;
 };
 
 /**
