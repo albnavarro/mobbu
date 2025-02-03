@@ -40,10 +40,12 @@ import {
     PartialGetProxiState,
     PartialBindStore,
     PartialCurrent,
+    PartialBindClass,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
 export type DelegateEvents = PartialDelegateEvents;
+export type BindClass<T> = PartialBindClass<T>;
 export type BindEvents = PartialBindEvents;
 export type GetState<T> = PartialGetState<T>;
 export type SetState<T> = PartialSetState<T>;
@@ -520,6 +522,11 @@ export interface componentPropsType<T, R> {
      * ```
      */
     delegateEvents: DelegateEvents;
+
+    /**
+     * @description
+     */
+    bindClass: BindClass<T>;
 
     /**
      * @description

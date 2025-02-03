@@ -19,6 +19,7 @@ import { destroyComponentInsideNodeById } from '../../component/action/removeAnd
 import { removeAndDestroyById } from '../../component/action/removeAndDestroy/removeAndDestroyById';
 import { watchById } from '../../component/action/watch';
 import {
+    ATTR_BIND_CLASS,
     ATTR_BIND_EVENTS,
     ATTR_BIND_OBJECT_ID,
     ATTR_BIND_REFS_ID,
@@ -54,6 +55,7 @@ import {
     getRenderWithSync,
 } from '../../modules/repeater/update/utils';
 import { setRepeaterChild } from '../../modules/repeater/action/setRepeatChild';
+import { setBindClass } from '../../modules/bindClass';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -186,6 +188,9 @@ export const getParamsForComponentFunction = ({
             return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
                 eventsData
             )}"`;
+        },
+        bindClass: (classData) => {
+            return `${ATTR_BIND_CLASS}="${setBindClass({ data: classData, id })}"`;
         },
         addMethod: (name, fn) => {
             addMethodById({ id, name, fn });

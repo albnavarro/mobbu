@@ -83,6 +83,11 @@ export const ATTR_WEAK_BIND_EVENTS = 'weakbindevents';
 /**
  * @type {string};
  */
+export const ATTR_BIND_CLASS = 'bindclass';
+
+/**
+ * @type {string};
+ */
 export const ATTR_PARENT_ID = 'parentid';
 
 /**

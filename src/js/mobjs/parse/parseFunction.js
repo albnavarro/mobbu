@@ -31,6 +31,7 @@ import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './useQuery';
 import { switchBindTextMap } from '../modules/bindtext';
 import { switchBindObjectMap } from '../modules/bindObject';
+import { applyBindClass } from '../modules/bindClass';
 
 /**
  * @param {object} obj
@@ -120,6 +121,7 @@ export const parseComponentsRecursive = async ({
          * This should be the last command.
          */
         applyDelegationBindEvent(element);
+        applyBindClass(element);
         switchBindTextMap();
         switchBindObjectMap();
 

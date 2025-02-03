@@ -21,18 +21,17 @@
 
 ```js
 <div
-    ${bindClass([
-        {
-            bind: ['myProp'], // stringa o array di stringhe.
-            'my-class-name': () => proxi.value === proxi.currentIndex
-        }
-    ])}
+    ${bindClass({
+        bind: ['isOpen'],
+        toggle: { active: () => proxi.isOpen },
+    })}
 ></div>
 ```
 
 - Segue la stessa logica di `delegateEvents`
 - In piú avrá il traccimanto del component id per per ritrancciare lo stato per il watch.
 - La funzione `setBindClass` aggiungerá i dati alla `mappa` e restituirá un `id uivoco`.
+- La funzione che esegue il toggle dovrá essere lanciata la prima volta come a simulare un `watchSync`
 
 ```js
 // getParamsForComponent.js

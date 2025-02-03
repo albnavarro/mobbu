@@ -16,7 +16,11 @@ export const NavigationButtonFn = ({
     onMount,
     watch,
     delegateEvents,
+    bindClass,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     const {
         label,
         url,
@@ -98,6 +102,13 @@ export const NavigationButtonFn = ({
                      */
                     loadUrl({ url });
                     navigationStore.set('navigationIsOpen', false);
+                },
+            })}
+            ${bindClass({
+                bind: 'isOpen',
+                toggle: {
+                    active: () => proxi.isOpen,
+                    pippo: () => proxi.isOpen,
                 },
             })}
         >
