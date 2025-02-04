@@ -16,8 +16,8 @@ export const NavigationButtonFn = ({
     onMount,
     watch,
     delegateEvents,
-    bindClass,
     getProxi,
+    bindEffect,
 }) => {
     const proxi = getProxi();
 
@@ -104,7 +104,7 @@ export const NavigationButtonFn = ({
                     navigationStore.set('navigationIsOpen', false);
                 },
             })}
-            ${bindClass({
+            ${bindEffect({
                 bind: 'isOpen',
                 toggle: {
                     active: () => proxi.isOpen,

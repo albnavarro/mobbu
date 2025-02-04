@@ -1,16 +1,16 @@
 import { mobCore } from '../../../mobCore';
-import { ATTR_BIND_CLASS } from '../../constant';
+import { ATTR_BIND_EFFECT } from '../../constant';
 
-/** @type{import("./type").BindClassMap} */
-const bindClassMap = new Map();
+/** @type{import("./type").BindEffectMap} */
+const bindEffectMap = new Map();
 
 /**
  * @description Save bindClass data in temporary map
  *
- * @type {import("./type").BindClassSet}
+ * @type {import("./type").BindEffectSet}
  */
-export const setBindClass = ({ data, id }) => {
-    /** @type{import('./type').BindClassObject<any>[]} */
+export const setBindEffect = ({ data, id }) => {
+    /** @type{import('./type').BindEffectObject<any>[]} */
     const dataToArray = mobCore.checkType(Array, data) ? data : [data];
 
     const dataBindToArray = dataToArray.map(({ bind, toggle }) => {
@@ -28,7 +28,7 @@ export const setBindClass = ({ data, id }) => {
     };
 
     const univoqueId = mobCore.getUnivoqueId();
-    bindClassMap.set(univoqueId, item);
+    bindEffectMap.set(univoqueId, item);
     return univoqueId;
 };
 
@@ -38,9 +38,9 @@ export const setBindClass = ({ data, id }) => {
  * @param {HTMLElement} element
  * @returns {void}
  */
-export const applyBindClass = (element) => {
+export const applyBindEffect = (element) => {
     const occurrences = /** @type{HTMLElement[]} */ ([
-        ...element.querySelectorAll(`[${ATTR_BIND_CLASS}]`),
+        ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`),
     ]);
 
     /**
@@ -48,15 +48,15 @@ export const applyBindClass = (element) => {
      * Check that target don't is garbage collected.
      */
     occurrences.forEach((target) => {
-        const id = target.getAttribute(ATTR_BIND_CLASS);
+        const id = target.getAttribute(ATTR_BIND_EFFECT);
         if (!id) return;
 
-        const data = bindClassMap.get(id);
+        const data = bindEffectMap.get(id);
         if (!data) return;
 
-        target.removeAttribute(ATTR_BIND_CLASS);
-        watchBindClass({ data, element: target });
-        bindClassMap.delete(id);
+        target.removeAttribute(ATTR_BIND_EFFECT);
+        watchBindEffect({ data, element: target });
+        bindEffectMap.delete(id);
     });
 
     /**
@@ -69,10 +69,10 @@ export const applyBindClass = (element) => {
  * @description Apply watcher.
  *
  * @param {object} params
- * @param {import('./type').BindClassMapValue} params.data
+ * @param {import('./type').BindEffectMapValue} params.data
  * @param {HTMLElement} params.element
  * @returns {void}
  */
-const watchBindClass = ({ data, element }) => {
+const watchBindEffect = ({ data, element }) => {
     console.log(data, element);
 };

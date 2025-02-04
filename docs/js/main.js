@@ -17252,7 +17252,7 @@
   var ATTR_REPEATER_PROP_BIND = "repeatPropBind";
   var ATTR_BIND_EVENTS = "bindevents";
   var ATTR_WEAK_BIND_EVENTS = "weakbindevents";
-  var ATTR_BIND_CLASS = "bindclass";
+  var ATTR_BIND_EFFECT = "bindeffect";
   var ATTR_PARENT_ID = "parentid";
   var ATTR_BIND_REFS_ID = "bindrefid";
   var ATTR_BIND_REFS_NAME = "bindrefname";
@@ -21028,8 +21028,8 @@
   };
 
   // src/js/mobjs/modules/bindClass/index.js
-  var bindClassMap = /* @__PURE__ */ new Map();
-  var setBindClass = ({ data, id }) => {
+  var bindEffectMap = /* @__PURE__ */ new Map();
+  var setBindEffect = ({ data, id }) => {
     const dataToArray = mobCore.checkType(Array, data) ? data : [data];
     const dataBindToArray = dataToArray.map(({ bind, toggle }) => {
       return {
@@ -21045,28 +21045,28 @@
       items: dataBindToArray
     };
     const univoqueId = mobCore.getUnivoqueId();
-    bindClassMap.set(univoqueId, item);
+    bindEffectMap.set(univoqueId, item);
     return univoqueId;
   };
-  var applyBindClass = (element) => {
+  var applyBindEffect = (element) => {
     const occurrences = (
       /** @type{HTMLElement[]} */
       [
-        ...element.querySelectorAll(`[${ATTR_BIND_CLASS}]`)
+        ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`)
       ]
     );
     occurrences.forEach((target) => {
-      const id = target.getAttribute(ATTR_BIND_CLASS);
+      const id = target.getAttribute(ATTR_BIND_EFFECT);
       if (!id) return;
-      const data = bindClassMap.get(id);
+      const data = bindEffectMap.get(id);
       if (!data) return;
-      target.removeAttribute(ATTR_BIND_CLASS);
-      watchBindClass({ data, element: target });
-      bindClassMap.delete(id);
+      target.removeAttribute(ATTR_BIND_EFFECT);
+      watchBindEffect({ data, element: target });
+      bindEffectMap.delete(id);
     });
     occurrences.length = 0;
   };
-  var watchBindClass = ({ data, element }) => {
+  var watchBindEffect = ({ data, element }) => {
     console.log(data, element);
   };
 
@@ -21174,8 +21174,8 @@
           eventsData
         )}"`;
       },
-      bindClass: (classData) => {
-        return `${ATTR_BIND_CLASS}="${setBindClass({ data: classData, id })}"`;
+      bindEffect: (effectData) => {
+        return `${ATTR_BIND_EFFECT}="${setBindEffect({ data: effectData, id })}"`;
       },
       addMethod: (name, fn) => {
         addMethodById({ id, name, fn });
@@ -21505,7 +21505,7 @@
       functionToFireAtTheEnd.length = 0;
       currentSelectors.length = 0;
       applyDelegationBindEvent(element);
-      applyBindClass(element);
+      applyBindEffect(element);
       switchBindTextMap();
       switchBindObjectMap();
       return;
@@ -25069,8 +25069,8 @@
     onMount,
     watch,
     delegateEvents,
-    bindClass,
-    getProxi
+    getProxi,
+    bindEffect
   }) => {
     const proxi = getProxi();
     const {
@@ -25121,7 +25121,7 @@
         navigationStore.set("navigationIsOpen", false);
       }
     })}
-            ${bindClass({
+            ${bindEffect({
       bind: "isOpen",
       toggle: {
         active: () => proxi.isOpen,

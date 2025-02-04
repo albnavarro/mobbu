@@ -83,7 +83,7 @@ export const ATTR_WEAK_BIND_EVENTS = 'weakbindevents';
 /**
  * @type {string};
  */
-export const ATTR_BIND_CLASS = 'bindclass';
+export const ATTR_BIND_EFFECT = 'bindeffect';
 
 /**
  * @type {string};

@@ -40,12 +40,12 @@ import {
     PartialGetProxiState,
     PartialBindStore,
     PartialCurrent,
-    PartialBindClass,
+    PartialBindEffect,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
 export type DelegateEvents = PartialDelegateEvents;
-export type BindClass<T> = PartialBindClass<T>;
+export type BindEffect<T> = PartialBindEffect<T>;
 export type BindEvents = PartialBindEvents;
 export type GetState<T> = PartialGetState<T>;
 export type SetState<T> = PartialSetState<T>;
@@ -491,7 +491,7 @@ export interface componentPropsType<T, R> {
     /**
      * @description
      * Delegate event.
-     * Event is associaed to document.
+     * Event is associated to document.
      * If target of event is the dom element, the callBack will be fired.
      * It is possible use an array to bind multiple event.
      *
@@ -526,7 +526,7 @@ export interface componentPropsType<T, R> {
     /**
      * @description
      */
-    bindClass: BindClass<T>;
+    bindEffect: BindEffect<T>;
 
     /**
      * @description

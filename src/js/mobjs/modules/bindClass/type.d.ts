@@ -1,12 +1,12 @@
 import { OnlyStringKey } from '../../../mobCore/store/type';
 import { GetState } from '../../tsUtils/mobComponentProps';
 
-export interface BindClassObject<T> {
+export interface BindEffectObject<T> {
     bind: OnlyStringKey<GetState<T>>[] | OnlyStringKey<GetState<T>>;
     toggle: Record<string, () => boolean>;
 }
 
-export interface BindClassMapValue {
+export interface BindEffectMapValue {
     parentId: string;
     items: {
         bind: string[];
@@ -14,9 +14,9 @@ export interface BindClassMapValue {
     }[];
 }
 
-export type BindClassMap = Map<string, BindClassMapValue>;
+export type BindEffectMap = Map<string, BindEffectMapValue>;
 
-export type BindClassSet = (arg0: {
-    data: BindClassObject;
+export type BindEffectSet = (arg0: {
+    data: BindEffectObject;
     id: string;
 }) => string;

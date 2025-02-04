@@ -1,5 +1,5 @@
 import { MobStore } from '../../mobCore/store/type';
-import { BindClassObject } from '../modules/bindClass/type';
+import { BindEffectObject } from '../modules/bindClass/type';
 import { bindEventsObject } from '../modules/bindEvents/type';
 import { delegateEventObject } from '../modules/delegateEvents/type';
 import { ArrayElement, NotValue, OnlyStringKey } from './utils';
@@ -38,8 +38,8 @@ export type PartialBindEvents = (
 /**
  * bindClass
  */
-export type PartialBindClass<T> = (
-    arg0: BindClassObject<T> | BindClassObject<T>[]
+export type PartialBindEffect<T> = (
+    arg0: BindEffectObject<T> | BindEffectObject<T>[]
 ) => string;
 
 /**
