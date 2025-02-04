@@ -31,7 +31,7 @@ import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './useQuery';
 import { switchBindTextMap } from '../modules/bindtext';
 import { switchBindObjectMap } from '../modules/bindObject';
-import { applyBindEffect } from '../modules/bindClass';
+import { applyBindEffect } from '../modules/bindEffect';
 
 /**
  * @param {object} obj

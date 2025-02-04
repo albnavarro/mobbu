@@ -3,14 +3,16 @@ import { GetState } from '../../tsUtils/mobComponentProps';
 
 export interface BindEffectObject<T> {
     bind: OnlyStringKey<GetState<T>>[] | OnlyStringKey<GetState<T>>;
-    toggle: Record<string, () => boolean>;
+    toggleClass?: Record<string, () => boolean>;
+    toggleStyle?: Record<string, () => string>;
 }
 
 export interface BindEffectMapValue {
     parentId: string;
     items: {
         bind: string[];
-        toggle: Record<string, () => boolean>;
+        toggleClass?: Record<string, () => boolean>;
+        toggleStyle?: Record<string, () => string>;
     }[];
 }
 

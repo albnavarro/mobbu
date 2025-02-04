@@ -21027,19 +21027,22 @@
     });
   };
 
-  // src/js/mobjs/modules/bindClass/index.js
+  // src/js/mobjs/modules/bindEffect/index.js
   var bindEffectMap = /* @__PURE__ */ new Map();
   var setBindEffect = ({ data, id }) => {
     const dataToArray = mobCore.checkType(Array, data) ? data : [data];
-    const dataBindToArray = dataToArray.map(({ bind, toggle }) => {
-      return {
-        bind: (
-          /** @type{string[]} */
-          mobCore.checkType(Array, bind) ? bind : [bind]
-        ),
-        toggle
-      };
-    });
+    const dataBindToArray = dataToArray.map(
+      ({ bind, toggleClass, toggleStyle }) => {
+        return {
+          bind: (
+            /** @type{string[]} */
+            mobCore.checkType(Array, bind) ? bind : [bind]
+          ),
+          toggleClass: toggleClass ?? {},
+          toggleStyle: toggleStyle ?? {}
+        };
+      }
+    );
     const item = {
       parentId: id,
       items: dataBindToArray
@@ -25123,9 +25126,12 @@
     })}
             ${bindEffect({
       bind: "isOpen",
-      toggle: {
+      toggleClass: {
         active: () => proxi.isOpen,
         pippo: () => proxi.isOpen
+      },
+      toggleStyle: {
+        paddingTop: () => proxi.isOpen ? "20px" : ""
       }
     })}
         >

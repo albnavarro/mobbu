@@ -106,9 +106,12 @@ export const NavigationButtonFn = ({
             })}
             ${bindEffect({
                 bind: 'isOpen',
-                toggle: {
+                toggleClass: {
                     active: () => proxi.isOpen,
                     pippo: () => proxi.isOpen,
+                },
+                toggleStyle: {
+                    paddingTop: () => (proxi.isOpen ? '20px' : ''),
                 },
             })}
         >

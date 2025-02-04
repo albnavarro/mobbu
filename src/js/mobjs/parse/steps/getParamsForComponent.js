@@ -55,7 +55,7 @@ import {
     getRenderWithSync,
 } from '../../modules/repeater/update/utils';
 import { setRepeaterChild } from '../../modules/repeater/action/setRepeatChild';
-import { setBindEffect } from '../../modules/bindClass';
+import { setBindEffect } from '../../modules/bindEffect';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state

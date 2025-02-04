@@ -13,14 +13,17 @@ export const setBindEffect = ({ data, id }) => {
     /** @type{import('./type').BindEffectObject<any>[]} */
     const dataToArray = mobCore.checkType(Array, data) ? data : [data];
 
-    const dataBindToArray = dataToArray.map(({ bind, toggle }) => {
-        return {
-            bind: /** @type{string[]} */ (
-                mobCore.checkType(Array, bind) ? bind : [bind]
-            ),
-            toggle,
-        };
-    });
+    const dataBindToArray = dataToArray.map(
+        ({ bind, toggleClass, toggleStyle }) => {
+            return {
+                bind: /** @type{string[]} */ (
+                    mobCore.checkType(Array, bind) ? bind : [bind]
+                ),
+                toggleClass: toggleClass ?? {},
+                toggleStyle: toggleStyle ?? {},
+            };
+        }
+    );
 
     const item = {
         parentId: id,

@@ -1,5 +1,5 @@
 import { MobStore } from '../../mobCore/store/type';
-import { BindEffectObject } from '../modules/bindClass/type';
+import { BindEffectObject } from '../modules/bindEffect/type';
 import { bindEventsObject } from '../modules/bindEvents/type';
 import { delegateEventObject } from '../modules/delegateEvents/type';
 import { ArrayElement, NotValue, OnlyStringKey } from './utils';
