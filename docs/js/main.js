@@ -21052,7 +21052,7 @@
     return univoqueId;
   };
   var applyBindEffect = (element) => {
-    const occurrences = (
+    let occurrences = (
       /** @type{HTMLElement[]} */
       [
         ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`)
@@ -21067,19 +21067,7 @@
       watchBindEffect({ data, element: target });
       bindEffectMap.delete(id);
     });
-    occurrences.length = 0;
-  };
-  var apllyClass = ({ ref, toggleClass }) => {
-    Object.entries(toggleClass).forEach(([className, fn]) => {
-      if (!ref) return;
-      ref.classList.toggle(className, fn?.());
-    });
-  };
-  var apllyStyle = ({ ref, toggleStyle }) => {
-    Object.entries(toggleStyle).forEach(([styleName, fn]) => {
-      if (!ref) return;
-      ref.style[styleName] = fn?.() ?? "";
-    });
+    occurrences = null;
   };
   var watchBindEffect = ({ data, element }) => {
     const ref = new WeakRef(element);
@@ -21093,18 +21081,26 @@
         const isArray = checkType(Array, initialStateValue);
         const shouldRender = !isArray || initialStateValue.length > 0;
         if (toggleClass && shouldRender) {
-          if (!ref.deref()) return;
           mobCore.useFrame(() => {
-            apllyClass({ ref: ref.deref(), toggleClass });
+            Object.entries(toggleClass).forEach(([className, fn]) => {
+              if (!ref.deref()) return;
+              ref.deref().classList.toggle(className, fn?.());
+            });
           });
         }
         if (toggleStyle && shouldRender) {
-          if (!ref.deref()) return;
           mobCore.useFrame(() => {
-            apllyStyle({ ref: ref.deref(), toggleStyle });
+            Object.entries(toggleStyle).forEach(([styleName, fn]) => {
+              if (!ref.deref()) return;
+              ref.deref().style[styleName] = fn?.() ?? "";
+            });
           });
         }
         const unwatch = watchById(id, state, (value) => {
+          if (!ref.deref() && unwatch) {
+            unwatch();
+            return;
+          }
           if (watchIsRunning) return;
           watchIsRunning = true;
           mobCore.useNextLoop(() => {
@@ -21112,18 +21108,26 @@
               const shouldRender2 = !isArray || value.length > 0;
               if (toggleClass && shouldRender2) {
                 if (!ref.deref()) return;
-                apllyClass({ ref: ref.deref(), toggleClass });
+                Object.entries(toggleClass).forEach(
+                  ([className, fn]) => {
+                    if (!ref.deref()) return;
+                    ref.deref().classList.toggle(
+                      className,
+                      fn?.()
+                    );
+                  }
+                );
               }
               if (toggleStyle && shouldRender2) {
                 if (!ref.deref()) return;
-                apllyStyle({ ref: ref.deref(), toggleStyle });
+                Object.entries(toggleStyle).forEach(
+                  ([styleName, fn]) => {
+                    if (!ref.deref()) return;
+                    ref.deref().style[styleName] = fn?.() ?? "";
+                  }
+                );
               }
               watchIsRunning = false;
-              mobCore.useNextTick(async () => {
-                if (!ref.deref() && unwatch) {
-                  unwatch();
-                }
-              });
             });
           });
         });

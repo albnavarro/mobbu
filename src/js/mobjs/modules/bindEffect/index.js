@@ -45,7 +45,7 @@ export const setBindEffect = ({ data, id }) => {
  * @returns {void}
  */
 export const applyBindEffect = (element) => {
-    const occurrences = /** @type{HTMLElement[]} */ ([
+    let occurrences = /** @type{HTMLElement[]} */ ([
         ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`),
     ]);
 
@@ -68,36 +68,8 @@ export const applyBindEffect = (element) => {
     /**
      * Trigger target remove grom garbage collector as soon as possible.
      */
-    occurrences.length = 0;
-};
-
-/**
- * @param {object} params
- * @param {HTMLElement|undefined} params.ref
- * @param {Record<string, () => boolean>} params.toggleClass
- * @returns {void}
- */
-const apllyClass = ({ ref, toggleClass }) => {
-    Object.entries(toggleClass).forEach(([className, fn]) => {
-        if (!ref) return;
-
-        ref.classList.toggle(className, fn?.());
-    });
-};
-
-/**
- * @param {object} params
- * @param {HTMLElement|undefined} params.ref
- * @param {Record<string, () => string>} params.toggleStyle
- * @returns {void}
- */
-const apllyStyle = ({ ref, toggleStyle }) => {
-    Object.entries(toggleStyle).forEach(([styleName, fn]) => {
-        if (!ref) return;
-
-        // @ts-ignore
-        ref.style[styleName] = fn?.() ?? '';
-    });
+    // @ts-ignore
+    occurrences = null;
 };
 
 /**
@@ -143,10 +115,13 @@ const watchBindEffect = ({ data, element }) => {
              * Initial class render
              */
             if (toggleClass && shouldRender) {
-                if (!ref.deref()) return;
-
                 mobCore.useFrame(() => {
-                    apllyClass({ ref: ref.deref(), toggleClass });
+                    Object.entries(toggleClass).forEach(([className, fn]) => {
+                        if (!ref.deref()) return;
+
+                        // @ts-ignore
+                        ref.deref().classList.toggle(className, fn?.());
+                    });
                 });
             }
 
@@ -154,14 +129,22 @@ const watchBindEffect = ({ data, element }) => {
              * Initial style render
              */
             if (toggleStyle && shouldRender) {
-                if (!ref.deref()) return;
-
                 mobCore.useFrame(() => {
-                    apllyStyle({ ref: ref.deref(), toggleStyle });
+                    Object.entries(toggleStyle).forEach(([styleName, fn]) => {
+                        if (!ref.deref()) return;
+
+                        // @ts-ignore
+                        ref.deref().style[styleName] = fn?.() ?? '';
+                    });
                 });
             }
 
             const unwatch = watchById(id, state, (value) => {
+                if (!ref.deref() && unwatch) {
+                    unwatch();
+                    return;
+                }
+
                 /**
                  * Wait for all all props is settled.
                  */
@@ -179,24 +162,32 @@ const watchBindEffect = ({ data, element }) => {
 
                         if (toggleClass && shouldRender) {
                             if (!ref.deref()) return;
-                            apllyClass({ ref: ref.deref(), toggleClass });
+                            Object.entries(toggleClass).forEach(
+                                ([className, fn]) => {
+                                    if (!ref.deref()) return;
+
+                                    // @ts-ignore
+                                    ref.deref().classList.toggle(
+                                        className,
+                                        fn?.()
+                                    );
+                                }
+                            );
                         }
 
                         if (toggleStyle && shouldRender) {
                             if (!ref.deref()) return;
-                            apllyStyle({ ref: ref.deref(), toggleStyle });
+                            Object.entries(toggleStyle).forEach(
+                                ([styleName, fn]) => {
+                                    if (!ref.deref()) return;
+
+                                    // @ts-ignore
+                                    ref.deref().style[styleName] = fn?.() ?? '';
+                                }
+                            );
                         }
 
                         watchIsRunning = false;
-
-                        /**
-                         * Check ref existence after render
-                         */
-                        mobCore.useNextTick(async () => {
-                            if (!ref.deref() && unwatch) {
-                                unwatch();
-                            }
-                        });
                     });
                 });
             });
