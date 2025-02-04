@@ -21069,8 +21069,69 @@
     });
     occurrences.length = 0;
   };
+  var apllyClass = ({ ref, toggleClass }) => {
+    Object.entries(toggleClass).forEach(([className, fn]) => {
+      if (!ref) return;
+      ref.classList.toggle(className, fn?.());
+    });
+  };
+  var apllyStyle = ({ ref, toggleStyle }) => {
+    Object.entries(toggleStyle).forEach(([styleName, fn]) => {
+      if (!ref) return;
+      ref.style[styleName] = fn?.() ?? "";
+    });
+  };
   var watchBindEffect = ({ data, element }) => {
-    console.log(data, element);
+    const ref = new WeakRef(element);
+    const { parentId: id } = data;
+    const { items } = data;
+    items.forEach(({ bind, toggleClass, toggleStyle }) => {
+      let watchIsRunning = false;
+      const states = getStateById(id);
+      bind.forEach((state) => {
+        const initialStateValue = states?.[state];
+        const isArray = checkType(Array, initialStateValue);
+        const shouldRender = !isArray || initialStateValue.length > 0;
+        if (toggleClass && shouldRender) {
+          if (!ref.deref()) return;
+          mobCore.useFrame(() => {
+            apllyClass({ ref: ref.deref(), toggleClass });
+          });
+        }
+        if (toggleStyle && shouldRender) {
+          if (!ref.deref()) return;
+          mobCore.useFrame(() => {
+            apllyStyle({ ref: ref.deref(), toggleStyle });
+          });
+        }
+        const unwatch = watchById(id, state, (value) => {
+          if (watchIsRunning) return;
+          watchIsRunning = true;
+          mobCore.useNextLoop(() => {
+            mobCore.useFrame(() => {
+              if (!ref.deref() && unwatch) {
+                unwatch();
+              }
+              const shouldRender2 = !isArray || value.length > 0;
+              if (toggleClass && shouldRender2) {
+                if (!ref.deref()) return;
+                apllyClass({ ref: ref.deref(), toggleClass });
+              }
+              if (toggleStyle && shouldRender2) {
+                if (!ref.deref()) return;
+                apllyStyle({ ref: ref.deref(), toggleStyle });
+              }
+              watchIsRunning = false;
+              mobCore.useNextTick(async () => {
+                if (!ref.deref() && unwatch) {
+                  unwatch();
+                }
+              });
+            });
+          });
+        });
+      });
+    });
   };
 
   // src/js/mobjs/parse/steps/getParamsForComponent.js
@@ -25070,7 +25131,6 @@
     getState,
     html,
     onMount,
-    watch,
     delegateEvents,
     getProxi,
     bindEffect
@@ -25087,11 +25147,6 @@
       activeId
     } = getState();
     onMount(({ element }) => {
-      watch("isOpen", (isOpen) => {
-        mobCore.useFrame(() => {
-          element.classList.toggle("active", isOpen);
-        });
-      });
       afterRouteChange(({ route }) => {
         mobCore.useFrame(() => {
           const urlParsed = url.split("?");
@@ -25127,11 +25182,7 @@
             ${bindEffect({
       bind: "isOpen",
       toggleClass: {
-        active: () => proxi.isOpen,
-        pippo: () => proxi.isOpen
-      },
-      toggleStyle: {
-        paddingTop: () => proxi.isOpen ? "20px" : ""
+        active: () => proxi.isOpen
       }
     })}
         >

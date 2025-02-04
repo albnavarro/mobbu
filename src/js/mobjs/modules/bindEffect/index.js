@@ -1,4 +1,7 @@
 import { mobCore } from '../../../mobCore';
+import { checkType } from '../../../mobCore/store/storeType';
+import { getStateById } from '../../component/action/state/getStateById';
+import { watchById } from '../../component/action/watch';
 import { ATTR_BIND_EFFECT } from '../../constant';
 
 /** @type{import("./type").BindEffectMap} */
@@ -69,6 +72,35 @@ export const applyBindEffect = (element) => {
 };
 
 /**
+ * @param {object} params
+ * @param {HTMLElement|undefined} params.ref
+ * @param {Record<string, () => boolean>} params.toggleClass
+ * @returns {void}
+ */
+const apllyClass = ({ ref, toggleClass }) => {
+    Object.entries(toggleClass).forEach(([className, fn]) => {
+        if (!ref) return;
+
+        ref.classList.toggle(className, fn?.());
+    });
+};
+
+/**
+ * @param {object} params
+ * @param {HTMLElement|undefined} params.ref
+ * @param {Record<string, () => string>} params.toggleStyle
+ * @returns {void}
+ */
+const apllyStyle = ({ ref, toggleStyle }) => {
+    Object.entries(toggleStyle).forEach(([styleName, fn]) => {
+        if (!ref) return;
+
+        // @ts-ignore
+        ref.style[styleName] = fn?.() ?? '';
+    });
+};
+
+/**
  * @description Apply watcher.
  *
  * @param {object} params
@@ -77,5 +109,104 @@ export const applyBindEffect = (element) => {
  * @returns {void}
  */
 const watchBindEffect = ({ data, element }) => {
-    console.log(data, element);
+    /** @type{WeakRef<HTMLElement>} */
+    const ref = new WeakRef(element);
+
+    const { parentId: id } = data;
+    const { items } = data;
+
+    items.forEach(({ bind, toggleClass, toggleStyle }) => {
+        /**
+         * Watch props on change
+         */
+        let watchIsRunning = false;
+
+        /**
+         * proxiIndex issue.
+         * Get states to check if there is an array
+         * Will check that array has always a length > 0
+         */
+        const states = getStateById(id);
+
+        bind.forEach((state) => {
+            const initialStateValue = states?.[state];
+            const isArray = checkType(Array, initialStateValue);
+
+            /**
+             * Repeat ProxiIndex issue.
+             * Array che be destroyed before element will removed.
+             * proxi.data[proxiIndex.value].prop can fail when array is empty.
+             */
+            const shouldRender = !isArray || initialStateValue.length > 0;
+
+            /**
+             * Initial class render
+             */
+            if (toggleClass && shouldRender) {
+                if (!ref.deref()) return;
+
+                mobCore.useFrame(() => {
+                    apllyClass({ ref: ref.deref(), toggleClass });
+                });
+            }
+
+            /**
+             * Initial style render
+             */
+            if (toggleStyle && shouldRender) {
+                if (!ref.deref()) return;
+
+                mobCore.useFrame(() => {
+                    apllyStyle({ ref: ref.deref(), toggleStyle });
+                });
+            }
+
+            const unwatch = watchById(id, state, (value) => {
+                /**
+                 * Wait for all all props is settled.
+                 */
+                if (watchIsRunning) return;
+                watchIsRunning = true;
+
+                mobCore.useNextLoop(() => {
+                    mobCore.useFrame(() => {
+                        /**
+                         * Check ref existence before render
+                         */
+                        if (!ref.deref() && unwatch) {
+                            unwatch();
+                        }
+
+                        /**
+                         * Repeat ProxiIndex issue.
+                         * Array che be destroyed before element will removed.
+                         * proxi.data[proxiIndex.value].prop can fail when array is empty.
+                         */
+                        const shouldRender = !isArray || value.length > 0;
+
+                        if (toggleClass && shouldRender) {
+                            if (!ref.deref()) return;
+                            apllyClass({ ref: ref.deref(), toggleClass });
+                        }
+
+                        if (toggleStyle && shouldRender) {
+                            if (!ref.deref()) return;
+                            apllyStyle({ ref: ref.deref(), toggleStyle });
+                        }
+
+                        watchIsRunning = false;
+
+                        /**
+                         * Check ref existence after render
+                         */
+                        mobCore.useNextTick(async () => {
+                            if (!ref.deref() && unwatch) {
+                                unwatch();
+                            }
+                        });
+                    });
+                });
+            });
+        });
+    });
 };

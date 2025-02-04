@@ -14,7 +14,6 @@ export const NavigationButtonFn = ({
     getState,
     html,
     onMount,
-    watch,
     delegateEvents,
     getProxi,
     bindEffect,
@@ -33,15 +32,6 @@ export const NavigationButtonFn = ({
     } = getState();
 
     onMount(({ element }) => {
-        /**
-         * Is a toggle accordion.
-         */
-        watch('isOpen', (isOpen) => {
-            mobCore.useFrame(() => {
-                element.classList.toggle('active', isOpen);
-            });
-        });
-
         afterRouteChange(({ route }) => {
             mobCore.useFrame(() => {
                 const urlParsed = url.split('?');
@@ -108,10 +98,6 @@ export const NavigationButtonFn = ({
                 bind: 'isOpen',
                 toggleClass: {
                     active: () => proxi.isOpen,
-                    pippo: () => proxi.isOpen,
-                },
-                toggleStyle: {
-                    paddingTop: () => (proxi.isOpen ? '20px' : ''),
                 },
             })}
         >
