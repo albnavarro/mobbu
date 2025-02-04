@@ -1,25 +1,17 @@
 //@ts-check
 
 /** @type {import("../../../../mobjs/type").MobComponent<import("./type").ScrollToButton>} */
-export const ScrollToButtonFn = ({
-    html,
-    getState,
-    onMount,
-    watchSync,
-    setRef,
-}) => {
+export const ScrollToButtonFn = ({ html, getState, setRef, bindEffect }) => {
     const { label } = getState();
 
-    onMount(({ element }) => {
-        watchSync('active', (val) => {
-            element.classList.toggle('active', val);
-        });
-
-        return () => {};
-    });
-
     return html`
-        <button type="button">
+        <button
+            type="button"
+            ${bindEffect({
+                bind: 'active',
+                toggleClass: { active: () => getState().active },
+            })}
+        >
             <span ${setRef('labelRef')}> ${label} </span>
         </button>
     `;

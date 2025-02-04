@@ -171,13 +171,6 @@ const watchBindEffect = ({ data, element }) => {
                 mobCore.useNextLoop(() => {
                     mobCore.useFrame(() => {
                         /**
-                         * Check ref existence before render
-                         */
-                        if (!ref.deref() && unwatch) {
-                            unwatch();
-                        }
-
-                        /**
                          * Repeat ProxiIndex issue.
                          * Array che be destroyed before element will removed.
                          * proxi.data[proxiIndex.value].prop can fail when array is empty.

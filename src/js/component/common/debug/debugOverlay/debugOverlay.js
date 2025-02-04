@@ -12,37 +12,25 @@ export const DebugOverlayFn = ({
     html,
     delegateEvents,
     addMethod,
-    onMount,
     updateState,
-    watchSync,
     setState,
     bindProps,
     invalidate,
     getState,
     setRef,
-    getRef,
+    bindEffect,
 }) => {
     addMethod('toggle', () => {
         updateState('active', (value) => !value);
     });
 
-    onMount(({ element }) => {
-        const { toggle_tree, toggle_filter } = getRef();
-
-        watchSync('active', (value) => {
-            element.classList.toggle('active', value);
-        });
-
-        watchSync('listType', (value) => {
-            const isTree = value === DEBUG_USE_TREE;
-            toggle_tree.classList.toggle('active', isTree);
-            toggle_filter.classList.toggle('active', !isTree);
-        });
-
-        return () => {};
-    });
-
-    return html`<div class="c-debug-overlay">
+    return html`<div
+        class="c-debug-overlay"
+        ${bindEffect({
+            bind: 'active',
+            toggleClass: { active: () => getState().active },
+        })}
+    >
         <button
             class="c-debug-overlay__background"
             type="button"
@@ -125,6 +113,13 @@ export const DebugOverlayFn = ({
                                     setState('listType', DEBUG_USE_TREE);
                                 },
                             })}
+                            ${bindEffect({
+                                bind: 'listType',
+                                toggleClass: {
+                                    active: () =>
+                                        getState().listType === DEBUG_USE_TREE,
+                                },
+                            })}
                         >
                             Tree
                         </button>
@@ -138,6 +133,14 @@ export const DebugOverlayFn = ({
                                         'listType',
                                         DEBUG_USE_FILTER_COMPONENT
                                     );
+                                },
+                            })}
+                            ${bindEffect({
+                                bind: 'listType',
+                                toggleClass: {
+                                    active: () =>
+                                        getState().listType ===
+                                        DEBUG_USE_FILTER_COMPONENT,
                                 },
                             })}
                         >

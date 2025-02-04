@@ -8,15 +8,12 @@ import { bodyScroll } from '../../../mobMotion/plugin';
  **/
 
 /** @type {MobComponent<ScrollToTop>} */
-export const ScrollToTopFn = ({ html, onMount, delegateEvents, watchSync }) => {
-    onMount(({ element }) => {
-        watchSync('active', (isActive) => {
-            element.classList.toggle('active', isActive);
-        });
-
-        return () => {};
-    });
-
+export const ScrollToTopFn = ({
+    html,
+    delegateEvents,
+    bindEffect,
+    getState,
+}) => {
     return html`
         <button
             type="button"
@@ -25,6 +22,10 @@ export const ScrollToTopFn = ({ html, onMount, delegateEvents, watchSync }) => {
                 click: () => {
                     bodyScroll.to(0);
                 },
+            })}
+            ${bindEffect({
+                bind: 'active',
+                toggleClass: { active: () => getState().active },
             })}
         ></button>
     `;

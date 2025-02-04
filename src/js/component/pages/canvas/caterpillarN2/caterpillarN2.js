@@ -64,7 +64,7 @@ export const CaterpillarN2Fn = ({
             active: true,
             prevRoute: '#caterpillarN1',
             nextRoute: '#animatedPatternN0?version=0&activeId=0',
-            color: 'white',
+            color: 'black',
         });
 
         /** Title */

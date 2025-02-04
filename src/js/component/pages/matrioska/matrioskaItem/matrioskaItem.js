@@ -8,23 +8,20 @@
 /** @type { MobComponent<MatrioskaItem> } */
 export const MatrioskaItemFn = ({
     html,
-    onMount,
     getState,
-    watch,
     bindText,
     id,
+    bindEffect,
 }) => {
     const { level } = getState();
 
-    onMount(({ element }) => {
-        watch('active', (val) => {
-            element.classList.toggle('active', val);
-        });
-
-        return () => {};
-    });
-
-    return html`<div class="matrioska-item">
+    return html`<div
+        class="matrioska-item"
+        ${bindEffect({
+            bind: 'active',
+            toggleClass: { active: () => getState().active },
+        })}
+    >
         <div class="matrioska-item__info">
             <h4 class="matrioska-item__level">${level}:</h4>
             <h6 class="matrioska-item__key">

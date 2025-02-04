@@ -1,25 +1,8 @@
 //@ts-check
 
 /** @type {import("../../../../mobjs/type").MobComponent<import("./type").HorizontalScrollerButton>} */
-export const HorizontalScrollerButtonFn = ({
-    getState,
-    watch,
-    html,
-    onMount,
-    setRef,
-    getRef,
-}) => {
+export const HorizontalScrollerButtonFn = ({ getState, html, bindEffect }) => {
     const { id } = getState();
-
-    onMount(() => {
-        const { button } = getRef();
-
-        watch('active', (active) => {
-            button.classList.toggle('active', active);
-        });
-
-        return () => {};
-    });
 
     return html`
         <li>
@@ -27,7 +10,10 @@ export const HorizontalScrollerButtonFn = ({
                 type="button"
                 data-id="${id}"
                 class="l-h-scroller__nav__btn"
-                ${setRef('button')}
+                ${bindEffect({
+                    bind: 'active',
+                    toggleClass: { active: () => getState().active },
+                })}
             >
                 ${id}
             </button>

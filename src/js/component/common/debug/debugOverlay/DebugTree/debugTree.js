@@ -49,7 +49,7 @@ export const DebugTreeFn = ({
     setRef,
     getRef,
     addMethod,
-    watch,
+    bindEffect,
 }) => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};
@@ -61,7 +61,7 @@ export const DebugTreeFn = ({
     let move = () => {};
 
     onMount(() => {
-        const { loadingRef, scrollbar } = getRef();
+        const { scrollbar } = getRef();
 
         scrollbar.addEventListener('input', () => {
             // @ts-ignore
@@ -87,10 +87,6 @@ export const DebugTreeFn = ({
                     setState('isLoading', false);
                 });
             });
-        });
-
-        watch('isLoading', (isLoading) => {
-            loadingRef.classList.toggle('visible', isLoading);
         });
 
         (async () => {
@@ -133,7 +129,13 @@ export const DebugTreeFn = ({
                     ${setRef('scrollbar')}
                     class="c-debug-tree__scrollbar"
                 />
-                <span ${setRef('loadingRef')} class="c-debug-tree__status"
+                <span
+                    ${setRef('loadingRef')}
+                    class="c-debug-tree__status"
+                    ${bindEffect({
+                        bind: 'isLoading',
+                        toggleClass: { visible: () => getState().isLoading },
+                    })}
                     >Generate tree</span
                 >
                 <div class="c-debug-tree__scroller" ${setRef('scroller')}>

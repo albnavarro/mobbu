@@ -9,7 +9,7 @@ import {
 import { getExternalStore } from './store';
 
 /**
- * @import { DelegateEvents, SetRef, GetRef, GetState } from '../../../../mobjs/type';
+ * @import { DelegateEvents, SetRef, GetRef, GetState, BindEffect } from '../../../../mobjs/type';
  **/
 
 /**
@@ -50,18 +50,26 @@ const setData = async ({ value, useShuffle = false }) => {
  * @param {SetRef<import('./type').BenchMarkExternal>} params.setRef
  * @param {GetRef<import('./type').BenchMarkExternal>} params.getRef
  * @param {GetState<import('./type').BenchMarkExternal>} params.getState
+ * @param {BindEffect<import('./type').BenchMarkExternal>} params.bindEffect
  */
 export const benchMarkListExternalPartial = ({
     delegateEvents,
     setRef,
     getRef,
     getState,
+    bindEffect,
 }) => {
     const externalStore = getExternalStore();
     const { update } = externalStore;
 
     return html`
-        <div class="benchmark__loading" ${setRef('loading')}>
+        <div
+            class="benchmark__loading"
+            ${bindEffect({
+                bind: 'isLoading',
+                toggleClass: { active: () => getState().isLoading },
+            })}
+        >
             generate components
         </div>
         <div class="benchmark__head__controls">

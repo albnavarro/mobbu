@@ -4,7 +4,7 @@ import { mobCore } from '../../../../mobCore';
 import { html, tick } from '../../../../mobjs';
 
 /**
- * @import { DelegateEvents, SetRef, GetRef,  SetState, UpdateState, GetState } from '../../../../mobjs/type';
+ * @import { DelegateEvents, SetRef, GetRef,  SetState, UpdateState, GetState, BindEffect } from '../../../../mobjs/type';
  **/
 
 /**
@@ -72,6 +72,7 @@ const setData = async ({ setState, value, useShuffle = false }) => {
  * @param {UpdateState<import('../type').BenchMark>} params.updateState
  * @param {GetState<import('../type').BenchMark>} params.getState
  * @param {SetState<import('../type').BenchMark>} params.setState
+ * @param {BindEffect<import('../type').BenchMark>} params.bindEffect
  */
 export const benchMarkListPartial = ({
     delegateEvents,
@@ -80,9 +81,16 @@ export const benchMarkListPartial = ({
     updateState,
     getState,
     setState,
+    bindEffect,
 }) => {
     return html`
-        <div class="benchmark__loading" ${setRef('loading')}>
+        <div
+            class="benchmark__loading"
+            ${bindEffect({
+                bind: 'isLoading',
+                toggleClass: { active: () => getState().isLoading },
+            })}
+        >
             generate components
         </div>
         <div class="benchmark__head__controls">

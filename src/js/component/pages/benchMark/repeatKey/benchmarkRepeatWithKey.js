@@ -19,16 +19,10 @@ export const BenchMarkRepeatWithKyFn = ({
     setState,
     updateState,
     bindProps,
-    watch,
     repeat,
+    bindEffect,
 }) => {
     onMount(() => {
-        const { loading } = getRef();
-
-        watch('isLoading', (value) => {
-            loading.classList.toggle('active', value);
-        });
-
         return () => {};
     });
 
@@ -46,6 +40,7 @@ export const BenchMarkRepeatWithKyFn = ({
                 updateState,
                 delegateEvents,
                 getState,
+                bindEffect,
             })}
 
             <div class="benchmark__head__time">

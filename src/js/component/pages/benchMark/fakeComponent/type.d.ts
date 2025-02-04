@@ -3,5 +3,6 @@ export interface BenchMarkFakeComponent {
         counter: number;
         label: string;
         index: number;
+        isSelected: boolean;
     };
 }

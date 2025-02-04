@@ -21,21 +21,15 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
     getRef,
     getState,
     bindProps,
-    watch,
     repeat,
     bindStore,
+    bindEffect,
 }) => {
     createExternalStore();
     const externalStore = getExternalStore();
     bindStore(externalStore);
 
     onMount(() => {
-        const { loading } = getRef();
-
-        watch('isLoading', (value) => {
-            loading.classList.toggle('active', value);
-        });
-
         return () => {
             destroyExternalStore();
         };
@@ -54,6 +48,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                 getRef,
                 delegateEvents,
                 getState,
+                bindEffect,
             })}
 
             <div class="benchmark__head__time">

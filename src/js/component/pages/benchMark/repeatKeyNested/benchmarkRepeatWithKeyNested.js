@@ -18,17 +18,11 @@ export const BenchMarkRepeatWithKyFnNested = ({
     setState,
     updateState,
     bindProps,
-    watch,
     repeat,
     bindObject,
+    bindEffect,
 }) => {
     onMount(() => {
-        const { loading } = getRef();
-
-        watch('isLoading', (value) => {
-            loading.classList.toggle('active', value);
-        });
-
         return () => {};
     });
 
@@ -48,6 +42,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
                 updateState,
                 delegateEvents,
                 getState,
+                bindEffect,
             })}
 
             <div class="benchmark__head__time">

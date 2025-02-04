@@ -20,5 +20,9 @@ export const BenchMarkFakeComponent = createComponent({
             value: 0,
             type: Number,
         }),
+        isSelected: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
 });

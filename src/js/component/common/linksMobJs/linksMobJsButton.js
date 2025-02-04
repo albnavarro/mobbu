@@ -8,16 +8,15 @@
 /**
  * @type {MobComponent<LinksMobJsButton>}
  */
-export const LinksMobJsButtonFn = ({ html, getState, onMount, watchSync }) => {
+export const LinksMobJsButtonFn = ({ html, getState, bindEffect }) => {
     const { label, url } = getState();
 
-    onMount(({ element }) => {
-        watchSync('active', (value) => {
-            element.classList.toggle('current', value);
-        });
-
-        return () => {};
-    });
-
-    return html` <a href="./#${url}"><span>${label}</span></a>`;
+    return html` <a
+        href="./#${url}"
+        ${bindEffect({
+            bind: 'active',
+            toggleClass: { current: () => getState().active },
+        })}
+        ><span>${label}</span></a
+    >`;
 };

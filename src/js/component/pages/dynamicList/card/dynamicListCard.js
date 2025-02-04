@@ -75,15 +75,12 @@ export const DynamicListCardFn = ({
     invalidate,
     repeat,
     bindText,
+    bindEffect,
 }) => {
     const { isFull, parentListId } = getState();
     let repeaterIndex = 0;
 
-    /** @type{HTMLElement} */
-    let elementRef;
-
     onMount(({ element }) => {
-        elementRef = element;
         showCard({ element });
 
         return () => {};
@@ -92,16 +89,20 @@ export const DynamicListCardFn = ({
     const isFullClass = isFull ? 'is-full' : '';
 
     return html`
-        <div class="c-dynamic-card ${isFullClass}">
+        <div
+            class="c-dynamic-card ${isFullClass}"
+            ${bindEffect({
+                bind: 'isSelected',
+                toggleClass: { 'is-selected': () => getState().isSelected },
+            })}
+        >
             <div class="c-dynamic-card__container">
                 <p class="c-dynamic-card__title">card content</p>
                 <dynamic-list-button
                     class="c-dynamic-card__button"
                     ${delegateEvents({
                         click: () => {
-                            if (!elementRef) return;
                             updateState('isSelected', (val) => !val);
-                            elementRef.classList.toggle('is-selected');
                         },
                     })}
                     ${bindProps({

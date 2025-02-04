@@ -9,20 +9,15 @@
 import arrow from '../../../../svg/scroll_arrow.svg';
 
 /** @type {MobComponent<ScrollDownLabel>} */
-export const ScrollDownLabelFn = ({ html, onMount, getState, watchSync }) => {
-    const { active } = getState();
-    const activeClass = active ? 'active' : '';
-
-    onMount(({ element }) => {
-        watchSync('active', (isActive) => {
-            element.classList.toggle('active', isActive);
-        });
-
-        return () => {};
-    });
-
+export const ScrollDownLabelFn = ({ html, getState, bindEffect }) => {
     return html`
-        <div class="c-scroller-down-label ${activeClass}">
+        <div
+            class="c-scroller-down-label"
+            ${bindEffect({
+                bind: 'active',
+                toggleClass: { active: () => getState().active },
+            })}
+        >
             <h1>Scroll down</h1>
             ${arrow}
         </div>

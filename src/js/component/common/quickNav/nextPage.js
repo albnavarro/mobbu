@@ -17,48 +17,60 @@ export const QuickNavFn = ({
     watchSync,
     setRef,
     getRef,
+    bindEffect,
 }) => {
     const { active } = getState();
     const activeClass = active ? 'active' : '';
 
-    onMount(({ element }) => {
+    onMount(() => {
         if (motionCore.mq('max', 'desktop')) return;
 
         const { prev, next } = getRef();
 
-        watchSync('active', (isActive) => {
-            element.classList.toggle('active', isActive);
-        });
-
         watchSync('nextRoute', (route) => {
-            next.classList.toggle('is-disable', !route);
             next.href = route;
         });
 
         watchSync('prevRoute', (route) => {
-            prev.classList.toggle('is-disable', !route);
             prev.href = route;
-        });
-
-        watchSync('color', (color) => {
-            if (color === 'white') {
-                element.classList.remove('fill-black');
-                element.classList.add('fill-white');
-                return;
-            }
-
-            if (color === 'black') {
-                element.classList.remove('fill-white');
-                element.classList.add('fill-black');
-                return;
-            }
         });
 
         return () => {};
     });
 
-    return html`<div class="c-quick-nav-container ${activeClass}">
-        <a class="c-quick-nav c-quick-nav--prev" ${setRef('prev')}>${arrow}</a>
-        <a class="c-quick-nav c-quick-nav--next" ${setRef('next')}>${arrow}</a>
+    return html`<div
+        class="c-quick-nav-container ${activeClass}"
+        ${bindEffect([
+            {
+                bind: 'active',
+                toggleClass: { active: () => getState().active },
+            },
+            {
+                bind: 'color',
+                toggleClass: {
+                    'fill-white': () => getState().color === 'white',
+                    'fill-black': () => getState().color === 'black',
+                },
+            },
+        ])}
+    >
+        <a
+            class="c-quick-nav c-quick-nav--prev"
+            ${setRef('prev')}
+            ${bindEffect({
+                bind: 'prevRoute',
+                toggleClass: { 'is-disable': () => !getState().prevRoute },
+            })}
+            >${arrow}</a
+        >
+        <a
+            class="c-quick-nav c-quick-nav--next"
+            ${setRef('next')}
+            ${bindEffect({
+                bind: 'nextRoute',
+                toggleClass: { 'is-disable': () => !getState().nextRoute },
+            })}
+            >${arrow}</a
+        >
     </div>`;
 };

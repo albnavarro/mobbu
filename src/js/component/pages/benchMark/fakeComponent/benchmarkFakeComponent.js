@@ -12,20 +12,21 @@ export const BenchMarkFakeComponentFn = ({
     delegateEvents,
     onMount,
     id,
+    bindEffect,
 }) => {
-    let isSelected = false;
-    /** @type{HTMLElement} */
-    let rootRef;
-
     const proxiState = getProxi();
 
-    onMount(({ element }) => {
-        rootRef = element;
-
+    onMount(() => {
         return () => {};
     });
 
-    return html`<div class="benchmark-fake">
+    return html`<div
+        class="benchmark-fake"
+        ${bindEffect({
+            bind: 'isSelected',
+            toggleClass: { selected: () => proxiState.isSelected },
+        })}
+    >
         <div class="benchmark-fake__row">
             <strong>id:</strong><br />
             ${id}
@@ -45,8 +46,7 @@ export const BenchMarkFakeComponentFn = ({
                 type="button"
                 ${delegateEvents({
                     click: () => {
-                        isSelected = !isSelected;
-                        rootRef.classList.toggle('selected', isSelected);
+                        proxiState.isSelected = !proxiState.isSelected;
                     },
                 })}
             >

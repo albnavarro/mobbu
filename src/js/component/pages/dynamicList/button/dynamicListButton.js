@@ -1,18 +1,19 @@
 //@ts-check
 
 /** @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListButton>} */
-export const DynamicListButtonFn = ({ html, getState, onMount, watchSync }) => {
+export const DynamicListButtonFn = ({ html, getState, bindEffect }) => {
     const { label } = getState();
 
-    onMount(({ element }) => {
-        watchSync('active', (value) => {
-            element.classList.toggle('active', value);
-        });
-
-        return () => {};
-    });
-
     return html`
-        <button type="button" class="c-dynamic-list-button">${label}</button>
+        <button
+            type="button"
+            class="c-dynamic-list-button"
+            ${bindEffect({
+                bind: 'active',
+                toggleClass: { active: () => getState().active },
+            })}
+        >
+            ${label}
+        </button>
     `;
 };

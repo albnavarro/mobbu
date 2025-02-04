@@ -21109,9 +21109,6 @@
           watchIsRunning = true;
           mobCore.useNextLoop(() => {
             mobCore.useFrame(() => {
-              if (!ref.deref() && unwatch) {
-                unwatch();
-              }
               const shouldRender2 = !isArray || value.length > 0;
               if (toggleClass && shouldRender2) {
                 if (!ref.deref()) return;
@@ -22183,42 +22180,57 @@
     html,
     watchSync,
     setRef,
-    getRef
+    getRef,
+    bindEffect
   }) => {
     const { active } = getState();
     const activeClass = active ? "active" : "";
-    onMount(({ element }) => {
+    onMount(() => {
       if (motionCore.mq("max", "desktop")) return;
       const { prev: prev2, next } = getRef();
-      watchSync("active", (isActive2) => {
-        element.classList.toggle("active", isActive2);
-      });
       watchSync("nextRoute", (route) => {
-        next.classList.toggle("is-disable", !route);
         next.href = route;
       });
       watchSync("prevRoute", (route) => {
-        prev2.classList.toggle("is-disable", !route);
         prev2.href = route;
-      });
-      watchSync("color", (color) => {
-        if (color === "white") {
-          element.classList.remove("fill-black");
-          element.classList.add("fill-white");
-          return;
-        }
-        if (color === "black") {
-          element.classList.remove("fill-white");
-          element.classList.add("fill-black");
-          return;
-        }
       });
       return () => {
       };
     });
-    return html`<div class="c-quick-nav-container ${activeClass}">
-        <a class="c-quick-nav c-quick-nav--prev" ${setRef("prev")}>${scroll_arrow_default}</a>
-        <a class="c-quick-nav c-quick-nav--next" ${setRef("next")}>${scroll_arrow_default}</a>
+    return html`<div
+        class="c-quick-nav-container ${activeClass}"
+        ${bindEffect([
+      {
+        bind: "active",
+        toggleClass: { active: () => getState().active }
+      },
+      {
+        bind: "color",
+        toggleClass: {
+          "fill-white": () => getState().color === "white",
+          "fill-black": () => getState().color === "black"
+        }
+      }
+    ])}
+    >
+        <a
+            class="c-quick-nav c-quick-nav--prev"
+            ${setRef("prev")}
+            ${bindEffect({
+      bind: "prevRoute",
+      toggleClass: { "is-disable": () => !getState().prevRoute }
+    })}
+            >${scroll_arrow_default}</a
+        >
+        <a
+            class="c-quick-nav c-quick-nav--next"
+            ${setRef("next")}
+            ${bindEffect({
+      bind: "nextRoute",
+      toggleClass: { "is-disable": () => !getState().nextRoute }
+    })}
+            >${scroll_arrow_default}</a
+        >
     </div>`;
   };
 
@@ -22295,18 +22307,15 @@
   });
 
   // src/js/component/common/scrolldownLabel/scrolldownLabel.js
-  var ScrollDownLabelFn = ({ html, onMount, getState, watchSync }) => {
-    const { active } = getState();
-    const activeClass = active ? "active" : "";
-    onMount(({ element }) => {
-      watchSync("active", (isActive2) => {
-        element.classList.toggle("active", isActive2);
-      });
-      return () => {
-      };
-    });
+  var ScrollDownLabelFn = ({ html, getState, bindEffect }) => {
     return html`
-        <div class="c-scroller-down-label ${activeClass}">
+        <div
+            class="c-scroller-down-label"
+            ${bindEffect({
+      bind: "active",
+      toggleClass: { active: () => getState().active }
+    })}
+        >
             <h1>Scroll down</h1>
             ${scroll_arrow_default}
         </div>
@@ -24542,14 +24551,12 @@
   };
 
   // src/js/component/common/scrollToTop/ScrollToTop.js
-  var ScrollToTopFn = ({ html, onMount, delegateEvents, watchSync }) => {
-    onMount(({ element }) => {
-      watchSync("active", (isActive2) => {
-        element.classList.toggle("active", isActive2);
-      });
-      return () => {
-      };
-    });
+  var ScrollToTopFn = ({
+    html,
+    delegateEvents,
+    bindEffect,
+    getState
+  }) => {
     return html`
         <button
             type="button"
@@ -24558,6 +24565,10 @@
       click: () => {
         bodyScroll.to(0);
       }
+    })}
+            ${bindEffect({
+      bind: "active",
+      toggleClass: { active: () => getState().active }
     })}
         ></button>
     `;
@@ -26736,23 +26747,16 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/scrollTo/button/scrollToButton.js
-  var ScrollToButtonFn = ({
-    html,
-    getState,
-    onMount,
-    watchSync,
-    setRef
-  }) => {
+  var ScrollToButtonFn = ({ html, getState, setRef, bindEffect }) => {
     const { label } = getState();
-    onMount(({ element }) => {
-      watchSync("active", (val2) => {
-        element.classList.toggle("active", val2);
-      });
-      return () => {
-      };
-    });
     return html`
-        <button type="button">
+        <button
+            type="button"
+            ${bindEffect({
+      bind: "active",
+      toggleClass: { active: () => getState().active }
+    })}
+        >
             <span ${setRef("labelRef")}> ${label} </span>
         </button>
     `;
@@ -26957,17 +26961,21 @@ Loading snippet ...</pre
     bindObject,
     delegateEvents,
     onMount,
-    id
+    id,
+    bindEffect
   }) => {
-    let isSelected = false;
-    let rootRef;
     const proxiState = getProxi();
-    onMount(({ element }) => {
-      rootRef = element;
+    onMount(() => {
       return () => {
       };
     });
-    return html`<div class="benchmark-fake">
+    return html`<div
+        class="benchmark-fake"
+        ${bindEffect({
+      bind: "isSelected",
+      toggleClass: { selected: () => proxiState.isSelected }
+    })}
+    >
         <div class="benchmark-fake__row">
             <strong>id:</strong><br />
             ${id}
@@ -26987,8 +26995,7 @@ Loading snippet ...</pre
                 type="button"
                 ${delegateEvents({
       click: () => {
-        isSelected = !isSelected;
-        rootRef.classList.toggle("selected", isSelected);
+        proxiState.isSelected = !proxiState.isSelected;
       }
     })}
             >
@@ -27015,6 +27022,10 @@ Loading snippet ...</pre
       index: () => ({
         value: 0,
         type: Number
+      }),
+      isSelected: () => ({
+        value: false,
+        type: Boolean
       })
     }
   });
@@ -27098,10 +27109,17 @@ Loading snippet ...</pre
     getRef,
     updateState,
     getState,
-    setState
+    setState,
+    bindEffect
   }) => {
     return renderHtml`
-        <div class="benchmark__loading" ${setRef("loading")}>
+        <div
+            class="benchmark__loading"
+            ${bindEffect({
+      bind: "isLoading",
+      toggleClass: { active: () => getState().isLoading }
+    })}
+        >
             generate components
         </div>
         <div class="benchmark__head__controls">
@@ -27184,13 +27202,9 @@ Loading snippet ...</pre
     setState,
     updateState,
     bindProps,
-    watch
+    bindEffect
   }) => {
     onMount(() => {
-      const { loading } = getRef();
-      watch("isLoading", (value) => {
-        loading.classList.toggle("active", value);
-      });
       return () => {
       };
     });
@@ -27207,7 +27221,8 @@ Loading snippet ...</pre
       setState,
       updateState,
       delegateEvents,
-      getState
+      getState,
+      bindEffect
     })}
 
             <div class="benchmark__head__time">
@@ -27264,14 +27279,10 @@ Loading snippet ...</pre
     setState,
     updateState,
     bindProps,
-    watch,
-    repeat
+    repeat,
+    bindEffect
   }) => {
     onMount(() => {
-      const { loading } = getRef();
-      watch("isLoading", (value) => {
-        loading.classList.toggle("active", value);
-      });
       return () => {
       };
     });
@@ -27288,7 +27299,8 @@ Loading snippet ...</pre
       setState,
       updateState,
       delegateEvents,
-      getState
+      getState,
+      bindEffect
     })}
 
             <div class="benchmark__head__time">
@@ -27344,15 +27356,11 @@ Loading snippet ...</pre
     setState,
     updateState,
     bindProps,
-    watch,
     repeat,
-    bindObject
+    bindObject,
+    bindEffect
   }) => {
     onMount(() => {
-      const { loading } = getRef();
-      watch("isLoading", (value) => {
-        loading.classList.toggle("active", value);
-      });
       return () => {
       };
     });
@@ -27371,7 +27379,8 @@ Loading snippet ...</pre
       setState,
       updateState,
       delegateEvents,
-      getState
+      getState,
+      bindEffect
     })}
 
             <div class="benchmark__head__time">
@@ -27440,14 +27449,10 @@ Loading snippet ...</pre
     setState,
     updateState,
     bindProps,
-    watch,
-    repeat
+    repeat,
+    bindEffect
   }) => {
     onMount(() => {
-      const { loading } = getRef();
-      watch("isLoading", (value) => {
-        loading.classList.toggle("active", value);
-      });
       return () => {
       };
     });
@@ -27464,7 +27469,8 @@ Loading snippet ...</pre
       setState,
       updateState,
       delegateEvents,
-      getState
+      getState,
+      bindEffect
     })}
 
             <div class="benchmark__head__time">
@@ -27565,12 +27571,19 @@ Loading snippet ...</pre
     delegateEvents,
     setRef,
     getRef,
-    getState
+    getState,
+    bindEffect
   }) => {
     const externalStore2 = getExternalStore();
     const { update: update3 } = externalStore2;
     return renderHtml`
-        <div class="benchmark__loading" ${setRef("loading")}>
+        <div
+            class="benchmark__loading"
+            ${bindEffect({
+      bind: "isLoading",
+      toggleClass: { active: () => getState().isLoading }
+    })}
+        >
             generate components
         </div>
         <div class="benchmark__head__controls">
@@ -27648,18 +27661,14 @@ Loading snippet ...</pre
     getRef,
     getState,
     bindProps,
-    watch,
     repeat,
-    bindStore
+    bindStore,
+    bindEffect
   }) => {
     createExternalStore();
     const externalStore2 = getExternalStore();
     bindStore(externalStore2);
     onMount(() => {
-      const { loading } = getRef();
-      watch("isLoading", (value) => {
-        loading.classList.toggle("active", value);
-      });
       return () => {
         destroyExternalStore();
       };
@@ -27676,7 +27685,8 @@ Loading snippet ...</pre
       setRef,
       getRef,
       delegateEvents,
-      getState
+      getState,
+      bindEffect
     })}
 
             <div class="benchmark__head__time">
@@ -27734,15 +27744,11 @@ Loading snippet ...</pre
     setState,
     updateState,
     bindProps,
-    watch,
     repeat,
-    bindObject
+    bindObject,
+    bindEffect
   }) => {
     onMount(() => {
-      const { loading } = getRef();
-      watch("isLoading", (value) => {
-        loading.classList.toggle("active", value);
-      });
       return () => {
       };
     });
@@ -27761,7 +27767,8 @@ Loading snippet ...</pre
       setState,
       updateState,
       delegateEvents,
-      getState
+      getState,
+      bindEffect
     })}
 
             <div class="benchmark__head__time">
@@ -29568,7 +29575,7 @@ Loading snippet ...</pre
         active: true,
         prevRoute: "#caterpillarN1",
         nextRoute: "#animatedPatternN0?version=0&activeId=0",
-        color: "white"
+        color: "black"
       });
       updateAnimationTitle({
         align: "left",
@@ -30484,17 +30491,19 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/button/dynamicListButton.js
-  var DynamicListButtonFn = ({ html, getState, onMount, watchSync }) => {
+  var DynamicListButtonFn = ({ html, getState, bindEffect }) => {
     const { label } = getState();
-    onMount(({ element }) => {
-      watchSync("active", (value) => {
-        element.classList.toggle("active", value);
-      });
-      return () => {
-      };
-    });
     return html`
-        <button type="button" class="c-dynamic-list-button">${label}</button>
+        <button
+            type="button"
+            class="c-dynamic-list-button"
+            ${bindEffect({
+      bind: "active",
+      toggleClass: { active: () => getState().active }
+    })}
+        >
+            ${label}
+        </button>
     `;
   };
 
@@ -30951,29 +30960,32 @@ Loading snippet ...</pre
     delegateEvents,
     invalidate,
     repeat,
-    bindText
+    bindText,
+    bindEffect
   }) => {
     const { isFull, parentListId } = getState();
     let repeaterIndex = 0;
-    let elementRef;
     onMount(({ element }) => {
-      elementRef = element;
       showCard({ element });
       return () => {
       };
     });
     const isFullClass = isFull ? "is-full" : "";
     return html`
-        <div class="c-dynamic-card ${isFullClass}">
+        <div
+            class="c-dynamic-card ${isFullClass}"
+            ${bindEffect({
+      bind: "isSelected",
+      toggleClass: { "is-selected": () => getState().isSelected }
+    })}
+        >
             <div class="c-dynamic-card__container">
                 <p class="c-dynamic-card__title">card content</p>
                 <dynamic-list-button
                     class="c-dynamic-card__button"
                     ${delegateEvents({
       click: () => {
-        if (!elementRef) return;
         updateState("isSelected", (val2) => !val2);
-        elementRef.classList.toggle("is-selected");
       }
     })}
                     ${bindProps({
@@ -31773,21 +31785,19 @@ Loading snippet ...</pre
   // src/js/component/pages/matrioska/matrioskaItem/matrioskaItem.js
   var MatrioskaItemFn = ({
     html,
-    onMount,
     getState,
-    watch,
     bindText,
-    id
+    id,
+    bindEffect
   }) => {
     const { level } = getState();
-    onMount(({ element }) => {
-      watch("active", (val2) => {
-        element.classList.toggle("active", val2);
-      });
-      return () => {
-      };
-    });
-    return html`<div class="matrioska-item">
+    return html`<div
+        class="matrioska-item"
+        ${bindEffect({
+      bind: "active",
+      toggleClass: { active: () => getState().active }
+    })}
+    >
         <div class="matrioska-item__info">
             <h4 class="matrioska-item__level">${level}:</h4>
             <h6 class="matrioska-item__key">
@@ -32179,30 +32189,18 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerButton/horizontalScrollerButton.js
-  var HorizontalScrollerButtonFn = ({
-    getState,
-    watch,
-    html,
-    onMount,
-    setRef,
-    getRef
-  }) => {
+  var HorizontalScrollerButtonFn = ({ getState, html, bindEffect }) => {
     const { id } = getState();
-    onMount(() => {
-      const { button } = getRef();
-      watch("active", (active) => {
-        button.classList.toggle("active", active);
-      });
-      return () => {
-      };
-    });
     return html`
         <li>
             <button
                 type="button"
                 data-id="${id}"
                 class="l-h-scroller__nav__btn"
-                ${setRef("button")}
+                ${bindEffect({
+      bind: "active",
+      toggleClass: { active: () => getState().active }
+    })}
             >
                 ${id}
             </button>
@@ -35240,16 +35238,16 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/linksMobJs/linksMobJsButton.js
-  var LinksMobJsButtonFn = ({ html, getState, onMount, watchSync }) => {
+  var LinksMobJsButtonFn = ({ html, getState, bindEffect }) => {
     const { label, url } = getState();
-    onMount(({ element }) => {
-      watchSync("active", (value) => {
-        element.classList.toggle("current", value);
-      });
-      return () => {
-      };
-    });
-    return html` <a href="./#${url}"><span>${label}</span></a>`;
+    return html` <a
+        href="./#${url}"
+        ${bindEffect({
+      bind: "active",
+      toggleClass: { current: () => getState().active }
+    })}
+        ><span>${label}</span></a
+    >`;
   };
 
   // src/js/component/common/linksMobJs/definition.js
@@ -36105,33 +36103,24 @@ Loading snippet ...</pre
     html,
     delegateEvents,
     addMethod,
-    onMount,
     updateState,
-    watchSync,
     setState,
     bindProps,
     invalidate,
     getState,
     setRef,
-    getRef
+    bindEffect
   }) => {
     addMethod("toggle", () => {
       updateState("active", (value) => !value);
     });
-    onMount(({ element }) => {
-      const { toggle_tree, toggle_filter } = getRef();
-      watchSync("active", (value) => {
-        element.classList.toggle("active", value);
-      });
-      watchSync("listType", (value) => {
-        const isTree = value === DEBUG_USE_TREE;
-        toggle_tree.classList.toggle("active", isTree);
-        toggle_filter.classList.toggle("active", !isTree);
-      });
-      return () => {
-      };
-    });
-    return html`<div class="c-debug-overlay">
+    return html`<div
+        class="c-debug-overlay"
+        ${bindEffect({
+      bind: "active",
+      toggleClass: { active: () => getState().active }
+    })}
+    >
         <button
             class="c-debug-overlay__background"
             type="button"
@@ -36207,6 +36196,12 @@ Loading snippet ...</pre
         setState("listType", DEBUG_USE_TREE);
       }
     })}
+                            ${bindEffect({
+      bind: "listType",
+      toggleClass: {
+        active: () => getState().listType === DEBUG_USE_TREE
+      }
+    })}
                         >
                             Tree
                         </button>
@@ -36220,6 +36215,12 @@ Loading snippet ...</pre
           "listType",
           DEBUG_USE_FILTER_COMPONENT
         );
+      }
+    })}
+                            ${bindEffect({
+      bind: "listType",
+      toggleClass: {
+        active: () => getState().listType === DEBUG_USE_FILTER_COMPONENT
       }
     })}
                         >
@@ -36302,7 +36303,7 @@ Loading snippet ...</pre
     setRef,
     getRef,
     addMethod,
-    watch
+    bindEffect
   }) => {
     let destroy2 = () => {
     };
@@ -36313,7 +36314,7 @@ Loading snippet ...</pre
     let move2 = () => {
     };
     onMount(() => {
-      const { loadingRef, scrollbar } = getRef();
+      const { scrollbar } = getRef();
       scrollbar.addEventListener("input", () => {
         move2(scrollbar.value);
       });
@@ -36332,9 +36333,6 @@ Loading snippet ...</pre
             setState("isLoading", false);
           });
         });
-      });
-      watch("isLoading", (isLoading) => {
-        loadingRef.classList.toggle("visible", isLoading);
       });
       (async () => {
         setState("isLoading", true);
@@ -36375,7 +36373,13 @@ Loading snippet ...</pre
                     ${setRef("scrollbar")}
                     class="c-debug-tree__scrollbar"
                 />
-                <span ${setRef("loadingRef")} class="c-debug-tree__status"
+                <span
+                    ${setRef("loadingRef")}
+                    class="c-debug-tree__status"
+                    ${bindEffect({
+      bind: "isLoading",
+      toggleClass: { visible: () => getState().isLoading }
+    })}
                     >Generate tree</span
                 >
                 <div class="c-debug-tree__scroller" ${setRef("scroller")}>
