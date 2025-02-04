@@ -45,7 +45,7 @@ export const setBindEffect = ({ data, id }) => {
  * @returns {void}
  */
 export const applyBindEffect = (element) => {
-    let occurrences = /** @type{HTMLElement[]} */ ([
+    const occurrences = /** @type{HTMLElement[]} */ ([
         ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`),
     ]);
 
@@ -64,12 +64,6 @@ export const applyBindEffect = (element) => {
         watchBindEffect({ data, element: target });
         bindEffectMap.delete(id);
     });
-
-    /**
-     * Trigger target remove grom garbage collector as soon as possible.
-     */
-    // @ts-ignore
-    occurrences = null;
 };
 
 /**
@@ -140,11 +134,6 @@ const watchBindEffect = ({ data, element }) => {
             }
 
             const unwatch = watchById(id, state, (value) => {
-                if (!ref.deref() && unwatch) {
-                    unwatch();
-                    return;
-                }
-
                 /**
                  * Wait for all all props is settled.
                  */
@@ -160,8 +149,7 @@ const watchBindEffect = ({ data, element }) => {
                          */
                         const shouldRender = !isArray || value.length > 0;
 
-                        if (toggleClass && shouldRender) {
-                            if (!ref.deref()) return;
+                        if (toggleClass && shouldRender && ref.deref()) {
                             Object.entries(toggleClass).forEach(
                                 ([className, fn]) => {
                                     if (!ref.deref()) return;
@@ -175,8 +163,7 @@ const watchBindEffect = ({ data, element }) => {
                             );
                         }
 
-                        if (toggleStyle && shouldRender) {
-                            if (!ref.deref()) return;
+                        if (toggleStyle && shouldRender && ref.deref()) {
                             Object.entries(toggleStyle).forEach(
                                 ([styleName, fn]) => {
                                     if (!ref.deref()) return;
@@ -188,6 +175,12 @@ const watchBindEffect = ({ data, element }) => {
                         }
 
                         watchIsRunning = false;
+
+                        mobCore.useNextTick(async () => {
+                            if (!ref.deref() && unwatch) {
+                                unwatch();
+                            }
+                        });
                     });
                 });
             });

@@ -21052,7 +21052,7 @@
     return univoqueId;
   };
   var applyBindEffect = (element) => {
-    let occurrences = (
+    const occurrences = (
       /** @type{HTMLElement[]} */
       [
         ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`)
@@ -21067,7 +21067,6 @@
       watchBindEffect({ data, element: target });
       bindEffectMap.delete(id);
     });
-    occurrences = null;
   };
   var watchBindEffect = ({ data, element }) => {
     const ref = new WeakRef(element);
@@ -21097,17 +21096,12 @@
           });
         }
         const unwatch = watchById(id, state, (value) => {
-          if (!ref.deref() && unwatch) {
-            unwatch();
-            return;
-          }
           if (watchIsRunning) return;
           watchIsRunning = true;
           mobCore.useNextLoop(() => {
             mobCore.useFrame(() => {
               const shouldRender2 = !isArray || value.length > 0;
-              if (toggleClass && shouldRender2) {
-                if (!ref.deref()) return;
+              if (toggleClass && shouldRender2 && ref.deref()) {
                 Object.entries(toggleClass).forEach(
                   ([className, fn]) => {
                     if (!ref.deref()) return;
@@ -21118,8 +21112,7 @@
                   }
                 );
               }
-              if (toggleStyle && shouldRender2) {
-                if (!ref.deref()) return;
+              if (toggleStyle && shouldRender2 && ref.deref()) {
                 Object.entries(toggleStyle).forEach(
                   ([styleName, fn]) => {
                     if (!ref.deref()) return;
@@ -21128,6 +21121,11 @@
                 );
               }
               watchIsRunning = false;
+              mobCore.useNextTick(async () => {
+                if (!ref.deref() && unwatch) {
+                  unwatch();
+                }
+              });
             });
           });
         });
