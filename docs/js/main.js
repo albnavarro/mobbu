@@ -17860,9 +17860,9 @@
     let watchIsRunning = false;
     let ref;
     const states = getStateById(id);
-    keys.forEach((state) => {
+    const unsubScribeFunction = keys.map((state) => {
       const isArray = checkType(Array, states?.[state]);
-      const unwatch = watchById(id, state, (value) => {
+      return watchById(id, state, (value) => {
         if (watchIsRunning) return;
         watchIsRunning = true;
         mobCore.useNextLoop(() => {
@@ -17888,8 +17888,11 @@
             }
             watchIsRunning = false;
             mobCore.useNextTick(async () => {
-              if (!ref.deref() && unwatch) {
-                unwatch();
+              if (!ref.deref()) {
+                unsubScribeFunction.forEach((fn) => {
+                  if (fn) fn();
+                });
+                unsubScribeFunction.length = 0;
               }
             });
           });
@@ -17995,14 +17998,14 @@
   var createBindTextWatcher = (id, bindTextId, render2, ...props) => {
     let watchIsRunning = false;
     let ref;
-    props.forEach((state) => {
+    const unsubScribeFunction = props.map((state) => {
       const propsToArray = state.split(".");
       const stateToWatch = propsToArray?.[0];
       const arrayValues = arrayValuesFromProp(stateToWatch);
       const isArray = arrayValues && arrayValues?.length > 0;
       const finalStateTowatch = isArray ? splitPropUntilSquare(stateToWatch) : stateToWatch;
       if (!finalStateTowatch) return;
-      const unwatch = watchById(id, finalStateTowatch, () => {
+      return watchById(id, finalStateTowatch, () => {
         if (watchIsRunning) return;
         watchIsRunning = true;
         mobCore.useNextLoop(() => {
@@ -18024,8 +18027,11 @@
             }
             watchIsRunning = false;
             mobCore.useNextTick(async () => {
-              if (!ref.deref() && unwatch) {
-                unwatch();
+              if (!ref.deref()) {
+                unsubScribeFunction.forEach((fn) => {
+                  if (fn) fn();
+                });
+                unsubScribeFunction.length = 0;
               }
             });
           });

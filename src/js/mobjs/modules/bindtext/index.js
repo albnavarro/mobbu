@@ -233,7 +233,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
     /** @type{WeakRef<HTMLElement>} */
     let ref;
 
-    props.forEach((state) => {
+    const unsubScribeFunction = props.map((state) => {
         /**
          * Get state to watch if prop is:
          * bindText`${'myProps.prop1.prop2'}`
@@ -255,7 +255,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
 
         if (!finalStateTowatch) return;
 
-        const unwatch = watchById(id, finalStateTowatch, () => {
+        return watchById(id, finalStateTowatch, () => {
             /**
              * Wait for all all props is settled.
              */
@@ -292,19 +292,14 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
                     watchIsRunning = false;
 
                     mobCore.useNextTick(async () => {
-                        if (!ref.deref() && unwatch) {
-                            unwatch();
+                        if (!ref.deref()) {
+                            unsubScribeFunction.forEach((fn) => {
+                                if (fn) fn();
+                            });
+
+                            unsubScribeFunction.length = 0;
                         }
                     });
-
-                    // mobCore.useNextTick(async () => {
-                    //     await tick();
-                    //
-                    //     if (!document.contains(parentNode)) {
-                    //         unwatch();
-                    //         removeBindTextByBindTextId({ id, bindTextId });
-                    //     }
-                    // });
                 });
             });
         });

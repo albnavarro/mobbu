@@ -181,9 +181,9 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
      */
     const states = getStateById(id);
 
-    keys.forEach((state) => {
+    const unsubScribeFunction = keys.map((state) => {
         const isArray = checkType(Array, states?.[state]);
-        const unwatch = watchById(id, state, (value) => {
+        return watchById(id, state, (value) => {
             /**
              * Wait for all all props is settled.
              */
@@ -230,8 +230,12 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                     watchIsRunning = false;
 
                     mobCore.useNextTick(async () => {
-                        if (!ref.deref() && unwatch) {
-                            unwatch();
+                        if (!ref.deref()) {
+                            unsubScribeFunction.forEach((fn) => {
+                                if (fn) fn();
+                            });
+
+                            unsubScribeFunction.length = 0;
                         }
                     });
                 });
