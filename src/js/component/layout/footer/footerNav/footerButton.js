@@ -8,19 +8,23 @@
 import { navigationStore } from '../../navigation/store/navStore';
 
 /** @type {MobComponent<FooterNavButton>} */
-export const FooterNavButtonFn = ({ html, onMount, getState }) => {
+export const FooterNavButtonFn = ({ html, getState, setState, bindEffect }) => {
     const { label, section } = getState();
 
-    onMount(({ element }) => {
-        navigationStore.watch('activeNavigationSection', (current) => {
-            const isActiveSection = current === section;
-            element.classList.toggle('current', isActiveSection);
-        });
-
-        return () => {};
+    navigationStore.watch('activeNavigationSection', (current) => {
+        setState('active', current === section);
     });
 
     return html`
-        <button type="button" class="footer-nav__button">${label}</button>
+        <button
+            type="button"
+            class="footer-nav__button"
+            ${bindEffect({
+                bind: 'active',
+                toggleClass: { current: () => getState().active },
+            })}
+        >
+            ${label}
+        </button>
     `;
 };

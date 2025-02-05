@@ -58,6 +58,10 @@ export const NavigationButton = createComponent({
             value: false,
             type: Boolean,
         }),
+        isCurrent: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
 });
 
@@ -120,4 +124,10 @@ export const NavigationContainer = createComponent({
     name: 'mob-navigation-container',
     component: NavigationContainerFn,
     child: [Navigation],
+    state: {
+        isOpen: () => ({
+            value: false,
+            type: Boolean,
+        }),
+    },
 });

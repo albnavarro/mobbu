@@ -11,9 +11,9 @@ import { navigationStore } from './store/navStore';
 
 /** @type {MobComponent<NavigationButton>} */
 export const NavigationButtonFn = ({
+    setState,
     getState,
     html,
-    onMount,
     delegateEvents,
     getProxi,
     bindEffect,
@@ -31,47 +31,39 @@ export const NavigationButtonFn = ({
         activeId,
     } = getState();
 
-    onMount(({ element }) => {
-        afterRouteChange(({ route }) => {
-            mobCore.useFrame(() => {
-                const urlParsed = url.split('?');
+    afterRouteChange(({ route }) => {
+        mobCore.useFrame(() => {
+            const urlParsed = url.split('?');
+
+            /**
+             * Get hash.
+             */
+            const hash = urlParsed?.[0] ?? '';
+
+            /**
+             * Check is activeId match with route
+             */
+            const activeParams = getActiveParams();
+
+            const paramsMatch =
+                activeId === -1 || activeParams?.['activeId'] === `${activeId}`;
+
+            const isActiveRoute = route === hash && paramsMatch;
+            setState('isCurrent', isActiveRoute);
+
+            /**
+             * Set current accordion menu open state.
+             * On load route, or if route is loaded outside menu.
+             */
+            if (isActiveRoute && fireRoute) {
+                callback();
 
                 /**
-                 * Get hash.
+                 * Aign menu to current active main section label
                  */
-                const hash = urlParsed?.[0] ?? '';
-
-                /**
-                 * Check is activeId match with route
-                 */
-                const activeParams = getActiveParams();
-
-                const paramsMatch =
-                    activeId === -1 ||
-                    activeParams?.['activeId'] === `${activeId}`;
-
-                const isActiveRoute = route === hash && paramsMatch;
-                element.classList.toggle('current', isActiveRoute);
-
-                /**
-                 * Set current accordion menu open state.
-                 * On load route, or if route is loaded outside menu.
-                 */
-                if (isActiveRoute && fireRoute) {
-                    callback();
-
-                    /**
-                     * Aign menu to current active main section label
-                     */
-                    navigationStore.set(
-                        'activeNavigationSection',
-                        scrollToSection
-                    );
-                }
-            });
+                navigationStore.set('activeNavigationSection', scrollToSection);
+            }
         });
-
-        return () => {};
     });
 
     return html`
@@ -95,9 +87,10 @@ export const NavigationButtonFn = ({
                 },
             })}
             ${bindEffect({
-                bind: 'isOpen',
+                bind: ['isOpen', 'isCurrent'],
                 toggleClass: {
                     active: () => proxi.isOpen,
+                    current: () => proxi.isCurrent,
                 },
             })}
         >

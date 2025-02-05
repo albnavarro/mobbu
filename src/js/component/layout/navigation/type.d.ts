@@ -9,6 +9,7 @@ export interface NavigationButton {
         fireRoute: boolean;
         callback: () => void;
         isOpen: boolean;
+        isCurrent: boolean;
     };
 }
 
@@ -41,12 +42,11 @@ export interface Navigation {
 }
 
 export interface NavigationContainer {
+    state: {
+        isOpen: boolean;
+    };
     methods: {
         scrollTop: () => void;
         refresh: () => void;
-    };
-    ref: {
-        toTopBtn: HTMLElement;
-        wrap: HTMLElement;
     };
 }

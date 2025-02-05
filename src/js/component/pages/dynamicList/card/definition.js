@@ -41,6 +41,10 @@ export const DynamicListCard = createComponent({
             value: false,
             type: Boolean,
         }),
+        isMounted: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
     child: [
         DynamicCounter,

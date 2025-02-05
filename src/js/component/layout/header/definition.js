@@ -13,10 +13,26 @@ export const HeaderNav = createComponent({
 export const HeaderToggle = createComponent({
     name: 'mob-header-toggle',
     component: HeaderToggleFn,
+    state: {
+        isOpen: () => ({
+            value: false,
+            type: Boolean,
+        }),
+    },
 });
 
 export const Header = createComponent({
     name: 'mob-header',
     component: HeaderFn,
+    state: {
+        infoIsOpen: () => ({
+            value: false,
+            type: Boolean,
+        }),
+        isNotHome: () => ({
+            value: false,
+            type: Boolean,
+        }),
+    },
     child: [HeaderNav, HeaderToggle],
 });

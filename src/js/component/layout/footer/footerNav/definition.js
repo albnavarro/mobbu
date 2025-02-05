@@ -17,6 +17,10 @@ export const FooterNavButton = createComponent({
             value: '',
             type: String,
         }),
+        active: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
 });
 

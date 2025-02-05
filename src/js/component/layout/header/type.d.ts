@@ -1,9 +1,7 @@
 export interface Header {
-    ref: {
-        navInfo: HTMLElement;
-        title: HTMLElement;
-        beta: HTMLElement;
-        titleLink: HTMLButtonElement;
+    state: {
+        infoIsOpen: boolean;
+        isNotHome: boolean;
     };
 }
 
@@ -13,4 +11,10 @@ export interface HeaderLinks {
         url: string;
         internal: boolean;
     }[];
+}
+
+export interface HeaderToggle {
+    state: {
+        isOpen: boolean;
+    };
 }

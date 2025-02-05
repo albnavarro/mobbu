@@ -2,43 +2,43 @@
 
 import { mobCore } from '../../../mobCore';
 import { useMethodByName } from '../../../mobjs';
-import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
 
 /**
- * @import {UseMethodByName} from '../../../mobjs/type'
+ * @import {SetState, UseMethodByName} from '../../../mobjs/type'
  */
 
 /**
  * @param {object} params
- * @param {HTMLElement} params.element
  * @param {HTMLElement} params.main
+ * @param {SetState<import('./type').NavigationContainer>} params.setState
  * @returns {void}
  */
-function closeNavigation({ element, main }) {
+function closeNavigation({ main, setState }) {
+    setState('isOpen', false);
+
     mobCore.useFrame(() => {
         document.body.style.overflow = '';
-        element.classList.remove('active');
         main.classList.remove('shift');
     });
 }
 
 /**
  * @param {object} params
- * @param {HTMLElement} params.element
  * @param {HTMLElement} params.main
+ * @param {SetState<import('./type').NavigationContainer>} params.setState
  * @returns {void}
  */
-function openNavigation({ element, main }) {
+function openNavigation({ main, setState }) {
     /** @type{UseMethodByName<import('./type').NavigationContainer>} */
     const methods = useMethodByName('navigation-container');
     methods?.refresh();
+    setState('isOpen', true);
 
     mobCore.useFrame(() => {
         document.body.style.overflow = 'hidden';
-        element.classList.add('active');
         main.classList.add('shift');
     });
 }
@@ -46,66 +46,55 @@ function openNavigation({ element, main }) {
 /**
  * @param {object} params
  * @param {HTMLElement} params.main
- * @param {HTMLElement} params.toTopBtn
  * @returns {void}
  */
-function addHandler({ main, toTopBtn }) {
+function addMainHandler({ main }) {
     main.addEventListener('click', () => {
         navigationStore.set('navigationIsOpen', false);
     });
-
-    toTopBtn.addEventListener('click', () => {
-        /** @type{UseMethodByName<import('./type').NavigationContainer>} */
-        const navContainerMethods = useMethodByName('navigation-container');
-        navContainerMethods?.scrollTop();
-
-        /** @type{UseMethodByName<import('./type').Navigation>} */
-        const mainNavigationMethods = useMethodByName('main_navigation');
-        mainNavigationMethods?.closeAllAccordion();
-
-        const { navigationIsOpen } = navigationStore.get();
-        if (!navigationIsOpen) bodyScroll.to(0);
-    });
 }
+
+const toTopBtnHandler = () => {
+    /** @type{UseMethodByName<import('./type').NavigationContainer>} */
+    const navContainerMethods = useMethodByName('navigation-container');
+    navContainerMethods?.scrollTop();
+
+    /** @type{UseMethodByName<import('./type').Navigation>} */
+    const mainNavigationMethods = useMethodByName('main_navigation');
+    mainNavigationMethods?.closeAllAccordion();
+
+    const { navigationIsOpen } = navigationStore.get();
+    if (!navigationIsOpen) bodyScroll.to(0);
+};
 
 /** @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationContainer>} */
 export const NavigationContainerFn = ({
     html,
     onMount,
     addMethod,
-    setRef,
-    getRef,
+    setState,
+    delegateEvents,
+    bindEffect,
+    getState,
 }) => {
     onMount(({ element }) => {
         const main = /** @type{HTMLElement} */ (
             document.querySelector('main.main')
         );
-        let lastMq = '';
-        const { toTopBtn, wrap } = getRef();
 
         /**
          * Open/Close navigation.
          */
         navigationStore.watch('navigationIsOpen', (val) => {
             if (val && main) {
-                openNavigation({ element, main });
+                openNavigation({ main, setState });
                 return;
             }
 
-            closeNavigation({ element, main });
+            closeNavigation({ main, setState });
         });
 
-        /**
-         * Reset scrollPositon from mobile to desktop.
-         */
-        mobCore.useResize(() => {
-            const isDesktop = motionCore.mq('max', 'desktop');
-            const currentMq = isDesktop ? 'desk' : 'mob';
-            if (currentMq !== lastMq) wrap.scrollTo(0, 0);
-            lastMq = currentMq;
-        });
-
-        addHandler({ main, toTopBtn });
+        addMainHandler({ main });
 
         const { scrollNativationToTop, refreshScroller } =
             initNavigationScoller({
@@ -119,15 +108,25 @@ export const NavigationContainerFn = ({
     });
 
     return html`
-        <div class="l-navcontainer">
+        <div
+            class="l-navcontainer"
+            ${bindEffect({
+                bind: 'isOpen',
+                toggleClass: { active: () => getState().isOpen },
+            })}
+        >
             <div class="l-navcontainer__side">
                 <div class="l-navcontainer__percent"></div>
                 <button
                     class="l-navcontainer__totop"
-                    ${setRef('toTopBtn')}
+                    ${delegateEvents({
+                        click: () => {
+                            toTopBtnHandler();
+                        },
+                    })}
                 ></button>
             </div>
-            <div class="l-navcontainer__wrap" ${setRef('wrap')}>
+            <div class="l-navcontainer__wrap">
                 <div class="l-navcontainer__scroll">
                     <mob-navigation name="main_navigation"></mob-navigation>
                 </div>

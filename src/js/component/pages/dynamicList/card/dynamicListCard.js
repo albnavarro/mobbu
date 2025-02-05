@@ -50,16 +50,6 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
     `;
 };
 
-/**
- * @param {object} params
- * @param {HTMLElement} params.element
- * @returns {Promise<void>}
- */
-const showCard = async ({ element }) => {
-    await tick();
-    element.classList.add('active');
-};
-
 /** @type {MobComponent<DynamicListCard>} */
 export const DynamicListCardFn = ({
     getState,
@@ -80,8 +70,11 @@ export const DynamicListCardFn = ({
     const { isFull, parentListId } = getState();
     let repeaterIndex = 0;
 
-    onMount(({ element }) => {
-        showCard({ element });
+    onMount(async () => {
+        (async () => {
+            await tick();
+            setState('isMounted', true);
+        })();
 
         return () => {};
     });
@@ -91,10 +84,20 @@ export const DynamicListCardFn = ({
     return html`
         <div
             class="c-dynamic-card ${isFullClass}"
-            ${bindEffect({
-                bind: 'isSelected',
-                toggleClass: { 'is-selected': () => getState().isSelected },
-            })}
+            ${bindEffect([
+                {
+                    bind: 'isSelected',
+                    toggleClass: {
+                        'is-selected': () => getState().isSelected,
+                    },
+                },
+                {
+                    bind: 'isMounted',
+                    toggleClass: {
+                        active: () => getState().isMounted,
+                    },
+                },
+            ])}
         >
             <div class="c-dynamic-card__container">
                 <p class="c-dynamic-card__title">card content</p>

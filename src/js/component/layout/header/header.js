@@ -4,31 +4,8 @@
  * @import { MobComponent, UseMethodByName } from '../../../mobjs/type';
  **/
 
-import { mobCore } from '../../../mobCore';
 import { beforeRouteChange, loadUrl, useMethodByName } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
-
-/**
- * @param {object} params
- * @param {HTMLElement} params.navInfo
- * @returns {void}
- */
-function openInfo({ navInfo }) {
-    mobCore.useFrame(() => {
-        navInfo.classList.add('open');
-    });
-}
-
-/**
- * @param {object} params
- * @param {HTMLElement} params.navInfo
- * @returns {void}
- */
-function closeInfo({ navInfo }) {
-    mobCore.useFrame(() => {
-        navInfo.classList.remove('open');
-    });
-}
 
 function titleHandler() {
     loadUrl({ url: '#home' });
@@ -44,25 +21,19 @@ function titleHandler() {
 }
 
 /** @type {MobComponent<import('./type').Header>} */
-export const HeaderFn = ({ html, onMount, delegateEvents, setRef, getRef }) => {
-    onMount(() => {
-        const { navInfo, title, beta } = getRef();
+export const HeaderFn = ({
+    html,
+    delegateEvents,
+    setState,
+    getState,
+    bindEffect,
+}) => {
+    beforeRouteChange(({ route }) => {
+        setState('isNotHome', route !== 'home');
+    });
 
-        navigationStore.watch('navigationIsOpen', (val) => {
-            if (val) {
-                openInfo({ navInfo });
-                return;
-            }
-
-            closeInfo({ navInfo });
-        });
-
-        beforeRouteChange(({ route }) => {
-            title.classList.toggle('visible', route !== 'home');
-            beta.classList.toggle('visible', route !== 'home');
-        });
-
-        return () => {};
+    navigationStore.watch('navigationIsOpen', (val) => {
+        setState('infoIsOpen', val);
     });
 
     return html`
@@ -75,7 +46,6 @@ export const HeaderFn = ({ html, onMount, delegateEvents, setRef, getRef }) => {
                     <button
                         type="button"
                         class="l-header__title"
-                        ${setRef('titleLink')}
                         ${delegateEvents({
                             click: () => {
                                 titleHandler();
@@ -83,15 +53,39 @@ export const HeaderFn = ({ html, onMount, delegateEvents, setRef, getRef }) => {
                         })}
                     >
                         <div class="l-header__title-container">
-                            <h3 ${setRef('title')}><span>Mob</span>Project</h3>
-                            <h5 ${setRef('beta')}>beta 0.0.1</h5>
+                            <h3
+                                ${bindEffect({
+                                    bind: 'isNotHome',
+                                    toggleClass: {
+                                        visible: () => getState().isNotHome,
+                                    },
+                                })}
+                            >
+                                <span>Mob</span>Project
+                            </h3>
+                            <h5
+                                ${bindEffect({
+                                    bind: 'isNotHome',
+                                    toggleClass: {
+                                        visible: () => getState().isNotHome,
+                                    },
+                                })}
+                            >
+                                beta 0.0.1
+                            </h5>
                         </div>
                     </button>
                     <div class="l-header__utils">
                         <mob-header-nav></mob-header-nav>
                     </div>
                 </div>
-                <div class="l-header__navinfo" ${setRef('navInfo')}>
+                <div
+                    class="l-header__navinfo"
+                    ${bindEffect({
+                        bind: 'infoIsOpen',
+                        toggleClass: { open: () => getState().infoIsOpen },
+                    })}
+                >
                     <p class="p--small"></p>
                 </div>
             </div>

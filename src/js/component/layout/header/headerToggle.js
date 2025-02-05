@@ -4,28 +4,18 @@
  * @import { MobComponent } from '../../../mobjs/type';
  **/
 
-import { mobCore } from '../../../mobCore';
 import { navigationStore } from '../navigation/store/navStore';
 
-const hanburgerHandler = () => {
-    navigationStore.update('navigationIsOpen', (state) => !state);
-};
-
-/** @type {MobComponent} */
-export const HeaderToggleFn = ({ onMount, html, delegateEvents }) => {
-    onMount(({ element }) => {
-        navigationStore.watch('navigationIsOpen', (val) => {
-            mobCore.useFrame(() => {
-                if (val) {
-                    element.classList.add('is-open');
-                    return;
-                }
-
-                element.classList.remove('is-open');
-            });
-        });
-
-        return () => {};
+/** @type {MobComponent<import('./type').HeaderToggle>} */
+export const HeaderToggleFn = ({
+    html,
+    delegateEvents,
+    setState,
+    getState,
+    bindEffect,
+}) => {
+    navigationStore.watch('navigationIsOpen', (val) => {
+        setState('isOpen', val);
     });
 
     return html`
@@ -33,7 +23,18 @@ export const HeaderToggleFn = ({ onMount, html, delegateEvents }) => {
             class="hamburger hamburger--squeeze"
             type="button"
             ${delegateEvents({
-                click: () => hanburgerHandler(),
+                click: () => {
+                    navigationStore.update(
+                        'navigationIsOpen',
+                        (state) => !state
+                    );
+                },
+            })}
+            ${bindEffect({
+                bind: 'isOpen',
+                toggleClass: {
+                    'is-open': () => getState().isOpen,
+                },
             })}
         >
             <div class="hamburger-box">
