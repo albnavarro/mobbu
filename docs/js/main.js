@@ -2925,8 +2925,12 @@
   var destroyStoreEntryPoint = (instanceId) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
-    const { unsubscribeBindInstance } = state;
+    state.callBackWatcher.clear();
+    state.callBackComputed.clear();
+    state.computedPropsQueque.clear();
+    state.store = {};
     state.proxiObject = null;
+    const { unsubscribeBindInstance } = state;
     unsubscribeBindInstance.forEach((unsubscribe3) => {
       unsubscribe3?.();
     });
