@@ -67,6 +67,38 @@ export const applyBindEffect = (element) => {
 };
 
 /**
+ * @param {object} params
+ * @param {WeakRef<HTMLElement>} params.ref
+ * @param {Record<string, () => boolean> | undefined} params.data
+ * @returns {void}
+ */
+const applyClass = ({ ref, data }) => {
+    if (!data) return;
+
+    Object.entries(data).forEach(([className, fn]) => {
+        if (!ref.deref()) return;
+
+        // @ts-ignore
+        ref.deref().classList.toggle(className, fn?.());
+    });
+};
+
+/**
+ * @param {object} params
+ * @param {WeakRef<HTMLElement>} params.ref
+ * @param {Record<string, () => string>} params.data
+ * @returns {void}
+ */
+const applyStyle = ({ ref, data }) => {
+    Object.entries(data).forEach(([styleName, fn]) => {
+        if (!ref.deref()) return;
+
+        // @ts-ignore
+        ref.deref().style[styleName] = fn?.() ?? '';
+    });
+};
+
+/**
  * @description Apply watcher.
  *
  * @param {object} params
@@ -81,109 +113,93 @@ const watchBindEffect = ({ data, element }) => {
     const { parentId: id } = data;
     const { items } = data;
 
-    items.forEach(({ bind, toggleClass, toggleStyle }) => {
-        /**
-         * Watch props on change
-         */
-        let watchIsRunning = false;
-
-        /**
-         * proxiIndex issue.
-         * Get states to check if there is an array
-         * Will check that array has always a length > 0
-         */
-        const states = getStateById(id);
-
-        bind.forEach((state) => {
-            const initialStateValue = states?.[state];
-            const isArray = checkType(Array, initialStateValue);
+    const unsubScribeFunction = items.flatMap(
+        ({ bind, toggleClass, toggleStyle }) => {
+            /**
+             * Watch props on change
+             */
+            let watchIsRunning = false;
 
             /**
-             * Repeat ProxiIndex issue.
-             * Array che be destroyed before element will removed.
-             * proxi.data[proxiIndex.value].prop can fail when array is empty.
+             * proxiIndex issue.
+             * Get states to check if there is an array
+             * Will check that array has always a length > 0
              */
-            const shouldRender = !isArray || initialStateValue.length > 0;
+            const states = getStateById(id);
 
-            /**
-             * Initial class render
-             */
-            if (toggleClass && shouldRender) {
-                mobCore.useFrame(() => {
-                    Object.entries(toggleClass).forEach(([className, fn]) => {
-                        if (!ref.deref()) return;
+            return bind.map((state) => {
+                const initialStateValue = states?.[state];
+                const isArray = checkType(Array, initialStateValue);
 
-                        // @ts-ignore
-                        ref.deref().classList.toggle(className, fn?.());
-                    });
-                });
-            }
-
-            /**
-             * Initial style render
-             */
-            if (toggleStyle && shouldRender) {
-                mobCore.useFrame(() => {
-                    Object.entries(toggleStyle).forEach(([styleName, fn]) => {
-                        if (!ref.deref()) return;
-
-                        // @ts-ignore
-                        ref.deref().style[styleName] = fn?.() ?? '';
-                    });
-                });
-            }
-
-            const unwatch = watchById(id, state, (value) => {
                 /**
-                 * Wait for all all props is settled.
+                 * Repeat ProxiIndex issue.
+                 * Array che be destroyed before element will removed.
+                 * proxi.data[proxiIndex.value].prop can fail when array is empty.
                  */
-                if (watchIsRunning) return;
-                watchIsRunning = true;
+                const shouldRender = !isArray || initialStateValue.length > 0;
 
-                mobCore.useNextLoop(() => {
+                /**
+                 * Initial class render
+                 */
+                if (toggleClass && shouldRender) {
                     mobCore.useFrame(() => {
+                        applyClass({ ref, data: toggleClass });
+                    });
+                }
+
+                /**
+                 * Initial style render
+                 */
+                if (toggleStyle && shouldRender) {
+                    mobCore.useFrame(() => {
+                        applyStyle({ ref, data: toggleStyle });
+                    });
+                }
+
+                return watchById(id, state, (value) => {
+                    /**
+                     * Check if element is garbage collected.
+                     */
+                    if (!ref.deref()) {
                         /**
-                         * Repeat ProxiIndex issue.
-                         * Array che be destroyed before element will removed.
-                         * proxi.data[proxiIndex.value].prop can fail when array is empty.
+                         * Unsubscribe all watcher attached to this ref
                          */
-                        const shouldRender = !isArray || value.length > 0;
+                        unsubScribeFunction.forEach((fn) => {
+                            if (fn) fn();
+                        });
 
-                        if (toggleClass && shouldRender && ref.deref()) {
-                            Object.entries(toggleClass).forEach(
-                                ([className, fn]) => {
-                                    if (!ref.deref()) return;
+                        unsubScribeFunction.length = 0;
+                        return;
+                    }
 
-                                    // @ts-ignore
-                                    ref.deref().classList.toggle(
-                                        className,
-                                        fn?.()
-                                    );
-                                }
-                            );
-                        }
+                    /**
+                     * Wait for all all props is settled.
+                     */
+                    if (watchIsRunning) return;
+                    watchIsRunning = true;
 
-                        if (toggleStyle && shouldRender && ref.deref()) {
-                            Object.entries(toggleStyle).forEach(
-                                ([styleName, fn]) => {
-                                    if (!ref.deref()) return;
+                    mobCore.useNextLoop(() => {
+                        mobCore.useFrame(() => {
+                            /**
+                             * Repeat ProxiIndex issue.
+                             * Array che be destroyed before element will removed.
+                             * proxi.data[proxiIndex.value].prop can fail when array is empty.
+                             */
+                            const shouldRender = !isArray || value.length > 0;
 
-                                    // @ts-ignore
-                                    ref.deref().style[styleName] = fn?.() ?? '';
-                                }
-                            );
-                        }
-
-                        watchIsRunning = false;
-
-                        mobCore.useNextTick(async () => {
-                            if (!ref.deref() && unwatch) {
-                                unwatch();
+                            if (toggleClass && shouldRender && ref.deref()) {
+                                applyClass({ ref, data: toggleClass });
                             }
+
+                            if (toggleStyle && shouldRender && ref.deref()) {
+                                applyStyle({ ref, data: toggleStyle });
+                            }
+
+                            watchIsRunning = false;
                         });
                     });
                 });
             });
-        });
-    });
+        }
+    );
 };

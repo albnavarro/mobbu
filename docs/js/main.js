@@ -21068,69 +21068,67 @@
       bindEffectMap.delete(id);
     });
   };
+  var applyClass = ({ ref, data }) => {
+    if (!data) return;
+    Object.entries(data).forEach(([className, fn]) => {
+      if (!ref.deref()) return;
+      ref.deref().classList.toggle(className, fn?.());
+    });
+  };
+  var applyStyle = ({ ref, data }) => {
+    Object.entries(data).forEach(([styleName, fn]) => {
+      if (!ref.deref()) return;
+      ref.deref().style[styleName] = fn?.() ?? "";
+    });
+  };
   var watchBindEffect = ({ data, element }) => {
     const ref = new WeakRef(element);
     const { parentId: id } = data;
     const { items } = data;
-    items.forEach(({ bind, toggleClass, toggleStyle }) => {
-      let watchIsRunning = false;
-      const states = getStateById(id);
-      bind.forEach((state) => {
-        const initialStateValue = states?.[state];
-        const isArray = checkType(Array, initialStateValue);
-        const shouldRender = !isArray || initialStateValue.length > 0;
-        if (toggleClass && shouldRender) {
-          mobCore.useFrame(() => {
-            Object.entries(toggleClass).forEach(([className, fn]) => {
-              if (!ref.deref()) return;
-              ref.deref().classList.toggle(className, fn?.());
-            });
-          });
-        }
-        if (toggleStyle && shouldRender) {
-          mobCore.useFrame(() => {
-            Object.entries(toggleStyle).forEach(([styleName, fn]) => {
-              if (!ref.deref()) return;
-              ref.deref().style[styleName] = fn?.() ?? "";
-            });
-          });
-        }
-        const unwatch = watchById(id, state, (value) => {
-          if (watchIsRunning) return;
-          watchIsRunning = true;
-          mobCore.useNextLoop(() => {
+    const unsubScribeFunction = items.flatMap(
+      ({ bind, toggleClass, toggleStyle }) => {
+        let watchIsRunning = false;
+        const states = getStateById(id);
+        return bind.map((state) => {
+          const initialStateValue = states?.[state];
+          const isArray = checkType(Array, initialStateValue);
+          const shouldRender = !isArray || initialStateValue.length > 0;
+          if (toggleClass && shouldRender) {
             mobCore.useFrame(() => {
-              const shouldRender2 = !isArray || value.length > 0;
-              if (toggleClass && shouldRender2 && ref.deref()) {
-                Object.entries(toggleClass).forEach(
-                  ([className, fn]) => {
-                    if (!ref.deref()) return;
-                    ref.deref().classList.toggle(
-                      className,
-                      fn?.()
-                    );
-                  }
-                );
-              }
-              if (toggleStyle && shouldRender2 && ref.deref()) {
-                Object.entries(toggleStyle).forEach(
-                  ([styleName, fn]) => {
-                    if (!ref.deref()) return;
-                    ref.deref().style[styleName] = fn?.() ?? "";
-                  }
-                );
-              }
-              watchIsRunning = false;
-              mobCore.useNextTick(async () => {
-                if (!ref.deref() && unwatch) {
-                  unwatch();
+              applyClass({ ref, data: toggleClass });
+            });
+          }
+          if (toggleStyle && shouldRender) {
+            mobCore.useFrame(() => {
+              applyStyle({ ref, data: toggleStyle });
+            });
+          }
+          return watchById(id, state, (value) => {
+            if (!ref.deref()) {
+              unsubScribeFunction.forEach((fn) => {
+                if (fn) fn();
+              });
+              unsubScribeFunction.length = 0;
+              return;
+            }
+            if (watchIsRunning) return;
+            watchIsRunning = true;
+            mobCore.useNextLoop(() => {
+              mobCore.useFrame(() => {
+                const shouldRender2 = !isArray || value.length > 0;
+                if (toggleClass && shouldRender2 && ref.deref()) {
+                  applyClass({ ref, data: toggleClass });
                 }
+                if (toggleStyle && shouldRender2 && ref.deref()) {
+                  applyStyle({ ref, data: toggleStyle });
+                }
+                watchIsRunning = false;
               });
             });
           });
         });
-      });
-    });
+      }
+    );
   };
 
   // src/js/mobjs/parse/steps/getParamsForComponent.js
