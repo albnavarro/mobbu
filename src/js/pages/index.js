@@ -478,12 +478,12 @@ export const routes = [
         },
     },
     {
-        name: 'mobJs-bind-class',
+        name: 'mobJs-bind-effect',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         props: {
-            source: './data/mobJs/bindClass.json',
-            title: 'bindClass',
+            source: './data/mobJs/bindEffect.json',
+            title: 'bindEffect',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
