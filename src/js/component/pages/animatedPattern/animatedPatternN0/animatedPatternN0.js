@@ -6,7 +6,6 @@
  **/
 
 import { mobCore } from '../../../../mobCore';
-import { motionCore } from '../../../../mobMotion';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
@@ -22,19 +21,16 @@ export const AnimatedPatternN0Fn = ({
     onMount,
     html,
     getState,
+    setState,
     setRef,
     getRef,
+    bindEffect,
 }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = '#000000';
 
     onMount(() => {
-        if (motionCore.mq('max', 'desktop')) {
-            document.body.style.background = '';
-            return;
-        }
-
-        const { wrap, canvas } = getRef();
+        const { canvas } = getRef();
 
         /** Quicknav */
         updateQuickNavState({
@@ -57,7 +53,7 @@ export const AnimatedPatternN0Fn = ({
         });
 
         mobCore.useFrame(() => {
-            wrap.classList.add('active');
+            setState('isMounted', true);
         });
 
         return () => {
@@ -71,7 +67,13 @@ export const AnimatedPatternN0Fn = ({
     return html`
         <div>
             <div class="c-canvas">
-                <div class="c-canvas__wrap" ${setRef('wrap')}>
+                <div
+                    class="c-canvas__wrap"
+                    ${bindEffect({
+                        bind: 'isMounted',
+                        toggleClass: { active: () => getState().isMounted },
+                    })}
+                >
                     <canvas ${setRef('canvas')}></canvas>
                 </div>
             </div>

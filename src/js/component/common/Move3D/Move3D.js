@@ -20,6 +20,7 @@ export const Move3Dfn = ({
     computedSync,
     invalidate,
     getProxi,
+    bindEffect,
 }) => {
     /**
      * base id for checlren instance
@@ -238,7 +239,6 @@ export const Move3Dfn = ({
             if (value) {
                 dragX = window.innerWidth / 2;
                 dragY = window.innerHeight / 2;
-                element.classList.add('move3D--drag');
 
                 unsubscribeTouchStart = mobCore.useTouchStart(({ page }) => {
                     onMouseDown({ page });
@@ -263,8 +263,6 @@ export const Move3Dfn = ({
 
                 return;
             }
-
-            element.classList.remove('move3D--drag');
         });
 
         /**
@@ -318,7 +316,13 @@ export const Move3Dfn = ({
         };
     });
 
-    return html`<div class="c-move-3d">
+    return html`<div
+        class="c-move-3d"
+        ${bindEffect({
+            bind: 'drag',
+            toggleClass: { 'move3D--drag': () => proxiState.drag },
+        })}
+    >
         <div class="c-move-3d__scene" ${setRef('scene')}>
             <div class="c-move-3d__container" ${setRef('container')}>
                 ${invalidate({

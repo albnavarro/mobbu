@@ -22,6 +22,7 @@ export const AnimatedPatternN0 = createComponent({
         'disableOffcanvas',
     ],
     state: {
+        isMounted: false,
         title: () => ({
             value: '',
             type: String,

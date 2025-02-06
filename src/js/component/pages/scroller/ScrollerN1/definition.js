@@ -18,6 +18,7 @@ export const ScrollerN1 = createComponent({
         'disableOffcanvas',
     ],
     state: {
+        isMounted: false,
         amountOfPath: 17,
         width: 15,
         height: 40,

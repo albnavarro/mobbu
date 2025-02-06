@@ -17,6 +17,7 @@ export const AnimatedPatternN1 = createComponent({
         'disableOffcanvas',
     ],
     state: {
+        isMounted: false,
         numberOfRow: 7,
         numberOfColumn: 15,
         cellWidth: 70,

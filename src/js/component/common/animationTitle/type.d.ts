@@ -1,8 +1,7 @@
 export interface AnimationTitle {
-    state: { title: string; align: string; color: string };
-    ref: {
-        titleEl: HTMLElement;
-    };
+    state: { title: string; align: string; color: string; isMounted: boolean };
 }
 
-export type UpdateAnimationTitle = (arg0: AnimationTitle['state']) => void;
+export type UpdateAnimationTitle = (
+    arg0: Partial<AnimationTitle['state']>
+) => void;

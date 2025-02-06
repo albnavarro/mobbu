@@ -6,43 +6,44 @@
  **/
 
 import { mobCore } from '../../../mobCore';
-import { motionCore } from '../../../mobMotion';
 
 /** @type {MobComponent<AnimationTitle>} */
 export const AnimationTitleFn = ({
     html,
     onMount,
-    watchSync,
-    setRef,
-    getRef,
     bindText,
+    bindEffect,
+    getProxi,
 }) => {
-    onMount(({ element }) => {
-        if (motionCore.mq('max', 'desktop')) return;
+    const proxi = getProxi();
 
-        const { titleEl } = getRef();
-
-        watchSync('align', (value) => {
-            element.classList.remove('is-left');
-            element.classList.remove('is-right');
-            element.classList.add(`is-${value}`);
-        });
-
-        watchSync('color', (value) => {
-            titleEl.classList.remove('is-white');
-            titleEl.classList.remove('is-black');
-            titleEl.classList.remove('is-highlight');
-            titleEl.classList.add(`is-${value}`);
-        });
-
+    onMount(() => {
         mobCore.useFrame(() => {
-            titleEl.classList.add('visible');
+            proxi.isMounted = true;
         });
-
-        return () => {};
     });
 
-    return html`<div class="c-animation-title">
-        <h4 ${setRef('titleEl')}>${bindText`${'title'}`}</h4>
+    return html`<div
+        class="c-animation-title"
+        ${bindEffect({
+            bind: ['align'],
+            toggleClass: {
+                'is-left': () => proxi.align === 'left',
+                'is-right': () => proxi.align === 'right',
+            },
+        })}
+    >
+        <h4
+            ${bindEffect({
+                bind: ['color', 'isMounted'],
+                toggleClass: {
+                    'is-white': () => proxi.color === 'white',
+                    'is-black': () => proxi.color === 'black',
+                    visible: () => proxi.isMounted,
+                },
+            })}
+        >
+            ${bindText`${'title'}`}
+        </h4>
     </div>`;
 };

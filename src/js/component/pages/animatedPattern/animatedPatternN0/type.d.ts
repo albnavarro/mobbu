@@ -2,6 +2,7 @@ import { StaggerObject } from '../../../../mobMotion/animation/utils/stagger/typ
 
 export interface AnimatedPatternN0 {
     state: {
+        isMounted: boolean;
         title: string;
         nextRoute: string;
         prevRoute: string;
@@ -16,7 +17,6 @@ export interface AnimatedPatternN0 {
         disableOffcanvas: boolean;
     };
     ref: {
-        wrap: HTMLElement;
         canvas: HTMLCanvasElement;
     };
 }

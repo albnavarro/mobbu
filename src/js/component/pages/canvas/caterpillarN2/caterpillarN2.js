@@ -7,7 +7,6 @@
 
 import { mobCore } from '../../../../mobCore';
 import { html } from '../../../../mobjs';
-import { motionCore } from '../../../../mobMotion';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
@@ -45,19 +44,16 @@ export const CaterpillarN2Fn = ({
     onMount,
     html,
     getState,
+    setState,
     setRef,
     getRef,
+    bindEffect,
 }) => {
     const { buttons, rotationDefault } = getState();
     document.body.style.background = '#000000';
 
     onMount(({ element }) => {
-        if (motionCore.mq('max', 'desktop')) {
-            document.body.style.background = '';
-            return;
-        }
-
-        const { wrap, canvas, rangeValue, rotationButton } = getRef();
+        const { canvas, rangeValue, rotationButton } = getRef();
 
         /** Quicknav */
         updateQuickNavState({
@@ -107,7 +103,7 @@ export const CaterpillarN2Fn = ({
         });
 
         mobCore.useFrame(() => {
-            wrap.classList.add('active');
+            setState('isMounted', true);
         });
 
         return () => {
@@ -123,7 +119,10 @@ export const CaterpillarN2Fn = ({
             <div class="c-canvas">
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped"
-                    ${setRef('wrap')}
+                    ${bindEffect({
+                        bind: 'isMounted',
+                        toggleClass: { active: () => getState().isMounted },
+                    })}
                 >
                     <ul class="c-canvas__controls">
                         ${getControls({ buttons })}

@@ -20,6 +20,7 @@ export const CaterpillarN1 = createComponent({
         'disableOffcanvas',
     ],
     state: {
+        isMounted: false,
         numItems: 20,
         width: 40,
         height: 40,

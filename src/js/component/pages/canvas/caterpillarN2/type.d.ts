@@ -8,6 +8,7 @@ export type CaterpillarN2Button = Record<
 
 export interface CaterpillarN2 {
     state: {
+        isMounted: boolean;
         numItems: number;
         width: number;
         height: number;
@@ -23,7 +24,6 @@ export interface CaterpillarN2 {
         buttons: CaterpillarN2Button;
     };
     ref: {
-        wrap: HTMLElement;
         canvas: HTMLCanvasElement;
         rangeValue: HTMLSpanElement;
         rotationButton: HTMLButtonElement;

@@ -6,7 +6,6 @@
  **/
 
 import { mobCore } from '../../../../mobCore';
-import { motionCore } from '../../../../mobMotion';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
@@ -21,19 +20,16 @@ import { caterpillarN1Animation } from './animation/animation';
 export const CaterpillarN1Fn = ({
     onMount,
     html,
+    setState,
     getState,
     getRef,
     setRef,
+    bindEffect,
 }) => {
     document.body.style.background = '#000000';
 
     onMount(() => {
-        if (motionCore.mq('max', 'desktop')) {
-            document.body.style.background = '';
-            return;
-        }
-
-        const { wrap, canvas } = getRef();
+        const { canvas } = getRef();
 
         /** Quicknav */
         updateQuickNavState({
@@ -56,7 +52,7 @@ export const CaterpillarN1Fn = ({
         });
 
         mobCore.useFrame(() => {
-            wrap.classList.add('active');
+            setState('isMounted', true);
         });
 
         return () => {
@@ -72,7 +68,10 @@ export const CaterpillarN1Fn = ({
             <div class="c-canvas">
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
-                    ${setRef('wrap')}
+                    ${bindEffect({
+                        bind: 'isMounted',
+                        toggleClass: { active: () => getState().isMounted },
+                    })}
                 >
                     <canvas ${setRef('canvas')}></canvas>
                 </div>

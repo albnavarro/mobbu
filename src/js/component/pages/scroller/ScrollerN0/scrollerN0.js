@@ -6,7 +6,6 @@
  **/
 
 import { mobCore } from '../../../../mobCore';
-import { motionCore } from '../../../../mobMotion';
 import {
     resetAnimationTitle,
     updateAnimationTitle,
@@ -22,16 +21,19 @@ import {
 import { scrollerN0Animation } from './animation/animation';
 
 /** @type {MobComponent<ScrollerN0>} */
-export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
+export const ScrollerN0Fn = ({
+    onMount,
+    html,
+    getState,
+    setState,
+    setRef,
+    getRef,
+    bindEffect,
+}) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = '#000000';
 
     onMount(() => {
-        if (motionCore.mq('max', 'desktop')) {
-            document.body.style.background = '';
-            return;
-        }
-
         /** Show scroll down label. */
         activateScrollDownArrow();
 
@@ -53,7 +55,7 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
         /**
          * Refs
          */
-        const { wrap, canvas, canvasScroller } = getRef();
+        const { canvas, canvasScroller } = getRef();
 
         /**
          * Prevent landing at bottom of the page.
@@ -67,7 +69,7 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
         });
 
         mobCore.useFrame(() => {
-            wrap.classList.add('active');
+            setState('isMounted', true);
         });
 
         return () => {
@@ -87,7 +89,10 @@ export const ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
             <div class="c-canvas c-canvas--fixed ">
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped"
-                    ${setRef('wrap')}
+                    ${bindEffect({
+                        bind: 'isMounted',
+                        toggleClass: { active: () => getState().isMounted },
+                    })}
                 >
                     <canvas ${setRef('canvas')}></canvas>
                 </div>

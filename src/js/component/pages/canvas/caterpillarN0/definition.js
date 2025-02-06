@@ -24,6 +24,7 @@ export const CaterpillarN0 = createComponent({
         'disableOffcanvas',
     ],
     state: {
+        isMounted: false,
         nextRoute: () => ({
             value: '',
             type: String,

@@ -1,5 +1,6 @@
 export interface ScrollerN1 {
     state: {
+        isMounted: boolean;
         amountOfPath: number;
         width: number;
         height: number;
@@ -10,7 +11,6 @@ export interface ScrollerN1 {
         disableOffcanvas: boolean;
     };
     ref: {
-        wrap: HTMLElement;
         canvas: HTMLCanvasElement;
         canvasScroller: HTMLCanvasElement;
     };

@@ -22,6 +22,7 @@ export const ScrollerN0 = createComponent({
         'disableOffcanvas',
     ],
     state: {
+        isMounted: false,
         title: () => ({
             value: '',
             type: String,

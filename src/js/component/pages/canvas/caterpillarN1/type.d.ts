@@ -1,5 +1,6 @@
 export interface CaterpillarN1 {
     state: {
+        isMounted: boolean;
         numItems: number;
         width: number;
         height: number;
@@ -12,7 +13,6 @@ export interface CaterpillarN1 {
         disableOffcanvas: boolean;
     };
     ref: {
-        wrap: HTMLElement;
         canvas: HTMLCanvasElement;
     };
 }

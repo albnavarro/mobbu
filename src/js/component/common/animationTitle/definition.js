@@ -12,6 +12,10 @@ export const AnimationTitle = createComponent({
             value: '',
             type: String,
         }),
+        isMounted: () => ({
+            value: false,
+            type: Boolean,
+        }),
         align: () => ({
             value: 'left',
             type: String,
@@ -23,7 +27,7 @@ export const AnimationTitle = createComponent({
             value: 'white',
             type: String,
             validate: (value) => {
-                return ['white', 'black', 'highlight'].includes(value);
+                return ['white', 'black'].includes(value);
             },
         }),
     },
