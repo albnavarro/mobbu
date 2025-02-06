@@ -35286,7 +35286,7 @@ Loading snippet ...</pre
       navigationStore.watch("navigationIsOpen", (value) => {
         const { templateName } = getActiveRoute();
         if (!(templateName in templateData)) return;
-        screenEl.classList.toggle("active", !value);
+        setState("hide", !value);
       });
       const unsubscribeRoute = afterRouteChange(
         async ({ templateName, route }) => {
@@ -35295,7 +35295,7 @@ Loading snippet ...</pre
           await tick();
           setState("activeSection", route);
           if (currentData.length > 0) {
-            setState("hideScrollbar", true);
+            setState("hide", true);
             if (isActive2) {
               updateScroller();
               hideScrolBar();
@@ -35313,7 +35313,7 @@ Loading snippet ...</pre
             hideScrolBar();
           }
           if (currentData.length === 0) {
-            setState("hideScrollbar", false);
+            setState("hide", false);
             destroy2?.();
             isActive2 = false;
           }
@@ -35336,8 +35336,8 @@ Loading snippet ...</pre
         class="c-params-mobjs"
         ${setRef("screenEl")}
         ${bindEffect({
-      bind: "hideScrollbar",
-      toggleClass: { active: () => getState().hideScrollbar }
+      bind: "hide",
+      toggleClass: { active: () => getState().hide }
     })}
     >
         <input
@@ -35414,7 +35414,7 @@ Loading snippet ...</pre
         value: "",
         type: String
       }),
-      hideScrollbar: () => ({
+      hide: () => ({
         value: false,
         type: Boolean
       })

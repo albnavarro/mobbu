@@ -38,7 +38,7 @@ export const LinksMobJs = createComponent({
             value: '',
             type: String,
         }),
-        hideScrollbar: () => ({
+        hide: () => ({
             value: false,
             type: Boolean,
         }),

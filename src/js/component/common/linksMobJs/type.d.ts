@@ -10,7 +10,7 @@ export interface LinksMobJs {
     state: {
         data: { label: string; url: string; isLabel: boolean }[];
         activeSection: string;
-        hideScrollbar: boolean;
+        hide: boolean;
     };
     ref: {
         screenEl: HTMLElement;

@@ -95,8 +95,7 @@ export const LinksMobJsFn = ({
         navigationStore.watch('navigationIsOpen', (value) => {
             const { templateName } = getActiveRoute();
             if (!(templateName in templateData)) return;
-
-            screenEl.classList.toggle('active', !value);
+            setState('hide', !value);
         });
 
         const unsubscribeRoute = afterRouteChange(
@@ -108,11 +107,10 @@ export const LinksMobJsFn = ({
                  * Await list was created, then create scroller
                  */
                 await tick();
-
                 setState('activeSection', route);
 
                 if (currentData.length > 0) {
-                    setState('hideScrollbar', true);
+                    setState('hide', true);
 
                     /**
                      * Update scroller
@@ -143,7 +141,7 @@ export const LinksMobJsFn = ({
                 }
 
                 if (currentData.length === 0) {
-                    setState('hideScrollbar', false);
+                    setState('hide', false);
                     destroy?.();
                     isActive = false;
                 }
@@ -164,8 +162,8 @@ export const LinksMobJsFn = ({
         class="c-params-mobjs"
         ${setRef('screenEl')}
         ${bindEffect({
-            bind: 'hideScrollbar',
-            toggleClass: { active: () => getState().hideScrollbar },
+            bind: 'hide',
+            toggleClass: { active: () => getState().hide },
         })}
     >
         <input
