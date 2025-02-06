@@ -5,10 +5,10 @@ export interface DebugTreeItem {
         instanceName: string;
         children: DebugTreeItem['state'][];
         isOpen: boolean;
+        isActive: boolean;
+        hasActiveChildren: boolean;
     };
     ref: {
         content: HTMLElement;
-        head: HTMLElement;
-        selected: HTMLSpanElement;
     };
 }

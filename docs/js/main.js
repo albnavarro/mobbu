@@ -22282,9 +22282,10 @@
   });
 
   // src/js/component/common/routeLoader/routeLoader.js
-  var RouteLoaderFn = ({ html, onMount }) => {
+  var RouteLoaderFn = ({ html, onMount, getProxi, bindEffect }) => {
+    const proxi = getProxi();
     onMount(({ element }) => {
-      element.classList.add("disable");
+      proxi.isDisable = true;
       let tweenOut = tween.createTween({
         data: { opacity: 1, scale: 1 },
         duration: 500
@@ -22294,12 +22295,12 @@
         element.style.transform = `scale(${scale})`;
       });
       beforeRouteChange(() => {
-        element.classList.remove("disable");
         tweenOut.goTo({ opacity: 1, scale: 1 });
+        proxi.isDisable = false;
       });
       afterRouteChange(async () => {
         await tweenOut.goTo({ opacity: 0, scale: 0.9 });
-        element.classList.add("disable");
+        proxi.isDisable = true;
       });
       return () => {
         tweenOut.destroy();
@@ -22307,7 +22308,13 @@
       };
     });
     return html`
-        <div class="c-loader center-viewport">
+        <div
+            class="c-loader center-viewport"
+            ${bindEffect({
+      bind: "isDisable",
+      toggleClass: { disable: () => proxi.isDisable }
+    })}
+        >
             <span class="c-loader__inner"></span>
         </div>
     `;
@@ -22319,6 +22326,10 @@
     component: RouteLoaderFn,
     state: {
       isLoading: () => ({
+        value: false,
+        type: Boolean
+      }),
+      isDisable: () => ({
         value: false,
         type: Boolean
       })
@@ -35248,7 +35259,8 @@ Loading snippet ...</pre
     setState,
     bindProps,
     invalidate,
-    getState
+    getState,
+    bindEffect
   }) => {
     const mainData = getCommonData();
     const templateData = {
@@ -35283,7 +35295,7 @@ Loading snippet ...</pre
           await tick();
           setState("activeSection", route);
           if (currentData.length > 0) {
-            screenEl.classList.add("active");
+            setState("hideScrollbar", true);
             if (isActive2) {
               updateScroller();
               hideScrolBar();
@@ -35301,7 +35313,7 @@ Loading snippet ...</pre
             hideScrolBar();
           }
           if (currentData.length === 0) {
-            screenEl.classList.remove("active");
+            setState("hideScrollbar", false);
             destroy2?.();
             isActive2 = false;
           }
@@ -35320,7 +35332,14 @@ Loading snippet ...</pre
         };
       };
     });
-    return html`<div class="c-params-mobjs" ${setRef("screenEl")}>
+    return html`<div
+        class="c-params-mobjs"
+        ${setRef("screenEl")}
+        ${bindEffect({
+      bind: "hideScrollbar",
+      toggleClass: { active: () => getState().hideScrollbar }
+    })}
+    >
         <input
             type="range"
             id="test"
@@ -35394,6 +35413,10 @@ Loading snippet ...</pre
       activeSection: () => ({
         value: "",
         type: String
+      }),
+      hideScrollbar: () => ({
+        value: false,
+        type: Boolean
       })
     }
   });
@@ -35760,6 +35783,7 @@ Loading snippet ...</pre
       return stringParsed.every((piece) => componentName.includes(piece));
     }) ?? []).map(({ id, componentName, instanceName }) => ({
       id,
+      active: false,
       tag: (() => {
         const stringParseWithPlaceholder = stringParsed.reduce(
           (previous, current, index) => {
@@ -35791,7 +35815,8 @@ Loading snippet ...</pre
     staticProps: staticProps2,
     bindProps,
     getState,
-    watch
+    watch,
+    bindEffect
   }) => {
     let destroy2 = () => {
     };
@@ -35815,7 +35840,7 @@ Loading snippet ...</pre
       });
     });
     onMount(() => {
-      const { loadingRef, noresultRef, scrollbar } = getRef();
+      const { scrollbar } = getRef();
       scrollbar.addEventListener("input", () => {
         move2(scrollbar.value);
       });
@@ -35827,11 +35852,7 @@ Loading snippet ...</pre
       watch("isLoading", (isLoading) => {
         const { data } = getState();
         const hasOccurrence = data.length > 0;
-        loadingRef.classList.toggle("visible", isLoading);
-        noresultRef.classList.toggle(
-          "visible",
-          !hasOccurrence && !isLoading
-        );
+        setState("noResult", !hasOccurrence && !isLoading);
       });
       return () => {
         destroy2?.();
@@ -35860,13 +35881,19 @@ Loading snippet ...</pre
                     class="c-debug-filter-list__scrollbar"
                 />
                 <span
-                    ${setRef("loadingRef")}
                     class="c-debug-filter-list__status"
+                    ${bindEffect({
+      bind: "isLoading",
+      toggleClass: { visible: () => getState().isLoading }
+    })}
                     >Generate list</span
                 >
                 <span
-                    ${setRef("noresultRef")}
                     class="c-debug-filter-list__status"
+                    ${bindEffect({
+      bind: "noResult",
+      toggleClass: { visible: () => getState().noResult }
+    })}
                     >no result</span
                 >
                 <div
@@ -35904,27 +35931,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/debugFilterListItem.js
-  var setActiveItems = ({ id, value, getRef }) => {
-    const { selected } = getRef();
-    selected.classList.toggle("active", value === id);
-  };
   var DebugFilterListItemFn = ({
     html,
     getState,
+    setState,
     delegateEvents,
     bindText,
     onMount,
     setRef,
-    getRef
+    bindEffect
   }) => {
     const { id, name } = getState();
     onMount(() => {
       const { currentId } = debugActiveComponentStore.get();
-      setActiveItems({ id, value: currentId, getRef });
+      setState("active", currentId === id);
       const unsubscribeActiveItem = debugActiveComponentStore.watch(
         "currentId",
         (value) => {
-          setActiveItems({ id, value, getRef });
+          setState("active", value === id);
         }
       );
       return () => {
@@ -35954,6 +35978,10 @@ Loading snippet ...</pre
             <span
                 class="c-debug-tree-item__selected"
                 ${setRef("selected")}
+                ${bindEffect({
+      bind: "active",
+      toggleClass: { active: () => getState().active }
+    })}
             ></span>
         </div>
     `;
@@ -35976,6 +36004,10 @@ Loading snippet ...</pre
       name: () => ({
         value: "",
         type: String
+      }),
+      active: () => ({
+        value: false,
+        type: Boolean
       })
     }
   });
@@ -35991,6 +36023,10 @@ Loading snippet ...</pre
         type: Array
       }),
       isLoading: () => ({
+        value: false,
+        type: Boolean
+      }),
+      noResult: () => ({
         value: false,
         type: Boolean
       })
@@ -36523,11 +36559,9 @@ Loading snippet ...</pre
     if (hasOccurrence) return true;
     return flatChildren.some((id2) => activeItemChildren({ id: id2, value }));
   };
-  var setActiveItems2 = ({ id, value, getRef }) => {
-    const { selected, head } = getRef();
-    selected.classList.toggle("active", value === id);
-    const hasActiveChildren = activeItemChildren({ id, value });
-    head.classList.toggle("has-children-selected", hasActiveChildren);
+  var setActiveItems = ({ id, value, setState }) => {
+    setState("isActive", value === id);
+    setState("hasActiveChildren", activeItemChildren({ id, value }));
   };
   var DebugTreeItemFn = ({
     html,
@@ -36538,18 +36572,19 @@ Loading snippet ...</pre
     setRef,
     delegateEvents,
     updateState,
-    watch
+    watch,
+    bindEffect,
+    setState
   }) => {
     const { id, componentName, instanceName, children } = getState();
     const hasChildrenClass = children.length > 0 ? "has-children" : "";
     onMount(() => {
-      const { content, head } = getRef();
+      const { content } = getRef();
       const { currentId } = debugActiveComponentStore.get();
-      setActiveItems2({ id, value: currentId, getRef });
+      setActiveItems({ id, value: currentId, setState });
       const unsubscribeSlide = slide.subscribe(content);
       slide.reset(content);
       watch("isOpen", async (isOpen) => {
-        head.classList.toggle("open", isOpen);
         const action2 = isOpen ? "down" : "up";
         await slide[action2](content);
         const methods = useMethodByName("debug_tree");
@@ -36558,7 +36593,7 @@ Loading snippet ...</pre
       const unsubscribeActiveItem = debugActiveComponentStore.watch(
         "currentId",
         (value) => {
-          setActiveItems2({ id, value, getRef });
+          setActiveItems({ id, value, setState });
         }
       );
       return () => {
@@ -36569,12 +36604,23 @@ Loading snippet ...</pre
     return html`<div class="c-debug-tree-item">
         <div
             class="c-debug-tree-item__head ${hasChildrenClass}"
-            ${setRef("head")}
             ${delegateEvents({
       click: () => {
         updateState("isOpen", (value) => !value);
       }
     })}
+            ${bindEffect([
+      {
+        bind: "isOpen",
+        toggleClass: { open: () => getState().isOpen }
+      },
+      {
+        bind: "hasActiveChildren",
+        toggleClass: {
+          "has-children-selected": () => getState().hasActiveChildren
+        }
+      }
+    ])}
         >
             <span class="c-debug-tree-item__id">${id}</span> |
             <span class="c-debug-tree-item__component">${componentName}</span> |
@@ -36594,7 +36640,10 @@ Loading snippet ...</pre
             </button>
             <span
                 class="c-debug-tree-item__selected"
-                ${setRef("selected")}
+                ${bindEffect({
+      bind: "isActive",
+      toggleClass: { active: () => getState().isActive }
+    })}
             ></span>
         </div>
         <div class="c-debug-tree-item__content" ${setRef("content")}>
@@ -36626,6 +36675,14 @@ Loading snippet ...</pre
         type: Array
       }),
       isOpen: () => ({
+        value: false,
+        type: Boolean
+      }),
+      isActive: () => ({
+        value: false,
+        type: Boolean
+      }),
+      hasActiveChildren: () => ({
         value: false,
         type: Boolean
       })

@@ -11,5 +11,9 @@ export const RouteLoader = createComponent({
             value: false,
             type: Boolean,
         }),
+        isDisable: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
 });

@@ -9,9 +9,11 @@ import { afterRouteChange, beforeRouteChange } from '../../../mobjs';
 import { tween } from '../../../mobMotion';
 
 /** @type {MobComponent<RouteLoader>} */
-export const RouteLoaderFn = ({ html, onMount }) => {
+export const RouteLoaderFn = ({ html, onMount, getProxi, bindEffect }) => {
+    const proxi = getProxi();
+
     onMount(({ element }) => {
-        element.classList.add('disable');
+        proxi.isDisable = true;
 
         let tweenOut = tween.createTween({
             data: { opacity: 1, scale: 1 },
@@ -24,13 +26,15 @@ export const RouteLoaderFn = ({ html, onMount }) => {
         });
 
         beforeRouteChange(() => {
-            element.classList.remove('disable');
             tweenOut.goTo({ opacity: 1, scale: 1 });
+
+            proxi.isDisable = false;
         });
 
         afterRouteChange(async () => {
             await tweenOut.goTo({ opacity: 0, scale: 0.9 });
-            element.classList.add('disable');
+
+            proxi.isDisable = true;
         });
 
         return () => {
@@ -41,7 +45,13 @@ export const RouteLoaderFn = ({ html, onMount }) => {
     });
 
     return html`
-        <div class="c-loader center-viewport">
+        <div
+            class="c-loader center-viewport"
+            ${bindEffect({
+                bind: 'isDisable',
+                toggleClass: { disable: () => proxi.isDisable },
+            })}
+        >
             <span class="c-loader__inner"></span>
         </div>
     `;

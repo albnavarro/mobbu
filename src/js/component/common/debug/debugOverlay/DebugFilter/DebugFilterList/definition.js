@@ -17,6 +17,10 @@ export const DebugFilterList = createComponent({
             value: false,
             type: Boolean,
         }),
+        noResult: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
     child: [DebugFilterListItem],
 });

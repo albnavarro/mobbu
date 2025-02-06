@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @import { GetRef, MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
+ * @import { MobComponent, SetState, UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
 import { componentMap, useMethodByName } from '../../../../../../mobjs';
@@ -38,15 +38,12 @@ const activeItemChildren = ({ id, value }) => {
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.value
- * @param {GetRef<any>} params.getRef
+ * @param {SetState<import('./type').DebugTreeItem>} params.setState
  * @returns {void}
  */
-const setActiveItems = ({ id, value, getRef }) => {
-    const { selected, head } = getRef();
-    selected.classList.toggle('active', value === id);
-
-    const hasActiveChildren = activeItemChildren({ id, value });
-    head.classList.toggle('has-children-selected', hasActiveChildren);
+const setActiveItems = ({ id, value, setState }) => {
+    setState('isActive', value === id);
+    setState('hasActiveChildren', activeItemChildren({ id, value }));
 };
 
 /** @type{MobComponent<import('./type').DebugTreeItem>} */
@@ -60,21 +57,22 @@ export const DebugTreeItemFn = ({
     delegateEvents,
     updateState,
     watch,
+    bindEffect,
+    setState,
 }) => {
     const { id, componentName, instanceName, children } = getState();
     const hasChildrenClass = children.length > 0 ? 'has-children' : '';
 
     onMount(() => {
-        const { content, head } = getRef();
+        const { content } = getRef();
 
         const { currentId } = debugActiveComponentStore.get();
-        setActiveItems({ id, value: currentId, getRef });
+        setActiveItems({ id, value: currentId, setState });
 
         const unsubscribeSlide = slide.subscribe(content);
         slide.reset(content);
 
         watch('isOpen', async (isOpen) => {
-            head.classList.toggle('open', isOpen);
             const action = isOpen ? 'down' : 'up';
             await slide[action](content);
 
@@ -86,7 +84,7 @@ export const DebugTreeItemFn = ({
         const unsubscribeActiveItem = debugActiveComponentStore.watch(
             'currentId',
             (value) => {
-                setActiveItems({ id, value, getRef });
+                setActiveItems({ id, value, setState });
             }
         );
 
@@ -99,12 +97,24 @@ export const DebugTreeItemFn = ({
     return html`<div class="c-debug-tree-item">
         <div
             class="c-debug-tree-item__head ${hasChildrenClass}"
-            ${setRef('head')}
             ${delegateEvents({
                 click: () => {
                     updateState('isOpen', (value) => !value);
                 },
             })}
+            ${bindEffect([
+                {
+                    bind: 'isOpen',
+                    toggleClass: { open: () => getState().isOpen },
+                },
+                {
+                    bind: 'hasActiveChildren',
+                    toggleClass: {
+                        'has-children-selected': () =>
+                            getState().hasActiveChildren,
+                    },
+                },
+            ])}
         >
             <span class="c-debug-tree-item__id">${id}</span> |
             <span class="c-debug-tree-item__component">${componentName}</span> |
@@ -125,7 +135,10 @@ export const DebugTreeItemFn = ({
             </button>
             <span
                 class="c-debug-tree-item__selected"
-                ${setRef('selected')}
+                ${bindEffect({
+                    bind: 'isActive',
+                    toggleClass: { active: () => getState().isActive },
+                })}
             ></span>
         </div>
         <div class="c-debug-tree-item__content" ${setRef('content')}>

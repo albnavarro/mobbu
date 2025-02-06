@@ -54,6 +54,7 @@ const getDataFiltered = ({ testString }) => {
         }) ?? []
     ).map(({ id, componentName, instanceName }) => ({
         id,
+        active: false,
         tag: (() => {
             /**
              * Avoid to replce string in <span> tag added.
@@ -96,6 +97,7 @@ export const DebugFilterListFn = ({
     bindProps,
     getState,
     watch,
+    bindEffect,
 }) => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};
@@ -139,7 +141,7 @@ export const DebugFilterListFn = ({
     });
 
     onMount(() => {
-        const { loadingRef, noresultRef, scrollbar } = getRef();
+        const { scrollbar } = getRef();
 
         scrollbar.addEventListener('input', () => {
             // @ts-ignore
@@ -156,12 +158,7 @@ export const DebugFilterListFn = ({
         watch('isLoading', (isLoading) => {
             const { data } = getState();
             const hasOccurrence = data.length > 0;
-
-            loadingRef.classList.toggle('visible', isLoading);
-            noresultRef.classList.toggle(
-                'visible',
-                !hasOccurrence && !isLoading
-            );
+            setState('noResult', !hasOccurrence && !isLoading);
         });
 
         return () => {
@@ -188,13 +185,19 @@ export const DebugFilterListFn = ({
                     class="c-debug-filter-list__scrollbar"
                 />
                 <span
-                    ${setRef('loadingRef')}
                     class="c-debug-filter-list__status"
+                    ${bindEffect({
+                        bind: 'isLoading',
+                        toggleClass: { visible: () => getState().isLoading },
+                    })}
                     >Generate list</span
                 >
                 <span
-                    ${setRef('noresultRef')}
                     class="c-debug-filter-list__status"
+                    ${bindEffect({
+                        bind: 'noResult',
+                        toggleClass: { visible: () => getState().noResult },
+                    })}
                     >no result</span
                 >
                 <div

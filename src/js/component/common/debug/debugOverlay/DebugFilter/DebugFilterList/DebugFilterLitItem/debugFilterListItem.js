@@ -1,45 +1,33 @@
 //@ts-check
 
 /**
- * @import { GetRef, MobComponent, UseMethodByName } from '../../../../../../../mobjs/type';
+ * @import { MobComponent, UseMethodByName } from '../../../../../../../mobjs/type';
  **/
 
 import { useMethodByName } from '../../../../../../../mobjs';
 import { debugActiveComponentStore } from '../../../Store/DebugActiveComponent';
 
-/**
- * @param {object} params
- * @param {string} params.id
- * @param {string} params.value
- * @param {GetRef<import('./type').DebugFilterListItem>} params.getRef
- * @returns {void}
- */
-const setActiveItems = ({ id, value, getRef }) => {
-    const { selected } = getRef();
-
-    selected.classList.toggle('active', value === id);
-};
-
 /** @type{MobComponent<import('./type').DebugFilterListItem>} */
 export const DebugFilterListItemFn = ({
     html,
     getState,
+    setState,
     delegateEvents,
     bindText,
     onMount,
     setRef,
-    getRef,
+    bindEffect,
 }) => {
     const { id, name } = getState();
 
     onMount(() => {
         const { currentId } = debugActiveComponentStore.get();
-        setActiveItems({ id, value: currentId, getRef });
+        setState('active', currentId === id);
 
         const unsubscribeActiveItem = debugActiveComponentStore.watch(
             'currentId',
             (value) => {
-                setActiveItems({ id, value, getRef });
+                setState('active', value === id);
             }
         );
 
@@ -72,6 +60,10 @@ export const DebugFilterListItemFn = ({
             <span
                 class="c-debug-tree-item__selected"
                 ${setRef('selected')}
+                ${bindEffect({
+                    bind: 'active',
+                    toggleClass: { active: () => getState().active },
+                })}
             ></span>
         </div>
     `;

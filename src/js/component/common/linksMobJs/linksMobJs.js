@@ -60,6 +60,7 @@ export const LinksMobJsFn = ({
     bindProps,
     invalidate,
     getState,
+    bindEffect,
 }) => {
     const mainData = getCommonData();
 
@@ -111,7 +112,7 @@ export const LinksMobJsFn = ({
                 setState('activeSection', route);
 
                 if (currentData.length > 0) {
-                    screenEl.classList.add('active');
+                    setState('hideScrollbar', true);
 
                     /**
                      * Update scroller
@@ -142,7 +143,7 @@ export const LinksMobJsFn = ({
                 }
 
                 if (currentData.length === 0) {
-                    screenEl.classList.remove('active');
+                    setState('hideScrollbar', false);
                     destroy?.();
                     isActive = false;
                 }
@@ -159,7 +160,14 @@ export const LinksMobJsFn = ({
         };
     });
 
-    return html`<div class="c-params-mobjs" ${setRef('screenEl')}>
+    return html`<div
+        class="c-params-mobjs"
+        ${setRef('screenEl')}
+        ${bindEffect({
+            bind: 'hideScrollbar',
+            toggleClass: { active: () => getState().hideScrollbar },
+        })}
+    >
         <input
             type="range"
             id="test"

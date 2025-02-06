@@ -28,5 +28,13 @@ export const DebugTreeItem = createComponent({
             value: false,
             type: Boolean,
         }),
+        isActive: () => ({
+            value: false,
+            type: Boolean,
+        }),
+        hasActiveChildren: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
 });
