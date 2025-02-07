@@ -6,18 +6,16 @@ export const MyComponent = ({ html, bindEffect, getProxi }) => {
 
     return html`
         <div>
-            ${bindEffect([
-                {
-                    bind: ['active', 'color'],
-                    toggleClass: {
-                        active: () => proxi.active,
-                        white: () => proxi.color === 'white',
-                    },
-                    toggleStyle: {
-                        paddingTop: () => (proxi.active ? '30px' : ''),
-                    },
+            ${bindEffect({
+                bind: ['active', 'color'],
+                toggleClass: {
+                    active: () => proxi.active,
+                    white: () => proxi.color === 'white',
                 },
-            ])}
+                toggleStyle: {
+                    paddingTop: () => (proxi.active ? '30px' : ''),
+                },
+            })}
         </div>
     `;
 };

@@ -49,7 +49,8 @@
                 "items": [
                     "<span class='quote'>bind</span>: a state or array of states.",
                     "<span class='quote'>toggleClass</span>: An object where the key is the class to apply and the value is a function that will return a boolean value.",
-                    "<span class='quote'>toggleStyle</span>: an object where the key is the style to be changed and the value is a function that will return a string."
+                    "<span class='quote'>toggleStyle</span>: an object where the key is the style to be changed and the value is a function that will return a string.",
+                    "<span class='quote'>toggleAttribute</span>: an object where the key is the attribute to be changed and the value is a function that will return a string.<br/> If the value is equal to null the attribute will be deleted"
                 ]
             }
         },
@@ -71,7 +72,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "Classes and styles dependent on different states"
+            "content": "Classes, styles and attributes dependent on different states"
         },
         {
             "component": "mob-snippet",

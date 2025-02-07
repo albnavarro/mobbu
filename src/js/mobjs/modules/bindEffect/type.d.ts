@@ -5,6 +5,7 @@ export interface BindEffectObject<T> {
     bind: OnlyStringKey<GetState<T>>[] | OnlyStringKey<GetState<T>>;
     toggleClass?: Record<string, () => boolean>;
     toggleStyle?: Record<string, () => string>;
+    toggleAttribute?: Record<string, () => string | null | undefined>;
 }
 
 export interface BindEffectMapValue {
@@ -13,6 +14,7 @@ export interface BindEffectMapValue {
         bind: string[];
         toggleClass?: Record<string, () => boolean>;
         toggleStyle?: Record<string, () => string>;
+        toggleAttribute?: Record<string, () => string | null | undefined>;
     }[];
 }
 

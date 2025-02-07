@@ -17,13 +17,14 @@ export const setBindEffect = ({ data, id }) => {
     const dataToArray = mobCore.checkType(Array, data) ? data : [data];
 
     const dataBindToArray = dataToArray.map(
-        ({ bind, toggleClass, toggleStyle }) => {
+        ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
             return {
                 bind: /** @type{string[]} */ (
                     mobCore.checkType(Array, bind) ? bind : [bind]
                 ),
                 toggleClass: toggleClass ?? {},
                 toggleStyle: toggleStyle ?? {},
+                toggleAttribute: toggleAttribute ?? {},
             };
         }
     );
@@ -99,6 +100,28 @@ const applyStyle = ({ ref, data }) => {
 };
 
 /**
+ * @param {object} params
+ * @param {WeakRef<HTMLElement>} params.ref
+ * @param {Record<string, () => string|null|undefined>} params.data
+ * @returns {void}
+ */
+const applyAttribute = ({ ref, data }) => {
+    Object.entries(data).forEach(([attributeName, fn]) => {
+        if (!ref.deref()) return;
+        const value = fn?.();
+
+        if (!value) {
+            // @ts-ignore
+            ref.deref().removeAttribute(attributeName);
+            return;
+        }
+
+        // @ts-ignore
+        ref.deref()?.setAttribute(attributeName, value);
+    });
+};
+
+/**
  * @description Apply watcher.
  *
  * @param {object} params
@@ -114,7 +137,7 @@ const watchBindEffect = ({ data, element }) => {
     const { items } = data;
 
     const unsubScribeFunction = items.flatMap(
-        ({ bind, toggleClass, toggleStyle }) => {
+        ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
             /**
              * Watch props on change
              */
@@ -156,6 +179,15 @@ const watchBindEffect = ({ data, element }) => {
                     });
                 }
 
+                /**
+                 * Initial attribute render
+                 */
+                if (toggleAttribute && shouldRender) {
+                    mobCore.useFrame(() => {
+                        applyAttribute({ ref, data: toggleAttribute });
+                    });
+                }
+
                 return watchById(id, state, (value) => {
                     /**
                      * Check if element is garbage collected.
@@ -193,6 +225,14 @@ const watchBindEffect = ({ data, element }) => {
 
                             if (toggleStyle && shouldRender && ref.deref()) {
                                 applyStyle({ ref, data: toggleStyle });
+                            }
+
+                            if (
+                                toggleAttribute &&
+                                shouldRender &&
+                                ref.deref()
+                            ) {
+                                applyAttribute({ ref, data: toggleAttribute });
                             }
 
                             watchIsRunning = false;

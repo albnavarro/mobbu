@@ -5,10 +5,6 @@ export interface QuickNav {
         prevRoute: string;
         nextRoute: string;
     };
-    ref: {
-        prev: HTMLLinkElement;
-        next: HTMLLinkElement;
-    };
 }
 
 export type UpdateQuickNavState = (arg0: {

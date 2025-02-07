@@ -21048,14 +21048,15 @@
   var setBindEffect = ({ data, id }) => {
     const dataToArray = mobCore.checkType(Array, data) ? data : [data];
     const dataBindToArray = dataToArray.map(
-      ({ bind, toggleClass, toggleStyle }) => {
+      ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
         return {
           bind: (
             /** @type{string[]} */
             mobCore.checkType(Array, bind) ? bind : [bind]
           ),
           toggleClass: toggleClass ?? {},
-          toggleStyle: toggleStyle ?? {}
+          toggleStyle: toggleStyle ?? {},
+          toggleAttribute: toggleAttribute ?? {}
         };
       }
     );
@@ -21097,12 +21098,23 @@
       ref.deref().style[styleName] = fn?.() ?? "";
     });
   };
+  var applyAttribute = ({ ref, data }) => {
+    Object.entries(data).forEach(([attributeName, fn]) => {
+      if (!ref.deref()) return;
+      const value = fn?.();
+      if (!value) {
+        ref.deref().removeAttribute(attributeName);
+        return;
+      }
+      ref.deref()?.setAttribute(attributeName, value);
+    });
+  };
   var watchBindEffect = ({ data, element }) => {
     const ref = new WeakRef(element);
     const { parentId: id } = data;
     const { items } = data;
     const unsubScribeFunction = items.flatMap(
-      ({ bind, toggleClass, toggleStyle }) => {
+      ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
         let watchIsRunning = false;
         const states = getStateById(id);
         return bind.map((state) => {
@@ -21117,6 +21129,11 @@
           if (toggleStyle && shouldRender) {
             mobCore.useFrame(() => {
               applyStyle({ ref, data: toggleStyle });
+            });
+          }
+          if (toggleAttribute && shouldRender) {
+            mobCore.useFrame(() => {
+              applyAttribute({ ref, data: toggleAttribute });
             });
           }
           return watchById(id, state, (value) => {
@@ -21137,6 +21154,9 @@
                 }
                 if (toggleStyle && shouldRender2 && ref.deref()) {
                   applyStyle({ ref, data: toggleStyle });
+                }
+                if (toggleAttribute && shouldRender2 && ref.deref()) {
+                  applyAttribute({ ref, data: toggleAttribute });
                 }
                 watchIsRunning = false;
               });
@@ -22199,30 +22219,9 @@
   var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
 
   // src/js/component/common/quickNav/nextPage.js
-  var QuickNavFn = ({
-    getState,
-    onMount,
-    html,
-    watchSync,
-    setRef,
-    getRef,
-    bindEffect
-  }) => {
-    const { active } = getState();
-    const activeClass = active ? "active" : "";
-    onMount(() => {
-      const { prev: prev2, next } = getRef();
-      watchSync("nextRoute", (route) => {
-        next.href = route;
-      });
-      watchSync("prevRoute", (route) => {
-        prev2.href = route;
-      });
-      return () => {
-      };
-    });
+  var QuickNavFn = ({ getState, html, bindEffect }) => {
     return html`<div
-        class="c-quick-nav-container ${activeClass}"
+        class="c-quick-nav-container"
         ${bindEffect([
       {
         bind: "active",
@@ -22239,19 +22238,29 @@
     >
         <a
             class="c-quick-nav c-quick-nav--prev"
-            ${setRef("prev")}
             ${bindEffect({
       bind: "prevRoute",
-      toggleClass: { "is-disable": () => !getState().prevRoute }
+      toggleClass: { "is-disable": () => !getState().prevRoute },
+      toggleAttribute: {
+        href: () => {
+          const route = getState().prevRoute;
+          return route.length > 0 ? route : null;
+        }
+      }
     })}
             >${scroll_arrow_default}</a
         >
         <a
             class="c-quick-nav c-quick-nav--next"
-            ${setRef("next")}
             ${bindEffect({
       bind: "nextRoute",
-      toggleClass: { "is-disable": () => !getState().nextRoute }
+      toggleClass: { "is-disable": () => !getState().nextRoute },
+      toggleAttribute: {
+        href: () => {
+          const route = getState().nextRoute;
+          return route && route.length > 0 ? route : null;
+        }
+      }
     })}
             >${scroll_arrow_default}</a
         >

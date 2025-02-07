@@ -9,34 +9,9 @@
 import arrow from '../../../../svg/scroll_arrow.svg';
 
 /** @type {MobComponent<QuickNav>} */
-export const QuickNavFn = ({
-    getState,
-    onMount,
-    html,
-    watchSync,
-    setRef,
-    getRef,
-    bindEffect,
-}) => {
-    const { active } = getState();
-    const activeClass = active ? 'active' : '';
-
-    onMount(() => {
-        const { prev, next } = getRef();
-
-        watchSync('nextRoute', (route) => {
-            next.href = route;
-        });
-
-        watchSync('prevRoute', (route) => {
-            prev.href = route;
-        });
-
-        return () => {};
-    });
-
+export const QuickNavFn = ({ getState, html, bindEffect }) => {
     return html`<div
-        class="c-quick-nav-container ${activeClass}"
+        class="c-quick-nav-container"
         ${bindEffect([
             {
                 bind: 'active',
@@ -53,19 +28,29 @@ export const QuickNavFn = ({
     >
         <a
             class="c-quick-nav c-quick-nav--prev"
-            ${setRef('prev')}
             ${bindEffect({
                 bind: 'prevRoute',
                 toggleClass: { 'is-disable': () => !getState().prevRoute },
+                toggleAttribute: {
+                    href: () => {
+                        const route = getState().prevRoute;
+                        return route.length > 0 ? route : null;
+                    },
+                },
             })}
             >${arrow}</a
         >
         <a
             class="c-quick-nav c-quick-nav--next"
-            ${setRef('next')}
             ${bindEffect({
                 bind: 'nextRoute',
                 toggleClass: { 'is-disable': () => !getState().nextRoute },
+                toggleAttribute: {
+                    href: () => {
+                        const route = getState().nextRoute;
+                        return route && route.length > 0 ? route : null;
+                    },
+                },
             })}
             >${arrow}</a
         >

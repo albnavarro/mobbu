@@ -16,6 +16,10 @@ export const MyComponent = ({ html, bindEffect, getState }) => {
                         'fill-black': () => getState().color === 'black',
                     },
                 },
+                {
+                    bind: 'href',
+                    toggleAttribute: { href: () => getState().href },
+                },
             ])}
         </div>
     `;
