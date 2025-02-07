@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span class='quote'>bindEffect</span> module allows you to apply reactive <span class='quote'>classes</span> and <span class='quote'>styles</span> to any type of html tags (component and non-component)."
+            "content": "The <span class='quote'>bindEffect</span> module allows you to apply reactive <span class='quote'>classes</span> and <span class='quote'>styles</span> and <span class='quote'>attributes</span> to any type of html tags (component and non-component)."
         },
         {
             "component": "mob-paragraph",
