@@ -71,7 +71,6 @@ export const removeAndDestroyById = ({ id = '' }) => {
      * Secure check: remove orphas reference from mainStore
      */
     removeCurrentIdToBindProps({ componentId: id });
-    componentMap.delete(id);
 
     /**
      * Remove component from dom
@@ -79,4 +78,30 @@ export const removeAndDestroyById = ({ id = '' }) => {
     // @ts-ignore
     element?.removeCustomComponent?.();
     element?.remove();
+
+    /**
+     * Detach component.
+     * Remove inner reference ( esplicit mark for CG ).
+     * Detach component from map.
+     */
+
+    // @ts-ignore
+    instanceValue.methods = null;
+
+    // @ts-ignore
+    instanceValue.refs = null;
+
+    // @ts-ignore
+    instanceValue.repeaterInnerWrap = null;
+
+    // @ts-ignore
+    instanceValue.element = null;
+
+    // @ts-ignore
+    instanceValue.currentRepeaterState = null;
+
+    // @ts-ignore
+    instanceValue.state = null;
+
+    componentMap.delete(id);
 };

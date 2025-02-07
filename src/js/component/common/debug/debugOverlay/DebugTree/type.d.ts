@@ -7,7 +7,6 @@ export interface DebugTree {
         refresh: () => void;
     };
     ref: {
-        loadingRef: HTMLElement;
         scrollbar: HTMLElement;
         screen: HTMLElement;
         scroller: HTMLElement;

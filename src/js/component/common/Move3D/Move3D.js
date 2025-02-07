@@ -194,7 +194,7 @@ export const Move3Dfn = ({
     };
 
     onMount(({ element }) => {
-        const { scene, container } = getRef();
+        const { container } = getRef();
         proxiState.afterInit(element);
 
         /**
@@ -223,10 +223,6 @@ export const Move3Dfn = ({
             ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
                 element,
             }));
-        });
-
-        watchSync('perspective', (value) => {
-            scene.style.perspective = `${value}px`;
         });
 
         watchSync('drag', (value) => {
@@ -313,6 +309,32 @@ export const Move3Dfn = ({
 
             // @ts-ignore
             spring = null;
+            // @ts-ignore
+            height = null;
+            // @ts-ignore
+            width = null;
+            // @ts-ignore
+            offSetLeft = null;
+            // @ts-ignore
+            offSetTop = null;
+            // @ts-ignore
+            lastX = null;
+            // @ts-ignore
+            dragX = null;
+            // @ts-ignore
+            lastY = null;
+            // @ts-ignore
+            dragY = null;
+            // @ts-ignore
+            onDrag = null;
+            // @ts-ignore
+            firstDrag = null;
+            // @ts-ignore
+            pageCoord = null;
+            // @ts-ignore
+            lastScrolledTop = null;
+            // @ts-ignore
+            useScroll = null;
         };
     });
 
@@ -323,7 +345,15 @@ export const Move3Dfn = ({
             toggleClass: { 'move3D--drag': () => proxiState.drag },
         })}
     >
-        <div class="c-move-3d__scene" ${setRef('scene')}>
+        <div
+            class="c-move-3d__scene"
+            ${bindEffect({
+                bind: 'perspective',
+                toggleStyle: {
+                    perspective: () => `${proxiState.perspective}px`,
+                },
+            })}
+        >
             <div class="c-move-3d__container" ${setRef('container')}>
                 ${invalidate({
                     bind: ['shape', 'debug'],

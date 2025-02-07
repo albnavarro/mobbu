@@ -7,7 +7,6 @@
 
 // @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';
-import { motionCore } from '../../../mobMotion';
 
 /** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({
@@ -23,8 +22,6 @@ export const QuickNavFn = ({
     const activeClass = active ? 'active' : '';
 
     onMount(() => {
-        if (motionCore.mq('max', 'desktop')) return;
-
         const { prev, next } = getRef();
 
         watchSync('nextRoute', (route) => {

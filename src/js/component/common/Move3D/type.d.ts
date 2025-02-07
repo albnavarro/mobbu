@@ -19,7 +19,6 @@ export interface Move3D {
         }) => void;
     };
     ref: {
-        scene: HTMLElement;
         container: HTMLElement;
     };
 }

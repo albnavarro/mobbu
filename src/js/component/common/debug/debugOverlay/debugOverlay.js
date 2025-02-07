@@ -17,7 +17,6 @@ export const DebugOverlayFn = ({
     bindProps,
     invalidate,
     getState,
-    setRef,
     bindEffect,
 }) => {
     addMethod('toggle', () => {
@@ -107,7 +106,6 @@ export const DebugOverlayFn = ({
                         <button
                             type="button"
                             class="c-debug-overlay__list__toggle"
-                            ${setRef('toggle_tree')}
                             ${delegateEvents({
                                 click: () => {
                                     setState('listType', DEBUG_USE_TREE);
@@ -126,7 +124,6 @@ export const DebugOverlayFn = ({
                         <button
                             type="button"
                             class="c-debug-overlay__list__toggle"
-                            ${setRef('toggle_filter')}
                             ${delegateEvents({
                                 click: () => {
                                     setState(

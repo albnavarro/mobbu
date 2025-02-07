@@ -81,7 +81,6 @@ export const ScrollToFn = ({
     setState,
     getState,
     invalidate,
-    setRef,
     computed,
     addMethod,
     updateState,
@@ -113,7 +112,7 @@ export const ScrollToFn = ({
 
     return html`
         <div class="c-scroll-to">
-            <ul ${setRef('list')}>
+            <ul>
                 ${invalidate({
                     bind: 'anchorItems',
                     render: () => {

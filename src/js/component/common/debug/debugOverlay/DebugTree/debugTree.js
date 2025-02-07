@@ -130,7 +130,6 @@ export const DebugTreeFn = ({
                     class="c-debug-tree__scrollbar"
                 />
                 <span
-                    ${setRef('loadingRef')}
                     class="c-debug-tree__status"
                     ${bindEffect({
                         bind: 'isLoading',

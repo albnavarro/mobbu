@@ -1,7 +1,7 @@
 //@ts-check
 
 /** @type {import("../../../../mobjs/type").MobComponent<import("./type").ScrollToButton>} */
-export const ScrollToButtonFn = ({ html, getState, setRef, bindEffect }) => {
+export const ScrollToButtonFn = ({ html, getState, bindEffect }) => {
     const { label } = getState();
 
     return html`
@@ -12,7 +12,7 @@ export const ScrollToButtonFn = ({ html, getState, setRef, bindEffect }) => {
                 toggleClass: { active: () => getState().active },
             })}
         >
-            <span ${setRef('labelRef')}> ${label} </span>
+            <span> ${label}</span>
         </button>
     `;
 };

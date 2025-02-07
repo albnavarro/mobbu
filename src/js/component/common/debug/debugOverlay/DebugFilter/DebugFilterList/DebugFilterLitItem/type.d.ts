@@ -5,7 +5,4 @@ export interface DebugFilterListItem {
         name: string;
         active: boolean;
     };
-    ref: {
-        selected: HTMLSpanElement;
-    };
 }

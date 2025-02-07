@@ -15,7 +15,6 @@ export const DebugFilterListItemFn = ({
     delegateEvents,
     bindText,
     onMount,
-    setRef,
     bindEffect,
 }) => {
     const { id, name } = getState();
@@ -59,7 +58,6 @@ export const DebugFilterListItemFn = ({
             </button>
             <span
                 class="c-debug-tree-item__selected"
-                ${setRef('selected')}
                 ${bindEffect({
                     bind: 'active',
                     toggleClass: { active: () => getState().active },
