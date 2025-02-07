@@ -1,7 +1,3 @@
-# DOCS
-- Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
-- `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
-
 # MobCore
 
 ### DOCS
@@ -12,33 +8,6 @@
 - ( stringhe non referenze ).
 
 # MobJs
-
-##  bindClass
-- l'inizializzazione avverra con un querySelctoreAll come per `delegateEvents` alla fine del parse.
-- Verrá utilizzata una `weakRef` come per bindObject
-- Nella seguente soluzione `bind` sará un classe non usabile, `ma una stringa protetta`.
-- Le classi saranno tutte le chiavi diverse da `bind`
-
-```js
-<div
-    ${bindClass({
-        bind: ['isOpen'],
-        toggle: { active: () => proxi.isOpen },
-    })}
-></div>
-```
-
-- Segue la stessa logica di `delegateEvents`
-- In piú avrá il traccimanto del component id per per ritrancciare lo stato per il watch.
-- La funzione `setBindClass` aggiungerá i dati alla `mappa` e restituirá un `id uivoco`.
-- La funzione che esegue il toggle dovrá essere lanciata la prima volta come a simulare un `watchSync`
-
-```js
-// getParamsForComponent.js
-bindClass: (classData) => {
-    return `${ATTR_WEAK_BIND_CLASS}="${setBindClass({ classData, id })}"`;
-},
-```
 
 ## Repeat
 #### Use object
@@ -55,9 +24,6 @@ bindClass: (classData) => {
 
 ### Docs
 - In ognisezione corrispondente aggiungere glie sempi tipi.
-    - `MobComponent` ( state && methods ).
-    - `MobComponentAsync` ( state && methods.
-    - Singoli come `SetState`.
     - `ReturnBindProps`.
     - `UseMethodByName` && `useMethodArrayByName`
 
