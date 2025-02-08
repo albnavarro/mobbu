@@ -7,9 +7,6 @@ export type GetLettering02 = (arg0: {
     letter_r_shadow: string;
     letter_d_shadow: string;
     letter_p_shadow: string;
-    star_d: string;
-    star_r: string;
-    star_p: string;
     letter_r_pieces: string;
     letter_d_pieces: string;
     letter_p_pieces: string;

@@ -34398,9 +34398,6 @@ Loading snippet ...</pre
     letter_r_shadow,
     letter_d_shadow,
     letter_p_shadow,
-    star_d,
-    star_r,
-    star_p,
     letter_r_pieces,
     letter_d_pieces,
     letter_p_pieces,
@@ -34457,23 +34454,6 @@ Loading snippet ...</pre
               {
                 props: {
                   id: 0,
-                  depth: -100,
-                  anchorPoint: "center",
-                  classList: "",
-                  animate: true,
-                  component: {
-                    tagName: "any-component",
-                    className: "u-any-center-svg",
-                    props: {
-                      content: star_d
-                    }
-                  }
-                },
-                children: []
-              },
-              {
-                props: {
-                  id: 0,
                   depth: 20,
                   anchorPoint: "center",
                   classList: "",
@@ -34491,7 +34471,7 @@ Loading snippet ...</pre
               {
                 props: {
                   id: 0,
-                  depth: 100,
+                  depth: 20,
                   anchorPoint: "center",
                   classList: "",
                   animate: true,
@@ -34523,23 +34503,6 @@ Loading snippet ...</pre
                   }
                 },
                 children: [
-                  {
-                    props: {
-                      id: 0,
-                      depth: -100,
-                      anchorPoint: "center",
-                      classList: "",
-                      animate: true,
-                      component: {
-                        tagName: "any-component",
-                        className: "u-any-center-svg",
-                        props: {
-                          content: star_r
-                        }
-                      }
-                    },
-                    children: []
-                  },
                   {
                     props: {
                       id: 0,
@@ -34615,23 +34578,6 @@ Loading snippet ...</pre
                   {
                     props: {
                       id: 0,
-                      depth: -100,
-                      anchorPoint: "center",
-                      classList: "",
-                      animate: true,
-                      component: {
-                        tagName: "any-component",
-                        className: "u-any-center-svg",
-                        props: {
-                          content: star_p
-                        }
-                      }
-                    },
-                    children: []
-                  },
-                  {
-                    props: {
-                      id: 0,
                       depth: -20,
                       initialDepth: -2,
                       anchorPoint: "center",
@@ -34704,9 +34650,6 @@ Loading snippet ...</pre
       letter_r_shadow,
       letter_d_shadow,
       letter_p_shadow,
-      star_d,
-      star_r,
-      star_p,
       letter_r_pieces,
       letter_d_pieces,
       letter_p_pieces,
@@ -34720,9 +34663,6 @@ Loading snippet ...</pre
       "letter_r_shadow",
       "letter_d_shadow",
       "letter_p_shadow",
-      "star_d",
-      "star_r",
-      "star_p",
       "letter_r_pieces",
       "letter_d_pieces",
       "letter_p_pieces",
@@ -34747,9 +34687,6 @@ Loading snippet ...</pre
           letter_r_shadow,
           letter_d_shadow,
           letter_p_shadow,
-          star_d,
-          star_r,
-          star_p,
           letter_r_pieces,
           letter_d_pieces,
           letter_p_pieces,
