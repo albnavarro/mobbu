@@ -4,7 +4,7 @@ import { html, staticProps, useComponent } from '../../../mobjs';
 import { parseSvg } from '../../../utils/parseSvg';
 import { loadTextContent } from '../../../utils/utils';
 import { getLettering01 } from './lettering01Data';
-// import { afterInit, onUpdate } from './utils';
+// import { afterInit, onUpdate } from '../utils/utils';
 
 useComponent([Move3D, AnyComponent]);
 

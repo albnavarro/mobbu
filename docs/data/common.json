@@ -745,6 +745,12 @@
             "children": null
         },
         {
+            "label": "Lettering 02",
+            "url": "lettering02",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
             "label": "plugin",
             "section": true,
             "sectioName": "plugin"
