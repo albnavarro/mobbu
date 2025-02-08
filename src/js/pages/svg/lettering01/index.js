@@ -9,7 +9,7 @@ useComponent([Move3D, AnyComponent]);
 
 export const lettering01 = async () => {
     const { data: lettering01 } = await loadTextContent({
-        source: './asset/svg/lettering01.svg?v=0.1',
+        source: './asset/svg/lettering01.svg?v=0.2',
     });
 
     const [
