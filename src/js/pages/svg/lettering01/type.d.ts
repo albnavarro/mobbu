@@ -1,18 +1,16 @@
 import { Move3DChildren } from '../../../component/common/Move3D/type';
 
-export type GetLettering01 = (arg0: {
-    letter_o: string;
-    letter_o_star: string;
-    letter_m: string;
-    letter_m_over: string;
-    letter_m_star: string;
-    letter_m_star_top: string;
-    letter_b: string;
-    letter_b_over: string;
-    letter_b_star: string;
-    letter_m_shadow: string;
-    letter_b_shadow: string;
-    letter_o_shadow: string;
-    letter_o_pieces: string;
-    letter_m_pieces: string;
+export type GetLettering02 = (arg0: {
+    letter_d: string;
+    letter_r: string;
+    letter_p: string;
+    letter_r_shadow: string;
+    letter_d_shadow: string;
+    letter_p_shadow: string;
+    letter_r_pieces: string;
+    letter_d_pieces: string;
+    letter_p_pieces: string;
+    letter_r_fill: string;
+    letter_d_fill: string;
+    letter_p_fill: string;
 }) => Move3DChildren[];

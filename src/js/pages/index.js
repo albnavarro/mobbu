@@ -19,7 +19,6 @@ import { move3DRoute } from './plugin/move3D';
 import { move3DrouteProps } from './plugin/move3D/props';
 import { child } from './svg/child';
 import { lettering01 } from './svg/lettering01';
-import { lettering02 } from './svg/lettering02';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
 export const PAGE_TEMPLATE_TRAVERSAL_MOBJS = 'templateMobJsTraversal';
@@ -837,11 +836,6 @@ export const routes = [
     {
         name: 'lettering01',
         layout: lettering01,
-        props: {},
-    },
-    {
-        name: 'lettering02',
-        layout: lettering02,
         props: {},
     },
 ];

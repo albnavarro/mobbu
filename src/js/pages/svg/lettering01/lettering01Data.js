@@ -1,19 +1,17 @@
-/** @type {import('./type.d.ts').GetLettering01} */
+/** @type {import('./type.js').GetLettering02} */
 export const getLettering01 = ({
-    letter_o,
-    letter_o_star,
-    letter_m,
-    letter_m_over,
-    letter_m_star,
-    letter_m_star_top,
-    letter_b,
-    letter_b_over,
-    letter_b_star,
-    letter_m_shadow,
-    letter_b_shadow,
-    letter_o_shadow,
-    letter_o_pieces,
-    letter_m_pieces,
+    letter_d,
+    letter_p,
+    letter_r,
+    letter_r_shadow,
+    letter_d_shadow,
+    letter_p_shadow,
+    letter_r_pieces,
+    letter_d_pieces,
+    letter_p_pieces,
+    letter_r_fill,
+    letter_d_fill,
+    letter_p_fill,
 }) => {
     return [
         {
@@ -28,98 +26,9 @@ export const getLettering01 = ({
                 {
                     props: {
                         id: 0,
-                        depth: -100,
-                        offsetX: -8,
-                        anchorPoint: 'right',
-                        rotate: 'y',
-                        classList: '',
-                        animate: true,
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg',
-                            props: {
-                                content: letter_m,
-                            },
-                        },
-                    },
-                    children: [
-                        {
-                            props: {
-                                id: 0,
-                                depth: 50,
-                                anchorPoint: 'center',
-                                rotate: 'y',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
-                                    props: {
-                                        content: letter_m_pieces,
-                                    },
-                                },
-                            },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: -150,
-                                anchorPoint: 'center',
-                                rotate: 'y',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
-                                    props: {
-                                        content: letter_m_shadow,
-                                    },
-                                },
-                            },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: 200,
-                                anchorPoint: 'center',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
-                                    props: {
-                                        content: letter_m_star,
-                                    },
-                                },
-                            },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: 100,
-                                anchorPoint: 'center',
-                                rotate: 'y',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
-                                    props: {
-                                        content: letter_m_over,
-                                    },
-                                },
-                            },
-                            children: [],
-                        },
-                    ],
-                },
-                {
-                    props: {
-                        id: 0,
-                        depth: 200,
+                        depth: 100,
+                        offsetX: -2,
+                        offsetY: -2,
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
@@ -127,7 +36,7 @@ export const getLettering01 = ({
                             tagName: 'any-component',
                             className: 'u-any-center-svg',
                             props: {
-                                content: letter_o,
+                                content: letter_d,
                             },
                         },
                     },
@@ -135,7 +44,8 @@ export const getLettering01 = ({
                         {
                             props: {
                                 id: 0,
-                                depth: 60,
+                                depth: -20,
+                                initialDepth: -2,
                                 anchorPoint: 'center',
                                 classList: '',
                                 animate: true,
@@ -143,7 +53,41 @@ export const getLettering01 = ({
                                     tagName: 'any-component',
                                     className: 'u-any-center-svg',
                                     props: {
-                                        content: letter_o_pieces,
+                                        content: letter_d_shadow,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: 20,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_d_pieces,
+                                    },
+                                },
+                            },
+                            children: [],
+                        },
+                        {
+                            props: {
+                                id: 0,
+                                depth: 80,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className: 'u-any-center-svg',
+                                    props: {
+                                        content: letter_d_fill,
                                     },
                                 },
                             },
@@ -153,139 +97,146 @@ export const getLettering01 = ({
                             props: {
                                 id: 0,
                                 depth: -100,
-                                anchorPoint: 'center',
+                                offsetX: -10,
+                                anchorPoint: 'right',
+                                rotate: 'y',
                                 classList: '',
                                 animate: true,
                                 component: {
                                     tagName: 'any-component',
                                     className: 'u-any-center-svg',
                                     props: {
-                                        content: letter_o_shadow,
+                                        content: letter_r,
                                     },
                                 },
                             },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: -50,
-                                anchorPoint: 'center',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
+                            children: [
+                                {
                                     props: {
-                                        content: letter_o_shadow,
+                                        id: 0,
+                                        depth: -20,
+                                        initialDepth: -2,
+                                        anchorPoint: 'center',
+                                        rotate: 'y',
+                                        classList: '',
+                                        animate: true,
+                                        component: {
+                                            tagName: 'any-component',
+                                            className: 'u-any-center-svg',
+                                            props: {
+                                                content: letter_r_shadow,
+                                            },
+                                        },
                                     },
+                                    children: [],
                                 },
-                            },
-                            children: [],
+                                {
+                                    props: {
+                                        id: 0,
+                                        depth: 20,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        component: {
+                                            tagName: 'any-component',
+                                            className: 'u-any-center-svg',
+                                            props: {
+                                                content: letter_r_pieces,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 0,
+                                        depth: 30,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        component: {
+                                            tagName: 'any-component',
+                                            className: 'u-any-center-svg',
+                                            props: {
+                                                content: letter_r_fill,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                            ],
                         },
                         {
                             props: {
                                 id: 0,
                                 depth: -100,
-                                anchorPoint: 'center',
+                                offsetX: -10,
+                                anchorPoint: 'right',
                                 classList: '',
                                 animate: true,
                                 component: {
                                     tagName: 'any-component',
                                     className: 'u-any-center-svg',
                                     props: {
-                                        content: letter_o_star,
+                                        content: letter_p,
                                     },
                                 },
                             },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: 100,
-                                anchorPoint: 'center',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
+                            children: [
+                                {
                                     props: {
-                                        content: letter_m_star_top,
+                                        id: 0,
+                                        depth: -20,
+                                        initialDepth: -2,
+                                        anchorPoint: 'center',
+                                        rotate: 'y',
+                                        classList: '',
+                                        animate: true,
+                                        component: {
+                                            tagName: 'any-component',
+                                            className: 'u-any-center-svg',
+                                            props: {
+                                                content: letter_p_shadow,
+                                            },
+                                        },
                                     },
+                                    children: [],
                                 },
-                            },
-                            children: [],
-                        },
-                    ],
-                },
-                {
-                    props: {
-                        id: 0,
-                        depth: -100,
-                        offsetX: -10,
-                        anchorPoint: 'left',
-                        classList: '',
-                        animate: true,
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg',
-                            props: {
-                                content: letter_b,
-                            },
-                        },
-                    },
-                    children: [
-                        {
-                            props: {
-                                id: 0,
-                                depth: -150,
-                                anchorPoint: 'center',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
+                                {
                                     props: {
-                                        content: letter_b_shadow,
+                                        id: 0,
+                                        depth: 20,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        component: {
+                                            tagName: 'any-component',
+                                            className: 'u-any-center-svg',
+                                            props: {
+                                                content: letter_p_pieces,
+                                            },
+                                        },
                                     },
+                                    children: [],
                                 },
-                            },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: 100,
-                                anchorPoint: 'center',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
+                                {
                                     props: {
-                                        content: letter_b_over,
+                                        id: 0,
+                                        depth: 30,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        component: {
+                                            tagName: 'any-component',
+                                            className: 'u-any-center-svg',
+                                            props: {
+                                                content: letter_p_fill,
+                                            },
+                                        },
                                     },
+                                    children: [],
                                 },
-                            },
-                            children: [],
-                        },
-                        {
-                            props: {
-                                id: 0,
-                                depth: 100,
-                                anchorPoint: 'center',
-                                classList: '',
-                                animate: true,
-                                component: {
-                                    tagName: 'any-component',
-                                    className: 'u-any-center-svg',
-                                    props: {
-                                        content: letter_b_star,
-                                    },
-                                },
-                            },
-                            children: [],
+                            ],
                         },
                     ],
                 },
