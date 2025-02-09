@@ -71,7 +71,7 @@ export const HeaderFn = ({
                                     },
                                 })}
                             >
-                                beta 0.0.1
+                                v 1.0
                             </h5>
                         </div>
                     </button>
