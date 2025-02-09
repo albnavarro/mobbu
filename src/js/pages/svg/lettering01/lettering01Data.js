@@ -34,7 +34,7 @@ export const getLettering01 = ({
                         animate: true,
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg',
+                            className: 'u-any-center-svg l-lettering01__block',
                             props: {
                                 content: letter_d,
                             },
@@ -51,7 +51,8 @@ export const getLettering01 = ({
                                 animate: true,
                                 component: {
                                     tagName: 'any-component',
-                                    className: 'u-any-center-svg',
+                                    className:
+                                        'u-any-center-svg l-lettering01__block',
                                     props: {
                                         content: letter_d_shadow,
                                     },
@@ -68,7 +69,8 @@ export const getLettering01 = ({
                                 animate: true,
                                 component: {
                                     tagName: 'any-component',
-                                    className: 'u-any-center-svg',
+                                    className:
+                                        'u-any-center-svg l-lettering01__block',
                                     props: {
                                         content: letter_d_pieces,
                                     },
@@ -85,7 +87,8 @@ export const getLettering01 = ({
                                 animate: true,
                                 component: {
                                     tagName: 'any-component',
-                                    className: 'u-any-center-svg',
+                                    className:
+                                        'u-any-center-svg l-lettering01__block',
                                     props: {
                                         content: letter_d_fill,
                                     },
@@ -104,7 +107,8 @@ export const getLettering01 = ({
                                 animate: true,
                                 component: {
                                     tagName: 'any-component',
-                                    className: 'u-any-center-svg',
+                                    className:
+                                        'u-any-center-svg l-lettering01__block',
                                     props: {
                                         content: letter_r,
                                     },
@@ -122,7 +126,8 @@ export const getLettering01 = ({
                                         animate: true,
                                         component: {
                                             tagName: 'any-component',
-                                            className: 'u-any-center-svg',
+                                            className:
+                                                'u-any-center-svg l-lettering01__block',
                                             props: {
                                                 content: letter_r_shadow,
                                             },
@@ -139,7 +144,8 @@ export const getLettering01 = ({
                                         animate: true,
                                         component: {
                                             tagName: 'any-component',
-                                            className: 'u-any-center-svg',
+                                            className:
+                                                'u-any-center-svg l-lettering01__block',
                                             props: {
                                                 content: letter_r_pieces,
                                             },
@@ -156,7 +162,8 @@ export const getLettering01 = ({
                                         animate: true,
                                         component: {
                                             tagName: 'any-component',
-                                            className: 'u-any-center-svg',
+                                            className:
+                                                'u-any-center-svg l-lettering01__block',
                                             props: {
                                                 content: letter_r_fill,
                                             },
@@ -176,7 +183,8 @@ export const getLettering01 = ({
                                 animate: true,
                                 component: {
                                     tagName: 'any-component',
-                                    className: 'u-any-center-svg',
+                                    className:
+                                        'u-any-center-svg l-lettering01__block',
                                     props: {
                                         content: letter_p,
                                     },
@@ -194,7 +202,8 @@ export const getLettering01 = ({
                                         animate: true,
                                         component: {
                                             tagName: 'any-component',
-                                            className: 'u-any-center-svg',
+                                            className:
+                                                'u-any-center-svg l-lettering01__block',
                                             props: {
                                                 content: letter_p_shadow,
                                             },
@@ -211,7 +220,8 @@ export const getLettering01 = ({
                                         animate: true,
                                         component: {
                                             tagName: 'any-component',
-                                            className: 'u-any-center-svg',
+                                            className:
+                                                'u-any-center-svg l-lettering01__block',
                                             props: {
                                                 content: letter_p_pieces,
                                             },
@@ -228,7 +238,8 @@ export const getLettering01 = ({
                                         animate: true,
                                         component: {
                                             tagName: 'any-component',
-                                            className: 'u-any-center-svg',
+                                            className:
+                                                'u-any-center-svg l-lettering01__block',
                                             props: {
                                                 content: letter_p_fill,
                                             },

@@ -45,7 +45,7 @@ export const lettering01 = async () => {
         });
     });
 
-    return html`<div>
+    return html`<div class="l-lettering01">
         <move-3d
             ${staticProps(
                 /** @type{import('../../../component/common/Move3D/type').Move3D['state']} */ ({
@@ -65,6 +65,7 @@ export const lettering01 = async () => {
                     }),
                     xDepth: 50,
                     factor: 50,
+                    drag: false,
                 })
             )}
         ></move-3d>
