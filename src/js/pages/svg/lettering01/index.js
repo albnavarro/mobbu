@@ -68,6 +68,7 @@ export const lettering01 = async () => {
                     xLimit: 20,
                     yLimit: 20,
                     drag: true,
+                    perspective: 1000,
                 })
             )}
         ></move-3d>

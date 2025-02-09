@@ -13,8 +13,9 @@
      id="defs2" />
   <g
      id="layer5"
-     style="display:none"
-     transform="translate(-8.3120776,-35.36316)">
+     style="display:inline"
+     transform="translate(-8.3120776,-35.36316)"
+     type="delete">
     <rect
        style="fill:#cacaca;fill-opacity:1;stroke-width:0.552715"
        id="rect58230"

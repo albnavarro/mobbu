@@ -10,7 +10,6 @@ export const Move3D = createComponent({
     exportState: [
         'drag',
         'centerToViewoport',
-        'perspective',
         'xDepth',
         'yDepth',
         'xLimit',
