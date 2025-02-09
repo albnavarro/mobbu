@@ -12,6 +12,7 @@ import { html, useComponent } from '../mobjs';
 import { LinksMobJs } from '../component/common/linksMobJs/definition';
 import { OnlyDesktop } from '../component/common/onlyDesktop/definition';
 import { DebugOverlay } from '../component/common/debug/debugOverlay/definition';
+import { TestScssGrid } from '../component/common/TestScssGrid/definition';
 
 useComponent([
     Header,
@@ -25,19 +26,14 @@ useComponent([
     LinksMobJs,
     OnlyDesktop,
     DebugOverlay,
+    TestScssGrid,
 ]);
 
 export const wrapper = async () => {
-    return html`
-        <!-- <div class="test-grid"> -->
-        <!--     <div class="test-grid__grid"> -->
-        <!--         <span></span><span></span><span></span><span></span><span></span -->
-        <!--         ><span></span><span></span><span></span><span></span -->
-        <!--         ><span></span><span></span><span></span> -->
-        <!--     </div> -->
-        <!--     <div class="test-grid__cont"><span>test</span></div> -->
-        <!-- </div> -->
+    const useScssTestGrid = false;
 
+    return html`
+        ${useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : ''}
         <only-desktop></only-desktop>
         <debug-overlay name="debugOverlay"></debug-overlay>
         <mob-header></mob-header>
