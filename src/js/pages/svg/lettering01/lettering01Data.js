@@ -158,6 +158,7 @@ export const getLettering01 = ({
                                     props: {
                                         id: 0,
                                         depth: 30,
+                                        initialDepth: 1,
                                         anchorPoint: 'center',
                                         classList: '',
                                         animate: true,
@@ -235,6 +236,7 @@ export const getLettering01 = ({
                                     props: {
                                         id: 0,
                                         depth: 30,
+                                        initialDepth: 1,
                                         anchorPoint: 'center',
                                         classList: '',
                                         animate: true,

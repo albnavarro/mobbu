@@ -34301,6 +34301,7 @@ Loading snippet ...</pre
                     props: {
                       id: 0,
                       depth: 30,
+                      initialDepth: 1,
                       anchorPoint: "center",
                       classList: "",
                       animate: true,
@@ -34374,6 +34375,7 @@ Loading snippet ...</pre
                     props: {
                       id: 0,
                       depth: 30,
+                      initialDepth: 1,
                       anchorPoint: "center",
                       classList: "",
                       animate: true,
