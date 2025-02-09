@@ -13,6 +13,8 @@ export const Move3D = createComponent({
         'perspective',
         'xDepth',
         'yDepth',
+        'xLimit',
+        'yLimit',
         'factor',
         'shape',
         'debug',
@@ -52,6 +54,14 @@ export const Move3D = createComponent({
                 return value > 1;
             },
             strict: true,
+        }),
+        xLimit: () => ({
+            value: 10_000,
+            type: Number,
+        }),
+        yLimit: () => ({
+            value: 10_000,
+            type: Number,
         }),
         factor: () => ({
             value: 45,

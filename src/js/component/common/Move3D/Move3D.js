@@ -1,7 +1,7 @@
 //@ts-check
 
 import { mobCore } from '../../../mobCore';
-import { tween } from '../../../mobMotion';
+import { motionCore, tween } from '../../../mobMotion';
 import { NOOP } from '../../../mobMotion/utils/functionsUtils';
 import { Recursive3Dshape } from './partials/recursive3Dshape';
 import { getChildrenMethod, getMove3DDimension } from './utils';
@@ -137,15 +137,33 @@ export const Move3Dfn = ({
         lastX = x;
         lastY = y;
 
+        const xLimitReached = ax > proxiState.xLimit || ax < -proxiState.xLimit;
+        const yLimitReached = ay > proxiState.yLimit || ay < -proxiState.yLimit;
+
+        if (xLimitReached) dragX -= xgap;
+        if (yLimitReached) dragY -= ygap;
+
+        const axClamped = motionCore.clamp(
+            ax,
+            -proxiState.xLimit,
+            proxiState.xLimit
+        );
+
+        const ayClamped = motionCore.clamp(
+            ay,
+            -proxiState.yLimit,
+            proxiState.yLimit
+        );
+
         /*
          * Calcolo il valore da passare ai componenti figli per animarre l'asse Z.
          * Il delta sarà l'ipotenusa del triangolo formato dai volri ax e ay
          */
         const delta = Math.sqrt(
-            Math.pow(Math.abs(ay), 2) + Math.pow(Math.abs(ax), 2)
+            Math.pow(Math.abs(ayClamped), 2) + Math.pow(Math.abs(axClamped), 2)
         );
 
-        spring.goTo({ delta, ax, ay }).catch(() => {});
+        spring.goTo({ delta, ax: axClamped, ay: ayClamped }).catch(() => {});
 
         /**
          * Move children

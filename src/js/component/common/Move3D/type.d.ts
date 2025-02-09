@@ -8,6 +8,8 @@ export interface Move3D {
         perspective: number;
         xDepth: number;
         yDepth: number;
+        xLimit: number;
+        yLimit: number;
         factor: number;
         shape: Move3DChildren[];
         debug: boolean;

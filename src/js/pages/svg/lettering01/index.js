@@ -65,7 +65,9 @@ export const lettering01 = async () => {
                     }),
                     xDepth: 50,
                     factor: 50,
-                    drag: false,
+                    xLimit: 20,
+                    yLimit: 20,
+                    drag: true,
                 })
             )}
         ></move-3d>

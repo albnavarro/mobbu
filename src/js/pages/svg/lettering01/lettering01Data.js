@@ -100,6 +100,7 @@ export const getLettering01 = ({
                             props: {
                                 id: 0,
                                 depth: -100,
+                                initialDepth: -1,
                                 offsetX: -10,
                                 anchorPoint: 'right',
                                 rotate: 'y',
@@ -177,6 +178,7 @@ export const getLettering01 = ({
                             props: {
                                 id: 0,
                                 depth: -100,
+                                initialDepth: -1,
                                 offsetX: -10,
                                 anchorPoint: 'right',
                                 classList: '',

@@ -5,6 +5,8 @@ export interface Move3DPage {
         data: Move3DChildren[];
         xDepth: number;
         yDepth: number;
+        xLimit: number;
+        yLimit: number;
         factor: number;
         debug: boolean;
         perspective: number;

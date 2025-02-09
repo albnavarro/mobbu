@@ -21,6 +21,14 @@ export const Move3DPage = createComponent({
             value: 20,
             type: Number,
         }),
+        xLimit: () => ({
+            value: 1000,
+            type: Number,
+        }),
+        yLimit: () => ({
+            value: 1000,
+            type: Number,
+        }),
         perspective: () => ({
             value: 700,
             type: Number,
