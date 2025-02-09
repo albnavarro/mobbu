@@ -31,14 +31,14 @@
                 "section": "mobMotion"
             },
             {
-                "label": "Illustration",
-                "url": "svg-overview",
-                "section": "svg"
-            },
-            {
                 "label": "Plugin",
                 "url": "plugin-overview",
                 "section": "plugin"
+            },
+            {
+                "label": "Illustration",
+                "url": "svg-overview",
+                "section": "svg"
             },
             {
                 "label": "Canvas 2d",
@@ -728,23 +728,6 @@
             "url": "mobMotion-defaults"
         },
         {
-            "label": "Illustration",
-            "section": true,
-            "sectioName": "svg"
-        },
-        {
-            "label": "Overview",
-            "url": "svg-overview",
-            "scrollToSection": "svg",
-            "children": null
-        },
-        {
-            "label": "Lettering 01",
-            "url": "lettering01",
-            "scrollToSection": "svg",
-            "children": null
-        },
-        {
             "label": "plugin",
             "section": true,
             "sectioName": "plugin"
@@ -770,6 +753,23 @@
             "label": "move3D shape 1",
             "scrollToSection": "plugin",
             "url": "move3D-shape1"
+        },
+        {
+            "label": "Illustration",
+            "section": true,
+            "sectioName": "svg"
+        },
+        {
+            "label": "Overview",
+            "url": "svg-overview",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
+            "label": "Lettering 01",
+            "url": "lettering01",
+            "scrollToSection": "svg",
+            "children": null
         },
         {
             "label": "Canvas 2d animations:",

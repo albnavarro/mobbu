@@ -54,6 +54,11 @@
         color: $white;
         padding-left: rem(50, small);
         padding-top: rem(50, small);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: calc(var(--footer-height) + rem(50));
 
         @include mq('large') {
             padding-left: rem(70);
@@ -70,23 +75,40 @@
                 color: $white;
             }
         }
+    }
 
-        h2 {
-            font-size: rem(15);
+    &__main {
+        margin-bottom: rem(24);
+
+        &__item {
+            margin-bottom: rem(20);
+            display: block;
+            transition: opacity 0.55s;
+
+            &:hover {
+                opacity: 0.5;
+            }
+
+            &__inner {
+                overflow: hidden;
+            }
         }
     }
 
-    &__inner-content {
-        overflow: hidden;
-    }
+    &__extras {
+        opacity: 0;
+        transition: opacity 1.35s;
 
-    &__item {
-        margin-bottom: rem(20);
-        display: block;
-        transition: opacity 0.55s;
+        &.active {
+            opacity: 1;
+        }
 
-        &:hover {
-            opacity: 0.5;
+        &__item {
+            transition: opacity 0.55s;
+
+            &:hover {
+                opacity: 0.5;
+            }
         }
     }
 }

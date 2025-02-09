@@ -26,8 +26,10 @@ export const HomeComponentFn = ({
     html,
     onMount,
     getState,
+    setState,
     setRef,
     getRefs,
+    bindEffect,
 }) => {
     const { svg } = getState();
 
@@ -45,6 +47,7 @@ export const HomeComponentFn = ({
 
         setTimeout(() => {
             playAnimation({ playIntro, playText, playSvg });
+            setState('isMounted', true);
         }, 500);
 
         return () => {
@@ -53,44 +56,69 @@ export const HomeComponentFn = ({
         };
     });
 
-    return html`<div>
+    return html`<div class="l-index">
         <div class="l-index__content">
-            <a class="l-index__item" href="./#mobCore-overview">
-                <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ${setRef('textStagger')}>
-                        <span>Mob</span>Core
-                    </h1>
-                </div>
-                <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ${setRef('textStagger')}>
-                        store & window events
-                    </h2>
-                </div>
-            </a>
-            <a class="l-index__item" href="./#mobJs-overview">
-                <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ${setRef('textStagger')}>
-                        <span>Mob</span>Js
-                    </h1>
-                </div>
-                <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ${setRef('textStagger')}>
-                        js component library
-                    </h2>
-                </div>
-            </a>
-            <a class="l-index__item" href="./#mobMotion-overview">
-                <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ${setRef('textStagger')}>
-                        <span>Mob</span>Motion
-                    </h1>
-                </div>
-                <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ${setRef('textStagger')}>
-                        js animation library
-                    </h2>
-                </div>
-            </a>
+            <div class="l-index__main">
+                <a class="l-index__main__item" href="./#mobCore-overview">
+                    <div class="has-overflow">
+                        <h1 class="l-index__stagger" ${setRef('textStagger')}>
+                            <span>Mob</span>Core
+                        </h1>
+                    </div>
+                    <div class="has-overflow">
+                        <h6 class="l-index__stagger" ${setRef('textStagger')}>
+                            store & window events
+                        </h6>
+                    </div>
+                </a>
+                <a class="l-index__main__item" href="./#mobJs-overview">
+                    <div class="has-overflow">
+                        <h1 class="l-index__stagger" ${setRef('textStagger')}>
+                            <span>Mob</span>Js
+                        </h1>
+                    </div>
+                    <div class="has-overflow">
+                        <h6 class="l-index__stagger" ${setRef('textStagger')}>
+                            js component library
+                        </h6>
+                    </div>
+                </a>
+                <a class="l-index__main__item" href="./#mobMotion-overview">
+                    <div class="has-overflow">
+                        <h1 class="l-index__stagger" ${setRef('textStagger')}>
+                            <span>Mob</span>Motion
+                        </h1>
+                    </div>
+                    <div class="has-overflow">
+                        <h6 class="l-index__stagger" ${setRef('textStagger')}>
+                            js animation library
+                        </h6>
+                    </div>
+                </a>
+            </div>
+            <div
+                class="l-index__extras"
+                ${bindEffect({
+                    bind: 'isMounted',
+                    toggleClass: { active: () => getState().isMounted },
+                })}
+            >
+                <h2>Extras</h2>
+                <a class="" href="./#svg-overview">
+                    <div class="l-index__extras__item">
+                        <h6>
+                            <span>Illustration</span>
+                        </h6>
+                    </div>
+                </a>
+                <a class="" href="./#canvas-overview">
+                    <div class="l-index__extras__item">
+                        <h6>
+                            <span>Canvas 2D</span>
+                        </h6>
+                    </div>
+                </a>
+            </div>
         </div>
 
         <div class="l-index__logo">${svg}</div>

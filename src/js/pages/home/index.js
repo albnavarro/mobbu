@@ -9,11 +9,11 @@ export const home = async () => {
         source: './asset/svg/ms.svg?v=1.2',
     });
 
-    return html`<div class="l-index">
+    return html`
         <home-component
             ${staticProps({
                 svg,
             })}
         ></home-component>
-    </div>`;
+    `;
 };

@@ -12,6 +12,10 @@ export const HomeComponent = createComponent({
             value: '',
             type: String,
         }),
+        isMounted: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
     child: [],
 });
