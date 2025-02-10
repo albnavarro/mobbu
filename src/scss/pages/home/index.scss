@@ -40,10 +40,17 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
         }
     }
 
+    h2 {
+        margin-bottom: rem(10);
+    }
+
+    h6 {
+        font-weight: 400;
+    }
+
     &__stagger {
         translate: 0 100%;
         margin: 0;
-        font-weight: 400;
     }
 
     &__content {
