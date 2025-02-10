@@ -22145,76 +22145,6 @@
     return repeatIdPlaceHolderMap.size;
   };
 
-  // src/js/component/common/animationTitle/animationTitle.js
-  var AnimationTitleFn = ({
-    html,
-    onMount,
-    bindText,
-    bindEffect,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    onMount(() => {
-      mobCore.useFrame(() => {
-        proxi.isMounted = true;
-      });
-    });
-    return html`<div
-        class="c-animation-title"
-        ${bindEffect({
-      bind: ["align"],
-      toggleClass: {
-        "is-left": () => proxi.align === "left",
-        "is-right": () => proxi.align === "right"
-      }
-    })}
-    >
-        <h4
-            ${bindEffect({
-      bind: ["color", "isMounted"],
-      toggleClass: {
-        "is-white": () => proxi.color === "white",
-        "is-black": () => proxi.color === "black",
-        visible: () => proxi.isMounted
-      }
-    })}
-        >
-            ${bindText`${"title"}`}
-        </h4>
-    </div>`;
-  };
-
-  // src/js/component/common/animationTitle/definition.js
-  var AnimationTitle = createComponent({
-    name: "animation-title",
-    component: AnimationTitleFn,
-    exportState: ["title", "align", "color"],
-    state: {
-      title: () => ({
-        value: "",
-        type: String
-      }),
-      isMounted: () => ({
-        value: false,
-        type: Boolean
-      }),
-      align: () => ({
-        value: "left",
-        type: String,
-        validate: (value) => {
-          return ["left", "right"].includes(value);
-        }
-      }),
-      color: () => ({
-        value: "white",
-        type: String,
-        validate: (value) => {
-          return ["white", "black"].includes(value);
-        }
-      })
-    }
-  });
-
   // src/svg/scroll_arrow.svg
   var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
 
@@ -27926,24 +27856,6 @@ Loading snippet ...</pre
     return renderHtml`<div class="l-benchMark"><${rootComponent}></${rootComponent}></div>`;
   };
 
-  // src/js/component/common/animationTitle/utils.js
-  var updateAnimationTitle = ({
-    align = "left",
-    color = "white",
-    title = ""
-  }) => {
-    const setMainTitleState = setStateByName("animation_title");
-    setMainTitleState("align", align);
-    setMainTitleState("title", title);
-    setMainTitleState("color", color);
-  };
-  var resetAnimationTitle = () => {
-    const setMainTitleState = setStateByName("animation_title");
-    setMainTitleState("align", "");
-    setMainTitleState("title", "");
-    setMainTitleState("color", "white");
-  };
-
   // src/js/component/common/quickNav/utils.js
   var updateQuickNavState = ({
     active = true,
@@ -28247,7 +28159,7 @@ Loading snippet ...</pre
     getRef,
     bindEffect
   }) => {
-    const { prevRoute, nextRoute, title } = getState();
+    const { prevRoute, nextRoute } = getState();
     document.body.style.background = "#000000";
     onMount(() => {
       const { canvas } = getRef();
@@ -28255,11 +28167,6 @@ Loading snippet ...</pre
         active: true,
         prevRoute,
         nextRoute,
-        color: "white"
-      });
-      updateAnimationTitle({
-        align: "left",
-        title,
         color: "white"
       });
       const destroyAnimation = animatedPatternN0Animation({
@@ -28272,7 +28179,6 @@ Loading snippet ...</pre
       return () => {
         destroyAnimation();
         resetQuickNavState();
-        resetAnimationTitle();
         document.body.style.background = "";
       };
     });
@@ -28298,7 +28204,6 @@ Loading snippet ...</pre
     name: "animatedpattern-n0",
     component: AnimatedPatternN0Fn,
     exportState: [
-      "title",
       "nextRoute",
       "prevRoute",
       "numberOfRow",
@@ -28313,10 +28218,6 @@ Loading snippet ...</pre
     ],
     state: {
       isMounted: false,
-      title: () => ({
-        value: "",
-        type: String
-      }),
       nextRoute: () => ({
         value: "",
         type: String
@@ -28371,7 +28272,6 @@ Loading snippet ...</pre
   // src/js/pages/canvas/animatedPatternN0/animatedPatternN0Params.js
   var animatedPatternN0Params = [
     {
-      title: "Animated pattern N.0 v0",
       animation: {},
       nav: {
         prevRoute: "#caterpillarN2",
@@ -28427,7 +28327,6 @@ Loading snippet ...</pre
       }
     },
     {
-      title: "Animated pattern N.0 v2",
       animation: {
         fill: [
           0,
@@ -28515,8 +28414,7 @@ Loading snippet ...</pre
             ${staticProps({
       ...props.animation,
       prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute,
-      title: props.title
+      nextRoute: props.nav.nextRoute
     })}
         ></animatedpattern-n0>
     </div>`;
@@ -28744,11 +28642,6 @@ Loading snippet ...</pre
         nextRoute: "#scrollerN0?version=0&activeId=0",
         color: "white"
       });
-      updateAnimationTitle({
-        align: "left",
-        title: "Animated pattern N1",
-        color: "white"
-      });
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
         ...getState()
@@ -28758,7 +28651,6 @@ Loading snippet ...</pre
       });
       return () => {
         resetQuickNavState();
-        resetAnimationTitle();
         document.body.style.background = "";
         destroyAnimation();
       };
@@ -29050,11 +28942,6 @@ Loading snippet ...</pre
         nextRoute: "#caterpillarN1",
         color: "white"
       });
-      updateAnimationTitle({
-        align: "left",
-        title: "Caterpillar N0",
-        color: "white"
-      });
       const destroyAnimation = caterpillarN0Animation({
         canvas,
         ...getState()
@@ -29065,7 +28952,6 @@ Loading snippet ...</pre
       return () => {
         destroyAnimation();
         resetQuickNavState();
-        resetAnimationTitle();
         document.body.style.background = "";
       };
     });
@@ -29073,7 +28959,7 @@ Loading snippet ...</pre
         <div>
             <div class="c-canvas">
                 <div
-                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
+                    class="c-canvas__wrap"
                     ${bindEffect({
       bind: "isMounted",
       toggleClass: { active: () => getState().isMounted }
@@ -29363,11 +29249,6 @@ Loading snippet ...</pre
         nextRoute: "#caterpillarN2",
         color: "white"
       });
-      updateAnimationTitle({
-        align: "left",
-        title: "Caterpillar N1",
-        color: "white"
-      });
       const destroyAnimation = caterpillarN1Animation({
         canvas,
         ...getState()
@@ -29378,7 +29259,6 @@ Loading snippet ...</pre
       return () => {
         destroyAnimation();
         resetQuickNavState();
-        resetAnimationTitle();
         document.body.style.background = "";
       };
     });
@@ -29386,7 +29266,7 @@ Loading snippet ...</pre
         <div>
             <div class="c-canvas">
                 <div
-                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
+                    class="c-canvas__wrap"
                     ${bindEffect({
       bind: "isMounted",
       toggleClass: { active: () => getState().isMounted }
@@ -29674,11 +29554,6 @@ Loading snippet ...</pre
         nextRoute: "#animatedPatternN0?version=0&activeId=0",
         color: "black"
       });
-      updateAnimationTitle({
-        align: "left",
-        title: "Caterpillar N2",
-        color: "white"
-      });
       const animationMethods = caterpillarN2Animation({
         canvas,
         ...getState()
@@ -29699,7 +29574,6 @@ Loading snippet ...</pre
       });
       return () => {
         resetQuickNavState();
-        resetAnimationTitle();
         document.body.style.background = "";
         destroy2();
       };
@@ -30099,7 +29973,7 @@ Loading snippet ...</pre
     getRef,
     bindEffect
   }) => {
-    const { prevRoute, nextRoute, title } = getState();
+    const { prevRoute, nextRoute } = getState();
     document.body.style.background = "#000000";
     onMount(() => {
       activateScrollDownArrow();
@@ -30107,11 +29981,6 @@ Loading snippet ...</pre
         active: true,
         prevRoute,
         nextRoute,
-        color: "white"
-      });
-      updateAnimationTitle({
-        align: "left",
-        title,
         color: "white"
       });
       const { canvas, canvasScroller } = getRef();
@@ -30128,7 +29997,6 @@ Loading snippet ...</pre
         destroyAnimation();
         deactivateScrollDownArrow();
         resetQuickNavState();
-        resetAnimationTitle();
         document.body.style.background = "";
       };
     });
@@ -30155,7 +30023,6 @@ Loading snippet ...</pre
     name: "scroller-n0",
     component: ScrollerN0Fn,
     exportState: [
-      "title",
       "nextRoute",
       "prevRoute",
       "numberOfRow",
@@ -30170,10 +30037,6 @@ Loading snippet ...</pre
     ],
     state: {
       isMounted: false,
-      title: () => ({
-        value: "",
-        type: String
-      }),
       nextRoute: () => ({
         value: "",
         type: String
@@ -30245,7 +30108,6 @@ Loading snippet ...</pre
   // src/js/pages/canvas/scroller/scrollerParams.js
   var scrollerParams = [
     {
-      title: "Scroller N.0 v0",
       animation: {},
       nav: {
         prevRoute: "#animatedPatternN1",
@@ -30269,7 +30131,6 @@ Loading snippet ...</pre
       }
     },
     {
-      title: "Scroller N.0 v2",
       animation: {
         stagger: {
           type: "equal",
@@ -30327,8 +30188,7 @@ Loading snippet ...</pre
             ${staticProps({
       ...props.animation,
       prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute,
-      title: props.title
+      nextRoute: props.nav.nextRoute
     })}
         ></scroller-n0>
     </div>`;
@@ -30529,11 +30389,6 @@ Loading snippet ...</pre
         nextRoute: "",
         color: "white"
       });
-      updateAnimationTitle({
-        align: "left",
-        title: "Scroller N1",
-        color: "white"
-      });
       const { canvas, canvasScroller } = getRef();
       const destroyAnimation = scrollerN1Animation({
         canvas,
@@ -30547,7 +30402,6 @@ Loading snippet ...</pre
         destroyAnimation();
         deactivateScrollDownArrow();
         resetQuickNavState();
-        resetAnimationTitle();
         document.body.style.background = "";
       };
     });
@@ -31618,6 +31472,13 @@ Loading snippet ...</pre
     })}
             >
                 <h2>Extras</h2>
+                <a class="" href="./#plugin-overview">
+                    <div class="l-index__extras__item">
+                        <h6>
+                            <span>MobMotion plugin</span>
+                        </h6>
+                    </div>
+                </a>
                 <a class="" href="./#canvas-overview">
                     <div class="l-index__extras__item">
                         <h6>
@@ -32285,11 +32146,6 @@ Loading snippet ...</pre
         nextRoute,
         color: "white"
       });
-      updateAnimationTitle({
-        align: "right",
-        title: animatePin ? "HorizontalScroller: smooth pin" : "HorizontalScroller: classic pin",
-        color: "white"
-      });
       window.scrollTo(0, 0);
       watch("currentId", (id) => {
         if (id === -1) return;
@@ -32312,7 +32168,6 @@ Loading snippet ...</pre
       return () => {
         destroy2();
         resetQuickNavState();
-        resetAnimationTitle();
       };
     });
     if (motionCore.mq("max", "desktop"))
@@ -32465,40 +32320,15 @@ Loading snippet ...</pre
     child: [HorizontalScrollerButton, HorizontalScrollerSection]
   });
 
-  // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
-  var horizontalScrollerParams = [
-    {
-      title: "horizontalScroller with fixed pin",
-      animatePin: false,
-      nav: {
-        prevRoute: "",
-        nextRoute: "#horizontalScroller?version=1&activeId=1"
-      }
-    },
-    {
-      title: "horizontalScroller with animated pin",
-      animatePin: true,
-      nav: {
-        prevRoute: "#horizontalScroller?version=0&activeId=0",
-        nextRoute: "#move3D-shape1"
-      }
-    }
-  ];
-
   // src/js/pages/plugin/horizontalScroller/index.js
   useComponent([HorizontalScroller2]);
-  var horizontalScroller = async ({ params }) => {
-    const { version } = params;
-    const props = horizontalScrollerParams[Math.max(
-      0,
-      Math.min(Number(version), horizontalScrollerParams.length - 1)
-    )];
+  var horizontalScroller = async () => {
     return renderHtml`<div>
         <horizontal-scroller
             ${staticProps({
-      animatePin: props.animatePin,
-      prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute
+      animatePin: false,
+      prevRoute: "",
+      nextRoute: "#move3D-shape1"
     })}
         ></horizontal-scroller>
     </div>`;
@@ -33386,14 +33216,8 @@ Loading snippet ...</pre
         nextRoute,
         color: "white"
       });
-      updateAnimationTitle({
-        align: "left",
-        title: "Move3D",
-        color: "black"
-      });
       return () => {
         resetQuickNavState();
-        resetAnimationTitle();
       };
     });
     return html`<div>
@@ -33883,7 +33707,7 @@ Loading snippet ...</pre
   // src/js/pages/plugin/move3D/props.js
   var move3DrouteProps = {
     shape1: {
-      prevRoute: "#horizontalScroller?version=1&activeId=1",
+      prevRoute: "#horizontalScroller?version=0&activeId=0",
       nextRoute: "",
       data: move3DShape1
     }
@@ -34038,11 +33862,6 @@ Loading snippet ...</pre
         nextRoute: "",
         color: "white"
       });
-      updateAnimationTitle({
-        align: "left",
-        title: "Child",
-        color: "black"
-      });
       const stagger = element.querySelectorAll('[ref="stagger"]');
       const {
         trail0,
@@ -34078,7 +33897,6 @@ Loading snippet ...</pre
       playAnimation2({ playIntro });
       return () => {
         resetQuickNavState();
-        resetAnimationTitle();
         destroy2();
       };
     });
@@ -36868,7 +36686,6 @@ Loading snippet ...</pre
     Footer,
     QuickNav,
     RouteLoader,
-    AnimationTitle,
     ScrollDownLabel,
     ScrollToTop,
     LinksMobJs,
@@ -36896,7 +36713,6 @@ Loading snippet ...</pre
         <mob-footer> </mob-footer>
         <quick-nav name="quick_nav"></quick-nav>
         <route-loader></route-loader>
-        <animation-title name="animation_title"></animation-title>
         <scroll-down-label name="scroll_down_label"></scroll-down-label>
         <scroll-to-top name="scroll-to-top"></scroll-to-top>
         <links-mobjs></links-mobjs>

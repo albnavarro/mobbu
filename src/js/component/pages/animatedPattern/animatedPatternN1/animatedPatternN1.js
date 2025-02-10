@@ -7,10 +7,6 @@
 
 import { mobCore } from '../../../../mobCore';
 import {
-    resetAnimationTitle,
-    updateAnimationTitle,
-} from '../../../common/animationTitle/utils';
-import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
@@ -39,13 +35,6 @@ export const AnimatedPatternN1Fn = ({
             color: 'white',
         });
 
-        /** Title */
-        updateAnimationTitle({
-            align: 'left',
-            title: 'Animated pattern N1',
-            color: 'white',
-        });
-
         const destroyAnimation = animatedPatternN1Animation({
             canvas,
             ...getState(),
@@ -57,7 +46,6 @@ export const AnimatedPatternN1Fn = ({
 
         return () => {
             resetQuickNavState();
-            resetAnimationTitle();
             document.body.style.background = '';
             destroyAnimation();
         };

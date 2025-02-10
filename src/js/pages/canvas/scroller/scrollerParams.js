@@ -1,6 +1,5 @@
 export const scrollerParams = [
     {
-        title: 'Scroller N.0 v0',
         animation: {},
         nav: {
             prevRoute: '#animatedPatternN1',
@@ -24,7 +23,6 @@ export const scrollerParams = [
         },
     },
     {
-        title: 'Scroller N.0 v2',
         animation: {
             stagger: {
                 type: 'equal',

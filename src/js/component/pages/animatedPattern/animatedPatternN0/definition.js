@@ -8,7 +8,6 @@ export const AnimatedPatternN0 = createComponent({
     name: 'animatedpattern-n0',
     component: AnimatedPatternN0Fn,
     exportState: [
-        'title',
         'nextRoute',
         'prevRoute',
         'numberOfRow',
@@ -23,10 +22,6 @@ export const AnimatedPatternN0 = createComponent({
     ],
     state: {
         isMounted: false,
-        title: () => ({
-            value: '',
-            type: String,
-        }),
         nextRoute: () => ({
             value: '',
             type: String,

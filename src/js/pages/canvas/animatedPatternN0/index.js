@@ -22,7 +22,6 @@ export const animatedPatternN0 = ({ params }) => {
                 ...props.animation,
                 prevRoute: props.nav.prevRoute,
                 nextRoute: props.nav.nextRoute,
-                title: props.title,
             })}
         ></animatedpattern-n0>
     </div>`;

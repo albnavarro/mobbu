@@ -7,10 +7,6 @@
 
 import { mobCore } from '../../../../mobCore';
 import {
-    resetAnimationTitle,
-    updateAnimationTitle,
-} from '../../../common/animationTitle/utils';
-import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
@@ -39,13 +35,6 @@ export const CaterpillarN0Fn = ({
             color: 'white',
         });
 
-        /** Title */
-        updateAnimationTitle({
-            align: 'left',
-            title: 'Caterpillar N0',
-            color: 'white',
-        });
-
         /**
          * Animation.
          */
@@ -61,7 +50,6 @@ export const CaterpillarN0Fn = ({
         return () => {
             destroyAnimation();
             resetQuickNavState();
-            resetAnimationTitle();
             document.body.style.background = '';
         };
     });
@@ -70,7 +58,7 @@ export const CaterpillarN0Fn = ({
         <div>
             <div class="c-canvas">
                 <div
-                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
+                    class="c-canvas__wrap"
                     ${bindEffect({
                         bind: 'isMounted',
                         toggleClass: { active: () => getState().isMounted },

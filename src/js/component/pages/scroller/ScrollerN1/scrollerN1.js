@@ -7,10 +7,6 @@
 
 import { mobCore } from '../../../../mobCore';
 import {
-    resetAnimationTitle,
-    updateAnimationTitle,
-} from '../../../common/animationTitle/utils';
-import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
@@ -44,13 +40,6 @@ export const ScrollerN1Fn = ({
             color: 'white',
         });
 
-        /** Title */
-        updateAnimationTitle({
-            align: 'left',
-            title: 'Scroller N1',
-            color: 'white',
-        });
-
         /**
          * Refs
          */
@@ -70,7 +59,6 @@ export const ScrollerN1Fn = ({
             destroyAnimation();
             deactivateScrollDownArrow();
             resetQuickNavState();
-            resetAnimationTitle();
             document.body.style.background = '';
         };
     });

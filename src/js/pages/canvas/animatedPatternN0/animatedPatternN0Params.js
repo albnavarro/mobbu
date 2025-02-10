@@ -1,6 +1,5 @@
 export const animatedPatternN0Params = [
     {
-        title: 'Animated pattern N.0 v0',
         animation: {},
         nav: {
             prevRoute: '#caterpillarN2',
@@ -32,7 +31,6 @@ export const animatedPatternN0Params = [
         },
     },
     {
-        title: 'Animated pattern N.0 v2',
         animation: {
             fill: [
                 0, 13, 20, 45, 65, 71, 72, 73, 74, 75, 76, 77, 83, 92, 96, 113,

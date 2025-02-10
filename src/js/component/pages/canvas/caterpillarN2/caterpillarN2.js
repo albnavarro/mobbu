@@ -8,10 +8,6 @@
 import { mobCore } from '../../../../mobCore';
 import { html } from '../../../../mobjs';
 import {
-    resetAnimationTitle,
-    updateAnimationTitle,
-} from '../../../common/animationTitle/utils';
-import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
@@ -63,13 +59,6 @@ export const CaterpillarN2Fn = ({
             color: 'black',
         });
 
-        /** Title */
-        updateAnimationTitle({
-            align: 'left',
-            title: 'Caterpillar N2',
-            color: 'white',
-        });
-
         /**
          * Inizializa animation and get anima methods.
          */
@@ -108,7 +97,6 @@ export const CaterpillarN2Fn = ({
 
         return () => {
             resetQuickNavState();
-            resetAnimationTitle();
             document.body.style.background = '';
             destroy();
         };

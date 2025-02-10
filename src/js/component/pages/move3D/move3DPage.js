@@ -2,10 +2,6 @@
 
 import { html } from '../../../mobjs';
 import {
-    resetAnimationTitle,
-    updateAnimationTitle,
-} from '../../common/animationTitle/utils';
-import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../common/quickNav/utils';
@@ -157,16 +153,8 @@ export const Move3DPagefn = ({
             color: 'white',
         });
 
-        /** Title */
-        updateAnimationTitle({
-            align: 'left',
-            title: 'Move3D',
-            color: 'black',
-        });
-
         return () => {
             resetQuickNavState();
-            resetAnimationTitle();
         };
     });
 

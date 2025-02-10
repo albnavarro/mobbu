@@ -3,7 +3,6 @@ import { StaggerObject } from '../../../../mobMotion/animation/utils/stagger/typ
 export interface AnimatedPatternN0 {
     state: {
         isMounted: boolean;
-        title: string;
         nextRoute: string;
         prevRoute: string;
         numberOfRow: number;

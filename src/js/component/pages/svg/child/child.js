@@ -8,10 +8,6 @@
 import { html } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import {
-    resetAnimationTitle,
-    updateAnimationTitle,
-} from '../../../common/animationTitle/utils';
-import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
@@ -68,13 +64,6 @@ export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
             color: 'white',
         });
 
-        /** Title */
-        updateAnimationTitle({
-            align: 'left',
-            title: 'Child',
-            color: 'black',
-        });
-
         const stagger = element.querySelectorAll('[ref="stagger"]');
 
         const {
@@ -111,7 +100,6 @@ export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
 
         return () => {
             resetQuickNavState();
-            resetAnimationTitle();
             destroy();
         };
     });

@@ -116,6 +116,13 @@ export const HomeComponentFn = ({
                 })}
             >
                 <h2>Extras</h2>
+                <a class="" href="./#plugin-overview">
+                    <div class="l-index__extras__item">
+                        <h6>
+                            <span>MobMotion plugin</span>
+                        </h6>
+                    </div>
+                </a>
                 <a class="" href="./#canvas-overview">
                     <div class="l-index__extras__item">
                         <h6>

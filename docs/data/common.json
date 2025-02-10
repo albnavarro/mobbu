@@ -738,16 +738,10 @@
             "url": "plugin-overview"
         },
         {
-            "label": "horizotnal scroller v0",
+            "label": "horizotnal scroller",
             "scrollToSection": "plugin",
-            "url": "horizontalScroller?version=0&activeId=0",
+            "url": "horizontalScroller",
             "activeId": 0
-        },
-        {
-            "label": "horizotnal scroller v1",
-            "scrollToSection": "plugin",
-            "url": "horizontalScroller?version=1&activeId=1",
-            "activeId": 1
         },
         {
             "label": "move3D shape 1",

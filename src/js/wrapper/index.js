@@ -1,6 +1,5 @@
 // @ts-check
 
-import { AnimationTitle } from '../component/common/animationTitle/definition';
 import { QuickNav } from '../component/common/quickNav/definition';
 import { RouteLoader } from '../component/common/routeLoader/definition';
 import { ScrollDownLabel } from '../component/common/scrolldownLabel/definition';
@@ -20,7 +19,6 @@ useComponent([
     Footer,
     QuickNav,
     RouteLoader,
-    AnimationTitle,
     ScrollDownLabel,
     ScrollToTop,
     LinksMobJs,
@@ -50,7 +48,6 @@ export const wrapper = async () => {
         <mob-footer> </mob-footer>
         <quick-nav name="quick_nav"></quick-nav>
         <route-loader></route-loader>
-        <animation-title name="animation_title"></animation-title>
         <scroll-down-label name="scroll_down_label"></scroll-down-label>
         <scroll-to-top name="scroll-to-top"></scroll-to-top>
         <links-mobjs></links-mobjs>

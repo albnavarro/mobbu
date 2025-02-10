@@ -11,10 +11,6 @@ import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import {
-    resetAnimationTitle,
-    updateAnimationTitle,
-} from '../../common/animationTitle/utils';
-import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../common/quickNav/utils';
@@ -126,15 +122,6 @@ export const HorizontalScrollerFn = ({
             color: 'white',
         });
 
-        /** Title */
-        updateAnimationTitle({
-            align: 'right',
-            title: animatePin
-                ? 'HorizontalScroller: smooth pin'
-                : 'HorizontalScroller: classic pin',
-            color: 'white',
-        });
-
         /**
          * Prevent landing at bottom of the page.
          */
@@ -183,7 +170,6 @@ export const HorizontalScrollerFn = ({
         return () => {
             destroy();
             resetQuickNavState();
-            resetAnimationTitle();
         };
     });
 

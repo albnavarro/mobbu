@@ -7,10 +7,6 @@
 
 import { mobCore } from '../../../../mobCore';
 import {
-    resetAnimationTitle,
-    updateAnimationTitle,
-} from '../../../common/animationTitle/utils';
-import {
     resetQuickNavState,
     updateQuickNavState,
 } from '../../../common/quickNav/utils';
@@ -30,7 +26,7 @@ export const ScrollerN0Fn = ({
     getRef,
     bindEffect,
 }) => {
-    const { prevRoute, nextRoute, title } = getState();
+    const { prevRoute, nextRoute } = getState();
     document.body.style.background = '#000000';
 
     onMount(() => {
@@ -42,13 +38,6 @@ export const ScrollerN0Fn = ({
             active: true,
             prevRoute,
             nextRoute,
-            color: 'white',
-        });
-
-        /** Title */
-        updateAnimationTitle({
-            align: 'left',
-            title,
             color: 'white',
         });
 
@@ -76,7 +65,6 @@ export const ScrollerN0Fn = ({
             destroyAnimation();
             deactivateScrollDownArrow();
             resetQuickNavState();
-            resetAnimationTitle();
             document.body.style.background = '';
         };
     });
