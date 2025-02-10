@@ -43,6 +43,7 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
     &__stagger {
         translate: 0 100%;
         margin: 0;
+        font-weight: 400;
     }
 
     &__content {
