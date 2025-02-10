@@ -1172,14 +1172,8 @@ code {
 }
 .l-index__logo svg {
   overflow: visible;
-  width: 100rem;
-  height: 33.3333333333rem;
-}
-@media (min-width: 75em) {
-  .l-index__logo svg {
-    width: 113.3333333333rem;
-    height: 53.3333333333rem;
-  }
+  width: min(1920px, 88.5416666667vw);
+  height: min(978.3439490446px, 41.6666666667vw);
 }
 .l-index__logo svg g {
   transform-origin: center;

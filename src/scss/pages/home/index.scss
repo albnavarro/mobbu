@@ -1,5 +1,7 @@
 @use '../../abstract' as *;
 
+$logo-max-height: calc(((1920 * 800) / 1570) * 1px);
+
 .l-index {
     height: calc(100vh - var(--header-height));
     display: flex;
@@ -22,13 +24,8 @@
 
         svg {
             overflow: visible;
-            width: rem(1200, xsmall);
-            height: rem(400, xsmall);
-
-            @include mq('large') {
-                width: rem(1700);
-                height: rem(800);
-            }
+            width: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
+            height: min($logo-max-height, calc(((800 * 100) / 1920) * 1vw));
 
             g {
                 transform-origin: center;

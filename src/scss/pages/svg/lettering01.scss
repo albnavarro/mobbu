@@ -1,12 +1,15 @@
 @use '../../abstract' as *;
 
-$max-height: calc(((1920 * 571) / 1570) * 1px);
+$lettering01-max-height: calc(((1920 * 571) / 1570) * 1px);
 
 .l-lettering01 {
     &__block {
         svg {
             width: min(1920px, calc(((1570 * 100) / 1920) * 1vw));
-            height: min($max-height, calc(((571 * 100) / 1920) * 1vw));
+            height: min(
+                $lettering01-max-height,
+                calc(((571 * 100) / 1920) * 1vw)
+            );
         }
     }
 }
