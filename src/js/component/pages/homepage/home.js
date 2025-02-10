@@ -95,6 +95,18 @@ export const HomeComponentFn = ({
                         </h6>
                     </div>
                 </a>
+                <a class="l-index__main__item" href="./#svg-overview">
+                    <div class="has-overflow">
+                        <h1 class="l-index__stagger" ${setRef('textStagger')}>
+                            <span>Gra</span>phics
+                        </h1>
+                    </div>
+                    <div class="has-overflow">
+                        <h6 class="l-index__stagger" ${setRef('textStagger')}>
+                            Vectorial illustration.
+                        </h6>
+                    </div>
+                </a>
             </div>
             <div
                 class="l-index__extras"
@@ -104,17 +116,10 @@ export const HomeComponentFn = ({
                 })}
             >
                 <h2>Extras</h2>
-                <a class="" href="./#svg-overview">
-                    <div class="l-index__extras__item">
-                        <h6>
-                            <span>Illustration</span>
-                        </h6>
-                    </div>
-                </a>
                 <a class="" href="./#canvas-overview">
                     <div class="l-index__extras__item">
                         <h6>
-                            <span>Canvas 2D</span>
+                            <span>Canvas 2D experiment</span>
                         </h6>
                     </div>
                 </a>
