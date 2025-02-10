@@ -1210,14 +1210,15 @@ code {
     padding-top: 4.6666666667rem;
   }
 }
+.l-index__content h1 span,
+.l-index__content h2 span {
+  display: inline;
+  color: #fff;
+}
 .l-index__content h1 {
   font-size: 2.6666666667rem;
   margin-right: 0.6666666667rem;
   font-weight: 600;
-}
-.l-index__content h1 span {
-  display: inline;
-  color: #fff;
 }
 .l-index__main {
   margin-bottom: 1.6rem;

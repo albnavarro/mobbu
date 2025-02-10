@@ -65,15 +65,18 @@
             padding-top: rem(70);
         }
 
-        h1 {
-            font-size: rem(40);
-            margin-right: rem(10);
-            font-weight: 600;
-
+        h1,
+        h2 {
             span {
                 display: inline;
                 color: $white;
             }
+        }
+
+        h1 {
+            font-size: rem(40);
+            margin-right: rem(10);
+            font-weight: 600;
         }
     }
 
