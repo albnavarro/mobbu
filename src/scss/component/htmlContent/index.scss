@@ -40,44 +40,7 @@
 
     /* stylelint-disable-next-line no-descending-specificity */
     li > a {
-        padding: rem(5) rem(10);
-        margin-bottom: rem(10);
-        margin-right: rem(10);
-        display: inline-block;
-        text-decoration: none;
-        min-width: rem(200);
-        color: $black;
-        text-align: center;
-        transition: background 0.35s;
-        font-size: rem(14);
-        background: transparent;
-        border: 1px $black solid;
-        position: relative;
-
-        @include when-inside('.c-code-overlay') {
-            background: $black;
-            color: $white;
-        }
-
-        &:hover {
-            background: $black;
-            color: $white;
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: transparent;
-            width: 10px;
-            height: 10px;
-            border-top: 7px solid transparent;
-            border-bottom: 7px solid transparent;
-            border-left: 7px solid $black;
-            rotate: -45deg;
-            transform-origin: top left;
-        }
+        @include button;
     }
 
     p,
@@ -95,30 +58,31 @@
         margin-bottom: rem(70);
         position: relative;
         overflow: hidden;
+        border-radius: rem(20);
 
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: calc(#{rem(18)} * -1);
-            background: transparent;
-            width: 60px;
-            height: 60px;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 10px solid $black;
-            rotate: -45deg;
-            transform-origin: top left;
+        .triangle-left {
+            svg {
+                position: absolute;
+                top: calc(#{rem(5)} * -1);
+                left: 0;
+                fill: $white;
+                width: rem(100);
+                height: rem(100);
+                z-index: -1;
+            }
         }
 
-        svg {
-            position: absolute;
-            top: calc(#{rem(5)} * -1);
-            left: 0;
-            fill: $white;
-            width: rem(100);
-            height: rem(100);
-            z-index: -1;
+        .triangle-right {
+            svg {
+                position: absolute;
+                top: rem(15);
+                right: calc(#{rem(15)} * -1);
+                transform: rotateY(180deg) rotateX(180deg);
+                fill: $white;
+                width: rem(100);
+                height: rem(100);
+                z-index: -1;
+            }
         }
     }
 

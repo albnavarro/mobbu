@@ -16,7 +16,8 @@ export const TitleFn = ({ html, getState }) => {
     const boldClass = isBold ? `is-bold` : '';
 
     return html`<${tag} class="mob-title ${colorClass} ${boldClass}">
-        <span>${shouldUseTrinagle(tag)}</span>
+        <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
+        <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
             <mobjs-slot></mobjs-slot>
         </${tag}>`;
 };

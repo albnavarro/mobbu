@@ -32,7 +32,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "Time-based:"
         },
@@ -59,7 +59,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "Based on a precision value:"
         },

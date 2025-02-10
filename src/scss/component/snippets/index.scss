@@ -9,7 +9,7 @@
         background-color: #2e3440;
         border: 1px rgba($white, 0.05) solid;
         padding: rem(30);
-        border-radius: rem(10);
+        border-radius: rem(20);
 
         &.is-full {
             @include mq('desktop') {
