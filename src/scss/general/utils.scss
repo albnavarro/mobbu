@@ -57,7 +57,7 @@
         left: calc(#{rem(2)} * -1);
         /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
         right: calc(#{rem(2)} * -1);
-        background: rgba($white, 0.8);
+        background: rgba($white, 0.5);
         z-index: -1;
         border-radius: rem(4);
     }

@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Repat represents the <span class='quote'>reactive</span> counterpart of array.map().<br/>Work on either <span class='quote'>native DOM</span> elements or <span class='quote'>components</span>."
+            "content": "Repat represents the reactive counterpart of array.map(). Work on either native DOM elements or components."
         },
         {
             "component": "mob-list",
