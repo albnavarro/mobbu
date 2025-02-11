@@ -95,7 +95,7 @@ export const LinksMobJsFn = ({
         navigationStore.watch('navigationIsOpen', (value) => {
             const { templateName } = getActiveRoute();
             if (!(templateName in templateData)) return;
-            setState('hide', !value);
+            setState('shift', value);
         });
 
         const unsubscribeRoute = afterRouteChange(
@@ -110,7 +110,7 @@ export const LinksMobJsFn = ({
                 setState('activeSection', route);
 
                 if (currentData.length > 0) {
-                    setState('hide', true);
+                    setState('hide', false);
 
                     /**
                      * Update scroller
@@ -141,7 +141,7 @@ export const LinksMobJsFn = ({
                 }
 
                 if (currentData.length === 0) {
-                    setState('hide', false);
+                    setState('hide', true);
                     destroy?.();
                     isActive = false;
                 }
@@ -162,8 +162,11 @@ export const LinksMobJsFn = ({
         class="c-params-mobjs"
         ${setRef('screenEl')}
         ${bindEffect({
-            bind: 'hide',
-            toggleClass: { active: () => getState().hide },
+            bind: ['hide', 'shift'],
+            toggleClass: {
+                hide: () => getState().hide,
+                shift: () => getState().shift,
+            },
         })}
     >
         <input

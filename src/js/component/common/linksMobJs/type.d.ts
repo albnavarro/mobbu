@@ -11,6 +11,7 @@ export interface LinksMobJs {
         data: { label: string; url: string; isLabel: boolean }[];
         activeSection: string;
         hide: boolean;
+        shift: boolean;
     };
     ref: {
         screenEl: HTMLElement;

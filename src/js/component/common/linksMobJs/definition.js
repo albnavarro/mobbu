@@ -42,5 +42,9 @@ export const LinksMobJs = createComponent({
             value: false,
             type: Boolean,
         }),
+        shift: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
 });
