@@ -54,21 +54,23 @@
 
     h1 {
         padding: rem(20);
-        border: 2px $black solid;
+        border: 2px $white solid;
         margin-bottom: rem(70);
         position: relative;
         overflow: hidden;
         border-radius: rem(20);
+        background: rgba($black, 0.05);
 
         .triangle-left {
+            position: absolute;
+            top: calc(#{rem(5)} * -1);
+            left: 0;
+            z-index: -1;
+
             svg {
-                position: absolute;
-                top: calc(#{rem(5)} * -1);
-                left: 0;
-                fill: $white;
                 width: rem(100);
                 height: rem(100);
-                z-index: -1;
+                fill: $white;
             }
         }
 
