@@ -3079,6 +3079,7 @@ code {
   position: absolute;
   top: 0;
   font-weight: 600;
+  white-space: nowrap;
 }
 .c-doc-title-small {
   margin-top: 1rem;
