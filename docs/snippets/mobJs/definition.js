@@ -1,4 +1,6 @@
 import { createComponent } from '../mobjs';
+import { ChildComponent1 } from '../childComponent1';
+import { ChildComponent2 } from '../childComponent2';
 import { MyComponentFn } from '../myComponent';
 
 export const MyComponent = createComponent({
@@ -13,7 +15,7 @@ export const MyComponent = createComponent({
      * ( object returned by createComponent() function )
      * It is necessary to load the dependencies before the application
      */
-    child: ['ChildComponent1', 'ChildComponent2'],
+    child: [ChildComponent1, ChildComponent2],
 
     /**
      * Optional
