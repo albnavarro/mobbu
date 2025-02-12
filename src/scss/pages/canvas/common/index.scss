@@ -51,8 +51,11 @@
         flex-direction: column;
         margin: 0;
         padding: 0;
-        background: $grey;
+        background: $black;
         z-index: 0;
+        border-left: 1px rgba($white, 0.1) solid;
+        border-top: 1px rgba($white, 0.1) solid;
+        border-bottom: 1px rgba($white, 0.1) solid;
 
         &__item {
             display: block;
@@ -71,7 +74,7 @@
             min-width: var(--header-height);
             border: 0;
             background: transparent;
-            color: $highlight;
+            color: $white;
             padding: rem(5) rem(20);
             transition: background 0.2s;
             width: 100%;
@@ -81,6 +84,7 @@
 
             &:hover {
                 background: $grey;
+                color: $black;
             }
         }
 

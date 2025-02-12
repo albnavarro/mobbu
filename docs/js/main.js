@@ -725,7 +725,7 @@ Loading snippet ...</pre
                 >
                     ${o}
                 </button>
-            </li>`}).join("")}var by=({onMount:e,html:t,getState:r,setState:o,setRef:n,getRef:s,bindEffect:i})=>{let{buttons:a,rotationDefault:c}=r();return document.body.style.background="#000000",e(({element:l})=>{let{canvas:p,rangeValue:m,rotationButton:h}=s();De({active:!0,prevRoute:"#caterpillarN1",nextRoute:"#animatedPatternN0?version=0&activeId=0",color:"black"});let g=gy({canvas:p,...r()}),{destroy:f,setRotation:b}=g;return Object.entries(a).forEach(([v,T])=>{let{method:x}=T;l.querySelector(`.${v}`)?.addEventListener("click",()=>g?.[x]())}),h.addEventListener("change",()=>{let v=h.value;b(Number(v)),m.textContent=v}),u.useFrame(()=>{o("isMounted",!0)}),()=>{Be(),document.body.style.background="",f()}}),t`
+            </li>`}).join("")}var by=({onMount:e,html:t,getState:r,setState:o,setRef:n,getRef:s,bindEffect:i})=>{let{buttons:a,rotationDefault:c}=r();return document.body.style.background="#000000",e(({element:l})=>{let{canvas:p,rangeValue:m,rotationButton:h}=s();De({active:!0,prevRoute:"#caterpillarN1",nextRoute:"#animatedPatternN0?version=0&activeId=0",color:"white"});let g=gy({canvas:p,...r()}),{destroy:f,setRotation:b}=g;return Object.entries(a).forEach(([v,T])=>{let{method:x}=T;l.querySelector(`.${v}`)?.addEventListener("click",()=>g?.[x]())}),h.addEventListener("change",()=>{let v=h.value;b(Number(v)),m.textContent=v}),u.useFrame(()=>{o("isMounted",!0)}),()=>{Be(),document.body.style.background="",f()}}),t`
         <div>
             <div class="c-canvas">
                 <div
