@@ -27,7 +27,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
                 ><div>
                     ${getBreadCrumbs({
                         breadCrumbs,
-                    })}${title}
+                    })}<span>${title}</span>
                 </div></doc-title-small
             >
             <scroll-to name="scrollTo" slot="section-links"></scroll-to>

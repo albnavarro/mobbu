@@ -26920,7 +26920,7 @@ Loading snippet ...</pre
   });
 
   // src/js/pages/Layout/utils.js
-  var getBreadCrumbs = ({ breadCrumbs }) => breadCrumbs.map((item) => renderHtml` <a href="${item.url}">${item.title}</a> / `).join("");
+  var getBreadCrumbs = ({ breadCrumbs }) => breadCrumbs.map((item) => renderHtml` <a href="${item.url}">${item.title}</a>`).join("");
 
   // src/js/pages/Layout/layoutSidebarAnchor.js
   useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
@@ -26940,7 +26940,7 @@ Loading snippet ...</pre
                 ><div>
                     ${getBreadCrumbs({
       breadCrumbs
-    })}${title}
+    })}<span>${title}</span>
                 </div></doc-title-small
             >
             <scroll-to name="scrollTo" slot="section-links"></scroll-to>

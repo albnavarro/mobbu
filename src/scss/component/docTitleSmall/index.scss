@@ -10,23 +10,18 @@
 
     a {
         color: $black;
-        transition: opacity 0.35s;
+        transition:
+            background 0.35s,
+            color 0.35s;
         position: relative;
-
-        &::after {
-            content: '';
-            left: 0;
-            height: 2px;
-            width: 100%;
-            background: $black;
-            position: absolute;
-            bottom: calc(#{rem(4)} * -1);
-            opacity: 0.2;
-            transition: opacity 0.35s;
-        }
+        background: $white;
+        padding: em(2) em(10);
+        border-radius: em(20);
+        margin-right: rem(5);
 
         &:hover {
-            color: $black;
+            background: $black;
+            color: $white;
 
             &::after {
                 opacity: 1;
@@ -36,5 +31,10 @@
 
     span {
         color: $black;
+        transition: opacity 0.35s;
+        position: relative;
+        background: rgba($white, 0.4);
+        padding: em(2) em(10);
+        border-radius: em(20);
     }
 }

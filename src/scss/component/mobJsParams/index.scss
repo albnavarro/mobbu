@@ -6,7 +6,7 @@
     height: var(--links-height);
     overflow: hidden;
     position: fixed;
-    top: rem(160, large);
+    top: rem(130, large);
     left: calc(var(--doc-width) + #{rem(40)});
     z-index: 14;
     width: rem(250);
@@ -89,8 +89,8 @@
 
     &__scrollbar {
         position: absolute;
-        top: 0;
-        width: var(--links-height);
+        top: rem(20);
+        width: calc(var(--links-height) - #{rem(30)});
         left: rem(240);
         transform: rotate(90deg);
         transform-origin: left;
@@ -111,7 +111,7 @@
 
         &::-webkit-slider-runnable-track {
             background-color: rgba($grey, 0.3);
-            border-radius: 0;
+            border-radius: rem(10);
             height: rem(10);
             width: var(--thumb-width);
         }
@@ -121,16 +121,19 @@
             background-color: $white;
             height: rem(10);
             width: var(--thumb-width);
+            border-radius: rem(10);
         }
 
         &:focus::-webkit-slider-thumb {
             outline-offset: 0;
+            border-radius: rem(10);
         }
 
         &::-moz-range-track {
             background-color: rgba($grey, 0.3);
             border-radius: 0;
             height: rem(10);
+            border-radius: rem(10);
         }
 
         &::-moz-range-thumb {
@@ -139,10 +142,12 @@
             background-color: $white;
             height: rem(10);
             width: var(--thumb-width);
+            border-radius: rem(10);
         }
 
         &:focus::-moz-range-thumb {
             outline-offset: 0;
+            border-radius: rem(10);
         }
     }
 }
