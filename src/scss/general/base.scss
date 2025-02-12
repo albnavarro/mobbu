@@ -31,7 +31,7 @@
     }
 
     @include mq(large) {
-        --doc-width: #{rem(950, large)};
+        --doc-width: #{rem(900, large)};
     }
 
     @include mq(xlarge) {

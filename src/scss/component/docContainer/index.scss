@@ -3,6 +3,7 @@
 .c-doc-container {
     padding-bottom: var(--footer-height);
     display: flex;
+    position: relative;
 
     &__content {
         flex: auto;
@@ -56,6 +57,8 @@
         align-self: start;
         height: calc(100vh - var(--header-height) - var(--footer-height));
         flex: 0 0 auto;
+        overflow: hidden;
+        min-width: rem(250);
 
         @include mq('large') {
             display: block;

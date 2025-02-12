@@ -1,6 +1,8 @@
 //@ts-check
 
 import { bodyScroll } from '../../../mobMotion/plugin';
+import { navigationStore } from '../../layout/navigation/store/navStore';
+import { sideBarTriangles } from './triangles';
 
 /**
  * @import { MobComponent } from '../../../mobjs/type';
@@ -13,9 +15,25 @@ export const ScrollToTopFn = ({
     delegateEvents,
     bindEffect,
     getState,
+    bindStore,
 }) => {
+    bindStore(navigationStore);
+
     return html`
-        <div class="scroll-to-top">
+        <div
+            class="scroll-to-top"
+            ${bindEffect({
+                bind: ['active', 'navigationIsOpen'],
+                toggleClass: {
+                    active: () => {
+                        return (
+                            getState().active && !getState().navigationIsOpen
+                        );
+                    },
+                    shift: () => getState().navigationIsOpen,
+                },
+            })}
+        >
             <button
                 type="button"
                 class="scroll-to-top__button"
@@ -24,11 +42,8 @@ export const ScrollToTopFn = ({
                         bodyScroll.to(0);
                     },
                 })}
-                ${bindEffect({
-                    bind: 'active',
-                    toggleClass: { active: () => getState().active },
-                })}
             ></button>
+            <div class="scroll-to-top__triangles">${sideBarTriangles}</div>
         </div>
     `;
 };
