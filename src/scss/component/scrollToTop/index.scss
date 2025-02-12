@@ -64,13 +64,5 @@
             transform: translate(-50%, -25%) rotate(-45deg);
             transition: border-color 0.35s;
         }
-
-        &:hover {
-            background: $white;
-
-            &::after {
-                border-color: $black;
-            }
-        }
     }
 }

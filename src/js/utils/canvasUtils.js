@@ -1,6 +1,6 @@
 // @ts-check
 
-export const canvasBackground = '#000000';
+export const canvasBackground = '#e8e8e8';
 
 /**
  * @param {object} params

@@ -38,7 +38,7 @@ export const CaterpillarN0 = createComponent({
         height: 30,
         radius: 0,
         fill: '',
-        stroke: '#fff',
+        stroke: '#000',
         opacity: 0.05,
         spacerY: (/** @type {any} */ condition) => (condition ? 300 : -400),
         intialRotation: 33,

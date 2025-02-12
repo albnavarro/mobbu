@@ -6,6 +6,7 @@
  **/
 
 import { mobCore } from '../../../../mobCore';
+import { canvasBackground } from '../../../../utils/canvasUtils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -23,7 +24,7 @@ export const AnimatedPatternN0Fn = ({
     bindEffect,
 }) => {
     const { prevRoute, nextRoute } = getState();
-    document.body.style.background = '#000000';
+    document.body.style.background = canvasBackground;
 
     onMount(() => {
         const { canvas } = getRef();
@@ -33,7 +34,7 @@ export const AnimatedPatternN0Fn = ({
             active: true,
             prevRoute,
             nextRoute,
-            color: 'white',
+            color: 'black',
         });
 
         const destroyAnimation = animatedPatternN0Animation({

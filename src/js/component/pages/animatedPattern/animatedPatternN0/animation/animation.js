@@ -172,12 +172,12 @@ export const animatedPatternN0Animation = ({
                 );
 
                 if (hasFill) {
-                    context.fillStyle = '#fff';
-                    context.fill();
-                } else {
                     context.fillStyle = '#000';
                     context.fill();
-                    context.strokeStyle = '#333';
+                } else {
+                    context.fillStyle = '#fff';
+                    context.fill();
+                    context.strokeStyle = '#ccc';
                     context.stroke();
                 }
 

@@ -6,6 +6,7 @@
  **/
 
 import { mobCore } from '../../../../mobCore';
+import { canvasBackground } from '../../../../utils/canvasUtils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -26,7 +27,7 @@ export const ScrollerN1Fn = ({
     getRef,
     bindEffect,
 }) => {
-    document.body.style.background = '#000000';
+    document.body.style.background = canvasBackground;
 
     onMount(() => {
         /** Show scroll down label. */
@@ -37,7 +38,7 @@ export const ScrollerN1Fn = ({
             active: true,
             prevRoute: '#scrollerN0?version=4&activeId=4',
             nextRoute: '',
-            color: 'white',
+            color: 'black',
         });
 
         /**

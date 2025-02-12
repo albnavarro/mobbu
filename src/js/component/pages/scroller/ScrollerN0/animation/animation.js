@@ -207,13 +207,16 @@ export const scrollerN0Animation = ({
                 }
 
                 if (hasFill) {
-                    context.fillStyle = '#fff';
-                    context.fill();
-                } else {
                     context.fillStyle = '#000';
                     context.fill();
-                    context.strokeStyle = '#333';
-                    context.stroke();
+                } else {
+                    context.fillStyle = '#fff';
+                    context.fill();
+
+                    if (!useRadius) {
+                        context.strokeStyle = '#ccc';
+                        context.stroke();
+                    }
                 }
 
                 /**

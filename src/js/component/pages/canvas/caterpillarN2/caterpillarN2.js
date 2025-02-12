@@ -7,6 +7,7 @@
 
 import { mobCore } from '../../../../mobCore';
 import { html } from '../../../../mobjs';
+import { canvasBackground } from '../../../../utils/canvasUtils';
 import {
     resetQuickNavState,
     updateQuickNavState,
@@ -46,7 +47,7 @@ export const CaterpillarN2Fn = ({
     bindEffect,
 }) => {
     const { buttons, rotationDefault } = getState();
-    document.body.style.background = '#000000';
+    document.body.style.background = canvasBackground;
 
     onMount(({ element }) => {
         const { canvas, rangeValue, rotationButton } = getRef();
@@ -56,7 +57,7 @@ export const CaterpillarN2Fn = ({
             active: true,
             prevRoute: '#caterpillarN1',
             nextRoute: '#animatedPatternN0?version=0&activeId=0',
-            color: 'white',
+            color: 'black',
         });
 
         /**
