@@ -15,18 +15,20 @@ export const ScrollToTopFn = ({
     getState,
 }) => {
     return html`
-        <button
-            type="button"
-            class="scroll-to-top"
-            ${delegateEvents({
-                click: () => {
-                    bodyScroll.to(0);
-                },
-            })}
-            ${bindEffect({
-                bind: 'active',
-                toggleClass: { active: () => getState().active },
-            })}
-        ></button>
+        <div class="scroll-to-top">
+            <button
+                type="button"
+                class="scroll-to-top__button"
+                ${delegateEvents({
+                    click: () => {
+                        bodyScroll.to(0);
+                    },
+                })}
+                ${bindEffect({
+                    bind: 'active',
+                    toggleClass: { active: () => getState().active },
+                })}
+            ></button>
+        </div>
     `;
 };

@@ -57,10 +57,10 @@
         align-self: start;
         height: calc(100vh - var(--header-height) - var(--footer-height));
         overflow: hidden;
+        flex: 0 0 auto;
 
         @include mq('large') {
             display: block;
-            width: auto;
         }
     }
 }
