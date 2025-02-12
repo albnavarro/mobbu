@@ -36,12 +36,12 @@
     transition: opacity 0.55s;
 
     &--next {
-        right: rem(20);
+        right: rem(40);
         transform: rotate(-90deg);
     }
 
     &--prev {
-        right: rem(70);
+        right: rem(90);
         transform: rotate(90deg);
     }
 

@@ -768,7 +768,7 @@ code {
   transform: translateY(-50%);
   width: 1px;
   height: 10px;
-  background: rgba(131, 135, 162, 0.5);
+  background: #656566;
 }
 .footer-nav__button:hover,
 .footer-nav__button.current {
@@ -1290,9 +1290,9 @@ code {
 }
 .c-canvas__controls {
   position: absolute;
-  top: 0;
-  left: calc(100vw - 20rem);
-  width: 20rem;
+  top: 2.6666666667rem;
+  left: calc(100vw - 22rem);
+  width: 16.6666666667rem;
   height: 100%;
   list-style: none;
   display: flex;
@@ -1300,43 +1300,56 @@ code {
   flex-direction: column;
   margin: 0;
   padding: 0;
-  background: #dedede;
   z-index: 0;
-  border-left: 1px rgba(255, 255, 255, 0.1) solid;
-  border-top: 1px rgba(255, 255, 255, 0.1) solid;
-  border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
 }
 .c-canvas__controls__item {
   display: block;
   flex: 0 0 auto;
-  border-bottom: 1px rgba(0, 0, 0, 0.05) solid;
   width: 100%;
   text-align: center;
 }
 .c-canvas__controls__item:last-of-type {
   border-bottom: 0;
 }
-.c-canvas__controls__btn,
-.c-canvas__controls__label {
+.c-canvas__controls__item.is-like-button {
+  background: #fff;
+  padding: 0.3333333333rem 1.3333333333rem;
+  border-radius: 1.3333333333rem;
+  margin-top: 0.3333333333rem;
+  margin-bottom: 0.3333333333rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6666666667rem;
+}
+.c-canvas__controls__btn {
   min-width: var(--header-height);
   border: 0;
-  background: transparent;
+  background: #fff;
   color: #000;
   padding: 0.3333333333rem 1.3333333333rem;
   transition: background 0.2s;
   width: 100%;
-  text-align: left;
   font-size: 0.9333333333rem;
   display: block;
+  border-radius: 1.3333333333rem;
+  margin-top: 0.3333333333rem;
+  margin-bottom: 0.3333333333rem;
+  text-align: center;
 }
-.c-canvas__controls__btn:hover,
-.c-canvas__controls__label:hover {
-  background: #eee;
-  color: #000;
+.c-canvas__controls__btn:hover {
+  background: #000;
+  color: #fff;
+}
+.c-canvas__controls__label {
+  font-size: 0.9333333333rem;
+  font-weight: 400;
+  margin-bottom: 0;
 }
 .c-canvas__controls__range {
   position: relative;
   pointer-events: none;
+  width: 6.6666666667rem;
+  margin: auto;
 }
 .c-canvas__controls__range::after {
   content: "";
@@ -3380,11 +3393,11 @@ code {
   transition: opacity 0.55s;
 }
 .c-quick-nav--next {
-  right: 1.3333333333rem;
+  right: 2.6666666667rem;
   transform: rotate(-90deg);
 }
 .c-quick-nav--prev {
-  right: 4.6666666667rem;
+  right: 6rem;
   transform: rotate(90deg);
 }
 .c-quick-nav.is-disable {

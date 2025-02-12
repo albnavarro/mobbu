@@ -29644,9 +29644,9 @@ Loading snippet ...</pre
                 >
                     <ul class="c-canvas__controls">
                         ${getControls({ buttons: buttons4 })}
-                        <li class="c-canvas__controls__item">
+                        <li class="c-canvas__controls__item is-like-button">
                             <label class="c-canvas__controls__label">
-                                change rotation:
+                                deg:
                                 <span
                                     class="js-range-value"
                                     ${setRef("rangeValue")}
