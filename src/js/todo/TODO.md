@@ -1,5 +1,43 @@
 # MobCore
 
+### Computed
+##### Initialization
+
+- Andrebbe valorizzato appena dopo essere stato chiamato.
+- Recuperare i valri delle chiavi.
+- Lanciare la funzione. ??
+- `set` con `emit=false` ( fireCallback ) ??
+- Ipotesi:
+
+```js
+
+computed: (prop, keys, callback) => {
+    storeComputedEntryPoint({
+        instanceId,
+        prop,
+        keys,
+        callback,
+    });
+
+    /**
+    * Get singoli valori delle keys
+    **/
+    value = callback({ ...keys }); // al posto delle keys servono i valori corrispondenti.
+    storeSetEntryPoint({
+        instanceId,
+        prop,
+        value,
+        fireCallback: false,
+        clone: false,
+        action: STORE_SET,
+    });
+},
+```
+
+##### Doc
+- Specificare che i `computed` devono essere inseriti nell' ordine giusto rispettando le gerarchia di dipendenza.
+- Questo sopratutto dopo aver implementato l' inizializzazione del `computed`.
+
 ### DOCS
 - Aggiungere i tipi allo store.
 
@@ -8,6 +46,12 @@
 - ( stringhe non referenze ).
 
 # MobJs
+
+
+## Props ( export props )
+- Prevedere che gli stati esportati all' interno del componente siano usati `readOnly`
+- Tenere conto del proxi.
+
 
 ## Repeat
 #### Use object
