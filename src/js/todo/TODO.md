@@ -1,9 +1,25 @@
 # MobCore
 
-##### Doc
-- Specificare che i `computed` devono essere inseriti nell' ordine giusto rispettando le gerarchia di dipendenza.
-- Questo sopratutto dopo aver implementato l' inizializzazione del `computed`.
+### Computed:
+- Inibire `set/quickSetProp/update/proxi ( get )` quando la prop é un `computed`.
 
+```js
+// Example.
+
+set: (prop, value, { emit = true } = {}) => {
+    /**
+     * ( if prop is computed ) return;
+     */
+    storeSetEntryPoint({
+        instanceId,
+        prop,
+        value,
+        fireCallback: emit ?? true,
+        clone: false,
+        action: STORE_SET,
+    });
+},
+```
 
 ### DOCS
 - Aggiungere i tipi allo store.
