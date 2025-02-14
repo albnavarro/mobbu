@@ -4,9 +4,6 @@
 ##### Initialization
 
 - Andrebbe valorizzato appena dopo essere stato chiamato.
-- Recuperare i valri delle chiavi.
-- Lanciare la funzione. ??
-- `set` con `emit=false` ( fireCallback ) ??
 - Ipotesi:
 
 ```js
@@ -20,14 +17,24 @@ computed: (prop, keys, callback) => {
     });
 
     /**
-    * Get singoli valori delle keys
+    * Estrapolare in una funzione entryPoint appostita.
+    * tipo `InitializeComputed`
+    */
+
+    /**
+    * Get singoli valori delle keys,
+    * Le keys possono essere anche di bindedStore
+    * prop: internal.
+    * prop2: da uno store binded
+    *
+    * const keyObject = { prop:0, prop2:1 };
     **/
-    value = callback({ ...keys }); // al posto delle keys servono i valori corrispondenti.
+    const value = callback(keyObject); // al posto delle keys servono i valori corrispondenti.
     storeSetEntryPoint({
         instanceId,
         prop,
         value,
-        fireCallback: false,
+        fireCallback: false, // important
         clone: false,
         action: STORE_SET,
     });
@@ -37,6 +44,7 @@ computed: (prop, keys, callback) => {
 ##### Doc
 - Specificare che i `computed` devono essere inseriti nell' ordine giusto rispettando le gerarchia di dipendenza.
 - Questo sopratutto dopo aver implementato l' inizializzazione del `computed`.
+
 
 ### DOCS
 - Aggiungere i tipi allo store.

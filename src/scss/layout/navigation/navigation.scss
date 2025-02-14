@@ -23,6 +23,11 @@
         padding: rem(10) rem(20);
         background: $black;
         color: $white;
+        transition: background 0.35s;
+
+        &.active {
+            background: $color-contrast;
+        }
     }
 
     &__link {
@@ -130,7 +135,7 @@
                 top: 0;
                 bottom: 0;
                 width: rem(5);
-                background: $highlight;
+                background: $black;
                 transform-origin: right;
                 transition: transform 0.55s;
                 z-index: 1;

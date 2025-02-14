@@ -32,10 +32,6 @@ export const HeaderFn = ({
         setState('isNotHome', route !== 'home');
     });
 
-    navigationStore.watch('navigationIsOpen', (val) => {
-        setState('infoIsOpen', val);
-    });
-
     return html`
         <header class="l-header">
             <div class="l-header__container">
@@ -78,15 +74,6 @@ export const HeaderFn = ({
                     <div class="l-header__utils">
                         <mob-header-nav></mob-header-nav>
                     </div>
-                </div>
-                <div
-                    class="l-header__navinfo"
-                    ${bindEffect({
-                        bind: 'infoIsOpen',
-                        toggleClass: { open: () => getState().infoIsOpen },
-                    })}
-                >
-                    <p class="p--small"></p>
                 </div>
             </div>
         </header>

@@ -44,6 +44,7 @@ export const initNavigationScoller = ({ root }) => {
         const currentSection = document.querySelector(
             `[data-sectionname='${section}']`
         );
+
         if (!currentSection) return;
 
         const header = document.querySelector('.l-header');
@@ -53,10 +54,8 @@ export const initNavigationScoller = ({ root }) => {
             (100 * currentSection.offsetTop) /
             (navHeight - window.innerHeight + headerHeight);
 
-        /**
-         * Clap value to 100;
-         */
-        const maxValue = Math.min(percent, 100);
+        const maxValue = percent;
+
         navScroller.move(maxValue);
     });
 

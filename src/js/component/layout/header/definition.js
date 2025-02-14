@@ -25,10 +25,6 @@ export const Header = createComponent({
     name: 'mob-header',
     component: HeaderFn,
     state: {
-        infoIsOpen: () => ({
-            value: false,
-            type: Boolean,
-        }),
         isNotHome: () => ({
             value: false,
             type: Boolean,

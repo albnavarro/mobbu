@@ -17,6 +17,7 @@ export interface NavigationLabel {
     state: {
         label: string;
         sectioName: string;
+        activeNavigationSection: string;
     };
 }
 

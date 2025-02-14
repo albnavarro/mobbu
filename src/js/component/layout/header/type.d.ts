@@ -1,6 +1,5 @@
 export interface Header {
     state: {
-        infoIsOpen: boolean;
         isNotHome: boolean;
     };
 }
