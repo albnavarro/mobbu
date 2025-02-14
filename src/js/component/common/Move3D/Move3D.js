@@ -47,7 +47,6 @@ export const Move3Dfn = ({
     let firstDrag = false;
     let pageCoord = { x: 0, y: 0 };
     let lastScrolledTop = 0;
-    let useScroll = proxiState.drag && proxiState.centerToViewoport;
     let unsubscribeTouchStart = NOOP;
     let unsubscribeTouchEnd = NOOP;
     let unsubscribeTouchDown = NOOP;
@@ -204,7 +203,9 @@ export const Move3Dfn = ({
 
     /** @type{() => void } */
     const addScrollListener = () => {
-        unsubscribeScroll = useScroll
+        unsubscribeScroll();
+
+        unsubscribeScroll = proxiState.useScroll
             ? mobCore.useScroll(({ scrollY }) => {
                   onScroll(scrollY);
               })
@@ -280,25 +281,16 @@ export const Move3Dfn = ({
         });
 
         /**
-         * Initial useScroll
-         */
-        watchSync('useScroll', (value) => {
-            unsubscribeScroll();
-
-            if (value) {
-                useScroll = value;
-                addScrollListener();
-            }
-        });
-
-        /**
-         * Update useScroll
+         * Set useScroll
          */
         computedSync(
             'useScroll',
             ['centerToViewoport', 'drag'],
             ({ drag, centerToViewoport }) => {
-                return !drag && !centerToViewoport;
+                const useScroll = !drag && !centerToViewoport;
+
+                if (useScroll) addScrollListener();
+                return useScroll;
             }
         );
 
@@ -351,8 +343,6 @@ export const Move3Dfn = ({
             pageCoord = null;
             // @ts-ignore
             lastScrolledTop = null;
-            // @ts-ignore
-            useScroll = null;
         };
     });
 
