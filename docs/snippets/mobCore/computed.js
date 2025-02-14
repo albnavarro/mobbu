@@ -1,4 +1,4 @@
-import { mobCore } from '../mobCore';
+import { mobCore } from '../../../src/js/mobCore';
 
 const myStore = mobCore.createStore({
     prop: 0,
@@ -13,3 +13,5 @@ myStore.computed(
         return dependency1 + dependency2;
     }
 );
+
+console.log(myStore.get().prop); // 3

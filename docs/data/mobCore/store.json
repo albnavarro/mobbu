@@ -575,7 +575,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Listen to the changing data and return the unsubcribe function."
+            "content": "Listen to the changing data and return the unsubscribe function."
         },
         {
             "component": "mob-snippet",
@@ -701,13 +701,56 @@
             "content": "Update properties value if some dependency ( store props) change.<br/> Computed functions are resolved on the javascript loop.<br/> If multiple dependencies change at the same time, the computed will be resolved only once."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The initial value of computed will be calculated after initialization based on the current dependencies values, on the first initialization no callback will be launched"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Default computed"
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobCore/computed.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 15
+                "numLines": 17
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Cascade computed"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobCore/computedMulti.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 19
             }
         },
         {
