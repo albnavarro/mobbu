@@ -721,7 +721,7 @@ export const storeComputedEntryPoint = ({
     callback,
 }) => {
     /**
-     * Valoreize computed first timw without callback.
+     * Valorize computed first time without callback.
      */
     const stateAfterComputedInitialition = initializeCompuntedProp({
         instanceId,
@@ -732,7 +732,7 @@ export const storeComputedEntryPoint = ({
     if (!stateAfterComputedInitialition) return;
 
     /**
-     * Update  callBackComputed
+     * Update callBackComputed.
      */
     const stateUpdated = storeComputedAction({
         state: stateAfterComputedInitialition,
