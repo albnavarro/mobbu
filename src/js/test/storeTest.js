@@ -13,7 +13,7 @@ export const storeTest = () => {
 
     /** @type{import('../mobCore/store/type').MobStore<import('./type').StoreTest>} */
     const storeTest = mobCore.createStore({
-        prop: 0,
+        prop: 1,
         myComputed: 0,
         myComputed2: 0,
         myComputed3: 0,
@@ -58,19 +58,35 @@ export const storeTest = () => {
         console.log('myComputed3', value);
     });
 
-    storeTest.computed('myComputed3', ['myComputed2'], () => {
-        return proxi.myComputed2 * 2;
+    storeTest.computed('myComputed', ['prop'], ({ prop }) => {
+        return prop * 2;
     });
 
-    storeTest.computed('myComputed2', ['myComputed'], () => {
-        return proxi.myComputed * 2;
+    storeTest.computed('myComputed2', ['myComputed'], ({ myComputed }) => {
+        return myComputed * 2;
     });
 
-    storeTest.computed('myComputed', ['prop'], () => {
-        return proxi.prop * 2;
-    });
+    storeTest.computed(
+        'myComputed3',
+        ['myComputed2', 'prop'],
+        ({ myComputed2, prop }) => {
+            return myComputed2 * 2 + prop;
+        }
+    );
+
+    /**
+     * Initial value
+     */
+    console.log('prop', proxi.prop);
+    console.log('myComputed first value', proxi.myComputed);
+    console.log('myComputed2 first value', proxi.myComputed2);
+    console.log('myComputed3 first value', proxi.myComputed3);
 
     storeTest.set('prop', 10);
     proxi.prop = 100;
     console.log('paperino', storeTest.getProp('prop'));
+
+    // setInterval(() => {
+    //     proxi.prop += 10;
+    // }, 1000);
 };
