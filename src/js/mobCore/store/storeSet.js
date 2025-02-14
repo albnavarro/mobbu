@@ -670,7 +670,6 @@ export const initializeCompuntedProp = ({
     const valuesObject = keys
         .map((key) => {
             if (key in store) return { [key]: store[key] };
-
             return;
         })
         .filter((item) => item !== undefined)
