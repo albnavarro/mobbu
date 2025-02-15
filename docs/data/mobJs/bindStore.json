@@ -57,6 +57,7 @@
                     "watchSync",
                     "bindText",
                     "binsProxi",
+                    "bindEffect",
                     "invalidate",
                     "repeat"
                 ]
