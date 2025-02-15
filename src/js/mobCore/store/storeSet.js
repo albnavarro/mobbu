@@ -609,9 +609,12 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
 
 /**
  * @param {import("./type").storeComputedAction} params
- * @returns {import("./type").storeMapValue|undefined}
+ * @returns {void}
  */
-export const storeComputedAction = ({ state, prop, keys, fn }) => {
+export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const { callBackComputed } = state;
 
     const hasCircularDependecies = [...callBackComputed].reduce(
@@ -636,10 +639,10 @@ export const storeComputedAction = ({ state, prop, keys, fn }) => {
         fn,
     });
 
-    return {
+    updateMainMap(instanceId, {
         ...state,
         callBackComputed,
-    };
+    });
 };
 
 /**
@@ -651,7 +654,7 @@ export const storeComputedAction = ({ state, prop, keys, fn }) => {
  * @param {string[]} param.keys
  * @param {string} param.prop
  * @param {(arg0: { [key: string]: any }) => void} param.callback
- * @returns {import('./type').storeMapValue|undefined}
+ * @returns {void}
  */
 export const initializeCompuntedProp = ({
     instanceId,
@@ -686,6 +689,7 @@ export const initializeCompuntedProp = ({
      * Update computed prop.
      * On initialization will not fire callback or computed prop.
      * Only update value
+     * This methods update storeMap itself.
      */
     storeSetEntryPoint({
         instanceId,
@@ -695,14 +699,6 @@ export const initializeCompuntedProp = ({
         clone: false,
         action: STORE_SET,
     });
-
-    const stateUpdated = getStateFromMainMap(instanceId);
-    if (!state) return;
-
-    /**
-     * return updated state
-     */
-    return stateUpdated;
 };
 
 /**
@@ -722,24 +718,20 @@ export const storeComputedEntryPoint = ({
     /**
      * Valorize computed first time without callback.
      */
-    const stateAfterComputedInitialition = initializeCompuntedProp({
+    initializeCompuntedProp({
         instanceId,
         prop,
         keys,
         callback,
     });
-    if (!stateAfterComputedInitialition) return;
 
     /**
      * Update callBackComputed.
      */
-    const stateUpdated = storeComputedAction({
-        state: stateAfterComputedInitialition,
+    storeComputedAction({
+        instanceId,
         prop,
         keys,
         fn: callback,
     });
-    if (!stateUpdated) return;
-
-    updateMainMap(instanceId, stateUpdated);
 };

@@ -22,7 +22,7 @@ import { STORE_SET, STORE_UPDATE } from './constant';
 import { getProxiEntryPoint } from './proxi';
 import { bindStoreEntryPoint } from './bindStore';
 import { destroyStoreEntryPoint } from './destroy';
-import { checkIfPropIsComputed } from './utils';
+import { checkIfPropIsComputed } from './storeUtils';
 
 /**
  * @param {import('./type').mobStoreBaseData} data

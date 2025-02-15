@@ -189,7 +189,7 @@ export interface storeComputed {
 }
 
 export interface storeComputedAction extends storeComputed {
-    state: storeMapValue;
+    instanceId: string;
 }
 
 export interface callbackQueue {

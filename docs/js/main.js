@@ -2185,6 +2185,20 @@
     }
     return value;
   };
+  var checkIfPropIsComputed = ({ instanceId, prop }) => {
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return false;
+    const { callBackComputed } = state;
+    const isComputed = [...callBackComputed].some(
+      ({ prop: currentProp }) => prop === currentProp
+    );
+    if (isComputed) {
+      console.warn(
+        `${prop} is used as computed, explicit set is disallowed.`
+      );
+    }
+    return isComputed;
+  };
 
   // src/js/mobCore/store/storeSet.js
   var setProp = ({
@@ -2501,7 +2515,9 @@
       useNextLoop(() => fireComputed(instanceId));
     }
   };
-  var storeComputedAction = ({ state, prop, keys, fn }) => {
+  var storeComputedAction = ({ instanceId, prop, keys, fn }) => {
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return;
     const { callBackComputed } = state;
     const hasCircularDependecies = [...callBackComputed].reduce(
       (previous, { prop: currentProp, keys: currentKeys }) => {
@@ -2518,10 +2534,10 @@
       keys,
       fn
     });
-    return {
+    updateMainMap(instanceId, {
       ...state,
       callBackComputed
-    };
+    });
   };
   var initializeCompuntedProp = ({
     instanceId,
@@ -2547,9 +2563,6 @@
       clone: false,
       action: STORE_SET
     });
-    const stateUpdated = getStateFromMainMap(instanceId);
-    if (!state) return;
-    return stateUpdated;
   };
   var storeComputedEntryPoint = ({
     instanceId,
@@ -2557,21 +2570,18 @@
     keys,
     callback: callback2
   }) => {
-    const stateAfterComputedInitialition = initializeCompuntedProp({
+    initializeCompuntedProp({
       instanceId,
       prop,
       keys,
       callback: callback2
     });
-    if (!stateAfterComputedInitialition) return;
-    const stateUpdated = storeComputedAction({
-      state: stateAfterComputedInitialition,
+    storeComputedAction({
+      instanceId,
       prop,
       keys,
       fn: callback2
     });
-    if (!stateUpdated) return;
-    updateMainMap(instanceId, stateUpdated);
   };
 
   // src/js/mobCore/store/initialValidation.js
@@ -2869,22 +2879,6 @@
   var storeDebugEntryPoint = ({ instanceId }) => {
     const state = getStateFromMainMap(instanceId);
     console.log(state);
-  };
-
-  // src/js/mobCore/store/utils.js
-  var checkIfPropIsComputed = ({ instanceId, prop }) => {
-    const state = getStateFromMainMap(instanceId);
-    if (!state) return false;
-    const { callBackComputed } = state;
-    const isComputed = [...callBackComputed].some(
-      ({ prop: currentProp }) => prop === currentProp
-    );
-    if (isComputed) {
-      console.warn(
-        `${prop} is used as computed, explicit set is disallowed.`
-      );
-    }
-    return isComputed;
   };
 
   // src/js/mobCore/store/proxi.js

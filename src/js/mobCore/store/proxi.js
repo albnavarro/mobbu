@@ -1,7 +1,7 @@
 import { STORE_SET } from './constant';
 import { storeMap, updateMainMap } from './storeMap';
 import { storeSetEntryPoint } from './storeSet';
-import { checkIfPropIsComputed } from './utils';
+import { checkIfPropIsComputed } from './storeUtils';
 
 /**
  * @description
