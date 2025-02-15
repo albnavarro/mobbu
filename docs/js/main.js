@@ -2814,7 +2814,7 @@
       storeEmit({ instanceId, prop });
       return;
     }
-    const currentBindId = [...bindInstance].find((id) => {
+    const currentBindId = [instanceId, ...bindInstance].find((id) => {
       const store = storeMap.get(id)?.store;
       return store && prop in store;
     }) ?? "";

@@ -59,7 +59,7 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
      * Emit prop from binded store
      */
     const currentBindId =
-        [...bindInstance].find((id) => {
+        [instanceId, ...bindInstance].find((id) => {
             const store = storeMap.get(id)?.store;
             return store && prop in store;
         }) ?? '';
