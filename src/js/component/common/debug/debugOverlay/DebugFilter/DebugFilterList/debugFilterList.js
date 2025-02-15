@@ -37,7 +37,9 @@ const initScroller = async ({ getRef }) => {
     };
 };
 
-const FAKE_REPLACMENT = '{{fake}}';
+const randomString = mobCore.getUnivoqueId();
+const getFakeReplacement = (/** @type{number} */ index) =>
+    `{{${randomString}${index}}}`;
 
 /**
  * @param {object} params
@@ -62,9 +64,9 @@ const getDataFiltered = ({ testString }) => {
              */
             const stringParseWithPlaceholder = stringParsed.reduce(
                 (previous, current, index) => {
-                    return previous.replace(
+                    return previous.replaceAll(
                         current,
-                        `${FAKE_REPLACMENT}--${index}`
+                        `${getFakeReplacement(index)}`
                     );
                 },
                 componentName
@@ -74,8 +76,8 @@ const getDataFiltered = ({ testString }) => {
              * Replace placeholder with real occurrence in original order.
              */
             return stringParsed.reduce((previous, current, index) => {
-                return previous.replace(
-                    `${FAKE_REPLACMENT}--${index}`,
+                return previous.replaceAll(
+                    `${getFakeReplacement(index)}`,
                     `<span class="match-string">${current}</span>`
                 );
             }, stringParseWithPlaceholder);

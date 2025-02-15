@@ -2,6 +2,9 @@
 
 - In `mobJs` con queste modifiche aggiungere ai `tipi` `computed` per `bloccare` i tentativi di `set` epliciti su un `computed`.
 
+#### Computed
+- Usare `{ immediate: true }` come default ?
+
 ### DOCS
 - Aggiungere i tipi allo store.
 
