@@ -104,7 +104,7 @@ export const mobStore = (data = {}) => {
             });
         },
         emit: (prop) => {
-            return storeEmitEntryPoint({ instanceId, prop });
+            storeEmitEntryPoint({ instanceId, prop });
         },
         emitAsync: async (prop) => {
             return storeEmitAsyncEntryPoint({ instanceId, prop });
