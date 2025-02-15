@@ -32,7 +32,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The default value will not be detected, the reactivity will start from the first mutation. To execute the callback as soon as the onMount function is launched before any mutation use the <a href='./#mobJs-watchSync'>watchSync</a> function"
+            "content": "The default value will not be detected, the reactivity will start from the first mutation."
         },
         {
             "component": "mob-paragraph",

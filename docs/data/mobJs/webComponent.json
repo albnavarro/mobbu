@@ -137,7 +137,6 @@
                     "<span class='quote'>unBind</span>: function",
                     "<span class='quote'>unFreezeProp</span>: function",
                     "<span class='quote'>watch</span>: function",
-                    "<span class='quote'>watchSync</span>: function",
                     "<span class='quote'>watchParent</span>: function"
                 ]
             }

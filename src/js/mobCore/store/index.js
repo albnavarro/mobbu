@@ -101,16 +101,26 @@ export const mobStore = (data = {}) => {
 
             storeQuickSetEntrypoint({ instanceId, prop, value });
         },
-        watch: (prop, callback, { wait = false } = {}) => {
-            return watchEntryPoint({ instanceId, prop, callback, wait });
+        watch: (prop, callback, { wait = false, immediate = false } = {}) => {
+            const unwatch = watchEntryPoint({
+                instanceId,
+                prop,
+                callback,
+                wait,
+            });
+
+            if (immediate) storeEmitEntryPoint({ instanceId, prop });
+            return unwatch;
         },
-        computed: (prop, keys, callback) => {
+        computed: (prop, keys, callback, { immediate = false } = {}) => {
             storeComputedEntryPoint({
                 instanceId,
                 prop,
                 keys,
                 callback,
             });
+
+            if (immediate) storeEmitEntryPoint({ instanceId, prop });
         },
         emit: (prop) => {
             storeEmitEntryPoint({ instanceId, prop });

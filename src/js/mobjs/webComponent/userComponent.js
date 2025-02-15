@@ -109,11 +109,6 @@ export const defineUserComponent = (componentList) => {
                 /**
                  * @type {(prop: string, callback: () => void) => void}
                  */
-                #watchSync;
-
-                /**
-                 * @type {(prop: string, callback: () => void) => void}
-                 */
                 #watchParent;
 
                 /**
@@ -218,7 +213,6 @@ export const defineUserComponent = (componentList) => {
                     this.#unBind = () => {};
                     this.#unFreezeProp = () => {};
                     this.#watch = () => {};
-                    this.#watchSync = () => {};
                     this.#watchParent = () => {};
                     this.#componentname = key;
 
@@ -425,7 +419,6 @@ export const defineUserComponent = (componentList) => {
                         unBind: this.#unBind,
                         unFreezeProp: this.#unFreezeProp,
                         watch: this.#watch,
-                        watchSync: this.#watchSync,
                         watchParent: this.#watchParent,
                     };
                 }
@@ -444,7 +437,6 @@ export const defineUserComponent = (componentList) => {
                     this.#unBind = () => {};
                     this.#unFreezeProp = () => {};
                     this.#watch = () => {};
-                    this.#watchSync = () => {};
                     this.#watchParent = () => {};
                 }
 
@@ -467,7 +459,6 @@ export const defineUserComponent = (componentList) => {
                     this.#unBind = data.unBind;
                     this.#unFreezeProp = data.unFreezeProp;
                     this.#watch = data.watch;
-                    this.#watchSync = data.watchSync;
                     this.#watchParent = data.watchParent;
                     this.#isPlaceholder = false;
 

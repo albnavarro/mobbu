@@ -122,7 +122,8 @@ export type PartialEmitAsync<T> = (
 export type PartialCompunted<T> = <K extends keyof GetState<T>>(
     prop: K,
     keys: NotValue<keyof GetState<T>, K>[],
-    callback: (arg0: GetState<T>) => GetState<T>[K]
+    callback: (arg0: GetState<T>) => GetState<T>[K],
+    options?: { immediate?: boolean }
 ) => void;
 
 /**
@@ -137,6 +138,7 @@ export type PartialWatch<T> = <K extends keyof GetState<T>>(
     ) => void,
     options?: {
         wait?: boolean;
+        immediate?: boolean;
     }
 ) => () => void;
 

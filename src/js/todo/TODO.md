@@ -2,10 +2,6 @@
 
 - In `mobJs` con queste modifiche aggiungere ai `tipi` `computed` per `bloccare` i tentativi di `set` epliciti su un `computed`.
 
-### Watch/Computed
-- Prevedere la propietá `{ immediate = true }` per lanciare un emit
-- Eliminare di conseguenza `watchSync` e `computedSync` da mobJs.
-
 ### DOCS
 - Aggiungere i tipi allo store.
 

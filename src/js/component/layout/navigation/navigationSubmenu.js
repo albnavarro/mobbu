@@ -48,7 +48,7 @@ export const NavigationSubmenuFn = ({
     updateState,
     staticProps,
     bindProps,
-    watchSync,
+    watch,
     setRef,
     getRef,
 }) => {
@@ -64,27 +64,34 @@ export const NavigationSubmenuFn = ({
         slide.subscribe(content);
         slide.reset(content);
 
-        watchSync('isOpen', async (isOpen) => {
-            const action = isOpen ? 'down' : 'up';
-            await slide[action](content);
+        watch(
+            'isOpen',
+            async (isOpen) => {
+                const action = isOpen ? 'down' : 'up';
+                await slide[action](content);
 
-            /** @type{UseMethodByName<NavigationContainer>} */
-            const navContainerMethods = useMethodByName('navigation-container');
-            navContainerMethods?.refresh();
+                /** @type{UseMethodByName<NavigationContainer>} */
+                const navContainerMethods = useMethodByName(
+                    'navigation-container'
+                );
+                navContainerMethods?.refresh();
 
-            if (isOpen) return;
+                if (isOpen) return;
 
-            /**
-             * When accordion is closed form element itSelf
-             * Need to reset currentAccordionId without fire callback.
-             */
+                /**
+                 * When accordion is closed form element itSelf
+                 * Need to reset currentAccordionId without fire callback.
+                 */
 
-            /** @type{UseMethodByName<Navigation>} */
-            const mainNavigationMethods = useMethodByName('main_navigation');
-            mainNavigationMethods?.closeAllAccordion({
-                fireCallback: false,
-            });
-        });
+                /** @type{UseMethodByName<Navigation>} */
+                const mainNavigationMethods =
+                    useMethodByName('main_navigation');
+                mainNavigationMethods?.closeAllAccordion({
+                    fireCallback: false,
+                });
+            },
+            { immediate: true }
+        );
 
         return () => {};
     });

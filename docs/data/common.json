@@ -90,18 +90,8 @@
                 "isLabel": false
             },
             {
-                "label": "computedSync",
-                "url": "mobJs-computed-sync",
-                "isLabel": false
-            },
-            {
                 "label": "watch",
                 "url": "mobJs-watch",
-                "isLabel": false
-            },
-            {
-                "label": "watchSync",
-                "url": "mobJs-watchSync",
                 "isLabel": false
             },
             {
@@ -414,19 +404,9 @@
                     "url": "mobJs-computed"
                 },
                 {
-                    "label": "computedSync",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-computed-sync"
-                },
-                {
                     "label": "watch",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-watch"
-                },
-                {
-                    "label": "watchSync",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-watchSync"
                 },
                 {
                     "label": "staticProps",

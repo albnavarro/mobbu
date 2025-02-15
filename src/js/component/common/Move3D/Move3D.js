@@ -16,8 +16,8 @@ export const Move3Dfn = ({
     html,
     setRef,
     getRef,
-    watchSync,
-    computedSync,
+    watch,
+    computed,
     invalidate,
     getProxi,
     bindEffect,
@@ -244,46 +244,52 @@ export const Move3Dfn = ({
             }));
         });
 
-        watchSync('drag', (value) => {
-            unsubscribeTouchMove();
-            unsubscribeTouchUp();
-            unsubscribeTouchDown();
-            unsubscribeTouchEnd();
-            unsubscribeTouchStart();
+        watch(
+            'drag',
+            (value) => {
+                unsubscribeTouchMove();
+                unsubscribeTouchUp();
+                unsubscribeTouchDown();
+                unsubscribeTouchEnd();
+                unsubscribeTouchStart();
 
-            if (value) {
-                dragX = window.innerWidth / 2;
-                dragY = window.innerHeight / 2;
+                if (value) {
+                    dragX = window.innerWidth / 2;
+                    dragY = window.innerHeight / 2;
 
-                unsubscribeTouchStart = mobCore.useTouchStart(({ page }) => {
-                    onMouseDown({ page });
-                });
+                    unsubscribeTouchStart = mobCore.useTouchStart(
+                        ({ page }) => {
+                            onMouseDown({ page });
+                        }
+                    );
 
-                unsubscribeTouchEnd = mobCore.useTouchEnd(() => {
-                    onMouseUp();
-                });
+                    unsubscribeTouchEnd = mobCore.useTouchEnd(() => {
+                        onMouseUp();
+                    });
 
-                unsubscribeTouchDown = mobCore.useMouseDown(({ page }) => {
-                    onMouseDown({ page });
-                });
+                    unsubscribeTouchDown = mobCore.useMouseDown(({ page }) => {
+                        onMouseDown({ page });
+                    });
 
-                unsubscribeTouchUp = mobCore.useMouseUp(() => {
-                    onMouseUp();
-                });
+                    unsubscribeTouchUp = mobCore.useMouseUp(() => {
+                        onMouseUp();
+                    });
 
-                unsubscribeTouchMove = mobCore.useTouchMove(({ page }) => {
-                    pageCoord = { x: page.x, y: page.y };
-                    onMove();
-                });
+                    unsubscribeTouchMove = mobCore.useTouchMove(({ page }) => {
+                        pageCoord = { x: page.x, y: page.y };
+                        onMove();
+                    });
 
-                return;
-            }
-        });
+                    return;
+                }
+            },
+            { immediate: true }
+        );
 
         /**
          * Set useScroll
          */
-        computedSync(
+        computed(
             'useScroll',
             ['centerToViewoport', 'drag'],
             ({ drag, centerToViewoport }) => {
@@ -291,7 +297,8 @@ export const Move3Dfn = ({
 
                 if (useScroll) addScrollListener();
                 return useScroll;
-            }
+            },
+            { immediate: true }
         );
 
         mobCore.useNextLoop(() => {

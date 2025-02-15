@@ -55,7 +55,6 @@ export type ProxiState<T> = PartialGetProxiState<T>;
 export type Emit<T> = PartialEmit<T>;
 export type EmitAsync<T> = PartialEmitAsync<T>;
 export type Computed<T> = PartialCompunted<T>;
-export type ComputedSync<T> = PartialCompunted<T>;
 export type Watch<T> = PartialWatch<T>;
 export type BindStore = PartialBindStore;
 export type RemoveDom = PartialRemoveDOM;
@@ -222,37 +221,6 @@ export interface componentPropsType<T, R> {
     computed: Computed<T>;
 
     /**
-     *
-     * @description
-     * Update propierties value if some dependency change.
-     * Computed functions are resolved on the nextTick.
-     * If multiple dependencies change at the same time, the computed will be resolved only once.
-     * computedSync is executed once before there is a dependency mutation
-     *
-     * @example
-     * ```javascript
-     *
-     * computed('prop', ['prop1', 'prop2'], (val1, val2) => {
-     *     return val1 + val2;
-     * });
-     *
-     * computed('prop', ['objectProp'], (obj) => {
-     *      return obj.val1 + obj.val2;
-     * })
-     *
-     * computed('objectProp', ['prop1', 'prop2'], (val1, val2) => {
-     *     return { sum: val1 + val2 };
-     * });
-     *
-     * computed('objectProp', ['objectProp1'], (obj) => {
-     *     return { sum: obj.val1 + obj.val2 };
-     * });
-     *
-     * ```
-     */
-    computedSync: ComputedSync<T>;
-
-    /**
      * @description
      * Watch state change.
      *
@@ -284,23 +252,6 @@ export interface componentPropsType<T, R> {
      *
      */
     bindStore: PartialBindStore;
-
-    /**
-     * @description
-     * Watch state change and fire one callback after initialization.
-     *
-     * @example
-     * ```javascript
-     *
-     * const unsubscribe =  watchSync('myprop', (newval, oldval, validate) => {
-     *      // code
-     * })
-     * unsubscribe();
-     *
-     * ```
-     *
-     */
-    watchSync: Watch<T>;
 
     /**
      * @description
@@ -786,7 +737,6 @@ interface WebComponentParmas {
     unBind: (arg0: { id: string }) => void;
     unFreezeProp(prop: string): void;
     watch(prop: string, callback: () => void): void;
-    watchSync(prop: string, callback: () => void): void;
     watchParent(prop: string, callback: () => void): void;
 }
 

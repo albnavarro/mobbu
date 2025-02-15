@@ -54,7 +54,6 @@
                     "getState",
                     "getProxi",
                     "watch",
-                    "watchSync",
                     "bindText",
                     "binsProxi",
                     "bindEffect",

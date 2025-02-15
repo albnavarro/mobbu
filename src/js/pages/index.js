@@ -398,16 +398,6 @@ export const routes = [
         },
     },
     {
-        name: 'mobJs-watchSync',
-        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
-        layout: layoutSidebarLinks,
-        props: {
-            source: './data/mobJs/watchSync.json',
-            title: 'watchSync',
-            breadCrumbs: mobJsComponentBreadCrumbs,
-        },
-    },
-    {
         name: 'mobJs-staticProps',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
@@ -584,16 +574,6 @@ export const routes = [
         props: {
             source: './data/mobJs/computed.json',
             title: 'computed',
-            breadCrumbs: mobJsComponentBreadCrumbs,
-        },
-    },
-    {
-        name: 'mobJs-computed-sync',
-        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
-        layout: layoutSidebarLinks,
-        props: {
-            source: './data/mobJs/computedSync.json',
-            title: 'computedSync',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },

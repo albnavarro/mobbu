@@ -137,19 +137,6 @@ export const getParamsForComponentFunction = ({
         getChildren: (/** @type{string} */ componentName) => {
             return getChildrenIdByName({ id, componentName });
         },
-        watchSync: (state, callback, options) => {
-            const unsubscribe = watch(state, callback, options);
-            emit(state);
-            return unsubscribe;
-        },
-        computedSync: (state, dependencies, callback) => {
-            const unsubscribe = computed(state, dependencies, callback);
-            dependencies.forEach((state) => {
-                emit(state);
-            });
-
-            return unsubscribe;
-        },
         /**
          * ts issue, prop coem as string\number\symbol, convert in string.
          */

@@ -96,13 +96,14 @@ export type quickSetPropType<T> = <K extends keyof T>(
 export type watchType<T> = <K extends keyof T>(
     prop: Extract<K, string>,
     callback: (current: T[K], previous: T[K], validate: validateState) => void,
-    options?: { wait?: boolean }
+    options?: { wait?: boolean; immediate?: boolean }
 ) => () => void;
 
 export type computedType<T> = <K extends keyof T>(
     prop: Extract<K, string>,
     keys: Extract<keyof T, string>[],
-    callback: (arg0: T) => T[K]
+    callback: (arg0: T) => T[K],
+    options?: { immediate?: boolean }
 ) => void;
 
 export type emitType<T> = (props: Extract<keyof T, string>) => void;
