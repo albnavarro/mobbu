@@ -3,7 +3,7 @@ const unsubscribe = myStore.watch(
     (newValue, oldValue, validation) => {
         //
     },
-    { wait: true }
+    { wait: true, immediate: true }
 );
 
 // Remove watcher froms store.

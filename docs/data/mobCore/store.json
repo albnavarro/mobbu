@@ -600,14 +600,15 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<span class='quote'>wait: </span>&nbsp;Wait for the end of the current <span class='quote'>javascript loop</span> to execute the callback using the most recent value. This option only has effect if <span class='quote'>emit-async</span> is not used.</br> Default is <strong>false</strong>"
+                    "<span class='quote'>wait: </span>&nbsp;Wait for the end of the current javascript loop to execute the callback using the most recent value. This option only has effect if emit-async is not used.</br> Default is <strong>false</strong>",
+                    "<span class='quote'>immediate: </span>&nbsp;Executes the first callback immediately.</br> Default is <strong>false</strong>"
                 ]
             }
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobCore/watchWait.js",
+                "source": "./snippets/mobCore/watchProps.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -715,9 +716,26 @@
             "content": "Once a state property is used as computed it will no longer be possible to update it outside of the computed function."
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Computed Options: ( optional )"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "<span class='quote'>immediate: </span>&nbsp;Executes the first watch related callback immediately.</br> Default is <strong>false</strong>"
+                ]
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
