@@ -1,5 +1,6 @@
 # MobCore
 
+
 ### Computed:
 - Inibire `set/quickSetProp/update/proxi ( get )` quando la prop é un `computed`.
 - Usare un array temp per non fare un' altra operazione sulla mappa principale.
@@ -40,6 +41,8 @@ return {
     },
 ```
 
+- In `mobJs` con queste modifiche aggiungere ai `tipi` `computed` per `bloccare` i tentativi di `set` epliciti su un `computed`.
+
 ### DOCS
 - Aggiungere i tipi allo store.
 
@@ -48,7 +51,6 @@ return {
 - ( stringhe non referenze ).
 
 # MobJs
-
 
 ## Props ( export props )
 - Prevedere che gli stati esportati all' interno del componente siano usati `readOnly`
