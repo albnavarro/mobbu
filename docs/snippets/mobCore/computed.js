@@ -15,3 +15,5 @@ myStore.computed(
 );
 
 console.log(myStore.get().prop); // 3
+
+myStore.set('prop', 2); // Error
