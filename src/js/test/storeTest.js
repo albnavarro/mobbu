@@ -86,7 +86,7 @@ export const storeTest = () => {
     proxi.prop = 100;
     console.log('paperino', storeTest.getProp('prop'));
 
-    // setInterval(() => {
-    //     proxi.prop += 10;
-    // }, 1000);
+    setInterval(() => {
+        proxi.prop += 10;
+    }, 1000);
 };

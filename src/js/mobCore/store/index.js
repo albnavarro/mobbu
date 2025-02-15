@@ -22,6 +22,7 @@ import { STORE_SET, STORE_UPDATE } from './constant';
 import { getProxiEntryPoint } from './proxi';
 import { bindStoreEntryPoint } from './bindStore';
 import { destroyStoreEntryPoint } from './destroy';
+import { checkIfPropIsComputed } from './utils';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
@@ -66,6 +67,9 @@ export const mobStore = (data = {}) => {
             return storeGetPropEntryPoint({ instanceId, prop });
         },
         set: (prop, value, { emit = true } = {}) => {
+            const isComputed = checkIfPropIsComputed({ instanceId, prop });
+            if (isComputed) return;
+
             storeSetEntryPoint({
                 instanceId,
                 prop,
@@ -76,6 +80,9 @@ export const mobStore = (data = {}) => {
             });
         },
         update: (prop, value, { emit = true, clone = false } = {}) => {
+            const isComputed = checkIfPropIsComputed({ instanceId, prop });
+            if (isComputed) return;
+
             storeSetEntryPoint({
                 instanceId,
                 prop,
@@ -85,11 +92,13 @@ export const mobStore = (data = {}) => {
                 action: STORE_UPDATE,
             });
         },
-        // Use getProxi after add a proxi.
         getProxi: () => {
             return getProxiEntryPoint({ instanceId });
         },
         quickSetProp: (prop, value) => {
+            const isComputed = checkIfPropIsComputed({ instanceId, prop });
+            if (isComputed) return;
+
             storeQuickSetEntrypoint({ instanceId, prop, value });
         },
         watch: (prop, callback, { wait = false } = {}) => {

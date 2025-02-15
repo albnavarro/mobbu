@@ -1,46 +1,5 @@
 # MobCore
 
-
-### Computed:
-- Inibire `set/quickSetProp/update/proxi ( get )` quando la prop é un `computed`.
-- Usare un array temp per non fare un' altra operazione sulla mappa principale.
-
-```js
-const keyList = [];
-
-return {
-    ...
-
-
-    computed: (prop, keys, callback) => {
-        keyList = [...keyList, prop];
-
-        storeComputedEntryPoint({
-            instanceId,
-            prop,
-            keys,
-            callback,
-        });
-    },
-    set: (prop, value, { emit = true } = {}) => {
-        if(keyList.some((key) => key === prop)) return;
-        // Aggiungere un warning. fare una funzione.
-
-        storeSetEntryPoint({
-            instanceId,
-            prop,
-            value,
-            fireCallback: emit ?? true,
-            clone: false,
-            action: STORE_SET,
-        });
-    },
-    destroy: () => {
-        keyList = null;
-        destroyStoreEntryPoint(instanceId);
-    },
-```
-
 - In `mobJs` con queste modifiche aggiungere ai `tipi` `computed` per `bloccare` i tentativi di `set` epliciti su un `computed`.
 
 ### Watch/Computed
