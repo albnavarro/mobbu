@@ -23,6 +23,7 @@ import { getProxiEntryPoint } from './proxi';
 import { bindStoreEntryPoint } from './bindStore';
 import { destroyStoreEntryPoint } from './destroy';
 import { checkIfPropIsComputed } from './storeUtils';
+import { useNextLoop } from '../utils/nextTick';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
@@ -109,7 +110,12 @@ export const mobStore = (data = {}) => {
                 wait,
             });
 
-            if (immediate) storeEmitEntryPoint({ instanceId, prop });
+            if (immediate) {
+                useNextLoop(() => {
+                    storeEmitEntryPoint({ instanceId, prop });
+                });
+            }
+
             return unwatch;
         },
         computed: (prop, keys, callback, { immediate = false } = {}) => {
@@ -120,7 +126,11 @@ export const mobStore = (data = {}) => {
                 callback,
             });
 
-            if (immediate) storeEmitEntryPoint({ instanceId, prop });
+            if (immediate) {
+                useNextLoop(() => {
+                    storeEmitEntryPoint({ instanceId, prop });
+                });
+            }
         },
         emit: (prop) => {
             storeEmitEntryPoint({ instanceId, prop });
