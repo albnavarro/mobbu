@@ -11,6 +11,11 @@
     "footer": {
         "nav": [
             {
+                "label": "Home",
+                "url": "home",
+                "section": "home"
+            },
+            {
                 "label": "About",
                 "url": "about",
                 "section": "about"
