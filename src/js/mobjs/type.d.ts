@@ -736,22 +736,22 @@ export interface ComponentParsed<T> {
     constructorCallback?: (arg0: { context: object }) => void;
     connectedCallback?: (arg0: {
         context: object;
-        propierties: ComponentPropsType<T, T>;
+        params: ComponentPropsType<T, T>;
     }) => void;
     disconnectedCallback?: (arg0: {
         context: object;
-        propierties: ComponentPropsType<T, T>;
+        params: ComponentPropsType<T, T>;
     }) => void;
     adoptedCallback?: (arg0: {
         context: object;
-        propierties: ComponentPropsType<T, T>;
+        params: ComponentPropsType<T, T>;
     }) => void;
     attributeChangedCallback?: (arg0: {
         name: string;
         oldValue: string;
         newValue: string;
         context: object;
-        propierties: ComponentPropsType<T, T>;
+        params: ComponentPropsType<T, T>;
     }) => void;
     attributeToObserve?: string[];
     style?: string;

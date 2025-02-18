@@ -54,7 +54,7 @@ export const defineUserComponent = (componentList) => {
                 /**
                  * @type {import('../type').ComponentPropsType<import('../type').MobComponentMap, import('../type').MobComponentMap>}
                  */
-                #propierties;
+                #params;
 
                 /**
                  * @type {boolean}
@@ -147,7 +147,7 @@ export const defineUserComponent = (componentList) => {
                     this.active = false;
                     this.#componentId = mobCore.getUnivoqueId();
                     // @ts-ignore
-                    this.#propierties = {};
+                    this.#params = {};
                     this.#componentname = key;
 
                     // Default symbols without attribute
@@ -339,11 +339,11 @@ export const defineUserComponent = (componentList) => {
                     return this.#bindRefName;
                 }
 
-                resetPropierties() {
+                resetParams() {
                     this.active = false;
                     this.#componentId = '';
                     // @ts-ignore
-                    this.#propierties = {};
+                    this.#params = {};
                 }
 
                 /**
@@ -354,13 +354,13 @@ export const defineUserComponent = (componentList) => {
 
                     this.active = true;
                     this.#componentId = data.id;
-                    this.#propierties = data;
+                    this.#params = data;
                     this.#isPlaceholder = false;
 
                     // First connected callback when web-compoennt is initialzied
                     _connectedCallBack?.({
                         context: this,
-                        propierties: this.#propierties,
+                        params: this.#params,
                     });
                 }
 
@@ -379,16 +379,6 @@ export const defineUserComponent = (componentList) => {
                         if (!useQuery) addUserPlaceholder(host);
                         return;
                     }
-
-                    /**
-                     * Classic lifecycle of web component
-                     * Viene chiamata solo se é un placeholder ma poi skippa.
-                     */
-
-                    // _connectedCallBack?.({
-                    //     context: this,
-                    //     propierties: this.#propierties,
-                    // });
                 }
 
                 disconnectedCallback() {
@@ -404,10 +394,10 @@ export const defineUserComponent = (componentList) => {
 
                     _disconnectedCallback?.({
                         context: this,
-                        propierties: this.#propierties,
+                        params: this.#params,
                     });
 
-                    this.resetPropierties();
+                    this.resetParams();
                 }
 
                 removeCustomComponent() {
@@ -422,7 +412,7 @@ export const defineUserComponent = (componentList) => {
 
                     _adoptedCallback?.({
                         context: this,
-                        propierties: this.#propierties,
+                        params: this.#params,
                     });
                 }
 
@@ -442,7 +432,7 @@ export const defineUserComponent = (componentList) => {
                         oldValue,
                         newValue,
                         context: this,
-                        propierties: this.#propierties,
+                        params: this.#params,
                     });
                 }
             }
