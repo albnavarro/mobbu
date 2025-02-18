@@ -41,6 +41,10 @@ export const Move3DItem = createComponent(
                 value: 'x',
                 type: String,
             }),
+            id: () => ({
+                value: '',
+                type: String,
+            }),
             width: () => ({
                 value: 10,
                 type: Number,
@@ -62,7 +66,7 @@ export const Move3DItem = createComponent(
                 type: Number,
             }),
             anchorPoint: () => ({
-                value: '',
+                value: 'center',
                 type: String,
             }),
             animate: () => ({

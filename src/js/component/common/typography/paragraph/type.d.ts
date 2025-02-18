@@ -1,6 +1,6 @@
 export interface Paragraph {
     state: {
         style: 'small' | 'medium' | 'big';
-        color: 'white' | 'grey' | 'highlight';
+        color: 'white' | 'grey' | 'highlight' | 'black';
     };
 }

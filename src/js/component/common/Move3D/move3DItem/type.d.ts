@@ -14,7 +14,7 @@ type Rotate = 'x' | 'y' | 'xy' | '';
 export interface Move3DItem {
     state: {
         root?: boolean;
-        id: number;
+        id: any;
         depth: number;
         rotate: Rotate;
         range: number;

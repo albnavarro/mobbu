@@ -24466,17 +24466,20 @@
   };
 
   // src/js/component/layout/navigation/store/navStore.js
-  var navigationStore = mobCore.createStore({
-    activeNavigationSection: () => ({
-      value: "",
-      type: String,
-      skipEqual: false
-    }),
-    navigationIsOpen: () => ({
-      value: false,
-      type: Boolean
-    })
-  });
+  var navigationStore = mobCore.createStore(
+    /** @type{MobStoreBaseData<import('./type').NavigationStore>} */
+    {
+      activeNavigationSection: () => ({
+        value: "",
+        type: String,
+        skipEqual: false
+      }),
+      navigationIsOpen: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  );
   navigationStore.set("activeNavigationSection", "");
 
   // src/js/component/common/scrollToTop/triangles.js
@@ -26978,7 +26981,7 @@ Loading snippet ...</pre
           value: [],
           type: Array,
           transform: (value) => {
-            return value.sort(
+            return value.toSorted(
               function(a, b) {
                 const { element: elementA } = a;
                 const { element: elementB } = b;
@@ -27106,7 +27109,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/benchMark/fakeComponent/definition.js
   var BenchMarkFakeComponent = createComponent(
-    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    /** @type{CreateComponentParams<import('./type').BenchMarkFakeComponent>} */
     {
       name: "benchmark-fake-component",
       component: BenchMarkFakeComponentFn,
@@ -27630,29 +27633,32 @@ Loading snippet ...</pre
   var externalStore;
   var createExternalStore = () => {
     if (externalStore) return;
-    externalStore = mobCore.createStore({
-      data: () => ({
-        value: [],
-        type: Array,
-        validate: (value) => value.length < 2e3,
-        strict: true,
-        skipEqual: false
-      }),
-      counter: () => ({
-        value: 0,
-        type: Number
-      }),
-      time: () => ({
-        value: 0,
-        type: Number,
-        transform: (value) => Math.round(value),
-        skipEqual: false
-      }),
-      isLoading: () => ({
-        value: false,
-        type: Boolean
-      })
-    });
+    externalStore = mobCore.createStore(
+      /** @type{MobStoreBaseData<import('./type').ExternalStore>} */
+      {
+        data: () => ({
+          value: [],
+          type: Array,
+          validate: (value) => value.length < 2e3,
+          strict: true,
+          skipEqual: false
+        }),
+        counter: () => ({
+          value: 0,
+          type: Number
+        }),
+        time: () => ({
+          value: 0,
+          type: Number,
+          transform: (value) => Math.round(value),
+          skipEqual: false
+        }),
+        isLoading: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    );
   };
   var getExternalStore = () => externalStore;
   var destroyExternalStore = () => {
@@ -29115,7 +29121,7 @@ Loading snippet ...</pre
         width: 30,
         height: 30,
         radius: 0,
-        fill: "",
+        fill: [-1],
         stroke: "#000",
         opacity: 0.05,
         spacerY: (condition) => condition ? 300 : -400,
@@ -31285,8 +31291,8 @@ Loading snippet ...</pre
       exportState: ["label"],
       state: {
         label: () => ({
-          value: void 0,
-          type: "Any"
+          value: "",
+          type: String
         })
       }
     }
@@ -32428,11 +32434,11 @@ Loading snippet ...</pre
       exportState: ["id", "pinClass"],
       state: {
         id: () => ({
-          id: -1,
+          value: -1,
           type: Number
         }),
         pinClass: () => ({
-          id: "",
+          value: "",
           type: String
         })
       }
@@ -33096,6 +33102,10 @@ Loading snippet ...</pre
           value: "x",
           type: String
         }),
+        id: () => ({
+          value: "",
+          type: String
+        }),
         width: () => ({
           value: 10,
           type: Number
@@ -33117,7 +33127,7 @@ Loading snippet ...</pre
           type: Number
         }),
         anchorPoint: () => ({
-          value: "",
+          value: "center",
           type: String
         }),
         animate: () => ({

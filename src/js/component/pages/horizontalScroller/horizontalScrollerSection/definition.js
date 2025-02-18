@@ -15,11 +15,11 @@ export const HorizontalScrollerSection = createComponent(
         exportState: ['id', 'pinClass'],
         state: {
             id: () => ({
-                id: -1,
+                value: -1,
                 type: Number,
             }),
             pinClass: () => ({
-                id: '',
+                value: '',
                 type: String,
             }),
         },

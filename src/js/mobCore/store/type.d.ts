@@ -213,12 +213,12 @@ export interface callbackQueue {
     instanceId?: string;
 }
 
-export type MobStoreCustomValue = () => {
+export type MobStoreCustomValue<T, K> = () => {
     /**
      * @description
      * Initial value
      */
-    value: any;
+    value: T[K];
 
     /**
      * @description
@@ -236,7 +236,7 @@ export type MobStoreCustomValue = () => {
      * Function to transform value.
      * This function will have the current value and old value as input parameter.
      */
-    transform?: (value: any, previousValue: any) => boolean;
+    transform?: (value: T[K], previousValue: T[K]) => T[K];
 
     /**
      * @description
@@ -244,7 +244,7 @@ export type MobStoreCustomValue = () => {
      * This function will have the current value and old value as input parameter and will return a boolean value.
      * The validation status of each property will be displayed in the watchers and will be retrievable using the getValidation() method.
      */
-    validate?: (value: any, previousValue: any) => boolean;
+    validate?: (value: T[K], previousValue: T[K]) => boolean;
 
     /**
      * @description
@@ -261,8 +261,10 @@ export type MobStoreCustomValue = () => {
     skipEqual?: boolean;
 };
 
-export interface MobStoreBaseData {
-    [key: string]: MobStoreCustomValue | MobStoreTypeNative | MobStoreBaseData;
-}
+type MobStoreStateType<T> = {
+    [K in keyof T]: MobStoreCustomValue<T, K> | T[K] | MobStoreStateType<T[K]>;
+};
+
+export type MobStoreBaseData<T = any> = MobStoreStateType<T>;
 
 export type WatchWaintList = Map<string, Map<string, any>>;

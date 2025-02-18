@@ -12,7 +12,7 @@ export interface AnimatedPatternN0 {
         gutter: number;
         fill: number[];
         stagger: Partial<StaggerObject>;
-        reorder: string;
+        reorder: boolean;
         disableOffcanvas: boolean;
     };
     ref: {
@@ -30,5 +30,5 @@ export type AnimatedPatternN0Animation = (arg0: {
     fill: number[];
     disableOffcanvas: boolean;
     stagger: Partial<StaggerObject>;
-    reorder: string;
+    reorder: boolean;
 }) => () => void;

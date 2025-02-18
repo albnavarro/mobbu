@@ -8,7 +8,7 @@ import { BenchMarkFakeComponentFn } from './benchmarkFakeComponent';
  **/
 
 export const BenchMarkFakeComponent = createComponent(
-    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    /** @type{CreateComponentParams<import('./type').BenchMarkFakeComponent>} */
     ({
         name: 'benchmark-fake-component',
         component: BenchMarkFakeComponentFn,

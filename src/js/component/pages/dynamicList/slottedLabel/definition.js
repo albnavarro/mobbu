@@ -15,8 +15,8 @@ export const DynamicListSlottedLabel = createComponent(
         exportState: ['label'],
         state: {
             label: () => ({
-                value: undefined,
-                type: 'Any',
+                value: '',
+                type: String,
             }),
         },
     })

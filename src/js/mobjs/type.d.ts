@@ -755,7 +755,7 @@ export interface ComponentParsed<T> {
     }) => void;
     attributeToObserve?: string[];
     style?: string;
-    state?: MobStoreBaseData;
+    state?: MobStoreBaseData<ExtractState<T>>;
     child?: CreateComponentReturnType[];
 }
 

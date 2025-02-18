@@ -26,8 +26,7 @@ export const ScrollTo = createComponent(
                 value: [],
                 type: Array,
                 transform: (value) => {
-                    // Order label by document position.
-                    return value.sort(
+                    return value.toSorted(
                         function (/** @type{any} */ a, /** @type{any} */ b) {
                             const { element: elementA } = a;
                             const { element: elementB } = b;
