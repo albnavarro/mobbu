@@ -24,7 +24,7 @@ import {
 } from '../modules/userComponent';
 
 /**
- * @param {{[key:string]:import('../mainStore/type').componentListMapType}} componentList
+ * @param {{[key:string]:import('../mainStore/type').ComponentListMapType}} componentList
  */
 export const defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {
@@ -52,64 +52,9 @@ export const defineUserComponent = (componentList) => {
                 #componentId;
 
                 /**
-                 * @type {(prop: string) => void}
+                 * @type {import('../type').ComponentPropsType<import('../type').MobComponentMap, import('../type').MobComponentMap>}
                  */
-                #emit;
-
-                /**
-                 * @type {(prop: string) => Promise<{ success: boolean }>}
-                 */
-                #emitAsync;
-
-                /**
-                 * @type {(prop: string) => void}
-                 */
-                #freezeProp;
-
-                /**
-                 * @type {(componentName: string) => Array<string>}
-                 */
-                #getChildren;
-
-                /**
-                 * @type {() => string|undefined}
-                 */
-                #getParentId;
-
-                /**
-                 * @type {(arg0: string) => any}
-                 */
-                #getState;
-
-                /**
-                 * @type {() => void}
-                 */
-                #remove;
-
-                /**
-                 * @type {( prop: string, newValue: any, options: { emit?: boolean, clone?: boolean } ) => void}
-                 */
-                #setState;
-
-                /**
-                 * @type {(arg0: { id: string }) => void}
-                 */
-                #unBind;
-
-                /**
-                 * @type {(prop: string) => void}
-                 */
-                #unFreezeProp;
-
-                /**
-                 * @type {(prop: string, callback: () => void) => void}
-                 */
-                #watch;
-
-                /**
-                 * @type {(prop: string, callback: () => void) => void}
-                 */
-                #watchParent;
+                #propierties;
 
                 /**
                  * @type {boolean}
@@ -201,19 +146,8 @@ export const defineUserComponent = (componentList) => {
                     this.attachShadow({ mode: 'open' });
                     this.active = false;
                     this.#componentId = mobCore.getUnivoqueId();
-                    this.#emit = () => {};
-                    this.#emitAsync = () => Promise.resolve({ success: true });
-                    this.#freezeProp = () => {};
-                    this.#freezeProp = () => {};
-                    this.#getChildren = () => [''];
-                    this.#getParentId = () => '';
-                    this.#getState = () => {};
-                    this.#remove = () => {};
-                    this.#setState = () => {};
-                    this.#unBind = () => {};
-                    this.#unFreezeProp = () => {};
-                    this.#watch = () => {};
-                    this.#watchParent = () => {};
+                    // @ts-ignore
+                    this.#propierties = {};
                     this.#componentname = key;
 
                     // Default symbols without attribute
@@ -405,67 +339,28 @@ export const defineUserComponent = (componentList) => {
                     return this.#bindRefName;
                 }
 
-                #getData() {
-                    return {
-                        componentId: this.#componentId,
-                        emit: this.#emit,
-                        emitAsync: this.#emitAsync,
-                        freezeProp: this.#freezeProp,
-                        getChildren: this.#getChildren,
-                        getParentId: this.#getParentId,
-                        getState: this.#getState,
-                        remove: this.#remove,
-                        setState: this.#setState,
-                        unBind: this.#unBind,
-                        unFreezeProp: this.#unFreezeProp,
-                        watch: this.#watch,
-                        watchParent: this.#watchParent,
-                    };
-                }
-
-                resetData() {
+                resetPropierties() {
                     this.active = false;
                     this.#componentId = '';
-                    this.#emit = () => {};
-                    this.#emitAsync = () => Promise.resolve({ success: true });
-                    this.#freezeProp = () => {};
-                    this.#getChildren = () => [''];
-                    this.#getParentId = () => '';
-                    this.#getState = () => {};
-                    this.#remove = () => {};
-                    this.#setState = () => {};
-                    this.#unBind = () => {};
-                    this.#unFreezeProp = () => {};
-                    this.#watch = () => {};
-                    this.#watchParent = () => {};
+                    // @ts-ignore
+                    this.#propierties = {};
                 }
 
                 /**
-                 * @param {import('../type').componentPropsType<import('../type').MobComponentMap,import('../type').MobComponentMap>} data
+                 * @param {import('../type').ComponentPropsType<import('../type').MobComponentMap,import('../type').MobComponentMap>} data
                  */
                 inizializeCustomComponent(data) {
                     if (this.active) return;
 
                     this.active = true;
                     this.#componentId = data.id;
-                    this.#emit = data.emit;
-                    this.#emitAsync = data.emitAsync;
-                    this.#freezeProp = data.freezeProp;
-                    this.#getChildren = data.getChildren;
-                    this.#getParentId = data.getParentId;
-                    this.#getState = data.getState;
-                    this.#remove = data.remove;
-                    this.#setState = data.setState;
-                    this.#unBind = data.unBind;
-                    this.#unFreezeProp = data.unFreezeProp;
-                    this.#watch = data.watch;
-                    this.#watchParent = data.watchParent;
+                    this.#propierties = data;
                     this.#isPlaceholder = false;
 
                     // First connected callback when web-compoennt is initialzied
                     _connectedCallBack?.({
                         context: this,
-                        data: this.#getData(),
+                        propierties: this.#propierties,
                     });
                 }
 
@@ -485,11 +380,15 @@ export const defineUserComponent = (componentList) => {
                         return;
                     }
 
-                    // Classic lifecycle of web component
-                    _connectedCallBack?.({
-                        context: this,
-                        data: this.#getData(),
-                    });
+                    /**
+                     * Classic lifecycle of web component
+                     * Viene chiamata solo se é un placeholder ma poi skippa.
+                     */
+
+                    // _connectedCallBack?.({
+                    //     context: this,
+                    //     propierties: this.#propierties,
+                    // });
                 }
 
                 disconnectedCallback() {
@@ -505,10 +404,10 @@ export const defineUserComponent = (componentList) => {
 
                     _disconnectedCallback?.({
                         context: this,
-                        data: this.#getData(),
+                        propierties: this.#propierties,
                     });
 
-                    this.resetData();
+                    this.resetPropierties();
                 }
 
                 removeCustomComponent() {
@@ -523,7 +422,7 @@ export const defineUserComponent = (componentList) => {
 
                     _adoptedCallback?.({
                         context: this,
-                        data: this.#getData(),
+                        propierties: this.#propierties,
                     });
                 }
 
@@ -543,7 +442,7 @@ export const defineUserComponent = (componentList) => {
                         oldValue,
                         newValue,
                         context: this,
-                        data: this.#getData(),
+                        propierties: this.#propierties,
                     });
                 }
             }

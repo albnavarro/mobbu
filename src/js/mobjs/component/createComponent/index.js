@@ -29,8 +29,7 @@ export const getDebugMode = () => {
 };
 
 /**
- * @param {import('../../type').CreateComponent} param
- * @returns {import('../../type').CreateComponentReturn}
+ * @type {import('../../type').CreateComponent<any>}
  *
  * @description
  * Format component definition in object key: value.

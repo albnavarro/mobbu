@@ -8,12 +8,12 @@ import { defineBindTextComponent } from '../webComponent/bindText';
 import { defineBindObjectComponent } from '../webComponent/bindObject';
 
 /**
- * @type {{[key:string]:import('../mainStore/type').componentListMapType}}
+ * @type {{[key:string]:import('../mainStore/type').ComponentListMapType}}
  */
 export let componentListMap = {};
 
 /**
- * @type {Set<import('../type').CreateComponentReturn>}
+ * @type {Set<import('../type').CreateComponentReturnType>}
  */
 const availableComponent = new Set();
 
@@ -45,7 +45,7 @@ export const setComponentList = () => {
 };
 
 /**
- * @param {import('../type').CreateComponentReturn[]} components
+ * @param {import('../type').CreateComponentReturnType[]} components
  * @returns {void}
  */
 export const useComponent = (components) => {

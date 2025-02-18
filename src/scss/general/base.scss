@@ -91,15 +91,13 @@ body {
 }
 
 /**
- * Make all elements from the DOM inherit from the parent box-sizing
- * Since `*` has a specificity of 0, it does not override the `html` value
- * making all elements inheriting from the root box-sizing value
- * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ * Esplcit box-sizing ( no inherit ).
+ * Solve web component box-sizing problem.
  */
 *,
-*::before,
-*::after {
-    box-sizing: inherit;
+*::after,
+*::before {
+    box-sizing: border-box;
 }
 
 /**

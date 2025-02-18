@@ -59,7 +59,7 @@ import { setBindEffect } from '../../modules/bindEffect';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
- * @returns {import('../../type').componentPropsType<import('../../type').MobComponentMap, import('../../type').MobComponentMap>}
+ * @returns {import('../../type').ComponentPropsType<import('../../type').MobComponentMap, import('../../type').MobComponentMap>}
  *
  * @description
  * Create component

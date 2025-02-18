@@ -1,7 +1,7 @@
 // https://stackoverflow.com/questions/65668969/event-maps-and-type-guards#answer-65890181
 
 import { mobStoreBaseData } from '../mobCore/store/type';
-import { componentFunctionType } from './mainStore/type';
+import { ComponentFunctionType } from './mainStore/type';
 import {
     PartialBindEvents,
     PartialBindProps,
@@ -41,7 +41,9 @@ import {
     PartialBindStore,
     PartialCurrent,
     PartialBindEffect,
+    ExtractState,
 } from './tsUtils/mobComponentProps';
+import { OnlyStringKey } from './tsUtils/utils';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
 export type DelegateEvents = PartialDelegateEvents;
@@ -94,14 +96,14 @@ export interface componentReturnType {
 }
 
 export type MobComponent<T = MobComponentMap, R = MobComponentMap> = (
-    props: componentPropsType<T, R>
+    props: ComponentPropsType<T, R>
 ) => string;
 
 export type MobComponentAsync<T = MobComponentMap, R = MobComponentMap> = (
-    props: componentPropsType<T, R>
+    props: ComponentPropsType<T, R>
 ) => Promise<string>;
 
-export interface componentPropsType<T, R> {
+export interface ComponentPropsType<T, R> {
     key: string;
     id: string;
 
@@ -717,31 +719,12 @@ export interface componentPropsType<T, R> {
     debug: () => void;
 }
 
-interface WebComponentParmas {
-    componentId: string;
-    emit(prop: string): void;
-    emitAsync(prop: string): Promise<{ success: boolean }>;
-    freezeProp(prop: string): void;
-    getChildren(componentName: string): string[];
-    getParentId(): string | undefined;
-    getState(arg0: string): any;
-    remove: () => void;
-    setState(
-        prop: string,
-        newValue: any,
-        options?: {
-            emit?: boolean;
-            clone?: boolean;
-        }
-    ): void;
-    unBind: (arg0: { id: string }) => void;
-    unFreezeProp(prop: string): void;
-    watch(prop: string, callback: () => void): void;
-    watchParent(prop: string, callback: () => void): void;
-}
+/**
+ * CreateComponent
+ */
 
-export interface ComponentParsed {
-    exportState?: string[];
+export interface ComponentParsed<T> {
+    exportState?: OnlyStringKey<ExtractState<T>>[];
 
     /**
      * @description
@@ -753,47 +736,49 @@ export interface ComponentParsed {
     constructorCallback?: (arg0: { context: object }) => void;
     connectedCallback?: (arg0: {
         context: object;
-        data: WebComponentParmas;
+        propierties: ComponentPropsType<T, T>;
     }) => void;
     disconnectedCallback?: (arg0: {
         context: object;
-        data: WebComponentParmas;
+        propierties: ComponentPropsType<T, T>;
     }) => void;
     adoptedCallback?: (arg0: {
         context: object;
-        data: WebComponentParmas;
+        propierties: ComponentPropsType<T, T>;
     }) => void;
     attributeChangedCallback?: (arg0: {
         name: string;
         oldValue: string;
         newValue: string;
         context: object;
-        data: WebComponentParmas;
+        propierties: ComponentPropsType<T, T>;
     }) => void;
     attributeToObserve?: string[];
     style?: string;
     state?: mobStoreBaseData;
-    child?: Record<
-        string,
-        {
-            componentFunction: import('./mainStore/type').componentFunctionType;
-            componentParams: import('./type').ComponentParsed;
-        }
-    >[];
+    child?: CreateComponentReturnType[];
 }
 
-export interface CreateComponent extends ComponentParsed {
+export interface CreateComponentParams<T> extends ComponentParsed<T> {
     name: string;
-    component: componentFunctionType;
+    component: ComponentFunctionType;
 }
 
-export type CreateComponentReturn = Record<
+export type CreateComponentReturnType = Record<
     string,
     {
-        componentFunction: import('./mainStore/type').componentFunctionType;
-        componentParams: import('./type').ComponentParsed;
+        componentFunction: ComponentFunctionType;
+        componentParams: ComponentParsed;
     }
 >;
+
+export type CreateComponent<T> = (
+    arg0: CreateComponentParams<T>
+) => CreateComponentReturnType;
+
+/**
+ * Default component params
+ */
 
 export interface DefaultComponent {
     /**
@@ -825,6 +810,10 @@ export interface DefaultComponent {
     debug?: boolean;
 }
 
+/**
+ * Routing
+ */
+
 export type BeforePageTransition = (arg0: {
     oldNode: HTMLElement;
     oldRoute: string;
@@ -852,6 +841,20 @@ export interface Route {
     props: any;
 }
 
+export type PageAsync<
+    T = Record<string, any>,
+    P = Record<string, any>,
+> = (arg0: { params: T; props: P }) => Promise<string>;
+
+export type Page<T = Record<string, any>, P = Record<string, any>> = (arg0: {
+    params: T;
+    props: P;
+}) => string;
+
+/**
+ * App
+ */
+
 export interface InizializeApp {
     rootId: string;
     wrapper: () => Promise<any>;
@@ -864,13 +867,3 @@ export interface InizializeApp {
     pageTransition?: PageTransition;
     restoreScroll?: boolean;
 }
-
-export type PageAsync<
-    T = Record<string, any>,
-    P = Record<string, any>,
-> = (arg0: { params: T; props: P }) => Promise<string>;
-
-export type Page<T = Record<string, any>, P = Record<string, any>> = (arg0: {
-    params: T;
-    props: P;
-}) => string;

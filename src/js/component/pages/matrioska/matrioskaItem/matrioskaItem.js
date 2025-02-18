@@ -15,7 +15,7 @@ export const MatrioskaItemFn = ({
 }) => {
     const { level } = getState();
 
-    return html`<div
+    return html`<matrioska-item
         class="matrioska-item"
         ${bindEffect({
             bind: 'active',
@@ -43,5 +43,5 @@ export const MatrioskaItemFn = ({
         <div class="matrioska-item__child">
             <mobjs-slot></mobjs-slot>
         </div>
-    </div>`;
+    </matrioska-item>`;
 };
