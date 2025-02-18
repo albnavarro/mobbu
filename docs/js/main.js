@@ -2112,7 +2112,7 @@
         return {
           ...p,
           [key]: getDataRecursive(
-            /** @type {import('./type.js').MobStoreBaseData} */
+            /** @type {import('./type.js').MobStoreParams} */
             value,
             false
           )
@@ -2135,7 +2135,7 @@
         return {
           ...p,
           [key]: getPropRecursive(
-            /** @type{import('./type.js').MobStoreBaseData} */
+            /** @type{import('./type.js').MobStoreParams} */
             value,
             prop,
             fallback,
@@ -4018,7 +4018,7 @@
      *  The default value is `true`.
      *
      *
-     * @param {import('./store/type.js').MobStoreBaseData} data
+     * @type {import('./store/type.js').MobStore}
      *
      * @example
      *
@@ -17232,54 +17232,57 @@
   var MAIN_STORE_ASYNC_PARSER = "repeaterParserAsync";
 
   // src/js/mobjs/mainStore/mainStore.js
-  var mainStore = mobCore.createStore({
-    [MAIN_STORE_ACTIVE_ROUTE]: () => ({
-      value: { route: "", templateName: "" },
-      type: "any",
-      skipEqual: false
-    }),
-    [MAIN_STORE_ACTIVE_PARAMS]: () => ({
-      value: {},
-      type: "any",
-      skipEqual: false
-    }),
-    [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
-      value: { route: "", templateName: "" },
-      type: "any",
-      skipEqual: false
-    }),
-    [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
-      value: { route: "", templateName: "" },
-      type: "any",
-      skipEqual: false
-    }),
-    [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
-      value: { route: "", templateName: "" },
-      type: "any",
-      skipEqual: false
-    }),
-    [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
-      value: false,
-      type: Boolean
-    }),
-    [MAIN_STORE_ASYNC_PARSER]: {
-      element: () => ({
-        value: document.createElement("div"),
-        type: HTMLElement,
+  var mainStore = mobCore.createStore(
+    /** @type{MobStoreParams<import('./type').MainStore>} */
+    {
+      [MAIN_STORE_ACTIVE_ROUTE]: () => ({
+        value: { route: "", templateName: "" },
+        type: "any",
         skipEqual: false
       }),
-      parentId: () => ({
-        value: "",
-        type: String,
+      [MAIN_STORE_ACTIVE_PARAMS]: () => ({
+        value: {},
+        type: "any",
         skipEqual: false
       }),
-      persistent: () => ({
+      [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
+        value: { route: "", templateName: "" },
+        type: "any",
+        skipEqual: false
+      }),
+      [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
+        value: { route: "", templateName: "" },
+        type: "any",
+        skipEqual: false
+      }),
+      [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
+        value: { route: "", templateName: "" },
+        type: "any",
+        skipEqual: false
+      }),
+      [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
         value: false,
-        type: Boolean,
-        skipEqual: false
-      })
+        type: Boolean
+      }),
+      [MAIN_STORE_ASYNC_PARSER]: {
+        element: () => ({
+          value: document.createElement("div"),
+          type: HTMLElement,
+          skipEqual: false
+        }),
+        parentId: () => ({
+          value: "",
+          type: String,
+          skipEqual: false
+        }),
+        persistent: () => ({
+          value: false,
+          type: Boolean,
+          skipEqual: false
+        })
+      }
     }
-  });
+  );
 
   // src/js/mobjs/mainStore/mainStoreApi.js
   var beforeRouteChange = (callback2) => {
@@ -24467,7 +24470,7 @@
 
   // src/js/component/layout/navigation/store/navStore.js
   var navigationStore = mobCore.createStore(
-    /** @type{MobStoreBaseData<import('./type').NavigationStore>} */
+    /** @type{MobStoreParams<import('./type').NavigationStore>} */
     {
       activeNavigationSection: () => ({
         value: "",
@@ -27634,7 +27637,7 @@ Loading snippet ...</pre
   var createExternalStore = () => {
     if (externalStore) return;
     externalStore = mobCore.createStore(
-      /** @type{MobStoreBaseData<import('./type').ExternalStore>} */
+      /** @type{MobStoreParams<import('./type').ExternalStore>} */
       {
         data: () => ({
           value: [],
@@ -35596,12 +35599,15 @@ Loading snippet ...</pre
   var DEBUG_USE_FILTER_COMPONENT = "filter_component";
 
   // src/js/component/common/debug/debugOverlay/Store/DebugActiveComponent.js
-  var debugActiveComponentStore = mobCore.createStore({
-    currentId: () => ({
-      values: "",
-      type: String
-    })
-  });
+  var debugActiveComponentStore = mobCore.createStore(
+    /** @type{MobStoreParams<import('./type').DebugActiveComponentStore>} */
+    {
+      currentId: () => ({
+        value: "",
+        type: String
+      })
+    }
+  );
 
   // src/js/component/common/debug/debugOverlay/DebugComponent/debugComponent.js
   var getClassList = (value) => {

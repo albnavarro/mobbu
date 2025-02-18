@@ -1,13 +1,15 @@
 /**
- * @import { MobStore } from '../../../../../mobCore/store/type';
+ * @import { MobStoreParams } from '../../../../../mobCore/store/type';
  **/
 
 import { mobCore } from '../../../../../mobCore';
 
-/** @type {MobStore<import('./type').DebugActiveComponentStore>} */
-export const debugActiveComponentStore = mobCore.createStore({
-    currentId: () => ({
-        values: '',
-        type: String,
-    }),
-});
+export const debugActiveComponentStore = mobCore.createStore(
+    /** @type{MobStoreParams<import('./type').DebugActiveComponentStore>} */
+    ({
+        currentId: () => ({
+            value: '',
+            type: String,
+        }),
+    })
+);

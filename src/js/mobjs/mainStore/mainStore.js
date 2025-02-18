@@ -12,53 +12,57 @@ import {
 } from './constant';
 
 /**
- * @type {import('../../mobCore/store/type').MobStore<import('./type').MainStore>}
- */
-export const mainStore = mobCore.createStore({
-    [MAIN_STORE_ACTIVE_ROUTE]: () => ({
-        value: { route: '', templateName: '' },
-        type: 'any',
-        skipEqual: false,
-    }),
-    [MAIN_STORE_ACTIVE_PARAMS]: () => ({
-        value: {},
-        type: 'any',
-        skipEqual: false,
-    }),
-    [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
-        value: { route: '', templateName: '' },
-        type: 'any',
-        skipEqual: false,
-    }),
-    [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
-        value: { route: '', templateName: '' },
-        type: 'any',
-        skipEqual: false,
-    }),
-    [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
-        value: { route: '', templateName: '' },
-        type: 'any',
-        skipEqual: false,
-    }),
-    [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
-        value: false,
-        type: Boolean,
-    }),
-    [MAIN_STORE_ASYNC_PARSER]: {
-        element: () => ({
-            value: document.createElement('div'),
-            type: HTMLElement,
+ * @import { MobStoreParams } from '../../mobCore/store/type';
+ **/
+
+export const mainStore = mobCore.createStore(
+    /** @type{MobStoreParams<import('./type').MainStore>} */
+    ({
+        [MAIN_STORE_ACTIVE_ROUTE]: () => ({
+            value: { route: '', templateName: '' },
+            type: 'any',
             skipEqual: false,
         }),
-        parentId: () => ({
-            value: '',
-            type: String,
+        [MAIN_STORE_ACTIVE_PARAMS]: () => ({
+            value: {},
+            type: 'any',
             skipEqual: false,
         }),
-        persistent: () => ({
+        [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
+            value: { route: '', templateName: '' },
+            type: 'any',
+            skipEqual: false,
+        }),
+        [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
+            value: { route: '', templateName: '' },
+            type: 'any',
+            skipEqual: false,
+        }),
+        [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
+            value: { route: '', templateName: '' },
+            type: 'any',
+            skipEqual: false,
+        }),
+        [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
             value: false,
             type: Boolean,
-            skipEqual: false,
         }),
-    },
-});
+        [MAIN_STORE_ASYNC_PARSER]: {
+            element: () => ({
+                value: document.createElement('div'),
+                type: HTMLElement,
+                skipEqual: false,
+            }),
+            parentId: () => ({
+                value: '',
+                type: String,
+                skipEqual: false,
+            }),
+            persistent: () => ({
+                value: false,
+                type: Boolean,
+                skipEqual: false,
+            }),
+        },
+    })
+);

@@ -1,17 +1,17 @@
 import { mobCore } from '../../../../mobCore';
 
 /**
- * @import { MobStoreBaseData} from "../../../../mobCore/store/type".MobStore;
+ * @import { MobStoreParams} from "../../../../mobCore/store/type".MobStore;
  **/
 
-/** @type {import('../../../../mobCore/store/type').MobStore<import('./type').ExternalStore>} */
+/** @type {import('../../../../mobCore/store/type').MobStoreReturnType<import('./type').ExternalStore>} */
 let externalStore;
 
 export const createExternalStore = () => {
     if (externalStore) return;
 
     externalStore = mobCore.createStore(
-        /** @type{MobStoreBaseData<import('./type').ExternalStore>} */
+        /** @type{MobStoreParams<import('./type').ExternalStore>} */
         ({
             data: () => ({
                 value: [],

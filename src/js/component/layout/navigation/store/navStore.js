@@ -3,17 +3,11 @@
 import { mobCore } from '../../../../mobCore';
 
 /**
- * @import {MobStore, MobStoreBaseData} from "../../../../mobCore/store/type".MobStore;
+ * @import { MobStoreParams} from "../../../../mobCore/store/type".MobStore;
  **/
 
-/**
- * @description
- * Navigation store utils.
- *
- * @type {MobStore<import('./type').NavigationStore>}
- */
 export const navigationStore = mobCore.createStore(
-    /** @type{MobStoreBaseData<import('./type').NavigationStore>} */
+    /** @type{MobStoreParams<import('./type').NavigationStore>} */
     ({
         activeNavigationSection: () => ({
             value: '',

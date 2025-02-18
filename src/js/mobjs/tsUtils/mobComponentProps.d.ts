@@ -1,4 +1,4 @@
-import { MobStore } from '../../mobCore/store/type';
+import { MobStoreReturnType } from '../../mobCore/store/type';
 import { BindEffectObject } from '../modules/bindEffect/type';
 import { bindEventsObject } from '../modules/bindEvents/type';
 import { delegateEventObject } from '../modules/delegateEvents/type';
@@ -145,7 +145,9 @@ export type PartialWatch<T> = <K extends keyof ExtractState<T>>(
 /**
  * bindStore
  */
-export type PartialBindStore = (value: MobStore<any> | MobStore<any>[]) => void;
+export type PartialBindStore = (
+    value: MobStoreReturnType<any> | MobStoreReturnType<any>[]
+) => void;
 
 /**
  * RemoveDom

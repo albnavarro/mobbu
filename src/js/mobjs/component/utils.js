@@ -56,7 +56,7 @@ export const removeChildFromChildrenArray = ({
 /**
  * @param {object} obj
  * @param {object} obj.props
- * @param {import("../../mobCore/store/type").MobStore<any>} obj.store - SimpleStore instance
+ * @param {import("../../mobCore/store/type").MobStoreReturnType<any>} obj.store - SimpleStore instance
  * @returns {void}
  */
 export const addPropsToState = ({ props, store }) => {

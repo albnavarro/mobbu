@@ -3,11 +3,11 @@ import {
     emitAsyncType,
     emitType,
     getType,
-    MobStoreBaseData,
+    MobStoreParams,
     setType,
     updateType,
     watchType,
-    MobStore,
+    MobStoreReturnType,
     storeProxiType,
     bindStoreType,
 } from '../../mobCore/store/type';
@@ -36,7 +36,7 @@ export interface componentStoreTypes extends componentCommonTypes {
     element: HTMLElement | UserComponent;
     componentName: string;
     instanceName: string;
-    state: MobStore<any>;
+    state: MobStoreReturnType<any>;
     refs: Record<string, HTMLElement[]>;
     methods: Record<string, (...args: any[]) => void> | object;
 }
@@ -45,7 +45,7 @@ export interface componentStoreInputTypes extends componentCommonTypes {
     componentName: string;
     element: HTMLElement | UserComponent;
     instanceName: string;
-    state: MobStoreBaseData;
+    state: MobStoreParams;
     props: object;
     refs?: Record<string, HTMLElement[]>;
     methods?: Record<string, (...args: any[]) => void> | object;

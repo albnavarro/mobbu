@@ -39,7 +39,9 @@ export interface storeMapValue {
  */
 type StoreDefaultMap = Record<string, any>;
 
-export interface MobStore<T extends StoreDefaultMap> {
+export type MobStore = <T>(arg0: MobStoreParams<T>) => MobStoreReturnType<T>;
+
+export interface MobStoreReturnType<T extends StoreDefaultMap> {
     getId: getIdType;
     bindStore: bindStoreType;
     get: getType<T>;
@@ -59,7 +61,9 @@ export interface MobStore<T extends StoreDefaultMap> {
     destroy: () => void;
 }
 
-export type bindStoreValueType = MobStore<any> | MobStore<any>[];
+export type bindStoreValueType =
+    | MobStoreReturnType<any>
+    | MobStoreReturnType<any>[];
 
 export type bindStoreType = (value: bindStoreValueType) => void;
 
@@ -213,7 +217,7 @@ export interface callbackQueue {
     instanceId?: string;
 }
 
-export type MobStoreCustomValue<T, K> = () => {
+export type MobStoreFunctionValue<T, K> = () => {
     /**
      * @description
      * Initial value
@@ -262,9 +266,12 @@ export type MobStoreCustomValue<T, K> = () => {
 };
 
 type MobStoreStateType<T> = {
-    [K in keyof T]: MobStoreCustomValue<T, K> | T[K] | MobStoreStateType<T[K]>;
+    [K in keyof T]:
+        | MobStoreFunctionValue<T, K>
+        | T[K]
+        | MobStoreStateType<T[K]>;
 };
 
-export type MobStoreBaseData<T = any> = MobStoreStateType<T>;
+export type MobStoreParams<T = any> = MobStoreStateType<T>;
 
 export type WatchWaintList = Map<string, Map<string, any>>;
