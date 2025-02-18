@@ -2112,7 +2112,7 @@
         return {
           ...p,
           [key]: getDataRecursive(
-            /** @type {import('./type.js').mobStoreBaseData} */
+            /** @type {import('./type.js').MobStoreBaseData} */
             value,
             false
           )
@@ -2135,7 +2135,7 @@
         return {
           ...p,
           [key]: getPropRecursive(
-            /** @type{import('./type.js').mobStoreBaseData} */
+            /** @type{import('./type.js').MobStoreBaseData} */
             value,
             prop,
             fallback,
@@ -4018,7 +4018,7 @@
      *  The default value is `true`.
      *
      *
-     * @param {import('./store/type.js').mobStoreBaseData} data
+     * @param {import('./store/type.js').MobStoreBaseData} data
      *
      * @example
      *
@@ -24477,6 +24477,7 @@
       type: Boolean
     })
   });
+  navigationStore.set("activeNavigationSection", "");
 
   // src/js/component/common/scrollToTop/triangles.js
   var sideBarTriangles = renderHtml`

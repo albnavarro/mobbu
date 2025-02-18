@@ -20,7 +20,7 @@ export const maxDepth = (object) => {
 };
 
 /**
- * @param {import('./type.js').mobStoreBaseData} data
+ * @param {import('./type.js').MobStoreBaseData} data
  * @param {boolean} shouldRecursive - max 1 level of recurisivity.
  * @returns {Object<string,(Object<string,any>|any)>}
  *
@@ -51,7 +51,7 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
                 ...p,
 
                 [key]: getDataRecursive(
-                    /** @type {import('./type.js').mobStoreBaseData} */ (value),
+                    /** @type {import('./type.js').MobStoreBaseData} */ (value),
                     false
                 ),
             };
@@ -79,7 +79,7 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
 };
 
 /**
- * @param {import('./type.js').mobStoreBaseData} data
+ * @param {import('./type.js').MobStoreBaseData} data
  * @param {string} prop
  * @param {any} fallback
  * @param {boolean} shouldRecursive - max 1 level of recursivity
@@ -109,7 +109,7 @@ export const getPropRecursive = (
                 ...p,
 
                 [key]: getPropRecursive(
-                    /** @type{import('./type.js').mobStoreBaseData} */ (value),
+                    /** @type{import('./type.js').MobStoreBaseData} */ (value),
                     prop,
                     fallback,
                     false
@@ -142,7 +142,7 @@ export const getPropRecursive = (
 
 /**
  * @param {Object} obj
- * @param {import('./type.js').mobStoreBaseData} obj.data
+ * @param {import('./type.js').MobStoreBaseData} obj.data
  * @param {number} obj.depth
  * @param {string} obj.logStyle
  * @returns {Object<string,(Object<string,any>|any)>}
@@ -158,7 +158,7 @@ export const inizializeStoreData = ({ data, depth, logStyle }) => {
 
 /**
  * @param {Object} obj
- * @param {import('./type.js').mobStoreBaseData} obj.data
+ * @param {import('./type.js').MobStoreBaseData} obj.data
  * @param {string} obj.prop
  * @param {number} obj.depth
  * @param {string} obj.logStyle

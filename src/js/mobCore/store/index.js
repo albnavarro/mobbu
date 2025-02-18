@@ -26,7 +26,7 @@ import { checkIfPropIsComputed } from './storeUtils';
 import { useNextLoop } from '../utils/nextTick';
 
 /**
- * @param {import('./type').mobStoreBaseData} data
+ * @param {import('./type').MobStoreBaseData} data
  * @returns {import('./type').MobStore<any>}
  */
 export const mobStore = (data = {}) => {

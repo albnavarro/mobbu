@@ -3,7 +3,7 @@ import {
     emitAsyncType,
     emitType,
     getType,
-    mobStoreBaseData,
+    MobStoreBaseData,
     setType,
     updateType,
     watchType,
@@ -45,7 +45,7 @@ export interface componentStoreInputTypes extends componentCommonTypes {
     componentName: string;
     element: HTMLElement | UserComponent;
     instanceName: string;
-    state: mobStoreBaseData;
+    state: MobStoreBaseData;
     props: object;
     refs?: Record<string, HTMLElement[]>;
     methods?: Record<string, (...args: any[]) => void> | object;

@@ -75,7 +75,7 @@ export const mobCore = {
      *  The default value is `true`.
      *
      *
-     * @param {import('./store/type.js').mobStoreBaseData} data
+     * @param {import('./store/type.js').MobStoreBaseData} data
      *
      * @example
      *

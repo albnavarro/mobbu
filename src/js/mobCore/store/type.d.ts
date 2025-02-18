@@ -127,7 +127,7 @@ export type mobStoreTypeAlias =
     | 'NodeList'
     | 'Any';
 
-export type mobStoreTypeNative =
+export type MobStoreTypeNative =
     | string
     | number
     | object
@@ -213,7 +213,7 @@ export interface callbackQueue {
     instanceId?: string;
 }
 
-export type simpleStoreCustomValue = () => {
+export type MobStoreCustomValue = () => {
     /**
      * @description
      * Initial value
@@ -261,11 +261,8 @@ export type simpleStoreCustomValue = () => {
     skipEqual?: boolean;
 };
 
-export interface mobStoreBaseData {
-    [key: string]:
-        | simpleStoreCustomValue
-        | mobStoreTypeNative
-        | mobStoreBaseData;
+export interface MobStoreBaseData {
+    [key: string]: MobStoreCustomValue | MobStoreTypeNative | MobStoreBaseData;
 }
 
 export type WatchWaintList = Map<string, Map<string, any>>;

@@ -1,6 +1,6 @@
 // https://stackoverflow.com/questions/65668969/event-maps-and-type-guards#answer-65890181
 
-import { mobStoreBaseData } from '../mobCore/store/type';
+import { MobStoreBaseData } from '../mobCore/store/type';
 import { ComponentFunctionType } from './mainStore/type';
 import {
     PartialBindEvents,
@@ -755,7 +755,7 @@ export interface ComponentParsed<T> {
     }) => void;
     attributeToObserve?: string[];
     style?: string;
-    state?: mobStoreBaseData;
+    state?: MobStoreBaseData;
     child?: CreateComponentReturnType[];
 }
 
