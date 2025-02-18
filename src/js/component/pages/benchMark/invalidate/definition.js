@@ -4,8 +4,15 @@ import { createComponent } from '../../../../mobjs';
 import { benchMarkDefinitionPartial } from '../partials/definitionPartial';
 import { BenchMarkInvalidateFn } from './benchmarkInvalidate';
 
-export const BenchMarkInvalidate = createComponent({
-    name: 'benchmark-invalidate',
-    component: BenchMarkInvalidateFn,
-    ...benchMarkDefinitionPartial(),
-});
+/**
+ * @import { CreateComponentParams } from "../../../../mobjs/type";
+ **/
+
+export const BenchMarkInvalidate = createComponent(
+    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    ({
+        name: 'benchmark-invalidate',
+        component: BenchMarkInvalidateFn,
+        ...benchMarkDefinitionPartial(),
+    })
+);

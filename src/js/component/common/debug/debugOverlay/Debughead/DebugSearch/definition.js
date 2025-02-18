@@ -3,7 +3,14 @@
 import { createComponent } from '../../../../../../mobjs';
 import { DebugSearchFn } from './debugSearch';
 
-export const DebugSearch = createComponent({
-    name: 'debug-search',
-    component: DebugSearchFn,
-});
+/**
+ * @import { CreateComponentParams } from "../../../../../../mobjs/type";
+ **/
+
+export const DebugSearch = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugSearch>} */
+    ({
+        name: 'debug-search',
+        component: DebugSearchFn,
+    })
+);

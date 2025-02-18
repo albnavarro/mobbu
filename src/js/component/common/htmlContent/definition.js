@@ -10,49 +10,56 @@ import { Paragraph } from '../typography/paragraph/definition';
 import { Title } from '../typography/titles/definition';
 import { HtmlContentFn } from './htmlContent';
 
-export const HtmlContent = createComponent({
-    name: 'html-content',
-    component: HtmlContentFn,
-    exportState: [
-        'source',
-        'useMinHeight',
-        'useMaxWidth',
-        'data',
-        'awaitLoadSnippet',
-    ],
-    state: {
-        source: () => ({
-            value: '',
-            type: String,
-        }),
-        data: () => ({
-            value: [],
-            type: Array,
-        }),
-        contentIsLoaded: () => ({
-            value: false,
-            type: Boolean,
-        }),
-        useMinHeight: () => ({
-            value: false,
-            type: Boolean,
-        }),
-        useMaxWidth: () => ({
-            value: false,
-            type: Boolean,
-        }),
-        awaitLoadSnippet: () => ({
-            value: false,
-            type: Boolean,
-        }),
-    },
-    child: [
-        List,
-        Paragraph,
-        Title,
-        Loader,
-        Snippet,
-        SpacerAnchor,
-        AnchorButton,
-    ],
-});
+/**
+ * @import { CreateComponentParams } from "../../../mobjs/type";
+ **/
+
+export const HtmlContent = createComponent(
+    /** @type{CreateComponentParams<import('./type').HtmlContent>} */
+    ({
+        name: 'html-content',
+        component: HtmlContentFn,
+        exportState: [
+            'source',
+            'useMinHeight',
+            'useMaxWidth',
+            'data',
+            'awaitLoadSnippet',
+        ],
+        state: {
+            source: () => ({
+                value: '',
+                type: String,
+            }),
+            data: () => ({
+                value: [],
+                type: Array,
+            }),
+            contentIsLoaded: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            useMinHeight: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            useMaxWidth: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            awaitLoadSnippet: () => ({
+                value: false,
+                type: Boolean,
+            }),
+        },
+        child: [
+            List,
+            Paragraph,
+            Title,
+            Loader,
+            Snippet,
+            SpacerAnchor,
+            AnchorButton,
+        ],
+    })
+);

@@ -3,7 +3,14 @@
 import { createComponent } from '../../../mobjs';
 import { DebugButtonFn } from './debugButton';
 
-export const DebugButton = createComponent({
-    name: 'debug-button',
-    component: DebugButtonFn,
-});
+/**
+ * @import { CreateComponentParams } from "../../../mobjs/type";
+ **/
+
+export const DebugButton = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    ({
+        name: 'debug-button',
+        component: DebugButtonFn,
+    })
+);

@@ -18433,7 +18433,7 @@
           /**
            * @type {import('../type').ComponentPropsType<import('../type').MobComponentMap, import('../type').MobComponentMap>}
            */
-          #propierties;
+          #params;
           /**
            * @type {boolean}
            */
@@ -18506,7 +18506,7 @@
             this.attachShadow({ mode: "open" });
             this.active = false;
             this.#componentId = mobCore.getUnivoqueId();
-            this.#propierties = {};
+            this.#params = {};
             this.#componentname = key;
             this.#isPlaceholder = true;
             this.isUserComponent = true;
@@ -18650,10 +18650,10 @@
           getBindRefName() {
             return this.#bindRefName;
           }
-          resetPropierties() {
+          resetParams() {
             this.active = false;
             this.#componentId = "";
-            this.#propierties = {};
+            this.#params = {};
           }
           /**
            * @param {import('../type').ComponentPropsType<import('../type').MobComponentMap,import('../type').MobComponentMap>} data
@@ -18662,11 +18662,11 @@
             if (this.active) return;
             this.active = true;
             this.#componentId = data.id;
-            this.#propierties = data;
+            this.#params = data;
             this.#isPlaceholder = false;
             _connectedCallBack?.({
               context: this,
-              propierties: this.#propierties
+              params: this.#params
             });
           }
           connectedCallback() {
@@ -18687,9 +18687,9 @@
             if (!this.active) return;
             _disconnectedCallback?.({
               context: this,
-              propierties: this.#propierties
+              params: this.#params
             });
-            this.resetPropierties();
+            this.resetParams();
           }
           removeCustomComponent() {
             if (!this.shadowRoot || !this.active) return;
@@ -18699,7 +18699,7 @@
             if (!this.shadowRoot || !this.active) return;
             _adoptedCallback?.({
               context: this,
-              propierties: this.#propierties
+              params: this.#params
             });
           }
           /**
@@ -18714,7 +18714,7 @@
               oldValue,
               newValue,
               context: this,
-              propierties: this.#propierties
+              params: this.#params
             });
           }
         }
@@ -22130,32 +22130,35 @@
   };
 
   // src/js/component/common/quickNav/definition.js
-  var QuickNav = createComponent({
-    name: "quick-nav",
-    component: QuickNavFn,
-    exportState: ["color", "active", "prevRoute", "nextRoute"],
-    state: {
-      color: () => ({
-        value: "white",
-        type: String,
-        validate: (value) => {
-          return ["white", "black"].includes(value);
-        }
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      }),
-      nextRoute: () => ({
-        value: "",
-        type: String
-      })
+  var QuickNav = createComponent(
+    /** @type{CreateComponentParams<import('./type').QuickNav>} */
+    {
+      name: "quick-nav",
+      component: QuickNavFn,
+      exportState: ["color", "active", "prevRoute", "nextRoute"],
+      state: {
+        color: () => ({
+          value: "white",
+          type: String,
+          validate: (value) => {
+            return ["white", "black"].includes(value);
+          }
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        }),
+        prevRoute: () => ({
+          value: "",
+          type: String
+        }),
+        nextRoute: () => ({
+          value: "",
+          type: String
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/routeLoader/routeLoader.js
   var RouteLoaderFn = ({ html, onMount, getProxi, bindEffect }) => {
@@ -22197,20 +22200,23 @@
   };
 
   // src/js/component/common/routeLoader/definition.js
-  var RouteLoader = createComponent({
-    name: "route-loader",
-    component: RouteLoaderFn,
-    state: {
-      isLoading: () => ({
-        value: false,
-        type: Boolean
-      }),
-      isDisable: () => ({
-        value: false,
-        type: Boolean
-      })
+  var RouteLoader = createComponent(
+    /** @type{CreateComponentParams<import('./type').RouteLoader>} */
+    {
+      name: "route-loader",
+      component: RouteLoaderFn,
+      state: {
+        isLoading: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isDisable: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/scrolldownLabel/scrolldownLabel.js
   var ScrollDownLabelFn = ({ html, getState, bindEffect }) => {
@@ -22229,17 +22235,20 @@
   };
 
   // src/js/component/common/scrolldownLabel/definition.js
-  var ScrollDownLabel = createComponent({
-    name: "scroll-down-label",
-    component: ScrollDownLabelFn,
-    exportState: ["active"],
-    state: {
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
+  var ScrollDownLabel = createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollDownLabel>} */
+    {
+      name: "scroll-down-label",
+      component: ScrollDownLabelFn,
+      exportState: ["active"],
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/mobMotion/plugin/pageScroll/pageScroller.js
   var isActive = false;
@@ -24547,17 +24556,20 @@
   };
 
   // src/js/component/common/scrollToTop/definition.js
-  var ScrollToTop = createComponent({
-    name: "scroll-to-top",
-    component: ScrollToTopFn,
-    exportState: ["active"],
-    state: {
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
+  var ScrollToTop = createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollToTop>} */
+    {
+      name: "scroll-to-top",
+      component: ScrollToTopFn,
+      exportState: ["active"],
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/debug/debugButton.js
   var DebugButtonFn = ({ html }) => {
@@ -24569,10 +24581,13 @@
   };
 
   // src/js/component/common/debug/definition.js
-  var DebugButton = createComponent({
-    name: "debug-button",
-    component: DebugButtonFn
-  });
+  var DebugButton = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "debug-button",
+      component: DebugButtonFn
+    }
+  );
 
   // src/js/component/common/debug/consoleLog.js
   var consoleLogDebug = () => {
@@ -24681,25 +24696,28 @@
   };
 
   // src/js/component/layout/footer/footerNav/definition.js
-  var FooterNavButton = createComponent({
-    name: "footer-nav-button",
-    component: FooterNavButtonFn,
-    exportState: ["label", "section"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      section: () => ({
-        value: "",
-        type: String
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
+  var FooterNavButton = createComponent(
+    /** @type{CreateComponentParams<import('./type').FooterNavButton>} */
+    {
+      name: "footer-nav-button",
+      component: FooterNavButtonFn,
+      exportState: ["label", "section"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        section: () => ({
+          value: "",
+          type: String
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
   var FooterNav = createComponent({
     name: "footer-nav",
     component: FooterNavFn,
@@ -24707,11 +24725,14 @@
   });
 
   // src/js/component/layout/footer/definition.js
-  var Footer = createComponent({
-    name: "mob-footer",
-    component: FooterFn,
-    child: [FooterNav, DebugButton]
-  });
+  var Footer = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "mob-footer",
+      component: FooterFn,
+      child: [FooterNav, DebugButton]
+    }
+  );
 
   // src/js/component/layout/header/header.js
   function titleHandler() {
@@ -24875,31 +24896,40 @@
   };
 
   // src/js/component/layout/header/definition.js
-  var HeaderNav = createComponent({
-    name: "mob-header-nav",
-    component: HeadernavFn
-  });
-  var HeaderToggle = createComponent({
-    name: "mob-header-toggle",
-    component: HeaderToggleFn,
-    state: {
-      isOpen: () => ({
-        value: false,
-        type: Boolean
-      })
+  var HeaderNav = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "mob-header-nav",
+      component: HeadernavFn
     }
-  });
-  var Header = createComponent({
-    name: "mob-header",
-    component: HeaderFn,
-    state: {
-      isNotHome: () => ({
-        value: false,
-        type: Boolean
-      })
-    },
-    child: [HeaderNav, HeaderToggle]
-  });
+  );
+  var HeaderToggle = createComponent(
+    /** @type{CreateComponentParams<import('./type').HeaderToggle>} */
+    {
+      name: "mob-header-toggle",
+      component: HeaderToggleFn,
+      state: {
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+  var Header = createComponent(
+    /** @type{CreateComponentParams<import('./type').Header>} */
+    {
+      name: "mob-header",
+      component: HeaderFn,
+      state: {
+        isNotHome: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [HeaderNav, HeaderToggle]
+    }
+  );
 
   // src/js/component/layout/navigation/animation/navScroller.js
   var currentPercent = 0;
@@ -25293,128 +25323,143 @@
   };
 
   // src/js/component/layout/navigation/definition.js
-  var NavigationButton = createComponent({
-    name: "mob-navigation-button",
-    component: NavigationButtonFn,
-    exportState: [
-      "label",
-      "url",
-      "arrowClass",
-      "subMenuClass",
-      "fireRoute",
-      "callback",
-      "isOpen",
-      "scrollToSection",
-      "activeId"
-    ],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      url: () => ({
-        value: "",
-        type: String
-      }),
-      activeId: () => ({
-        value: -1,
-        type: Number
-      }),
-      scrollToSection: () => ({
-        value: "",
-        type: String
-      }),
-      arrowClass: () => ({
-        value: "",
-        type: String
-      }),
-      subMenuClass: () => ({
-        value: "",
-        type: String
-      }),
-      fireRoute: () => ({
-        value: true,
-        type: Boolean
-      }),
-      callback: () => ({
-        value: () => {
-        },
-        type: Function
-      }),
-      isOpen: () => ({
-        value: false,
-        type: Boolean
-      }),
-      isCurrent: () => ({
-        value: false,
-        type: Boolean
-      })
+  var NavigationButton = createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationButton>} */
+    {
+      name: "mob-navigation-button",
+      component: NavigationButtonFn,
+      exportState: [
+        "label",
+        "url",
+        "arrowClass",
+        "subMenuClass",
+        "fireRoute",
+        "callback",
+        "isOpen",
+        "scrollToSection",
+        "activeId"
+      ],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        url: () => ({
+          value: "",
+          type: String
+        }),
+        activeId: () => ({
+          value: -1,
+          type: Number
+        }),
+        scrollToSection: () => ({
+          value: "",
+          type: String
+        }),
+        arrowClass: () => ({
+          value: "",
+          type: String
+        }),
+        subMenuClass: () => ({
+          value: "",
+          type: String
+        }),
+        fireRoute: () => ({
+          value: true,
+          type: Boolean
+        }),
+        callback: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isCurrent: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
-  var NavigationLabel = createComponent({
-    name: "mob-navigation-label",
-    component: NavigationLabelFn,
-    exportState: ["label", "sectioName"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      sectioName: () => ({
-        value: "",
-        type: String
-      })
+  );
+  var NavigationLabel = createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationLabel>} */
+    {
+      name: "mob-navigation-label",
+      component: NavigationLabelFn,
+      exportState: ["label", "sectioName"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        sectioName: () => ({
+          value: "",
+          type: String
+        })
+      }
     }
-  });
-  var NavigationSubmenu = createComponent({
-    name: "mob-navigation-submenu",
-    component: NavigationSubmenuFn,
-    exportState: ["children", "headerButton", "isOpen", "callback"],
-    state: {
-      callback: () => ({
-        value: () => {
-        },
-        type: Function
-      }),
-      headerButton: () => ({
-        value: {},
-        type: "Any"
-      }),
-      children: () => ({
-        value: [],
-        type: Array
-      }),
-      isOpen: () => ({
-        value: false,
-        type: Boolean
-      })
-    },
-    child: [NavigationButton]
-  });
-  var Navigation = createComponent({
-    name: "mob-navigation",
-    component: NavigationFn,
-    exportState: ["currentAccordionId"],
-    state: {
-      currentAccordionId: () => ({
-        value: -1,
-        type: Number,
-        skipEqual: false
-      })
-    },
-    child: [NavigationLabel, NavigationSubmenu, NavigationButton]
-  });
-  var NavigationContainer = createComponent({
-    name: "mob-navigation-container",
-    component: NavigationContainerFn,
-    child: [Navigation],
-    state: {
-      isOpen: () => ({
-        value: false,
-        type: Boolean
-      })
+  );
+  var NavigationSubmenu = createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationSubmenu>} */
+    {
+      name: "mob-navigation-submenu",
+      component: NavigationSubmenuFn,
+      exportState: ["children", "headerButton", "isOpen", "callback"],
+      state: {
+        callback: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        headerButton: () => ({
+          value: {},
+          type: "Any"
+        }),
+        children: () => ({
+          value: [],
+          type: Array
+        }),
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [NavigationButton]
     }
-  });
+  );
+  var Navigation = createComponent(
+    /** @type{CreateComponentParams<import('./type').Navigation>} */
+    {
+      name: "mob-navigation",
+      component: NavigationFn,
+      exportState: ["currentAccordionId"],
+      state: {
+        currentAccordionId: () => ({
+          value: -1,
+          type: Number,
+          skipEqual: false
+        })
+      },
+      child: [NavigationLabel, NavigationSubmenu, NavigationButton]
+    }
+  );
+  var NavigationContainer = createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationContainer>} */
+    {
+      name: "mob-navigation-container",
+      component: NavigationContainerFn,
+      child: [Navigation],
+      state: {
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
 
   // src/js/component/lib/utils/getTriangle.js
   var getTrinangle = (className = "") => {
@@ -25457,28 +25502,31 @@
   };
 
   // src/js/component/common/typography/titles/definition.js
-  var Title = createComponent({
-    name: "mob-title",
-    component: TitleFn,
-    exportState: ["tag", "color", "isBold"],
-    state: {
-      tag: () => ({
-        value: "h1",
-        type: String
-      }),
-      color: () => ({
-        value: "black",
-        type: String,
-        validate: (val2) => {
-          return ["white", "hightlight", "black"].includes(val2);
-        }
-      }),
-      isBold: () => ({
-        value: false,
-        type: Boolean
-      })
+  var Title = createComponent(
+    /** @type{CreateComponentParams<import('./type').Title>} */
+    {
+      name: "mob-title",
+      component: TitleFn,
+      exportState: ["tag", "color", "isBold"],
+      state: {
+        tag: () => ({
+          value: "h1",
+          type: String
+        }),
+        color: () => ({
+          value: "black",
+          type: String,
+          validate: (val2) => {
+            return ["white", "hightlight", "black"].includes(val2);
+          }
+        }),
+        isBold: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/pages/404/index.js
   useComponent([Title]);
@@ -25517,10 +25565,13 @@
   };
 
   // src/js/component/common/docsContainer/definition.js
-  var DocContainer = createComponent({
-    name: "doc-container",
-    component: DocContainerFn
-  });
+  var DocContainer = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "doc-container",
+      component: DocContainerFn
+    }
+  );
 
   // src/js/component/common/doctitle/docSide.js
   var DocTitleFn = ({ html }) => {
@@ -25532,11 +25583,14 @@
   };
 
   // src/js/component/common/doctitle/definition.js
-  var DocTitle = createComponent({
-    name: "doc-title",
-    component: DocTitleFn,
-    state: {}
-  });
+  var DocTitle = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "doc-title",
+      component: DocTitleFn,
+      state: {}
+    }
+  );
 
   // src/js/component/common/doctitleSmall/docSide.js
   var DocTitleSmallFn = ({ html }) => {
@@ -25548,11 +25602,14 @@
   };
 
   // src/js/component/common/doctitleSmall/definition.js
-  var DocsTitleSmall = createComponent({
-    name: "doc-title-small",
-    component: DocTitleSmallFn,
-    state: {}
-  });
+  var DocsTitleSmall = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "doc-title-small",
+      component: DocTitleSmallFn,
+      state: {}
+    }
+  );
 
   // src/js/component/common/loader/loader.js
   var LoaderFn = ({ onMount, html, watch, remove: remove2, getState }) => {
@@ -25584,24 +25641,29 @@
   };
 
   // src/js/component/common/loader/definition.js
-  var Loader = createComponent({
-    name: "mob-loader",
-    component: LoaderFn,
-    exportState: ["position", "shouldRemove"],
-    state: {
-      shouldRemove: () => ({
-        value: false,
-        type: Boolean
-      }),
-      position: () => ({
-        value: "center-viewport",
-        type: String,
-        validate: (val2) => {
-          return ["center-viewport", "center-component"].includes(val2);
-        }
-      })
+  var Loader = createComponent(
+    /** @type{CreateComponentParams<import('./type').Loader>} */
+    {
+      name: "mob-loader",
+      component: LoaderFn,
+      exportState: ["position", "shouldRemove"],
+      state: {
+        shouldRemove: () => ({
+          value: false,
+          type: Boolean
+        }),
+        position: () => ({
+          value: "center-viewport",
+          type: String,
+          validate: (val2) => {
+            return ["center-viewport", "center-component"].includes(
+              val2
+            );
+          }
+        })
+      }
     }
-  });
+  );
 
   // node_modules/highlight.js/es/core.js
   var import_core3 = __toESM(require_core(), 1);
@@ -26424,48 +26486,51 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/snippet/definition.js
-  var Snippet = createComponent({
-    name: "mob-snippet",
-    component: SnippetFn,
-    exportState: [
-      "source",
-      "isFull",
-      "hasOverflow",
-      "hasBorder",
-      "numLines",
-      "awaitLoad"
-    ],
-    state: {
-      source: () => ({
-        value: "",
-        type: String
-      }),
-      contentIsLoaded: () => ({
-        value: false,
-        type: Boolean
-      }),
-      isFull: () => ({
-        value: false,
-        type: Boolean
-      }),
-      hasOverflow: () => ({
-        value: true,
-        type: Boolean
-      }),
-      hasBorder: () => ({
-        value: false,
-        type: Boolean
-      }),
-      numLines: () => ({
-        value: 1,
-        type: Number
-      }),
-      awaitLoad: () => ({
-        value: false,
-        type: Boolean
-      })
+  var Snippet = createComponent(
+    /** @type{CreateComponentParams<import('./type').Snippet>} */
+    {
+      name: "mob-snippet",
+      component: SnippetFn,
+      exportState: [
+        "source",
+        "isFull",
+        "hasOverflow",
+        "hasBorder",
+        "numLines",
+        "awaitLoad"
+      ],
+      state: {
+        source: () => ({
+          value: "",
+          type: String
+        }),
+        contentIsLoaded: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isFull: () => ({
+          value: false,
+          type: Boolean
+        }),
+        hasOverflow: () => ({
+          value: true,
+          type: Boolean
+        }),
+        hasBorder: () => ({
+          value: false,
+          type: Boolean
+        }),
+        numLines: () => ({
+          value: 1,
+          type: Number
+        }),
+        awaitLoad: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/spacerAnchor/spacerAnchor.js
   function hasAnchor({ label }) {
@@ -26502,31 +26567,34 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/spacerAnchor/definition.js
-  var SpacerAnchor = createComponent({
-    name: "mob-spacer",
-    component: SpacerAnchorFn,
-    exportState: ["style", "line", "id", "label"],
-    state: {
-      style: () => ({
-        value: "medium",
-        type: String,
-        validate: (val2) => ["small", "medium", "big"].includes(val2),
-        strict: true
-      }),
-      line: () => ({
-        value: false,
-        type: Boolean
-      }),
-      id: () => ({
-        value: "",
-        type: String
-      }),
-      label: () => ({
-        value: "",
-        type: String
-      })
+  var SpacerAnchor = createComponent(
+    /** @type{CreateComponentParams<import('./type').SpacerAnchor>} */
+    {
+      name: "mob-spacer",
+      component: SpacerAnchorFn,
+      exportState: ["style", "line", "id", "label"],
+      state: {
+        style: () => ({
+          value: "medium",
+          type: String,
+          validate: (val2) => ["small", "medium", "big"].includes(val2),
+          strict: true
+        }),
+        line: () => ({
+          value: false,
+          type: Boolean
+        }),
+        id: () => ({
+          value: "",
+          type: String
+        }),
+        label: () => ({
+          value: "",
+          type: String
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/typography/AnchorButton/AnchorButton.js
   var AnchorButtonFn = ({ html, getState, delegateEvents }) => {
@@ -26550,21 +26618,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/typography/AnchorButton/definition.js
-  var AnchorButton = createComponent({
-    name: "anchor-button",
-    component: AnchorButtonFn,
-    exportState: ["anchor", "content"],
-    state: {
-      anchor: () => ({
-        value: "",
-        type: String
-      }),
-      content: () => ({
-        value: "",
-        type: String
-      })
+  var AnchorButton = createComponent(
+    /** @type{CreateComponentParams<import('./type').AnchorBUtton>} */
+    {
+      name: "anchor-button",
+      component: AnchorButtonFn,
+      exportState: ["anchor", "content"],
+      state: {
+        anchor: () => ({
+          value: "",
+          type: String
+        }),
+        content: () => ({
+          value: "",
+          type: String
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/typography/list/list.js
   var getList = ({ items }) => {
@@ -26583,38 +26654,43 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/typography/list/definition.js
-  var List = createComponent({
-    name: "mob-list",
-    component: ListFn,
-    exportState: ["style", "color", "items", "dots", "block"],
-    state: {
-      style: () => ({
-        value: "medium",
-        type: String,
-        validate: (val2) => ["small", "medium", "big"].includes(val2),
-        strict: true
-      }),
-      dots: () => ({
-        value: true,
-        type: Boolean
-      }),
-      block: () => ({
-        value: false,
-        type: Boolean
-      }),
-      color: () => ({
-        value: "black",
-        type: String,
-        validate: (val2) => {
-          return ["white", "black", "grey", "hightlight"].includes(val2);
-        }
-      }),
-      items: () => ({
-        value: [],
-        type: Array
-      })
+  var List = createComponent(
+    /** @type{CreateComponentParams<import('./type').List>} */
+    {
+      name: "mob-list",
+      component: ListFn,
+      exportState: ["style", "color", "items", "dots", "block"],
+      state: {
+        style: () => ({
+          value: "medium",
+          type: String,
+          validate: (val2) => ["small", "medium", "big"].includes(val2),
+          strict: true
+        }),
+        dots: () => ({
+          value: true,
+          type: Boolean
+        }),
+        block: () => ({
+          value: false,
+          type: Boolean
+        }),
+        color: () => ({
+          value: "black",
+          type: String,
+          validate: (val2) => {
+            return ["white", "black", "grey", "hightlight"].includes(
+              val2
+            );
+          }
+        }),
+        items: () => ({
+          value: [],
+          type: Array
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/typography/paragraph/paragraph.js
   var ParagraphFn = ({ html, getState }) => {
@@ -26626,26 +26702,31 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/typography/paragraph/definition.js
-  var Paragraph = createComponent({
-    name: "mob-paragraph",
-    component: ParagraphFn,
-    exportState: ["style", "color"],
-    state: {
-      style: () => ({
-        value: "medium",
-        type: String,
-        validate: (val2) => ["small", "medium", "big"].includes(val2),
-        strict: true
-      }),
-      color: () => ({
-        value: "black",
-        type: String,
-        validate: (val2) => {
-          return ["white", "grey", "black", "highlight"].includes(val2);
-        }
-      })
+  var Paragraph = createComponent(
+    /** @type{CreateComponentParams<import('./type').Paragraph>} */
+    {
+      name: "mob-paragraph",
+      component: ParagraphFn,
+      exportState: ["style", "color"],
+      state: {
+        style: () => ({
+          value: "medium",
+          type: String,
+          validate: (val2) => ["small", "medium", "big"].includes(val2),
+          strict: true
+        }),
+        color: () => ({
+          value: "black",
+          type: String,
+          validate: (val2) => {
+            return ["white", "grey", "black", "highlight"].includes(
+              val2
+            );
+          }
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/htmlContent/htmlContent.js
   var getComponents = ({ data, staticProps: staticProps2, awaitLoadSnippet }) => {
@@ -26709,52 +26790,55 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/htmlContent/definition.js
-  var HtmlContent = createComponent({
-    name: "html-content",
-    component: HtmlContentFn,
-    exportState: [
-      "source",
-      "useMinHeight",
-      "useMaxWidth",
-      "data",
-      "awaitLoadSnippet"
-    ],
-    state: {
-      source: () => ({
-        value: "",
-        type: String
-      }),
-      data: () => ({
-        value: [],
-        type: Array
-      }),
-      contentIsLoaded: () => ({
-        value: false,
-        type: Boolean
-      }),
-      useMinHeight: () => ({
-        value: false,
-        type: Boolean
-      }),
-      useMaxWidth: () => ({
-        value: false,
-        type: Boolean
-      }),
-      awaitLoadSnippet: () => ({
-        value: false,
-        type: Boolean
-      })
-    },
-    child: [
-      List,
-      Paragraph,
-      Title,
-      Loader,
-      Snippet,
-      SpacerAnchor,
-      AnchorButton
-    ]
-  });
+  var HtmlContent = createComponent(
+    /** @type{CreateComponentParams<import('./type').HtmlContent>} */
+    {
+      name: "html-content",
+      component: HtmlContentFn,
+      exportState: [
+        "source",
+        "useMinHeight",
+        "useMaxWidth",
+        "data",
+        "awaitLoadSnippet"
+      ],
+      state: {
+        source: () => ({
+          value: "",
+          type: String
+        }),
+        data: () => ({
+          value: [],
+          type: Array
+        }),
+        contentIsLoaded: () => ({
+          value: false,
+          type: Boolean
+        }),
+        useMinHeight: () => ({
+          value: false,
+          type: Boolean
+        }),
+        useMaxWidth: () => ({
+          value: false,
+          type: Boolean
+        }),
+        awaitLoadSnippet: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [
+        List,
+        Paragraph,
+        Title,
+        Loader,
+        Snippet,
+        SpacerAnchor,
+        AnchorButton
+      ]
+    }
+  );
 
   // src/js/component/common/scrollTo/button/scrollToButton.js
   var ScrollToButtonFn = ({ html, getState, bindEffect }) => {
@@ -26773,21 +26857,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/scrollTo/button/definition.js
-  var ScrollToButton = createComponent({
-    name: "scroll-to-button",
-    component: ScrollToButtonFn,
-    exportState: ["label", "active"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
+  var ScrollToButton = createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollToButton>} */
+    {
+      name: "scroll-to-button",
+      component: ScrollToButtonFn,
+      exportState: ["label", "active"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/scrollTo/scrollTo.js
   var disableObservereffect = false;
@@ -26872,40 +26959,42 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/scrollTo/definition.js
-  var ScrollTo = createComponent({
-    name: "scroll-to",
-    component: ScrollToFn,
-    exportState: ["activeId"],
-    state: {
-      activeLabel: () => ({
-        value: "",
-        type: String
-      }),
-      anchorItemsToBeComputed: () => ({
-        value: [],
-        type: Array
-      }),
-      anchorItems: () => ({
-        value: [],
-        type: Array,
-        transform: (value) => {
-          return value.sort(
-            function(a, b) {
-              const { element: elementA } = a;
-              const { element: elementB } = b;
-              if (elementA === elementB || !elementA || !elementB)
-                return 0;
-              if (elementA.compareDocumentPosition(elementB) & 2) {
-                return 1;
+  var ScrollTo = createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollTo>} */
+    {
+      name: "scroll-to",
+      component: ScrollToFn,
+      state: {
+        activeLabel: () => ({
+          value: "",
+          type: String
+        }),
+        anchorItemsToBeComputed: () => ({
+          value: [],
+          type: Array
+        }),
+        anchorItems: () => ({
+          value: [],
+          type: Array,
+          transform: (value) => {
+            return value.sort(
+              function(a, b) {
+                const { element: elementA } = a;
+                const { element: elementB } = b;
+                if (elementA === elementB || !elementA || !elementB)
+                  return 0;
+                if (elementA.compareDocumentPosition(elementB) & 2) {
+                  return 1;
+                }
+                return -1;
               }
-              return -1;
-            }
-          );
-        }
-      })
-    },
-    child: [ScrollToButton]
-  });
+            );
+          }
+        })
+      },
+      child: [ScrollToButton]
+    }
+  );
 
   // src/js/pages/Layout/utils.js
   var getBreadCrumbs = ({ breadCrumbs }) => breadCrumbs.map((item) => renderHtml` <a href="${item.url}">${item.title}</a>`).join("");
@@ -27015,29 +27104,32 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/fakeComponent/definition.js
-  var BenchMarkFakeComponent = createComponent({
-    name: "benchmark-fake-component",
-    component: BenchMarkFakeComponentFn,
-    exportState: ["index", "counter", "label"],
-    state: {
-      counter: () => ({
-        value: 0,
-        type: Number
-      }),
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      index: () => ({
-        value: 0,
-        type: Number
-      }),
-      isSelected: () => ({
-        value: false,
-        type: Boolean
-      })
+  var BenchMarkFakeComponent = createComponent(
+    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    {
+      name: "benchmark-fake-component",
+      component: BenchMarkFakeComponentFn,
+      exportState: ["index", "counter", "label"],
+      state: {
+        counter: () => ({
+          value: 0,
+          type: Number
+        }),
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        index: () => ({
+          value: 0,
+          type: Number
+        }),
+        isSelected: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/pages/benchMark/partials/definitionPartial.js
   var benchMarkDefinitionPartial = (maxItem = 2001) => ({
@@ -27270,11 +27362,14 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/invalidate/definition.js
-  var BenchMarkInvalidate = createComponent({
-    name: "benchmark-invalidate",
-    component: BenchMarkInvalidateFn,
-    ...benchMarkDefinitionPartial()
-  });
+  var BenchMarkInvalidate = createComponent(
+    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    {
+      name: "benchmark-invalidate",
+      component: BenchMarkInvalidateFn,
+      ...benchMarkDefinitionPartial()
+    }
+  );
 
   // src/js/component/pages/benchMark/repeatKey/benchmarkRepeatWithKey.js
   var BenchMarkRepeatWithKyFn = ({
@@ -27347,11 +27442,14 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/repeatKey/definition.js
-  var BenchMarkRepeatWithKey = createComponent({
-    name: "benchmark-repeat-key",
-    component: BenchMarkRepeatWithKyFn,
-    ...benchMarkDefinitionPartial()
-  });
+  var BenchMarkRepeatWithKey = createComponent(
+    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    {
+      name: "benchmark-repeat-key",
+      component: BenchMarkRepeatWithKyFn,
+      ...benchMarkDefinitionPartial()
+    }
+  );
 
   // src/js/component/pages/benchMark/repeatKeyNested/benchmarkRepeatWithKeyNested.js
   var BenchMarkRepeatWithKyFnNested = ({
@@ -27440,11 +27538,14 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/repeatKeyNested/definition.js
-  var BenchMarkRepeatWithKeyNested = createComponent({
-    name: "benchmark-repeat-key-nested",
-    component: BenchMarkRepeatWithKyFnNested,
-    ...benchMarkDefinitionPartial(31)
-  });
+  var BenchMarkRepeatWithKeyNested = createComponent(
+    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    {
+      name: "benchmark-repeat-key-nested",
+      component: BenchMarkRepeatWithKyFnNested,
+      ...benchMarkDefinitionPartial(31)
+    }
+  );
 
   // src/js/component/pages/benchMark/repeatNoKey/benchmarkRepeatNoKey.js
   var BenchMarkRepeatNoKyFn = ({
@@ -27515,11 +27616,14 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/repeatNoKey/definition.js
-  var BenchMarkRepeatNoKey = createComponent({
-    name: "benchmark-repeat-no-key",
-    component: BenchMarkRepeatNoKyFn,
-    ...benchMarkDefinitionPartial()
-  });
+  var BenchMarkRepeatNoKey = createComponent(
+    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    {
+      name: "benchmark-repeat-no-key",
+      component: BenchMarkRepeatNoKyFn,
+      ...benchMarkDefinitionPartial()
+    }
+  );
 
   // src/js/component/pages/benchMark/repeatNoKeyBindStore/store.js
   var externalStore;
@@ -27733,13 +27837,15 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/repeatNoKeyBindStore/definition.js
-  var BenchMarkRepeatNoKeyBindStore = createComponent({
-    name: "benchmark-repeat-no-key-bind-store",
-    component: BenchMarkRepeatNoKyBindStoreFn,
-    exportState: ["svg"],
-    state: {},
-    child: [BenchMarkFakeComponent]
-  });
+  var BenchMarkRepeatNoKeyBindStore = createComponent(
+    /** @type{CreateComponentParams<import('./type').BenchMarkExternal>} */
+    {
+      name: "benchmark-repeat-no-key-bind-store",
+      component: BenchMarkRepeatNoKyBindStoreFn,
+      state: {},
+      child: [BenchMarkFakeComponent]
+    }
+  );
 
   // src/js/component/pages/benchMark/repeatNoKeyKeyNested/benchmarkRepeatWithKeyNested.js
   var BenchMarkRepeatWithNoKeyFnNested = ({
@@ -27826,11 +27932,14 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/benchMark/repeatNoKeyKeyNested/definition.js
-  var BenchMarkRepeatWithNoKeyNested = createComponent({
-    name: "benchmark-repeat-key-no-nested",
-    component: BenchMarkRepeatWithNoKeyFnNested,
-    ...benchMarkDefinitionPartial(31)
-  });
+  var BenchMarkRepeatWithNoKeyNested = createComponent(
+    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    {
+      name: "benchmark-repeat-key-no-nested",
+      component: BenchMarkRepeatWithNoKeyFnNested,
+      ...benchMarkDefinitionPartial(31)
+    }
+  );
 
   // src/js/pages/benchmark/index.js
   useComponent([
@@ -28191,74 +28300,77 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN0/definition.js
-  var AnimatedPatternN0 = createComponent({
-    name: "animatedpattern-n0",
-    component: AnimatedPatternN0Fn,
-    exportState: [
-      "nextRoute",
-      "prevRoute",
-      "numberOfRow",
-      "numberOfColumn",
-      "cellWidth",
-      "cellHeight",
-      "gutter",
-      "fill",
-      "stagger",
-      "reorder",
-      "disableOffcanvas"
-    ],
-    state: {
-      isMounted: false,
-      nextRoute: () => ({
-        value: "",
-        type: String
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      }),
-      numberOfRow: () => ({
-        value: 10,
-        type: Number
-      }),
-      numberOfColumn: () => ({
-        value: 10,
-        type: Number
-      }),
-      cellWidth: () => ({
-        value: 65,
-        type: Number
-      }),
-      cellHeight: () => ({
-        value: 65,
-        type: Number
-      }),
-      gutter: () => ({
-        value: 1,
-        type: Number
-      }),
-      fill: () => ({
-        value: [16, 27, 38, 49, 60, 71, 82, 93],
-        type: Array
-      }),
-      stagger: () => ({
-        value: {
-          each: 5,
-          grid: { col: 11, row: 11, direction: "row" },
-          waitComplete: false
-        },
-        type: "any"
-      }),
-      reorder: () => ({
-        value: true,
-        type: Boolean
-      }),
-      disableOffcanvas: () => ({
-        value: detectFirefox() || detectSafari() ? true : false,
-        type: Boolean
-      })
+  var AnimatedPatternN0 = createComponent(
+    /** @type{CreateComponentParams<import('./type').AnimatedPatternN0>} */
+    {
+      name: "animatedpattern-n0",
+      component: AnimatedPatternN0Fn,
+      exportState: [
+        "nextRoute",
+        "prevRoute",
+        "numberOfRow",
+        "numberOfColumn",
+        "cellWidth",
+        "cellHeight",
+        "gutter",
+        "fill",
+        "stagger",
+        "reorder",
+        "disableOffcanvas"
+      ],
+      state: {
+        isMounted: false,
+        nextRoute: () => ({
+          value: "",
+          type: String
+        }),
+        prevRoute: () => ({
+          value: "",
+          type: String
+        }),
+        numberOfRow: () => ({
+          value: 10,
+          type: Number
+        }),
+        numberOfColumn: () => ({
+          value: 10,
+          type: Number
+        }),
+        cellWidth: () => ({
+          value: 65,
+          type: Number
+        }),
+        cellHeight: () => ({
+          value: 65,
+          type: Number
+        }),
+        gutter: () => ({
+          value: 1,
+          type: Number
+        }),
+        fill: () => ({
+          value: [16, 27, 38, 49, 60, 71, 82, 93],
+          type: Array
+        }),
+        stagger: () => ({
+          value: {
+            each: 5,
+            grid: { col: 11, row: 11, direction: "row" },
+            waitComplete: false
+          },
+          type: "any"
+        }),
+        reorder: () => ({
+          value: true,
+          type: Boolean
+        }),
+        disableOffcanvas: () => ({
+          value: detectFirefox() || detectSafari() ? true : false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/pages/canvas/animatedPatternN0/animatedPatternN0Params.js
   var animatedPatternN0Params = [
@@ -28664,60 +28776,63 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN1/definition.js
-  var AnimatedPatternN1 = createComponent({
-    name: "animatedpattern-n1",
-    component: AnimatedPatternN1Fn,
-    exportState: [
-      "numberOfRow",
-      "numberOfColumn",
-      "cellWidth",
-      "cellHeight",
-      "gutter",
-      "fill",
-      "disableOffcanvas"
-    ],
-    state: {
-      isMounted: false,
-      numberOfRow: 7,
-      numberOfColumn: 15,
-      cellWidth: 70,
-      cellHeight: 70,
-      gutter: 10,
-      fill: [
-        2,
-        18,
-        10,
-        27,
-        21,
-        22,
-        23,
-        24,
-        25,
-        25,
-        26,
-        37,
-        42,
-        53,
-        58,
-        69,
-        74,
-        85,
-        86,
-        87,
-        88,
-        89,
-        90,
-        44,
-        60,
-        65,
-        66
+  var AnimatedPatternN1 = createComponent(
+    /** @type{CreateComponentParams<import('./type').AnimatedPatternN1>} */
+    {
+      name: "animatedpattern-n1",
+      component: AnimatedPatternN1Fn,
+      exportState: [
+        "numberOfRow",
+        "numberOfColumn",
+        "cellWidth",
+        "cellHeight",
+        "gutter",
+        "fill",
+        "disableOffcanvas"
       ],
-      disableOffcanvas: () => ({
-        value: detectFirefox() || detectSafari() ? true : false,
-        type: Boolean
-      })
+      state: {
+        isMounted: false,
+        numberOfRow: 7,
+        numberOfColumn: 15,
+        cellWidth: 70,
+        cellHeight: 70,
+        gutter: 10,
+        fill: [
+          2,
+          18,
+          10,
+          27,
+          21,
+          22,
+          23,
+          24,
+          25,
+          25,
+          26,
+          37,
+          42,
+          53,
+          58,
+          69,
+          74,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          44,
+          60,
+          65,
+          66
+        ],
+        disableOffcanvas: () => ({
+          value: detectFirefox() || detectSafari() ? true : false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/pages/canvas/animatedPatternN1/index.js
   useComponent([AnimatedPatternN1]);
@@ -28964,52 +29079,55 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/canvas/caterpillarN0/definition.js
-  var CaterpillarN0 = createComponent({
-    name: "caterpillar-n0",
-    component: CaterpillarN0Fn,
-    exportState: [
-      "nextRoute",
-      "prevRoute",
-      "amountOfPath",
-      "width",
-      "height",
-      "radius",
-      "fill",
-      "stroke",
-      "opacity",
-      "spacerY",
-      "intialRotation",
-      "perpetualRatio",
-      "mouseMoveRatio",
-      "disableOffcanvas"
-    ],
-    state: {
-      isMounted: false,
-      nextRoute: () => ({
-        value: "",
-        type: String
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      }),
-      amountOfPath: 17,
-      width: 30,
-      height: 30,
-      radius: 0,
-      fill: "",
-      stroke: "#000",
-      opacity: 0.05,
-      spacerY: (condition) => condition ? 300 : -400,
-      intialRotation: 33,
-      perpetualRatio: 6,
-      mouseMoveRatio: 10,
-      disableOffcanvas: () => ({
-        value: detectFirefox() || detectSafari() ? true : false,
-        type: Boolean
-      })
+  var CaterpillarN0 = createComponent(
+    /** @type{CreateComponentParams<import('./type').CaterpillarN0>} */
+    {
+      name: "caterpillar-n0",
+      component: CaterpillarN0Fn,
+      exportState: [
+        "nextRoute",
+        "prevRoute",
+        "amountOfPath",
+        "width",
+        "height",
+        "radius",
+        "fill",
+        "stroke",
+        "opacity",
+        "spacerY",
+        "intialRotation",
+        "perpetualRatio",
+        "mouseMoveRatio",
+        "disableOffcanvas"
+      ],
+      state: {
+        isMounted: false,
+        nextRoute: () => ({
+          value: "",
+          type: String
+        }),
+        prevRoute: () => ({
+          value: "",
+          type: String
+        }),
+        amountOfPath: 17,
+        width: 30,
+        height: 30,
+        radius: 0,
+        fill: "",
+        stroke: "#000",
+        opacity: 0.05,
+        spacerY: (condition) => condition ? 300 : -400,
+        intialRotation: 33,
+        perpetualRatio: 6,
+        mouseMoveRatio: 10,
+        disableOffcanvas: () => ({
+          value: detectFirefox() || detectSafari() ? true : false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/pages/canvas/caterpillarN0/index.js
   useComponent([CaterpillarN0]);
@@ -29271,38 +29389,41 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/canvas/caterpillarN1/definition.js
-  var CaterpillarN1 = createComponent({
-    name: "caterpillar-n1",
-    component: CaterpillarN1Fn,
-    exportState: [
-      "numItems",
-      "width",
-      "height",
-      "fill",
-      "opacity",
-      "radius",
-      "rotationEach",
-      "centerEach",
-      "rotationDuration",
-      "disableOffcanvas"
-    ],
-    state: {
-      isMounted: false,
-      numItems: 20,
-      width: 40,
-      height: 40,
-      fill: [14],
-      opacity: 0.05,
-      radius: 0,
-      rotationEach: 15,
-      centerEach: 3,
-      rotationDuration: 5e3,
-      disableOffcanvas: () => ({
-        value: detectFirefox() || detectSafari() ? true : false,
-        type: Boolean
-      })
+  var CaterpillarN1 = createComponent(
+    /** @type{CreateComponentParams<import('./type').CaterpillarN1>} */
+    {
+      name: "caterpillar-n1",
+      component: CaterpillarN1Fn,
+      exportState: [
+        "numItems",
+        "width",
+        "height",
+        "fill",
+        "opacity",
+        "radius",
+        "rotationEach",
+        "centerEach",
+        "rotationDuration",
+        "disableOffcanvas"
+      ],
+      state: {
+        isMounted: false,
+        numItems: 20,
+        width: 40,
+        height: 40,
+        fill: [14],
+        opacity: 0.05,
+        radius: 0,
+        rotationEach: 15,
+        centerEach: 3,
+        rotationDuration: 5e3,
+        disableOffcanvas: () => ({
+          value: detectFirefox() || detectSafari() ? true : false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/pages/canvas/caterpillarN1/index.js
   useComponent([CaterpillarN1]);
@@ -29653,46 +29774,49 @@ Loading snippet ...</pre
       method: "resume"
     }
   };
-  var CaterpillarN2 = createComponent({
-    name: "caterpillar-n2",
-    component: CaterpillarN2Fn,
-    exportState: [
-      "numItems",
-      "width",
-      "height",
-      "radius",
-      "fill",
-      "opacity",
-      "xAmplitude",
-      "yAmplitude",
-      "duration",
-      "rotationDefault",
-      "friction",
-      "disableOffcanvas"
-    ],
-    state: {
-      isMounted: false,
-      numItems: 20,
-      width: 80,
-      height: 80,
-      radius: 0,
-      fill: [2],
-      opacity: 0.02,
-      xAmplitude: 500,
-      yAmplitude: 400,
-      duration: 10,
-      rotationDefault: 360,
-      friction: duration / 2 / Math.PI,
-      disableOffcanvas: () => ({
-        value: detectFirefox() || detectSafari() ? true : false,
-        type: Boolean
-      }),
-      buttons: () => ({
-        value: buttons,
-        type: "Any"
-      })
+  var CaterpillarN2 = createComponent(
+    /** @type{CreateComponentParams<import('./type').CaterpillarN2>} */
+    {
+      name: "caterpillar-n2",
+      component: CaterpillarN2Fn,
+      exportState: [
+        "numItems",
+        "width",
+        "height",
+        "radius",
+        "fill",
+        "opacity",
+        "xAmplitude",
+        "yAmplitude",
+        "duration",
+        "rotationDefault",
+        "friction",
+        "disableOffcanvas"
+      ],
+      state: {
+        isMounted: false,
+        numItems: 20,
+        width: 80,
+        height: 80,
+        radius: 0,
+        fill: [2],
+        opacity: 0.02,
+        xAmplitude: 500,
+        yAmplitude: 400,
+        duration: 10,
+        rotationDefault: 360,
+        friction: duration / 2 / Math.PI,
+        disableOffcanvas: () => ({
+          value: detectFirefox() || detectSafari() ? true : false,
+          type: Boolean
+        }),
+        buttons: () => ({
+          value: buttons,
+          type: "Any"
+        })
+      }
     }
-  });
+  );
 
   // src/js/pages/canvas/caterpillarN2/index.js
   useComponent([CaterpillarN2]);
@@ -30012,91 +30136,94 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN0/definition.js
-  var ScrollerN0 = createComponent({
-    name: "scroller-n0",
-    component: ScrollerN0Fn,
-    exportState: [
-      "nextRoute",
-      "prevRoute",
-      "numberOfRow",
-      "numberOfColumn",
-      "cellWidth",
-      "cellHeight",
-      "gutter",
-      "fill",
-      "stagger",
-      "reorder",
-      "disableOffcanvas"
-    ],
-    state: {
-      isMounted: false,
-      nextRoute: () => ({
-        value: "",
-        type: String
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      }),
-      numberOfRow: () => ({
-        value: 10,
-        type: Number
-      }),
-      numberOfColumn: () => ({
-        value: 10,
-        type: Number
-      }),
-      cellWidth: () => ({
-        value: 65,
-        type: Number
-      }),
-      cellHeight: () => ({
-        value: 65,
-        type: Number
-      }),
-      gutter: () => ({
-        value: 1,
-        type: Number
-      }),
-      fill: () => ({
-        value: [
-          36,
-          37,
-          38,
-          39,
-          40,
-          47,
-          51,
-          58,
-          62,
-          69,
-          73,
-          80,
-          81,
-          82,
-          83,
-          84
-        ],
-        type: Array
-      }),
-      stagger: () => ({
-        value: {
-          type: "equal",
-          each: 6,
-          from: "random"
-        },
-        type: "Any"
-      }),
-      reorder: () => ({
-        value: true,
-        type: Boolean
-      }),
-      disableOffcanvas: () => ({
-        value: detectFirefox() || detectSafari() ? true : false,
-        type: Boolean
-      })
+  var ScrollerN0 = createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollerN0>} */
+    {
+      name: "scroller-n0",
+      component: ScrollerN0Fn,
+      exportState: [
+        "nextRoute",
+        "prevRoute",
+        "numberOfRow",
+        "numberOfColumn",
+        "cellWidth",
+        "cellHeight",
+        "gutter",
+        "fill",
+        "stagger",
+        "reorder",
+        "disableOffcanvas"
+      ],
+      state: {
+        isMounted: false,
+        nextRoute: () => ({
+          value: "",
+          type: String
+        }),
+        prevRoute: () => ({
+          value: "",
+          type: String
+        }),
+        numberOfRow: () => ({
+          value: 10,
+          type: Number
+        }),
+        numberOfColumn: () => ({
+          value: 10,
+          type: Number
+        }),
+        cellWidth: () => ({
+          value: 65,
+          type: Number
+        }),
+        cellHeight: () => ({
+          value: 65,
+          type: Number
+        }),
+        gutter: () => ({
+          value: 1,
+          type: Number
+        }),
+        fill: () => ({
+          value: [
+            36,
+            37,
+            38,
+            39,
+            40,
+            47,
+            51,
+            58,
+            62,
+            69,
+            73,
+            80,
+            81,
+            82,
+            83,
+            84
+          ],
+          type: Array
+        }),
+        stagger: () => ({
+          value: {
+            type: "equal",
+            each: 6,
+            from: "random"
+          },
+          type: "Any"
+        }),
+        reorder: () => ({
+          value: true,
+          type: Boolean
+        }),
+        disableOffcanvas: () => ({
+          value: detectFirefox() || detectSafari() ? true : false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/pages/canvas/scroller/scrollerParams.js
   var scrollerParams = [
@@ -30417,34 +30544,37 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN1/definition.js
-  var ScrollerN1 = createComponent({
-    name: "scroller-n1",
-    component: ScrollerN1Fn,
-    exportState: [
-      "amountOfPath",
-      "width",
-      "height",
-      "radius",
-      "opacity",
-      "intialRotation",
-      "endRotation",
-      "disableOffcanvas"
-    ],
-    state: {
-      isMounted: false,
-      amountOfPath: 17,
-      width: 15,
-      height: 40,
-      radius: 0,
-      opacity: 0.05,
-      intialRotation: 33,
-      endRotation: 720,
-      disableOffcanvas: () => ({
-        value: detectFirefox() || detectSafari() ? true : false,
-        type: Boolean
-      })
+  var ScrollerN1 = createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollerN1>} */
+    {
+      name: "scroller-n1",
+      component: ScrollerN1Fn,
+      exportState: [
+        "amountOfPath",
+        "width",
+        "height",
+        "radius",
+        "opacity",
+        "intialRotation",
+        "endRotation",
+        "disableOffcanvas"
+      ],
+      state: {
+        isMounted: false,
+        amountOfPath: 17,
+        width: 15,
+        height: 40,
+        radius: 0,
+        opacity: 0.05,
+        intialRotation: 33,
+        endRotation: 720,
+        disableOffcanvas: () => ({
+          value: detectFirefox() || detectSafari() ? true : false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/pages/canvas/scrollerN1/index.js
   useComponent([ScrollerN1]);
@@ -30472,21 +30602,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/button/definition.js
-  var DynamicListButton = createComponent({
-    name: "dynamic-list-button",
-    component: DynamicListButtonFn,
-    exportState: ["active", "label"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
+  var DynamicListButton = createComponent(
+    /** @type{CreateComponentParams<import('./type').DynamicListButton>} */
+    {
+      name: "dynamic-list-button",
+      component: DynamicListButtonFn,
+      exportState: ["active", "label"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/pages/dynamicList/card/innerCard/dynamicListCardInner.js
   var DynamicListCardInnerFn = ({ html, bindText }) => {
@@ -30496,17 +30629,20 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/card/innerCard/definition.js
-  var DynamicListCardInner = createComponent({
-    name: "dynamic-list-card-inner",
-    component: DynamicListCardInnerFn,
-    exportState: ["key"],
-    state: {
-      key: () => ({
-        value: "",
-        type: String
-      })
+  var DynamicListCardInner = createComponent(
+    /** @type{CreateComponentParams<import('./type').DynamicListCardInner>} */
+    {
+      name: "dynamic-list-card-inner",
+      component: DynamicListCardInnerFn,
+      exportState: ["key"],
+      state: {
+        key: () => ({
+          value: "",
+          type: String
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/pages/dynamicList/data/index.js
   var startData = [
@@ -30849,21 +30985,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/counter/definition.js
-  var DynamicCounter = createComponent({
-    name: "dynamic-list-counter",
-    component: DynamicListCounterFn,
-    exportState: ["counter", "parentListId"],
-    state: {
-      parentListId: () => ({
-        value: -1,
-        type: Number
-      }),
-      counter: () => ({
-        value: 0,
-        type: Number
-      })
+  var DynamicCounter = createComponent(
+    /** @type{CreateComponentParams<import('./type').DynamicCounter>} */
+    {
+      name: "dynamic-list-counter",
+      component: DynamicListCounterFn,
+      exportState: ["counter", "parentListId"],
+      state: {
+        parentListId: () => ({
+          value: -1,
+          type: Number
+        }),
+        counter: () => ({
+          value: 0,
+          type: Number
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/pages/dynamicList/empty/dynamicListEmpty.js
   var DynamicListEmptyFn = ({ html }) => {
@@ -30874,10 +31013,13 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/empty/definition.js
-  var DynamicListEmpty = createComponent({
-    name: "dynamic-list-empty",
-    component: DynamicListEmptyFn
-  });
+  var DynamicListEmpty = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "dynamic-list-empty",
+      component: DynamicListEmptyFn
+    }
+  );
 
   // src/js/component/pages/dynamicList/card/dynamicListCard.js
   function createArray(numberOfItem) {
@@ -31077,51 +31219,54 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/card/definition.js
-  var DynamicListCard = createComponent({
-    name: "dynamic-list-card",
-    component: DynamicListCardFn,
-    exportState: ["isFull", "label", "index", "counter", "parentListId"],
-    state: {
-      parentListId: () => ({
-        value: -1,
-        type: Number
-      }),
-      isFull: () => ({
-        value: false,
-        type: Boolean
-      }),
-      label: () => ({
-        value: "-",
-        type: String
-      }),
-      index: () => ({
-        value: -1,
-        type: Number
-      }),
-      counter: () => ({
-        value: 1,
-        type: Number
-      }),
-      innerData: () => ({
-        value: innerData[0],
-        type: Array
-      }),
-      isSelected: () => ({
-        value: false,
-        type: Boolean
-      }),
-      isMounted: () => ({
-        value: false,
-        type: Boolean
-      })
-    },
-    child: [
-      DynamicCounter,
-      DynamicListEmpty,
-      DynamicListCardInner,
-      DynamicListButton
-    ]
-  });
+  var DynamicListCard = createComponent(
+    /** @type{CreateComponentParams<import('./type').DynamicListCard>} */
+    {
+      name: "dynamic-list-card",
+      component: DynamicListCardFn,
+      exportState: ["isFull", "label", "index", "counter", "parentListId"],
+      state: {
+        parentListId: () => ({
+          value: -1,
+          type: Number
+        }),
+        isFull: () => ({
+          value: false,
+          type: Boolean
+        }),
+        label: () => ({
+          value: "-",
+          type: String
+        }),
+        index: () => ({
+          value: -1,
+          type: Number
+        }),
+        counter: () => ({
+          value: 1,
+          type: Number
+        }),
+        innerData: () => ({
+          value: innerData[0],
+          type: Array
+        }),
+        isSelected: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [
+        DynamicCounter,
+        DynamicListEmpty,
+        DynamicListCardInner,
+        DynamicListButton
+      ]
+    }
+  );
 
   // src/js/component/pages/dynamicList/slottedLabel/dynamicListSlottedLabel.js
   var DynamicListSlottedLabelFn = ({ html, bindText }) => {
@@ -31131,17 +31276,20 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/slottedLabel/definition.js
-  var DynamicListSlottedLabel = createComponent({
-    name: "dynamic-slotted-label",
-    component: DynamicListSlottedLabelFn,
-    exportState: ["label"],
-    state: {
-      label: () => ({
-        value: void 0,
-        type: "Any"
-      })
+  var DynamicListSlottedLabel = createComponent(
+    /** @type{CreateComponentParams<import('./type').DynamicListSlottedLabel>} */
+    {
+      name: "dynamic-slotted-label",
+      component: DynamicListSlottedLabelFn,
+      exportState: ["label"],
+      state: {
+        label: () => ({
+          value: void 0,
+          type: "Any"
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/pages/dynamicList/repeaters/dynamicListRepeater.js
   function getRepeaterCard({
@@ -31228,69 +31376,75 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/repeaters/definition.js
-  var DynamicListRepeater = createComponent({
-    name: "dynamic-list-repeater",
-    component: DynamicListRepeaterFn,
-    exportState: [
-      "label",
-      "clean",
-      "data",
-      "listId",
-      "key",
-      "listId",
-      "counter"
-    ],
-    state: {
-      data: () => ({
-        value: [],
-        type: Array
-      }),
-      key: () => ({
-        value: "",
-        type: String
-      }),
-      clean: () => ({
-        value: false,
-        type: Boolean
-      }),
-      listId: () => ({
-        value: -1,
-        type: Number
-      }),
-      counter: () => ({
-        value: -1,
-        type: Number
-      }),
-      label: () => ({
-        value: "",
-        type: String
-      })
-    },
-    child: [DynamicListCard, DynamicListSlottedLabel]
-  });
+  var DynamicListRepeater = createComponent(
+    /** @type{CreateComponentParams<import('./type').DynamicListRepeater>} */
+    {
+      name: "dynamic-list-repeater",
+      component: DynamicListRepeaterFn,
+      exportState: [
+        "label",
+        "clean",
+        "data",
+        "listId",
+        "key",
+        "listId",
+        "counter"
+      ],
+      state: {
+        data: () => ({
+          value: [],
+          type: Array
+        }),
+        key: () => ({
+          value: "",
+          type: String
+        }),
+        clean: () => ({
+          value: false,
+          type: Boolean
+        }),
+        listId: () => ({
+          value: -1,
+          type: Number
+        }),
+        counter: () => ({
+          value: -1,
+          type: Number
+        }),
+        label: () => ({
+          value: "",
+          type: String
+        })
+      },
+      child: [DynamicListCard, DynamicListSlottedLabel]
+    }
+  );
 
   // src/js/component/pages/dynamicList/definition.js
-  var DynamicList = createComponent({
-    name: "dynamic-list",
-    component: DynamicListFn,
-    state: {
-      counter: () => ({
-        value: 1,
-        type: Number,
-        validate: (val2) => val2 <= 10 && val2 >= 0,
-        strict: true
-      }),
-      data: () => ({
-        value: startData,
-        type: Array
-      }),
-      activeSample: () => ({
-        value: 3,
-        type: Number
-      })
-    },
-    child: [DynamicListButton, DynamicListRepeater, DynamicListCardInner]
-  });
+  var DynamicList = createComponent(
+    /** @type{CreateComponentParams<import('./type').DynamicList>} */
+    {
+      name: "dynamic-list",
+      component: DynamicListFn,
+      state: {
+        counter: () => ({
+          value: 1,
+          type: Number,
+          validate: (val2) => val2 <= 10 && val2 >= 0,
+          strict: true
+        }),
+        data: () => ({
+          value: startData,
+          type: Array
+        }),
+        activeSample: () => ({
+          value: 3,
+          type: Number
+        })
+      },
+      child: [DynamicListButton, DynamicListRepeater, DynamicListCardInner]
+    }
+  );
 
   // src/js/pages/dynamicList/index.js
   useComponent([DynamicList]);
@@ -31472,22 +31626,25 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/homepage/definition.js
-  var HomeComponent = createComponent({
-    name: "home-component",
-    component: HomeComponentFn,
-    exportState: ["svg"],
-    state: {
-      svg: () => ({
-        value: "",
-        type: String
-      }),
-      isMounted: () => ({
-        value: false,
-        type: Boolean
-      })
-    },
-    child: []
-  });
+  var HomeComponent = createComponent(
+    /** @type{CreateComponentParams<import('./type').HomeComponent>} */
+    {
+      name: "home-component",
+      component: HomeComponentFn,
+      exportState: ["svg"],
+      state: {
+        svg: () => ({
+          value: "",
+          type: String
+        }),
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: []
+    }
+  );
 
   // src/js/pages/home/index.js
   useComponent([HomeComponent]);
@@ -31868,8 +32025,8 @@ Loading snippet ...</pre
         /* CSS */
         `:host { display: block; } `
       )
-      // connectedCallback: ({ context, propierties }) => {
-      //     console.log(context, propierties);
+      // connectedCallback: ({ context, params }) => {
+      //     console.log(context, params);
       // },
     }
   );
@@ -31882,45 +32039,48 @@ Loading snippet ...</pre
     }
     return array;
   };
-  var Matrioska = createComponent({
-    name: "page-matrioska",
-    component: MatrioskaFn,
-    exportState: [],
-    state: {
-      level1: () => ({
-        value: [{ key: 1, value: mobCore.getUnivoqueId() }],
-        type: Array,
-        validate: (val2) => val2.length <= 10,
-        strict: true
-      }),
-      level2: () => ({
-        value: [
-          { key: 1, value: mobCore.getUnivoqueId() },
-          { key: 2, value: mobCore.getUnivoqueId() }
-        ],
-        type: Array,
-        validate: (val2) => val2.length <= 10,
-        strict: true
-      }),
-      level3: () => ({
-        value: [
-          { key: 1, value: mobCore.getUnivoqueId() },
-          { key: 2, value: mobCore.getUnivoqueId() }
-        ],
-        type: Array,
-        transform: (val2, oldVal) => {
-          return val2 > oldVal ? shuffle2(val2) : val2;
-        },
-        validate: (val2) => val2.length <= 6,
-        strict: true
-      }),
-      counter: () => ({
-        value: 0,
-        type: Number
-      })
-    },
-    child: [DynamicListButton, MatrioskaItem]
-  });
+  var Matrioska = createComponent(
+    /** @type{CreateComponentParams<import('./type').Matrioska>} */
+    {
+      name: "page-matrioska",
+      component: MatrioskaFn,
+      exportState: [],
+      state: {
+        level1: () => ({
+          value: [{ key: 1, value: mobCore.getUnivoqueId() }],
+          type: Array,
+          validate: (val2) => val2.length <= 10,
+          strict: true
+        }),
+        level2: () => ({
+          value: [
+            { key: 1, value: mobCore.getUnivoqueId() },
+            { key: 2, value: mobCore.getUnivoqueId() }
+          ],
+          type: Array,
+          validate: (val2) => val2.length <= 10,
+          strict: true
+        }),
+        level3: () => ({
+          value: [
+            { key: 1, value: mobCore.getUnivoqueId() },
+            { key: 2, value: mobCore.getUnivoqueId() }
+          ],
+          type: Array,
+          transform: (val2, oldVal) => {
+            return val2 > oldVal ? shuffle2(val2) : val2;
+          },
+          validate: (val2) => val2.length <= 6,
+          strict: true
+        }),
+        counter: () => ({
+          value: 0,
+          type: Number
+        })
+      },
+      child: [DynamicListButton, MatrioskaItem]
+    }
+  );
 
   // src/js/pages/matrioska/index.js
   useComponent([Matrioska]);
@@ -32219,21 +32379,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerButton/definition.js
-  var HorizontalScrollerButton = createComponent({
-    name: "horizontal-scroller-button",
-    component: HorizontalScrollerButtonFn,
-    exportState: ["id", "active"],
-    state: {
-      id: () => ({
-        value: -1,
-        type: Number
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
+  var HorizontalScrollerButton = createComponent(
+    /** @type{CreateComponentParams<import('./type').HorizontalScrollerButton>} */
+    {
+      name: "horizontal-scroller-button",
+      component: HorizontalScrollerButtonFn,
+      exportState: ["id", "active"],
+      state: {
+        id: () => ({
+          value: -1,
+          type: Number
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerSection/horizontalScrollerSection.js
   var HorizontalScrollerSectionFn = ({ html, getState }) => {
@@ -32256,57 +32419,63 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerSection/definition.js
-  var HorizontalScrollerSection = createComponent({
-    name: "horizontal-scroller-section",
-    component: HorizontalScrollerSectionFn,
-    exportState: ["id", "pinClass"],
-    state: {
-      id: () => ({
-        id: -1,
-        type: Number
-      }),
-      pinClass: () => ({
-        id: "",
-        type: String
-      })
+  var HorizontalScrollerSection = createComponent(
+    /** @type{CreateComponentParams<import('./type').HorizontalScrollerSection>} */
+    {
+      name: "horizontal-scroller-section",
+      component: HorizontalScrollerSectionFn,
+      exportState: ["id", "pinClass"],
+      state: {
+        id: () => ({
+          id: -1,
+          type: Number
+        }),
+        pinClass: () => ({
+          id: "",
+          type: String
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/pages/horizontalScroller/definition.js
-  var HorizontalScroller2 = createComponent({
-    name: "horizontal-scroller",
-    component: HorizontalScrollerFn,
-    exportState: [
-      "nextRoute",
-      "prevRoute",
-      "currentId",
-      "currentIdFromScroll",
-      "animatePin"
-    ],
-    state: {
-      nextRoute: () => ({
-        value: "",
-        type: String
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      }),
-      currentId: () => ({
-        value: 0,
-        type: Number
-      }),
-      currentIdFromScroll: () => ({
-        value: 0,
-        type: Number
-      }),
-      animatePin: () => ({
-        value: false,
-        type: Boolean
-      })
-    },
-    child: [HorizontalScrollerButton, HorizontalScrollerSection]
-  });
+  var HorizontalScroller2 = createComponent(
+    /** @type{CreateComponentParams<import('./type').HorizontalScroller>} */
+    {
+      name: "horizontal-scroller",
+      component: HorizontalScrollerFn,
+      exportState: [
+        "nextRoute",
+        "prevRoute",
+        "currentId",
+        "currentIdFromScroll",
+        "animatePin"
+      ],
+      state: {
+        nextRoute: () => ({
+          value: "",
+          type: String
+        }),
+        prevRoute: () => ({
+          value: "",
+          type: String
+        }),
+        currentId: () => ({
+          value: 0,
+          type: Number
+        }),
+        currentIdFromScroll: () => ({
+          value: 0,
+          type: Number
+        }),
+        animatePin: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [HorizontalScrollerButton, HorizontalScrollerSection]
+    }
+  );
 
   // src/js/pages/plugin/horizontalScroller/index.js
   useComponent([HorizontalScroller2]);
@@ -32343,17 +32512,20 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/SvgShape/Star/definition.js
-  var StarSvg = createComponent({
-    name: "svg-star",
-    component: StarSvgFn,
-    exportState: ["fill"],
-    state: {
-      fill: () => ({
-        value: "#000000",
-        type: String
-      })
+  var StarSvg = createComponent(
+    /** @type{CreateComponentParams<import('./type').StarSvg>} */
+    {
+      name: "svg-star",
+      component: StarSvgFn,
+      exportState: ["fill"],
+      state: {
+        fill: () => ({
+          value: "#000000",
+          type: String
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/Move3D/partials/recursive3Dshape.js
   var getDebug = ({ debug, id }) => {
@@ -32889,183 +33061,189 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/Move3D/move3DItem/definition.js
-  var Move3DItem = createComponent({
-    name: "move-3d-item",
-    component: Move3DItemfn,
-    exportState: [
-      "root",
-      "depth",
-      "rotate",
-      "width",
-      "height",
-      "offsetX",
-      "offsetY",
-      "range",
-      "animate",
-      "anchorPoint",
-      "classList",
-      "component",
-      "initialRotate",
-      "initialDepth"
-    ],
-    state: {
-      root: () => ({
-        value: true,
-        type: Boolean
-      }),
-      depth: () => ({
-        value: 0,
-        type: Number
-      }),
-      rotate: () => ({
-        value: "x",
-        type: String
-      }),
-      width: () => ({
-        value: 10,
-        type: Number
-      }),
-      height: () => ({
-        value: 10,
-        type: Number
-      }),
-      offsetX: () => ({
-        value: 0,
-        type: Number
-      }),
-      offsetY: () => ({
-        value: 0,
-        type: Number
-      }),
-      range: () => ({
-        value: 20,
-        type: Number
-      }),
-      anchorPoint: () => ({
-        value: "",
-        type: String
-      }),
-      animate: () => ({
-        value: true,
-        type: Boolean
-      }),
-      initialRotate: () => ({
-        value: 0,
-        type: Number
-      }),
-      initialDepth: () => ({
-        value: 0,
-        type: Number
-      }),
-      classList: () => ({
-        value: "",
-        type: String
-      }),
-      component: {
-        tagName: () => ({
+  var Move3DItem = createComponent(
+    /** @type{CreateComponentParams<import('./type').Move3DItem>} */
+    {
+      name: "move-3d-item",
+      component: Move3DItemfn,
+      exportState: [
+        "root",
+        "depth",
+        "rotate",
+        "width",
+        "height",
+        "offsetX",
+        "offsetY",
+        "range",
+        "animate",
+        "anchorPoint",
+        "classList",
+        "component",
+        "initialRotate",
+        "initialDepth"
+      ],
+      state: {
+        root: () => ({
+          value: true,
+          type: Boolean
+        }),
+        depth: () => ({
+          value: 0,
+          type: Number
+        }),
+        rotate: () => ({
+          value: "x",
+          type: String
+        }),
+        width: () => ({
+          value: 10,
+          type: Number
+        }),
+        height: () => ({
+          value: 10,
+          type: Number
+        }),
+        offsetX: () => ({
+          value: 0,
+          type: Number
+        }),
+        offsetY: () => ({
+          value: 0,
+          type: Number
+        }),
+        range: () => ({
+          value: 20,
+          type: Number
+        }),
+        anchorPoint: () => ({
           value: "",
           type: String
         }),
-        className: () => ({
+        animate: () => ({
+          value: true,
+          type: Boolean
+        }),
+        initialRotate: () => ({
+          value: 0,
+          type: Number
+        }),
+        initialDepth: () => ({
+          value: 0,
+          type: Number
+        }),
+        classList: () => ({
           value: "",
           type: String
         }),
-        props: () => ({
-          value: "",
-          type: "any"
-        })
+        component: {
+          tagName: () => ({
+            value: "",
+            type: String
+          }),
+          className: () => ({
+            value: "",
+            type: String
+          }),
+          props: () => ({
+            value: "",
+            type: "any"
+          })
+        }
       }
     }
-  });
+  );
 
   // src/js/component/common/Move3D/definition.js
-  var Move3D = createComponent({
-    name: "move-3d",
-    component: Move3Dfn,
-    exportState: [
-      "drag",
-      "centerToViewoport",
-      "xDepth",
-      "yDepth",
-      "xLimit",
-      "yLimit",
-      "factor",
-      "shape",
-      "debug",
-      "perspective",
-      "afterInit",
-      "onUpdate"
-    ],
-    state: {
-      drag: () => ({
-        value: false,
-        type: Boolean
-      }),
-      centerToViewoport: () => ({
-        value: false,
-        type: Boolean
-      }),
-      useScroll: () => ({
-        value: true,
-        type: Boolean
-      }),
-      perspective: () => ({
-        value: 700,
-        type: Number
-      }),
-      xDepth: () => ({
-        value: 20,
-        type: Number,
-        validate: (value) => {
-          return value > 1;
-        },
-        strict: true
-      }),
-      yDepth: () => ({
-        value: 20,
-        type: Number,
-        validate: (value) => {
-          return value > 1;
-        },
-        strict: true
-      }),
-      xLimit: () => ({
-        value: 1e4,
-        type: Number
-      }),
-      yLimit: () => ({
-        value: 1e4,
-        type: Number
-      }),
-      factor: () => ({
-        value: 45,
-        type: Number,
-        validate: (value) => {
-          return value > 1;
-        },
-        strict: true
-      }),
-      shape: () => ({
-        value: [],
-        type: Array
-      }),
-      debug: () => ({
-        value: false,
-        type: Boolean
-      }),
-      afterInit: () => ({
-        value: () => {
-        },
-        type: Function
-      }),
-      onUpdate: () => ({
-        value: () => {
-        },
-        type: Function
-      })
-    },
-    child: [Move3DItem]
-  });
+  var Move3D = createComponent(
+    /** @type{CreateComponentParams<import('./type').Move3D>} */
+    {
+      name: "move-3d",
+      component: Move3Dfn,
+      exportState: [
+        "drag",
+        "centerToViewoport",
+        "xDepth",
+        "yDepth",
+        "xLimit",
+        "yLimit",
+        "factor",
+        "shape",
+        "debug",
+        "perspective",
+        "afterInit",
+        "onUpdate"
+      ],
+      state: {
+        drag: () => ({
+          value: false,
+          type: Boolean
+        }),
+        centerToViewoport: () => ({
+          value: false,
+          type: Boolean
+        }),
+        useScroll: () => ({
+          value: true,
+          type: Boolean
+        }),
+        perspective: () => ({
+          value: 700,
+          type: Number
+        }),
+        xDepth: () => ({
+          value: 20,
+          type: Number,
+          validate: (value) => {
+            return value > 1;
+          },
+          strict: true
+        }),
+        yDepth: () => ({
+          value: 20,
+          type: Number,
+          validate: (value) => {
+            return value > 1;
+          },
+          strict: true
+        }),
+        xLimit: () => ({
+          value: 1e4,
+          type: Number
+        }),
+        yLimit: () => ({
+          value: 1e4,
+          type: Number
+        }),
+        factor: () => ({
+          value: 45,
+          type: Number,
+          validate: (value) => {
+            return value > 1;
+          },
+          strict: true
+        }),
+        shape: () => ({
+          value: [],
+          type: Array
+        }),
+        debug: () => ({
+          value: false,
+          type: Boolean
+        }),
+        afterInit: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        onUpdate: () => ({
+          value: () => {
+          },
+          type: Function
+        })
+      },
+      child: [Move3DItem]
+    }
+  );
 
   // src/js/component/pages/move3D/move3DPage.js
   var getControls2 = ({ delegateEvents, bindObject, proxiState }) => {
@@ -33265,58 +33443,61 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/move3D/definition.js
-  var Move3DPage = createComponent({
-    name: "move-3d-page",
-    component: Move3DPagefn,
-    exportState: ["data", "prevRoute", "nextRoute"],
-    state: {
-      data: () => ({
-        value: [],
-        type: Array
-      }),
-      xDepth: () => ({
-        value: 20,
-        type: Number
-      }),
-      yDepth: () => ({
-        value: 20,
-        type: Number
-      }),
-      xLimit: () => ({
-        value: 1e3,
-        type: Number
-      }),
-      yLimit: () => ({
-        value: 1e3,
-        type: Number
-      }),
-      perspective: () => ({
-        value: 700,
-        type: Number
-      }),
-      debug: () => ({
-        value: false,
-        type: Boolean
-      }),
-      factor: () => ({
-        value: 45,
-        type: Number,
-        validate: (value) => {
-          return value > 1;
-        },
-        strict: true
-      }),
-      nextRoute: () => ({
-        value: "",
-        type: String
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      })
-    },
-    child: [Move3D]
-  });
+  var Move3DPage = createComponent(
+    /** @type{CreateComponentParams<import('./type').Move3DPage>} */
+    {
+      name: "move-3d-page",
+      component: Move3DPagefn,
+      exportState: ["data", "prevRoute", "nextRoute"],
+      state: {
+        data: () => ({
+          value: [],
+          type: Array
+        }),
+        xDepth: () => ({
+          value: 20,
+          type: Number
+        }),
+        yDepth: () => ({
+          value: 20,
+          type: Number
+        }),
+        xLimit: () => ({
+          value: 1e3,
+          type: Number
+        }),
+        yLimit: () => ({
+          value: 1e3,
+          type: Number
+        }),
+        perspective: () => ({
+          value: 700,
+          type: Number
+        }),
+        debug: () => ({
+          value: false,
+          type: Boolean
+        }),
+        factor: () => ({
+          value: 45,
+          type: Number,
+          validate: (value) => {
+            return value > 1;
+          },
+          strict: true
+        }),
+        nextRoute: () => ({
+          value: "",
+          type: String
+        }),
+        prevRoute: () => ({
+          value: "",
+          type: String
+        })
+      },
+      child: [Move3D]
+    }
+  );
 
   // src/js/pages/plugin/move3D/index.js
   useComponent([Move3DPage, StarSvg]);
@@ -33896,21 +34077,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/svg/child/definition.js
-  var svgChild = createComponent({
-    name: "svg-child",
-    component: SvgChildFn,
-    exportState: ["svg", "star"],
-    state: {
-      star: () => ({
-        value: "",
-        type: String
-      }),
-      svg: () => ({
-        value: "",
-        type: String
-      })
+  var svgChild = createComponent(
+    /** @type{CreateComponentParams<import('./type').SvgChild>} */
+    {
+      name: "svg-child",
+      component: SvgChildFn,
+      exportState: ["svg", "star"],
+      state: {
+        star: () => ({
+          value: "",
+          type: String
+        }),
+        svg: () => ({
+          value: "",
+          type: String
+        })
+      }
     }
-  });
+  );
 
   // src/js/pages/svg/child/index.js
   useComponent([svgChild]);
@@ -33933,17 +34117,20 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/AnyComponent/definition.js
-  var AnyComponent = createComponent({
-    name: "any-component",
-    component: AnyComponentFn,
-    exportState: ["content"],
-    state: {
-      content: () => ({
-        value: "",
-        type: String
-      })
+  var AnyComponent = createComponent(
+    /** @type{CreateComponentParams<import('./type').AnyComponent>} */
+    {
+      name: "any-component",
+      component: AnyComponentFn,
+      exportState: ["content"],
+      state: {
+        content: () => ({
+          value: "",
+          type: String
+        })
+      }
     }
-  });
+  );
 
   // src/js/utils/parseSvg.js
   var parseSvg = ({ svg, id }) => {
@@ -35288,49 +35475,54 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/linksMobJs/definition.js
-  var LinksMobJsButton = createComponent({
-    name: "links-mobjs-button",
-    component: LinksMobJsButtonFn,
-    exportState: ["label", "url", "active"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      url: () => ({
-        value: "",
-        type: String
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
+  var LinksMobJsButton = createComponent(
+    /** @type{CreateComponentParams<import('./type').LinksMobJsButton>} */
+    {
+      name: "links-mobjs-button",
+      component: LinksMobJsButtonFn,
+      exportState: ["label", "url", "active"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        url: () => ({
+          value: "",
+          type: String
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
-  var LinksMobJs = createComponent({
-    name: "links-mobjs",
-    component: LinksMobJsFn,
-    child: [LinksMobJsButton],
-    exportState: ["active"],
-    state: {
-      data: () => ({
-        value: [],
-        type: Array
-      }),
-      activeSection: () => ({
-        value: "",
-        type: String
-      }),
-      hide: () => ({
-        value: false,
-        type: Boolean
-      }),
-      shift: () => ({
-        value: false,
-        type: Boolean
-      })
+  );
+  var LinksMobJs = createComponent(
+    /** @type{CreateComponentParams<import('./type').LinksMobJs>} */
+    {
+      name: "links-mobjs",
+      component: LinksMobJsFn,
+      child: [LinksMobJsButton],
+      state: {
+        data: () => ({
+          value: [],
+          type: Array
+        }),
+        activeSection: () => ({
+          value: "",
+          type: String
+        }),
+        hide: () => ({
+          value: false,
+          type: Boolean
+        }),
+        shift: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/onlyDesktop/onlyDesktop.js
   var getContent = ({ getState }) => {
@@ -35373,16 +35565,19 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/onlyDesktop/definition.js
-  var OnlyDesktop = createComponent({
-    name: "only-desktop",
-    component: OnlyDesktopFn,
-    state: {
-      active: () => ({
-        value: motionCore.mq("min", "desktop"),
-        type: Boolean
-      })
+  var OnlyDesktop = createComponent(
+    /** @type{CreateComponentParams<import('./type').OnlyDesktop>} */
+    {
+      name: "only-desktop",
+      component: OnlyDesktopFn,
+      state: {
+        active: () => ({
+          value: motionCore.mq("min", "desktop"),
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/debug/debugOverlay/constant.js
   var RESET_FILTER_DEBUG = "reset";
@@ -35587,17 +35782,20 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugComponent/definition.js
-  var DebugComponent = createComponent({
-    name: "debug-component",
-    component: DebugComponentFn,
-    state: {
-      id: () => ({
-        value: RESET_FILTER_DEBUG,
-        type: String,
-        skipEqual: false
-      })
+  var DebugComponent = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugComponent>} */
+    {
+      name: "debug-component",
+      component: DebugComponentFn,
+      state: {
+        id: () => ({
+          value: RESET_FILTER_DEBUG,
+          type: String,
+          skipEqual: false
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterHead/debugFilterHead.js
   var lastSearch = "";
@@ -35658,10 +35856,13 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterHead/definition.js
-  var DebugFilterHead = createComponent({
-    name: "debug-filter-head",
-    component: DebugFilterHeadFn
-  });
+  var DebugFilterHead = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "debug-filter-head",
+      component: DebugFilterHeadFn
+    }
+  );
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/debugFilterList.js
   var initScroller2 = async ({ getRef }) => {
@@ -35898,51 +36099,56 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/definition.js
-  var DebugFilterListItem = createComponent({
-    name: "debug-filter-list-item",
-    component: DebugFilterListItemFn,
-    exportState: ["id", "tag", "name"],
-    state: {
-      id: () => ({
-        value: "",
-        type: String
-      }),
-      tag: () => ({
-        value: "",
-        type: String
-      }),
-      name: () => ({
-        value: "",
-        type: String
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
+  var DebugFilterListItem = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugFilterListItem>} */
+    {
+      name: "debug-filter-list-item",
+      component: DebugFilterListItemFn,
+      exportState: ["id", "tag", "name"],
+      state: {
+        id: () => ({
+          value: "",
+          type: String
+        }),
+        tag: () => ({
+          value: "",
+          type: String
+        }),
+        name: () => ({
+          value: "",
+          type: String
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/definition.js
-  var DebugFilterList = createComponent({
-    name: "debug-filter-list",
-    component: DebugFilterListFn,
-    exportState: ["active"],
-    state: {
-      data: () => ({
-        value: [],
-        type: Array
-      }),
-      isLoading: () => ({
-        value: false,
-        type: Boolean
-      }),
-      noResult: () => ({
-        value: false,
-        type: Boolean
-      })
-    },
-    child: [DebugFilterListItem]
-  });
+  var DebugFilterList = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugFilterList>} */
+    {
+      name: "debug-filter-list",
+      component: DebugFilterListFn,
+      state: {
+        data: () => ({
+          value: [],
+          type: Array
+        }),
+        isLoading: () => ({
+          value: false,
+          type: Boolean
+        }),
+        noResult: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [DebugFilterListItem]
+    }
+  );
 
   // src/js/component/common/debug/debugOverlay/Debughead/debugHead.js
   var DebugHeadFn = ({
@@ -36131,29 +36337,35 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/Debughead/DebugSearch/definition.js
-  var DebugSearch = createComponent({
-    name: "debug-search",
-    component: DebugSearchFn
-  });
+  var DebugSearch = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugSearch>} */
+    {
+      name: "debug-search",
+      component: DebugSearchFn
+    }
+  );
 
   // src/js/component/common/debug/debugOverlay/Debughead/definition.js
-  var DebugHead = createComponent({
-    name: "debug-head",
-    component: DebugHeadFn,
-    exportState: ["active"],
-    state: {
-      active: () => ({
-        value: false,
-        type: Boolean
-      }),
-      shouldUpdate: () => ({
-        value: true,
-        type: Boolean,
-        skipEqual: false
-      })
-    },
-    child: [DebugSearch]
-  });
+  var DebugHead = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugHead>} */
+    {
+      name: "debug-head",
+      component: DebugHeadFn,
+      exportState: ["active"],
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        }),
+        shouldUpdate: () => ({
+          value: true,
+          type: Boolean,
+          skipEqual: false
+        })
+      },
+      child: [DebugSearch]
+    }
+  );
 
   // src/js/component/common/debug/debugOverlay/debugOverlay.js
   var DebugOverlayFn = ({
@@ -36559,82 +36771,90 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/definition.js
-  var DebugTreeItem = createComponent({
-    name: "debug-tree-item",
-    component: DebugTreeItemFn,
-    exportState: ["id", "componentName", "instanceName", "children"],
-    state: {
-      id: () => ({
-        value: "",
-        type: String
-      }),
-      componentName: () => ({
-        value: "",
-        type: String
-      }),
-      instanceName: () => ({
-        value: "",
-        type: String
-      }),
-      children: () => ({
-        value: [],
-        type: Array
-      }),
-      isOpen: () => ({
-        value: false,
-        type: Boolean
-      }),
-      isActive: () => ({
-        value: false,
-        type: Boolean
-      }),
-      hasActiveChildren: () => ({
-        value: false,
-        type: Boolean
-      })
+  var DebugTreeItem = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugTreeItem>} */
+    {
+      name: "debug-tree-item",
+      component: DebugTreeItemFn,
+      exportState: ["id", "componentName", "instanceName", "children"],
+      state: {
+        id: () => ({
+          value: "",
+          type: String
+        }),
+        componentName: () => ({
+          value: "",
+          type: String
+        }),
+        instanceName: () => ({
+          value: "",
+          type: String
+        }),
+        children: () => ({
+          value: [],
+          type: Array
+        }),
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isActive: () => ({
+          value: false,
+          type: Boolean
+        }),
+        hasActiveChildren: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/common/debug/debugOverlay/DebugTree/definition.js
-  var DebugTree = createComponent({
-    name: "debug-tree",
-    component: DebugTreeFn,
-    exportState: ["active"],
-    state: {
-      data: () => ({
-        value: [],
-        type: Array
-      }),
-      isLoading: () => ({
-        value: false,
-        type: Boolean
-      })
-    },
-    child: [DebugTreeItem]
-  });
+  var DebugTree = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugTree>} */
+    {
+      name: "debug-tree",
+      component: DebugTreeFn,
+      state: {
+        data: () => ({
+          value: [],
+          type: Array
+        }),
+        isLoading: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [DebugTreeItem]
+    }
+  );
 
   // src/js/component/common/debug/debugOverlay/definition.js
-  var DebugOverlay = createComponent({
-    name: "debug-overlay",
-    component: DebugOverlayFn,
-    state: {
-      active: () => ({
-        value: false,
-        type: Boolean
-      }),
-      listType: () => ({
-        value: DEBUG_USE_TREE,
-        type: String
-      })
-    },
-    child: [
-      DebugTree,
-      DebugComponent,
-      DebugHead,
-      DebugFilterHead,
-      DebugFilterList
-    ]
-  });
+  var DebugOverlay = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugOverlay>} */
+    {
+      name: "debug-overlay",
+      component: DebugOverlayFn,
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        }),
+        listType: () => ({
+          value: DEBUG_USE_TREE,
+          type: String
+        })
+      },
+      child: [
+        DebugTree,
+        DebugComponent,
+        DebugHead,
+        DebugFilterHead,
+        DebugFilterList
+      ]
+    }
+  );
 
   // src/js/component/common/TestScssGrid/TestScssGrid.js
   var TestScssGridFn = ({ html }) => {
@@ -36651,10 +36871,13 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/TestScssGrid/definition.js
-  var TestScssGrid = createComponent({
-    name: "test-scss-grid",
-    component: TestScssGridFn
-  });
+  var TestScssGrid = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "test-scss-grid",
+      component: TestScssGridFn
+    }
+  );
 
   // src/js/wrapper/index.js
   useComponent([

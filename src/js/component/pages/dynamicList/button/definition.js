@@ -3,18 +3,25 @@
 import { createComponent } from '../../../../mobjs';
 import { DynamicListButtonFn } from './dynamicListButton';
 
-export const DynamicListButton = createComponent({
-    name: 'dynamic-list-button',
-    component: DynamicListButtonFn,
-    exportState: ['active', 'label'],
-    state: {
-        label: () => ({
-            value: '',
-            type: String,
-        }),
-        active: () => ({
-            value: false,
-            type: Boolean,
-        }),
-    },
-});
+/**
+ * @import { CreateComponentParams } from "../../../../mobjs/type";
+ **/
+
+export const DynamicListButton = createComponent(
+    /** @type{CreateComponentParams<import('./type').DynamicListButton>} */
+    ({
+        name: 'dynamic-list-button',
+        component: DynamicListButtonFn,
+        exportState: ['active', 'label'],
+        state: {
+            label: () => ({
+                value: '',
+                type: String,
+            }),
+            active: () => ({
+                value: false,
+                type: Boolean,
+            }),
+        },
+    })
+);

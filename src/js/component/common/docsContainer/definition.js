@@ -3,7 +3,14 @@
 import { createComponent } from '../../../mobjs';
 import { DocContainerFn } from './docContainer';
 
-export const DocContainer = createComponent({
-    name: 'doc-container',
-    component: DocContainerFn,
-});
+/**
+ * @import { CreateComponentParams } from "../../../mobjs/type";
+ **/
+
+export const DocContainer = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    ({
+        name: 'doc-container',
+        component: DocContainerFn,
+    })
+);

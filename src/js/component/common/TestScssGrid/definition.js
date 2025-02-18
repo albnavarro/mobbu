@@ -2,7 +2,14 @@
 import { createComponent } from '../../../mobjs';
 import { TestScssGridFn } from './TestScssGrid';
 
-export const TestScssGrid = createComponent({
-    name: 'test-scss-grid',
-    component: TestScssGridFn,
-});
+/**
+ * @import { CreateComponentParams } from "../../../mobjs/type";
+ **/
+
+export const TestScssGrid = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    ({
+        name: 'test-scss-grid',
+        component: TestScssGridFn,
+    })
+);

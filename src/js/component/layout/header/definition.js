@@ -5,30 +5,43 @@ import { HeaderFn } from './header';
 import { HeadernavFn } from './headernav';
 import { HeaderToggleFn } from './headerToggle';
 
-export const HeaderNav = createComponent({
-    name: 'mob-header-nav',
-    component: HeadernavFn,
-});
+/**
+ * @import { CreateComponentParams } from "../../../mobjs/type";
+ **/
 
-export const HeaderToggle = createComponent({
-    name: 'mob-header-toggle',
-    component: HeaderToggleFn,
-    state: {
-        isOpen: () => ({
-            value: false,
-            type: Boolean,
-        }),
-    },
-});
+export const HeaderNav = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    ({
+        name: 'mob-header-nav',
+        component: HeadernavFn,
+    })
+);
 
-export const Header = createComponent({
-    name: 'mob-header',
-    component: HeaderFn,
-    state: {
-        isNotHome: () => ({
-            value: false,
-            type: Boolean,
-        }),
-    },
-    child: [HeaderNav, HeaderToggle],
-});
+export const HeaderToggle = createComponent(
+    /** @type{CreateComponentParams<import('./type').HeaderToggle>} */
+    ({
+        name: 'mob-header-toggle',
+        component: HeaderToggleFn,
+        state: {
+            isOpen: () => ({
+                value: false,
+                type: Boolean,
+            }),
+        },
+    })
+);
+
+export const Header = createComponent(
+    /** @type{CreateComponentParams<import('./type').Header>} */
+    ({
+        name: 'mob-header',
+        component: HeaderFn,
+        state: {
+            isNotHome: () => ({
+                value: false,
+                type: Boolean,
+            }),
+        },
+        child: [HeaderNav, HeaderToggle],
+    })
+);

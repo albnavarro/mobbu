@@ -3,7 +3,14 @@
 import { createComponent } from '../../../../mobjs';
 import { DynamicListEmptyFn } from './dynamicListEmpty';
 
-export const DynamicListEmpty = createComponent({
-    name: 'dynamic-list-empty',
-    component: DynamicListEmptyFn,
-});
+/**
+ * @import { CreateComponentParams } from "../../../../mobjs/type";
+ **/
+
+export const DynamicListEmpty = createComponent(
+    /** @type{CreateComponentParams<any>} */
+    ({
+        name: 'dynamic-list-empty',
+        component: DynamicListEmptyFn,
+    })
+);

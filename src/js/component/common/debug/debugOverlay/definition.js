@@ -9,24 +9,31 @@ import { DebugHead } from './Debughead/definition';
 import { DebugOverlayFn } from './debugOverlay';
 import { DebugTree } from './DebugTree/definition';
 
-export const DebugOverlay = createComponent({
-    name: 'debug-overlay',
-    component: DebugOverlayFn,
-    state: {
-        active: () => ({
-            value: false,
-            type: Boolean,
-        }),
-        listType: () => ({
-            value: DEBUG_USE_TREE,
-            type: String,
-        }),
-    },
-    child: [
-        DebugTree,
-        DebugComponent,
-        DebugHead,
-        DebugFilterHead,
-        DebugFilterList,
-    ],
-});
+/**
+ * @import { CreateComponentParams } from "../../../../mobjs/type";
+ **/
+
+export const DebugOverlay = createComponent(
+    /** @type{CreateComponentParams<import('./type').DebugOverlay>} */
+    ({
+        name: 'debug-overlay',
+        component: DebugOverlayFn,
+        state: {
+            active: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            listType: () => ({
+                value: DEBUG_USE_TREE,
+                type: String,
+            }),
+        },
+        child: [
+            DebugTree,
+            DebugComponent,
+            DebugHead,
+            DebugFilterHead,
+            DebugFilterList,
+        ],
+    })
+);

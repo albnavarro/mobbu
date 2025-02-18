@@ -4,6 +4,10 @@ import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { CaterpillarN2Fn } from './caterpillarN2';
 
+/**
+ * @import { CreateComponentParams } from "../../../../mobjs/type";
+ **/
+
 const duration = 10;
 
 const buttons = {
@@ -49,43 +53,46 @@ const buttons = {
     },
 };
 
-export const CaterpillarN2 = createComponent({
-    name: 'caterpillar-n2',
-    component: CaterpillarN2Fn,
-    exportState: [
-        'numItems',
-        'width',
-        'height',
-        'radius',
-        'fill',
-        'opacity',
-        'xAmplitude',
-        'yAmplitude',
-        'duration',
-        'rotationDefault',
-        'friction',
-        'disableOffcanvas',
-    ],
-    state: {
-        isMounted: false,
-        numItems: 20,
-        width: 80,
-        height: 80,
-        radius: 0,
-        fill: [2],
-        opacity: 0.02,
-        xAmplitude: 500,
-        yAmplitude: 400,
-        duration: 10,
-        rotationDefault: 360,
-        friction: duration / 2 / Math.PI,
-        disableOffcanvas: () => ({
-            value: detectFirefox() || detectSafari() ? true : false,
-            type: Boolean,
-        }),
-        buttons: () => ({
-            value: buttons,
-            type: 'Any',
-        }),
-    },
-});
+export const CaterpillarN2 = createComponent(
+    /** @type{CreateComponentParams<import('./type').CaterpillarN2>} */
+    ({
+        name: 'caterpillar-n2',
+        component: CaterpillarN2Fn,
+        exportState: [
+            'numItems',
+            'width',
+            'height',
+            'radius',
+            'fill',
+            'opacity',
+            'xAmplitude',
+            'yAmplitude',
+            'duration',
+            'rotationDefault',
+            'friction',
+            'disableOffcanvas',
+        ],
+        state: {
+            isMounted: false,
+            numItems: 20,
+            width: 80,
+            height: 80,
+            radius: 0,
+            fill: [2],
+            opacity: 0.02,
+            xAmplitude: 500,
+            yAmplitude: 400,
+            duration: 10,
+            rotationDefault: 360,
+            friction: duration / 2 / Math.PI,
+            disableOffcanvas: () => ({
+                value: detectFirefox() || detectSafari() ? true : false,
+                type: Boolean,
+            }),
+            buttons: () => ({
+                value: buttons,
+                type: 'Any',
+            }),
+        },
+    })
+);

@@ -3,26 +3,33 @@
 import { createComponent } from '../../../../mobjs';
 import { BenchMarkFakeComponentFn } from './benchmarkFakeComponent';
 
-export const BenchMarkFakeComponent = createComponent({
-    name: 'benchmark-fake-component',
-    component: BenchMarkFakeComponentFn,
-    exportState: ['index', 'counter', 'label'],
-    state: {
-        counter: () => ({
-            value: 0,
-            type: Number,
-        }),
-        label: () => ({
-            value: '',
-            type: String,
-        }),
-        index: () => ({
-            value: 0,
-            type: Number,
-        }),
-        isSelected: () => ({
-            value: false,
-            type: Boolean,
-        }),
-    },
-});
+/**
+ * @import { CreateComponentParams } from "../../../../mobjs/type";
+ **/
+
+export const BenchMarkFakeComponent = createComponent(
+    /** @type{CreateComponentParams<import('../type').BenchMark>} */
+    ({
+        name: 'benchmark-fake-component',
+        component: BenchMarkFakeComponentFn,
+        exportState: ['index', 'counter', 'label'],
+        state: {
+            counter: () => ({
+                value: 0,
+                type: Number,
+            }),
+            label: () => ({
+                value: '',
+                type: String,
+            }),
+            index: () => ({
+                value: 0,
+                type: Number,
+            }),
+            isSelected: () => ({
+                value: false,
+                type: Boolean,
+            }),
+        },
+    })
+);

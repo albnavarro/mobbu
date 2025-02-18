@@ -43,8 +43,8 @@ export const MatrioskaItem = createComponent(
         },
         child: [],
         style: /* CSS */ `:host { display: block; } `,
-        // connectedCallback: ({ context, propierties }) => {
-        //     console.log(context, propierties);
+        // connectedCallback: ({ context, params }) => {
+        //     console.log(context, params);
         // },
     })
 );
