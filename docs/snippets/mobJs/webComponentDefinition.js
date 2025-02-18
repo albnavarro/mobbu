@@ -32,7 +32,16 @@ export const myComponentDefinition = createComponent({
     adoptedCallback: ({ context, data }) => {
         //
     },
-    attributeChangedCallback: ({ name, oldValue, newValue, context, data }) => {
+    attributeChangedCallback: ({
+        name,
+        oldValue,
+        newValue,
+        context,
+        params,
+    }) => {
+        const { getProxi } = params;
+        const proxi = getProxi();
+        proxi.myprop = 2;
         //
     },
     style: /* HTML */ ` ::slotted(div) { width: 100%; } `,

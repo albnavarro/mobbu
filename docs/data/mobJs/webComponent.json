@@ -118,28 +118,14 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "data ( Object ):"
+            "content": "params"
         },
         {
-            "component": "mob-list",
+            "component": "mob-paragraph",
             "props": {
-                "style": "medium",
-                "items": [
-                    "<span class='quote'>componentId</span>: string",
-                    "<span class='quote'>emit</span>: function",
-                    "<span class='quote'>emitAsync</span>: function",
-                    "<span class='quote'>freezeProp</span>: function",
-                    "<span class='quote'>getChildren</span>: function",
-                    "<span class='quote'>getParentId</span>: function",
-                    "<span class='quote'>getState</span>: function",
-                    "<span class='quote'>remove</span>: function",
-                    "<span class='quote'>setState</span>: function",
-                    "<span class='quote'>unBind</span>: function",
-                    "<span class='quote'>unFreezeProp</span>: function",
-                    "<span class='quote'>watch</span>: function",
-                    "<span class='quote'>watchParent</span>: function"
-                ]
-            }
+                "style": "medium"
+            },
+            "content": "All utilities passed as parameters in the component function"
         },
         {
             "component": "mob-spacer",
@@ -179,7 +165,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 39
+                "numLines": 48
             }
         }
     ]
