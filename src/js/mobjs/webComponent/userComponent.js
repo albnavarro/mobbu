@@ -29,7 +29,6 @@ import {
 export const defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {
         const {
-            constructorCallback: _constructorCallback,
             connectedCallback: _connectedCallBack,
             disconnectedCallback: _disconnectedCallback,
             adoptedCallback: _adoptedCallback,
@@ -219,10 +218,6 @@ export const defineUserComponent = (componentList) => {
                     /** Slot content is accessible by external javascript. */
                     const slot = document.createElement('slot');
                     this.shadowRoot.append(slot);
-
-                    _constructorCallback?.({
-                        context: this,
-                    });
                 }
 
                 getComponentName() {

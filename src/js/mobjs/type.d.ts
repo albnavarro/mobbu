@@ -733,7 +733,6 @@ export interface ComponentParsed<T> {
      * `default = false`.
      */
     scoped?: boolean;
-    constructorCallback?: (arg0: { context: object }) => void;
     connectedCallback?: (arg0: {
         context: object;
         params: ComponentPropsType<T, T>;

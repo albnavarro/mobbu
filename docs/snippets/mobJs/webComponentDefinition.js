@@ -19,19 +19,16 @@ export const myComponentDefinition = createComponent({
     /**
      * Web component methods.
      */
+    connectedCallback: ({ context, params }) => {
+        //
+    },
+    disconnectedCallback: ({ context, params }) => {
+        //
+    },
+    adoptedCallback: ({ context, params }) => {
+        //
+    },
     attributeToObserve: ['class', 'test'],
-    constructorCallback: ({ context }) => {
-        //
-    },
-    connectedCallback: ({ context, data }) => {
-        //
-    },
-    disconnectedCallback: ({ context, data }) => {
-        //
-    },
-    adoptedCallback: ({ context, data }) => {
-        //
-    },
     attributeChangedCallback: ({
         name,
         oldValue,
@@ -39,10 +36,11 @@ export const myComponentDefinition = createComponent({
         context,
         params,
     }) => {
-        const { getProxi } = params;
-        const proxi = getProxi();
-        proxi.myprop = 2;
-        //
+        if (name === 'myAttribute' && newValue === 'myvalue') {
+            const { getProxi } = params;
+            const proxi = getProxi();
+            proxi.myprop = 2;
+        }
     },
     style: /* HTML */ ` ::slotted(div) { width: 100%; } `,
 });
