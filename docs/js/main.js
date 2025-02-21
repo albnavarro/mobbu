@@ -27052,8 +27052,12 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/component/pages/about/animation/index.js
-  var createPathAnimation = ({ pathElement, scrollerElement, wrapElement }) => {
+  // src/js/component/pages/about/animation/pathAnimation.js
+  var createPathAnimation = ({
+    pathElement,
+    scrollerElement,
+    wrapElement
+  }) => {
     const pathSequencer = tween.createSequencer({
       data: { x: 0 }
     });
@@ -27082,6 +27086,8 @@ Loading snippet ...</pre
       pathSequencer
     };
   };
+
+  // src/js/component/pages/about/animation/index.js
   var aboutAnimation = ({
     screenElement,
     scrollerElement,
