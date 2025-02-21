@@ -27076,8 +27076,8 @@ Loading snippet ...</pre
     setRef,
     getRef
   }) => {
-    const { title } = getState();
-    const numberOfSection = 5;
+    const { title, block_1, block_2, block_3 } = getState();
+    const numberOfSection = 4;
     onMount(() => {
       const { screen, scroller: scroller2 } = getRef();
       const { destroy: destroy2 } = aboutAnimation({ screen, scroller: scroller2 });
@@ -27092,10 +27092,9 @@ Loading snippet ...</pre
     >
         <div class="l-about__scroller" ${setRef("scroller")}>
             <section class="l-about__section">${title}</section>
-            <section class="l-about__section">${title}</section>
-            <section class="l-about__section">${title}</section>
-            <section class="l-about__section">${title}</section>
-            <section class="l-about__section">${title}</section>
+            <section class="l-about__section">${block_1}</section>
+            <section class="l-about__section">${block_2}</section>
+            <section class="l-about__section">${block_3}</section>
         </div>
     </div>`;
   };
@@ -27106,9 +27105,21 @@ Loading snippet ...</pre
     {
       name: "about-component",
       component: AboutComponentFn,
-      exportState: ["title"],
+      exportState: ["title", "block_1", "block_2", "block_3"],
       state: {
         title: () => ({
+          value: "",
+          type: String
+        }),
+        block_1: () => ({
+          value: "",
+          type: String
+        }),
+        block_2: () => ({
+          value: "",
+          type: String
+        }),
+        block_3: () => ({
           value: "",
           type: String
         })
@@ -27124,9 +27135,15 @@ Loading snippet ...</pre
       source: "./data/about/index.json"
     });
     return renderHtml`<about-component
-        ${staticProps({
-      title: data.title
-    })}
+        ${staticProps(
+      /** @type{import('../../component/pages/about/type').About['state']} */
+      {
+        title: data.title,
+        block_1: data.block_1,
+        block_2: data.block_2,
+        block_3: data.block_3
+      }
+    )}
     ></about-component> `;
   };
 

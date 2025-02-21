@@ -12,8 +12,8 @@ export const AboutComponentFn = ({
     setRef,
     getRef,
 }) => {
-    const { title } = getState();
-    const numberOfSection = 5;
+    const { title, block_1, block_2, block_3 } = getState();
+    const numberOfSection = 4;
 
     onMount(() => {
         const { screen, scroller } = getRef();
@@ -31,10 +31,9 @@ export const AboutComponentFn = ({
     >
         <div class="l-about__scroller" ${setRef('scroller')}>
             <section class="l-about__section">${title}</section>
-            <section class="l-about__section">${title}</section>
-            <section class="l-about__section">${title}</section>
-            <section class="l-about__section">${title}</section>
-            <section class="l-about__section">${title}</section>
+            <section class="l-about__section">${block_1}</section>
+            <section class="l-about__section">${block_2}</section>
+            <section class="l-about__section">${block_3}</section>
         </div>
     </div>`;
 };

@@ -12,9 +12,21 @@ export const AboutComponent = createComponent(
     ({
         name: 'about-component',
         component: AboutComponentFn,
-        exportState: ['title'],
+        exportState: ['title', 'block_1', 'block_2', 'block_3'],
         state: {
             title: () => ({
+                value: '',
+                type: String,
+            }),
+            block_1: () => ({
+                value: '',
+                type: String,
+            }),
+            block_2: () => ({
+                value: '',
+                type: String,
+            }),
+            block_3: () => ({
                 value: '',
                 type: String,
             }),
