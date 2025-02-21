@@ -2,6 +2,7 @@
 import { pageNotFound } from './404';
 import { layoutSidebarAnchor } from './Layout/layoutSidebarAnchor';
 import { layoutSidebarLinks } from './Layout/layoutSidebarLinks';
+import { layoutAbout } from './about/layoutAbout';
 import { benchMark } from './benchmark';
 import { animatedPatternN0 } from './canvas/animatedPatternN0';
 import { animatedPatternN1 } from './canvas/animatedPatternN1';
@@ -66,12 +67,8 @@ export const routes = [
     },
     {
         name: 'about',
-        layout: layoutSidebarAnchor,
-        props: {
-            source: './data/about.json',
-            title: 'About',
-            breadCrumbs: [],
-        },
+        layout: layoutAbout,
+        props: {},
     },
     {
         name: 'animatedPatternN0',
