@@ -1254,6 +1254,12 @@ code {
   justify-content: center;
   align-items: center;
 }
+.l-about__section::after {
+  content: "";
+  position: absolute;
+  inset: 6.6666666667rem 13.3333333333rem;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+}
 .l-about__background {
   position: absolute;
   top: 50%;
@@ -1263,6 +1269,42 @@ code {
   height: 500px;
   clip-path: polygon(29% 23%, 50% 42%, 92% 60%, 11% 87%);
   background: #fff;
+}
+.l-about__angles-top-left {
+  position: absolute;
+  top: 6.6666666667rem;
+  left: 13.3333333333rem;
+  width: 3.3333333333rem;
+  height: 3.3333333333rem;
+  border-top: 3px #000 solid;
+  border-left: 3px #000 solid;
+}
+.l-about__angles-top-right {
+  position: absolute;
+  top: 6.6666666667rem;
+  right: 13.3333333333rem;
+  width: 3.3333333333rem;
+  height: 3.3333333333rem;
+  border-top: 3px #000 solid;
+  border-right: 3px #000 solid;
+}
+.l-about__angles-bottom-left {
+  position: absolute;
+  bottom: 6.6666666667rem;
+  left: 13.3333333333rem;
+  width: 3.3333333333rem;
+  height: 3.3333333333rem;
+  border-bottom: 3px #000 solid;
+  border-left: 3px #000 solid;
+}
+.l-about__angles-bottom-right {
+  position: absolute;
+  bottom: 6.6666666667rem;
+  right: 13.3333333333rem;
+  width: 3.3333333333rem;
+  height: 3.3333333333rem;
+  border-bottom: 3px #000 solid;
+  border-right: 3px #000 solid;
 }
 .c-canvas {
   position: absolute;

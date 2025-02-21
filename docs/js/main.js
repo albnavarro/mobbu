@@ -27119,6 +27119,14 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/about/about.js
+  var getAngles = () => {
+    return renderHtml`
+        <span class="l-about__angles-top-left"></span>
+        <span class="l-about__angles-top-right"></span>
+        <span class="l-about__angles-bottom-left"></span>
+        <span class="l-about__angles-bottom-right"></span>
+    `;
+  };
   var AboutComponentFn = ({
     html,
     onMount,
@@ -27148,10 +27156,22 @@ Loading snippet ...</pre
         <div class="l-about__background" ${setRef("pathElement")}></div>
         <div class="l-about__scroller" ${setRef("scrollerElement")}>
             <div class="l-about__wrap" ${setRef("wrapElement")}>
-                <section class="l-about__section"><h1>${block_1}</h1></section>
-                <section class="l-about__section"><h1>${block_2}</h1></section>
-                <section class="l-about__section"><h1>${block_3}</h1></section>
-                <section class="l-about__section"><h1>${block_4}</h1></section>
+                <section class="l-about__section">
+                    ${getAngles()}
+                    <h1>${block_1}</h1>
+                </section>
+                <section class="l-about__section">
+                    ${getAngles()}
+                    <h1>${block_2}</h1>
+                </section>
+                <section class="l-about__section">
+                    ${getAngles()}
+                    <h1>${block_3}</h1>
+                </section>
+                <section class="l-about__section">
+                    ${getAngles()}
+                    <h1>${block_4}</h1>
+                </section>
             </div>
         </div>
     </div>`;

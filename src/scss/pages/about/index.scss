@@ -25,6 +25,13 @@
         display: grid;
         justify-content: center;
         align-items: center;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: rem(100) rem(200);
+            border: 1px rgba($black, 0.1) solid;
+        }
     }
 
     &__background {
@@ -36,5 +43,45 @@
         height: 500px;
         clip-path: polygon(29% 23%, 50% 42%, 92% 60%, 11% 87%);
         background: $white;
+    }
+
+    &__angles-top-left {
+        position: absolute;
+        top: rem(100);
+        left: rem(200);
+        width: rem(50);
+        height: rem(50);
+        border-top: 3px $black solid;
+        border-left: 3px $black solid;
+    }
+
+    &__angles-top-right {
+        position: absolute;
+        top: rem(100);
+        right: rem(200);
+        width: rem(50);
+        height: rem(50);
+        border-top: 3px $black solid;
+        border-right: 3px $black solid;
+    }
+
+    &__angles-bottom-left {
+        position: absolute;
+        bottom: rem(100);
+        left: rem(200);
+        width: rem(50);
+        height: rem(50);
+        border-bottom: 3px $black solid;
+        border-left: 3px $black solid;
+    }
+
+    &__angles-bottom-right {
+        position: absolute;
+        bottom: rem(100);
+        right: rem(200);
+        width: rem(50);
+        height: rem(50);
+        border-bottom: 3px $black solid;
+        border-right: 3px $black solid;
     }
 }
