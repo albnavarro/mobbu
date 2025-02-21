@@ -27053,18 +27053,62 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/about/animation/index.js
-  var aboutAnimation = ({ screen, scroller: scroller2 }) => {
+  var createPathAnimation = ({ pathElement, scrollerElement, wrapElement }) => {
+    const pathSequencer = tween.createSequencer({
+      data: { x: 0 }
+    });
+    pathSequencer.goTo({ x: 100 }, { start: 0, end: 10 });
+    pathSequencer.subscribe(({ x }) => {
+      pathElement.style.marginLeft = `${x}px`;
+    });
+    const pathScroller = scroller.createScrollTrigger({
+      item: wrapElement,
+      dynamicStart: {
+        position: "left",
+        value: () => window.innerWidth
+      },
+      dynamicEnd: {
+        position: "right",
+        value: () => {
+          return -outerWidth(scrollerElement) + window.innerWidth;
+        }
+      },
+      propierties: "tween",
+      tween: pathSequencer,
+      invertSide: true
+    });
+    return {
+      pathScroller,
+      pathSequencer
+    };
+  };
+  var aboutAnimation = ({
+    screenElement,
+    scrollerElement,
+    pathElement,
+    wrapElement
+  }) => {
+    const { pathScroller, pathSequencer } = createPathAnimation({
+      pathElement,
+      scrollerElement,
+      wrapElement
+    });
     const aboutScroller = new SmoothScroller({
-      screen,
-      scroller: scroller2,
+      screen: screenElement,
+      scroller: scrollerElement,
       direction: "horizontal",
       drag: true,
       easeType: "spring",
-      breakpoint: "small"
+      breakpoint: "small",
+      children: [pathScroller]
     });
     aboutScroller.init();
     return {
-      destroy: () => aboutScroller.destroy()
+      destroy: () => {
+        aboutScroller.destroy();
+        pathSequencer.destroy();
+        pathScroller.destroy();
+      }
     };
   };
 
@@ -27076,25 +27120,33 @@ Loading snippet ...</pre
     setRef,
     getRef
   }) => {
-    const { title, block_1, block_2, block_3 } = getState();
+    const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 4;
     onMount(() => {
-      const { screen, scroller: scroller2 } = getRef();
-      const { destroy: destroy2 } = aboutAnimation({ screen, scroller: scroller2 });
+      const { screenElement, scrollerElement, pathElement, wrapElement } = getRef();
+      const { destroy: destroy2 } = aboutAnimation({
+        screenElement,
+        scrollerElement,
+        pathElement,
+        wrapElement
+      });
       return () => {
         destroy2();
       };
     });
     return html`<div
         class="l-about"
-        ${setRef("screen")}
+        ${setRef("screenElement")}
         style="--number-of-section:${numberOfSection}"
     >
-        <div class="l-about__scroller" ${setRef("scroller")}>
-            <section class="l-about__section">${title}</section>
-            <section class="l-about__section">${block_1}</section>
-            <section class="l-about__section">${block_2}</section>
-            <section class="l-about__section">${block_3}</section>
+        <div class="l-about__background" ${setRef("pathElement")}></div>
+        <div class="l-about__scroller" ${setRef("scrollerElement")}>
+            <div class="l-about__wrap" ${setRef("wrapElement")}>
+                <section class="l-about__section"><h1>${block_1}</h1></section>
+                <section class="l-about__section"><h1>${block_2}</h1></section>
+                <section class="l-about__section"><h1>${block_3}</h1></section>
+                <section class="l-about__section"><h1>${block_4}</h1></section>
+            </div>
         </div>
     </div>`;
   };
@@ -27105,12 +27157,8 @@ Loading snippet ...</pre
     {
       name: "about-component",
       component: AboutComponentFn,
-      exportState: ["title", "block_1", "block_2", "block_3"],
+      exportState: ["block_1", "block_2", "block_3", "block_4"],
       state: {
-        title: () => ({
-          value: "",
-          type: String
-        }),
         block_1: () => ({
           value: "",
           type: String
@@ -27120,6 +27168,10 @@ Loading snippet ...</pre
           type: String
         }),
         block_3: () => ({
+          value: "",
+          type: String
+        }),
+        block_4: () => ({
           value: "",
           type: String
         })
@@ -27138,10 +27190,10 @@ Loading snippet ...</pre
         ${staticProps(
       /** @type{import('../../component/pages/about/type').About['state']} */
       {
-        title: data.title,
         block_1: data.block_1,
         block_2: data.block_2,
-        block_3: data.block_3
+        block_3: data.block_3,
+        block_4: data.block_3
       }
     )}
     ></about-component> `;

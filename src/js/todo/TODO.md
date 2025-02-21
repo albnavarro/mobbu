@@ -42,6 +42,10 @@
 
 ### Plugin
 
+### Parallax:
+- `dynamicRage/start/end` devono essere !== undefined && !==null
+- 0 is false issue
+
 ### AsyncTimeline
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.
 - Possibilita di loppare tra label-start e label-end.

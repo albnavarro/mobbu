@@ -1236,15 +1236,33 @@ code {
   --section-width: calc(100vw - (var(--header-height) / 2));
 }
 .l-about__scroller {
-  display: flex;
   height: calc(100vh - var(--header-height) - var(--footer-height));
   width: calc(var(--section-width) * var(--number-of-section));
   cursor: grabbing;
+  position: relative;
+}
+.l-about__wrap {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 .l-about__section {
-  border: 5px red solid;
   flex: 0 0 var(--section-width);
   height: 100%;
+  position: relative;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.l-about__background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 500px;
+  clip-path: polygon(29% 23%, 50% 42%, 92% 60%, 11% 87%);
+  background: #fff;
 }
 .c-canvas {
   position: absolute;
