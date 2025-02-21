@@ -27052,10 +27052,52 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
+  // src/js/component/pages/about/animation/index.js
+  var aboutAnimation = ({ screen, scroller: scroller2 }) => {
+    const aboutScroller = new SmoothScroller({
+      screen,
+      scroller: scroller2,
+      direction: "horizontal",
+      drag: true,
+      easeType: "spring",
+      breakpoint: "small"
+    });
+    aboutScroller.init();
+    return {
+      destroy: () => aboutScroller.destroy()
+    };
+  };
+
   // src/js/component/pages/about/about.js
-  var AboutComponentFn = ({ html, getState }) => {
+  var AboutComponentFn = ({
+    html,
+    onMount,
+    getState,
+    setRef,
+    getRef
+  }) => {
     const { title } = getState();
-    return html`<div class="l-about">${title}</div>`;
+    const numberOfSection = 5;
+    onMount(() => {
+      const { screen, scroller: scroller2 } = getRef();
+      const { destroy: destroy2 } = aboutAnimation({ screen, scroller: scroller2 });
+      return () => {
+        destroy2();
+      };
+    });
+    return html`<div
+        class="l-about"
+        ${setRef("screen")}
+        style="--number-of-section:${numberOfSection}"
+    >
+        <div class="l-about__scroller" ${setRef("scroller")}>
+            <section class="l-about__section">${title}</section>
+            <section class="l-about__section">${title}</section>
+            <section class="l-about__section">${title}</section>
+            <section class="l-about__section">${title}</section>
+            <section class="l-about__section">${title}</section>
+        </div>
+    </div>`;
   };
 
   // src/js/component/pages/about/definition.js
