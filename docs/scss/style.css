@@ -1231,6 +1231,9 @@ code {
 .l-index__extras__item:hover {
   opacity: 0.5;
 }
+.l-about {
+  background: #ccc;
+}
 .c-canvas {
   position: absolute;
   top: 0;
