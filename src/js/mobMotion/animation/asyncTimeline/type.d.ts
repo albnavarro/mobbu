@@ -138,20 +138,20 @@ export type asyncTimelineSet = (
 
 export type asyncTimelineGoTo = (
     tween: any,
-    valuesTo: Record<string, number>,
+    valuesTo: Record<string, number | (() => number)>,
     tweenProps?: asyncTimelineTypeSpecialProps
 ) => HandleAsyncTimeline;
 
 export type asyncTimelineGoFrom = (
     tween: any,
-    valuesFrom: Record<string, number>,
+    valuesFrom: Record<string, number | (() => number)>,
     tweenProps: asyncTimelineTypeSpecialProps
 ) => HandleAsyncTimeline;
 
 export type asyncTimelineGoFromTo = (
     tween: any,
-    valuesFrom: Record<string, number>,
-    valuesTo: Record<string, number>,
+    valuesFrom: Record<string, number | (() => number)>,
+    valuesTo: Record<string, number | (() => number)>,
     tweenProps: asyncTimelineTypeSpecialProps
 ) => HandleAsyncTimeline;
 
