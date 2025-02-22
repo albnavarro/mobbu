@@ -23,11 +23,29 @@
         height: 100%;
         position: relative;
         display: grid;
-        justify-content: center;
         align-items: center;
+        grid-template-columns: repeat(2, 1fr);
 
-        &__title1 {
-            margin-left: rem(70);
+        &__1 {
+            &__left {
+                grid-column: 1 / span 1;
+                padding-left: rem(40);
+            }
+
+            &__right {
+                grid-column: 2 / span 1;
+                justify-self: end;
+                padding-right: rem(100);
+            }
+
+            &__arrow {
+                display: block;
+                width: rem(20);
+                height: rem(20);
+                border-top: 3px $white solid;
+                border-right: 3px $white solid;
+                transform: rotate(45deg);
+            }
         }
     }
 

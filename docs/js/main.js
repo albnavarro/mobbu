@@ -27193,20 +27193,21 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/about/animation/section1.js
-  var aboutSection1 = ({ title_1, title_2 }) => {
+  var aboutSection1 = ({ title_1, title_2, screenElement }) => {
     const title1tween = tween.createScrollerTween({
-      from: { y: 0, x: 0 },
-      to: { y: 30, x: 100 }
+      from: { y: 0 },
+      to: { y: 30 }
     });
-    title1tween.subscribe(({ x, y }) => {
-      title_1.style.transform = `translate(${x}px, ${y}px)`;
+    title1tween.subscribe(({ y }) => {
+      title_1.style.transform = `translate(${0}px, ${y}px)`;
     });
     const title1parallax = scroller.createParallax({
+      screen: screenElement,
       item: title_1,
       direction: "horizontal",
       propierties: "tween",
       tween: title1tween,
-      align: "center"
+      align: "start"
     });
     const title2tween = tween.createScrollerTween({
       from: { y: 0 },
@@ -27216,11 +27217,12 @@ Loading snippet ...</pre
       title_2.style.transform = `translateY(${y}px)`;
     });
     const title2parallax = scroller.createParallax({
+      screen: screenElement,
       item: title_2,
       direction: "horizontal",
       propierties: "tween",
       tween: title2tween,
-      align: "center"
+      align: "start"
     });
     return {
       title1parallax,
@@ -27245,6 +27247,7 @@ Loading snippet ...</pre
       wrapElement
     });
     const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({
+      screenElement,
       title_1,
       title_2
     });
@@ -27253,7 +27256,7 @@ Loading snippet ...</pre
       scroller: scrollerElement,
       direction: "horizontal",
       drag: true,
-      easeType: "spring",
+      easeType: "lerp",
       breakpoint: "small",
       children: [pathScroller, title1parallax, title2parallax]
     });
@@ -27322,25 +27325,22 @@ Loading snippet ...</pre
         <div class="l-about__shape" ${setRef("pathElement")}></div>
         <div class="l-about__scroller" ${setRef("scrollerElement")}>
             <div class="l-about__wrap" ${setRef("wrapElement")}>
-                <section class="l-about__section is-1">
+                <section class="l-about__section l-about__section__1 ">
                     ${getAngles()}
-                    <div>
+                    <div class="l-about__section__1__left">
                         <div class="has-overflow">
-                            <h1
-                                class="title-big l-about__section__title1"
-                                ${setRef("title_1")}
-                            >
+                            <h1 class="title-big" ${setRef("title_1")}>
                                 ${block_1.about}
                             </h1>
                         </div>
                         <div class="has-overflow">
-                            <h1
-                                class="title-big l-about__section__title2 is-white"
-                                ${setRef("title_2")}
-                            >
+                            <h1 class="title-big is-white" ${setRef("title_2")}>
                                 ${block_1.project}
                             </h1>
                         </div>
+                    </div>
+                    <div class="l-about__section__1__right">
+                        <span class="l-about__section__1__arrow"></span>
                     </div>
                 </section>
                 <section class="l-about__section">

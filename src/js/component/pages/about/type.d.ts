@@ -48,6 +48,7 @@ export type CreatePathAnimation = (ar0: {
 };
 
 export type AboutSection1 = (arg0: {
+    screenElement: HTMLElement;
     title_1: HTMLElement;
     title_2: HTMLElement;
 }) => {

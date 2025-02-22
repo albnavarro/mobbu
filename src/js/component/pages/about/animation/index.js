@@ -20,6 +20,7 @@ export const aboutAnimation = ({
 
     const { title1parallax, title2parallax, title1tween, title2tween } =
         aboutSection1({
+            screenElement,
             title_1,
             title_2,
         });
@@ -29,7 +30,7 @@ export const aboutAnimation = ({
         scroller: scrollerElement,
         direction: 'horizontal',
         drag: true,
-        easeType: 'spring',
+        easeType: 'lerp',
         breakpoint: 'small',
         children: [pathScroller, title1parallax, title2parallax],
     });

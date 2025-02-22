@@ -58,25 +58,22 @@ export const AboutComponentFn = ({
         <div class="l-about__shape" ${setRef('pathElement')}></div>
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
-                <section class="l-about__section is-1">
+                <section class="l-about__section l-about__section__1 ">
                     ${getAngles()}
-                    <div>
+                    <div class="l-about__section__1__left">
                         <div class="has-overflow">
-                            <h1
-                                class="title-big l-about__section__title1"
-                                ${setRef('title_1')}
-                            >
+                            <h1 class="title-big" ${setRef('title_1')}>
                                 ${block_1.about}
                             </h1>
                         </div>
                         <div class="has-overflow">
-                            <h1
-                                class="title-big l-about__section__title2 is-white"
-                                ${setRef('title_2')}
-                            >
+                            <h1 class="title-big is-white" ${setRef('title_2')}>
                                 ${block_1.project}
                             </h1>
                         </div>
+                    </div>
+                    <div class="l-about__section__1__right">
+                        <span class="l-about__section__1__arrow"></span>
                     </div>
                 </section>
                 <section class="l-about__section">
