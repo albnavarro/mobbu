@@ -421,8 +421,8 @@ export type parallaxTweenGoTo = (
     arg0: Record<string, number | (() => number)>
 ) => ParallaxTween;
 
-export type parallaxTweenSubscribe = (arg0: () => void) => () => void;
-export type parallaxTweenOnStop = (arg0: () => void) => () => void;
+export type parallaxTweenSubscribe = (arg0: (any) => void) => () => void;
+export type parallaxTweenOnStop = (arg0: (any) => void) => () => void;
 
 export type parallaxTweenSubscribeCache = (
     item: object | HTMLElement,
