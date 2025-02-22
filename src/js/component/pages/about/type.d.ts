@@ -1,5 +1,7 @@
+import HandleAsyncTimeline from '../../../mobMotion/animation/asyncTimeline/handleAsyncTimeline';
 import ParallaxClass from '../../../mobMotion/animation/parallax/parallax';
 import HandleSequencer from '../../../mobMotion/animation/sequencer/handleSequencer';
+import HandleTween from '../../../mobMotion/animation/tween/handleTween';
 
 export interface About {
     state: {
@@ -32,4 +34,7 @@ export type CreatePathAnimation = (ar0: {
 }) => {
     pathScroller: ParallaxClass;
     pathSequencer: HandleSequencer;
+    pathTween: HandleTween;
+    pathTimeline: HandleAsyncTimeline;
+    stopLoop: () => void;
 };

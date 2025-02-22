@@ -8,11 +8,12 @@ export const aboutAnimation = ({
     pathElement,
     wrapElement,
 }) => {
-    const { pathScroller, pathSequencer } = createPathAnimation({
-        pathElement,
-        scrollerElement,
-        wrapElement,
-    });
+    const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
+        createPathAnimation({
+            pathElement,
+            scrollerElement,
+            wrapElement,
+        });
 
     const aboutScroller = new SmoothScroller({
         screen: screenElement,
@@ -31,6 +32,9 @@ export const aboutAnimation = ({
             aboutScroller.destroy();
             pathSequencer.destroy();
             pathScroller.destroy();
+            pathTimeline.destroy();
+            pathTween.destroy();
+            stopLoop();
         },
     };
 };
