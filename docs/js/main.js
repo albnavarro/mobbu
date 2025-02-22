@@ -27131,14 +27131,14 @@ Loading snippet ...</pre
     const pathTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(
       pathTween,
       {
-        ax: () => randomIntFromInterval(-2, 2),
-        ay: () => randomIntFromInterval(-2, 2),
-        bx: () => randomIntFromInterval(-2, 2),
-        by: () => randomIntFromInterval(-2, 2),
-        cx: () => randomIntFromInterval(-2, 2),
-        cy: () => randomIntFromInterval(-2, 2),
-        dx: () => randomIntFromInterval(-2, 2),
-        dy: () => randomIntFromInterval(-2, 2)
+        ax: () => randomIntFromInterval(-5, 5),
+        ay: () => randomIntFromInterval(-5, 5),
+        bx: () => randomIntFromInterval(-5, 5),
+        by: () => randomIntFromInterval(-5, 5),
+        cx: () => randomIntFromInterval(-5, 5),
+        cy: () => randomIntFromInterval(-5, 5),
+        dx: () => randomIntFromInterval(-5, 5),
+        dy: () => randomIntFromInterval(-5, 5)
       },
       { duration: 3e3 }
     );
