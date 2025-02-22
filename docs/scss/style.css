@@ -603,6 +603,12 @@ h6 {
   font-size: 1.0666666667rem;
   line-height: 1.5625em;
 }
+.title-big {
+  font-size: 6.6666666667rem;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+}
 a {
   text-decoration: none;
   color: #000;
@@ -1254,7 +1260,18 @@ code {
   justify-content: center;
   align-items: center;
 }
+.l-about__section__title1 {
+  margin-left: 4.6666666667rem;
+}
 .l-about__background {
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--header-height) / 2 * -1);
+  width: 100vw;
+  height: calc((100vh - var(--header-height) - var(--footer-height)) * 0.5);
+  background: #000;
+}
+.l-about__shape {
   position: absolute;
   top: 50%;
   left: 50%;

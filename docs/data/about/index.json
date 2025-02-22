@@ -1,6 +1,9 @@
 {
-    "block_1": "Lorem Ipsum is simply dummy text",
-    "block_2": "Lorem Ipsum is simply dummy text",
-    "block_3": "Lorem Ipsum is simply dummy text",
-    "block_4": "Lorem Ipsum is simply dummy text"
+    "block_1": {
+        "about": "about",
+        "project": "the project"
+    },
+    "block_2": "",
+    "block_3": "",
+    "block_4": ""
 }

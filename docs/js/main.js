@@ -27192,17 +27192,61 @@ Loading snippet ...</pre
     };
   };
 
+  // src/js/component/pages/about/animation/section1.js
+  var aboutSection1 = ({ title_1, title_2 }) => {
+    const title1tween = tween.createScrollerTween({
+      from: { y: 0, x: 0 },
+      to: { y: 30, x: 100 }
+    });
+    title1tween.subscribe(({ x, y }) => {
+      title_1.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    const title1parallax = scroller.createParallax({
+      item: title_1,
+      direction: "horizontal",
+      propierties: "tween",
+      tween: title1tween,
+      align: "center"
+    });
+    const title2tween = tween.createScrollerTween({
+      from: { y: 0 },
+      to: { y: -30 }
+    });
+    title2tween.subscribe(({ y }) => {
+      title_2.style.transform = `translateY(${y}px)`;
+    });
+    const title2parallax = scroller.createParallax({
+      item: title_2,
+      direction: "horizontal",
+      propierties: "tween",
+      tween: title2tween,
+      align: "center"
+    });
+    return {
+      title1parallax,
+      title2parallax,
+      title1tween,
+      title2tween
+    };
+  };
+
   // src/js/component/pages/about/animation/index.js
   var aboutAnimation = ({
     screenElement,
     scrollerElement,
     pathElement,
-    wrapElement
+    wrapElement,
+    title_1,
+    title_2
   }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } = createPathAnimation({
       pathElement,
       scrollerElement,
       wrapElement
+    });
+    const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({
+      title_1,
+      title_2
     });
     const aboutScroller = new SmoothScroller({
       screen: screenElement,
@@ -27211,7 +27255,7 @@ Loading snippet ...</pre
       drag: true,
       easeType: "spring",
       breakpoint: "small",
-      children: [pathScroller]
+      children: [pathScroller, title1parallax, title2parallax]
     });
     aboutScroller.init();
     return {
@@ -27221,6 +27265,10 @@ Loading snippet ...</pre
         pathScroller.destroy();
         pathTimeline.destroy();
         pathTween.destroy();
+        title1parallax.destroy();
+        title2parallax.destroy();
+        title1tween.destroy();
+        title2tween.destroy();
         stopLoop();
       }
     };
@@ -27245,12 +27293,21 @@ Loading snippet ...</pre
     const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 4;
     onMount(() => {
-      const { screenElement, scrollerElement, pathElement, wrapElement } = getRef();
+      const {
+        screenElement,
+        scrollerElement,
+        pathElement,
+        wrapElement,
+        title_1,
+        title_2
+      } = getRef();
       const { destroy: destroy2 } = aboutAnimation({
         screenElement,
         scrollerElement,
         pathElement,
-        wrapElement
+        wrapElement,
+        title_1,
+        title_2
       });
       return () => {
         destroy2();
@@ -27261,12 +27318,30 @@ Loading snippet ...</pre
         ${setRef("screenElement")}
         style="--number-of-section:${numberOfSection}"
     >
-        <div class="l-about__background" ${setRef("pathElement")}></div>
+        <span class="l-about__background"></span>
+        <div class="l-about__shape" ${setRef("pathElement")}></div>
         <div class="l-about__scroller" ${setRef("scrollerElement")}>
             <div class="l-about__wrap" ${setRef("wrapElement")}>
-                <section class="l-about__section">
+                <section class="l-about__section is-1">
                     ${getAngles()}
-                    <h1>${block_1}</h1>
+                    <div>
+                        <div class="has-overflow">
+                            <h1
+                                class="title-big l-about__section__title1"
+                                ${setRef("title_1")}
+                            >
+                                ${block_1.about}
+                            </h1>
+                        </div>
+                        <div class="has-overflow">
+                            <h1
+                                class="title-big l-about__section__title2 is-white"
+                                ${setRef("title_2")}
+                            >
+                                ${block_1.project}
+                            </h1>
+                        </div>
+                    </div>
                 </section>
                 <section class="l-about__section">
                     ${getAngles()}
@@ -27294,8 +27369,11 @@ Loading snippet ...</pre
       exportState: ["block_1", "block_2", "block_3", "block_4"],
       state: {
         block_1: () => ({
-          value: "",
-          type: String
+          value: {
+            about: "",
+            project: ""
+          },
+          type: "any"
         }),
         block_2: () => ({
           value: "",

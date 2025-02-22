@@ -61,6 +61,13 @@ h6 {
     line-height: line-height(16, 25);
 }
 
+.title-big {
+    font-size: rem(100);
+    line-height: 1;
+    text-transform: uppercase;
+    margin: 0;
+}
+
 a {
     text-decoration: none;
     color: $black;

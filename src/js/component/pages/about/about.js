@@ -26,13 +26,22 @@ export const AboutComponentFn = ({
     const numberOfSection = 4;
 
     onMount(() => {
-        const { screenElement, scrollerElement, pathElement, wrapElement } =
-            getRef();
+        const {
+            screenElement,
+            scrollerElement,
+            pathElement,
+            wrapElement,
+            title_1,
+            title_2,
+        } = getRef();
+
         const { destroy } = aboutAnimation({
             screenElement,
             scrollerElement,
             pathElement,
             wrapElement,
+            title_1,
+            title_2,
         });
 
         return () => {
@@ -45,12 +54,30 @@ export const AboutComponentFn = ({
         ${setRef('screenElement')}
         style="--number-of-section:${numberOfSection}"
     >
-        <div class="l-about__background" ${setRef('pathElement')}></div>
+        <span class="l-about__background"></span>
+        <div class="l-about__shape" ${setRef('pathElement')}></div>
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
-                <section class="l-about__section">
+                <section class="l-about__section is-1">
                     ${getAngles()}
-                    <h1>${block_1}</h1>
+                    <div>
+                        <div class="has-overflow">
+                            <h1
+                                class="title-big l-about__section__title1"
+                                ${setRef('title_1')}
+                            >
+                                ${block_1.about}
+                            </h1>
+                        </div>
+                        <div class="has-overflow">
+                            <h1
+                                class="title-big l-about__section__title2 is-white"
+                                ${setRef('title_2')}
+                            >
+                                ${block_1.project}
+                            </h1>
+                        </div>
+                    </div>
                 </section>
                 <section class="l-about__section">
                     ${getAngles()}

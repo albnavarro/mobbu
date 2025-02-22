@@ -15,8 +15,11 @@ export const AboutComponent = createComponent(
         exportState: ['block_1', 'block_2', 'block_3', 'block_4'],
         state: {
             block_1: () => ({
-                value: '',
-                type: String,
+                value: {
+                    about: '',
+                    project: '',
+                },
+                type: 'any',
             }),
             block_2: () => ({
                 value: '',
