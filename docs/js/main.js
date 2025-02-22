@@ -26435,6 +26435,9 @@
       data
     };
   };
+  function randomIntFromInterval(min2, max2) {
+    return Math.floor(Math.random() * (max2 - min2 + 1) + min2);
+  }
 
   // src/js/component/common/snippet/snippet.js
   core_default.registerLanguage("javascript", javascript);
@@ -27113,8 +27116,7 @@ Loading snippet ...</pre
       sequencerData.dy = dy;
     });
     const pathTween = tween.createTween({
-      data: { ...timelineData },
-      ease: "easeInOutBack"
+      data: { ...timelineData }
     });
     pathTween.subscribe(({ ax, ay, bx, by, cx, cy, dx, dy }) => {
       timelineData.ax = ax;
@@ -27129,16 +27131,16 @@ Loading snippet ...</pre
     const pathTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(
       pathTween,
       {
-        ax: 1,
-        ay: 1,
-        bx: -1,
-        by: -1,
-        cx: 1,
-        cy: 1,
-        dx: -1,
-        dy: -1
+        ax: () => randomIntFromInterval(-2, 2),
+        ay: () => randomIntFromInterval(-2, 2),
+        bx: () => randomIntFromInterval(-2, 2),
+        by: () => randomIntFromInterval(-2, 2),
+        cx: () => randomIntFromInterval(-2, 2),
+        cy: () => randomIntFromInterval(-2, 2),
+        dx: () => randomIntFromInterval(-2, 2),
+        dy: () => randomIntFromInterval(-2, 2)
       },
-      { duration: 5e3 }
+      { duration: 3e3 }
     );
     pathTimeline.play();
     let shouldLoop = true;

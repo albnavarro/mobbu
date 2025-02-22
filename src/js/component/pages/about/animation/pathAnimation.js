@@ -3,6 +3,7 @@
 import { mobCore } from '../../../../mobCore';
 import { outerWidth } from '../../../../mobCore/utils';
 import { scroller, timeline, tween } from '../../../../mobMotion';
+import { randomIntFromInterval } from '../../../../utils/utils';
 
 /** @type{import('../type').CreatePathAnimation} */
 export const createPathAnimation = ({
@@ -81,7 +82,6 @@ export const createPathAnimation = ({
      */
     const pathTween = tween.createTween({
         data: { ...timelineData },
-        ease: 'easeInOutBack',
     });
 
     pathTween.subscribe(({ ax, ay, bx, by, cx, cy, dx, dy }) => {
@@ -104,16 +104,16 @@ export const createPathAnimation = ({
         .goTo(
             pathTween,
             {
-                ax: 1,
-                ay: 1,
-                bx: -1,
-                by: -1,
-                cx: 1,
-                cy: 1,
-                dx: -1,
-                dy: -1,
+                ax: () => randomIntFromInterval(-2, 2),
+                ay: () => randomIntFromInterval(-2, 2),
+                bx: () => randomIntFromInterval(-2, 2),
+                by: () => randomIntFromInterval(-2, 2),
+                cx: () => randomIntFromInterval(-2, 2),
+                cy: () => randomIntFromInterval(-2, 2),
+                dx: () => randomIntFromInterval(-2, 2),
+                dy: () => randomIntFromInterval(-2, 2),
             },
-            { duration: 5000 }
+            { duration: 3000 }
         );
 
     pathTimeline.play();

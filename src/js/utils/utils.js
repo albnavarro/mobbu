@@ -85,3 +85,12 @@ export const loadJsonContent = async ({ source }) => {
         data,
     };
 };
+
+/**
+ * @param {number} min
+ * @param {number} max
+ * @returns {number}
+ */
+export function randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
