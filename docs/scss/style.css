@@ -1252,6 +1252,18 @@ code {
   width: 100%;
   height: 100%;
 }
+.l-about__arrow {
+  position: absolute;
+  display: block;
+  width: 1.3333333333rem;
+  height: 1.3333333333rem;
+  border-top: 3px #fff solid;
+  border-right: 3px #fff solid;
+  transform: rotate(45deg);
+  right: 13.3333333333rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
 .l-about__section {
   flex: 0 0 var(--section-width);
   height: 100%;
@@ -1264,18 +1276,15 @@ code {
   grid-column: 1/span 1;
   padding-left: 2.6666666667rem;
 }
+@media (min-width: 100em) {
+  .l-about__section__1__left {
+    padding-left: 4rem;
+  }
+}
 .l-about__section__1__right {
   grid-column: 2/span 1;
   justify-self: end;
   padding-right: 6.6666666667rem;
-}
-.l-about__section__1__arrow {
-  display: block;
-  width: 1.3333333333rem;
-  height: 1.3333333333rem;
-  border-top: 3px #fff solid;
-  border-right: 3px #fff solid;
-  transform: rotate(45deg);
 }
 .l-about__background {
   position: absolute;

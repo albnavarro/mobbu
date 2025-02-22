@@ -56,6 +56,7 @@ export const AboutComponentFn = ({
     >
         <span class="l-about__background"></span>
         <div class="l-about__shape" ${setRef('pathElement')}></div>
+        <span class="l-about__arrow"></span>
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
                 <section class="l-about__section l-about__section__1 ">
@@ -71,9 +72,6 @@ export const AboutComponentFn = ({
                                 ${block_1.project}
                             </h1>
                         </div>
-                    </div>
-                    <div class="l-about__section__1__right">
-                        <span class="l-about__section__1__arrow"></span>
                     </div>
                 </section>
                 <section class="l-about__section">

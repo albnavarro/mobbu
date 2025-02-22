@@ -45,7 +45,7 @@ export const createPathAnimation = ({
     });
 
     pathSequencer.goTo(
-        { ax: 5, ay: 73, dx: 51, dy: 60 },
+        { ax: 5, ay: 43, dx: 51, dy: 50 },
         { start: 0, end: 3.5 }
     );
     pathSequencer.goTo({ bx: 68, by: 6, cx: 95, cy: 90 }, { start: 1, end: 3 });
@@ -168,6 +168,7 @@ export const createPathAnimation = ({
             },
         },
         propierties: 'tween',
+        ease: false,
         tween: pathSequencer,
     });
 

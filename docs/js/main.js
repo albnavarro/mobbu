@@ -27085,7 +27085,7 @@ Loading snippet ...</pre
       data: { ...sequencerData }
     });
     pathSequencer.goTo(
-      { ax: 5, ay: 73, dx: 51, dy: 60 },
+      { ax: 5, ay: 43, dx: 51, dy: 50 },
       { start: 0, end: 3.5 }
     );
     pathSequencer.goTo({ bx: 68, by: 6, cx: 95, cy: 90 }, { start: 1, end: 3 });
@@ -27179,6 +27179,7 @@ Loading snippet ...</pre
         }
       },
       propierties: "tween",
+      ease: false,
       tween: pathSequencer
     });
     return {
@@ -27207,6 +27208,7 @@ Loading snippet ...</pre
       direction: "horizontal",
       propierties: "tween",
       tween: title1tween,
+      ease: false,
       align: "start"
     });
     const title2tween = tween.createScrollerTween({
@@ -27222,6 +27224,7 @@ Loading snippet ...</pre
       direction: "horizontal",
       propierties: "tween",
       tween: title2tween,
+      ease: false,
       align: "start"
     });
     return {
@@ -27323,6 +27326,7 @@ Loading snippet ...</pre
     >
         <span class="l-about__background"></span>
         <div class="l-about__shape" ${setRef("pathElement")}></div>
+        <span class="l-about__arrow"></span>
         <div class="l-about__scroller" ${setRef("scrollerElement")}>
             <div class="l-about__wrap" ${setRef("wrapElement")}>
                 <section class="l-about__section l-about__section__1 ">
@@ -27338,9 +27342,6 @@ Loading snippet ...</pre
                                 ${block_1.project}
                             </h1>
                         </div>
-                    </div>
-                    <div class="l-about__section__1__right">
-                        <span class="l-about__section__1__arrow"></span>
                     </div>
                 </section>
                 <section class="l-about__section">

@@ -17,6 +17,7 @@ export const aboutSection1 = ({ title_1, title_2, screenElement }) => {
         direction: 'horizontal',
         propierties: 'tween',
         tween: title1tween,
+        ease: false,
         align: 'start',
     });
 
@@ -35,6 +36,7 @@ export const aboutSection1 = ({ title_1, title_2, screenElement }) => {
         direction: 'horizontal',
         propierties: 'tween',
         tween: title2tween,
+        ease: false,
         align: 'start',
     });
 

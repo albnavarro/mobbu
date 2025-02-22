@@ -18,6 +18,19 @@
         height: 100%;
     }
 
+    &__arrow {
+        position: absolute;
+        display: block;
+        width: rem(20);
+        height: rem(20);
+        border-top: 3px $white solid;
+        border-right: 3px $white solid;
+        transform: rotate(45deg);
+        right: rem(200);
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+
     &__section {
         flex: 0 0 var(--section-width);
         height: 100%;
@@ -30,21 +43,16 @@
             &__left {
                 grid-column: 1 / span 1;
                 padding-left: rem(40);
+
+                @include mq(xlarge) {
+                    padding-left: rem(60);
+                }
             }
 
             &__right {
                 grid-column: 2 / span 1;
                 justify-self: end;
                 padding-right: rem(100);
-            }
-
-            &__arrow {
-                display: block;
-                width: rem(20);
-                height: rem(20);
-                border-top: 3px $white solid;
-                border-right: 3px $white solid;
-                transform: rotate(45deg);
             }
         }
     }
