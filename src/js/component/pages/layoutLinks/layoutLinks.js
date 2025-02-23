@@ -48,6 +48,7 @@ export const LayoutLinksFn = ({ html, getState, setRef, getRef, onMount }) => {
                             .join('')}
                     </ul>
                 </div>
+                <h6 class="l-links__scroll">Scroll or drag</h6>
             </div>
         </div>
     </div>`;

@@ -62,6 +62,7 @@ export const AboutComponentFn = ({
         <span class="l-about__arrow"></span>
         <div class="l-about__triangle-1">${Triangles}</div>
         <div class="l-about__triangle-2">${Triangles}</div>
+        <h6 class="l-about__scroll">Scroll or drag</h6>
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
                 <section

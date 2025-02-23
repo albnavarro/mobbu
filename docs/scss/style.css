@@ -1294,6 +1294,11 @@ code {
   width: 26.6666666667rem;
   fill: #eee;
 }
+.l-about__scroll {
+  position: absolute;
+  bottom: 2.6666666667rem;
+  left: 2.6666666667rem;
+}
 .l-about__list {
   list-style-type: none;
   max-width: 33.3333333333rem;
@@ -1386,7 +1391,6 @@ code {
 }
 .l-links__row {
   width: 100%;
-  height: calc(var(--scroller-height) / 2);
   overflow: hidden;
 }
 .l-links__row--top {
@@ -1424,17 +1428,34 @@ code {
   position: absolute;
   right: 0;
   transform: translateY(75%) rotate(180deg);
+  z-index: 10;
 }
 .l-links__triangle-2 svg {
   width: 26.6666666667rem;
   fill: #eee;
+}
+.l-links__scroll {
+  position: absolute;
+  z-index: 10;
+  bottom: 2.6666666667rem;
+  left: 2.6666666667rem;
+}
+.l-links__scroller {
+  width: auto;
+  max-width: none;
+  display: flex;
+  position: absolute;
+  left: calc(var(--header-height) / 2);
 }
 .l-links__list {
   list-style-type: none;
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   gap: 1.3333333333rem;
-  padding-top: 2rem;
+  margin: 0;
+  padding-top: 2.6666666667rem;
+  padding-left: 0;
+  padding-right: 26.6666666667rem;
 }
 .l-links__list__item:nth-child(odd) {
   grid-row: 1/span 1;

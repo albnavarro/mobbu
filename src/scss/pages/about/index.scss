@@ -60,6 +60,12 @@
         }
     }
 
+    &__scroll {
+        position: absolute;
+        bottom: rem(40);
+        left: rem(40);
+    }
+
     &__list {
         list-style-type: none;
         max-width: rem(500);
