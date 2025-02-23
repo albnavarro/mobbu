@@ -60,6 +60,14 @@ export const aboutAnimation = ({
 
     aboutScroller.init();
 
+    /**
+     * Refresh nav if is coming from menu.
+     * TODO: add afterNavigationClose state
+     */
+    setTimeout(() => {
+        aboutScroller?.refresh?.();
+    }, 500);
+
     return {
         destroy: () => {
             aboutScroller.destroy();

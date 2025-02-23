@@ -27323,6 +27323,9 @@ Loading snippet ...</pre
       ]
     });
     aboutScroller.init();
+    setTimeout(() => {
+      aboutScroller?.refresh?.();
+    }, 500);
     return {
       destroy: () => {
         aboutScroller.destroy();
