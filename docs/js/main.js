@@ -27059,9 +27059,34 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
+  // src/js/component/pages/layoutLinks/animation/linksScroller.js
+  var linksScroller = ({ screenElement, scrollerElement }) => {
+    const scroller2 = new SmoothScroller({
+      screen: screenElement,
+      scroller: scrollerElement,
+      direction: "horizontal",
+      drag: true,
+      easeType: "spring",
+      breakpoint: "small"
+    });
+    scroller2.init();
+    return {
+      destroy: () => {
+        scroller2.destroy();
+      }
+    };
+  };
+
   // src/js/component/pages/layoutLinks/layoutLinks.js
-  var LayoutLinksFn = ({ html, getState }) => {
+  var LayoutLinksFn = ({ html, getState, setRef, getRef, onMount }) => {
     const { title, items } = getState();
+    onMount(() => {
+      const { screenElement, scrollerElement } = getRef();
+      const { destroy: destroy2 } = linksScroller({ screenElement, scrollerElement });
+      return () => {
+        destroy2();
+      };
+    });
     return html`<div class="l-links">
         <div class="l-links__triangle-1">${Triangles}</div>
         <div class="l-links__triangle-2">${Triangles}</div>
@@ -27070,8 +27095,11 @@ Loading snippet ...</pre
             <div class="l-links__row l-links__row--top">
                 <h1 class="title-big">${title}</h1>
             </div>
-            <div class="l-links__row l-links__row--bottom">
-                <div class="l-links__scroller">
+            <div
+                class="l-links__row l-links__row--bottom"
+                ${setRef("screenElement")}
+            >
+                <div class="l-links__scroller" ${setRef("scrollerElement")}>
                     <ul class="l-links__list">
                         ${items.map((item) => {
       return (

@@ -1375,6 +1375,8 @@ code {
   background: #eee;
 }
 .l-links {
+  position: relative;
+  overflow: hidden;
   --scroller-height: calc( 100vh - var(--header-height) - var(--footer-height) );
 }
 .l-links__grid {
@@ -1385,6 +1387,7 @@ code {
 .l-links__row {
   width: 100%;
   height: calc(var(--scroller-height) / 2);
+  overflow: hidden;
 }
 .l-links__row--top {
   grid-row: 1/span 1;

@@ -1,12 +1,22 @@
 import { Triangles } from '../../common/scrollToTop/triangles';
+import { linksScroller } from './animation/linksScroller';
 
 /**
  * @import { MobComponent } from '../../../mobjs/type';
  **/
 
 /** @type {MobComponent<import('./type').LayoutLinks>} */
-export const LayoutLinksFn = ({ html, getState }) => {
+export const LayoutLinksFn = ({ html, getState, setRef, getRef, onMount }) => {
     const { title, items } = getState();
+
+    onMount(() => {
+        const { screenElement, scrollerElement } = getRef();
+        const { destroy } = linksScroller({ screenElement, scrollerElement });
+
+        return () => {
+            destroy();
+        };
+    });
 
     return html`<div class="l-links">
         <div class="l-links__triangle-1">${Triangles}</div>
@@ -16,8 +26,11 @@ export const LayoutLinksFn = ({ html, getState }) => {
             <div class="l-links__row l-links__row--top">
                 <h1 class="title-big">${title}</h1>
             </div>
-            <div class="l-links__row l-links__row--bottom">
-                <div class="l-links__scroller">
+            <div
+                class="l-links__row l-links__row--bottom"
+                ${setRef('screenElement')}
+            >
+                <div class="l-links__scroller" ${setRef('scrollerElement')}>
                     <ul class="l-links__list">
                         ${items
                             .map((item) => {

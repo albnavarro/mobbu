@@ -1,6 +1,9 @@
 @use '../../abstract' as *;
 
 .l-links {
+    position: relative;
+    overflow: hidden;
+
     --scroller-height: calc(
         100vh - var(--header-height) - var(--footer-height)
     );
@@ -14,6 +17,7 @@
     &__row {
         width: 100%;
         height: calc(var(--scroller-height) / 2);
+        overflow: hidden;
 
         &--top {
             grid-row: 1 / span 1;
@@ -62,6 +66,10 @@
             fill: $grey;
         }
     }
+
+    // &__scroller {
+    //     width: 4000px;
+    // }
 
     &__list {
         list-style-type: none;
