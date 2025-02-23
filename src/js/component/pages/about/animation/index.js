@@ -30,7 +30,7 @@ export const aboutAnimation = ({
         scroller: scrollerElement,
         direction: 'horizontal',
         drag: true,
-        easeType: 'lerp',
+        easeType: 'spring',
         breakpoint: 'small',
         children: [pathScroller, title1parallax, title2parallax],
     });

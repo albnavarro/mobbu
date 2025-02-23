@@ -61,17 +61,15 @@ export const AboutComponentFn = ({
             <div class="l-about__wrap" ${setRef('wrapElement')}>
                 <section class="l-about__section l-about__section__1 ">
                     ${getAngles()}
-                    <div class="l-about__section__1__left">
-                        <div class="has-overflow">
-                            <h1 class="title-big" ${setRef('title_1')}>
-                                ${block_1.about}
-                            </h1>
-                        </div>
-                        <div class="has-overflow">
-                            <h1 class="title-big is-white" ${setRef('title_2')}>
-                                ${block_1.project}
-                            </h1>
-                        </div>
+                    <div class="l-about__section__1__top has-overflow">
+                        <h1 class="title-big" ${setRef('title_1')}>
+                            ${block_1.about}
+                        </h1>
+                    </div>
+                    <div class="l-about__section__1__bottom has-overflow">
+                        <h1 class="title-big is-white" ${setRef('title_2')}>
+                            ${block_1.project}
+                        </h1>
                     </div>
                 </section>
                 <section class="l-about__section">

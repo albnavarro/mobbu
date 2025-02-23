@@ -25,7 +25,6 @@
         height: rem(20);
         border-top: 3px $white solid;
         border-right: 3px $white solid;
-        transform: rotate(45deg);
         right: rem(200);
         top: 50%;
         transform: translateY(-50%) rotate(45deg);
@@ -36,23 +35,24 @@
         height: 100%;
         position: relative;
         display: grid;
-        align-items: center;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
 
         &__1 {
-            &__left {
-                grid-column: 1 / span 1;
-                padding-left: rem(40);
+            padding-left: rem(40);
 
-                @include mq(xlarge) {
-                    padding-left: rem(60);
-                }
+            @include mq(xlarge) {
+                padding-left: rem(100);
             }
 
-            &__right {
-                grid-column: 2 / span 1;
-                justify-self: end;
-                padding-right: rem(100);
+            &__top {
+                grid-row: 1 / span 1;
+                align-self: end;
+                padding-top: rem(100);
+            }
+
+            &__bottom {
+                grid-row: 2 / span 1;
+                padding-bottom: rem(100);
             }
         }
     }

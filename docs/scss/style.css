@@ -1259,7 +1259,6 @@ code {
   height: 1.3333333333rem;
   border-top: 3px #fff solid;
   border-right: 3px #fff solid;
-  transform: rotate(45deg);
   right: 13.3333333333rem;
   top: 50%;
   transform: translateY(-50%) rotate(45deg);
@@ -1269,22 +1268,24 @@ code {
   height: 100%;
   position: relative;
   display: grid;
-  align-items: center;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
 }
-.l-about__section__1__left {
-  grid-column: 1/span 1;
+.l-about__section__1 {
   padding-left: 2.6666666667rem;
 }
 @media (min-width: 100em) {
-  .l-about__section__1__left {
-    padding-left: 4rem;
+  .l-about__section__1 {
+    padding-left: 6.6666666667rem;
   }
 }
-.l-about__section__1__right {
-  grid-column: 2/span 1;
-  justify-self: end;
-  padding-right: 6.6666666667rem;
+.l-about__section__1__top {
+  grid-row: 1/span 1;
+  align-self: end;
+  padding-top: 6.6666666667rem;
+}
+.l-about__section__1__bottom {
+  grid-row: 2/span 1;
+  padding-bottom: 6.6666666667rem;
 }
 .l-about__background {
   position: absolute;
