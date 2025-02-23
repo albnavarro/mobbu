@@ -49,6 +49,8 @@ export const setComponentList = () => {
  * @returns {void}
  */
 export const useComponent = (components) => {
+    if (!components || components?.length === 0) return;
+
     components.forEach((component) => {
         availableComponent.add(component);
     });
