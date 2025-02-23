@@ -76,6 +76,7 @@ a {
 p {
     padding: 0;
     margin: 0 0 1em;
+    user-select: text;
 
     a {
         text-decoration: underline;
@@ -119,4 +120,9 @@ ul {
 pre,
 code {
     font-size: rem(16);
+    user-select: text;
+
+    * {
+        user-select: text;
+    }
 }
