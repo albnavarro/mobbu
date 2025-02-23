@@ -65,9 +65,9 @@ export type AboutSection1 = (arg0: {
 };
 
 export type AboutSection2 = (arg0: {
-    section2_title: HTMLElement;
-    section2_copy: HTMLElement;
+    title: HTMLElement;
+    copy: HTMLElement;
 }) => {
-    section2TitlesScroller: ParallaxClass;
-    section2TitleSequencer: HandleSequencer;
+    sectionContentScroller: ParallaxClass;
+    sectionContentSequencer: HandleSequencer;
 };
