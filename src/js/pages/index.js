@@ -18,7 +18,6 @@ import { matrioska_page } from './matrioska';
 import { horizontalScroller } from './plugin/horizontalScroller';
 import { move3DRoute } from './plugin/move3D';
 import { move3DrouteProps } from './plugin/move3D/props';
-import { child } from './svg/child';
 import { lettering01 } from './svg/lettering01';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
@@ -800,17 +799,10 @@ export const routes = [
     },
     {
         name: 'svg-overview',
-        layout: layoutSidebarAnchor,
+        layout: layoutLinksPage,
         props: {
-            source: './data/svg/overview.json',
-            title: 'Svg',
-            breadCrumbs: [],
+            source: './data/svg/data.json',
         },
-    },
-    {
-        name: 'child',
-        layout: child,
-        props: {},
     },
     {
         name: 'lettering01',

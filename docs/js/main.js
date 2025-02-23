@@ -205,7 +205,7 @@
             builder.addText(node);
           } else if (node.children) {
             builder.openNode(node);
-            node.children.forEach((child2) => this._walk(builder, child2));
+            node.children.forEach((child) => this._walk(builder, child));
             builder.closeNode(node);
           }
           return builder;
@@ -219,8 +219,8 @@
           if (node.children.every((el) => typeof el === "string")) {
             node.children = [node.children.join("")];
           } else {
-            node.children.forEach((child2) => {
-              _TokenTree._collapse(child2);
+            node.children.forEach((child) => {
+              _TokenTree._collapse(child);
             });
           }
         }
@@ -1622,8 +1622,8 @@
     const rect = element.getBoundingClientRect();
     return rect;
   }
-  function isDescendant(parent, child2) {
-    let node = child2?.parentNode;
+  function isDescendant(parent, child) {
+    let node = child?.parentNode;
     while (node) {
       if (node === parent) return true;
       node = node?.parentNode;
@@ -17537,12 +17537,12 @@
   var getChildrenIdByName = ({ id = "", componentName = "" }) => {
     if (!id || id === "") return [];
     const item = componentMap.get(id);
-    const child2 = item?.child;
-    if (!child2) {
+    const child = item?.child;
+    if (!child) {
       console.warn(`getChildIdById failed no id found`);
       return [];
     }
-    return child2?.[componentName] ?? [];
+    return child?.[componentName] ?? [];
   };
   var getOrderedChunkByCurrentRepeatValue = ({
     children,
@@ -17603,8 +17603,8 @@
   var getTreeRecursive = ({ chunk }) => {
     return chunk.reduce((previous, current) => {
       const [key, value] = current;
-      const { child: child2, componentName, instanceName } = value;
-      const childrenId = new Set(Object.values(child2 ?? {}).flat());
+      const { child, componentName, instanceName } = value;
+      const childrenId = new Set(Object.values(child ?? {}).flat());
       const childrenChunk = [...componentMap.entries()].filter(
         ([key2]) => childrenId.has(key2)
       );
@@ -17678,8 +17678,8 @@
   function* walkPreOrder(node) {
     if (!node) return;
     yield node;
-    for (const child2 of node.children) {
-      yield* walkPreOrder(child2);
+    for (const child of node.children) {
+      yield* walkPreOrder(child);
     }
   }
   function selectAll(root2, firstOccurrence) {
@@ -17695,8 +17695,8 @@
   var queryAllFutureComponent = (node, firstOccurence = true) => {
     let result = [];
     const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      result = [...result, ...selectAll(child2, firstOccurence)];
+    for (const child of root2.children) {
+      result = [...result, ...selectAll(child, firstOccurence)];
     }
     return result;
   };
@@ -17783,14 +17783,14 @@
     if (!parentId) return;
     const value = componentMap.get(parentId);
     if (!value) return;
-    const { child: child2 } = value;
-    if (!child2) return;
+    const { child } = value;
+    if (!child) return;
     componentMap.set(parentId, {
       ...value,
       child: {
-        ...child2,
+        ...child,
         ...updateChildrenArray({
-          currentChild: child2,
+          currentChild: child,
           id,
           componentName
         })
@@ -17801,8 +17801,8 @@
     if (!element) return;
     if (useQuery || forceComponentChildQuery) {
       const children = queryAllFutureComponent(element, false);
-      children.forEach((child2) => {
-        child2.setParentId(id);
+      children.forEach((child) => {
+        child.setParentId(id);
       });
       return;
     }
@@ -18156,14 +18156,14 @@
     if (!id) return;
     const value = componentMap.get(parentId ?? "");
     if (!value) return;
-    const { child: child2 } = value;
-    if (!parentId || !child2) return;
+    const { child } = value;
+    if (!parentId || !child) return;
     componentMap.set(parentId, {
       ...value,
       child: {
-        ...child2,
+        ...child,
         ...removeChildFromChildrenArray({
-          currentChild: child2,
+          currentChild: child,
           id,
           componentName
         })
@@ -18179,13 +18179,13 @@
     const {
       parentId,
       componentName,
-      child: child2,
+      child,
       element,
       state,
       destroy: destroy2,
       parentPropsWatcher
     } = instanceValue;
-    Object.values(child2 ?? {}).flat().forEach((childId) => {
+    Object.values(child ?? {}).flat().forEach((childId) => {
       removeAndDestroyById({ id: childId });
     });
     removeItselfFromParent({ id, parentId, componentName });
@@ -18914,9 +18914,9 @@
     attributeChangedCallback = () => {
     },
     style = "",
-    child: child2 = []
+    child = []
   }) => {
-    useComponent(child2);
+    useComponent(child);
     return {
       [name]: {
         componentFunction: component,
@@ -18930,7 +18930,7 @@
           attributeToObserve,
           attributeChangedCallback,
           style,
-          child: child2
+          child
         }
       }
     };
@@ -18968,8 +18968,8 @@
   var queryComponentUseSlot = (node) => {
     let result = [];
     const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      result = [...result, ...selectAll2(child2)];
+    for (const child of root2.children) {
+      result = [...result, ...selectAll2(child)];
     }
     return result;
   };
@@ -18987,8 +18987,8 @@
   var queryGenericSlot = (node) => {
     let result = [];
     const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      result = [...result, ...selectAll3(child2)];
+    for (const child of root2.children) {
+      result = [...result, ...selectAll3(child)];
     }
     return result;
   };
@@ -19004,8 +19004,8 @@
   }
   var querySecificSlot = (node, slotName) => {
     const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      const result = selectAll4(child2, slotName);
+    for (const child of root2.children) {
+      const result = selectAll4(child, slotName);
       if (result) return result;
     }
     return null;
@@ -19022,8 +19022,8 @@
   }
   var queryUnNamedSlot = (node) => {
     const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      const result = selectAll5(child2);
+    for (const child of root2.children) {
+      const result = selectAll5(child);
       if (result) return result;
     }
     return null;
@@ -19714,9 +19714,9 @@
   // src/js/mobjs/component/action/removeAndDestroy/destroyComponentInsideNodeById.js
   var destroyComponentInsideNodeById = ({ id, container }) => {
     const instanceValue = componentMap.get(id);
-    const child2 = instanceValue?.child;
-    if (!child2) return;
-    const allChild = Object.values(child2 ?? {}).flat();
+    const child = instanceValue?.child;
+    if (!child) return;
+    const allChild = Object.values(child ?? {}).flat();
     allChild.forEach((id2) => {
       const state = componentMap.get(id2);
       const element = state?.element;
@@ -20514,8 +20514,8 @@
     repeatIdPlaceHolderMap.set(repeatId, {
       ...item,
       key: bind,
-      children: children.map((child2, index) => {
-        return { index, value: stateByProp[index], element: child2 };
+      children: children.map((child, index) => {
+        return { index, value: stateByProp[index], element: child };
       })
     });
   };
@@ -21421,7 +21421,7 @@
     },
     freezedPros = [],
     persistent = false,
-    child: child2 = {},
+    child = {},
     parentId = "",
     id = "",
     componentName = ""
@@ -21445,7 +21445,7 @@
       id,
       parentId,
       freezedPros,
-      child: child2,
+      child,
       state: store
     });
     return {
@@ -25241,8 +25241,8 @@
 
   // src/js/component/layout/navigation/navigationSubmenu.js
   function getSubmenu({ children, staticProps: staticProps2, callback: callback2 }) {
-    return children.map((child2) => {
-      const { label, url, scrollToSection, activeId } = child2;
+    return children.map((child) => {
+      const { label, url, scrollToSection, activeId } = child;
       return renderHtml`
                 <li class="l-navigation__submenu__item">
                     <mob-navigation-button
@@ -34415,233 +34415,6 @@ Loading snippet ...</pre
     }
   };
 
-  // src/js/component/pages/svg/child/animation/animation.js
-  var childAnimations = ({ groups, trails }) => {
-    const RAD2DEG = 180 / Math.PI;
-    let windowWidth = window.innerWidth;
-    let windowHeight = window.innerHeight;
-    let lastY = 0;
-    let lastX = 0;
-    let lastRotation = 0;
-    let loopToAdd = 0;
-    let trailCanMove = false;
-    let tranilRotateElement = trails.map((item) => {
-      return item.querySelector("svg");
-    });
-    let mouseTween = tween.createSpring({
-      data: { x: 0, y: 0 },
-      stagger: { each: 3, from: "start" }
-    });
-    trails.forEach((item) => {
-      mouseTween.subscribe(({ x, y }) => {
-        item.style.translate = `${x}px ${y}px`;
-      });
-    });
-    let mouseTweenRotate = tween.createSpring({
-      data: { rotation: 0 },
-      stagger: { each: 8, from: "start" }
-    });
-    tranilRotateElement.forEach((item) => {
-      if (!item) return;
-      mouseTweenRotate.subscribeCache(item, ({ rotation }) => {
-        item.style.rotate = `${rotation}deg`;
-      });
-    });
-    let trailIntro = tween.createTween({
-      data: { opacity: 0, scale: 1.4 }
-    });
-    trails.forEach((item) => {
-      trailIntro.subscribe(({ scale, opacity }) => {
-        item.style.scale = `${scale}`;
-        item.style.opacity = opacity;
-      });
-    });
-    const unsubScribeResize = mobCore.useResize(() => {
-      windowWidth = window.innerWidth;
-      windowHeight = window.innerHeight;
-    });
-    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
-      if (!trailCanMove) return;
-      const { x, y } = client;
-      const yDiff = y - lastY;
-      const xDiff = x - lastX;
-      if (Math.abs(xDiff) > 10 || Math.abs(yDiff) > 10) {
-        lastY = y;
-        lastX = x;
-        const rotationBase = Math.atan2(yDiff, xDiff) * RAD2DEG;
-        const rotationParsed = rotationBase + 180;
-        const difference = Math.abs(lastRotation - rotationParsed);
-        if (difference > 180 && lastRotation < rotationParsed)
-          loopToAdd -= difference;
-        if (difference > 180 && lastRotation > rotationParsed)
-          loopToAdd += difference;
-        const rotationDef = rotationParsed + loopToAdd + 90;
-        mouseTweenRotate.goTo({ rotation: rotationDef });
-        lastRotation = rotationParsed;
-      }
-      mouseTween.goTo({ x: x - windowWidth / 2, y: y - windowHeight / 2 });
-    });
-    let introTween = tween.createTween({
-      data: { opacity: 0, scale: 0.95 },
-      duration: 2e3,
-      ease: "easeOutQuart",
-      stagger: { waitComplete: true, each: 5, from: "center" }
-    });
-    groups.forEach((item) => {
-      introTween.subscribeCache(item, ({ scale, opacity }) => {
-        item.style.scale = `${scale}`;
-        item.style.opacity = `${opacity}`;
-      });
-    });
-    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).createGroup().goTo(introTween, {
-      opacity: 1,
-      scale: 1
-    }).goTo(trailIntro, {
-      scale: 1,
-      opacity: 1
-    }).closeGroup();
-    return {
-      playIntro: async () => {
-        return introTl.play().then(() => {
-          const timeOutValue = detectSafari() ? 500 : 0;
-          setTimeout(() => {
-            trailCanMove = true;
-          }, timeOutValue);
-        });
-      },
-      destroy: () => {
-        introTween.destroy();
-        introTween = null;
-        introTl.destroy();
-        introTl = null;
-        mouseTween.destroy();
-        mouseTween = null;
-        mouseTweenRotate.destroy();
-        mouseTweenRotate = null;
-        trailIntro.destroy();
-        trailIntro = null;
-        unsubScribeResize();
-        unsubscribeMouseMove();
-        windowWidth = null;
-        windowHeight = null;
-        lastY = null;
-        lastX = null;
-        lastRotation = null;
-        loopToAdd = null;
-        tranilRotateElement = null;
-      }
-    };
-  };
-
-  // src/js/component/pages/svg/child/child.js
-  var numberOfStar = 10;
-  var playAnimation2 = async ({ playIntro }) => {
-    await playIntro();
-  };
-  var getTrail = ({ star, setRef }) => {
-    return [...new Array(numberOfStar).keys()].map((_item, index) => {
-      return renderHtml`
-                <div
-                    class="child-trail child-trail--${index}"
-                    ${setRef(
-        // @ts-ignore
-        `trail${index}`
-      )}
-                >
-                    ${star}
-                </div>
-            `;
-    }).join("");
-  };
-  var SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
-    const isDesktop = motionCore.mq("min", "desktop");
-    const { svg, star } = isDesktop ? getState() : { svg: "", star: "" };
-    onMount(({ element }) => {
-      if (!isDesktop) return;
-      updateQuickNavState({
-        active: true,
-        prevRoute: "",
-        nextRoute: "",
-        color: "white"
-      });
-      const stagger = element.querySelectorAll('[ref="stagger"]');
-      const {
-        trail0,
-        trail1,
-        trail2,
-        trail3,
-        trail4,
-        trail5,
-        trail6,
-        trail7,
-        trail8,
-        trail9
-      } = getRef();
-      const childMethods = childAnimations({
-        groups: (
-          /** @type{HTMLElement[]} */
-          [...stagger]
-        ),
-        trails: [
-          trail0,
-          trail1,
-          trail2,
-          trail3,
-          trail4,
-          trail5,
-          trail6,
-          trail7,
-          trail8,
-          trail9
-        ]
-      });
-      const { playIntro, destroy: destroy2 } = childMethods;
-      playAnimation2({ playIntro });
-      return () => {
-        resetQuickNavState();
-        destroy2();
-      };
-    });
-    return html`<div class="svg-child-container">
-        <div class="svg-child">${svg}</div>
-        ${getTrail({ star, setRef })}
-    </div>`;
-  };
-
-  // src/js/component/pages/svg/child/definition.js
-  var svgChild = createComponent(
-    /** @type{CreateComponentParams<import('./type').SvgChild>} */
-    {
-      name: "svg-child",
-      component: SvgChildFn,
-      exportState: ["svg", "star"],
-      state: {
-        star: () => ({
-          value: "",
-          type: String
-        }),
-        svg: () => ({
-          value: "",
-          type: String
-        })
-      }
-    }
-  );
-
-  // src/js/pages/svg/child/index.js
-  useComponent([svgChild]);
-  var child = async () => {
-    const { data: svg } = await loadTextContent({
-      source: "./asset/svg/child.svg"
-    });
-    const { data: star } = await loadTextContent({
-      source: "./asset/svg/star.svg"
-    });
-    return renderHtml`<div>
-        <svg-child ${staticProps({ svg, star })}></svg-child>
-    </div>`;
-  };
-
   // src/js/component/common/AnyComponent/AnyComponent.js
   var AnyComponentFn = ({ html, getState }) => {
     const { content } = getState();
@@ -35774,17 +35547,10 @@ Loading snippet ...</pre
     },
     {
       name: "svg-overview",
-      layout: layoutSidebarAnchor,
+      layout: layoutLinksPage,
       props: {
-        source: "./data/svg/overview.json",
-        title: "Svg",
-        breadCrumbs: []
+        source: "./data/svg/data.json"
       }
-    },
-    {
-      name: "child",
-      layout: child,
-      props: {}
     },
     {
       name: "lettering01",
@@ -36138,8 +35904,8 @@ Loading snippet ...</pre
       return `${previous} ${current},`;
     }, "");
   };
-  var getChild = (child2) => {
-    return Object.entries(child2).map(([key, value]) => {
+  var getChild = (child) => {
+    return Object.entries(child).map(([key, value]) => {
       return renderHtml`<div>
                 <strong>${key}:</strong>
                 ${value.map((item) => renderHtml`${item}, `).join(".")}
