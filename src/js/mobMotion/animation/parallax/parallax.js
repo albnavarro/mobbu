@@ -1277,7 +1277,7 @@ export default class ParallaxClass {
         if (
             this.#dynamicStart &&
             this.#dynamicStart?.position &&
-            this.#dynamicStart?.value?.()
+            this.#dynamicStart?.value?.() !== undefined
         ) {
             const { position, value: fn } = this.#dynamicStart;
             const valueResult = fn();
@@ -1316,7 +1316,7 @@ export default class ParallaxClass {
         if (
             this.#dynamicEnd &&
             this.#dynamicEnd?.position &&
-            this.#dynamicEnd?.value?.()
+            this.#dynamicEnd?.value?.() !== undefined
         ) {
             const { position, value: fn } = this.#dynamicEnd;
             const valueResult = fn();
