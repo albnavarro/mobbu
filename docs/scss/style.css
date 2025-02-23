@@ -1419,6 +1419,7 @@ code {
   bottom: 0;
   left: -1px;
   transform: translateY(50%);
+  z-index: 10;
 }
 .l-links__triangle-1 svg {
   width: 26.6666666667rem;
@@ -1464,15 +1465,14 @@ code {
   grid-row: 2/span 1;
 }
 .l-links__list__link {
-  background: #fff;
-  width: 20rem;
+  background: #f6f6f6;
+  width: 26.6666666667rem;
   height: 6.6666666667rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #000;
-  border: 1px #000 solid;
   transition: background 0.55s, color 0.55s;
   text-transform: capitalize;
 }

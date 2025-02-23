@@ -48,6 +48,7 @@
         bottom: 0;
         left: -1px;
         transform: translateY(50%);
+        z-index: 10;
 
         svg {
             width: rem(400);
@@ -103,15 +104,14 @@
         }
 
         &__link {
-            background: $white;
-            width: rem(300);
+            background: $grey-light;
+            width: rem(400);
             height: rem(100);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: $black;
-            border: 1px $black solid;
             transition:
                 background 0.55s,
                 color 0.55s;
