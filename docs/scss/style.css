@@ -770,7 +770,7 @@ code {
   border: 0;
   color: #fff;
   position: relative;
-  transition: color 0.55s;
+  transition: opacity 0.55s;
   min-width: 6.6666666667rem;
 }
 .footer-nav__button::after {
@@ -783,7 +783,9 @@ code {
   height: 10px;
   background: #656566;
 }
-.footer-nav__button:hover,
+.footer-nav__button:hover {
+  opacity: 0.5;
+}
 .footer-nav__button.current {
   font-weight: 800;
 }
