@@ -220,7 +220,7 @@ export const animatedPatternN1Animation = ({
                 );
 
                 if (hasFill) {
-                    context.fillStyle = `#b45757`;
+                    context.fillStyle = `#000000`;
                     context.fill();
                 } else {
                     context.fillStyle = canvasBackground;

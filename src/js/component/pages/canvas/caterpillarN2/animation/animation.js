@@ -210,7 +210,7 @@ export const caterpillarN2Animation = ({
                 }
 
                 if (hasFill) {
-                    context.fillStyle = `#b45757`;
+                    context.fillStyle = `#000000`;
                 } else {
                     context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
                     context.fillStyle = `rgba(255, 255, 255, ${opacity})`;

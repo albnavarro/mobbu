@@ -28818,7 +28818,7 @@ Loading snippet ...</pre
             height
           );
           if (hasFill) {
-            context2.fillStyle = `#b45757`;
+            context2.fillStyle = `#000000`;
             context2.fill();
           } else {
             context2.fillStyle = "#fff";
@@ -29283,7 +29283,7 @@ Loading snippet ...</pre
             height
           );
           if (hasFill) {
-            context2.fillStyle = `#b45757`;
+            context2.fillStyle = `#000000`;
             context2.fill();
           } else {
             context2.fillStyle = canvasBackground;
@@ -29890,7 +29890,7 @@ Loading snippet ...</pre
             );
           }
           if (hasFill) {
-            context2.fillStyle = `#b45757`;
+            context2.fillStyle = `#000000`;
           } else {
             context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
             context2.fillStyle = `rgba(255, 255, 255, ${opacity2})`;
@@ -30200,7 +30200,7 @@ Loading snippet ...</pre
             );
           }
           if (hasFill) {
-            context2.fillStyle = `#b45757`;
+            context2.fillStyle = `#000000`;
           } else {
             context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
             context2.fillStyle = `rgba(255, 255, 255, ${opacity2})`;
@@ -30611,7 +30611,7 @@ Loading snippet ...</pre
             );
           }
           if (hasFill) {
-            context2.fillStyle = `#b45757`;
+            context2.fillStyle = `#000000`;
             context2.fill();
           } else {
             context2.fillStyle = "#fff";
