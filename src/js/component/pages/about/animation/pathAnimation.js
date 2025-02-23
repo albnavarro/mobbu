@@ -45,12 +45,12 @@ export const createPathAnimation = ({
     });
 
     pathSequencer.goTo(
-        { ax: 5, ay: 43, dx: 51, dy: 50 },
+        { ax: 10, ay: 43, dx: 51, dy: 50 },
         { start: 0, end: 3.5 }
     );
-    pathSequencer.goTo({ bx: 68, by: 6, cx: 95, cy: 90 }, { start: 1, end: 3 });
+    pathSequencer.goTo({ bx: 68, by: 6, cx: 85, cy: 80 }, { start: 1, end: 3 });
     pathSequencer.goTo(
-        { bx: 95, by: 10, dx: 30, dy: 90 },
+        { bx: 85, by: 10, dx: 30, dy: 90 },
         { start: 4.5, end: 5.5 }
     );
     pathSequencer.goTo(
@@ -58,7 +58,7 @@ export const createPathAnimation = ({
         { start: 3.5, end: 6.5 }
     );
     pathSequencer.goTo(
-        { ax: 38, ay: 45, cx: 95, cy: 42 },
+        { ax: 38, ay: 45, cx: 85, cy: 42 },
         { start: 8, end: 9 }
     );
     pathSequencer.goTo(
@@ -104,14 +104,14 @@ export const createPathAnimation = ({
         .goTo(
             pathTween,
             {
-                ax: () => randomIntFromInterval(-5, 5),
-                ay: () => randomIntFromInterval(-5, 5),
-                bx: () => randomIntFromInterval(-5, 5),
-                by: () => randomIntFromInterval(-5, 5),
-                cx: () => randomIntFromInterval(-5, 5),
-                cy: () => randomIntFromInterval(-5, 5),
-                dx: () => randomIntFromInterval(-5, 5),
-                dy: () => randomIntFromInterval(-5, 5),
+                ax: () => randomIntFromInterval(-7, 7),
+                ay: () => randomIntFromInterval(-7, 7),
+                bx: () => randomIntFromInterval(-7, 7),
+                by: () => randomIntFromInterval(-7, 7),
+                cx: () => randomIntFromInterval(-7, 7),
+                cy: () => randomIntFromInterval(-7, 7),
+                dx: () => randomIntFromInterval(-7, 7),
+                dy: () => randomIntFromInterval(-7, 7),
             },
             { duration: 3000 }
         );
