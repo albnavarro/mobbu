@@ -40,11 +40,8 @@
 
 # Mob motion
 
-### Plugin
-
 ### Parallax:
-- `dynamicRage/start/end` devono essere !== undefined && !==null
-- 0 is false issue
+- Rename in `HandleScroller`
 
 ### AsyncTimeline
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.
