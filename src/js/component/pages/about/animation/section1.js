@@ -1,7 +1,7 @@
 import { scroller, tween } from '../../../../mobMotion';
 
 /** @type{import("../type").AboutSection1} */
-export const aboutSection1 = ({ title_1, title_2, screenElement }) => {
+export const aboutSection1 = ({ title_1, title_2 }) => {
     const title1tween = tween.createScrollerTween({
         from: { y: 0 },
         to: { y: 30 },
@@ -12,7 +12,6 @@ export const aboutSection1 = ({ title_1, title_2, screenElement }) => {
     });
 
     const title1parallax = scroller.createParallax({
-        screen: screenElement,
         item: title_1,
         direction: 'horizontal',
         propierties: 'tween',
@@ -31,7 +30,6 @@ export const aboutSection1 = ({ title_1, title_2, screenElement }) => {
     });
 
     const title2parallax = scroller.createParallax({
-        screen: screenElement,
         item: title_2,
         direction: 'horizontal',
         propierties: 'tween',

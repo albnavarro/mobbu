@@ -37,7 +37,13 @@
         display: grid;
         grid-template-rows: repeat(2, 1fr);
 
-        &__1 {
+        .title-big {
+            display: inline-block;
+            position: relative;
+        }
+
+        &__1,
+        &__2 {
             padding-left: rem(40);
 
             @include mq(xlarge) {

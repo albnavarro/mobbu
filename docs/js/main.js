@@ -16380,7 +16380,7 @@
      */
     #calcFixedLimit() {
       const screenUnit = this.#scrollerHeight / 100;
-      if (this.#dynamicStart && this.#dynamicStart?.position && this.#dynamicStart?.value?.()) {
+      if (this.#dynamicStart && this.#dynamicStart?.position && this.#dynamicStart?.value?.() !== void 0) {
         const { position: position2, value: fn } = this.#dynamicStart;
         const valueResult = fn();
         if (!Number.isNaN(valueResult)) {
@@ -16399,7 +16399,7 @@
         this.#direction === parallaxConstant.DIRECTION_VERTICAL ? this.#height : this.#width,
         this.#direction === parallaxConstant.DIRECTION_VERTICAL ? this.#width : this.#height
       );
-      if (this.#dynamicEnd && this.#dynamicEnd?.position && this.#dynamicEnd?.value?.()) {
+      if (this.#dynamicEnd && this.#dynamicEnd?.position && this.#dynamicEnd?.value?.() !== void 0) {
         const { position: position2, value: fn } = this.#dynamicEnd;
         const valueResult = fn();
         if (!Number.isNaN(valueResult)) {
@@ -27194,7 +27194,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/about/animation/section1.js
-  var aboutSection1 = ({ title_1, title_2, screenElement }) => {
+  var aboutSection1 = ({ title_1, title_2 }) => {
     const title1tween = tween.createScrollerTween({
       from: { y: 0 },
       to: { y: 30 }
@@ -27203,7 +27203,6 @@ Loading snippet ...</pre
       title_1.style.transform = `translate(${0}px, ${y}px)`;
     });
     const title1parallax = scroller.createParallax({
-      screen: screenElement,
       item: title_1,
       direction: "horizontal",
       propierties: "tween",
@@ -27219,7 +27218,6 @@ Loading snippet ...</pre
       title_2.style.transform = `translateY(${y}px)`;
     });
     const title2parallax = scroller.createParallax({
-      screen: screenElement,
       item: title_2,
       direction: "horizontal",
       propierties: "tween",
@@ -27235,6 +27233,39 @@ Loading snippet ...</pre
     };
   };
 
+  // src/js/component/pages/about/animation/section2.js
+  var aboutSection2 = ({ title_3, title_4 }) => {
+    const section2TitleSequencer = tween.createSequencer({
+      data: {
+        y1: 100,
+        y2: -100
+      }
+    });
+    section2TitleSequencer.goTo({ y1: 0, y2: 0, x2: 0 }, { start: 0, end: 6 });
+    section2TitleSequencer.subscribe(({ y1, y2 }) => {
+      title_3.style.transform = `translateY(${y1}%)`;
+      title_4.style.transform = `translateY(${y2}%)`;
+    });
+    const section2TitlesScroller = scroller.createScrollTrigger({
+      item: title_3,
+      dynamicStart: {
+        position: "right",
+        value: () => 0
+      },
+      dynamicEnd: {
+        position: "left",
+        value: () => 0
+      },
+      direction: "horizontal",
+      ease: false,
+      propierties: "tween",
+      tween: section2TitleSequencer
+    });
+    return {
+      section2TitlesScroller
+    };
+  };
+
   // src/js/component/pages/about/animation/index.js
   var aboutAnimation = ({
     screenElement,
@@ -27242,18 +27273,17 @@ Loading snippet ...</pre
     pathElement,
     wrapElement,
     title_1,
-    title_2
+    title_2,
+    title_3,
+    title_4
   }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } = createPathAnimation({
       pathElement,
       scrollerElement,
       wrapElement
     });
-    const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({
-      screenElement,
-      title_1,
-      title_2
-    });
+    const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({ title_1, title_2 });
+    const { section2TitlesScroller } = aboutSection2({ title_3, title_4 });
     const aboutScroller = new SmoothScroller({
       screen: screenElement,
       scroller: scrollerElement,
@@ -27261,7 +27291,12 @@ Loading snippet ...</pre
       drag: true,
       easeType: "spring",
       breakpoint: "small",
-      children: [pathScroller, title1parallax, title2parallax]
+      children: [
+        pathScroller,
+        title1parallax,
+        title2parallax,
+        section2TitlesScroller
+      ]
     });
     aboutScroller.init();
     return {
@@ -27275,6 +27310,7 @@ Loading snippet ...</pre
         title2parallax.destroy();
         title1tween.destroy();
         title2tween.destroy();
+        section2TitlesScroller.destroy();
         stopLoop();
       }
     };
@@ -27296,7 +27332,7 @@ Loading snippet ...</pre
     setRef,
     getRef
   }) => {
-    const { block_1, block_2, block_3, block_4 } = getState();
+    const { block_1, block_3, block_4 } = getState();
     const numberOfSection = 4;
     onMount(() => {
       const {
@@ -27305,7 +27341,9 @@ Loading snippet ...</pre
         pathElement,
         wrapElement,
         title_1,
-        title_2
+        title_2,
+        title_3,
+        title_4
       } = getRef();
       const { destroy: destroy2 } = aboutAnimation({
         screenElement,
@@ -27313,7 +27351,9 @@ Loading snippet ...</pre
         pathElement,
         wrapElement,
         title_1,
-        title_2
+        title_2,
+        title_3,
+        title_4
       });
       return () => {
         destroy2();
@@ -27344,7 +27384,16 @@ Loading snippet ...</pre
                 </section>
                 <section class="l-about__section">
                     ${getAngles()}
-                    <h1>${block_2}</h1>
+                    <div class="l-about__section__2__top has-overflow">
+                        <h1 class="title-big" ${setRef("title_3")}>
+                            title top
+                        </h1>
+                    </div>
+                    <div class="l-about__section__2__bottom has-overflow">
+                        <h1 class="title-big is-white" ${setRef("title_4")}>
+                            title bottom
+                        </h1>
+                    </div>
                 </section>
                 <section class="l-about__section">
                     ${getAngles()}

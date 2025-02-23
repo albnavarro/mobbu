@@ -1,6 +1,7 @@
 import { SmoothScroller } from '../../../../mobMotion/plugin';
 import { createPathAnimation } from './pathAnimation';
 import { aboutSection1 } from './section1';
+import { aboutSection2 } from './section2';
 
 /** @type{import('../type').AboutScroller} */
 export const aboutAnimation = ({
@@ -10,6 +11,8 @@ export const aboutAnimation = ({
     wrapElement,
     title_1,
     title_2,
+    title_3,
+    title_4,
 }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
         createPathAnimation({
@@ -19,11 +22,9 @@ export const aboutAnimation = ({
         });
 
     const { title1parallax, title2parallax, title1tween, title2tween } =
-        aboutSection1({
-            screenElement,
-            title_1,
-            title_2,
-        });
+        aboutSection1({ title_1, title_2 });
+
+    const { section2TitlesScroller } = aboutSection2({ title_3, title_4 });
 
     const aboutScroller = new SmoothScroller({
         screen: screenElement,
@@ -32,7 +33,12 @@ export const aboutAnimation = ({
         drag: true,
         easeType: 'spring',
         breakpoint: 'small',
-        children: [pathScroller, title1parallax, title2parallax],
+        children: [
+            pathScroller,
+            title1parallax,
+            title2parallax,
+            section2TitlesScroller,
+        ],
     });
 
     aboutScroller.init();
@@ -48,6 +54,7 @@ export const aboutAnimation = ({
             title2parallax.destroy();
             title1tween.destroy();
             title2tween.destroy();
+            section2TitlesScroller.destroy();
             stopLoop();
         },
     };

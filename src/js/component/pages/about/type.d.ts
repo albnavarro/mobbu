@@ -21,6 +21,8 @@ export interface About {
         wrapElement: HTMLElement;
         title_1: HTMLElement;
         title_2: HTMLElement;
+        title_3: HTMLElement;
+        title_4: HTMLElement;
     };
 }
 
@@ -31,6 +33,8 @@ export type AboutScroller = (arg0: {
     wrapElement: HTMLElement;
     title_1: HTMLElement;
     title_2: HTMLElement;
+    title_3: HTMLElement;
+    title_4: HTMLElement;
 }) => {
     destroy: () => void;
 };
@@ -48,7 +52,6 @@ export type CreatePathAnimation = (ar0: {
 };
 
 export type AboutSection1 = (arg0: {
-    screenElement: HTMLElement;
     title_1: HTMLElement;
     title_2: HTMLElement;
 }) => {
@@ -56,4 +59,11 @@ export type AboutSection1 = (arg0: {
     title2parallax: ParallaxClass;
     title1tween: ParallaxTween;
     title2tween: ParallaxTween;
+};
+
+export type AboutSection2 = (arg0: {
+    title_3: HTMLElement;
+    title_4: HTMLElement;
+}) => {
+    section2TitlesScroller: ParallaxClass;
 };

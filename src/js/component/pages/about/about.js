@@ -22,7 +22,7 @@ export const AboutComponentFn = ({
     setRef,
     getRef,
 }) => {
-    const { block_1, block_2, block_3, block_4 } = getState();
+    const { block_1, block_3, block_4 } = getState();
     const numberOfSection = 4;
 
     onMount(() => {
@@ -33,6 +33,8 @@ export const AboutComponentFn = ({
             wrapElement,
             title_1,
             title_2,
+            title_3,
+            title_4,
         } = getRef();
 
         const { destroy } = aboutAnimation({
@@ -42,6 +44,8 @@ export const AboutComponentFn = ({
             wrapElement,
             title_1,
             title_2,
+            title_3,
+            title_4,
         });
 
         return () => {
@@ -74,7 +78,16 @@ export const AboutComponentFn = ({
                 </section>
                 <section class="l-about__section">
                     ${getAngles()}
-                    <h1>${block_2}</h1>
+                    <div class="l-about__section__2__top has-overflow">
+                        <h1 class="title-big" ${setRef('title_3')}>
+                            title top
+                        </h1>
+                    </div>
+                    <div class="l-about__section__2__bottom has-overflow">
+                        <h1 class="title-big is-white" ${setRef('title_4')}>
+                            title bottom
+                        </h1>
+                    </div>
                 </section>
                 <section class="l-about__section">
                     ${getAngles()}

@@ -1270,20 +1270,28 @@ code {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
 }
-.l-about__section__1 {
+.l-about__section .title-big {
+  display: inline-block;
+  position: relative;
+}
+.l-about__section__1,
+.l-about__section__2 {
   padding-left: 2.6666666667rem;
 }
 @media (min-width: 100em) {
-  .l-about__section__1 {
+  .l-about__section__1,
+  .l-about__section__2 {
     padding-left: 6.6666666667rem;
   }
 }
-.l-about__section__1__top {
+.l-about__section__1__top,
+.l-about__section__2__top {
   grid-row: 1/span 1;
   align-self: end;
   padding-top: 6.6666666667rem;
 }
-.l-about__section__1__bottom {
+.l-about__section__1__bottom,
+.l-about__section__2__bottom {
   grid-row: 2/span 1;
   padding-bottom: 6.6666666667rem;
 }
