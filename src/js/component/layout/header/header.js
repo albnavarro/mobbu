@@ -4,7 +4,7 @@
  * @import { MobComponent, UseMethodByName } from '../../../mobjs/type';
  **/
 
-import { beforeRouteChange, loadUrl, useMethodByName } from '../../../mobjs';
+import { loadUrl, useMethodByName } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function titleHandler() {
@@ -24,12 +24,15 @@ function titleHandler() {
 export const HeaderFn = ({
     html,
     delegateEvents,
-    setState,
     getState,
+    setState,
     bindEffect,
+    onMount,
 }) => {
-    beforeRouteChange(({ route }) => {
-        setState('isNotHome', route !== 'home');
+    onMount(() => {
+        setTimeout(() => {
+            setState('isMounted', true);
+        }, 500);
     });
 
     return html`
@@ -51,9 +54,9 @@ export const HeaderFn = ({
                         <div class="l-header__title-container">
                             <h3
                                 ${bindEffect({
-                                    bind: 'isNotHome',
+                                    bind: 'isMounted',
                                     toggleClass: {
-                                        visible: () => getState().isNotHome,
+                                        visible: () => getState().isMounted,
                                     },
                                 })}
                             >
@@ -61,9 +64,9 @@ export const HeaderFn = ({
                             </h3>
                             <h5
                                 ${bindEffect({
-                                    bind: 'isNotHome',
+                                    bind: 'isMounted',
                                     toggleClass: {
-                                        visible: () => getState().isNotHome,
+                                        visible: () => getState().isMounted,
                                     },
                                 })}
                             >

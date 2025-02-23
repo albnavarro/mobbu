@@ -37,7 +37,7 @@ export const Header = createComponent(
         name: 'mob-header',
         component: HeaderFn,
         state: {
-            isNotHome: () => ({
+            isMounted: () => ({
                 value: false,
                 type: Boolean,
             }),

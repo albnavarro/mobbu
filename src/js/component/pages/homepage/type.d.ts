@@ -3,7 +3,4 @@ export interface HomeComponent {
         svg: string;
         isMounted: boolean;
     };
-    ref: {
-        textStagger: HTMLElement;
-    };
 }

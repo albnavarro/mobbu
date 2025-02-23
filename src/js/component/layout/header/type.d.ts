@@ -1,6 +1,6 @@
 export interface Header {
     state: {
-        isNotHome: boolean;
+        isMounted: boolean;
     };
 }
 
