@@ -26,8 +26,9 @@
         border: 0;
         color: $white;
         position: relative;
-        padding: 0 rem(15);
+        // padding: 0 rem(15);
         transition: color 0.55s;
+        min-width: rem(100);
 
         &::after {
             content: '';
@@ -42,7 +43,7 @@
 
         &:hover,
         &.current {
-            color: $color-contrast;
+            font-weight: 800;
         }
     }
 }

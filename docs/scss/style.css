@@ -770,8 +770,8 @@ code {
   border: 0;
   color: #fff;
   position: relative;
-  padding: 0 1rem;
   transition: color 0.55s;
+  min-width: 6.6666666667rem;
 }
 .footer-nav__button::after {
   content: "";
@@ -785,7 +785,7 @@ code {
 }
 .footer-nav__button:hover,
 .footer-nav__button.current {
-  color: #a86464;
+  font-weight: 800;
 }
 .hamburger {
   display: inline-block;
