@@ -1246,6 +1246,8 @@ code {
 }
 .l-about {
   overflow: hidden;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+  position: relative;
   --section-width: calc(80vw - (var(--header-height) / 2));
 }
 .l-about__scroller {
@@ -1264,11 +1266,30 @@ code {
   display: block;
   width: 1.3333333333rem;
   height: 1.3333333333rem;
-  border-top: 3px #fff solid;
-  border-right: 3px #fff solid;
-  right: 13.3333333333rem;
+  border-top: 3px #000 solid;
+  border-right: 3px #000 solid;
+  right: 1.3333333333rem;
   top: 50%;
   transform: translateY(-50%) rotate(45deg);
+}
+.l-about__triangle-1 {
+  position: absolute;
+  bottom: 0;
+  left: -1px;
+  transform: translateY(50%);
+}
+.l-about__triangle-1 svg {
+  width: 26.6666666667rem;
+  fill: #eee;
+}
+.l-about__triangle-2 {
+  position: absolute;
+  right: 0;
+  transform: translateY(75%) rotate(180deg);
+}
+.l-about__triangle-2 svg {
+  width: 26.6666666667rem;
+  fill: #eee;
 }
 .l-about__section {
   flex: 0 0 var(--section-width);
@@ -1307,7 +1328,7 @@ code {
   grid-column: 2/span 1;
 }
 .l-about__section__copy {
-  max-width: 26.6666666667rem;
+  max-width: 40rem;
   margin-top: 1.3333333333rem;
 }
 .l-about__background {
@@ -1316,7 +1337,7 @@ code {
   left: calc(var(--header-height) / 2 * -1);
   width: 100vw;
   height: calc((100vh - var(--header-height) - var(--footer-height)) * 0.5);
-  background: #000;
+  background: #fff;
 }
 .l-about__shape {
   position: absolute;
@@ -1325,7 +1346,7 @@ code {
   transform: translate(-50%, -50%);
   width: 1000px;
   height: 500px;
-  background: #fff;
+  background: #eee;
 }
 .c-canvas {
   position: absolute;

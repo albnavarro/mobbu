@@ -1,6 +1,6 @@
 import { html } from '../../../mobjs';
 
-export const sideBarTriangles = html`
+export const Triangles = html`
     <svg
         width="140mm"
         height="140mm"

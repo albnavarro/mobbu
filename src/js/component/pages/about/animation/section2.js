@@ -9,7 +9,7 @@ export const aboutSection2 = ({ section2_title, section2_copy }) => {
         },
     });
 
-    section2TitleSequencer.goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 3 });
+    section2TitleSequencer.goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 5 });
     section2TitleSequencer.subscribe(({ yTitle, yCopy }) => {
         section2_title.style.transform = `translateY(${yTitle}%)`;
         section2_copy.style.transform = `translateY(${yCopy}%)`;

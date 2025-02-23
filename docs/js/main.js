@@ -24479,7 +24479,7 @@
   navigationStore.set("activeNavigationSection", "");
 
   // src/js/component/common/scrollToTop/triangles.js
-  var sideBarTriangles = renderHtml`
+  var Triangles = renderHtml`
     <svg
         width="140mm"
         height="140mm"
@@ -24550,7 +24550,7 @@
       }
     })}
             ></button>
-            <div class="scroll-to-top__triangles">${sideBarTriangles}</div>
+            <div class="scroll-to-top__triangles">${Triangles}</div>
         </div>
     `;
   };
@@ -27239,7 +27239,7 @@ Loading snippet ...</pre
         yCopy: -100
       }
     });
-    section2TitleSequencer.goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 3 });
+    section2TitleSequencer.goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 5 });
     section2TitleSequencer.subscribe(({ yTitle, yCopy }) => {
       section2_title.style.transform = `translateY(${yTitle}%)`;
       section2_copy.style.transform = `translateY(${yCopy}%)`;
@@ -27361,6 +27361,8 @@ Loading snippet ...</pre
         <span class="l-about__background"></span>
         <div class="l-about__shape" ${setRef("pathElement")}></div>
         <span class="l-about__arrow"></span>
+        <div class="l-about__triangle-1">${Triangles}</div>
+        <div class="l-about__triangle-2">${Triangles}</div>
         <div class="l-about__scroller" ${setRef("scrollerElement")}>
             <div class="l-about__wrap" ${setRef("wrapElement")}>
                 <section class="l-about__section l-about__section__1 ">
@@ -27370,7 +27372,7 @@ Loading snippet ...</pre
                         </h1>
                     </div>
                     <div class="l-about__section__bottom has-overflow">
-                        <h1 class="title-big is-white" ${setRef("title_2")}>
+                        <h1 class="title-big" ${setRef("title_2")}>
                             ${block_1.titleBottom}
                         </h1>
                     </div>
@@ -27387,7 +27389,7 @@ Loading snippet ...</pre
                     <div class="l-about__section__bottom has-overflow">
                         <div class="l-about__section__right">
                             <p
-                                class="l-about__section__copy is-white paragraph-big"
+                                class="l-about__section__copy paragraph-big"
                                 ${setRef("section2_copy")}
                             >
                                 ${block_2.copy}

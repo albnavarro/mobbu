@@ -2,7 +2,7 @@
 
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { navigationStore } from '../../layout/navigation/store/navStore';
-import { sideBarTriangles } from './triangles';
+import { Triangles } from './triangles';
 
 /**
  * @import { MobComponent } from '../../../mobjs/type';
@@ -43,7 +43,7 @@ export const ScrollToTopFn = ({
                     },
                 })}
             ></button>
-            <div class="scroll-to-top__triangles">${sideBarTriangles}</div>
+            <div class="scroll-to-top__triangles">${Triangles}</div>
         </div>
     `;
 };

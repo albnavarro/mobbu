@@ -2,6 +2,7 @@
  * @import { MobComponent } from '../../../mobjs/type';
  **/
 
+import { Triangles } from '../../common/scrollToTop/triangles';
 import { aboutAnimation } from './animation';
 
 /** @type {MobComponent<import('./type').About>} */
@@ -51,6 +52,8 @@ export const AboutComponentFn = ({
         <span class="l-about__background"></span>
         <div class="l-about__shape" ${setRef('pathElement')}></div>
         <span class="l-about__arrow"></span>
+        <div class="l-about__triangle-1">${Triangles}</div>
+        <div class="l-about__triangle-2">${Triangles}</div>
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
                 <section class="l-about__section l-about__section__1 ">
@@ -60,7 +63,7 @@ export const AboutComponentFn = ({
                         </h1>
                     </div>
                     <div class="l-about__section__bottom has-overflow">
-                        <h1 class="title-big is-white" ${setRef('title_2')}>
+                        <h1 class="title-big" ${setRef('title_2')}>
                             ${block_1.titleBottom}
                         </h1>
                     </div>
@@ -77,7 +80,7 @@ export const AboutComponentFn = ({
                     <div class="l-about__section__bottom has-overflow">
                         <div class="l-about__section__right">
                             <p
-                                class="l-about__section__copy is-white paragraph-big"
+                                class="l-about__section__copy paragraph-big"
                                 ${setRef('section2_copy')}
                             >
                                 ${block_2.copy}

@@ -2,6 +2,8 @@
 
 .l-about {
     overflow: hidden;
+    height: calc(100vh - var(--header-height) - var(--footer-height));
+    position: relative;
 
     --section-width: calc(80vw - (var(--header-height) / 2));
 
@@ -23,11 +25,34 @@
         display: block;
         width: rem(20);
         height: rem(20);
-        border-top: 3px $white solid;
-        border-right: 3px $white solid;
-        right: rem(200);
+        border-top: 3px $black solid;
+        border-right: 3px $black solid;
+        right: rem(20);
         top: 50%;
         transform: translateY(-50%) rotate(45deg);
+    }
+
+    &__triangle-1 {
+        position: absolute;
+        bottom: 0;
+        left: -1px;
+        transform: translateY(50%);
+
+        svg {
+            width: rem(400);
+            fill: $grey;
+        }
+    }
+
+    &__triangle-2 {
+        position: absolute;
+        right: 0;
+        transform: translateY(75%) rotate(180deg);
+
+        svg {
+            width: rem(400);
+            fill: $grey;
+        }
     }
 
     &__section {
@@ -72,7 +97,7 @@
         }
 
         &__copy {
-            max-width: rem(400);
+            max-width: rem(600);
             margin-top: rem(20);
         }
     }
@@ -85,7 +110,7 @@
         height: calc(
             (100vh - var(--header-height) - var(--footer-height)) * 0.5
         );
-        background: $black;
+        background: $white;
     }
 
     &__shape {
@@ -95,6 +120,6 @@
         transform: translate(-50%, -50%);
         width: 1000px;
         height: 500px;
-        background: $white;
+        background: $grey;
     }
 }
