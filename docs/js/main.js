@@ -32046,11 +32046,44 @@ Loading snippet ...</pre
     return html`<div class="l-index">
         <div class="l-index__content">
             <div class="l-index__main">
-                <a class="l-index__main__item" href="./#mobCore-overview">
+                <a class="l-index__main__item" href="./#about">
                     <div class="has-overflow">
                         <h1 class="l-index__stagger" ${setRef("textStagger")}>
-                            <span>Mob</span>Core
+                            <span>Abo</span>ut
                         </h1>
+                    </div>
+                    <div class="has-overflow">
+                        <h6 class="l-index__stagger" ${setRef("textStagger")}>
+                            The site
+                        </h6>
+                    </div>
+                </a>
+                <a class="l-index__main__item" href="./#svg-overview">
+                    <div class="has-overflow">
+                        <h1 class="l-index__stagger" ${setRef("textStagger")}>
+                            <span>Gra</span>phics
+                        </h1>
+                    </div>
+                    <div class="has-overflow">
+                        <h6 class="l-index__stagger" ${setRef("textStagger")}>
+                            Vectorial illustration.
+                        </h6>
+                    </div>
+                </a>
+            </div>
+
+            <div
+                class="l-index__extras"
+                ${bindEffect({
+      bind: "isMounted",
+      toggleClass: { active: () => getState().isMounted }
+    })}
+            >
+                <a class="l-index__main__item" href="./#mobCore-overview">
+                    <div class="has-overflow">
+                        <h2 class="l-index__stagger" ${setRef("textStagger")}>
+                            <span>Mob</span>Core
+                        </h2>
                     </div>
                     <div class="has-overflow">
                         <h6 class="l-index__stagger" ${setRef("textStagger")}>
@@ -32060,9 +32093,9 @@ Loading snippet ...</pre
                 </a>
                 <a class="l-index__main__item" href="./#mobJs-overview">
                     <div class="has-overflow">
-                        <h1 class="l-index__stagger" ${setRef("textStagger")}>
+                        <h2 class="l-index__stagger" ${setRef("textStagger")}>
                             <span>Mob</span>Js
-                        </h1>
+                        </h2>
                     </div>
                     <div class="has-overflow">
                         <h6 class="l-index__stagger" ${setRef("textStagger")}>
@@ -32072,33 +32105,13 @@ Loading snippet ...</pre
                 </a>
                 <a class="l-index__main__item" href="./#mobMotion-overview">
                     <div class="has-overflow">
-                        <h1 class="l-index__stagger" ${setRef("textStagger")}>
-                            <span>Mob</span>Motion
-                        </h1>
-                    </div>
-                    <div class="has-overflow">
-                        <h6 class="l-index__stagger" ${setRef("textStagger")}>
-                            js animation library
-                        </h6>
-                    </div>
-                </a>
-            </div>
-            <div
-                class="l-index__extras"
-                ${bindEffect({
-      bind: "isMounted",
-      toggleClass: { active: () => getState().isMounted }
-    })}
-            >
-                <a class="l-index__main__item" href="./#svg-overview">
-                    <div class="has-overflow">
                         <h2 class="l-index__stagger" ${setRef("textStagger")}>
-                            <span>Gra</span>phics
+                            <span>Mob</span>Motion
                         </h2>
                     </div>
                     <div class="has-overflow">
                         <h6 class="l-index__stagger" ${setRef("textStagger")}>
-                            Vectorial illustration.
+                            js animation library
                         </h6>
                     </div>
                 </a>
