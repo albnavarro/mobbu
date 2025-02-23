@@ -1,0 +1,104 @@
+@use '../../abstract' as *;
+
+.l-links {
+    --scroller-height: calc(
+        100vh - var(--header-height) - var(--footer-height)
+    );
+
+    &__grid {
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+        height: var(--scroller-height);
+    }
+
+    &__row {
+        width: 100%;
+        height: calc(var(--scroller-height) / 2);
+
+        &--top {
+            grid-row: 1 / span 1;
+            align-content: end;
+            padding-bottom: rem(20);
+            padding-left: rem(40);
+        }
+
+        &--bottom {
+            grid-row: 2 / span 1;
+            background: $white;
+        }
+    }
+
+    &__arrow {
+        position: absolute;
+        display: block;
+        width: rem(20);
+        height: rem(20);
+        border-top: 3px $black solid;
+        border-right: 3px $black solid;
+        right: rem(100);
+        bottom: rem(40);
+        transform: rotate(45deg);
+    }
+
+    &__triangle-1 {
+        position: absolute;
+        bottom: 0;
+        left: -1px;
+        transform: translateY(50%);
+
+        svg {
+            width: rem(400);
+            fill: $grey;
+        }
+    }
+
+    &__triangle-2 {
+        position: absolute;
+        right: 0;
+        transform: translateY(75%) rotate(180deg);
+
+        svg {
+            width: rem(400);
+            fill: $grey;
+        }
+    }
+
+    &__list {
+        list-style-type: none;
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+        gap: rem(20);
+        padding-top: rem(30);
+
+        &__item {
+            &:nth-child(odd) {
+                grid-row: 1 / span 1;
+            }
+
+            &:nth-child(even) {
+                grid-row: 2 / span 1;
+            }
+        }
+
+        &__link {
+            background: $white;
+            width: rem(300);
+            height: rem(100);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: $black;
+            border: 1px $black solid;
+            transition:
+                background 0.55s,
+                color 0.55s;
+            text-transform: capitalize;
+
+            &:hover {
+                background: $black;
+                color: $white;
+            }
+        }
+    }
+}

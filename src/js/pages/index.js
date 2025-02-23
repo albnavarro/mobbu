@@ -2,6 +2,7 @@
 import { pageNotFound } from './404';
 import { layoutSidebarAnchor } from './Layout/layoutSidebarAnchor';
 import { layoutSidebarLinks } from './Layout/layoutSidebarLinks';
+import { layoutLinksPage } from './Layout/layoutLinks';
 import { layoutAbout } from './about/layoutAbout';
 import { benchMark } from './benchmark';
 import { animatedPatternN0 } from './canvas/animatedPatternN0';
@@ -9,7 +10,6 @@ import { animatedPatternN1 } from './canvas/animatedPatternN1';
 import { caterpillarN0 } from './canvas/caterpillarN0';
 import { caterpillarN1 } from './canvas/caterpillarN1';
 import { caterpillarN2 } from './canvas/caterpillarN2';
-import { canvas_overview } from './canvas/overview';
 import { scrollerN0 } from './canvas/scroller';
 import { scrollerN1 } from './canvas/scrollerN1';
 import { dynamic_list } from './dynamicList';
@@ -97,8 +97,10 @@ export const routes = [
     },
     {
         name: 'canvas-overview',
-        layout: canvas_overview,
-        props: {},
+        layout: layoutLinksPage,
+        props: {
+            source: './data/canvas/data.json',
+        },
     },
     {
         name: 'scrollerN0',
