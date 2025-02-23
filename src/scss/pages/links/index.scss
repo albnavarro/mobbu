@@ -39,7 +39,7 @@
         height: rem(20);
         border-top: 3px $black solid;
         border-right: 3px $black solid;
-        right: rem(100);
+        left: calc(100vw - #{rem(100)});
         bottom: rem(40);
         transform: rotate(45deg);
     }
@@ -51,6 +51,7 @@
         transform: translateY(50%);
         z-index: 10;
         pointer-events: none;
+        mix-blend-mode: multiply;
 
         svg {
             width: rem(400);
@@ -60,10 +61,11 @@
 
     &__triangle-2 {
         position: absolute;
-        right: 0;
-        transform: translateY(75%) rotate(180deg);
+        left: 100vw;
+        transform: translate(-100%, 75%) rotate(180deg);
         z-index: 10;
         pointer-events: none;
+        mix-blend-mode: multiply;
 
         svg {
             width: rem(400);

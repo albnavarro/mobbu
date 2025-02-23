@@ -7,7 +7,7 @@ export const linksScroller = ({ screenElement, scrollerElement }) => {
         scroller: scrollerElement,
         direction: 'horizontal',
         drag: true,
-        easeType: 'spring',
+        easeType: 'lerp',
         breakpoint: 'small',
     });
 

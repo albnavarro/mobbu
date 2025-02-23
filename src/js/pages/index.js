@@ -784,11 +784,9 @@ export const routes = [
     },
     {
         name: 'plugin-overview',
-        layout: layoutSidebarAnchor,
+        layout: layoutLinksPage,
         props: {
-            source: './data/plugin/overview.json',
-            title: 'Plugin',
-            breadCrumbs: [],
+            source: './data/plugin/data.json',
         },
     },
     {
