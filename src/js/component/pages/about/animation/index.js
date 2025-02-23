@@ -11,8 +11,8 @@ export const aboutAnimation = ({
     wrapElement,
     title_1,
     title_2,
-    title_3,
-    title_4,
+    section2_title,
+    section2_copy,
 }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
         createPathAnimation({
@@ -25,8 +25,8 @@ export const aboutAnimation = ({
         aboutSection1({ title_1, title_2 });
 
     const { section2TitlesScroller, section2TitleSequencer } = aboutSection2({
-        title_3,
-        title_4,
+        section2_title,
+        section2_copy,
     });
 
     const aboutScroller = new SmoothScroller({

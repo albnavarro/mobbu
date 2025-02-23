@@ -11,8 +11,8 @@ export interface About {
             titleBottom: string;
         };
         block_2: {
-            titleTop: string;
-            titleBottom: string;
+            title: string;
+            copy: string;
         };
         block_3: string;
         block_4: string;
@@ -24,8 +24,8 @@ export interface About {
         wrapElement: HTMLElement;
         title_1: HTMLElement;
         title_2: HTMLElement;
-        title_3: HTMLElement;
-        title_4: HTMLElement;
+        section2_title: HTMLElement;
+        section2_copy: HTMLElement;
     };
 }
 
@@ -36,8 +36,8 @@ export type AboutScroller = (arg0: {
     wrapElement: HTMLElement;
     title_1: HTMLElement;
     title_2: HTMLElement;
-    title_3: HTMLElement;
-    title_4: HTMLElement;
+    section2_title: HTMLElement;
+    section2_copy: HTMLElement;
 }) => {
     destroy: () => void;
 };
@@ -65,8 +65,8 @@ export type AboutSection1 = (arg0: {
 };
 
 export type AboutSection2 = (arg0: {
-    title_3: HTMLElement;
-    title_4: HTMLElement;
+    section2_title: HTMLElement;
+    section2_copy: HTMLElement;
 }) => {
     section2TitlesScroller: ParallaxClass;
     section2TitleSequencer: HandleSequencer;

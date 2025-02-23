@@ -23,8 +23,8 @@ export const AboutComponent = createComponent(
             }),
             block_2: () => ({
                 value: {
-                    titleTop: '',
-                    titleBottom: '',
+                    title: '',
+                    copy: '',
                 },
                 type: 'any',
             }),

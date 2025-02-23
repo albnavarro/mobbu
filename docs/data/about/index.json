@@ -4,8 +4,8 @@
         "titleBottom": "the project"
     },
     "block_2": {
-        "titleTop": "top 1",
-        "titleBottom": "bottom 1"
+        "title": "top 1",
+        "copy": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. Lorem Ipsum has been the industry's. "
     },
     "block_3": "",
     "block_4": ""

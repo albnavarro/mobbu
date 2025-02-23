@@ -3,7 +3,7 @@
 .l-about {
     overflow: hidden;
 
-    --section-width: calc(100vw - (var(--header-height) / 2));
+    --section-width: calc(80vw - (var(--header-height) / 2));
 
     &__scroller {
         height: calc(100vh - var(--header-height) - var(--footer-height));
@@ -42,24 +42,38 @@
             position: relative;
         }
 
-        &__1,
-        &__2 {
-            padding-left: rem(40);
+        padding-left: rem(40);
 
-            @include mq(xlarge) {
-                padding-left: rem(100);
-            }
+        @include mq(xlarge) {
+            padding-left: rem(100);
+        }
 
-            &__top {
-                grid-row: 1 / span 1;
-                align-self: end;
-                padding-top: rem(100);
-            }
+        &__top {
+            grid-row: 1 / span 1;
+            align-self: end;
+            padding-top: rem(100);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
 
-            &__bottom {
-                grid-row: 2 / span 1;
-                padding-bottom: rem(100);
-            }
+        &__bottom {
+            grid-row: 2 / span 1;
+            padding-bottom: rem(100);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        &__left {
+            grid-column: 1 / span 1;
+        }
+
+        &__right {
+            grid-column: 2 / span 1;
+        }
+
+        &__copy {
+            max-width: rem(400);
+            margin-top: rem(20);
         }
     }
 
@@ -82,45 +96,5 @@
         width: 1000px;
         height: 500px;
         background: $white;
-    }
-
-    &__angles-top-left {
-        position: absolute;
-        top: rem(100);
-        left: rem(200);
-        width: rem(20);
-        height: rem(20);
-        border-top: 3px $white solid;
-        border-left: 3px $white solid;
-    }
-
-    &__angles-top-right {
-        position: absolute;
-        top: rem(100);
-        right: rem(200);
-        width: rem(20);
-        height: rem(20);
-        border-top: 3px $white solid;
-        border-right: 3px $white solid;
-    }
-
-    &__angles-bottom-left {
-        position: absolute;
-        bottom: rem(100);
-        left: rem(200);
-        width: rem(20);
-        height: rem(20);
-        border-bottom: 3px $white solid;
-        border-left: 3px $white solid;
-    }
-
-    &__angles-bottom-right {
-        position: absolute;
-        bottom: rem(100);
-        right: rem(200);
-        width: rem(20);
-        height: rem(20);
-        border-bottom: 3px $white solid;
-        border-right: 3px $white solid;
     }
 }

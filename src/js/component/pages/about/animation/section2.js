@@ -1,22 +1,22 @@
 import { scroller, tween } from '../../../../mobMotion';
 
 /** @type{import("../type").AboutSection2} */
-export const aboutSection2 = ({ title_3, title_4 }) => {
+export const aboutSection2 = ({ section2_title, section2_copy }) => {
     const section2TitleSequencer = tween.createSequencer({
         data: {
-            y1: 100,
-            y2: -100,
+            yTitle: 100,
+            yCopy: -100,
         },
     });
 
-    section2TitleSequencer.goTo({ y1: 0, y2: 0, x2: 0 }, { start: 0, end: 6 });
-    section2TitleSequencer.subscribe(({ y1, y2 }) => {
-        title_3.style.transform = `translateY(${y1}%)`;
-        title_4.style.transform = `translateY(${y2}%)`;
+    section2TitleSequencer.goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 3 });
+    section2TitleSequencer.subscribe(({ yTitle, yCopy }) => {
+        section2_title.style.transform = `translateY(${yTitle}%)`;
+        section2_copy.style.transform = `translateY(${yCopy}%)`;
     });
 
     const section2TitlesScroller = scroller.createScrollTrigger({
-        item: title_3,
+        item: section2_title,
         dynamicStart: {
             position: 'right',
             value: () => 0,

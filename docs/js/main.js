@@ -27232,20 +27232,20 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/about/animation/section2.js
-  var aboutSection2 = ({ title_3, title_4 }) => {
+  var aboutSection2 = ({ section2_title, section2_copy }) => {
     const section2TitleSequencer = tween.createSequencer({
       data: {
-        y1: 100,
-        y2: -100
+        yTitle: 100,
+        yCopy: -100
       }
     });
-    section2TitleSequencer.goTo({ y1: 0, y2: 0, x2: 0 }, { start: 0, end: 6 });
-    section2TitleSequencer.subscribe(({ y1, y2 }) => {
-      title_3.style.transform = `translateY(${y1}%)`;
-      title_4.style.transform = `translateY(${y2}%)`;
+    section2TitleSequencer.goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 3 });
+    section2TitleSequencer.subscribe(({ yTitle, yCopy }) => {
+      section2_title.style.transform = `translateY(${yTitle}%)`;
+      section2_copy.style.transform = `translateY(${yCopy}%)`;
     });
     const section2TitlesScroller = scroller.createScrollTrigger({
-      item: title_3,
+      item: section2_title,
       dynamicStart: {
         position: "right",
         value: () => 0
@@ -27272,8 +27272,8 @@ Loading snippet ...</pre
     wrapElement,
     title_1,
     title_2,
-    title_3,
-    title_4
+    section2_title,
+    section2_copy
   }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } = createPathAnimation({
       pathElement,
@@ -27282,8 +27282,8 @@ Loading snippet ...</pre
     });
     const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({ title_1, title_2 });
     const { section2TitlesScroller, section2TitleSequencer } = aboutSection2({
-      title_3,
-      title_4
+      section2_title,
+      section2_copy
     });
     const aboutScroller = new SmoothScroller({
       screen: screenElement,
@@ -27319,14 +27319,6 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/about/about.js
-  var getAngles = () => {
-    return renderHtml`
-        <span class="l-about__angles-top-left"></span>
-        <span class="l-about__angles-top-right"></span>
-        <span class="l-about__angles-bottom-left"></span>
-        <span class="l-about__angles-bottom-right"></span>
-    `;
-  };
   var AboutComponentFn = ({
     html,
     onMount,
@@ -27344,8 +27336,8 @@ Loading snippet ...</pre
         wrapElement,
         title_1,
         title_2,
-        title_3,
-        title_4
+        section2_title,
+        section2_copy
       } = getRef();
       const { destroy: destroy2 } = aboutAnimation({
         screenElement,
@@ -27354,8 +27346,8 @@ Loading snippet ...</pre
         wrapElement,
         title_1,
         title_2,
-        title_3,
-        title_4
+        section2_title,
+        section2_copy
       });
       return () => {
         destroy2();
@@ -27372,37 +27364,41 @@ Loading snippet ...</pre
         <div class="l-about__scroller" ${setRef("scrollerElement")}>
             <div class="l-about__wrap" ${setRef("wrapElement")}>
                 <section class="l-about__section l-about__section__1 ">
-                    ${getAngles()}
-                    <div class="l-about__section__1__top has-overflow">
+                    <div class="l-about__section__top has-overflow">
                         <h1 class="title-big" ${setRef("title_1")}>
                             ${block_1.titleTop}
                         </h1>
                     </div>
-                    <div class="l-about__section__1__bottom has-overflow">
+                    <div class="l-about__section__bottom has-overflow">
                         <h1 class="title-big is-white" ${setRef("title_2")}>
                             ${block_1.titleBottom}
                         </h1>
                     </div>
                 </section>
                 <section class="l-about__section">
-                    ${getAngles()}
-                    <div class="l-about__section__2__top has-overflow">
-                        <h1 class="title-big" ${setRef("title_3")}>
-                            ${block_2.titleTop}
-                        </h1>
+                    <div class="l-about__section__top has-overflow">
+                        <div class="l-about__section__left"></div>
+                        <div class="l-about__section__right">
+                            <h1 class="title-big" ${setRef("section2_title")}>
+                                ${block_2.title}
+                            </h1>
+                        </div>
                     </div>
-                    <div class="l-about__section__2__bottom has-overflow">
-                        <h1 class="title-big is-white" ${setRef("title_4")}>
-                            ${block_2.titleBottom}
-                        </h1>
+                    <div class="l-about__section__bottom has-overflow">
+                        <div class="l-about__section__right">
+                            <p
+                                class="l-about__section__copy is-white paragraph-big"
+                                ${setRef("section2_copy")}
+                            >
+                                ${block_2.copy}
+                            </p>
+                        </div>
                     </div>
                 </section>
                 <section class="l-about__section">
-                    ${getAngles()}
                     <h1>${block_3}</h1>
                 </section>
                 <section class="l-about__section">
-                    ${getAngles()}
                     <h1>${block_4}</h1>
                 </section>
             </div>
@@ -27427,8 +27423,8 @@ Loading snippet ...</pre
         }),
         block_2: () => ({
           value: {
-            titleTop: "",
-            titleBottom: ""
+            title: "",
+            copy: ""
           },
           type: "any"
         }),

@@ -2,17 +2,7 @@
  * @import { MobComponent } from '../../../mobjs/type';
  **/
 
-import { html } from '../../../mobjs';
 import { aboutAnimation } from './animation';
-
-const getAngles = () => {
-    return html`
-        <span class="l-about__angles-top-left"></span>
-        <span class="l-about__angles-top-right"></span>
-        <span class="l-about__angles-bottom-left"></span>
-        <span class="l-about__angles-bottom-right"></span>
-    `;
-};
 
 /** @type {MobComponent<import('./type').About>} */
 export const AboutComponentFn = ({
@@ -33,8 +23,8 @@ export const AboutComponentFn = ({
             wrapElement,
             title_1,
             title_2,
-            title_3,
-            title_4,
+            section2_title,
+            section2_copy,
         } = getRef();
 
         const { destroy } = aboutAnimation({
@@ -44,8 +34,8 @@ export const AboutComponentFn = ({
             wrapElement,
             title_1,
             title_2,
-            title_3,
-            title_4,
+            section2_title,
+            section2_copy,
         });
 
         return () => {
@@ -64,37 +54,41 @@ export const AboutComponentFn = ({
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
                 <section class="l-about__section l-about__section__1 ">
-                    ${getAngles()}
-                    <div class="l-about__section__1__top has-overflow">
+                    <div class="l-about__section__top has-overflow">
                         <h1 class="title-big" ${setRef('title_1')}>
                             ${block_1.titleTop}
                         </h1>
                     </div>
-                    <div class="l-about__section__1__bottom has-overflow">
+                    <div class="l-about__section__bottom has-overflow">
                         <h1 class="title-big is-white" ${setRef('title_2')}>
                             ${block_1.titleBottom}
                         </h1>
                     </div>
                 </section>
                 <section class="l-about__section">
-                    ${getAngles()}
-                    <div class="l-about__section__2__top has-overflow">
-                        <h1 class="title-big" ${setRef('title_3')}>
-                            ${block_2.titleTop}
-                        </h1>
+                    <div class="l-about__section__top has-overflow">
+                        <div class="l-about__section__left"></div>
+                        <div class="l-about__section__right">
+                            <h1 class="title-big" ${setRef('section2_title')}>
+                                ${block_2.title}
+                            </h1>
+                        </div>
                     </div>
-                    <div class="l-about__section__2__bottom has-overflow">
-                        <h1 class="title-big is-white" ${setRef('title_4')}>
-                            ${block_2.titleBottom}
-                        </h1>
+                    <div class="l-about__section__bottom has-overflow">
+                        <div class="l-about__section__right">
+                            <p
+                                class="l-about__section__copy is-white paragraph-big"
+                                ${setRef('section2_copy')}
+                            >
+                                ${block_2.copy}
+                            </p>
+                        </div>
                     </div>
                 </section>
                 <section class="l-about__section">
-                    ${getAngles()}
                     <h1>${block_3}</h1>
                 </section>
                 <section class="l-about__section">
-                    ${getAngles()}
                     <h1>${block_4}</h1>
                 </section>
             </div>

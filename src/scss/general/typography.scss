@@ -82,6 +82,11 @@ p {
     }
 }
 
+.paragraph-big {
+    font-size: rem(24);
+    line-height: line-height(24, 30);
+}
+
 .p,
 .ul {
     &--small {
