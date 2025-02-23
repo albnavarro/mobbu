@@ -27204,7 +27204,6 @@ Loading snippet ...</pre
     });
     const title1parallax = scroller.createParallax({
       item: title_1,
-      direction: "horizontal",
       propierties: "tween",
       tween: title1tween,
       ease: false,
@@ -27219,7 +27218,6 @@ Loading snippet ...</pre
     });
     const title2parallax = scroller.createParallax({
       item: title_2,
-      direction: "horizontal",
       propierties: "tween",
       tween: title2tween,
       ease: false,
@@ -27256,13 +27254,13 @@ Loading snippet ...</pre
         position: "left",
         value: () => 0
       },
-      direction: "horizontal",
       ease: false,
       propierties: "tween",
       tween: section2TitleSequencer
     });
     return {
-      section2TitlesScroller
+      section2TitlesScroller,
+      section2TitleSequencer
     };
   };
 
@@ -27283,7 +27281,10 @@ Loading snippet ...</pre
       wrapElement
     });
     const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({ title_1, title_2 });
-    const { section2TitlesScroller } = aboutSection2({ title_3, title_4 });
+    const { section2TitlesScroller, section2TitleSequencer } = aboutSection2({
+      title_3,
+      title_4
+    });
     const aboutScroller = new SmoothScroller({
       screen: screenElement,
       scroller: scrollerElement,
@@ -27311,6 +27312,7 @@ Loading snippet ...</pre
         title1tween.destroy();
         title2tween.destroy();
         section2TitlesScroller.destroy();
+        section2TitleSequencer.destroy();
         stopLoop();
       }
     };
@@ -27332,7 +27334,7 @@ Loading snippet ...</pre
     setRef,
     getRef
   }) => {
-    const { block_1, block_3, block_4 } = getState();
+    const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 4;
     onMount(() => {
       const {
@@ -27373,12 +27375,12 @@ Loading snippet ...</pre
                     ${getAngles()}
                     <div class="l-about__section__1__top has-overflow">
                         <h1 class="title-big" ${setRef("title_1")}>
-                            ${block_1.about}
+                            ${block_1.titleTop}
                         </h1>
                     </div>
                     <div class="l-about__section__1__bottom has-overflow">
                         <h1 class="title-big is-white" ${setRef("title_2")}>
-                            ${block_1.project}
+                            ${block_1.titleBottom}
                         </h1>
                     </div>
                 </section>
@@ -27386,12 +27388,12 @@ Loading snippet ...</pre
                     ${getAngles()}
                     <div class="l-about__section__2__top has-overflow">
                         <h1 class="title-big" ${setRef("title_3")}>
-                            title top
+                            ${block_2.titleTop}
                         </h1>
                     </div>
                     <div class="l-about__section__2__bottom has-overflow">
                         <h1 class="title-big is-white" ${setRef("title_4")}>
-                            title bottom
+                            ${block_2.titleBottom}
                         </h1>
                     </div>
                 </section>
@@ -27418,14 +27420,17 @@ Loading snippet ...</pre
       state: {
         block_1: () => ({
           value: {
-            about: "",
-            project: ""
+            titleTop: "",
+            titleBottom: ""
           },
           type: "any"
         }),
         block_2: () => ({
-          value: "",
-          type: String
+          value: {
+            titleTop: "",
+            titleBottom: ""
+          },
+          type: "any"
         }),
         block_3: () => ({
           value: "",

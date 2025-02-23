@@ -22,7 +22,7 @@ export const AboutComponentFn = ({
     setRef,
     getRef,
 }) => {
-    const { block_1, block_3, block_4 } = getState();
+    const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 4;
 
     onMount(() => {
@@ -67,12 +67,12 @@ export const AboutComponentFn = ({
                     ${getAngles()}
                     <div class="l-about__section__1__top has-overflow">
                         <h1 class="title-big" ${setRef('title_1')}>
-                            ${block_1.about}
+                            ${block_1.titleTop}
                         </h1>
                     </div>
                     <div class="l-about__section__1__bottom has-overflow">
                         <h1 class="title-big is-white" ${setRef('title_2')}>
-                            ${block_1.project}
+                            ${block_1.titleBottom}
                         </h1>
                     </div>
                 </section>
@@ -80,12 +80,12 @@ export const AboutComponentFn = ({
                     ${getAngles()}
                     <div class="l-about__section__2__top has-overflow">
                         <h1 class="title-big" ${setRef('title_3')}>
-                            title top
+                            ${block_2.titleTop}
                         </h1>
                     </div>
                     <div class="l-about__section__2__bottom has-overflow">
                         <h1 class="title-big is-white" ${setRef('title_4')}>
-                            title bottom
+                            ${block_2.titleBottom}
                         </h1>
                     </div>
                 </section>

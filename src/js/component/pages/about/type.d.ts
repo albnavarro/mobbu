@@ -7,10 +7,13 @@ import HandleTween from '../../../mobMotion/animation/tween/handleTween';
 export interface About {
     state: {
         block_1: {
-            about: string;
-            project: string;
+            titleTop: string;
+            titleBottom: string;
         };
-        block_2: string;
+        block_2: {
+            titleTop: string;
+            titleBottom: string;
+        };
         block_3: string;
         block_4: string;
     };
@@ -66,4 +69,5 @@ export type AboutSection2 = (arg0: {
     title_4: HTMLElement;
 }) => {
     section2TitlesScroller: ParallaxClass;
+    section2TitleSequencer: HandleSequencer;
 };

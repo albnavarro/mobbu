@@ -16,14 +16,17 @@ export const AboutComponent = createComponent(
         state: {
             block_1: () => ({
                 value: {
-                    about: '',
-                    project: '',
+                    titleTop: '',
+                    titleBottom: '',
                 },
                 type: 'any',
             }),
             block_2: () => ({
-                value: '',
-                type: String,
+                value: {
+                    titleTop: '',
+                    titleBottom: '',
+                },
+                type: 'any',
             }),
             block_3: () => ({
                 value: '',

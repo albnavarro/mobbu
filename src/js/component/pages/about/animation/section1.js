@@ -13,7 +13,6 @@ export const aboutSection1 = ({ title_1, title_2 }) => {
 
     const title1parallax = scroller.createParallax({
         item: title_1,
-        direction: 'horizontal',
         propierties: 'tween',
         tween: title1tween,
         ease: false,
@@ -31,7 +30,6 @@ export const aboutSection1 = ({ title_1, title_2 }) => {
 
     const title2parallax = scroller.createParallax({
         item: title_2,
-        direction: 'horizontal',
         propierties: 'tween',
         tween: title2tween,
         ease: false,

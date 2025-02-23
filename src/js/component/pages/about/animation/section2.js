@@ -25,7 +25,6 @@ export const aboutSection2 = ({ title_3, title_4 }) => {
             position: 'left',
             value: () => 0,
         },
-        direction: 'horizontal',
         ease: false,
         propierties: 'tween',
         tween: section2TitleSequencer,
@@ -33,5 +32,6 @@ export const aboutSection2 = ({ title_3, title_4 }) => {
 
     return {
         section2TitlesScroller,
+        section2TitleSequencer,
     };
 };

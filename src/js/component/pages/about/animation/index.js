@@ -24,7 +24,10 @@ export const aboutAnimation = ({
     const { title1parallax, title2parallax, title1tween, title2tween } =
         aboutSection1({ title_1, title_2 });
 
-    const { section2TitlesScroller } = aboutSection2({ title_3, title_4 });
+    const { section2TitlesScroller, section2TitleSequencer } = aboutSection2({
+        title_3,
+        title_4,
+    });
 
     const aboutScroller = new SmoothScroller({
         screen: screenElement,
@@ -55,6 +58,7 @@ export const aboutAnimation = ({
             title1tween.destroy();
             title2tween.destroy();
             section2TitlesScroller.destroy();
+            section2TitleSequencer.destroy();
             stopLoop();
         },
     };
