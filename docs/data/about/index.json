@@ -4,12 +4,12 @@
         "titleBottom": "the project"
     },
     "block_2": {
-        "title": "top 1",
-        "copy": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. Lorem Ipsum has been the industry's. "
+        "title": "Why",
+        "copy": "This site was born from the need to have an environment free from any dependencies where I can experiment with code and graphics"
     },
     "block_3": {
-        "title": "top 2",
-        "copy": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. Lorem Ipsum has been the industry's. "
+        "title": "what",
+        "copy": "The project is composed of 3 libraries to manage reactive components and animations, these libraries are designed for personal use but it remains an open-source project. At a graphic level the focus is directed to resume the study of lettering."
     },
     "block_4": {
         "title": "inspiration",
