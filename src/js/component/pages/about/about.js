@@ -14,7 +14,7 @@ export const AboutComponentFn = ({
     getRef,
 }) => {
     const { block_1, block_2, block_3, block_4 } = getState();
-    const numberOfSection = 4;
+    const numberOfSection = 3;
 
     onMount(() => {
         const {
@@ -60,7 +60,9 @@ export const AboutComponentFn = ({
         <div class="l-about__triangle-2">${Triangles}</div>
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
-                <section class="l-about__section l-about__section__1 ">
+                <section
+                    class="l-about__section l-about__section l-about__section--first "
+                >
                     <div class="l-about__section__top has-overflow">
                         <h1 class="title-big" ${setRef('title_1')}>
                             ${block_1.titleTop}
@@ -112,8 +114,21 @@ export const AboutComponentFn = ({
                         </div>
                     </div>
                 </section>
-                <section class="l-about__section">
-                    <h1>${block_4}</h1>
+                <section class="l-about__section l-about__section--last">
+                    <div class="l-about__section__top has-overflow">
+                        <h1 class="title-big" ${setRef('section3_title')}>
+                            ${block_4.title}
+                        </h1>
+                    </div>
+                    <div class="l-about__section__bottom has-overflow">
+                        <ul class="l-about__list">
+                            ${block_4.items
+                                .map((item) => {
+                                    return /* HTML */ ` <li>${item}</li> `;
+                                })
+                                .join('')}
+                        </ul>
+                    </div>
                 </section>
             </div>
         </div>

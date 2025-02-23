@@ -59,11 +59,11 @@ export const createPathAnimation = ({
     );
     pathSequencer.goTo(
         { ax: 38, ay: 45, cx: 95, cy: 42 },
-        { start: 7, end: 8 }
+        { start: 8, end: 9 }
     );
     pathSequencer.goTo(
         { bx: 53, by: 13, dx: 5, dy: 80 },
-        { start: 6.5, end: 10 }
+        { start: 7.5, end: 10 }
     );
     pathSequencer.subscribe(({ ax, ay, bx, by, cx, cy, dx, dy }) => {
         sequencerData.ax = ax;

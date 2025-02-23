@@ -5,11 +5,16 @@
     height: calc(100vh - var(--header-height) - var(--footer-height));
     position: relative;
 
-    --section-width: calc(80vw - (var(--header-height) / 2));
+    --section-width-first: calc(50vw - (var(--header-height) / 2));
+    --section-width: calc(100vw - (var(--header-height) / 2));
 
     &__scroller {
         height: calc(100vh - var(--header-height) - var(--footer-height));
-        width: calc(var(--section-width) * var(--number-of-section));
+        width: calc(
+            /* stylelint-disable-next-line  scss/operator-no-newline-after */
+                (var(--section-width) * var(--number-of-section)) +
+                var(--section-width-first)
+        );
         cursor: grabbing;
         position: relative;
     }
@@ -55,6 +60,23 @@
         }
     }
 
+    &__list {
+        list-style-type: none;
+        max-width: rem(500);
+        padding-left: 0;
+        margin-left: 0;
+        grid-column: 1 / span 2;
+
+        li {
+            display: inline-block;
+            background: $black;
+            border-radius: rem(20);
+            padding: rem(5) rem(10);
+            margin: rem(5);
+            color: $white;
+        }
+    }
+
     &__section {
         flex: 0 0 var(--section-width);
         height: 100%;
@@ -63,14 +85,24 @@
         grid-template-rows: repeat(2, 1fr);
 
         .title-big {
-            display: inline-block;
+            display: block;
+            width: 100%;
             position: relative;
+            grid-column: 1 / span 2;
         }
 
         padding-left: rem(40);
 
         @include mq(xlarge) {
             padding-left: rem(100);
+        }
+
+        &--first {
+            flex: 0 0 var(--section-width-first);
+        }
+
+        &--last {
+            justify-content: center;
         }
 
         &__top {

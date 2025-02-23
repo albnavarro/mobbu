@@ -18,7 +18,10 @@ export interface About {
             title: string;
             copy: string;
         };
-        block_4: string;
+        block_4: {
+            title: string;
+            items: string[];
+        };
     };
     ref: {
         screenElement: HTMLElement;

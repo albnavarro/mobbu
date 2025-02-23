@@ -1248,11 +1248,12 @@ code {
   overflow: hidden;
   height: calc(100vh - var(--header-height) - var(--footer-height));
   position: relative;
-  --section-width: calc(80vw - (var(--header-height) / 2));
+  --section-width-first: calc(50vw - (var(--header-height) / 2));
+  --section-width: calc(100vw - (var(--header-height) / 2));
 }
 .l-about__scroller {
   height: calc(100vh - var(--header-height) - var(--footer-height));
-  width: calc(var(--section-width) * var(--number-of-section));
+  width: calc(var(--section-width) * var(--number-of-section) + var(--section-width-first));
   cursor: grabbing;
   position: relative;
 }
@@ -1291,6 +1292,21 @@ code {
   width: 26.6666666667rem;
   fill: #eee;
 }
+.l-about__list {
+  list-style-type: none;
+  max-width: 33.3333333333rem;
+  padding-left: 0;
+  margin-left: 0;
+  grid-column: 1/span 2;
+}
+.l-about__list li {
+  display: inline-block;
+  background: #000;
+  border-radius: 1.3333333333rem;
+  padding: 0.3333333333rem 0.6666666667rem;
+  margin: 0.3333333333rem;
+  color: #fff;
+}
 .l-about__section {
   flex: 0 0 var(--section-width);
   height: 100%;
@@ -1300,13 +1316,21 @@ code {
   padding-left: 2.6666666667rem;
 }
 .l-about__section .title-big {
-  display: inline-block;
+  display: block;
+  width: 100%;
   position: relative;
+  grid-column: 1/span 2;
 }
 @media (min-width: 100em) {
   .l-about__section {
     padding-left: 6.6666666667rem;
   }
+}
+.l-about__section--first {
+  flex: 0 0 var(--section-width-first);
+}
+.l-about__section--last {
+  justify-content: center;
 }
 .l-about__section__top {
   grid-row: 1/span 1;

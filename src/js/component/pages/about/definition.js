@@ -36,8 +36,11 @@ export const AboutComponent = createComponent(
                 type: 'any',
             }),
             block_4: () => ({
-                value: '',
-                type: String,
+                value: {
+                    title: '',
+                    items: [''],
+                },
+                type: 'any',
             }),
         },
         child: [],
