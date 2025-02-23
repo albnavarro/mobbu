@@ -27231,19 +27231,29 @@ Loading snippet ...</pre
     };
   };
 
-  // src/js/component/pages/about/animation/section2.js
+  // src/js/component/pages/about/animation/sectionContent.js
   var sectionContentAnimation = ({ title, copy }) => {
     const sectionContentSequencer = tween.createSequencer({
       data: {
         yTitle: 100,
-        yCopy: -100
+        yCopy: -100,
+        opacityTitle: 1,
+        opacityCopy: 1
       }
     });
     sectionContentSequencer.goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 5 });
-    sectionContentSequencer.subscribe(({ yTitle, yCopy }) => {
-      title.style.transform = `translateY(${yTitle}%)`;
-      copy.style.transform = `translateY(${yCopy}%)`;
-    });
+    sectionContentSequencer.goTo(
+      { opacityTitle: 0, opacityCopy: 0 },
+      { start: 7, end: 10 }
+    );
+    sectionContentSequencer.subscribe(
+      ({ yTitle, yCopy, opacityTitle, opacityCopy }) => {
+        title.style.transform = `translateY(${yTitle}%)`;
+        copy.style.transform = `translateY(${yCopy}%)`;
+        title.style.opacity = opacityTitle;
+        copy.style.opacity = opacityCopy;
+      }
+    );
     const sectionContentScroller = scroller.createScrollTrigger({
       item: title,
       dynamicStart: {
@@ -27273,7 +27283,9 @@ Loading snippet ...</pre
     title_1,
     title_2,
     section2_title,
-    section2_copy
+    section2_copy,
+    section3_title,
+    section3_copy
   }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } = createPathAnimation({
       pathElement,
@@ -27288,6 +27300,13 @@ Loading snippet ...</pre
       title: section2_title,
       copy: section2_copy
     });
+    const {
+      sectionContentScroller: sectionContentScroller_2,
+      sectionContentSequencer: section2TitleSequencer_2
+    } = sectionContentAnimation({
+      title: section3_title,
+      copy: section3_copy
+    });
     const aboutScroller = new SmoothScroller({
       screen: screenElement,
       scroller: scrollerElement,
@@ -27299,7 +27318,8 @@ Loading snippet ...</pre
         pathScroller,
         title1parallax,
         title2parallax,
-        sectionContentScroller_1
+        sectionContentScroller_1,
+        sectionContentScroller_2
       ]
     });
     aboutScroller.init();
@@ -27316,6 +27336,8 @@ Loading snippet ...</pre
         title2tween.destroy();
         sectionContentScroller_1.destroy();
         section2TitleSequencer_1.destroy();
+        sectionContentScroller_2.destroy();
+        section2TitleSequencer_2.destroy();
         stopLoop();
       }
     };
@@ -27340,7 +27362,9 @@ Loading snippet ...</pre
         title_1,
         title_2,
         section2_title,
-        section2_copy
+        section2_copy,
+        section3_title,
+        section3_copy
       } = getRef();
       const { destroy: destroy2 } = aboutAnimation({
         screenElement,
@@ -27350,7 +27374,9 @@ Loading snippet ...</pre
         title_1,
         title_2,
         section2_title,
-        section2_copy
+        section2_copy,
+        section3_title,
+        section3_copy
       });
       return () => {
         destroy2();
@@ -27401,7 +27427,24 @@ Loading snippet ...</pre
                     </div>
                 </section>
                 <section class="l-about__section">
-                    <h1>${block_3}</h1>
+                    <div class="l-about__section__top has-overflow">
+                        <div class="l-about__section__left"></div>
+                        <div class="l-about__section__right">
+                            <h1 class="title-big" ${setRef("section3_title")}>
+                                ${block_3.title}
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="l-about__section__bottom has-overflow">
+                        <div class="l-about__section__right">
+                            <p
+                                class="l-about__section__copy paragraph-big"
+                                ${setRef("section3_copy")}
+                            >
+                                ${block_3.copy}
+                            </p>
+                        </div>
+                    </div>
                 </section>
                 <section class="l-about__section">
                     <h1>${block_4}</h1>
@@ -27434,8 +27477,11 @@ Loading snippet ...</pre
           type: "any"
         }),
         block_3: () => ({
-          value: "",
-          type: String
+          value: {
+            title: "",
+            copy: ""
+          },
+          type: "any"
         }),
         block_4: () => ({
           value: "",
@@ -27459,7 +27505,7 @@ Loading snippet ...</pre
         block_1: data.block_1,
         block_2: data.block_2,
         block_3: data.block_3,
-        block_4: data.block_3
+        block_4: data.block_4
       }
     )}
     ></about-component> `;

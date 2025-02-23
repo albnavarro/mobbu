@@ -29,8 +29,11 @@ export const AboutComponent = createComponent(
                 type: 'any',
             }),
             block_3: () => ({
-                value: '',
-                type: String,
+                value: {
+                    title: '',
+                    copy: '',
+                },
+                type: 'any',
             }),
             block_4: () => ({
                 value: '',

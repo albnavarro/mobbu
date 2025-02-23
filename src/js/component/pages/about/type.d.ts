@@ -14,7 +14,10 @@ export interface About {
             title: string;
             copy: string;
         };
-        block_3: string;
+        block_3: {
+            title: string;
+            copy: string;
+        };
         block_4: string;
     };
     ref: {
@@ -26,6 +29,8 @@ export interface About {
         title_2: HTMLElement;
         section2_title: HTMLElement;
         section2_copy: HTMLElement;
+        section3_title: HTMLElement;
+        section3_copy: HTMLElement;
     };
 }
 
@@ -38,6 +43,8 @@ export type AboutScroller = (arg0: {
     title_2: HTMLElement;
     section2_title: HTMLElement;
     section2_copy: HTMLElement;
+    section3_title: HTMLElement;
+    section3_copy: HTMLElement;
 }) => {
     destroy: () => void;
 };

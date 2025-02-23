@@ -26,6 +26,8 @@ export const AboutComponentFn = ({
             title_2,
             section2_title,
             section2_copy,
+            section3_title,
+            section3_copy,
         } = getRef();
 
         const { destroy } = aboutAnimation({
@@ -37,6 +39,8 @@ export const AboutComponentFn = ({
             title_2,
             section2_title,
             section2_copy,
+            section3_title,
+            section3_copy,
         });
 
         return () => {
@@ -89,7 +93,24 @@ export const AboutComponentFn = ({
                     </div>
                 </section>
                 <section class="l-about__section">
-                    <h1>${block_3}</h1>
+                    <div class="l-about__section__top has-overflow">
+                        <div class="l-about__section__left"></div>
+                        <div class="l-about__section__right">
+                            <h1 class="title-big" ${setRef('section3_title')}>
+                                ${block_3.title}
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="l-about__section__bottom has-overflow">
+                        <div class="l-about__section__right">
+                            <p
+                                class="l-about__section__copy paragraph-big"
+                                ${setRef('section3_copy')}
+                            >
+                                ${block_3.copy}
+                            </p>
+                        </div>
+                    </div>
                 </section>
                 <section class="l-about__section">
                     <h1>${block_4}</h1>

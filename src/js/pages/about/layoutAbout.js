@@ -17,7 +17,7 @@ export const layoutAbout = async () => {
                 block_1: data.block_1,
                 block_2: data.block_2,
                 block_3: data.block_3,
-                block_4: data.block_3,
+                block_4: data.block_4,
             })
         )}
     ></about-component> `;
