@@ -12,6 +12,7 @@ export const AboutComponentFn = ({
     getState,
     setRef,
     getRef,
+    getRefs,
 }) => {
     const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 3;
@@ -30,6 +31,8 @@ export const AboutComponentFn = ({
             section3_copy,
         } = getRef();
 
+        const { inspirationItem } = getRefs();
+
         const { destroy } = aboutAnimation({
             screenElement,
             scrollerElement,
@@ -41,6 +44,7 @@ export const AboutComponentFn = ({
             section2_copy,
             section3_title,
             section3_copy,
+            inspirationItem,
         });
 
         return () => {
@@ -120,11 +124,15 @@ export const AboutComponentFn = ({
                             ${block_4.title}
                         </h1>
                     </div>
-                    <div class="l-about__section__bottom has-overflow">
+                    <div class="l-about__section__bottom">
                         <ul class="l-about__list">
                             ${block_4.items
                                 .map((item) => {
-                                    return /* HTML */ ` <li>${item}</li> `;
+                                    return /* HTML */ `
+                                        <li ${setRef('inspirationItem')}>
+                                            ${item}
+                                        </li>
+                                    `;
                                 })
                                 .join('')}
                         </ul>

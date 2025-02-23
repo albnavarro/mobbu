@@ -1,6 +1,7 @@
 import HandleAsyncTimeline from '../../../mobMotion/animation/asyncTimeline/handleAsyncTimeline';
 import ParallaxClass from '../../../mobMotion/animation/parallax/parallax';
 import ParallaxTween from '../../../mobMotion/animation/parallax/parallaxTween';
+import HandleMasterSequencer from '../../../mobMotion/animation/sequencer/handleMasterSequencer';
 import HandleSequencer from '../../../mobMotion/animation/sequencer/handleSequencer';
 import HandleTween from '../../../mobMotion/animation/tween/handleTween';
 
@@ -34,6 +35,7 @@ export interface About {
         section2_copy: HTMLElement;
         section3_title: HTMLElement;
         section3_copy: HTMLElement;
+        inspirationItem: HTMLElement;
     };
 }
 
@@ -48,6 +50,7 @@ export type AboutScroller = (arg0: {
     section2_copy: HTMLElement;
     section3_title: HTMLElement;
     section3_copy: HTMLElement;
+    inspirationItem: HTMLElement[];
 }) => {
     destroy: () => void;
 };
@@ -80,4 +83,11 @@ export type AboutSection2 = (arg0: {
 }) => {
     sectionContentScroller: ParallaxClass;
     sectionContentSequencer: HandleSequencer;
+};
+
+export type InspirationAnimation = (ar0: {
+    inspirationItem: HTMLElement[];
+}) => {
+    inspirationScroller: ParallaxClass;
+    masterSequencer: HandleMasterSequencer;
 };

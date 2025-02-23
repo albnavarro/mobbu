@@ -27055,6 +27055,47 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
+  // src/js/component/pages/about/animation/inspiration.js
+  var inspirationAnimation = ({ inspirationItem }) => {
+    console.log(inspirationItem);
+    const masterSequencer = tween.createMasterSequencer();
+    const staggers = tween.createStaggers({
+      items: inspirationItem,
+      stagger: {
+        type: "end",
+        each: 5,
+        from: "start"
+      }
+    });
+    staggers.forEach(({ item, start, end, index }) => {
+      const sequencer = tween.createSequencer({
+        data: { x: 100 + index * 20 }
+      }).goTo({ x: 0 }, { start, end });
+      sequencer.subscribe(({ x }) => {
+        item.style.transform = `translateX(${x}px)`;
+      });
+      masterSequencer.add(sequencer);
+    });
+    const inspirationScroller = scroller.createScrollTrigger({
+      item: inspirationItem[0],
+      propierties: "tween",
+      tween: masterSequencer,
+      dynamicStart: {
+        position: "right",
+        value: () => -20
+      },
+      dynamicEnd: {
+        position: "left",
+        value: () => window.innerWidth / 2
+      },
+      ease: false
+    });
+    return {
+      inspirationScroller,
+      masterSequencer
+    };
+  };
+
   // src/js/component/pages/about/animation/pathAnimation.js
   var createPathAnimation = ({
     pathElement,
@@ -27285,7 +27326,8 @@ Loading snippet ...</pre
     section2_title,
     section2_copy,
     section3_title,
-    section3_copy
+    section3_copy,
+    inspirationItem
   }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } = createPathAnimation({
       pathElement,
@@ -27307,6 +27349,9 @@ Loading snippet ...</pre
       title: section3_title,
       copy: section3_copy
     });
+    const { inspirationScroller, masterSequencer } = inspirationAnimation({
+      inspirationItem
+    });
     const aboutScroller = new SmoothScroller({
       screen: screenElement,
       scroller: scrollerElement,
@@ -27319,7 +27364,8 @@ Loading snippet ...</pre
         title1parallax,
         title2parallax,
         sectionContentScroller_1,
-        sectionContentScroller_2
+        sectionContentScroller_2,
+        inspirationScroller
       ]
     });
     aboutScroller.init();
@@ -27341,6 +27387,8 @@ Loading snippet ...</pre
         section2TitleSequencer_1.destroy();
         sectionContentScroller_2.destroy();
         section2TitleSequencer_2.destroy();
+        inspirationScroller.destroy();
+        masterSequencer.destroy();
         stopLoop();
       }
     };
@@ -27352,7 +27400,8 @@ Loading snippet ...</pre
     onMount,
     getState,
     setRef,
-    getRef
+    getRef,
+    getRefs
   }) => {
     const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 3;
@@ -27369,6 +27418,7 @@ Loading snippet ...</pre
         section3_title,
         section3_copy
       } = getRef();
+      const { inspirationItem } = getRefs();
       const { destroy: destroy2 } = aboutAnimation({
         screenElement,
         scrollerElement,
@@ -27379,7 +27429,8 @@ Loading snippet ...</pre
         section2_title,
         section2_copy,
         section3_title,
-        section3_copy
+        section3_copy,
+        inspirationItem
       });
       return () => {
         destroy2();
@@ -27457,12 +27508,16 @@ Loading snippet ...</pre
                             ${block_4.title}
                         </h1>
                     </div>
-                    <div class="l-about__section__bottom has-overflow">
+                    <div class="l-about__section__bottom">
                         <ul class="l-about__list">
                             ${block_4.items.map((item) => {
       return (
         /* HTML */
-        ` <li>${item}</li> `
+        `
+                                        <li ${setRef("inspirationItem")}>
+                                            ${item}
+                                        </li>
+                                    `
       );
     }).join("")}
                         </ul>

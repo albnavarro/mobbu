@@ -39,7 +39,7 @@ const unsubScribeStagger = staggers.map(({ item, start, end, index }) => {
      * Apply value
      */
     const unsunscribe = sequencer.subscribe(({ x, y }) => {
-        item.style.translate = `${x}px ${y}px`;
+        item.style.transform = `translate(${x}px ${y}px)`;
     });
 
     /**
