@@ -28735,6 +28735,12 @@ Loading snippet ...</pre
     let ctx = canvas.getContext(context, { alpha: false });
     const activeRoute = getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    let wichContext = useOffscreen ? offScreenCtx : ctx;
+    const useRadius = roundRectIsSupported(
+      /** @type {CanvasRenderingContext2D} */
+      wichContext
+    );
+    wichContext = null;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     let gridData = createGrid({
@@ -28810,21 +28816,30 @@ Loading snippet ...</pre
             Math.round(centerX + offsetXCenter),
             Math.round(centerY + offsetYCenter)
           );
-          context2.beginPath();
-          context2.rect(
-            Math.round(-centerX + x),
-            Math.round(-centerY + y),
-            width,
-            height
-          );
+          if (useRadius) {
+            context2.beginPath();
+            context2.roundRect(
+              Math.round(-centerX + x),
+              Math.round(-centerY + y),
+              width,
+              height,
+              5
+            );
+          } else {
+            context2.beginPath();
+            context2.rect(
+              Math.round(-centerX + x),
+              Math.round(-centerY + y),
+              width,
+              height
+            );
+          }
           if (hasFill) {
             context2.fillStyle = `#000000`;
             context2.fill();
           } else {
             context2.fillStyle = "#fff";
             context2.fill();
-            context2.strokeStyle = "#ccc";
-            context2.stroke();
           }
           context2.setTransform(1, 0, 0, 1, 0, 0);
         }

@@ -10,6 +10,7 @@ import {
     getOffsetCanvas,
     getOffsetXCenter,
     getOffsetYCenter,
+    roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { mobCore } from '../../../../../mobCore';
@@ -44,6 +45,11 @@ export const animatedPatternN0Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    let wichContext = useOffscreen ? offScreenCtx : ctx;
+    const useRadius = roundRectIsSupported(
+        /** @type {CanvasRenderingContext2D} */ (wichContext)
+    );
+    wichContext = null;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -163,13 +169,24 @@ export const animatedPatternN0Animation = ({
                 /**
                  * Draw.
                  */
-                context.beginPath();
-                context.rect(
-                    Math.round(-centerX + x),
-                    Math.round(-centerY + y),
-                    width,
-                    height
-                );
+                if (useRadius) {
+                    context.beginPath();
+                    context.roundRect(
+                        Math.round(-centerX + x),
+                        Math.round(-centerY + y),
+                        width,
+                        height,
+                        5
+                    );
+                } else {
+                    context.beginPath();
+                    context.rect(
+                        Math.round(-centerX + x),
+                        Math.round(-centerY + y),
+                        width,
+                        height
+                    );
+                }
 
                 if (hasFill) {
                     context.fillStyle = `#000000`;
@@ -177,8 +194,8 @@ export const animatedPatternN0Animation = ({
                 } else {
                     context.fillStyle = '#fff';
                     context.fill();
-                    context.strokeStyle = '#ccc';
-                    context.stroke();
+                    // context.strokeStyle = '#ccc';
+                    // context.stroke();
                 }
 
                 /**
