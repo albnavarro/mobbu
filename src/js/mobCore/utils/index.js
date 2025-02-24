@@ -314,3 +314,13 @@ export function isVisibleInViewport(element) {
             (window.innerWidth || document.documentElement.clientWidth)
     );
 }
+
+/**
+ * @param {number} num
+ * @param {number} lower
+ * @param {number} upper
+ * @returns {number}
+ */
+export const clamp = (num, lower, upper) => {
+    return Math.min(Math.max(num, lower), upper);
+};

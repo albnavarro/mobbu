@@ -2,8 +2,6 @@ import { scroller, tween } from '../../../../mobMotion';
 
 /** @type{import("../type").InspirationAnimation} */
 export const inspirationAnimation = ({ inspirationItem }) => {
-    console.log(inspirationItem);
-
     const masterSequencer = tween.createMasterSequencer();
 
     const staggers = tween.createStaggers({

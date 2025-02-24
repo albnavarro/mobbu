@@ -115,6 +115,62 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "spinYMaxValue",
+                "label": "spinYMaxValue"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "spinYMaxValue"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Limits the value of spinY to a maximum in both negative and positive"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "spinXMaxValue",
+                "label": "spinXMaxValue"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "spinXMaxValue"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Limits the value of spinX to a maximum in both negative and positive"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium"
             }
         }
