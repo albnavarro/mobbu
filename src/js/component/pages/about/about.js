@@ -9,10 +9,12 @@ import { aboutAnimation } from './animation';
 export const AboutComponentFn = ({
     html,
     onMount,
-    getState,
     setRef,
     getRef,
     getRefs,
+    getState,
+    setState,
+    bindEffect,
 }) => {
     const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 3;
@@ -21,7 +23,6 @@ export const AboutComponentFn = ({
         const {
             screenElement,
             scrollerElement,
-            pathElement,
             wrapElement,
             title_1,
             title_2,
@@ -31,7 +32,7 @@ export const AboutComponentFn = ({
             section3_copy,
         } = getRef();
 
-        const { inspirationItem } = getRefs();
+        const { inspirationItem, pathElement } = getRefs();
 
         const { destroy } = aboutAnimation({
             screenElement,
@@ -47,6 +48,13 @@ export const AboutComponentFn = ({
             inspirationItem,
         });
 
+        /**
+         * Stagger start later, so show path in background later.
+         */
+        setTimeout(() => {
+            setState('isMounted', true);
+        }, 500);
+
         return () => {
             destroy();
         };
@@ -58,7 +66,36 @@ export const AboutComponentFn = ({
         style="--number-of-section:${numberOfSection}"
     >
         <span class="l-about__background"></span>
-        <div class="l-about__shape" ${setRef('pathElement')}></div>
+        <div
+            class="l-about__shape l-about__shape--back"
+            ${setRef('pathElement')}
+            ${bindEffect({
+                bind: 'isMounted',
+                toggleClass: {
+                    'is-visible': () => getState().isMounted,
+                },
+            })}
+        ></div>
+        <div
+            class="l-about__shape l-about__shape--back"
+            ${setRef('pathElement')}
+            ${bindEffect({
+                bind: 'isMounted',
+                toggleClass: {
+                    'is-visible': () => getState().isMounted,
+                },
+            })}
+        ></div>
+        <div
+            class="l-about__shape"
+            ${setRef('pathElement')}
+            ${bindEffect({
+                bind: 'isMounted',
+                toggleClass: {
+                    'is-visible': () => getState().isMounted,
+                },
+            })}
+        ></div>
         <span class="l-about__arrow"></span>
         <div class="l-about__triangle-1">${Triangles}</div>
         <div class="l-about__triangle-2">${Triangles}</div>

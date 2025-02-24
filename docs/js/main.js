@@ -27235,16 +27235,18 @@ Loading snippet ...</pre
     scrollerElement,
     wrapElement
   }) => {
-    const sequencerData = {
-      ax: 5,
-      ay: 12,
-      bx: 42,
-      by: 40,
-      cx: 94,
-      cy: 52,
-      dx: 19,
-      dy: 85
-    };
+    const sequencerData = pathElement.map(() => {
+      return {
+        ax: 5,
+        ay: 12,
+        bx: 42,
+        by: 40,
+        cx: 94,
+        cy: 52,
+        dx: 19,
+        dy: 85
+      };
+    });
     const timelineData = {
       ax: -1,
       ay: -1,
@@ -27256,7 +27258,12 @@ Loading snippet ...</pre
       dy: 1
     };
     const pathSequencer = tween.createSequencer({
-      data: { ...sequencerData }
+      data: { ...sequencerData[0] },
+      stagger: {
+        each: 10,
+        waitComplete: false,
+        from: "end"
+      }
     });
     pathSequencer.goTo(
       { ax: 10, ay: 43, dx: 51, dy: 50 },
@@ -27279,15 +27286,17 @@ Loading snippet ...</pre
       { bx: 53, by: 13, dx: 5, dy: 80 },
       { start: 7.5, end: 10 }
     );
-    pathSequencer.subscribe(({ ax, ay, bx, by, cx, cy, dx, dy }) => {
-      sequencerData.ax = ax;
-      sequencerData.ay = ay;
-      sequencerData.bx = bx;
-      sequencerData.by = by;
-      sequencerData.cx = cx;
-      sequencerData.cy = cy;
-      sequencerData.dx = dx;
-      sequencerData.dy = dy;
+    sequencerData.forEach((item) => {
+      pathSequencer.subscribe(({ ax, ay, bx, by, cx, cy, dx, dy }) => {
+        item.ax = ax;
+        item.ay = ay;
+        item.bx = bx;
+        item.by = by;
+        item.cx = cx;
+        item.cy = cy;
+        item.dx = dx;
+        item.dy = dy;
+      });
     });
     const pathTween = tween.createTween({
       data: { ...timelineData }
@@ -27320,23 +27329,26 @@ Loading snippet ...</pre
     let shouldLoop = true;
     const loop = () => {
       if (!shouldLoop) return;
-      const a = {
-        x: sequencerData.ax + timelineData.ax,
-        y: sequencerData.ay + timelineData.ay
-      };
-      const b = {
-        x: sequencerData.bx + timelineData.bx,
-        y: sequencerData.by + timelineData.by
-      };
-      const c = {
-        x: sequencerData.cx + timelineData.cx,
-        y: sequencerData.cy + timelineData.cy
-      };
-      const d = {
-        x: sequencerData.dx + timelineData.dx,
-        y: sequencerData.dy + timelineData.dy
-      };
-      pathElement.style.clipPath = `polygon(${a.x}% ${a.y}%, ${b.x}% ${b.y}%, ${c.x}% ${c.y}%, ${d.x}% ${d.y}%)`;
+      sequencerData.forEach((item, index) => {
+        const currentPath = pathElement[index];
+        const a = {
+          x: item.ax + timelineData.ax,
+          y: item.ay + timelineData.ay
+        };
+        const b = {
+          x: item.bx + timelineData.bx,
+          y: item.by + timelineData.by
+        };
+        const c = {
+          x: item.cx + timelineData.cx,
+          y: item.cy + timelineData.cy
+        };
+        const d = {
+          x: item.dx + timelineData.dx,
+          y: item.dy + timelineData.dy
+        };
+        currentPath.style.clipPath = `polygon(${a.x}% ${a.y}%, ${b.x}% ${b.y}%, ${c.x}% ${c.y}%, ${d.x}% ${d.y}%)`;
+      });
       mobCore.useNextFrame(() => loop());
     };
     mobCore.useFrame(() => loop());
@@ -27531,10 +27543,12 @@ Loading snippet ...</pre
   var AboutComponentFn = ({
     html,
     onMount,
-    getState,
     setRef,
     getRef,
-    getRefs
+    getRefs,
+    getState,
+    setState,
+    bindEffect
   }) => {
     const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 3;
@@ -27542,7 +27556,6 @@ Loading snippet ...</pre
       const {
         screenElement,
         scrollerElement,
-        pathElement,
         wrapElement,
         title_1,
         title_2,
@@ -27551,7 +27564,7 @@ Loading snippet ...</pre
         section3_title,
         section3_copy
       } = getRef();
-      const { inspirationItem } = getRefs();
+      const { inspirationItem, pathElement } = getRefs();
       const { destroy: destroy2 } = aboutAnimation({
         screenElement,
         scrollerElement,
@@ -27565,6 +27578,9 @@ Loading snippet ...</pre
         section3_copy,
         inspirationItem
       });
+      setTimeout(() => {
+        setState("isMounted", true);
+      }, 500);
       return () => {
         destroy2();
       };
@@ -27575,7 +27591,36 @@ Loading snippet ...</pre
         style="--number-of-section:${numberOfSection}"
     >
         <span class="l-about__background"></span>
-        <div class="l-about__shape" ${setRef("pathElement")}></div>
+        <div
+            class="l-about__shape l-about__shape--back"
+            ${setRef("pathElement")}
+            ${bindEffect({
+      bind: "isMounted",
+      toggleClass: {
+        "is-visible": () => getState().isMounted
+      }
+    })}
+        ></div>
+        <div
+            class="l-about__shape l-about__shape--back"
+            ${setRef("pathElement")}
+            ${bindEffect({
+      bind: "isMounted",
+      toggleClass: {
+        "is-visible": () => getState().isMounted
+      }
+    })}
+        ></div>
+        <div
+            class="l-about__shape"
+            ${setRef("pathElement")}
+            ${bindEffect({
+      bind: "isMounted",
+      toggleClass: {
+        "is-visible": () => getState().isMounted
+      }
+    })}
+        ></div>
         <span class="l-about__arrow"></span>
         <div class="l-about__triangle-1">${Triangles}</div>
         <div class="l-about__triangle-2">${Triangles}</div>
@@ -27697,6 +27742,10 @@ Loading snippet ...</pre
             items: [""]
           },
           type: "any"
+        }),
+        isMounted: () => ({
+          value: false,
+          type: Boolean
         })
       },
       child: []

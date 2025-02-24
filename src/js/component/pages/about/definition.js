@@ -42,6 +42,10 @@ export const AboutComponent = createComponent(
                 },
                 type: 'any',
             }),
+            isMounted: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
         child: [],
     })
