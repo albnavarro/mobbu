@@ -1,3 +1,7 @@
+# About:
+- Girare la freccia usando `.add()` sul sequencer del path
+- navigazione stile `dot` per le 4 schermate.
+
 # MobCore
 
 - In `mobJs` con queste modifiche aggiungere ai `tipi` `computed` per `bloccare` i tentativi di `set` epliciti su un `computed`.
