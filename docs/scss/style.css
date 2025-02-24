@@ -1384,8 +1384,8 @@ code * {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1000px;
-  height: 500px;
+  width: 66.6666666667rem;
+  height: 33.3333333333rem;
   background: #eee;
 }
 .l-links {

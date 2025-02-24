@@ -156,8 +156,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 1000px;
-        height: 500px;
+        width: rem(1000);
+        height: rem(500);
         background: $grey;
     }
 }
