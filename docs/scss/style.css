@@ -3388,7 +3388,6 @@ code * {
   font-size: 20rem;
   opacity: 0.1;
   font-weight: 800;
-  text-transform: uppercase;
   transform-origin: left bottom;
   transform: translate(-3.3333333333rem, -21.3333333333rem) rotate(90deg);
   display: inline-block;
