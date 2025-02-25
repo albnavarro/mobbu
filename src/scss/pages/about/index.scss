@@ -35,6 +35,7 @@
         right: rem(20);
         top: 50%;
         transform: translateY(-50%) rotate(45deg);
+        z-index: 1;
     }
 
     &__triangle-1 {
@@ -52,7 +53,8 @@
     &__triangle-2 {
         position: absolute;
         right: 0;
-        transform: translateY(75%) rotate(180deg);
+        bottom: 0;
+        transform: translateY(20%) rotate(180deg);
 
         svg {
             width: rem(400);
