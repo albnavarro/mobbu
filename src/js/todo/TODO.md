@@ -1,6 +1,7 @@
 # About:
 - Girare la freccia usando `.add()` sul sequencer del path
-- navigazione stile `dot` per le 4 schermate.
+- Navigazione stile `dot` per le 4 schermate.
+- Animare il titolo nero in entrata.
 
 # MobCore
 
