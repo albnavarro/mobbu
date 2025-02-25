@@ -2,9 +2,11 @@
 
 .c-doc-title {
     h2 {
-        color: $black;
+        color: $white;
         font-size: rem(300);
-        opacity: 0.025;
+        opacity: 0.1;
+        font-weight: 800;
+        text-transform: uppercase;
         transform-origin: left bottom;
         transform: translate(calc(rem(50) * -1), calc(rem(320) * -1))
             rotate(90deg);
@@ -15,7 +17,6 @@
         overflow: hidden;
         position: absolute;
         top: 0;
-        font-weight: 600;
         white-space: nowrap;
     }
 }

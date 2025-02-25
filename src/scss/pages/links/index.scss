@@ -8,6 +8,19 @@
         100vh - var(--header-height) - var(--footer-height)
     );
 
+    &__back-title {
+        font-size: rem(300);
+        opacity: 0.1;
+        position: absolute;
+        top: 50%;
+        left: calc(#{rem(100)} * -1);
+        transform: translateY(-200%);
+        text-transform: uppercase;
+        font-weight: 800;
+        display: inline-block;
+        text-wrap: nowrap;
+    }
+
     &__grid {
         display: grid;
         grid-template-rows: repeat(2, 1fr);
@@ -28,6 +41,7 @@
         &--bottom {
             grid-row: 2 / span 1;
             background: $white;
+            filter: drop-shadow(-7px -4px 29px rgba($black, 0.1));
         }
     }
 
@@ -49,7 +63,7 @@
         bottom: 0;
         left: -1px;
         transform: translateY(50%);
-        z-index: 10;
+        z-index: 1;
         pointer-events: none;
 
         svg {
@@ -61,7 +75,8 @@
     &__triangle-2 {
         position: absolute;
         left: 100vw;
-        transform: translate(-100%, 75%) rotate(180deg);
+        transform: translate(-100%, 20%) rotate(180deg);
+        bottom: 0;
         z-index: 10;
         pointer-events: none;
 
@@ -73,9 +88,9 @@
 
     &__scroll {
         position: absolute;
-        z-index: 10;
         bottom: rem(40);
         left: rem(40);
+        z-index: 2;
     }
 
     &__scroller {

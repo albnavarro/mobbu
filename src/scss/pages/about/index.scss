@@ -25,6 +25,18 @@
         height: 100%;
     }
 
+    &__back-title {
+        font-size: rem(300);
+        opacity: 0.1;
+        position: absolute;
+        top: 50%;
+        left: calc(#{rem(100)} * -1);
+        transform: translateY(-200%);
+        text-transform: uppercase;
+        font-weight: 800;
+        display: inline-block;
+    }
+
     &__arrow {
         position: absolute;
         display: block;
@@ -35,7 +47,7 @@
         right: rem(20);
         top: 50%;
         transform: translateY(-50%) rotate(45deg);
-        z-index: 1;
+        z-index: 11;
     }
 
     &__triangle-1 {
@@ -43,6 +55,8 @@
         bottom: 0;
         left: -1px;
         transform: translateY(50%);
+        z-index: 1;
+        pointer-events: none;
 
         svg {
             width: rem(400);
@@ -52,9 +66,11 @@
 
     &__triangle-2 {
         position: absolute;
-        right: 0;
+        left: 100vw;
+        transform: translate(-100%, 20%) rotate(180deg);
         bottom: 0;
-        transform: translateY(20%) rotate(180deg);
+        z-index: 10;
+        pointer-events: none;
 
         svg {
             width: rem(400);
@@ -66,6 +82,7 @@
         position: absolute;
         bottom: rem(40);
         left: rem(40);
+        z-index: 2;
     }
 
     &__list {
@@ -151,6 +168,7 @@
             (100vh - var(--header-height) - var(--footer-height)) * 0.5
         );
         background: $white;
+        filter: drop-shadow(-7px -4px 29px rgba($black, 0.1));
     }
 
     &__shape {

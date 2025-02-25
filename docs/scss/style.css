@@ -1273,6 +1273,17 @@ code * {
   width: 100%;
   height: 100%;
 }
+.l-about__back-title {
+  font-size: 20rem;
+  opacity: 0.1;
+  position: absolute;
+  top: 50%;
+  left: calc(6.6666666667rem * -1);
+  transform: translateY(-200%);
+  text-transform: uppercase;
+  font-weight: 800;
+  display: inline-block;
+}
 .l-about__arrow {
   position: absolute;
   display: block;
@@ -1283,13 +1294,15 @@ code * {
   right: 1.3333333333rem;
   top: 50%;
   transform: translateY(-50%) rotate(45deg);
-  z-index: 1;
+  z-index: 11;
 }
 .l-about__triangle-1 {
   position: absolute;
   bottom: 0;
   left: -1px;
   transform: translateY(50%);
+  z-index: 1;
+  pointer-events: none;
 }
 .l-about__triangle-1 svg {
   width: 26.6666666667rem;
@@ -1297,9 +1310,11 @@ code * {
 }
 .l-about__triangle-2 {
   position: absolute;
-  right: 0;
+  left: 100vw;
+  transform: translate(-100%, 20%) rotate(180deg);
   bottom: 0;
-  transform: translateY(20%) rotate(180deg);
+  z-index: 10;
+  pointer-events: none;
 }
 .l-about__triangle-2 svg {
   width: 26.6666666667rem;
@@ -1309,6 +1324,7 @@ code * {
   position: absolute;
   bottom: 2.6666666667rem;
   left: 2.6666666667rem;
+  z-index: 2;
 }
 .l-about__list {
   list-style-type: none;
@@ -1380,6 +1396,7 @@ code * {
   width: 100vw;
   height: calc((100vh - var(--header-height) - var(--footer-height)) * 0.5);
   background: #fff;
+  filter: drop-shadow(-7px -4px 29px rgba(0, 0, 0, 0.1));
 }
 .l-about__shape {
   position: absolute;
@@ -1403,6 +1420,18 @@ code * {
   overflow: hidden;
   --scroller-height: calc( 100vh - var(--header-height) - var(--footer-height) );
 }
+.l-links__back-title {
+  font-size: 20rem;
+  opacity: 0.1;
+  position: absolute;
+  top: 50%;
+  left: calc(6.6666666667rem * -1);
+  transform: translateY(-200%);
+  text-transform: uppercase;
+  font-weight: 800;
+  display: inline-block;
+  text-wrap: nowrap;
+}
 .l-links__grid {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
@@ -1421,6 +1450,7 @@ code * {
 .l-links__row--bottom {
   grid-row: 2/span 1;
   background: #fff;
+  filter: drop-shadow(-7px -4px 29px rgba(0, 0, 0, 0.1));
 }
 .l-links__arrow {
   position: absolute;
@@ -1439,7 +1469,7 @@ code * {
   bottom: 0;
   left: -1px;
   transform: translateY(50%);
-  z-index: 10;
+  z-index: 1;
   pointer-events: none;
 }
 .l-links__triangle-1 svg {
@@ -1449,7 +1479,8 @@ code * {
 .l-links__triangle-2 {
   position: absolute;
   left: 100vw;
-  transform: translate(-100%, 75%) rotate(180deg);
+  transform: translate(-100%, 20%) rotate(180deg);
+  bottom: 0;
   z-index: 10;
   pointer-events: none;
 }
@@ -1459,9 +1490,9 @@ code * {
 }
 .l-links__scroll {
   position: absolute;
-  z-index: 10;
   bottom: 2.6666666667rem;
   left: 2.6666666667rem;
+  z-index: 2;
 }
 .l-links__scroller {
   width: auto;
@@ -3342,9 +3373,11 @@ code * {
   }
 }
 .c-doc-title h2 {
-  color: #000;
+  color: #fff;
   font-size: 20rem;
-  opacity: 0.025;
+  opacity: 0.1;
+  font-weight: 800;
+  text-transform: uppercase;
   transform-origin: left bottom;
   transform: translate(-3.3333333333rem, -21.3333333333rem) rotate(90deg);
   display: inline-block;
@@ -3354,7 +3387,6 @@ code * {
   overflow: hidden;
   position: absolute;
   top: 0;
-  font-weight: 600;
   white-space: nowrap;
 }
 .c-doc-title-small {

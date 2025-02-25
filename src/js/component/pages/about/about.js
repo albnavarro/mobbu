@@ -65,6 +65,7 @@ export const AboutComponentFn = ({
         ${setRef('screenElement')}
         style="--number-of-section:${numberOfSection}"
     >
+        <div class="l-about__back-title is-white">${block_1.titleTop}</div>
         <span class="l-about__background"></span>
         <div
             class="l-about__shape l-about__shape--back"

@@ -27120,6 +27120,7 @@ Loading snippet ...</pre
         <div class="l-links__triangle-1">${Triangles}</div>
         <div class="l-links__triangle-2">${Triangles}</div>
         <span class="l-links__arrow"></span>
+        <div class="l-links__back-title is-white">${title}</div>
         <div class="l-links__grid">
             <div class="l-links__row l-links__row--top">
                 <h1 class="title-big">${title}</h1>
@@ -27147,8 +27148,8 @@ Loading snippet ...</pre
     }).join("")}
                     </ul>
                 </div>
-                <h6 class="l-links__scroll">Scroll or drag</h6>
             </div>
+            <h6 class="l-links__scroll">Scroll or drag</h6>
         </div>
     </div>`;
   };
@@ -27590,6 +27591,7 @@ Loading snippet ...</pre
         ${setRef("screenElement")}
         style="--number-of-section:${numberOfSection}"
     >
+        <div class="l-about__back-title is-white">${block_1.titleTop}</div>
         <span class="l-about__background"></span>
         <div
             class="l-about__shape l-about__shape--back"
