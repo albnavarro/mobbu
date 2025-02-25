@@ -6,12 +6,27 @@ import { linksScroller } from './animation/linksScroller';
  **/
 
 /** @type {MobComponent<import('./type').LayoutLinks>} */
-export const LayoutLinksFn = ({ html, getState, setRef, getRef, onMount }) => {
+export const LayoutLinksFn = ({
+    html,
+    getState,
+    setState,
+    setRef,
+    getRef,
+    onMount,
+    bindEffect,
+}) => {
     const { title, items } = getState();
 
     onMount(() => {
         const { screenElement, scrollerElement } = getRef();
         const { destroy } = linksScroller({ screenElement, scrollerElement });
+
+        /**
+         * Stagger start later, so show path in background later.
+         */
+        setTimeout(() => {
+            setState('isMounted', true);
+        }, 500);
 
         return () => {
             destroy();
@@ -22,7 +37,17 @@ export const LayoutLinksFn = ({ html, getState, setRef, getRef, onMount }) => {
         <div class="l-links__triangle-1">${Triangles}</div>
         <div class="l-links__triangle-2">${Triangles}</div>
         <span class="l-links__arrow"></span>
-        <div class="l-links__back-title is-white">${title}</div>
+        <div
+            class="l-links__back-title is-white"
+            ${bindEffect({
+                bind: 'isMounted',
+                toggleClass: {
+                    'is-visible': () => getState().isMounted,
+                },
+            })}
+        >
+            ${title}
+        </div>
         <div class="l-links__grid">
             <div class="l-links__row l-links__row--top">
                 <h1 class="title-big">${title}</h1>

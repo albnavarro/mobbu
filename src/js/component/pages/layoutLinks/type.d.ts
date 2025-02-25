@@ -5,6 +5,7 @@ export interface LayoutLinks {
             title: string;
             url: string;
         }[];
+        isMounted: boolean;
     };
     ref: {
         screenElement: HTMLElement;

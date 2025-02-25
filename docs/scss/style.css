@@ -1275,14 +1275,20 @@ code * {
 }
 .l-about__back-title {
   font-size: 20rem;
-  opacity: 0.1;
+  opacity: 0;
   position: absolute;
   top: 50%;
   left: calc(6.6666666667rem * -1);
-  transform: translateY(-200%);
+  transform: translateY(100%);
   text-transform: uppercase;
   font-weight: 800;
   display: inline-block;
+  text-wrap: nowrap;
+  transition: transform 1.5s, opacity 0.55s;
+}
+.l-about__back-title.is-visible {
+  transform: translateY(-200%);
+  opacity: 0.1;
 }
 .l-about__arrow {
   position: absolute;
@@ -1422,15 +1428,20 @@ code * {
 }
 .l-links__back-title {
   font-size: 20rem;
-  opacity: 0.1;
+  opacity: 0;
   position: absolute;
   top: 50%;
   left: calc(6.6666666667rem * -1);
-  transform: translateY(-200%);
+  transform: translateY(100%);
   text-transform: uppercase;
   font-weight: 800;
   display: inline-block;
   text-wrap: nowrap;
+  transition: transform 1.5s, opacity 0.55s;
+}
+.l-links__back-title.is-visible {
+  transform: translateY(-200%);
+  opacity: 0.1;
 }
 .l-links__grid {
   display: grid;

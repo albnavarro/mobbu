@@ -22,6 +22,10 @@ export const LayoutLinks = createComponent(
                 value: [],
                 type: Array,
             }),
+            isMounted: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
         child: [],
     })

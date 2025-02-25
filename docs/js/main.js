@@ -27107,11 +27107,22 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/layoutLinks/layoutLinks.js
-  var LayoutLinksFn = ({ html, getState, setRef, getRef, onMount }) => {
+  var LayoutLinksFn = ({
+    html,
+    getState,
+    setState,
+    setRef,
+    getRef,
+    onMount,
+    bindEffect
+  }) => {
     const { title, items } = getState();
     onMount(() => {
       const { screenElement, scrollerElement } = getRef();
       const { destroy: destroy2 } = linksScroller({ screenElement, scrollerElement });
+      setTimeout(() => {
+        setState("isMounted", true);
+      }, 500);
       return () => {
         destroy2();
       };
@@ -27120,7 +27131,17 @@ Loading snippet ...</pre
         <div class="l-links__triangle-1">${Triangles}</div>
         <div class="l-links__triangle-2">${Triangles}</div>
         <span class="l-links__arrow"></span>
-        <div class="l-links__back-title is-white">${title}</div>
+        <div
+            class="l-links__back-title is-white"
+            ${bindEffect({
+      bind: "isMounted",
+      toggleClass: {
+        "is-visible": () => getState().isMounted
+      }
+    })}
+        >
+            ${title}
+        </div>
         <div class="l-links__grid">
             <div class="l-links__row l-links__row--top">
                 <h1 class="title-big">${title}</h1>
@@ -27169,6 +27190,10 @@ Loading snippet ...</pre
         items: () => ({
           value: [],
           type: Array
+        }),
+        isMounted: () => ({
+          value: false,
+          type: Boolean
         })
       },
       child: []
@@ -27591,7 +27616,17 @@ Loading snippet ...</pre
         ${setRef("screenElement")}
         style="--number-of-section:${numberOfSection}"
     >
-        <div class="l-about__back-title is-white">${block_1.titleTop}</div>
+        <div
+            class="l-about__back-title is-white"
+            ${bindEffect({
+      bind: "isMounted",
+      toggleClass: {
+        "is-visible": () => getState().isMounted
+      }
+    })}
+        >
+            ${block_1.titleTop}
+        </div>
         <span class="l-about__background"></span>
         <div
             class="l-about__shape l-about__shape--back"

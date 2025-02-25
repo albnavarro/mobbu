@@ -27,14 +27,23 @@
 
     &__back-title {
         font-size: rem(300);
-        opacity: 0.1;
+        opacity: 0;
         position: absolute;
         top: 50%;
         left: calc(#{rem(100)} * -1);
-        transform: translateY(-200%);
+        transform: translateY(100%);
         text-transform: uppercase;
         font-weight: 800;
         display: inline-block;
+        text-wrap: nowrap;
+        transition:
+            transform 1.5s,
+            opacity 0.55s;
+
+        &.is-visible {
+            transform: translateY(-200%);
+            opacity: 0.1;
+        }
     }
 
     &__arrow {
