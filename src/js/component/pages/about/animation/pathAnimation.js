@@ -10,6 +10,7 @@ export const createPathAnimation = ({
     pathElement,
     scrollerElement,
     wrapElement,
+    shouldRotateArrow,
 }) => {
     /**
      * Data
@@ -51,27 +52,21 @@ export const createPathAnimation = ({
         },
     });
 
-    pathSequencer.goTo(
-        { ax: 10, ay: 43, dx: 51, dy: 50 },
-        { start: 0, end: 3.5 }
-    );
-    pathSequencer.goTo({ bx: 68, by: 6, cx: 85, cy: 80 }, { start: 1, end: 3 });
-    pathSequencer.goTo(
-        { bx: 85, by: 10, dx: 30, dy: 90 },
-        { start: 4.5, end: 5.5 }
-    );
-    pathSequencer.goTo(
-        { ax: 8, ay: 25, cx: 45, cy: 55 },
-        { start: 3.5, end: 6.5 }
-    );
-    pathSequencer.goTo(
-        { ax: 38, ay: 45, cx: 85, cy: 42 },
-        { start: 8, end: 9 }
-    );
-    pathSequencer.goTo(
-        { bx: 53, by: 13, dx: 5, dy: 80 },
-        { start: 7.5, end: 10 }
-    );
+    /**
+     * The senquencer is inverted.
+     * start from 10.
+     * Use `fromTo` in scrolltrigger to reverse direction.
+     */
+    pathSequencer
+        .goTo({ ax: 10, ay: 43, dx: 51, dy: 50 }, { start: 0, end: 3.5 })
+        .goTo({ bx: 68, by: 6, cx: 85, cy: 80 }, { start: 1, end: 3 })
+        .goTo({ bx: 85, by: 10, dx: 30, dy: 90 }, { start: 4.5, end: 5.5 })
+        .goTo({ ax: 8, ay: 25, cx: 45, cy: 55 }, { start: 3.5, end: 6.5 })
+        .goTo({ ax: 38, ay: 45, cx: 85, cy: 42 }, { start: 8, end: 9 })
+        .goTo({ bx: 53, by: 13, dx: 5, dy: 80 }, { start: 7.5, end: 10 })
+        .add(({ direction }) => {
+            shouldRotateArrow(direction === 'backward');
+        }, 1);
 
     sequencerData.forEach((item) => {
         pathSequencer.subscribe(({ ax, ay, bx, by, cx, cy, dx, dy }) => {

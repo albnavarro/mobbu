@@ -11,11 +11,10 @@ export const sectionContentAnimation = ({ title, copy }) => {
         },
     });
 
-    sectionContentSequencer.goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 5 });
-    sectionContentSequencer.goTo(
-        { opacityTitle: 0, opacityCopy: 0 },
-        { start: 7, end: 10 }
-    );
+    sectionContentSequencer
+        .goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 5 })
+        .goTo({ opacityTitle: 0, opacityCopy: 0 }, { start: 7, end: 10 });
+
     sectionContentSequencer.subscribe(
         ({ yTitle, yCopy, opacityTitle, opacityCopy }) => {
             title.style.transform = `translateY(${yTitle}%)`;

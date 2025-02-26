@@ -17,12 +17,14 @@ export const aboutAnimation = ({
     section3_title,
     section3_copy,
     inspirationItem,
+    shouldRotateArrow,
 }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
         createPathAnimation({
             pathElement,
             scrollerElement,
             wrapElement,
+            shouldRotateArrow,
         });
 
     const { title1parallax, title2parallax, title1tween, title2tween } =

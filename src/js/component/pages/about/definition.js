@@ -46,6 +46,10 @@ export const AboutComponent = createComponent(
                 value: false,
                 type: Boolean,
             }),
+            arrowShouldReverse: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
         child: [],
     })
