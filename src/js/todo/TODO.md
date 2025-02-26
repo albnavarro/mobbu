@@ -1,13 +1,10 @@
 # About:
-- Girare la freccia usando `.add()` sul sequencer del path
-- Navigazione stile `dot` per le 4 schermate.
 - Animare il titolo nero in entrata.
+- Suddividere il mob in parziali.
 
 # MobCore
 
-- In `mobJs` con queste modifiche aggiungere ai `tipi` `computed` per `bloccare` i tentativi di `set` epliciti su un `computed`.
-
-#### Computed
+### Computed
 - Usare `{ immediate: true }` come default ?
 
 ### DOCS
@@ -19,7 +16,10 @@
 
 # MobJs
 
-## Props ( export props )
+## Page transition.
+- Possibilitá di sovrascrivere le due funzioni per rotta.
+
+## Props ( export props ), da valutare ??
 - Prevedere che gli stati esportati all' interno del componente siano usati `readOnly`
 - Tenere conto del proxi.
 
@@ -28,16 +28,13 @@
 #### Use object
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
-### Quickset
+## Quickset
 - Aggiungere `Quickset`.
 
-### Debug
+## Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
 
-### Type
-- `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
-
-### Docs
+## Docs
 - In ognisezione corrispondente aggiungere glie sempi tipi.
     - `ReturnBindProps`.
     - `UseMethodByName` && `useMethodArrayByName`
@@ -47,6 +44,7 @@
 
 ### Parallax:
 - Rename in `HandleScroller`
+- `this.#motion=null` nel `destroy`
 
 ### AsyncTimeline
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.
