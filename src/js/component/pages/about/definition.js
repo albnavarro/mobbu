@@ -50,6 +50,14 @@ export const AboutComponent = createComponent(
                 value: false,
                 type: Boolean,
             }),
+            navItem: () => ({
+                value: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }],
+                type: Array,
+            }),
+            activenavItem: () => ({
+                value: -1,
+                type: Number,
+            }),
         },
         child: [],
     })

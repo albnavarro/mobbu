@@ -27260,7 +27260,8 @@ Loading snippet ...</pre
     pathElement,
     scrollerElement,
     wrapElement,
-    shouldRotateArrow
+    shouldRotateArrow,
+    setActiveItem
   }) => {
     const sequencerData = pathElement.map(() => {
       return {
@@ -27294,6 +27295,17 @@ Loading snippet ...</pre
     });
     pathSequencer.goTo({ ax: 10, ay: 43, dx: 51, dy: 50 }, { start: 0, end: 3.5 }).goTo({ bx: 68, by: 6, cx: 85, cy: 80 }, { start: 1, end: 3 }).goTo({ bx: 85, by: 10, dx: 30, dy: 90 }, { start: 4.5, end: 5.5 }).goTo({ ax: 8, ay: 25, cx: 45, cy: 55 }, { start: 3.5, end: 6.5 }).goTo({ ax: 38, ay: 45, cx: 85, cy: 42 }, { start: 8, end: 9 }).goTo({ bx: 53, by: 13, dx: 5, dy: 80 }, { start: 7.5, end: 10 }).add(({ direction: direction2 }) => {
       shouldRotateArrow(direction2 === "backward");
+    }, 1).add(() => {
+      setActiveItem(1);
+    }, 10).add(({ direction: direction2, isForced }) => {
+      if (isForced) return;
+      setActiveItem(direction2 === "backward" ? 2 : 1);
+    }, 8.5).add(({ direction: direction2, isForced }) => {
+      if (isForced) return;
+      setActiveItem(direction2 === "backward" ? 3 : 2);
+    }, 4.5).add(({ direction: direction2, isForced }) => {
+      if (isForced) return;
+      setActiveItem(direction2 === "backward" ? 4 : 3);
     }, 1);
     sequencerData.forEach((item) => {
       pathSequencer.subscribe(({ ax, ay, bx, by, cx, cy, dx, dy }) => {
@@ -27478,13 +27490,15 @@ Loading snippet ...</pre
     section3_title,
     section3_copy,
     inspirationItem,
-    shouldRotateArrow
+    shouldRotateArrow,
+    setActiveItem
   }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } = createPathAnimation({
       pathElement,
       scrollerElement,
       wrapElement,
-      shouldRotateArrow
+      shouldRotateArrow,
+      setActiveItem
     });
     const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({ title_1, title_2 });
     const {
@@ -27525,6 +27539,9 @@ Loading snippet ...</pre
       aboutScroller?.refresh?.();
     }, 500);
     return {
+      goTo: (value) => {
+        aboutScroller.move(value);
+      },
       destroy: () => {
         aboutScroller.destroy();
         pathSequencer.destroy();
@@ -27547,6 +27564,14 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/about/about.js
+  var _goTo = () => {
+  };
+  var goToPercentage = {
+    1: 0,
+    2: 25,
+    3: 65,
+    4: 100
+  };
   var AboutComponentFn = ({
     html,
     onMount,
@@ -27555,7 +27580,8 @@ Loading snippet ...</pre
     getRefs,
     getState,
     setState,
-    bindEffect
+    bindEffect,
+    delegateEvents
   }) => {
     const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 3;
@@ -27572,7 +27598,7 @@ Loading snippet ...</pre
         section3_copy
       } = getRef();
       const { inspirationItem, pathElement } = getRefs();
-      const { destroy: destroy2 } = aboutAnimation({
+      const { destroy: destroy2, goTo } = aboutAnimation({
         screenElement,
         scrollerElement,
         pathElement,
@@ -27586,12 +27612,18 @@ Loading snippet ...</pre
         inspirationItem,
         shouldRotateArrow: (value) => {
           setState("arrowShouldReverse", value);
+        },
+        setActiveItem: (value) => {
+          setState("activenavItem", value);
         }
       });
+      _goTo = goTo;
       setTimeout(() => {
         setState("isMounted", true);
       }, 500);
       return () => {
+        _goTo = () => {
+        };
         destroy2();
       };
     });
@@ -27733,6 +27765,35 @@ Loading snippet ...</pre
                 </section>
             </div>
         </div>
+        <ul class="l-about__nav">
+            ${getState().navItem.map(({ index }) => {
+      return (
+        /* HTML */
+        `
+                        <li class="l-about__nav__item">
+                            <button
+                                class="l-about__nav__button"
+                                ${delegateEvents({
+          click: () => {
+            _goTo(goToPercentage[index]);
+          }
+        })}
+                            >
+                                <span
+                                    class="l-about__nav__dot"
+                                    ${bindEffect({
+          bind: "activenavItem",
+          toggleClass: {
+            active: () => getState().activenavItem === index
+          }
+        })}
+                                ></span>
+                            </button>
+                        </li>
+                    `
+      );
+    }).join("")}
+        </ul>
     </div>`;
   };
 
@@ -27779,6 +27840,14 @@ Loading snippet ...</pre
         arrowShouldReverse: () => ({
           value: false,
           type: Boolean
+        }),
+        navItem: () => ({
+          value: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }],
+          type: Array
+        }),
+        activenavItem: () => ({
+          value: -1,
+          type: Number
         })
       },
       child: []

@@ -18,6 +18,7 @@ export const aboutAnimation = ({
     section3_copy,
     inspirationItem,
     shouldRotateArrow,
+    setActiveItem,
 }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
         createPathAnimation({
@@ -25,6 +26,7 @@ export const aboutAnimation = ({
             scrollerElement,
             wrapElement,
             shouldRotateArrow,
+            setActiveItem,
         });
 
     const { title1parallax, title2parallax, title1tween, title2tween } =
@@ -78,6 +80,9 @@ export const aboutAnimation = ({
     }, 500);
 
     return {
+        goTo: (value) => {
+            aboutScroller.move(value);
+        },
         destroy: () => {
             aboutScroller.destroy();
             pathSequencer.destroy();

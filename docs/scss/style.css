@@ -1425,6 +1425,43 @@ code * {
 .l-about__shape--back {
   background: rgba(0, 0, 0, 0.05);
 }
+.l-about__nav {
+  position: absolute;
+  bottom: 1.3333333333rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  font-weight: 800;
+}
+.l-about__nav__item {
+  margin-inline: 0;
+}
+.l-about__nav__button {
+  display: inline-block;
+  width: 1.6666666667rem;
+  height: 2rem;
+  background: transparent;
+  border: 0;
+}
+.l-about__nav__button:hover span {
+  background: #000;
+}
+.l-about__nav__dot {
+  display: block;
+  width: 0.5333333333rem;
+  height: 0.5333333333rem;
+  background: #eee;
+  border: 0;
+  transition: scale 0.35s, background 0.35s;
+  border-radius: 100%;
+}
+.l-about__nav__dot.active {
+  background: #000;
+  scale: 1.5;
+}
 .l-links {
   position: relative;
   overflow: hidden;

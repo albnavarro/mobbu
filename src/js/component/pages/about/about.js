@@ -5,6 +5,17 @@
 import { Triangles } from '../../common/scrollToTop/triangles';
 import { aboutAnimation } from './animation';
 
+/** @type{(value: number) => void} */
+let _goTo = () => {};
+
+/** @type{Record<number, number>} */
+const goToPercentage = {
+    1: 0,
+    2: 25,
+    3: 65,
+    4: 100,
+};
+
 /** @type {MobComponent<import('./type').About>} */
 export const AboutComponentFn = ({
     html,
@@ -15,6 +26,7 @@ export const AboutComponentFn = ({
     getState,
     setState,
     bindEffect,
+    delegateEvents,
 }) => {
     const { block_1, block_2, block_3, block_4 } = getState();
     const numberOfSection = 3;
@@ -34,7 +46,7 @@ export const AboutComponentFn = ({
 
         const { inspirationItem, pathElement } = getRefs();
 
-        const { destroy } = aboutAnimation({
+        const { destroy, goTo } = aboutAnimation({
             screenElement,
             scrollerElement,
             pathElement,
@@ -49,7 +61,15 @@ export const AboutComponentFn = ({
             shouldRotateArrow: (value) => {
                 setState('arrowShouldReverse', value);
             },
+            setActiveItem: (value) => {
+                setState('activenavItem', value);
+            },
         });
+
+        /**
+         * Transfer goTo reference to _goTo that is visible by DOM element.
+         */
+        _goTo = goTo;
 
         /**
          * Stagger start later, so show path in background later.
@@ -59,6 +79,7 @@ export const AboutComponentFn = ({
         }, 500);
 
         return () => {
+            _goTo = () => {};
             destroy();
         };
     });
@@ -200,5 +221,35 @@ export const AboutComponentFn = ({
                 </section>
             </div>
         </div>
+        <ul class="l-about__nav">
+            ${getState()
+                .navItem.map(({ index }) => {
+                    return /* HTML */ `
+                        <li class="l-about__nav__item">
+                            <button
+                                class="l-about__nav__button"
+                                ${delegateEvents({
+                                    click: () => {
+                                        _goTo(goToPercentage[index]);
+                                    },
+                                })}
+                            >
+                                <span
+                                    class="l-about__nav__dot"
+                                    ${bindEffect({
+                                        bind: 'activenavItem',
+                                        toggleClass: {
+                                            active: () =>
+                                                getState().activenavItem ===
+                                                index,
+                                        },
+                                    })}
+                                ></span>
+                            </button>
+                        </li>
+                    `;
+                })
+                .join('')}
+        </ul>
     </div>`;
 };

@@ -11,6 +11,7 @@ export const createPathAnimation = ({
     scrollerElement,
     wrapElement,
     shouldRotateArrow,
+    setActiveItem,
 }) => {
     /**
      * Data
@@ -56,6 +57,7 @@ export const createPathAnimation = ({
      * The senquencer is inverted.
      * start from 10.
      * Use `fromTo` in scrolltrigger to reverse direction.
+     * Purtroppo l'ho pensato al contrario, pace.
      */
     pathSequencer
         .goTo({ ax: 10, ay: 43, dx: 51, dy: 50 }, { start: 0, end: 3.5 })
@@ -66,6 +68,21 @@ export const createPathAnimation = ({
         .goTo({ bx: 53, by: 13, dx: 5, dy: 80 }, { start: 7.5, end: 10 })
         .add(({ direction }) => {
             shouldRotateArrow(direction === 'backward');
+        }, 1)
+        .add(() => {
+            setActiveItem(1);
+        }, 10)
+        .add(({ direction, isForced }) => {
+            if (isForced) return;
+            setActiveItem(direction === 'backward' ? 2 : 1);
+        }, 8.5)
+        .add(({ direction, isForced }) => {
+            if (isForced) return;
+            setActiveItem(direction === 'backward' ? 3 : 2);
+        }, 4.5)
+        .add(({ direction, isForced }) => {
+            if (isForced) return;
+            setActiveItem(direction === 'backward' ? 4 : 3);
         }, 1);
 
     sequencerData.forEach((item) => {

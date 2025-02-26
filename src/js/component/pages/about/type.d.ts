@@ -25,6 +25,8 @@ export interface About {
         };
         isMounted: boolean;
         arrowShouldReverse: boolean;
+        navItem: { index: number }[];
+        activenavItem: number;
     };
     ref: {
         screenElement: HTMLElement;
@@ -54,7 +56,9 @@ export type AboutScroller = (arg0: {
     section3_copy: HTMLElement;
     inspirationItem: HTMLElement[];
     shouldRotateArrow: (value: boolean) => void;
+    setActiveItem: (value: number) => void;
 }) => {
+    goTo: (value: number) => void;
     destroy: () => void;
 };
 
@@ -63,6 +67,7 @@ export type CreatePathAnimation = (ar0: {
     pathElement: HTMLSpanElement[];
     wrapElement: HTMLElement;
     shouldRotateArrow: (value: boolean) => void;
+    setActiveItem: (value: number) => void;
 }) => {
     pathScroller: ParallaxClass;
     pathSequencer: HandleSequencer;

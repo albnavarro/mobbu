@@ -204,4 +204,51 @@
             background: rgba($black, 0.05);
         }
     }
+
+    &__nav {
+        position: absolute;
+        bottom: rem(20);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 11;
+        display: flex;
+        list-style: none;
+        padding-left: 0;
+        font-weight: 800;
+
+        &__item {
+            margin-inline: 0;
+        }
+
+        &__button {
+            display: inline-block;
+            width: rem(25);
+            height: rem(30);
+            background: transparent;
+            border: 0;
+
+            &:hover {
+                span {
+                    background: $black;
+                }
+            }
+        }
+
+        &__dot {
+            display: block;
+            width: rem(8);
+            height: rem(8);
+            background: $grey;
+            border: 0;
+            transition:
+                scale 0.35s,
+                background 0.35s;
+            border-radius: 100%;
+
+            &.active {
+                background: $black;
+                scale: 1.5;
+            }
+        }
+    }
 }
