@@ -42,12 +42,6 @@
 
 # Mob motion
 
-### Parallax:
-- Rename in `HandleScroller`
-- `this.#motion=null` nel `destroy`
-- Clean code: `this.#computeValue` puo/dovrebbe essere chiamato detntro `this.#noEasingRender` come avviene per `#smoothParallaxJs`.
-- `#smoothParallaxJs()` vá rinominato in `#easeRender()` per uniformitá.
-
 ### AsyncTimeline
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.
 - Possibilita di loppare tra label-start e label-end.
