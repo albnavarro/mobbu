@@ -1,5 +1,5 @@
-import { springChoiceConfig, springProps } from '../spring/type';
-import { easeTypes, tweenCommonProps } from '../tween/type';
+import { SpringChoiceConfig, SpringProps } from '../spring/type';
+import { EaseTypes, TweenCommonProps } from '../tween/type';
 import {
     directionTypeAsync,
     directionTypeObjectLoop,
@@ -40,10 +40,10 @@ export interface asyncTimelineType {
 }
 
 export interface asyncTimelineTypeSpecialProps {
-    ease?: easeTypes;
+    ease?: EaseTypes;
     duration?: number;
-    config?: springChoiceConfig;
-    configProps?: springProps;
+    config?: SpringChoiceConfig;
+    configProps?: SpringProps;
     precision?: number;
     velocity?: number;
     reverse?: boolean;
@@ -56,7 +56,7 @@ export interface asyncTimelineTween {
     getId: () => string;
     set: (
         arg0: Record<string, number | (() => number)>,
-        ar1?: tweenCommonProps
+        ar1?: TweenCommonProps
     ) => Promise<any>;
     goTo: () => Promise<any>;
     goFromTo: () => Promise<any>;

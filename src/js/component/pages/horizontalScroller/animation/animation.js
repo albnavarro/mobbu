@@ -3,7 +3,7 @@ import { mobCore } from '../../../../mobCore';
 import { outerWidth } from '../../../../mobCore/utils';
 import { scroller } from '../../../../mobMotion';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import ParallaxClass from '../../../../mobMotion/animation/parallax/parallax';
+import HandleScroller from '../../../../mobMotion/animation/scroller/HandleScroller';
 import { HorizontalScroller } from '../../../../mobMotion/plugin';
 
 let sideWidth = 0;
@@ -12,7 +12,7 @@ let sideWidth = 0;
  * @param {object} params
  * @param {HTMLElement[]} params.indicators
  * @param {import('../../../../mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
- * @returns {ParallaxClass[]}
+ * @returns {HandleScroller[]}
  */
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
@@ -53,7 +53,7 @@ const createPins = ({ indicators, setState }) => {
 
 /**
  * @param {object} params
- * @param {ParallaxClass[]} params.pins
+ * @param {HandleScroller[]} params.pins
  */
 const refreshPins = ({ pins }) => {
     pins.forEach((pin) => pin.refresh());
@@ -62,7 +62,7 @@ const refreshPins = ({ pins }) => {
 /**
  * @param {object} params
  * @param {HTMLElement[]} params.titles
- * @returns {ParallaxClass[]}
+ * @returns {HandleScroller[]}
  */
 const createParallax = ({ titles }) => {
     return [...titles].map((title) => {

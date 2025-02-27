@@ -1,6 +1,6 @@
 import HandleAsyncTimeline from '../../../mobMotion/animation/asyncTimeline/handleAsyncTimeline';
-import ParallaxClass from '../../../mobMotion/animation/parallax/parallax';
-import ParallaxTween from '../../../mobMotion/animation/parallax/parallaxTween';
+import HandleScroller from '../../../mobMotion/animation/scroller/HandleScroller';
+import ParallaxTween from '../../../mobMotion/animation/scroller/parallaxTween';
 import HandleMasterSequencer from '../../../mobMotion/animation/sequencer/handleMasterSequencer';
 import HandleSequencer from '../../../mobMotion/animation/sequencer/handleSequencer';
 import HandleTween from '../../../mobMotion/animation/tween/handleTween';
@@ -69,7 +69,7 @@ export type CreatePathAnimation = (ar0: {
     shouldRotateArrow: (value: boolean) => void;
     setActiveItem: (value: number) => void;
 }) => {
-    pathScroller: ParallaxClass;
+    pathScroller: HandleScroller;
     pathSequencer: HandleSequencer;
     pathTween: HandleTween;
     pathTimeline: HandleAsyncTimeline;
@@ -80,8 +80,8 @@ export type AboutSection1 = (arg0: {
     title_1: HTMLElement;
     title_2: HTMLElement;
 }) => {
-    title1parallax: ParallaxClass;
-    title2parallax: ParallaxClass;
+    title1parallax: HandleScroller;
+    title2parallax: HandleScroller;
     title1tween: ParallaxTween;
     title2tween: ParallaxTween;
 };
@@ -90,13 +90,13 @@ export type AboutSection2 = (arg0: {
     title: HTMLElement;
     copy: HTMLElement;
 }) => {
-    sectionContentScroller: ParallaxClass;
+    sectionContentScroller: HandleScroller;
     sectionContentSequencer: HandleSequencer;
 };
 
 export type InspirationAnimation = (ar0: {
     inspirationItem: HTMLElement[];
 }) => {
-    inspirationScroller: ParallaxClass;
+    inspirationScroller: HandleScroller;
     masterSequencer: HandleMasterSequencer;
 };
