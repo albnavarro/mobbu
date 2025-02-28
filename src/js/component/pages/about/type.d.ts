@@ -1,6 +1,6 @@
 import HandleAsyncTimeline from '../../../mobMotion/animation/asyncTimeline/handleAsyncTimeline';
 import HandleScroller from '../../../mobMotion/animation/scroller/HandleScroller';
-import ParallaxTween from '../../../mobMotion/animation/scroller/parallaxTween';
+import HandleScrollerTween from '../../../mobMotion/animation/scroller/HandleTweenTween';
 import HandleMasterSequencer from '../../../mobMotion/animation/sequencer/handleMasterSequencer';
 import HandleSequencer from '../../../mobMotion/animation/sequencer/handleSequencer';
 import HandleTween from '../../../mobMotion/animation/tween/handleTween';
@@ -82,8 +82,8 @@ export type AboutSection1 = (arg0: {
 }) => {
     title1parallax: HandleScroller;
     title2parallax: HandleScroller;
-    title1tween: ParallaxTween;
-    title2tween: ParallaxTween;
+    title1tween: HandleScrollerTween;
+    title2tween: HandleScrollerTween;
 };
 
 export type AboutSection2 = (arg0: {
