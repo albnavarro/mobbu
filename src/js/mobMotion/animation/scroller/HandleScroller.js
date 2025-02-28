@@ -1806,7 +1806,10 @@ export default class HandleScroller {
     }
 
     /**
-     *
+     * @param {object} params
+     * @param {boolean} [ params.forceRender ]
+     * @param {boolean} [ params.parentIsMoving ]
+     * @returns {void}
      */
     #noEasingRender({ forceRender = false, parentIsMoving = false } = {}) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
