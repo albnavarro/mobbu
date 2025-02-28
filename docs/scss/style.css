@@ -1512,13 +1512,14 @@ code * {
   display: flex;
   position: absolute;
   padding-top: calc(var(--scroller-height) * 0.5);
-  cursor: grabbing;
   z-index: 2;
+}
+.l-links__scroller.use-drag-cursor {
+  cursor: grabbing;
 }
 .l-links__arrow {
   position: absolute;
   z-index: 10;
-  display: block;
   width: 1.3333333333rem;
   height: 1.3333333333rem;
   border-top: 3px #000 solid;
@@ -1526,6 +1527,10 @@ code * {
   left: calc(100vw - 6.6666666667rem);
   bottom: 2.6666666667rem;
   transform: rotate(45deg);
+  display: none;
+}
+.l-links__arrow.active {
+  display: block;
 }
 .l-links__triangle-1 {
   position: absolute;
@@ -1556,6 +1561,10 @@ code * {
   bottom: 2.6666666667rem;
   left: 2.6666666667rem;
   z-index: 2;
+  display: none;
+}
+.l-links__scroll.active {
+  display: block;
 }
 .l-links__list {
   list-style-type: none;

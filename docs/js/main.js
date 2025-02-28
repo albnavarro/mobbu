@@ -23864,11 +23864,11 @@
      */
     #onUpdateCallback;
     /**
-     * @type {() => void}
+     * @type {(arg0: { shouldScroll: boolean }) => void}
      */
     #onAfterRefresh;
     /**
-     * @type {() => void}
+     * @type {(arg0: { shouldScroll: boolean }) => void}
      */
     #afterInit;
     /**
@@ -24051,6 +24051,15 @@
     }
     /**
      * @description
+     * Check if is scrollable
+     *
+     * @type {() => boolean}
+     */
+    #getScrollableStatus() {
+      return this.#maxValue > 0;
+    }
+    /**
+     * @description
      * Initialize insatance
      *
      * @example
@@ -24143,7 +24152,9 @@
       mobCore.useFrameIndex(() => {
         mobCore.useNextTick(() => {
           if (this.#isDestroyed) return;
-          this.#afterInit?.();
+          this.#afterInit?.({
+            shouldScroll: this.#getScrollableStatus()
+          });
           this.#children.forEach((element) => {
             element.refresh();
           });
@@ -24430,7 +24441,9 @@
       this.#setScrolerStyle();
       mobCore.useFrameIndex(() => {
         mobCore.useNextTick(() => {
-          this.#onAfterRefresh?.();
+          this.#onAfterRefresh?.({
+            shouldScroll: this.#getScrollableStatus()
+          });
           this.#children.forEach((element) => {
             element.refresh();
           });
@@ -27093,14 +27106,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/layoutLinks/animation/linksScroller.js
-  var linksScroller = ({ screenElement, scrollerElement }) => {
+  var linksScroller = ({
+    screenElement,
+    scrollerElement,
+    hideControls
+  }) => {
     const scroller2 = new SmoothScroller({
       screen: screenElement,
       scroller: scrollerElement,
       direction: "horizontal",
       drag: true,
       easeType: "lerp",
-      breakpoint: "small"
+      breakpoint: "small",
+      afterInit: ({ shouldScroll }) => {
+        hideControls(shouldScroll);
+      },
+      afterRefresh: ({ shouldScroll }) => {
+        hideControls(shouldScroll);
+      }
     });
     scroller2.init();
     return {
@@ -27123,7 +27146,13 @@ Loading snippet ...</pre
     const { title, items } = getState();
     onMount(() => {
       const { screenElement, scrollerElement } = getRef();
-      const { destroy: destroy2 } = linksScroller({ screenElement, scrollerElement });
+      const { destroy: destroy2 } = linksScroller({
+        screenElement,
+        scrollerElement,
+        hideControls: (value) => {
+          setState("showControls", value);
+        }
+      });
       setTimeout(() => {
         setState("isMounted", true);
       }, 500);
@@ -27134,7 +27163,15 @@ Loading snippet ...</pre
     return html`<div class="l-links">
         <div class="l-links__triangle-1">${Triangles}</div>
         <div class="l-links__triangle-2">${Triangles}</div>
-        <span class="l-links__arrow"></span>
+        <span
+            class="l-links__arrow"
+            ${bindEffect({
+      bind: "showControls",
+      toggleClass: {
+        active: () => getState().showControls
+      }
+    })}
+        ></span>
         <div
             class="l-links__back-title is-white"
             ${bindEffect({
@@ -27151,7 +27188,16 @@ Loading snippet ...</pre
                 <div class="l-links__title">
                     <h1 class="title-big">${title}</h1>
                 </div>
-                <div class="l-links__scroller" ${setRef("scrollerElement")}>
+                <div
+                    class="l-links__scroller"
+                    ${setRef("scrollerElement")}
+                    ${bindEffect({
+      bind: "showControls",
+      toggleClass: {
+        "use-drag-cursor": () => getState().showControls
+      }
+    })}
+                >
                     <ul class="l-links__list">
                         ${items.map((item) => {
       return (
@@ -27171,7 +27217,17 @@ Loading snippet ...</pre
                     </ul>
                 </div>
             </div>
-            <h6 class="l-links__scroll">Scroll or drag</h6>
+            <h6
+                class="l-links__scroll"
+                ${bindEffect({
+      bind: "showControls",
+      toggleClass: {
+        active: () => getState().showControls
+      }
+    })}
+            >
+                Scroll or drag
+            </h6>
         </div>
     </div>`;
   };
@@ -27193,6 +27249,10 @@ Loading snippet ...</pre
           type: Array
         }),
         isMounted: () => ({
+          value: false,
+          type: Boolean
+        }),
+        showControls: () => ({
           value: false,
           type: Boolean
         })

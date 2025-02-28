@@ -1,7 +1,11 @@
 import { SmoothScroller } from '../../../../mobMotion/plugin';
 
 /** @type{import("../type").LinksScroller} */
-export const linksScroller = ({ screenElement, scrollerElement }) => {
+export const linksScroller = ({
+    screenElement,
+    scrollerElement,
+    hideControls,
+}) => {
     const scroller = new SmoothScroller({
         screen: screenElement,
         scroller: scrollerElement,
@@ -9,6 +13,12 @@ export const linksScroller = ({ screenElement, scrollerElement }) => {
         drag: true,
         easeType: 'lerp',
         breakpoint: 'small',
+        afterInit: ({ shouldScroll }) => {
+            hideControls(shouldScroll);
+        },
+        afterRefresh: ({ shouldScroll }) => {
+            hideControls(shouldScroll);
+        },
     });
 
     scroller.init();

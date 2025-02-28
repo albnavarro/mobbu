@@ -61,14 +61,16 @@
         display: flex;
         position: absolute;
         padding-top: calc(var(--scroller-height) * 0.5);
-        cursor: grabbing;
         z-index: 2;
+
+        &.use-drag-cursor {
+            cursor: grabbing;
+        }
     }
 
     &__arrow {
         position: absolute;
         z-index: 10;
-        display: block;
         width: rem(20);
         height: rem(20);
         border-top: 3px $black solid;
@@ -76,6 +78,11 @@
         left: calc(100vw - #{rem(100)});
         bottom: rem(40);
         transform: rotate(45deg);
+        display: none;
+
+        &.active {
+            display: block;
+        }
     }
 
     &__triangle-1 {
@@ -111,6 +118,11 @@
         bottom: rem(40);
         left: rem(40);
         z-index: 2;
+        display: none;
+
+        &.active {
+            display: block;
+        }
     }
 
     &__list {

@@ -26,6 +26,10 @@ export const LayoutLinks = createComponent(
                 value: false,
                 type: Boolean,
             }),
+            showControls: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
         child: [],
     })

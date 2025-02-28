@@ -6,6 +6,7 @@ export interface LayoutLinks {
             url: string;
         }[];
         isMounted: boolean;
+        showControls: boolean;
     };
     ref: {
         screenElement: HTMLElement;
@@ -16,6 +17,7 @@ export interface LayoutLinks {
 type LinksScroller = (arg0: {
     screenElement: HTMLElement;
     scrollerElement: HTMLElement;
+    hideControls: (boolean) => void;
 }) => {
     destroy: () => void;
 };
