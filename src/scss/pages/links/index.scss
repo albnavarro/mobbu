@@ -29,28 +29,40 @@
         }
     }
 
+    &__title {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-120%);
+        padding-left: calc(var(--header-height) / 2);
+    }
+
     &__grid {
         display: grid;
-        grid-template-rows: repeat(2, 1fr);
         height: var(--scroller-height);
     }
 
     &__row {
         width: 100%;
         overflow: hidden;
+        position: relative;
 
-        &--top {
-            grid-row: 1 / span 1;
-            align-content: end;
-            padding-bottom: rem(20);
-            padding-left: rem(40);
-        }
-
-        &--bottom {
-            grid-row: 2 / span 1;
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 50% 0 0;
             background: $white;
-            filter: drop-shadow(-7px -4px 29px rgba($black, 0.1));
+            z-index: 1;
         }
+    }
+
+    &__scroller {
+        width: auto;
+        max-width: none;
+        display: flex;
+        position: absolute;
+        padding-top: calc(var(--scroller-height) * 0.5);
+        cursor: grabbing;
+        z-index: 2;
     }
 
     &__arrow {
@@ -101,16 +113,6 @@
         z-index: 2;
     }
 
-    &__scroller {
-        width: auto;
-        max-width: none;
-        display: flex;
-        position: absolute;
-        left: calc(var(--header-height) / 2);
-        height: calc(var(--scroller-height) * 0.5);
-        cursor: grabbing;
-    }
-
     &__list {
         list-style-type: none;
         display: grid;
@@ -118,10 +120,10 @@
         gap: rem(20);
         margin: 0;
         padding-top: rem(40);
-        padding-left: 0;
+        padding-left: calc(var(--header-height) / 2);
         padding-right: rem(400);
         min-width: calc(100vw - var(--footer-height) / 2);
-        height: rem(200);
+        height: 100%;
 
         &__item {
             width: rem(400);

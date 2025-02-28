@@ -49,13 +49,10 @@ export const LayoutLinksFn = ({
             ${title}
         </div>
         <div class="l-links__grid">
-            <div class="l-links__row l-links__row--top">
-                <h1 class="title-big">${title}</h1>
-            </div>
-            <div
-                class="l-links__row l-links__row--bottom"
-                ${setRef('screenElement')}
-            >
+            <div class="l-links__row l-links__row" ${setRef('screenElement')}>
+                <div class="l-links__title">
+                    <h1 class="title-big">${title}</h1>
+                </div>
                 <div class="l-links__scroller" ${setRef('scrollerElement')}>
                     <ul class="l-links__list">
                         ${items
