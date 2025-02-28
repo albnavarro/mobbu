@@ -1,12 +1,170 @@
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { BindEffect, DelegateEvents, GetState, MobComponent, SetRef } from '../../../mobjs/type';
  **/
 
+import { html } from '../../../mobjs';
 import { Triangles } from '../../common/scrollToTop/triangles';
 import { aboutAnimation } from './animation';
 
 /** @type{(value: number) => void} */
 let _goTo = () => {};
+
+/**
+ * @param {object} params
+ * @param {SetRef<import('./type').About>} params.setRef
+ * @param {GetState<import('./type').About>} params.getState
+ */
+const block01 = ({ setRef, getState }) => {
+    const { titleTop, titleBottom } = getState().block_1;
+
+    return html`
+        <section
+            class="l-about__section l-about__section l-about__section--first "
+        >
+            <div class="l-about__section__top has-overflow">
+                <h1 class="title-big" ${setRef('title_1')}>${titleTop}</h1>
+            </div>
+            <div class="l-about__section__bottom has-overflow">
+                <h1 class="title-big" ${setRef('title_2')}>${titleBottom}</h1>
+            </div>
+        </section>
+    `;
+};
+
+/**
+ * @param {object} params
+ * @param {SetRef<import('./type').About>} params.setRef
+ * @param {GetState<import('./type').About>} params.getState
+ */
+const block02 = ({ setRef, getState }) => {
+    const { title, copy } = getState().block_2;
+
+    return html`
+        <section class="l-about__section">
+            <div class="l-about__section__top has-overflow">
+                <div class="l-about__section__left"></div>
+                <div class="l-about__section__right">
+                    <h1 class="title-big" ${setRef('section2_title')}>
+                        ${title}
+                    </h1>
+                </div>
+            </div>
+            <div class="l-about__section__bottom has-overflow">
+                <div class="l-about__section__right">
+                    <p
+                        class="l-about__section__copy paragraph-big"
+                        ${setRef('section2_copy')}
+                    >
+                        ${copy}
+                    </p>
+                </div>
+            </div>
+        </section>
+    `;
+};
+
+/**
+ * @param {object} params
+ * @param {SetRef<import('./type').About>} params.setRef
+ * @param {GetState<import('./type').About>} params.getState
+ */
+const block03 = ({ setRef, getState }) => {
+    const { title, copy } = getState().block_3;
+
+    return html`
+        <section class="l-about__section">
+            <div class="l-about__section__top has-overflow">
+                <div class="l-about__section__left"></div>
+                <div class="l-about__section__right">
+                    <h1 class="title-big" ${setRef('section3_title')}>
+                        ${title}
+                    </h1>
+                </div>
+            </div>
+            <div class="l-about__section__bottom has-overflow">
+                <div class="l-about__section__right">
+                    <p
+                        class="l-about__section__copy paragraph-big"
+                        ${setRef('section3_copy')}
+                    >
+                        ${copy}
+                    </p>
+                </div>
+            </div>
+        </section>
+    `;
+};
+
+/**
+ * @param {object} params
+ * @param {SetRef<import('./type').About>} params.setRef
+ * @param {GetState<import('./type').About>} params.getState
+ */
+const block04 = ({ setRef, getState }) => {
+    const { title, items } = getState().block_4;
+
+    return html`
+        <section class="l-about__section l-about__section--last">
+            <div class="l-about__section__top has-overflow">
+                <h1 class="title-big" ${setRef('section3_title')}>${title}</h1>
+            </div>
+            <div class="l-about__section__bottom">
+                <ul class="l-about__list">
+                    ${items
+                        .map((item) => {
+                            return /* HTML */ `
+                                <li ${setRef('inspirationItem')}>${item}</li>
+                            `;
+                        })
+                        .join('')}
+                </ul>
+            </div>
+        </section>
+    `;
+};
+
+/**
+ * @param {object} params
+ * @param {GetState<import('./type').About>} params.getState
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {BindEffect<import('./type').About>} params.bindEffect
+ */
+const navigation = ({ getState, delegateEvents, bindEffect }) => {
+    const { navItem } = getState();
+
+    return html`
+        <ul class="l-about__nav">
+            ${navItem
+                .map(({ index }) => {
+                    return /* HTML */ `
+                        <li class="l-about__nav__item">
+                            <button
+                                class="l-about__nav__button"
+                                ${delegateEvents({
+                                    click: () => {
+                                        _goTo(goToPercentage[index]);
+                                    },
+                                })}
+                            >
+                                <span
+                                    class="l-about__nav__dot"
+                                    ${bindEffect({
+                                        bind: 'activenavItem',
+                                        toggleClass: {
+                                            active: () =>
+                                                getState().activenavItem ===
+                                                index,
+                                        },
+                                    })}
+                                ></span>
+                            </button>
+                        </li>
+                    `;
+                })
+                .join('')}
+        </ul>
+    `;
+};
 
 /** @type{Record<number, number>} */
 const goToPercentage = {
@@ -28,7 +186,7 @@ export const AboutComponentFn = ({
     bindEffect,
     delegateEvents,
 }) => {
-    const { block_1, block_2, block_3, block_4 } = getState();
+    const { block_1 } = getState();
     const numberOfSection = 3;
 
     onMount(() => {
@@ -145,111 +303,12 @@ export const AboutComponentFn = ({
         <h6 class="l-about__scroll">Scroll or drag</h6>
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
-                <section
-                    class="l-about__section l-about__section l-about__section--first "
-                >
-                    <div class="l-about__section__top has-overflow">
-                        <h1 class="title-big" ${setRef('title_1')}>
-                            ${block_1.titleTop}
-                        </h1>
-                    </div>
-                    <div class="l-about__section__bottom has-overflow">
-                        <h1 class="title-big" ${setRef('title_2')}>
-                            ${block_1.titleBottom}
-                        </h1>
-                    </div>
-                </section>
-                <section class="l-about__section">
-                    <div class="l-about__section__top has-overflow">
-                        <div class="l-about__section__left"></div>
-                        <div class="l-about__section__right">
-                            <h1 class="title-big" ${setRef('section2_title')}>
-                                ${block_2.title}
-                            </h1>
-                        </div>
-                    </div>
-                    <div class="l-about__section__bottom has-overflow">
-                        <div class="l-about__section__right">
-                            <p
-                                class="l-about__section__copy paragraph-big"
-                                ${setRef('section2_copy')}
-                            >
-                                ${block_2.copy}
-                            </p>
-                        </div>
-                    </div>
-                </section>
-                <section class="l-about__section">
-                    <div class="l-about__section__top has-overflow">
-                        <div class="l-about__section__left"></div>
-                        <div class="l-about__section__right">
-                            <h1 class="title-big" ${setRef('section3_title')}>
-                                ${block_3.title}
-                            </h1>
-                        </div>
-                    </div>
-                    <div class="l-about__section__bottom has-overflow">
-                        <div class="l-about__section__right">
-                            <p
-                                class="l-about__section__copy paragraph-big"
-                                ${setRef('section3_copy')}
-                            >
-                                ${block_3.copy}
-                            </p>
-                        </div>
-                    </div>
-                </section>
-                <section class="l-about__section l-about__section--last">
-                    <div class="l-about__section__top has-overflow">
-                        <h1 class="title-big" ${setRef('section3_title')}>
-                            ${block_4.title}
-                        </h1>
-                    </div>
-                    <div class="l-about__section__bottom">
-                        <ul class="l-about__list">
-                            ${block_4.items
-                                .map((item) => {
-                                    return /* HTML */ `
-                                        <li ${setRef('inspirationItem')}>
-                                            ${item}
-                                        </li>
-                                    `;
-                                })
-                                .join('')}
-                        </ul>
-                    </div>
-                </section>
+                ${block01({ setRef, getState })}
+                ${block02({ setRef, getState })}
+                ${block03({ setRef, getState })}
+                ${block04({ setRef, getState })}
             </div>
         </div>
-        <ul class="l-about__nav">
-            ${getState()
-                .navItem.map(({ index }) => {
-                    return /* HTML */ `
-                        <li class="l-about__nav__item">
-                            <button
-                                class="l-about__nav__button"
-                                ${delegateEvents({
-                                    click: () => {
-                                        _goTo(goToPercentage[index]);
-                                    },
-                                })}
-                            >
-                                <span
-                                    class="l-about__nav__dot"
-                                    ${bindEffect({
-                                        bind: 'activenavItem',
-                                        toggleClass: {
-                                            active: () =>
-                                                getState().activenavItem ===
-                                                index,
-                                        },
-                                    })}
-                                ></span>
-                            </button>
-                        </li>
-                    `;
-                })
-                .join('')}
-        </ul>
+        ${navigation({ bindEffect, delegateEvents, getState })}
     </div>`;
 };
