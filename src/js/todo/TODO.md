@@ -1,10 +1,7 @@
-# About:
-- Animare il titolo nero in entrata.
-- Suddividere il mob in parziali.
-
 # MobCore
 
 ### Computed
+- Abilitare i `computed` in `bindStore`.
 - Usare `{ immediate: true }` come default ?
 
 ### DOCS
