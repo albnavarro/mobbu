@@ -98,8 +98,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "classList": "use-black"
+                "tag": "h3"
             },
             "content": "Async:"
         },
@@ -107,7 +106,6 @@
             "component": "mob-list",
             "props": {
                 "dots": false,
-                "block": true,
                 "items": [
                     "<a href='./#mobMotion-tween-spring-lerp'>Tween/Spring/Lerp</a>",
                     "<a href='./#mobMotion-async-timeline'>Async timeline</a>"
@@ -157,7 +155,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
+                "style": "medium",
                 "id": "sync",
                 "label": "Sync"
             }
@@ -165,8 +163,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "classList": "use-black"
+                "tag": "h3"
             },
             "content": "Sync:"
         },
@@ -174,7 +171,6 @@
             "component": "mob-list",
             "props": {
                 "dots": false,
-                "block": true,
                 "items": [
                     "<a href='./#mobMotion-sequencer'>Sequencer ( sync tween )</a>",
                     "<a href='./#mobMotion-create-stagger'>Create Stagger</a>",
@@ -227,7 +223,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
+                "style": "medium",
                 "id": "stagger",
                 "label": "Stagger"
             }
@@ -235,23 +231,28 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "classList": "use-black"
+                "tag": "h3"
             },
             "content": "Stagger:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Common utility for sync and Async animation"
         },
         {
             "component": "mob-list",
             "props": {
                 "dots": false,
-                "block": true,
                 "items": ["<a href='./#mobMotion-stagger'>Stagger</a>"]
             }
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
+                "style": "medium",
                 "id": "defaults",
                 "label": "Defaults"
             }
@@ -259,8 +260,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "classList": "use-black"
+                "tag": "h3"
             },
             "content": "Defaults:"
         },
@@ -269,7 +269,6 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
-                "block": true,
                 "items": ["<a href='./#mobMotion-defaults'>Defaults</a>"]
             }
         },

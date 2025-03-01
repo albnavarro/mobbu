@@ -8,32 +8,12 @@
 import { html } from '../../../../mobjs';
 
 /**
- * @param {number} index
- * @returns { string }
- */
-const getCounter = (index) => (index < 10 ? `0${index}` : `${index}`);
-
-/**
  * @param {object} params
  * @param {string[]} params.items
- * @param {boolean} params.useBlock
  * @returns {string}
  */
-const getList = ({ items, useBlock }) => {
-    return useBlock
-        ? items
-              .map(
-                  (item, index) => html`
-                      <li>
-                          <span class="use-block-counter"
-                              >${getCounter(index + 1)}</span
-                          >
-                          ${item}
-                      </li>
-                  `
-              )
-              .join('')
-        : items.map((item) => html` <li>${item}</li> `).join('');
+const getList = ({ items }) => {
+    return items.map((item) => html` <li>${item}</li> `).join('');
 };
 
 /** @type {MobComponent<List>} */
@@ -47,6 +27,6 @@ export const ListFn = ({ html, getState }) => {
     return html`<ul
         class="ul ul--${style} ${colorClass} ${dotsClass} ${blockClass}"
     >
-        ${getList({ items, useBlock: block })}
+        ${getList({ items })}
     </ul>`;
 };

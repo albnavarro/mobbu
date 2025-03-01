@@ -493,6 +493,13 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Component function params:"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "id": "primary",
@@ -502,8 +509,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "classList": "use-black"
+                "tag": "h4"
             },
             "content": "Fundamental params:"
         },
@@ -512,7 +518,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "block": false,
                 "items": [
                     "<a href='./#mobJs-html'>html</a>",
                     "<a href='./#mobJs-onMount'>onMount/Destroy</a>",
@@ -545,8 +551,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "classList": "use-black"
+                "tag": "h4"
             },
             "content": "Render Blocks"
         },
@@ -555,7 +560,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "block": false,
                 "items": [
                     "<a href='./#mobJs-runtime'>renderComponent</a>",
                     "<a href='./#mobJs-invalidate'>invalidate</a>",
@@ -574,8 +579,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "classList": "use-black"
+                "tag": "h4"
             },
             "content": "Static params:"
         },
@@ -584,7 +588,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "block": false,
                 "items": [
                     "<a href='./#mobJs-instanceName'>InstanceName</a>",
                     "<a href='./#mobJs-class-list'>ClassList</a>",
@@ -602,8 +606,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "classList": "use-black"
+                "tag": "h4"
             },
             "content": "Utils params:"
         },
@@ -612,7 +615,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "block": false,
                 "items": [
                     "<a href='./#mobJs-unBind'>unBind</a>",
                     "<a href='./#mobJs-emit'>emit</a>",
@@ -638,8 +641,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "classList": "use-black"
+                "tag": "h3"
             },
             "content": "Traversal operation"
         },
@@ -648,7 +650,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "block": false,
                 "items": [
                     "<a href='./#mobJs-setStateByName'>setStateByName</a>",
                     "<a href='./#mobJs-updateStateByName'>updateStateByName</a>",
