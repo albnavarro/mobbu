@@ -256,7 +256,9 @@ export const AboutComponentFn = ({
         >
             ${block_1.titleTop}
         </div>
-        <span class="l-about__background"></span>
+        <span class="l-about__background">
+            <div class="l-about__top-title">${block_1.titleTop}</div>
+        </span>
         <div
             class="l-about__shape l-about__shape--back"
             ${setRef('pathElement')}

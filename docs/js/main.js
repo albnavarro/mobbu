@@ -586,7 +586,9 @@ Loading snippet ...</pre
         >
             ${p.titleTop}
         </div>
-        <span class="l-about__background"></span>
+        <span class="l-about__background">
+            <div class="l-about__top-title">${p.titleTop}</div>
+        </span>
         <div
             class="l-about__shape l-about__shape--back"
             ${r("pathElement")}
