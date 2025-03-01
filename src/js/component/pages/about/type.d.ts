@@ -24,7 +24,6 @@ export interface About {
             items: string[];
         };
         isMounted: boolean;
-        arrowShouldReverse: boolean;
         navItem: { index: number }[];
         activenavItem: number;
     };
@@ -55,7 +54,6 @@ export type AboutScroller = (arg0: {
     section3_title: HTMLElement;
     section3_copy: HTMLElement;
     inspirationItem: HTMLElement[];
-    shouldRotateArrow: (value: boolean) => void;
     setActiveItem: (value: number) => void;
 }) => {
     goTo: (value: number) => void;
@@ -66,7 +64,6 @@ export type CreatePathAnimation = (ar0: {
     scrollerElement: HTMLElement;
     pathElement: HTMLSpanElement[];
     wrapElement: HTMLElement;
-    shouldRotateArrow: (value: boolean) => void;
     setActiveItem: (value: number) => void;
 }) => {
     pathScroller: HandleScroller;

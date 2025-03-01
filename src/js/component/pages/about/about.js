@@ -9,6 +9,14 @@ import { aboutAnimation } from './animation';
 /** @type{(value: number) => void} */
 let _goTo = () => {};
 
+/** @type{Record<number, number>} */
+const goToPercentage = {
+    1: 0,
+    2: 25,
+    3: 65,
+    4: 100,
+};
+
 /**
  * @param {object} params
  * @param {SetRef<import('./type').About>} params.setRef
@@ -166,14 +174,6 @@ const navigation = ({ getState, delegateEvents, bindEffect }) => {
     `;
 };
 
-/** @type{Record<number, number>} */
-const goToPercentage = {
-    1: 0,
-    2: 25,
-    3: 65,
-    4: 100,
-};
-
 /** @type {MobComponent<import('./type').About>} */
 export const AboutComponentFn = ({
     html,
@@ -183,6 +183,7 @@ export const AboutComponentFn = ({
     getRefs,
     getState,
     setState,
+    updateState,
     bindEffect,
     delegateEvents,
 }) => {
@@ -216,9 +217,6 @@ export const AboutComponentFn = ({
             section3_title,
             section3_copy,
             inspirationItem,
-            shouldRotateArrow: (value) => {
-                setState('arrowShouldReverse', value);
-            },
             setActiveItem: (value) => {
                 setState('activenavItem', value);
             },
@@ -289,15 +287,42 @@ export const AboutComponentFn = ({
                 },
             })}
         ></div>
-        <span
-            class="l-about__arrow"
+        <button
+            type="button"
+            class="l-about__arrow l-about__arrow--prev"
             ${bindEffect({
-                bind: 'arrowShouldReverse',
+                bind: 'activenavItem',
                 toggleClass: {
-                    reverse: () => getState().arrowShouldReverse,
+                    active: () => getState().activenavItem > 1,
                 },
             })}
-        ></span>
+            ${delegateEvents({
+                click: () => {
+                    updateState('activenavItem', (value) => value - 1);
+                    _goTo(goToPercentage[getState().activenavItem]);
+                },
+            })}
+        >
+            <span></span>
+        </button>
+        <button
+            type="button"
+            class="l-about__arrow l-about__arrow--next"
+            ${bindEffect({
+                bind: 'activenavItem',
+                toggleClass: {
+                    active: () => getState().activenavItem < 4,
+                },
+            })}
+            ${delegateEvents({
+                click: () => {
+                    updateState('activenavItem', (value) => value + 1);
+                    _goTo(goToPercentage[getState().activenavItem]);
+                },
+            })}
+        >
+            <span></span>
+        </button>
         <div class="l-about__triangle-1">${Triangles}</div>
         <div class="l-about__triangle-2">${Triangles}</div>
         <h6 class="l-about__scroll">Scroll or drag</h6>

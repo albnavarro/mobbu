@@ -42,15 +42,6 @@ export const LayoutLinksFn = ({
     return html`<div class="l-links">
         <div class="l-links__triangle-1">${Triangles}</div>
         <div class="l-links__triangle-2">${Triangles}</div>
-        <span
-            class="l-links__arrow"
-            ${bindEffect({
-                bind: 'showControls',
-                toggleClass: {
-                    active: () => getState().showControls,
-                },
-            })}
-        ></span>
         <div
             class="l-links__back-title is-white"
             ${bindEffect({

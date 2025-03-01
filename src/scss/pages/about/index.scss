@@ -49,18 +49,48 @@
     &__arrow {
         position: absolute;
         display: block;
-        width: rem(20);
-        height: rem(20);
-        border-top: 3px $black solid;
-        border-right: 3px $black solid;
-        right: rem(20);
-        top: 50%;
-        transform: translateY(-50%) rotate(45deg);
+        width: rem(40);
+        height: rem(40);
+        left: 50%;
+        bottom: rem(15);
         z-index: 11;
-        transition: transform 0.55s;
+        background: transparent;
+        opacity: 0.1;
+        transition: opacity 0.35s;
+        pointer-events: none;
+        border: 0;
+        transform: translateX(-50%);
 
-        &.reverse {
-            transform: translateY(-50%) rotate(-135deg);
+        &.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        &--prev {
+            transform: translate(calc(#{rem(100)} * -1), -50%);
+
+            span {
+                transform: translate(-50%, -50%) rotate(-135deg);
+            }
+        }
+
+        &--next {
+            transform: translate(#{rem(60)}, -50%);
+
+            span {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+        }
+
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 25%;
+            height: 25%;
+            border-top: 3px $black solid;
+            border-right: 3px $black solid;
+            display: block;
         }
     }
 
@@ -214,6 +244,7 @@
         display: flex;
         list-style: none;
         padding-left: 0;
+        margin-left: 0;
         font-weight: 800;
 
         &__item {

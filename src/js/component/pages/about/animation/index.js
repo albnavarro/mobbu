@@ -17,7 +17,6 @@ export const aboutAnimation = ({
     section3_title,
     section3_copy,
     inspirationItem,
-    shouldRotateArrow,
     setActiveItem,
 }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
@@ -25,7 +24,6 @@ export const aboutAnimation = ({
             pathElement,
             scrollerElement,
             wrapElement,
-            shouldRotateArrow,
             setActiveItem,
         });
 

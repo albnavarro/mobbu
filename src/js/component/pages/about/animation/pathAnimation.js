@@ -10,7 +10,6 @@ export const createPathAnimation = ({
     pathElement,
     scrollerElement,
     wrapElement,
-    shouldRotateArrow,
     setActiveItem,
 }) => {
     /**
@@ -66,9 +65,6 @@ export const createPathAnimation = ({
         .goTo({ ax: 8, ay: 25, cx: 45, cy: 55 }, { start: 3.5, end: 6.5 })
         .goTo({ ax: 38, ay: 45, cx: 85, cy: 42 }, { start: 8, end: 9 })
         .goTo({ bx: 53, by: 13, dx: 5, dy: 80 }, { start: 7.5, end: 10 })
-        .add(({ direction }) => {
-            shouldRotateArrow(direction === 'backward');
-        }, 1)
         .add(() => {
             setActiveItem(1);
         }, 10)

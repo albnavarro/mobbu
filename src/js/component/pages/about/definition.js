@@ -1,6 +1,7 @@
 //@ts-check
 
 import { createComponent } from '../../../mobjs';
+import { motionCore } from '../../../mobMotion';
 import { AboutComponentFn } from './about';
 
 /**
@@ -46,10 +47,6 @@ export const AboutComponent = createComponent(
                 value: false,
                 type: Boolean,
             }),
-            arrowShouldReverse: () => ({
-                value: false,
-                type: Boolean,
-            }),
             navItem: () => ({
                 value: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }],
                 type: Array,
@@ -57,6 +54,9 @@ export const AboutComponent = createComponent(
             activenavItem: () => ({
                 value: -1,
                 type: Number,
+                transform: (value) => {
+                    return motionCore.clamp(value, 1, 4);
+                },
             }),
         },
         child: [],
