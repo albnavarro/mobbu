@@ -4,11 +4,13 @@
     position: relative;
     overflow: hidden;
 
+    $self: &;
+
     --scroller-height: calc(
         100vh - var(--header-height) - var(--footer-height)
     );
 
-    &__back-title {
+    &__under {
         font-size: rem(300);
         opacity: 0;
         position: absolute;
@@ -29,6 +31,21 @@
         }
     }
 
+    &__over {
+        font-size: rem(300);
+        opacity: 0.025;
+        position: absolute;
+        left: calc(#{rem(100)} * -1);
+        top: calc(#{rem(110)} * -1);
+        transform: rotateX(180deg);
+        text-transform: uppercase;
+        font-weight: 800;
+        text-wrap: nowrap;
+        mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+        line-height: 1;
+        margin: 0;
+    }
+
     &__title {
         position: absolute;
         top: 50%;
@@ -46,12 +63,12 @@
         overflow: hidden;
         position: relative;
 
-        &::before {
-            content: '';
+        &__white {
             position: absolute;
             inset: 50% 0 0;
             background: $white;
             z-index: 1;
+            overflow: hidden;
         }
     }
 
@@ -70,7 +87,7 @@
 
     &__scroll {
         position: absolute;
-        bottom: rem(40);
+        bottom: calc((var(--scroller-height) * 0.5) + #{rem(70)});
         left: rem(40);
         z-index: 2;
         display: none;
@@ -84,17 +101,13 @@
         list-style-type: none;
         display: grid;
         grid-template-rows: repeat(2, 1fr);
-        gap: rem(20);
         margin: 0;
-        padding-top: rem(40);
-        padding-left: calc(var(--header-height) / 2);
-        padding-right: rem(400);
+        padding-left: 0;
         min-width: calc(100vw - var(--footer-height) / 2);
-        height: 100%;
+        height: calc(var(--scroller-height) * 0.5 + 1px);
 
         &__item {
             width: rem(400);
-            height: rem(100);
 
             &:nth-child(odd) {
                 grid-row: 1 / span 1;
@@ -107,7 +120,6 @@
 
         &__link {
             height: 100%;
-            background: $grey-light;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -117,6 +129,8 @@
                 background 0.55s,
                 color 0.55s;
             text-transform: capitalize;
+            border-right: 1px $grey solid;
+            border-bottom: 1px $grey solid;
 
             &:hover {
                 background: $black;
@@ -125,6 +139,8 @@
 
             h6 {
                 pointer-events: none;
+                margin: 0;
+                font-weight: 400;
             }
         }
     }

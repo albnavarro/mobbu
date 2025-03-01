@@ -40,7 +40,7 @@ export const LayoutLinksFn = ({
 
     return html`<div class="l-links">
         <div
-            class="l-links__back-title is-white"
+            class="l-links__under is-white"
             ${bindEffect({
                 bind: 'isMounted',
                 toggleClass: {
@@ -52,6 +52,9 @@ export const LayoutLinksFn = ({
         </div>
         <div class="l-links__grid">
             <div class="l-links__row l-links__row" ${setRef('screenElement')}>
+                <div class="l-links__row__white">
+                    <h6 class="l-links__over is-black">${title}</h6>
+                </div>
                 <div class="l-links__title">
                     <h1 class="title-big">${title}</h1>
                 </div>
