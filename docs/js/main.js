@@ -27161,8 +27161,6 @@ Loading snippet ...</pre
       };
     });
     return html`<div class="l-links">
-        <div class="l-links__triangle-1">${Triangles}</div>
-        <div class="l-links__triangle-2">${Triangles}</div>
         <div
             class="l-links__back-title is-white"
             ${bindEffect({

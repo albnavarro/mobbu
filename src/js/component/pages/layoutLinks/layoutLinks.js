@@ -1,4 +1,3 @@
-import { Triangles } from '../../common/scrollToTop/triangles';
 import { linksScroller } from './animation/linksScroller';
 
 /**
@@ -40,8 +39,6 @@ export const LayoutLinksFn = ({
     });
 
     return html`<div class="l-links">
-        <div class="l-links__triangle-1">${Triangles}</div>
-        <div class="l-links__triangle-2">${Triangles}</div>
         <div
             class="l-links__back-title is-white"
             ${bindEffect({
