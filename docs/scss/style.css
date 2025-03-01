@@ -1589,6 +1589,12 @@ code * {
 .l-links__list__item:nth-child(even) {
   grid-row: 2/span 1;
 }
+.l-links__list__counter {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 0.7333333333rem;
+}
 .l-links__list__link {
   height: 100%;
   display: flex;
@@ -1600,6 +1606,7 @@ code * {
   text-transform: capitalize;
   border-right: 1px #eee solid;
   border-bottom: 1px #eee solid;
+  position: relative;
 }
 .l-links__list__link:hover {
   background: #000;

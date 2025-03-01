@@ -1,6 +1,11 @@
 import { linksScroller } from './animation/linksScroller';
 
 /**
+ * @param {number} index
+ * @returns { string }
+ */
+const getCounter = (index) => (index < 10 ? `0${index}` : `${index}`);
+/**
  * @import { MobComponent } from '../../../mobjs/type';
  **/
 
@@ -70,13 +75,16 @@ export const LayoutLinksFn = ({
                 >
                     <ul class="l-links__list">
                         ${items
-                            .map((item) => {
+                            .map((item, index) => {
                                 return /* HTML */ `
                                     <li class="l-links__list__item">
                                         <a
                                             class="l-links__list__link"
                                             href="${item.url}"
                                         >
+                                            <span class="l-links__list__counter"
+                                                >${getCounter(index)}</span
+                                            >
                                             <h6>${item.title}</h6>
                                         </a>
                                     </li>

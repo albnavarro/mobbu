@@ -118,6 +118,13 @@
             }
         }
 
+        &__counter {
+            position: absolute;
+            top: rem(15);
+            left: rem(15);
+            font-size: rem(11);
+        }
+
         &__link {
             height: 100%;
             display: flex;
@@ -131,6 +138,7 @@
             text-transform: capitalize;
             border-right: 1px $grey solid;
             border-bottom: 1px $grey solid;
+            position: relative;
 
             &:hover {
                 background: $black;

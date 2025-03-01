@@ -27134,6 +27134,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/layoutLinks/layoutLinks.js
+  var getCounter = (index) => index < 10 ? `0${index}` : `${index}`;
   var LayoutLinksFn = ({
     html,
     getState,
@@ -27191,7 +27192,7 @@ Loading snippet ...</pre
     })}
                 >
                     <ul class="l-links__list">
-                        ${items.map((item) => {
+                        ${items.map((item, index) => {
       return (
         /* HTML */
         `
@@ -27200,6 +27201,9 @@ Loading snippet ...</pre
                                             class="l-links__list__link"
                                             href="${item.url}"
                                         >
+                                            <span class="l-links__list__counter"
+                                                >${getCounter(index)}</span
+                                            >
                                             <h6>${item.title}</h6>
                                         </a>
                                     </li>
@@ -37250,7 +37254,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/debugTreeItem.js
-  var getCounter = (value) => {
+  var getCounter2 = (value) => {
     return value > 0 ? `( ${value} ) ` : "";
   };
   var activeItemChildren = ({ id, value }) => {
@@ -37328,7 +37332,7 @@ Loading snippet ...</pre
             <span class="c-debug-tree-item__id">${id}</span> |
             <span class="c-debug-tree-item__component">${componentName}</span> |
             <span class="c-debug-tree-item__instance">${instanceName}</span>
-            <span>${getCounter(children.length)}</span>
+            <span>${getCounter2(children.length)}</span>
             <button
                 type="button"
                 class="c-debug-tree-item__expand"
