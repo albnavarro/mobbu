@@ -29,20 +29,6 @@
         }
     }
 
-    ul {
-        padding: 0;
-
-        &.use-block {
-            display: flex;
-            flex-wrap: wrap;
-        }
-    }
-
-    /* stylelint-disable-next-line no-descending-specificity */
-    li > a {
-        @include button;
-    }
-
     p,
     code,
     li,
@@ -50,6 +36,72 @@
     h5,
     h6 {
         margin-left: rem(10);
+    }
+
+    ul {
+        padding: 0;
+
+        .use-block-counter {
+            position: absolute;
+            top: rem(20);
+            left: rem(20);
+            font-size: rem(11);
+        }
+
+        &.use-block {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-top: 0;
+            margin-right: calc(#{rem(40)} * -1);
+            margin-left: calc(#{rem(40)} * -1);
+            background: $white;
+
+            @include mq('xlarge') {
+                margin-right: calc(#{rem(140, xlarge)} * -1);
+            }
+
+            li {
+                height: rem(200);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-right: 1px $grey solid;
+                border-bottom: 1px $grey solid;
+                margin: 0;
+                position: relative;
+                background: $white;
+                transition:
+                    background 0.55s,
+                    opacity 0.55s;
+                color: $black;
+
+                a {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                }
+
+                &:hover {
+                    background: $black;
+                    color: $white;
+
+                    a {
+                        color: $white;
+                    }
+                }
+            }
+        }
+
+        &:not(.use-block) {
+            /* stylelint-disable-next-line no-descending-specificity */
+            li > a {
+                @include button;
+            }
+        }
     }
 
     h1 {
@@ -94,6 +146,22 @@
         margin-bottom: rem(40);
         position: relative;
 
+        &.use-black {
+            background: $black;
+            color: $white;
+            margin-right: calc(#{rem(40)} * -1);
+            margin-left: calc(#{rem(40)} * -1);
+            padding-left: rem(40);
+            margin-bottom: 0;
+            padding-bottom: rem(10);
+            padding-top: rem(10);
+            font-size: rem(20);
+
+            @include mq('xlarge') {
+                margin-right: calc(#{rem(140, xlarge)} * -1);
+            }
+        }
+
         &::after {
             content: '';
             position: absolute;
@@ -120,6 +188,14 @@
             width: rem(30);
             height: 5px;
             background: $black;
+        }
+    }
+
+    h3,
+    h5 {
+        &.use-clean {
+            margin-bottom: 0;
+            border-bottom: 0;
         }
     }
 }

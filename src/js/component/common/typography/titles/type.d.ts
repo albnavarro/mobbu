@@ -3,5 +3,6 @@ export interface Title {
         tag: string;
         color: 'white' | 'hightlight' | 'black';
         isBold: boolean;
+        classList: string;
     };
 }

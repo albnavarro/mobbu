@@ -12,7 +12,7 @@ export const Title = createComponent(
     ({
         name: 'mob-title',
         component: TitleFn,
-        exportState: ['tag', 'color', 'isBold'],
+        exportState: ['tag', 'color', 'isBold', 'classList'],
         state: {
             tag: () => ({
                 value: 'h1',
@@ -28,6 +28,10 @@ export const Title = createComponent(
             isBold: () => ({
                 value: false,
                 type: Boolean,
+            }),
+            classList: () => ({
+                value: '',
+                type: String,
             }),
         },
     })

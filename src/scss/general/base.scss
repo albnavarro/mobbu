@@ -75,6 +75,16 @@ html {
     }
 }
 
+/**
+ * Esplcit box-sizing ( no inherit ).
+ * Solve web component box-sizing problem.
+ */
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
 body {
     // background: $grey-lightteen;
     background: radial-gradient(
@@ -93,16 +103,6 @@ body {
 
 #content {
     position: relative;
-}
-
-/**
- * Esplcit box-sizing ( no inherit ).
- * Solve web component box-sizing problem.
- */
-*,
-*::after,
-*::before {
-    box-sizing: border-box;
 }
 
 /**

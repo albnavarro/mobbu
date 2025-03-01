@@ -67,7 +67,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "classList": "use-black"
             },
             "content": "Main features:"
         },
@@ -76,6 +77,7 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
+                "block": true,
                 "items": [
                     "<a href='./#mobJs-initialization'>initialization</a>",
                     "<a href='./#mobJs-component'>Component</a>",
@@ -85,37 +87,6 @@
                     "<a href='./#mobJs-tick'>Tick</a>",
                     "<a href='./#mobJs-utils'>Utils</a>",
                     "<a href='./#mobJs-debug'>Debug</a>"
-                ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small",
-                "id": "real-world",
-                "label": "Real world example"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "Real world example"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "tag": "h3",
-                "dots": false,
-                "items": [
-                    "<a href='./#mobJs-debug-component'>Debug App Module</a>"
                 ]
             }
         },
