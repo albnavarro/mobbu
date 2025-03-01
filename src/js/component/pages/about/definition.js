@@ -52,7 +52,7 @@ export const AboutComponent = createComponent(
                 type: Array,
             }),
             activenavItem: () => ({
-                value: -1,
+                value: 1,
                 type: Number,
                 transform: (value) => {
                     return motionCore.clamp(value, 1, 4);
