@@ -1,10 +1,7 @@
 //@ts-check
 
 import { html } from '../../../mobjs';
-import {
-    resetQuickNavState,
-    updateQuickNavState,
-} from '../../common/quickNav/utils';
+import { updateQuickNavState } from '../../common/quickNav/utils';
 
 /**
  * @import { BindObject, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '../../../mobjs/type';
@@ -150,12 +147,11 @@ export const Move3DPagefn = ({
             active: true,
             prevRoute,
             nextRoute,
+            backRoute: '#plugin-overview',
             color: 'white',
         });
 
-        return () => {
-            resetQuickNavState();
-        };
+        return () => {};
     });
 
     return html`<div>

@@ -1,5 +1,6 @@
 import { AnyComponent } from '../../../component/common/AnyComponent/definition';
 import { Move3D } from '../../../component/common/Move3D/definition';
+import { updateQuickNavState } from '../../../component/common/quickNav/utils';
 import { html, staticProps, useComponent } from '../../../mobjs';
 import { parseSvg } from '../../../utils/parseSvg';
 import { loadTextContent } from '../../../utils/utils';
@@ -43,6 +44,15 @@ export const lettering01 = async () => {
             svg: lettering01,
             id: id,
         });
+    });
+
+    /** Quicknav */
+    updateQuickNavState({
+        active: true,
+        prevRoute: '',
+        nextRoute: '',
+        backRoute: '#svg-overview',
+        color: 'black',
     });
 
     return html`<div class="l-lettering01">

@@ -11,6 +11,7 @@ export const horizontalScroller = async () => {
                 animatePin: false,
                 prevRoute: '',
                 nextRoute: '#move3D-shape1',
+                backRoute: '#plugin-overview',
             })}
         ></horizontal-scroller>
     </div>`;

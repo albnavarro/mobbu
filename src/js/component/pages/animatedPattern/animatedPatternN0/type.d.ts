@@ -5,6 +5,7 @@ export interface AnimatedPatternN0 {
         isMounted: boolean;
         nextRoute: string;
         prevRoute: string;
+        backRoute: string;
         numberOfRow: number;
         numberOfColumn: number;
         cellWidth: number;

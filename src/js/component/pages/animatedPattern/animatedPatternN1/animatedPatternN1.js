@@ -7,10 +7,7 @@
 
 import { mobCore } from '../../../../mobCore';
 import { canvasBackground } from '../../../../utils/canvasUtils';
-import {
-    resetQuickNavState,
-    updateQuickNavState,
-} from '../../../common/quickNav/utils';
+import { updateQuickNavState } from '../../../common/quickNav/utils';
 import { animatedPatternN1Animation } from './animation/animation';
 
 /** @type {MobComponent<AnimatedPatternN1>} */
@@ -33,6 +30,7 @@ export const AnimatedPatternN1Fn = ({
             active: true,
             prevRoute: '#animatedPatternN0?version=3&activeId=3',
             nextRoute: '#scrollerN0?version=0&activeId=0',
+            backRoute: '#canvas-overview',
             color: 'black',
         });
 
@@ -46,7 +44,6 @@ export const AnimatedPatternN1Fn = ({
         });
 
         return () => {
-            resetQuickNavState();
             document.body.style.background = '';
             destroyAnimation();
         };

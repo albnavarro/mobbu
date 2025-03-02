@@ -7,10 +7,7 @@
 
 import { mobCore } from '../../../../mobCore';
 import { canvasBackground } from '../../../../utils/canvasUtils';
-import {
-    resetQuickNavState,
-    updateQuickNavState,
-} from '../../../common/quickNav/utils';
+import { updateQuickNavState } from '../../../common/quickNav/utils';
 import { caterpillarN0Animation } from './animation/animation';
 
 /** @type {MobComponent<CaterpillarN0>} */
@@ -33,6 +30,7 @@ export const CaterpillarN0Fn = ({
             active: true,
             prevRoute: '',
             nextRoute: '#caterpillarN1',
+            backRoute: '#canvas-overview',
             color: 'black',
         });
 
@@ -50,7 +48,6 @@ export const CaterpillarN0Fn = ({
 
         return () => {
             destroyAnimation();
-            resetQuickNavState();
             document.body.style.background = '';
         };
     });

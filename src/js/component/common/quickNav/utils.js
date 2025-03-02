@@ -13,6 +13,7 @@ export const updateQuickNavState = ({
     active = true,
     nextRoute = '',
     prevRoute = '',
+    backRoute = '',
     color = 'white',
 }) => {
     /** @type {SetStateByName<import('./type').QuickNav>} */
@@ -20,14 +21,6 @@ export const updateQuickNavState = ({
     setQuickNavState('active', active);
     setQuickNavState('nextRoute', nextRoute);
     setQuickNavState('prevRoute', prevRoute);
+    setQuickNavState('backRoute', backRoute);
     setQuickNavState('color', color);
-};
-
-export const resetQuickNavState = () => {
-    /** @type {SetStateByName<import('./type').QuickNav>} */
-    const setQuickNavState = setStateByName('quick_nav');
-    setQuickNavState('active', false);
-    setQuickNavState('nextRoute', '');
-    setQuickNavState('prevRoute', '');
-    setQuickNavState('color', 'white');
 };

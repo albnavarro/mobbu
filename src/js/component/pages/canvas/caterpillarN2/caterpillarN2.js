@@ -8,10 +8,7 @@
 import { mobCore } from '../../../../mobCore';
 import { html } from '../../../../mobjs';
 import { canvasBackground } from '../../../../utils/canvasUtils';
-import {
-    resetQuickNavState,
-    updateQuickNavState,
-} from '../../../common/quickNav/utils';
+import { updateQuickNavState } from '../../../common/quickNav/utils';
 import { caterpillarN2Animation } from './animation/animation';
 
 /**
@@ -57,6 +54,7 @@ export const CaterpillarN2Fn = ({
             active: true,
             prevRoute: '#caterpillarN1',
             nextRoute: '#animatedPatternN0?version=0&activeId=0',
+            backRoute: '#canvas-overview',
             color: 'black',
         });
 
@@ -97,7 +95,6 @@ export const CaterpillarN2Fn = ({
         });
 
         return () => {
-            resetQuickNavState();
             document.body.style.background = '';
             destroy();
         };

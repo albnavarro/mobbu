@@ -7,10 +7,7 @@
 
 import { mobCore } from '../../../../mobCore';
 import { canvasBackground } from '../../../../utils/canvasUtils';
-import {
-    resetQuickNavState,
-    updateQuickNavState,
-} from '../../../common/quickNav/utils';
+import { updateQuickNavState } from '../../../common/quickNav/utils';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
@@ -38,6 +35,7 @@ export const ScrollerN1Fn = ({
             active: true,
             prevRoute: '#scrollerN0?version=4&activeId=4',
             nextRoute: '',
+            backRoute: '#canvas-overview',
             color: 'black',
         });
 
@@ -59,7 +57,6 @@ export const ScrollerN1Fn = ({
         return () => {
             destroyAnimation();
             deactivateScrollDownArrow();
-            resetQuickNavState();
             document.body.style.background = '';
         };
     });

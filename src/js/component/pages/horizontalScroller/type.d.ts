@@ -2,6 +2,7 @@ export interface HorizontalScroller {
     state: {
         nextRoute: string;
         prevRoute: string;
+        backRoute: string;
         currentId: number;
         currentIdFromScroll: number;
         animatePin: boolean;

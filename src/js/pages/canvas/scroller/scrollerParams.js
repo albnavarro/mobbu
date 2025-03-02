@@ -4,6 +4,7 @@ export const scrollerParams = [
         nav: {
             prevRoute: '#animatedPatternN1',
             nextRoute: '#scrollerN0?version=1&activeId=1',
+            backRoute: '#canvas-overview',
         },
     },
     {
@@ -20,6 +21,7 @@ export const scrollerParams = [
         nav: {
             prevRoute: '#scrollerN0?version=0&activeId=0',
             nextRoute: '#scrollerN0?version=2&activeId=2',
+            backRoute: '#canvas-overview',
         },
     },
     {
@@ -35,6 +37,7 @@ export const scrollerParams = [
         nav: {
             prevRoute: '#scrollerN0?version=1&activeId=1',
             nextRoute: '#scrollerN0?version=3&activeId=3',
+            backRoute: '#canvas-overview',
         },
     },
     {
@@ -51,6 +54,7 @@ export const scrollerParams = [
         nav: {
             prevRoute: '#scrollerN0?version=2&activeId=2',
             nextRoute: '#scrollerN0?version=4&activeId=4',
+            backRoute: '#canvas-overview',
         },
     },
     {
@@ -66,6 +70,7 @@ export const scrollerParams = [
         nav: {
             prevRoute: '#scrollerN0?version=3&activeId=3',
             nextRoute: '#scrollerN1',
+            backRoute: '#canvas-overview',
         },
     },
 ];

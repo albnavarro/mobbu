@@ -7,10 +7,7 @@
 
 import { mobCore } from '../../../../mobCore';
 import { canvasBackground } from '../../../../utils/canvasUtils';
-import {
-    resetQuickNavState,
-    updateQuickNavState,
-} from '../../../common/quickNav/utils';
+import { updateQuickNavState } from '../../../common/quickNav/utils';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
@@ -27,7 +24,7 @@ export const ScrollerN0Fn = ({
     getRef,
     bindEffect,
 }) => {
-    const { prevRoute, nextRoute } = getState();
+    const { prevRoute, nextRoute, backRoute } = getState();
     document.body.style.background = canvasBackground;
 
     onMount(() => {
@@ -39,6 +36,7 @@ export const ScrollerN0Fn = ({
             active: true,
             prevRoute,
             nextRoute,
+            backRoute,
             color: 'black',
         });
 
@@ -65,7 +63,6 @@ export const ScrollerN0Fn = ({
         return () => {
             destroyAnimation();
             deactivateScrollDownArrow();
-            resetQuickNavState();
             document.body.style.background = '';
         };
     });

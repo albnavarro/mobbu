@@ -4,6 +4,7 @@ export const animatedPatternN0Params = [
         nav: {
             prevRoute: '#caterpillarN2',
             nextRoute: '#animatedPatternN0?version=1&activeId=1',
+            backRoute: '#canvas-overview',
         },
     },
     {
@@ -28,6 +29,7 @@ export const animatedPatternN0Params = [
         nav: {
             prevRoute: '#animatedPatternN0?version=0&activeId=0',
             nextRoute: '#animatedPatternN0?version=2&activeId=2',
+            backRoute: '#canvas-overview',
         },
     },
     {
@@ -51,6 +53,7 @@ export const animatedPatternN0Params = [
         nav: {
             prevRoute: '#animatedPatternN0?version=1&activeId=1',
             nextRoute: '#animatedPatternN0?version=3&activeId=3',
+            backRoute: '#canvas-overview',
         },
     },
     {
@@ -77,6 +80,7 @@ export const animatedPatternN0Params = [
         nav: {
             prevRoute: '#animatedPatternN0?version=2&activeId=2',
             nextRoute: '#animatedPatternN1',
+            backRoute: '#canvas-overview',
         },
     },
 ];

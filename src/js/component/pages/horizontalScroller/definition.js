@@ -17,6 +17,7 @@ export const HorizontalScroller = createComponent(
         exportState: [
             'nextRoute',
             'prevRoute',
+            'backRoute',
             'currentId',
             'currentIdFromScroll',
             'animatePin',
@@ -27,6 +28,10 @@ export const HorizontalScroller = createComponent(
                 type: String,
             }),
             prevRoute: () => ({
+                value: '',
+                type: String,
+            }),
+            backRoute: () => ({
                 value: '',
                 type: String,
             }),

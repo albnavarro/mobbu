@@ -16,12 +16,15 @@ export const animatedPatternN0 = ({ params }) => {
             )
         ];
 
+    console.log(props);
+
     return html`<div class="l-padding">
         <animatedpattern-n0
             ${staticProps({
                 ...props.animation,
                 prevRoute: props.nav.prevRoute,
                 nextRoute: props.nav.nextRoute,
+                backRoute: props.nav.backRoute,
             })}
         ></animatedpattern-n0>
     </div>`;

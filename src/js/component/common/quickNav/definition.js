@@ -12,7 +12,7 @@ export const QuickNav = createComponent(
     ({
         name: 'quick-nav',
         component: QuickNavFn,
-        exportState: ['color', 'active', 'prevRoute', 'nextRoute'],
+        exportState: ['color', 'active', 'prevRoute', 'nextRoute', 'backRoute'],
         state: {
             color: () => ({
                 value: 'white',
@@ -24,6 +24,10 @@ export const QuickNav = createComponent(
             active: () => ({
                 value: false,
                 type: Boolean,
+            }),
+            backRoute: () => ({
+                value: '',
+                type: String,
             }),
             prevRoute: () => ({
                 value: '',
