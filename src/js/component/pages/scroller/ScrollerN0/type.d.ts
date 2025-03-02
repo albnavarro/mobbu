@@ -3,9 +3,6 @@ import { StaggerObject } from '../../../../mobMotion/animation/utils/stagger/typ
 export interface ScrollerN0 {
     state: {
         isMounted: boolean;
-        nextRoute: string;
-        prevRoute: string;
-        backRoute: string;
         numberOfRow: number;
         numberOfColumn: number;
         cellWidth: number;

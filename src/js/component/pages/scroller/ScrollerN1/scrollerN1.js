@@ -7,7 +7,6 @@
 
 import { mobCore } from '../../../../mobCore';
 import { canvasBackground } from '../../../../utils/canvasUtils';
-import { updateQuickNavState } from '../../../common/quickNav/utils';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
@@ -29,15 +28,6 @@ export const ScrollerN1Fn = ({
     onMount(() => {
         /** Show scroll down label. */
         activateScrollDownArrow();
-
-        /** Quicknav */
-        updateQuickNavState({
-            active: true,
-            prevRoute: '#scrollerN0?version=4&activeId=4',
-            nextRoute: '',
-            backRoute: '#canvas-overview',
-            color: 'black',
-        });
 
         /**
          * Refs

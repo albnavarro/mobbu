@@ -8,7 +8,6 @@
 import { mobCore } from '../../../../mobCore';
 import { html } from '../../../../mobjs';
 import { canvasBackground } from '../../../../utils/canvasUtils';
-import { updateQuickNavState } from '../../../common/quickNav/utils';
 import { caterpillarN2Animation } from './animation/animation';
 
 /**
@@ -48,15 +47,6 @@ export const CaterpillarN2Fn = ({
 
     onMount(({ element }) => {
         const { canvas, rangeValue, rotationButton } = getRef();
-
-        /** Quicknav */
-        updateQuickNavState({
-            active: true,
-            prevRoute: '#caterpillarN1',
-            nextRoute: '#animatedPatternN0?version=0&activeId=0',
-            backRoute: '#canvas-overview',
-            color: 'black',
-        });
 
         /**
          * Inizializa animation and get anima methods.

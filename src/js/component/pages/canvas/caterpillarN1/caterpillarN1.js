@@ -7,7 +7,6 @@
 
 import { mobCore } from '../../../../mobCore';
 import { canvasBackground } from '../../../../utils/canvasUtils';
-import { updateQuickNavState } from '../../../common/quickNav/utils';
 import { caterpillarN1Animation } from './animation/animation';
 
 /** @type {MobComponent<CaterpillarN1>} */
@@ -24,15 +23,6 @@ export const CaterpillarN1Fn = ({
 
     onMount(() => {
         const { canvas } = getRef();
-
-        /** Quicknav */
-        updateQuickNavState({
-            active: true,
-            prevRoute: '#caterpillarN0',
-            nextRoute: '#caterpillarN2',
-            backRoute: '#canvas-overview',
-            color: 'black',
-        });
 
         const destroyAnimation = caterpillarN1Animation({
             canvas,

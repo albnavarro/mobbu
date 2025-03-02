@@ -1,3 +1,4 @@
+import { updateQuickNavState } from '../../../component/common/quickNav/utils';
 import { AnimatedPatternN0 } from '../../../component/pages/animatedPattern/animatedPatternN0/definition';
 import { html, staticProps, useComponent } from '../../../mobjs';
 import { animatedPatternN0Params } from './animatedPatternN0Params';
@@ -16,15 +17,19 @@ export const animatedPatternN0 = ({ params }) => {
             )
         ];
 
-    console.log(props);
+    /** Quicknav */
+    updateQuickNavState({
+        active: true,
+        prevRoute: props.nav.prevRoute,
+        nextRoute: props.nav.nextRoute,
+        backRoute: props.nav.backRoute,
+        color: 'black',
+    });
 
     return html`<div class="l-padding">
         <animatedpattern-n0
             ${staticProps({
                 ...props.animation,
-                prevRoute: props.nav.prevRoute,
-                nextRoute: props.nav.nextRoute,
-                backRoute: props.nav.backRoute,
             })}
         ></animatedpattern-n0>
     </div>`;

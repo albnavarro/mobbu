@@ -14,9 +14,6 @@ export const ScrollerN0 = createComponent(
         name: 'scroller-n0',
         component: ScrollerN0Fn,
         exportState: [
-            'nextRoute',
-            'prevRoute',
-            'backRoute',
             'numberOfRow',
             'numberOfColumn',
             'cellWidth',
@@ -29,18 +26,6 @@ export const ScrollerN0 = createComponent(
         ],
         state: {
             isMounted: false,
-            nextRoute: () => ({
-                value: '',
-                type: String,
-            }),
-            prevRoute: () => ({
-                value: '',
-                type: String,
-            }),
-            backRoute: () => ({
-                value: '',
-                type: String,
-            }),
             numberOfRow: () => ({
                 value: 10,
                 type: Number,

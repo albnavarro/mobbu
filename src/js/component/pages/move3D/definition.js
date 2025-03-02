@@ -51,14 +51,6 @@ export const Move3DPage = createComponent(
                 },
                 strict: true,
             }),
-            nextRoute: () => ({
-                value: '',
-                type: String,
-            }),
-            prevRoute: () => ({
-                value: '',
-                type: String,
-            }),
         },
         child: [Move3D],
     })

@@ -28905,6 +28905,22 @@ Loading snippet ...</pre
     return renderHtml`<div class="l-benchMark"><${rootComponent}></${rootComponent}></div>`;
   };
 
+  // src/js/component/common/quickNav/utils.js
+  var updateQuickNavState = ({
+    active = true,
+    nextRoute = "",
+    prevRoute = "",
+    backRoute = "",
+    color = "white"
+  }) => {
+    const setQuickNavState = setStateByName("quick_nav");
+    setQuickNavState("active", active);
+    setQuickNavState("nextRoute", nextRoute);
+    setQuickNavState("prevRoute", prevRoute);
+    setQuickNavState("backRoute", backRoute);
+    setQuickNavState("color", color);
+  };
+
   // src/js/utils/canvasUtils.js
   var canvasBackground = "#e8e8e8";
   var getCanvasContext = ({ disableOffcanvas }) => {
@@ -28998,22 +29014,6 @@ Loading snippet ...</pre
     numberOfRow
   }) => {
     return canvasHeight / 2 - (height + gutter) * (numberOfRow + 1) / 2 - height / 2;
-  };
-
-  // src/js/component/common/quickNav/utils.js
-  var updateQuickNavState = ({
-    active = true,
-    nextRoute = "",
-    prevRoute = "",
-    backRoute = "",
-    color = "white"
-  }) => {
-    const setQuickNavState = setStateByName("quick_nav");
-    setQuickNavState("active", active);
-    setQuickNavState("nextRoute", nextRoute);
-    setQuickNavState("prevRoute", prevRoute);
-    setQuickNavState("backRoute", backRoute);
-    setQuickNavState("color", color);
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN0/animation/animation.js
@@ -29218,17 +29218,9 @@ Loading snippet ...</pre
     getRef,
     bindEffect
   }) => {
-    const { prevRoute, nextRoute, backRoute } = getState();
     document.body.style.background = canvasBackground;
     onMount(() => {
       const { canvas } = getRef();
-      updateQuickNavState({
-        active: true,
-        prevRoute,
-        nextRoute,
-        backRoute,
-        color: "black"
-      });
       const destroyAnimation = animatedPatternN0Animation({
         canvas,
         ...getState()
@@ -29265,9 +29257,6 @@ Loading snippet ...</pre
       name: "animatedpattern-n0",
       component: AnimatedPatternN0Fn,
       exportState: [
-        "nextRoute",
-        "prevRoute",
-        "backRoute",
         "numberOfRow",
         "numberOfColumn",
         "cellWidth",
@@ -29280,18 +29269,6 @@ Loading snippet ...</pre
       ],
       state: {
         isMounted: false,
-        nextRoute: () => ({
-          value: "",
-          type: String
-        }),
-        prevRoute: () => ({
-          value: "",
-          type: String
-        }),
-        backRoute: () => ({
-          value: "",
-          type: String
-        }),
         numberOfRow: () => ({
           value: 10,
           type: Number
@@ -29480,14 +29457,17 @@ Loading snippet ...</pre
       0,
       Math.min(Number(version), animatedPatternN0Params.length - 1)
     )];
-    console.log(props);
+    updateQuickNavState({
+      active: true,
+      prevRoute: props.nav.prevRoute,
+      nextRoute: props.nav.nextRoute,
+      backRoute: props.nav.backRoute,
+      color: "black"
+    });
     return renderHtml`<div class="l-padding">
         <animatedpattern-n0
             ${staticProps({
-      ...props.animation,
-      prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute,
-      backRoute: props.nav.backRoute
+      ...props.animation
     })}
         ></animatedpattern-n0>
     </div>`;
@@ -29709,13 +29689,6 @@ Loading snippet ...</pre
     document.body.style.background = canvasBackground;
     onMount(() => {
       const { canvas } = getRef();
-      updateQuickNavState({
-        active: true,
-        prevRoute: "#animatedPatternN0?version=3&activeId=3",
-        nextRoute: "#scrollerN0?version=0&activeId=0",
-        backRoute: "#canvas-overview",
-        color: "black"
-      });
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
         ...getState()
@@ -29807,6 +29780,13 @@ Loading snippet ...</pre
   // src/js/pages/canvas/animatedPatternN1/index.js
   useComponent([AnimatedPatternN1]);
   var animatedPatternN1 = () => {
+    updateQuickNavState({
+      active: true,
+      prevRoute: "#animatedPatternN0?version=3&activeId=3",
+      nextRoute: "#scrollerN0?version=0&activeId=0",
+      backRoute: "#canvas-overview",
+      color: "black"
+    });
     return renderHtml`<div class="l-padding">
         <animatedpattern-n1></animatedpattern-n1>
     </div>`;
@@ -30012,13 +29992,6 @@ Loading snippet ...</pre
     document.body.style.background = canvasBackground;
     onMount(() => {
       const { canvas } = getRef();
-      updateQuickNavState({
-        active: true,
-        prevRoute: "",
-        nextRoute: "#caterpillarN1",
-        backRoute: "#canvas-overview",
-        color: "black"
-      });
       const destroyAnimation = caterpillarN0Animation({
         canvas,
         ...getState()
@@ -30102,6 +30075,13 @@ Loading snippet ...</pre
   // src/js/pages/canvas/caterpillarN0/index.js
   useComponent([CaterpillarN0]);
   var caterpillarN0 = () => {
+    updateQuickNavState({
+      active: true,
+      prevRoute: "",
+      nextRoute: "#caterpillarN1",
+      backRoute: "#canvas-overview",
+      color: "black"
+    });
     return renderHtml`<div class="l-padding">
         <caterpillar-n0></caterpillar-n0>
     </div>`;
@@ -30322,13 +30302,6 @@ Loading snippet ...</pre
     document.body.style.background = canvasBackground;
     onMount(() => {
       const { canvas } = getRef();
-      updateQuickNavState({
-        active: true,
-        prevRoute: "#caterpillarN0",
-        nextRoute: "#caterpillarN2",
-        backRoute: "#canvas-overview",
-        color: "black"
-      });
       const destroyAnimation = caterpillarN1Animation({
         canvas,
         ...getState()
@@ -30398,6 +30371,13 @@ Loading snippet ...</pre
   // src/js/pages/canvas/caterpillarN1/index.js
   useComponent([CaterpillarN1]);
   var caterpillarN1 = () => {
+    updateQuickNavState({
+      active: true,
+      prevRoute: "#caterpillarN0",
+      nextRoute: "#caterpillarN2",
+      backRoute: "#canvas-overview",
+      color: "black"
+    });
     return renderHtml`<div class="l-padding">
         <caterpillar-n1></caterpillar-n1>
     </div>`;
@@ -30630,13 +30610,6 @@ Loading snippet ...</pre
     document.body.style.background = canvasBackground;
     onMount(({ element }) => {
       const { canvas, rangeValue, rotationButton } = getRef();
-      updateQuickNavState({
-        active: true,
-        prevRoute: "#caterpillarN1",
-        nextRoute: "#animatedPatternN0?version=0&activeId=0",
-        backRoute: "#canvas-overview",
-        color: "black"
-      });
       const animationMethods = caterpillarN2Animation({
         canvas,
         ...getState()
@@ -30791,6 +30764,13 @@ Loading snippet ...</pre
   // src/js/pages/canvas/caterpillarN2/index.js
   useComponent([CaterpillarN2]);
   var caterpillarN2 = () => {
+    updateQuickNavState({
+      active: true,
+      prevRoute: "#caterpillarN1",
+      nextRoute: "#animatedPatternN0?version=0&activeId=0",
+      backRoute: "#canvas-overview",
+      color: "black"
+    });
     return renderHtml`<div class="l-padding">
         <caterpillar-n2></caterpillar-n2>
     </div>`;
@@ -31040,17 +31020,9 @@ Loading snippet ...</pre
     getRef,
     bindEffect
   }) => {
-    const { prevRoute, nextRoute, backRoute } = getState();
     document.body.style.background = canvasBackground;
     onMount(() => {
       activateScrollDownArrow();
-      updateQuickNavState({
-        active: true,
-        prevRoute,
-        nextRoute,
-        backRoute,
-        color: "black"
-      });
       const { canvas, canvasScroller } = getRef();
       window.scrollTo(0, 0);
       const destroyAnimation = scrollerN0Animation({
@@ -31092,9 +31064,6 @@ Loading snippet ...</pre
       name: "scroller-n0",
       component: ScrollerN0Fn,
       exportState: [
-        "nextRoute",
-        "prevRoute",
-        "backRoute",
         "numberOfRow",
         "numberOfColumn",
         "cellWidth",
@@ -31107,18 +31076,6 @@ Loading snippet ...</pre
       ],
       state: {
         isMounted: false,
-        nextRoute: () => ({
-          value: "",
-          type: String
-        }),
-        prevRoute: () => ({
-          value: "",
-          type: String
-        }),
-        backRoute: () => ({
-          value: "",
-          type: String
-        }),
         numberOfRow: () => ({
           value: 10,
           type: Number
@@ -31263,13 +31220,17 @@ Loading snippet ...</pre
   var scrollerN0 = ({ params }) => {
     const { version } = params;
     const props = scrollerParams[Math.max(0, Math.min(Number(version), scrollerParams.length - 1))];
+    updateQuickNavState({
+      active: true,
+      prevRoute: props.nav.prevRoute,
+      nextRoute: props.nav.nextRoute,
+      backRoute: props.nav.backRoute,
+      color: "black"
+    });
     return renderHtml`<div>
         <scroller-n0
             ${staticProps({
-      ...props.animation,
-      prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute,
-      backRoute: props.nav.backRoute
+      ...props.animation
     })}
         ></scroller-n0>
     </div>`;
@@ -31464,13 +31425,6 @@ Loading snippet ...</pre
     document.body.style.background = canvasBackground;
     onMount(() => {
       activateScrollDownArrow();
-      updateQuickNavState({
-        active: true,
-        prevRoute: "#scrollerN0?version=4&activeId=4",
-        nextRoute: "",
-        backRoute: "#canvas-overview",
-        color: "black"
-      });
       const { canvas, canvasScroller } = getRef();
       const destroyAnimation = scrollerN1Animation({
         canvas,
@@ -31540,6 +31494,13 @@ Loading snippet ...</pre
   // src/js/pages/canvas/scrollerN1/index.js
   useComponent([ScrollerN1]);
   var scrollerN1 = () => {
+    updateQuickNavState({
+      active: true,
+      prevRoute: "#scrollerN0?version=4&activeId=4",
+      nextRoute: "",
+      backRoute: "#canvas-overview",
+      color: "black"
+    });
     return renderHtml`<div class="l-padding">
         <scroller-n1></scroller-n1>
     </div>`;
@@ -33135,7 +33096,7 @@ Loading snippet ...</pre
     setRef,
     getRef
   }) => {
-    const { animatePin, prevRoute, nextRoute, backRoute } = getState();
+    const { animatePin } = getState();
     onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) return;
       const indicators = [...element.querySelectorAll(".js-indicator")];
@@ -33151,13 +33112,6 @@ Loading snippet ...</pre
         nav,
         ...getState(),
         setState
-      });
-      updateQuickNavState({
-        active: true,
-        prevRoute,
-        nextRoute,
-        backRoute,
-        color: "white"
       });
       window.scrollTo(0, 0);
       watch("currentId", (id) => {
@@ -33317,18 +33271,6 @@ Loading snippet ...</pre
         "animatePin"
       ],
       state: {
-        nextRoute: () => ({
-          value: "",
-          type: String
-        }),
-        prevRoute: () => ({
-          value: "",
-          type: String
-        }),
-        backRoute: () => ({
-          value: "",
-          type: String
-        }),
         currentId: () => ({
           value: 0,
           type: Number
@@ -33349,13 +33291,17 @@ Loading snippet ...</pre
   // src/js/pages/plugin/horizontalScroller/index.js
   useComponent([HorizontalScroller2]);
   var horizontalScroller = async () => {
+    updateQuickNavState({
+      active: true,
+      prevRoute: "",
+      nextRoute: "#move3D-shape1",
+      backRoute: "#plugin-overview",
+      color: "white"
+    });
     return renderHtml`<div>
         <horizontal-scroller
             ${staticProps({
-      animatePin: false,
-      prevRoute: "",
-      nextRoute: "#move3D-shape1",
-      backRoute: "#plugin-overview"
+      animatePin: false
     })}
         ></horizontal-scroller>
     </div>`;
@@ -34240,27 +34186,13 @@ Loading snippet ...</pre
     </div>`;
   };
   var Move3DPagefn = ({
-    onMount,
     html,
     bindProps,
-    getState,
     delegateEvents,
     bindObject,
     getProxi
   }) => {
-    const { prevRoute, nextRoute } = getState();
     const proxiState = getProxi();
-    onMount(() => {
-      updateQuickNavState({
-        active: true,
-        prevRoute,
-        nextRoute,
-        backRoute: "#plugin-overview",
-        color: "white"
-      });
-      return () => {
-      };
-    });
     return html`<div>
         ${getControls2({ delegateEvents, bindObject, proxiState })}
         <move-3d
@@ -34359,14 +34291,6 @@ Loading snippet ...</pre
             return value > 1;
           },
           strict: true
-        }),
-        nextRoute: () => ({
-          value: "",
-          type: String
-        }),
-        prevRoute: () => ({
-          value: "",
-          type: String
         })
       },
       child: [Move3D]
@@ -34377,9 +34301,14 @@ Loading snippet ...</pre
   useComponent([Move3DPage, StarSvg]);
   var move3DRoute = async ({ props }) => {
     const { data, prevRoute, nextRoute } = props;
-    return renderHtml`<move-3d-page
-        ${staticProps({ data, prevRoute, nextRoute })}
-    ></move-3d-page> `;
+    updateQuickNavState({
+      active: true,
+      prevRoute,
+      nextRoute,
+      backRoute: "#plugin-overview",
+      color: "white"
+    });
+    return renderHtml`<move-3d-page ${staticProps({ data })}></move-3d-page> `;
   };
 
   // src/js/component/common/Move3D/shape/shape1.js

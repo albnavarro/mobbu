@@ -10,7 +10,6 @@ import { offset, outerHeight } from '../../../mobCore/utils';
 import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
-import { updateQuickNavState } from '../../common/quickNav/utils';
 import { horizontalScrollerAnimation } from './animation/animation';
 
 /**
@@ -91,7 +90,7 @@ export const HorizontalScrollerFn = ({
     setRef,
     getRef,
 }) => {
-    const { animatePin, prevRoute, nextRoute, backRoute } = getState();
+    const { animatePin } = getState();
 
     onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) return;
@@ -109,15 +108,6 @@ export const HorizontalScrollerFn = ({
             nav,
             ...getState(),
             setState,
-        });
-
-        /** Quicknav */
-        updateQuickNavState({
-            active: true,
-            prevRoute,
-            nextRoute,
-            backRoute,
-            color: 'white',
         });
 
         /**

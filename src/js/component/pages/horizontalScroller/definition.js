@@ -23,18 +23,6 @@ export const HorizontalScroller = createComponent(
             'animatePin',
         ],
         state: {
-            nextRoute: () => ({
-                value: '',
-                type: String,
-            }),
-            prevRoute: () => ({
-                value: '',
-                type: String,
-            }),
-            backRoute: () => ({
-                value: '',
-                type: String,
-            }),
             currentId: () => ({
                 value: 0,
                 type: Number,

@@ -1,7 +1,6 @@
 //@ts-check
 
 import { html } from '../../../mobjs';
-import { updateQuickNavState } from '../../common/quickNav/utils';
 
 /**
  * @import { BindObject, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '../../../mobjs/type';
@@ -130,29 +129,13 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
 
 /** @type {MobComponent<import('./type').Move3DPage>} */
 export const Move3DPagefn = ({
-    onMount,
     html,
     bindProps,
-    getState,
     delegateEvents,
     bindObject,
     getProxi,
 }) => {
-    const { prevRoute, nextRoute } = getState();
     const proxiState = getProxi();
-
-    onMount(() => {
-        /** Quicknav */
-        updateQuickNavState({
-            active: true,
-            prevRoute,
-            nextRoute,
-            backRoute: '#plugin-overview',
-            color: 'white',
-        });
-
-        return () => {};
-    });
 
     return html`<div>
         ${getControls({ delegateEvents, bindObject, proxiState })}
