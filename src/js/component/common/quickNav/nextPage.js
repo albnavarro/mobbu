@@ -7,14 +7,14 @@
 
 // @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';
-import { mainStore } from '../../../mobjs';
+import { beforeRouteChange } from '../../../mobjs';
 
 /** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({ getState, setState, html, bindEffect }) => {
     /**
      * Reset.
      */
-    mainStore.watch('beforeRouteChange', () => {
+    beforeRouteChange(() => {
         setState('active', false);
         setState('nextRoute', '');
         setState('prevRoute', '');
