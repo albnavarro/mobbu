@@ -58,9 +58,13 @@ export const storeTest = () => {
         console.log('myComputed3', value);
     });
 
-    storeTest.computed('myComputed', ['prop'], ({ prop }) => {
-        return prop * 2;
-    });
+    storeTest.computed(
+        'myComputed',
+        ['prop', 'proxiProp'],
+        ({ prop, proxiProp }) => {
+            return prop * 2 + proxiProp;
+        }
+    );
 
     storeTest.computed('myComputed2', ['myComputed'], ({ myComputed }) => {
         return myComputed * 2;
@@ -68,9 +72,9 @@ export const storeTest = () => {
 
     storeTest.computed(
         'myComputed3',
-        ['myComputed2', 'prop', 'proxiProp'],
-        ({ myComputed2, prop, proxiProp }) => {
-            return myComputed2 * 2 + prop + proxiProp;
+        ['myComputed2', 'prop'],
+        ({ myComputed2, prop }) => {
+            return myComputed2 * 2 + prop;
         }
     );
 
@@ -87,7 +91,7 @@ export const storeTest = () => {
     console.log('paperino', storeTest.getProp('prop'));
 
     setInterval(() => {
-        // proxi.prop += 10;
-        // proxiBind.proxiProp += 2;
+        proxi.prop += 10;
+        proxiBind.proxiProp += 2;
     }, 1000);
 };

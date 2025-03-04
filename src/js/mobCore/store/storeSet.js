@@ -55,6 +55,7 @@ const setProp = ({
         validationStatusObject,
         skipEqual,
         callBackWatcher,
+        bindInstanceBy,
     } = state;
     const logStyle = getLogStyle();
 
@@ -140,6 +141,9 @@ const setProp = ({
         });
 
         addToComputedWaitLsit({ instanceId, prop });
+        bindInstanceBy.forEach((id) => {
+            addToComputedWaitLsit({ instanceId: id, prop });
+        });
     }
 
     return {
@@ -176,6 +180,7 @@ const setObj = ({
         validationStatusObject,
         skipEqual,
         callBackWatcher,
+        bindInstanceBy,
     } = state;
     const logStyle = getLogStyle();
 
@@ -368,6 +373,9 @@ const setObj = ({
         });
 
         addToComputedWaitLsit({ instanceId, prop });
+        bindInstanceBy.forEach((id) => {
+            addToComputedWaitLsit({ instanceId: id, prop });
+        });
     }
 
     return {

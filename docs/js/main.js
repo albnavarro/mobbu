@@ -2220,7 +2220,8 @@
       strict,
       validationStatusObject,
       skipEqual,
-      callBackWatcher
+      callBackWatcher,
+      bindInstanceBy
     } = state;
     const logStyle2 = getLogStyle();
     const isCustomObject = type[prop] === TYPE_IS_ANY;
@@ -2261,6 +2262,9 @@
         instanceId
       });
       addToComputedWaitLsit({ instanceId, prop });
+      bindInstanceBy.forEach((id) => {
+        addToComputedWaitLsit({ instanceId: id, prop });
+      });
     }
     return {
       ...state,
@@ -2284,7 +2288,8 @@
       fnValidate,
       validationStatusObject,
       skipEqual,
-      callBackWatcher
+      callBackWatcher,
+      bindInstanceBy
     } = state;
     const logStyle2 = getLogStyle();
     if (!storeType.isObject(val2)) {
@@ -2384,6 +2389,9 @@
         instanceId
       });
       addToComputedWaitLsit({ instanceId, prop });
+      bindInstanceBy.forEach((id) => {
+        addToComputedWaitLsit({ instanceId: id, prop });
+      });
     }
     return {
       ...state,
@@ -2804,7 +2812,7 @@
   var storeEmit = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
-    const { store, callBackWatcher, validationStatusObject } = state;
+    const { store, callBackWatcher, validationStatusObject, bindInstanceBy } = state;
     if (!store) return;
     if (prop in store) {
       runCallbackQueqe({
@@ -2816,6 +2824,9 @@
         instanceId
       });
       addToComputedWaitLsit({ instanceId, prop });
+      bindInstanceBy.forEach((id) => {
+        addToComputedWaitLsit({ instanceId: id, prop });
+      });
     } else {
       storeEmitWarning(prop, getLogStyle());
     }
@@ -2837,7 +2848,7 @@
   var storeEmitAsync = async ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return new Promise((resolve) => resolve(""));
-    const { store, callBackWatcher, validationStatusObject } = state;
+    const { store, callBackWatcher, validationStatusObject, bindInstanceBy } = state;
     if (!store) return { success: false };
     if (prop in store) {
       await runCallbackQueqeAsync({
@@ -2849,6 +2860,9 @@
         instanceId
       });
       addToComputedWaitLsit({ instanceId, prop });
+      bindInstanceBy.forEach((id) => {
+        addToComputedWaitLsit({ instanceId: id, prop });
+      });
       return { success: true };
     } else {
       storeEmitWarning(prop, getLogStyle());
@@ -37648,17 +37662,21 @@ Loading snippet ...</pre
     storeTest2.watch("myComputed3", (value) => {
       console.log("myComputed3", value);
     });
-    storeTest2.computed("myComputed", ["prop"], ({ prop }) => {
-      return prop * 2;
-    });
+    storeTest2.computed(
+      "myComputed",
+      ["prop", "proxiProp"],
+      ({ prop, proxiProp }) => {
+        return prop * 2 + proxiProp;
+      }
+    );
     storeTest2.computed("myComputed2", ["myComputed"], ({ myComputed }) => {
       return myComputed * 2;
     });
     storeTest2.computed(
       "myComputed3",
-      ["myComputed2", "prop", "proxiProp"],
-      ({ myComputed2, prop, proxiProp }) => {
-        return myComputed2 * 2 + prop + proxiProp;
+      ["myComputed2", "prop"],
+      ({ myComputed2, prop }) => {
+        return myComputed2 * 2 + prop;
       }
     );
     console.log("prop", proxi.prop);
@@ -37669,6 +37687,8 @@ Loading snippet ...</pre
     proxi.prop = 100;
     console.log("paperino", storeTest2.getProp("prop"));
     setInterval(() => {
+      proxi.prop += 10;
+      proxiBind.proxiProp += 2;
     }, 1e3);
   };
 
