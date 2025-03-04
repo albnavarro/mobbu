@@ -37619,79 +37619,6 @@ Loading snippet ...</pre
     });
   };
 
-  // src/js/test/storeTest.js
-  var storeTest = () => {
-    const proxiStore = mobCore.createStore({
-      proxiProp: 0
-    });
-    const proxiBind = proxiStore.getProxi();
-    const storeTest2 = mobCore.createStore({
-      prop: 1,
-      myComputed: 0,
-      myComputed2: 0,
-      myComputed3: 0
-    });
-    storeTest2.bindStore([proxiStore, mainStore]);
-    const proxi = storeTest2.getProxi();
-    storeTest2.watch(
-      "proxiProp",
-      (value) => {
-        console.log("---");
-        console.log("proxiProp", value);
-        console.log("proxiProp getProp", storeTest2.getProp("proxiProp"));
-        console.log("proxiProp proxi", proxi.proxiProp);
-        console.log("---");
-      },
-      { wait: true }
-    );
-    proxiBind.proxiProp = 20;
-    proxiBind.proxiProp = 30;
-    proxiBind.proxiProp = 43;
-    storeTest2.watch("prop", (value) => {
-      console.log("prop", value);
-    });
-    storeTest2.watch("afterRouteChange", (value) => {
-      console.log("mainStore", value.route);
-    });
-    storeTest2.watch("myComputed", (value) => {
-      console.log("myComputed", value);
-    });
-    storeTest2.watch("myComputed2", (value) => {
-      console.log("myComputed2", value);
-    });
-    storeTest2.watch("myComputed3", (value) => {
-      console.log("myComputed3", value);
-    });
-    storeTest2.computed(
-      "myComputed",
-      ["prop", "proxiProp"],
-      ({ prop, proxiProp }) => {
-        return prop * 2 + proxiProp;
-      }
-    );
-    storeTest2.computed("myComputed2", ["myComputed"], ({ myComputed }) => {
-      return myComputed * 2;
-    });
-    storeTest2.computed(
-      "myComputed3",
-      ["myComputed2", "prop"],
-      ({ myComputed2, prop }) => {
-        return myComputed2 * 2 + prop;
-      }
-    );
-    console.log("prop", proxi.prop);
-    console.log("myComputed first value", proxi.myComputed);
-    console.log("myComputed2 first value", proxi.myComputed2);
-    console.log("myComputed3 first value", proxi.myComputed3);
-    storeTest2.set("prop", 10);
-    proxi.prop = 100;
-    console.log("paperino", storeTest2.getProp("prop"));
-    setInterval(() => {
-      proxi.prop += 10;
-      proxiBind.proxiProp += 2;
-    }, 1e3);
-  };
-
   // src/js/main.js
   mobCore.useLoad(() => {
     setBrowserClass();
@@ -37744,7 +37671,6 @@ Loading snippet ...</pre
     };
     init7();
     usePageScroll();
-    storeTest();
   });
 })();
 //# sourceMappingURL=main.js.map
