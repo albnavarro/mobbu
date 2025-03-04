@@ -15,7 +15,7 @@ export const destroyStoreEntryPoint = (instanceId) => {
     state.store = {};
     state.proxiObject = null;
 
-    const { unsubscribeBindInstance, bindInstanceBy } = state;
+    const { unsubscribeBindInstance, bindInstance } = state;
 
     /**
      * Unsubscribe binded watcher
@@ -27,7 +27,7 @@ export const destroyStoreEntryPoint = (instanceId) => {
     /**
      * Remove itself from bindInstanceBy of binded store.
      */
-    bindInstanceBy.forEach((id) => {
+    bindInstance.forEach((id) => {
         removeSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
     });
 

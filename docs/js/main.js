@@ -3027,11 +3027,11 @@
     state.computedPropsQueque.clear();
     state.store = {};
     state.proxiObject = null;
-    const { unsubscribeBindInstance, bindInstanceBy } = state;
+    const { unsubscribeBindInstance, bindInstance } = state;
     unsubscribeBindInstance.forEach((unsubscribe3) => {
       unsubscribe3?.();
     });
-    bindInstanceBy.forEach((id) => {
+    bindInstance.forEach((id) => {
       removeSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
     });
     removeStateFromMainMap(instanceId);
