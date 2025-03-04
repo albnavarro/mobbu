@@ -31,6 +31,7 @@ export interface storeMapValue {
     skipEqual: Record<string, any>;
     proxiObject?: Record<string, any> | null | undefined;
     bindInstance: string[];
+    bindInstanceBy: string[];
     unsubscribeBindInstance: (() => void)[];
 }
 

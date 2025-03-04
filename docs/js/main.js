@@ -2754,6 +2754,7 @@
       }),
       proxiObject: void 0,
       bindInstance: [],
+      bindInstanceBy: [],
       unsubscribeBindInstance: []
     };
   };
@@ -2959,6 +2960,26 @@
   };
 
   // src/js/mobCore/store/bindStore.js
+  var addSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
+    const state = getStateFromMainMap(bindId);
+    if (!state) return;
+    const { bindInstanceBy } = state;
+    const bindInstanceByUpdated = [...bindInstanceBy, selfId];
+    updateMainMap(bindId, {
+      ...state,
+      bindInstanceBy: bindInstanceByUpdated
+    });
+  };
+  var removeSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
+    const state = getStateFromMainMap(bindId);
+    if (!state) return;
+    const { bindInstanceBy } = state;
+    const bindInstanceByUpdated = bindInstanceBy.filter((id) => id !== selfId);
+    updateMainMap(bindId, {
+      ...state,
+      bindInstanceBy: bindInstanceByUpdated
+    });
+  };
   var bindStoreEntryPoint = ({ value, instanceId }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
@@ -2978,6 +2999,9 @@
       ...state,
       bindInstance: bindInstanceUpdated
     });
+    ids.forEach((id) => {
+      addSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
+    });
   };
 
   // src/js/mobCore/store/destroy.js
@@ -2989,9 +3013,12 @@
     state.computedPropsQueque.clear();
     state.store = {};
     state.proxiObject = null;
-    const { unsubscribeBindInstance } = state;
+    const { unsubscribeBindInstance, bindInstanceBy } = state;
     unsubscribeBindInstance.forEach((unsubscribe3) => {
       unsubscribe3?.();
+    });
+    bindInstanceBy.forEach((id) => {
+      removeSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
     });
     removeStateFromMainMap(instanceId);
   };
