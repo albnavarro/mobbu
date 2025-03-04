@@ -510,6 +510,22 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
  */
 
 /**
+ * @param {object} params
+ * @param {Record<string, any>} params.store
+ * @param {string[]} params.bindInstance
+ * @returns {Record<string, any>}
+ */
+const mergeStoreFromBindInstance = ({ store, bindInstance }) => {
+    return bindInstance.reduce((previous, current) => {
+        const currentState = getStateFromMainMap(current);
+        if (!currentState) return previous;
+        const { store: currentStore } = currentState;
+
+        return { ...previous, ...currentStore };
+    }, store);
+};
+
+/**
  * @param {string} instanceId
  */
 const fireComputed = (instanceId) => {
@@ -519,7 +535,8 @@ const fireComputed = (instanceId) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
-    const { computedPropsQueque, callBackComputed, store } = state;
+    const { computedPropsQueque, callBackComputed, store, bindInstance } =
+        state;
 
     /**
      * Filter computed callback that has some prop changed as dependencies.
@@ -533,6 +550,11 @@ const fireComputed = (instanceId) => {
     );
 
     /**
+     * Merge current store with bindInstance.
+     */
+    const storeMerged = mergeStoreFromBindInstance({ store, bindInstance });
+
+    /**
      * Loop and fire computed with changed value
      */
     const computedValues = computedFiltered.map(({ prop, keys, fn }) => {
@@ -541,7 +563,7 @@ const fireComputed = (instanceId) => {
          */
         const valuesToObject = keys
             .map((item) => {
-                return { [item]: store[item] };
+                return { [item]: storeMerged[item] };
             })
             .reduce((previous, current) => {
                 return { ...previous, ...current };
@@ -665,14 +687,19 @@ export const initializeCompuntedProp = ({
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
-    const { store } = state;
+    const { store, bindInstance } = state;
+
+    /**
+     * Merge current store with bindInstance.
+     */
+    const storeMerged = mergeStoreFromBindInstance({ store, bindInstance });
 
     /**
      * Create onject with values for computed function.
      */
     const valuesObject = keys
         .map((key) => {
-            if (key in store) return { [key]: store[key] };
+            if (key in storeMerged) return { [key]: storeMerged[key] };
             return;
         })
         .filter((item) => item !== undefined)

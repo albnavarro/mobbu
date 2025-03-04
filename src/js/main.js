@@ -12,7 +12,7 @@ import { routes } from './pages';
 import { usePageScroll } from './utils/pageScroll';
 // import { stateTest } from './test/mapTest/mapTest';
 // import { initTestMapStore } from './test/mapStore';
-// import { storeTest } from './test/storeTest';
+import { storeTest } from './test/storeTest';
 
 /**
  * Set default
@@ -81,5 +81,5 @@ mobCore.useLoad(() => {
 
     init();
     usePageScroll();
-    // storeTest();
+    storeTest();
 });

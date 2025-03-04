@@ -36,7 +36,7 @@ export const storeTest = () => {
 
     proxiBind.proxiProp = 20;
     proxiBind.proxiProp = 30;
-    proxiBind.proxiProp = 40;
+    proxiBind.proxiProp = 43;
 
     storeTest.watch('prop', (value) => {
         console.log('prop', value);
@@ -68,9 +68,9 @@ export const storeTest = () => {
 
     storeTest.computed(
         'myComputed3',
-        ['myComputed2', 'prop'],
-        ({ myComputed2, prop }) => {
-            return myComputed2 * 2 + prop;
+        ['myComputed2', 'prop', 'proxiProp'],
+        ({ myComputed2, prop, proxiProp }) => {
+            return myComputed2 * 2 + prop + proxiProp;
         }
     );
 
@@ -87,6 +87,7 @@ export const storeTest = () => {
     console.log('paperino', storeTest.getProp('prop'));
 
     setInterval(() => {
-        proxi.prop += 10;
+        // proxi.prop += 10;
+        // proxiBind.proxiProp += 2;
     }, 1000);
 };
