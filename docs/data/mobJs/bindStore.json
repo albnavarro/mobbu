@@ -54,6 +54,7 @@
                     "getState",
                     "getProxi",
                     "watch",
+                    "computed ( as dependencies )",
                     "bindText",
                     "binsProxi",
                     "bindEffect",
