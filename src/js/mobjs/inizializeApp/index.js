@@ -6,7 +6,7 @@ import { setComponentList } from '../component/componentList';
 import { setIndex, setPageNotFound, setRouteList } from '../route/routeList';
 import { initParseWatcher, parseComponents } from '../parse';
 import { router } from '../route';
-import { debugRoute } from '../route/test';
+// import { debugRoute } from '../route/test';
 import { setContentId } from '../route/domRef/content';
 import { setRoot } from '../route/domRef/root';
 import {
@@ -104,7 +104,7 @@ export const inizializeApp = async ({
     /**
      * Debug
      */
-    debugRoute();
+    // debugRoute();
 
     /**
      * Start router.
