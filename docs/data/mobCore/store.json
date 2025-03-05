@@ -781,6 +781,66 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "medium",
+                "id": "store-bind",
+                "label": "BindStore"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "BindStore"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is possible to hook one or more stores and access their properties and consequently their reactivity. This utility can be particularly useful in the context of <span class='quote'>mobJs components</span>. Speaking of stand-alone stores, it can be useful if you want a computed to be updated based on the state of different stores."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Once added, you will be able to use the new store's statuses in the following cases:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "get",
+                    "getProxi ( only as getter )",
+                    "watch",
+                    "computed",
+                    "emit",
+                    "emitAsync"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobCore/bindStore.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 28
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "id": "store-destroy",
                 "label": "Destroy"
             }
