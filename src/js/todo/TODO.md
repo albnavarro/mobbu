@@ -1,3 +1,7 @@
+# Generale.
+- Trasformare tutti gli `Handle` in `Mob`.
+- es: `MobScroller | MobSpring | MobTween` etc...
+
 # MobCore
 
 ### bindStore:
