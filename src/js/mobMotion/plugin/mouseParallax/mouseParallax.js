@@ -49,7 +49,7 @@ export class MouseParallax {
     #offSetLeft;
 
     /**
-     * @type{import('../../type').Spring}
+     * @type{import('../../type').HandleSpring}
      */
     #spring;
 

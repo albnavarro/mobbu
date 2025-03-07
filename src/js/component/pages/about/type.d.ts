@@ -1,9 +1,11 @@
-import HandleAsyncTimeline from '../../../mobMotion/animation/asyncTimeline/handleAsyncTimeline';
-import HandleScroller from '../../../mobMotion/animation/scroller/HandleScroller';
-import HandleScrollerTween from '../../../mobMotion/animation/scroller/HandleTweenTween';
-import HandleMasterSequencer from '../../../mobMotion/animation/sequencer/handleMasterSequencer';
-import HandleSequencer from '../../../mobMotion/animation/sequencer/handleSequencer';
-import HandleTween from '../../../mobMotion/animation/tween/handleTween';
+import {
+    HandleAsyncTimeline,
+    HandleMasterSequencer,
+    HandleScroller,
+    HandleScrollerTween,
+    HandleSequencer,
+    HandleTween,
+} from '../../../mobMotion/type';
 
 export interface About {
     state: {
