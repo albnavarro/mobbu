@@ -21,8 +21,8 @@ import {
 } from '../../../animation/utils/tweenAction/tweenValidation';
 import { mobCore } from '../../../../mobCore';
 import {
-    freezePageScroll,
-    unFreezePageScroll,
+    FreezeMobPageScroll,
+    UnFreezeMobPageScroll,
 } from '../../pageScroll/pageScroller';
 
 export class MobHorizontalScroller {
@@ -662,7 +662,7 @@ export class MobHorizontalScroller {
         this.#onMouseDown = () => {
             if (!mq[this.#queryType](this.#breakpoint)) return;
 
-            freezePageScroll();
+            FreezeMobPageScroll();
             if (this.#shouldDragValue && this.#row)
                 this.#row.style.cursor = 'move';
             this.#touchActive = true;
@@ -670,7 +670,7 @@ export class MobHorizontalScroller {
         };
 
         this.#onMouseUp = () => {
-            unFreezePageScroll();
+            UnFreezeMobPageScroll();
             this.#touchActive = false;
             mobCore.useFrame(() => {
                 if (this.#row) this.#row.style.cursor = '';
@@ -678,7 +678,7 @@ export class MobHorizontalScroller {
         };
 
         this.#onMouseLeave = () => {
-            unFreezePageScroll();
+            UnFreezeMobPageScroll();
             this.#touchActive = false;
             mobCore.useFrame(() => {
                 if (this.#row) this.#row.style.cursor = '';
@@ -688,14 +688,14 @@ export class MobHorizontalScroller {
         this.#onTouchStart = (event) => {
             if (!mq[this.#queryType](this.#breakpoint)) return;
 
-            freezePageScroll();
+            FreezeMobPageScroll();
             this.#lastTouchValueX = -event.touches[0].clientX;
             this.#touchActive = true;
             this.#firstTouchValue = this.#scrollValue;
         };
 
         this.#onTouchEnd = () => {
-            unFreezePageScroll();
+            UnFreezeMobPageScroll();
             this.#touchActive = false;
         };
 

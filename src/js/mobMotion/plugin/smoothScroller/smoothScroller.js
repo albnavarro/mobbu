@@ -22,8 +22,8 @@ import {
     outerWidth,
 } from '../../../mobCore/utils/index.js';
 import {
-    freezePageScroll,
-    unFreezePageScroll,
+    FreezeMobPageScroll,
+    UnFreezeMobPageScroll,
 } from '../pageScroll/pageScroller.js';
 
 export class MobSmoothScroller {
@@ -540,7 +540,7 @@ export class MobSmoothScroller {
         /** @type{HTMLElement} */ (this.#scroller).addEventListener(
             'mouseleave',
             () => {
-                unFreezePageScroll();
+                UnFreezeMobPageScroll();
             }
         );
 
@@ -808,7 +808,7 @@ export class MobSmoothScroller {
             preventDefault?.();
             this.#endValue += spinY * this.#speed;
             this.#calculateValue();
-            freezePageScroll();
+            FreezeMobPageScroll();
         }
     }
 

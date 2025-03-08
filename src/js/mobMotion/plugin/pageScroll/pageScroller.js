@@ -140,7 +140,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
 };
 
 /** @type{(arg0?: {velocity?: number, rootElement?: HTMLElement}) => void} */
-export const initPageScroll = ({
+export const InitMobPageScroll = ({
     velocity = 100,
     rootElement = document.createElement('div'),
 } = {}) => {
@@ -158,7 +158,7 @@ export const initPageScroll = ({
 };
 
 /** @type{() => void} */
-export const freezePageScroll = () => {
+export const FreezeMobPageScroll = () => {
     if (!isActive || isFreezed) return;
 
     stop();
@@ -167,14 +167,14 @@ export const freezePageScroll = () => {
 };
 
 /** @type{() => void} */
-export const unFreezePageScroll = () => {
+export const UnFreezeMobPageScroll = () => {
     if (!isActive) return;
 
     isFreezed = false;
 };
 
 /** @type{() => void} */
-export const unFreezeAndUPdatePageScroll = () => {
+export const UnFreezeAndUPdateMobPageScroll = () => {
     if (!isActive) return;
 
     update();
@@ -184,14 +184,14 @@ export const unFreezeAndUPdatePageScroll = () => {
 };
 
 /** @type{() => void} */
-export const updatePageScroll = () => {
+export const UpdateMobPageScroll = () => {
     if (!isActive) return;
 
     update();
 };
 
 /** @type{() => void} */
-export const destroyPageScroll = () => {
+export const DestroyMobPageScroll = () => {
     destroy();
     isActive = false;
 };

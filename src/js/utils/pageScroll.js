@@ -1,16 +1,16 @@
 import { mobCore } from '../mobCore';
 import { mainStore } from '../mobjs';
 import {
-    freezePageScroll,
-    initPageScroll,
-    unFreezeAndUPdatePageScroll,
+    FreezeMobPageScroll,
+    InitMobPageScroll,
+    UnFreezeAndUPdateMobPageScroll,
 } from '../mobMotion/plugin';
 
 export const usePageScroll = () => {
-    initPageScroll({ rootElement: document.querySelector('#root') });
+    InitMobPageScroll({ rootElement: document.querySelector('#root') });
 
     mainStore.watch('beforeRouteChange', () => {
-        freezePageScroll();
+        FreezeMobPageScroll();
     });
 
     mainStore.watch('afterRouteChange', () => {
@@ -19,7 +19,7 @@ export const usePageScroll = () => {
          * last animation frame will fired one frame after stop
          */
         mobCore.useFrameIndex(() => {
-            unFreezeAndUPdatePageScroll();
+            UnFreezeAndUPdateMobPageScroll();
         }, 3);
     });
 };

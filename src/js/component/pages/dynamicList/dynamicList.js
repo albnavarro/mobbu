@@ -10,8 +10,8 @@
 
 import { html, tick } from '../../../mobjs';
 import {
-    freezePageScroll,
-    unFreezeAndUPdatePageScroll,
+    FreezeMobPageScroll,
+    UnFreezeAndUPdateMobPageScroll,
 } from '../../../mobMotion/plugin';
 import { startData, state1, state2, state3 } from './data';
 
@@ -70,12 +70,12 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
                     ${staticProps({ label: buttonLabel })}
                     ${delegateEvents({
                         click: async () => {
-                            freezePageScroll();
+                            FreezeMobPageScroll();
                             setState('data', data);
                             setState('activeSample', index);
 
                             await tick();
-                            unFreezeAndUPdatePageScroll();
+                            UnFreezeAndUPdateMobPageScroll();
                         },
                     })}
                     ${bindProps({

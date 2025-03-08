@@ -22430,7 +22430,7 @@
       }
     };
   };
-  var initPageScroll = ({
+  var InitMobPageScroll = ({
     velocity = 100,
     rootElement = document.createElement("div")
   } = {}) => {
@@ -22444,24 +22444,24 @@
       rootElement
     }));
   };
-  var freezePageScroll = () => {
+  var FreezeMobPageScroll = () => {
     if (!isActive || isFreezed) return;
     stop();
     smoothIsActive = false;
     isFreezed = true;
   };
-  var unFreezePageScroll = () => {
+  var UnFreezeMobPageScroll = () => {
     if (!isActive) return;
     isFreezed = false;
   };
-  var unFreezeAndUPdatePageScroll = () => {
+  var UnFreezeAndUPdateMobPageScroll = () => {
     if (!isActive) return;
     update2();
     lastScrollValue = window.scrollY;
     smoothIsActive = false;
     isFreezed = false;
   };
-  var updatePageScroll = () => {
+  var UpdateMobPageScroll = () => {
     if (!isActive) return;
     update2();
   };
@@ -22477,12 +22477,12 @@
       left: 0,
       behavior: "auto"
     });
-    updatePageScroll();
+    UpdateMobPageScroll();
   });
   var onComplete = () => {
     if (overflow) document.body.style.overflow = "";
     tween2?.updateEase?.(defaultPreset);
-    unFreezeAndUPdatePageScroll();
+    UnFreezeAndUPdateMobPageScroll();
   };
   var stopTween = () => {
     if (!isRunning) return;
@@ -22537,7 +22537,7 @@
       if (overflow) document.body.style.overflow = "hidden";
       return new Promise((resolve) => {
         isRunning = true;
-        freezePageScroll();
+        FreezeMobPageScroll();
         tween2.goFromTo(
           { val: window.scrollY },
           { val: targetParsed },
@@ -23146,21 +23146,21 @@
       };
       this.#onMouseDown = () => {
         if (!mq[this.#queryType](this.#breakpoint)) return;
-        freezePageScroll();
+        FreezeMobPageScroll();
         if (this.#shouldDragValue && this.#row)
           this.#row.style.cursor = "move";
         this.#touchActive = true;
         this.#firstTouchValue = this.#scrollValue;
       };
       this.#onMouseUp = () => {
-        unFreezePageScroll();
+        UnFreezeMobPageScroll();
         this.#touchActive = false;
         mobCore.useFrame(() => {
           if (this.#row) this.#row.style.cursor = "";
         });
       };
       this.#onMouseLeave = () => {
-        unFreezePageScroll();
+        UnFreezeMobPageScroll();
         this.#touchActive = false;
         mobCore.useFrame(() => {
           if (this.#row) this.#row.style.cursor = "";
@@ -23168,13 +23168,13 @@
       };
       this.#onTouchStart = (event) => {
         if (!mq[this.#queryType](this.#breakpoint)) return;
-        freezePageScroll();
+        FreezeMobPageScroll();
         this.#lastTouchValueX = -event.touches[0].clientX;
         this.#touchActive = true;
         this.#firstTouchValue = this.#scrollValue;
       };
       this.#onTouchEnd = () => {
-        unFreezePageScroll();
+        UnFreezeMobPageScroll();
         this.#touchActive = false;
       };
       this.#onTouchMove = (event) => {
@@ -24193,7 +24193,7 @@
       this.#scroller.addEventListener(
         "mouseleave",
         () => {
-          unFreezePageScroll();
+          UnFreezeMobPageScroll();
         }
       );
       if (this.#drag) {
@@ -24405,7 +24405,7 @@
         preventDefault?.();
         this.#endValue += spinY * this.#speed;
         this.#calculateValue();
-        freezePageScroll();
+        FreezeMobPageScroll();
       }
     }
     /**
@@ -31821,11 +31821,11 @@ Loading snippet ...</pre
                     ${staticProps2({ label: buttonLabel })}
                     ${delegateEvents({
         click: async () => {
-          freezePageScroll();
+          FreezeMobPageScroll();
           setState("data", data);
           setState("activeSample", index);
           await tick();
-          unFreezeAndUPdatePageScroll();
+          UnFreezeAndUPdateMobPageScroll();
         }
       })}
                     ${bindProps({
@@ -32568,7 +32568,7 @@ Loading snippet ...</pre
                         class="matrioska__button"
                         ${delegateEvents({
         click: async () => {
-          freezePageScroll();
+          FreezeMobPageScroll();
           updateState(
             /** @type {'level1'|'level2'|'level3'} */
             button.state,
@@ -32577,7 +32577,7 @@ Loading snippet ...</pre
             }
           );
           await tick();
-          unFreezeAndUPdatePageScroll();
+          UnFreezeAndUPdateMobPageScroll();
         }
       })}
                         >${button.label_minus}</dynamic-list-button
@@ -32586,7 +32586,7 @@ Loading snippet ...</pre
                         class="matrioska__button"
                         ${delegateEvents({
         click: async () => {
-          freezePageScroll();
+          FreezeMobPageScroll();
           updateState(
             /** @type {'level1'|'level2'|'level3'} */
             button.state,
@@ -32601,7 +32601,7 @@ Loading snippet ...</pre
             }
           );
           await tick();
-          unFreezeAndUPdatePageScroll();
+          UnFreezeAndUPdateMobPageScroll();
         }
       })}
                         >${button.label_plus}</dynamic-list-button
@@ -37604,13 +37604,13 @@ Loading snippet ...</pre
 
   // src/js/utils/pageScroll.js
   var usePageScroll = () => {
-    initPageScroll({ rootElement: document.querySelector("#root") });
+    InitMobPageScroll({ rootElement: document.querySelector("#root") });
     mainStore.watch("beforeRouteChange", () => {
-      freezePageScroll();
+      FreezeMobPageScroll();
     });
     mainStore.watch("afterRouteChange", () => {
       mobCore.useFrameIndex(() => {
-        unFreezeAndUPdatePageScroll();
+        UnFreezeAndUPdateMobPageScroll();
       }, 3);
     });
   };

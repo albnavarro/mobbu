@@ -9,8 +9,8 @@
 import { mobCore } from '../../../mobCore';
 import { html, tick, updateStateByName } from '../../../mobjs';
 import {
-    freezePageScroll,
-    unFreezeAndUPdatePageScroll,
+    FreezeMobPageScroll,
+    UnFreezeAndUPdateMobPageScroll,
 } from '../../../mobMotion/plugin';
 
 const buttons = [
@@ -58,7 +58,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: async () => {
-                                freezePageScroll();
+                                FreezeMobPageScroll();
                                 updateState(
                                     /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
@@ -69,7 +69,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                 );
 
                                 await tick();
-                                unFreezeAndUPdatePageScroll();
+                                UnFreezeAndUPdateMobPageScroll();
                             },
                         })}
                         >${button.label_minus}</dynamic-list-button
@@ -78,7 +78,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: async () => {
-                                freezePageScroll();
+                                FreezeMobPageScroll();
                                 updateState(
                                     /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
@@ -95,7 +95,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                 );
 
                                 await tick();
-                                unFreezeAndUPdatePageScroll();
+                                UnFreezeAndUPdateMobPageScroll();
                             },
                         })}
                         >${button.label_plus}</dynamic-list-button

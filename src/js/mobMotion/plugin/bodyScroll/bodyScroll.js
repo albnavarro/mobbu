@@ -9,9 +9,9 @@ import {
 } from '../../animation/utils/tweenAction/tweenValidation.js';
 import { offset, isNode } from '../../../mobCore/utils/index.js';
 import {
-    freezePageScroll,
-    unFreezeAndUPdatePageScroll,
-    updatePageScroll,
+    FreezeMobPageScroll,
+    UnFreezeAndUPdateMobPageScroll,
+    UpdateMobPageScroll,
 } from '../pageScroll/pageScroller.js';
 
 /** @type {import('../../animation/tween/type').EaseTypes} */
@@ -37,14 +37,14 @@ tween.subscribe(({ val }) => {
         behavior: 'auto',
     });
 
-    updatePageScroll();
+    UpdateMobPageScroll();
 });
 
 /** @type{() => void} */
 const onComplete = () => {
     if (overflow) document.body.style.overflow = '';
     tween?.updateEase?.(defaultPreset);
-    unFreezeAndUPdatePageScroll();
+    UnFreezeAndUPdateMobPageScroll();
 };
 
 /** @type{() => void} */
@@ -144,7 +144,7 @@ export const MobBodyScroll = (() => {
 
         return new Promise((resolve) => {
             isRunning = true;
-            freezePageScroll();
+            FreezeMobPageScroll();
 
             tween
                 .goFromTo(
