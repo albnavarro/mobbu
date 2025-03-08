@@ -1,12 +1,4 @@
-# Generale.
-- Trasformare tutti gli `Handle` in `Mob`.
-- es: `MobScroller | MobSpring | MobTween` etc...
-
 # MobCore
-
-### bindStore:
-- Aggiungere  `bindStore` nelle `DOCS` dello store.
-
 
 ##### Computed immediate.
 Usare `{ immediate: true }` come default ?
@@ -45,6 +37,10 @@ Usare `{ immediate: true }` come default ?
 
 
 # Mob motion
+
+## MobScroller
+- Usare `reverse` al posto di `fromTo`
+
 
 ### AsyncTimeline
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.

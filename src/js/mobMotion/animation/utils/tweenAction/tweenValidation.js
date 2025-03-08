@@ -966,7 +966,7 @@ export const scrollerOnSwitchIsValid = (value) => {
  * Check if value is Number and return default
  **/
 export const scrollerOpacityIsValid = (value, label, defaultValue) => {
-    if (!value) return defaultValue;
+    if (value === undefined || value === null) return defaultValue;
 
     const isValid = mobCore.checkType(Number, value);
     if (!isValid && value) scrollerOpacityWarning(value, label);
