@@ -31,12 +31,12 @@ import {
 /**
  * @param {Object} param
  * @param {string} param.instanceId
- * @param {import("./type").storeMapValue} param.state
+ * @param {import("./type").StoreMapValue} param.state
  * @param {string} param.prop
  * @param {any} param.val
  * @param {boolean} param.fireCallback
  * @param {boolean} param.useStrict
- * @returns {import("./type").storeMapValue|undefined}
+ * @returns {import("./type").StoreMapValue|undefined}
  */
 const setProp = ({
     instanceId,
@@ -156,12 +156,12 @@ const setProp = ({
 /**
  * @param {Object} param
  * @param {string} param.instanceId
- * @param {import("./type").storeMapValue} param.state
+ * @param {import("./type").StoreMapValue} param.state
  * @param {string} param.prop
  * @param {any} param.val
  * @param {boolean} param.fireCallback
  * @param {boolean} param.useStrict
- * @returns {import("./type").storeMapValue|undefined}
+ * @returns {import("./type").StoreMapValue|undefined}
  */
 const setObj = ({
     instanceId,
@@ -387,7 +387,7 @@ const setObj = ({
 
 /**
  * @param {import("./type").storeSetAction} params
- * @returns {import("./type").storeMapValue|undefined}
+ * @returns {import("./type").StoreMapValue|undefined}
  */
 export const storeSetAction = ({
     instanceId,
@@ -451,7 +451,7 @@ export const storeSetAction = ({
 };
 
 /**
- * @param {import('./type').storeSetEntryPoint} param
+ * @param {import('./type').MobStoreSetEntryPoint} param
  * @returns {void}
  */
 export const storeSetEntryPoint = ({
@@ -480,7 +480,7 @@ export const storeSetEntryPoint = ({
 };
 
 /**
- * @param {import('./type').storeQuickSetEntryPoint} param
+ * @param {import('./type').MobStoreQuickSetEntryPoint} param
  * @returns {void}
  */
 export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
@@ -638,7 +638,7 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
 };
 
 /**
- * @param {import("./type").storeComputedAction} params
+ * @param {import("./type").MobStoreComputedAction} params
  * @returns {void}
  */
 export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {

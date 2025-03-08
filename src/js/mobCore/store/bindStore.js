@@ -41,7 +41,7 @@ export const removeSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
 
 /**
  * @param {object} params
- * @param {import("./type").bindStoreValueType} params.value
+ * @param {import("./type").BindStoreValueType} params.value
  * @param {string} params.instanceId
  * @returns { void }
  */

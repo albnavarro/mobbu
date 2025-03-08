@@ -1,4 +1,8 @@
-import { emitType, setType, watchType } from '../../../mobCore/store/type';
+import {
+    MobStoreEmit,
+    MobStoreSet,
+    MobStoreWatch,
+} from '../../../mobCore/store/type';
 
 export type RepeaterRender = (arg0: {
     sync: () => string;
@@ -24,9 +28,9 @@ export interface repeaterType {
     persistent?: boolean;
     key: string | undefined;
     state: string | undefined;
-    setState: setType;
-    watch: watchType;
-    emit?: emitType;
+    setState: MobStoreSet;
+    watch: MobStoreWatch;
+    emit?: MobStoreEmit;
     render: RepeaterRender;
     useSync: boolean;
 }

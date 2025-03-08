@@ -1,15 +1,15 @@
 import {
-    computedType,
-    emitAsyncType,
-    emitType,
-    getType,
+    MobStoreComputed,
+    MobStoreEmitAsync,
+    MobStoreEmit,
+    MobStoreGet,
     MobStoreParams,
-    setType,
-    updateType,
-    watchType,
+    MobStoreSet,
+    MobStoreUpdate,
+    MobStoreWatch,
     MobStoreReturnType,
-    storeProxiType,
-    bindStoreType,
+    MobStoreStoreProxi,
+    BindStore,
 } from '../../mobCore/store/type';
 import { UserComponent } from '../webComponent/type';
 
@@ -52,14 +52,14 @@ export interface componentStoreInputTypes extends componentCommonTypes {
 }
 
 export interface componentStoreReturnType {
-    getState: getType;
-    setState: setType;
-    updateState: updateType;
-    getProxi: storeProxiType;
-    emit: emitType;
-    emitAsync: emitAsyncType;
-    computed: computedType;
-    watch: watchType;
-    bindStore: bindStoreType;
+    getState: MobStoreGet;
+    setState: MobStoreSet;
+    updateState: MobStoreUpdate;
+    getProxi: MobStoreStoreProxi;
+    emit: MobStoreEmit;
+    emitAsync: MobStoreEmitAsync;
+    computed: MobStoreComputed;
+    watch: MobStoreWatch;
+    bindStore: BindStore;
     debug: () => void;
 }
