@@ -1,6 +1,6 @@
-import HandleTween from '../../animation/tween/handleTween';
+import MobTween from '../../animation/tween/MobTween';
 
 export interface Slide {
-    tween: HandleTween;
+    tween: MobTween;
     unsubscribe: () => void;
 }

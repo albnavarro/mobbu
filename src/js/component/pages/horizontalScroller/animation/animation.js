@@ -10,7 +10,7 @@ let sideWidth = 0;
  * @param {object} params
  * @param {HTMLElement[]} params.indicators
  * @param {import('../../../../mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
- * @returns {import( '../../../../mobMotion/type').HandleScroller[]}
+ * @returns {import( '../../../../mobMotion/type').MobScroller[]}
  */
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
@@ -51,7 +51,7 @@ const createPins = ({ indicators, setState }) => {
 
 /**
  * @param {object} params
- * @param {import( '../../../../mobMotion/type').HandleScroller[]} params.pins
+ * @param {import( '../../../../mobMotion/type').MobScroller[]} params.pins
  */
 const refreshPins = ({ pins }) => {
     pins.forEach((pin) => pin.refresh());
@@ -60,7 +60,7 @@ const refreshPins = ({ pins }) => {
 /**
  * @param {object} params
  * @param {HTMLElement[]} params.titles
- * @returns {import( '../../../../mobMotion/type').HandleScroller[]}
+ * @returns {import( '../../../../mobMotion/type').MobScroller[]}
  */
 const createParallax = ({ titles }) => {
     return [...titles].map((title) => {

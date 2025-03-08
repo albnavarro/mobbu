@@ -14,7 +14,7 @@ import { getActiveRoute } from '../../../../../mobjs/index.js';
 /**
  * @param {object} params
  * @param {any} params.value
- * @param {import('../../../../../mobMotion/animation/utils/timeline/type').directionType} params.direction
+ * @param {import('../../../../../mobMotion/animation/utils/timeline/type').DirectionType} params.direction
  * @param {boolean} params.isForced
  */
 const logAddMethods = ({ value, direction, isForced }) => {

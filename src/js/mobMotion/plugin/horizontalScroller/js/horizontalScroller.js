@@ -1,6 +1,6 @@
 //@ts-check
 
-import HandleScroller from '../../../animation/scroller/HandleScroller';
+import MobScroller from '../../../animation/scroller/MobScroller';
 import {
     getTranslateValues,
     offset,
@@ -250,7 +250,7 @@ export class HorizontalScroller {
     #horizontalWidth;
 
     /**
-     * @type {HandleScroller}
+     * @type {MobScroller}
      */
     #scrollTriggerInstance;
 
@@ -263,7 +263,7 @@ export class HorizontalScroller {
      * @description
      * Initialize children.
      *
-     * @type {HandleScroller[]}
+     * @type {MobScroller[]}
      */
     #children;
 
@@ -1147,7 +1147,7 @@ export class HorizontalScroller {
     #initScroller() {
         if (!this.#trigger || !mq[this.#queryType](this.#breakpoint)) return;
 
-        const scrollTriggerInstance = new HandleScroller({
+        const scrollTriggerInstance = new MobScroller({
             type: 'scrolltrigger',
             item: this.#row,
             useWillChange: this.#useWillChange,

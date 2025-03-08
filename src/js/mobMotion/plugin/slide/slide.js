@@ -2,7 +2,7 @@
 
 import { mobCore } from '../../../mobCore/index.js';
 import { outerHeight } from '../../../mobCore/utils/index.js';
-import HandleTween from '../../animation/tween/handleTween.js';
+import MobTween from '../../animation/tween/MobTween.js';
 
 /** @type {Map<HTMLElement,import('./type.js').Slide>} */
 const slideItems = new Map();
@@ -27,7 +27,7 @@ const isNode = (target) => {
  * @returns {import('./type.js').Slide} Unsubscribe function.
  */
 const setSlideData = (target) => {
-    const tween = new HandleTween({ ease: 'easeOutQuad', data: { val: 0 } });
+    const tween = new MobTween({ ease: 'easeOutQuad', data: { val: 0 } });
 
     return {
         tween,

@@ -1,5 +1,5 @@
 import { MouseEventParsed } from '../../../../mobCore/events/mouseUtils/type';
-import HandleScroller from '../../../animation/scroller/HandleScroller';
+import MobScroller from '../../../animation/scroller/MobScroller';
 import { MqAction, MqValues } from '../../../utils/type';
 
 export type horizontalScrollerOnTick = (arg0: {
@@ -170,7 +170,7 @@ export interface HorizontalScroller {
      * The `scroller`,`direction`,`branckPoint`,`queryType` properties
      * will be automatically aligned.
      */
-    children?: HandleScroller[];
+    children?: MobScroller[];
 
     /**
      * @description

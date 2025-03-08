@@ -1,10 +1,10 @@
 import {
-    HandleAsyncTimeline,
-    HandleMasterSequencer,
-    HandleScroller,
-    HandleScrollerTween,
-    HandleSequencer,
-    HandleTween,
+    MobAsyncTimeline,
+    MobMasterSequencer,
+    MobScroller,
+    MobScrollerTween,
+    MobSequencer,
+    MobTween,
 } from '../../../mobMotion/type';
 
 export interface About {
@@ -68,10 +68,10 @@ export type CreatePathAnimation = (ar0: {
     wrapElement: HTMLElement;
     setActiveItem: (value: number) => void;
 }) => {
-    pathScroller: HandleScroller;
-    pathSequencer: HandleSequencer;
-    pathTween: HandleTween;
-    pathTimeline: HandleAsyncTimeline;
+    pathScroller: MobScroller;
+    pathSequencer: MobSequencer;
+    pathTween: MobTween;
+    pathTimeline: MobAsyncTimeline;
     stopLoop: () => void;
 };
 
@@ -79,23 +79,23 @@ export type AboutSection1 = (arg0: {
     title_1: HTMLElement;
     title_2: HTMLElement;
 }) => {
-    title1parallax: HandleScroller;
-    title2parallax: HandleScroller;
-    title1tween: HandleScrollerTween;
-    title2tween: HandleScrollerTween;
+    title1parallax: MobScroller;
+    title2parallax: MobScroller;
+    title1tween: MobScrollerTween;
+    title2tween: MobScrollerTween;
 };
 
 export type AboutSection2 = (arg0: {
     title: HTMLElement;
     copy: HTMLElement;
 }) => {
-    sectionContentScroller: HandleScroller;
-    sectionContentSequencer: HandleSequencer;
+    sectionContentScroller: MobScroller;
+    sectionContentSequencer: MobSequencer;
 };
 
 export type InspirationAnimation = (ar0: {
     inspirationItem: HTMLElement[];
 }) => {
-    inspirationScroller: HandleScroller;
-    masterSequencer: HandleMasterSequencer;
+    inspirationScroller: MobScroller;
+    masterSequencer: MobMasterSequencer;
 };

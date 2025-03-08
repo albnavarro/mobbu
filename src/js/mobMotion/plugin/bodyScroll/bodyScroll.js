@@ -1,7 +1,7 @@
 //@ts-check
 
 import { mobCore } from '../../../mobCore/index.js';
-import HandleTween from '../../animation/tween/handleTween.js';
+import MobTween from '../../animation/tween/MobTween.js';
 import {
     easeTweenIsValid,
     valueIsBooleanAndReturnDefault,
@@ -14,11 +14,11 @@ import {
     updatePageScroll,
 } from '../pageScroll/pageScroller.js';
 
-/** @type {import('../../animation/tween/type.js').EaseTypes} */
+/** @type {import('../../animation/tween/type').EaseTypes} */
 const defaultPreset = 'easeOutQuad';
 
-/** @type {HandleTween} */
-const tween = new HandleTween({ ease: defaultPreset, data: { val: 0 } });
+/** @type {MobTween} */
+const tween = new MobTween({ ease: defaultPreset, data: { val: 0 } });
 
 /** @type{boolean} */
 let isRunning = false;
@@ -94,7 +94,7 @@ export const bodyScroll = (() => {
 
      *```
      * @param {(Number|Element)} target
-     * @param {import('./type.js').bodyScrollType} [ data ]
+     * @param {import('./type').bodyScrollType} [ data ]
      */
     const to = (target, data) => {
         if (typeof globalThis === 'undefined') return;
@@ -134,7 +134,7 @@ export const bodyScroll = (() => {
 
         if (easeTweenIsValid(data?.ease)) {
             tween?.updateEase?.(
-                /** @type{import('../../animation/tween/type.js').EaseTypes} */ (
+                /** @type{import('../../animation/tween/type').EaseTypes} */ (
                     data?.ease
                 )
             );
