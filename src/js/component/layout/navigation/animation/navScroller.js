@@ -1,6 +1,5 @@
-// @ts-nocheck
 import { outerHeight } from '../../../../mobCore/utils';
-import { SmoothScroller } from '../../../../mobMotion/plugin';
+import { MobSmoothScroller } from '../../../../mobMotion/plugin';
 import { navigationStore } from '../store/navStore';
 
 let currentPercent = 0;
@@ -11,15 +10,21 @@ let currentPercent = 0;
  * @returns {{scrollNativationToTop: () => void, refreshScroller: () => void}}
  */
 export const initNavigationScoller = ({ root }) => {
-    const screenEl = root.querySelector('.l-navcontainer__wrap');
-    const scrollerEl = root.querySelector('.l-navcontainer__scroll');
-    const percentEl = root.querySelector('.l-navcontainer__percent');
+    const screenEl = /** @type{HTMLElement} */ (
+        root.querySelector('.l-navcontainer__wrap')
+    );
+    const scrollerEl = /** @type{HTMLElement} */ (
+        root.querySelector('.l-navcontainer__scroll')
+    );
+    const percentEl =
+        /** @type{HTMLElement} */
+        (root.querySelector('.l-navcontainer__percent'));
     const setDelay = 200;
 
     /**
      * Initialize Scroller.
      */
-    const navScroller = new SmoothScroller({
+    const navScroller = new MobSmoothScroller({
         screen: screenEl,
         scroller: scrollerEl,
         direction: 'vertical',
@@ -30,7 +35,7 @@ export const initNavigationScoller = ({ root }) => {
             const { navigationIsOpen } = navigationStore.get();
             if (!navigationIsOpen) return;
 
-            currentPercent = Number.parseInt(percent) / 100;
+            currentPercent = Math.round(percent) / 100;
             percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
         },
     });
@@ -41,13 +46,15 @@ export const initNavigationScoller = ({ root }) => {
      * Aign menu to current active main section label
      */
     navigationStore.watch('activeNavigationSection', (section) => {
-        const currentSection = document.querySelector(
-            `[data-sectionname='${section}']`
+        const currentSection = /** @type{HTMLElement} */ (
+            document.querySelector(`[data-sectionname='${section}']`)
         );
 
         if (!currentSection) return;
 
-        const header = document.querySelector('.l-header');
+        const header = /** @type{HTMLElement} */ (
+            document.querySelector('.l-header')
+        );
         const navHeight = outerHeight(scrollerEl);
         const headerHeight = outerHeight(header);
         const percent =

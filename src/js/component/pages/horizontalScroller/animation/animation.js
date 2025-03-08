@@ -2,7 +2,7 @@
 import { mobCore } from '../../../../mobCore';
 import { outerWidth } from '../../../../mobCore/utils';
 import { scroller } from '../../../../mobMotion';
-import { HorizontalScroller } from '../../../../mobMotion/plugin';
+import { MobHorizontalScroller } from '../../../../mobMotion/plugin';
 
 let sideWidth = 0;
 
@@ -130,7 +130,7 @@ export const horizontalScrollerAnimation = ({
         sideWidth = outerWidth(side) / 2;
     });
 
-    let horizontalCustom = new HorizontalScroller({
+    let horizontalCustom = new MobHorizontalScroller({
         root: rootRef,
         container: '.js-container',
         row: '.js-row',

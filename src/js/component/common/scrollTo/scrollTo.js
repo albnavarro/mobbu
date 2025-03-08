@@ -10,7 +10,7 @@
 import { offset } from '../../../mobCore/utils';
 import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
-import { bodyScroll } from '../../../mobMotion/plugin';
+import { MobBodyScroll } from '../../../mobMotion/plugin';
 
 let disableObservereffect = false;
 
@@ -45,7 +45,7 @@ function getButtons({ delegateEvents, setState, bindProps, getState }) {
                                  */
                                 disableObservereffect = true;
                                 setState('activeLabel', label);
-                                await bodyScroll.to(offsetTop);
+                                await MobBodyScroll.to(offsetTop);
 
                                 /**
                                  * back to enable spacerAnchor observer.

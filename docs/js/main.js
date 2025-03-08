@@ -22351,7 +22351,7 @@
   var update2 = () => {
   };
   var rootElementToObserve;
-  var PageScroller = ({ velocity, rootElement }) => {
+  var MobPageScroller = ({ velocity, rootElement }) => {
     let lerp2 = tween.createLerp({ data: { scrollValue: window.scrollY } });
     rootElementToObserve = rootElement;
     const unsubscribe3 = lerp2.subscribe(({ scrollValue }) => {
@@ -22439,7 +22439,7 @@
     smoothIsActive = false;
     isFreezed = false;
     isActive = true;
-    ({ destroy, stop, update: update2 } = PageScroller({
+    ({ destroy, stop, update: update2 } = MobPageScroller({
       velocity,
       rootElement
     }));
@@ -22498,7 +22498,7 @@
   mobCore.useTouchStart(() => {
     stopTween();
   });
-  var bodyScroll = /* @__PURE__ */ (() => {
+  var MobBodyScroll = /* @__PURE__ */ (() => {
     const to = (target, data) => {
       if (typeof globalThis === "undefined") return;
       const targetParsed = (() => {
@@ -22610,7 +22610,7 @@
   };
 
   // src/js/mobMotion/plugin/horizontalScroller/js/horizontalScroller.js
-  var HorizontalScroller = class {
+  var MobHorizontalScroller = class {
     /**
      * @type {boolean}
      */
@@ -22744,7 +22744,7 @@
      */
     #afterDestroy;
     /**
-     * @type {import('./type.d.ts').horizontalScrollerOnTick|undefined}
+     * @type {import('./type.d.ts').HorizontalScrollerOnTick|undefined}
      */
     #onTick;
     /**
@@ -22851,7 +22851,7 @@
      */
     #firstTouchValue;
     /**
-     * @param  { import('./type.d.ts').HorizontalScroller } data
+     * @param  { import('./type.d.ts').MobHorizontalScroller } data
      *
      * @description
      *
@@ -23705,7 +23705,7 @@
       })
     };
   };
-  var slide = /* @__PURE__ */ (() => {
+  var MobSlide = /* @__PURE__ */ (() => {
     const subscribe = (target) => {
       if (!isNode2(target)) return () => {
       };
@@ -23769,7 +23769,7 @@
   })();
 
   // src/js/mobMotion/plugin/smoothScroller/smoothScroller.js
-  var SmoothScroller = class {
+  var MobSmoothScroller = class {
     /**
      * @type {boolean}
      */
@@ -23915,11 +23915,11 @@
      */
     #drag;
     /**
-     * @type {import('./type.d.ts').onTick}
+     * @type {import('./type').OnTick}
      */
     #onTickCallback;
     /**
-     * @type {import('./type.d.ts').onUpdate}
+     * @type {import('./type').OnUpdate}
      */
     #onUpdateCallback;
     /**
@@ -23943,7 +23943,7 @@
      */
     #scopedTouchMove;
     /**
-         * @param { import('./type.d.ts').SmoothScroller } data
+         * @param { import('./type.ts').MobSmoothScroller } data
          *
          * @description
          *
@@ -24315,7 +24315,7 @@
       this.#calculateValue();
     }
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onScopedTouchMove({ client }) {
       if (!this.#dragEnable || !this.#drag) return;
@@ -24341,7 +24341,7 @@
      * Global
      */
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onMouseDown({ target, client }) {
       if (!mq[this.#queryType](this.#breakpoint)) return;
@@ -24364,13 +24364,13 @@
       }
     }
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onMouseUp() {
       this.#dragEnable = false;
     }
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onTouchMove({ target, client, preventDefault }) {
       if ((target === this.#scroller || isDescendant(
@@ -24391,7 +24391,7 @@
       }
     }
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onWhell({ target, spinY, preventDefault }) {
       if (!mq[this.#queryType](this.#breakpoint) || !spinY) return;
@@ -24457,7 +24457,7 @@
       });
     }
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #preventChecker({ target, preventDefault }) {
       if (mq[this.#queryType](this.#breakpoint) && (target === this.#scroller || isDescendant(
@@ -24652,7 +24652,7 @@
                 class="scroll-to-top__button"
                 ${delegateEvents({
       click: () => {
-        bodyScroll.to(0);
+        MobBodyScroll.to(0);
       }
     })}
             ></button>
@@ -25043,11 +25043,20 @@
   // src/js/component/layout/navigation/animation/navScroller.js
   var currentPercent = 0;
   var initNavigationScoller = ({ root: root2 }) => {
-    const screenEl = root2.querySelector(".l-navcontainer__wrap");
-    const scrollerEl = root2.querySelector(".l-navcontainer__scroll");
-    const percentEl = root2.querySelector(".l-navcontainer__percent");
+    const screenEl = (
+      /** @type{HTMLElement} */
+      root2.querySelector(".l-navcontainer__wrap")
+    );
+    const scrollerEl = (
+      /** @type{HTMLElement} */
+      root2.querySelector(".l-navcontainer__scroll")
+    );
+    const percentEl = (
+      /** @type{HTMLElement} */
+      root2.querySelector(".l-navcontainer__percent")
+    );
     const setDelay = 200;
-    const navScroller = new SmoothScroller({
+    const navScroller = new MobSmoothScroller({
       screen: screenEl,
       scroller: scrollerEl,
       direction: "vertical",
@@ -25057,17 +25066,21 @@
       onUpdate: ({ percent }) => {
         const { navigationIsOpen } = navigationStore.get();
         if (!navigationIsOpen) return;
-        currentPercent = Number.parseInt(percent) / 100;
+        currentPercent = Math.round(percent) / 100;
         percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
       }
     });
     navScroller.init();
     navigationStore.watch("activeNavigationSection", (section) => {
-      const currentSection = document.querySelector(
-        `[data-sectionname='${section}']`
+      const currentSection = (
+        /** @type{HTMLElement} */
+        document.querySelector(`[data-sectionname='${section}']`)
       );
       if (!currentSection) return;
-      const header = document.querySelector(".l-header");
+      const header = (
+        /** @type{HTMLElement} */
+        document.querySelector(".l-header")
+      );
       const navHeight = outerHeight(scrollerEl);
       const headerHeight = outerHeight(header);
       const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight);
@@ -25122,7 +25135,7 @@
     const mainNavigationMethods = useMethodByName("main_navigation");
     mainNavigationMethods?.closeAllAccordion();
     const { navigationIsOpen } = navigationStore.get();
-    if (!navigationIsOpen) bodyScroll.to(0);
+    if (!navigationIsOpen) MobBodyScroll.to(0);
   };
   var NavigationContainerFn = ({
     html,
@@ -25379,13 +25392,13 @@
     const { label, url, activeId } = headerButton;
     onMount(() => {
       const { content } = getRef();
-      slide.subscribe(content);
-      slide.reset(content);
+      MobSlide.subscribe(content);
+      MobSlide.reset(content);
       watch(
         "isOpen",
         async (isOpen) => {
           const action2 = isOpen ? "down" : "up";
-          await slide[action2](content);
+          await MobSlide[action2](content);
           const navContainerMethods = useMethodByName(
             "navigation-container"
           );
@@ -26720,7 +26733,7 @@ Loading snippet ...</pre
         const target = document.querySelector(anchor);
         if (!target) return;
         const offsetTop = offset(target).top - 50;
-        bodyScroll.to(offsetTop);
+        MobBodyScroll.to(offsetTop);
       }
     })}
         >
@@ -27002,7 +27015,7 @@ Loading snippet ...</pre
           const offsetTop = scroll === "start" ? 0 : offset(element).top - 50;
           disableObservereffect = true;
           setState("activeLabel", label);
-          await bodyScroll.to(offsetTop);
+          await MobBodyScroll.to(offsetTop);
           disableObservereffect = false;
         }
       })}
@@ -27170,7 +27183,7 @@ Loading snippet ...</pre
     scrollerElement,
     hideControls
   }) => {
-    const scroller2 = new SmoothScroller({
+    const scroller2 = new MobSmoothScroller({
       screen: screenElement,
       scroller: scrollerElement,
       direction: "horizontal",
@@ -27629,7 +27642,7 @@ Loading snippet ...</pre
     const { inspirationScroller, masterSequencer } = inspirationAnimation({
       inspirationItem
     });
-    const aboutScroller = new SmoothScroller({
+    const aboutScroller = new MobSmoothScroller({
       screen: screenElement,
       scroller: scrollerElement,
       direction: "horizontal",
@@ -33022,7 +33035,7 @@ Loading snippet ...</pre
     const unsubscribeResize = mobCore.useResize(() => {
       sideWidth = outerWidth(side) / 2;
     });
-    let horizontalCustom = new HorizontalScroller({
+    let horizontalCustom = new MobHorizontalScroller({
       root: rootRef,
       container: ".js-container",
       row: ".js-row",
@@ -33164,7 +33177,7 @@ Loading snippet ...</pre
           // @ts-ignore
           Number.parseInt(id) === 0 ? window.innerHeight + 1 : top + height - window.innerHeight
         );
-        bodyScroll.to(scrollValue, { duration: 2e3 });
+        MobBodyScroll.to(scrollValue, { duration: 2e3 });
       });
       return () => {
         destroy2();
@@ -33291,7 +33304,7 @@ Loading snippet ...</pre
   );
 
   // src/js/component/pages/horizontalScroller/definition.js
-  var HorizontalScroller2 = createComponent(
+  var HorizontalScroller = createComponent(
     /** @type{CreateComponentParams<import('./type').HorizontalScroller>} */
     {
       name: "horizontal-scroller",
@@ -33323,7 +33336,7 @@ Loading snippet ...</pre
   );
 
   // src/js/pages/plugin/horizontalScroller/index.js
-  useComponent([HorizontalScroller2]);
+  useComponent([HorizontalScroller]);
   var horizontalScroller = async () => {
     updateQuickNavState({
       active: true,
@@ -35875,7 +35888,7 @@ Loading snippet ...</pre
     return {
       init: () => {
         if (instance) return;
-        instance = new SmoothScroller({
+        instance = new MobSmoothScroller({
           screen,
           scroller: scroller2,
           direction: "vertical",
@@ -37309,11 +37322,11 @@ Loading snippet ...</pre
       const { content } = getRef();
       const { currentId } = debugActiveComponentStore.get();
       setActiveItems({ id, value: currentId, setState });
-      const unsubscribeSlide = slide.subscribe(content);
-      slide.reset(content);
+      const unsubscribeSlide = MobSlide.subscribe(content);
+      MobSlide.reset(content);
       watch("isOpen", async (isOpen) => {
         const action2 = isOpen ? "down" : "up";
-        await slide[action2](content);
+        await MobSlide[action2](content);
         const methods = useMethodByName("debug_tree");
         methods?.refresh();
       });

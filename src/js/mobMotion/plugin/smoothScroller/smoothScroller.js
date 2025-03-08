@@ -26,7 +26,7 @@ import {
     unFreezePageScroll,
 } from '../pageScroll/pageScroller.js';
 
-export default class SmoothScroller {
+export class MobSmoothScroller {
     /**
      * @type {boolean}
      */
@@ -207,12 +207,12 @@ export default class SmoothScroller {
     #drag;
 
     /**
-     * @type {import('./type.d.ts').onTick}
+     * @type {import('./type').OnTick}
      */
     #onTickCallback;
 
     /**
-     * @type {import('./type.d.ts').onUpdate}
+     * @type {import('./type').OnUpdate}
      */
     #onUpdateCallback;
 
@@ -242,7 +242,7 @@ export default class SmoothScroller {
     #scopedTouchMove;
 
     /**
-     * @param { import('./type.d.ts').SmoothScroller } data
+     * @param { import('./type.ts').MobSmoothScroller } data
      *
      * @description
      *
@@ -699,7 +699,7 @@ export default class SmoothScroller {
     }
 
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onScopedTouchMove({ client }) {
         if (!this.#dragEnable || !this.#drag) return;
@@ -730,7 +730,7 @@ export default class SmoothScroller {
      */
 
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onMouseDown({ target, client }) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
@@ -756,14 +756,14 @@ export default class SmoothScroller {
     }
 
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onMouseUp() {
         this.#dragEnable = false;
     }
 
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onTouchMove({ target, client, preventDefault }) {
         if (
@@ -792,7 +792,7 @@ export default class SmoothScroller {
     }
 
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #onWhell({ target, spinY, preventDefault }) {
         if (!mq[this.#queryType](this.#breakpoint) || !spinY) return;
@@ -891,7 +891,7 @@ export default class SmoothScroller {
     }
 
     /**
-     * @type {import('./type.d.ts').onMouseEvent}
+     * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
     #preventChecker({ target, preventDefault }) {
         if (

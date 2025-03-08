@@ -4,7 +4,7 @@ import { mobCore } from '../../../mobCore/index.js';
 import { outerHeight } from '../../../mobCore/utils/index.js';
 import MobTween from '../../animation/tween/MobTween.js';
 
-/** @type {Map<HTMLElement,import('./type.js').Slide>} */
+/** @type {Map<HTMLElement,import('./type').MobSlide>} */
 const slideItems = new Map();
 
 /**
@@ -24,7 +24,7 @@ const isNode = (target) => {
  * Subscribe element to internal store.
  *
  * @param {HTMLElement} target
- * @returns {import('./type.js').Slide} Unsubscribe function.
+ * @returns {import('./type').MobSlide} Unsubscribe function.
  */
 const setSlideData = (target) => {
     const tween = new MobTween({ ease: 'easeOutQuad', data: { val: 0 } });
@@ -59,7 +59,7 @@ const setSlideData = (target) => {
  * unsubscribe();
  * ```
  */
-export const slide = (() => {
+export const MobSlide = (() => {
     /**
      * @description
      * Subscribe element to internal store.

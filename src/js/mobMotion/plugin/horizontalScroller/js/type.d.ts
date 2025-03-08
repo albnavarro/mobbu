@@ -1,14 +1,13 @@
-import { MouseEventParsed } from '../../../../mobCore/events/mouseUtils/type';
 import MobScroller from '../../../animation/scroller/MobScroller';
 import { MqAction, MqValues } from '../../../utils/type';
 
-export type horizontalScrollerOnTick = (arg0: {
+export type HorizontalScrollerOnTick = (arg0: {
     value: number;
     parentIsMoving: boolean;
     percent: number;
 }) => void;
 
-export interface HorizontalScroller {
+export interface MobHorizontalScroller {
     /**
      * Enable drag, default: false.
      */
@@ -59,7 +58,7 @@ export interface HorizontalScroller {
     afterRefresh?: () => void;
     afterInit?: () => void;
     afterDestroy?: () => void;
-    onTick?: horizontalScrollerOnTick;
+    onTick?: HorizontalScrollerOnTick;
 
     /**
      * Enable the css property will-change: transform; when the frame rate falls below 3/5 of the optimal value.
@@ -183,5 +182,3 @@ export interface HorizontalScroller {
      */
     breakpoint?: MqValues;
 }
-
-export type onMouseEvent = (arg0: Partial<MouseEventParsed>) => void;

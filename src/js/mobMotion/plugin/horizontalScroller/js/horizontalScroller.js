@@ -25,7 +25,7 @@ import {
     unFreezePageScroll,
 } from '../../pageScroll/pageScroller';
 
-export class HorizontalScroller {
+export class MobHorizontalScroller {
     /**
      * @type {boolean}
      */
@@ -192,7 +192,7 @@ export class HorizontalScroller {
     #afterDestroy;
 
     /**
-     * @type {import('./type.d.ts').horizontalScrollerOnTick|undefined}
+     * @type {import('./type.d.ts').HorizontalScrollerOnTick|undefined}
      */
     #onTick;
     /**
@@ -322,7 +322,7 @@ export class HorizontalScroller {
     #firstTouchValue;
 
     /**
-     * @param  { import('./type.d.ts').HorizontalScroller } data
+     * @param  { import('./type.d.ts').MobHorizontalScroller } data
      *
      * @description
      *

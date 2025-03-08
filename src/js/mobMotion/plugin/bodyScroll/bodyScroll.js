@@ -74,7 +74,7 @@ mobCore.useTouchStart(() => {
  * @description
  * Scroll body to values or element.
  */
-export const bodyScroll = (() => {
+export const MobBodyScroll = (() => {
     /**
      * @description
      *
@@ -94,7 +94,7 @@ export const bodyScroll = (() => {
 
      *```
      * @param {(Number|Element)} target
-     * @param {import('./type').bodyScrollType} [ data ]
+     * @param {import('./type').MobBodyScroll} [ data ]
      */
     const to = (target, data) => {
         if (typeof globalThis === 'undefined') return;

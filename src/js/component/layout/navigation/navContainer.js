@@ -2,7 +2,7 @@
 
 import { mobCore } from '../../../mobCore';
 import { useMethodByName } from '../../../mobjs';
-import { bodyScroll } from '../../../mobMotion/plugin';
+import { MobBodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
 
@@ -64,7 +64,7 @@ const toTopBtnHandler = () => {
     mainNavigationMethods?.closeAllAccordion();
 
     const { navigationIsOpen } = navigationStore.get();
-    if (!navigationIsOpen) bodyScroll.to(0);
+    if (!navigationIsOpen) MobBodyScroll.to(0);
 };
 
 /** @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationContainer>} */

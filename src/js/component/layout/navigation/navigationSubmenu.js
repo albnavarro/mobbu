@@ -6,7 +6,7 @@
  **/
 
 import { html, useMethodByName } from '../../../mobjs';
-import { slide } from '../../../mobMotion/plugin';
+import { MobSlide } from '../../../mobMotion/plugin';
 
 /**
  * @param {object} params
@@ -61,14 +61,14 @@ export const NavigationSubmenuFn = ({
          */
         const { content } = getRef();
 
-        slide.subscribe(content);
-        slide.reset(content);
+        MobSlide.subscribe(content);
+        MobSlide.reset(content);
 
         watch(
             'isOpen',
             async (isOpen) => {
                 const action = isOpen ? 'down' : 'up';
-                await slide[action](content);
+                await MobSlide[action](content);
 
                 /** @type{UseMethodByName<NavigationContainer>} */
                 const navContainerMethods = useMethodByName(

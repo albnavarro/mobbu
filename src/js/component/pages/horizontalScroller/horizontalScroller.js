@@ -9,7 +9,7 @@
 import { offset, outerHeight } from '../../../mobCore/utils';
 import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
-import { bodyScroll } from '../../../mobMotion/plugin';
+import { MobBodyScroll } from '../../../mobMotion/plugin';
 import { horizontalScrollerAnimation } from './animation/animation';
 
 /**
@@ -151,8 +151,7 @@ export const HorizontalScrollerFn = ({
             /**
              * Scroll
              */
-            // @ts-ignore
-            bodyScroll.to(scrollValue, { duration: 2000 });
+            MobBodyScroll.to(scrollValue, { duration: 2000 });
         });
 
         return () => {

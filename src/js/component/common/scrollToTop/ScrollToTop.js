@@ -1,6 +1,6 @@
 //@ts-check
 
-import { bodyScroll } from '../../../mobMotion/plugin';
+import { MobBodyScroll } from '../../../mobMotion/plugin';
 import { navigationStore } from '../../layout/navigation/store/navStore';
 import { Triangles } from './triangles';
 
@@ -39,7 +39,7 @@ export const ScrollToTopFn = ({
                 class="scroll-to-top__button"
                 ${delegateEvents({
                     click: () => {
-                        bodyScroll.to(0);
+                        MobBodyScroll.to(0);
                     },
                 })}
             ></button>

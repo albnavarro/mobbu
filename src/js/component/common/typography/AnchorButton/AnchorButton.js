@@ -1,7 +1,7 @@
 //@ts-check
 
 import { offset } from '../../../../mobCore/utils';
-import { bodyScroll } from '../../../../mobMotion/plugin';
+import { MobBodyScroll } from '../../../../mobMotion/plugin';
 
 /**
  * @import { MobComponent } from '../../../../mobjs/type';
@@ -23,7 +23,7 @@ export const AnchorButtonFn = ({ html, getState, delegateEvents }) => {
 
                     // @ts-ignore
                     const offsetTop = offset(target).top - 50;
-                    bodyScroll.to(offsetTop);
+                    MobBodyScroll.to(offsetTop);
                 },
             })}
         >

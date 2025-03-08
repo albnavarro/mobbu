@@ -27,8 +27,8 @@ let update = () => {};
 /** @type{HTMLElement|undefined} */
 let rootElementToObserve;
 
-/** @type{import('./type').PageScroller} */
-const PageScroller = ({ velocity, rootElement }) => {
+/** @type{import('./type').MobPageScroller} */
+const MobPageScroller = ({ velocity, rootElement }) => {
     let lerp = tween.createLerp({ data: { scrollValue: window.scrollY } });
     rootElementToObserve = rootElement;
 
@@ -151,7 +151,7 @@ export const initPageScroll = ({
     isFreezed = false;
     isActive = true;
 
-    ({ destroy, stop, update } = PageScroller({
+    ({ destroy, stop, update } = MobPageScroller({
         velocity,
         rootElement,
     }));

@@ -5,7 +5,7 @@
  **/
 
 import { componentMap, useMethodByName } from '../../../../../../mobjs';
-import { slide } from '../../../../../../mobMotion/plugin';
+import { MobSlide } from '../../../../../../mobMotion/plugin';
 import { debugActiveComponentStore } from '../../Store/DebugActiveComponent';
 import { generateTreeComponents } from '../recursiveTree';
 
@@ -69,12 +69,12 @@ export const DebugTreeItemFn = ({
         const { currentId } = debugActiveComponentStore.get();
         setActiveItems({ id, value: currentId, setState });
 
-        const unsubscribeSlide = slide.subscribe(content);
-        slide.reset(content);
+        const unsubscribeSlide = MobSlide.subscribe(content);
+        MobSlide.reset(content);
 
         watch('isOpen', async (isOpen) => {
             const action = isOpen ? 'down' : 'up';
-            await slide[action](content);
+            await MobSlide[action](content);
 
             /** @type{UseMethodByName<import('../type').DebugTree>} */
             const methods = useMethodByName('debug_tree');

@@ -7,7 +7,7 @@ import {
 } from '../../../mobCore/utils';
 import { tween } from '../../tween';
 
-export class MouseParallax {
+export class MobMouseParallax {
     /**
      * @type {HTMLElement}
      */
@@ -94,7 +94,7 @@ export class MouseParallax {
     #unsubscribeResize;
 
     /**
-     * @param { import('./type.d.ts').MouseParallax } data
+     * @param { import('./type.d.ts').MobMouseParallax } data
      */
     constructor(data) {
         this.#item = data.item;

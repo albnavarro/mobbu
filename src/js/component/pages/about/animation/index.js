@@ -1,4 +1,4 @@
-import { SmoothScroller } from '../../../../mobMotion/plugin';
+import { MobSmoothScroller } from '../../../../mobMotion/plugin';
 import { inspirationAnimation } from './inspiration';
 import { createPathAnimation } from './pathAnimation';
 import { aboutSection1 } from './section1';
@@ -50,7 +50,7 @@ export const aboutAnimation = ({
         inspirationItem,
     });
 
-    const aboutScroller = new SmoothScroller({
+    const aboutScroller = new MobSmoothScroller({
         screen: screenElement,
         scroller: scrollerElement,
         direction: 'horizontal',

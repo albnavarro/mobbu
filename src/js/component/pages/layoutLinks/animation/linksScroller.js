@@ -1,4 +1,4 @@
-import { SmoothScroller } from '../../../../mobMotion/plugin';
+import { MobSmoothScroller } from '../../../../mobMotion/plugin';
 
 /** @type{import("../type").LinksScroller} */
 export const linksScroller = ({
@@ -6,7 +6,7 @@ export const linksScroller = ({
     scrollerElement,
     hideControls,
 }) => {
-    const scroller = new SmoothScroller({
+    const scroller = new MobSmoothScroller({
         screen: screenElement,
         scroller: scrollerElement,
         direction: 'horizontal',
