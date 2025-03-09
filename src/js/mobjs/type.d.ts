@@ -1,7 +1,7 @@
 // https://stackoverflow.com/questions/65668969/event-maps-and-type-guards#answer-65890181
 
 import { MobStoreParams } from '../mobCore/store/type';
-import { ComponentFunctionType } from './mainStore/type';
+import { ComponentFunction } from './mainStore/type';
 import {
     PartialBindEvents,
     PartialBindProps,
@@ -760,13 +760,13 @@ export interface ComponentParsed<T> {
 
 export interface CreateComponentParams<T> extends ComponentParsed<T> {
     name: string;
-    component: ComponentFunctionType;
+    component: ComponentFunction;
 }
 
 export type CreateComponentReturnType = Record<
     string,
     {
-        componentFunction: ComponentFunctionType;
+        componentFunction: ComponentFunction;
         componentParams: ComponentParsed;
     }
 >;

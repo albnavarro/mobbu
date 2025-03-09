@@ -8,7 +8,7 @@ import { filterExportableStateFromObject } from '../../component/action/state/ex
  * @param {object} obj
  * @param {import("../../webComponent/type").UserComponent} obj.element
  * @param {string|undefined} obj.parentIdForced
- * @returns {import('./type').componentDataType}
+ * @returns {import('./type').ComponentData}
  *
  * @description
  * Create base DOM component from component tag.

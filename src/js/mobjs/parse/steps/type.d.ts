@@ -1,6 +1,6 @@
-import { componentStoreReturnType } from '../../component/type';
+import { ComponentStoreReturn } from '../../component/type';
 
-export interface componentDataType {
+export interface ComponentData {
     element: HTMLElement;
     props: object;
     id: string;
@@ -16,7 +16,7 @@ export interface componentDataType {
     repeatPropBind: string | undefined;
 }
 
-export interface getParamsForComponent extends componentStoreReturnType {
+export interface GetParamsForComponent extends ComponentStoreReturn {
     id: string;
     key: string;
     bindEventsId: string | undefined;

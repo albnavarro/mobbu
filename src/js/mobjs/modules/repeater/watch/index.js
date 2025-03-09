@@ -29,7 +29,7 @@ import { inizializeNestedRepeat } from '../action/inizializeNestedRepeat';
 import { setRepeaterChild } from '../action/setRepeatChild';
 
 /**
- * @param {import('../type').watchListType} param
+ * @param {import('../type').WatchList} param
  * @return {() => void}
  */
 export const watchRepeat = ({

@@ -18,7 +18,7 @@ interface MobScroller {
     queryType?: 'min' | 'max';
     disableForce3D?: boolean;
     useThrottle?: boolean;
-    range?: string;
+    range?: MobMasterSequencer | MobSequencer | MobScrollerTween;
     dynamicRange?: () => number;
     perspective?: number;
     ease?: boolean;

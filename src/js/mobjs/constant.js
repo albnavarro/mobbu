@@ -121,7 +121,7 @@ export const ATTR_MOBJS_REPEAT = 'mobjsrepeat';
 export const frameDelayAfterParse = 5;
 
 /**
- * @type {import("./modules/repeater/type").currentRepeaterState};
+ * @type {import("./modules/repeater/type").CurrentRepeaterState};
  */
 export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
 

@@ -13,7 +13,7 @@ import {
 } from '../../mobCore/store/type';
 import { UserComponent } from '../webComponent/type';
 
-export interface componentCommonTypes {
+export interface ComponentCommon {
     key: string;
     currentRepeaterState?: {
         current: object;
@@ -32,7 +32,7 @@ export interface componentCommonTypes {
     id: string;
 }
 
-export interface componentStoreTypes extends componentCommonTypes {
+export interface ComponentStore extends ComponentCommon {
     element: HTMLElement | UserComponent;
     componentName: string;
     instanceName: string;
@@ -41,7 +41,7 @@ export interface componentStoreTypes extends componentCommonTypes {
     methods: Record<string, (...args: any[]) => void> | object;
 }
 
-export interface componentStoreInputTypes extends componentCommonTypes {
+export interface ComponentStoreInput extends ComponentCommon {
     componentName: string;
     element: HTMLElement | UserComponent;
     instanceName: string;
@@ -51,7 +51,7 @@ export interface componentStoreInputTypes extends componentCommonTypes {
     methods?: Record<string, (...args: any[]) => void> | object;
 }
 
-export interface componentStoreReturnType {
+export interface ComponentStoreReturn {
     getState: MobStoreGet;
     setState: MobStoreSet;
     updateState: MobStoreUpdate;

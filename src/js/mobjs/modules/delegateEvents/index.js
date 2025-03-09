@@ -20,7 +20,7 @@ import { allowFireEvent, getFireEvent, preventFireEvent } from '../commonEvent';
 export const tempDelegateEventMap = new Map();
 
 /**
- * @type {WeakMap<object,import('./type').weakBindEventsDataArray | undefined>}
+ * @type {WeakMap<object,import('./type').WeakBindEventsDataArray | undefined>}
  */
 export const eventDelegationMap = new WeakMap();
 
@@ -35,7 +35,7 @@ const eventToAdd = [];
 const eventRegistered = [];
 
 /**
- * @param {( import('./type').delegateEventObject<Event>|import('./type').delegateEventObject<Event>[] )} [ eventsData ]
+ * @param {( import('./type').DelegateEventObject<Event>|import('./type').DelegateEventObject<Event>[] )} [ eventsData ]
  * @return {string} props id in store.
  *
  * @description
@@ -59,7 +59,7 @@ export const setDelegateBindEvent = (eventsData = []) => {
 
 /**
  * @param {EventTarget|undefined} target
- * @returns {{ target:EventTarget|undefined,data:import('./type').weakBindEventsDataArray | undefined}}
+ * @returns {{ target:EventTarget|undefined,data:import('./type').WeakBindEventsDataArray | undefined}}
  */
 const findParentElementInMap = (target) => {
     // @ts-ignore
@@ -76,7 +76,7 @@ const findParentElementInMap = (target) => {
 
 /**
  * @param {EventTarget} target
- * @returns {{ target:EventTarget|undefined,data:import('./type').weakBindEventsDataArray | undefined}}
+ * @returns {{ target:EventTarget|undefined,data:import('./type').WeakBindEventsDataArray | undefined}}
  */
 const getItemFromTarget = (target) => {
     const data = eventDelegationMap.get(target);

@@ -4,7 +4,7 @@ import { addRepeatUnsubcribe } from '../action/addRepeatUnsubcribe';
 import { watchRepeat } from '../watch';
 
 /**
- * @param {import('../type').watchListType} param
+ * @param {import('../type').WatchList} param
  * @return {void}
  */
 

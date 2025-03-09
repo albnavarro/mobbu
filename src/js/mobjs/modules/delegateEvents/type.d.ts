@@ -1,11 +1,11 @@
-export interface weakBindEventsData {
+export interface WeakBindEventsData {
     event: string;
     callback: (arg0: Event, arg1: Record<string, any>, arg2: number) => void;
 }
 
-export type weakBindEventsDataArray = weakBindEventsData[];
+export type WeakBindEventsDataArray = WeakBindEventsData[];
 
-export type delegateEventObject<T> = Record<
+export type DelegateEventObject<T> = Record<
     string,
     (arg0: T, arg1: Record<string, any>, arg2: number) => void
 >;

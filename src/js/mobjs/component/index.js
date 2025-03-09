@@ -7,8 +7,8 @@ import { componentMap } from './store';
 import { addPropsToState } from './utils';
 
 /**
- * @param {import('./type').componentStoreInputTypes} params
- * @returns {import('./type').componentStoreReturnType}
+ * @param {import('./type').ComponentStoreInput} params
+ * @returns {import('./type').ComponentStoreReturn}
  *
  *
  * @description

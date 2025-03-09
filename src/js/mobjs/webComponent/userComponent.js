@@ -24,7 +24,7 @@ import {
 } from '../modules/userComponent';
 
 /**
- * @param {{[key:string]:import('../mainStore/type').ComponentListMapType}} componentList
+ * @param {{[key:string]:import('../mainStore/type').ComponentListMap}} componentList
  */
 export const defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {

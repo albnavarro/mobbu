@@ -58,7 +58,7 @@ import { setRepeaterChild } from '../../modules/repeater/action/setRepeatChild';
 import { setBindEffect } from '../../modules/bindEffect';
 
 /**
- * @param {import('./type').getParamsForComponent} obj.state
+ * @param {import('./type').GetParamsForComponent} obj.state
  * @returns {import('../../type').ComponentPropsType<import('../../type').MobComponentMap, import('../../type').MobComponentMap>}
  *
  * @description

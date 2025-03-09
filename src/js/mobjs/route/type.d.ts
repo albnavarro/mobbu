@@ -1,4 +1,4 @@
-export interface historyType {
+export interface HistoryType {
     time: number;
     scrollY: number;
 }

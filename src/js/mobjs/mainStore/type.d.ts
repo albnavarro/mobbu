@@ -1,11 +1,11 @@
 import { ComponentParsed, ComponentPropsType } from '../type';
 
-export type ComponentFunctionType = (
+export type ComponentFunction = (
     arg0: ComponentPropsType
 ) => Promise<string> | string;
 
-export interface ComponentListMapType {
-    componentFunction: ComponentFunctionType;
+export interface ComponentListMap {
+    componentFunction: ComponentFunction;
     componentParams: ComponentParsed;
 }
 

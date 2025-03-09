@@ -4,7 +4,7 @@ import { componentMap } from '../store';
 
 /**
  * @param {Object} param
- * @param {[string, import('../type').componentStoreTypes][]} param.chunk
+ * @param {[string, import('../type').ComponentStore][]} param.chunk
  * @returns {import('./type').TreeRecursive[]}
  */
 const getTreeRecursive = ({ chunk }) => {

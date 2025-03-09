@@ -20,7 +20,7 @@ export type RepeaterRender = (arg0: {
  * Add new repeater id and props.
  * Tehe repeater will execute after component render.
  */
-export interface repeaterType {
+export interface Repeater {
     beforeUpdate(): Promise<void> | void;
     afterUpdate(): void;
     id: string;
@@ -35,11 +35,11 @@ export interface repeaterType {
     useSync: boolean;
 }
 
-export interface watchListType extends repeaterType {
+export interface WatchList extends Repeater {
     repeatId: string;
 }
 
-export interface currentRepeaterState {
+export interface CurrentRepeaterState {
     current: Record<string, any>;
     index: number;
 }

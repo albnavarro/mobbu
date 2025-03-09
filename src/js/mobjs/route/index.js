@@ -27,12 +27,12 @@ let currentSearch;
 let historyDirection = 'back';
 
 /**
- * @type {import('./type').historyType|undefined}
+ * @type {import('./type').HistoryType|undefined}
  */
 let previousHistory;
 
 /**
- * @type {import('./type').historyType|undefined}
+ * @type {import('./type').HistoryType|undefined}
  */
 let currentHistory;
 

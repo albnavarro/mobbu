@@ -73,7 +73,7 @@ export const findFirstRepeaterElementWrap = ({ rootNode, node }) => {
  *
  * @param {object} obj
  * @param {string} obj.id
- * @return {import('../../modules/repeater/type.js').currentRepeaterState}
+ * @return {import('../../modules/repeater/type').CurrentRepeaterState}
  *
  * @description
  * Update element root from generic to real after conversion.

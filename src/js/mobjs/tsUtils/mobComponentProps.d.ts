@@ -1,7 +1,7 @@
 import { MobStoreReturnType } from '../../mobCore/store/type';
 import { BindEffectObject } from '../modules/bindEffect/type';
-import { bindEventsObject } from '../modules/bindEvents/type';
-import { delegateEventObject } from '../modules/delegateEvents/type';
+import { BindEventsObject } from '../modules/bindEvents/type';
+import { DelegateEventObject } from '../modules/delegateEvents/type';
 import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 
 export type ExtractState<T> = T['state'];
@@ -25,14 +25,14 @@ export type PartialBindProps<T, R> = (arg0: {
  * delegateEvents
  */
 export type PartialDelegateEvents = (
-    arg0: delegateEventObject | delegateEventObject[]
+    arg0: DelegateEventObject | DelegateEventObject[]
 ) => any;
 
 /**
  * bindEvents
  */
 export type PartialBindEvents = (
-    arg0: bindEventsObject | bindEventsObject[]
+    arg0: BindEventsObject | BindEventsObject[]
 ) => void;
 
 /**

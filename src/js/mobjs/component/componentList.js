@@ -8,7 +8,7 @@ import { defineBindTextComponent } from '../webComponent/bindText';
 import { defineBindObjectComponent } from '../webComponent/bindObject';
 
 /**
- * @type {{[key:string]:import('../mainStore/type').ComponentListMapType}}
+ * @type {{[key:string]:import('../mainStore/type').ComponentListMap}}
  */
 export let componentListMap = {};
 
