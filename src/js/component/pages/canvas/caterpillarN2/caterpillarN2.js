@@ -5,7 +5,7 @@
  * @import { CaterpillarN2, CaterpillarN2Button } from './type';
  **/
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { html } from '../../../../mobjs';
 import { canvasBackground } from '../../../../utils/canvasUtils';
 import { caterpillarN2Animation } from './animation/animation';
@@ -80,7 +80,7 @@ export const CaterpillarN2Fn = ({
             rangeValue.textContent = value;
         });
 
-        mobCore.useFrame(() => {
+        MobCore.useFrame(() => {
             setState('isMounted', true);
         });
 

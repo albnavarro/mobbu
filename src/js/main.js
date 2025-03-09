@@ -1,10 +1,10 @@
 // @ts-check
 
 import { loadData } from './data';
-import { motionCore, tween } from './mobMotion';
+import { MobMotionCore, MobTween } from './mobMotion';
 import { inizializeApp, setDefaultComponent } from './mobjs';
 import { wrapper } from './wrapper';
-import { mobCore } from './mobCore';
+import { MobCore } from './mobCore';
 import { setBrowserClass } from './utils/utils';
 import { getScrollbarWith } from './utils/scrollbarWith';
 import { beforePageTransition, pageTransition } from './pageTransition';
@@ -17,15 +17,15 @@ import { usePageScroll } from './utils/pageScroll';
 /**
  * Set default
  */
-mobCore.useLoad(() => {
+MobCore.useLoad(() => {
     setBrowserClass();
 
-    motionCore.setDefault({
+    MobMotionCore.setDefault({
         deferredNextTick: true,
         usePassive: false,
     });
 
-    motionCore.printDefault();
+    MobMotionCore.printDefault();
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     const init = async () => {
@@ -34,7 +34,7 @@ mobCore.useLoad(() => {
             '.js-main-loader-background'
         );
 
-        let loaderTween = tween.createTween({
+        let loaderTween = MobTween.createTimeTween({
             data: { opacity: 1, scale: 1 },
             duration: 1000,
         });

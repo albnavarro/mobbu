@@ -1,4 +1,4 @@
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
 import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
@@ -190,8 +190,8 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
             if (watchIsRunning) return;
             watchIsRunning = true;
 
-            mobCore.useNextLoop(() => {
-                mobCore.useFrame(() => {
+            MobCore.useNextLoop(() => {
+                MobCore.useFrame(() => {
                     if (!ref) {
                         let refElement = getParentBindObject({
                             id,
@@ -229,7 +229,7 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
 
                     watchIsRunning = false;
 
-                    mobCore.useNextTick(async () => {
+                    MobCore.useNextTick(async () => {
                         if (!ref.deref()) {
                             unsubScribeFunction.forEach((fn) => {
                                 if (fn) fn();

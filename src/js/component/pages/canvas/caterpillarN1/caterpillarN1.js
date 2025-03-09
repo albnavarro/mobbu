@@ -5,7 +5,7 @@
  * @import { CaterpillarN1 } from './type';
  **/
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { canvasBackground } from '../../../../utils/canvasUtils';
 import { caterpillarN1Animation } from './animation/animation';
 
@@ -29,7 +29,7 @@ export const CaterpillarN1Fn = ({
             ...getState(),
         });
 
-        mobCore.useFrame(() => {
+        MobCore.useFrame(() => {
             setState('isMounted', true);
         });
 

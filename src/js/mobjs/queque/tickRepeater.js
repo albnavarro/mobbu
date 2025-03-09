@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../mobCore';
+import { MobCore } from '../../mobCore';
 import { awaitNextLoop } from './utils';
 
 /**
@@ -30,7 +30,7 @@ export const incrementRepeaterTickQueuque = (props) => {
         return () => {};
     }
 
-    const id = mobCore.getUnivoqueId();
+    const id = MobCore.getUnivoqueId();
     repeaterQueque.set(id, props);
 
     return () => repeaterQueque.delete(id);

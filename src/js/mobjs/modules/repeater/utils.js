@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { getRepeaterStateById } from '../../component/action/repeater';
 
 /**
@@ -51,7 +51,7 @@ export const mixPreviousAndCurrentData = (current, previous, key) => {
  */
 const arrayhaskey = ({ arr = [], key = '' }) => {
     return arr.every((/** @type {object} */ item) => {
-        return mobCore.checkType(Object, item) && key in item;
+        return MobCore.checkType(Object, item) && key in item;
     });
 };
 

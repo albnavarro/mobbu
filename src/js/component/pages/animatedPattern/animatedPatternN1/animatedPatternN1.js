@@ -5,7 +5,7 @@
  * @import { AnimatedPatternN1 } from './type';
  **/
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { canvasBackground } from '../../../../utils/canvasUtils';
 import { animatedPatternN1Animation } from './animation/animation';
 
@@ -29,7 +29,7 @@ export const AnimatedPatternN1Fn = ({
             ...getState(),
         });
 
-        mobCore.useFrame(() => {
+        MobCore.useFrame(() => {
             setState('isMounted', true);
         });
 

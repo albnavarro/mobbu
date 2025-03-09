@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../mobCore';
+import { MobCore } from '../../mobCore';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
@@ -15,7 +15,7 @@ import {
  * @import { MobStoreParams } from '../../mobCore/store/type';
  **/
 
-export const mainStore = mobCore.createStore(
+export const mainStore = MobCore.createStore(
     /** @type{MobStoreParams<import('./type').MainStore>} */
     ({
         [MAIN_STORE_ACTIVE_ROUTE]: () => ({

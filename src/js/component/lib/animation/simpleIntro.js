@@ -1,17 +1,17 @@
 //@ts-check
 
-import { timeline, tween } from '../../../mobMotion';
+import { MobTimeline, MobTween } from '../../../mobMotion';
 
 /** @type {import('./type').SimpleIntroAnimation} */
 export const simpleIntroAnimation = ({ refs }) => {
-    let introTween = tween.createTween({
+    let introTween = MobTween.createTimeTween({
         data: { opacity: 0, scale: 0.5 },
         duration: 2000,
         ease: 'easeOutQuart',
         stagger: { each: 8, from: 'end' },
     });
 
-    let loopTween = tween.createTween({
+    let loopTween = MobTween.createTimeTween({
         data: { scale: 1 },
         duration: 6000,
         ease: 'easeInOutQuad',
@@ -29,16 +29,20 @@ export const simpleIntroAnimation = ({ refs }) => {
         });
     });
 
-    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).goTo(introTween, {
-        opacity: 1,
-        scale: 1,
-    });
+    let introTl = MobTimeline.createAsyncTimeline({ repeat: 1 }).goTo(
+        introTween,
+        {
+            opacity: 1,
+            scale: 1,
+        }
+    );
 
-    let loopTimeline = timeline
-        .createAsyncTimeline({ repeat: -1, yoyo: true })
-        .goTo(loopTween, {
-            scale: 1.1,
-        });
+    let loopTimeline = MobTimeline.createAsyncTimeline({
+        repeat: -1,
+        yoyo: true,
+    }).goTo(loopTween, {
+        scale: 1.1,
+    });
 
     return {
         playIntro: () => introTl?.play(),

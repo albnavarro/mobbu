@@ -1,4 +1,4 @@
-import { mobCore } from '../../mobCore';
+import { MobCore } from '../../mobCore';
 
 /**
  * @description
@@ -6,5 +6,5 @@ import { mobCore } from '../../mobCore';
  * @returns {Promise<void>}
  */
 export function awaitNextLoop() {
-    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
+    return new Promise((resolve) => MobCore.useNextLoop(() => resolve()));
 }

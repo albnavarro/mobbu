@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../../constant';
 
 /**
@@ -16,7 +16,7 @@ export const setComponentRepeaterState = (current) => {
     /**
      * @type {string}
      */
-    const id = mobCore.getUnivoqueId();
+    const id = MobCore.getUnivoqueId();
     currentRepeaterValueMap.set(id, current);
 
     return id;

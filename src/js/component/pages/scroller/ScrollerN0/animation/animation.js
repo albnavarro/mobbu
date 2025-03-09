@@ -1,6 +1,6 @@
 // @ts-check
 
-import { scroller, tween } from '../../../../../mobMotion';
+import { MobScroll, MobTween } from '../../../../../mobMotion';
 import { getActiveRoute } from '../../../../../mobjs';
 import {
     canvasBackground,
@@ -15,7 +15,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { outerHeight } from '../../../../../mobCore/utils';
-import { mobCore } from '../../../../../mobCore';
+import { MobCore } from '../../../../../mobCore';
 
 /** @type{import('../type').ScrollerN0Animation} */
 export const scrollerN0Animation = ({
@@ -40,7 +40,7 @@ export const scrollerN0Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let masterSequencer = tween.createMasterSequencer();
+    let masterSequencer = MobTween.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: false });
     const activeRoute = getActiveRoute();
 
@@ -96,7 +96,7 @@ export const scrollerN0Animation = ({
     /**
      * Create staggers array.
      */
-    let staggers = tween.createStaggers({
+    let staggers = MobTween.createStaggers({
         items: data,
         stagger,
     });
@@ -108,9 +108,10 @@ export const scrollerN0Animation = ({
     let sequencersInstances = staggers.map(({ item, start, end }) => {
         const scale = item.hasFill ? 1.1 : 1;
 
-        const sequencer = tween
-            .createSequencer({ data: { scale: 0 } })
-            .goTo({ scale }, { start, end, ease: 'easeInOutQuad' });
+        const sequencer = MobTween.createSequencer({ data: { scale: 0 } }).goTo(
+            { scale },
+            { start, end, ease: 'easeInOutQuad' }
+        );
 
         const unsubscribe = sequencer.subscribe(({ scale }) => {
             item.scale = scale;
@@ -233,7 +234,7 @@ export const scrollerN0Animation = ({
     /**
      * Create scrollTrigger.
      */
-    let scrollerInstance = scroller.createScrollTrigger({
+    let scrollerInstance = MobScroll.createScrollTrigger({
         trigger: canvasScroller,
         propierties: 'tween',
         tween: masterSequencer,
@@ -262,17 +263,17 @@ export const scrollerN0Animation = ({
         draw();
 
         if (!isActive) return;
-        mobCore.useNextFrame(() => loop());
+        MobCore.useNextFrame(() => loop());
     };
 
     /**
      * Start loop.
      */
-    mobCore.useFrame(() => {
+    MobCore.useFrame(() => {
         loop();
     });
 
-    const unsubscribeResize = mobCore.useResize(() => {
+    const unsubscribeResize = MobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
 
@@ -300,7 +301,7 @@ export const scrollerN0Animation = ({
         /**
          * Render.
          */
-        mobCore.useFrame(() => draw());
+        MobCore.useFrame(() => draw());
     });
 
     /**
@@ -324,7 +325,7 @@ export const scrollerN0Animation = ({
             /**
              * Restart loop
              */
-            mobCore.useFrame(() => loop());
+            MobCore.useFrame(() => loop());
         }, 500);
     });
 

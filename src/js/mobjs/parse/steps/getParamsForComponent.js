@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { getChildrenIdByName } from '../../component/action/children';
 import { setRepeatFunction } from '../../modules/repeater/action/setRepeatFunction';
 import { setRepeaterPlaceholderMapScopeId } from '../../modules/repeater/action/setRepeaterPlaceholderMapScopeId';
@@ -192,7 +192,7 @@ export const getParamsForComponentFunction = ({
             return getBindRefsById({ id });
         },
         bindText: (strings, ...values) => {
-            const bindTextId = mobCore.getUnivoqueId();
+            const bindTextId = MobCore.getUnivoqueId();
             const render = () => renderBindText(id, strings, ...values);
             createBindTextWatcher(id, bindTextId, render, ...values);
 
@@ -200,7 +200,7 @@ export const getParamsForComponentFunction = ({
         },
         bindObject: (strings, ...values) => {
             const keys = values.map((item) => item?.bind ?? '');
-            const bindObjectId = mobCore.getUnivoqueId();
+            const bindObjectId = MobCore.getUnivoqueId();
             const render = () => renderBindObject(strings, ...values);
             createBindObjectWatcher(id, bindObjectId, keys, render);
 
@@ -213,7 +213,7 @@ export const getParamsForComponentFunction = ({
             beforeUpdate = () => Promise.resolve(),
             afterUpdate = () => {},
         }) => {
-            const invalidateId = mobCore.getUnivoqueId();
+            const invalidateId = MobCore.getUnivoqueId();
             const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
             const invalidateRender = () => render({ html: renderHtml });
 
@@ -236,7 +236,7 @@ export const getParamsForComponentFunction = ({
                      */
                     inizializeInvalidateWatch({
                         bind: /** @type{Array<string>} */ (
-                            mobCore.checkType(Array, bind) ? bind : [bind]
+                            MobCore.checkType(Array, bind) ? bind : [bind]
                         ),
                         watch,
                         beforeUpdate,
@@ -267,7 +267,7 @@ export const getParamsForComponentFunction = ({
             render,
             useSync = false,
         }) => {
-            const repeatId = mobCore.getUnivoqueId();
+            const repeatId = MobCore.getUnivoqueId();
             const hasKey = key !== '';
 
             /** type @type{Record<string, any>[]} */

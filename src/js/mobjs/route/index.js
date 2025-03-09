@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../mobCore';
+import { MobCore } from '../../mobCore';
 import { mainStore } from '../mainStore/mainStore';
 import { HISTORY_BACK, HISTORY_NEXT } from './constant';
 import {
@@ -71,7 +71,7 @@ const getParams = (value) => {
  * Get hash from url and load new route.
  */
 const hashHandler = async () => {
-    const historyObejct = { time: mobCore.getTime(), scrollY: window.scrollY };
+    const historyObejct = { time: MobCore.getTime(), scrollY: window.scrollY };
 
     /**
      * Prevent multiple routes start at same time.

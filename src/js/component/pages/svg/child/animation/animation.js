@@ -1,7 +1,7 @@
 //@ts-check
 
-import { mobCore } from '../../../../../mobCore';
-import { timeline, tween } from '../../../../../mobMotion';
+import { MobCore } from '../../../../../mobCore';
+import { MobTimeline, MobTween } from '../../../../../mobMotion';
 import { detectSafari } from '../../../../../utils/utils';
 
 /** @type{import('../type').ChildAnimation} */
@@ -37,7 +37,7 @@ export const childAnimations = ({ groups, trails }) => {
     /**
      * Create position tween.
      */
-    let mouseTween = tween.createSpring({
+    let mouseTween = MobTween.createSpring({
         data: { x: 0, y: 0 },
         stagger: { each: 3, from: 'start' },
     });
@@ -51,7 +51,7 @@ export const childAnimations = ({ groups, trails }) => {
     /**
      * Create rotation tween.
      */
-    let mouseTweenRotate = tween.createSpring({
+    let mouseTweenRotate = MobTween.createSpring({
         data: { rotation: 0 },
         stagger: { each: 8, from: 'start' },
     });
@@ -67,7 +67,7 @@ export const childAnimations = ({ groups, trails }) => {
     /**
      * Create trail intro tween.
      */
-    let trailIntro = tween.createTween({
+    let trailIntro = MobTween.createTimeTween({
         data: { opacity: 0, scale: 1.4 },
     });
 
@@ -81,7 +81,7 @@ export const childAnimations = ({ groups, trails }) => {
     /**
      * Resize event.
      */
-    const unsubScribeResize = mobCore.useResize(() => {
+    const unsubScribeResize = MobCore.useResize(() => {
         windowWidth = window.innerWidth;
         windowHeight = window.innerHeight;
     });
@@ -89,7 +89,7 @@ export const childAnimations = ({ groups, trails }) => {
     /**
      * Mouse move.
      */
-    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
+    const unsubscribeMouseMove = MobCore.useMouseMove(({ client }) => {
         if (!trailCanMove) return;
 
         const { x, y } = client;
@@ -139,7 +139,7 @@ export const childAnimations = ({ groups, trails }) => {
     /**
      * Intro tween.
      */
-    let introTween = tween.createTween({
+    let introTween = MobTween.createTimeTween({
         data: { opacity: 0, scale: 0.95 },
         duration: 2000,
         ease: 'easeOutQuart',
@@ -153,8 +153,7 @@ export const childAnimations = ({ groups, trails }) => {
         });
     });
 
-    let introTl = timeline
-        .createAsyncTimeline({ repeat: 1 })
+    let introTl = MobTimeline.createAsyncTimeline({ repeat: 1 })
         .createGroup()
         .goTo(introTween, {
             opacity: 1,

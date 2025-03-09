@@ -1,4 +1,4 @@
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
 import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
@@ -14,13 +14,13 @@ const bindEffectMap = new Map();
  */
 export const setBindEffect = ({ data, id }) => {
     /** @type{import('./type').BindEffectObject<any>[]} */
-    const dataToArray = mobCore.checkType(Array, data) ? data : [data];
+    const dataToArray = MobCore.checkType(Array, data) ? data : [data];
 
     const dataBindToArray = dataToArray.map(
         ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
             return {
                 bind: /** @type{string[]} */ (
-                    mobCore.checkType(Array, bind) ? bind : [bind]
+                    MobCore.checkType(Array, bind) ? bind : [bind]
                 ),
                 toggleClass: toggleClass ?? {},
                 toggleStyle: toggleStyle ?? {},
@@ -34,7 +34,7 @@ export const setBindEffect = ({ data, id }) => {
         items: dataBindToArray,
     };
 
-    const univoqueId = mobCore.getUnivoqueId();
+    const univoqueId = MobCore.getUnivoqueId();
     bindEffectMap.set(univoqueId, item);
     return univoqueId;
 };
@@ -165,7 +165,7 @@ const watchBindEffect = ({ data, element }) => {
                  * Initial class render
                  */
                 if (toggleClass && shouldRender) {
-                    mobCore.useFrame(() => {
+                    MobCore.useFrame(() => {
                         applyClass({ ref, data: toggleClass });
                     });
                 }
@@ -174,7 +174,7 @@ const watchBindEffect = ({ data, element }) => {
                  * Initial style render
                  */
                 if (toggleStyle && shouldRender) {
-                    mobCore.useFrame(() => {
+                    MobCore.useFrame(() => {
                         applyStyle({ ref, data: toggleStyle });
                     });
                 }
@@ -183,7 +183,7 @@ const watchBindEffect = ({ data, element }) => {
                  * Initial attribute render
                  */
                 if (toggleAttribute && shouldRender) {
-                    mobCore.useFrame(() => {
+                    MobCore.useFrame(() => {
                         applyAttribute({ ref, data: toggleAttribute });
                     });
                 }
@@ -210,8 +210,8 @@ const watchBindEffect = ({ data, element }) => {
                     if (watchIsRunning) return;
                     watchIsRunning = true;
 
-                    mobCore.useNextLoop(() => {
-                        mobCore.useFrame(() => {
+                    MobCore.useNextLoop(() => {
+                        MobCore.useFrame(() => {
                             /**
                              * Repeat ProxiIndex issue.
                              * Array che be destroyed before element will removed.

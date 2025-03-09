@@ -8,7 +8,7 @@
 
 import { offset, outerHeight } from '../../../mobCore/utils';
 import { html } from '../../../mobjs';
-import { motionCore } from '../../../mobMotion';
+import { MobMotionCore } from '../../../mobMotion';
 import { MobBodyScroll } from '../../../mobMotion/plugin';
 import { horizontalScrollerAnimation } from './animation/animation';
 
@@ -93,7 +93,7 @@ export const HorizontalScrollerFn = ({
     const { animatePin } = getState();
 
     onMount(({ element }) => {
-        if (motionCore.mq('max', 'desktop')) return;
+        if (MobMotionCore.mq('max', 'desktop')) return;
 
         const indicators = [...element.querySelectorAll('.js-indicator')];
         const nav = element.querySelector('.js-nav');
@@ -162,7 +162,7 @@ export const HorizontalScrollerFn = ({
     /**
      * Skip mobile.
      */
-    if (motionCore.mq('max', 'desktop'))
+    if (MobMotionCore.mq('max', 'desktop'))
         return html`<div><only-desktop></only-desktop></div>`;
 
     /**

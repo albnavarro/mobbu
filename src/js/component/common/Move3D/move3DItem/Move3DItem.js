@@ -1,7 +1,7 @@
 //@ts-check
 
 import { html, staticProps } from '../../../../mobjs';
-import { tween } from '../../../../mobMotion';
+import { MobTween } from '../../../../mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
 
 /** @type{(component: {tagName: string, className: string, props: any} ) => string} */
@@ -82,7 +82,7 @@ export const Move3DItemfn = ({ html, getState, addMethod, onMount }) => {
     const offsetXCssVar = `--offset-x:${offsetX};`;
     const offsetYCssVar = `--offset-y:${offsetY};`;
 
-    let lerp = tween.createLerp({
+    let lerp = MobTween.createLerp({
         data: { depth: 0, rotateX: 0, rotateY: 0 },
     });
 

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { timeline, tween } from '../../../../../mobMotion';
+import { MobTimeline, MobTween } from '../../../../../mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -8,7 +8,7 @@ import {
     getOffsetCanvas,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
-import { mobCore } from '../../../../../mobCore';
+import { MobCore } from '../../../../../mobCore';
 import { getActiveRoute } from '../../../../../mobjs/index.js';
 
 /**
@@ -90,12 +90,11 @@ export const caterpillarN2Animation = ({
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    let infiniteTween = tween
-        .createSequencer({
-            stagger: { each: 6 },
-            data: { x: duration / 4, rotate: 0 },
-            duration,
-        })
+    let infiniteTween = MobTween.createSequencer({
+        stagger: { each: 6 },
+        data: { x: duration / 4, rotate: 0 },
+        duration,
+    })
         .goTo(
             { x: duration + duration / 4 },
             { start: 0, end: duration, ease: 'easeLinear' }
@@ -134,13 +133,11 @@ export const caterpillarN2Animation = ({
     /**
      * Create timeline.
      */
-    let syncTimeline = timeline
-        .createSyncTimeline({
-            repeat: -1,
-            yoyo: false,
-            duration: 4000,
-        })
-        .add(infiniteTween);
+    let syncTimeline = MobTimeline.createSyncTimeline({
+        repeat: -1,
+        yoyo: false,
+        duration: 4000,
+    }).add(infiniteTween);
 
     syncTimeline.onLoopEnd(({ loop, direction }) => {
         console.log(`loop end: ${loop} , ${direction}`);
@@ -237,10 +234,10 @@ export const caterpillarN2Animation = ({
         draw();
 
         if (!isActive) return;
-        mobCore.useNextFrame(() => loop());
+        MobCore.useNextFrame(() => loop());
     };
 
-    mobCore.useFrame(() => loop());
+    MobCore.useFrame(() => loop());
 
     /**
      * Play timeline.
@@ -250,7 +247,7 @@ export const caterpillarN2Animation = ({
     /**
      * Resize canvas.
      */
-    const unsubscribeResize = mobCore.useResize(() => {
+    const unsubscribeResize = MobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
         draw();
@@ -278,7 +275,7 @@ export const caterpillarN2Animation = ({
              * Restart loop
              */
             syncTimeline?.resume();
-            mobCore.useFrame(() => loop());
+            MobCore.useFrame(() => loop());
         }, 500);
     });
 

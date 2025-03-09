@@ -1,7 +1,7 @@
 // @ts-check
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { outerWidth } from '../../../../mobCore/utils';
-import { scroller } from '../../../../mobMotion';
+import { MobScroll } from '../../../../mobMotion';
 import { MobHorizontalScroller } from '../../../../mobMotion/plugin';
 
 let sideWidth = 0;
@@ -14,7 +14,7 @@ let sideWidth = 0;
  */
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
-        return scroller.createScrollTrigger({
+        return MobScroll.createScrollTrigger({
             item: button,
             pin: true,
             animateAtStart: false,
@@ -64,7 +64,7 @@ const refreshPins = ({ pins }) => {
  */
 const createParallax = ({ titles }) => {
     return [...titles].map((title) => {
-        return scroller.createParallax({
+        return MobScroll.createParallax({
             item: title,
             propierties: 'x',
             reverse: true,
@@ -125,7 +125,7 @@ export const horizontalScrollerAnimation = ({
     // @ts-ignore
     sideWidth = outerWidth(side) / 2;
 
-    const unsubscribeResize = mobCore.useResize(() => {
+    const unsubscribeResize = MobCore.useResize(() => {
         // @ts-ignore
         sideWidth = outerWidth(side) / 2;
     });

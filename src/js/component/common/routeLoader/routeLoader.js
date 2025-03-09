@@ -6,7 +6,7 @@
  **/
 
 import { afterRouteChange, beforeRouteChange } from '../../../mobjs';
-import { tween } from '../../../mobMotion';
+import { MobTween } from '../../../mobMotion';
 
 /** @type {MobComponent<RouteLoader>} */
 export const RouteLoaderFn = ({ html, onMount, getProxi, bindEffect }) => {
@@ -15,7 +15,7 @@ export const RouteLoaderFn = ({ html, onMount, getProxi, bindEffect }) => {
     onMount(({ element }) => {
         proxi.isDisable = true;
 
-        let tweenOut = tween.createTween({
+        let tweenOut = MobTween.createTimeTween({
             data: { opacity: 1, scale: 1 },
             duration: 500,
         });

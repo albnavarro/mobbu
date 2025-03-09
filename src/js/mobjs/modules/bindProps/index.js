@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch } from '../../component/action/props';
@@ -55,7 +55,7 @@ export const setBindProps = (propsObj) => {
     /**
      * @type {string}
      */
-    const id = mobCore.getUnivoqueId();
+    const id = MobCore.getUnivoqueId();
     // @ts-ignore
     bindPropsMap.set(id, {
         ...propsObjUpdates,
@@ -357,7 +357,7 @@ export const applyBindProps = async ({
                  * Wait the end of current block.
                  */
                 watchIsRunning = true;
-                mobCore.useNextLoop(() => {
+                MobCore.useNextLoop(() => {
                     setBindProp({
                         componentId,
                         bind: bindUpdated,

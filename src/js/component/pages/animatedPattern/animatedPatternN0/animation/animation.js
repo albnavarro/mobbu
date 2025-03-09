@@ -1,6 +1,6 @@
 //@ts-check
 
-import { timeline, tween } from '../../../../../mobMotion';
+import { MobTimeline, MobTween } from '../../../../../mobMotion';
 import { getActiveRoute } from '../../../../../mobjs';
 import {
     canvasBackground,
@@ -13,7 +13,7 @@ import {
     roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
-import { mobCore } from '../../../../../mobCore';
+import { MobCore } from '../../../../../mobCore';
 
 /** @type{import('../type').AnimatedPatternN0Animation} */
 export const animatedPatternN0Animation = ({
@@ -95,7 +95,7 @@ export const animatedPatternN0Animation = ({
     /**
      * Create tween
      */
-    let gridTween = tween.createTween({
+    let gridTween = MobTween.createTimeTween({
         ease: 'easeInOutQuad',
         stagger,
         data: { scale: 1, rotate: 0 },
@@ -212,8 +212,10 @@ export const animatedPatternN0Animation = ({
     /**
      * Create timeline.
      */
-    let gridTimeline = timeline
-        .createAsyncTimeline({ repeat: -1, yoyo: true })
+    let gridTimeline = MobTimeline.createAsyncTimeline({
+        repeat: -1,
+        yoyo: true,
+    })
         .label({ name: 'label1' })
         .goTo(gridTween, { scale: 1.5, rotate: 90 }, { duration: 1000 })
         .goTo(gridTween, { scale: 0.5 }, { duration: 500 })
@@ -237,17 +239,17 @@ export const animatedPatternN0Animation = ({
         draw();
 
         if (!isActive) return;
-        mobCore.useNextFrame(() => loop());
+        MobCore.useNextFrame(() => loop());
     };
 
     /**
      * Start loop.
      */
-    mobCore.useFrame(() => {
+    MobCore.useFrame(() => {
         loop();
     });
 
-    const unsubscribeResize = mobCore.useResize(() => {
+    const unsubscribeResize = MobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
 
@@ -275,7 +277,7 @@ export const animatedPatternN0Animation = ({
         /**
          * Render.
          */
-        mobCore.useFrame(() => draw());
+        MobCore.useFrame(() => draw());
     });
 
     /**
@@ -301,7 +303,7 @@ export const animatedPatternN0Animation = ({
              * Restart loop
              */
             gridTimeline?.play();
-            mobCore.useFrame(() => loop());
+            MobCore.useFrame(() => loop());
         }, 500);
     });
 

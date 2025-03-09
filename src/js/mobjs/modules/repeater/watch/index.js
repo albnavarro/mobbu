@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { getOrderedChunkByCurrentRepeatValue } from '../../../component/action/children';
 import { setRepeaterStateById } from '../../../component/action/repeater';
 import {
@@ -74,7 +74,7 @@ export const watchRepeat = ({
             /** @type {Array<any>} */ current,
             /** @type {Array<any>} */ previous
         ) => {
-            if (!mobCore.checkType(Array, current)) return;
+            if (!MobCore.checkType(Array, current)) return;
 
             const repeaterParentElement = getRepeatParent({
                 id: repeatId,
@@ -288,7 +288,7 @@ export const watchRepeat = ({
             /**
              * Fire onComplete next tick;
              */
-            mobCore.useNextLoop(async () => {
+            MobCore.useNextLoop(async () => {
                 /**
                  * Execute afterUpdate function
                  */

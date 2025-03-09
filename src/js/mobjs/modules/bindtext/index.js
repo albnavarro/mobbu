@@ -1,6 +1,6 @@
 //@ts-check
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
 
@@ -262,8 +262,8 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
             if (watchIsRunning) return;
             watchIsRunning = true;
 
-            mobCore.useNextLoop(() => {
-                mobCore.useFrame(() => {
+            MobCore.useNextLoop(() => {
+                MobCore.useFrame(() => {
                     if (!ref) {
                         let refElement = getParentBindText({
                             id,
@@ -291,7 +291,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
 
                     watchIsRunning = false;
 
-                    mobCore.useNextTick(async () => {
+                    MobCore.useNextTick(async () => {
                         if (!ref.deref()) {
                             unsubScribeFunction.forEach((fn) => {
                                 if (fn) fn();

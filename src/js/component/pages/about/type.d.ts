@@ -4,7 +4,7 @@ import {
     MobScroller,
     MobScrollerTween,
     MobSequencer,
-    MobTween,
+    MobTimeTween,
 } from '../../../mobMotion/type';
 
 export interface About {
@@ -70,7 +70,7 @@ export type CreatePathAnimation = (ar0: {
 }) => {
     pathScroller: MobScroller;
     pathSequencer: MobSequencer;
-    pathTween: MobTween;
+    pathTween: MobTimeTween;
     pathTimeline: MobAsyncTimeline;
     stopLoop: () => void;
 };

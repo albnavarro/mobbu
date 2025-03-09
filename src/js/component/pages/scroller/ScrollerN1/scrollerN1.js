@@ -5,7 +5,7 @@
  * @import { ScrollerN1 } from './type';
  **/
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { canvasBackground } from '../../../../utils/canvasUtils';
 import {
     activateScrollDownArrow,
@@ -40,7 +40,7 @@ export const ScrollerN1Fn = ({
             ...getState(),
         });
 
-        mobCore.useFrame(() => {
+        MobCore.useFrame(() => {
             setState('isMounted', true);
         });
 

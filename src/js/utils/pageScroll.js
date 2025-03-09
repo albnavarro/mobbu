@@ -1,4 +1,4 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../mobCore';
 import { mainStore } from '../mobjs';
 import {
     FreezeMobPageScroll,
@@ -18,7 +18,7 @@ export const usePageScroll = () => {
          * with 3 frame.
          * last animation frame will fired one frame after stop
          */
-        mobCore.useFrameIndex(() => {
+        MobCore.useFrameIndex(() => {
             UnFreezeAndUPdateMobPageScroll();
         }, 3);
     });

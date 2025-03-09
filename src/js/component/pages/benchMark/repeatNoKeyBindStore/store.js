@@ -1,4 +1,4 @@
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 
 /**
  * @import { MobStoreParams} from "../../../../mobCore/store/type".MobStore;
@@ -10,7 +10,7 @@ let externalStore;
 export const createExternalStore = () => {
     if (externalStore) return;
 
-    externalStore = mobCore.createStore(
+    externalStore = MobCore.createStore(
         /** @type{MobStoreParams<import('./type').ExternalStore>} */
         ({
             data: () => ({

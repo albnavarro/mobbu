@@ -1,6 +1,6 @@
 //@ts-check
 
-import { timeline, tween } from '../../../../../mobMotion';
+import { MobTimeline, MobTween } from '../../../../../mobMotion';
 import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
 import {
     canvasBackground,
@@ -10,7 +10,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
-import { mobCore } from '../../../../../mobCore';
+import { MobCore } from '../../../../../mobCore';
 import { getActiveRoute } from '../../../../../mobjs';
 
 /** @type{import('../type').CaterpillarN1Animation} */
@@ -78,7 +78,7 @@ export const caterpillarN1Animation = ({
     /**
      * Create rotation tween.
      */
-    let rotationTween = tween.createTween({
+    let rotationTween = MobTween.createTimeTween({
         data: { rotate: 0 },
         stagger: { each: rotationEach, from: 'center' },
         ease: 'easeLinear',
@@ -97,7 +97,7 @@ export const caterpillarN1Animation = ({
     /**
      * Create rotation tween.
      */
-    let centerTween = tween.createSpring({
+    let centerTween = MobTween.createSpring({
         data: { x: 0, y: 0 },
         stagger: { each: centerEach, from: 'end' },
     });
@@ -203,7 +203,7 @@ export const caterpillarN1Animation = ({
     /**
      * Create timeline
      */
-    let rectTimeline = timeline.createAsyncTimeline({
+    let rectTimeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         yoyo: false,
     });
@@ -229,15 +229,15 @@ export const caterpillarN1Animation = ({
         draw();
 
         if (!isActive) return;
-        mobCore.useNextFrame(() => loop());
+        MobCore.useNextFrame(() => loop());
     };
 
-    mobCore.useFrame(() => loop());
+    MobCore.useFrame(() => loop());
 
     /**
      * Resize canvas.
      */
-    const unsubscribeResize = mobCore.useResize(() => {
+    const unsubscribeResize = MobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
         top = offset(canvas).top;
@@ -270,12 +270,12 @@ export const caterpillarN1Animation = ({
         });
     };
 
-    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
+    const unsubscribeMouseMove = MobCore.useMouseMove(({ client }) => {
         const { x, y } = client;
         move({ x, y });
     });
 
-    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
+    const unsubscribeTouchMove = MobCore.useTouchMove(({ client }) => {
         const { x, y } = client;
         move({ x, y });
     });
@@ -303,7 +303,7 @@ export const caterpillarN1Animation = ({
              * Restart loop
              */
             rectTimeline?.resume();
-            mobCore.useFrame(() => loop());
+            MobCore.useFrame(() => loop());
         }, 500);
     });
 

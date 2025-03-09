@@ -1,4 +1,4 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../mobCore';
 
 const setValue = () => {
     const value = window.innerWidth - document.documentElement.clientWidth;
@@ -12,7 +12,7 @@ const setValue = () => {
 export const getScrollbarWith = () => {
     setValue();
 
-    mobCore.useResize(() => {
+    MobCore.useResize(() => {
         setValue();
     });
 };

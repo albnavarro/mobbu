@@ -1,6 +1,6 @@
 //@ts-check
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { html, tick } from '../../../../mobjs';
 import {
     createBenchMarkArray,
@@ -25,8 +25,8 @@ const setData = async ({ value, useShuffle = false }) => {
     await tick();
 
     // await loading class is applied before saturate thread.
-    mobCore.useFrame(() => {
-        mobCore.useNextTick(async () => {
+    MobCore.useFrame(() => {
+        MobCore.useNextTick(async () => {
             const startTime = performance.now();
             set(
                 'data',

@@ -5,7 +5,7 @@
  * @import { NavigationButton } from './type';
  **/
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { loadUrl, afterRouteChange, getActiveParams } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
@@ -32,7 +32,7 @@ export const NavigationButtonFn = ({
     } = getState();
 
     afterRouteChange(({ route }) => {
-        mobCore.useFrame(() => {
+        MobCore.useFrame(() => {
             const urlParsed = url.split('?');
 
             /**

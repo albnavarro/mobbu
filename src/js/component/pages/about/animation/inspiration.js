@@ -1,10 +1,10 @@
-import { scroller, tween } from '../../../../mobMotion';
+import { MobScroll, MobTween } from '../../../../mobMotion';
 
 /** @type{import("../type").InspirationAnimation} */
 export const inspirationAnimation = ({ inspirationItem }) => {
-    const masterSequencer = tween.createMasterSequencer();
+    const masterSequencer = MobTween.createMasterSequencer();
 
-    const staggers = tween.createStaggers({
+    const staggers = MobTween.createStaggers({
         items: inspirationItem,
         stagger: {
             type: 'end',
@@ -14,11 +14,9 @@ export const inspirationAnimation = ({ inspirationItem }) => {
     });
 
     staggers.forEach(({ item, start, end, index }) => {
-        const sequencer = tween
-            .createSequencer({
-                data: { x: 100 + index * 20 },
-            })
-            .goTo({ x: 0 }, { start, end });
+        const sequencer = MobTween.createSequencer({
+            data: { x: 100 + index * 20 },
+        }).goTo({ x: 0 }, { start, end });
 
         sequencer.subscribe(({ x }) => {
             item.style.transform = `translateX(${x}px)`;
@@ -27,7 +25,7 @@ export const inspirationAnimation = ({ inspirationItem }) => {
         masterSequencer.add(sequencer);
     });
 
-    const inspirationScroller = scroller.createScrollTrigger({
+    const inspirationScroller = MobScroll.createScrollTrigger({
         item: inspirationItem[0],
         propierties: 'tween',
         tween: masterSequencer,

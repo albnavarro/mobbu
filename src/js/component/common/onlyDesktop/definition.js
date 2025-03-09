@@ -1,7 +1,7 @@
 //@ts-check
 
 import { createComponent } from '../../../mobjs';
-import { motionCore } from '../../../mobMotion';
+import { MobMotionCore } from '../../../mobMotion';
 import { OnlyDesktopFn } from './onlyDesktop';
 
 /**
@@ -15,7 +15,7 @@ export const OnlyDesktop = createComponent(
         component: OnlyDesktopFn,
         state: {
             active: () => ({
-                value: motionCore.mq('min', 'desktop'),
+                value: MobMotionCore.mq('min', 'desktop'),
                 type: Boolean,
             }),
         },

@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import {
     freezePropById,
     unFreezePropById,
@@ -95,7 +95,7 @@ export const inizializeInvalidateWatch = async ({
              * Update
              */
             watchIsRunning = true;
-            mobCore.useNextLoop(async () => {
+            MobCore.useNextLoop(async () => {
                 if (!invalidateParent) {
                     unFreezePropById({ id, prop: state });
                     return;

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { useMethodByName } from '../../../mobjs';
 import { MobBodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
@@ -19,7 +19,7 @@ import { navigationStore } from './store/navStore';
 function closeNavigation({ main, setState }) {
     setState('isOpen', false);
 
-    mobCore.useFrame(() => {
+    MobCore.useFrame(() => {
         document.body.style.overflow = '';
         main.classList.remove('shift');
     });
@@ -37,7 +37,7 @@ function openNavigation({ main, setState }) {
     methods?.refresh();
     setState('isOpen', true);
 
-    mobCore.useFrame(() => {
+    MobCore.useFrame(() => {
         document.body.style.overflow = 'hidden';
         main.classList.add('shift');
     });

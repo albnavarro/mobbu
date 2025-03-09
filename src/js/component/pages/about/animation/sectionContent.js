@@ -1,8 +1,8 @@
-import { scroller, tween } from '../../../../mobMotion';
+import { MobScroll, MobTween } from '../../../../mobMotion';
 
 /** @type{import("../type").AboutSection2} */
 export const sectionContentAnimation = ({ title, copy }) => {
-    const sectionContentSequencer = tween.createSequencer({
+    const sectionContentSequencer = MobTween.createSequencer({
         data: {
             yTitle: 100,
             yCopy: -100,
@@ -24,7 +24,7 @@ export const sectionContentAnimation = ({ title, copy }) => {
         }
     );
 
-    const sectionContentScroller = scroller.createScrollTrigger({
+    const sectionContentScroller = MobScroll.createScrollTrigger({
         item: title,
         dynamicStart: {
             position: 'right',

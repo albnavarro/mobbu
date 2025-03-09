@@ -4,9 +4,9 @@
  * @import { GetState, MobComponent } from '../../../mobjs/type';
  **/
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { html } from '../../../mobjs';
-import { motionCore } from '../../../mobMotion';
+import { MobMotionCore } from '../../../mobMotion';
 
 /**
  * @param {object} params
@@ -33,10 +33,10 @@ export const OnlyDesktopFn = ({
     invalidate,
 }) => {
     onMount(() => {
-        mobCore.useResize(() => {
+        MobCore.useResize(() => {
             setState(
                 'active',
-                /** @type {boolean} */ (motionCore.mq('min', 'desktop'))
+                /** @type {boolean} */ (MobMotionCore.mq('min', 'desktop'))
             );
         });
 

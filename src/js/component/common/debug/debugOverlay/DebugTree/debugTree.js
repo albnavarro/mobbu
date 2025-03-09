@@ -4,7 +4,7 @@
  * @import { MobComponent } from '../../../../../mobjs/type';
  **/
 
-import { mobCore } from '../../../../../mobCore';
+import { MobCore } from '../../../../../mobCore';
 import { afterRouteChange, getTree, tick } from '../../../../../mobjs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { generateTreeComponents } from './recursiveTree';
@@ -77,8 +77,8 @@ export const DebugTreeFn = ({
             setState('isLoading', true);
             await tick();
 
-            mobCore.useFrame(() => {
-                mobCore.useNextTick(async () => {
+            MobCore.useFrame(() => {
+                MobCore.useNextTick(async () => {
                     destroy?.();
                     setState('data', getTree());
                     // @ts-ignore
@@ -93,8 +93,8 @@ export const DebugTreeFn = ({
             setState('isLoading', true);
             await tick();
 
-            mobCore.useFrame(() => {
-                mobCore.useNextTick(async () => {
+            MobCore.useFrame(() => {
+                MobCore.useNextTick(async () => {
                     destroy?.();
                     setState('data', getTree());
                     // @ts-ignore

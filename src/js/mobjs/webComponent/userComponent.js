@@ -1,6 +1,6 @@
 //@ts-check
 
-import { mobCore } from '../../mobCore';
+import { MobCore } from '../../mobCore';
 import {
     ATTR_BIND_EVENTS,
     ATTR_BIND_REFS_ID,
@@ -144,7 +144,7 @@ export const defineUserComponent = (componentList) => {
 
                     this.attachShadow({ mode: 'open' });
                     this.active = false;
-                    this.#componentId = mobCore.getUnivoqueId();
+                    this.#componentId = MobCore.getUnivoqueId();
                     // @ts-ignore
                     this.#params = {};
                     this.#componentname = key;

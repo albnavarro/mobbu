@@ -1,13 +1,13 @@
 //@ts-check
 
-import { tween } from '../../../mobMotion';
+import { MobTween } from '../../../mobMotion';
 
 /** @type {import("../../../mobjs/type").MobComponent<import('./type').Loader>} */
 export const LoaderFn = ({ onMount, html, watch, remove, getState }) => {
     const { position } = getState();
 
     onMount(({ element }) => {
-        let tweenOut = tween.createTween({
+        let tweenOut = MobTween.createTimeTween({
             data: { opacity: 1, scale: 1 },
             duration: 500,
         });

@@ -1,6 +1,6 @@
 // @ts-check
 
-import { tween, scroller } from '../../../../../mobMotion';
+import { MobTween, MobScroll } from '../../../../../mobMotion';
 import { getActiveRoute } from '../../../../../mobjs';
 import {
     canvasBackground,
@@ -10,7 +10,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { outerHeight } from '../../../../../mobCore/utils';
-import { mobCore } from '../../../../../mobCore';
+import { MobCore } from '../../../../../mobCore';
 
 /**
  * @param {object} params
@@ -116,7 +116,7 @@ export const scrollerN1Animation = ({
     /**
      * Create tween.
      */
-    let scrollerTween = tween.createScrollerTween({
+    let scrollerTween = MobTween.createScrollerTween({
         from: { rotate: 0 },
         to: { rotate: endRotation },
         stagger: { each: 5, from: 'center' },
@@ -230,7 +230,7 @@ export const scrollerN1Animation = ({
     /**
      * Create scrollTrigger.
      */
-    let scrollerInstance = scroller.createScrollTrigger({
+    let scrollerInstance = MobScroll.createScrollTrigger({
         trigger: canvasScroller,
         propierties: 'tween',
         tween: scrollerTween,
@@ -258,24 +258,24 @@ export const scrollerN1Animation = ({
         draw();
         if (!isActive) return;
 
-        mobCore.useNextFrame(() => loop());
+        MobCore.useNextFrame(() => loop());
     };
 
     /**
      * Start loop.
      */
-    mobCore.useFrame(() => {
+    MobCore.useFrame(() => {
         loop();
     });
 
     /**
      * Resize canvas.
      */
-    const unsubscribeResize = mobCore.useResize(() => {
+    const unsubscribeResize = MobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
 
-        mobCore.useFrame(() => {
+        MobCore.useFrame(() => {
             draw();
         });
     });
@@ -301,7 +301,7 @@ export const scrollerN1Animation = ({
             /**
              * Restart loop
              */
-            mobCore.useFrame(() => loop());
+            MobCore.useFrame(() => loop());
         }, 500);
     });
 

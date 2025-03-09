@@ -6,7 +6,7 @@
  * @import { MatrioskaItem } from './matrioskaItem/type'
  */
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { html, updateStateByName } from '../../../mobjs';
 
 const buttons = [
@@ -79,7 +79,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                             ...val,
                                             {
                                                 key: getRandomInt(1000),
-                                                value: mobCore.getUnivoqueId(),
+                                                value: MobCore.getUnivoqueId(),
                                             },
                                         ];
                                     }
@@ -206,8 +206,8 @@ const getThirdLevel = ({
 
                 return level3
                     .map((item) => {
-                        const name = mobCore.getUnivoqueId();
-                        const name2 = mobCore.getUnivoqueId();
+                        const name = MobCore.getUnivoqueId();
+                        const name2 = MobCore.getUnivoqueId();
 
                         return html`
                             <div

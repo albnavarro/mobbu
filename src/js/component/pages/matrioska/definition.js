@@ -1,6 +1,6 @@
 //@ts-check
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { createComponent } from '../../../mobjs';
 import { DynamicListButton } from '../dynamicList/button/definition';
 import { MatrioskaFn } from './matrioska';
@@ -30,15 +30,15 @@ export const Matrioska = createComponent(
         exportState: [],
         state: {
             level1: () => ({
-                value: [{ key: 1, value: mobCore.getUnivoqueId() }],
+                value: [{ key: 1, value: MobCore.getUnivoqueId() }],
                 type: Array,
                 validate: (val) => val.length <= 10,
                 strict: true,
             }),
             level2: () => ({
                 value: [
-                    { key: 1, value: mobCore.getUnivoqueId() },
-                    { key: 2, value: mobCore.getUnivoqueId() },
+                    { key: 1, value: MobCore.getUnivoqueId() },
+                    { key: 2, value: MobCore.getUnivoqueId() },
                 ],
                 type: Array,
                 validate: (val) => val.length <= 10,
@@ -46,8 +46,8 @@ export const Matrioska = createComponent(
             }),
             level3: () => ({
                 value: [
-                    { key: 1, value: mobCore.getUnivoqueId() },
-                    { key: 2, value: mobCore.getUnivoqueId() },
+                    { key: 1, value: MobCore.getUnivoqueId() },
+                    { key: 2, value: MobCore.getUnivoqueId() },
                 ],
                 type: Array,
                 transform: (val, oldVal) => {

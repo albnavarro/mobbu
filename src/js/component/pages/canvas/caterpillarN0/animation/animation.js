@@ -1,6 +1,6 @@
 //@ts-check
 
-import { tween } from '../../../../../mobMotion';
+import { MobTween } from '../../../../../mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -9,7 +9,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
-import { mobCore } from '../../../../../mobCore';
+import { MobCore } from '../../../../../mobCore';
 import { getActiveRoute } from '../../../../../mobjs';
 
 /**
@@ -127,7 +127,7 @@ export const caterpillarN0Animation = ({
     /**
      * Create tween.
      */
-    let mainTween = tween.createSpring({
+    let mainTween = MobTween.createSpring({
         data: { rotate: 0, y: 0 },
         stagger: { each: 5, from: 'center' },
     });
@@ -264,24 +264,24 @@ export const caterpillarN0Animation = ({
 
         if (!isActive) return;
 
-        mobCore.useNextFrame(({ time }) => loop({ time }));
+        MobCore.useNextFrame(({ time }) => loop({ time }));
     };
 
     /**
      * Start loop.
      */
-    mobCore.useFrame(({ time }) => {
+    MobCore.useFrame(({ time }) => {
         loop({ time });
     });
 
     /**
      * Resize canvas.
      */
-    const unsubscribeResize = mobCore.useResize(() => {
+    const unsubscribeResize = MobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
         left = offset(canvas).left;
-        mobCore.useFrame(({ time }) => {
+        MobCore.useFrame(({ time }) => {
             draw({ time });
         });
     });
@@ -301,12 +301,12 @@ export const caterpillarN0Animation = ({
     /**
      * Mouse move.
      */
-    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
+    const unsubscribeMouseMove = MobCore.useMouseMove(({ client }) => {
         const { x } = client;
         move({ x });
     });
 
-    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
+    const unsubscribeTouchMove = MobCore.useTouchMove(({ client }) => {
         const { x } = client;
         move({ x });
     });
@@ -332,7 +332,7 @@ export const caterpillarN0Animation = ({
             /**
              * Restart loop
              */
-            mobCore.useFrame(({ time }) => loop({ time }));
+            MobCore.useFrame(({ time }) => loop({ time }));
         }, 500);
     });
 

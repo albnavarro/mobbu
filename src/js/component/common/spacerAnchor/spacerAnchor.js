@@ -5,7 +5,7 @@
  * @import { SpacerAnchor } from './type';
  **/
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { isVisibleInViewport } from '../../../mobCore/utils';
 import { tick, useMethodByName } from '../../../mobjs';
 
@@ -49,7 +49,7 @@ export const SpacerAnchorFn = ({ html, getState, onMount }) => {
 
         addItemToScrollComponent({ id, label, element });
 
-        const unsubScribeScroll = mobCore.useScrollThrottle(() => {
+        const unsubScribeScroll = MobCore.useScrollThrottle(() => {
             if (isVisibleInViewport(element)) {
                 /** @type{UseMethodByName<import('../scrollTo/type').ScrollTo>} */
                 const methods = useMethodByName('scrollTo');

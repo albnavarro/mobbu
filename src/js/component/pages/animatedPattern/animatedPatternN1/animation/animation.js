@@ -1,6 +1,6 @@
 //@ts-check
 
-import { timeline, tween } from '../../../../../mobMotion';
+import { MobTimeline, MobTween } from '../../../../../mobMotion';
 import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
 import {
     canvasBackground,
@@ -13,7 +13,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
-import { mobCore } from '../../../../../mobCore';
+import { MobCore } from '../../../../../mobCore';
 import { getActiveRoute } from '../../../../../mobjs';
 
 /** @type{import('../type').AnimatedPatternN1Animation} */
@@ -79,7 +79,7 @@ export const animatedPatternN1Animation = ({
     /**
      * Create mouse tween.
      */
-    let centerTween = tween.createLerp({
+    let centerTween = MobTween.createLerp({
         data: { mouseX: 0, mouseY: 0 },
     });
 
@@ -96,7 +96,7 @@ export const animatedPatternN1Animation = ({
     /**
      * Create tween
      */
-    let gridTween = tween.createTween({
+    let gridTween = MobTween.createTimeTween({
         ease: 'easeInOutSine',
         stagger: {
             each: 5,
@@ -241,9 +241,10 @@ export const animatedPatternN1Animation = ({
     /**
      * Create timeline.
      */
-    let gridTimeline = timeline
-        .createAsyncTimeline({ repeat: -1, yoyo: true })
-        .goTo(gridTween, { scale: 0.3 }, { duration: 1000 });
+    let gridTimeline = MobTimeline.createAsyncTimeline({
+        repeat: -1,
+        yoyo: true,
+    }).goTo(gridTween, { scale: 0.3 }, { duration: 1000 });
 
     /**
      * Start timeline.
@@ -260,12 +261,12 @@ export const animatedPatternN1Animation = ({
         centerTween.goTo({ mouseX: x - left, mouseY: y - top });
     };
 
-    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
+    const unsubscribeMouseMove = MobCore.useMouseMove(({ client }) => {
         const { x, y } = client;
         move({ x, y });
     });
 
-    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
+    const unsubscribeTouchMove = MobCore.useTouchMove(({ client }) => {
         const { x, y } = client;
         move({ x, y });
     });
@@ -277,20 +278,20 @@ export const animatedPatternN1Animation = ({
         draw();
 
         if (!isActive) return;
-        mobCore.useNextFrame(() => loop());
+        MobCore.useNextFrame(() => loop());
     };
 
     /**
      * Start loop.
      */
-    mobCore.useFrame(() => {
+    MobCore.useFrame(() => {
         loop();
     });
 
     /**
      * On resize.
      */
-    const unsubscribeResize = mobCore.useResize(() => {
+    const unsubscribeResize = MobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
         top = offset(canvas).top;
@@ -320,7 +321,7 @@ export const animatedPatternN1Animation = ({
         /**
          * Render.
          */
-        mobCore.useFrame(() => draw());
+        MobCore.useFrame(() => draw());
     });
 
     /**
@@ -346,7 +347,7 @@ export const animatedPatternN1Animation = ({
              * Restart loop
              */
             gridTimeline?.play();
-            mobCore.useFrame(() => loop());
+            MobCore.useFrame(() => loop());
         }, 500);
     });
 

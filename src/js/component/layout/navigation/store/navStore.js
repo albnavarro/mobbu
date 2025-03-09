@@ -1,12 +1,12 @@
 //@ts-check
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 
 /**
  * @import { MobStoreParams} from "../../../../mobCore/store/type".MobStore;
  **/
 
-export const navigationStore = mobCore.createStore(
+export const navigationStore = MobCore.createStore(
     /** @type{MobStoreParams<import('./type').NavigationStore>} */
     ({
         activeNavigationSection: () => ({

@@ -2,9 +2,9 @@
  * @import { MobStoreParams } from '../../../../../mobCore/store/type';
  **/
 
-import { mobCore } from '../../../../../mobCore';
+import { MobCore } from '../../../../../mobCore';
 
-export const debugActiveComponentStore = mobCore.createStore(
+export const debugActiveComponentStore = MobCore.createStore(
     /** @type{MobStoreParams<import('./type').DebugActiveComponentStore>} */
     ({
         currentId: () => ({

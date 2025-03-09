@@ -1,6 +1,6 @@
 //@ts-check
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { html, tick } from '../../../../mobjs';
 
 /**
@@ -25,7 +25,7 @@ export const shuffle = (array) => {
  * @returns {{label:string}[]}
  */
 export const createBenchMarkArray = (numberOfItem) => {
-    const valueSanitized = mobCore.checkType(Number, numberOfItem)
+    const valueSanitized = MobCore.checkType(Number, numberOfItem)
         ? numberOfItem
         : 0;
 
@@ -45,8 +45,8 @@ const setData = async ({ setState, value, useShuffle = false }) => {
     await tick();
 
     // await loading class is applied before saturate thread.
-    mobCore.useFrame(() => {
-        mobCore.useNextTick(async () => {
+    MobCore.useFrame(() => {
+        MobCore.useNextTick(async () => {
             const startTime = performance.now();
             setState(
                 'data',

@@ -1,7 +1,7 @@
 //@ts-check
 
-import { mobCore } from '../../../mobCore';
-import { motionCore, tween } from '../../../mobMotion';
+import { MobCore } from '../../../mobCore';
+import { MobMotionCore, MobTween } from '../../../mobMotion';
 import { NOOP } from '../../../mobMotion/utils/functionsUtils';
 import { Recursive3Dshape } from './partials/recursive3Dshape';
 import { getChildrenMethod, getMove3DDimension } from './utils';
@@ -25,7 +25,7 @@ export const Move3Dfn = ({
     /**
      * base id for checlren instance
      */
-    const childrenId = mobCore.getUnivoqueId();
+    const childrenId = MobCore.getUnivoqueId();
 
     /**
      * State
@@ -59,7 +59,7 @@ export const Move3Dfn = ({
     /**
      * Create tween
      */
-    let spring = tween.createSpring({ data: { delta: 0, ax: 0, ay: 0 } });
+    let spring = MobTween.createSpring({ data: { delta: 0, ax: 0, ay: 0 } });
 
     /** @type{() => void } */
     const onMouseUp = () => {
@@ -142,13 +142,13 @@ export const Move3Dfn = ({
         if (xLimitReached) dragX -= xgap;
         if (yLimitReached) dragY -= ygap;
 
-        const axClamped = motionCore.clamp(
+        const axClamped = MobMotionCore.clamp(
             ax,
             -proxiState.xLimit,
             proxiState.xLimit
         );
 
-        const ayClamped = motionCore.clamp(
+        const ayClamped = MobMotionCore.clamp(
             ay,
             -proxiState.yLimit,
             proxiState.yLimit
@@ -206,7 +206,7 @@ export const Move3Dfn = ({
         unsubscribeScroll();
 
         unsubscribeScroll = proxiState.useScroll
-            ? mobCore.useScroll(({ scrollY }) => {
+            ? MobCore.useScroll(({ scrollY }) => {
                   onScroll(scrollY);
               })
             : () => {};
@@ -230,7 +230,7 @@ export const Move3Dfn = ({
             container.style.transform = `rotateY(${ax}deg) rotateX(${ay}deg)`;
         });
 
-        const unsubscribeMouseMove = mobCore.useMouseMove(({ page }) => {
+        const unsubscribeMouseMove = MobCore.useMouseMove(({ page }) => {
             pageCoord = { x: page.x, y: page.y };
             onMove();
         });
@@ -238,7 +238,7 @@ export const Move3Dfn = ({
         /**
          * Update root size
          */
-        const unsubscribeResize = mobCore.useResize(() => {
+        const unsubscribeResize = MobCore.useResize(() => {
             ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
                 element,
             }));
@@ -257,25 +257,25 @@ export const Move3Dfn = ({
                     dragX = window.innerWidth / 2;
                     dragY = window.innerHeight / 2;
 
-                    unsubscribeTouchStart = mobCore.useTouchStart(
+                    unsubscribeTouchStart = MobCore.useTouchStart(
                         ({ page }) => {
                             onMouseDown({ page });
                         }
                     );
 
-                    unsubscribeTouchEnd = mobCore.useTouchEnd(() => {
+                    unsubscribeTouchEnd = MobCore.useTouchEnd(() => {
                         onMouseUp();
                     });
 
-                    unsubscribeTouchDown = mobCore.useMouseDown(({ page }) => {
+                    unsubscribeTouchDown = MobCore.useMouseDown(({ page }) => {
                         onMouseDown({ page });
                     });
 
-                    unsubscribeTouchUp = mobCore.useMouseUp(() => {
+                    unsubscribeTouchUp = MobCore.useMouseUp(() => {
                         onMouseUp();
                     });
 
-                    unsubscribeTouchMove = mobCore.useTouchMove(({ page }) => {
+                    unsubscribeTouchMove = MobCore.useTouchMove(({ page }) => {
                         pageCoord = { x: page.x, y: page.y };
                         onMove();
                     });
@@ -301,7 +301,7 @@ export const Move3Dfn = ({
             { immediate: true }
         );
 
-        mobCore.useNextLoop(() => {
+        MobCore.useNextLoop(() => {
             ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
                 element,
             }));

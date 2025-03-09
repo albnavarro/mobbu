@@ -1,7 +1,7 @@
 //@ts-check
 
 import { createComponent } from '../../../mobjs';
-import { motionCore } from '../../../mobMotion';
+import { MobMotionCore } from '../../../mobMotion';
 import { AboutComponentFn } from './about';
 
 /**
@@ -55,7 +55,7 @@ export const AboutComponent = createComponent(
                 value: 1,
                 type: Number,
                 transform: (value) => {
-                    return motionCore.clamp(value, 1, 4);
+                    return MobMotionCore.clamp(value, 1, 4);
                 },
             }),
         },

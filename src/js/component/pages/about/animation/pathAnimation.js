@@ -1,8 +1,8 @@
 // https://bennettfeely.com/clippy/
 
-import { mobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mobCore';
 import { outerWidth } from '../../../../mobCore/utils';
-import { scroller, timeline, tween } from '../../../../mobMotion';
+import { MobScroll, MobTimeline, MobTween } from '../../../../mobMotion';
 import { randomIntFromInterval } from '../../../../utils/utils';
 
 /** @type{import('../type').CreatePathAnimation} */
@@ -43,7 +43,7 @@ export const createPathAnimation = ({
      * Sequencer
      * Scroll shape mutation
      */
-    const pathSequencer = tween.createSequencer({
+    const pathSequencer = MobTween.createSequencer({
         data: { ...sequencerData[0] },
         stagger: {
             each: 10,
@@ -98,7 +98,7 @@ export const createPathAnimation = ({
      * Tween
      * Perpetual movement
      */
-    const pathTween = tween.createTween({
+    const pathTween = MobTween.createTimeTween({
         data: { ...timelineData },
     });
 
@@ -117,22 +117,23 @@ export const createPathAnimation = ({
      * Timeline
      * Loop pathTween
      */
-    const pathTimeline = timeline
-        .createAsyncTimeline({ repeat: -1, yoyo: true })
-        .goTo(
-            pathTween,
-            {
-                ax: () => randomIntFromInterval(-7, 7),
-                ay: () => randomIntFromInterval(-7, 7),
-                bx: () => randomIntFromInterval(-7, 7),
-                by: () => randomIntFromInterval(-7, 7),
-                cx: () => randomIntFromInterval(-7, 7),
-                cy: () => randomIntFromInterval(-7, 7),
-                dx: () => randomIntFromInterval(-7, 7),
-                dy: () => randomIntFromInterval(-7, 7),
-            },
-            { duration: 3000 }
-        );
+    const pathTimeline = MobTimeline.createAsyncTimeline({
+        repeat: -1,
+        yoyo: true,
+    }).goTo(
+        pathTween,
+        {
+            ax: () => randomIntFromInterval(-7, 7),
+            ay: () => randomIntFromInterval(-7, 7),
+            bx: () => randomIntFromInterval(-7, 7),
+            by: () => randomIntFromInterval(-7, 7),
+            cx: () => randomIntFromInterval(-7, 7),
+            cy: () => randomIntFromInterval(-7, 7),
+            dx: () => randomIntFromInterval(-7, 7),
+            dy: () => randomIntFromInterval(-7, 7),
+        },
+        { duration: 3000 }
+    );
 
     pathTimeline.play();
 
@@ -170,15 +171,15 @@ export const createPathAnimation = ({
             currentPath.style.clipPath = `polygon(${a.x}% ${a.y}%, ${b.x}% ${b.y}%, ${c.x}% ${c.y}%, ${d.x}% ${d.y}%)`;
         });
 
-        mobCore.useNextFrame(() => loop());
+        MobCore.useNextFrame(() => loop());
     };
 
-    mobCore.useFrame(() => loop());
+    MobCore.useFrame(() => loop());
 
     /**
      * ScrollTrigger
      */
-    const pathScroller = scroller.createScrollTrigger({
+    const pathScroller = MobScroll.createScrollTrigger({
         item: wrapElement,
         dynamicStart: {
             position: 'left',

@@ -9,7 +9,7 @@
 
 import { offset } from '../../../mobCore/utils';
 import { html } from '../../../mobjs';
-import { motionCore } from '../../../mobMotion';
+import { MobMotionCore } from '../../../mobMotion';
 import { MobBodyScroll } from '../../../mobMotion/plugin';
 
 let disableObservereffect = false;
@@ -97,7 +97,7 @@ export const ScrollToFn = ({
     });
 
     onMount(() => {
-        if (motionCore.mq('max', 'large')) return;
+        if (MobMotionCore.mq('max', 'large')) return;
 
         /**
          * SpacerAnchor add label in different time during render.

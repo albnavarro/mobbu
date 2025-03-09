@@ -1,6 +1,6 @@
 //@ts-check
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { getIdByElement } from '../../component/action/element';
@@ -50,7 +50,7 @@ export const setDelegateBindEvent = (eventsData = []) => {
     /**
      * @type {string}
      */
-    const id = mobCore.getUnivoqueId();
+    const id = MobCore.getUnivoqueId();
     // @ts-ignore
     tempDelegateEventMap.set(id, eventsDataParsed);
 

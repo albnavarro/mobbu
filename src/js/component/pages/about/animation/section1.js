@@ -1,8 +1,8 @@
-import { scroller, tween } from '../../../../mobMotion';
+import { MobScroll, MobTween } from '../../../../mobMotion';
 
 /** @type{import("../type").AboutSection1} */
 export const aboutSection1 = ({ title_1, title_2 }) => {
-    const title1tween = tween.createScrollerTween({
+    const title1tween = MobTween.createScrollerTween({
         from: { y: 0 },
         to: { y: 30 },
     });
@@ -11,7 +11,7 @@ export const aboutSection1 = ({ title_1, title_2 }) => {
         title_1.style.transform = `translate(${0}px, ${y}px)`;
     });
 
-    const title1parallax = scroller.createParallax({
+    const title1parallax = MobScroll.createParallax({
         item: title_1,
         propierties: 'tween',
         tween: title1tween,
@@ -19,7 +19,7 @@ export const aboutSection1 = ({ title_1, title_2 }) => {
         align: 'start',
     });
 
-    const title2tween = tween.createScrollerTween({
+    const title2tween = MobTween.createScrollerTween({
         from: { y: 0 },
         to: { y: -30 },
     });
@@ -28,7 +28,7 @@ export const aboutSection1 = ({ title_1, title_2 }) => {
         title_2.style.transform = `translateY(${y}px)`;
     });
 
-    const title2parallax = scroller.createParallax({
+    const title2parallax = MobScroll.createParallax({
         item: title_2,
         propierties: 'tween',
         tween: title2tween,

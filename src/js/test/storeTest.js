@@ -1,23 +1,27 @@
 // @ts-check
 
-import { mobCore } from '../mobCore';
+import { MobCore } from '../mobCore';
 import { mainStore } from '../mobjs';
 
 export const storeTest = () => {
-    /** @type{import('../mobCore/store/type').MobStore<import('./type').proxiStore>} */
-    const proxiStore = mobCore.createStore({
-        proxiProp: 0,
-    });
+    const proxiStore = MobCore.createStore(
+        /** @type{import('../mobCore/store/type').MobStoreParams<import('./type').proxiStore>} */
+        ({
+            proxiProp: 0,
+        })
+    );
 
     const proxiBind = proxiStore.getProxi();
 
-    /** @type{import('../mobCore/store/type').MobStore<import('./type').StoreTest>} */
-    const storeTest = mobCore.createStore({
-        prop: 1,
-        myComputed: 0,
-        myComputed2: 0,
-        myComputed3: 0,
-    });
+    const storeTest = MobCore.createStore(
+        /** @type{import('../mobCore/store/type').MobStoreParams<import('./type').StoreTest>} */
+        ({
+            prop: 1,
+            myComputed: 0,
+            myComputed2: 0,
+            myComputed3: 0,
+        })
+    );
 
     storeTest.bindStore([proxiStore, mainStore]);
     const proxi = storeTest.getProxi();

@@ -6,7 +6,7 @@
  * @import { MatrioskaItem } from './matrioskaItem/type'
  */
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { html, tick, updateStateByName } from '../../../mobjs';
 import {
     FreezeMobPageScroll,
@@ -88,7 +88,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                             ...val,
                                             {
                                                 key: getRandomInt(1000),
-                                                value: mobCore.getUnivoqueId(),
+                                                value: MobCore.getUnivoqueId(),
                                             },
                                         ];
                                     }
@@ -195,8 +195,8 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
             ${repeat({
                 bind: 'level3',
                 render: ({ html, current }) => {
-                    const name = mobCore.getUnivoqueId();
-                    const name2 = mobCore.getUnivoqueId();
+                    const name = MobCore.getUnivoqueId();
+                    const name2 = MobCore.getUnivoqueId();
 
                     /**
                      * With key bind props is unnecessary here

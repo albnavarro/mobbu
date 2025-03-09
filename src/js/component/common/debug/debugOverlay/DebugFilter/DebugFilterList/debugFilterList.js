@@ -4,7 +4,7 @@
  * @import { MobComponent, ReturnBindProps } from '../../../../../../mobjs/type';
  **/
 
-import { mobCore } from '../../../../../../mobCore';
+import { MobCore } from '../../../../../../mobCore';
 import { componentMap, tick } from '../../../../../../mobjs';
 import { verticalScroller } from '../../../../../lib/animation/verticalScroller';
 
@@ -37,7 +37,7 @@ const initScroller = async ({ getRef }) => {
     };
 };
 
-const randomString = mobCore.getUnivoqueId();
+const randomString = MobCore.getUnivoqueId();
 const getFakeReplacement = (/** @type{number} */ index) =>
     `{{${randomString}${index}}}`;
 
@@ -123,8 +123,8 @@ export const DebugFilterListFn = ({
          * After useFrame of isLoading watcher
          * Set current data state.
          */
-        mobCore.useFrame(() => {
-            mobCore.useNextTick(async () => {
+        MobCore.useFrame(() => {
+            MobCore.useNextTick(async () => {
                 /**
                  * With very large result (500/1000 item)
                  * before create list set loading true.

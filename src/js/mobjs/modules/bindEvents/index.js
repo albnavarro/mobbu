@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { tick } from '../../queque/tick';
@@ -27,7 +27,7 @@ export const setBindEvents = (eventsData = []) => {
     /**
      * @type {string}
      */
-    const id = mobCore.getUnivoqueId();
+    const id = MobCore.getUnivoqueId();
     // @ts-ignore
     bindEventMap.set(id, eventsDataParsed);
 

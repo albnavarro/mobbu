@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../../mobCore';
+import { MobCore } from '../../../mobCore';
 
 /**
  * @type {Map<string,object>}
@@ -29,7 +29,7 @@ export const setStaticProps = (props = {}) => {
     /**
      * @type {string}
      */
-    const id = mobCore.getUnivoqueId();
+    const id = MobCore.getUnivoqueId();
     staticPropsMap.set(id, props);
 
     return id;

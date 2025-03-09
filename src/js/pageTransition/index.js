@@ -1,5 +1,5 @@
 import { beforeRouteChange } from '../mobjs';
-import { motionCore, timeline, tween } from '../mobMotion';
+import { MobTimeline, MobMotionCore, MobTween } from '../mobMotion';
 
 let scrollY = 0;
 
@@ -32,16 +32,16 @@ export const pageTransition = async ({
     oldRoute,
     newRoute,
 }) => {
-    if (motionCore.mq('max', 'desktop') || oldRoute === newRoute) return;
+    if (MobMotionCore.mq('max', 'desktop') || oldRoute === newRoute) return;
 
     newNode.style.opacity = 0;
 
-    const oldNodeTween = tween.createTween({
+    const oldNodeTween = MobTween.createTimeTween({
         data: { opacity: 1 },
         duration: 300,
     });
 
-    const newNodeTween = tween.createTween({
+    const newNodeTween = MobTween.createTimeTween({
         data: { opacity: 0 },
         duration: 500,
     });
@@ -54,8 +54,7 @@ export const pageTransition = async ({
         newNode.style.opacity = opacity;
     });
 
-    let tl = timeline
-        .createAsyncTimeline({ repeat: 1 })
+    let tl = MobTimeline.createAsyncTimeline({ repeat: 1 })
         .createGroup({ waitComplete: true })
         .goTo(oldNodeTween, { opacity: 0 })
         .goTo(newNodeTween, { opacity: 1 })
