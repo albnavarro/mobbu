@@ -1,6 +1,6 @@
-import { motionCore } from '../../../src/js/mobMotion';
+import { MobMotionCore } from '../../../src/js/mobMotion';
 
-motionCore.setDefault({
+MobMotionCore.setDefault({
     spring: {
         relative: false, // Default is false.
         config: {

@@ -1,4 +1,4 @@
-interface deafults {
+{
     usePassive?: boolean;
     deferredNextTick?: boolean;
     throttle?: number;

@@ -1,5 +1,5 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-mobCore.useframe(({ fps, shouldrender, time }) => {
+MobCore.useframe(({ fps, shouldrender, time }) => {
     // code ...
 });

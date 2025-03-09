@@ -1,4 +1,4 @@
-interface stagger {
+{
     each?: number;
     waitComplete?: boolean;
     from?:

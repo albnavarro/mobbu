@@ -1,7 +1,7 @@
 /**
  * CreateStagger params.
  */
-interface createStagger {
+{
     /**
      * Target Array.
      */

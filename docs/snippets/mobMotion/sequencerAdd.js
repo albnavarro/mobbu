@@ -1,14 +1,13 @@
-import { tween } from '../mobMotion';
+import { MobTween } from '../../../src/js/mobMotion';
 
 /**
  * Create and set the goTo value.
  */
-const mySequencer = tween
-    .createSequencer({
-        data: { x: 10, y: 0, rotate: 0 },
-        duration: 10,
-        ease: 'easeInQuad',
-    })
+const mySequencer = MobTween.createSequencer({
+    data: { x: 10, y: 0, rotate: 0 },
+    duration: 10,
+    ease: 'easeInQuad',
+})
     .goTo({ x: 10 }, { start: 2, end: 5, ease: 'easeInExpo' })
     .add(({ value, isForced, direction }) => {
         /**

@@ -1,4 +1,4 @@
-import { timeline, tween, scroller } from '../mobMotion';
+import { MobTimeline, MobTween, MobScroll } from '../../../src/js/mobMotion';
 
 const triggerElement = document.querySelector('.trigger');
 const targets = document.querySelectorAll('.targets');
@@ -6,12 +6,12 @@ const targets = document.querySelectorAll('.targets');
 /**
  * Let's create a masterSequencer to group all the instances.
  */
-const masterSequencer = tween.createMasterSequencer();
+const masterSequencer = MobTween.createMasterSequencer();
 
 /**
  * CreateStagger.
  */
-const staggers = tween.createStaggers({
+const staggers = MobTween.createStaggers({
     items: targets,
     stagger: {
         type: 'equal',
@@ -27,13 +27,11 @@ const staggers = tween.createStaggers({
  * a simple forEach() is enough
  */
 const unsubScribeStagger = staggers.map(({ item, start, end, index }) => {
-    const sequencer = tween
-        .createSequencer({
-            data: { x: 0, y: 0 },
-            duration: 10, // duration is the same of createStagger
-            ease: 'easeInQuad',
-        })
-        .goTo({ x: 10, y: 10 }, { start, end });
+    const sequencer = MobTween.createSequencer({
+        data: { x: 0, y: 0 },
+        duration: 10, // duration is the same of createStagger
+        ease: 'easeInQuad',
+    }).goTo({ x: 10, y: 10 }, { start, end });
 
     /**
      * Apply value
@@ -52,20 +50,18 @@ const unsubScribeStagger = staggers.map(({ item, start, end, index }) => {
 /**
  * Timeline example:
  */
-const mytimeline = timeline
-    .createSyncTimeline({
-        repeat: -1,
-        yoyo: false,
-        duration: 4000,
-    })
-    .add(masterSequencer);
+const mytimeline = MobTimeline.createSyncTimeline({
+    repeat: -1,
+    yoyo: false,
+    duration: 4000,
+}).add(masterSequencer);
 
 mytimeline.play();
 
 /**
  * Scrolltrigger example:
  */
-const scrollerInstance = scroller.createScrollTrigger({
+const scrollerInstance = MobScroll.createScrollTrigger({
     trigger: triggerElement,
     propierties: 'tween',
     tween: masterSequencer,

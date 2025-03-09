@@ -1,10 +1,10 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
 const loop = () => {
-    mobCore.useNextFrame(({ fps, shouldRender, time }) => {
+    MobCore.useNextFrame(({ fps, shouldRender, time }) => {
         // code
         loop();
     });
 };
 
-mobCore.useFrame(() => loop());
+MobCore.useFrame(() => loop());

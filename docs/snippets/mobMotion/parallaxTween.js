@@ -1,4 +1,4 @@
-import { scroller, tween } from '../../../src/js/mobMotion';
+import { MobScroll, MobTween } from '../../../src/js/mobMotion';
 
 const myTarget = document.querySelector('myTarget');
 
@@ -6,7 +6,7 @@ const myTarget = document.querySelector('myTarget');
  * Use a scrollerTween ( sequencer is not supported )
  * Range parameters is unused.
  */
-const myTween = tween.createScrollerTween({
+const myTween = MobTween.createScrollerTween({
     from: { x: 10, y: 20 }, // exact value.
     to: { x: 100, y: 200 }, // multiplier.
     ease: 'easeLinear',
@@ -19,7 +19,7 @@ myTween.subscribe(({ x, y }) => {
     myTarget.style.translate = `${x}px ${y}px`;
 });
 
-const myParallax = scroller.createScrollTrigger({
+const myParallax = MobScroll.createScrollTrigger({
     item: myTarget, // track position.
     propierties: 'tween', // set this propierties to 'tween'
     tween: myTween, // or a sequencer.

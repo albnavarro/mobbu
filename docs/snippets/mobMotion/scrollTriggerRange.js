@@ -1,11 +1,11 @@
-import { scroller } from '../mobMotion';
+import { MobScroll } from '../../../src/js/mobMotion';
 
 const myTarget = document.querySelector('myTarget');
 
 /**
  * Builtin propierties
  */
-const myScrollTrigger = scroller.createScrollTrigger({
+const myScrollTrigger = MobScroll.createScrollTrigger({
     item: myTarget,
     propierties: 'x',
     range: '+50vw',

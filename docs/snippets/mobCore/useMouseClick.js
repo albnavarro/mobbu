@@ -1,6 +1,6 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-const unsubscribe = mobCore.useMouseClick(
+const unsubscribe = MobCore.useMouseClick(
     ({ client, page, preventDefault, target, type }) => {
         // code
     }
@@ -9,7 +9,7 @@ unsubscribe();
 
 ///
 
-const unsubscribe = mobCore.useMouseDown(
+const unsubscribe = MobCore.useMouseDown(
     ({ client, page, preventDefault, target, type }) => {
         // code
     }

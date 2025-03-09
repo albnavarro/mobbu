@@ -1,4 +1,4 @@
-interface sequencer {
+interface MobSequencer {
     data: { [key: string]: number | (() => number) };
     duration?: number;
     ease?:

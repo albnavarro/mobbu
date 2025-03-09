@@ -1,6 +1,6 @@
-import { motionCore } from '../../../src/js/mobMotion';
+import { MobMotionCore } from '../../../src/js/mobMotion';
 
-motionCore.setDefault({
+MobMotionCore.setDefault({
     tween: {
         duration: 1000, // Default is 1000.
         ease: 'easeLinear', // Default is easeLinear.

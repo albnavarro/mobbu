@@ -1,4 +1,4 @@
-import { scroller } from '../mobMotion';
+import { MobScroll } from '../../../src/js/mobMotion';
 
 const myTarget = document.querySelector('myTarget');
 
@@ -7,7 +7,7 @@ const myTarget = document.querySelector('myTarget');
  * from when its upper edge touches the lower edge of the screen
  * and stops when the element is completely visible,
  */
-const myScrollTrigger = scroller.createScrollTrigger({
+const myScrollTrigger = MobScroll.createScrollTrigger({
     item: myTarget,
     propierties: 'y',
     dynamicRange: () => {
@@ -31,7 +31,7 @@ const myScrollTrigger = scroller.createScrollTrigger({
  * In this case the animation starts when the element is
  * completely visible and ends 100px below the top edge of the screen.
  */
-const myScrollTrigger = scroller.createScrollTrigger({
+const myScrollTrigger = MobSc.createScrollTrigger({
     item: myTarget,
     propierties: 'y',
     dynamicRange: () => {

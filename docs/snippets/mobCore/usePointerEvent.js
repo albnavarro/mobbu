@@ -1,6 +1,6 @@
-import { mobCore } from '../../../src/js/mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-const unsubscribe = mobCore.usePointerMove((event) => {
+const unsubscribe = MobCore.usePointerMove((event) => {
     console.log(event);
 });
 

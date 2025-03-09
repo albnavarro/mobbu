@@ -1,4 +1,4 @@
-import { scroller } from '../../../src/js/mobMotion';
+import { MobScroll } from '../../../src/js/mobMotion';
 
 const myTarget = document.querySelector('myTarget');
 
@@ -6,7 +6,7 @@ const myTarget = document.querySelector('myTarget');
  * Opacity propierties.
  * The opacity starts from the bottom edge of the screen and ends at the top edge.
  */
-const myParallax = scroller.createParallax({
+const myParallax = MobScroll.createParallax({
     item: myTarget,
     propierties: 'opacity',
     opacityStart: 100,

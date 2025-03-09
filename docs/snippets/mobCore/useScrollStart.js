@@ -1,12 +1,12 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-const unsubscribe = mobCore.useScrollStart(({ scrollY }) => {
+const unsubscribe = MobCore.useScrollStart(({ scrollY }) => {
     // code
 });
 
 unsubscribe();
 
-const unsubscribe = mobCore.useScrollEnd(({ scrollY }) => {
+const unsubscribe = MobCore.useScrollEnd(({ scrollY }) => {
     // code
 });
 

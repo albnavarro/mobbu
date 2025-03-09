@@ -1,6 +1,6 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-const unsubscribe = mobCore.useScrollThrottle(({ direction, scrollY }) => {
+const unsubscribe = MobCore.useScrollThrottle(({ direction, scrollY }) => {
     // code
 });
 

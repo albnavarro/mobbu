@@ -1,6 +1,6 @@
-import { motionCore } from '../../../src/js/mobMotion';
+import { MobMotionCore } from '../../../src/js/mobMotion';
 
-motionCore.setDefault({
+MobMotionCore.setDefault({
     deferredNextTick: true,
     usePassive: true,
     mq: {

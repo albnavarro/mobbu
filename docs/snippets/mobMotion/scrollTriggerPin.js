@@ -1,11 +1,11 @@
-import { scroller } from '../mobMotion';
+import { MobScroll } from '../../../src/js/mobMotion';
 
 const myTarget = document.querySelector('myTarget');
 
 /**
  * Create instance.
  */
-const myScrollTrigger = scroller.createScrollTrigger({
+const myScrollTrigger = MobScroll.createScrollTrigger({
     item: myTarget,
     propierties: 'rotate',
     range: '45deg ',

@@ -1,4 +1,4 @@
-import { scroller } from '../../../src/js/mobMotion';
+import { MobScroll } from '../../../src/js/mobMotion';
 
 /**
  * Horizontal Scroller item.
@@ -34,7 +34,7 @@ myTrigger.style.height = `${elementWidth}px`;
  * Move from left edge to the center of the screen.
  */
 const myChild = document.querySelector('.myChild');
-const myScrollTriggerChild = scroller.createScrollTrigger({
+const myScrollTriggerChild = MobScroll.createScrollTrigger({
     item: myChild,
 
     // window scroll has no effect if scroller is !== window.
@@ -54,7 +54,7 @@ const myScrollTriggerChild = scroller.createScrollTrigger({
 /**
  * Create basic horizontal scroller.
  */
-const myScrollTrigger = scroller.createScrollTrigger({
+const myScrollTrigger = MobScroll.createScrollTrigger({
     item: myScrollerItem,
     trigger: myTrigger,
     propierties: 'x',

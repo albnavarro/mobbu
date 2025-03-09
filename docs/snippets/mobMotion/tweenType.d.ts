@@ -1,4 +1,4 @@
-interface tween {
+interface MobTimeTween {
     data: { [key: string]: number | (() => number) };
     duration?: number;
     relative?: boolean;

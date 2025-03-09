@@ -1,4 +1,4 @@
-export interface parallax {
+interface MobScroller {
     /**
      * Paralalx/scrollTrigger common params:
      */

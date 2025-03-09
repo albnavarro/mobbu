@@ -1,9 +1,9 @@
-import { scroller } from '../mobMotion';
+import { MobScroll } from '../../../src/js/mobMotion';
 
 /**
  * Create instance.
  */
-const myParallax = scroller.createParallax({
+const myParallax = MobScroll.createParallax({
     //
 });
 

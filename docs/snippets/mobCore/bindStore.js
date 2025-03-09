@@ -1,11 +1,11 @@
-import { mobCore } from '../../../src/js/mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-const storeOne = mobCore.createStore({
+const storeOne = MobCore.createStore({
     prop1: 0,
     sum: 0,
 });
 
-const storeTwo = mobCore.createStore({
+const storeTwo = MobCore.createStore({
     prop2: 0,
 });
 

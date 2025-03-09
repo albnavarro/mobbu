@@ -1,4 +1,4 @@
-import { scroller, tween } from '../mobMotion';
+import { MobScroll, MobTween } from '../../../src/js/mobMotion';
 
 const myTarget = document.querySelector('myTarget');
 
@@ -8,7 +8,7 @@ const myTarget = document.querySelector('myTarget');
  * from 10px to 40px om x axis
  * from 20px to 10px om y axis
  */
-const myTween = tween.createScrollerTween({
+const myTween = MobTween.createScrollerTween({
     from: { x: 10, y: 20 },
     to: { x: 40, y: 10 },
     ease: 'easeLinear',
@@ -21,7 +21,7 @@ myTween.subscribe(({ x, y }) => {
     myTarget.style.translate = `${x}px ${y}px`;
 });
 
-const myScrollTrigger = scroller.createScrollTrigger({
+const myScrollTrigger = MobScroll.createScrollTrigger({
     item: myTarget, // track position.
     propierties: 'tween', // set this propierties to 'tween'
     tween: myTween, // or a sequencer.

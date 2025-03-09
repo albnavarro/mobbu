@@ -1,4 +1,4 @@
-interface spring {
+interface MobSpring {
     data: { [key: string]: number | (() => number) };
     relative?: boolean;
     config?: 'default' | 'gentle' | 'wobbly' | 'bounce' | 'scroller';

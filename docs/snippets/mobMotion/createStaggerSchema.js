@@ -1,4 +1,4 @@
-const staggers = tween.createStaggers({
+const staggers = MobTween.createStaggers({
     items: Array.<Element|Object>,
     stagger?: {
         type?: String,

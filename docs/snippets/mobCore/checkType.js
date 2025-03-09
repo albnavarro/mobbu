@@ -1,3 +1,3 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-const isArray = mobCore.checkType(Array, myVariable);
+const isArray = MobCore.checkType(Array, myVariable);

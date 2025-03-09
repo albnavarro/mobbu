@@ -1,16 +1,16 @@
-import { tween, timeline } from '../../../src/js/mobMotion';
+import { MobTween, MobTimeline } from '../../../src/js/mobMotion';
 
 /*
  * Create tween
  */
-const myTween = tween.createTween({
+const myTween = MobTween.createTween({
     data: { x: 0, y: 0, rotate: 0 },
 });
 
 /*
  * Create spring
  */
-const mySpring = tween.createSpring({
+const mySpring = MobTween.createSpring({
     data: { x: 0, y: 0, rotate: 0 },
 });
 
@@ -21,7 +21,7 @@ const mySpring = tween.createSpring({
 /*
  * Create timeline
  */
-const myTimeline = timeline.createAsyncTimeline({
+const myTimeline = MobTimeline.createAsyncTimeline({
     repeat: 10,
     yoyo: true,
     freeMode: false,

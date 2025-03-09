@@ -1,5 +1,5 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-mobCore.useLoad(() => {
+MobCore.useLoad(() => {
     // code
 });

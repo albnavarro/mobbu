@@ -145,7 +145,7 @@
             "props": {
                 "tag": "h2"
             },
-            "content": "Tween:"
+            "content": "Time tween:"
         },
         {
             "component": "mob-spacer",
@@ -238,7 +238,7 @@
             "props": {
                 "style": "medium",
                 "id": "Spring",
-                "label": "spring"
+                "label": "Spring"
             }
         },
         {
@@ -498,7 +498,7 @@
             "props": {
                 "style": "medium",
                 "id": "goto",
-                "label": "goTo"
+                "label": "GoTo"
             }
         },
         {
@@ -544,7 +544,7 @@
             "props": {
                 "style": "medium",
                 "id": "gofrom",
-                "label": "goFrom"
+                "label": "GoFrom"
             }
         },
         {
@@ -590,7 +590,7 @@
             "props": {
                 "style": "medium",
                 "id": "gofromto",
-                "label": "goFromTo"
+                "label": "GoFromTo"
             }
         },
         {
@@ -636,7 +636,7 @@
             "props": {
                 "style": "medium",
                 "id": "stop",
-                "label": "stop"
+                "label": "Stop"
             }
         },
         {
@@ -668,7 +668,7 @@
             "props": {
                 "style": "medium",
                 "id": "pause",
-                "label": "pause/resume"
+                "label": "Pause/Resume"
             }
         },
         {
@@ -778,7 +778,7 @@
             "props": {
                 "style": "medium",
                 "id": "onComplete",
-                "label": "onComplete"
+                "label": "OnComplete"
             }
         },
         {

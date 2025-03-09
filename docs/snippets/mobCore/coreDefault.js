@@ -1,8 +1,8 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
 /**
  * Useful values.
  */
-mobCore.set('usePassive', true); // Default is true.
-mobCore.set('deferredNextTick', true); // Default is true.
-mobCore.set('throttle', 100); // Default is 100.
+MobCore.set('usePassive', true); // Default is true.
+MobCore.set('deferredNextTick', true); // Default is true.
+MobCore.set('throttle', 100); // Default is 100.

@@ -1,4 +1,4 @@
-interface asyncTimelineType {
+interface MobAsyncTimeline {
     yoyo?: boolean;
     repeat?: number;
     freeMode?: boolean;

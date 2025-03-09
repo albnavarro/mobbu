@@ -1,6 +1,6 @@
-import { motionCore } from '../../../src/js/mobMotion';
+import { MobMotionCore } from '../../../src/js/mobMotion';
 
-motionCore.setDefault({
+MobMotionCore.setDefault({
     lerp: {
         relative: false, // Default is false.
         velocity: 0.06, // Default is 0.06.

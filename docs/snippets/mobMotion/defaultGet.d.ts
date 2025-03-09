@@ -1,6 +1,6 @@
-import { motionCore } from '../mobMotion';
+import { MobMotionCore } from '../../../src/js/mobMotion';
 
 /**
  * Console Log current object.
  */
-motionCore.printDefault();
+MobMotionCore.printDefault();

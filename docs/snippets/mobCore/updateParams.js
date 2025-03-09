@@ -1,6 +1,6 @@
-import { mobCore } from '../../../src/js/mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-const myStore = mobCore.createStore({
+const myStore = MobCore.createStore({
     refSet: () => ({
         value: new Set(),
         type: Set,

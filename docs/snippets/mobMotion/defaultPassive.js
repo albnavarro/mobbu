@@ -1,5 +1,5 @@
-import { motionCore } from '../../../src/js/mobMotion';
+import { MobMotionCore } from '../../../src/js/mobMotion';
 
-motionCore.setDefault({
+MobMotionCore.setDefault({
     usePassive: true, // default is true
 });

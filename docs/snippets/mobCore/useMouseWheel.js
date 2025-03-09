@@ -1,6 +1,6 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-const unsubscribe = mobCore.useMouseWheel(
+const unsubscribe = MobCore.useMouseWheel(
     ({
         client,
         page,

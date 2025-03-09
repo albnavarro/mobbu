@@ -1,17 +1,17 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
-mobCore.useFrame(() => {
-    mobCore.useNextTick(({ fps, shouldRender, time }) => {
+MobCore.useFrame(() => {
+    MobCore.useNextTick(({ fps, shouldRender, time }) => {
         // code
     });
 });
 
 // Loop request animation frame using handleNextTick:
 const loop = () => {
-    mobCore.useNextTick(() => {
+    MobCore.useNextTick(() => {
         // Possible reading operation from the DOM
 
-        mobCore.useFrame(() => {
+        MobCore.useFrame(() => {
             // Possible writing operation to the DOM
             loop();
         });
@@ -19,4 +19,4 @@ const loop = () => {
 };
 
 // Initialize loop.
-mobCore.useFrame(() => loop());
+MobCore.useFrame(() => loop());

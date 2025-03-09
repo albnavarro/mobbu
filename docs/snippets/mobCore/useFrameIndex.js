@@ -1,6 +1,6 @@
-import { mobCore } from '../mobCore';
+import { MobCore } from '../../../src/js/mobCore';
 
 // Execute callback after 5 frame.
-mobCore.useFrameIndex(({ fps, shouldRender, time }) => {
+MobCore.useFrameIndex(({ fps, shouldRender, time }) => {
     // code ...
 }, 5);

@@ -1,6 +1,6 @@
-import { tween } from '../mobMotion';
+import { MobTween } from '../../../src/js/mobMotion';
 
-const mySequencer = tween.createSequencer({
+const mySequencer = MobTween.createSequencer({
     data: { x: 0, y: 0, rotate: 0 },
     duration: 10,
     ease: 'easeInQuad',

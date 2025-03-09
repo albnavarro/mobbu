@@ -1,4 +1,4 @@
-interface spring {
+interface MobLerp {
     data: { [key: string]: number | (() => number) };
     relative?: boolean;
     precision?: number;
