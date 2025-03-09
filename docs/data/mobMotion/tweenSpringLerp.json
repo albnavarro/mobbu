@@ -40,7 +40,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": ["Tween"]
+                "items": ["TimeTween"]
             }
         },
         {
