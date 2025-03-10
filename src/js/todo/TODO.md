@@ -124,7 +124,7 @@ etc...
 
 ```
     mySequencer
-        .goTo( {}, { start: 2, end: 4}); // 1
+        .goTo( { x:10 }, { start: 2, end: 4}); // 1
         .goTo( { x:20 }, { span: 2 }); // 3
         .goTo( { y:20 }, { start: 2, span: 2 }); // 3
 ```
