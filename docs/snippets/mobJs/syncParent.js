@@ -1,4 +1,4 @@
-import { parseDom } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
@@ -12,7 +12,7 @@ export const MyComponent = ({ html, onMount, syncParent, setRef, getRef }) => {
         ></MyComponent>`;
 
         container.insertAdjacentHTML('afterbegin', myRuntimeComponent);
-        await parseDom(container);
+        await MobJs.parseDom(container);
     });
 
     /**

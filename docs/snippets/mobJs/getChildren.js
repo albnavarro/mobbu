@@ -2,7 +2,7 @@
 getChildren(componentName: string): Array<string>;
 **/
 
-import { setStateById } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
@@ -12,7 +12,7 @@ export const MyComponent = ({ html, onMount, getChildren }) => {
         const childrensId = getChildren('child-component');
 
         childrensId.forEach((childID) => {
-            setStateById(childID, 'state', 'value');
+            MobJs.setStateById(childID, 'state', 'value');
         });
     });
     /**

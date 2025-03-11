@@ -1,6 +1,6 @@
-import { useComponent } from '../../../src/js/mobjs';
+import { MobJs, html } from '../../../src/js/mobjs';
 
-useComponent([Header, Footer]);
+MobJs.useComponent([Header, Footer]);
 
 export const wrapper = async () => {
     return html`

@@ -1,3 +1,5 @@
+import { MobJs } from '../../../src/js/mobjs';
+
 /**
  * routeList.js
  */
@@ -16,7 +18,7 @@ import * as pages from './pages/routeList';
 /**
  * main.js
  */
-inizializeApp({
+MobJs.inizializeApp({
     /**
      * Object that container all route.
      */

@@ -1,3 +1,5 @@
+import { MobJs } from '../../../src/js/mobjs';
+
 /**
  * componentList.js
  */
@@ -13,7 +15,7 @@ export * from './path_to_component_5/definition';
  */
 import * as components from './component/componentList';
 
-inizializeApp({
+MobJs.inizializeApp({
     /**
      * Object that container all component definition.
      */

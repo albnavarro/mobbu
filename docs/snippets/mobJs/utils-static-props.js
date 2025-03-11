@@ -1,6 +1,6 @@
-import { staticProps } from '../mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
-staticProps({
+MobJs.staticProps({
     state: 'value',
     state2: 'value2',
 });

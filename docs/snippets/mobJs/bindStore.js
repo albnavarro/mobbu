@@ -1,4 +1,4 @@
-import { mainStore } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
@@ -10,7 +10,7 @@ export const MyComponent = ({
     bindStore,
     invalidate,
 }) => {
-    bindStore(mainStore);
+    bindStore(MobJs.mainStore);
     // bindStore([mainStore, otherStore]);
     const proxiState = getProxi();
 

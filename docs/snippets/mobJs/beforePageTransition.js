@@ -1,11 +1,12 @@
-import { beforeRouteChange } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
+
 let scrollY = 0;
 
 /**
  * Get windowScrollY before route change.
  */
 
-beforeRouteChange(() => {
+MobJs.beforeRouteChange(() => {
     scrollY = window.scrollY;
 });
 

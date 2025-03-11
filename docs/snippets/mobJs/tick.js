@@ -1,4 +1,4 @@
-import { tick } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
 /**
  * @type {import("../../../src/js/mobjs/type").mobComponent<import('./type').State>}
@@ -10,7 +10,7 @@ export const MyComponent = ({ html, bindEvents, bindProps, setState }) => {
                 ${bindEvents({
                     click: async () => {
                         setState('counter', (value) => (value += 1));
-                        await tick();
+                        await MobJs.tick();
 
                         // All app is updated.
                     },

@@ -1,18 +1,18 @@
 // './routes/my_route';
 
-import { staticProps, html, useComponent } from '../../../src/js/mobjs';
+import { MobJs, html } from '../../../src/js/mobjs';
 
 /**
  * Import components definition used in wrapper.
  * ( object returned by createComponent() function )
  * It is necessary to load the dependencies before the application
  */
-useComponent([MyComponent]);
+MobJs.useComponent([MyComponent]);
 
 export const my_route = ({ params, props }) => {
     const { param1, param2 } = params;
     const { myProps } = props;
 
-    return html` <my-component ${staticProps({ myrops: 'value' })}>
+    return html` <my-component ${MobJs.staticProps({ myrops: 'value' })}>
     </my-component>`;
 };

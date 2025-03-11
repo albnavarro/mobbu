@@ -1,9 +1,9 @@
-import { inizializeApp } from './mobjs';
 import { routes } from './routes';
 import { wrapper } from './wrapper';
 import { beforePageTransition, pageTransition } from './pageTransition';
+import { MobJs } from '../../../src/js/mobjs';
 
-inizializeApp({
+MobJs.inizializeApp({
     /**
      * App root from index.html
      */

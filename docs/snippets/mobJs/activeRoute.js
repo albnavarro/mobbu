@@ -1,4 +1,4 @@
-import { getActiveRoute } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
-const activeRoute = getActiveRoute();
+const activeRoute = MobJs.getActiveRoute();
 console.log(activeRoute.route, activeRoute.templateName);

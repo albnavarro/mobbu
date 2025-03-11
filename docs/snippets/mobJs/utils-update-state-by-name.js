@@ -1,5 +1,4 @@
-// @ts-ignore
-import { updateStateByName } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
 /**
  * @type {import('../../../src/js/mobjs/type').mobComponent<import('./type').MyComponent>}
@@ -8,7 +7,7 @@ export const MyComponent = ({ onMount, html }) => {
     /**
      * @type {import('./mobjs/type').UpdateStateByName<import('./other/type').OtherComponent>}
      */
-    const setOtherComponentState = updateStateByName('otherComponent');
+    const setOtherComponentState = MobJs.updateStateByName('otherComponent');
 
     onMount(() => {
         setOtherComponentState('myState', (value) => (value += 1));

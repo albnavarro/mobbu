@@ -1,6 +1,6 @@
-import { setDefaultComponent } from '../mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
-setDefaultComponent({
+MobJs.setDefaultComponent({
     /**
      * Fire onMount callback immediately, normally onMount is fired after all
      * components have been created.

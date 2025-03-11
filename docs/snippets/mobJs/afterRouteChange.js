@@ -1,6 +1,6 @@
-import { afterRouteChange } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
-const unsubscribe = afterRouteChange(({ route, templateName }) => {
+const unsubscribe = MobJs.afterRouteChange(({ route, templateName }) => {
     console.log(route, templateName);
 });
 

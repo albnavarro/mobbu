@@ -1,7 +1,7 @@
-import { createComponent } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 import { MyComponent } from '../myComponent';
 
-export const myComponentDefinition = createComponent({
+export const myComponentDefinition = MobJs.createComponent({
     name: 'my-component',
     component: MyComponent,
     exportState: ['label'],

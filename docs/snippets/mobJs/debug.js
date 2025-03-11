@@ -1,6 +1,6 @@
-import { setDefaultComponent, componentMap } from '../mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
-setDefaultComponent({
+MobJs.setDefaultComponent({
     /**
      * Add data-mobjs="<id>" to each component
      */
@@ -10,4 +10,4 @@ setDefaultComponent({
 /**
  * All instance component specs.
  */
-console.log(componentMap);
+console.log(MobJs.componentMap);

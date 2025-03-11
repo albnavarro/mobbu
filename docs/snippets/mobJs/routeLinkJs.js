@@ -1,8 +1,8 @@
-import { loadUrl } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
-loadUrl({ url: 'my-route' });
+MobJs.loadUrl({ url: 'my-route' });
 
 /**
  * Add params
  */
-loadUrl({ url: 'my-route?param1=value&param2=value' });
+MobJs.loadUrl({ url: 'my-route?param1=value&param2=value' });

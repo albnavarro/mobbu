@@ -1,4 +1,4 @@
-import { getActiveParams } from '../../../src/js/mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 
-const activeParams = getActiveParams();
+const activeParams = MobJs.getActiveParams();
 console.log(activeParams);

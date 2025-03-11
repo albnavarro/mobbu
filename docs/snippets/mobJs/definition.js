@@ -1,9 +1,9 @@
-import { createComponent } from '../mobjs';
+import { MobJs } from '../../../src/js/mobjs';
 import { ChildComponent1 } from '../childComponent1';
 import { ChildComponent2 } from '../childComponent2';
 import { MyComponentFn } from '../myComponent';
 
-export const MyComponent = createComponent({
+export const MyComponent = MobJs.createComponent({
     /**
      * Necessary
      */

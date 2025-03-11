@@ -5,14 +5,14 @@
  * parameters, since the wrapper is not a component
  * we can make use of global utilities.
  */
-import { staticProps, html, useComponent } from '../mobjs';
+import { MobJs, html } from '../../../src/js/mobjs';
 
 /**
  * Import components definition used in wrapper.
  * ( object returned by createComponent() function )
  * It is necessary to load the dependencies before the application
  */
-useComponent([Header, Footer]);
+MobJs.useComponent([Header, Footer]);
 
 export const wrapper = async () => {
     /**
@@ -25,7 +25,7 @@ export const wrapper = async () => {
             <!-- Page root -->
             <div id="content"></div>
         </main>
-        <my-footer ${staticProps({ myProp: 'content' })}></my-footer>
+        <my-footer ${MobJs.staticProps({ myProp: 'content' })}></my-footer>
     `;
 };
 
@@ -33,8 +33,9 @@ export const wrapper = async () => {
  * main.js
  */
 import { wrapper } from './wrapper';
+import { MobJs } from '../../../src/js/mobjs';
 
-inizializeApp({
+MobJs.inizializeApp({
     /**
      * the element that defines the layout of the app
      * where to define persistent components and the root
