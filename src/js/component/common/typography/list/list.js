@@ -1,11 +1,11 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
+
 /**
  * @import { MobComponent } from '../../../../mobjs/type';
  * @import { List } from './type';
  **/
-
-import { html } from '../../../../mobjs';
 
 /**
  * @param {object} params

@@ -6,7 +6,7 @@
  **/
 
 import { MobCore } from '../../../mobCore';
-import { loadUrl, afterRouteChange, getActiveParams } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /** @type {MobComponent<NavigationButton>} */
@@ -31,7 +31,7 @@ export const NavigationButtonFn = ({
         activeId,
     } = getState();
 
-    afterRouteChange(({ route }) => {
+    MobJs.afterRouteChange(({ route }) => {
         MobCore.useFrame(() => {
             const urlParsed = url.split('?');
 
@@ -43,7 +43,7 @@ export const NavigationButtonFn = ({
             /**
              * Check is activeId match with route
              */
-            const activeParams = getActiveParams();
+            const activeParams = MobJs.getActiveParams();
 
             const paramsMatch =
                 activeId === -1 || activeParams?.['activeId'] === `${activeId}`;
@@ -82,7 +82,7 @@ export const NavigationButtonFn = ({
                     /**
                      * Fire page transition if button is cliccable.
                      */
-                    loadUrl({ url });
+                    MobJs.loadUrl({ url });
                     navigationStore.set('navigationIsOpen', false);
                 },
             })}

@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../../../../mobjs';
+import { MobJs } from '../../../../../../../mobjs';
 import { DebugFilterListItemFn } from './debugFilterListItem';
 
 /**
  * @import { CreateComponentParams } from "../../../../../../../mobjs/type";
  **/
 
-export const DebugFilterListItem = createComponent(
+export const DebugFilterListItem = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugFilterListItem>} */
     ({
         name: 'debug-filter-list-item',

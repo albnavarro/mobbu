@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { benchMarkDefinitionPartial } from '../partials/definitionPartial';
 import { BenchMarkInvalidateFn } from './benchmarkInvalidate';
 
@@ -8,7 +8,7 @@ import { BenchMarkInvalidateFn } from './benchmarkInvalidate';
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const BenchMarkInvalidate = createComponent(
+export const BenchMarkInvalidate = MobJs.createComponent(
     /** @type{CreateComponentParams<import('../type').BenchMark>} */
     ({
         name: 'benchmark-invalidate',

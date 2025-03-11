@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { Move3DItemfn } from './Move3DItem';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const Move3DItem = createComponent(
+export const Move3DItem = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').Move3DItem>} */
     ({
         name: 'move-3d-item',

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { MobMotionCore } from '../../../mobMotion';
 import { AboutComponentFn } from './about';
 
@@ -8,7 +8,7 @@ import { AboutComponentFn } from './about';
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const AboutComponent = createComponent(
+export const AboutComponent = MobJs.createComponent(
     /** @type{CreateComponentParams<import ('./type').About>} */
     ({
         name: 'about-component',

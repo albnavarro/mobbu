@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { DynamicListCard } from '../card/definition';
 import { DynamicListSlottedLabel } from '../slottedLabel/definition';
 import { DynamicListRepeaterFn } from './dynamicListRepeater';
@@ -9,7 +9,7 @@ import { DynamicListRepeaterFn } from './dynamicListRepeater';
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const DynamicListRepeater = createComponent(
+export const DynamicListRepeater = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').DynamicListRepeater>} */
     ({
         name: 'dynamic-list-repeater',

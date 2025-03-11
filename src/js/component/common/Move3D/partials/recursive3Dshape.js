@@ -1,6 +1,6 @@
 //@ts-check
 
-import { html, staticProps } from '../../../../mobjs';
+import { html, MobJs } from '../../../../mobjs';
 
 /**
  * @param {object} params
@@ -18,7 +18,7 @@ export const Recursive3Dshape = ({ data, root, childrenId, debug }) => {
         .map(({ children, props }) => {
             return html`<move-3d-item
                 name="${childrenId}"
-                ${staticProps({
+                ${MobJs.staticProps({
                     root,
                     ...props,
                 })}

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { useMethodByName } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { consoleLogDebug } from '../../common/debug/consoleLog';
 
 /**
@@ -20,7 +20,8 @@ export const FooterFn = ({ html, delegateEvents }) => {
                         ${delegateEvents({
                             click: () => {
                                 /** @type{UseMethodByName<DebugOverlay>} */
-                                const methods = useMethodByName('debugOverlay');
+                                const methods =
+                                    MobJs.useMethodByName('debugOverlay');
                                 methods?.toggle();
                             },
                         })}

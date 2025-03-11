@@ -1,12 +1,12 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { RouteLoaderFn } from './routeLoader';
 /**
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const RouteLoader = createComponent(
+export const RouteLoader = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').RouteLoader>} */
     ({
         name: 'route-loader',

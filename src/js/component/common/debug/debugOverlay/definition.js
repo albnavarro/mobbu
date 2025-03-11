@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { DEBUG_USE_TREE } from './constant';
 import { DebugComponent } from './DebugComponent/definition';
 import { DebugFilterHead } from './DebugFilter/DebugFilterHead/definition';
@@ -13,7 +13,7 @@ import { DebugTree } from './DebugTree/definition';
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const DebugOverlay = createComponent(
+export const DebugOverlay = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugOverlay>} */
     ({
         name: 'debug-overlay',

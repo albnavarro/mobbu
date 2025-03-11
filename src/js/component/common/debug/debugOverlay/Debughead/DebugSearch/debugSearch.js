@@ -4,7 +4,7 @@
  * @import { MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
-import { getIdByInstanceName, useMethodByName } from '../../../../../../mobjs';
+import { MobJs } from '../../../../../../mobjs';
 import { RESET_FILTER_DEBUG } from '../../constant';
 
 /** @type{MobComponent<import('./type').DebugSearch>} */
@@ -28,7 +28,8 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                             ).value;
 
                             /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                            const methods = useMethodByName('debug_component');
+                            const methods =
+                                MobJs.useMethodByName('debug_component');
                             methods?.updateId(id ?? '');
                         }
                     },
@@ -44,7 +45,8 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                             .value;
 
                         /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                        const methods = useMethodByName('debug_component');
+                        const methods =
+                            MobJs.useMethodByName('debug_component');
                         methods?.updateId(id ?? '');
                     },
                 })}
@@ -69,10 +71,11 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                                 /** @type{HTMLInputElement} */ (event.target)
                                     .value;
 
-                            const id = getIdByInstanceName(instanceName);
+                            const id = MobJs.getIdByInstanceName(instanceName);
 
                             /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                            const methods = useMethodByName('debug_component');
+                            const methods =
+                                MobJs.useMethodByName('debug_component');
                             methods?.updateId(id ?? '');
                         }
                     },
@@ -85,10 +88,11 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                     click: () => {
                         const { instance_input } = getRef();
                         const instanceName = instance_input.value;
-                        const id = getIdByInstanceName(instanceName);
+                        const id = MobJs.getIdByInstanceName(instanceName);
 
                         /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                        const methods = useMethodByName('debug_component');
+                        const methods =
+                            MobJs.useMethodByName('debug_component');
                         methods?.updateId(id ?? '');
                     },
                 })}
@@ -109,7 +113,8 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                             id_input.value = '';
 
                             /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                            const methods = useMethodByName('debug_component');
+                            const methods =
+                                MobJs.useMethodByName('debug_component');
                             methods?.updateId(RESET_FILTER_DEBUG);
                         },
                     })}
@@ -127,7 +132,8 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                     ${delegateEvents({
                         click: () => {
                             /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                            const methods = useMethodByName('debug_component');
+                            const methods =
+                                MobJs.useMethodByName('debug_component');
                             methods?.refreshId();
                         },
                     })}

@@ -1,5 +1,5 @@
 import { MobCore } from '../mobCore';
-import { mainStore } from '../mobjs';
+import { MobJs } from '../mobjs';
 import {
     FreezeMobPageScroll,
     InitMobPageScroll,
@@ -9,11 +9,11 @@ import {
 export const usePageScroll = () => {
     InitMobPageScroll({ rootElement: document.querySelector('#root') });
 
-    mainStore.watch('beforeRouteChange', () => {
+    MobJs.mainStore.watch('beforeRouteChange', () => {
         FreezeMobPageScroll();
     });
 
-    mainStore.watch('afterRouteChange', () => {
+    MobJs.mainStore.watch('afterRouteChange', () => {
         /**
          * with 3 frame.
          * last animation frame will fired one frame after stop

@@ -1,8 +1,8 @@
 import { updateQuickNavState } from '../../../component/common/quickNav/utils';
 import { HorizontalScroller } from '../../../component/pages/horizontalScroller/definition';
-import { html, staticProps, useComponent } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 
-useComponent([HorizontalScroller]);
+MobJs.useComponent([HorizontalScroller]);
 
 /** @type{import('../../../mobjs/type').PageAsync} */
 export const horizontalScroller = async () => {
@@ -17,7 +17,7 @@ export const horizontalScroller = async () => {
 
     return html`<div>
         <horizontal-scroller
-            ${staticProps({
+            ${MobJs.staticProps({
                 animatePin: false,
             })}
         ></horizontal-scroller>

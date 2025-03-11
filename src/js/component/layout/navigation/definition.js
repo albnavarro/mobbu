@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { NavigationContainerFn } from './navContainer';
 import { NavigationFn } from './navigation';
 import { NavigationButtonFn } from './navigationButton';
@@ -11,7 +11,7 @@ import { NavigationSubmenuFn } from './navigationSubmenu';
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const NavigationButton = createComponent(
+export const NavigationButton = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').NavigationButton>} */
     ({
         name: 'mob-navigation-button',
@@ -72,7 +72,7 @@ export const NavigationButton = createComponent(
     })
 );
 
-export const NavigationLabel = createComponent(
+export const NavigationLabel = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').NavigationLabel>} */
     ({
         name: 'mob-navigation-label',
@@ -91,7 +91,7 @@ export const NavigationLabel = createComponent(
     })
 );
 
-export const NavigationSubmenu = createComponent(
+export const NavigationSubmenu = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').NavigationSubmenu>} */
     ({
         name: 'mob-navigation-submenu',
@@ -119,7 +119,7 @@ export const NavigationSubmenu = createComponent(
     })
 );
 
-export const Navigation = createComponent(
+export const Navigation = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').Navigation>} */
     ({
         name: 'mob-navigation',
@@ -136,7 +136,7 @@ export const Navigation = createComponent(
     })
 );
 
-export const NavigationContainer = createComponent(
+export const NavigationContainer = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').NavigationContainer>} */
     ({
         name: 'mob-navigation-container',

@@ -1,8 +1,8 @@
 import { svgChild } from '../../../component/pages/svg/child/definition';
-import { html, staticProps, useComponent } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { loadTextContent } from '../../../utils/utils';
 
-useComponent([svgChild]);
+MobJs.useComponent([svgChild]);
 
 export const child = async () => {
     const { data: svg } = await loadTextContent({
@@ -14,6 +14,6 @@ export const child = async () => {
     });
 
     return html`<div>
-        <svg-child ${staticProps({ svg, star })}></svg-child>
+        <svg-child ${MobJs.staticProps({ svg, star })}></svg-child>
     </div>`;
 };

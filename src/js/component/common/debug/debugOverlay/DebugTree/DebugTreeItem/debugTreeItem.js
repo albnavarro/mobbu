@@ -4,7 +4,7 @@
  * @import { MobComponent, SetState, UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
-import { componentMap, useMethodByName } from '../../../../../../mobjs';
+import { MobJs } from '../../../../../../mobjs';
 import { MobSlide } from '../../../../../../mobMotion/plugin';
 import { debugActiveComponentStore } from '../../Store/DebugActiveComponent';
 import { generateTreeComponents } from '../recursiveTree';
@@ -23,7 +23,7 @@ const getCounter = (value) => {
  * @returns {boolean}
  */
 const activeItemChildren = ({ id, value }) => {
-    const component = componentMap.get(id);
+    const component = MobJs.componentMap.get(id);
     const children = component?.child;
     if (!children) return false;
 
@@ -77,7 +77,7 @@ export const DebugTreeItemFn = ({
             await MobSlide[action](content);
 
             /** @type{UseMethodByName<import('../type').DebugTree>} */
-            const methods = useMethodByName('debug_tree');
+            const methods = MobJs.useMethodByName('debug_tree');
             methods?.refresh();
         });
 
@@ -126,7 +126,8 @@ export const DebugTreeItemFn = ({
                 ${delegateEvents({
                     click: () => {
                         /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                        const methods = useMethodByName('debug_component');
+                        const methods =
+                            MobJs.useMethodByName('debug_component');
                         methods?.updateId(id);
                     },
                 })}

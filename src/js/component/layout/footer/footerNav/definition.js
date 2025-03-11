@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { FooterNavButtonFn } from './footerButton';
 import { FooterNavFn } from './footerNav';
 
@@ -8,7 +8,7 @@ import { FooterNavFn } from './footerNav';
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const FooterNavButton = createComponent(
+export const FooterNavButton = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').FooterNavButton>} */
     ({
         name: 'footer-nav-button',
@@ -31,7 +31,7 @@ export const FooterNavButton = createComponent(
     })
 );
 
-export const FooterNav = createComponent({
+export const FooterNav = MobJs.createComponent({
     name: 'footer-nav',
     component: FooterNavFn,
     child: [FooterNavButton],

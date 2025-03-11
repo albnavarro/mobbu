@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { StarSvgFn } from './StarSvg';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const StarSvg = createComponent(
+export const StarSvg = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').StarSvg>} */
     ({
         name: 'svg-star',

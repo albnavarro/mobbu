@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobCore } from '../../../../mobCore';
-import { html, tick } from '../../../../mobjs';
+import { html, MobJs } from '../../../../mobjs';
 import {
     createBenchMarkArray,
     shuffle,
@@ -22,7 +22,7 @@ const setData = async ({ value, useShuffle = false }) => {
     const { set } = externalStore;
 
     set('isLoading', true);
-    await tick();
+    await MobJs.tick();
 
     // await loading class is applied before saturate thread.
     MobCore.useFrame(() => {
@@ -34,7 +34,7 @@ const setData = async ({ value, useShuffle = false }) => {
                     ? shuffle(createBenchMarkArray(value))
                     : createBenchMarkArray(value)
             );
-            await tick();
+            await MobJs.tick();
 
             const endTime = performance.now();
             const difference = endTime - startTime;

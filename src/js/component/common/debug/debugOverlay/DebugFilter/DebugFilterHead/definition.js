@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../../../mobjs';
+import { MobJs } from '../../../../../../mobjs';
 import { DebugFilterHeadFn } from './debugFilterHead';
 
 /**
  * @import { CreateComponentParams } from "../../../../../../mobjs/type";
  **/
 
-export const DebugFilterHead = createComponent(
+export const DebugFilterHead = MobJs.createComponent(
     /** @type{CreateComponentParams<any>} */
     ({
         name: 'debug-filter-head',

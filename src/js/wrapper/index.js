@@ -7,13 +7,13 @@ import { ScrollToTop } from '../component/common/scrollToTop/definition';
 import { Footer } from '../component/layout/footer/definition';
 import { Header } from '../component/layout/header/definition';
 import { NavigationContainer } from '../component/layout/navigation/definition';
-import { html, useComponent } from '../mobjs';
 import { LinksMobJs } from '../component/common/linksMobJs/definition';
 import { OnlyDesktop } from '../component/common/onlyDesktop/definition';
 import { DebugOverlay } from '../component/common/debug/debugOverlay/definition';
 import { TestScssGrid } from '../component/common/TestScssGrid/definition';
+import { html, MobJs } from '../mobjs';
 
-useComponent([
+MobJs.useComponent([
     Header,
     NavigationContainer,
     Footer,

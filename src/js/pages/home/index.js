@@ -1,8 +1,8 @@
 import { HomeComponent } from '../../component/pages/homepage/definition';
-import { html, staticProps, useComponent } from '../../mobjs';
+import { html, MobJs } from '../../mobjs';
 import { loadTextContent } from '../../utils/utils';
 
-useComponent([HomeComponent]);
+MobJs.useComponent([HomeComponent]);
 
 export const home = async () => {
     const { data: svg } = await loadTextContent({
@@ -11,7 +11,7 @@ export const home = async () => {
 
     return html`
         <home-component
-            ${staticProps({
+            ${MobJs.staticProps({
                 svg,
             })}
         ></home-component>

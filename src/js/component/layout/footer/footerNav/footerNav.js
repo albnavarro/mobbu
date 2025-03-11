@@ -5,7 +5,7 @@
  **/
 
 import { getCommonData } from '../../../../data';
-import { html, loadUrl } from '../../../../mobjs';
+import { html, MobJs } from '../../../../mobjs';
 import { navigationStore } from '../../navigation/store/navStore';
 
 /**
@@ -22,7 +22,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
                 <footer-nav-button
                     ${delegateEvents({
                         click: () => {
-                            loadUrl({ url });
+                            MobJs.loadUrl({ url });
                             navigationStore.set('navigationIsOpen', false);
                         },
                     })}

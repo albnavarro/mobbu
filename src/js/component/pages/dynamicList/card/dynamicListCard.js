@@ -8,7 +8,7 @@
  * @import { DynamicCounter } from '../counter/type';
  **/
 
-import { html, tick } from '../../../../mobjs';
+import { html, MobJs } from '../../../../mobjs';
 import { innerData } from '../data';
 
 /** @param {number} numberOfItem */
@@ -72,7 +72,7 @@ export const DynamicListCardFn = ({
 
     onMount(async () => {
         (async () => {
-            await tick();
+            await MobJs.tick();
             setState('isMounted', true);
         })();
 

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { Move3D } from '../../common/Move3D/definition';
 import { Move3DPagefn } from './move3DPage';
 
@@ -8,7 +8,7 @@ import { Move3DPagefn } from './move3DPage';
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const Move3DPage = createComponent(
+export const Move3DPage = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').Move3DPage>} */
     ({
         name: 'move-3d-page',

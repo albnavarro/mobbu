@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { LayoutLinksFn } from './layoutLinks';
 
 /**
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const LayoutLinks = createComponent(
+export const LayoutLinks = MobJs.createComponent(
     /** @type{CreateComponentParams<import ('./type').LayoutLinks>} */
     ({
         name: 'layout-links',

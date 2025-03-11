@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../../mobjs';
+import { MobJs } from '../../../../../mobjs';
 import { DebugHeadFn } from './debugHead';
 import { DebugSearch } from './DebugSearch/definition';
 
@@ -8,7 +8,7 @@ import { DebugSearch } from './DebugSearch/definition';
  * @import { CreateComponentParams } from "../../../../../mobjs/type";
  **/
 
-export const DebugHead = createComponent(
+export const DebugHead = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugHead>} */
     ({
         name: 'debug-head',

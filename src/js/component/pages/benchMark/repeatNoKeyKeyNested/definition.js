@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { benchMarkDefinitionPartial } from '../partials/definitionPartial';
 import { BenchMarkRepeatWithNoKeyFnNested } from './benchmarkRepeatWithKeyNested';
 
@@ -8,7 +8,7 @@ import { BenchMarkRepeatWithNoKeyFnNested } from './benchmarkRepeatWithKeyNested
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const BenchMarkRepeatWithNoKeyNested = createComponent(
+export const BenchMarkRepeatWithNoKeyNested = MobJs.createComponent(
     /** @type{CreateComponentParams<import('../type').BenchMark>} */
     ({
         name: 'benchmark-repeat-key-no-nested',

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { DynamicListButton } from './button/definition';
 import { DynamicListCardInner } from './card/innerCard/definition';
 import { startData } from './data';
@@ -11,7 +11,7 @@ import { DynamicListRepeater } from './repeaters/definition';
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const DynamicList = createComponent(
+export const DynamicList = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').DynamicList>} */
     ({
         name: 'dynamic-list',

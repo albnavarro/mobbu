@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { DocContainerFn } from './docContainer';
 
 /**
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const DocContainer = createComponent(
+export const DocContainer = MobJs.createComponent(
     /** @type{CreateComponentParams<any>} */
     ({
         name: 'doc-container',

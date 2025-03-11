@@ -7,7 +7,7 @@
  */
 
 import { MobCore } from '../../../mobCore';
-import { html, tick, updateStateByName } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import {
     FreezeMobPageScroll,
     UnFreezeAndUPdateMobPageScroll,
@@ -68,7 +68,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                     }
                                 );
 
-                                await tick();
+                                await MobJs.tick();
                                 UnFreezeAndUPdateMobPageScroll();
                             },
                         })}
@@ -94,7 +94,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                     }
                                 );
 
-                                await tick();
+                                await MobJs.tick();
                                 UnFreezeAndUPdateMobPageScroll();
                             },
                         })}
@@ -226,7 +226,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     click: () => {
                                         /** @type {UpdateStateByName<MatrioskaItem>} */
                                         const updateActiveState =
-                                            updateStateByName(name);
+                                            MobJs.updateStateByName(name);
 
                                         updateActiveState(
                                             'active',
@@ -257,7 +257,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     click: () => {
                                         /** @type {UpdateStateByName<MatrioskaItem>} */
                                         const updateActiveState =
-                                            updateStateByName(name2);
+                                            MobJs.updateStateByName(name2);
                                         updateActiveState(
                                             'active',
                                             (val) => !val

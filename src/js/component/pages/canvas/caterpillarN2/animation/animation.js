@@ -9,7 +9,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { MobCore } from '../../../../../mobCore';
-import { getActiveRoute } from '../../../../../mobjs/index.js';
+import { MobJs } from '../../../../../mobjs';
 
 /**
  * @param {object} params
@@ -49,7 +49,7 @@ export const caterpillarN2Animation = ({
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let userRotation = rotationDefault;
-    const activeRoute = getActiveRoute();
+    const activeRoute = MobJs.getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -268,7 +268,7 @@ export const caterpillarN2Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const currentRoute = getActiveRoute();
+            const currentRoute = MobJs.getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

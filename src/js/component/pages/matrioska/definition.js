@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobCore } from '../../../mobCore';
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { DynamicListButton } from '../dynamicList/button/definition';
 import { MatrioskaFn } from './matrioska';
 import { MatrioskaItem } from './matrioskaItem/definition';
@@ -22,7 +22,7 @@ const shuffle = (array) => {
     return array;
 };
 
-export const Matrioska = createComponent(
+export const Matrioska = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').Matrioska>} */
     ({
         name: 'page-matrioska',

@@ -3,10 +3,16 @@ import { DocTitle } from '../../../component/common/doctitle/definition';
 import { DocsTitleSmall } from '../../../component/common/doctitleSmall/definition';
 import { HtmlContent } from '../../../component/common/htmlContent/definition';
 import { ScrollTo } from '../../../component/common/scrollTo/definition';
-import { html, staticProps, useComponent } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
-useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
+MobJs.useComponent([
+    DocContainer,
+    DocsTitleSmall,
+    ScrollTo,
+    DocTitle,
+    HtmlContent,
+]);
 
 export const canvas_overview = async () => {
     const { data } = await loadJsonContent({
@@ -16,7 +22,7 @@ export const canvas_overview = async () => {
     return html` <doc-container>
         <html-content
             slot="docs"
-            ${staticProps({
+            ${MobJs.staticProps({
                 data: data.data,
                 useMaxWidth: true,
             })}

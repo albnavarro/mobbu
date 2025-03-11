@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { SnippetFn } from './snippet';
 
 /**
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const Snippet = createComponent(
+export const Snippet = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').Snippet>} */
     ({
         name: 'mob-snippet',

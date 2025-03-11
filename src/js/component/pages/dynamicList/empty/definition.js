@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { DynamicListEmptyFn } from './dynamicListEmpty';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const DynamicListEmpty = createComponent(
+export const DynamicListEmpty = MobJs.createComponent(
     /** @type{CreateComponentParams<any>} */
     ({
         name: 'dynamic-list-empty',

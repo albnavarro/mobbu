@@ -1,8 +1,8 @@
 import { LayoutLinks } from '../../component/pages/layoutLinks/definition';
-import { html, staticProps, useComponent } from '../../mobjs';
+import { html, MobJs } from '../../mobjs';
 import { loadJsonContent } from '../../utils/utils';
 
-useComponent([LayoutLinks]);
+MobJs.useComponent([LayoutLinks]);
 
 /** @type{import('../../mobjs/type').PageAsync} */
 export const layoutLinksPage = async ({ props }) => {
@@ -11,7 +11,7 @@ export const layoutLinksPage = async ({ props }) => {
 
     return html` <div class="l-links">
         <layout-links
-            ${staticProps({
+            ${MobJs.staticProps({
                 title: data.title,
                 items: data.items,
             })}

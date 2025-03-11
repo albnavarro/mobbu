@@ -4,13 +4,7 @@
  * @import { MobComponent } from '../../../../../mobjs/type';
  **/
 
-import {
-    afterRouteChange,
-    componentMap,
-    getDebugMode,
-    getNumberOfActiveInvalidate,
-    getNumberOfActiveRepeater,
-} from '../../../../../mobjs';
+import { MobJs } from '../../../../../mobjs';
 import { getBindObjectParentSize } from '../../../../../mobjs/modules/bindObject';
 import { getBindTextParentSize } from '../../../../../mobjs/modules/bindtext';
 
@@ -28,7 +22,7 @@ export const DebugHeadFn = ({
             setState('shouldUpdate', true);
         });
 
-        const unsubscribeRoute = afterRouteChange(() => {
+        const unsubscribeRoute = MobJs.afterRouteChange(() => {
             setState('shouldUpdate', true);
         });
 
@@ -48,19 +42,20 @@ export const DebugHeadFn = ({
                     return html`
                         <div>
                             <strong> Debug activated: </strong>
-                            ${getDebugMode()}
+                            ${MobJs.getDebugMode()}
                         </div>
                         <div class="c-debug-head__total">
                             <strong>Number of component</strong>:
-                            ${componentMap.size} ( excluded generated debug )
+                            ${MobJs.componentMap.size} ( excluded generated
+                            debug )
                         </div>
                         <div class="c-debug-head__repeater">
                             <strong>Active repeater: </strong>:
-                            ${getNumberOfActiveRepeater()}
+                            ${MobJs.getNumberOfActiveRepeater()}
                         </div>
                         <div class="c-debug-head__invalidate">
                             <strong>Active invalidate: </strong>:
-                            ${getNumberOfActiveInvalidate()}
+                            ${MobJs.getNumberOfActiveInvalidate()}
                         </div>
                         <div class="c-debug-head__invalidate">
                             <strong>Active bindText: </strong>:

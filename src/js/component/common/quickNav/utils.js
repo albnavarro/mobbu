@@ -1,6 +1,6 @@
 // @ts-check
 
-import { setStateByName } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 
 /**
  * @import { SetStateByName } from '../../../mobjs/type';
@@ -17,7 +17,7 @@ export const updateQuickNavState = ({
     color = 'white',
 }) => {
     /** @type {SetStateByName<import('./type').QuickNav>} */
-    const setQuickNavState = setStateByName('quick_nav');
+    const setQuickNavState = MobJs.setStateByName('quick_nav');
     setQuickNavState('active', active);
     setQuickNavState('nextRoute', nextRoute);
     setQuickNavState('prevRoute', prevRoute);

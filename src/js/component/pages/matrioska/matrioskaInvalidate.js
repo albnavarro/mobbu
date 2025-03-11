@@ -7,7 +7,7 @@
  */
 
 import { MobCore } from '../../../mobCore';
-import { html, updateStateByName } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 
 const buttons = [
     {
@@ -233,7 +233,7 @@ const getThirdLevel = ({
                                         click: () => {
                                             /** @type {UpdateStateByName<MatrioskaItem>} */
                                             const updateActiveState =
-                                                updateStateByName(name);
+                                                MobJs.updateStateByName(name);
 
                                             updateActiveState(
                                                 'active',
@@ -263,7 +263,7 @@ const getThirdLevel = ({
                                         click: () => {
                                             /** @type {UpdateStateByName<MatrioskaItem>} */
                                             const updateActiveState =
-                                                updateStateByName(name2);
+                                                MobJs.updateStateByName(name2);
 
                                             updateActiveState(
                                                 'active',

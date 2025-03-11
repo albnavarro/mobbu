@@ -2,11 +2,11 @@ import { DocContainer } from '../../component/common/docsContainer/definition';
 import { DocTitle } from '../../component/common/doctitle/definition';
 import { DocsTitleSmall } from '../../component/common/doctitleSmall/definition';
 import { HtmlContent } from '../../component/common/htmlContent/definition';
-import { html, staticProps, useComponent } from '../../mobjs';
+import { html, MobJs } from '../../mobjs';
 import { loadJsonContent } from '../../utils/utils';
 import { getBreadCrumbs } from './utils';
 
-useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
+MobJs.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
 
 /** @type{import('../../mobjs/type').PageAsync} */
 export const layoutSidebarLinks = async ({ props }) => {
@@ -17,7 +17,7 @@ export const layoutSidebarLinks = async ({ props }) => {
         <div>
             <html-content
                 slot="docs"
-                ${staticProps({
+                ${MobJs.staticProps({
                     data: data.data,
                     useMaxWidth: true,
                 })}

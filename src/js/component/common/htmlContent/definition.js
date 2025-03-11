@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { Loader } from '../loader/definition';
 import { Snippet } from '../snippet/definition';
 import { SpacerAnchor } from '../spacerAnchor/definition';
@@ -14,7 +14,7 @@ import { HtmlContentFn } from './htmlContent';
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const HtmlContent = createComponent(
+export const HtmlContent = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').HtmlContent>} */
     ({
         name: 'html-content',

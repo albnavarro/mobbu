@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { MatrioskaItemFn } from './matrioskaItem';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const MatrioskaItem = createComponent(
+export const MatrioskaItem = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').MatrioskaItem>} */
     ({
         name: 'matrioska-item',

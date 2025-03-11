@@ -1,10 +1,10 @@
 // @ts-check
 
+import { MobJs } from '../../../../../../mobjs';
+
 /**
  * @import { MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
  **/
-
-import { tick, useMethodByName } from '../../../../../../mobjs';
 
 let lastSearch = '';
 
@@ -19,10 +19,10 @@ export const DebugFilterHeadFn = ({
     onMount(() => {
         (async () => {
             // Wait application render
-            await tick();
+            await MobJs.tick();
 
             /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
-            const methods = useMethodByName('debug_filter_list');
+            const methods = MobJs.useMethodByName('debug_filter_list');
             methods?.refreshList({ testString: lastSearch });
         })();
 
@@ -48,7 +48,8 @@ export const DebugFilterHeadFn = ({
                         lastSearch = testString;
 
                         /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
-                        const methods = useMethodByName('debug_filter_list');
+                        const methods =
+                            MobJs.useMethodByName('debug_filter_list');
                         methods?.refreshList({ testString });
                     }
                 },
@@ -64,7 +65,7 @@ export const DebugFilterHeadFn = ({
                     lastSearch = testString;
 
                     /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
-                    const methods = useMethodByName('debug_filter_list');
+                    const methods = MobJs.useMethodByName('debug_filter_list');
                     methods?.refreshList({ testString });
                 },
             })}

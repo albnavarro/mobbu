@@ -1,10 +1,3 @@
-import {
-    componentMap,
-    eventDelegationMap,
-    getTree,
-    mainStore,
-    tempDelegateEventMap,
-} from '../../../mobjs';
 import { bindEventMap } from '../../../mobjs/modules/bindEvents';
 import { currentRepeaterValueMap } from '../../../mobjs/modules/repeater/repeaterValue';
 import { onMountCallbackMap } from '../../../mobjs/modules/onMount';
@@ -22,19 +15,20 @@ import { invalidateIdPlaceHolderMap } from '../../../mobjs/modules/invalidate/in
 import { invalidateIdHostMap } from '../../../mobjs/modules/invalidate/invalidateIdHostMap';
 import { invalidateFunctionMap } from '../../../mobjs/modules/invalidate/invalidateFunctionMap';
 import { bindPropsMap } from '../../../mobjs/modules/bindProps/bindPropsMap';
+import { MobJs } from '../../../mobjs';
 
 export const consoleLogDebug = () => {
-    mainStore.debugStore();
-    console.log('componentMap', componentMap);
-    console.log('Tree structure:', getTree());
+    MobJs.mainStore.debugStore();
+    console.log('componentMap', MobJs.componentMap);
+    console.log('Tree structure:', MobJs.getTree());
     console.log('bindEventMap', bindEventMap);
     console.log('currentListValueMap', currentRepeaterValueMap);
     console.log('activeRepeatMap', activeRepeatMap);
     console.log('onMountCallbackMap', onMountCallbackMap);
     console.log('staticPropsMap', staticPropsMap);
     console.log('dynamicPropsMap', bindPropsMap);
-    console.log('eventDelegationMap', eventDelegationMap);
-    console.log('tempDelegateEventMap', tempDelegateEventMap);
+    console.log('eventDelegationMap', MobJs.eventDelegationMap);
+    console.log('tempDelegateEventMap', MobJs.tempDelegateEventMap);
     console.log('invalidateIdPlaceHolderMap', invalidateIdPlaceHolderMap);
     console.log('invalidateIdHostMap', invalidateIdHostMap.size);
     console.log('invalidateFunctionMap', invalidateFunctionMap);

@@ -14,7 +14,7 @@ import {
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
 import { MobCore } from '../../../../../mobCore';
-import { getActiveRoute } from '../../../../../mobjs';
+import { MobJs } from '../../../../../mobjs';
 
 /** @type{import('../type').AnimatedPatternN1Animation} */
 export const animatedPatternN1Animation = ({
@@ -39,7 +39,7 @@ export const animatedPatternN1Animation = ({
     let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
 
-    const activeRoute = getActiveRoute();
+    const activeRoute = MobJs.getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -340,7 +340,7 @@ export const animatedPatternN1Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const currentRoute = getActiveRoute();
+            const currentRoute = MobJs.getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

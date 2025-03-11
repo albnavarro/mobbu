@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { TitleFn } from './title';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const Title = createComponent(
+export const Title = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').Title>} */
     ({
         name: 'mob-title',

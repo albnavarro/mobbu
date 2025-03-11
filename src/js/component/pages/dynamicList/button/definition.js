@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { DynamicListButtonFn } from './dynamicListButton';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const DynamicListButton = createComponent(
+export const DynamicListButton = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').DynamicListButton>} */
     ({
         name: 'dynamic-list-button',

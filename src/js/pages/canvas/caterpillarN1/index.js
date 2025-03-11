@@ -1,8 +1,8 @@
 import { updateQuickNavState } from '../../../component/common/quickNav/utils';
 import { CaterpillarN1 } from '../../../component/pages/canvas/caterpillarN1/definition';
-import { html, useComponent } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 
-useComponent([CaterpillarN1]);
+MobJs.useComponent([CaterpillarN1]);
 
 export const caterpillarN1 = () => {
     /** Quicknav */

@@ -1,7 +1,7 @@
 import { Matrioska } from '../../component/pages/matrioska/definition';
-import { html, useComponent } from '../../mobjs';
+import { html, MobJs } from '../../mobjs';
 
-useComponent([Matrioska]);
+MobJs.useComponent([Matrioska]);
 
 export const matrioska_page = () => {
     return html` <page-matrioska> </page-matrioska> `;

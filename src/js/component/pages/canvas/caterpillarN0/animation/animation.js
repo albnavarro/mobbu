@@ -10,7 +10,7 @@ import {
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
 import { MobCore } from '../../../../../mobCore';
-import { getActiveRoute } from '../../../../../mobjs';
+import { MobJs } from '../../../../../mobjs';
 
 /**
  *  @param {object} params
@@ -76,7 +76,7 @@ export const caterpillarN0Animation = ({
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let { left } = offset(canvas);
-    const activeRoute = getActiveRoute();
+    const activeRoute = MobJs.getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -326,7 +326,7 @@ export const caterpillarN0Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const currentRoute = getActiveRoute();
+            const currentRoute = MobJs.getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

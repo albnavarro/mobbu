@@ -1,12 +1,12 @@
 import { AnyComponent } from '../../../component/common/AnyComponent/definition';
 import { Move3D } from '../../../component/common/Move3D/definition';
 import { updateQuickNavState } from '../../../component/common/quickNav/utils';
-import { html, staticProps, useComponent } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { parseSvg } from '../../../utils/parseSvg';
 import { loadTextContent } from '../../../utils/utils';
 import { getLettering01 } from './lettering01Data';
 
-useComponent([Move3D, AnyComponent]);
+MobJs.useComponent([Move3D, AnyComponent]);
 
 export const lettering01 = async () => {
     const { data: lettering01 } = await loadTextContent({
@@ -57,7 +57,7 @@ export const lettering01 = async () => {
 
     return html`<div class="l-lettering01">
         <move-3d
-            ${staticProps(
+            ${MobJs.staticProps(
                 /** @type{import('../../../component/common/Move3D/type').Move3D['state']} */ ({
                     shape: getLettering01({
                         letter_d,

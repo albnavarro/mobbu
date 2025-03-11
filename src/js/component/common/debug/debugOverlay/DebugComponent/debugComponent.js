@@ -4,7 +4,7 @@
  * @import { GetRef, GetState, MobComponent } from '../../../../../mobjs/type';
  **/
 
-import { componentMap, html, tick } from '../../../../../mobjs';
+import { html, MobJs } from '../../../../../mobjs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '../Store/DebugActiveComponent';
@@ -79,7 +79,7 @@ const getContent = ({ getState }) => {
     const { id } = getState();
     if (id === RESET_FILTER_DEBUG) return '';
 
-    const item = componentMap.get(id);
+    const item = MobJs.componentMap.get(id);
     if (!item) return `component not found`;
 
     return html`<div>
@@ -218,7 +218,7 @@ export const DebugComponentFn = ({
 
         watch('id', async () => {
             // update scroller after app is updated.
-            await tick();
+            await MobJs.tick();
 
             refresh();
             updateScroller();

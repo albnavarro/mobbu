@@ -4,19 +4,19 @@
  * @import { MobComponent, UseMethodByName } from '../../../mobjs/type';
  **/
 
-import { loadUrl, useMethodByName } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function titleHandler() {
-    loadUrl({ url: '#home' });
+    MobJs.loadUrl({ url: '#home' });
     navigationStore.set('navigationIsOpen', false);
 
     /** @type{UseMethodByName<import('../navigation/type').Navigation>} */
-    const mainNavigationMethods = useMethodByName('main_navigation');
+    const mainNavigationMethods = MobJs.useMethodByName('main_navigation');
     mainNavigationMethods?.closeAllAccordion();
 
     /** @type{UseMethodByName<import('../navigation/type').NavigationContainer>} */
-    const navContainerMethods = useMethodByName('navigation-container');
+    const navContainerMethods = MobJs.useMethodByName('navigation-container');
     navContainerMethods?.scrollTop();
 }
 

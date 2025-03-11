@@ -4,7 +4,7 @@
  * @import { MobComponent, UseMethodByName } from '../../../../../../../mobjs/type';
  **/
 
-import { useMethodByName } from '../../../../../../../mobjs';
+import { MobJs } from '../../../../../../../mobjs';
 import { debugActiveComponentStore } from '../../../Store/DebugActiveComponent';
 
 /** @type{MobComponent<import('./type').DebugFilterListItem>} */
@@ -49,7 +49,8 @@ export const DebugFilterListItemFn = ({
                 ${delegateEvents({
                     click: () => {
                         /** @type{UseMethodByName<import('../../../DebugComponent/type').DebugComponent>} */
-                        const methods = useMethodByName('debug_component');
+                        const methods =
+                            MobJs.useMethodByName('debug_component');
                         methods?.updateId(id);
                     },
                 })}

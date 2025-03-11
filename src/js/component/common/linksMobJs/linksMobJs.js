@@ -6,7 +6,7 @@
  **/
 
 import { getCommonData } from '../../../data';
-import { afterRouteChange, getActiveRoute, html, tick } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import {
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_TRAVERSAL_MOBJS,
@@ -93,12 +93,12 @@ export const LinksMobJsFn = ({
         });
 
         navigationStore.watch('navigationIsOpen', (value) => {
-            const { templateName } = getActiveRoute();
+            const { templateName } = MobJs.getActiveRoute();
             if (!(templateName in templateData)) return;
             setState('shift', value);
         });
 
-        const unsubscribeRoute = afterRouteChange(
+        const unsubscribeRoute = MobJs.afterRouteChange(
             async ({ templateName, route }) => {
                 const currentData = templateData?.[templateName] ?? [];
                 setState('data', currentData);
@@ -106,7 +106,7 @@ export const LinksMobJsFn = ({
                 /**
                  * Await list was created, then create scroller
                  */
-                await tick();
+                await MobJs.tick();
                 setState('activeSection', route);
 
                 if (currentData.length > 0) {

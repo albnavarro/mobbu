@@ -8,7 +8,7 @@
  * @import { DynamicListRepeater } from './repeaters/type';]
  **/
 
-import { html, tick } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import {
     FreezeMobPageScroll,
     UnFreezeAndUPdateMobPageScroll,
@@ -74,7 +74,7 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
                             setState('data', data);
                             setState('activeSample', index);
 
-                            await tick();
+                            await MobJs.tick();
                             UnFreezeAndUPdateMobPageScroll();
                         },
                     })}

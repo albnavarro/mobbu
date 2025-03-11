@@ -1,7 +1,7 @@
 //@ts-check
 
 import { offset, outerHeight, outerWidth } from '../../../mobCore/utils';
-import { useMethodArrayByName } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 
 /**
  * @import {UseMethodArrayByName} from '../../../mobjs/type'
@@ -22,7 +22,7 @@ export const getMove3DDimension = ({ element }) => {
 /**  @type{(arg0: {childrenId: string }) => ((arg0: {delta:number, factor:number}) => void)[]} */
 export const getChildrenMethod = ({ childrenId }) => {
     /** @type  {UseMethodArrayByName<import('./move3DItem/type').Move3DItem>} */
-    const methods = useMethodArrayByName(childrenId);
+    const methods = MobJs.useMethodArrayByName(childrenId);
 
     return methods.map((method) => {
         return (/** @type{{delta:number, factor:number}} */ props) =>

@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { SpacerAnchorFn } from './spacerAnchor';
 
 /**
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const SpacerAnchor = createComponent(
+export const SpacerAnchor = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').SpacerAnchor>} */
     ({
         name: 'mob-spacer',

@@ -4,9 +4,9 @@ import { BenchMarkRepeatWithKeyNested } from '../../component/pages/benchMark/re
 import { BenchMarkRepeatNoKey } from '../../component/pages/benchMark/repeatNoKey/definition';
 import { BenchMarkRepeatNoKeyBindStore } from '../../component/pages/benchMark/repeatNoKeyBindStore/definition';
 import { BenchMarkRepeatWithNoKeyNested } from '../../component/pages/benchMark/repeatNoKeyKeyNested/definition';
-import { html, useComponent } from '../../mobjs';
+import { html, MobJs } from '../../mobjs';
 
-useComponent([
+MobJs.useComponent([
     BenchMarkInvalidate,
     BenchMarkRepeatNoKey,
     BenchMarkRepeatWithKey,

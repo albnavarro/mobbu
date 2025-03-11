@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { ScrollerN1Fn } from './scrollerN1';
 
@@ -8,7 +8,7 @@ import { ScrollerN1Fn } from './scrollerN1';
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const ScrollerN1 = createComponent(
+export const ScrollerN1 = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').ScrollerN1>} */
     ({
         name: 'scroller-n1',

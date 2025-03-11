@@ -7,7 +7,7 @@
 // @ts-ignore
 import githubIcon from '../../../../svg/icon-github.svg';
 import { getCommonData } from '../../../data';
-import { html, loadUrl } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 /** @type{Record<string, any>} */
@@ -24,7 +24,7 @@ const onClick = ({ event }) => {
     const button = event.target;
     console.log(button);
     const { url } = /** @type{HTMLButtonElement} */ (button)?.dataset ?? '';
-    loadUrl({ url });
+    MobJs.loadUrl({ url });
     navigationStore.set('navigationIsOpen', false);
 };
 

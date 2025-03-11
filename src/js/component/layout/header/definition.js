@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { HeaderFn } from './header';
 import { HeadernavFn } from './headernav';
 import { HeaderToggleFn } from './headerToggle';
@@ -9,7 +9,7 @@ import { HeaderToggleFn } from './headerToggle';
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const HeaderNav = createComponent(
+export const HeaderNav = MobJs.createComponent(
     /** @type{CreateComponentParams<any>} */
     ({
         name: 'mob-header-nav',
@@ -17,7 +17,7 @@ export const HeaderNav = createComponent(
     })
 );
 
-export const HeaderToggle = createComponent(
+export const HeaderToggle = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').HeaderToggle>} */
     ({
         name: 'mob-header-toggle',
@@ -31,7 +31,7 @@ export const HeaderToggle = createComponent(
     })
 );
 
-export const Header = createComponent(
+export const Header = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').Header>} */
     ({
         name: 'mob-header',

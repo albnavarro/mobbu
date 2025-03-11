@@ -1,7 +1,6 @@
 // @ts-check
 
 import { MobTween, MobScroll } from '../../../../../mobMotion';
-import { getActiveRoute } from '../../../../../mobjs';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -11,6 +10,7 @@ import {
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { outerHeight } from '../../../../../mobCore/utils';
 import { MobCore } from '../../../../../mobCore';
+import { MobJs } from '../../../../../mobjs';
 
 /**
  * @param {object} params
@@ -72,7 +72,7 @@ export const scrollerN1Animation = ({
      */
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
-    const activeRoute = getActiveRoute();
+    const activeRoute = MobJs.getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -295,7 +295,7 @@ export const scrollerN1Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const currentRoute = getActiveRoute();
+            const currentRoute = MobJs.getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

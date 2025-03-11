@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { BenchMarkFakeComponentFn } from './benchmarkFakeComponent';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const BenchMarkFakeComponent = createComponent(
+export const BenchMarkFakeComponent = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').BenchMarkFakeComponent>} */
     ({
         name: 'benchmark-fake-component',

@@ -5,7 +5,7 @@
  * @import { Navigation, NavigationButton, NavigationContainer, NavigationSubmenu } from './type';
  **/
 
-import { html, useMethodByName } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { MobSlide } from '../../../mobMotion/plugin';
 
 /**
@@ -71,7 +71,7 @@ export const NavigationSubmenuFn = ({
                 await MobSlide[action](content);
 
                 /** @type{UseMethodByName<NavigationContainer>} */
-                const navContainerMethods = useMethodByName(
+                const navContainerMethods = MobJs.useMethodByName(
                     'navigation-container'
                 );
                 navContainerMethods?.refresh();
@@ -85,7 +85,7 @@ export const NavigationSubmenuFn = ({
 
                 /** @type{UseMethodByName<Navigation>} */
                 const mainNavigationMethods =
-                    useMethodByName('main_navigation');
+                    MobJs.useMethodByName('main_navigation');
                 mainNavigationMethods?.closeAllAccordion({
                     fireCallback: false,
                 });

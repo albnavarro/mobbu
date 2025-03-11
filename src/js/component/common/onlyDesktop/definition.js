@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { MobMotionCore } from '../../../mobMotion';
 import { OnlyDesktopFn } from './onlyDesktop';
 
@@ -8,7 +8,7 @@ import { OnlyDesktopFn } from './onlyDesktop';
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const OnlyDesktop = createComponent(
+export const OnlyDesktop = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').OnlyDesktop>} */
     ({
         name: 'only-desktop',

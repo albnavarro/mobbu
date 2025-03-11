@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { AnimatedPatternN1Fn } from './animatedPatternN1';
 
@@ -8,7 +8,7 @@ import { AnimatedPatternN1Fn } from './animatedPatternN1';
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const AnimatedPatternN1 = createComponent(
+export const AnimatedPatternN1 = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').AnimatedPatternN1>} */
     ({
         name: 'animatedpattern-n1',

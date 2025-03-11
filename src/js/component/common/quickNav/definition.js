@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { QuickNavFn } from './nextPage';
 
 /**
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const QuickNav = createComponent(
+export const QuickNav = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').QuickNav>} */
     ({
         name: 'quick-nav',

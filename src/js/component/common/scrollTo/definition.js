@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { ScrollToButton } from './button/definition';
 import { ScrollToFn } from './scrollTo';
 
@@ -8,7 +8,7 @@ import { ScrollToFn } from './scrollTo';
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const ScrollTo = createComponent(
+export const ScrollTo = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').ScrollTo>} */
     ({
         name: 'scroll-to',

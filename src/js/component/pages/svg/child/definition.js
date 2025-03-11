@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { SvgChildFn } from './child';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const svgChild = createComponent(
+export const svgChild = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').SvgChild>} */
     ({
         name: 'svg-child',

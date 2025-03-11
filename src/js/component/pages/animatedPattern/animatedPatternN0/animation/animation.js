@@ -1,7 +1,6 @@
 //@ts-check
 
 import { MobTimeline, MobTween } from '../../../../../mobMotion';
-import { getActiveRoute } from '../../../../../mobjs';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -14,6 +13,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { MobCore } from '../../../../../mobCore';
+import { MobJs } from '../../../../../mobjs';
 
 /** @type{import('../type').AnimatedPatternN0Animation} */
 export const animatedPatternN0Animation = ({
@@ -39,7 +39,7 @@ export const animatedPatternN0Animation = ({
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
 
-    const activeRoute = getActiveRoute();
+    const activeRoute = MobJs.getActiveRoute();
 
     /**
      * If offscreen is supported use.
@@ -296,7 +296,7 @@ export const animatedPatternN0Animation = ({
             /**
              * If close nav but change route skip.
              */
-            const currentRoute = getActiveRoute();
+            const currentRoute = MobJs.getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
 
             /**

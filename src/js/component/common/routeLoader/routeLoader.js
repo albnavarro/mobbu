@@ -5,7 +5,7 @@
  * @import { RouteLoader } from './type';
  **/
 
-import { afterRouteChange, beforeRouteChange } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { MobTween } from '../../../mobMotion';
 
 /** @type {MobComponent<RouteLoader>} */
@@ -25,13 +25,13 @@ export const RouteLoaderFn = ({ html, onMount, getProxi, bindEffect }) => {
             element.style.transform = `scale(${scale})`;
         });
 
-        beforeRouteChange(() => {
+        MobJs.beforeRouteChange(() => {
             tweenOut.goTo({ opacity: 1, scale: 1 });
 
             proxi.isDisable = false;
         });
 
-        afterRouteChange(async () => {
+        MobJs.afterRouteChange(async () => {
             await tweenOut.goTo({ opacity: 0, scale: 0.9 });
 
             proxi.isDisable = true;

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { html, staticProps } from '../../../../mobjs';
+import { html, MobJs } from '../../../../mobjs';
 import { MobTween } from '../../../../mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
 
@@ -12,7 +12,7 @@ const getComponent = (component) => {
 
     return html`
         <div class="c-move3d-item__component ${component?.className}">
-            <${component.tagName} ${staticProps(component?.props ?? {})}>
+            <${component.tagName} ${MobJs.staticProps(component?.props ?? {})}>
             </${component.tagName}>
         </div>`;
 };

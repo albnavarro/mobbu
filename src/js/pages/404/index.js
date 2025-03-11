@@ -1,12 +1,12 @@
 import { Title } from '../../component/common/typography/titles/definition';
-import { html, staticProps, useComponent } from '../../mobjs';
+import { html, MobJs } from '../../mobjs';
 
-useComponent([Title]);
+MobJs.useComponent([Title]);
 
 export const pageNotFound = () => {
     return html`
         <div class="page-not-found">
-            <mob-title ${staticProps({ tag: 'h3', color: 'highlight' })}>
+            <mob-title ${MobJs.staticProps({ tag: 'h3', color: 'highlight' })}>
                 Page not found
             </mob-title>
             <a href="./#home">back to home</a>

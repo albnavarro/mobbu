@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { ListFn } from './list';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const List = createComponent(
+export const List = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').List>} */
     ({
         name: 'mob-list',

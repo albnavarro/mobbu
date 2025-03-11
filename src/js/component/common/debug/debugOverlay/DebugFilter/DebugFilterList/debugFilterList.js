@@ -5,12 +5,12 @@
  **/
 
 import { MobCore } from '../../../../../../mobCore';
-import { componentMap, tick } from '../../../../../../mobjs';
+import { MobJs } from '../../../../../../mobjs';
 import { verticalScroller } from '../../../../../lib/animation/verticalScroller';
 
 /** @type{import('./type').DebugInitScroller} */
 const initScroller = async ({ getRef }) => {
-    await tick();
+    await MobJs.tick();
 
     const { screen, scroller, scrollbar } = getRef();
 
@@ -51,7 +51,7 @@ const getDataFiltered = ({ testString }) => {
         testString.split(' ').filter((block) => block !== '') ?? '';
 
     return (
-        [...componentMap.values()].filter(({ componentName }) => {
+        [...MobJs.componentMap.values()].filter(({ componentName }) => {
             return stringParsed.every((piece) => componentName.includes(piece));
         }) ?? []
     ).map(({ id, componentName, instanceName }) => ({
@@ -117,7 +117,7 @@ export const DebugFilterListFn = ({
          * Await css con be applied before large parse that block thread.
          */
         setState('isLoading', true);
-        await tick();
+        await MobJs.tick();
 
         /**
          * After useFrame of isLoading watcher
@@ -132,7 +132,7 @@ export const DebugFilterListFn = ({
                 setState('data', getDataFiltered({ testString }));
 
                 // Await end of list creation.
-                await tick();
+                await MobJs.tick();
                 refresh?.();
                 updateScroller?.();
 

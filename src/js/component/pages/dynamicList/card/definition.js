@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { DynamicListButton } from '../button/definition';
 import { DynamicCounter } from '../counter/definition';
 import { innerData } from '../data';
@@ -12,7 +12,7 @@ import { DynamicListCardInner } from './innerCard/definition';
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const DynamicListCard = createComponent(
+export const DynamicListCard = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').DynamicListCard>} */
     ({
         name: 'dynamic-list-card',

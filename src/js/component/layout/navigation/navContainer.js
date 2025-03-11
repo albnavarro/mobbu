@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobCore } from '../../../mobCore';
-import { useMethodByName } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { MobBodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
@@ -33,7 +33,7 @@ function closeNavigation({ main, setState }) {
  */
 function openNavigation({ main, setState }) {
     /** @type{UseMethodByName<import('./type').NavigationContainer>} */
-    const methods = useMethodByName('navigation-container');
+    const methods = MobJs.useMethodByName('navigation-container');
     methods?.refresh();
     setState('isOpen', true);
 
@@ -56,11 +56,11 @@ function addMainHandler({ main }) {
 
 const toTopBtnHandler = () => {
     /** @type{UseMethodByName<import('./type').NavigationContainer>} */
-    const navContainerMethods = useMethodByName('navigation-container');
+    const navContainerMethods = MobJs.useMethodByName('navigation-container');
     navContainerMethods?.scrollTop();
 
     /** @type{UseMethodByName<import('./type').Navigation>} */
-    const mainNavigationMethods = useMethodByName('main_navigation');
+    const mainNavigationMethods = MobJs.useMethodByName('main_navigation');
     mainNavigationMethods?.closeAllAccordion();
 
     const { navigationIsOpen } = navigationStore.get();

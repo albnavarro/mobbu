@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../../mobjs';
+import { MobJs } from '../../../../../mobjs';
 import { DynamicListCardInnerFn } from './dynamicListCardInner';
 
 /**
  * @import { CreateComponentParams } from "../../../../../mobjs/type";
  **/
 
-export const DynamicListCardInner = createComponent(
+export const DynamicListCardInner = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').DynamicListCardInner>} */
     ({
         name: 'dynamic-list-card-inner',

@@ -3,11 +3,17 @@ import { DocTitle } from '../../component/common/doctitle/definition';
 import { DocsTitleSmall } from '../../component/common/doctitleSmall/definition';
 import { HtmlContent } from '../../component/common/htmlContent/definition';
 import { ScrollTo } from '../../component/common/scrollTo/definition';
-import { html, staticProps, useComponent } from '../../mobjs';
+import { html, MobJs } from '../../mobjs';
 import { loadJsonContent } from '../../utils/utils';
 import { getBreadCrumbs } from './utils';
 
-useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
+MobJs.useComponent([
+    DocContainer,
+    DocsTitleSmall,
+    ScrollTo,
+    DocTitle,
+    HtmlContent,
+]);
 
 /** @type{import('../../mobjs/type').PageAsync<{},import('./type.d.ts').LayoutSidebarAnchor['props']>} */
 export const layoutSidebarAnchor = async ({ props }) => {
@@ -18,7 +24,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
         <div>
             <html-content
                 slot="docs"
-                ${staticProps({
+                ${MobJs.staticProps({
                     data: data.data,
                     useMaxWidth: true,
                 })}

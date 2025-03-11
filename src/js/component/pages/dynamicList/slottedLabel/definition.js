@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { DynamicListSlottedLabelFn } from './dynamicListSlottedLabel';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const DynamicListSlottedLabel = createComponent(
+export const DynamicListSlottedLabel = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').DynamicListSlottedLabel>} */
     ({
         name: 'dynamic-slotted-label',

@@ -1,13 +1,13 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { AnchorButtonFn } from './AnchorButton';
 
 /**
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const AnchorButton = createComponent(
+export const AnchorButton = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').AnchorBUtton>} */
     ({
         name: 'anchor-button',

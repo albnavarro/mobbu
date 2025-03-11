@@ -1,9 +1,9 @@
-import { beforeRouteChange } from '../mobjs';
+import { MobJs } from '../mobjs';
 import { MobTimeline, MobMotionCore, MobTween } from '../mobMotion';
 
 let scrollY = 0;
 
-beforeRouteChange(() => {
+MobJs.beforeRouteChange(() => {
     scrollY = window.scrollY;
 });
 

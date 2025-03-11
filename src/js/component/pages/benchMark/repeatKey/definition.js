@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../mobjs';
+import { MobJs } from '../../../../mobjs';
 import { benchMarkDefinitionPartial } from '../partials/definitionPartial';
 import { BenchMarkRepeatWithKyFn } from './benchmarkRepeatWithKey';
 
@@ -8,7 +8,7 @@ import { BenchMarkRepeatWithKyFn } from './benchmarkRepeatWithKey';
  * @import { CreateComponentParams } from "../../../../mobjs/type";
  **/
 
-export const BenchMarkRepeatWithKey = createComponent(
+export const BenchMarkRepeatWithKey = MobJs.createComponent(
     /** @type{CreateComponentParams<import('../type').BenchMark>} */
     ({
         name: 'benchmark-repeat-key',

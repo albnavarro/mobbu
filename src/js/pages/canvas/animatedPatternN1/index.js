@@ -1,8 +1,8 @@
 import { updateQuickNavState } from '../../../component/common/quickNav/utils';
 import { AnimatedPatternN1 } from '../../../component/pages/animatedPattern/animatedPatternN1/definition';
-import { html, useComponent } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 
-useComponent([AnimatedPatternN1]);
+MobJs.useComponent([AnimatedPatternN1]);
 
 export const animatedPatternN1 = () => {
     /** Quicknav */

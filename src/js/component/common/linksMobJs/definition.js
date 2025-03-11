@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../mobjs';
+import { MobJs } from '../../../mobjs';
 import { LinksMobJsFn } from './linksMobJs';
 import { LinksMobJsButtonFn } from './linksMobJsButton';
 
@@ -8,7 +8,7 @@ import { LinksMobJsButtonFn } from './linksMobJsButton';
  * @import { CreateComponentParams } from "../../../mobjs/type";
  **/
 
-export const LinksMobJsButton = createComponent(
+export const LinksMobJsButton = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').LinksMobJsButton>} */
     ({
         name: 'links-mobjs-button',
@@ -31,7 +31,7 @@ export const LinksMobJsButton = createComponent(
     })
 );
 
-export const LinksMobJs = createComponent(
+export const LinksMobJs = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').LinksMobJs>} */
     ({
         name: 'links-mobjs',
