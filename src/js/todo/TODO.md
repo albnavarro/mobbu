@@ -73,14 +73,8 @@ export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
 
 # MobJs
 
-## Namespaces:
-- Create un `namespaces` come per `MobCore` & `MobTween` etc...
-```js
-MobJs.inizializeApp()
-MobJs.setDefaultComponent()
-MobJs.createComponent()
-etc...
-```
+## html:
+- Eliminare l'attributo `html` che esce dalla funzione e usare solo la utility globale, meno cofusione.
 
 ## Page transition.
 - Possibilitá di sovrascrivere le due funzioni per rotta.
