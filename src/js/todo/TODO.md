@@ -75,6 +75,7 @@ export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
 
 ## html:
 - Eliminare l'attributo `html` che esce dalla funzione e usare solo la utility globale, meno cofusione.
+- Eliminare l'attributo `html` anche da `repeat/invalidate`.
 
 ## Page transition.
 - Possibilitá di sovrascrivere le due funzioni per rotta.
