@@ -20,38 +20,41 @@ storeTest.computed('myComputed2',() => {
 ```
 
 - in questa esecuzione della funzione il `get del proxi` potrá tracciare la sua chiave e aggiungerla come dipendenza.
-- Il `proxi` fará questo lavoro solo se `currentProp !== undefined `.
 
 ```js
 
 // <Folder/file>
-let current_computed_keys;
+let current_computed_keys = [];
+let active = false;
 
+// specific module
 export const initializeCurrentComputedKey  = () => {
+    active = true;
     current_computed_keys = [];
 }
 
-export const resetCurrentComputedKey  = () => {
-    current_computed_keys = undefined;
+// specific module
+export const getCurrentComputedKey = () => {
+    active = false;
+    return current_computed_keys;
 }
 
+// proxi mobStore/repeater.
 export const setCurrentComputedKey = (key) => {
-    // Controllo di sicurezza.
-    if(current_computed_keys?.length === 0) return;
+    if(!active || !key) return;
     current_computed_keys = [...current_computed_keys, key];
 }
 
-export const getCurrentComputedKey = () => {
-    return current_computed_keys;
-}
 ```
 
-- Vá esportato un modulo per poter essere usato dal `proxi-bind`.
+- Vá esportato un modulo per poter essere usato dal `proxi-repeater`.
 
 ```js
 index.js // MobCore
 export * as DetectBindKey from './<Folder/file>'
 ```
+
+- Computed example:
 
 ```js
 export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
