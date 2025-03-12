@@ -1,10 +1,10 @@
 # MobCore
 
 ##### Computed immediate.
-Usare `{ immediate: true }` come default ?
+Usare `{ immediate: true }` come default ? OK
 
 ##### Computed auto.
-- Spostare le dipendenze in fondo in mobo che siamo opzionali:
+- Spostare le dipendenze in fondo in mobo che siamo opzionali: OK
 ```js
 storeTest.computed('myComputed2',({ myComputed }) => {
     return myComputed * 2;
@@ -61,7 +61,9 @@ export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
 }
 ````
 
-- In questo modo eliminamo `{ immediate }` che sará `true` di default.
+- In questo modo eliminamo `{ immediate }` che sará `true` di default. OK
+- Riportare la logica sulle altre `funzioni` che hanno dipendenze esplicite come `bindEffect` & `bindProps` & `bindObject`
+- Per queste ultime bisogna aggiungere il meccanismo anche al `get` del `proxi-repeater`.
 
 
 ### DOCS
