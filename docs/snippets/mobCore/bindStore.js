@@ -17,11 +17,10 @@ storeOne.watch('sum', (sum) => {
 
 storeOne.computed(
     'sum',
-    ['prop1', 'prop2'],
     ({ prop1, prop2 }) => {
         return prop1 + prop2;
     },
-    { immediate: true }
+    ['prop1', 'prop2']
 );
 
 storeOne.set('prop1', 2);
