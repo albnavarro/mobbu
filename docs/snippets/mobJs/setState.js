@@ -6,10 +6,12 @@ export type SetState<T> = <K extends keyof T>(
 ) => void;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, setState }) => {
+export const MyComponent = ({ setState }) => {
     /**
      * Mutate label state.
      */

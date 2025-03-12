@@ -5,10 +5,12 @@ export type PartialMethods = (
 ) => void;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, addMethod }) => {
+export const MyComponent = ({ addMethod }) => {
     addMethod('myMethod', (props) => {
         console.log(props);
     });

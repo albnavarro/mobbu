@@ -8,11 +8,12 @@ renderComponent: (arg0: {
 }) => Promise<any>;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({
-    html,
     onMount,
     bindProps,
     removeDOM,

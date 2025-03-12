@@ -6,11 +6,12 @@ export type BindProps<T, R> = (arg0: {
 }) => string;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({
-    html,
     onMount,
     watch,
     setState,

@@ -2,12 +2,12 @@
 getChildren(componentName: string): Array<string>;
 **/
 
-import { MobJs } from '../../../src/js/mobjs';
+import { html, MobJs } from '../../../src/js/mobjs';
 
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, getChildren }) => {
+export const MyComponent = ({ onMount, getChildren }) => {
     onMount(() => {
         const childrensId = getChildren('child-component');
 

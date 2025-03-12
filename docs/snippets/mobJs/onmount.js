@@ -7,10 +7,12 @@ onMount(
 ): void;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, setRef, getRef }) => {
+export const MyComponent = ({ onMount, setRef, getRef }) => {
     onMount(({ element }) => {
         const { labelRef } = getRef();
 

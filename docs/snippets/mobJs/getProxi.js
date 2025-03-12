@@ -2,11 +2,12 @@
 export type ProxiState<T> = () => GetState<T>;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({
-    html,
     getProxi,
     delegateEvents,
     bindText,

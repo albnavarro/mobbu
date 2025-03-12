@@ -1,7 +1,9 @@
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, getProxi, bindProps }) => {
+export const MyComponent = ({ onMount, getProxi, bindProps }) => {
     const proxiState = getProxi();
 
     onMount(() => {

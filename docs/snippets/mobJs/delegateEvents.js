@@ -8,10 +8,12 @@ export type DelegateEvents = (
 ) => any;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, delegateEvents, setState }) => {
+export const MyComponent = ({ delegateEvents, setState }) => {
     return html`
         <div>
             <button

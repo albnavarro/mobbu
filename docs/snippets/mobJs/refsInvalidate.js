@@ -37,7 +37,6 @@ const getInvalidateRender = ({
  * @type {import("../../../src/js/mobjs/type").MobComponent<'myStateArray'|'counter'>}
  */
 export const MyComponent = ({
-    html,
     invalidate,
     getState,
     updateState,

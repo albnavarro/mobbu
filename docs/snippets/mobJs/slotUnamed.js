@@ -1,7 +1,9 @@
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyLayout = ({ html }) => {
+export const MyLayout = () => {
     return html`
         <section>
             <mobjs-slot></mobjs-slot>
@@ -12,7 +14,7 @@ export const MyLayout = ({ html }) => {
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html }) => {
+export const MyComponent = () => {
     return html`
         <my-layout>
             <my-component></my-component>

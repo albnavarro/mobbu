@@ -1,12 +1,14 @@
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
+export const MyComponent = ({ repeat, bindProps, delegateEvents }) => {
     return html`
         <div class="repeater-container">
             ${repeat({
                 bind: 'myStateArray',
-                render: ({ html, current }) => {
+                render: ({ current }) => {
                     return html`
                         <my-child-component
                             ${bindProps({

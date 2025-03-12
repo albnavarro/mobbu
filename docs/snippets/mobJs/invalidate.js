@@ -31,7 +31,6 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({
-    html,
     invalidate,
     getState,
     staticProps,

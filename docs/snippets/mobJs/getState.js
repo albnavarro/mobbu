@@ -2,10 +2,12 @@
 export type GetState<T> = () => T;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, getState }) => {
+export const MyComponent = ({ getState }) => {
     /**
      * Label state initial value.
      */

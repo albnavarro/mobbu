@@ -1,9 +1,9 @@
-import { MobJs } from '../../../src/js/mobjs';
+import { html, MobJs } from '../../../src/js/mobjs';
 
 /**
  * @type {import('../../../src/js/mobjs/type').mobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ onMount, html }) => {
+export const MyComponent = ({ onMount }) => {
     onMount(() => {
         /**
          * It is a good idea to use the Optional chaining to ensure that the

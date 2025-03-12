@@ -14,6 +14,5 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
             index: number;
             value: Record<string, any>;
         };
-        html?: (arg0: string) => string;
     }) => string;
 }) => string;

@@ -2,10 +2,12 @@
 export type BindText = (TemplateStringsArray, ...any) => string;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, bindText }) => {
+export const MyComponent = ({ bindText }) => {
     return html`
         <div>
             <div>${bindText`<h1>title</h1> ${'state'} / ${'state2'}`}</div>

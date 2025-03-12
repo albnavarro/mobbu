@@ -1,3 +1,5 @@
+import { html } from '../../../src/js/mobjs';
+
 function myAsyncFunction() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -9,7 +11,7 @@ function myAsyncFunction() {
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponentAsync<import('./type').State>}
  */
-export const MyComponent = async ({ html }) => {
+export const MyComponent = async () => {
     await myAsyncFunction();
 
     /**

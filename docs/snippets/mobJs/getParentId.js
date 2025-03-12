@@ -2,10 +2,12 @@
 export type GetParentId = () => string | undefined;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, getParentId }) => {
+export const MyComponent = ({ onMount, getParentId }) => {
     onMount(() => {
         const parentID = getParentId();
 

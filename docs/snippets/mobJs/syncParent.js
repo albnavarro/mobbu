@@ -1,9 +1,9 @@
-import { MobJs } from '../../../src/js/mobjs';
+import { html, MobJs } from '../../../src/js/mobjs';
 
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, syncParent, setRef, getRef }) => {
+export const MyComponent = ({ onMount, syncParent, setRef, getRef }) => {
     onMount(async () => {
         const { container } = getRef();
 

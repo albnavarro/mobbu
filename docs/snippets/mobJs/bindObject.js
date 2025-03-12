@@ -1,12 +1,14 @@
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, bindObject, repeat }) => {
+export const MyComponent = ({ bindObject, repeat }) => {
     return html`
         <div>
             ${repeat({
                 bind: 'data',
-                render: ({ html, current }) => {
+                render: ({ current }) => {
                     return html`<div class="item">
                         <div class="item__inner">
                             ${bindObject`value: ${{

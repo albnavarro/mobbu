@@ -1,7 +1,9 @@
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponentFn = ({ html, onMount, getState, setRef, getRef }) => {
+export const MyComponentFn = ({ onMount, getState, setRef, getRef }) => {
     /**
      * Label state initial value.
      */

@@ -7,10 +7,12 @@ export type UpdateState<T> = <K extends keyof T>(
 ) => void;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").mobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, updateState }) => {
+export const MyComponent = ({ updateState }) => {
     /**
      * Mutate counter state.
      */

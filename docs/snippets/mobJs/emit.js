@@ -2,10 +2,12 @@
 export type Emit<T> = (prop: keyof T) => void;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, emit }) => {
+export const MyComponent = ({ onMount, emit }) => {
     onMount(() => {
         emit('myState');
     });

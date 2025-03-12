@@ -5,17 +5,12 @@ export type Watch<T> = <K extends keyof T>(
 ) => () => void;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({
-    html,
-    onMount,
-    getState,
-    watch,
-    setRef,
-    getRef,
-}) => {
+export const MyComponent = ({ onMount, getState, watch, setRef, getRef }) => {
     const { label } = getState();
 
     onMount(() => {

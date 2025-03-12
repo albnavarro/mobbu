@@ -33,5 +33,5 @@ GetRefs<T>;
 BindText;
 BindObject;
 ReturnBindProps<T>;
-UseMethodByName < T;
+UseMethodByName<T>;
 UseMethodArrayByName<T>;

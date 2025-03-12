@@ -8,10 +8,12 @@ export type BindEvents = (
 ) => void;
 **/
 
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, bindEvents, setState }) => {
+export const MyComponent = ({ bindEvents, setState }) => {
     return html`
         <div>
             <my-child-component

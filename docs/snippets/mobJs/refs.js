@@ -1,8 +1,9 @@
+import { html } from '../../../src/js/mobjs';
+
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent}
  */
 export const MyComponent = ({
-    html,
     staticProps,
     onMount,
     setRef,

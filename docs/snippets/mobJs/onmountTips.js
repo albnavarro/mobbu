@@ -1,3 +1,5 @@
+import { html } from '../../../src/js/mobjs';
+
 const loadContent = async ({ element, source }) => {
     const response = await fetch(source);
     if (!response.ok) {
@@ -12,7 +14,7 @@ const loadContent = async ({ element, source }) => {
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = async ({ html, onMount, getState }) => {
+export const MyComponent = async ({ onMount, getState }) => {
     const { lazyLoad, source } = getState();
 
     onMount(async ({ element }) => {
