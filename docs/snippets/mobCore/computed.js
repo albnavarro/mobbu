@@ -11,8 +11,7 @@ myStore.computed(
     ['dependency1', 'dependency2'],
     ({ dependency1, dependency2 }) => {
         return dependency1 + dependency2;
-    },
-    { immediate: true }
+    }
 );
 
 console.log(myStore.get().prop); // 3

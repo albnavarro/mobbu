@@ -297,8 +297,7 @@ export const Move3Dfn = ({
 
                 if (useScroll) addScrollListener();
                 return useScroll;
-            },
-            { immediate: true }
+            }
         );
 
         MobCore.useNextLoop(() => {
