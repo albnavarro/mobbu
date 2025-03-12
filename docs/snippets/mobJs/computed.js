@@ -28,9 +28,13 @@ export const MyComponent = ({
             label.textContent = `sum is: ${value}`;
         });
 
-        computed('sum', ['state1', 'state2'], ({ state1, state2 }) => {
-            return state1 + state2;
-        });
+        computed(
+            'sum',
+            ({ state1, state2 }) => {
+                return state1 + state2;
+            },
+            ['state1', 'state2']
+        );
     });
 
     return html` <div><h2 ${setRef('label')}>${sum}</h2></div> `;

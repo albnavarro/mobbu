@@ -291,13 +291,13 @@ export const Move3Dfn = ({
          */
         computed(
             'useScroll',
-            ['centerToViewoport', 'drag'],
             ({ drag, centerToViewoport }) => {
                 const useScroll = !drag && !centerToViewoport;
 
                 if (useScroll) addScrollListener();
                 return useScroll;
-            }
+            },
+            ['centerToViewoport', 'drag']
         );
 
         MobCore.useNextLoop(() => {

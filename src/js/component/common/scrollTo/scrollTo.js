@@ -104,8 +104,8 @@ export const ScrollToFn = ({
          */
         computed(
             'anchorItems',
-            ['anchorItemsToBeComputed'],
-            ({ anchorItemsToBeComputed }) => anchorItemsToBeComputed
+            ({ anchorItemsToBeComputed }) => anchorItemsToBeComputed,
+            ['anchorItemsToBeComputed']
         );
     });
 

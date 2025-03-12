@@ -1,7 +1,7 @@
 // @ts-check
 
 import { MobCore } from '../mobCore';
-import { mainStore } from '../mobjs';
+import { MobJs } from '../mobjs';
 
 export const storeTest = () => {
     const proxiStore = MobCore.createStore(
@@ -23,7 +23,7 @@ export const storeTest = () => {
         })
     );
 
-    storeTest.bindStore([proxiStore, mainStore]);
+    storeTest.bindStore([proxiStore, MobJs.mainStore]);
     const proxi = storeTest.getProxi();
 
     storeTest.watch(
@@ -64,22 +64,26 @@ export const storeTest = () => {
 
     storeTest.computed(
         'myComputed',
-        ['prop', 'proxiProp'],
         ({ prop, proxiProp }) => {
             return prop * 2 + proxiProp;
-        }
+        },
+        ['prop', 'proxiProp']
     );
 
-    storeTest.computed('myComputed2', ['myComputed'], ({ myComputed }) => {
-        return myComputed * 2;
-    });
+    storeTest.computed(
+        'myComputed2',
+        ({ myComputed }) => {
+            return myComputed * 2;
+        },
+        ['myComputed']
+    );
 
     storeTest.computed(
         'myComputed3',
-        ['myComputed2', 'prop'],
         ({ myComputed2, prop }) => {
             return myComputed2 * 2 + prop;
-        }
+        },
+        ['myComputed2', 'prop']
     );
 
     /**

@@ -85,9 +85,9 @@ export const addComponentToStore = ({
         emitAsync: async (prop = '') => await store.emitAsync(prop),
         computed: (
             prop = '',
-            /** @type {string[]} */ keys = [],
-            fn = () => {}
-        ) => store.computed(prop, keys, fn),
+            fn = () => {},
+            /** @type {string[]} */ keys = []
+        ) => store.computed(prop, fn, keys),
         watch: (
             prop = '',
             cb = () => {},

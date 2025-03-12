@@ -118,7 +118,7 @@ export const mobStore = (data = {}) => {
 
             return unwatch;
         },
-        computed: (prop, keys, callback) => {
+        computed: (prop, callback, keys = []) => {
             storeComputedEntryPoint({
                 instanceId,
                 prop,

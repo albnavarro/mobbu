@@ -114,8 +114,8 @@ export type MobStoreWatch<T> = <K extends keyof T>(
 
 export type MobStoreComputed<T> = <K extends keyof T>(
     prop: Extract<K, string>,
-    keys: Extract<keyof T, string>[],
-    callback: (arg0: T) => T[K]
+    callback: (arg0: T) => T[K],
+    keys?: Extract<keyof T, string>[]
 ) => void;
 
 export type MobStoreEmit<T> = (props: Extract<keyof T, string>) => void;

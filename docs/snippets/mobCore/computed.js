@@ -8,10 +8,10 @@ const myStore = MobCore.createStore({
 
 myStore.computed(
     'prop',
-    ['dependency1', 'dependency2'],
     ({ dependency1, dependency2 }) => {
         return dependency1 + dependency2;
-    }
+    },
+    ['dependency1', 'dependency2']
 );
 
 console.log(myStore.get().prop); // 3

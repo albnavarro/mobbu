@@ -706,7 +706,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The initial value of computed will be calculated after initialization based on the current dependencies values, on the first initialization no callback will be launched"
+            "content": "The initial value of computed will be calculated after initialization based on the current dependencies values."
         },
         {
             "component": "mob-paragraph",

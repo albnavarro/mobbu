@@ -3157,7 +3157,7 @@
         }
         return unwatch;
       },
-      computed: (prop, keys, callback2) => {
+      computed: (prop, callback2, keys = []) => {
         storeComputedEntryPoint({
           instanceId,
           prop,
@@ -20302,8 +20302,8 @@
       getProxi: () => store2.getProxi(),
       emit: (prop = "") => store2.emit(prop),
       emitAsync: async (prop = "") => await store2.emitAsync(prop),
-      computed: (prop = "", keys = [], fn = () => {
-      }) => store2.computed(prop, keys, fn),
+      computed: (prop = "", fn = () => {
+      }, keys = []) => store2.computed(prop, fn, keys),
       watch: (prop = "", cb = () => {
       }, { wait = false, immediate = false } = {}) => store2.watch(prop, cb, {
         wait: wait ?? false,
@@ -25791,8 +25791,8 @@ Loading snippet ...</pre
       if (core_exports.mq("max", "large")) return;
       computed(
         "anchorItems",
-        ["anchorItemsToBeComputed"],
-        ({ anchorItemsToBeComputed }) => anchorItemsToBeComputed
+        ({ anchorItemsToBeComputed }) => anchorItemsToBeComputed,
+        ["anchorItemsToBeComputed"]
       );
     });
     return renderHtml`
@@ -32341,12 +32341,12 @@ Loading snippet ...</pre
       );
       computed(
         "useScroll",
-        ["centerToViewoport", "drag"],
         ({ drag, centerToViewoport }) => {
           const useScroll2 = !drag && !centerToViewoport;
           if (useScroll2) addScrollListener();
           return useScroll2;
-        }
+        },
+        ["centerToViewoport", "drag"]
       );
       modules_exports.useNextLoop(() => {
         ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
