@@ -520,7 +520,6 @@
                 "dots": false,
                 "block": false,
                 "items": [
-                    "<a href='./#mobJs-html'>html</a>",
                     "<a href='./#mobJs-onMount'>onMount/Destroy</a>",
                     "<a href='./#mobJs-getState'>getState</a>",
                     "<a href='./#mobJs-setState'>setState</a>",

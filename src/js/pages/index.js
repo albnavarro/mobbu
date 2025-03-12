@@ -326,16 +326,6 @@ export const routes = [
         },
     },
     {
-        name: 'mobJs-html',
-        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
-        layout: layoutSidebarLinks,
-        props: {
-            source: './data/mobJs/html.json',
-            title: 'html',
-            breadCrumbs: mobJsComponentBreadCrumbs,
-        },
-    },
-    {
         name: 'mobJs-onMount',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,

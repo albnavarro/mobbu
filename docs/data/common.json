@@ -55,11 +55,6 @@
                 "isLabel": true
             },
             {
-                "label": "html",
-                "url": "mobJs-html",
-                "isLabel": false
-            },
-            {
                 "label": "onMount",
                 "url": "mobJs-onMount",
                 "isLabel": false
@@ -492,11 +487,6 @@
             "label": "Component fundamental params",
             "url": "#",
             "children": [
-                {
-                    "label": "html",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-html"
-                },
                 {
                     "label": "onMount/Destroy",
                     "scrollToSection": "mobJs",
