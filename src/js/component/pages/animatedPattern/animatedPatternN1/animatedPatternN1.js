@@ -6,13 +6,13 @@
  **/
 
 import { MobCore } from '../../../../mobCore';
+import { html } from '../../../../mobjs';
 import { canvasBackground } from '../../../../utils/canvasUtils';
 import { animatedPatternN1Animation } from './animation/animation';
 
 /** @type {MobComponent<AnimatedPatternN1>} */
 export const AnimatedPatternN1Fn = ({
     onMount,
-    html,
     getState,
     setState,
     setRef,

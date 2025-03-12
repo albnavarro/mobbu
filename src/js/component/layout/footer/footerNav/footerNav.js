@@ -37,7 +37,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
 };
 
 /** @type {MobComponent} */
-export const FooterNavFn = ({ html, delegateEvents, staticProps }) => {
+export const FooterNavFn = ({ delegateEvents, staticProps }) => {
     return html`
         <ul class="footer-nav">
             ${getItems({ delegateEvents, staticProps })}

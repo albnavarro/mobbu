@@ -43,7 +43,6 @@ function getSubmenu({ children, staticProps, callback }) {
  */
 export const NavigationSubmenuFn = ({
     onMount,
-    html,
     getState,
     updateState,
     staticProps,

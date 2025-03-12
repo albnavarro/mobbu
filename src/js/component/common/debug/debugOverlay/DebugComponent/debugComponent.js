@@ -180,7 +180,6 @@ const initScroller = ({ getRef }) => {
 
 /** @type{MobComponent<import('./type').DebugComponent>} */
 export const DebugComponentFn = ({
-    html,
     onMount,
     addMethod,
     setState,

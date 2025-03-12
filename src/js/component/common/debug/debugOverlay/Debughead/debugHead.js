@@ -4,13 +4,12 @@
  * @import { MobComponent } from '../../../../../mobjs/type';
  **/
 
-import { MobJs } from '../../../../../mobjs';
+import { html, MobJs } from '../../../../../mobjs';
 import { getBindObjectParentSize } from '../../../../../mobjs/modules/bindObject';
 import { getBindTextParentSize } from '../../../../../mobjs/modules/bindtext';
 
 /** @type{MobComponent<import('./type').DebugHead>} */
 export const DebugHeadFn = ({
-    html,
     onMount,
     getState,
     watch,

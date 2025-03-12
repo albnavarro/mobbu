@@ -17,7 +17,7 @@ const getList = ({ items }) => {
 };
 
 /** @type {MobComponent<List>} */
-export const ListFn = ({ html, getState }) => {
+export const ListFn = ({ getState }) => {
     const { style, color, items, dots, block } = getState();
 
     const colorClass = `is-${color}`;

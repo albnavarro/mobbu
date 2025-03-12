@@ -4,11 +4,11 @@
  * @import { MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
-import { MobJs } from '../../../../../../mobjs';
+import { html, MobJs } from '../../../../../../mobjs';
 import { RESET_FILTER_DEBUG } from '../../constant';
 
 /** @type{MobComponent<import('./type').DebugSearch>} */
-export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
+export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
     return html`<div class="c-debug-search">
         <div>
             <span class="c-debug-search__label">

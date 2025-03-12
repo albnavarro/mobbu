@@ -1,6 +1,7 @@
 //@ts-check
 
 import { MobCore } from '../../../mobCore';
+import { html } from '../../../mobjs';
 import { MobMotionCore, MobTween } from '../../../mobMotion';
 import { NOOP } from '../../../mobMotion/utils/functionsUtils';
 import { Recursive3Dshape } from './partials/recursive3Dshape';
@@ -13,7 +14,6 @@ import { getChildrenMethod, getMove3DDimension } from './utils';
 /** @type {MobComponent<import('./type').Move3D>} */
 export const Move3Dfn = ({
     onMount,
-    html,
     setRef,
     getRef,
     watch,

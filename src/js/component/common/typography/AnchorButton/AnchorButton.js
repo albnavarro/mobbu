@@ -1,6 +1,7 @@
 //@ts-check
 
 import { offset } from '../../../../mobCore/utils';
+import { html } from '../../../../mobjs';
 import { MobBodyScroll } from '../../../../mobMotion/plugin';
 
 /**
@@ -9,7 +10,7 @@ import { MobBodyScroll } from '../../../../mobMotion/plugin';
  **/
 
 /** @type {MobComponent<AnchorBUtton>} */
-export const AnchorButtonFn = ({ html, getState, delegateEvents }) => {
+export const AnchorButtonFn = ({ getState, delegateEvents }) => {
     const { content, anchor } = getState();
 
     return html`<div>

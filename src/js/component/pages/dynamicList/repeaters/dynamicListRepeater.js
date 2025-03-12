@@ -69,7 +69,6 @@ function getRepeaterCard({
 /** @type {MobComponent<DynamicListRepeater>} */
 export const DynamicListRepeaterFn = ({
     getState,
-    html,
     staticProps,
     bindProps,
     delegateEvents,

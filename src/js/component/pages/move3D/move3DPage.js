@@ -129,7 +129,6 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
 
 /** @type {MobComponent<import('./type').Move3DPage>} */
 export const Move3DPagefn = ({
-    html,
     bindProps,
     delegateEvents,
     bindObject,

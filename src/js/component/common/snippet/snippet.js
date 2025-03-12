@@ -8,6 +8,7 @@
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { loadTextContent } from '../../../utils/utils';
+import { html } from '../../../mobjs';
 
 hljs.registerLanguage('javascript', javascript);
 
@@ -41,7 +42,7 @@ const loadSnippet = async ({ ref, source }) => {
 };
 
 /** @type {MobComponent<Snippet>} */
-export const SnippetFn = ({ html, onMount, getState, setRef, getRef }) => {
+export const SnippetFn = ({ onMount, getState, setRef, getRef }) => {
     const { source, isFull, hasBorder, hasOverflow, numLines } = getState();
     const isFullClass = isFull ? 'is-full' : '';
     const hasBorderClass = hasBorder ? 'has-border' : '';

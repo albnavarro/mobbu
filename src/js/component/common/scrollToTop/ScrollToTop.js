@@ -1,5 +1,6 @@
 //@ts-check
 
+import { html } from '../../../mobjs';
 import { MobBodyScroll } from '../../../mobMotion/plugin';
 import { navigationStore } from '../../layout/navigation/store/navStore';
 import { Triangles } from './triangles';
@@ -11,7 +12,6 @@ import { Triangles } from './triangles';
 
 /** @type {MobComponent<ScrollToTop>} */
 export const ScrollToTopFn = ({
-    html,
     delegateEvents,
     bindEffect,
     getState,

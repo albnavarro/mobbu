@@ -5,7 +5,6 @@ import {
     ATTR_REPEATER_PROP_BIND,
 } from '../../../constant';
 import {
-    renderHtml,
     serializeFragment,
     setRepeatAttribute,
 } from '../../../parse/steps/utils';
@@ -55,7 +54,6 @@ export const updateRepeaterWitoutKey = ({
                 initialIndex,
                 initialValue,
                 current: proxiObject,
-                html: renderHtml,
                 sync: () => '',
             });
 
@@ -138,7 +136,6 @@ export const updateRepeaterWithoutKeyUseSync = ({
                 initialIndex,
                 initialValue,
                 current: proxiObject,
-                html: renderHtml,
             });
         })
         .join('');
@@ -182,7 +179,6 @@ export const updateRepeaterWithtKey = ({
             initialIndex: index,
             initialValue: currentValue,
             current: proxiObject,
-            html: renderHtml,
             sync: () => '',
         })
     );
@@ -254,7 +250,6 @@ export const updateRepeaterWithtKeyUseSync = ({
         initialIndex: index,
         initialValue: currentValue,
         current: proxiObject,
-        html: renderHtml,
         sync,
     });
 };
@@ -300,7 +295,6 @@ export const getRenderWithoutSync = ({
                     initialIndex: index,
                     initialValue: item,
                     current: proxiObject,
-                    html: renderHtml,
                     sync: () => '',
                 })
             );
@@ -381,7 +375,6 @@ export const getRenderWithSync = ({
                     initialIndex: index,
                     initialValue: item,
                     current: proxiObject,
-                    html: renderHtml,
                 });
             })
             .join('');

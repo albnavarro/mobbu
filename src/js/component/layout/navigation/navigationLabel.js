@@ -1,14 +1,10 @@
 //@ts-check
 
+import { html } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /** @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationLabel>} */
-export const NavigationLabelFn = ({
-    getState,
-    html,
-    bindStore,
-    bindEffect,
-}) => {
+export const NavigationLabelFn = ({ getState, bindStore, bindEffect }) => {
     bindStore(navigationStore);
     const { label, sectioName } = getState();
 

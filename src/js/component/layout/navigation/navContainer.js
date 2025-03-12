@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobCore } from '../../../mobCore';
-import { MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { MobBodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
@@ -69,7 +69,6 @@ const toTopBtnHandler = () => {
 
 /** @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationContainer>} */
 export const NavigationContainerFn = ({
-    html,
     onMount,
     addMethod,
     setState,

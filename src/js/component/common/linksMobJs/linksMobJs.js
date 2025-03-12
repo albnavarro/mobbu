@@ -51,7 +51,6 @@ const getItems = ({ staticProps, getState, bindProps }) => {
 
 /** @type {MobComponent<LinksMobJs>} */
 export const LinksMobJsFn = ({
-    html,
     staticProps,
     setRef,
     getRef,

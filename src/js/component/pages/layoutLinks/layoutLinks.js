@@ -1,3 +1,4 @@
+import { html } from '../../../mobjs';
 import { linksScroller } from './animation/linksScroller';
 
 /**
@@ -11,7 +12,6 @@ const getCounter = (index) => (index < 10 ? `0${index}` : `${index}`);
 
 /** @type {MobComponent<import('./type').LayoutLinks>} */
 export const LayoutLinksFn = ({
-    html,
     getState,
     setState,
     setRef,

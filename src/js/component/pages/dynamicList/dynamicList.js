@@ -121,7 +121,6 @@ function getRepeaters({ bindProps, staticProps }) {
 export const DynamicListFn = ({
     setState,
     updateState,
-    html,
     staticProps,
     bindProps,
     delegateEvents,

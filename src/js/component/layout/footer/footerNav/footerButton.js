@@ -5,10 +5,11 @@
  * @import { FooterNavButton } from './type';
  **/
 
+import { html } from '../../../../mobjs';
 import { navigationStore } from '../../navigation/store/navStore';
 
 /** @type {MobComponent<FooterNavButton>} */
-export const FooterNavButtonFn = ({ html, getState, setState, bindEffect }) => {
+export const FooterNavButtonFn = ({ getState, setState, bindEffect }) => {
     const { label, section } = getState();
 
     navigationStore.watch('activeNavigationSection', (current) => {

@@ -488,7 +488,7 @@ export interface ComponentPropsType<T, R> {
      *
      * @example
      * ```javascript
-     * export const MyComponent = ({ html, addMethod }) => {
+     * export const MyComponent = ({ addMethod }) => {
      *     addMethod('myMethod', (val) => {
      *         console.log(val)
      *     })
@@ -506,7 +506,7 @@ export interface ComponentPropsType<T, R> {
      *
      * @example
      * ```javascript
-     * export const MyComponent = ({ html, addMethod }) => {
+     * export const MyComponent = ({ addMethod }) => {
      *     return html`<div ${setRef('myRef')}></div>`;
      * };
      * ```
@@ -520,7 +520,7 @@ export interface ComponentPropsType<T, R> {
      *
      * @example
      * ```javascript
-     * export const MyComponent = ({ html, getRef }) => {
+     * export const MyComponent = ({ getRef }) => {
      *     onMount(() => {
      *         getRef()?.myRef.classList.add('myClass')
      *
@@ -540,7 +540,7 @@ export interface ComponentPropsType<T, R> {
      *
      * @example
      * ```javascript
-     * export const MyComponent = ({ html, getRef }) => {
+     * export const MyComponent = ({ getRef }) => {
      *     onMount(() => {
      *         getRef()?.myRef.forEach((ref) => {
      *             ref.classList.add('myClass')
@@ -571,29 +571,13 @@ export interface ComponentPropsType<T, R> {
     /**
      *
      * @description
-     * DOM
-     *
-     * @example
-     * ```javascript
-     *
-     * export const MyComponent = ({  html }) => {
-     *     return html`<div></div>`;
-     * };
-     *
-     * ```
-     */
-    html(string: TemplateStringsArray, ...values: any[]): string;
-
-    /**
-     *
-     * @description
      * Function fired on mount.
      * Return destroy function.
      *
      * @example
      * ```javascript
      *
-     * export const MyComponent = ({ onMount, html }) => {
+     * export const MyComponent = ({ onMount }) => {
      *     onMount(({ element }) => {
      *         return () => {}
      *     });
@@ -652,7 +636,7 @@ export interface ComponentPropsType<T, R> {
      *         afterUpdate: ({ element, container, childrenId }) => {
      *             ....
      *         },
-     *         render: ({ sync, html }) => {
+     *         render: ({ sync }) => {
      *            return html`
      *                <my-component
      *                    ${sync} !important

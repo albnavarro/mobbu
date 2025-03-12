@@ -6,6 +6,7 @@
  **/
 
 import { MobCore } from '../../../../mobCore';
+import { html } from '../../../../mobjs';
 import { canvasBackground } from '../../../../utils/canvasUtils';
 import {
     activateScrollDownArrow,
@@ -16,7 +17,6 @@ import { scrollerN0Animation } from './animation/animation';
 /** @type {MobComponent<ScrollerN0>} */
 export const ScrollerN0Fn = ({
     onMount,
-    html,
     getState,
     setState,
     setRef,

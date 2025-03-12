@@ -6,13 +6,13 @@
  **/
 
 import { MobCore } from '../../../../mobCore';
+import { html } from '../../../../mobjs';
 import { canvasBackground } from '../../../../utils/canvasUtils';
 import { caterpillarN1Animation } from './animation/animation';
 
 /** @type {MobComponent<CaterpillarN1>} */
 export const CaterpillarN1Fn = ({
     onMount,
-    html,
     setState,
     getState,
     getRef,

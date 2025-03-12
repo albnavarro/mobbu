@@ -4,11 +4,11 @@
  * @import { MobComponent } from '../../../mobjs/type';
  **/
 
+import { html } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 /** @type {MobComponent<import('./type').HeaderToggle>} */
 export const HeaderToggleFn = ({
-    html,
     delegateEvents,
     setState,
     getState,

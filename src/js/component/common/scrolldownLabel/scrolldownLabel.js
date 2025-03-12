@@ -7,9 +7,10 @@
 
 // @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';
+import { html } from '../../../mobjs';
 
 /** @type {MobComponent<ScrollDownLabel>} */
-export const ScrollDownLabelFn = ({ html, getState, bindEffect }) => {
+export const ScrollDownLabelFn = ({ getState, bindEffect }) => {
     return html`
         <div
             class="c-scroller-down-label"

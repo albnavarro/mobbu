@@ -45,7 +45,7 @@ const getTrail = ({ star, setRef }) => {
 };
 
 /** @type {MobComponent<SvgChild>} */
-export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
+export const SvgChildFn = ({ onMount, getState, getRef, setRef }) => {
     const isDesktop = MobMotionCore.mq('min', 'desktop');
 
     const { svg, star } = isDesktop ? getState() : { svg: '', star: '' };

@@ -4,7 +4,7 @@
  * @import { MobComponent, SetState, UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
-import { MobJs } from '../../../../../../mobjs';
+import { html, MobJs } from '../../../../../../mobjs';
 import { MobSlide } from '../../../../../../mobMotion/plugin';
 import { debugActiveComponentStore } from '../../Store/DebugActiveComponent';
 import { generateTreeComponents } from '../recursiveTree';
@@ -48,7 +48,6 @@ const setActiveItems = ({ id, value, setState }) => {
 
 /** @type{MobComponent<import('./type').DebugTreeItem>} */
 export const DebugTreeItemFn = ({
-    html,
     onMount,
     getState,
     staticProps,

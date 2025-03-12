@@ -5,7 +5,7 @@
  **/
 
 import { MobCore } from '../../../../../../mobCore';
-import { MobJs } from '../../../../../../mobjs';
+import { html, MobJs } from '../../../../../../mobjs';
 import { verticalScroller } from '../../../../../lib/animation/verticalScroller';
 
 /** @type{import('./type').DebugInitScroller} */
@@ -88,7 +88,6 @@ const getDataFiltered = ({ testString }) => {
 
 /** @type{MobComponent<import('./type').DebugFilterList>} */
 export const DebugFilterListFn = ({
-    html,
     onMount,
     setRef,
     getRef,
@@ -210,7 +209,7 @@ export const DebugFilterListFn = ({
                         bind: 'data',
                         key: 'id',
                         useSync: true,
-                        render: ({ html, sync, current }) => {
+                        render: ({ sync, current }) => {
                             return html`
                                 <debug-filter-list-item
                                     ${staticProps({

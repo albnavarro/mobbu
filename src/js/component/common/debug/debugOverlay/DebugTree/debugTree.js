@@ -5,7 +5,7 @@
  **/
 
 import { MobCore } from '../../../../../mobCore';
-import { MobJs } from '../../../../../mobjs';
+import { html, MobJs } from '../../../../../mobjs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { generateTreeComponents } from './recursiveTree';
 
@@ -40,7 +40,6 @@ const initScroller = async ({ getRef }) => {
 
 /** @type{MobComponent<import('./type').DebugTree>} */
 export const DebugTreeFn = ({
-    html,
     onMount,
     setState,
     getState,

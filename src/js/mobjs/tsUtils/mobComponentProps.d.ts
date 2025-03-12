@@ -289,31 +289,9 @@ export type PartialRepeat<T> = <
      * <div>
      *     ${repeat({
      *         ...
-     *         render: ({ sync, html }) => {
+     *         render: ({ current }) => {
      *            return html`
-     *                <my-component
-     *                    ${sync} // !important
-     *                    ${staticProps({
-     *                        myState: value,
-     *                    })}
-     *                    ${bindProps({
-     *                        bind: ['my_array_state', 'myState2'],
-     *                        props: ({ myState2 }, index) => {
-     *                        const { my_array_state } = getState();
-     *
-     *                            return {
-     *                                myState2,
-     *                                label: my_array_state[index].myValue,
-     *                                index,
-     *                            };
-     *                        },
-     *                    })}
-     *                    ${bindEvents({
-     *                        mousedown: (event, index) =>
-     *                            //
-     *                    })}
-     *                >
-     *                </my-component>
+     *                <my-component></my-component>
      *            `
      *         }
      *     })}
@@ -326,10 +304,6 @@ export type PartialRepeat<T> = <
         initialIndex: number;
         initialValue: ArrayElement<ExtractState<T>[K]>;
         current: PartialCurrent<T, K>;
-        html: (
-            template: { raw: readonly string[] | ArrayLike<string> },
-            ...substitutions: any[]
-        ) => string;
     }) => string;
 }) => string;
 

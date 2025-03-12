@@ -176,7 +176,6 @@ const navigation = ({ getState, delegateEvents, bindEffect }) => {
 
 /** @type {MobComponent<import('./type').About>} */
 export const AboutComponentFn = ({
-    html,
     onMount,
     setRef,
     getRef,

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { consoleLogDebug } from '../../common/debug/consoleLog';
 
 /**
@@ -9,7 +9,7 @@ import { consoleLogDebug } from '../../common/debug/consoleLog';
  */
 
 /** @type {import("../../../mobjs/type").MobComponent} */
-export const FooterFn = ({ html, delegateEvents }) => {
+export const FooterFn = ({ delegateEvents }) => {
     return html`
         <footer class="l-footer">
             <div class="l-footer__container">

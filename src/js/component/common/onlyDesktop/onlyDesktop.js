@@ -25,13 +25,7 @@ const getContent = ({ getState }) => {
 };
 
 /** @type {MobComponent<import('./type').OnlyDesktop>} */
-export const OnlyDesktopFn = ({
-    html,
-    onMount,
-    setState,
-    getState,
-    invalidate,
-}) => {
+export const OnlyDesktopFn = ({ onMount, setState, getState, invalidate }) => {
     onMount(() => {
         MobCore.useResize(() => {
             setState(

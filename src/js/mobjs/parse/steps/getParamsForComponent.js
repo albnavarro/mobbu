@@ -164,9 +164,6 @@ export const getParamsForComponentFunction = ({
             if (unsubscribeParent)
                 setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
         },
-        html: (strings, ...values) => {
-            return renderHtml(strings, ...values);
-        },
         onMount: (cb) => addOnMoutCallback({ id, cb }),
         bindEvents: (eventsData) => {
             return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;

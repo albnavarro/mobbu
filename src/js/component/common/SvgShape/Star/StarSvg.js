@@ -1,11 +1,13 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
+
 /**
  * @import { MobComponent } from '../../../../mobjs/type';
  **/
 
 /** @type {MobComponent<import('./type').StarSvg>} */
-export const StarSvgFn = ({ html, getState }) => {
+export const StarSvgFn = ({ getState }) => {
     const { fill } = getState();
 
     return html`

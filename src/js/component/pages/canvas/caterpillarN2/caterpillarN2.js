@@ -35,7 +35,6 @@ function getControls({ buttons }) {
 /** @type {MobComponent<CaterpillarN2>} */
 export const CaterpillarN2Fn = ({
     onMount,
-    html,
     getState,
     setState,
     setRef,

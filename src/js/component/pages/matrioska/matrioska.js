@@ -145,7 +145,7 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
                 bind: 'level2',
-                render: ({ html, current }) => {
+                render: ({ current }) => {
                     return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--2"
@@ -194,7 +194,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
                 bind: 'level3',
-                render: ({ html, current }) => {
+                render: ({ current }) => {
                     const name = MobCore.getUnivoqueId();
                     const name2 = MobCore.getUnivoqueId();
 
@@ -276,7 +276,6 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
 
 /** @type { MobComponent<Matrioska> } */
 export const MatrioskaFn = ({
-    html,
     delegateEvents,
     updateState,
     repeat,
@@ -303,7 +302,7 @@ export const MatrioskaFn = ({
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
                     bind: 'level1',
-                    render: ({ html, current }) => {
+                    render: ({ current }) => {
                         return html`
                             <div
                                 class="matrioska__item-wrap matrioska__item-wrap--1"

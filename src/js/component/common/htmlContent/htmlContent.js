@@ -69,7 +69,6 @@ const getLoader = ({ data, bindProps }) => {
  * @type {MobComponentAsync<HtmlContent>}
  */
 export const HtmlContentFn = async ({
-    html,
     getState,
     setState,
     staticProps,

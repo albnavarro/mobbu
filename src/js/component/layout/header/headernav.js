@@ -74,7 +74,7 @@ function additems({ delegateEvents }) {
 }
 
 /** @type {MobComponent} */
-export const HeadernavFn = ({ html, delegateEvents }) => {
+export const HeadernavFn = ({ delegateEvents }) => {
     return html`
         <ul class="l-header__sidenav">
             ${additems({ delegateEvents })}

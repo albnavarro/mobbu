@@ -1,7 +1,9 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
+
 /** @type {import("../../../../mobjs/type").MobComponent<import("./type").ScrollToButton>} */
-export const ScrollToButtonFn = ({ html, getState, bindEffect }) => {
+export const ScrollToButtonFn = ({ getState, bindEffect }) => {
     const { label } = getState();
 
     return html`

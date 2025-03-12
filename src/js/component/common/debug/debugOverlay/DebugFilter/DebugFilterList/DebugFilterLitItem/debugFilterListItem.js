@@ -4,12 +4,11 @@
  * @import { MobComponent, UseMethodByName } from '../../../../../../../mobjs/type';
  **/
 
-import { MobJs } from '../../../../../../../mobjs';
+import { html, MobJs } from '../../../../../../../mobjs';
 import { debugActiveComponentStore } from '../../../Store/DebugActiveComponent';
 
 /** @type{MobComponent<import('./type').DebugFilterListItem>} */
 export const DebugFilterListItemFn = ({
-    html,
     getState,
     setState,
     delegateEvents,

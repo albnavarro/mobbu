@@ -74,7 +74,6 @@ function getButtons({ delegateEvents, setState, bindProps, getState }) {
 
 /** @type {MobComponent<ScrollTo>} */
 export const ScrollToFn = ({
-    html,
     onMount,
     delegateEvents,
     bindProps,

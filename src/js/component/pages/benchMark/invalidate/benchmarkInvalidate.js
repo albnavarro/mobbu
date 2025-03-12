@@ -1,5 +1,6 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
 import { benchMarkGarbagePartial } from '../partials/benchMarkGarbagePartial';
 import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 
@@ -10,7 +11,6 @@ import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 /** @type {MobComponent<import('../type').BenchMark>} */
 export const BenchMarkInvalidateFn = ({
     onMount,
-    html,
     delegateEvents,
     bindText,
     invalidate,

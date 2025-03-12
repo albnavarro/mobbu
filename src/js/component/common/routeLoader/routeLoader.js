@@ -5,11 +5,11 @@
  * @import { RouteLoader } from './type';
  **/
 
-import { MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { MobTween } from '../../../mobMotion';
 
 /** @type {MobComponent<RouteLoader>} */
-export const RouteLoaderFn = ({ html, onMount, getProxi, bindEffect }) => {
+export const RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
     const proxi = getProxi();
 
     onMount(({ element }) => {

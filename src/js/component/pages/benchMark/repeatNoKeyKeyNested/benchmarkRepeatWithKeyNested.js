@@ -1,5 +1,6 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
 import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 
 /**
@@ -9,7 +10,6 @@ import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 /** @type {MobComponent<import('../type').BenchMark>} */
 export const BenchMarkRepeatWithNoKeyFnNested = ({
     onMount,
-    html,
     delegateEvents,
     bindText,
     setRef,
@@ -53,7 +53,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
             ${repeat({
                 bind: 'data',
                 useSync: true,
-                render: ({ html, current }) => {
+                render: ({ current }) => {
                     return html`<div class="benchmark__static-item">
                         <div class="benchmark__static-item__inner">
                             ${bindObject`label: ${{ bind: 'data', value: () => current.value.label }}`}
@@ -62,7 +62,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
                             ${repeat({
                                 bind: 'data',
                                 useSync: true,
-                                render: ({ html, sync, current }) => {
+                                render: ({ sync, current }) => {
                                     return html`
                                         <benchmark-fake-component
                                             ${bindProps({

@@ -5,6 +5,7 @@
  * @import { HomeComponent } from './type';
  **/
 
+import { html } from '../../../mobjs';
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
 
 /**
@@ -19,7 +20,7 @@ const playAnimation = async ({ playIntro, playSvg }) => {
 };
 
 /** @type {MobComponent<HomeComponent>} */
-export const HomeComponentFn = ({ html, onMount, getState, setState }) => {
+export const HomeComponentFn = ({ onMount, getState, setState }) => {
     const { svg } = getState();
 
     onMount(({ element }) => {

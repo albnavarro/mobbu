@@ -1,12 +1,13 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
+
 /**
  * @import { MobComponent } from '../../../../mobjs/type';
  **/
 
 /** @type {MobComponent<import('./type').BenchMarkFakeComponent>} */
 export const BenchMarkFakeComponentFn = ({
-    html,
     getProxi,
     bindObject,
     delegateEvents,

@@ -284,7 +284,6 @@ const getThirdLevel = ({
 
 /** @type { MobComponent<Matrioska> } */
 export const MatrioskaInvalidateFn = ({
-    html,
     delegateEvents,
     updateState,
     staticProps,

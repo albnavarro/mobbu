@@ -1,6 +1,6 @@
 // @ts-check
 
-import { MobJs } from '../../../../../../mobjs';
+import { html, MobJs } from '../../../../../../mobjs';
 
 /**
  * @import { MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
@@ -10,7 +10,6 @@ let lastSearch = '';
 
 /** @type{MobComponent<import('./type').DebugFilterHead>} */
 export const DebugFilterHeadFn = ({
-    html,
     onMount,
     setRef,
     getRef,

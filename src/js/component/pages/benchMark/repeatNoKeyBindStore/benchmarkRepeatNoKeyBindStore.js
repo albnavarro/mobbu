@@ -1,5 +1,6 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
 import { benchMarkListExternalPartial } from './benchMarkListExternalPartial';
 import {
     createExternalStore,
@@ -14,7 +15,6 @@ import {
 /** @type {MobComponent<import('./type').BenchMarkExternal>} */
 export const BenchMarkRepeatNoKyBindStoreFn = ({
     onMount,
-    html,
     delegateEvents,
     bindText,
     setRef,
@@ -62,7 +62,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                 afterUpdate: () => {
                     // externalStore.debug();
                 },
-                render: ({ html, sync, current }) => {
+                render: ({ sync, current }) => {
                     return html`
                         <benchmark-fake-component
                             ${bindProps({

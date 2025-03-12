@@ -80,7 +80,6 @@ const getNav = ({
 /** @type {MobComponent<HorizontalScroller>} */
 export const HorizontalScrollerFn = ({
     onMount,
-    html,
     getState,
     setState,
     watch,

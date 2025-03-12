@@ -4,12 +4,12 @@
  * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
  **/
 
+import { html } from '../../../../mobjs';
 import { consoleLogDebug } from '../consoleLog';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
 
 /** @type{MobComponent<import('./type').DebugOverlay>} */
 export const DebugOverlayFn = ({
-    html,
     delegateEvents,
     addMethod,
     updateState,

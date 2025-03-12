@@ -7,7 +7,7 @@
 
 import { MobCore } from '../../../mobCore';
 import { isVisibleInViewport } from '../../../mobCore/utils';
-import { MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 
 /**
  * @param {object} params
@@ -39,7 +39,7 @@ const addItemToScrollComponent = async ({ id, label, element }) => {
 };
 
 /** @type {MobComponent<SpacerAnchor>} */
-export const SpacerAnchorFn = ({ html, getState, onMount }) => {
+export const SpacerAnchorFn = ({ getState, onMount }) => {
     const { style, line, id, label } = getState();
     const lineClass = line ? 'spacer--line' : '';
 

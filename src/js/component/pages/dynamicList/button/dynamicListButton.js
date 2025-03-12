@@ -1,7 +1,9 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
+
 /** @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListButton>} */
-export const DynamicListButtonFn = ({ html, getState, bindEffect }) => {
+export const DynamicListButtonFn = ({ getState, bindEffect }) => {
     const { label } = getState();
 
     return html`

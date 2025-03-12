@@ -1,18 +1,14 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
+
 /**
  * @import { MobComponent } from "../../../../mobjs/type";
  * @import { MatrioskaItem } from "./type";
  **/
 
 /** @type { MobComponent<MatrioskaItem> } */
-export const MatrioskaItemFn = ({
-    html,
-    getState,
-    bindText,
-    id,
-    bindEffect,
-}) => {
+export const MatrioskaItemFn = ({ getState, bindText, id, bindEffect }) => {
     const { level } = getState();
 
     return html`<matrioska-item

@@ -9,10 +9,6 @@ export type RepeaterRender = (arg0: {
     initialIndex: number;
     initialValue: Record<string, any>;
     current: any;
-    html: (
-        template: { raw: readonly string[] | ArrayLike<string> },
-        ...substitutions: any[]
-    ) => string;
 }) => string;
 
 /**

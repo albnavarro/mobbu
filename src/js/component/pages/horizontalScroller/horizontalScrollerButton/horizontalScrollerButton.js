@@ -1,7 +1,9 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
+
 /** @type {import("../../../../mobjs/type").MobComponent<import("./type").HorizontalScrollerButton>} */
-export const HorizontalScrollerButtonFn = ({ getState, html, bindEffect }) => {
+export const HorizontalScrollerButtonFn = ({ getState, bindEffect }) => {
     const { id } = getState();
 
     return html`

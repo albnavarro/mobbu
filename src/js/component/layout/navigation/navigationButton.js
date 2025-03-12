@@ -6,14 +6,13 @@
  **/
 
 import { MobCore } from '../../../mobCore';
-import { MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /** @type {MobComponent<NavigationButton>} */
 export const NavigationButtonFn = ({
     setState,
     getState,
-    html,
     delegateEvents,
     getProxi,
     bindEffect,

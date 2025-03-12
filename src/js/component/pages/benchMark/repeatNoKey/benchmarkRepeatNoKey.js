@@ -1,5 +1,6 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
 import { benchMarkGarbagePartial } from '../partials/benchMarkGarbagePartial';
 import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 
@@ -10,7 +11,6 @@ import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 /** @type {MobComponent<import('../type').BenchMark>} */
 export const BenchMarkRepeatNoKyFn = ({
     onMount,
-    html,
     delegateEvents,
     bindText,
     setRef,
@@ -51,7 +51,7 @@ export const BenchMarkRepeatNoKyFn = ({
             ${repeat({
                 bind: 'data',
                 useSync: true,
-                render: ({ html, sync, current }) => {
+                render: ({ sync, current }) => {
                     return html`
                         <benchmark-fake-component
                             ${bindProps({

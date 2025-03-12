@@ -53,7 +53,6 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
 /** @type {MobComponent<DynamicListCard>} */
 export const DynamicListCardFn = ({
     getState,
-    html,
     onMount,
     key,
     staticProps,
@@ -166,7 +165,7 @@ export const DynamicListCardFn = ({
                         ${repeat({
                             bind: 'innerData',
                             key: 'key',
-                            render: ({ html, current }) => {
+                            render: ({ current }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */
@@ -185,7 +184,7 @@ export const DynamicListCardFn = ({
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
                             bind: 'innerData',
-                            render: ({ html, current }) => {
+                            render: ({ current }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */

@@ -4,7 +4,7 @@
  * @import { MobComponent, UseMethodByName } from '../../../mobjs/type';
  **/
 
-import { MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function titleHandler() {
@@ -22,7 +22,6 @@ function titleHandler() {
 
 /** @type {MobComponent<import('./type').Header>} */
 export const HeaderFn = ({
-    html,
     delegateEvents,
     getState,
     setState,
