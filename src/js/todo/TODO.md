@@ -23,7 +23,8 @@ storeTest.computed('myComputed2',() => {
 - Il `proxi` fará questo lavoro solo se `currentProp !== undefined `.
 
 ```js
-// `Globale` in un contesto ( file ) separato.
+
+// <Folder/file>
 let current_computed_keys;
 
 export const initializeCurrentComputedKey  = () => {
@@ -45,6 +46,13 @@ export const getCurrentComputedKey = () => {
 }
 ```
 
+- Vá esportato un modulo per poter essere usato dal `proxi-bind`.
+
+```js
+index.js // MobCore
+export * as DetectBindKey from './<Folder/file>'
+```
+
 ```js
 export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
     //
@@ -64,6 +72,9 @@ export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
 - In questo modo eliminamo `{ immediate }` che sará `true` di default. OK
 - Riportare la logica sulle altre `funzioni` che hanno dipendenze esplicite come `bindEffect` & `bindProps` & `bindObject`
 - Per queste ultime bisogna aggiungere il meccanismo anche al `get` del `proxi-repeater`.
+- Nel `proxi-repeater` lo stato da tracciare é `bind`.
+
+
 
 
 ### DOCS
