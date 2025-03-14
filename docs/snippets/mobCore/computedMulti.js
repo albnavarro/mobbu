@@ -6,12 +6,14 @@ const myStore = MobCore.createStore({
     dependency2: 0,
 });
 
-myStore.computed('dependency1', ['initialProp'], ({ initialProp }) => {
-    return initialProp * 2;
+const proxi = myStore.getProxi();
+
+myStore.computed('dependency1', () => {
+    return proxi.initialProp * 2;
 });
 
-myStore.computed('dependency2', ['dependency1'], ({ dependency1 }) => {
-    return dependency1 * 2;
+myStore.computed('dependency2', () => {
+    return proxi.dependency1 * 2;
 });
 
 console.log(myStore.get().initialProp); // 1

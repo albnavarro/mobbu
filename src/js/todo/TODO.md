@@ -1,67 +1,11 @@
 # MobCore
 
-##### Computed immediate.
-Usare `{ immediate: true }` come default ?
 
-##### Computed auto.
-- Spostare le dipendenze in fondo in mobo che siamo opzionali:
-```js
-storeTest.computed('myComputed2',({ myComputed }) => {
-    return myComputed * 2;
-}, ['myComputed']);
-```
-
-- Se dipendenze sono vuote si abilita la modalitá auto.
-- Sará necessario usare il `get` del `proxi` ( al momento non viene usato ).
-```js
-storeTest.computed('myComputed2',() => {
-    return proxi.myComputed * 2;
-});
-```
-
-- in questa esecuzione della funzione il `get del proxi` potrá tracciare la sua chiave e aggiungerla come dipendenza.
-- Il `proxi` fará questo lavoro solo se `currentProp !== undefined `.
-
-```js
-// `Globale` in un contesto ( file ) separato.
-let current_computed_keys;
-
-export const initializeCurrentComputedKey  = () => {
-    current_computed_keys = [];
-}
-
-export const resetCurrentComputedKey  = () => {
-    current_computed_keys = undefined;
-}
-
-export const setCurrentComputedKey = (key) => {
-    // Controllo di sicurezza.
-    if(current_computed_keys?.length === 0) return;
-    current_computed_keys = [...current_computed_keys, key];
-}
-
-export const getCurrentComputedKey = () => {
-    return current_computed_keys;
-}
-```
-
-```js
-export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
-    //
-    const keysParsed =
-        keys.length === 0
-            ? (() => {
-                  initializeCurrentComputedKey();
-                  fn({}); // Il get del proxi agirá qui.
-                  return getCurrentComputedKey();
-              })()
-            : keys;
-
-    resetCurrentComputedKey();
-}
-````
-
-- In questo modo eliminamo `{ immediate }` che sará `true` di default.
+## Computed auto.
+#### Related:
+- Riportare la logica sulle altre `funzioni` che hanno dipendenze esplicite come `bindEffect` & `bindProps` & `bindObject`
+- Per queste ultime bisogna aggiungere il meccanismo anche al `get` del `proxi-repeater`. OK
+- Nel `proxi-repeater` lo stato da tracciare é `bind`. OK
 
 
 ### DOCS

@@ -11,14 +11,12 @@ import { html } from '../../../src/js/mobjs';
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ computed, bindText }) => {
-    computed(
-        'sum',
-        ({ state1, state2 }) => {
-            return state1 + state2;
-        },
-        ['state1', 'state2']
-    );
+export const MyComponent = ({ computed, getProxi, bindText }) => {
+    const proxi = getProxi();
+
+    computed('sum', () => {
+        return proxi.state1 + proxi.state2;
+    });
 
     return html` <div><h2>${bindText`sum: ${'sum'}`}</h2></div> `;
 };

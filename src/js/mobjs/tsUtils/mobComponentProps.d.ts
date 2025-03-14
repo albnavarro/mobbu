@@ -121,9 +121,8 @@ export type PartialEmitAsync<T> = (
  */
 export type PartialCompunted<T> = <K extends keyof ExtractState<T>>(
     prop: K,
-    keys: NotValue<keyof ExtractState<T>, K>[],
     callback: (arg0: ExtractState<T>) => ExtractState<T>[K],
-    options?: { immediate?: boolean }
+    keys?: NotValue<keyof ExtractState<T>, K>[]
 ) => void;
 
 /**

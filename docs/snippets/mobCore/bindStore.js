@@ -10,19 +10,15 @@ const storeTwo = MobCore.createStore({
 });
 
 storeOne.bindStore([storeTwo]);
+const proxi = storeOne.getProxi();
 
 storeOne.watch('sum', (sum) => {
     console.log(sum);
 });
 
-storeOne.computed(
-    'sum',
-    ['prop1', 'prop2'],
-    ({ prop1, prop2 }) => {
-        return prop1 + prop2;
-    },
-    { immediate: true }
-);
+storeOne.computed('sum', () => {
+    return proxi.prop1 + proxi.prop2;
+});
 
 storeOne.set('prop1', 2);
 storeTwo.set('prop2', 4);
