@@ -83,7 +83,10 @@ export const ScrollToFn = ({
     computed,
     addMethod,
     updateState,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     addMethod('addItem', ({ id, label, element }) => {
         updateState('anchorItemsToBeComputed', (val) => {
             return [...val, { id, label, element }];
@@ -102,11 +105,7 @@ export const ScrollToFn = ({
          * SpacerAnchor add label in different time during render.
          * Use computed to get last array of label completed.
          */
-        computed(
-            'anchorItems',
-            ({ anchorItemsToBeComputed }) => anchorItemsToBeComputed,
-            ['anchorItemsToBeComputed']
-        );
+        computed('anchorItems', () => proxi.anchorItemsToBeComputed);
     });
 
     return html`

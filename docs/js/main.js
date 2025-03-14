@@ -25812,8 +25812,10 @@ Loading snippet ...</pre
     invalidate,
     computed,
     addMethod,
-    updateState
+    updateState,
+    getProxi
   }) => {
+    const proxi = getProxi();
     addMethod("addItem", ({ id, label, element }) => {
       updateState("anchorItemsToBeComputed", (val2) => {
         return [...val2, { id, label, element }];
@@ -25825,11 +25827,7 @@ Loading snippet ...</pre
     });
     onMount(() => {
       if (core_exports.mq("max", "large")) return;
-      computed(
-        "anchorItems",
-        ({ anchorItemsToBeComputed }) => anchorItemsToBeComputed,
-        ["anchorItemsToBeComputed"]
-      );
+      computed("anchorItems", () => proxi.anchorItemsToBeComputed);
     });
     return renderHtml`
         <div class="c-scroll-to">
