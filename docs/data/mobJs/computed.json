@@ -42,6 +42,20 @@
             "content": "Component states are declared in the component's <a href='./#mobJs-component'>definition</a>"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "isBold": true
+            },
+            "content": "Explicit dependencies"
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/computed.js",
@@ -49,6 +63,30 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 24
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "isBold": true
+            },
+            "content": "Auto detect dependencies"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/computedAuto.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 22
             }
         }
     ]
