@@ -2,10 +2,6 @@
 
 
 ## Computed auto.
-#### Docs:
-- Specificare che con `auto` non si possono usare effetti collaterali dentro.
-- L' uso dell' `auto` mode aiuta a prevenire gli effetti collaterali.
-
 #### Related:
 - Riportare la logica sulle altre `funzioni` che hanno dipendenze esplicite come `bindEffect` & `bindProps` & `bindObject`
 - Per queste ultime bisogna aggiungere il meccanismo anche al `get` del `proxi-repeater`. OK
