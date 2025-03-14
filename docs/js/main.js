@@ -1987,6 +1987,23 @@
   var STORE_SET = "SET";
   var STORE_UPDATE = "UPDATE";
 
+  // src/js/mobCore/store/currentKey.js
+  var current_computed_keys = [];
+  var active = false;
+  var initializeCurrentComputedKey = () => {
+    active = true;
+    current_computed_keys.length = 0;
+  };
+  var getCurrentComputedKey = () => {
+    active = false;
+    return [...current_computed_keys];
+  };
+  var setCurrentComputedKey = (key) => {
+    if (!active || !key) return;
+    if (current_computed_keys.includes(key)) return;
+    current_computed_keys = [...current_computed_keys, key];
+  };
+
   // src/js/mobCore/store/fireQueque.js
   var waitMap = /* @__PURE__ */ new Map();
   var runCallbackQueqe = ({
@@ -2647,16 +2664,21 @@
     keys,
     callback: callback2
   }) => {
+    const keysDetected = keys.length === 0 ? (() => {
+      initializeCurrentComputedKey();
+      callback2({});
+      return getCurrentComputedKey();
+    })() : keys;
     initializeCompuntedProp({
       instanceId,
       prop,
-      keys,
+      keys: keysDetected,
       callback: callback2
     });
     storeComputedAction({
       instanceId,
       prop,
-      keys,
+      keys: keysDetected,
       fn: callback2
     });
   };
@@ -2991,6 +3013,13 @@
           return true;
         }
         return false;
+      },
+      get(target, prop) {
+        if (!(prop in target)) {
+          return false;
+        }
+        setCurrentComputedKey(prop);
+        return target[prop];
       }
     });
     if (!bindInstance || bindInstance.length === 0) {
@@ -3006,6 +3035,13 @@
       return new Proxy(store3, {
         set() {
           return false;
+        },
+        get(target, prop) {
+          if (!(prop in target)) {
+            return false;
+          }
+          setCurrentComputedKey(prop);
+          return target[prop];
         }
       });
     });
@@ -3247,18 +3283,18 @@
       }),
       /**
        * @description
-       * Mouse wheell spinY max value ( 1.5 | -1.5 )
+       * Mouse wheell spinY max value ( 2.5 | -2.5 )
        */
       spinYMaxValue: () => ({
-        value: 1.5,
+        value: 2.5,
         type: Number
       }),
       /**
        * @description
-       * Mouse wheell spinX max value ( 1.5 | -1.5 )
+       * Mouse wheell spinX max value ( 2.5 | -2.5 )
        */
       spinXMaxValue: () => ({
-        value: 1.5,
+        value: 2.5,
         type: Number
       })
     }
@@ -8309,8 +8345,8 @@
   var getFirstValidValueBack = (arr, index, prop, propToFind) => {
     return arr.slice(0, index).reduceRight((previous, { values: valuesForward }) => {
       const result = valuesForward.find(
-        ({ prop: propToCompare, active }) => {
-          return active && propToCompare === prop;
+        ({ prop: propToCompare, active: active2 }) => {
+          return active2 && propToCompare === prop;
         }
       );
       return result && !previous && previous !== 0 ? result[propToSet[propToFind].get] : previous;
@@ -8386,8 +8422,8 @@
     return timeline.map((item, index) => {
       const { values, propToFind } = item;
       const newValues = values.map((valueItem) => {
-        const { prop, active } = valueItem;
-        if (!active || !activeProp.includes(prop) || !propToFind || propToFind.length === 0)
+        const { prop, active: active2 } = valueItem;
+        if (!active2 || !activeProp.includes(prop) || !propToFind || propToFind.length === 0)
           return valueItem;
         const previousValidValue = getFirstValidValueBack(
           timeline,
@@ -10871,7 +10907,7 @@
       const [prop, val2] = item;
       const valueIsValid = prop in activeData;
       return { data: { [prop]: val2 }, active: valueIsValid };
-    }).filter(({ active }) => active).map(({ data: data2 }) => data2).reduce((p, c) => {
+    }).filter(({ active: active2 }) => active2).map(({ data: data2 }) => data2).reduce((p, c) => {
       return { ...p, ...c };
     }, {});
   };
@@ -27685,14 +27721,14 @@ Loading snippet ...</pre
 
   // src/js/component/common/quickNav/utils.js
   var updateQuickNavState = ({
-    active = true,
+    active: active2 = true,
     nextRoute = "",
     prevRoute = "",
     backRoute = "",
     color = "white"
   }) => {
     const setQuickNavState = modules_exports2.setStateByName("quick_nav");
-    setQuickNavState("active", active);
+    setQuickNavState("active", active2);
     setQuickNavState("nextRoute", nextRoute);
     setQuickNavState("prevRoute", prevRoute);
     setQuickNavState("backRoute", backRoute);
@@ -34859,8 +34895,8 @@ Loading snippet ...</pre
 
   // src/js/component/common/onlyDesktop/onlyDesktop.js
   var getContent = ({ getState }) => {
-    const { active } = getState();
-    return active ? `` : renderHtml`
+    const { active: active2 } = getState();
+    return active2 ? `` : renderHtml`
               <div class="only-desktop">
                   <h3>This site is available only on desktop</h3>
               </div>
@@ -35500,8 +35536,8 @@ Loading snippet ...</pre
             ${invalidate({
       bind: "shouldUpdate",
       render: ({ html }) => {
-        const { active } = getState();
-        if (!active) return "";
+        const { active: active2 } = getState();
+        if (!active2) return "";
         return html`
                         <div>
                             <strong> Debug activated: </strong>
@@ -35750,9 +35786,9 @@ Loading snippet ...</pre
                     ${bindProps({
       bind: ["active"],
       /** @returns{ReturnBindProps<import('./Debughead/type').DebugHead>} */
-      props: ({ active }) => {
+      props: ({ active: active2 }) => {
         return {
-          active
+          active: active2
         };
       }
     })}
@@ -35765,14 +35801,14 @@ Loading snippet ...</pre
       bind: ["listType", "active"],
       persistent: true,
       render: ({ html }) => {
-        const { listType, active } = getState();
-        if (listType === DEBUG_USE_TREE && active)
+        const { listType, active: active2 } = getState();
+        if (listType === DEBUG_USE_TREE && active2)
           return html`<div
                                         class="c-debug-overlay__list__title"
                                     >
                                         Tree structure
                                     </div>`;
-        if (listType === DEBUG_USE_FILTER_COMPONENT && active)
+        if (listType === DEBUG_USE_FILTER_COMPONENT && active2)
           return html`<debug-filter-head></debug-filter-head>`;
         return "";
       }
@@ -35824,12 +35860,12 @@ Loading snippet ...</pre
       bind: ["listType", "active"],
       persistent: true,
       render: ({ html }) => {
-        const { listType, active } = getState();
-        if (listType === DEBUG_USE_TREE && active)
+        const { listType, active: active2 } = getState();
+        if (listType === DEBUG_USE_TREE && active2)
           return html`
                                     <debug-tree name="debug_tree"></debug-tree>
                                 `;
-        if (listType === DEBUG_USE_FILTER_COMPONENT && active)
+        if (listType === DEBUG_USE_FILTER_COMPONENT && active2)
           return html`
                                     <debug-filter-list
                                         name="debug_filter_list"

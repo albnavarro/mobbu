@@ -26,21 +26,19 @@ export const storeTest = () => {
     storeTest.bindStore([proxiStore, MobJs.mainStore]);
     const proxi = storeTest.getProxi();
 
-    storeTest.watch(
-        'proxiProp',
-        (value) => {
-            console.log('---');
-            console.log('proxiProp', value);
-            console.log('proxiProp getProp', storeTest.getProp('proxiProp'));
-            console.log('proxiProp proxi', proxi.proxiProp);
-            console.log('---');
-        },
-        { wait: true }
-    );
+    // storeTest.watch(
+    //     'proxiProp',
+    //     (value) => {
+    //         console.log('---');
+    //         console.log('proxiProp', value);
+    //         console.log('proxiProp getProp', storeTest.getProp('proxiProp'));
+    //         console.log('proxiProp proxi', proxi.proxiProp);
+    //         console.log('---');
+    //     },
+    //     { wait: true }
+    // );
 
-    proxiBind.proxiProp = 20;
-    proxiBind.proxiProp = 30;
-    proxiBind.proxiProp = 43;
+    proxiBind.proxiProp = 1;
 
     storeTest.watch('prop', (value) => {
         console.log('prop', value);
@@ -62,29 +60,17 @@ export const storeTest = () => {
         console.log('myComputed3', value);
     });
 
-    storeTest.computed(
-        'myComputed',
-        ({ prop, proxiProp }) => {
-            return prop * 2 + proxiProp;
-        },
-        ['prop', 'proxiProp']
-    );
+    storeTest.computed('myComputed', () => {
+        return proxi.prop + proxi.proxiProp;
+    });
 
-    storeTest.computed(
-        'myComputed2',
-        ({ myComputed }) => {
-            return myComputed * 2;
-        },
-        ['myComputed']
-    );
+    storeTest.computed('myComputed2', () => {
+        return proxi.myComputed + 1;
+    });
 
-    storeTest.computed(
-        'myComputed3',
-        ({ myComputed2, prop }) => {
-            return myComputed2 * 2 + prop;
-        },
-        ['myComputed2', 'prop']
-    );
+    storeTest.computed('myComputed3', () => {
+        return proxi.myComputed2 + 1;
+    });
 
     /**
      * Initial value
@@ -94,12 +80,9 @@ export const storeTest = () => {
     console.log('myComputed2 first value', proxi.myComputed2);
     console.log('myComputed3 first value', proxi.myComputed3);
 
-    storeTest.set('prop', 10);
-    proxi.prop = 100;
-    console.log('paperino', storeTest.getProp('prop'));
-
     setInterval(() => {
-        proxi.prop += 10;
+        proxi.prop += 1;
         proxiBind.proxiProp += 2;
+        console.log('----');
     }, 1000);
 };
