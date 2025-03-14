@@ -77,7 +77,7 @@
                 "tag": "h3",
                 "isBold": true
             },
-            "content": "Auto detect dependencies"
+            "content": "Auto detect dependencies ( using proxi )"
         },
         {
             "component": "mob-snippet",

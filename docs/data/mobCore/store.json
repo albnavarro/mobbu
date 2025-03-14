@@ -757,7 +757,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you adopt a logical and functional approach you can define explicit dependencies and use the current values of the dependencies as parameters of the callback, in this way you will not use state values defined outside the context of the callback."
+            "content": "Using proxy, dependencies will be automatically added if they are not explicitly declared."
         },
         {
             "component": "mob-snippet",
