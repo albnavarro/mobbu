@@ -1,3 +1,4 @@
+import { MobDetectBindKey } from '../../../../mobCore';
 import { getStateById } from '../../../component/action/state/getStateById';
 import { clamp } from '../../../utils';
 
@@ -46,6 +47,11 @@ export const getRepeatProxi = ({
         {},
         {
             get(_, prop) {
+                /**
+                 * Autodetect dependencies
+                 */
+                MobDetectBindKey.setCurrentComputedKey(bind);
+
                 /**
                  * Use last updated state
                  * Proxi target should be not last value.

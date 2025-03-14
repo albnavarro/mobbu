@@ -1,83 +1,15 @@
 # MobCore
 
-##### Computed immediate.
-Usare `{ immediate: true }` come default ? OK
 
-##### Computed auto.
-- Spostare le dipendenze in fondo in mobo che siamo opzionali: OK
-```js
-storeTest.computed('myComputed2',({ myComputed }) => {
-    return myComputed * 2;
-}, ['myComputed']);
-```
+## Computed auto.
+#### Docs:
+- Specificare che con `auto` non si possono usare effetti collaterali dentro.
+- L' uso dell' `auto` mode aiuta a prevenire gli effetti collaterali.
 
-- Se dipendenze sono vuote si abilita la modalitá auto.
-- Sará necessario usare il `get` del `proxi` ( al momento non viene usato ).
-```js
-storeTest.computed('myComputed2',() => {
-    return proxi.myComputed * 2;
-});
-```
-
-- in questa esecuzione della funzione il `get del proxi` potrá tracciare la sua chiave e aggiungerla come dipendenza.
-
-```js
-
-// <Folder/file>
-let current_computed_keys = [];
-let active = false;
-
-// specific module
-export const initializeCurrentComputedKey  = () => {
-    active = true;
-    current_computed_keys = [];
-}
-
-// specific module
-export const getCurrentComputedKey = () => {
-    active = false;
-    return current_computed_keys;
-}
-
-// proxi mobStore/repeater.
-export const setCurrentComputedKey = (key) => {
-    if(!active || !key) return;
-    current_computed_keys = [...current_computed_keys, key];
-}
-
-```
-
-- Vá esportato un modulo per poter essere usato dal `proxi-repeater`.
-
-```js
-index.js // MobCore
-export * as DetectBindKey from './<Folder/file>'
-```
-
-- Computed example:
-
-```js
-export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
-    //
-    const keysParsed =
-        keys.length === 0
-            ? (() => {
-                  initializeCurrentComputedKey();
-                  fn({}); // Il get del proxi agirá qui.
-                  return getCurrentComputedKey();
-              })()
-            : keys;
-
-    resetCurrentComputedKey();
-}
-````
-
-- In questo modo eliminamo `{ immediate }` che sará `true` di default. OK
+#### Related:
 - Riportare la logica sulle altre `funzioni` che hanno dipendenze esplicite come `bindEffect` & `bindProps` & `bindObject`
-- Per queste ultime bisogna aggiungere il meccanismo anche al `get` del `proxi-repeater`.
-- Nel `proxi-repeater` lo stato da tracciare é `bind`.
-
-
+- Per queste ultime bisogna aggiungere il meccanismo anche al `get` del `proxi-repeater`. OK
+- Nel `proxi-repeater` lo stato da tracciare é `bind`. OK
 
 
 ### DOCS

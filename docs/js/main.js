@@ -1988,6 +1988,12 @@
   var STORE_UPDATE = "UPDATE";
 
   // src/js/mobCore/store/currentKey.js
+  var currentKey_exports = {};
+  __export(currentKey_exports, {
+    getCurrentComputedKey: () => getCurrentComputedKey,
+    initializeCurrentComputedKey: () => initializeCurrentComputedKey,
+    setCurrentComputedKey: () => setCurrentComputedKey
+  });
   var current_computed_keys = [];
   var active = false;
   var initializeCurrentComputedKey = () => {
@@ -19103,6 +19109,7 @@
       {},
       {
         get(_, prop) {
+          currentKey_exports.setCurrentComputedKey(bind);
           const state = getStateById(id);
           const maxValue = Math.max(state?.[bind].length - 1, 0);
           if (prop === REPEAT_PROXI_INDEX) {
