@@ -713,7 +713,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Once a state property is used as computed it will no longer be possible to update it outside of the computed function."
+            "content": "When a computed function is created the state that is changed can no longer be explicitly changed"
         },
         {
             "component": "mob-spacer",
@@ -724,9 +724,16 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6"
+                "tag": "h5"
             },
-            "content": "Default computed"
+            "content": "Explicit dependencies:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If you adopt a logical and functional approach you can define explicit dependencies and use the current values of the dependencies as parameters of the callback, in this way you will not use state values defined outside the context of the callback."
         },
         {
             "component": "mob-snippet",
@@ -736,6 +743,30 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 19
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Auto detect dependencies:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If you adopt a logical and functional approach you can define explicit dependencies and use the current values of the dependencies as parameters of the callback, in this way you will not use state values defined outside the context of the callback."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobCore/computedAuto.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 13
             }
         },
         {
@@ -758,7 +789,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 19
+                "numLines": 21
             }
         },
         {
@@ -818,7 +849,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 28
+                "numLines": 24
             }
         },
         {
