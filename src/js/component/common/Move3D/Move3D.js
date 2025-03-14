@@ -289,16 +289,18 @@ export const Move3Dfn = ({
         /**
          * Set useScroll
          */
-        computed(
-            'useScroll',
-            ({ drag, centerToViewoport }) => {
-                const useScroll = !drag && !centerToViewoport;
+        watch('useScroll', (value, prevValue) => {
+            if (value) {
+                addScrollListener();
+                return;
+            }
 
-                if (useScroll) addScrollListener();
-                return useScroll;
-            },
-            ['centerToViewoport', 'drag']
-        );
+            if (value !== prevValue) unsubscribeScroll();
+        });
+
+        computed('useScroll', () => {
+            return !proxiState.drag && !proxiState.centerToViewoport;
+        });
 
         MobCore.useNextLoop(() => {
             ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({

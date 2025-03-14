@@ -32375,15 +32375,16 @@ Loading snippet ...</pre
         },
         { immediate: true }
       );
-      computed(
-        "useScroll",
-        ({ drag, centerToViewoport }) => {
-          const useScroll2 = !drag && !centerToViewoport;
-          if (useScroll2) addScrollListener();
-          return useScroll2;
-        },
-        ["centerToViewoport", "drag"]
-      );
+      watch("useScroll", (value, prevValue) => {
+        if (value) {
+          addScrollListener();
+          return;
+        }
+        if (value !== prevValue) unsubscribeScroll();
+      });
+      computed("useScroll", () => {
+        return !proxiState.drag && !proxiState.centerToViewoport;
+      });
       modules_exports.useNextLoop(() => {
         ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
           element
