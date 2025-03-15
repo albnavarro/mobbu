@@ -105,7 +105,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                             bind: /** @type {'level1'|'level2'|'level3'} */ (
                                 button.state
                             ),
-                            render: ({ html }) => {
+                            render: () => {
                                 // @ts-ignore
                                 const data = getState()?.[button.state];
 

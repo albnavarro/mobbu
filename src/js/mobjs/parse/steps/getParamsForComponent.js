@@ -39,7 +39,6 @@ import { setBindProps } from '../../modules/bindProps';
 import { addOnMoutCallback } from '../../modules/onMount';
 import { setStaticProps } from '../../modules/staticProps';
 import { setDelegateBindEvent } from '../../modules/delegateEvents';
-import { renderHtml } from './utils';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
 import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
@@ -224,7 +223,7 @@ export const getParamsForComponentFunction = ({
         }) => {
             const invalidateId = MobCore.getUnivoqueId();
             const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
-            const invalidateRender = () => render({ html: renderHtml });
+            const invalidateRender = () => render();
 
             /**
              * When invalidate is inizilized runtime, all neseted invalidate is initialized.

@@ -180,7 +180,7 @@ export const DynamicListFn = ({
                 <div class="c-dynamic-list__invalidate__wrap">
                     ${invalidate({
                         bind: 'counter',
-                        render: ({ html }) => {
+                        render: () => {
                             return html`<div class="validate-test-wrapper">
                                 <dynamic-list-card-inner
                                     ${bindProps({

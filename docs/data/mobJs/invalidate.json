@@ -112,15 +112,6 @@
             "content": "The render function. Unlike a <span class='quote'>repeater</span> the render function can return any type of DOM without restrictions."
         },
         {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": [
-                    "<strong>html</strong>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below."
-                ]
-            }
-        },
-        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"

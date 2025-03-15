@@ -34,7 +34,7 @@ export const DebugHeadFn = ({
         <div class="c-debug-head__general">
             ${invalidate({
                 bind: 'shouldUpdate',
-                render: ({ html }) => {
+                render: () => {
                     const { active } = getState();
                     if (!active) return '';
 

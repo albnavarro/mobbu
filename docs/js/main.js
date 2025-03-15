@@ -20145,7 +20145,7 @@
       }) => {
         const invalidateId = modules_exports.getUnivoqueId();
         const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
-        const invalidateRender = () => render2({ html: renderHtml });
+        const invalidateRender = () => render2();
         let isInizialized = false;
         setInvalidatePlaceholderMapScopedId({ invalidateId, scopeId: id });
         setInvalidateFunction({
@@ -30685,8 +30685,8 @@ Loading snippet ...</pre
                 <div class="c-dynamic-list__invalidate__wrap">
                     ${invalidate({
       bind: "counter",
-      render: ({ html }) => {
-        return html`<div class="validate-test-wrapper">
+      render: () => {
+        return renderHtml`<div class="validate-test-wrapper">
                                 <dynamic-list-card-inner
                                     ${bindProps({
           props: () => {
@@ -31376,9 +31376,9 @@ Loading snippet ...</pre
           /** @type {'level1'|'level2'|'level3'} */
           button.state
         ),
-        render: ({ html }) => {
+        render: () => {
           const data = getState()?.[button.state];
-          return html`
+          return renderHtml`
                                     Number of items: ${data.length} ( max
                                     ${button.maxItem} )
                                 `;
@@ -35519,10 +35519,10 @@ Loading snippet ...</pre
         <div class="c-debug-head__general">
             ${invalidate({
       bind: "shouldUpdate",
-      render: ({ html }) => {
+      render: () => {
         const { active: active2 } = getState();
         if (!active2) return "";
-        return html`
+        return renderHtml`
                         <div>
                             <strong> Debug activated: </strong>
                             ${modules_exports2.getDebugMode()}

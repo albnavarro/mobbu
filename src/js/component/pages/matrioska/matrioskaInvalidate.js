@@ -93,7 +93,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                             bind: /** @type {'level1'|'level2'|'level3'} */ (
                                 button.state
                             ),
-                            render: ({ html }) => {
+                            render: () => {
                                 // @ts-ignore
                                 const data = getState()?.[button.state];
 
@@ -140,7 +140,7 @@ const getSecondLevel = ({
         <div class="matrioska__level matrioska__level--2">
             ${invalidate({
                 bind: 'level2',
-                render: ({ html }) => {
+                render: () => {
                     const { level2 } = getState();
 
                     return level2
@@ -309,7 +309,7 @@ export const MatrioskaInvalidateFn = ({
             <div class="matrioska__level matrioska__level--1">
                 ${invalidate({
                     bind: 'level1',
-                    render: ({ html }) => {
+                    render: () => {
                         const { level1 } = getState();
 
                         return level1
