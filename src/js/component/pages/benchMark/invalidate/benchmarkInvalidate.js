@@ -59,11 +59,12 @@ export const BenchMarkInvalidateFn = ({
 
                     return html`
                         ${data
-                            .map(({ label }) => {
+                            .map(({ label }, index) => {
                                 return html`
                                     <benchmark-fake-component
                                         ${staticProps({
                                             label,
+                                            index,
                                         })}
                                         ${bindProps({
                                             /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */

@@ -724,9 +724,9 @@ Loading snippet ...</pre
         </div>
         <div class="benchmark__list">
             ${o({bind:"data",render:()=>{let{data:b}=n();return g`
-                        ${b.map(({label:v})=>g`
+                        ${b.map(({label:v},S)=>g`
                                     <benchmark-fake-component
-                                        ${s({label:v})}
+                                        ${s({label:v,index:S})}
                                         ${p({props:()=>({counter:y.counter})})}
                                     ></benchmark-fake-component>
                                 `).join("")}
