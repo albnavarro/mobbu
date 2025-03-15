@@ -20,6 +20,9 @@ ${bindProp(() => ({
 }))}
 ```
 
+## bindObject
+- Discorso uguale a `bindProps`, si potrebbe usare solo la funzione diretta senza `value:`
+
 ## Page transition.
 - Possibilitá di sovrascrivere le due funzioni per rotta.
 
