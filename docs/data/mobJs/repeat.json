@@ -176,7 +176,6 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<strong>html</strong>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
                     "<strong>current</strong>: A <span class='quote'>proxy</span> object that contains two properties <span class='quote'>index</span> and <span class='quote'>value</span> that are always <span class='quote'>updated</span> when the observed array changes.",
                     "<strong>sync ( optional )</strong>: <span class='quote'>sync function</span> is necessary for tracking key and and the current value of the state observed if <span class='quote'>useSync</span> is settled.",
                     "<strong>initialValue ( optional )</strong>: The value of the single array element taken when the component was created (static value).",
