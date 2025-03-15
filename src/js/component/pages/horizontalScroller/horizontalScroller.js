@@ -43,6 +43,7 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
  * @param {BindProps<HorizontalScroller, HorizontalScrollerButton>} param.bindProps
  * @param {StaticProps} param.staticProps
  * @param {DelegateEvents} param.delegateEvents
+ * @param {HorizontalScroller['state']} param.proxi
  */
 const getNav = ({
     numOfCol,
@@ -50,6 +51,7 @@ const getNav = ({
     bindProps,
     staticProps,
     delegateEvents,
+    proxi,
 }) => {
     return [...new Array(numOfCol).keys()]
         .map((_col, i) => {
@@ -62,12 +64,11 @@ const getNav = ({
                         click: () => setState('currentId', i),
                     })}
                     ${bindProps({
-                        bind: ['currentId', 'currentIdFromScroll'],
-                        props: ({ currentId, currentIdFromScroll }) => {
+                        props: () => {
                             return {
                                 active:
-                                    currentId === i ||
-                                    currentIdFromScroll === i,
+                                    proxi.currentId === i ||
+                                    proxi.currentIdFromScroll === i,
                             };
                         },
                     })}
@@ -88,8 +89,10 @@ export const HorizontalScrollerFn = ({
     delegateEvents,
     setRef,
     getRef,
+    getProxi,
 }) => {
     const { animatePin } = getState();
+    const proxi = getProxi();
 
     onMount(({ element }) => {
         if (MobMotionCore.mq('max', 'desktop')) return;
@@ -177,6 +180,7 @@ export const HorizontalScrollerFn = ({
                 bindProps,
                 staticProps,
                 delegateEvents,
+                proxi,
             })}
         </ul>
         <div class="l-h-scroller__root js-root" ${setRef('js_root')}>

@@ -139,8 +139,15 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
  * @param { StaticProps<MatrioskaItem> } params.staticProps
  * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
  * @param { DelegateEvents } params.delegateEvents
+ * @param { Matrioska['state'] } params.proxi
  */
-const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
+const getSecondLevel = ({
+    repeat,
+    staticProps,
+    bindProps,
+    delegateEvents,
+    proxi,
+}) => {
     return html`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
@@ -156,13 +163,12 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     level: 'level 2',
                                 })}
                                 ${bindProps({
-                                    bind: ['counter'],
-                                    props: ({ counter }) => {
+                                    props: () => {
                                         return {
                                             key: `${current.value.key}`,
                                             value: `${current.value.value}`,
                                             index: current.index,
-                                            counter,
+                                            counter: proxi.counter,
                                         };
                                     },
                                 })}
@@ -172,6 +178,7 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     staticProps,
                                     delegateEvents,
                                     bindProps,
+                                    proxi,
                                 })}
                             </matrioska-item>
                         </div>
@@ -188,8 +195,15 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
  * @param { StaticProps<MatrioskaItem> } params.staticProps
  * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
  * @param { DelegateEvents } params.delegateEvents
+ * @param { Matrioska['state'] } params.proxi
  */
-const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
+const getThirdLevel = ({
+    repeat,
+    staticProps,
+    bindProps,
+    delegateEvents,
+    proxi,
+}) => {
     return html`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
@@ -212,13 +226,12 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     level: 'level 3',
                                 })}
                                 ${bindProps({
-                                    bind: ['counter'],
-                                    props: ({ counter }) => {
+                                    props: () => {
                                         return {
                                             key: `${current.value.key}`,
                                             value: `${current.value.value}`,
                                             index: current.index,
-                                            counter,
+                                            counter: proxi.counter,
                                         };
                                     },
                                 })}
@@ -243,13 +256,12 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     level: 'level 3',
                                 })}
                                 ${bindProps({
-                                    bind: ['counter'],
-                                    props: ({ counter }) => {
+                                    props: () => {
                                         return {
                                             key: `${current.value.key}`,
                                             value: `${current.value.value}`,
                                             index: current.index,
-                                            counter,
+                                            counter: proxi.counter,
                                         };
                                     },
                                 })}
@@ -283,7 +295,10 @@ export const MatrioskaFn = ({
     bindProps,
     invalidate,
     getState,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     return html`<div class="matrioska">
         <div class="matrioska__head">
             ${getButtons({
@@ -311,14 +326,13 @@ export const MatrioskaFn = ({
                                     class="matrioska-item--1"
                                     ${staticProps({ level: 'level 1' })}
                                     ${bindProps({
-                                        bind: ['counter'],
                                         /** @returns{ReturnBindProps<MatrioskaItem>} */
-                                        props: ({ counter }) => {
+                                        props: () => {
                                             return {
                                                 key: `${current.value.key}`,
                                                 value: `${current.value.value}`,
                                                 index: current.index,
-                                                counter,
+                                                counter: proxi.counter,
                                             };
                                         },
                                     })}
@@ -328,6 +342,7 @@ export const MatrioskaFn = ({
                                         staticProps,
                                         bindProps,
                                         delegateEvents,
+                                        proxi,
                                     })}
                                 </matrioska-item>
                             </div>

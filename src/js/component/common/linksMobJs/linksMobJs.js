@@ -19,8 +19,9 @@ import { verticalScroller } from '../../lib/animation/verticalScroller';
  * @param {StaticProps} param.staticProps
  * @param {GetState<LinksMobJs>} param.getState
  * @param {BindProps<LinksMobJs, LinksMobJsButton>} param.bindProps
+ * @param {LinksMobJs['state']} param.proxi
  */
-const getItems = ({ staticProps, getState, bindProps }) => {
+const getItems = ({ staticProps, getState, bindProps, proxi }) => {
     const { data } = getState();
 
     return data
@@ -36,10 +37,9 @@ const getItems = ({ staticProps, getState, bindProps }) => {
                               url,
                           })}
                           ${bindProps({
-                              bind: ['activeSection'],
-                              props: ({ activeSection }) => {
+                              props: () => {
                                   return {
-                                      active: activeSection === url,
+                                      active: proxi.activeSection === url,
                                   };
                               },
                           })}
@@ -60,8 +60,10 @@ export const LinksMobJsFn = ({
     invalidate,
     getState,
     bindEffect,
+    getProxi,
 }) => {
     const mainData = getCommonData();
+    const proxi = getProxi();
 
     /** @type{Record<string, any>} */
     const templateData = {
@@ -188,6 +190,7 @@ export const LinksMobJsFn = ({
                         staticProps,
                         bindProps,
                         getState,
+                        proxi,
                     });
                 },
             })}

@@ -2,7 +2,7 @@
 
 /**
  * @import { MobComponent } from '../../../mobjs/type';
- * @import { DelegateEvents, SetState, GetState, BindProps } from '../../../mobjs/type';
+ * @import { DelegateEvents, BindProps } from '../../../mobjs/type';
  * @import {ScrollTo} from './type'
  * @import {ScrollToButton} from './button/type'
  */
@@ -17,16 +17,12 @@ let disableObservereffect = false;
 /**
  * @param {Object} param
  * @param {DelegateEvents} param.delegateEvents
- * @param {SetState<ScrollTo>} param.setState
- * @param {GetState<ScrollTo>} param.getState
  * @param {BindProps<ScrollTo,ScrollToButton>} param.bindProps
+ * @param {ScrollTo['state']} param.proxi
  * @returns {string}
  */
-function getButtons({ delegateEvents, setState, bindProps, getState }) {
-    // const anchorItems = getState?.()?.anchorItems ?? [];
-    const { anchorItems } = getState();
-
-    return anchorItems
+function getButtons({ delegateEvents, bindProps, proxi }) {
+    return proxi.anchorItems
         .map((item) => {
             return html`
                 <li>
@@ -44,7 +40,7 @@ function getButtons({ delegateEvents, setState, bindProps, getState }) {
                                  * Disable spacerAnchor observer effect during scroll.
                                  */
                                 disableObservereffect = true;
-                                setState('activeLabel', label);
+                                proxi.activeLabel = label;
                                 await MobBodyScroll.to(offsetTop);
 
                                 /**
@@ -54,12 +50,10 @@ function getButtons({ delegateEvents, setState, bindProps, getState }) {
                             },
                         })}
                         ${bindProps({
-                            bind: ['activeLabel'],
-                            props: ({ activeLabel }) => {
+                            props: () => {
                                 const { label } = item;
-
                                 return {
-                                    active: activeLabel === label,
+                                    active: proxi.activeLabel === label,
                                     label,
                                 };
                             },
@@ -77,8 +71,6 @@ export const ScrollToFn = ({
     onMount,
     delegateEvents,
     bindProps,
-    setState,
-    getState,
     invalidate,
     computed,
     addMethod,
@@ -95,7 +87,7 @@ export const ScrollToFn = ({
 
     addMethod('setActiveLabel', (label) => {
         if (disableObservereffect) return;
-        setState('activeLabel', label);
+        proxi.activeLabel = label;
     });
 
     onMount(() => {
@@ -117,8 +109,7 @@ export const ScrollToFn = ({
                         return getButtons({
                             delegateEvents,
                             bindProps,
-                            setState,
-                            getState,
+                            proxi,
                         });
                     },
                 })}

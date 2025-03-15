@@ -2,7 +2,7 @@
 
 /**
  * @import { MobComponent } from '../../../mobjs/type';
- * @import { StaticProps, SetState, BindProps } from '../../../mobjs/type';
+ * @import { StaticProps, BindProps } from '../../../mobjs/type';
  * @import { Navigation, NavigationSubmenu } from './type';
  **/
 
@@ -16,10 +16,10 @@ import { html } from '../../../mobjs';
  * @param {object} param
  * @param {import('../../../data/type').CommonData['navigation']} param.data
  * @param {StaticProps} param.staticProps
- * @param {SetState<Navigation>} param.setState
  * @param {BindProps<Navigation,NavigationSubmenu>} param.bindProps
+ * @param {Navigation['state']} param.proxi
  **/
-function getItems({ data, staticProps, setState, bindProps }) {
+function getItems({ data, staticProps, bindProps, proxi }) {
     return data
         .map((item, index) => {
             const {
@@ -50,13 +50,13 @@ function getItems({ data, staticProps, setState, bindProps }) {
                               },
                               children,
                               callback: () =>
-                                  setState('currentAccordionId', index),
+                                  (proxi.currentAccordionId = index),
                           })}
                           ${bindProps({
-                              bind: ['currentAccordionId'],
-                              props: ({ currentAccordionId }) => {
+                              props: () => {
                                   return {
-                                      isOpen: currentAccordionId === index,
+                                      isOpen:
+                                          proxi.currentAccordionId === index,
                                   };
                               },
                           })}
@@ -86,7 +86,9 @@ export const NavigationFn = ({
     setState,
     bindProps,
     addMethod,
+    getProxi,
 }) => {
+    const proxi = getProxi();
     const { navigation: data } = getCommonData();
 
     /**
@@ -102,8 +104,8 @@ export const NavigationFn = ({
                 ${getItems({
                     data,
                     staticProps,
-                    setState,
                     bindProps,
+                    proxi,
                 })}
             </ul>
         </nav>

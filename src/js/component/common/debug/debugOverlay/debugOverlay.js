@@ -12,22 +12,22 @@ import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
 export const DebugOverlayFn = ({
     delegateEvents,
     addMethod,
-    updateState,
-    setState,
     bindProps,
     invalidate,
-    getState,
     bindEffect,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     addMethod('toggle', () => {
-        updateState('active', (value) => !value);
+        proxi.active = !proxi.active;
     });
 
     return html`<div
         class="c-debug-overlay"
         ${bindEffect({
             bind: 'active',
-            toggleClass: { active: () => getState().active },
+            toggleClass: { active: () => proxi.active },
         })}
     >
         <button
@@ -35,7 +35,7 @@ export const DebugOverlayFn = ({
             type="button"
             ${delegateEvents({
                 click: () => {
-                    setState('active', false);
+                    proxi.active = false;
                 },
             })}
         ></button>
@@ -44,7 +44,7 @@ export const DebugOverlayFn = ({
             class="c-debug-overlay__close"
             ${delegateEvents({
                 click: () => {
-                    setState('active', false);
+                    proxi.active = false;
                 },
             })}
         ></button>
@@ -64,11 +64,10 @@ export const DebugOverlayFn = ({
             <div class="c-debug-overlay__head">
                 <debug-head
                     ${bindProps({
-                        bind: ['active'],
                         /** @returns{ReturnBindProps<import('./Debughead/type').DebugHead>} */
-                        props: ({ active }) => {
+                        props: () => {
                             return {
-                                active,
+                                active: proxi.active,
                             };
                         },
                     })}
@@ -81,9 +80,10 @@ export const DebugOverlayFn = ({
                             bind: ['listType', 'active'],
                             persistent: true,
                             render: ({ html }) => {
-                                const { listType, active } = getState();
-
-                                if (listType === DEBUG_USE_TREE && active)
+                                if (
+                                    proxi.listType === DEBUG_USE_TREE &&
+                                    proxi.active
+                                )
                                     return html`<div
                                         class="c-debug-overlay__list__title"
                                     >
@@ -91,8 +91,9 @@ export const DebugOverlayFn = ({
                                     </div>`;
 
                                 if (
-                                    listType === DEBUG_USE_FILTER_COMPONENT &&
-                                    active
+                                    proxi.listType ===
+                                        DEBUG_USE_FILTER_COMPONENT &&
+                                    proxi.active
                                 )
                                     return html`<debug-filter-head></debug-filter-head>`;
 
@@ -108,14 +109,14 @@ export const DebugOverlayFn = ({
                             class="c-debug-overlay__list__toggle"
                             ${delegateEvents({
                                 click: () => {
-                                    setState('listType', DEBUG_USE_TREE);
+                                    proxi.listType = DEBUG_USE_TREE;
                                 },
                             })}
                             ${bindEffect({
                                 bind: 'listType',
                                 toggleClass: {
                                     active: () =>
-                                        getState().listType === DEBUG_USE_TREE,
+                                        proxi.listType === DEBUG_USE_TREE,
                                 },
                             })}
                         >
@@ -126,17 +127,14 @@ export const DebugOverlayFn = ({
                             class="c-debug-overlay__list__toggle"
                             ${delegateEvents({
                                 click: () => {
-                                    setState(
-                                        'listType',
-                                        DEBUG_USE_FILTER_COMPONENT
-                                    );
+                                    proxi.listType = DEBUG_USE_FILTER_COMPONENT;
                                 },
                             })}
                             ${bindEffect({
                                 bind: 'listType',
                                 toggleClass: {
                                     active: () =>
-                                        getState().listType ===
+                                        proxi.listType ===
                                         DEBUG_USE_FILTER_COMPONENT,
                                 },
                             })}
@@ -150,16 +148,17 @@ export const DebugOverlayFn = ({
                         bind: ['listType', 'active'],
                         persistent: true,
                         render: ({ html }) => {
-                            const { listType, active } = getState();
-
-                            if (listType === DEBUG_USE_TREE && active)
+                            if (
+                                proxi.listType === DEBUG_USE_TREE &&
+                                proxi.active
+                            )
                                 return html`
                                     <debug-tree name="debug_tree"></debug-tree>
                                 `;
 
                             if (
-                                listType === DEBUG_USE_FILTER_COMPONENT &&
-                                active
+                                proxi.listType === DEBUG_USE_FILTER_COMPONENT &&
+                                proxi.active
                             )
                                 return html`
                                     <debug-filter-list

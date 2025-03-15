@@ -21,7 +21,10 @@ export const BenchMarkRepeatWithKyFn = ({
     bindProps,
     repeat,
     bindEffect,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     onMount(() => {
         return () => {};
     });
@@ -57,13 +60,12 @@ export const BenchMarkRepeatWithKyFn = ({
                         <benchmark-fake-component
                             class="old"
                             ${bindProps({
-                                bind: ['counter'],
                                 /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-                                props: ({ counter }) => {
+                                props: () => {
                                     return {
                                         index: current.index,
                                         label: current.value.label,
-                                        counter,
+                                        counter: proxi.counter,
                                     };
                                 },
                             })}

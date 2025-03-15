@@ -2,7 +2,7 @@
 
 /**
  * @import { MobComponent } from '../../../mobjs/type';
- * @import { SetState, StaticProps, DelegateEvents, BindProps } from '../../../mobjs/type';
+ * @import { StaticProps, DelegateEvents, BindProps } from '../../../mobjs/type';
  * @import { DynamicList } from './type';
  * @import { DynamicListButton } from './button/type';]
  * @import { DynamicListRepeater } from './repeaters/type';]
@@ -54,12 +54,12 @@ const repeaters = [
 
 /**
  * @param {object} param
- * @param {SetState<DynamicList>} param.setState
  * @param {StaticProps} param.staticProps
  * @param {DelegateEvents} param.delegateEvents
  * @param {BindProps<DynamicList,DynamicListButton>} param.bindProps
+ * @param {DynamicList['state']} param.proxi
  */
-function getButton({ setState, staticProps, delegateEvents, bindProps }) {
+function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
     return buttons
         .map((column, index) => {
             const { data, buttonLabel } = column;
@@ -71,18 +71,17 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
                     ${delegateEvents({
                         click: async () => {
                             FreezeMobPageScroll();
-                            setState('data', data);
-                            setState('activeSample', index);
+                            proxi.data = data;
+                            proxi.activeSample = index;
 
                             await MobJs.tick();
                             UnFreezeAndUPdateMobPageScroll();
                         },
                     })}
                     ${bindProps({
-                        bind: ['activeSample'],
-                        props: ({ activeSample }) => {
+                        props: () => {
                             return {
-                                active: index === activeSample,
+                                active: index === proxi.activeSample,
                             };
                         },
                     })}
@@ -96,19 +95,27 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
  * @param {object} param
  * @param {StaticProps} param.staticProps
  * @param {BindProps<DynamicList, DynamicListRepeater>} param.bindProps
+ * @param {DynamicList['state']} param.proxi
  */
-function getRepeaters({ bindProps, staticProps }) {
+function getRepeaters({ bindProps, staticProps, proxi }) {
     return repeaters
         .map((item, index) => {
             const { key, clean, label } = item;
 
             return html`
                 <dynamic-list-repeater
-                    ${staticProps({ listId: index, key, clean, label })}
+                    ${staticProps({
+                        listId: index,
+                        key,
+                        clean,
+                        label,
+                    })}
                     ${bindProps({
-                        bind: ['data', 'counter'],
-                        props: ({ data, counter }) => {
-                            return { data, counter };
+                        props: () => {
+                            return {
+                                data: proxi.data,
+                                counter: proxi.counter,
+                            };
                         },
                     })}
                 ></dynamic-list-repeater>
@@ -119,23 +126,25 @@ function getRepeaters({ bindProps, staticProps }) {
 
 /** @type {MobComponent<DynamicList>} */
 export const DynamicListFn = ({
-    setState,
     updateState,
     staticProps,
     bindProps,
     delegateEvents,
     invalidate,
     bindText,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     return html`
         <div class="c-dynamic-list">
             <div class="c-dynamic-list__header">
                 <div class="c-dynamic-list__top">
                     ${getButton({
-                        setState,
                         delegateEvents,
                         staticProps,
                         bindProps,
+                        proxi,
                     })}
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
@@ -175,9 +184,9 @@ export const DynamicListFn = ({
                             return html`<div class="validate-test-wrapper">
                                 <dynamic-list-card-inner
                                     ${bindProps({
-                                        props: ({ counter }) => {
+                                        props: () => {
                                             return {
-                                                key: `${counter}`,
+                                                key: `${proxi.counter}`,
                                             };
                                         },
                                     })}
@@ -196,7 +205,7 @@ export const DynamicListFn = ({
             <!-- Repeaters -->
             <div class="c-dynamic-list__container">
                 <div class="c-dynamic-list__grid">
-                    ${getRepeaters({ bindProps, staticProps })}
+                    ${getRepeaters({ bindProps, staticProps, proxi })}
                 </div>
             </div>
         </div>

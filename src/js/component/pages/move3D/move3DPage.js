@@ -140,15 +140,6 @@ export const Move3DPagefn = ({
         ${getControls({ delegateEvents, bindObject, proxiState })}
         <move-3d
             ${bindProps({
-                bind: [
-                    'data',
-                    'xDepth',
-                    'yDepth',
-                    'xLimit',
-                    'yLimit',
-                    'factor',
-                    'debug',
-                ],
                 /** @returns{ReturnBindProps<import('../../common/Move3D/type').Move3D>} */
                 props: () => {
                     return {
@@ -165,15 +156,6 @@ export const Move3DPagefn = ({
         ></move-3d>
         <move-3d
             ${bindProps({
-                bind: [
-                    'data',
-                    'xDepth',
-                    'yDepth',
-                    'xLimit',
-                    'yLimit',
-                    'factor',
-                    'debug',
-                ],
                 /** @returns{ReturnBindProps<import('../../common/Move3D/type').Move3D>} */
                 props: () => {
                     return {

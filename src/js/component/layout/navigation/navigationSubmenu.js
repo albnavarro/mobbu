@@ -10,13 +10,12 @@ import { MobSlide } from '../../../mobMotion/plugin';
 
 /**
  * @param {object} params
- * @param {import('../../../data/type').NavigationChildren[]} params.children
+ * @param {NavigationSubmenu['state']} params.proxi
  * @param {StaticProps<NavigationButton>} params.staticProps
- * @param {() => void} params.callback
  * @returns {string}
  */
-function getSubmenu({ children, staticProps, callback }) {
-    return children
+function getSubmenu({ proxi, staticProps }) {
+    return proxi.children
         .map((child) => {
             const { label, url, scrollToSection, activeId } = child;
 
@@ -24,7 +23,7 @@ function getSubmenu({ children, staticProps, callback }) {
                 <li class="l-navigation__submenu__item">
                     <mob-navigation-button
                         ${staticProps({
-                            callback,
+                            callback: proxi.callback,
                             label,
                             url,
                             subMenuClass: 'l-navigation__link--submenu',
@@ -43,16 +42,15 @@ function getSubmenu({ children, staticProps, callback }) {
  */
 export const NavigationSubmenuFn = ({
     onMount,
-    getState,
-    updateState,
     staticProps,
     bindProps,
     watch,
     setRef,
     getRef,
+    getProxi,
 }) => {
-    const { children, headerButton, callback } = getState();
-    const { label, url, activeId } = headerButton;
+    const proxi = getProxi();
+    const { label, url, activeId } = proxi.headerButton;
 
     onMount(() => {
         /**
@@ -105,21 +103,19 @@ export const NavigationSubmenuFn = ({
                     fireRoute: false,
                     activeId: activeId ?? -1,
                     callback: () => {
-                        updateState('isOpen', (prev) => !prev);
-                        const { isOpen } = getState();
-                        if (isOpen) callback();
+                        proxi.isOpen = !proxi.isOpen;
+                        if (proxi.isOpen) proxi.callback();
                     },
                 })}
                 ${bindProps({
-                    bind: ['isOpen'],
                     /** @returns {ReturnBindProps<NavigationButton>} */
-                    props: ({ isOpen }) => {
-                        return { isOpen };
+                    props: () => {
+                        return { isOpen: proxi.isOpen };
                     },
                 })}
             ></mob-navigation-button>
             <ul class="l-navigation__submenu" ${setRef('content')}>
-                ${getSubmenu({ children, staticProps, callback })}
+                ${getSubmenu({ proxi, staticProps })}
             </ul>
         </li>
     `;

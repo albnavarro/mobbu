@@ -22,7 +22,10 @@ export const BenchMarkInvalidateFn = ({
     updateState,
     bindProps,
     bindEffect,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     onMount(() => {
         return () => {};
     });
@@ -51,7 +54,7 @@ export const BenchMarkInvalidateFn = ({
         <div class="benchmark__list">
             ${invalidate({
                 bind: 'data',
-                render: ({ html }) => {
+                render: () => {
                     const { data } = getState();
 
                     return html`
@@ -63,11 +66,10 @@ export const BenchMarkInvalidateFn = ({
                                             label,
                                         })}
                                         ${bindProps({
-                                            bind: ['counter'],
                                             /** @returns{ReturnBindProps<import('../fakeComponent/type').BenchMarkFakeComponent>} */
-                                            props: ({ counter }) => {
+                                            props: () => {
                                                 return {
-                                                    counter,
+                                                    counter: proxi.counter,
                                                 };
                                             },
                                         })}

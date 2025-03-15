@@ -2,7 +2,7 @@
 
 /**
  * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
- * @import { StaticProps, DelegateEvents, GetState } from '../../../../mobjs/type';
+ * @import { StaticProps, DelegateEvents } from '../../../../mobjs/type';
  * @import { DynamicListCardInner } from './innerCard/type';
  * @import { DynamicListCard } from './type';
  * @import { DynamicCounter } from '../counter/type';
@@ -20,13 +20,11 @@ function createArray(numberOfItem) {
  * @param {object} params
  * @param {StaticProps<DynamicListCardInner>} params.staticProps
  * @param {DelegateEvents} params.delegateEvents
- * @param {GetState<DynamicListCard>} params.getState
+ * @param {DynamicListCard['state']} params.proxi
  */
-const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
-    const { counter } = getState();
-
+const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
     return html`
-        ${createArray(counter)
+        ${createArray(proxi.counter)
             .map((item) => {
                 return html`
                     <div class="validate-test-wrapper">
@@ -52,33 +50,32 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
 
 /** @type {MobComponent<DynamicListCard>} */
 export const DynamicListCardFn = ({
-    getState,
     onMount,
     key,
     staticProps,
     bindProps,
     id,
-    setState,
-    updateState,
     delegateEvents,
     invalidate,
     repeat,
     bindText,
     bindEffect,
+    getProxi,
 }) => {
-    const { isFull, parentListId } = getState();
+    const proxi = getProxi();
+
     let repeaterIndex = 0;
 
     onMount(async () => {
         (async () => {
             await MobJs.tick();
-            setState('isMounted', true);
+            proxi.isMounted = true;
         })();
 
         return () => {};
     });
 
-    const isFullClass = isFull ? 'is-full' : '';
+    const isFullClass = proxi.isFull ? 'is-full' : '';
 
     return html`
         <div
@@ -87,13 +84,13 @@ export const DynamicListCardFn = ({
                 {
                     bind: 'isSelected',
                     toggleClass: {
-                        'is-selected': () => getState().isSelected,
+                        'is-selected': () => proxi.isSelected,
                     },
                 },
                 {
                     bind: 'isMounted',
                     toggleClass: {
-                        active: () => getState().isMounted,
+                        active: () => proxi.isMounted,
                     },
                 },
             ])}
@@ -104,14 +101,13 @@ export const DynamicListCardFn = ({
                     class="c-dynamic-card__button"
                     ${delegateEvents({
                         click: () => {
-                            updateState('isSelected', (val) => !val);
+                            proxi.isSelected = !proxi.isSelected;
                         },
                     })}
                     ${bindProps({
-                        bind: ['isSelected'],
-                        props: ({ isSelected }) => {
+                        props: () => {
                             return {
-                                active: isSelected,
+                                active: proxi.isSelected,
                             };
                         },
                     })}
@@ -119,7 +115,7 @@ export const DynamicListCardFn = ({
                     Select
                 </dynamic-list-button>
                 <div class="id">id: ${id}</div>
-                <div class="parentId">list index: ${parentListId}</div>
+                <div class="parentId">list index: ${proxi.parentListId}</div>
                 <div class="index">${bindText`index: ${'index'}`}</div>
                 <div class="label">${bindText`label: ${'label'}`}</div>
                 <div class="counter">${bindText`counter: ${'counter'}`}</div>
@@ -129,13 +125,12 @@ export const DynamicListCardFn = ({
                     <dynamic-list-counter
                         slot="empty-slot"
                         ${staticProps({
-                            parentListId,
+                            parentListId: proxi.parentListId,
                         })}
                         ${bindProps({
-                            bind: ['counter'],
                             /** @return {ReturnBindProps<DynamicCounter>} */
-                            props: ({ counter }) => {
-                                return { counter };
+                            props: () => {
+                                return { counter: proxi.counter };
                             },
                         })}
                     />
@@ -153,7 +148,7 @@ export const DynamicListCardFn = ({
                                         ? repeaterIndex + 1
                                         : 0;
 
-                                setState('innerData', innerData[repeaterIndex]);
+                                proxi.innerData = innerData[repeaterIndex];
                             },
                         })}
                     >
@@ -213,9 +208,9 @@ export const DynamicListCardFn = ({
                             bind: 'counter',
                             render: () => {
                                 return getInvalidateRender({
-                                    getState,
                                     delegateEvents,
                                     staticProps,
+                                    proxi,
                                 });
                             },
                         })}

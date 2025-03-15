@@ -13,30 +13,29 @@ import { html } from '../../../../mobjs';
  * @param {object} param
  * @param {StaticProps<DynamicListCard>} param.staticProps
  * @param {BindProps<DynamicListRepeater>} param.bindProps
- * @param {number} param.listId
  * @param {DelegateEvents} param.delegateEvents
  * @param {Current<DynamicListRepeater,'data'>} param.current
+ * @param {DynamicListRepeater['state']} param.proxi
  *
  */
 function getRepeaterCard({
     staticProps,
     bindProps,
-    listId,
     delegateEvents,
     current,
+    proxi,
 }) {
     return html`
         <div class="c-dynamic-list-repeater__item">
             <dynamic-list-card
                 ${staticProps({
-                    parentListId: listId,
+                    parentListId: proxi.listId,
                 })}
                 ${bindProps({
-                    bind: ['counter'],
                     /** @returns {ReturnBindProps<DynamicListCard>} */
-                    props: ({ counter }) => {
+                    props: () => {
                         return {
-                            counter,
+                            counter: proxi.counter,
                             label: current.value.label,
                             index: current.index,
                         };
@@ -51,11 +50,10 @@ function getRepeaterCard({
                 <dynamic-slotted-label
                     slot="card-label-slot"
                     ${bindProps({
-                        bind: ['counter'],
                         /** @returns {ReturnBindProps<import('../slottedLabel/type').DynamicListSlottedLabel>} */
-                        props: ({ counter }) => {
+                        props: () => {
                             return {
-                                label: `label: ${current.value.label} <br/> counter: ${counter}`,
+                                label: `label: ${current.value.label} <br/> counter: ${proxi.counter}`,
                             };
                         },
                     })}
@@ -68,22 +66,22 @@ function getRepeaterCard({
 
 /** @type {MobComponent<DynamicListRepeater>} */
 export const DynamicListRepeaterFn = ({
-    getState,
     staticProps,
     bindProps,
     delegateEvents,
     repeat,
+    getProxi,
 }) => {
-    const { listId, key, clean, label } = getState();
-    const keyParsed = key.length > 0 ? key : undefined;
+    const proxi = getProxi();
+    const keyParsed = proxi.key.length > 0 ? proxi.key : undefined;
 
     return html`
         <div class="c-dynamic-list-repeater">
-            <h4 class="c-dynamic-list-repeater__title">${label}</h4>
+            <h4 class="c-dynamic-list-repeater__title">${proxi.label}</h4>
             <div class="c-dynamic-list-repeater__list">
                 ${repeat({
                     bind: 'data',
-                    clean,
+                    clean: proxi.clean,
                     key: keyParsed,
                     afterUpdate: () => {
                         console.log('repeater updated');
@@ -93,8 +91,8 @@ export const DynamicListRepeaterFn = ({
                             staticProps,
                             bindProps,
                             delegateEvents,
-                            listId,
                             current,
+                            proxi,
                         });
                     },
                 })}

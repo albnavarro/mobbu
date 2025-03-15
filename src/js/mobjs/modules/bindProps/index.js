@@ -18,9 +18,13 @@ import {
 import { getElementById } from '../../component/action/element';
 import { removeAndDestroyById } from '../../component/action/removeAndDestroy/removeAndDestroyById';
 import { bindPropsMap } from './bindPropsMap';
+import {
+    getCurrentComputedKey,
+    initializeCurrentComputedKey,
+} from '../../../mobCore/store/currentKey';
 
 /**
- * @param {{bind?:string[],parentId:string|undefined,props:(arg0: any,value:Record<string, any>, index: number) => Partial<any>, forceParent? :boolean}} propsObj
+ * @param {{bind?:string[],parentId:string|undefined,props:(arg0: any,value:Record<string, any>, index: number) => Partial<any>, forceParent? :boolean}} data
  * @return {string|undefined} props id in store.
  *
  * @description
@@ -41,16 +45,27 @@ import { bindPropsMap } from './bindPropsMap';
  *   ></MyComponent>
  * ```
  */
-export const setBindProps = (propsObj) => {
-    const propsIsValid = 'props' in propsObj;
+export const setBindProps = (data) => {
+    const hasProps = 'props' in data;
 
-    const propsObjUpdates =
-        'bind' in propsObj ? propsObj : { ...propsObj, bind: [] };
-
-    if (!propsIsValid) {
+    if (!hasProps) {
         console.warn(`bindProps not valid`);
         return;
     }
+
+    /**
+     * Get explicit dependencies or get from `proxi.get()`
+     */
+    const bindDetected =
+        data?.bind && data?.bind?.length > 0
+            ? data.bind
+            : (() => {
+                  initializeCurrentComputedKey();
+                  data?.props({}, {}, 0);
+                  return getCurrentComputedKey();
+              })();
+
+    const dataUpdated = { ...data, bind: bindDetected };
 
     /**
      * @type {string}
@@ -58,7 +73,7 @@ export const setBindProps = (propsObj) => {
     const id = MobCore.getUnivoqueId();
     // @ts-ignore
     bindPropsMap.set(id, {
-        ...propsObjUpdates,
+        ...dataUpdated,
         componentId: '',
         propsId: id,
     });
