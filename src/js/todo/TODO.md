@@ -7,6 +7,9 @@
 - Per queste ultime bisogna aggiungere il meccanismo anche al `get` del `proxi-repeater`. OK
 - Nel `proxi-repeater` lo stato da tracciare é `bind`. OK
 
+#### Invalidate:
+- E' rimsto il resufo di `html`: eliminare.
+
 
 ### DOCS
 - Aggiungere i tipi allo store.
