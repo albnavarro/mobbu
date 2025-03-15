@@ -40,7 +40,7 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>bind</span>: Observed status",
+                    "<span class='quote'>bind</span>: Observed status ( optional ).",
                     "<span class='quote'>value</span>: A function that will return the updated value."
                 ]
             }
@@ -72,13 +72,43 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Explicit dependencies"
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/bindObject.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 15
+                "numLines": 24
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Auto detect dependencies"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindObjectAuto.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 23
             }
         },
         {

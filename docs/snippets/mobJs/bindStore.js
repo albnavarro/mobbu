@@ -16,7 +16,6 @@ export const MyComponent = ({
     return html`
         <div>
             ${bindObject`route: ${{
-                bind: 'beforeRouteChange',
                 value: () => proxiState.beforeRouteChange.route,
             }}.`}
         </div>
