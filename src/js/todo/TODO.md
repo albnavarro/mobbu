@@ -20,9 +20,6 @@ ${bindProp(() => ({
 }))}
 ```
 
-## html:
-- Eliminare l'attributo `html` anche da `invalidate`, refuso.
-
 ## Page transition.
 - Possibilitá di sovrascrivere le due funzioni per rotta.
 
