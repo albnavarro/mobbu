@@ -5,7 +5,7 @@ let active = false;
 /**
  * @returns{void}
  */
-export const initializeCurrentComputedKey = () => {
+export const initializeCurrentDependencies = () => {
     active = true;
     current_computed_keys.length = 0;
 };
@@ -17,7 +17,7 @@ export const initializeCurrentComputedKey = () => {
  *
  * @returns{string[]}
  */
-export const getCurrentComputedKey = () => {
+export const getCurrentDependencies = () => {
     active = false;
     return [...current_computed_keys];
 };
@@ -26,7 +26,7 @@ export const getCurrentComputedKey = () => {
  * @param {string} key
  * @returns{void}
  */
-export const setCurrentComputedKey = (key) => {
+export const setCurrentDependencies = (key) => {
     if (!active || !key) return;
     if (current_computed_keys.includes(key)) return;
     current_computed_keys = [...current_computed_keys, key];

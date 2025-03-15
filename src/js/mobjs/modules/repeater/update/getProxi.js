@@ -50,7 +50,7 @@ export const getRepeatProxi = ({
                 /**
                  * Autodetect dependencies
                  */
-                MobDetectBindKey.setCurrentComputedKey(bind);
+                MobDetectBindKey.setCurrentDependencies(bind);
 
                 /**
                  * Use last updated state

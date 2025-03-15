@@ -4,8 +4,8 @@ import { useNextLoop } from '../utils/nextTick';
 import { checkEquality } from './checkEquality';
 import { STORE_SET, STORE_UPDATE } from './constant';
 import {
-    getCurrentComputedKey,
-    initializeCurrentComputedKey,
+    getCurrentDependencies,
+    initializeCurrentDependencies,
 } from './currentKey';
 import { runCallbackQueqe } from './fireQueque';
 import { getLogStyle } from './logStyle';
@@ -760,9 +760,9 @@ export const storeComputedEntryPoint = ({
     const keysDetected =
         keys.length === 0
             ? (() => {
-                  initializeCurrentComputedKey();
+                  initializeCurrentDependencies();
                   callback({});
-                  return getCurrentComputedKey();
+                  return getCurrentDependencies();
               })()
             : keys;
 

@@ -1990,21 +1990,21 @@
   // src/js/mobCore/store/currentKey.js
   var currentKey_exports = {};
   __export(currentKey_exports, {
-    getCurrentComputedKey: () => getCurrentComputedKey,
-    initializeCurrentComputedKey: () => initializeCurrentComputedKey,
-    setCurrentComputedKey: () => setCurrentComputedKey
+    getCurrentDependencies: () => getCurrentDependencies,
+    initializeCurrentDependencies: () => initializeCurrentDependencies,
+    setCurrentDependencies: () => setCurrentDependencies
   });
   var current_computed_keys = [];
   var active = false;
-  var initializeCurrentComputedKey = () => {
+  var initializeCurrentDependencies = () => {
     active = true;
     current_computed_keys.length = 0;
   };
-  var getCurrentComputedKey = () => {
+  var getCurrentDependencies = () => {
     active = false;
     return [...current_computed_keys];
   };
-  var setCurrentComputedKey = (key) => {
+  var setCurrentDependencies = (key) => {
     if (!active || !key) return;
     if (current_computed_keys.includes(key)) return;
     current_computed_keys = [...current_computed_keys, key];
@@ -2671,9 +2671,9 @@
     callback: callback2
   }) => {
     const keysDetected = keys.length === 0 ? (() => {
-      initializeCurrentComputedKey();
+      initializeCurrentDependencies();
       callback2({});
-      return getCurrentComputedKey();
+      return getCurrentDependencies();
     })() : keys;
     initializeCompuntedProp({
       instanceId,
@@ -3024,7 +3024,7 @@
         if (!(prop in target)) {
           return false;
         }
-        setCurrentComputedKey(prop);
+        setCurrentDependencies(prop);
         return target[prop];
       }
     });
@@ -3046,7 +3046,7 @@
           if (!(prop in target)) {
             return false;
           }
-          setCurrentComputedKey(prop);
+          setCurrentDependencies(prop);
           return target[prop];
         }
       });
@@ -18064,9 +18064,9 @@
       return;
     }
     const bindDetected = data?.bind && data?.bind?.length > 0 ? data.bind : (() => {
-      initializeCurrentComputedKey();
+      initializeCurrentDependencies();
       data?.props({}, {}, 0);
-      return getCurrentComputedKey();
+      return getCurrentDependencies();
     })();
     const dataUpdated = { ...data, bind: bindDetected };
     const id = modules_exports.getUnivoqueId();
@@ -19114,7 +19114,7 @@
       {},
       {
         get(_, prop) {
-          currentKey_exports.setCurrentComputedKey(bind);
+          currentKey_exports.setCurrentDependencies(bind);
           const state = getStateById(id);
           const maxValue = Math.max(state?.[bind].length - 1, 0);
           if (prop === REPEAT_PROXI_INDEX) {

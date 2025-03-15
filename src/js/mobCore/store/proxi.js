@@ -1,5 +1,5 @@
 import { STORE_SET } from './constant';
-import { setCurrentComputedKey } from './currentKey';
+import { setCurrentDependencies } from './currentKey';
 import { storeMap, updateMainMap } from './storeMap';
 import { storeSetEntryPoint } from './storeSet';
 import { checkIfPropIsComputed } from './storeUtils';
@@ -58,7 +58,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
             /**
              * Autodetect dependencies
              */
-            setCurrentComputedKey(prop);
+            setCurrentDependencies(prop);
 
             /**
              * Return value
@@ -100,7 +100,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
                 /**
                  * Autodetect dependencies
                  */
-                setCurrentComputedKey(prop);
+                setCurrentDependencies(prop);
 
                 /**
                  * Return value

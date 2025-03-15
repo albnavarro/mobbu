@@ -19,8 +19,8 @@ import { getElementById } from '../../component/action/element';
 import { removeAndDestroyById } from '../../component/action/removeAndDestroy/removeAndDestroyById';
 import { bindPropsMap } from './bindPropsMap';
 import {
-    getCurrentComputedKey,
-    initializeCurrentComputedKey,
+    getCurrentDependencies,
+    initializeCurrentDependencies,
 } from '../../../mobCore/store/currentKey';
 
 /**
@@ -60,9 +60,9 @@ export const setBindProps = (data) => {
         data?.bind && data?.bind?.length > 0
             ? data.bind
             : (() => {
-                  initializeCurrentComputedKey();
+                  initializeCurrentDependencies();
                   data?.props({}, {}, 0);
-                  return getCurrentComputedKey();
+                  return getCurrentDependencies();
               })();
 
     const dataUpdated = { ...data, bind: bindDetected };
