@@ -3,7 +3,14 @@ import { html } from '../../../src/js/mobjs';
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ repeat, bindProps, delegateEvents }) => {
+export const MyComponent = ({
+    repeat,
+    bindProps,
+    delegateEvents,
+    getProxi,
+}) => {
+    const proxi = getProxi();
+
     return html`
         <div class="repeater-container">
             ${repeat({
@@ -12,10 +19,9 @@ export const MyComponent = ({ repeat, bindProps, delegateEvents }) => {
                     return html`
                         <my-child-component
                             ${bindProps({
-                                bind: ['counter'],
-                                props: ({ counter }) => {
+                                props: () => {
                                     return {
-                                        counter,
+                                        counter: proxi.counter,
                                         label: current.value.label,
                                         index: current.index,
                                     };

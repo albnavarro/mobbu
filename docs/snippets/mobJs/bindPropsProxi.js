@@ -18,7 +18,6 @@ export const MyComponent = ({ onMount, getProxi, bindProps }) => {
         <div>
             <my-child-component
                 ${bindProps({
-                    bind: ['counter'],
                     props: () => {
                         return {
                             counter: proxiState.counter,
