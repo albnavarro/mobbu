@@ -52,7 +52,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "bind"
+            "content": "bind ( optional )"
         },
         {
             "component": "mob-paragraph",
