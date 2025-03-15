@@ -11,6 +11,10 @@ export const MyComponent = ({
 }) => {
     bindStore(MobJs.mainStore);
     // bindStore([mainStore, otherStore]);
+
+    /**
+     * Get proxi after bindStore !
+     */
     const proxiState = getProxi();
 
     return html`

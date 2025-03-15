@@ -5,24 +5,27 @@ import { html } from '../../../src/js/mobjs';
  */
 export const MyComponentFn = ({
     onMount,
-    updateState,
     staticProps,
     bindProps,
-    watch,
     delegateEvents,
     setRef,
     getRef,
     bindText,
+    getProxi,
+    computed,
+    bindEffect,
 }) => {
+    const proxi = getProxi();
+
+    computed('prop2', () => {
+        return proxi.proxi * 2;
+    });
+
     onMount(({ element }) => {
         const { labelRef } = getRef();
 
         console.log(element); // div.
         console.log(labelRef); // h2.
-
-        watch('myState', (value) => {
-            labelRef.classList.toggle('my-class', value);
-        });
 
         /**
          * Destroy function
@@ -37,11 +40,16 @@ export const MyComponentFn = ({
         <div>
             <h2
                 ${delegateEvents({
-                    click: () => updateState('myState', (value) => !value),
+                    click: () => (proxi.counter += 1),
+                })}
+                ${bindEffect({
+                    toggleClass: {
+                        active: proxi.active,
+                    },
                 })}
                 ${setRef('labelRef')}
             >
-                ${bindText`label: ${'label'}`}
+                ${bindText`label: ${'prop'}`}
             </h2>
             <child-component
                 ${staticProps({
@@ -49,11 +57,10 @@ export const MyComponentFn = ({
                     childProp2: 'myValue',
                 })}
                 ${bindProps({
-                    bind: ['label', 'myArray'],
-                    props: ({ label, myArray }) => {
+                    props: () => {
                         return {
-                            childProp3: label,
-                            childProp4: myArray?.[0] ?? '',
+                            childProp3: proxi.prop,
+                            childProp4: proxi.prop2,
                         };
                     },
                 })}
