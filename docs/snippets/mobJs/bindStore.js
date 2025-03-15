@@ -26,7 +26,7 @@ export const MyComponent = ({
         <div>
             ${invalidate({
                 bind: 'beforeRouteChange',
-                render: ({ html }) => {
+                render: () => {
                     return proxiState.beforeRouteChange.route === 'home'
                         ? html`<h2>home</h2>`
                         : '';
