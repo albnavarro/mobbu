@@ -43,7 +43,6 @@ export const MyComponent = ({
             <div>${bindText`counter value is ${'counter'}`}</div>
             <child-component
                 ${bindProps({
-                    bind: ['counter'],
                     /** @returns{ReturnBindProps<import('../type').MyChildState>} */
                     props: () => {
                         return {
