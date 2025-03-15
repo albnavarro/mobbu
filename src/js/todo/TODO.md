@@ -1,9 +1,5 @@
 # MobCore
 
-#### Invalidate:
-- E' rimsto il resufo di `html`: eliminare.
-
-
 ### DOCS
 - Aggiungere i tipi allo store.
 
@@ -13,9 +9,19 @@
 
 # MobJs
 
+## bindProp
+- Sarebbe interessante capire come ( piú che altro a livello di `TS`) avere un funzione in modalitá auto come:
+- senza dover tornare l' oggetto con `prop: () => ...`
+
+```js
+${bindProp(() => ({
+    prop: proxi.prop
+    prop2: proxi.prop2
+}))}
+```
+
 ## html:
-- Eliminare l'attributo `html` che esce dalla funzione e usare solo la utility globale, meno cofusione.
-- Eliminare l'attributo `html` anche da `repeat/invalidate`.
+- Eliminare l'attributo `html` anche da `invalidate`, refuso.
 
 ## Page transition.
 - Possibilitá di sovrascrivere le due funzioni per rotta.
