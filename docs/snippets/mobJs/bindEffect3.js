@@ -9,7 +9,6 @@ export const MyComponent = ({ bindEffect, getProxi }) => {
     return html`
         <div>
             ${bindEffect({
-                bind: ['active', 'color'],
                 toggleClass: {
                     active: () => proxi.active,
                     white: () => proxi.color === 'white',

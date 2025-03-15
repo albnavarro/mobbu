@@ -3,15 +3,14 @@ import { html } from '../../../src/js/mobjs';
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ bindEffect, getProxi }) => {
-    const proxi = getProxi();
-
+export const MyComponent = ({ bindEffect, getState }) => {
     return html`
         <div>
             ${bindEffect({
+                bind: ['active', 'color'],
                 toggleClass: {
-                    active: () => proxi.active,
-                    white: () => proxi.color === 'white',
+                    active: () => getState().active,
+                    white: () => getState().color === 'white',
                 },
             })}
         </div>

@@ -3,24 +3,23 @@ import { html } from '../../../src/js/mobjs';
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({ bindEffect, getState }) => {
+export const MyComponent = ({ bindEffect, getProxi }) => {
+    const proxi = getProxi();
+
     return html`
         <div>
             ${bindEffect([
                 {
-                    bind: 'active',
-                    toggleClass: { active: () => getState().active },
+                    toggleClass: { active: () => proxi.active },
                 },
                 {
-                    bind: 'color',
                     toggleClass: {
-                        'fill-white': () => getState().color === 'white',
-                        'fill-black': () => getState().color === 'black',
+                        'fill-white': () => proxi.color === 'white',
+                        'fill-black': () => proxi.color === 'black',
                     },
                 },
                 {
-                    bind: 'href',
-                    toggleAttribute: { href: () => getState().href },
+                    toggleAttribute: { href: () => proxi.href },
                 },
             ])}
         </div>
