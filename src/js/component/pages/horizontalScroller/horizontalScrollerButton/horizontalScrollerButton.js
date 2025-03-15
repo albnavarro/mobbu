@@ -3,21 +3,20 @@
 import { html } from '../../../../mobjs';
 
 /** @type {import("../../../../mobjs/type").MobComponent<import("./type").HorizontalScrollerButton>} */
-export const HorizontalScrollerButtonFn = ({ getState, bindEffect }) => {
-    const { id } = getState();
+export const HorizontalScrollerButtonFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
 
     return html`
         <li>
             <button
                 type="button"
-                data-id="${id}"
+                data-id="${proxi.id}"
                 class="l-h-scroller__nav__btn"
                 ${bindEffect({
-                    bind: 'active',
-                    toggleClass: { active: () => getState().active },
+                    toggleClass: { active: () => proxi.active },
                 })}
             >
-                ${id}
+                ${proxi.id}
             </button>
         </li>
     `;

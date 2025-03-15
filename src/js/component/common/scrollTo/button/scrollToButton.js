@@ -3,18 +3,17 @@
 import { html } from '../../../../mobjs';
 
 /** @type {import("../../../../mobjs/type").MobComponent<import("./type").ScrollToButton>} */
-export const ScrollToButtonFn = ({ getState, bindEffect }) => {
-    const { label } = getState();
+export const ScrollToButtonFn = ({ bindEffect, getProxi }) => {
+    const proxi = getProxi();
 
     return html`
         <button
             type="button"
             ${bindEffect({
-                bind: 'active',
-                toggleClass: { active: () => getState().active },
+                toggleClass: { active: () => proxi.active },
             })}
         >
-            <span> ${label}</span>
+            <span>${proxi.label}</span>
         </button>
     `;
 };

@@ -14,23 +14,21 @@ import { Triangles } from './triangles';
 export const ScrollToTopFn = ({
     delegateEvents,
     bindEffect,
-    getState,
     bindStore,
+    getProxi,
 }) => {
     bindStore(navigationStore);
+    const proxi = getProxi();
 
     return html`
         <div
             class="scroll-to-top"
             ${bindEffect({
-                bind: ['active', 'navigationIsOpen'],
                 toggleClass: {
                     active: () => {
-                        return (
-                            getState().active && !getState().navigationIsOpen
-                        );
+                        return proxi.active && !proxi.navigationIsOpen;
                     },
-                    shift: () => getState().navigationIsOpen,
+                    shift: () => proxi.navigationIsOpen,
                 },
             })}
         >

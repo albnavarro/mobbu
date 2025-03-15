@@ -15,10 +15,11 @@ export const CaterpillarN0Fn = ({
     onMount,
     setRef,
     getRef,
-    setState,
     getState,
     bindEffect,
+    getProxi,
 }) => {
+    const proxi = getProxi();
     document.body.style.background = canvasBackground;
 
     onMount(() => {
@@ -33,7 +34,7 @@ export const CaterpillarN0Fn = ({
         });
 
         MobCore.useFrame(() => {
-            setState('isMounted', true);
+            proxi.isMounted = true;
         });
 
         return () => {
@@ -48,8 +49,7 @@ export const CaterpillarN0Fn = ({
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
-                        bind: 'isMounted',
-                        toggleClass: { active: () => getState().isMounted },
+                        toggleClass: { active: () => proxi.isMounted },
                     })}
                 >
                     <canvas ${setRef('canvas')}></canvas>

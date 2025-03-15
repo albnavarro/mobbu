@@ -13,12 +13,13 @@ import { caterpillarN1Animation } from './animation/animation';
 /** @type {MobComponent<CaterpillarN1>} */
 export const CaterpillarN1Fn = ({
     onMount,
-    setState,
     getState,
     getRef,
     setRef,
     bindEffect,
+    getProxi,
 }) => {
+    const proxi = getProxi();
     document.body.style.background = canvasBackground;
 
     onMount(() => {
@@ -30,7 +31,7 @@ export const CaterpillarN1Fn = ({
         });
 
         MobCore.useFrame(() => {
-            setState('isMounted', true);
+            proxi.isMounted = true;
         });
 
         return () => {
@@ -45,8 +46,7 @@ export const CaterpillarN1Fn = ({
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
-                        bind: 'isMounted',
-                        toggleClass: { active: () => getState().isMounted },
+                        toggleClass: { active: () => proxi.isMounted },
                     })}
                 >
                     <canvas ${setRef('canvas')}></canvas>

@@ -21,16 +21,12 @@ function titleHandler() {
 }
 
 /** @type {MobComponent<import('./type').Header>} */
-export const HeaderFn = ({
-    delegateEvents,
-    getState,
-    setState,
-    bindEffect,
-    onMount,
-}) => {
+export const HeaderFn = ({ delegateEvents, bindEffect, getProxi, onMount }) => {
+    const proxi = getProxi();
+
     onMount(() => {
         setTimeout(() => {
-            setState('isMounted', true);
+            proxi.isMounted = true;
         }, 500);
     });
 
@@ -53,9 +49,8 @@ export const HeaderFn = ({
                         <div class="l-header__title-container">
                             <h3
                                 ${bindEffect({
-                                    bind: 'isMounted',
                                     toggleClass: {
-                                        visible: () => getState().isMounted,
+                                        visible: () => proxi.isMounted,
                                     },
                                 })}
                             >
@@ -63,9 +58,8 @@ export const HeaderFn = ({
                             </h3>
                             <h5
                                 ${bindEffect({
-                                    bind: 'isMounted',
                                     toggleClass: {
-                                        visible: () => getState().isMounted,
+                                        visible: () => proxi.isMounted,
                                     },
                                 })}
                             >

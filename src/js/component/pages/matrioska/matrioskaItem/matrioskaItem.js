@@ -8,18 +8,17 @@ import { html } from '../../../../mobjs';
  **/
 
 /** @type { MobComponent<MatrioskaItem> } */
-export const MatrioskaItemFn = ({ getState, bindText, id, bindEffect }) => {
-    const { level } = getState();
+export const MatrioskaItemFn = ({ getProxi, bindText, id, bindEffect }) => {
+    const proxi = getProxi();
 
     return html`<matrioska-item
         class="matrioska-item"
         ${bindEffect({
-            bind: 'active',
-            toggleClass: { active: () => getState().active },
+            toggleClass: { active: () => proxi.active },
         })}
     >
         <div class="matrioska-item__info">
-            <h4 class="matrioska-item__level">${level}:</h4>
+            <h4 class="matrioska-item__level">${proxi.level}:</h4>
             <h6 class="matrioska-item__key">
                 ${bindText`key: <span>${'key'}</span>`}
             </h6>

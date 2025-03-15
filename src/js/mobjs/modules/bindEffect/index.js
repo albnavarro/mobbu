@@ -1,4 +1,4 @@
-import { MobCore } from '../../../mobCore';
+import { MobCore, MobDetectBindKey } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
 import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
@@ -6,6 +6,31 @@ import { ATTR_BIND_EFFECT } from '../../constant';
 
 /** @type{import("./type").BindEffectMap} */
 const bindEffectMap = new Map();
+
+/**
+ * @param {string|string[]} bind
+ * @returns {string[]}
+ */
+const getExplicitBind = (bind) => {
+    return /** @type{string[]} */ (
+        MobCore.checkType(Array, bind) ? bind : [bind]
+    );
+};
+
+/**
+ * @param {object} params
+ * @param {Record<string, () => string>} params.toggleStyle
+ * @param {Record<string, () => void>} params.toggleClass
+ * @param {Record<string, () => void>} params.toggleAttribute
+ * @returns {string[]}
+ */
+const getAutoBind = ({ toggleClass, toggleStyle, toggleAttribute }) => {
+    MobDetectBindKey.initializeCurrentDependencies();
+    Object.values(toggleStyle).forEach((fn) => fn());
+    Object.values(toggleClass).forEach((fn) => fn());
+    Object.values(toggleAttribute).forEach((fn) => fn());
+    return MobDetectBindKey.getCurrentDependencies();
+};
 
 /**
  * @description Save bindClass data in temporary map
@@ -18,10 +43,19 @@ export const setBindEffect = ({ data, id }) => {
 
     const dataBindToArray = dataToArray.map(
         ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
+            /**
+             * Detect explicit or auto dependencies.
+             */
+            const bindParsed = bind
+                ? getExplicitBind(bind)
+                : getAutoBind({
+                      toggleStyle: toggleStyle ?? { fake: () => '' },
+                      toggleClass: toggleClass ?? { fake: () => {} },
+                      toggleAttribute: toggleAttribute ?? { fake: () => {} },
+                  });
+
             return {
-                bind: /** @type{string[]} */ (
-                    MobCore.checkType(Array, bind) ? bind : [bind]
-                ),
+                bind: bindParsed,
                 toggleClass: toggleClass ?? {},
                 toggleStyle: toggleStyle ?? {},
                 toggleAttribute: toggleAttribute ?? {},

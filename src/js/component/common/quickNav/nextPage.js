@@ -10,30 +10,30 @@ import arrow from '../../../../svg/scroll_arrow.svg';
 import { html, MobJs } from '../../../mobjs';
 
 /** @type {MobComponent<QuickNav>} */
-export const QuickNavFn = ({ getState, setState, bindEffect }) => {
+export const QuickNavFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
+
     /**
      * Reset.
      */
     MobJs.beforeRouteChange(() => {
-        setState('active', false);
-        setState('nextRoute', '');
-        setState('prevRoute', '');
-        setState('backRoute', '');
-        setState('color', 'white');
+        proxi.active = false;
+        proxi.nextRoute = '';
+        proxi.prevRoute = '';
+        proxi.backRoute = '';
+        proxi.color = 'white';
     });
 
     return html`<div
         class="c-quick-nav-container"
         ${bindEffect([
             {
-                bind: 'active',
-                toggleClass: { active: () => getState().active },
+                toggleClass: { active: () => proxi.active },
             },
             {
-                bind: 'color',
                 toggleClass: {
-                    'fill-white': () => getState().color === 'white',
-                    'fill-black': () => getState().color === 'black',
+                    'fill-white': () => proxi.color === 'white',
+                    'fill-black': () => proxi.color === 'black',
                 },
             },
         ])}
@@ -41,11 +41,10 @@ export const QuickNavFn = ({ getState, setState, bindEffect }) => {
         <a
             class="c-quick-nav c-quick-nav--back"
             ${bindEffect({
-                bind: 'backRoute',
-                toggleClass: { 'is-disable': () => !getState().backRoute },
+                toggleClass: { 'is-disable': () => !proxi.backRoute },
                 toggleAttribute: {
                     href: () => {
-                        const route = getState().backRoute;
+                        const route = proxi.backRoute;
                         return route.length > 0 ? route : null;
                     },
                 },
@@ -55,11 +54,10 @@ export const QuickNavFn = ({ getState, setState, bindEffect }) => {
         <a
             class="c-quick-nav c-quick-nav--prev"
             ${bindEffect({
-                bind: 'prevRoute',
-                toggleClass: { 'is-disable': () => !getState().prevRoute },
+                toggleClass: { 'is-disable': () => !proxi.prevRoute },
                 toggleAttribute: {
                     href: () => {
-                        const route = getState().prevRoute;
+                        const route = proxi.prevRoute;
                         return route.length > 0 ? route : null;
                     },
                 },
@@ -69,11 +67,10 @@ export const QuickNavFn = ({ getState, setState, bindEffect }) => {
         <a
             class="c-quick-nav c-quick-nav--next"
             ${bindEffect({
-                bind: 'nextRoute',
-                toggleClass: { 'is-disable': () => !getState().nextRoute },
+                toggleClass: { 'is-disable': () => !proxi.nextRoute },
                 toggleAttribute: {
                     href: () => {
-                        const route = getState().nextRoute;
+                        const route = proxi.nextRoute;
                         return route && route.length > 0 ? route : null;
                     },
                 },

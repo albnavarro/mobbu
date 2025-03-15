@@ -10,15 +10,14 @@ import { html } from '../../../mobjs';
 /**
  * @type {MobComponent<LinksMobJsButton>}
  */
-export const LinksMobJsButtonFn = ({ getState, bindEffect }) => {
-    const { label, url } = getState();
+export const LinksMobJsButtonFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
 
     return html` <a
-        href="./#${url}"
+        href="./#${proxi.url}"
         ${bindEffect({
-            bind: 'active',
-            toggleClass: { current: () => getState().active },
+            toggleClass: { current: () => proxi.active },
         })}
-        ><span>${label}</span></a
+        ><span>${proxi.label}</span></a
     >`;
 };

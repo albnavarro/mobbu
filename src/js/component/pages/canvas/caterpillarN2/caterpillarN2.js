@@ -36,12 +36,12 @@ function getControls({ buttons }) {
 export const CaterpillarN2Fn = ({
     onMount,
     getState,
-    setState,
     setRef,
     getRef,
     bindEffect,
+    getProxi,
 }) => {
-    const { buttons, rotationDefault } = getState();
+    const proxi = getProxi();
     document.body.style.background = canvasBackground;
 
     onMount(({ element }) => {
@@ -63,7 +63,7 @@ export const CaterpillarN2Fn = ({
         /**
          * Inizalize controls handler.
          */
-        Object.entries(buttons).forEach(([className, value]) => {
+        Object.entries(proxi.buttons).forEach(([className, value]) => {
             const { method } = value;
             const btn = element.querySelector(`.${className}`);
             // @ts-ignore
@@ -80,7 +80,7 @@ export const CaterpillarN2Fn = ({
         });
 
         MobCore.useFrame(() => {
-            setState('isMounted', true);
+            proxi.isMounted = true;
         });
 
         return () => {
@@ -95,19 +95,18 @@ export const CaterpillarN2Fn = ({
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped"
                     ${bindEffect({
-                        bind: 'isMounted',
-                        toggleClass: { active: () => getState().isMounted },
+                        toggleClass: { active: () => proxi.isMounted },
                     })}
                 >
                     <ul class="c-canvas__controls">
-                        ${getControls({ buttons })}
+                        ${getControls({ buttons: proxi.buttons })}
                         <li class="c-canvas__controls__item is-like-button">
                             <label class="c-canvas__controls__label">
                                 deg:
                                 <span
                                     class="js-range-value"
                                     ${setRef('rangeValue')}
-                                    >${rotationDefault}</span
+                                    >${proxi.rotationDefault}</span
                                 >
                             </label>
                             <div class="c-canvas__controls__range">
@@ -115,7 +114,7 @@ export const CaterpillarN2Fn = ({
                                     type="range"
                                     min="0"
                                     max="720"
-                                    value="${rotationDefault}"
+                                    value="${proxi.rotationDefault}"
                                     step="1"
                                     ${setRef('rotationButton')}
                                 />

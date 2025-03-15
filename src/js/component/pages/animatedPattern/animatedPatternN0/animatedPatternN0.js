@@ -14,11 +14,12 @@ import { animatedPatternN0Animation } from './animation/animation';
 export const AnimatedPatternN0Fn = ({
     onMount,
     getState,
-    setState,
     setRef,
     getRef,
     bindEffect,
+    getProxi,
 }) => {
+    const proxi = getProxi();
     document.body.style.background = canvasBackground;
 
     onMount(() => {
@@ -30,7 +31,7 @@ export const AnimatedPatternN0Fn = ({
         });
 
         MobCore.useFrame(() => {
-            setState('isMounted', true);
+            proxi.isMounted = true;
         });
 
         return () => {
@@ -45,8 +46,7 @@ export const AnimatedPatternN0Fn = ({
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
-                        bind: 'isMounted',
-                        toggleClass: { active: () => getState().isMounted },
+                        toggleClass: { active: () => proxi.isMounted },
                     })}
                 >
                     <canvas ${setRef('canvas')}></canvas>

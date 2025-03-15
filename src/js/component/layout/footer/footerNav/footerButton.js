@@ -9,11 +9,11 @@ import { html } from '../../../../mobjs';
 import { navigationStore } from '../../navigation/store/navStore';
 
 /** @type {MobComponent<FooterNavButton>} */
-export const FooterNavButtonFn = ({ getState, setState, bindEffect }) => {
-    const { label, section } = getState();
+export const FooterNavButtonFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
 
     navigationStore.watch('activeNavigationSection', (current) => {
-        setState('active', current === section);
+        proxi.active = current === proxi.section;
     });
 
     return html`
@@ -21,11 +21,10 @@ export const FooterNavButtonFn = ({ getState, setState, bindEffect }) => {
             type="button"
             class="footer-nav__button"
             ${bindEffect({
-                bind: 'active',
-                toggleClass: { current: () => getState().active },
+                toggleClass: { current: () => proxi.active },
             })}
         >
-            ${label}
+            ${proxi.label}
         </button>
     `;
 };

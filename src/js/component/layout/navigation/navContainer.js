@@ -74,8 +74,10 @@ export const NavigationContainerFn = ({
     setState,
     delegateEvents,
     bindEffect,
-    getState,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     onMount(({ element }) => {
         const main = /** @type{HTMLElement} */ (
             document.querySelector('main.main')
@@ -110,8 +112,7 @@ export const NavigationContainerFn = ({
         <div
             class="l-navcontainer"
             ${bindEffect({
-                bind: 'isOpen',
-                toggleClass: { active: () => getState().isOpen },
+                toggleClass: { active: () => proxi.isOpen },
             })}
         >
             <div class="l-navcontainer__side">

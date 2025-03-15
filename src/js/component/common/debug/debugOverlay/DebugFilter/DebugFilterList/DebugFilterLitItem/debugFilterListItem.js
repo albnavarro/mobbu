@@ -9,23 +9,22 @@ import { debugActiveComponentStore } from '../../../Store/DebugActiveComponent';
 
 /** @type{MobComponent<import('./type').DebugFilterListItem>} */
 export const DebugFilterListItemFn = ({
-    getState,
-    setState,
     delegateEvents,
     bindText,
     onMount,
     bindEffect,
+    getProxi,
 }) => {
-    const { id, name } = getState();
+    const proxi = getProxi();
 
     onMount(() => {
         const { currentId } = debugActiveComponentStore.get();
-        setState('active', currentId === id);
+        proxi.active = currentId === proxi.id;
 
         const unsubscribeActiveItem = debugActiveComponentStore.watch(
             'currentId',
             (value) => {
-                setState('active', value === id);
+                proxi.active = value === proxi.id;
             }
         );
 
@@ -36,12 +35,12 @@ export const DebugFilterListItemFn = ({
 
     return html`
         <div class="c-debug-filter-list-item">
-            <span class="c-debug-filter-list-item__id">${id}</span> |
+            <span class="c-debug-filter-list-item__id">${proxi.id}</span> |
             <span class="c-debug-filter-list-item__tag"
                 >${bindText`${'tag'}`}</span
             >
             |
-            <span class="c-debug-filter-list-item__name">${name}</span>
+            <span class="c-debug-filter-list-item__name">${proxi.name}</span>
             <button
                 type="button"
                 class="c-debug-filter-list-item__expand"
@@ -50,7 +49,7 @@ export const DebugFilterListItemFn = ({
                         /** @type{UseMethodByName<import('../../../DebugComponent/type').DebugComponent>} */
                         const methods =
                             MobJs.useMethodByName('debug_component');
-                        methods?.updateId(id);
+                        methods?.updateId(proxi.id);
                     },
                 })}
             >
@@ -59,8 +58,7 @@ export const DebugFilterListItemFn = ({
             <span
                 class="c-debug-tree-item__selected"
                 ${bindEffect({
-                    bind: 'active',
-                    toggleClass: { active: () => getState().active },
+                    toggleClass: { active: () => proxi.active },
                 })}
             ></span>
         </div>

@@ -4,24 +4,22 @@ import { html } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /** @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationLabel>} */
-export const NavigationLabelFn = ({ getState, bindStore, bindEffect }) => {
+export const NavigationLabelFn = ({ bindStore, bindEffect, getProxi }) => {
     bindStore(navigationStore);
-    const { label, sectioName } = getState();
+    const proxi = getProxi();
 
     return html`
         <div
             class="l-navigation__label"
-            data-sectionname="${sectioName}"
+            data-sectionname="${proxi.sectioName}"
             ${bindEffect({
-                bind: 'activeNavigationSection',
                 toggleClass: {
                     active: () =>
-                        getState().sectioName ===
-                        getState().activeNavigationSection,
+                        proxi.sectioName === proxi.activeNavigationSection,
                 },
             })}
         >
-            ${label}
+            ${proxi.label}
         </div>
     `;
 };

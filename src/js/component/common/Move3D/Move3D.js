@@ -357,14 +357,12 @@ export const Move3Dfn = ({
     return html`<div
         class="c-move-3d"
         ${bindEffect({
-            bind: 'drag',
             toggleClass: { 'move3D--drag': () => proxiState.drag },
         })}
     >
         <div
             class="c-move-3d__scene"
             ${bindEffect({
-                bind: 'perspective',
                 toggleStyle: {
                     perspective: () => `${proxiState.perspective}px`,
                 },

@@ -54,11 +54,12 @@ export const DebugTreeItemFn = ({
     getRef,
     setRef,
     delegateEvents,
-    updateState,
     watch,
     bindEffect,
     setState,
+    getProxi,
 }) => {
+    const proxi = getProxi();
     const { id, componentName, instanceName, children } = getState();
     const hasChildrenClass = children.length > 0 ? 'has-children' : '';
 
@@ -98,19 +99,16 @@ export const DebugTreeItemFn = ({
             class="c-debug-tree-item__head ${hasChildrenClass}"
             ${delegateEvents({
                 click: () => {
-                    updateState('isOpen', (value) => !value);
+                    proxi.isOpen = !proxi.isOpen;
                 },
             })}
             ${bindEffect([
                 {
-                    bind: 'isOpen',
-                    toggleClass: { open: () => getState().isOpen },
+                    toggleClass: { open: () => proxi.isOpen },
                 },
                 {
-                    bind: 'hasActiveChildren',
                     toggleClass: {
-                        'has-children-selected': () =>
-                            getState().hasActiveChildren,
+                        'has-children-selected': () => proxi.hasActiveChildren,
                     },
                 },
             ])}
@@ -136,8 +134,7 @@ export const DebugTreeItemFn = ({
             <span
                 class="c-debug-tree-item__selected"
                 ${bindEffect({
-                    bind: 'isActive',
-                    toggleClass: { active: () => getState().isActive },
+                    toggleClass: { active: () => proxi.isActive },
                 })}
             ></span>
         </div>

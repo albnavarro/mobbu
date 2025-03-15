@@ -163,10 +163,9 @@ export const LinksMobJsFn = ({
         class="c-params-mobjs"
         ${setRef('screenEl')}
         ${bindEffect({
-            bind: ['hide', 'shift'],
             toggleClass: {
-                hide: () => getState().hide,
-                shift: () => getState().shift,
+                hide: () => proxi.hide,
+                shift: () => proxi.shift,
             },
         })}
     >

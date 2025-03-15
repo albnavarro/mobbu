@@ -22,7 +22,10 @@ export const ScrollerN1Fn = ({
     setRef,
     getRef,
     bindEffect,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     document.body.style.background = canvasBackground;
 
     onMount(() => {
@@ -60,8 +63,7 @@ export const ScrollerN1Fn = ({
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped"
                     ${bindEffect({
-                        bind: 'isMounted',
-                        toggleClass: { active: () => getState().isMounted },
+                        toggleClass: { active: () => proxi.isMounted },
                     })}
                 >
                     <canvas ${setRef('canvas')}></canvas>

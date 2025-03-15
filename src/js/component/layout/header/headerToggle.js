@@ -8,14 +8,11 @@ import { html } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 /** @type {MobComponent<import('./type').HeaderToggle>} */
-export const HeaderToggleFn = ({
-    delegateEvents,
-    setState,
-    getState,
-    bindEffect,
-}) => {
-    navigationStore.watch('navigationIsOpen', (val) => {
-        setState('isOpen', val);
+export const HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {
+    const proxi = getProxi();
+
+    navigationStore.watch('navigationIsOpen', (value) => {
+        proxi.isOpen = value;
     });
 
     return html`
@@ -31,9 +28,8 @@ export const HeaderToggleFn = ({
                 },
             })}
             ${bindEffect({
-                bind: 'isOpen',
                 toggleClass: {
-                    'is-open': () => getState().isOpen,
+                    'is-open': () => proxi.isOpen,
                 },
             })}
         >

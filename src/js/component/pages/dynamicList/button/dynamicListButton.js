@@ -3,8 +3,8 @@
 import { html } from '../../../../mobjs';
 
 /** @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListButton>} */
-export const DynamicListButtonFn = ({ getState, bindEffect }) => {
-    const { label } = getState();
+export const DynamicListButtonFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
 
     return html`
         <button
@@ -12,10 +12,10 @@ export const DynamicListButtonFn = ({ getState, bindEffect }) => {
             class="c-dynamic-list-button"
             ${bindEffect({
                 bind: 'active',
-                toggleClass: { active: () => getState().active },
+                toggleClass: { active: () => proxi.active },
             })}
         >
-            ${label}
+            ${proxi.label}
         </button>
     `;
 };

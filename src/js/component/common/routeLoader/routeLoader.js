@@ -48,7 +48,6 @@ export const RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
         <div
             class="c-loader center-viewport"
             ${bindEffect({
-                bind: 'isDisable',
                 toggleClass: { disable: () => proxi.isDisable },
             })}
         >

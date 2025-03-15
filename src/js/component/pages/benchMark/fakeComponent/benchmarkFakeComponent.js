@@ -24,7 +24,6 @@ export const BenchMarkFakeComponentFn = ({
     return html`<div
         class="benchmark-fake"
         ${bindEffect({
-            bind: 'isSelected',
             toggleClass: { selected: () => proxiState.isSelected },
         })}
     >

@@ -42,14 +42,16 @@ const initScroller = async ({ getRef }) => {
 export const DebugTreeFn = ({
     onMount,
     setState,
-    getState,
     invalidate,
     staticProps,
     setRef,
     getRef,
     addMethod,
     bindEffect,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+    //
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};
     // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -131,8 +133,7 @@ export const DebugTreeFn = ({
                 <span
                     class="c-debug-tree__status"
                     ${bindEffect({
-                        bind: 'isLoading',
-                        toggleClass: { visible: () => getState().isLoading },
+                        toggleClass: { visible: () => proxi.isLoading },
                     })}
                     >Generate tree</span
                 >
@@ -140,10 +141,8 @@ export const DebugTreeFn = ({
                     ${invalidate({
                         bind: 'data',
                         render: () => {
-                            const { data } = getState();
-
                             return generateTreeComponents({
-                                data,
+                                data: proxi.data,
                                 staticProps,
                             });
                         },

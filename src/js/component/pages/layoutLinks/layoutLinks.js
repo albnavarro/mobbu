@@ -12,14 +12,13 @@ const getCounter = (index) => (index < 10 ? `0${index}` : `${index}`);
 
 /** @type {MobComponent<import('./type').LayoutLinks>} */
 export const LayoutLinksFn = ({
-    getState,
-    setState,
     setRef,
     getRef,
     onMount,
     bindEffect,
+    getProxi,
 }) => {
-    const { title, items } = getState();
+    const proxi = getProxi();
 
     onMount(() => {
         const { screenElement, scrollerElement } = getRef();
@@ -27,7 +26,7 @@ export const LayoutLinksFn = ({
             screenElement,
             scrollerElement,
             hideControls: (value) => {
-                setState('showControls', value);
+                proxi.showControls = value;
             },
         });
 
@@ -35,7 +34,7 @@ export const LayoutLinksFn = ({
          * Stagger start later, so show path in background later.
          */
         setTimeout(() => {
-            setState('isMounted', true);
+            proxi.isMounted = true;
         }, 500);
 
         return () => {
@@ -47,34 +46,32 @@ export const LayoutLinksFn = ({
         <div
             class="l-links__under is-white"
             ${bindEffect({
-                bind: 'isMounted',
                 toggleClass: {
-                    'is-visible': () => getState().isMounted,
+                    'is-visible': () => proxi.isMounted,
                 },
             })}
         >
-            ${title}
+            ${proxi.title}
         </div>
         <div class="l-links__grid">
             <div class="l-links__row l-links__row" ${setRef('screenElement')}>
                 <div class="l-links__row__white">
-                    <h6 class="l-links__over is-black">${title}</h6>
+                    <h6 class="l-links__over is-black">${proxi.title}</h6>
                 </div>
                 <div class="l-links__title">
-                    <h1 class="title-big">${title}</h1>
+                    <h1 class="title-big">${proxi.title}</h1>
                 </div>
                 <div
                     class="l-links__scroller"
                     ${setRef('scrollerElement')}
                     ${bindEffect({
-                        bind: 'showControls',
                         toggleClass: {
-                            'use-drag-cursor': () => getState().showControls,
+                            'use-drag-cursor': () => proxi.showControls,
                         },
                     })}
                 >
                     <ul class="l-links__list">
-                        ${items
+                        ${proxi.items
                             .map((item, index) => {
                                 return /* HTML */ `
                                     <li class="l-links__list__item">
@@ -97,9 +94,8 @@ export const LayoutLinksFn = ({
             <h6
                 class="l-links__scroll"
                 ${bindEffect({
-                    bind: 'showControls',
                     toggleClass: {
-                        active: () => getState().showControls,
+                        active: () => proxi.showControls,
                     },
                 })}
             >

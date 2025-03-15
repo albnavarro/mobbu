@@ -133,18 +133,16 @@ const block04 = ({ setRef, getState }) => {
 
 /**
  * @param {object} params
- * @param {GetState<import('./type').About>} params.getState
+ * @param {import('./type').About['state']} params.proxi
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindEffect<import('./type').About>} params.bindEffect
  */
-const navigation = ({ getState, delegateEvents, bindEffect }) => {
-    const { navItem } = getState();
-
+const navigation = ({ proxi, delegateEvents, bindEffect }) => {
     return html`
         <ul class="l-about__nav">
-            ${navItem
+            ${proxi.navItem
                 .map(({ index }) => {
-                    return /* HTML */ `
+                    return html`
                         <li class="l-about__nav__item">
                             <button
                                 class="l-about__nav__button"
@@ -157,11 +155,9 @@ const navigation = ({ getState, delegateEvents, bindEffect }) => {
                                 <span
                                     class="l-about__nav__dot"
                                     ${bindEffect({
-                                        bind: 'activenavItem',
                                         toggleClass: {
                                             active: () =>
-                                                getState().activenavItem ===
-                                                index,
+                                                proxi.activenavItem === index,
                                         },
                                     })}
                                 ></span>
@@ -181,12 +177,11 @@ export const AboutComponentFn = ({
     getRef,
     getRefs,
     getState,
-    setState,
-    updateState,
     bindEffect,
     delegateEvents,
+    getProxi,
 }) => {
-    const { block_1 } = getState();
+    const proxi = getProxi();
     const numberOfSection = 3;
 
     onMount(() => {
@@ -217,7 +212,7 @@ export const AboutComponentFn = ({
             section3_copy,
             inspirationItem,
             setActiveItem: (value) => {
-                setState('activenavItem', value);
+                proxi.activenavItem = value;
             },
         });
 
@@ -230,7 +225,7 @@ export const AboutComponentFn = ({
          * Stagger start later, so show path in background later.
          */
         setTimeout(() => {
-            setState('isMounted', true);
+            proxi.isMounted = true;
         }, 500);
 
         return () => {
@@ -247,24 +242,22 @@ export const AboutComponentFn = ({
         <div
             class="l-about__back-title is-white"
             ${bindEffect({
-                bind: 'isMounted',
                 toggleClass: {
-                    'is-visible': () => getState().isMounted,
+                    'is-visible': () => proxi.isMounted,
                 },
             })}
         >
-            ${block_1.titleTop}
+            ${proxi.block_1.titleTop}
         </div>
         <span class="l-about__background">
-            <div class="l-about__top-title">${block_1.titleTop}</div>
+            <div class="l-about__top-title">${proxi.block_1.titleTop}</div>
         </span>
         <div
             class="l-about__shape l-about__shape--back"
             ${setRef('pathElement')}
             ${bindEffect({
-                bind: 'isMounted',
                 toggleClass: {
-                    'is-visible': () => getState().isMounted,
+                    'is-visible': () => proxi.isMounted,
                 },
             })}
         ></div>
@@ -272,9 +265,8 @@ export const AboutComponentFn = ({
             class="l-about__shape l-about__shape--back"
             ${setRef('pathElement')}
             ${bindEffect({
-                bind: 'isMounted',
                 toggleClass: {
-                    'is-visible': () => getState().isMounted,
+                    'is-visible': () => proxi.isMounted,
                 },
             })}
         ></div>
@@ -282,9 +274,8 @@ export const AboutComponentFn = ({
             class="l-about__shape"
             ${setRef('pathElement')}
             ${bindEffect({
-                bind: 'isMounted',
                 toggleClass: {
-                    'is-visible': () => getState().isMounted,
+                    'is-visible': () => proxi.isMounted,
                 },
             })}
         ></div>
@@ -292,15 +283,14 @@ export const AboutComponentFn = ({
             type="button"
             class="l-about__arrow l-about__arrow--prev"
             ${bindEffect({
-                bind: 'activenavItem',
                 toggleClass: {
-                    active: () => getState().activenavItem > 1,
+                    active: () => proxi.activenavItem > 1,
                 },
             })}
             ${delegateEvents({
                 click: () => {
-                    updateState('activenavItem', (value) => value - 1);
-                    _goTo(goToPercentage[getState().activenavItem]);
+                    proxi.activenavItem -= 1;
+                    _goTo(goToPercentage[proxi.activenavItem]);
                 },
             })}
         >
@@ -310,15 +300,14 @@ export const AboutComponentFn = ({
             type="button"
             class="l-about__arrow l-about__arrow--next"
             ${bindEffect({
-                bind: 'activenavItem',
                 toggleClass: {
-                    active: () => getState().activenavItem < 4,
+                    active: () => proxi.activenavItem < 4,
                 },
             })}
             ${delegateEvents({
                 click: () => {
-                    updateState('activenavItem', (value) => value + 1);
-                    _goTo(goToPercentage[getState().activenavItem]);
+                    proxi.activenavItem += 1;
+                    _goTo(goToPercentage[proxi.activenavItem]);
                 },
             })}
         >
@@ -335,6 +324,6 @@ export const AboutComponentFn = ({
                 ${block04({ setRef, getState })}
             </div>
         </div>
-        ${navigation({ bindEffect, delegateEvents, getState })}
+        ${navigation({ bindEffect, delegateEvents, proxi })}
     </div>`;
 };

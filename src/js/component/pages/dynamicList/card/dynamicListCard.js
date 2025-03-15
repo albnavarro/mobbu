@@ -63,7 +63,6 @@ export const DynamicListCardFn = ({
     getProxi,
 }) => {
     const proxi = getProxi();
-
     let repeaterIndex = 0;
 
     onMount(async () => {
@@ -80,20 +79,12 @@ export const DynamicListCardFn = ({
     return html`
         <div
             class="c-dynamic-card ${isFullClass}"
-            ${bindEffect([
-                {
-                    bind: 'isSelected',
-                    toggleClass: {
-                        'is-selected': () => proxi.isSelected,
-                    },
+            ${bindEffect({
+                toggleClass: {
+                    active: () => proxi.isMounted,
+                    'is-selected': () => proxi.isSelected,
                 },
-                {
-                    bind: 'isMounted',
-                    toggleClass: {
-                        active: () => proxi.isMounted,
-                    },
-                },
-            ])}
+            })}
         >
             <div class="c-dynamic-card__container">
                 <p class="c-dynamic-card__title">card content</p>

@@ -26,7 +26,6 @@ export const DebugOverlayFn = ({
     return html`<div
         class="c-debug-overlay"
         ${bindEffect({
-            bind: 'active',
             toggleClass: { active: () => proxi.active },
         })}
     >
@@ -79,7 +78,7 @@ export const DebugOverlayFn = ({
                         ${invalidate({
                             bind: ['listType', 'active'],
                             persistent: true,
-                            render: ({ html }) => {
+                            render: () => {
                                 if (
                                     proxi.listType === DEBUG_USE_TREE &&
                                     proxi.active
@@ -113,7 +112,6 @@ export const DebugOverlayFn = ({
                                 },
                             })}
                             ${bindEffect({
-                                bind: 'listType',
                                 toggleClass: {
                                     active: () =>
                                         proxi.listType === DEBUG_USE_TREE,
@@ -131,7 +129,6 @@ export const DebugOverlayFn = ({
                                 },
                             })}
                             ${bindEffect({
-                                bind: 'listType',
                                 toggleClass: {
                                     active: () =>
                                         proxi.listType ===
@@ -147,7 +144,7 @@ export const DebugOverlayFn = ({
                     ${invalidate({
                         bind: ['listType', 'active'],
                         persistent: true,
-                        render: ({ html }) => {
+                        render: () => {
                             if (
                                 proxi.listType === DEBUG_USE_TREE &&
                                 proxi.active

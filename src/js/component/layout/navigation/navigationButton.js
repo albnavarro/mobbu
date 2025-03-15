@@ -86,7 +86,6 @@ export const NavigationButtonFn = ({
                 },
             })}
             ${bindEffect({
-                bind: ['isOpen', 'isCurrent'],
                 toggleClass: {
                     active: () => proxi.isOpen,
                     current: () => proxi.isCurrent,

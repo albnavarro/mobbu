@@ -99,7 +99,10 @@ export const DebugFilterListFn = ({
     getState,
     watch,
     bindEffect,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};
     // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -188,16 +191,14 @@ export const DebugFilterListFn = ({
                 <span
                     class="c-debug-filter-list__status"
                     ${bindEffect({
-                        bind: 'isLoading',
-                        toggleClass: { visible: () => getState().isLoading },
+                        toggleClass: { visible: () => proxi.isLoading },
                     })}
                     >Generate list</span
                 >
                 <span
                     class="c-debug-filter-list__status"
                     ${bindEffect({
-                        bind: 'noResult',
-                        toggleClass: { visible: () => getState().noResult },
+                        toggleClass: { visible: () => proxi.noResult },
                     })}
                     >no result</span
                 >

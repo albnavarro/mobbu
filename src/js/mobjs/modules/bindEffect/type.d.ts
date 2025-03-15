@@ -2,7 +2,7 @@ import { OnlyStringKey } from '../../../mobCore/store/type';
 import { ExtractState } from '../../tsUtils/mobComponentProps';
 
 export interface BindEffectObject<T> {
-    bind: OnlyStringKey<ExtractState<T>>[] | OnlyStringKey<ExtractState<T>>;
+    bind?: OnlyStringKey<ExtractState<T>>[] | OnlyStringKey<ExtractState<T>>;
     toggleClass?: Record<string, () => boolean>;
     toggleStyle?: Record<string, () => string>;
     toggleAttribute?: Record<string, () => string | null | undefined>;
