@@ -1,12 +1,5 @@
 # MobCore
 
-
-## Computed auto.
-#### Related:
-- Riportare la logica sulle altre `funzioni` che hanno dipendenze esplicite come `bindEffect` & `bindProps` & `bindObject`
-- Per queste ultime bisogna aggiungere il meccanismo anche al `get` del `proxi-repeater`. OK
-- Nel `proxi-repeater` lo stato da tracciare é `bind`. OK
-
 #### Invalidate:
 - E' rimsto il resufo di `html`: eliminare.
 
