@@ -1,6 +1,6 @@
 // @ts-check
 
-import { MobCore } from '../../../mobCore';
+import { MobCore, MobDetectBindKey } from '../../../mobCore';
 import { getChildrenIdByName } from '../../component/action/children';
 import { setRepeatFunction } from '../../modules/repeater/action/setRepeatFunction';
 import { setRepeaterPlaceholderMapScopeId } from '../../modules/repeater/action/setRepeaterPlaceholderMapScopeId';
@@ -196,7 +196,19 @@ export const getParamsForComponentFunction = ({
             return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
         },
         bindObject: (strings, ...values) => {
-            const keys = values.map((item) => item?.bind ?? '');
+            /**
+             * Get explicit keys or auto ( with proxies ).
+             */
+            const keys = values.map(
+                (item) =>
+                    item?.bind ??
+                    (() => {
+                        MobDetectBindKey.initializeCurrentDependencies();
+                        item?.value();
+                        return MobDetectBindKey.getFirstCurrentDependencies();
+                    })()
+            );
+
             const bindObjectId = MobCore.getUnivoqueId();
             const render = () => renderBindObject(strings, ...values);
             createBindObjectWatcher(id, bindObjectId, keys, render);

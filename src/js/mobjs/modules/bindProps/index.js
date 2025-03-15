@@ -1,6 +1,6 @@
 // @ts-check
 
-import { MobCore } from '../../../mobCore';
+import { MobCore, MobDetectBindKey } from '../../../mobCore';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch } from '../../component/action/props';
@@ -18,10 +18,6 @@ import {
 import { getElementById } from '../../component/action/element';
 import { removeAndDestroyById } from '../../component/action/removeAndDestroy/removeAndDestroyById';
 import { bindPropsMap } from './bindPropsMap';
-import {
-    getCurrentDependencies,
-    initializeCurrentDependencies,
-} from '../../../mobCore/store/currentKey';
 
 /**
  * @param {{bind?:string[],parentId:string|undefined,props:(arg0: any,value:Record<string, any>, index: number) => Partial<any>, forceParent? :boolean}} data
@@ -60,9 +56,9 @@ export const setBindProps = (data) => {
         data?.bind && data?.bind?.length > 0
             ? data.bind
             : (() => {
-                  initializeCurrentDependencies();
+                  MobDetectBindKey.initializeCurrentDependencies();
                   data?.props({}, {}, 0);
-                  return getCurrentDependencies();
+                  return MobDetectBindKey.getCurrentDependencies();
               })();
 
     const dataUpdated = { ...data, bind: bindDetected };

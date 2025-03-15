@@ -23,6 +23,19 @@ export const getCurrentDependencies = () => {
 };
 
 /**
+ * @description
+ * Return a copy of items.
+ * Avoid side effect.
+ *
+ * @returns{string}
+ */
+export const getFirstCurrentDependencies = () => {
+    active = false;
+    const copy = [...current_computed_keys];
+    return copy?.[0] ?? '';
+};
+
+/**
  * @param {string} key
  * @returns{void}
  */
