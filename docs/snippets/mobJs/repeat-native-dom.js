@@ -12,7 +12,6 @@ export const MyComponent = ({ repeat, bindObject }) => {
                     return html` <div class="item">
                         <div>
                             ${bindObject`${{
-                                bind: 'data',
                                 value: () => current.value.label,
                             }}`}
                         </div>
