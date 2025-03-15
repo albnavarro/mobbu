@@ -67,7 +67,6 @@ export const setBindProps = (data) => {
      * @type {string}
      */
     const id = MobCore.getUnivoqueId();
-    // @ts-ignore
     bindPropsMap.set(id, {
         ...dataUpdated,
         componentId: '',
