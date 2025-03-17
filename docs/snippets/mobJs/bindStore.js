@@ -19,9 +19,7 @@ export const MyComponent = ({
 
     return html`
         <div>
-            ${bindObject`route: ${{
-                value: () => proxiState.beforeRouteChange.route,
-            }}.`}
+            ${bindObject`route: ${() => proxiState.beforeRouteChange.route}.`}
         </div>
         <div>
             ${invalidate({
