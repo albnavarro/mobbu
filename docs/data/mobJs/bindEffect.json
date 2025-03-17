@@ -88,7 +88,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Auto detect dependencies ( using proxi )"
+            "content": "With proxi ( auto detect dependencies )"
         },
         {
             "component": "mob-snippet",

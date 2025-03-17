@@ -750,7 +750,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Auto detect dependencies:"
+            "content": "With proxi ( auto detect dependencies )"
         },
         {
             "component": "mob-paragraph",

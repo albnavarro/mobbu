@@ -11,9 +11,7 @@ export const MyComponent = ({ bindObject, repeat }) => {
                 render: ({ current }) => {
                     return html`<div class="item">
                         <div class="item__inner">
-                            ${bindObject`value: ${{
-                                value: () => current.value.label,
-                            }}.`}
+                            ${bindObject`value: ${() => current.value.label}.`}
                         </div>
                     </div>`;
                 },

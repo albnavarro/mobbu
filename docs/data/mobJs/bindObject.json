@@ -99,7 +99,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Auto detect dependencies"
+            "content": "With proxi ( auto detect dependencies )"
         },
         {
             "component": "mob-snippet",
@@ -108,7 +108,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 23
+                "numLines": 21
             }
         },
         {

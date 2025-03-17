@@ -60,7 +60,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
                 render: ({ current }) => {
                     return html`<div class="benchmark__static-item">
                         <div class="benchmark__static-item__inner">
-                            ${bindObject`label: ${{ value: () => current.value.label }}`}
+                            ${bindObject`label: ${() => current.value.label}`}
                         </div>
                         <div>
                             ${repeat({

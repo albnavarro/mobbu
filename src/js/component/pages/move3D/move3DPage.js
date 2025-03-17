@@ -29,9 +29,7 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     })}
                 />
             </div>
-            <div>
-                ${bindObject`factor: ${{ value: () => proxiState.factor }}`}
-            </div>
+            <div>${bindObject`factor: ${() => proxiState.factor}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
@@ -48,9 +46,7 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     })}
                 />
             </div>
-            <div>
-                ${bindObject`xDepth: ${{ bind: 'xDepth', value: () => proxiState.xDepth }}`}
-            </div>
+            <div>${bindObject`xDepth: ${() => proxiState.xDepth}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
@@ -68,9 +64,7 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     })}
                 />
             </div>
-            <div>
-                ${bindObject`xLimit: ${{ value: () => proxiState.xLimit }}`}
-            </div>
+            <div>${bindObject`xLimit: ${() => proxiState.xLimit}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
@@ -87,9 +81,7 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     })}
                 />
             </div>
-            <div>
-                ${bindObject`yDepth: ${{ value: () => proxiState.yDepth }}`}
-            </div>
+            <div>${bindObject`yDepth: ${() => proxiState.yDepth}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
@@ -107,9 +99,7 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     })}
                 />
             </div>
-            <div>
-                ${bindObject`yLimit: ${{ value: () => proxiState.yLimit }}`}
-            </div>
+            <div>${bindObject`yLimit: ${() => proxiState.yLimit}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <button

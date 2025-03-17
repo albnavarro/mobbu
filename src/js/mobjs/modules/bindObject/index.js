@@ -1,4 +1,4 @@
-import { MobCore } from '../../../mobCore';
+import { MobCore, MobDetectBindKey } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
 import { getStateById } from '../../component/action/state/getStateById';
 import { watchById } from '../../component/action/watch';
@@ -28,16 +28,45 @@ export const addBindObjectPlaceHolderMap = ({
 };
 
 /**
+ * @param {any} values
+ * @returns {string[]}
+ */
+export const getBindObjectKeys = (values) => {
+    return values.map(
+        (
+            /** @type {{ bind?: string; value: () => void; }|(() => void)} */ item
+        ) => {
+            /**
+             * Get explicit keys or auto ( with proxies ).
+             * Bind should be a string not native bind methods of function
+             */
+            return 'bind' in item && MobCore.checkType(String, item.bind)
+                ? item.bind
+                : (() => {
+                      MobDetectBindKey.initializeCurrentDependencies();
+                      if ('value' in item) {
+                          item?.value();
+                      } else {
+                          /** @type{() => void} */ (item)();
+                      }
+
+                      return MobDetectBindKey.getFirstCurrentDependencies();
+                  })();
+        }
+    );
+};
+
+/**
  * @param {TemplateStringsArray} strings
  * @param {any[]} values
  * @returns { string }
  */
 export const renderBindObject = (strings, ...values) => {
-    return strings.raw.reduce(
-        (accumulator, currentText, i) =>
-            accumulator + currentText + (values?.[i]?.value?.() ?? ''),
-        ''
-    );
+    return strings.raw.reduce((accumulator, currentText, i) => {
+        return values?.[i] && 'value' in values[i]
+            ? accumulator + currentText + (values?.[i]?.value?.() ?? '')
+            : accumulator + currentText + (values?.[i]?.() ?? '');
+    }, '');
 };
 
 /**
