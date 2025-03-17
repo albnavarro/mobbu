@@ -9,6 +9,12 @@
 
 # MobJs
 
+## bind
+- La chiave 'bind', puó entrare in conflitto con `bind` function nativa.
+- In `bindObject` é stato fatto un controllo che bind sia una `stringa` e non una `funzione` ( myfunction.bind() )
+- Sarebbe da cambiare un' altra key piú idonea.
+- Quensto si riflette su `repeat` `invalidate` etc..
+
 ## bindProp
 - Sarebbe interessante capire come ( piú che altro a livello di `TS`) avere un funzione in modalitá auto come:
 - senza dover tornare l' oggetto con `prop: () => ...`
@@ -19,9 +25,6 @@ ${bindProp(() => ({
     prop2: proxi.prop2
 }))}
 ```
-
-## bindObject
-- Discorso uguale a `bindProps`, si potrebbe usare solo la funzione diretta senza `value:`
 
 ## Page transition.
 - Possibilitá di sovrascrivere le due funzioni per rotta.
