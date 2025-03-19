@@ -44,7 +44,6 @@ export const MyComponent = ({
             <my-child-component
                 ${bindProps({
                     bind: ['label', 'counter'],
-                    forceParent: false, // optional
                     props: ({ label, counter }) => {
                         return {
                             childProp3: label,

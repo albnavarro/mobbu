@@ -6,6 +6,7 @@
  * @import { DynamicListCardInner } from './innerCard/type';
  * @import { DynamicListCard } from './type';
  * @import { DynamicCounter } from '../counter/type';
+ * @import { DynamicListButton } from '../button/type';
  **/
 
 import { html, MobJs } from '../../../../mobjs';
@@ -95,13 +96,12 @@ export const DynamicListCardFn = ({
                             proxi.isSelected = !proxi.isSelected;
                         },
                     })}
-                    ${bindProps({
-                        props: () => {
-                            return {
-                                active: proxi.isSelected,
-                            };
-                        },
-                    })}
+                    ${bindProps(
+                        /** @returns{ReturnBindProps<DynamicListButton>} */
+                        () => ({
+                            active: proxi.isSelected,
+                        })
+                    )}
                 >
                     Select
                 </dynamic-list-button>
@@ -118,12 +118,12 @@ export const DynamicListCardFn = ({
                         ${staticProps({
                             parentListId: proxi.parentListId,
                         })}
-                        ${bindProps({
+                        ${bindProps(
                             /** @return {ReturnBindProps<DynamicCounter>} */
-                            props: () => {
-                                return { counter: proxi.counter };
-                            },
-                        })}
+                            () => ({
+                                counter: proxi.counter,
+                            })
+                        )}
                     />
                 </dynamic-list-empty>
 
@@ -153,14 +153,12 @@ export const DynamicListCardFn = ({
                             key: 'key',
                             render: ({ current }) => {
                                 return html`<dynamic-list-card-inner
-                                    ${bindProps({
+                                    ${bindProps(
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */
-                                        props: () => {
-                                            return {
-                                                key: `${current.value.key}`,
-                                            };
-                                        },
-                                    })}
+                                        () => ({
+                                            key: `${current.value.key}`,
+                                        })
+                                    )}
                                 ></dynamic-list-card-inner>`;
                             },
                         })}
@@ -172,14 +170,12 @@ export const DynamicListCardFn = ({
                             bind: 'innerData',
                             render: ({ current }) => {
                                 return html`<dynamic-list-card-inner
-                                    ${bindProps({
+                                    ${bindProps(
                                         /** @return {ReturnBindProps<DynamicListCardInner>} */
-                                        props: () => {
-                                            return {
-                                                key: `${current.value.key}`,
-                                            };
-                                        },
-                                    })}
+                                        () => ({
+                                            key: `${current.value.key}`,
+                                        })
+                                    )}
                                 ></dynamic-list-card-inner>`;
                             },
                         })}

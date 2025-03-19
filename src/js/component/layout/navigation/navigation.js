@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../mobjs/type';
  * @import { StaticProps, BindProps } from '../../../mobjs/type';
  * @import { Navigation, NavigationSubmenu } from './type';
  **/
@@ -52,14 +52,12 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                               callback: () =>
                                   (proxi.currentAccordionId = index),
                           })}
-                          ${bindProps({
-                              props: () => {
-                                  return {
-                                      isOpen:
-                                          proxi.currentAccordionId === index,
-                                  };
-                              },
-                          })}
+                          ${bindProps(
+                              /** @returns{ReturnBindProps<NavigationSubmenu>} */
+                              () => ({
+                                  isOpen: proxi.currentAccordionId === index,
+                              })
+                          )}
                       >
                       </mob-navigation-submenu>
                   `

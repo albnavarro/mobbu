@@ -129,36 +129,32 @@ export const Move3DPagefn = ({
     return html`<div>
         ${getControls({ delegateEvents, bindObject, proxiState })}
         <move-3d
-            ${bindProps({
+            ${bindProps(
                 /** @returns{ReturnBindProps<import('../../common/Move3D/type').Move3D>} */
-                props: () => {
-                    return {
-                        shape: proxiState.data,
-                        xDepth: proxiState.xDepth,
-                        yDepth: proxiState.yDepth,
-                        xLimit: proxiState.xLimit,
-                        yLimit: proxiState.yLimit,
-                        factor: proxiState.factor,
-                        debug: proxiState.debug,
-                    };
-                },
-            })}
+                () => ({
+                    shape: proxiState.data,
+                    xDepth: proxiState.xDepth,
+                    yDepth: proxiState.yDepth,
+                    xLimit: proxiState.xLimit,
+                    yLimit: proxiState.yLimit,
+                    factor: proxiState.factor,
+                    debug: proxiState.debug,
+                })
+            )}
         ></move-3d>
         <move-3d
-            ${bindProps({
+            ${bindProps(
                 /** @returns{ReturnBindProps<import('../../common/Move3D/type').Move3D>} */
-                props: () => {
-                    return {
-                        shape: proxiState.data,
-                        xDepth: proxiState.xDepth,
-                        yDepth: proxiState.yDepth,
-                        xLimit: proxiState.xLimit,
-                        yLimit: proxiState.yLimit,
-                        factor: proxiState.factor,
-                        debug: proxiState.debug,
-                    };
-                },
-            })}
+                () => ({
+                    shape: proxiState.data,
+                    xDepth: proxiState.xDepth,
+                    yDepth: proxiState.yDepth,
+                    xLimit: proxiState.xLimit,
+                    yLimit: proxiState.yLimit,
+                    factor: proxiState.factor,
+                    debug: proxiState.debug,
+                })
+            )}
         ></move-3d>
     </div>`;
 };

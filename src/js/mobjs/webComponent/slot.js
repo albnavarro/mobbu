@@ -1,6 +1,6 @@
 //@ts-check
 
-import { ATTR_COMPONENT_NAME, ATTR_DYNAMIC, ATTR_PROPS } from '../constant';
+import { ATTR_COMPONENT_NAME, ATTR_BIND_PROPS, ATTR_PROPS } from '../constant';
 import { useSlotQuery } from '../parse/useQuery';
 import { addSlotPlaceholder } from '../modules/slot';
 
@@ -38,7 +38,7 @@ export const defineSlotComponent = () => {
                     this.#staticProps =
                         this.shadowRoot?.host.getAttribute(ATTR_PROPS);
                     this.#dynamicProps =
-                        this.shadowRoot?.host.getAttribute(ATTR_DYNAMIC);
+                        this.shadowRoot?.host.getAttribute(ATTR_BIND_PROPS);
                 }
             }
 

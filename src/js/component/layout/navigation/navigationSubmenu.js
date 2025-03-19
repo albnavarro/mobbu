@@ -107,12 +107,12 @@ export const NavigationSubmenuFn = ({
                         if (proxi.isOpen) proxi.callback();
                     },
                 })}
-                ${bindProps({
+                ${bindProps(
                     /** @returns {ReturnBindProps<NavigationButton>} */
-                    props: () => {
-                        return { isOpen: proxi.isOpen };
-                    },
-                })}
+                    () => ({
+                        isOpen: proxi.isOpen,
+                    })
+                )}
             ></mob-navigation-button>
             <ul class="l-navigation__submenu" ${setRef('content')}>
                 ${getSubmenu({ proxi, staticProps })}

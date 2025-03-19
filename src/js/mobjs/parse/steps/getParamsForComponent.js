@@ -26,7 +26,7 @@ import {
     ATTR_BIND_REFS_NAME,
     ATTR_BIND_TEXT_ID,
     ATTR_COMPONENT_ID,
-    ATTR_DYNAMIC,
+    ATTR_BIND_PROPS,
     ATTR_INVALIDATE,
     ATTR_MOBJS_REPEAT,
     ATTR_PROPS,
@@ -143,10 +143,16 @@ export const getParamsForComponentFunction = ({
         freezeProp: (prop) => freezePropById({ id, prop: prop.toString() }),
         unFreezeProp: (prop) => unFreezePropById({ id, prop: prop.toString() }),
         unBind: () => unBind({ id }),
-        bindProps: (obj) => {
-            return `${ATTR_DYNAMIC}="${setBindProps({
-                ...obj,
-                parentId: obj?.forceParent ? undefined : id,
+        bindProps: (data) => {
+            /**
+             * 'props' is required filed in explicit mode.
+             * If props is not used is in auto mode ( data is a function )
+             */
+            const dataNormalized = 'props' in data ? data : { props: data };
+
+            return `${ATTR_BIND_PROPS}="${setBindProps({
+                ...dataNormalized,
+                parentId: dataNormalized?.forceParent ? undefined : id,
             })}" `;
         },
         staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,

@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent, SetState, BindProps, StaticProps, DelegateEvents } from '../../../mobjs/type';
+ * @import { MobComponent, SetState, BindProps, StaticProps, DelegateEvents, ReturnBindProps } from '../../../mobjs/type';
  * @import { HorizontalScroller } from './type';
  * @import { HorizontalScrollerButton } from './horizontalScrollerButton/type';
  **/
@@ -63,15 +63,14 @@ const getNav = ({
                     ${delegateEvents({
                         click: () => setState('currentId', i),
                     })}
-                    ${bindProps({
-                        props: () => {
-                            return {
-                                active:
-                                    proxi.currentId === i ||
-                                    proxi.currentIdFromScroll === i,
-                            };
-                        },
-                    })}
+                    ${bindProps(
+                        /** @returns{ReturnBindProps<HorizontalScrollerButton>} */
+                        () => ({
+                            active:
+                                proxi.currentId === i ||
+                                proxi.currentIdFromScroll === i,
+                        })
+                    )}
                 ></horizontal-scroller-button>
             `;
         })

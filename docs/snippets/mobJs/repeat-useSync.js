@@ -20,15 +20,11 @@ export const MyComponent = ({
                     return html`
                         <my-child-component
                             ${sync()}
-                            ${bindProps({
-                                props: () => {
-                                    return {
-                                        counter: proxy.counter,
-                                        label: current.value.label,
-                                        index: current.index,
-                                    };
-                                },
-                            })}
+                            ${bindProps(() => ({
+                                counter: proxy.counter,
+                                label: current.value.label,
+                                index: current.index,
+                            }))}
                             ${delegateEvents({
                                 click: (event) =>
                                     console.log(event, current.index),

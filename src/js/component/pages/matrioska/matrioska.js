@@ -162,16 +162,15 @@ const getSecondLevel = ({
                                 ${staticProps({
                                     level: 'level 2',
                                 })}
-                                ${bindProps({
-                                    props: () => {
-                                        return {
-                                            key: `${current.value.key}`,
-                                            value: `${current.value.value}`,
-                                            index: current.index,
-                                            counter: proxi.counter,
-                                        };
-                                    },
-                                })}
+                                ${bindProps(
+                                    /** @returns{ReturnBindProps<MatrioskaItem>} */
+                                    () => ({
+                                        key: `${current.value.key}`,
+                                        value: `${current.value.value}`,
+                                        index: current.index,
+                                        counter: proxi.counter,
+                                    })
+                                )}
                             >
                                 ${getThirdLevel({
                                     repeat,
@@ -225,16 +224,15 @@ const getThirdLevel = ({
                                 ${staticProps({
                                     level: 'level 3',
                                 })}
-                                ${bindProps({
-                                    props: () => {
-                                        return {
-                                            key: `${current.value.key}`,
-                                            value: `${current.value.value}`,
-                                            index: current.index,
-                                            counter: proxi.counter,
-                                        };
-                                    },
-                                })}
+                                ${bindProps(
+                                    /** @returns{ReturnBindProps<MatrioskaItem>} */
+                                    () => ({
+                                        key: `${current.value.key}`,
+                                        value: `${current.value.value}`,
+                                        index: current.index,
+                                        counter: proxi.counter,
+                                    })
+                                )}
                                 ${delegateEvents({
                                     click: () => {
                                         /** @type {UpdateStateByName<MatrioskaItem>} */
@@ -325,17 +323,15 @@ export const MatrioskaFn = ({
                                 <matrioska-item
                                     class="matrioska-item--1"
                                     ${staticProps({ level: 'level 1' })}
-                                    ${bindProps({
+                                    ${bindProps(
                                         /** @returns{ReturnBindProps<MatrioskaItem>} */
-                                        props: () => {
-                                            return {
-                                                key: `${current.value.key}`,
-                                                value: `${current.value.value}`,
-                                                index: current.index,
-                                                counter: proxi.counter,
-                                            };
-                                        },
-                                    })}
+                                        () => ({
+                                            key: `${current.value.key}`,
+                                            value: `${current.value.value}`,
+                                            index: current.index,
+                                            counter: proxi.counter,
+                                        })
+                                    )}
                                 >
                                     ${getSecondLevel({
                                         repeat,

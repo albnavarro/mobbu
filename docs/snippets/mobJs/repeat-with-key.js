@@ -19,15 +19,11 @@ export const MyComponent = ({
                 render: ({ current }) => {
                     return html`
                         <my-child-component
-                            ${bindProps({
-                                props: () => {
-                                    return {
-                                        counter: proxi.counter,
-                                        label: current.value.label,
-                                        index: current.index,
-                                    };
-                                },
-                            })}
+                            ${bindProps(() => ({
+                                counter: proxi.counter,
+                                label: current.value.label,
+                                index: current.index,
+                            }))}
                             ${delegateEvents({
                                 click: (event) =>
                                     console.log(event, current.index),

@@ -1,12 +1,13 @@
 // @ts-check
 
-/**
- * @import { MobComponent, ReturnBindProps } from '../../../../../../mobjs/type';
- **/
-
 import { MobCore } from '../../../../../../mobCore';
 import { html, MobJs } from '../../../../../../mobjs';
 import { verticalScroller } from '../../../../../lib/animation/verticalScroller';
+
+/**
+ * @import { MobComponent, ReturnBindProps } from '../../../../../../mobjs/type';
+ * @import { DebugFilterListItem } from './DebugFilterLitItem/type';
+ */
 
 /** @type{import('./type').DebugInitScroller} */
 const initScroller = async ({ getRef }) => {
@@ -44,7 +45,7 @@ const getFakeReplacement = (/** @type{number} */ index) =>
 /**
  * @param {object} params
  * @param {string} params.testString
- * @returns {import('./DebugFilterLitItem/type').DebugFilterListItem['state'][]} params
+ * @returns {DebugFilterListItem['state'][]} params
  */
 const getDataFiltered = ({ testString }) => {
     const stringParsed =
@@ -217,14 +218,12 @@ export const DebugFilterListFn = ({
                                         id: current.value.id,
                                         name: current.value.name,
                                     })}
-                                    ${bindProps({
-                                        /** @returns{ReturnBindProps<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
-                                        props: () => {
-                                            return {
-                                                tag: current.value.tag,
-                                            };
-                                        },
-                                    })}
+                                    ${bindProps(
+                                        /** @returns{ReturnBindProps<DebugFilterListItem>} */
+                                        () => ({
+                                            tag: current.value.tag,
+                                        })
+                                    )}
                                     ${sync()}
                                 ></debug-filter-list-item>
                             `;

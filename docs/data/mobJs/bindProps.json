@@ -21,31 +21,11 @@
             }
         },
         {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The bindProps function allows a component to update its state upon the mutation of one or more states of the parent component."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The values are available from the <span class='quote'>created state</span>, without having to wait for the onMount state."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
             },
-            "content": "Params"
+            "content": "Explicit dependency"
         },
         {
             "component": "mob-title",
@@ -67,16 +47,6 @@
                 "style": "medium"
             },
             "content": "The parameter is optional since within a repeater the monitored state will trigger the reaction by default, if you want to monitor only that state you can omit the bind parameter."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": true,
-                "items": [
-                    "if you use the state as a proxy this property is superfluous."
-                ]
-            }
         },
         {
             "component": "mob-spacer",
@@ -125,32 +95,25 @@
             }
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Explicit dependency"
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/bindProps.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 48
+                "numLines": 57
             }
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "big"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "With proxi ( auto detect dependencies )"
         },
@@ -174,7 +137,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 30
+                "numLines": 42
             }
         },
         {
@@ -186,7 +149,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "forceParent:"
         },
@@ -203,7 +166,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 27
+                "numLines": 25
             }
         },
         {
@@ -240,7 +203,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 15
+                "numLines": 11
             }
         }
     ]

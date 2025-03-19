@@ -1,12 +1,13 @@
 // @ts-check
 
-/**
- * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
- **/
-
 import { html } from '../../../../mobjs';
 import { consoleLogDebug } from '../consoleLog';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
+
+/**
+ * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
+ * @import { DebugHead } from './Debughead/type';
+ **/
 
 /** @type{MobComponent<import('./type').DebugOverlay>} */
 export const DebugOverlayFn = ({
@@ -62,14 +63,12 @@ export const DebugOverlayFn = ({
 
             <div class="c-debug-overlay__head">
                 <debug-head
-                    ${bindProps({
-                        /** @returns{ReturnBindProps<import('./Debughead/type').DebugHead>} */
-                        props: () => {
-                            return {
-                                active: proxi.active,
-                            };
-                        },
-                    })}
+                    ${bindProps(
+                        /** @returns{ReturnBindProps<DebugHead>} */
+                        () => ({
+                            active: proxi.active,
+                        })
+                    )}
                 ></debug-head>
             </div>
             <div class="c-debug-overlay__list">

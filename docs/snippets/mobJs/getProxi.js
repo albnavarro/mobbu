@@ -42,14 +42,12 @@ export const MyComponent = ({
             </button>
             <div>${bindText`counter value is ${'counter'}`}</div>
             <child-component
-                ${bindProps({
-                    /** @returns{ReturnBindProps<import('../type').MyChildState>} */
-                    props: () => {
-                        return {
-                            counter: proxiState.counter,
-                        };
-                    },
-                })}
+                ${bindProps(
+                    /** @returns{ReturnBindProps<MyChildState>} */
+                    () => ({
+                        counter: proxiState.counter,
+                    })
+                )}
             ></child-component>
         </div>
     `;

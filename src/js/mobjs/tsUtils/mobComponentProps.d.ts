@@ -9,9 +9,9 @@ export type ExtractMethods<T> = T['methods'];
 export type ExtractRef<T> = T['ref'];
 
 /**
- * bindProps.
+ * BindProps explicit mode.
  */
-export type PartialBindProps<T, R> = (arg0: {
+interface BindPropsObject<T, R> {
     bind?: OnlyStringKey<ExtractState<T>>[];
     forceParent?: boolean;
     props: (
@@ -19,7 +19,19 @@ export type PartialBindProps<T, R> = (arg0: {
         value: Record<string, any>,
         index: number
     ) => Partial<ExtractState<R>>;
-}) => string;
+}
+
+/**
+ * BindProps auto mode.
+ */
+type BindPropsFunction<R> = () => Partial<ExtractState<R>>;
+
+/**
+ * bindProps.
+ */
+export type PartialBindProps<T, R> = (
+    arg0: BindPropsObject<T, R> | BindPropsFunction<R>
+) => string;
 
 /**
  * delegateEvents

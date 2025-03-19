@@ -7,7 +7,7 @@ import {
     ATTR_BIND_REFS_NAME,
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
-    ATTR_DYNAMIC,
+    ATTR_BIND_PROPS,
     ATTR_INSTANCENAME,
     ATTR_KEY,
     ATTR_PARENT_ID,
@@ -184,7 +184,7 @@ export const defineUserComponent = (componentList) => {
                     ] = [
                         ATTR_INSTANCENAME,
                         ATTR_PROPS,
-                        ATTR_DYNAMIC,
+                        ATTR_BIND_PROPS,
                         ATTR_KEY,
                         ATTR_BIND_EVENTS,
                         ATTR_CURRENT_LIST_VALUE,

@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../mobjs/type';
  * @import { DelegateEvents, BindProps } from '../../../mobjs/type';
  * @import {ScrollTo} from './type'
  * @import {ScrollToButton} from './button/type'
@@ -49,15 +49,13 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                                 disableObservereffect = false;
                             },
                         })}
-                        ${bindProps({
-                            props: () => {
-                                const { label } = item;
-                                return {
-                                    active: proxi.activeLabel === label,
-                                    label,
-                                };
-                            },
-                        })}
+                        ${bindProps(
+                            /** @returns{ReturnBindProps<ScrollToButton>} */
+                            () => ({
+                                active: proxi.activeLabel === item.label,
+                                label: item.label,
+                            })
+                        )}
                     >
                     </scroll-to-button>
                 </li>

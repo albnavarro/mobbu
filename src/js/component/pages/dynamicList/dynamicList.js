@@ -1,11 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../mobjs/type';
  * @import { StaticProps, DelegateEvents, BindProps } from '../../../mobjs/type';
  * @import { DynamicList } from './type';
  * @import { DynamicListButton } from './button/type';]
  * @import { DynamicListRepeater } from './repeaters/type';]
+ * @import { DynamicListCardInner } from './card/innerCard/type';]
  **/
 
 import { html, MobJs } from '../../../mobjs';
@@ -78,13 +79,12 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
                             UnFreezeAndUPdateMobPageScroll();
                         },
                     })}
-                    ${bindProps({
-                        props: () => {
-                            return {
-                                active: index === proxi.activeSample,
-                            };
-                        },
-                    })}
+                    ${bindProps(
+                        /** @returns{ReturnBindProps<DynamicListButton>} */
+                        () => ({
+                            active: index === proxi.activeSample,
+                        })
+                    )}
                 ></dynamic-list-button>
             `;
         })
@@ -110,14 +110,13 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
                         clean,
                         label,
                     })}
-                    ${bindProps({
-                        props: () => {
-                            return {
-                                data: proxi.data,
-                                counter: proxi.counter,
-                            };
-                        },
-                    })}
+                    ${bindProps(
+                        /** @returns{ReturnBindProps<DynamicListRepeater>} */
+                        () => ({
+                            data: proxi.data,
+                            counter: proxi.counter,
+                        })
+                    )}
                 ></dynamic-list-repeater>
             `;
         })
@@ -183,13 +182,12 @@ export const DynamicListFn = ({
                         render: () => {
                             return html`<div class="validate-test-wrapper">
                                 <dynamic-list-card-inner
-                                    ${bindProps({
-                                        props: () => {
-                                            return {
-                                                key: `${proxi.counter}`,
-                                            };
-                                        },
-                                    })}
+                                    ${bindProps(
+                                        /** @returns{ReturnBindProps<DynamicListCardInner>} */
+                                        () => ({
+                                            key: `${proxi.counter}`,
+                                        })
+                                    )}
                                 ></dynamic-list-card-inner>
                             </div>`;
                         },

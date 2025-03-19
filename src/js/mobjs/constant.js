@@ -33,7 +33,7 @@ export const ATTR_PROPS = 'staticprops';
 /**
  * @type {string};
  */
-export const ATTR_DYNAMIC = 'bindprops';
+export const ATTR_BIND_PROPS = 'bindprops';
 
 /**
  * @type {string};

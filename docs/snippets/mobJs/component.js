@@ -56,14 +56,10 @@ export const MyComponentFn = ({
                     childProp1: 'myValue',
                     childProp2: 'myValue',
                 })}
-                ${bindProps({
-                    props: () => {
-                        return {
-                            childProp3: proxi.prop,
-                            childProp4: proxi.prop2,
-                        };
-                    },
-                })}
+                ${bindProps(() => ({
+                    childProp3: proxi.prop,
+                    childProp4: proxi.prop2,
+                }))}
             ></child-component>
         </div>
     `;

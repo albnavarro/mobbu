@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { BindProps, GetState, MobComponent,  StaticProps } from '../../../mobjs/type';
+ * @import { BindProps, MobComponent, StaticProps } from '../../../mobjs/type';
  * @import { LinksMobJs, LinksMobJsButton } from './type';]
  **/
 
@@ -17,14 +17,11 @@ import { verticalScroller } from '../../lib/animation/verticalScroller';
 /**
  * @param {object} param
  * @param {StaticProps} param.staticProps
- * @param {GetState<LinksMobJs>} param.getState
  * @param {BindProps<LinksMobJs, LinksMobJsButton>} param.bindProps
  * @param {LinksMobJs['state']} param.proxi
  */
-const getItems = ({ staticProps, getState, bindProps, proxi }) => {
-    const { data } = getState();
-
-    return data
+const getItems = ({ staticProps, bindProps, proxi }) => {
+    return proxi.data
         .map((item) => {
             const { label, url, isLabel } = item;
 
@@ -36,13 +33,9 @@ const getItems = ({ staticProps, getState, bindProps, proxi }) => {
                               label,
                               url,
                           })}
-                          ${bindProps({
-                              props: () => {
-                                  return {
-                                      active: proxi.activeSection === url,
-                                  };
-                              },
-                          })}
+                          ${bindProps(() => ({
+                              active: proxi.activeSection === url,
+                          }))}
                       ></links-mobjs-button>
                   </li>`;
         })
@@ -58,7 +51,6 @@ export const LinksMobJsFn = ({
     setState,
     bindProps,
     invalidate,
-    getState,
     bindEffect,
     getProxi,
 }) => {
@@ -188,7 +180,6 @@ export const LinksMobJsFn = ({
                     return getItems({
                         staticProps,
                         bindProps,
-                        getState,
                         proxi,
                     });
                 },

@@ -21,7 +21,10 @@ export const MyComponent = ({
     setRef,
     getRefs,
     delegateEvents,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     onMount(async () => {
         const { container } = getRefs();
 
@@ -29,14 +32,9 @@ export const MyComponent = ({
          * Add new component.
          */
         const runTimeComponent = html`<runtime-component
-            ${bindProps({
-                bind: ['myState'],
-                props: ({ myState }) => {
-                    return {
-                        childState: myState,
-                    };
-                },
-            })}
+            ${bindProps(() => ({
+                childState: proxi.myState,
+            }))}
         ></runtime-component>`;
 
         /**

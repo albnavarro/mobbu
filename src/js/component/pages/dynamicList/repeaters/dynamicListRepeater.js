@@ -5,6 +5,7 @@
  * @import { StaticProps, BindProps, DelegateEvents } from '../../../../mobjs/type';
  * @import { DynamicListCard } from '../card/type';
  * @import { DynamicListRepeater } from './type';
+ * @import { DynamicListSlottedLabel } from '../slottedLabel/type';
  **/
 
 import { html } from '../../../../mobjs';
@@ -31,16 +32,14 @@ function getRepeaterCard({
                 ${staticProps({
                     parentListId: proxi.listId,
                 })}
-                ${bindProps({
+                ${bindProps(
                     /** @returns {ReturnBindProps<DynamicListCard>} */
-                    props: () => {
-                        return {
-                            counter: proxi.counter,
-                            label: current.value.label,
-                            index: current.index,
-                        };
-                    },
-                })}
+                    () => ({
+                        counter: proxi.counter,
+                        label: current.value.label,
+                        index: current.index,
+                    })
+                )}
                 ${delegateEvents({
                     click: () => {
                         console.log(current.value?.label, current.index);
@@ -49,14 +48,12 @@ function getRepeaterCard({
             >
                 <dynamic-slotted-label
                     slot="card-label-slot"
-                    ${bindProps({
-                        /** @returns {ReturnBindProps<import('../slottedLabel/type').DynamicListSlottedLabel>} */
-                        props: () => {
-                            return {
-                                label: `label: ${current.value.label} <br/> counter: ${proxi.counter}`,
-                            };
-                        },
-                    })}
+                    ${bindProps(
+                        /** @returns {ReturnBindProps<DynamicListSlottedLabel>} */
+                        () => ({
+                            label: `label: ${current.value.label} <br/> counter: ${proxi.counter}`,
+                        })
+                    )}
                 >
                 </dynamic-slotted-label>
             </dynamic-list-card>

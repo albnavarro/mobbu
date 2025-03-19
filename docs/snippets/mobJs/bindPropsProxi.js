@@ -14,6 +14,7 @@ export const MyComponent = ({ onMount, getProxi, bindProps }) => {
         return () => {};
     });
 
+    // use object
     return html`
         <div>
             <my-child-component
@@ -24,6 +25,17 @@ export const MyComponent = ({ onMount, getProxi, bindProps }) => {
                         };
                     },
                 })}
+            ></my-child-component>
+        </div>
+    `;
+
+    // use function
+    return html`
+        <div>
+            <my-child-component
+                ${bindProps(() => ({
+                    counter: proxiState.counter,
+                }))}
             ></my-child-component>
         </div>
     `;
