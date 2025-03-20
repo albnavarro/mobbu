@@ -18103,7 +18103,7 @@
     });
     return id;
   };
-  var setBindProp = ({
+  var updateBindProp = ({
     componentId,
     bind,
     props,
@@ -18184,7 +18184,7 @@
       const bindUpdated = repeatPropBind && repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
       const currentParentId = parentId ?? getParentIdById(componentId);
       if (!inizilizeWatcher) {
-        setBindProp({
+        updateBindProp({
           componentId,
           bind: bindUpdated,
           props,
@@ -18194,7 +18194,7 @@
       }
       if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
         await repeaterTick();
-        setBindProp({
+        updateBindProp({
           componentId,
           bind: bindUpdated,
           props,
@@ -18204,7 +18204,7 @@
       }
       if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
         await invalidateTick();
-        setBindProp({
+        updateBindProp({
           componentId,
           bind: bindUpdated,
           props,
@@ -18226,7 +18226,7 @@
           });
           watchIsRunning = true;
           modules_exports.useNextLoop(() => {
-            setBindProp({
+            updateBindProp({
               componentId,
               bind: bindUpdated,
               props,

@@ -20,8 +20,7 @@ import { removeAndDestroyById } from '../../component/action/removeAndDestroy/re
 import { bindPropsMap } from './bindPropsMap';
 
 /**
- * @param {{bind?:string[],parentId:string|undefined,props:(arg0: any,value:Record<string, any>, index: number) => Partial<any>, forceParent? :boolean}} data
- * @return {string|undefined} props id in store.
+ * @type {import('./type').SetBindProps} data
  *
  * @description
  * Store props and return a unique identifier
@@ -88,7 +87,7 @@ export const setBindProps = (data) => {
  * @param {object} obj
  * @param {string} obj.componentId
  * @param {Array<string>} obj.bind
- * @param {(args0: object, value:Record<string, any>, index: number ) => object} obj.props
+ * @param {(arg0: Record<string, any>, value:Record<string, any>, index: number ) => object} obj.props
  * @param {string} obj.currentParentId
  * @param {boolean} obj.fireCallback
  * @return void
@@ -97,7 +96,7 @@ export const setBindProps = (data) => {
  * Store props and return a unique identifier
  *
  */
-const setBindProp = ({
+const updateBindProp = ({
     componentId,
     bind,
     props,
@@ -288,7 +287,7 @@ export const applyBindProps = async ({
          * state of the store.
          */
         if (!inizilizeWatcher) {
-            setBindProp({
+            updateBindProp({
                 componentId,
                 bind: bindUpdated,
                 props,
@@ -310,7 +309,7 @@ export const applyBindProps = async ({
             /**
              * Refresh state after repater created
              */
-            setBindProp({
+            updateBindProp({
                 componentId,
                 bind: bindUpdated,
                 props,
@@ -332,7 +331,7 @@ export const applyBindProps = async ({
             /**
              * Refresh state after repater created
              */
-            setBindProp({
+            updateBindProp({
                 componentId,
                 bind: bindUpdated,
                 props,
@@ -376,7 +375,7 @@ export const applyBindProps = async ({
                  */
                 watchIsRunning = true;
                 MobCore.useNextLoop(() => {
-                    setBindProp({
+                    updateBindProp({
                         componentId,
                         bind: bindUpdated,
                         props,
