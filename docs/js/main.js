@@ -18090,6 +18090,10 @@
       }
       return currentKey_exports.getCurrentDependencies();
     })();
+    if (bindDetected.length === 0) {
+      console.warn(`bindProps not valid, no dependencies found`);
+      return;
+    }
     const dataUpdated = { ...data, bind: bindDetected };
     const id = modules_exports.getUnivoqueId();
     bindPropsMap.set(id, {

@@ -64,6 +64,11 @@ export const setBindProps = (data) => {
                   return MobDetectBindKey.getCurrentDependencies();
               })();
 
+    if (bindDetected.length === 0) {
+        console.warn(`bindProps not valid, no dependencies found`);
+        return;
+    }
+
     const dataUpdated = { ...data, bind: bindDetected };
 
     /**
