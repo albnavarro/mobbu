@@ -57,7 +57,10 @@ export const setBindProps = (data) => {
             ? data.bind
             : (() => {
                   MobDetectBindKey.initializeCurrentDependencies();
-                  data.props?.({}, {}, 0);
+                  // Run props only if is typeOf Function
+                  if (MobCore.checkType(Function, data.props)) {
+                      data.props({}, {}, 0);
+                  }
                   return MobDetectBindKey.getCurrentDependencies();
               })();
 

@@ -18085,7 +18085,9 @@
     }
     const bindDetected = data?.bind && modules_exports.checkType(Array, data.bind) ? data.bind : (() => {
       currentKey_exports.initializeCurrentDependencies();
-      data.props?.({}, {}, 0);
+      if (modules_exports.checkType(Function, data.props)) {
+        data.props({}, {}, 0);
+      }
       return currentKey_exports.getCurrentDependencies();
     })();
     const dataUpdated = { ...data, bind: bindDetected };
