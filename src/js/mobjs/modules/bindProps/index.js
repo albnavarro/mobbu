@@ -53,11 +53,11 @@ export const setBindProps = (data) => {
      * Get explicit dependencies or get from `proxi.get()`
      */
     const bindDetected =
-        data?.bind && data?.bind?.length > 0
+        data?.bind && MobCore.checkType(Array, data.bind)
             ? data.bind
             : (() => {
                   MobDetectBindKey.initializeCurrentDependencies();
-                  data?.props({}, {}, 0);
+                  data.props?.({}, {}, 0);
                   return MobDetectBindKey.getCurrentDependencies();
               })();
 
