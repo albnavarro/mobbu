@@ -9,6 +9,9 @@
 
 # MobJs
 
+## Props
+- Aggiungere doc per passare  i valori come `data-prop`.
+
 ## bind
 - La chiave 'bind', puó entrare in conflitto con `bind` function nativa.
 - In `bindObject` é stato fatto un controllo che bind sia una `stringa` e non una `funzione` ( myfunction.bind() )
