@@ -5,6 +5,7 @@ export const sectionContentAnimation = ({ title, copy }) => {
     const sectionContentSequencer = MobTween.createSequencer({
         data: {
             yTitle: 100,
+            xTitle: -300,
             yCopy: -100,
             opacityTitle: 1,
             opacityCopy: 1,
@@ -12,12 +13,12 @@ export const sectionContentAnimation = ({ title, copy }) => {
     });
 
     sectionContentSequencer
-        .goTo({ yTitle: 0, yCopy: 0 }, { start: 0, end: 5 })
+        .goTo({ yTitle: 0, xTitle: 0, yCopy: 0 }, { start: 0, end: 5 })
         .goTo({ opacityTitle: 0, opacityCopy: 0 }, { start: 7, end: 10 });
 
     sectionContentSequencer.subscribe(
-        ({ yTitle, yCopy, opacityTitle, opacityCopy }) => {
-            title.style.transform = `translateY(${yTitle}%)`;
+        ({ yTitle, xTitle, yCopy, opacityTitle, opacityCopy }) => {
+            title.style.transform = `translate(${xTitle}px, ${yTitle}%)`;
             copy.style.transform = `translateY(${yCopy}%)`;
             title.style.opacity = opacityTitle;
             copy.style.opacity = opacityCopy;

@@ -12,8 +12,8 @@ let _goTo = () => {};
 /** @type{Record<number, number>} */
 const goToPercentage = {
     1: 0,
-    2: 25,
-    3: 65,
+    2: 100 / 3,
+    3: (100 / 3) * 2,
     4: 100,
 };
 
@@ -33,7 +33,9 @@ const block01 = ({ setRef, getState }) => {
                 <h1 class="title-big" ${setRef('title_1')}>${titleTop}</h1>
             </div>
             <div class="l-about__section__bottom has-overflow">
-                <h1 class="title-big" ${setRef('title_2')}>${titleBottom}</h1>
+                <h1 class="title-biggest" ${setRef('title_2')}>
+                    ${titleBottom}
+                </h1>
             </div>
         </section>
     `;
@@ -52,7 +54,7 @@ const block02 = ({ setRef, getState }) => {
             <div class="l-about__section__top has-overflow">
                 <div class="l-about__section__left"></div>
                 <div class="l-about__section__right">
-                    <h1 class="title-big" ${setRef('section2_title')}>
+                    <h1 class="title-biggest" ${setRef('section2_title')}>
                         ${title}
                     </h1>
                 </div>
@@ -84,7 +86,7 @@ const block03 = ({ setRef, getState }) => {
             <div class="l-about__section__top has-overflow">
                 <div class="l-about__section__left"></div>
                 <div class="l-about__section__right">
-                    <h1 class="title-big" ${setRef('section3_title')}>
+                    <h1 class="title-biggest" ${setRef('section3_title')}>
                         ${title}
                     </h1>
                 </div>
@@ -114,7 +116,9 @@ const block04 = ({ setRef, getState }) => {
     return html`
         <section class="l-about__section l-about__section--last">
             <div class="l-about__section__top has-overflow">
-                <h1 class="title-big" ${setRef('section3_title')}>${title}</h1>
+                <h1 class="title-biggest" ${setRef('section3_title')}>
+                    ${title}
+                </h1>
             </div>
             <div class="l-about__section__bottom">
                 <ul class="l-about__list">
@@ -182,7 +186,7 @@ export const AboutComponentFn = ({
     getProxi,
 }) => {
     const proxi = getProxi();
-    const numberOfSection = 3;
+    const numberOfSection = 4;
 
     onMount(() => {
         const {
@@ -249,35 +253,18 @@ export const AboutComponentFn = ({
         >
             ${proxi.block_1.titleTop}
         </div>
-        <span class="l-about__background">
-            <div class="l-about__top-title">${proxi.block_1.titleTop}</div>
-        </span>
+        <span class="l-about__background"> </span>
         <div
             class="l-about__shape l-about__shape--back"
             ${setRef('pathElement')}
-            ${bindEffect({
-                toggleClass: {
-                    'is-visible': () => proxi.isMounted,
-                },
-            })}
         ></div>
         <div
             class="l-about__shape l-about__shape--back"
             ${setRef('pathElement')}
-            ${bindEffect({
-                toggleClass: {
-                    'is-visible': () => proxi.isMounted,
-                },
-            })}
         ></div>
         <div
-            class="l-about__shape"
+            class="l-about__shape l-about__shape--front"
             ${setRef('pathElement')}
-            ${bindEffect({
-                toggleClass: {
-                    'is-visible': () => proxi.isMounted,
-                },
-            })}
         ></div>
         <button
             type="button"
