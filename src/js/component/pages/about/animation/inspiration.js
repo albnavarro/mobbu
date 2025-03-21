@@ -10,7 +10,6 @@ export const inspirationAnimation = ({ inspirationItem, section4_title }) => {
             yTitle: 100,
             xTitle: 400,
         },
-        ease: 'easeInOutQuad',
     });
 
     titleSequencer.goTo({ yTitle: 0, xTitle: 0 }, { start: 0, end: 10 });
@@ -33,12 +32,13 @@ export const inspirationAnimation = ({ inspirationItem, section4_title }) => {
 
     staggers.forEach(({ item, start, end, index }) => {
         const sequencer = MobTween.createSequencer({
-            data: { x: 300 + index * 20 },
+            data: { x: 100 + index * 20, opacity: 0 },
             ease: 'easeInOutQuad',
-        }).goTo({ x: 0 }, { start, end });
+        }).goTo({ x: 0, opacity: 1 }, { start, end });
 
-        sequencer.subscribe(({ x }) => {
+        sequencer.subscribe(({ x, opacity }) => {
             item.style.transform = `translateX(${x}px)`;
+            item.style.opacity = opacity;
         });
 
         masterSequencer.add(sequencer);
@@ -50,7 +50,7 @@ export const inspirationAnimation = ({ inspirationItem, section4_title }) => {
         tween: masterSequencer,
         dynamicStart: {
             position: 'right',
-            value: () => -20,
+            value: () => 200,
         },
         dynamicEnd: {
             position: 'left',
