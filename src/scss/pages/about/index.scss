@@ -65,10 +65,9 @@
     &__arrow {
         position: absolute;
         display: block;
-        width: rem(40);
-        height: rem(40);
-        left: 50%;
-        bottom: rem(15);
+        width: rem(100);
+        height: rem(100);
+        top: 50%;
         z-index: 11;
         background: transparent;
         opacity: 0.1;
@@ -83,7 +82,8 @@
         }
 
         &--prev {
-            transform: translate(calc(#{rem(100)} * -1), -50%);
+            transform: translateY(-50%);
+            left: rem(100);
 
             span {
                 transform: translate(-50%, -50%) rotate(-135deg);
@@ -91,7 +91,8 @@
         }
 
         &--next {
-            transform: translate(#{rem(60)}, -50%);
+            transform: translateY(-50%);
+            right: rem(100);
 
             span {
                 transform: translate(-50%, -50%) rotate(45deg);
@@ -104,8 +105,8 @@
             left: 50%;
             width: 25%;
             height: 25%;
-            border-top: 3px $black solid;
-            border-right: 3px $black solid;
+            border-top: 5px $black solid;
+            border-right: 5px $black solid;
             display: block;
         }
     }
