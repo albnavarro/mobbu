@@ -26219,7 +26219,7 @@ Loading snippet ...</pre
     const pathSequencer = tween_exports.createSequencer({
       data: { ...sequencerData[0] },
       stagger: {
-        each: 50,
+        each: 20,
         waitComplete: false,
         from: "end"
       }
