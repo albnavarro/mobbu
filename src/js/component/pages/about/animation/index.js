@@ -17,6 +17,7 @@ export const aboutAnimation = ({
     section3_title,
     section3_copy,
     inspirationItem,
+    section4_title,
     setActiveItem,
 }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
@@ -46,9 +47,11 @@ export const aboutAnimation = ({
         copy: section3_copy,
     });
 
-    const { inspirationScroller, masterSequencer } = inspirationAnimation({
-        inspirationItem,
-    });
+    const { inspirationScroller, masterSequencer, titleSequencer } =
+        inspirationAnimation({
+            inspirationItem,
+            section4_title,
+        });
 
     const aboutScroller = new MobSmoothScroller({
         screen: screenElement,
@@ -97,6 +100,7 @@ export const aboutAnimation = ({
             section2TitleSequencer_2.destroy();
             inspirationScroller.destroy();
             masterSequencer.destroy();
+            titleSequencer.destroy();
             stopLoop();
         },
     };

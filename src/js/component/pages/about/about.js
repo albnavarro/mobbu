@@ -12,8 +12,8 @@ let _goTo = () => {};
 /** @type{Record<number, number>} */
 const goToPercentage = {
     1: 0,
-    2: 100 / 3,
-    3: (100 / 3) * 2,
+    2: 100 / 3 + 3,
+    3: (100 / 3) * 2 + 6,
     4: 100,
 };
 
@@ -116,7 +116,7 @@ const block04 = ({ setRef, getState }) => {
     return html`
         <section class="l-about__section l-about__section--last">
             <div class="l-about__section__top has-overflow">
-                <h1 class="title-biggest" ${setRef('section3_title')}>
+                <h1 class="title-biggest" ${setRef('section4_title')}>
                     ${title}
                 </h1>
             </div>
@@ -199,6 +199,7 @@ export const AboutComponentFn = ({
             section2_copy,
             section3_title,
             section3_copy,
+            section4_title,
         } = getRef();
 
         const { inspirationItem, pathElement } = getRefs();
@@ -215,6 +216,7 @@ export const AboutComponentFn = ({
             section3_title,
             section3_copy,
             inspirationItem,
+            section4_title,
             setActiveItem: (value) => {
                 proxi.activenavItem = value;
             },

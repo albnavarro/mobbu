@@ -1,9 +1,27 @@
 import { MobScroll, MobTween } from '../../../../mobMotion';
 
 /** @type{import("../type").InspirationAnimation} */
-export const inspirationAnimation = ({ inspirationItem }) => {
+export const inspirationAnimation = ({ inspirationItem, section4_title }) => {
     const masterSequencer = MobTween.createMasterSequencer();
 
+    // Title animation
+    const titleSequencer = MobTween.createSequencer({
+        data: {
+            yTitle: 100,
+            xTitle: 400,
+        },
+        ease: 'easeInOutQuad',
+    });
+
+    titleSequencer.goTo({ yTitle: 0, xTitle: 0 }, { start: 0, end: 10 });
+
+    titleSequencer.subscribe(({ yTitle, xTitle }) => {
+        section4_title.style.transform = `translate(${xTitle}px, ${yTitle}%)`;
+    });
+
+    masterSequencer.add(titleSequencer);
+
+    // Chips animation
     const staggers = MobTween.createStaggers({
         items: inspirationItem,
         stagger: {
@@ -15,7 +33,8 @@ export const inspirationAnimation = ({ inspirationItem }) => {
 
     staggers.forEach(({ item, start, end, index }) => {
         const sequencer = MobTween.createSequencer({
-            data: { x: 100 + index * 20 },
+            data: { x: 300 + index * 20 },
+            ease: 'easeInOutQuad',
         }).goTo({ x: 0 }, { start, end });
 
         sequencer.subscribe(({ x }) => {
@@ -42,6 +61,7 @@ export const inspirationAnimation = ({ inspirationItem }) => {
 
     return {
         inspirationScroller,
+        titleSequencer,
         masterSequencer,
     };
 };

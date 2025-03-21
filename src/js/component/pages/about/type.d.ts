@@ -41,6 +41,7 @@ export interface About {
         section3_title: HTMLElement;
         section3_copy: HTMLElement;
         inspirationItem: HTMLElement;
+        section4_title: HTMLElement;
     };
 }
 
@@ -56,6 +57,7 @@ export type AboutScroller = (arg0: {
     section3_title: HTMLElement;
     section3_copy: HTMLElement;
     inspirationItem: HTMLElement[];
+    section4_title: HTMLElement;
     setActiveItem: (value: number) => void;
 }) => {
     goTo: (value: number) => void;
@@ -95,7 +97,9 @@ export type AboutSection2 = (arg0: {
 
 export type InspirationAnimation = (ar0: {
     inspirationItem: HTMLElement[];
+    section4_title: HTMLElement;
 }) => {
     inspirationScroller: MobScroller;
     masterSequencer: MobMasterSequencer;
+    titleSequencer: MobSequencer;
 };

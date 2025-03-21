@@ -14,7 +14,10 @@ export const sectionContentAnimation = ({ title, copy }) => {
 
     sectionContentSequencer
         .goTo({ yTitle: 0, xTitle: 0, yCopy: 0 }, { start: 0, end: 5 })
-        .goTo({ opacityTitle: 0, opacityCopy: 0 }, { start: 7, end: 10 });
+        .goTo(
+            { opacityTitle: 0, opacityCopy: 0, xTitle: -150 },
+            { start: 7, end: 10 }
+        );
 
     sectionContentSequencer.subscribe(
         ({ yTitle, xTitle, yCopy, opacityTitle, opacityCopy }) => {
