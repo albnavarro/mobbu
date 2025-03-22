@@ -7438,7 +7438,7 @@
         this.#currentReject = void 0;
         this.#currentResolve = void 0;
       }
-      if (this.#isActive) this.#isActive = false;
+      this.#isActive = false;
     }
     /**
      * @type {import('./type.js').lerpPause}
@@ -9533,9 +9533,7 @@
         this.#currentReject = void 0;
         this.#currentResolve = void 0;
       }
-      if (this.#isActive) {
-        this.#isActive = false;
-      }
+      this.#isActive = false;
     }
     /**
      * @type {import('./type.js').SpringPause}
