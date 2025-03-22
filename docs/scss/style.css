@@ -1491,7 +1491,7 @@ code * {
   display: block;
   width: 0.5333333333rem;
   height: 0.5333333333rem;
-  background: #eee;
+  background: #ccc;
   border: 0;
   transition: scale 0.35s, background 0.35s;
   border-radius: 100%;
