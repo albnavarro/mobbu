@@ -1,3 +1,4 @@
+import { MobCore } from '../../../../mobCore';
 import { MobSmoothScroller } from '../../../../mobMotion/plugin';
 import { inspirationAnimation } from './inspiration';
 import { createPathAnimation } from './pathAnimation';
@@ -21,6 +22,8 @@ export const aboutAnimation = ({
     setActiveItem,
     onScrollEnd,
 }) => {
+    let isDestroyed = false;
+
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
         createPathAnimation({
             pathElement,
@@ -72,7 +75,13 @@ export const aboutAnimation = ({
         onUpdate: onScrollEnd,
     });
 
-    aboutScroller.init();
+    MobCore.useNextFrame(() => {
+        MobCore.useNextTick(() => {
+            if (isDestroyed) return;
+
+            aboutScroller.init();
+        });
+    });
 
     /**
      * Refresh nav if is coming from menu.
@@ -87,6 +96,7 @@ export const aboutAnimation = ({
             aboutScroller.move(value);
         },
         destroy: () => {
+            isDestroyed = true;
             aboutScroller.destroy();
             pathSequencer.destroy();
             pathScroller.destroy();
