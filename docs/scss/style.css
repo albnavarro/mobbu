@@ -1446,7 +1446,7 @@ code * {
   z-index: -1;
 }
 .l-about__shape--back {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.5);
 }
 .l-about__nav {
   position: absolute;
