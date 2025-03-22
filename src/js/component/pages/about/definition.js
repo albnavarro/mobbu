@@ -47,10 +47,6 @@ export const AboutComponent = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
             navItem: () => ({
                 value: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }],
                 type: Array,

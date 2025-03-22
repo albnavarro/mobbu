@@ -255,13 +255,6 @@ export const AboutComponentFn = ({
          */
         _goTo = goTo;
 
-        /**
-         * Stagger start later, so show path in background later.
-         */
-        setTimeout(() => {
-            proxi.isMounted = true;
-        }, 500);
-
         return () => {
             _goTo = () => {};
             destroy();
