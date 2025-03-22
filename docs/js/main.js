@@ -26278,7 +26278,6 @@ Loading snippet ...</pre
       setActiveItem(3);
     }, 4).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "forward") return;
-      console.log("qui");
       setActiveItem(2);
     }, 6).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "backward") return;

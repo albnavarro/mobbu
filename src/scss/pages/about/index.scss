@@ -161,7 +161,7 @@
         height: calc(
             (100vh - var(--header-height) - var(--footer-height)) * 0.5
         );
-        background: $white;
+        background: $grey-light;
         border-top: 1px $grey solid;
         overflow: hidden;
         z-index: 2;

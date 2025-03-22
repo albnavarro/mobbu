@@ -120,7 +120,6 @@ export const createPathAnimation = ({
         }, 4)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'forward') return;
-            console.log('qui');
             setActiveItem(2);
         }, 6)
         .add(({ direction, isForced }) => {
