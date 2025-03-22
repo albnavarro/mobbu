@@ -60,6 +60,7 @@ export type AboutScroller = (arg0: {
     inspirationItem: HTMLElement[];
     section4_title: HTMLElement;
     setActiveItem: (value: number) => void;
+    onScrollEnd: () => void;
 }) => {
     goTo: (value: number) => void;
     destroy: () => void;

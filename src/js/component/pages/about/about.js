@@ -2,6 +2,7 @@
  * @import { BindEffect, DelegateEvents, GetState, MobComponent, SetRef } from '../../../mobjs/type';
  **/
 
+import { MobCore } from '../../../mobCore';
 import { html } from '../../../mobjs';
 import { aboutAnimation } from './animation';
 
@@ -219,6 +220,14 @@ export const AboutComponentFn = ({
             setActiveItem: (value) => {
                 proxi.activenavItem = value;
             },
+            /**
+             * Snap to active item.
+             * Debuounce update with 500,s value
+             * Scroll to the nearest section based on scroll direction
+             */
+            onScrollEnd: MobCore.useDebounce(() => {
+                _goTo(goToPercentage[proxi.activenavItem]);
+            }, 500),
         });
 
         /**
