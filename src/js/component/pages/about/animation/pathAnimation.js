@@ -99,37 +99,37 @@ export const createPathAnimation = ({
             },
             { start: 6, end: 10 }
         )
-        .add(() => {
-            setActiveItem(1);
-        }, 0)
 
         /*
          * Snap to the nearest section based on scroll direction
          */
+        .add(() => {
+            setActiveItem(1);
+        }, 0)
+        .add(({ direction, isForced }) => {
+            if (isForced || direction === 'forward') return;
+            setActiveItem(1);
+        }, 2.5)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'backward') return;
             setActiveItem(2);
         }, 1)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'forward') return;
-            setActiveItem(1);
-        }, 3)
-        .add(({ direction, isForced }) => {
-            if (isForced || direction === 'backward') return;
-            setActiveItem(3);
-        }, 4)
-        .add(({ direction, isForced }) => {
-            if (isForced || direction === 'forward') return;
             setActiveItem(2);
         }, 6)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'backward') return;
-            setActiveItem(4);
-        }, 8)
+            setActiveItem(3);
+        }, 4.5)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'forward') return;
             setActiveItem(3);
-        }, 9);
+        }, 9)
+        .add(({ direction, isForced }) => {
+            if (isForced || direction === 'backward') return;
+            setActiveItem(4);
+        }, 8);
 
     sequencerData.forEach((item) => {
         pathSequencer.subscribe(

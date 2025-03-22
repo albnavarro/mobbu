@@ -26268,24 +26268,24 @@ Loading snippet ...</pre
     ).add(() => {
       setActiveItem(1);
     }, 0).add(({ direction: direction2, isForced }) => {
+      if (isForced || direction2 === "forward") return;
+      setActiveItem(1);
+    }, 2.5).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "backward") return;
       setActiveItem(2);
     }, 1).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "forward") return;
-      setActiveItem(1);
-    }, 3).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "backward") return;
-      setActiveItem(3);
-    }, 4).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "forward") return;
       setActiveItem(2);
     }, 6).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "backward") return;
-      setActiveItem(4);
-    }, 8).add(({ direction: direction2, isForced }) => {
+      setActiveItem(3);
+    }, 4.5).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "forward") return;
       setActiveItem(3);
-    }, 9);
+    }, 9).add(({ direction: direction2, isForced }) => {
+      if (isForced || direction2 === "backward") return;
+      setActiveItem(4);
+    }, 8);
     sequencerData.forEach((item) => {
       pathSequencer.subscribe(
         ({ ax, ay, bx, by, cx, cy, dx, dy, ex, ey, fx, fy, gx, gy }) => {
@@ -26717,12 +26717,12 @@ Loading snippet ...</pre
     const items = [...new Array(4).keys()];
     return renderHtml`${items.map((_, index) => {
       return renderHtml`
-            <div
-                class="l-about__shape l-about__shape--back l-about__shape--${index}"
-                ${setRef("pathElement")}
-            ></div>
-        `;
-    })}`;
+                <div
+                    class="l-about__shape l-about__shape--back l-about__shape--${index}"
+                    ${setRef("pathElement")}
+                ></div>
+            `;
+    }).join("")}`;
   };
   var AboutComponentFn = ({
     onMount,

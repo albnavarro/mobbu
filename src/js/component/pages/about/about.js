@@ -182,14 +182,16 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
 const getShapeTrail = ({ setRef }) => {
     const items = [...new Array(4).keys()];
 
-    return html`${items.map((_, index) => {
-        return html`
-            <div
-                class="l-about__shape l-about__shape--back l-about__shape--${index}"
-                ${setRef('pathElement')}
-            ></div>
-        `;
-    })}`;
+    return html`${items
+        .map((_, index) => {
+            return html`
+                <div
+                    class="l-about__shape l-about__shape--back l-about__shape--${index}"
+                    ${setRef('pathElement')}
+                ></div>
+            `;
+        })
+        .join('')}`;
 };
 
 /** @type {MobComponent<import('./type').About>} */
