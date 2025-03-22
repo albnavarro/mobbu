@@ -1435,18 +1435,26 @@ code * {
 .l-about__about-svg--front svg {
   fill: #f6f6f6;
 }
+.l-about__about-svg--bottom {
+  top: 0;
+  left: 50%;
+  transform: translate(-48.8%, -60.2%);
+}
+.l-about__about-svg--bottom svg {
+  fill: #eee;
+}
 .l-about__shape {
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
-  transform: translate3d(-50%, -100%, 0);
-  width: 120vw;
+  transform: translate3d(-50%, -95%, 0);
+  width: 132rem;
   height: 49.3333333333rem;
   background: #fff;
   z-index: -1;
 }
 .l-about__shape--back {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.1);
 }
 .l-about__nav {
   position: absolute;

@@ -253,7 +253,11 @@ export const AboutComponentFn = ({
         ${setRef('screenElement')}
         style="--number-of-section:${numberOfSection}"
     >
-        <span class="l-about__background"> </span>
+        <span class="l-about__background">
+            <div class="l-about__about-svg l-about__about-svg--bottom">
+                ${proxi.aboutSvg}
+            </div>
+        </span>
         <div
             class="l-about__shape l-about__shape--back"
             ${setRef('pathElement')}

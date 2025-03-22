@@ -197,20 +197,30 @@
                 fill: $grey-light;
             }
         }
+
+        &--bottom {
+            top: 0;
+            left: 50%;
+            transform: translate(-48.8%, -60.2%);
+
+            svg {
+                fill: $grey;
+            }
+        }
     }
 
     &__shape {
         position: absolute;
-        top: 55%;
+        top: 50%;
         left: 50%;
-        transform: translate3d(-50%, -100%, 0);
-        width: 120vw;
+        transform: translate3d(-50%, -95%, 0);
+        width: rem(1980);
         height: rem(740);
         background: $white;
         z-index: -1;
 
         &--back {
-            background: rgba($black, 0.5);
+            background: rgba($black, 0.1);
         }
     }
 
