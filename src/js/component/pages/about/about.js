@@ -244,16 +244,6 @@ export const AboutComponentFn = ({
         ${setRef('screenElement')}
         style="--number-of-section:${numberOfSection}"
     >
-        <div
-            class="l-about__back-title is-white"
-            ${bindEffect({
-                toggleClass: {
-                    'is-visible': () => proxi.isMounted,
-                },
-            })}
-        >
-            ${proxi.block_1.titleTop}
-        </div>
         <span class="l-about__background"> </span>
         <div
             class="l-about__shape l-about__shape--back"
@@ -263,10 +253,17 @@ export const AboutComponentFn = ({
             class="l-about__shape l-about__shape--back"
             ${setRef('pathElement')}
         ></div>
+        <div class="l-about__about-svg l-about__about-svg--back">
+            ${proxi.aboutSvg}
+        </div>
         <div
             class="l-about__shape l-about__shape--front"
             ${setRef('pathElement')}
-        ></div>
+        >
+            <div class="l-about__about-svg l-about__about-svg--front">
+                ${proxi.aboutSvg}
+            </div>
+        </div>
         <button
             type="button"
             class="l-about__arrow l-about__arrow--prev"

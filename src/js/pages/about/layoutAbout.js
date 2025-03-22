@@ -1,6 +1,6 @@
 import { AboutComponent } from '../../component/pages/about/definition';
 import { html, MobJs } from '../../mobjs';
-import { loadJsonContent } from '../../utils/utils';
+import { loadJsonContent, loadTextContent } from '../../utils/utils';
 
 MobJs.useComponent([AboutComponent]);
 
@@ -8,6 +8,10 @@ MobJs.useComponent([AboutComponent]);
 export const layoutAbout = async () => {
     const { data } = await loadJsonContent({
         source: './data/about/index.json',
+    });
+
+    const { data: aboutSvg } = await loadTextContent({
+        source: './asset/svg/about.svg?v=0.1',
     });
 
     return html`<about-component
@@ -18,6 +22,7 @@ export const layoutAbout = async () => {
                 block_2: data.block_2,
                 block_3: data.block_3,
                 block_4: data.block_4,
+                aboutSvg,
             })
         )}
     ></about-component> `;

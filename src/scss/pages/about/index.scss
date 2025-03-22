@@ -13,33 +13,13 @@
         width: calc((var(--section-width) * var(--number-of-section)));
         cursor: grabbing;
         position: relative;
+        z-index: 3;
     }
 
     &__wrap {
         display: flex;
         width: 100%;
         height: 100%;
-    }
-
-    &__back-title {
-        font-size: rem(300);
-        opacity: 0;
-        position: absolute;
-        top: 50%;
-        left: calc(#{rem(100)} * -1);
-        transform: translateY(100%);
-        text-transform: uppercase;
-        font-weight: 800;
-        display: inline-block;
-        text-wrap: nowrap;
-        transition:
-            transform 1.5s,
-            opacity 0.55s;
-
-        &.is-visible {
-            transform: translateY(-200%);
-            opacity: 0.05;
-        }
     }
 
     &__top-title {
@@ -184,6 +164,39 @@
         background: $white;
         border-top: 1px $grey solid;
         overflow: hidden;
+        z-index: 2;
+    }
+
+    &__about-svg {
+        pointer-events: none;
+        position: absolute;
+        z-index: -1;
+
+        svg {
+            width: rem(225 * 7);
+            height: rem(93 * 7);
+            transform: translateY(#{rem(30)});
+        }
+
+        &--back {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+
+            svg {
+                fill: $white;
+            }
+        }
+
+        &--front {
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 34%);
+
+            svg {
+                fill: $grey-light;
+            }
+        }
     }
 
     &__shape {

@@ -13,7 +13,7 @@ export const AboutComponent = MobJs.createComponent(
     ({
         name: 'about-component',
         component: AboutComponentFn,
-        exportState: ['block_1', 'block_2', 'block_3', 'block_4'],
+        exportState: ['block_1', 'block_2', 'block_3', 'block_4', 'aboutSvg'],
         state: {
             block_1: () => ({
                 value: {
@@ -42,6 +42,10 @@ export const AboutComponent = MobJs.createComponent(
                     items: [''],
                 },
                 type: 'any',
+            }),
+            aboutSvg: () => ({
+                value: '',
+                type: String,
             }),
             isMounted: () => ({
                 value: false,

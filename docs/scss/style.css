@@ -1275,28 +1275,12 @@ code * {
   width: calc(var(--section-width) * var(--number-of-section));
   cursor: grabbing;
   position: relative;
+  z-index: 3;
 }
 .l-about__wrap {
   display: flex;
   width: 100%;
   height: 100%;
-}
-.l-about__back-title {
-  font-size: 20rem;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: calc(6.6666666667rem * -1);
-  transform: translateY(100%);
-  text-transform: uppercase;
-  font-weight: 800;
-  display: inline-block;
-  text-wrap: nowrap;
-  transition: transform 1.5s, opacity 0.55s;
-}
-.l-about__back-title.is-visible {
-  transform: translateY(-200%);
-  opacity: 0.05;
 }
 .l-about__top-title {
   font-size: 20rem;
@@ -1423,6 +1407,33 @@ code * {
   background: #fff;
   border-top: 1px #eee solid;
   overflow: hidden;
+  z-index: 2;
+}
+.l-about__about-svg {
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+.l-about__about-svg svg {
+  width: 105rem;
+  height: 43.4rem;
+  transform: translateY(2rem);
+}
+.l-about__about-svg--back {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+}
+.l-about__about-svg--back svg {
+  fill: #fff;
+}
+.l-about__about-svg--front {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 34%);
+}
+.l-about__about-svg--front svg {
+  fill: #f6f6f6;
 }
 .l-about__shape {
   position: absolute;

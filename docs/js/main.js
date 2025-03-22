@@ -26765,16 +26765,6 @@ Loading snippet ...</pre
         ${setRef("screenElement")}
         style="--number-of-section:${numberOfSection}"
     >
-        <div
-            class="l-about__back-title is-white"
-            ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
-      }
-    })}
-        >
-            ${proxi.block_1.titleTop}
-        </div>
         <span class="l-about__background"> </span>
         <div
             class="l-about__shape l-about__shape--back"
@@ -26784,10 +26774,17 @@ Loading snippet ...</pre
             class="l-about__shape l-about__shape--back"
             ${setRef("pathElement")}
         ></div>
+        <div class="l-about__about-svg l-about__about-svg--back">
+            ${proxi.aboutSvg}
+        </div>
         <div
             class="l-about__shape l-about__shape--front"
             ${setRef("pathElement")}
-        ></div>
+        >
+            <div class="l-about__about-svg l-about__about-svg--front">
+                ${proxi.aboutSvg}
+            </div>
+        </div>
         <button
             type="button"
             class="l-about__arrow l-about__arrow--prev"
@@ -26841,7 +26838,7 @@ Loading snippet ...</pre
     {
       name: "about-component",
       component: AboutComponentFn,
-      exportState: ["block_1", "block_2", "block_3", "block_4"],
+      exportState: ["block_1", "block_2", "block_3", "block_4", "aboutSvg"],
       state: {
         block_1: () => ({
           value: {
@@ -26871,6 +26868,10 @@ Loading snippet ...</pre
           },
           type: "any"
         }),
+        aboutSvg: () => ({
+          value: "",
+          type: String
+        }),
         isMounted: () => ({
           value: false,
           type: Boolean
@@ -26897,6 +26898,9 @@ Loading snippet ...</pre
     const { data } = await loadJsonContent({
       source: "./data/about/index.json"
     });
+    const { data: aboutSvg } = await loadTextContent({
+      source: "./asset/svg/about.svg?v=0.1"
+    });
     return renderHtml`<about-component
         ${modules_exports2.staticProps(
       /** @type{import('../../component/pages/about/type').About['state']} */
@@ -26904,7 +26908,8 @@ Loading snippet ...</pre
         block_1: data.block_1,
         block_2: data.block_2,
         block_3: data.block_3,
-        block_4: data.block_4
+        block_4: data.block_4,
+        aboutSvg
       }
     )}
     ></about-component> `;
