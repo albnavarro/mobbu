@@ -174,6 +174,24 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
     `;
 };
 
+/**
+ * @param {object} params
+ * @param {SetRef<import('./type').About>} params.setRef
+ * @returns {string}
+ */
+const getShapeTrail = ({ setRef }) => {
+    const items = [...new Array(4).keys()];
+
+    return html`${items.map((_, index) => {
+        return html`
+            <div
+                class="l-about__shape l-about__shape--back l-about__shape--${index}"
+                ${setRef('pathElement')}
+            ></div>
+        `;
+    })}`;
+};
+
 /** @type {MobComponent<import('./type').About>} */
 export const AboutComponentFn = ({
     onMount,
@@ -258,14 +276,7 @@ export const AboutComponentFn = ({
                 ${proxi.aboutSvg}
             </div>
         </span>
-        <div
-            class="l-about__shape l-about__shape--back"
-            ${setRef('pathElement')}
-        ></div>
-        <div
-            class="l-about__shape l-about__shape--back"
-            ${setRef('pathElement')}
-        ></div>
+        ${getShapeTrail({ setRef })}
         <div class="l-about__about-svg l-about__about-svg--back">
             ${proxi.aboutSvg}
         </div>

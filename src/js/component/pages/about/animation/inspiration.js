@@ -50,7 +50,7 @@ export const inspirationAnimation = ({ inspirationItem, section4_title }) => {
         tween: masterSequencer,
         dynamicStart: {
             position: 'right',
-            value: () => -window.innerWidth / 3,
+            value: () => 0,
         },
         dynamicEnd: {
             position: 'left',

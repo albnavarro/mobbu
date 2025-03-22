@@ -26175,7 +26175,7 @@ Loading snippet ...</pre
       tween: masterSequencer,
       dynamicStart: {
         position: "right",
-        value: () => -window.innerWidth / 3
+        value: () => 0
       },
       dynamicEnd: {
         position: "left",
@@ -26713,6 +26713,17 @@ Loading snippet ...</pre
         </ul>
     `;
   };
+  var getShapeTrail = ({ setRef }) => {
+    const items = [...new Array(4).keys()];
+    return renderHtml`${items.map((_, index) => {
+      return renderHtml`
+            <div
+                class="l-about__shape l-about__shape--back l-about__shape--${index}"
+                ${setRef("pathElement")}
+            ></div>
+        `;
+    })}`;
+  };
   var AboutComponentFn = ({
     onMount,
     setRef,
@@ -26784,14 +26795,7 @@ Loading snippet ...</pre
                 ${proxi.aboutSvg}
             </div>
         </span>
-        <div
-            class="l-about__shape l-about__shape--back"
-            ${setRef("pathElement")}
-        ></div>
-        <div
-            class="l-about__shape l-about__shape--back"
-            ${setRef("pathElement")}
-        ></div>
+        ${getShapeTrail({ setRef })}
         <div class="l-about__about-svg l-about__about-svg--back">
             ${proxi.aboutSvg}
         </div>

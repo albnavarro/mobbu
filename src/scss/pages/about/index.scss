@@ -213,14 +213,22 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate3d(-50%, -95%, 0);
         width: rem(1980);
         height: rem(740);
         background: $white;
         z-index: -1;
 
         &--back {
-            background: rgba($black, 0.1);
+            background: rgba($white, 0.2);
+            transform: translate3d(-50%, -94%, 0);
+        }
+
+        &--front {
+            transform: translate3d(-50%, -95%, 0);
+        }
+
+        &--3 {
+            background: $black;
         }
     }
 
