@@ -1,5 +1,8 @@
 # MobCore
 
+### useSwipe.
+- Implementare.
+
 ### DOCS
 - Aggiungere i tipi allo store.
 
