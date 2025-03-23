@@ -578,8 +578,10 @@ export class MobSmoothScroller {
      * @type {() => void}
      */
     #setScrolerStyle() {
-        // @ts-ignore
-        this.#scroller.style['user-select'] = 'none';
+        if (this.#scroller) {
+            // @ts-ignore
+            this.#scroller.style['user-select'] = 'none';
+        }
 
         const activeElement = /** @type{HTMLElement} */ (
             this.#scroller
