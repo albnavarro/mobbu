@@ -5,30 +5,17 @@
  **/
 
 import { html, MobJs } from '../../../../../mobjs';
-import { mainStore } from '../../../../../mobjs/modules';
 import { getBindObjectParentSize } from '../../../../../mobjs/modules/bindObject';
 import { getBindTextParentSize } from '../../../../../mobjs/modules/bindtext';
 
 /** @type{MobComponent<import('./type').DebugHead>} */
-export const DebugHeadFn = ({ invalidate, computed, bindStore, getProxi }) => {
-    bindStore(mainStore);
+export const DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
-
-    /** @type{string|undefined} */
-    let lastRoute;
-
-    computed('shouldUpdate', () => {
-        const currentRoute = proxi.activeRoute.route;
-
-        const result = proxi.active && currentRoute !== lastRoute;
-        lastRoute = currentRoute;
-        return result;
-    });
 
     return html`<div class="c-debug-head">
         <div class="c-debug-head__general">
             ${invalidate({
-                bind: 'shouldUpdate',
+                bind: 'active',
                 render: () => {
                     if (!proxi.active) return '';
 

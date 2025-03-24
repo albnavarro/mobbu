@@ -35553,20 +35553,12 @@ Loading snippet ...</pre
   );
 
   // src/js/component/common/debug/debugOverlay/Debughead/debugHead.js
-  var DebugHeadFn = ({ invalidate, computed, bindStore, getProxi }) => {
-    bindStore(mainStore);
+  var DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
-    let lastRoute;
-    computed("shouldUpdate", () => {
-      const currentRoute = proxi.activeRoute.route;
-      const result = proxi.active && currentRoute !== lastRoute;
-      lastRoute = currentRoute;
-      return result;
-    });
     return renderHtml`<div class="c-debug-head">
         <div class="c-debug-head__general">
             ${invalidate({
-      bind: "shouldUpdate",
+      bind: "active",
       render: () => {
         if (!proxi.active) return "";
         return renderHtml`
