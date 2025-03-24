@@ -1,3 +1,5 @@
+import { NavigationStore } from './store/type';
+
 export interface NavigationButton {
     state: {
         label: string;
@@ -13,12 +15,13 @@ export interface NavigationButton {
     };
 }
 
+interface NavigationLabelState extends NavigationStore {
+    label: string;
+    sectioName: string;
+}
+
 export interface NavigationLabel {
-    state: {
-        label: string;
-        sectioName: string;
-        activeNavigationSection: string;
-    };
+    state: NavigationLabelState;
 }
 
 export interface NavigationSubmenu {
