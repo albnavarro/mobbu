@@ -226,7 +226,7 @@ const watchBindEffect = ({ data, element }) => {
                     /**
                      * Check if element is garbage collected.
                      */
-                    if (!ref.deref()) {
+                    if (!ref || !ref?.deref()) {
                         /**
                          * Unsubscribe all watcher attached to this ref
                          */

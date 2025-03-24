@@ -282,7 +282,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
                         }
                     }
 
-                    if (ref.deref()) {
+                    if (ref && ref?.deref()) {
                         // @ts-ignore
                         ref.deref().textContent = '';
                         // @ts-ignore
@@ -292,7 +292,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
                     watchIsRunning = false;
 
                     MobCore.useNextTick(async () => {
-                        if (!ref.deref()) {
+                        if (!ref || !ref?.deref()) {
                             unsubScribeFunction.forEach((fn) => {
                                 if (fn) fn();
                             });
