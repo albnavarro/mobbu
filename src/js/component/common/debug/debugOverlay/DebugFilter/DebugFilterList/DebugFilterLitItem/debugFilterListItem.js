@@ -11,27 +11,15 @@ import { debugActiveComponentStore } from '../../../Store/DebugActiveComponent';
 export const DebugFilterListItemFn = ({
     delegateEvents,
     bindText,
-    onMount,
     bindEffect,
     getProxi,
+    bindStore,
+    computed,
 }) => {
+    bindStore(debugActiveComponentStore);
     const proxi = getProxi();
 
-    onMount(() => {
-        const { currentId } = debugActiveComponentStore.get();
-        proxi.active = currentId === proxi.id;
-
-        const unsubscribeActiveItem = debugActiveComponentStore.watch(
-            'currentId',
-            (value) => {
-                proxi.active = value === proxi.id;
-            }
-        );
-
-        return () => {
-            unsubscribeActiveItem();
-        };
-    });
+    computed('active', () => proxi.id === proxi.currentId);
 
     return html`
         <div class="c-debug-filter-list-item">

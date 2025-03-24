@@ -1,6 +1,6 @@
 // @ts-check
 
-import { html } from '../../../../mobjs';
+import { html, MobJs } from '../../../../mobjs';
 import { consoleLogDebug } from '../consoleLog';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
 
@@ -17,11 +17,28 @@ export const DebugOverlayFn = ({
     invalidate,
     bindEffect,
     getProxi,
+    onMount,
 }) => {
     const proxi = getProxi();
 
     addMethod('toggle', () => {
         proxi.active = !proxi.active;
+    });
+
+    onMount(() => {
+        /**
+         * Close overlay on route change.
+         * Avoid infinite debuf overlay filter item increase.
+         * If filter list is visible avoid to count them.
+         */
+        const unsubScribeBeforeRouterChange = MobJs.beforeRouteChange(() => {
+            proxi.active = false;
+            proxi.listType = DEBUG_USE_TREE;
+        });
+
+        return () => {
+            unsubScribeBeforeRouterChange();
+        };
     });
 
     return html`<div

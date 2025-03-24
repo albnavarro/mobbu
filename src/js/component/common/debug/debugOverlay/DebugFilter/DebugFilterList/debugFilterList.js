@@ -45,7 +45,7 @@ const getFakeReplacement = (/** @type{number} */ index) =>
 /**
  * @param {object} params
  * @param {string} params.testString
- * @returns {DebugFilterListItem['state'][]} params
+ * @returns {Omit<DebugFilterListItem['state'], 'currentId'>[]} params
  */
 const getDataFiltered = ({ testString }) => {
     const stringParsed =
@@ -94,13 +94,11 @@ export const DebugFilterListFn = ({
     getRef,
     addMethod,
     repeat,
-    setState,
     staticProps,
     bindProps,
-    getState,
-    watch,
     bindEffect,
     getProxi,
+    computed,
 }) => {
     const proxi = getProxi();
 
@@ -113,36 +111,39 @@ export const DebugFilterListFn = ({
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let updateScroller = () => {};
 
+    /**
+     * Show/hide no-result label
+     */
+    computed('noResult', () => {
+        return proxi.data.length === 0 && !proxi.isLoading;
+    });
+
     addMethod('refreshList', async ({ testString }) => {
         /**
          * With very large result (800/1000 item)
          * before create list set loading true.
          * Await css con be applied before large parse that block thread.
          */
-        setState('isLoading', true);
+        proxi.isLoading = true;
         await MobJs.tick();
 
         /**
          * After useFrame of isLoading watcher
          * Set current data state.
          */
-        MobCore.useFrame(() => {
-            MobCore.useNextTick(async () => {
-                /**
-                 * With very large result (500/1000 item)
-                 * before create list set loading true.
-                 */
-                setState('data', getDataFiltered({ testString }));
+        /**
+         * With very large result (500/1000 item)
+         * before create list set loading true.
+         */
+        proxi.data = getDataFiltered({ testString });
 
-                // Await end of list creation.
-                await MobJs.tick();
-                refresh?.();
-                updateScroller?.();
+        // Await end of list creation.
+        await MobJs.tick();
+        refresh?.();
+        updateScroller?.();
 
-                // Reset loading.
-                setState('isLoading', false);
-            });
-        });
+        // Reset loading.
+        proxi.isLoading = false;
     });
 
     onMount(() => {
@@ -159,12 +160,6 @@ export const DebugFilterListFn = ({
                 getRef,
             }));
         })();
-
-        watch('isLoading', (isLoading) => {
-            const { data } = getState();
-            const hasOccurrence = data.length > 0;
-            setState('noResult', !hasOccurrence && !isLoading);
-        });
 
         return () => {
             destroy?.();
@@ -211,6 +206,7 @@ export const DebugFilterListFn = ({
                         bind: 'data',
                         key: 'id',
                         useSync: true,
+                        persistent: true,
                         render: ({ sync, current }) => {
                             return html`
                                 <debug-filter-list-item

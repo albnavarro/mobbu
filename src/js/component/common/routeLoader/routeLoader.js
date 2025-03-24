@@ -25,13 +25,13 @@ export const RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
             element.style.transform = `scale(${scale})`;
         });
 
-        MobJs.beforeRouteChange(() => {
+        const unsubscribeBeforeRouteChange = MobJs.beforeRouteChange(() => {
             tweenOut.goTo({ opacity: 1, scale: 1 });
 
             proxi.isDisable = false;
         });
 
-        MobJs.afterRouteChange(async () => {
+        const unsubScribeAfterRouteChange = MobJs.afterRouteChange(async () => {
             await tweenOut.goTo({ opacity: 0, scale: 0.9 });
 
             proxi.isDisable = true;
@@ -41,6 +41,8 @@ export const RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
             tweenOut.destroy();
             // @ts-ignore
             tweenOut = null;
+            unsubscribeBeforeRouteChange();
+            unsubScribeAfterRouteChange();
         };
     });
 

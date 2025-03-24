@@ -4,7 +4,6 @@
  * @import { MobComponent } from '../../../../../mobjs/type';
  **/
 
-import { MobCore } from '../../../../../mobCore';
 import { html, MobJs } from '../../../../../mobjs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { generateTreeComponents } from './recursiveTree';
@@ -78,32 +77,26 @@ export const DebugTreeFn = ({
             setState('isLoading', true);
             await MobJs.tick();
 
-            MobCore.useFrame(() => {
-                MobCore.useNextTick(async () => {
-                    destroy?.();
-                    setState('data', MobJs.getTree());
-                    // @ts-ignore
-                    ({ destroy, move, refresh, updateScroller } =
-                        await initScroller({ getRef }));
-                    setState('isLoading', false);
-                });
-            });
+            destroy?.();
+            setState('data', MobJs.getTree());
+            // @ts-ignore
+            ({ destroy, move, refresh, updateScroller } = await initScroller({
+                getRef,
+            }));
+            setState('isLoading', false);
         });
 
         (async () => {
             setState('isLoading', true);
             await MobJs.tick();
 
-            MobCore.useFrame(() => {
-                MobCore.useNextTick(async () => {
-                    destroy?.();
-                    setState('data', MobJs.getTree());
-                    // @ts-ignore
-                    ({ destroy, move, refresh, updateScroller } =
-                        await initScroller({ getRef }));
-                    setState('isLoading', false);
-                });
-            });
+            destroy?.();
+            setState('data', MobJs.getTree());
+            // @ts-ignore
+            ({ destroy, move, refresh, updateScroller } = await initScroller({
+                getRef,
+            }));
+            setState('isLoading', false);
         })();
 
         return () => {

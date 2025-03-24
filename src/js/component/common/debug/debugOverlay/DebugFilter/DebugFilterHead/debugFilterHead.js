@@ -8,6 +8,14 @@ import { html, MobJs } from '../../../../../../mobjs';
 
 let lastSearch = '';
 
+const refreshList = async () => {
+    await MobJs.tick();
+
+    /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
+    const methods = MobJs.useMethodByName('debug_filter_list');
+    methods?.refreshList?.({ testString: lastSearch });
+};
+
 /** @type{MobComponent<import('./type').DebugFilterHead>} */
 export const DebugFilterHeadFn = ({
     onMount,
@@ -16,16 +24,17 @@ export const DebugFilterHeadFn = ({
     delegateEvents,
 }) => {
     onMount(() => {
-        (async () => {
-            // Wait application render
-            await MobJs.tick();
+        refreshList();
 
-            /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
-            const methods = MobJs.useMethodByName('debug_filter_list');
-            methods?.refreshList({ testString: lastSearch });
-        })();
+        // Refresh list after route change
+        const unsubscribeAfterRouteChange = MobJs.afterRouteChange(() => {
+            refreshList();
+        });
 
-        return () => {};
+        return () => {
+            unsubscribeAfterRouteChange();
+            lastSearch = '';
+        };
     });
 
     return html`<div class="c-debug-filter-head">

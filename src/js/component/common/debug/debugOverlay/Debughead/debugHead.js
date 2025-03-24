@@ -5,29 +5,24 @@
  **/
 
 import { html, MobJs } from '../../../../../mobjs';
+import { mainStore } from '../../../../../mobjs/modules';
 import { getBindObjectParentSize } from '../../../../../mobjs/modules/bindObject';
 import { getBindTextParentSize } from '../../../../../mobjs/modules/bindtext';
 
 /** @type{MobComponent<import('./type').DebugHead>} */
-export const DebugHeadFn = ({
-    onMount,
-    getState,
-    watch,
-    invalidate,
-    setState,
-}) => {
-    onMount(() => {
-        watch('active', async () => {
-            setState('shouldUpdate', true);
-        });
+export const DebugHeadFn = ({ invalidate, computed, bindStore, getProxi }) => {
+    bindStore(mainStore);
+    const proxi = getProxi();
 
-        const unsubscribeRoute = MobJs.afterRouteChange(() => {
-            setState('shouldUpdate', true);
-        });
+    /** @type{string|undefined} */
+    let lastRoute;
 
-        return () => {
-            unsubscribeRoute();
-        };
+    computed('shouldUpdate', () => {
+        const currentRoute = proxi.activeRoute.route;
+
+        const result = proxi.active && currentRoute !== lastRoute;
+        lastRoute = currentRoute;
+        return result;
     });
 
     return html`<div class="c-debug-head">
@@ -35,8 +30,7 @@ export const DebugHeadFn = ({
             ${invalidate({
                 bind: 'shouldUpdate',
                 render: () => {
-                    const { active } = getState();
-                    if (!active) return '';
+                    if (!proxi.active) return '';
 
                     return html`
                         <div>
