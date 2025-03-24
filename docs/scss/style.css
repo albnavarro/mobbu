@@ -1345,8 +1345,9 @@ code * {
 }
 .l-about__scroll {
   position: absolute;
-  bottom: 1.3333333333rem;
-  left: 2.6666666667rem;
+  bottom: 5.3333333333rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 2;
 }
 .l-about__list {
