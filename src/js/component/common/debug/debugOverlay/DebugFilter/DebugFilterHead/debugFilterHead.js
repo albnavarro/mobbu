@@ -6,14 +6,12 @@ import { html, MobJs } from '../../../../../../mobjs';
  * @import { MobComponent, UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
-let lastSearch = '';
-
-const refreshList = async () => {
+const refreshList = async (testString = '') => {
     await MobJs.tick();
 
     /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
     const methods = MobJs.useMethodByName('debug_filter_list');
-    methods?.refreshList?.({ testString: lastSearch });
+    methods?.refreshList?.({ testString });
 };
 
 /** @type{MobComponent<import('./type').DebugFilterHead>} */
@@ -25,16 +23,6 @@ export const DebugFilterHeadFn = ({
 }) => {
     onMount(() => {
         refreshList();
-
-        // Refresh list after route change
-        const unsubscribeAfterRouteChange = MobJs.afterRouteChange(() => {
-            refreshList();
-        });
-
-        return () => {
-            unsubscribeAfterRouteChange();
-            lastSearch = '';
-        };
     });
 
     return html`<div class="c-debug-filter-head">
@@ -42,7 +30,7 @@ export const DebugFilterHeadFn = ({
         <input
             type="text"
             class="c-debug-filter-head__input"
-            value="${lastSearch}"
+            value=""
             ${setRef('input')}
             ${delegateEvents({
                 keypress: (/** @type{KeyboardEvent} */ event) => {
@@ -52,13 +40,7 @@ export const DebugFilterHeadFn = ({
                         const testString = /** @type{HTMLInputElement} */ (
                             event.target
                         ).value;
-
-                        lastSearch = testString;
-
-                        /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
-                        const methods =
-                            MobJs.useMethodByName('debug_filter_list');
-                        methods?.refreshList({ testString });
+                        refreshList(testString);
                     }
                 },
             })}
@@ -70,11 +52,7 @@ export const DebugFilterHeadFn = ({
                 click: () => {
                     const { input } = getRef();
                     const testString = input.value;
-                    lastSearch = testString;
-
-                    /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
-                    const methods = MobJs.useMethodByName('debug_filter_list');
-                    methods?.refreshList({ testString });
+                    refreshList(testString);
                 },
             })}
         >
