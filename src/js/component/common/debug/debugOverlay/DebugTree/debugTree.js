@@ -73,19 +73,6 @@ export const DebugTreeFn = ({
             updateScroller?.();
         });
 
-        const unsubscrineRoute = MobJs.afterRouteChange(async () => {
-            setState('isLoading', true);
-            await MobJs.tick();
-
-            destroy?.();
-            setState('data', MobJs.getTree());
-            // @ts-ignore
-            ({ destroy, move, refresh, updateScroller } = await initScroller({
-                getRef,
-            }));
-            setState('isLoading', false);
-        });
-
         (async () => {
             setState('isLoading', true);
             await MobJs.tick();
@@ -100,7 +87,6 @@ export const DebugTreeFn = ({
         })();
 
         return () => {
-            unsubscrineRoute();
             destroy?.();
             destroy = () => {};
             refresh = () => {};

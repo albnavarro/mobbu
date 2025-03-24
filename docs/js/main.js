@@ -35978,16 +35978,6 @@ Loading snippet ...</pre
         refresh?.();
         updateScroller?.();
       });
-      const unsubscrineRoute = modules_exports2.afterRouteChange(async () => {
-        setState("isLoading", true);
-        await modules_exports2.tick();
-        destroy2?.();
-        setState("data", modules_exports2.getTree());
-        ({ destroy: destroy2, move: move2, refresh, updateScroller } = await initScroller3({
-          getRef
-        }));
-        setState("isLoading", false);
-      });
       (async () => {
         setState("isLoading", true);
         await modules_exports2.tick();
@@ -35999,7 +35989,6 @@ Loading snippet ...</pre
         setState("isLoading", false);
       })();
       return () => {
-        unsubscrineRoute();
         destroy2?.();
         destroy2 = () => {
         };
