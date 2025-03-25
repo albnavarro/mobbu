@@ -4,7 +4,7 @@ interface State extends DebugActiveComponentStore {
     id: string;
     componentName: string;
     instanceName: string;
-    children: DebugTreeItem['state'][];
+    children: DebugTreeItem['state'][] | [];
     isOpen: boolean;
     isActive: boolean;
     hasActiveChildren: boolean;
