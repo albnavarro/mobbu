@@ -10,6 +10,13 @@ import { aboutSvgAnimation } from './animation/svgAnimation';
 /** @type{(value: number) => void} */
 let _goTo = () => {};
 
+/**
+ * @param {number} value
+ * @returns {Promise<any>}
+ */
+let moveSvg = (value) => Promise.resolve(value);
+let moveSvgFromNav = () => {};
+
 /** @type{Record<number, number>} */
 const goToPercentage = {
     1: 0,
@@ -154,6 +161,7 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
                                 ${delegateEvents({
                                     click: () => {
                                         _goTo(goToPercentage[index]);
+                                        moveSvgFromNav();
                                     },
                                 })}
                             >
@@ -194,12 +202,6 @@ const getShapeTrail = ({ setRef }) => {
         })
         .join('')}`;
 };
-
-/**
- * @param {number} value
- * @returns {Promise<any>}
- */
-let moveSvg = (value) => Promise.resolve(value);
 
 /** @type {MobComponent<import('./type').About>} */
 export const AboutComponentFn = ({
@@ -242,10 +244,23 @@ export const AboutComponentFn = ({
             elements: svg,
         });
 
+        /**
+         * Move about svg 1:1 with drag.
+         */
         moveSvg = async (value) => {
             const valueParsed = -Math.abs(value / 30);
-
             await svgSpring.goTo({ x: valueParsed });
+        };
+
+        /**
+         * Move about svg from nav handler.
+         */
+        moveSvgFromNav = () => {
+            moveSvg(3000);
+
+            setTimeout(() => {
+                moveSvg(0);
+            }, 500);
         };
 
         const { destroy, goTo } = aboutAnimation({
@@ -338,11 +353,10 @@ export const AboutComponentFn = ({
                 },
             })}
             ${delegateEvents({
-                click: async () => {
+                click: () => {
                     proxi.activenavItem -= 1;
                     _goTo(goToPercentage[proxi.activenavItem]);
-                    await moveSvg(3000);
-                    moveSvg(0);
+                    moveSvgFromNav();
                 },
             })}
         >
@@ -357,11 +371,10 @@ export const AboutComponentFn = ({
                 },
             })}
             ${delegateEvents({
-                click: async () => {
+                click: () => {
                     proxi.activenavItem += 1;
                     _goTo(goToPercentage[proxi.activenavItem]);
-                    await moveSvg(3000);
-                    moveSvg(0);
+                    moveSvgFromNav();
                 },
             })}
         >

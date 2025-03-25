@@ -26633,6 +26633,9 @@ Loading snippet ...</pre
   // src/js/component/pages/about/about.js
   var _goTo = () => {
   };
+  var moveSvg = (value) => Promise.resolve(value);
+  var moveSvgFromNav = () => {
+  };
   var goToPercentage = {
     1: 0,
     2: 100 / 3 + 3,
@@ -26741,6 +26744,7 @@ Loading snippet ...</pre
                                 ${delegateEvents({
         click: () => {
           _goTo(goToPercentage[index]);
+          moveSvgFromNav();
         }
       })}
                             >
@@ -26770,7 +26774,6 @@ Loading snippet ...</pre
             `;
     }).join("")}`;
   };
-  var moveSvg = (value) => Promise.resolve(value);
   var AboutComponentFn = ({
     onMount,
     setRef,
@@ -26806,6 +26809,12 @@ Loading snippet ...</pre
       moveSvg = async (value) => {
         const valueParsed = -Math.abs(value / 30);
         await svgSpring.goTo({ x: valueParsed });
+      };
+      moveSvgFromNav = () => {
+        moveSvg(3e3);
+        setTimeout(() => {
+          moveSvg(0);
+        }, 500);
       };
       const { destroy: destroy2, goTo } = aboutAnimation({
         screenElement,
@@ -26891,11 +26900,10 @@ Loading snippet ...</pre
       }
     })}
             ${delegateEvents({
-      click: async () => {
+      click: () => {
         proxi.activenavItem -= 1;
         _goTo(goToPercentage[proxi.activenavItem]);
-        await moveSvg(3e3);
-        moveSvg(0);
+        moveSvgFromNav();
       }
     })}
         >
@@ -26910,11 +26918,10 @@ Loading snippet ...</pre
       }
     })}
             ${delegateEvents({
-      click: async () => {
+      click: () => {
         proxi.activenavItem += 1;
         _goTo(goToPercentage[proxi.activenavItem]);
-        await moveSvg(3e3);
-        moveSvg(0);
+        moveSvgFromNav();
       }
     })}
         >
