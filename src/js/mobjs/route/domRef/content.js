@@ -1,9 +1,10 @@
 // @ts-check
 
-/**
- * @type {string}
- */
-let domContentID = '';
+/** @type {string} */
+let contentAttributeId = '';
+
+/** @type {HTMLElement|null} */
+let DOMContentElement;
 
 /**
  * @param {object} obj
@@ -15,7 +16,7 @@ let domContentID = '';
  * Set root app.
  */
 export const setContentId = ({ contentId = '' }) => {
-    domContentID = contentId;
+    contentAttributeId = contentId;
 };
 
 /**
@@ -24,4 +25,12 @@ export const setContentId = ({ contentId = '' }) => {
  * @description
  * Set root app.
  */
-export const getContentId = () => domContentID;
+export const getContentId = () => contentAttributeId;
+
+/** @returns {void} */
+export const setContentElement = () => {
+    DOMContentElement = document?.querySelector(contentAttributeId);
+};
+
+/** @returns {HTMLElement|null} */
+export const getContentElement = () => DOMContentElement;

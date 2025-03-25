@@ -11,7 +11,7 @@ import {
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
     MAIN_STORE_ROUTE_IS_LOADING,
 } from '../../mainStore/constant';
-import { getContentId } from '../domRef/content';
+import { getContentElement } from '../domRef/content';
 import { mainStore } from '../../mainStore/mainStore';
 import { getBeforePageTransition, getPageTransition } from '../pageTransition';
 import { parseComponents } from '../../parse';
@@ -45,18 +45,10 @@ export const loadRoute = async ({
      */
     await tick();
 
-    /**
-     *
-     */
-    const contentId = getContentId();
+    const contentElement = getContentElement();
+    if (!contentElement || !(contentElement instanceof HTMLElement)) return;
 
-    /**
-     * @type {HTMLElement|null}
-     */
-    const contentEl = document?.querySelector(contentId);
-    if (!contentEl) return;
-
-    if (comeFromHistory) contentEl.style.visibility = 'hidden';
+    if (comeFromHistory) contentElement.style.visibility = 'hidden';
 
     /**
      * Set before Route leave.
@@ -123,7 +115,7 @@ export const loadRoute = async ({
     /**
      * @type {Node|null}
      */
-    let clone = contentEl?.cloneNode(true);
+    let clone = contentElement.cloneNode(true);
 
     if (beforePageTransition && clone && !comeFromHistory) {
         await beforePageTransition({
@@ -134,23 +126,23 @@ export const loadRoute = async ({
             oldTemplateName: activeRoute.templateName,
             newTemplateName: templateName,
         });
-        contentEl?.parentNode?.insertBefore(clone, contentEl);
+        contentElement?.parentNode?.insertBefore(clone, contentElement);
     }
 
     /**
      *
      */
     // contentEl.textContent = '';
-    contentEl.replaceChildren();
+    contentElement.replaceChildren();
 
     removeCancellableComponent();
-    contentEl.insertAdjacentHTML('afterbegin', content);
+    contentElement.insertAdjacentHTML('afterbegin', content);
 
     /**
      * Wait for all render.
      */
-    await parseComponents({ element: contentEl });
-    if (comeFromHistory) contentEl.style.visibility = '';
+    await parseComponents({ element: contentElement });
+    if (comeFromHistory) contentElement.style.visibility = '';
 
     /**
      * SKit after route change if another route is called.
@@ -171,7 +163,7 @@ export const loadRoute = async ({
     if (pageTransition && !comeFromHistory) {
         await pageTransition({
             oldNode: clone,
-            newNode: contentEl,
+            newNode: contentElement,
             oldRoute: activeRoute.route,
             newRoute: route,
             oldTemplateName: activeRoute.templateName,

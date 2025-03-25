@@ -7,7 +7,7 @@ import { setIndex, setPageNotFound, setRouteList } from '../route/routeList';
 import { initParseWatcher, parseComponents } from '../parse';
 import { router } from '../route';
 // import { debugRoute } from '../route/test';
-import { setContentId } from '../route/domRef/content';
+import { setContentElement, setContentId } from '../route/domRef/content';
 import { setRoot } from '../route/domRef/root';
 import {
     setBeforePageTransition,
@@ -102,9 +102,9 @@ export const inizializeApp = async ({
     }, frameDelayAfterParse);
 
     /**
-     * Debug
+     * set DOM content element
      */
-    // debugRoute();
+    setContentElement();
 
     /**
      * Start router.
