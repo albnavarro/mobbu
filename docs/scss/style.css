@@ -3583,7 +3583,6 @@ code * {
   left: calc(var(--doc-width) + 2.6666666667rem);
   z-index: 14;
   width: 16.6666666667rem;
-  display: block;
   opacity: 1;
   visibility: visible;
   pointer-events: all;
@@ -3591,6 +3590,12 @@ code * {
     transform 0.55s,
     opacity 0.55s,
     visibility 0.55s;
+  display: none;
+}
+@media (min-width: 75em) {
+  .c-params-mobjs {
+    display: block;
+  }
 }
 .c-params-mobjs.hide {
   opacity: 0;

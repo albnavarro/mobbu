@@ -41,7 +41,6 @@ export const OnlyDesktopFn = ({ onMount, setState, getState, invalidate }) => {
         <div class="only-desktop-container">
             ${invalidate({
                 bind: 'active',
-                persistent: true,
                 render: () => {
                     return getContent({ getState });
                 },

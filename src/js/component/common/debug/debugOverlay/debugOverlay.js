@@ -93,7 +93,6 @@ export const DebugOverlayFn = ({
                     <div>
                         ${invalidate({
                             bind: ['listType', 'active'],
-                            persistent: true,
                             render: () => {
                                 if (
                                     proxi.listType === DEBUG_USE_TREE &&
@@ -159,7 +158,6 @@ export const DebugOverlayFn = ({
                 <div>
                     ${invalidate({
                         bind: ['listType', 'active'],
-                        persistent: true,
                         render: () => {
                             if (
                                 proxi.listType === DEBUG_USE_TREE &&

@@ -64,20 +64,6 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "persistent ( optional ):"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "If the repeater is created outside the dynamic content, in the global wrapper, it indicates that the component should not be removed during the route change."
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
             "content": "clean (optional):"
         },
         {
@@ -227,7 +213,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 18
+                "numLines": 17
             }
         },
         {

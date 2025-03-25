@@ -12,9 +12,6 @@
 
 # MobJs
 
-## Repeater:
-- `Persistent`: si puó dedurre se il componente che lo contiente e contenuto nel `content` div.
-
 ## Props
 - Aggiungere doc per passare  i valori come `data-prop`.
 

@@ -84,6 +84,8 @@ export const inizializeApp = async ({
      */
     rootEl.insertAdjacentHTML('afterbegin', wrapperDOM);
 
+    setContentElement();
+
     /**
      * Render common layout component.
      * Initialize js on common layout component.
@@ -104,7 +106,6 @@ export const inizializeApp = async ({
     /**
      * set DOM content element
      */
-    setContentElement();
 
     /**
      * Start router.

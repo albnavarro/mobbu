@@ -1,6 +1,5 @@
 export type PartialRepeat<T> = <K extends keyof T>(arg0: {
     clean?: boolean;
-    persistent: boolean;
     bind: OnlyStringKey<T>;
     key?: string | undefined;
     useSync?: boolean;

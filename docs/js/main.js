@@ -16448,6 +16448,17 @@
     return orderdChildren.map(({ items }) => items);
   };
 
+  // src/js/mobjs/route/domRef/content.js
+  var contentAttributeId = "";
+  var DOMContentElement;
+  var setContentId = ({ contentId = "" }) => {
+    contentAttributeId = contentId;
+  };
+  var setContentElement = () => {
+    DOMContentElement = document?.querySelector(contentAttributeId);
+  };
+  var getContentElement = () => DOMContentElement;
+
   // src/js/mobjs/component/action/component.js
   var getComponentNameById = (id = "") => {
     if (!id || id === "") return;
@@ -16481,6 +16492,14 @@
   var getIdArrayByInstanceName = (name = "") => {
     if (!name) return [];
     return [...componentMap.values()].filter(({ instanceName }) => instanceName === name).map(({ id }) => id);
+  };
+  var componentIsPersistent = (id = "") => {
+    if (!id || id === "") return false;
+    const item = componentMap.get(id);
+    const element = item?.element;
+    if (!element) return false;
+    const contentElement = getContentElement();
+    return !contentElement?.contains(element);
   };
 
   // src/js/mobjs/component/action/getTree.js
@@ -20067,8 +20086,7 @@
         attachTo,
         component,
         position: position2 = "afterbegin",
-        clean: clean2 = true,
-        persistent = false
+        clean: clean2 = true
       }) => {
         if (clean2) {
           destroyComponentInsideNodeById({ id, container: attachTo });
@@ -20077,7 +20095,11 @@
         attachTo.insertAdjacentHTML(position2, component);
         mainStore.set(
           MAIN_STORE_ASYNC_PARSER,
-          { element: attachTo, parentId: id, persistent },
+          {
+            element: attachTo,
+            parentId: id,
+            persistent: componentIsPersistent(id)
+          },
           { emit: false }
         );
         return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
@@ -20152,7 +20174,6 @@
       invalidate: ({
         bind,
         render: render2,
-        persistent = false,
         beforeUpdate = () => Promise.resolve(),
         afterUpdate = () => {
         }
@@ -20175,7 +20196,7 @@
               watch,
               beforeUpdate,
               afterUpdate,
-              persistent,
+              persistent: componentIsPersistent(id),
               id,
               invalidateId,
               renderFunction: invalidateRender
@@ -20191,7 +20212,6 @@
       repeat: ({
         bind,
         clean: clean2 = false,
-        persistent = false,
         beforeUpdate = () => Promise.resolve(),
         afterUpdate = () => {
         },
@@ -20234,7 +20254,7 @@
             if (isInizialized) return;
             inizializeRepeatWatch({
               repeatId,
-              persistent,
+              persistent: componentIsPersistent(id),
               state: bind,
               setState,
               emit,
@@ -20708,17 +20728,6 @@
     cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));
   };
 
-  // src/js/mobjs/route/domRef/content.js
-  var contentAttributeId = "";
-  var DOMContentElement;
-  var setContentId = ({ contentId = "" }) => {
-    contentAttributeId = contentId;
-  };
-  var setContentElement = () => {
-    DOMContentElement = document?.querySelector(contentAttributeId);
-  };
-  var getContentElement = () => DOMContentElement;
-
   // src/js/mobjs/route/pageTransition/index.js
   var pageTransition = () => {
   };
@@ -20963,13 +20972,13 @@
     setIndex({ routeName: index });
     setPageNotFound({ routeName: pageNotFound3 });
     rootEl.insertAdjacentHTML("afterbegin", wrapperDOM);
+    setContentElement();
     await parseComponents({ element: rootEl, persistent: true });
     modules_exports.useFrameIndex(() => {
       modules_exports.useNextTick(() => {
         afterInit();
       });
     }, frameDelayAfterParse);
-    setContentElement();
     router();
   };
 
@@ -34877,7 +34886,6 @@ Loading snippet ...</pre
         <ul ${setRef("scrollerEl")}>
             ${invalidate({
       bind: ["data"],
-      persistent: true,
       render: () => {
         return getItems3({
           staticProps: staticProps2,
@@ -34977,7 +34985,6 @@ Loading snippet ...</pre
         <div class="only-desktop-container">
             ${invalidate({
       bind: "active",
-      persistent: true,
       render: () => {
         return getContent({ getState });
       }
@@ -35425,7 +35432,6 @@ Loading snippet ...</pre
       bind: "data",
       key: "id",
       useSync: true,
-      persistent: true,
       render: ({ sync, current }) => {
         return renderHtml`
                                 <debug-filter-list-item
@@ -35819,7 +35825,6 @@ Loading snippet ...</pre
                     <div>
                         ${invalidate({
       bind: ["listType", "active"],
-      persistent: true,
       render: () => {
         if (proxi.listType === DEBUG_USE_TREE && proxi.active)
           return renderHtml`<div
@@ -35872,7 +35877,6 @@ Loading snippet ...</pre
                 <div>
                     ${invalidate({
       bind: ["listType", "active"],
-      persistent: true,
       render: () => {
         if (proxi.listType === DEBUG_USE_TREE && proxi.active)
           return renderHtml`

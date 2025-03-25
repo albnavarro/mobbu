@@ -1,5 +1,6 @@
 // @ts-check
 
+import { getContentElement } from '../../route/domRef/content';
 import { componentMap } from '../store';
 
 /**
@@ -95,4 +96,22 @@ export const componentHasKey = (id = '') => {
     }
 
     return key !== '';
+};
+
+/**
+ * @param {string} id
+ * @returns {boolean|undefined}
+ *
+ * @description
+ * Check if component is persistent ( is outside content node element ).
+ */
+export const componentIsPersistent = (id = '') => {
+    if (!id || id === '') return false;
+
+    const item = componentMap.get(id);
+    const element = item?.element;
+    if (!element) return false;
+
+    const contentElement = getContentElement();
+    return !contentElement?.contains(element);
 };

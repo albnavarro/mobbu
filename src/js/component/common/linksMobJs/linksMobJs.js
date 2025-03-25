@@ -175,7 +175,6 @@ export const LinksMobJsFn = ({
         <ul ${setRef('scrollerEl')}>
             ${invalidate({
                 bind: ['data'],
-                persistent: true,
                 render: () => {
                     return getItems({
                         staticProps,

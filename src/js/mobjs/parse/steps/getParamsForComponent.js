@@ -56,6 +56,7 @@ import {
 } from '../../modules/repeater/update/utils';
 import { setRepeaterChild } from '../../modules/repeater/action/setRepeatChild';
 import { setBindEffect } from '../../modules/bindEffect';
+import { componentIsPersistent } from '../../component/action/component';
 
 /**
  * @param {import('./type').GetParamsForComponent} obj.state
@@ -108,7 +109,6 @@ export const getParamsForComponentFunction = ({
             component,
             position = 'afterbegin',
             clean = true,
-            persistent = false,
         }) => {
             /**
              * Remove all children inside attachTo.
@@ -129,7 +129,11 @@ export const getParamsForComponentFunction = ({
              */
             mainStore.set(
                 MAIN_STORE_ASYNC_PARSER,
-                { element: attachTo, parentId: id, persistent },
+                {
+                    element: attachTo,
+                    parentId: id,
+                    persistent: componentIsPersistent(id),
+                },
                 { emit: false }
             );
             return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
@@ -212,7 +216,6 @@ export const getParamsForComponentFunction = ({
         invalidate: ({
             bind,
             render,
-            persistent = false,
             beforeUpdate = () => Promise.resolve(),
             afterUpdate = () => {},
         }) => {
@@ -244,7 +247,7 @@ export const getParamsForComponentFunction = ({
                         watch,
                         beforeUpdate,
                         afterUpdate,
-                        persistent,
+                        persistent: componentIsPersistent(id),
                         id,
                         invalidateId,
                         renderFunction: invalidateRender,
@@ -263,7 +266,6 @@ export const getParamsForComponentFunction = ({
         repeat: ({
             bind,
             clean = false,
-            persistent = false,
             beforeUpdate = () => Promise.resolve(),
             afterUpdate = () => {},
             key = '',
@@ -325,7 +327,7 @@ export const getParamsForComponentFunction = ({
                      */
                     inizializeRepeatWatch({
                         repeatId,
-                        persistent,
+                        persistent: componentIsPersistent(id),
                         state: bind,
                         setState,
                         emit,

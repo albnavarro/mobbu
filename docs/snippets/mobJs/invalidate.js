@@ -40,7 +40,6 @@ export const MyComponent = ({
         <div class="invalidate-container">
             ${invalidate({
                 bind: ['myState', 'myState2'],
-                persistent: false,
                 beforeUpdate: () => {
                     //
                 },

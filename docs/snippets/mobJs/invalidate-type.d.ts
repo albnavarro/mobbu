@@ -1,6 +1,5 @@
 export type PartialInvalidateComponent<T> = (arg0: {
     bind?: OnlyStringKey<GetState<T>>[] | OnlyStringKey<GetState<T>>;
-    persistent?: boolean;
     beforeUpdate?(): Promise<void>;
     afterUpdate?(): void;
     render: (arg0: {

@@ -206,7 +206,6 @@ export const DebugFilterListFn = ({
                         bind: 'data',
                         key: 'id',
                         useSync: true,
-                        persistent: true,
                         render: ({ sync, current }) => {
                             return html`
                                 <debug-filter-list-item
