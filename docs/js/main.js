@@ -26770,6 +26770,7 @@ Loading snippet ...</pre
             `;
     }).join("")}`;
   };
+  var moveSvg = (value) => Promise.resolve(value);
   var AboutComponentFn = ({
     onMount,
     setRef,
@@ -26802,17 +26803,9 @@ Loading snippet ...</pre
       const { svgSpring, destroySvgSpring } = aboutSvgAnimation({
         elements: svg
       });
-      const moveSvg = (value) => {
+      moveSvg = async (value) => {
         const valueParsed = -Math.abs(value / 30);
-        if (valueParsed === 0) {
-          svgSpring.stop();
-          svgSpring.goTo(
-            { x: valueParsed },
-            { configProps: { mass: 2 } }
-          );
-          return;
-        }
-        svgSpring.goTo({ x: valueParsed });
+        await svgSpring.goTo({ x: valueParsed });
       };
       const { destroy: destroy2, goTo } = aboutAnimation({
         screenElement,
@@ -26898,9 +26891,11 @@ Loading snippet ...</pre
       }
     })}
             ${delegateEvents({
-      click: () => {
+      click: async () => {
         proxi.activenavItem -= 1;
         _goTo(goToPercentage[proxi.activenavItem]);
+        await moveSvg(3e3);
+        moveSvg(0);
       }
     })}
         >
@@ -26915,9 +26910,11 @@ Loading snippet ...</pre
       }
     })}
             ${delegateEvents({
-      click: () => {
+      click: async () => {
         proxi.activenavItem += 1;
         _goTo(goToPercentage[proxi.activenavItem]);
+        await moveSvg(3e3);
+        moveSvg(0);
       }
     })}
         >

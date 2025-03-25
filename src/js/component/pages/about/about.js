@@ -195,6 +195,12 @@ const getShapeTrail = ({ setRef }) => {
         .join('')}`;
 };
 
+/**
+ * @param {number} value
+ * @returns {Promise<any>}
+ */
+let moveSvg = (value) => Promise.resolve(value);
+
 /** @type {MobComponent<import('./type').About>} */
 export const AboutComponentFn = ({
     onMount,
@@ -236,22 +242,10 @@ export const AboutComponentFn = ({
             elements: svg,
         });
 
-        /**
-         * @param {number} value
-         */
-        const moveSvg = (value) => {
+        moveSvg = async (value) => {
             const valueParsed = -Math.abs(value / 30);
 
-            if (valueParsed === 0) {
-                svgSpring.stop();
-                svgSpring.goTo(
-                    { x: valueParsed },
-                    { configProps: { mass: 2 } }
-                );
-                return;
-            }
-
-            svgSpring.goTo({ x: valueParsed });
+            await svgSpring.goTo({ x: valueParsed });
         };
 
         const { destroy, goTo } = aboutAnimation({
@@ -344,9 +338,11 @@ export const AboutComponentFn = ({
                 },
             })}
             ${delegateEvents({
-                click: () => {
+                click: async () => {
                     proxi.activenavItem -= 1;
                     _goTo(goToPercentage[proxi.activenavItem]);
+                    await moveSvg(3000);
+                    moveSvg(0);
                 },
             })}
         >
@@ -361,9 +357,11 @@ export const AboutComponentFn = ({
                 },
             })}
             ${delegateEvents({
-                click: () => {
+                click: async () => {
                     proxi.activenavItem += 1;
                     _goTo(goToPercentage[proxi.activenavItem]);
+                    await moveSvg(3000);
+                    moveSvg(0);
                 },
             })}
         >
