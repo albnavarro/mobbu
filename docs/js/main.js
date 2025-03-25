@@ -35538,7 +35538,7 @@ Loading snippet ...</pre
           type: Array
         }),
         isLoading: () => ({
-          value: false,
+          value: true,
           type: Boolean
         }),
         noResult: () => ({
@@ -35598,6 +35598,10 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/Debughead/DebugSearch/debugSearch.js
+  var updateId = (id = "") => {
+    const methods = modules_exports2.useMethodByName("debug_component");
+    methods?.updateId(id ?? "");
+  };
   var DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
     return renderHtml`<div class="c-debug-search">
         <div>
@@ -35616,8 +35620,7 @@ Loading snippet ...</pre
             /** @type{HTMLInputElement} */
             event.target.value
           );
-          const methods = modules_exports2.useMethodByName("debug_component");
-          methods?.updateId(id ?? "");
+          updateId(id);
         }
       }
     })}
@@ -35632,8 +35635,7 @@ Loading snippet ...</pre
           /** @type{HTMLInputElement} */
           id_input.value
         );
-        const methods = modules_exports2.useMethodByName("debug_component");
-        methods?.updateId(id ?? "");
+        updateId(id);
       }
     })}
             >
@@ -35657,8 +35659,7 @@ Loading snippet ...</pre
             event.target.value
           );
           const id = modules_exports2.getIdByInstanceName(instanceName);
-          const methods = modules_exports2.useMethodByName("debug_component");
-          methods?.updateId(id ?? "");
+          updateId(id);
         }
       }
     })}
@@ -35671,8 +35672,7 @@ Loading snippet ...</pre
         const { instance_input } = getRef();
         const instanceName = instance_input.value;
         const id = modules_exports2.getIdByInstanceName(instanceName);
-        const methods = modules_exports2.useMethodByName("debug_component");
-        methods?.updateId(id ?? "");
+        updateId(id);
       }
     })}
             >
@@ -35690,8 +35690,7 @@ Loading snippet ...</pre
         const { instance_input, id_input } = getRef();
         instance_input.value = "";
         id_input.value = "";
-        const methods = modules_exports2.useMethodByName("debug_component");
-        methods?.updateId(RESET_FILTER_DEBUG);
+        updateId(RESET_FILTER_DEBUG);
       }
     })}
                 >
@@ -35785,6 +35784,7 @@ Loading snippet ...</pre
             ${delegateEvents({
       click: () => {
         proxi.active = false;
+        proxi.listType = DEBUG_USE_TREE;
       }
     })}
         ></button>
@@ -35794,6 +35794,7 @@ Loading snippet ...</pre
             ${delegateEvents({
       click: () => {
         proxi.active = false;
+        proxi.listType = DEBUG_USE_TREE;
       }
     })}
         ></button>

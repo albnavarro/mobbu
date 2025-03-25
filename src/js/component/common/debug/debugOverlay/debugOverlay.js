@@ -53,6 +53,7 @@ export const DebugOverlayFn = ({
             ${delegateEvents({
                 click: () => {
                     proxi.active = false;
+                    proxi.listType = DEBUG_USE_TREE;
                 },
             })}
         ></button>
@@ -62,6 +63,7 @@ export const DebugOverlayFn = ({
             ${delegateEvents({
                 click: () => {
                     proxi.active = false;
+                    proxi.listType = DEBUG_USE_TREE;
                 },
             })}
         ></button>

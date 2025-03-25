@@ -7,6 +7,12 @@
 import { html, MobJs } from '../../../../../../mobjs';
 import { RESET_FILTER_DEBUG } from '../../constant';
 
+const updateId = (id = '') => {
+    /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+    const methods = MobJs.useMethodByName('debug_component');
+    methods?.updateId(id ?? '');
+};
+
 /** @type{MobComponent<import('./type').DebugSearch>} */
 export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
     return html`<div class="c-debug-search">
@@ -27,10 +33,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                                 event.target
                             ).value;
 
-                            /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                            const methods =
-                                MobJs.useMethodByName('debug_component');
-                            methods?.updateId(id ?? '');
+                            updateId(id);
                         }
                     },
                 })}
@@ -44,10 +47,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                         const id = /** @type{HTMLInputElement} */ (id_input)
                             .value;
 
-                        /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                        const methods =
-                            MobJs.useMethodByName('debug_component');
-                        methods?.updateId(id ?? '');
+                        updateId(id);
                     },
                 })}
             >
@@ -72,11 +72,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                                     .value;
 
                             const id = MobJs.getIdByInstanceName(instanceName);
-
-                            /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                            const methods =
-                                MobJs.useMethodByName('debug_component');
-                            methods?.updateId(id ?? '');
+                            updateId(id);
                         }
                     },
                 })}
@@ -89,11 +85,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                         const { instance_input } = getRef();
                         const instanceName = instance_input.value;
                         const id = MobJs.getIdByInstanceName(instanceName);
-
-                        /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                        const methods =
-                            MobJs.useMethodByName('debug_component');
-                        methods?.updateId(id ?? '');
+                        updateId(id);
                     },
                 })}
             >
@@ -111,11 +103,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                             const { instance_input, id_input } = getRef();
                             instance_input.value = '';
                             id_input.value = '';
-
-                            /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
-                            const methods =
-                                MobJs.useMethodByName('debug_component');
-                            methods?.updateId(RESET_FILTER_DEBUG);
+                            updateId(RESET_FILTER_DEBUG);
                         },
                     })}
                 >

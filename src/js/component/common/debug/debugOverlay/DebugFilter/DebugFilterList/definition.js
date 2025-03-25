@@ -19,7 +19,7 @@ export const DebugFilterList = MobJs.createComponent(
                 type: Array,
             }),
             isLoading: () => ({
-                value: false,
+                value: true,
                 type: Boolean,
             }),
             noResult: () => ({
