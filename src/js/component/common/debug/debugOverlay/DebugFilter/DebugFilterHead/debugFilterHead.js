@@ -22,6 +22,10 @@ export const DebugFilterHeadFn = ({
     delegateEvents,
 }) => {
     onMount(() => {
+        /**
+         * Update filter list on mount.
+         * No filter is applied here.
+         */
         refreshList();
     });
 

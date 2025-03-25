@@ -118,6 +118,9 @@ export const DebugFilterListFn = ({
         return proxi.data.length === 0 && !proxi.isLoading;
     });
 
+    /**
+     * List data is controlled by DebugFilterHead component.
+     */
     addMethod('refreshList', async ({ testString }) => {
         /**
          * With very large result (800/1000 item)
@@ -130,8 +133,6 @@ export const DebugFilterListFn = ({
         /**
          * After useFrame of isLoading watcher
          * Set current data state.
-         */
-        /**
          * With very large result (500/1000 item)
          * before create list set loading true.
          */

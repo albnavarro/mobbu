@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @import { MobComponent, SetState, UseMethodByName } from '../../../../../../mobjs/type';
+ * @import { MobComponent,  UseMethodByName } from '../../../../../../mobjs/type';
  **/
 
 import { html, MobJs } from '../../../../../../mobjs';
@@ -34,44 +34,47 @@ const activeItemChildren = ({ id, value }) => {
     return flatChildren.some((id) => activeItemChildren({ id, value }));
 };
 
-/**
- * @param {object} params
- * @param {string} params.id
- * @param {string} params.value
- * @param {SetState<import('./type').DebugTreeItem>} params.setState
- * @returns {void}
- */
-const setActiveItems = ({ id, value, setState }) => {
-    setState('isActive', value === id);
-    setState('hasActiveChildren', activeItemChildren({ id, value }));
-};
-
 /** @type{MobComponent<import('./type').DebugTreeItem>} */
 export const DebugTreeItemFn = ({
     onMount,
-    getState,
     staticProps,
     getRef,
     setRef,
     delegateEvents,
     watch,
     bindEffect,
-    setState,
     getProxi,
+    bindStore,
+    computed,
 }) => {
+    bindStore(debugActiveComponentStore);
     const proxi = getProxi();
-    const { id, componentName, instanceName, children } = getState();
-    const hasChildrenClass = children.length > 0 ? 'has-children' : '';
+    const hasChildrenClass = proxi.children.length > 0 ? 'has-children' : '';
+
+    /**
+     * Active state.
+     */
+    computed('isActive', () => proxi.id === proxi.currentId);
+
+    /**
+     * Highlight children if there is an active eitem inside accordion.
+     */
+    computed('hasActiveChildren', () =>
+        activeItemChildren({
+            id: proxi.id,
+            value: proxi.currentId,
+        })
+    );
 
     onMount(() => {
         const { content } = getRef();
 
-        const { currentId } = debugActiveComponentStore.get();
-        setActiveItems({ id, value: currentId, setState });
-
         const unsubscribeSlide = MobSlide.subscribe(content);
         MobSlide.reset(content);
 
+        /**
+         * Open/Close accordion.
+         */
         watch('isOpen', async (isOpen) => {
             const action = isOpen ? 'down' : 'up';
             await MobSlide[action](content);
@@ -81,16 +84,8 @@ export const DebugTreeItemFn = ({
             methods?.refresh();
         });
 
-        const unsubscribeActiveItem = debugActiveComponentStore.watch(
-            'currentId',
-            (value) => {
-                setActiveItems({ id, value, setState });
-            }
-        );
-
         return () => {
             unsubscribeSlide();
-            unsubscribeActiveItem();
         };
     });
 
@@ -113,10 +108,15 @@ export const DebugTreeItemFn = ({
                 },
             ])}
         >
-            <span class="c-debug-tree-item__id">${id}</span> |
-            <span class="c-debug-tree-item__component">${componentName}</span> |
-            <span class="c-debug-tree-item__instance">${instanceName}</span>
-            <span>${getCounter(children.length)}</span>
+            <span class="c-debug-tree-item__id">${proxi.id}</span> |
+            <span class="c-debug-tree-item__component"
+                >${proxi.componentName}</span
+            >
+            |
+            <span class="c-debug-tree-item__instance"
+                >${proxi.instanceName}</span
+            >
+            <span>${getCounter(proxi.children.length)}</span>
             <button
                 type="button"
                 class="c-debug-tree-item__expand"
@@ -125,7 +125,7 @@ export const DebugTreeItemFn = ({
                         /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
                         const methods =
                             MobJs.useMethodByName('debug_component');
-                        methods?.updateId(id);
+                        methods?.updateId(proxi.id);
                     },
                 })}
             >
@@ -139,7 +139,7 @@ export const DebugTreeItemFn = ({
             ></span>
         </div>
         <div class="c-debug-tree-item__content" ${setRef('content')}>
-            ${generateTreeComponents({ data: children, staticProps })}
+            ${generateTreeComponents({ data: proxi.children, staticProps })}
         </div>
     </div>`;
 };
