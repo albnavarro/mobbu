@@ -5,6 +5,7 @@
 import { MobCore } from '../../../mobCore';
 import { html } from '../../../mobjs';
 import { aboutAnimation } from './animation';
+import { aboutSvgAnimation } from './animation/svgAnimation';
 
 /** @type{(value: number) => void} */
 let _goTo = () => {};
@@ -222,7 +223,36 @@ export const AboutComponentFn = ({
             section4_title,
         } = getRef();
 
-        const { inspirationItem, pathElement } = getRefs();
+        const { inspirationItem, pathElement, svg } = getRefs();
+
+        let startpercent = 0;
+        let isMoving = false;
+        let svgShiftAmount = 0;
+
+        /**
+         * About svg animation
+         */
+        const { svgSpring, destroySvgSpring } = aboutSvgAnimation({
+            elements: svg,
+        });
+
+        /**
+         * @param {number} value
+         */
+        const moveSvg = (value) => {
+            const valueParsed = -Math.abs(value / 30);
+
+            if (valueParsed === 0) {
+                svgSpring.stop();
+                svgSpring.goTo(
+                    { x: valueParsed },
+                    { configProps: { mass: 2 } }
+                );
+                return;
+            }
+
+            svgSpring.goTo({ x: valueParsed });
+        };
 
         const { destroy, goTo } = aboutAnimation({
             screenElement,
@@ -240,6 +270,15 @@ export const AboutComponentFn = ({
             setActiveItem: (value) => {
                 proxi.activenavItem = value;
             },
+            onMove: (value) => {
+                if (!isMoving) {
+                    startpercent = value;
+                }
+
+                isMoving = true;
+                svgShiftAmount = startpercent - value;
+                moveSvg(svgShiftAmount);
+            },
             /**
              * Snap to active item.
              * Debuounce update with 500,s value
@@ -247,6 +286,9 @@ export const AboutComponentFn = ({
              */
             onScrollEnd: MobCore.useDebounce(() => {
                 _goTo(goToPercentage[proxi.activenavItem]);
+                isMoving = false;
+                svgShiftAmount = 0;
+                moveSvg(svgShiftAmount);
             }, 500),
         });
 
@@ -258,6 +300,7 @@ export const AboutComponentFn = ({
         return () => {
             _goTo = () => {};
             destroy();
+            destroySvgSpring();
         };
     });
 
@@ -267,19 +310,28 @@ export const AboutComponentFn = ({
         style="--number-of-section:${numberOfSection}"
     >
         <span class="l-about__background">
-            <div class="l-about__about-svg l-about__about-svg--bottom">
+            <div
+                class="l-about__about-svg l-about__about-svg--bottom"
+                ${setRef('svg')}
+            >
                 ${proxi.aboutSvg}
             </div>
         </span>
         ${getShapeTrail({ setRef })}
-        <div class="l-about__about-svg l-about__about-svg--back">
+        <div
+            class="l-about__about-svg l-about__about-svg--back"
+            ${setRef('svg')}
+        >
             ${proxi.aboutSvg}
         </div>
         <div
             class="l-about__shape l-about__shape--front"
             ${setRef('pathElement')}
         >
-            <div class="l-about__about-svg l-about__about-svg--front">
+            <div
+                class="l-about__about-svg l-about__about-svg--front"
+                ${setRef('svg')}
+            >
                 ${proxi.aboutSvg}
             </div>
         </div>

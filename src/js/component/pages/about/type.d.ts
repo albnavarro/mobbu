@@ -4,6 +4,7 @@ import {
     MobScroller,
     MobScrollerTween,
     MobSequencer,
+    MobSpring,
     MobTimeTween,
 } from '../../../mobMotion/type';
 
@@ -42,6 +43,7 @@ export interface About {
         section3_copy: HTMLElement;
         inspirationItem: HTMLElement;
         section4_title: HTMLElement;
+        svg: HTMLElement;
     };
 }
 
@@ -60,6 +62,7 @@ export type AboutScroller = (arg0: {
     section4_title: HTMLElement;
     setActiveItem: (value: number) => void;
     onScrollEnd: () => void;
+    onMove: (value: number) => void;
 }) => {
     goTo: (value: number) => void;
     destroy: () => void;
@@ -103,4 +106,9 @@ export type InspirationAnimation = (ar0: {
     inspirationScroller: MobScroller;
     masterSequencer: MobMasterSequencer;
     titleSequencer: MobSequencer;
+};
+
+export type AboutSvgAnimation = (arg0: { elements: HTMLElement[] }) => {
+    svgSpring: MobSpring;
+    destroySvgSpring: () => void;
 };

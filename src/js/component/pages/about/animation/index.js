@@ -20,6 +20,7 @@ export const aboutAnimation = ({
     section4_title,
     setActiveItem,
     onScrollEnd,
+    onMove,
 }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
         createPathAnimation({
@@ -69,7 +70,10 @@ export const aboutAnimation = ({
             sectionContentScroller_2,
             inspirationScroller,
         ],
-        onUpdate: onScrollEnd,
+        onUpdate: ({ value }) => {
+            onMove(value);
+            onScrollEnd();
+        },
     });
 
     aboutScroller.init();

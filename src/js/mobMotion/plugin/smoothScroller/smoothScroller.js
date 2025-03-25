@@ -819,12 +819,14 @@ export class MobSmoothScroller {
      * Move scroller
      *
      * @param {number} percent position in percent, from 0 to 100
+     * @return {Promise<void>} percent position in percent, from 0 to 100
      *
      * @example
      * myInstance.move(val);
      */
     move(percent) {
-        if (!mq[this.#queryType](this.#breakpoint)) return;
+        if (!mq[this.#queryType](this.#breakpoint))
+            return new Promise((resolve) => resolve());
 
         this.#percent = percent;
         this.#endValue = (this.#percent * this.#maxValue) / 100;
@@ -835,7 +837,7 @@ export class MobSmoothScroller {
          */
 
         // @ts-ignore
-        this.#motion.goTo({ val: this.#endValue });
+        return this.#motion.goTo({ val: this.#endValue });
     }
 
     /**
