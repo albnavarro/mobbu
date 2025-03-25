@@ -26,7 +26,7 @@ import { inizializeNestedInvalidate } from './inizializeNestedInvalidate';
  * @param {() => void} params.afterUpdate
  * @param {import('../../../type').Watch<any>} params.watch
  * @param {string} params.id
- * @param {boolean} params.persistent
+ * @param {boolean|undefined} params.persistent
  * @param {string} params.invalidateId
  * @param {() => string} params.renderFunction
  * @returns {Promise<any>}

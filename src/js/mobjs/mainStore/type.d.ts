@@ -19,7 +19,7 @@ export interface MainStore {
     repeaterParserAsync: {
         element: HTMLElement;
         parentId: string;
-        persistent: boolean;
+        persistent: boolean | undefined;
     };
 }
 
