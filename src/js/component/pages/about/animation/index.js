@@ -62,6 +62,7 @@ export const aboutAnimation = ({
         drag: true,
         easeType: 'spring',
         breakpoint: 'small',
+        useHorizontalScroll: true,
         children: [
             pathScroller,
             title1parallax,

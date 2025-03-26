@@ -242,6 +242,21 @@ export class MobSmoothScroller {
     #scopedTouchMove;
 
     /**
+     * @type {number}
+     */
+    #lastSpinX;
+
+    /**
+     * @type {number}
+     */
+    #lastSpinY;
+
+    /**
+     * @type {boolean}
+     */
+    #useHorizontalScroll;
+
+    /**
      * @param { import('./type.ts').MobSmoothScroller } data
      *
      * @description
@@ -296,6 +311,8 @@ export class MobSmoothScroller {
         this.#dragEnable = false;
         this.#prevTouchVal = 0;
         this.#touchVal = 0;
+        this.#lastSpinX = 0;
+        this.#lastSpinY = 0;
         this.#subscribeResize = NOOP;
         this.#subscribeScrollStart = NOOP;
         this.#subscribeScrollEnd = NOOP;
@@ -359,6 +376,12 @@ export class MobSmoothScroller {
         this.#scopedEvent = valueIsBooleanAndReturnDefault(
             data?.scopedEvent,
             'SmoothScroller: scopedEvent',
+            false
+        );
+
+        this.#useHorizontalScroll = valueIsBooleanAndReturnDefault(
+            data?.useHorizontalScroll,
+            'SmoothScroller: useBothAxis',
             false
         );
 
@@ -796,8 +819,13 @@ export class MobSmoothScroller {
     /**
      * @type {import('./type').MobSmoothScrollerOnMouseEvent}
      */
-    #onWhell({ target, spinY, preventDefault }) {
-        if (!mq[this.#queryType](this.#breakpoint) || !spinY) return;
+    #onWhell({ target, spinY, spinX, preventDefault }) {
+        if (
+            !mq[this.#queryType](this.#breakpoint) ||
+            (!spinY && spinY !== 0) ||
+            (!spinX && spinX !== 0)
+        )
+            return;
 
         if (
             target === this.#scroller ||
@@ -808,9 +836,22 @@ export class MobSmoothScroller {
         ) {
             this.#dragEnable = false;
             preventDefault?.();
-            this.#endValue += spinY * this.#speed;
+
+            const spinXdiff = Math.abs(this.#lastSpinX - spinX);
+            const spinYdiff = Math.abs(this.#lastSpinY - spinY);
+
+            const spinValue = this.#useHorizontalScroll
+                ? (() => {
+                      return spinXdiff > spinYdiff ? spinX : spinY;
+                  })()
+                : spinY;
+
+            this.#endValue += spinValue * this.#speed;
+
             this.#calculateValue();
             FreezeMobPageScroll();
+            this.#lastSpinY = spinY;
+            this.#lastSpinX = spinX;
         }
     }
 

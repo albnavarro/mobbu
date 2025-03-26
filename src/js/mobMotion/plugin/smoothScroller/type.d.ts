@@ -52,6 +52,13 @@ export interface MobSmoothScroller {
 
     /**
      * @description
+     * Wheel in both X and Y axis
+     * Use for scroll horizontally with trackpad.
+     */
+    useHorizontalScroll?: boolean;
+
+    /**
+     * @description
      * You can adjust the speed of the wheel event.
      * The default value is `60`.
      */
