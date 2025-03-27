@@ -19,6 +19,15 @@ export const sectionContentAnimation = ({ title, copy }) => {
 
     sectionContentSequencer.subscribe(
         ({ yTitle, xTitle, yCopy, opacityTitle, opacityCopy }) => {
+            title.style.transform = `translate3d(0,0,0) translate(${xTitle}px, ${yTitle}%)`;
+            copy.style.transform = `translate3d(0,0,0) translateY(${yCopy}%)`;
+            title.style.opacity = opacityTitle;
+            copy.style.opacity = opacityCopy;
+        }
+    );
+
+    sectionContentSequencer.onStop(
+        ({ yTitle, xTitle, yCopy, opacityTitle, opacityCopy }) => {
             title.style.transform = `translate(${xTitle}px, ${yTitle}%)`;
             copy.style.transform = `translateY(${yCopy}%)`;
             title.style.opacity = opacityTitle;

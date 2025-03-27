@@ -123,7 +123,7 @@ const block04 = ({ setRef, getState }) => {
 
     return html`
         <section class="l-about__section l-about__section--last">
-            <div class="l-about__section__top has-overflow">
+            <div class="l-about__section__top">
                 <h1 class="title-biggest" ${setRef('section4_title')}>
                     ${title}
                 </h1>
@@ -217,6 +217,8 @@ export const AboutComponentFn = ({
     const proxi = getProxi();
     const numberOfSection = 4;
 
+    let freezeOnLag = false;
+
     onMount(() => {
         const {
             screenElement,
@@ -246,8 +248,21 @@ export const AboutComponentFn = ({
 
         /**
          * Move about svg 1:1 with drag.
+         * Stop on fps slowdown.
          */
         moveSvg = async (value) => {
+            const shouldStop = MobCore.shouldMakeSomething();
+
+            if (shouldStop || freezeOnLag) {
+                svgSpring.stop();
+                freezeOnLag = true;
+                setTimeout(() => {
+                    freezeOnLag = false;
+                }, 2000);
+
+                return;
+            }
+
             const valueParsed = -Math.abs(value / 30);
             await svgSpring.goTo({ x: valueParsed });
         };
@@ -337,10 +352,7 @@ export const AboutComponentFn = ({
             class="l-about__shape l-about__shape--front"
             ${setRef('pathElement')}
         >
-            <div
-                class="l-about__about-svg l-about__about-svg--front"
-                ${setRef('svg')}
-            >
+            <div class="l-about__about-svg l-about__about-svg--front">
                 ${proxi.aboutSvg}
             </div>
         </div>

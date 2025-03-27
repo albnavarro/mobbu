@@ -5,7 +5,7 @@ export const aboutSvgAnimation = ({ elements }) => {
     let svgSpring = MobTween.createSpring({
         data: { x: 0 },
         stagger: {
-            each: 10,
+            each: 5,
         },
     });
 
@@ -15,6 +15,11 @@ export const aboutSvgAnimation = ({ elements }) => {
         if (!el) return;
 
         svgSpring.subscribe(({ x }) => {
+            const multiplier = index === 1 ? -1 : 1;
+            el.style.transform = `translate3D(0,0,0) translateY(${x * multiplier}px)`;
+        });
+
+        svgSpring.onComplete(({ x }) => {
             const multiplier = index === 1 ? -1 : 1;
             el.style.transform = `translateY(${x * multiplier}px)`;
         });

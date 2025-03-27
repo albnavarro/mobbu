@@ -8,6 +8,10 @@ export const aboutSection1 = ({ title_1, title_2 }) => {
     });
 
     title1tween.subscribe(({ y }) => {
+        title_1.style.transform = `translate3d(0,0,0) translate(${0}px, ${y}px)`;
+    });
+
+    title1tween.onStop(({ y }) => {
         title_1.style.transform = `translate(${0}px, ${y}px)`;
     });
 
@@ -25,6 +29,10 @@ export const aboutSection1 = ({ title_1, title_2 }) => {
     });
 
     title2tween.subscribe(({ y }) => {
+        title_2.style.transform = `translate3d(0,0,0) translateY(${y}px)`;
+    });
+
+    title2tween.onStop(({ y }) => {
         title_2.style.transform = `translateY(${y}px)`;
     });
 

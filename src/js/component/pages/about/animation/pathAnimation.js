@@ -86,8 +86,8 @@ export const createPathAnimation = ({
         )
         .goTo(
             {
-                fy: 70,
-                ay: 60,
+                fy: 90,
+                ay: 80,
                 cy: 90,
             },
             { start: 4, end: 7.5 }
@@ -95,7 +95,7 @@ export const createPathAnimation = ({
         .goTo(
             {
                 gy: 90,
-                by: 60,
+                by: 80,
             },
             { start: 6, end: 10 }
         )
