@@ -189,13 +189,13 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
  * @returns {string}
  */
 const getShapeTrail = ({ setRef }) => {
-    const items = [...new Array(4).keys()];
+    const items = [...new Array(1).keys()];
 
     return html`${items
-        .map((_, index) => {
+        .map(() => {
             return html`
                 <div
-                    class="l-about__shape l-about__shape--back l-about__shape--${index}"
+                    class="l-about__shape l-about__shape--back"
                     ${setRef('pathElement')}
                 ></div>
             `;

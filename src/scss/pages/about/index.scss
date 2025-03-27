@@ -192,7 +192,7 @@
         &--front {
             bottom: 0;
             left: 50%;
-            transform: translate(-50%, 34%);
+            transform: translate(-50%, 30%);
 
             svg {
                 fill: $grey-light;
@@ -220,16 +220,12 @@
         z-index: -1;
 
         &--back {
-            background: rgba($white, 0.2);
+            background: $black;
             transform: translate3d(-50%, -94%, 0);
         }
 
         &--front {
             transform: translate3d(-50%, -95%, 0);
-        }
-
-        &--3 {
-            background: $color-contrast;
         }
     }
 

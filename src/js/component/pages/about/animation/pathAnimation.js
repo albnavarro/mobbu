@@ -58,7 +58,7 @@ export const createPathAnimation = ({
     const pathSequencer = MobTween.createSequencer({
         data: { ...sequencerData[0] },
         stagger: {
-            each: 20,
+            each: 40,
             waitComplete: false,
             from: 'end',
         },
@@ -87,15 +87,23 @@ export const createPathAnimation = ({
         .goTo(
             {
                 fy: 90,
-                ay: 80,
+                ay: 100,
                 cy: 90,
             },
             { start: 4, end: 7.5 }
         )
         .goTo(
             {
-                gy: 90,
-                by: 80,
+                ay: 120,
+                fy: 80,
+                cy: 80,
+            },
+            { start: 7.5, end: 10 }
+        )
+        .goTo(
+            {
+                gy: 100,
+                by: 100,
             },
             { start: 6, end: 10 }
         )
