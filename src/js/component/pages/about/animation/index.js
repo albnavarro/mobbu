@@ -21,6 +21,7 @@ export const aboutAnimation = ({
     setActiveItem,
     onScrollEnd,
     onMove,
+    onSwipe,
 }) => {
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
         createPathAnimation({
@@ -62,7 +63,9 @@ export const aboutAnimation = ({
         drag: true,
         easeType: 'spring',
         breakpoint: 'small',
-        useHorizontalScroll: true,
+        useHorizontalScroll: false,
+        useSwipe: true,
+        revertSwipeDirection: false,
         children: [
             pathScroller,
             title1parallax,
@@ -74,6 +77,9 @@ export const aboutAnimation = ({
         onUpdate: ({ value }) => {
             onMove(value);
             onScrollEnd();
+        },
+        onSwipe: ({ direction }) => {
+            onSwipe(direction);
         },
     });
 

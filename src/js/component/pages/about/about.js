@@ -303,6 +303,17 @@ export const AboutComponentFn = ({
                 svgShiftAmount = startpercent - value;
                 moveSvg(svgShiftAmount);
             },
+            onSwipe: (direction) => {
+                if (direction === -1) {
+                    proxi.activenavItem -= 1;
+                }
+
+                if (direction === 1) {
+                    proxi.activenavItem += 1;
+                }
+
+                _goTo(goToPercentage[proxi.activenavItem]);
+            },
             /**
              * Snap to active item.
              * Debuounce update with 500,s value

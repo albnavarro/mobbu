@@ -217,6 +217,11 @@ export class MobSmoothScroller {
     #onUpdateCallback;
 
     /**
+     * @type {import('./type').OnSwipe}
+     */
+    #onSwipeCallback;
+
+    /**
      * @type {(arg0: { shouldScroll: boolean }) => void}
      */
     #onAfterRefresh;
@@ -225,6 +230,11 @@ export class MobSmoothScroller {
      * @type {(arg0: { shouldScroll: boolean }) => void}
      */
     #afterInit;
+
+    /**
+     * @type {boolean}
+     */
+    #swipeisActive;
 
     /**
      * @type {any[]}
@@ -255,6 +265,16 @@ export class MobSmoothScroller {
      * @type {boolean}
      */
     #useHorizontalScroll;
+
+    /**
+     * @type {boolean}
+     */
+    #useSwipe;
+
+    /**
+     * @type {boolean}
+     */
+    #revertSwipeDirection;
 
     /**
      * @param { import('./type.ts').MobSmoothScroller } data
@@ -313,6 +333,7 @@ export class MobSmoothScroller {
         this.#touchVal = 0;
         this.#lastSpinX = 0;
         this.#lastSpinY = 0;
+        this.#swipeisActive = false;
         this.#subscribeResize = NOOP;
         this.#subscribeScrollStart = NOOP;
         this.#subscribeScrollEnd = NOOP;
@@ -379,12 +400,6 @@ export class MobSmoothScroller {
             false
         );
 
-        this.#useHorizontalScroll = valueIsBooleanAndReturnDefault(
-            data?.useHorizontalScroll,
-            'SmoothScroller: useBothAxis',
-            false
-        );
-
         this.#speed = valueIsNumberAndReturnDefault(
             data?.speed,
             'SmoothScroller: speed',
@@ -407,6 +422,30 @@ export class MobSmoothScroller {
             data?.onUpdate,
             'SmoothScroller: onUpdate',
             NOOP
+        );
+
+        this.#onSwipeCallback = valueIsFunctionAndReturnDefault(
+            data?.onSwipe,
+            'SmoothScroller: onSwipe',
+            NOOP
+        );
+
+        this.#useSwipe = valueIsBooleanAndReturnDefault(
+            data?.useSwipe,
+            'SmoothScroller: useSwipe',
+            false
+        );
+
+        this.#revertSwipeDirection = valueIsBooleanAndReturnDefault(
+            data?.revertSwipeDirection,
+            'SmoothScroller: revertSwipeDirection',
+            false
+        );
+
+        this.#useHorizontalScroll = valueIsBooleanAndReturnDefault(
+            data?.useHorizontalScroll,
+            'SmoothScroller: useBothAxis',
+            false
         );
 
         this.#onAfterRefresh = valueIsFunctionAndReturnDefault(
@@ -516,9 +555,10 @@ export class MobSmoothScroller {
                 }
             );
         } else {
-            this.#subscribeMouseWheel = MobCore.useMouseWheel((data) =>
-                this.#onWhell(data)
-            );
+            this.#subscribeMouseWheel = MobCore.useMouseWheel((data) => {
+                this.#detectSwipe(data);
+                this.#onWhell(data);
+            });
 
             this.#subscribeMouseMove = MobCore.useMouseMove((data) =>
                 this.#onTouchMove(data)
@@ -595,6 +635,37 @@ export class MobSmoothScroller {
                 });
             });
         }, 3);
+    }
+
+    /**
+     * @param {import('../../../mobCore/events/mouseUtils/type.js').MouseEventParsed} params
+     */
+    #detectSwipe({ pixelX }) {
+        if (
+            !this.#useSwipe ||
+            !pixelX ||
+            this.#swipeisActive ||
+            this.#onSwipeCallback.length === 0
+        )
+            return;
+
+        if (Math.abs(pixelX) > 40) {
+            this.#swipeisActive = true;
+
+            const direction = pixelX > 0 ? -1 : 1;
+            const directionParsed = this.#revertSwipeDirection
+                ? direction
+                : direction * -1;
+
+            this.#onSwipeCallback({
+                direction: directionParsed,
+                move: (value) => this.move(value),
+            });
+
+            setTimeout(() => {
+                this.#swipeisActive = false;
+            }, 500);
+        }
     }
 
     /**
@@ -840,11 +911,12 @@ export class MobSmoothScroller {
             const spinXdiff = Math.abs(this.#lastSpinX - spinX);
             const spinYdiff = Math.abs(this.#lastSpinY - spinY);
 
-            const spinValue = this.#useHorizontalScroll
-                ? (() => {
-                      return spinXdiff > spinYdiff ? spinX : spinY;
-                  })()
-                : spinY;
+            const spinValue =
+                this.#useHorizontalScroll && !this.#useSwipe
+                    ? (() => {
+                          return spinXdiff > spinYdiff ? spinX : spinY;
+                      })()
+                    : spinY;
 
             this.#endValue += spinValue * this.#speed;
 
