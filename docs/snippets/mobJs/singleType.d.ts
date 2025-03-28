@@ -9,7 +9,6 @@ ProxiState<T>;
 Emit<T>;
 EmitAsync<T>;
 Computed<T>;
-ComputedSync<T>;
 Watch<T>;
 RemoveDom;
 Remove;
