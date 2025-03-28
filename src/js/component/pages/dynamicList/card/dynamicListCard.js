@@ -10,6 +10,10 @@
  **/
 
 import { html, MobJs } from '../../../../mobjs';
+import {
+    FreezeMobPageScroll,
+    UnFreezeAndUPdateMobPageScroll,
+} from '../../../../mobMotion/plugin';
 import { innerData } from '../data';
 
 /** @param {number} numberOfItem */
@@ -133,13 +137,17 @@ export const DynamicListCardFn = ({
                     <dynamic-list-button
                         class="c-dynamic-card__button"
                         ${delegateEvents({
-                            click: () => {
+                            click: async () => {
+                                FreezeMobPageScroll();
                                 repeaterIndex =
                                     repeaterIndex < innerData.length - 1
                                         ? repeaterIndex + 1
                                         : 0;
 
                                 proxi.innerData = innerData[repeaterIndex];
+
+                                await MobJs.tick();
+                                UnFreezeAndUPdateMobPageScroll();
                             },
                         })}
                     >
