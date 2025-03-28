@@ -48,7 +48,7 @@
             "component": "anchor-button",
             "props": {
                 "anchor": "#type",
-                "content": "Type"
+                "content": "Typescript"
             }
         },
         {
@@ -387,7 +387,7 @@
             "props": {
                 "style": "medium",
                 "id": "type",
-                "label": "Type"
+                "label": "Typescript"
             }
         },
         {
@@ -395,20 +395,13 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Type"
+            "content": "Typescript"
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "Add type to component"
         },
         {
             "component": "mob-spacer",
@@ -421,29 +414,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to associate an interface with the function so that all the functions/properties used inside it use the type defined in the generic."
+            "content": "Each component can be associated with an <span class='quote'>interface</span> to specify the types related to <span class='quote'>method</span> <span class='quote'>states</span> and <span class='quote'>refs</span>."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The <span class='quote'>interface</span> is composed of four parameters:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": true,
-                "items": ["state", "methods", "ref"]
-            }
+            "content": "All the functions available in the component will be correctly configured without any further intervention."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span class='quote'>getRef</span> and <span class='quote'>getRefs</span> will return e.g. <span class='quote'>HTMLElement</span> or <span class='quote'>HTMLElement[]</span> automatically.</br>The type must be specified as a single element"
+            "content": "<span class='quote'>getRef</span> and <span class='quote'>getRefs</span> will return e.g. <span class='quote'>HTMLElement</span> or <span class='quote'>HTMLElement[]</span> automatically."
         },
         {
             "component": "mob-spacer",
@@ -472,7 +457,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Individual methods are also available for each property of the component function:"
+            "content": "Specific types available, useful if you want to split the component into specific functions."
         },
         {
             "component": "mob-snippet",
