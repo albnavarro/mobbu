@@ -11,17 +11,15 @@ export const aboutSvgAnimation = ({ elements }) => {
 
     const svgs = elements.map((el) => el.querySelector('svg'));
 
-    svgs.forEach((el, index) => {
+    svgs.forEach((el) => {
         if (!el) return;
 
         svgSpring.subscribe(({ x }) => {
-            const multiplier = index === 1 ? -1 : 1;
-            el.style.transform = `translate3D(0,0,0) translateY(${x * multiplier}px)`;
+            el.style.transform = `translate3D(0,0,0) translateY(${-x}px)`;
         });
 
         svgSpring.onComplete(({ x }) => {
-            const multiplier = index === 1 ? -1 : 1;
-            el.style.transform = `translateY(${x * multiplier}px)`;
+            el.style.transform = `translateY(${-x}px)`;
         });
     });
 
