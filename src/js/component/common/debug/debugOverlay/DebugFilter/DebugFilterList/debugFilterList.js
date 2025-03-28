@@ -131,20 +131,26 @@ export const DebugFilterListFn = ({
         await MobJs.tick();
 
         /**
-         * After useFrame of isLoading watcher
-         * Set current data state.
-         * With very large result (500/1000 item)
-         * before create list set loading true.
+         * Await one tick.
+         * Generate label need apply classList before generate list.
          */
-        proxi.data = getDataFiltered({ testString });
+        MobCore.useNextTick(async () => {
+            /**
+             * After useFrame of isLoading watcher
+             * Set current data state.
+             * With very large result (500/1000 item)
+             * before create list set loading true.
+             */
+            proxi.data = getDataFiltered({ testString });
 
-        // Await end of list creation.
-        await MobJs.tick();
-        refresh?.();
-        updateScroller?.();
+            // Await end of list creation.
+            await MobJs.tick();
+            refresh?.();
+            updateScroller?.();
 
-        // Reset loading.
-        proxi.isLoading = false;
+            // Reset loading.
+            proxi.isLoading = false;
+        });
     });
 
     onMount(() => {
