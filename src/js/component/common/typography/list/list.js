@@ -19,13 +19,14 @@ const getList = ({ items }) => {
 /** @type {MobComponent<List>} */
 export const ListFn = ({ getState }) => {
     const { style, color, items, dots, block } = getState();
+    const useButton = !dots && !block;
 
     const colorClass = `is-${color}`;
-    const dotsClass = dots ? '' : 'hide-dots';
     const blockClass = block ? 'use-block' : '';
+    const buttonClass = useButton ? 'use-button' : '';
 
     return html`<ul
-        class="ul ul--${style} ${colorClass} ${dotsClass} ${blockClass}"
+        class="ul ul--${style} ${colorClass} ${buttonClass} ${blockClass}"
     >
         ${getList({ items })}
     </ul>`;

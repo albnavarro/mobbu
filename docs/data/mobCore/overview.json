@@ -47,6 +47,7 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
+                "block": true,
                 "items": [
                     "<a href='./#mobCore-store'>Store</a>",
                     "<a href='./#mobCore-events'>Events</a>",

@@ -76,6 +76,7 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
+                "block": true,
                 "items": [
                     "<a href='./#mobJs-initialization'>initialization</a>",
                     "<a href='./#mobJs-component'>Component</a>",
@@ -114,6 +115,7 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
+                "block": true,
                 "items": [
                     "<a href='./#mobJs-debug-component'>Debug App Module</a>"
                 ]
