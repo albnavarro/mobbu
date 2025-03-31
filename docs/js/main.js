@@ -25683,13 +25683,10 @@ Loading snippet ...</pre
     ) : items.map((item) => renderHtml` <li>${item}</li> `).join("");
   };
   var ListFn = ({ getState }) => {
-    const { style, color, items, block, links } = getState();
+    const { style, color, items, links } = getState();
     const colorClass = `is-${color}`;
-    const blockClass = block ? "use-block" : "";
     const linksClass = links ? "use-links" : "";
-    return renderHtml`<ul
-        class="ul ul--${style} ${colorClass} ${blockClass} ${linksClass}"
-    >
+    return renderHtml`<ul class="ul ul--${style} ${colorClass} ${linksClass}">
         ${getList({ items, links })}
     </ul>`;
   };
@@ -25713,10 +25710,6 @@ Loading snippet ...</pre
           type: Boolean
         }),
         links: () => ({
-          value: false,
-          type: Boolean
-        }),
-        block: () => ({
           value: false,
           type: Boolean
         }),

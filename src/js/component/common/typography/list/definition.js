@@ -28,10 +28,6 @@ export const List = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
-            block: () => ({
-                value: false,
-                type: Boolean,
-            }),
             color: () => ({
                 value: 'black',
                 type: String,

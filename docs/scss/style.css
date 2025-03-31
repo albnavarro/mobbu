@@ -3241,42 +3241,6 @@ code * {
   list-style-type: none;
   margin-left: 0;
 }
-.html-content ul.use-block {
-  display: flex;
-  flex-wrap: wrap;
-  list-style-type: none;
-  margin-left: 0;
-}
-.html-content ul.use-block li {
-  flex: 0 0 25%;
-  margin-left: 0;
-  border: 1px #f6f6f6 solid;
-  position: relative;
-  aspect-ratio: 3/2;
-  overflow: hidden;
-}
-.html-content ul.use-block li:first-of-type {
-  border-top-left-radius: 2.6666666667rem;
-}
-.html-content ul.use-block li:last-of-type {
-  border-bottom-right-radius: 2.6666666667rem;
-}
-.html-content ul.use-block a {
-  background: #fff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background 0.35s, color 0.35s;
-}
-.html-content ul.use-block a:hover {
-  background: #000;
-  color: #fff;
-}
 .html-content ul.use-button {
   list-style-type: none;
   margin-left: 0;

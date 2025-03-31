@@ -156,8 +156,12 @@
             "props": {
                 "style": "medium",
                 "dots": false,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-routing'>Create and export routes</a>"
+                    {
+                        "label": "Create and export routes",
+                        "url": "./#mobJs-routing"
+                    }
                 ]
             }
         },
