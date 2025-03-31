@@ -10,10 +10,6 @@
  **/
 
 import { html, MobJs } from '../../../mobjs';
-import {
-    FreezeMobPageScroll,
-    UnFreezeAndUPdateMobPageScroll,
-} from '../../../mobMotion/plugin';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -71,12 +67,10 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
                     ${staticProps({ label: buttonLabel })}
                     ${delegateEvents({
                         click: async () => {
-                            FreezeMobPageScroll();
                             proxi.data = data;
                             proxi.activeSample = index;
 
                             await MobJs.tick();
-                            UnFreezeAndUPdateMobPageScroll();
                         },
                     })}
                     ${bindProps(

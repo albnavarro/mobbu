@@ -21241,6 +21241,7 @@
       }
     });
     const resizeObserver = new ResizeObserver(() => {
+      lerp2.stop();
       lerp2.setImmediate({ scrollValue: window.scrollY });
     });
     resizeObserver.observe(rootElement);
@@ -30936,11 +30937,9 @@ Loading snippet ...</pre
                     ${staticProps2({ label: buttonLabel })}
                     ${delegateEvents({
         click: async () => {
-          FreezeMobPageScroll();
           proxi.data = data;
           proxi.activeSample = index;
           await modules_exports2.tick();
-          UnFreezeAndUPdateMobPageScroll();
         }
       })}
                     ${bindProps(
@@ -31216,11 +31215,9 @@ Loading snippet ...</pre
                         class="c-dynamic-card__button"
                         ${delegateEvents({
       click: async () => {
-        FreezeMobPageScroll();
         repeaterIndex = repeaterIndex < innerData.length - 1 ? repeaterIndex + 1 : 0;
         proxi.innerData = innerData[repeaterIndex];
         await modules_exports2.tick();
-        UnFreezeAndUPdateMobPageScroll();
       }
     })}
                     >
@@ -31669,7 +31666,6 @@ Loading snippet ...</pre
                         class="matrioska__button"
                         ${delegateEvents({
         click: async () => {
-          FreezeMobPageScroll();
           updateState(
             /** @type {'level1'|'level2'|'level3'} */
             button.state,
@@ -31678,7 +31674,6 @@ Loading snippet ...</pre
             }
           );
           await modules_exports2.tick();
-          UnFreezeAndUPdateMobPageScroll();
         }
       })}
                         >${button.label_minus}</dynamic-list-button
@@ -31687,7 +31682,6 @@ Loading snippet ...</pre
                         class="matrioska__button"
                         ${delegateEvents({
         click: async () => {
-          FreezeMobPageScroll();
           updateState(
             /** @type {'level1'|'level2'|'level3'} */
             button.state,
@@ -31702,7 +31696,6 @@ Loading snippet ...</pre
             }
           );
           await modules_exports2.tick();
-          UnFreezeAndUPdateMobPageScroll();
         }
       })}
                         >${button.label_plus}</dynamic-list-button

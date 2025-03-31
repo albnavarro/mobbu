@@ -8,10 +8,6 @@
 
 import { MobCore } from '../../../mobCore';
 import { html, MobJs } from '../../../mobjs';
-import {
-    FreezeMobPageScroll,
-    UnFreezeAndUPdateMobPageScroll,
-} from '../../../mobMotion/plugin';
 
 const buttons = [
     {
@@ -58,7 +54,6 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: async () => {
-                                FreezeMobPageScroll();
                                 updateState(
                                     /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
@@ -69,7 +64,6 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                 );
 
                                 await MobJs.tick();
-                                UnFreezeAndUPdateMobPageScroll();
                             },
                         })}
                         >${button.label_minus}</dynamic-list-button
@@ -78,7 +72,6 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: async () => {
-                                FreezeMobPageScroll();
                                 updateState(
                                     /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
@@ -95,7 +88,6 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                                 );
 
                                 await MobJs.tick();
-                                UnFreezeAndUPdateMobPageScroll();
                             },
                         })}
                         >${button.label_plus}</dynamic-list-button
