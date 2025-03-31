@@ -7,8 +7,20 @@
     margin-bottom: rem(20);
     font-size: rem(14);
     font-weight: 500;
+    position: relative;
 
-    a {
+    span {
+        color: $black;
+        transition: opacity 0.35s;
+        position: relative;
+        background: rgba($white, 0.4);
+        padding: em(2) em(10);
+        border-radius: em(20);
+    }
+}
+
+.breadcrumbs {
+    &__link {
         color: $black;
         transition:
             background 0.35s,
@@ -29,12 +41,35 @@
         }
     }
 
-    span {
-        color: $black;
-        transition: opacity 0.35s;
-        position: relative;
-        background: rgba($white, 0.4);
-        padding: em(2) em(10);
-        border-radius: em(20);
+    &__arrow {
+        position: absolute;
+        top: 50%;
+        left: rem(20);
+        width: rem(20);
+        height: rem(20);
+        display: block;
+
+        &__start {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: rem(10);
+            background: $black;
+            transform: translate(-50%, -50%) rotate(90deg);
+            transition: background 0.35s;
+        }
+
+        &__end {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: rem(7);
+            height: rem(7);
+            border-right: 2px $black solid;
+            border-bottom: 2px $black solid;
+            transform: translate(-50%, -50%) rotate(135deg);
+            transition: border-color 0.35s;
+        }
     }
 }

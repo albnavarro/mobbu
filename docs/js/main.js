@@ -381,6 +381,10 @@ Loading snippet ...</pre
             ${t({click:()=>{let n=document.querySelector(o);if(!n)return;let s=oe(n).top-50;Rt.to(s)}})}
         >
             ${r}
+            <span class="anchor-button__arrow">
+                <span class="anchor-button__arrow__start"></span>
+                <span class="anchor-button__arrow__end"></span>
+            </span>
         </button>
     </div>`};var Zy=m.createComponent({name:"anchor-button",component:Qy,exportState:["anchor","content"],state:{anchor:()=>({value:"",type:String}),content:()=>({value:"",type:String})}});var fI=({items:e})=>e.map(t=>g` <li>${t}</li> `).join(""),ev=({getState:e})=>{let{style:t,color:r,items:o,dots:n,block:s}=e(),i=!n&&!s,a=`is-${r}`;return g`<ul
         class="ul ul--${t} ${a} ${i?"use-button":""} ${s?"use-block":""}"
@@ -423,7 +427,15 @@ Loading snippet ...</pre
                 ${o({bind:"anchorItems",render:()=>vI({delegateEvents:t,bindProps:r,proxi:c})})}
             </ul>
         </div>
-    `};var cv=m.createComponent({name:"scroll-to",component:av,state:{activeLabel:()=>({value:"",type:String}),anchorItemsToBeComputed:()=>({value:[],type:Array}),anchorItems:()=>({value:[],type:Array,transform:e=>e.toSorted(function(t,r){let{element:o}=t,{element:n}=r;return o===n||!o||!n?0:o.compareDocumentPosition(n)&2?1:-1})})},child:[iv]});var va=({breadCrumbs:e})=>e.map(t=>g` <a href="${t.url}">${t.title}</a>`).join("");m.useComponent([pa,da,cv,ma,ya]);var _e=async({props:e})=>{let{source:t,title:r,breadCrumbs:o}=e,{data:n}=await qt({source:t});return g` <doc-container>
+    `};var cv=m.createComponent({name:"scroll-to",component:av,state:{activeLabel:()=>({value:"",type:String}),anchorItemsToBeComputed:()=>({value:[],type:Array}),anchorItems:()=>({value:[],type:Array,transform:e=>e.toSorted(function(t,r){let{element:o}=t,{element:n}=r;return o===n||!o||!n?0:o.compareDocumentPosition(n)&2?1:-1})})},child:[iv]});var va=({breadCrumbs:e})=>e.map((t,r)=>r===e.length-1?g`<a href="${t.url}" class="breadcrumbs__arrow">
+                          <div class="breadcrumbs__arrow__start"></div>
+                          <div class="breadcrumbs__arrow__end"></div>
+                      </a>
+                      <a class="breadcrumbs__link" href="${t.url}"
+                          >${t.title}</a
+                      >`:g`<a class="breadcrumbs__link" href="${t.url}"
+                      >${t.title}</a
+                  >`).join("");m.useComponent([pa,da,cv,ma,ya]);var _e=async({props:e})=>{let{source:t,title:r,breadCrumbs:o}=e,{data:n}=await qt({source:t});return g` <doc-container>
         <div>
             <html-content
                 slot="docs"

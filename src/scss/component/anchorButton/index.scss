@@ -2,4 +2,56 @@
 
 .anchor-button {
     @include button;
+
+    padding-left: rem(20);
+    padding-right: rem(40);
+    text-align: left;
+    position: relative;
+
+    $self: &;
+
+    &:hover {
+        #{$self}__arrow {
+            &__start {
+                background: $white;
+            }
+
+            &__end {
+                border-right: 2px $white solid;
+                border-bottom: 2px $white solid;
+            }
+        }
+    }
+
+    &__arrow {
+        position: absolute;
+        top: 50%;
+        right: rem(5);
+        width: rem(20);
+        height: rem(20);
+        display: block;
+
+        &__start {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: rem(10);
+            background: $black;
+            transform: translate(-50%, -50%);
+            transition: background 0.35s;
+        }
+
+        &__end {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: rem(7);
+            height: rem(7);
+            border-right: 2px $black solid;
+            border-bottom: 2px $black solid;
+            transform: translate(-50%, -50%) rotate(45deg);
+            transition: border-color 0.35s;
+        }
+    }
 }
