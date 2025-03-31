@@ -3,7 +3,8 @@ export interface List {
         style: 'small' | 'medium' | 'big';
         dots: boolean;
         block: boolean;
+        links: boolean;
         color: 'white' | 'grey' | 'hightlight' | 'black';
-        items: string[];
+        items: string[] | Record<'label' | 'url', string>[];
     };
 }

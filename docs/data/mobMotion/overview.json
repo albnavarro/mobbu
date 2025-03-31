@@ -106,10 +106,16 @@
             "component": "mob-list",
             "props": {
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobMotion-tween-spring-lerp'>Tween/Spring/Lerp</a>",
-                    "<a href='./#mobMotion-async-timeline'>Async timeline</a>"
+                    {
+                        "label": "Tween/Spring/Lerp",
+                        "url": "./#mobMotion-tween-spring-lerp"
+                    },
+                    {
+                        "label": "Async timeline",
+                        "url": "./#mobMotion-async-timeline"
+                    }
                 ]
             }
         },
@@ -172,13 +178,28 @@
             "component": "mob-list",
             "props": {
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobMotion-sequencer'>Sequencer ( sync tween )</a>",
-                    "<a href='./#mobMotion-create-stagger'>Create Stagger</a>",
-                    "<a href='./#mobMotion-sync-timeline'>Sync timeline</a>",
-                    "<a href='./#mobMotion-scrolltrigger'>ScrollTrigger</a>",
-                    "<a href='./#mobMotion-parallax'>Parallax</a>"
+                    {
+                        "label": "Sequencer ( sync tween )",
+                        "url": "./#mobMotion-sequencer"
+                    },
+                    {
+                        "label": "Create Stagger",
+                        "url": "./#mobMotion-create-stagger"
+                    },
+                    {
+                        "label": "Sync timeline",
+                        "url": "./#mobMotion-sync-timeline"
+                    },
+                    {
+                        "label": "ScrollTrigger",
+                        "url": "./#mobMotion-scrolltrigger"
+                    },
+                    {
+                        "label": "Parallax",
+                        "url": "./#mobMotion-parallax"
+                    }
                 ]
             }
         },
@@ -248,8 +269,13 @@
             "component": "mob-list",
             "props": {
                 "dots": false,
-                "block": true,
-                "items": ["<a href='./#mobMotion-stagger'>Stagger</a>"]
+                "links": true,
+                "items": [
+                    {
+                        "label": "Stagger",
+                        "url": "./#mobMotion-stagger"
+                    }
+                ]
             }
         },
         {
@@ -272,8 +298,13 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
-                "block": true,
-                "items": ["<a href='./#mobMotion-defaults'>Defaults</a>"]
+                "links": true,
+                "items": [
+                    {
+                        "label": "Defaults",
+                        "url": "./#mobMotion-defaults"
+                    }
+                ]
             }
         },
         {

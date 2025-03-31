@@ -518,7 +518,6 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
                 "items": [
                     "<span class='quote'>get</span>: The object will always remain updated to the current state of values",
                     "<span class='quote'>set</span>: Behind the scenes, a <span class='quote'>myStore.set('prop', value)</span> will be executed when setting the object."

@@ -63,11 +63,24 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>",
-                    "<a href='./#mobJs-updateStateByName'>UpdateStateByName</a>",
-                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>",
-                    "<a href='./#mobJs-useMethodArrayByName'>useMethodArrayByName</a>"
+                    {
+                        "label": "SetStateByName",
+                        "url": "./#mobJs-setStateByName"
+                    },
+                    {
+                        "label": "UpdateStateByName",
+                        "url": "./#mobJs-updateStateByName"
+                    },
+                    {
+                        "label": "UseMethodByName",
+                        "url": "./#mobJs-useMethodByName"
+                    },
+                    {
+                        "label": "UseMethodArrayByName",
+                        "url": "./#mobJs-useMethodArrayByName"
+                    }
                 ]
             }
         }

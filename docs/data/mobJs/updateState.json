@@ -78,8 +78,12 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-updateStateByName'>UpdateStateByName</a>"
+                    {
+                        "label": "UpdateStateByName",
+                        "url": "./#mobJs-updateStateByName"
+                    }
                 ]
             }
         },

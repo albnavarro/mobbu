@@ -12,7 +12,7 @@ export const List = MobJs.createComponent(
     ({
         name: 'mob-list',
         component: ListFn,
-        exportState: ['style', 'color', 'items', 'dots', 'block'],
+        exportState: ['style', 'color', 'items', 'dots', 'block', 'links'],
         state: {
             style: () => ({
                 value: 'medium',
@@ -22,6 +22,10 @@ export const List = MobJs.createComponent(
             }),
             dots: () => ({
                 value: true,
+                type: Boolean,
+            }),
+            links: () => ({
+                value: false,
                 type: Boolean,
             }),
             block: () => ({

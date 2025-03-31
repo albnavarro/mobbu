@@ -64,10 +64,20 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-methods'>Create method</a>",
-                    "<a href='./#mobJs-instanceName'>Instance name</a>",
-                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>"
+                    {
+                        "label": "Create method",
+                        "url": "./#mobJs-methods"
+                    },
+                    {
+                        "label": "Instance name",
+                        "url": "./#mobJs-instanceName"
+                    },
+                    {
+                        "label": "useMethodByName",
+                        "url": "./#mobJs-useMethodByName"
+                    }
                 ]
             }
         },

@@ -76,16 +76,22 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-initialization'>initialization</a>",
-                    "<a href='./#mobJs-component'>Component</a>",
-                    "<a href='./#mobJs-web-component'>Web component</a>",
-                    "<a href='./#mobJs-routing'>Routing</a>",
-                    "<a href='./#mobJs-slot'>Slot</a>",
-                    "<a href='./#mobJs-tick'>Tick</a>",
-                    "<a href='./#mobJs-utils'>Utils</a>",
-                    "<a href='./#mobJs-debug'>Debug</a>"
+                    {
+                        "label": "initialization",
+                        "url": "./#mobJs-initialization"
+                    },
+                    { "label": "component", "url": "./#mobJs-component" },
+                    {
+                        "label": "web component",
+                        "url": "./#mobJs-web-component"
+                    },
+                    { "label": "routing", "url": "./#mobJs-routing" },
+                    { "label": "slot", "url": "./#mobJs-slot" },
+                    { "label": "tick", "url": "./#mobJs-tick" },
+                    { "label": "utils", "url": "./#mobJs-utils" },
+                    { "label": "debug", "url": "./#mobJs-debug" }
                 ]
             }
         },
@@ -115,9 +121,12 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-debug-component'>Debug App Module</a>"
+                    {
+                        "label": "Debug overlay",
+                        "url": "./#mobJs-debug-component"
+                    }
                 ]
             }
         },

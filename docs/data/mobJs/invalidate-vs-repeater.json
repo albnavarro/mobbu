@@ -128,9 +128,16 @@
             "props": {
                 "style": "medium",
                 "dots": false,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-invalidate'>invalidate</a>",
-                    "<a href='./#mobJs-repeat'>repeat ( array.map )</a>"
+                    {
+                        "label": "invalidate",
+                        "url": "./#mobJs-invalidate"
+                    },
+                    {
+                        "label": "repeat ( array.map )",
+                        "url": "./#mobJs-repeat"
+                    }
                 ]
             }
         }

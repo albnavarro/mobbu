@@ -57,9 +57,16 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-instanceName'>Instance name</a>",
-                    "<a href='./#mobJs-updateState'>Update state</a>"
+                    {
+                        "label": "Instance name",
+                        "url": "./#mobJs-instanceName"
+                    },
+                    {
+                        "label": "Update state",
+                        "url": "./#mobJs-updateState"
+                    }
                 ]
             }
         },

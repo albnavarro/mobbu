@@ -503,25 +503,76 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-onMount'>onMount/Destroy</a>",
-                    "<a href='./#mobJs-getState'>getState</a>",
-                    "<a href='./#mobJs-setState'>setState</a>",
-                    "<a href='./#mobJs-updateState'>updateState</a>",
-                    "<a href='./#mobJs-getProxi'>getProxi</a>",
-                    "<a href='./#mobJs-computed'>computed</a>",
-                    "<a href='./#mobJs-watch'>watch</a>",
-                    "<a href='./#mobJs-staticProps'>staticProps</a>",
-                    "<a href='./#mobJs-bindProps'>bindProps</a>",
-                    "<a href='./#mobJs-bindEvents'>bindEvents</a>",
-                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
-                    "<a href='./#mobJs-bindStore'>bindStore</a>",
-                    "<a href='./#mobJs-bindtext'>bindText</a>",
-                    "<a href='./#mobJs-bindObject'>bindObject</a>",
-                    "<a href='./#mobJs-bind-effect'>bindEffect</a>",
-                    "<a href='./#mobJs-methods'>methods</a>",
-                    "<a href='./#mobJs-refs'>Refs</a>"
+                    {
+                        "label": "OnMount/Destroy",
+                        "url": "./#mobJs-onMount"
+                    },
+                    {
+                        "label": "GetState",
+                        "url": "./#mobJs-getState"
+                    },
+                    {
+                        "label": "SetState",
+                        "url": "./#mobJs-setState"
+                    },
+                    {
+                        "label": "UpdateState",
+                        "url": "./#mobJs-updateState"
+                    },
+                    {
+                        "label": "GetProxi",
+                        "url": "./#mobJs-getProxi"
+                    },
+                    {
+                        "label": "Computed",
+                        "url": "./#mobJs-computed"
+                    },
+                    {
+                        "label": "Watch",
+                        "url": "./#mobJs-watch"
+                    },
+                    {
+                        "label": "StaticProps",
+                        "url": "./#mobJs-staticProps"
+                    },
+                    {
+                        "label": "BindProps",
+                        "url": "./#mobJs-bindProps"
+                    },
+                    {
+                        "label": "BindEvents",
+                        "url": "./#mobJs-bindEvents"
+                    },
+                    {
+                        "label": "DelegateEvents",
+                        "url": "./#mobJs-delegateEvents"
+                    },
+                    {
+                        "label": "BindStore",
+                        "url": "./#mobJs-bindStore"
+                    },
+                    {
+                        "label": "BindText",
+                        "url": "./#mobJs-bindtext"
+                    },
+                    {
+                        "label": "BindObject",
+                        "url": "./#mobJs-bindObject"
+                    },
+                    {
+                        "label": "bindEffect",
+                        "url": "./#mobJs-bind-effect"
+                    },
+                    {
+                        "label": "bindMethods",
+                        "url": "./#mobJs-methods"
+                    },
+                    {
+                        "label": "Refs",
+                        "url": "<a href='./#mobJs-refs'>Refs</a>"
+                    }
                 ]
             }
         },
@@ -544,12 +595,24 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-runtime'>renderComponent</a>",
-                    "<a href='./#mobJs-invalidate'>invalidate</a>",
-                    "<a href='./#mobJs-repeat'>repeat ( array.map )</a>",
-                    "<a href='./#mobJs-invalidate-vs-repeater'>invalidate vs repeater</a>"
+                    {
+                        "label": "RenderComponent",
+                        "url": "./#mobJs-runtime"
+                    },
+                    {
+                        "label": "Invalidate",
+                        "url": "./#mobJs-invalidate"
+                    },
+                    {
+                        "label": "Repeat",
+                        "url": "./#mobJs-repeat"
+                    },
+                    {
+                        "label": "Invalidate vs Repeater",
+                        "url": "./#mobJs-invalidate-vs-repeater"
+                    }
                 ]
             }
         },
@@ -572,11 +635,20 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-instanceName'>InstanceName</a>",
-                    "<a href='./#mobJs-class-list'>ClassList</a>",
-                    "<a href='./#mobJs-slot'>Slot</a>"
+                    {
+                        "label": "InstanceName",
+                        "url": "./#mobJs-instanceName"
+                    },
+                    {
+                        "label": "ClassList",
+                        "url": "./#mobJs-class-list"
+                    },
+                    {
+                        "label": "Slot",
+                        "url": "./#mobJs-slot"
+                    }
                 ]
             }
         },
@@ -599,18 +671,48 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-unBind'>unBind</a>",
-                    "<a href='./#mobJs-emit'>emit</a>",
-                    "<a href='./#mobJs-emitAsync'>emitAsync</a>",
-                    "<a href='./#mobJs-removeDom'>removeDOM</a>",
-                    "<a href='./#mobJs-remove'>remove</a>",
-                    "<a href='./#mobJs-getChildren'>getChildren</a>",
-                    "<a href='./#mobJs-freezeProp'>freezeProp</a>",
-                    "<a href='./#mobJs-unFreezeProp'>unFreezeProp</a>",
-                    "<a href='./#mobJs-getParentId'>getParentId</a>",
-                    "<a href='./#mobJs-watchParent'>watchParent</a>"
+                    {
+                        "label": "UnBind",
+                        "url": "./#mobJs-unBind"
+                    },
+                    {
+                        "label": "Emit",
+                        "url": "./#mobJs-emit"
+                    },
+                    {
+                        "label": "EmitAsync",
+                        "url": "./#mobJs-emitAsync"
+                    },
+                    {
+                        "label": "RemoveDOM",
+                        "url": "./#mobJs-removeDom"
+                    },
+                    {
+                        "label": "Remove",
+                        "url": "./#mobJs-remove"
+                    },
+                    {
+                        "label": "GetChildren",
+                        "url": "./#mobJs-getChildren"
+                    },
+                    {
+                        "label": "FreezeProp",
+                        "url": "./#mobJs-freezeProp"
+                    },
+                    {
+                        "label": "UnFreezeProp",
+                        "url": "./#mobJs-unFreezeProp"
+                    },
+                    {
+                        "label": "GetParentId",
+                        "url": "./#mobJs-getParentId"
+                    },
+                    {
+                        "label": "WatchParent",
+                        "url": "./#mobJs-watchParent"
+                    }
                 ]
             }
         },
@@ -634,12 +736,24 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-setStateByName'>setStateByName</a>",
-                    "<a href='./#mobJs-updateStateByName'>updateStateByName</a>",
-                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>",
-                    "<a href='./#mobJs-useMethodArrayByName'>useMethodarrayByName</a>"
+                    {
+                        "label": "setStateByName",
+                        "url": "./#mobJs-setStateByName"
+                    },
+                    {
+                        "label": "updateStateByName",
+                        "url": "./#mobJs-updateStateByName"
+                    },
+                    {
+                        "label": "useMethodByName",
+                        "url": "./#mobJs-useMethodByName"
+                    },
+                    {
+                        "label": "useMethodarrayByName",
+                        "url": "./#mobJs-useMethodArrayByName"
+                    }
                 ]
             }
         },

@@ -9,25 +9,40 @@ import { html } from '../../../../mobjs';
 
 /**
  * @param {object} params
- * @param {string[]} params.items
+ * @param {Record<'label'|'url', string>[]|string[]} params.items
+ * @param {boolean} [ params.links ]
  * @returns {string}
  */
-const getList = ({ items }) => {
-    return items.map((item) => html` <li>${item}</li> `).join('');
+const getList = ({ items, links }) => {
+    return links
+        ? /** @type{Record<'label' | 'url', string>[]} */ (items)
+              .map(
+                  ({ label, url }) =>
+                      html`<li>
+                          <a href="${url}" class="list-links">
+                              ${label}
+                              <span class="list-links__arrow">
+                                  <span class="list-links__arrow__start"></span>
+                                  <span class="list-links__arrow__end"></span>
+                              </span>
+                          </a>
+                      </li>`
+              )
+              .join('')
+        : items.map((item) => html` <li>${item}</li> `).join('');
 };
 
 /** @type {MobComponent<List>} */
 export const ListFn = ({ getState }) => {
-    const { style, color, items, dots, block } = getState();
-    const useButton = !dots && !block;
+    const { style, color, items, block, links } = getState();
 
     const colorClass = `is-${color}`;
     const blockClass = block ? 'use-block' : '';
-    const buttonClass = useButton ? 'use-button' : '';
+    const linksClass = links ? 'use-links' : '';
 
     return html`<ul
-        class="ul ul--${style} ${colorClass} ${buttonClass} ${blockClass}"
+        class="ul ul--${style} ${colorClass} ${blockClass} ${linksClass}"
     >
-        ${getList({ items })}
+        ${getList({ items, links })}
     </ul>`;
 };

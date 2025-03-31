@@ -159,8 +159,12 @@
             "props": {
                 "style": "small",
                 "dots": false,
+                "links": true,
                 "items": [
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                    {
+                        "label": "Reactive List",
+                        "url": "reactive list (repeat)"
+                    }
                 ]
             }
         }

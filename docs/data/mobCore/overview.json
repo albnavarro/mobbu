@@ -47,11 +47,20 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
-                "block": true,
+                "links": true,
                 "items": [
-                    "<a href='./#mobCore-store'>Store</a>",
-                    "<a href='./#mobCore-events'>Events</a>",
-                    "<a href='./#mobCore-defaults'>Defaults</a>"
+                    {
+                        "label": "Store",
+                        "url": "./#mobCore-store"
+                    },
+                    {
+                        "label": "Events",
+                        "url": "./#mobCore-events"
+                    },
+                    {
+                        "label": "Defaults",
+                        "url": "./#mobCore-defaults"
+                    }
                 ]
             }
         }
