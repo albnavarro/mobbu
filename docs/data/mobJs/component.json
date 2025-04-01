@@ -271,7 +271,7 @@
             "props": {
                 "tag": "h2"
             },
-            "content": "component function"
+            "content": "Component function"
         },
         {
             "component": "mob-paragraph",

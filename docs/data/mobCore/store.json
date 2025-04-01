@@ -118,23 +118,17 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
-            "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: validate, type, skipEqual."
+            "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: validate, type, skipEqual. It is possible to insert up to a maximum of two levels (both base and advanced use) per property as in the example above.<br/>To use a object with infinite insertions use the any type. In this case it will not be possible to define specific properties for nested properties."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            },
-            "content": "It is possible to insert up to a maximum of two levels (both base and advanced use) per property as in the example above."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "To use a object with infinite insertions use the any type.<br/>In this case it will not be possible to define specific properties for nested properties."
+            }
         },
         {
             "component": "mob-snippet",
