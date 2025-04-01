@@ -25,7 +25,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "Collection of commonly used events.<br/> Each event is built with the pub/sub model.<br/> The listener remains active as long as there are subscribers, after which it is automatically disconnected.<br/> Each subscription will be provided with an unsubscribe function when necessary."
         },
@@ -46,7 +47,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useFrame"
         },
@@ -93,7 +94,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useNextTick"
         },
@@ -131,7 +132,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useNextFrame"
         },
@@ -169,7 +170,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useFrameIndex"
         },
@@ -207,7 +208,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useLoad"
         },
@@ -245,7 +246,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useResize"
         },
@@ -296,7 +297,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useVisibilityChange"
         },
@@ -342,14 +343,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useMouseClick"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "... useMouseDown<br/>... useMouseUp<br/>... useTouchMove<br/>... useTouchStart<br/>... useTouchMove<br/>  ... useTouchEnd"
         },
@@ -399,7 +400,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useMouseWheel"
         },
@@ -447,14 +448,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "usePointerEvent"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "... usePointerMove<br/>... usePointerOver<br/>... usePointerDown<br/>... usePointerUp<br/>... usePointerOut<br/>  ... usePointerLeave"
         },
@@ -504,7 +505,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useScroll"
         },
@@ -551,7 +552,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useScrollImmediate"
         },
@@ -598,7 +599,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useScrollThrottle"
         },
@@ -645,7 +646,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "useScrollStart | useScrollEnd"
         },
@@ -689,7 +690,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Check type"
         },
