@@ -23,7 +23,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h5",
                 "isBold": true
             },
             "content": "Invalidate:"
@@ -49,7 +49,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h5",
                 "isBold": true
             },
             "content": "Repeater:"
@@ -75,7 +75,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h5",
                 "isBold": true
             },
             "content": "Difference:"
@@ -101,7 +101,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h5",
                 "isBold": true
             },
             "content": "Performance:"

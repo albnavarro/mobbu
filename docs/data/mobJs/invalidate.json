@@ -23,17 +23,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "The invalidate function performs a new rendering when one or more states change"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "tag": "h3",
-                "dots": false,
-                "items": ["<a href='./#mobJs-benchmark-invalidate'>example</a>"]
-            }
         },
         {
             "component": "mob-spacer",
@@ -104,21 +97,13 @@
             }
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "important"
-        },
-        {
-            "component": "mob-list",
+            "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "items": [
-                    "<strong>Container</strong>: The invalidate function must be contained in a unique DOM element",
-                    "<strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same <span class='quote'>component/scope</span>"
-                ]
-            }
+                "boxed": true,
+                "note": true
+            },
+            "content": "<strong>Container</strong>: The invalidate function must be contained in a unique DOM element.<br/><strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same component/scope"
         },
         {
             "component": "mob-spacer",

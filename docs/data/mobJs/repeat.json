@@ -23,21 +23,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "Repat represents the reactive counterpart of array.map(). Work on either native DOM elements or components."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "tag": "h3",
-                "dots": false,
-                "items": [
-                    "<a href='./#mobJs-benchmark-repeat-key'>Example repater with key</a>",
-                    "<a href='./#mobJs-benchmark-repeat-no-key'>Example repater without key</a>",
-                    "<a href='./#matrioska'>Example nested same scope</a>"
-                ]
-            }
         },
         {
             "component": "mob-spacer",
@@ -176,22 +165,13 @@
             }
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "important"
-        },
-        {
-            "component": "mob-list",
+            "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "items": [
-                    "<strong>Container</strong>: Each repeater must be initialized inside a <span class='quote'>dedicated HTML node</span>",
-                    "<strong>DOM structure:</strong>: The function must return a DOM where the <span class='quote'>first node</span> must be a <span class='quote'>single node</span> regardless of whether it is a generic <span class='quote'>DOM element</span> or a <span class='quote'>component</span>.",
-                    "<strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same <span class='quote'>component/scope</span>"
-                ]
-            }
+                "boxed": true,
+                "note": true
+            },
+            "content": "<strong>Container</strong>: Each repeater must be initialized inside a <span class='quote'>dedicated HTML node</span>.<br/> <strong>DOM structure:</strong>: The function must return a DOM where the <span class='quote'>first node</span> must be a <span class='quote'>single node</span> regardless of whether it is a generic <span class='quote'>DOM element</span> or a <span class='quote'>component</span>.<br/> <strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same <span class='quote'>component/scope</span>."
         },
         {
             "component": "mob-title",
