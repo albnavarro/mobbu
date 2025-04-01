@@ -23,23 +23,16 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "The state of the component is actually managed by an instance of the <a href='./#mobCore-store'>store class</a>. The emit() function is equivalent to myStore.emit()."
+            "content": "The state of the component is actually managed by an instance of the <a href='./#mobCore-store'>store class</a>. The emit() function is equivalent to myStore.emit(). The emit function executes all the callbacks linked to a given state without needing to modify it. Component states are declared in the component's <a href='./#mobJs-component'>definition</a>"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "The emit function executes all the callbacks linked to a given state without needing to modify it."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Component states are declared in the component's <a href='./#mobJs-component'>definition</a>"
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",

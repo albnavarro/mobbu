@@ -23,9 +23,16 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "Remove and destroy specific HTMLElement ( not component ).<br/> Every time the dom is removed, any reference to any components present within it such as watchers etc... will be removed from the map."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",

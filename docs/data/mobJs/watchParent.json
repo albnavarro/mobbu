@@ -17,7 +17,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "It is possible for a component to remain synchronized to a parent component state by using the watchParent() function. It is recommended to always use <a href='./#mobJs-bindProps'>bindProps()</a> to keep the component as abstract as possible."
         },

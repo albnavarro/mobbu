@@ -23,16 +23,16 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "The freezeProp() function momentarily freezes a state, inhibiting any mutation made by setState()."
+            "content": "The freezeProp() function momentarily freezes a state, inhibiting any mutation made by setState().<br/>Use <a href='./#mobJs-unFreezeProp'>unFreezeProp()</a> to clear the freeze."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "Use <a href='./#mobJs-unFreezeProp'>unFreezeProp()</a> to clear the freeze."
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",
