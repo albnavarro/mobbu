@@ -44,7 +44,7 @@
     &__arrow {
         position: absolute;
         top: 50%;
-        left: rem(20);
+        left: rem(23);
         width: rem(20);
         height: rem(20);
         display: block;
@@ -63,7 +63,7 @@
         &__end {
             position: absolute;
             top: 0;
-            left: 0;
+            left: calc(#{rem(2)} * -1);
             width: rem(7);
             height: rem(7);
             border-right: 2px $black solid;

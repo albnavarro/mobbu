@@ -44,7 +44,7 @@
 
         &__end {
             position: absolute;
-            top: 0;
+            top: calc(#{rem(2)} * 1);
             left: 0;
             width: rem(7);
             height: rem(7);

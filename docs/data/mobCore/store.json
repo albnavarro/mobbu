@@ -25,7 +25,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "Classic store based on the pub/sub pattern.<br/> This module will then be the basis of the reactivity of mobJs javascript components."
         },
@@ -38,7 +39,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Feature:"
         },
@@ -111,7 +112,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
@@ -148,7 +149,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "big"
             }
         },
         {
@@ -299,15 +300,9 @@
             "content": "Methods:"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Set"
         },
@@ -331,13 +326,13 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h6"
             },
             "content": "Set Options: ( optional )"
         },
@@ -372,7 +367,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Update"
         },
@@ -396,13 +391,13 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h6"
             },
             "content": "Update Options: ( optional )"
         },
@@ -438,7 +433,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Get"
         },
@@ -470,7 +465,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Get props"
         },
@@ -502,7 +497,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "GetProxi"
         },
@@ -525,9 +520,15 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h6"
             },
             "content": "Deep watch"
         },
@@ -565,7 +566,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Watch"
         },
@@ -587,9 +588,15 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h6"
             },
             "content": "Watch Options: ( optional )"
         },
@@ -625,7 +632,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Emit"
         },
@@ -657,7 +664,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Emit async"
         },
@@ -689,7 +696,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Computed"
         },
@@ -723,7 +730,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h6"
             },
             "content": "Explicit dependencies:"
         },
@@ -745,9 +752,15 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h6"
             },
             "content": "With proxi ( auto detect dependencies )"
         },
@@ -802,7 +815,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "BindStore"
         },
@@ -861,7 +874,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Destroy"
         },
@@ -891,14 +904,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Other functions"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "debugStore()"
         },
@@ -918,7 +931,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "debugValidate()"
         },

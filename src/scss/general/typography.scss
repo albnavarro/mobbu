@@ -94,6 +94,14 @@ p {
     line-height: line-height(24, 30);
 }
 
+.p {
+    &--boxed {
+        background: rgba($white, 0.5);
+        padding: rem(20);
+        border-radius: rem(20);
+    }
+}
+
 .p,
 .ul {
     &--small {
