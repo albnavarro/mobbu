@@ -23,7 +23,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The watch() function is equivalent to myStore.watch()."
         },
@@ -32,21 +33,13 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Using the watch function you can <span class='quote'>react</span> to the change of state whether it occurs from outside the component (for example from a parent through bindProps) or from the component itself."
+            "content": "Using the watch function you can <span class='quote'>react</span> to the change of state whether it occurs from outside the component (for example from a parent through bindProps) or from the component itself. The default value will not be detected, the reactivity will start from the first mutation. The watch function is automatically <span class='quote'>trashed</span> when the component is <span class='quote'>destroyed</span>. You can use the returned unwatch function to <span class='quote'>disconnect</span> the watch before the component is destroyed."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "The default value will not be detected, the reactivity will start from the first mutation."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The watch function is automatically <span class='quote'>trashed</span> when the component is <span class='quote'>destroyed</span>. You can use the returned unwatch function to <span class='quote'>disconnect</span> the watch before the component is destroyed."
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",

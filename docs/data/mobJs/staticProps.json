@@ -23,9 +23,16 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "The <span class='quote'>staticProps</span> function allows you to pass <span class='quote'>static values</span> to the state of a component without triggering any reactivity. It is useful when you know that the value will not have to be reactive, clearer to read, lighter for the entire app."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-paragraph",
