@@ -15,24 +15,18 @@
             "content": "WebComponent"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true
+            },
+            "content": "To use web components it is necessary that in the html function in which the dom is defined, the first node has the same tag used in the <a href='./#mobJs-component'>definition</a> of the component and used to recall it:"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "Function"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "To use web components it is necessary that in the html function in which the dom is defined, the first node has the same tag used in the <a href='./#mobJs-component'>definition</a> of the component and used to recall it:"
         },
         {
             "component": "mob-snippet",
@@ -53,7 +47,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "createComponent additional params:"
         },
@@ -87,7 +81,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Common argument:"
         },
@@ -101,21 +95,21 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "context ( native webComponent context ):"
         },
         {
-            "component": "mob-list",
+            "component": "mob-paragraph",
             "props": {
-                "style": "medium",
-                "items": ["webComponent context"]
-            }
+                "style": "medium"
+            },
+            "content": "webComponent context"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "params"
         },
@@ -135,7 +129,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Specific argument:"
         },

@@ -25,7 +25,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "The slots are identified by the mobjs-slot tag, they can be unnamed or named as in the following examples:"
         },
@@ -40,7 +41,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Unnamed slot"
         },
@@ -65,7 +66,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Named slot"
         },
@@ -90,7 +91,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "props"
         },

@@ -23,16 +23,16 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "Asynchronous function that waits until all reactive props ( bindProps ), all repeaters, invalidate,  and runtime component of the entire app have been computed."
+            "content": "Asynchronous function that waits until all reactive props ( bindProps ), all repeaters, invalidate,  and runtime component of the entire app have been computed. Generally the tick is used following a setState() to track the end of the update of all the app props."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            },
-            "content": "Generally the tick is used following a setState() to track the end of the update of all the app props."
+            }
         },
         {
             "component": "mob-snippet",

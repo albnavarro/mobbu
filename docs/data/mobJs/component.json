@@ -125,7 +125,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "createComponent is the function that will take care of registering our component."
         },
@@ -276,7 +277,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "Basic component structure example."
         },

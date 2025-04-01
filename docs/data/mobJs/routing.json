@@ -27,14 +27,28 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To define a route just create a function that returns the DOM of the route."
+            "content": "To define a route just create a function that returns the DOM of the route. The route functions can be asynchronous, this is to allow the fetching of any data. The function is executed before deleting the old route, only when the data has been recovered and the data is ready will the new route be rendered."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
-            "content": "The route functions can be asynchronous, this is to allow the fetching of any data.<br/>The function is executed before deleting the old route, only when the data has been recovered and the data is ready will the new route be rendered."
+            "content": "It is necessary to load the dependencies before initializing the application through the utility useComponent(). it is not possible to use reactive props in the route as this module is not a component."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-paragraph",
@@ -52,20 +66,6 @@
                     "<span class='quote'>props</span> Optional props passed to the function"
                 ]
             }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "It is necessary to load the dependencies before initializing the application through the utility useComponent()"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "it is not possible to use reactive props in the route as this module is not a component."
         },
         {
             "component": "mob-spacer",
@@ -304,7 +304,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "id": "events",
                 "label": "Events"
             }
@@ -312,7 +312,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Events"
         },
@@ -326,7 +326,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "small",
                 "id": "beforeRouteChange",
                 "label": "beforeRouteChange"
             }

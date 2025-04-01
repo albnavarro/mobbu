@@ -35,6 +35,12 @@
             "content": "Enable the debug property through the setDefaultComponent function."
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
