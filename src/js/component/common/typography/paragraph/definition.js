@@ -12,7 +12,7 @@ export const Paragraph = MobJs.createComponent(
     ({
         name: 'mob-paragraph',
         component: ParagraphFn,
-        exportState: ['style', 'color', 'boxed'],
+        exportState: ['style', 'color', 'boxed', 'note'],
         state: {
             style: () => ({
                 value: 'medium',
@@ -30,6 +30,10 @@ export const Paragraph = MobJs.createComponent(
                 },
             }),
             boxed: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            note: () => ({
                 value: false,
                 type: Boolean,
             }),

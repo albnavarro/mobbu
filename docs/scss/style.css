@@ -639,6 +639,28 @@ p a {
   padding: 1.3333333333rem;
   border-radius: 1.3333333333rem;
 }
+.p--note {
+  position: relative;
+  padding-top: 4rem;
+}
+.p--note::after {
+  content: "!";
+  position: absolute;
+  top: 1.3333333333rem;
+  right: 2.6666666667rem;
+  font-weight: 700;
+  color: #a86464;
+}
+.p--note::before {
+  content: "";
+  position: absolute;
+  top: 1.3333333333rem;
+  right: 2.0666666667rem;
+  width: 1.4666666667rem;
+  height: 1.4666666667rem;
+  border-radius: 100%;
+  border: 2px #a86464 solid;
+}
 .p--small,
 .ul--small {
   font-size: 0.8rem;

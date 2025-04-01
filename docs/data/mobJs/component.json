@@ -19,9 +19,16 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "The components are divided into two modules: Definition and Function<br/>For convenience it is recommended to divide the two modules into two separate files:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
@@ -111,7 +118,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Component definition"
         },
@@ -121,12 +128,6 @@
                 "style": "medium"
             },
             "content": "createComponent is the function that will take care of registering our component."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-title",
@@ -260,7 +261,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "id": "function",
                 "label": "Function component"
             }
@@ -268,20 +269,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "component function"
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-paragraph",
             "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
+                "style": "medium"
             },
             "content": "Basic component structure example."
         },
@@ -309,18 +304,13 @@
             }
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "Note:"
-        },
-        {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
-            "content": "Once the function has been executed and the HTML block has been rendered, it is no longer under the control of the library.<br/> Using the parameters watch, bindProps, etc.. you can modify the DOM based on the state change. The parameters of the function are in fact the only elements that will remain 'alive'."
+            "content": "Once the function has been executed and the HTML block has been rendered, it is no longer under the control of the library. Using the parameters watch, bindProps, etc.. you can modify the DOM based on the state change. The parameters of the function are in fact the only elements that will remain 'alive'."
         },
         {
             "component": "mob-spacer",
@@ -331,7 +321,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Advanced component structure example."
         },
@@ -361,7 +351,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "Async"
         },
@@ -385,7 +375,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "id": "type",
                 "label": "Typescript"
             }
@@ -393,7 +383,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Typescript"
         },
@@ -404,31 +394,11 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Each component can be associated with an <span class='quote'>interface</span> to specify the types related to <span class='quote'>method</span> <span class='quote'>states</span> and <span class='quote'>refs</span>."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "All the functions available in the component will be correctly configured without any further intervention."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "<span class='quote'>getRef</span> and <span class='quote'>getRefs</span> will return e.g. <span class='quote'>HTMLElement</span> or <span class='quote'>HTMLElement[]</span> automatically."
+            "content": "Each component can be associated with an <span class='quote'>interface</span> to specify the types related to <span class='quote'>method</span> <span class='quote'>states</span> and <span class='quote'>refs</span>.All the functions available in the component will be correctly configured without any further intervention.<span class='quote'>getRef</span> and <span class='quote'>getRefs</span> will return e.g. <span class='quote'>HTMLElement</span> or <span class='quote'>HTMLElement[]</span> automatically."
         },
         {
             "component": "mob-spacer",
@@ -480,7 +450,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Component function params:"
         },
@@ -488,13 +458,13 @@
             "component": "mob-spacer",
             "props": {
                 "id": "primary",
-                "style": "medium"
+                "style": "small"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Fundamental params:"
         },
@@ -586,7 +556,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Render Blocks"
         },
@@ -626,7 +596,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Static params:"
         },
@@ -662,7 +632,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Utils params:"
         },
@@ -727,7 +697,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h6"
             },
             "content": "Traversal operation"
         },

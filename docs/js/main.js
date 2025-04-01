@@ -25733,10 +25733,13 @@ Loading snippet ...</pre
 
   // src/js/component/common/typography/paragraph/paragraph.js
   var ParagraphFn = ({ getState }) => {
-    const { style, color, boxed } = getState();
+    const { style, color, boxed, note } = getState();
     const colorClass = `is-${color}`;
     const boxedClass = boxed ? `boxed` : "";
-    return renderHtml`<p class="p p--${style} p--${boxedClass} ${colorClass}">
+    const noteClass = note ? `note` : "";
+    return renderHtml`<p
+        class="p p--${style} p--${boxedClass} p--${noteClass} ${colorClass}"
+    >
         <mobjs-slot></mobjs-slot>
     </p>`;
   };
@@ -25747,7 +25750,7 @@ Loading snippet ...</pre
     {
       name: "mob-paragraph",
       component: ParagraphFn,
-      exportState: ["style", "color", "boxed"],
+      exportState: ["style", "color", "boxed", "note"],
       state: {
         style: () => ({
           value: "medium",
@@ -25765,6 +25768,10 @@ Loading snippet ...</pre
           }
         }),
         boxed: () => ({
+          value: false,
+          type: Boolean
+        }),
+        note: () => ({
           value: false,
           type: Boolean
         })

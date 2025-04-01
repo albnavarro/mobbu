@@ -19,7 +19,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as components and routes, before initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
         },
@@ -34,7 +35,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "index.html"
         },
@@ -65,7 +66,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Entry point"
         },
@@ -96,7 +97,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Wrapper"
         },
@@ -147,7 +148,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Routes"
         },
@@ -176,7 +177,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Params"
         },
