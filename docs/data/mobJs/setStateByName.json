@@ -19,7 +19,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "Set component state by instance name"
         },
@@ -48,14 +49,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Reference:"
         },
         {
             "component": "mob-list",
             "props": {
-                "tag": "h3",
+                "tag": "h5",
                 "dots": false,
                 "links": true,
                 "items": [

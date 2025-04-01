@@ -19,16 +19,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "Use methods by <span class='quote'>instance name</span>.</br>The instance can be called from <span class='quote'>anywhere</span> in the app "
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The function is designed to be used when you have <span class='quote'>multiple instances</span> with the same name, it actually returns an array of objects."
+            "content": "Use methods by <span class='quote'>instance name</span>.</br>The instance can be called from <span class='quote'>anywhere</span> in the app. The function is designed to be used when you have <span class='quote'>multiple instances</span> with the same name, it actually returns an array of objects."
         },
         {
             "component": "mob-spacer",
