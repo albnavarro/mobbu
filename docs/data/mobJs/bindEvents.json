@@ -23,16 +23,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "The bindEvent function allows you to associate an event with a component, this function has no effect on generic (non-component) elements of the dom. If you want to associate twenty to any node in the DOM use <a href='./#mobJs-delegateEvents'>delegateEvents</a>."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "During the execution of each event, further calls made before the entire app has updated will be inhibited."
+            "content": "The bindEvent function allows you to associate an event with a component, this function has no effect on generic (non-component) elements of the dom. If you want to associate twenty to any node in the DOM use <a href='./#mobJs-delegateEvents'>delegateEvents</a>. During the execution of each event, further calls made before the entire app has updated will be inhibited."
         },
         {
             "component": "mob-spacer",
@@ -43,14 +37,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Params:"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "event"
         },
@@ -86,14 +80,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Additional props"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "value/index"
         },

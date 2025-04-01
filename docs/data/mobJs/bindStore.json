@@ -23,19 +23,24 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "<span class='quote'>bindStore</span> allows you to couple the component state to another store ( <a href='#mobCore-store'>mobStore</a> ) taking advantage of its reactivity."
+            "content": "bindStore allows you to couple the component state to another store ( <a href='#mobCore-store'>mobStore</a> ) taking advantage of its reactivity."
         },
         {
-            "component": "mob-list",
+            "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "dots": true,
-                "items": [
-                    "To add multiple stores pass an <span class='quote'>array</span> as an argument.",
-                    "The bindStore function must be <span class='quote'>called first</span> before receiving the <span class='quote'>proxy</span> object, or using the <span class='quote'>watch</span> function."
-                ]
+                "boxed": true,
+                "note": true
+            },
+            "content": "To add multiple stores pass an <span class='quote'>array</span> as an argument.<br/>The bindStore function must be <span class='quote'>called first</span> before receiving the <span class='quote'>proxy</span> object, or using the <span class='quote'>watch</span> function."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {

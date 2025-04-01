@@ -23,16 +23,23 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "bindText allows you to update the contents of a node when one or more application states change."
+            "content": "bindText allows you to update the contents of a node when one or more application states change. While <span class='quote'>bindObject</span> uses an object to update itself <span class='quote'>bindtText</span> has the key corresponding to the state as a string."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
             },
-            "content": "While <span class='quote'>bindObject</span> uses an object to update itself <span class='quote'>bindtText</span> has the key corresponding to the state as a string."
+            "content": "miscellaneous"
         },
         {
             "component": "mob-list",

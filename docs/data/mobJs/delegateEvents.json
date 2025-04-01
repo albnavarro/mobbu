@@ -23,34 +23,21 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "The delegateEvents function collects all events associated with individual elements into a single listener associated with the app root. The event target will then be redirected to the right node. This works and you can use it on simple components or nodes."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "During the execution of each event, further calls made before the entire app has updated will be inhibited."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Due to the <span class='quote'>asynchronous</span> nature of the event, delegateEvents is not suitable for animations, use the native <span class='quote'>addEventListener</span> for this."
+            "content": "The delegateEvents function collects all events associated with individual elements into a single listener associated with the app root. The event target will then be redirected to the right node. This works and you can use it on simple components or nodes. During the execution of each event, further calls made before the entire app has updated will be inhibited. Due to the <span class='quote'>asynchronous</span> nature of the event, delegateEvents is not suitable for animations, use the native <span class='quote'>addEventListener</span> for this."
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h5",
                 "isBold": true
             },
             "content": "delegateEvent supports all common events except:"
@@ -77,14 +64,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Params:"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "event"
         },
@@ -120,14 +107,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Additional props"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "value/index"
         },

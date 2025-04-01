@@ -23,23 +23,23 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "The <span class='quote'>bindEffect</span> module allows you to apply reactive <span class='quote'>classes</span> and <span class='quote'>styles</span> and <span class='quote'>attributes</span> to any type of html tags (component and non-component)."
+            "content": "The <span class='quote'>bindEffect</span> module allows you to apply reactive <span class='quote'>classes</span> and <span class='quote'>styles</span> and <span class='quote'>attributes</span> to any type of html tags (component and non-component). The module is divided into <span class='quote'>independent groups</span> to which it is possible to specify the status(es) to be monitored.<br/>The function will then be able to return an <span class='quote'>object</span> or an <span class='quote'>array</span> of objects."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "The module is divided into <span class='quote'>independent groups</span> to which it is possible to specify the status(es) to be monitored.<br/>The function will then be able to return an <span class='quote'>object</span> or an <span class='quote'>array</span> of objects"
+                "style": "small"
+            }
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-title",
             "props": {
-                "style": "medium"
+                "tag": "h6"
             },
-            "content": "Each module can have three parameters:"
+            "content": "params:"
         },
         {
             "component": "mob-list",
@@ -63,7 +63,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Explicit dependencies"
         },
@@ -86,7 +86,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "With proxi ( auto detect dependencies )"
         },
@@ -109,7 +109,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Classes, styles and attributes dependent on different states"
         },
@@ -132,7 +132,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Multiple states"
         },
@@ -155,7 +155,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Styles and classes related to the same state"
         },
