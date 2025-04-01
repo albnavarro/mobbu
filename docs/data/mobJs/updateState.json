@@ -23,19 +23,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
-            },
-            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The updateState() function is equivalent to myStore.update()."
-        },
-        {
-            "component": "mob-list",
-            "props": {
                 "style": "medium",
-                "dots": true,
-                "items": [
-                    "Component states are declared in the <span class='quote'>component's definition</span>"
-                ]
-            }
+                "boxed": true
+            },
+            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The updateState() function is equivalent to myStore.update(). Component states are declared in the component's definition"
         },
         {
             "component": "mob-spacer",
@@ -62,7 +53,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "UpdateStateByName"
         },
@@ -76,7 +67,7 @@
         {
             "component": "mob-list",
             "props": {
-                "tag": "h3",
+                "tag": "h4",
                 "dots": false,
                 "links": true,
                 "items": [

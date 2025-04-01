@@ -23,34 +23,34 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The computed() function is equivalent to myStore.computed()."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "Update properties value if some state change. Computed functions are resolved on the javascript loop. If multiple state change at the same time, the computed will be resolved only once."
+                "style": "small"
+            }
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Component states are declared in the component's <a href='./#mobJs-component'>definition</a>"
+            "content": "Update properties value if some state change. Computed functions are resolved on the javascript loop. If multiple state change at the same time, the computed will be resolved only once. Component states are declared in the component's <a href='./#mobJs-component'>definition</a>"
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h5",
                 "isBold": true
             },
             "content": "Explicit dependencies"
@@ -74,7 +74,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h5",
                 "isBold": true
             },
             "content": "With proxi ( auto detect dependencies )"

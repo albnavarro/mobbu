@@ -23,16 +23,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "The onMount function will be executed when all components of the current loop have been created and attached to the DOM.<br/> onMount functions will be executed starting from the deepest level up."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The route will be considered loaded (and consequently the specific <a href='./#mobJs-routing'>events</a> will be launched) when all onMount functions are executed."
+            "content": "The onMount function will be executed when all components of the current loop have been created and attached to the DOM.<br/> onMount functions will be executed starting from the deepest level up. The route will be considered loaded (and consequently the specific <a href='./#mobJs-routing'>events</a> will be launched) when all onMount functions are executed."
         },
         {
             "component": "mob-spacer",
@@ -130,13 +124,13 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "big"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Async"
         },
@@ -164,18 +158,19 @@
             }
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "Tips"
-        },
-        {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
             "content": "It is important to know whether it is necessary to make the onMount function 'blocking' or to delegate the asynchronous behavior to an external function, for example:<br/>If upstream of our component we need to know the exact measurements of the same, and the same depend from a calculation carried out in the onMount function (for example a data fetch) we should solve the onMount function when our asynchronous function is solved, otherwise we can solve our onMount function immediately."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-snippet",

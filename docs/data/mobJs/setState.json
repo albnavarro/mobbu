@@ -23,19 +23,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
-            },
-            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and <span class='quote'>inherits</span> all its functionality. The setState() function is equivalent to myStore.set()."
-        },
-        {
-            "component": "mob-list",
-            "props": {
                 "style": "medium",
-                "dots": true,
-                "items": [
-                    "Component states are declared in the <span class='quote'>component's definition</span>"
-                ]
-            }
+                "boxed": true
+            },
+            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and <span class='quote'>inherits</span> all its functionality. The setState() function is equivalent to myStore.set(). Component states are declared in the <span class='quote'>component's definition</span>"
         },
         {
             "component": "mob-spacer",
@@ -62,7 +53,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "SetStateByName"
         },

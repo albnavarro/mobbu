@@ -23,19 +23,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
-            },
-            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The getState() function is equivalent to myStore.get(). By destructuring the object it is possible to access a particular state."
-        },
-        {
-            "component": "mob-list",
-            "props": {
                 "style": "medium",
-                "dots": true,
-                "items": [
-                    "Component states are declared in the <span class='quote'>component's definition</span>"
-                ]
-            }
+                "boxed": true
+            },
+            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The getState() function is equivalent to myStore.get(). By destructuring the object it is possible to access a particular state. Component states are declared in the <span class='quote'>component's definition</span>"
         },
         {
             "component": "mob-spacer",
