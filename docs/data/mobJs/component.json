@@ -312,7 +312,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Once the function has been executed and the HTML block has been rendered, it is no longer under the control of the library. Using the parameters watch, bindProps, etc.. you can modify the DOM based on the state change. The parameters of the function are in fact the only elements that will remain 'alive'."
+            "content": "Once the function has been executed and the HTML block has been rendered, it is no longer under the control of the library. Using the parameters invalidate, repeat, bindEffect, etc.. you can modify the DOM based on the state change. The function utils are in fact the only elements that will remain 'alive'."
         },
         {
             "component": "mob-spacer",

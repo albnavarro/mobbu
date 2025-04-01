@@ -19,16 +19,16 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "To be activated, the init method must be executed."
+            "content": "To be activated, the init method must be executed. Unlike parallax which reasons by speed/multipliers, scrollTrigger allows you to reason in absolute values from point A ( start ) to point B ( end )."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "Unlike parallax which reasons by speed/multipliers, scrollTrigger allows you to reason in absolute values from point A ( start ) to point B ( end )."
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",
@@ -49,7 +49,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Params:"
         },
@@ -80,14 +80,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "DOM Element"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "item"
         },
@@ -107,7 +107,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "trigger"
         },
@@ -127,7 +127,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "applyTo"
         },
@@ -147,7 +147,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "scroller"
         },
@@ -167,7 +167,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "screen"
         },
@@ -195,14 +195,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "breakpoint"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "breakpoint"
         },
@@ -222,7 +222,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "queryType"
         },
@@ -250,7 +250,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "propierties"
         },
@@ -313,7 +313,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "range"
         },
@@ -476,7 +476,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "dynamicRange"
         },
@@ -527,7 +527,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "use scrollerTween/sequencer"
         },
@@ -579,7 +579,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "start/end"
         },
@@ -674,7 +674,9 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
             "content": "The values 2 & 3 will always be added from the chosen position towards the center of the screen, whether the position corresponds to top|bottom left|right"
         },
@@ -711,7 +713,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "dynamicStart/dynamicEnd"
         },
@@ -760,20 +762,22 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span class='quote'>A function that returns a number</span><br/>Same as range this value will always be added from the chosen position towards the center of the screen, whether the position corresponds to top|bottom left|right"
+            "content": "A function that returns a number. Each function is recomputed after the resize event."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Same as start/end this value will always be added from the chosen position towards the center of the screen, whether the position corresponds to top|bottom left|right"
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Each function is recomputed after the resize event."
         },
         {
             "component": "mob-spacer",
@@ -802,7 +806,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "fromTo"
         },
@@ -824,7 +828,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "marker"
         },
@@ -856,7 +860,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "direction"
         },
@@ -878,7 +882,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "ease"
         },
@@ -898,7 +902,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "ease"
         },
@@ -912,7 +916,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "easeType"
         },
@@ -926,7 +930,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "lerpConfig"
         },
@@ -940,7 +944,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "springConfig"
         },
@@ -985,7 +989,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "pin"
         },
@@ -999,7 +1003,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "pin"
         },
@@ -1013,7 +1017,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "animatePin"
         },
@@ -1027,7 +1031,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "forceTranspond"
         },
@@ -1041,7 +1045,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "anticipatePinOnLoad"
         },
@@ -1079,7 +1083,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "events"
         },
@@ -1093,7 +1097,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "onEnter"
         },
@@ -1107,7 +1111,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "onEnterBack"
         },
@@ -1121,7 +1125,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "onLeave"
         },
@@ -1135,7 +1139,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "onLeaveBack"
         },
@@ -1149,7 +1153,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "onTick"
         },
@@ -1184,7 +1188,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "utils parameters"
         },
@@ -1197,7 +1201,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "disableForce3D"
         },
@@ -1211,7 +1215,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "useThrottle"
         },
@@ -1225,7 +1229,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "perspective"
         },
@@ -1239,7 +1243,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "useWillChange"
         },
@@ -1278,7 +1282,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "init"
         },
@@ -1316,7 +1320,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "move ( connect multiple instances )"
         },
@@ -1371,7 +1375,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "refresh"
         },
@@ -1409,7 +1413,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "destroy"
         },

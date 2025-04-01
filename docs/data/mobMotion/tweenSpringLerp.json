@@ -19,7 +19,8 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "Tweens can be thought of as stores that simply interpolate numbers and launch callbacks."
         },
@@ -32,7 +33,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Time-based:"
         },
@@ -59,7 +60,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Based on a precision value:"
         },
@@ -80,7 +81,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "big"
             }
         },
         {
@@ -135,7 +136,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "id": "tween",
                 "label": "Tween"
             }
@@ -156,7 +157,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Additional params:"
         },
@@ -197,7 +198,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "All Params:"
         },
@@ -263,7 +264,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Additional params:"
         },
@@ -311,7 +312,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "All Params:"
         },
@@ -377,7 +378,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Additional params:"
         },
@@ -418,7 +419,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "All Params:"
         },
@@ -451,7 +452,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "big"
             }
         },
         {
@@ -462,17 +463,9 @@
             "content": "Common methods"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "set",
-                "label": "Set"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Set"
         },
@@ -504,7 +497,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "goTo"
         },
@@ -550,7 +543,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "goFrom"
         },
@@ -596,7 +589,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "goFromTo"
         },
@@ -642,7 +635,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "stop"
         },
@@ -674,7 +667,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "pause/resume"
         },
@@ -706,7 +699,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Subscribe"
         },
@@ -745,7 +738,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "SubscribeCache"
         },
@@ -784,7 +777,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "onComplete"
         },

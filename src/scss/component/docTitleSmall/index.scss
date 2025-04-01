@@ -43,16 +43,16 @@
 
     &__arrow {
         position: absolute;
-        top: 50%;
-        left: rem(23);
-        width: rem(20);
-        height: rem(20);
+        top: calc(#{rem(2)} * -1);
+        left: rem(10);
+        width: rem(30);
+        height: rem(30);
         display: block;
 
         &__start {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 50%;
+            left: 50%;
             width: 2px;
             height: rem(10);
             background: $black;
@@ -62,8 +62,8 @@
 
         &__end {
             position: absolute;
-            top: 0;
-            left: calc(#{rem(2)} * -1);
+            top: 50%;
+            left: calc(50% + #{rem(2)} * -1);
             width: rem(7);
             height: rem(7);
             border-right: 2px $black solid;

@@ -19,16 +19,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "Createstagger is a specific utility for sequencers."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Unlike <a href='./#mobMotion-stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to synchronize multiple senquencers using the stagger scheme. createStagger returns an array with precomputed start and end values."
+            "content": "Createstagger is a specific utility for sequencers. Unlike <a href='./#mobMotion-stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to synchronize multiple senquencers using the stagger scheme. createStagger returns an array with precomputed start and end values."
         },
         {
             "component": "mob-spacer",
@@ -161,7 +155,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "type:"
         },
@@ -263,7 +257,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "each"
         },
@@ -291,7 +285,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "waitComplete"
         },
@@ -319,7 +313,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "from"
         },
@@ -347,7 +341,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "grid"
         },

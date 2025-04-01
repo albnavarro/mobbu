@@ -19,16 +19,30 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "The sequencer is a different type of tween, it is not tied to time or to a precision value. We can imagine it as a store which, given a value, returns a series of interprolated data. The sequencer has a draw(value) function that takes care of interpolating the data, in fact it is the API that the sequencer exposes to be controlled. <a href='./#mobMotion-sync-timeline'>syncTimeline</a> and <a href='./#mobMotion-scrolltrigger'>scrolTrigger</a> can use the sequencer by passing partial values to it."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "<a href='./#caterpillarN2'>example</a>"
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "example:",
+                        "url": "./#caterpillarN2"
+                    }
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -133,7 +147,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "id": "goto",
                 "label": "Goto"
             }
@@ -146,15 +160,9 @@
             "content": "Methods"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "goTo"
         },
@@ -210,7 +218,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "goFrom"
         },
@@ -242,7 +250,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "goFromTo"
         },
@@ -274,7 +282,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "add"
         },
@@ -301,51 +309,20 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Callback Params:"
         },
         {
-            "component": "mob-title",
+            "component": "mob-list",
             "props": {
-                "tag": "h5"
-            },
-            "content": "value:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The exact value at which the function is launched. As above, if we indicate 2 the function can start at the value 2.05"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "isForced:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The value will be true if the sequencer is started beyond the indicated value, in this case we can decide whether to launch the function or not, as in reality the value has never been exceeded."
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "direction:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "'backward' | 'forward' | 'none'"
+                "style": "medium",
+                "items": [
+                    "<strong>value</strong>: The exact value at which the function is launched. As above, if we indicate 2 the function can start at the value 2.05",
+                    "<strong>isForced</strong>: The value will be true if the sequencer is started beyond the indicated value, in this case we can decide whether to launch the function or not, as in reality the value has never been exceeded.",
+                    "<strong>direction</strong>: 'backward' | 'forward' | 'none'"
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -374,7 +351,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "label"
         },
@@ -406,7 +383,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "subscribe"
         },
@@ -415,14 +392,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The subscribe method will allow us to apply the values in real time to our target."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The subscribe() method always returns an unsubscribe() function"
+            "content": "The subscribe method will allow us to apply the values in real time to our target. The subscribe() method always returns an unsubscribe() function"
         },
         {
             "component": "mob-snippet",
@@ -445,7 +415,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "subscribeCache"
         },
@@ -484,7 +454,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "onStop"
         },
@@ -516,7 +486,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "masterSequencer"
         },
@@ -548,7 +518,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "createStagger"
         },

@@ -19,23 +19,16 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "To be activated, the init method must be executed."
+            "content": "To be activated, the init method must be executed. Unlike scrollTrigger which performs precise calculations, parallax allows you to move elements around a neutral point (value === 0) reasoning by speed/multipliers rather than absolute numbers. The only property that is calculated absolutely is the opacity, where there are two special parameters opacityStart and opacityEnd."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "Unlike scrollTrigger which performs precise calculations, parallax allows you to move elements around a neutral point (value === 0) reasoning by speed/multipliers rather than absolute numbers."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The only property that is calculated absolutely is the opacity, where there are two special parameters opacityStart and opacityEnd."
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",
@@ -56,7 +49,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Params:"
         },
@@ -87,14 +80,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "DOM Element"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "item"
         },
@@ -114,7 +107,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "trigger"
         },
@@ -134,7 +127,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "applyTo"
         },
@@ -154,7 +147,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "scroller"
         },
@@ -174,7 +167,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "screen"
         },
@@ -202,14 +195,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "breakpoint"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "breakpoint"
         },
@@ -229,7 +222,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "queryType"
         },
@@ -257,7 +250,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "propierties"
         },
@@ -329,7 +322,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "range ( built-in properties )"
         },
@@ -387,7 +380,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "opacity special props."
         },
@@ -447,7 +440,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "use scrollerTween"
         },
@@ -488,7 +481,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "scrolllerTween range:"
         },
@@ -561,7 +554,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "align"
         },
@@ -711,7 +704,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "onSwitch"
         },
@@ -750,7 +743,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "ease"
         },
@@ -770,7 +763,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "ease"
         },
@@ -784,7 +777,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "easeType"
         },
@@ -798,7 +791,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "lerpConfig"
         },
@@ -812,7 +805,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "springConfig"
         },
@@ -850,7 +843,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "utils parameters"
         },
@@ -863,7 +856,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "disableForce3D"
         },
@@ -877,7 +870,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "useThrottle"
         },
@@ -891,7 +884,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "perspective"
         },
@@ -905,7 +898,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "useWillChange"
         },
@@ -929,7 +922,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "id": "init",
                 "label": "init"
             }
@@ -944,7 +937,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "init"
         },
@@ -982,7 +975,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "refresh"
         },
@@ -1020,7 +1013,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "destroy"
         },

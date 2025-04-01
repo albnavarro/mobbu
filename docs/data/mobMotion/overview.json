@@ -14,25 +14,25 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "MobMotion"
+            "content": "MobMotion "
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
-            "content": "animation library"
+            "content": "javascript animation library"
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "dependency:"
         },
@@ -52,7 +52,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "Philosophy:"
         },
@@ -63,7 +63,7 @@
                 "items": [
                     "It doesn't aim to write as little code as possible, but rather to provide utilities while leaving more freedom for personal customization.",
                     "As much modularity as possible, no big objects, but smaller modules that interact.",
-                    "Each module is provided with comments and type in jsDoc and ts interface to facilitate completion. The entire project remains anyway. written in vanilla javascript."
+                    "Typescript support"
                 ]
             }
         },
@@ -83,14 +83,15 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "The modules under the async section are based entirely on the concept of promise, while the sync modules are based entirely on the concept of time. The modules are divided as follows to try to make the most of their strong points, and at the same time keep the code more updatable."
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "id": "async",
                 "label": "Async"
             }
@@ -98,32 +99,9 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Async:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "dots": false,
-                "links": true,
-                "items": [
-                    {
-                        "label": "Tween/Spring/Lerp",
-                        "url": "./#mobMotion-tween-spring-lerp"
-                    },
-                    {
-                        "label": "Async timeline",
-                        "url": "./#mobMotion-async-timeline"
-                    }
-                ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-title",
@@ -160,19 +138,11 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "sync",
-                "label": "Sync"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
-            "content": "Sync:"
+            "content": "Modules:"
         },
         {
             "component": "mob-list",
@@ -181,24 +151,12 @@
                 "links": true,
                 "items": [
                     {
-                        "label": "Sequencer ( sync tween )",
-                        "url": "./#mobMotion-sequencer"
+                        "label": "Tween/Spring/Lerp",
+                        "url": "./#mobMotion-tween-spring-lerp"
                     },
                     {
-                        "label": "Create Stagger",
-                        "url": "./#mobMotion-create-stagger"
-                    },
-                    {
-                        "label": "Sync timeline",
-                        "url": "./#mobMotion-sync-timeline"
-                    },
-                    {
-                        "label": "ScrollTrigger",
-                        "url": "./#mobMotion-scrolltrigger"
-                    },
-                    {
-                        "label": "Parallax",
-                        "url": "./#mobMotion-parallax"
+                        "label": "Async timeline",
+                        "url": "./#mobMotion-async-timeline"
                     }
                 ]
             }
@@ -206,8 +164,17 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "big",
+                "id": "sync",
+                "label": "Sync"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2"
+            },
+            "content": "Sync:"
         },
         {
             "component": "mob-title",
@@ -244,9 +211,45 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Modules:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "Sequencer ( sync tween )",
+                        "url": "./#mobMotion-sequencer"
+                    },
+                    {
+                        "label": "Create Stagger",
+                        "url": "./#mobMotion-create-stagger"
+                    },
+                    {
+                        "label": "Sync timeline",
+                        "url": "./#mobMotion-sync-timeline"
+                    },
+                    {
+                        "label": "ScrollTrigger",
+                        "url": "./#mobMotion-scrolltrigger"
+                    },
+                    {
+                        "label": "Parallax",
+                        "url": "./#mobMotion-parallax"
+                    }
+                ]
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "id": "stagger",
                 "label": "Stagger"
             }
@@ -254,7 +257,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
+            },
+            "content": "Common:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
             },
             "content": "Stagger:"
         },
@@ -289,14 +299,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Defaults:"
         },
         {
             "component": "mob-list",
             "props": {
-                "tag": "h3",
+                "tag": "h5",
                 "dots": false,
                 "links": true,
                 "items": [

@@ -19,16 +19,16 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "The stagger's task is to calculate the number of delay frames for each subscriber of the tween. The stagger does not generate new instances of our tween it simply manages their rendering over time in specific request animation frames."
+            "content": "The stagger's task is to calculate the number of delay frames for each subscriber of the tween. The stagger does not generate new instances of our tween it simply manages their rendering over time in specific request animation frames. This mechanism is not to be confused with a setTimeout(), the stagger does not think in this way but rather counts the frames, in fact the use of the stagger does not affect the perception of the animation in any way. This count varies based on the frame rate identified at the start. The stagger can no longer be modified once calculated."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "This mechanism is not to be confused with a setTimeout(), the stagger does not think in this way but rather counts the frames, in fact the use of the stagger does not affect the perception of the animation in any way. This count varies based on the frame rate identified at the start. The stagger can no longer be modified once calculated."
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
@@ -91,7 +91,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "each"
         },
@@ -123,7 +123,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "waitComplete"
         },
@@ -169,7 +169,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "from"
         },
@@ -183,7 +183,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "note:"
         },
@@ -215,7 +215,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "grid"
         },
@@ -229,7 +229,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "note:"
         },

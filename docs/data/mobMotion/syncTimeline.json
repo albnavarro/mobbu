@@ -19,27 +19,35 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
             "content": "syncTimeline is a large timer that can handle one or more <a href='./#mobMotion-sequencer'>sequencer</a>. It regulates its duration and manages all the play, stop, pause and more options."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "<a href='./#caterpillarN2'>example</a>"
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "example:",
+                        "url": "./#caterpillarN2"
+                    }
+                ]
+            }
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h6"
             },
             "content": "Params:"
         },
@@ -140,7 +148,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h6"
             },
             "content": "code example"
         },
@@ -163,7 +171,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "id": "add",
                 "label": "add"
             }
@@ -178,7 +186,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "add"
         },
@@ -206,13 +214,6 @@
                 "id": "play",
                 "label": "play/playReverse/stop"
             }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "play/playReverse/stop"
         },
         {
             "component": "mob-spacer",
@@ -293,7 +294,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "playFrom/playReverse"
         },
@@ -325,7 +326,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "reverse"
         },
@@ -357,7 +358,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "pause/resume"
         },
@@ -389,7 +390,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "onLoopEnd"
         },
@@ -403,7 +404,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h6"
             },
             "content": "params:"
         },
@@ -438,7 +439,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "onComplete"
         },
@@ -470,7 +471,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "onUpdate"
         },
@@ -484,7 +485,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h6"
             },
             "content": "params:"
         },
@@ -519,7 +520,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "destroy"
         },
@@ -551,7 +552,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h6"
             },
             "content": "Utils"
         },
@@ -560,14 +561,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "isActive/isSuspended/getDirection/getTime"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Utilities to check the status of the timeline:"
+            "content": "<strong>isActive/isSuspended/getDirection/getTime</strong>. Utilities to check the status of the timeline:"
         },
         {
             "component": "mob-snippet",
