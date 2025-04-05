@@ -1568,23 +1568,6 @@
     }
   });
 
-  // src/js/data/index.js
-  var commonData;
-  var getCommonData = () => commonData;
-  var loadData = async () => {
-    commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data) => data).catch((error) => console.warn("Something went wrong.", error));
-  };
-
-  // src/js/mob/mobMotion/core.js
-  var core_exports = {};
-  __export(core_exports, {
-    clamp: () => clamp2,
-    getDefault: () => getDefault,
-    mq: () => mq2,
-    printDefault: () => printDefault,
-    setDefault: () => setDefault
-  });
-
   // src/js/mob/mobCore/modules.js
   var modules_exports = {};
   __export(modules_exports, {
@@ -4303,6 +4286,4963 @@
   }
   var store = eventStore;
 
+  // src/js/mob/mobjs/modules.js
+  var modules_exports2 = {};
+  __export(modules_exports2, {
+    afterRouteChange: () => afterRouteChange,
+    beforeRouteChange: () => beforeRouteChange,
+    beforeRouteLeave: () => beforeRouteLeave,
+    componentMap: () => componentMap,
+    createComponent: () => createComponent,
+    eventDelegationMap: () => eventDelegationMap,
+    getActiveParams: () => getActiveParams,
+    getActiveRoute: () => getActiveRoute,
+    getChildrenIdByName: () => getChildrenIdByName,
+    getComponentNameById: () => getComponentNameById,
+    getDebugMode: () => getDebugMode,
+    getIdByInstanceName: () => getIdByInstanceName,
+    getNumberOfActiveInvalidate: () => getNumberOfActiveInvalidate,
+    getNumberOfActiveRepeater: () => getNumberOfActiveRepeater,
+    getParentIdById: () => getParentIdById,
+    getPropsFromParent: () => getPropsFromParent,
+    getStateById: () => getStateById,
+    getStateByName: () => getStateByName,
+    getTree: () => getTree,
+    inizializeApp: () => inizializeApp,
+    loadUrl: () => loadUrl,
+    mainStore: () => mainStore,
+    onRouteLoading: () => onRouteLoading,
+    removeAndDestroyById: () => removeAndDestroyById,
+    setDefaultComponent: () => setDefaultComponent,
+    setStateById: () => setStateById,
+    setStateByName: () => setStateByName,
+    staticProps: () => staticProps,
+    tempDelegateEventMap: () => tempDelegateEventMap,
+    tick: () => tick,
+    updateStateByName: () => updateStateByName,
+    useComponent: () => useComponent,
+    useMethodArrayByName: () => useMethodArrayByName,
+    useMethodByName: () => useMethodByName,
+    watchById: () => watchById
+  });
+
+  // src/js/mob/mobjs/mainStore/constant.js
+  var MAIN_STORE_ACTIVE_ROUTE = "activeRoute";
+  var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
+  var MAIN_STORE_BEFORE_ROUTE_LEAVES = "beforeRouteLeave";
+  var MAIN_STORE_BEFORE_ROUTE_CHANGE = "beforeRouteChange";
+  var MAIN_STORE_AFTER_ROUTE_CHANGE = "afterRouteChange";
+  var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
+  var MAIN_STORE_ASYNC_PARSER = "repeaterParserAsync";
+
+  // src/js/mob/mobjs/mainStore/mainStore.js
+  var mainStore = modules_exports.createStore(
+    /** @type{MobStoreParams<import('./type').MainStore>} */
+    {
+      [MAIN_STORE_ACTIVE_ROUTE]: () => ({
+        value: { route: "", templateName: "" },
+        type: "any",
+        skipEqual: false
+      }),
+      [MAIN_STORE_ACTIVE_PARAMS]: () => ({
+        value: {},
+        type: "any",
+        skipEqual: false
+      }),
+      [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
+        value: { route: "", templateName: "" },
+        type: "any",
+        skipEqual: false
+      }),
+      [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
+        value: { route: "", templateName: "" },
+        type: "any",
+        skipEqual: false
+      }),
+      [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
+        value: { route: "", templateName: "" },
+        type: "any",
+        skipEqual: false
+      }),
+      [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
+        value: false,
+        type: Boolean
+      }),
+      [MAIN_STORE_ASYNC_PARSER]: {
+        element: () => ({
+          value: document.createElement("div"),
+          type: HTMLElement,
+          skipEqual: false
+        }),
+        parentId: () => ({
+          value: "",
+          type: String,
+          skipEqual: false
+        }),
+        persistent: () => ({
+          value: false,
+          type: Boolean,
+          skipEqual: false
+        })
+      }
+    }
+  );
+
+  // src/js/mob/mobjs/mainStore/mainStoreApi.js
+  var beforeRouteChange = (callback2) => {
+    return mainStore.watch(
+      MAIN_STORE_BEFORE_ROUTE_CHANGE,
+      ({ route, templateName }) => {
+        callback2({ route, templateName });
+      }
+    );
+  };
+  var beforeRouteLeave = (callback2) => {
+    return mainStore.watch(
+      MAIN_STORE_BEFORE_ROUTE_LEAVES,
+      ({ route, templateName }) => {
+        callback2({ route, templateName });
+      }
+    );
+  };
+  var afterRouteChange = (callback2) => {
+    return mainStore.watch(
+      MAIN_STORE_AFTER_ROUTE_CHANGE,
+      ({ route, templateName }) => {
+        callback2({ route, templateName });
+      }
+    );
+  };
+  var onRouteLoading = (callback2) => {
+    return mainStore.watch(MAIN_STORE_ROUTE_IS_LOADING, (state) => {
+      callback2(state);
+    });
+  };
+  var getActiveRoute = () => {
+    const { activeRoute } = mainStore.get();
+    return activeRoute;
+  };
+  var getActiveParams = () => {
+    const { activeParams } = mainStore.get();
+    return activeParams;
+  };
+
+  // src/js/mob/mobjs/constant.js
+  var ATTR_IS_COMPONENT = "data-mobjs";
+  var ATTR_COMPONENT_ID = "componentid";
+  var ATTR_BIND_TEXT_ID = "bindtextid";
+  var ATTR_BIND_OBJECT_ID = "bindobjectid";
+  var ATTR_PROPS = "staticprops";
+  var ATTR_BIND_PROPS = "bindprops";
+  var ATTR_INSTANCENAME = "name";
+  var ATTR_COMPONENT_NAME = "name";
+  var ATTR_SLOT = "slot";
+  var ATTR_CHILD_REPEATID = "repeaterchild";
+  var ATTR_KEY = "key";
+  var ATTR_CURRENT_LIST_VALUE = "currentRepeaterValue";
+  var ATTR_REPEATER_PROP_BIND = "repeatPropBind";
+  var ATTR_BIND_EVENTS = "bindevents";
+  var ATTR_WEAK_BIND_EVENTS = "weakbindevents";
+  var ATTR_BIND_EFFECT = "bindeffect";
+  var ATTR_PARENT_ID = "parentid";
+  var ATTR_BIND_REFS_ID = "bindrefid";
+  var ATTR_BIND_REFS_NAME = "bindrefname";
+  var ATTR_INVALIDATE = "invalidateid";
+  var ATTR_MOBJS_REPEAT = "mobjsrepeat";
+  var frameDelayAfterParse = 5;
+  var DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
+  var QUEQUE_TYPE_BINDPROPS = "QUEQUE_BINDPROPS";
+  var QUEQUE_TYPE_REPEATER = "QUEQUE_REPEATER";
+  var QUEQUE_TYPE_INVALIDATE = "QUEQUE_INVALIDATE";
+
+  // src/js/mob/mobjs/modules/repeater/repeatIdHostMap.js
+  var repeatIdHostMap = /* @__PURE__ */ new Map();
+
+  // src/js/mob/mobjs/modules/repeater/repeatIdPlaceHolderMap.js
+  var repeatIdPlaceHolderMap = /* @__PURE__ */ new Map();
+
+  // src/js/mob/mobjs/modules/repeater/action/getRepeaterParent.js
+  var getRepeatParent = ({ id }) => {
+    if (!repeatIdPlaceHolderMap.has(id)) {
+      return;
+    }
+    if (repeatIdHostMap.has(id)) {
+      const host = repeatIdHostMap.get(id);
+      host?.removeCustomComponent();
+      host?.remove();
+      repeatIdHostMap.delete(id);
+    }
+    const parent = repeatIdPlaceHolderMap.get(id);
+    return parent?.element;
+  };
+
+  // src/js/mob/mobjs/component/store.js
+  var componentMap = /* @__PURE__ */ new Map();
+
+  // src/js/mob/mobjs/component/action/repeater.js
+  var setRepeaterStateById = ({ id = "", value }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    componentMap.set(id, {
+      ...item,
+      currentRepeaterState: value
+    });
+  };
+  var getFirstChildOfElementParentOfElement = ({ rootNode, currentNode }) => {
+    if (!currentNode || !rootNode.contains(currentNode)) return;
+    if (currentNode.parentElement === rootNode) return currentNode;
+    return getFirstChildOfElementParentOfElement({
+      rootNode,
+      currentNode: currentNode.parentElement
+    });
+  };
+  var findFirstRepeaterElementWrap = ({ rootNode, node }) => {
+    if (!rootNode) return;
+    return getFirstChildOfElementParentOfElement({
+      rootNode,
+      currentNode: node.parentElement
+    });
+  };
+  var getRepeaterStateById = ({ id = "" }) => {
+    if (!id || id === "") return DEFAULT_CURRENT_REPEATER_STATE;
+    const item = componentMap.get(id);
+    const currentRepeaterState = item?.currentRepeaterState;
+    if (!currentRepeaterState) return DEFAULT_CURRENT_REPEATER_STATE;
+    return currentRepeaterState;
+  };
+  var setRepeaterInnerWrap = ({ id = "", repeatId = "", element }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const repeaterParentElement = getRepeatParent({
+      id: repeatId
+    });
+    const elementWrapper = findFirstRepeaterElementWrap({
+      rootNode: (
+        /** @type {HTMLElement} */
+        repeaterParentElement
+      ),
+      node: (
+        /** @type {HTMLElement} */
+        element
+      )
+    });
+    componentMap.set(id, {
+      ...item,
+      repeaterInnerWrap: elementWrapper
+    });
+  };
+  var getRepeaterInnerWrap = ({ id }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const repeaterInnerWrap = item?.repeaterInnerWrap;
+    return repeaterInnerWrap;
+  };
+
+  // src/js/mob/mobjs/modules/repeater/utils.js
+  var getNewElement = (current = [], previous = [], key = "") => {
+    return current.filter((el) => {
+      const value = el?.[key];
+      return !previous.some((a) => a?.[key] === value);
+    });
+  };
+  var mixPreviousAndCurrentData = (current, previous, key) => {
+    return current.map((el, index) => {
+      const value = el?.[key];
+      const isNewElement = !previous.some((a) => a?.[key] === value);
+      return isNewElement ? { isNewElement: true, keyValue: el?.[key], index } : { isNewElement: false, keyValue: el?.[key], index };
+    });
+  };
+  var arrayhaskey = ({ arr = [], key = "" }) => {
+    return arr.every((item) => {
+      return modules_exports.checkType(Object, item) && key in item;
+    });
+  };
+  var listKeyExist = ({ current, previous, key }) => {
+    return arrayhaskey({ arr: current, key }) && arrayhaskey({ arr: previous, key });
+  };
+  var getUnivoqueByKey = ({ data = [], key = "" }) => {
+    return data.filter(
+      (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
+    );
+  };
+  var chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
+    const initialState = {};
+    return previousChildren.length === 0 ? Object.values(
+      /**
+       * Chunk children by currentValue clean.
+       */
+      children.reduce((previous, current) => {
+        const { index } = getRepeaterStateById({ id: current });
+        if (index in previous) {
+          return {
+            ...previous,
+            [index]: [...previous[index], current]
+          };
+        }
+        return { ...previous, [index]: [current] };
+      }, initialState)
+    ) : Object.values(
+      /**
+       * New element has the same index of persistent element.
+       * Current value of persistent element is not updated.
+       * Mark new index element with `_` char
+       */
+      children.reduce((previous, current) => {
+        const { index } = getRepeaterStateById({ id: current });
+        const indexParsed = previousChildren.includes(current) ? `${index}` : `_${index}`;
+        const values = previous?.[indexParsed];
+        if (values) {
+          return {
+            ...previous,
+            [indexParsed]: [...values, current]
+          };
+        }
+        return { ...previous, [indexParsed]: [current] };
+      }, initialState)
+    );
+  };
+
+  // src/js/mob/mobjs/component/action/element.js
+  var setElementById = ({
+    id = "",
+    newElement = document.createElement("div")
+  }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    componentMap.set(id, { ...item, element: newElement });
+  };
+  var getElementById = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    return item?.element;
+  };
+  var getIdByElement = ({ element }) => {
+    const item = [...componentMap.values()].find((item2) => {
+      const currentElement = item2?.element;
+      return currentElement === element;
+    });
+    return item?.id ?? "";
+  };
+  var getElementByKeyAndRepeatId = ({
+    keyValue = "",
+    repeatId = ""
+  }) => {
+    if (keyValue?.length === 0) return;
+    const values = [...componentMap.values()];
+    const valuesFiltered = values.find(
+      (item) => `${item.key}` === `${keyValue}` && item.componentRepeatId === repeatId
+    );
+    return valuesFiltered?.element;
+  };
+  var getIdsByByRepeatId = ({ id, repeatId, filterById = false }) => {
+    if (!id || id === "") return [];
+    const values = [...componentMap.values()];
+    return values.filter((item) => {
+      return item?.componentRepeatId === repeatId;
+    }).filter((item) => {
+      if (filterById) return item?.parentId === id;
+      return item;
+    }).map((item) => {
+      return item.id;
+    });
+  };
+
+  // src/js/mob/mobjs/component/action/children.js
+  var getChildrenIdByName = ({ id = "", componentName = "" }) => {
+    if (!id || id === "") return [];
+    const item = componentMap.get(id);
+    const child = item?.child;
+    if (!child) {
+      console.warn(`getChildIdById failed no id found`);
+      return [];
+    }
+    return child?.[componentName] ?? [];
+  };
+  var getOrderedChunkByCurrentRepeatValue = ({
+    children,
+    key,
+    current,
+    useIndex = false
+  }) => {
+    const currentUnivoque = useIndex ? current : getUnivoqueByKey({ data: current, key });
+    const childrenParsed = children.map((items) => {
+      const { index: indexValue, current: currentValue } = getRepeaterStateById({
+        id: items?.[0]
+      });
+      return {
+        index: indexValue,
+        key: currentValue?.[key],
+        items
+      };
+    });
+    const currentParsed = currentUnivoque.map((item, index) => ({
+      index,
+      key: item?.[key]
+    }));
+    const orderdChildren = currentParsed.map((currentItem) => {
+      const prop = useIndex ? "index" : "key";
+      return childrenParsed.find(
+        (childrenItem) => childrenItem[prop] === currentItem[prop]
+      );
+    }).filter((item) => item !== void 0);
+    return orderdChildren.map(({ items }) => items);
+  };
+
+  // src/js/mob/mobjs/route/domRef/content.js
+  var contentAttributeId = "";
+  var DOMContentElement;
+  var setContentId = ({ contentId = "" }) => {
+    contentAttributeId = contentId;
+  };
+  var setContentElement = () => {
+    DOMContentElement = document?.querySelector(contentAttributeId);
+  };
+  var getContentElement = () => DOMContentElement;
+
+  // src/js/mob/mobjs/component/action/component.js
+  var getComponentNameById = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const component = item?.componentName;
+    if (!component) {
+      console.warn(`getComponentNameById failed no id found`);
+      return null;
+    }
+    return component;
+  };
+  var getComponentNameByElement = (element) => {
+    if (!element) return;
+    const componentName = [...componentMap.values()].find(
+      ({ element: currentElement }) => {
+        return currentElement === element;
+      }
+    );
+    if (!componentName) return "";
+    return componentName?.componentName;
+  };
+  var getIdByInstanceName = (name = "") => {
+    if (!name) return;
+    const instance = [...componentMap.values()].find(({ instanceName }) => {
+      return instanceName === name;
+    });
+    const id = instance?.id;
+    if (!id) return;
+    return id;
+  };
+  var getIdArrayByInstanceName = (name = "") => {
+    if (!name) return [];
+    return [...componentMap.values()].filter(({ instanceName }) => instanceName === name).map(({ id }) => id);
+  };
+  var componentIsPersistent = (id = "") => {
+    if (!id || id === "") return false;
+    const item = componentMap.get(id);
+    const element = item?.element;
+    if (!element) return false;
+    const contentElement = getContentElement();
+    return !contentElement?.contains(element);
+  };
+
+  // src/js/mob/mobjs/component/action/getTree.js
+  var getTreeRecursive = ({ chunk }) => {
+    return chunk.reduce((previous, current) => {
+      const [key, value] = current;
+      const { child, componentName, instanceName } = value;
+      const childrenId = new Set(Object.values(child ?? {}).flat());
+      const childrenChunk = [...componentMap.entries()].filter(
+        ([key2]) => childrenId.has(key2)
+      );
+      return [
+        ...previous,
+        {
+          id: key,
+          componentName,
+          instanceName,
+          children: getTreeRecursive({
+            chunk: childrenChunk
+          })
+        }
+      ];
+    }, []);
+  };
+  var getTree = () => {
+    const chunk = [...componentMap.entries()].filter(
+      ([, value]) => !value?.parentId || value?.parentId === ""
+    );
+    return getTreeRecursive({ chunk });
+  };
+
+  // src/js/mob/mobjs/component/action/methods.js
+  var addMethodById = ({ id, name, fn }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const methods = item?.methods;
+    if (!methods) return;
+    if (name in methods) {
+      console.warn(`Method ${name}, is already used by ${id}`);
+      return;
+    }
+    componentMap.set(id, {
+      ...item,
+      methods: { ...methods, [name]: fn }
+    });
+  };
+  var getMethodsById = ({ id }) => {
+    if (!id || id === "") return {};
+    const item = componentMap.get(id);
+    const methods = item?.methods;
+    if (!methods) return {};
+    if (Object.keys(methods).length === 0) {
+      console.warn(`no methods available for ${id} component`);
+      return {};
+    }
+    return methods;
+  };
+  var useMethodByName = (name) => {
+    const id = getIdByInstanceName(name);
+    if (!id || id === "") return {};
+    const methods = getMethodsById({ id });
+    if (Object.keys(methods).length === 0) {
+      console.warn(`no methods available for ${name} component`);
+      return {};
+    }
+    return methods;
+  };
+  var useMethodArrayByName = (name) => {
+    const ids = getIdArrayByInstanceName(name);
+    return ids.map((id) => getMethodsById({ id }));
+  };
+
+  // src/js/mob/mobjs/parse/useQuery.js
+  var useQuery = false;
+  var forceComponentChildQuery = true;
+  var useSlotQuery = false;
+
+  // src/js/mob/mobjs/query/queryAllFutureComponent.js
+  function* walkPreOrder(node) {
+    if (!node) return;
+    yield node;
+    for (const child of node.children) {
+      yield* walkPreOrder(child);
+    }
+  }
+  function selectAll(root2, firstOccurrence) {
+    const result = [];
+    for (const node of walkPreOrder(root2)) {
+      if (result.length > 0 && firstOccurrence) break;
+      if (node?.getIsPlaceholder?.()) {
+        result.push(node);
+      }
+    }
+    return result;
+  }
+  var queryAllFutureComponent = (node, firstOccurence = true) => {
+    let result = [];
+    const root2 = node || document.body;
+    for (const child of root2.children) {
+      result = [...result, ...selectAll(child, firstOccurence)];
+    }
+    return result;
+  };
+
+  // src/js/mob/mobjs/modules/userComponent/index.js
+  var userPlaceholder = /* @__PURE__ */ new Set();
+  var skipAddUserComponent = false;
+  var addUserPlaceholder = (element) => {
+    userPlaceholder.add(element);
+  };
+  var removeUserPlaceholder = (element) => {
+    userPlaceholder.delete(element);
+  };
+  var getFirstUserChildPlaceHolder = (element) => {
+    const userComponent = [...userPlaceholder].find((item) => {
+      return element?.contains(item) && item.getIsPlaceholder();
+    });
+    if (!userComponent) return [];
+    userPlaceholder.delete(userComponent);
+    return [userComponent];
+  };
+  var getAllUserChildPlaceholder = ({ element }) => {
+    return [...userPlaceholder].filter((component) => {
+      return element.contains(component) && element !== component && component.getIsPlaceholder?.();
+    }) ?? [];
+  };
+  var getAllUserComponentUseNamedSlot = ({ element }) => {
+    return [...userPlaceholder].filter((component) => {
+      return element.contains(component) && element !== component && component.getIsPlaceholder?.() && component?.getSlotPosition?.();
+    }) ?? [];
+  };
+  var getUserChildPlaceholderSize = () => {
+    return userPlaceholder.size;
+  };
+  var setSkipAddUserComponent = (value) => {
+    skipAddUserComponent = value;
+  };
+  var getSkipAddUserComponent = () => skipAddUserComponent;
+
+  // src/js/mob/mobjs/component/utils.js
+  var updateChildrenArray = ({
+    currentChild,
+    id = "",
+    componentName = ""
+  }) => {
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = [...childGroupByName, id];
+    return currentChild;
+  };
+  var removeChildFromChildrenArray = ({
+    currentChild,
+    id = "",
+    componentName = ""
+  }) => {
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = childGroupByName.filter(
+      (currentId) => {
+        return id !== currentId;
+      }
+    );
+    return currentChild;
+  };
+  var addPropsToState = ({ props, store: store2 }) => {
+    Object.entries(props).forEach(([key, value]) => {
+      store2.set(key, value);
+    });
+  };
+
+  // src/js/mob/mobjs/component/action/parent.js
+  var getParentIdById = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentId = item?.parentId;
+    if (!parentId) {
+      return;
+    }
+    return parentId;
+  };
+  var addSelfIdToParentComponent = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentId = item?.parentId;
+    const componentName = item?.componentName ?? "";
+    if (!parentId) return;
+    const value = componentMap.get(parentId);
+    if (!value) return;
+    const { child } = value;
+    if (!child) return;
+    componentMap.set(parentId, {
+      ...value,
+      child: {
+        ...child,
+        ...updateChildrenArray({
+          currentChild: child,
+          id,
+          componentName
+        })
+      }
+    });
+  };
+  var addParentIdToFutureComponent = ({ element, id }) => {
+    if (!element) return;
+    if (useQuery || forceComponentChildQuery) {
+      const children = queryAllFutureComponent(element, false);
+      children.forEach((child) => {
+        child.setParentId(id);
+      });
+      return;
+    }
+    const childrenComponent = getAllUserChildPlaceholder({ element });
+    childrenComponent.forEach((component) => {
+      component.setParentId(id);
+    });
+  };
+  var getFallBackParentByElement = ({ element }) => {
+    if (!element) return;
+    return [...componentMap.values()].findLast((item) => {
+      return item.element.contains(element) && item.element !== element;
+    })?.id;
+  };
+  var compareIdOrParentIdRecursive = ({ id, compareValue }) => {
+    if (id === compareValue) return true;
+    const item = componentMap.get(id);
+    if (!item) return false;
+    const parentId = item?.parentId ?? "";
+    return compareIdOrParentIdRecursive({ id: parentId, compareValue });
+  };
+
+  // src/js/mob/mobjs/modules/bindProps/bindPropsMap.js
+  var bindPropsMap = /* @__PURE__ */ new Map();
+
+  // src/js/mob/mobjs/modules/bindProps/removeCurrentIdToBindProps.js
+  var removeCurrentIdToBindProps = ({ componentId }) => {
+    if (!componentId) return;
+    for (const [key, value] of bindPropsMap) {
+      const { componentId: currentComponentId } = value;
+      if (currentComponentId === componentId) {
+        bindPropsMap.delete(key);
+      }
+    }
+  };
+
+  // src/js/mob/mobjs/component/action/state/getStateById.js
+  var getStateById = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const state = item?.state;
+    return state?.get();
+  };
+
+  // src/js/mob/mobjs/component/action/watch.js
+  var watchById = (id = "", prop = "", cb = () => {
+  }, { wait = false } = {}) => {
+    if ((!id || id === "") && (!prop || prop === "")) return;
+    const item = componentMap.get(id);
+    const state = item?.state;
+    return state?.watch(prop, cb, { wait: wait ?? false });
+  };
+
+  // src/js/mob/mobjs/modules/bindObject/index.js
+  var bindObjectMap = /* @__PURE__ */ new Map();
+  var bindObjectPlaceHolderMap = /* @__PURE__ */ new Map();
+  var addBindObjectPlaceHolderMap = ({
+    host,
+    componentId,
+    bindObjectId
+  }) => {
+    bindObjectPlaceHolderMap.set(host, {
+      componentId,
+      bindObjectId
+    });
+  };
+  var getBindObjectKeys = (values) => {
+    return values.map(
+      (item) => {
+        return "bind" in item && modules_exports.checkType(String, item.bind) ? item.bind : (() => {
+          currentKey_exports.initializeCurrentDependencies();
+          if ("value" in item) {
+            item?.value();
+          } else {
+            item();
+          }
+          return currentKey_exports.getFirstCurrentDependencies();
+        })();
+      }
+    );
+  };
+  var renderBindObject = (strings, ...values) => {
+    return strings.raw.reduce((accumulator, currentText, i) => {
+      return values?.[i] && "value" in values[i] ? accumulator + currentText + (values?.[i]?.value?.() ?? "") : accumulator + currentText + (values?.[i]?.() ?? "");
+    }, "");
+  };
+  var addBindObjectParent = ({ id, bindObjectId, parentElement }) => {
+    const items = bindObjectMap.get(id);
+    const itemsUpdated = items && items.length > 0 ? (() => {
+      const itemsFiltered = items.filter(
+        (item) => item.bindObjectId !== bindObjectId
+      );
+      return [
+        ...itemsFiltered,
+        { parentNode: parentElement, bindObjectId }
+      ];
+    })() : [{ parentNode: parentElement, bindObjectId }];
+    bindObjectMap.set(id, itemsUpdated);
+  };
+  var removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
+    const items = bindObjectMap.get(id);
+    if (!items) return;
+    const itemsUpdated = items.filter(
+      (item) => item.bindObjectId !== bindObjectId
+    );
+    bindObjectMap.set(id, itemsUpdated);
+  };
+  var switchBindObjectMap = () => {
+    [...bindObjectPlaceHolderMap].forEach(
+      ([placeholder, { componentId, bindObjectId }]) => {
+        const parentElement = placeholder.parentElement;
+        if (!parentElement) return;
+        addBindObjectParent({
+          id: componentId,
+          bindObjectId,
+          parentElement
+        });
+        placeholder?.removeCustomComponent?.();
+        placeholder?.remove();
+      }
+    );
+    bindObjectPlaceHolderMap.clear();
+  };
+  var removeBindObjectParentById = ({ id }) => {
+    bindObjectMap.delete(id);
+  };
+  var getParentBindObject = ({ id, bindObjectId }) => {
+    const item = bindObjectMap.get(id);
+    if (!item) return;
+    const current = item.find((item2) => {
+      return bindObjectId === item2.bindObjectId;
+    });
+    return current?.parentNode;
+  };
+  var getBindObjectParentSize = () => {
+    return [...bindObjectMap].reduce(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (previous, [_, values]) => previous + values.length,
+      0
+    );
+  };
+  var createBindObjectWatcher = (id, bindObjectId, keys, render2) => {
+    let watchIsRunning = false;
+    let ref;
+    const states = getStateById(id);
+    const unsubScribeFunction = keys.map((state) => {
+      const isArray = checkType(Array, states?.[state]);
+      return watchById(id, state, (value) => {
+        if (watchIsRunning) return;
+        watchIsRunning = true;
+        modules_exports.useNextLoop(() => {
+          modules_exports.useFrame(() => {
+            if (!ref) {
+              let refElement = getParentBindObject({
+                id,
+                bindObjectId
+              });
+              if (refElement) {
+                ref = new WeakRef(refElement);
+                removeBindObjectByBindObjectId({
+                  id,
+                  bindObjectId
+                });
+                refElement = null;
+              }
+            }
+            const shouldRender = !isArray || value.length > 0;
+            if (ref && ref?.deref() && shouldRender) {
+              ref.deref().textContent = "";
+              ref.deref().insertAdjacentHTML("afterbegin", render2());
+            }
+            watchIsRunning = false;
+            modules_exports.useNextTick(async () => {
+              if (!ref || !ref?.deref()) {
+                unsubScribeFunction.forEach((fn) => {
+                  if (fn) fn();
+                });
+                unsubScribeFunction.length = 0;
+              }
+            });
+          });
+        });
+      });
+    });
+  };
+
+  // src/js/mob/mobjs/modules/bindtext/index.js
+  var bindTextMap = /* @__PURE__ */ new Map();
+  var bindTextPlaceHolderMap = /* @__PURE__ */ new Map();
+  var addBindTextPlaceHolderMap = ({
+    host,
+    componentId,
+    bindTextId
+  }) => {
+    bindTextPlaceHolderMap.set(host, {
+      componentId,
+      bindTextId
+    });
+  };
+  var arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
+  var splitPropUntilSquare = (value) => value.split("[")?.[0];
+  var parsePropValue = ({ previous, current }) => {
+    const arrayValues = arrayValuesFromProp(current);
+    const isArray = arrayValues && arrayValues?.length > 0;
+    return isArray ? arrayValues.reduce(
+      (accumulator, currentProp) => accumulator?.[currentProp],
+      previous[splitPropUntilSquare(current)]
+    ) : previous?.[current];
+  };
+  var renderBindText = (id, strings, ...values) => {
+    const props = getStateById(id);
+    const states = values.map((prop) => {
+      const propsToArray = prop.split(".");
+      return propsToArray.reduce(
+        (previous, current) => {
+          const finalPropValue = parsePropValue({ previous, current });
+          return finalPropValue ?? previous;
+        },
+        props
+      );
+    });
+    return strings.raw.reduce(
+      (accumulator, currentText, i) => accumulator + currentText + (states?.[i] ?? ""),
+      ""
+    );
+  };
+  var addBindTextParent = ({ id, bindTextId, parentElement }) => {
+    const items = bindTextMap.get(id);
+    const itemsUpdated = items && items.length > 0 ? (() => {
+      const itemsFiltered = items.filter(
+        (item) => item.bindTextId !== bindTextId
+      );
+      return [
+        ...itemsFiltered,
+        { parentNode: parentElement, bindTextId }
+      ];
+    })() : [{ parentNode: parentElement, bindTextId }];
+    bindTextMap.set(id, itemsUpdated);
+  };
+  var removeBindTextByBindTextId = ({ id, bindTextId }) => {
+    const items = bindTextMap.get(id);
+    if (!items) return;
+    const itemsUpdated = items.filter((item) => item.bindTextId !== bindTextId);
+    bindTextMap.set(id, itemsUpdated);
+  };
+  var switchBindTextMap = () => {
+    [...bindTextPlaceHolderMap].forEach(
+      ([placeholder, { componentId, bindTextId }]) => {
+        const parentElement = placeholder.parentElement;
+        if (!parentElement) return;
+        addBindTextParent({
+          id: componentId,
+          bindTextId,
+          parentElement
+        });
+        placeholder?.removeCustomComponent?.();
+        placeholder?.remove();
+      }
+    );
+    bindTextPlaceHolderMap.clear();
+  };
+  var removeBindTextParentById = ({ id }) => {
+    bindTextMap.delete(id);
+  };
+  var getParentBindText = ({ id, bindTextId }) => {
+    const item = bindTextMap.get(id);
+    if (!item) return;
+    const current = item.find((item2) => {
+      return bindTextId === item2.bindTextId;
+    });
+    return current?.parentNode;
+  };
+  var getBindTextParentSize = () => {
+    return [...bindTextMap].reduce(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (previous, [_, values]) => previous + values.length,
+      0
+    );
+  };
+  var getBindTextPlaceholderSize = () => bindTextPlaceHolderMap.size;
+  var createBindTextWatcher = (id, bindTextId, render2, ...props) => {
+    let watchIsRunning = false;
+    let ref;
+    const unsubScribeFunction = props.map((state) => {
+      const propsToArray = state.split(".");
+      const stateToWatch = propsToArray?.[0];
+      const arrayValues = arrayValuesFromProp(stateToWatch);
+      const isArray = arrayValues && arrayValues?.length > 0;
+      const finalStateTowatch = isArray ? splitPropUntilSquare(stateToWatch) : stateToWatch;
+      if (!finalStateTowatch) return;
+      return watchById(id, finalStateTowatch, () => {
+        if (watchIsRunning) return;
+        watchIsRunning = true;
+        modules_exports.useNextLoop(() => {
+          modules_exports.useFrame(() => {
+            if (!ref) {
+              let refElement = getParentBindText({
+                id,
+                bindTextId
+              });
+              if (refElement) {
+                ref = new WeakRef(refElement);
+                removeBindTextByBindTextId({ id, bindTextId });
+                refElement = null;
+              }
+            }
+            if (ref && ref?.deref()) {
+              ref.deref().textContent = "";
+              ref.deref().insertAdjacentHTML("afterbegin", render2());
+            }
+            watchIsRunning = false;
+            modules_exports.useNextTick(async () => {
+              if (!ref || !ref?.deref()) {
+                unsubScribeFunction.forEach((fn) => {
+                  if (fn) fn();
+                });
+                unsubScribeFunction.length = 0;
+              }
+            });
+          });
+        });
+      });
+    });
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/invalidateFunctionMap.js
+  var invalidateFunctionMap = /* @__PURE__ */ new Map();
+
+  // src/js/mob/mobjs/modules/invalidate/invalidateIdPlaceHolderMap.js
+  var invalidateIdPlaceHolderMap = /* @__PURE__ */ new Map();
+
+  // src/js/mob/mobjs/modules/invalidate/action/removeInvalidateId.js
+  var removeInvalidateId = ({ id }) => {
+    if (invalidateFunctionMap.has(id)) {
+      const value = invalidateFunctionMap.get(id);
+      if (!value) return;
+      value.forEach(({ invalidateId }) => {
+        if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+          invalidateIdPlaceHolderMap.delete(invalidateId);
+        }
+      });
+      invalidateFunctionMap.delete(id);
+    }
+  };
+
+  // src/js/mob/mobjs/modules/repeater/repeatFunctionMap.js
+  var repeatFunctionMap = /* @__PURE__ */ new Map();
+
+  // src/js/mob/mobjs/modules/repeater/action/removeRepeaterId.js
+  var removeRepeaterId = ({ id }) => {
+    if (repeatFunctionMap.has(id)) {
+      const value = repeatFunctionMap.get(id);
+      if (!value) return;
+      value.forEach(({ repeatId }) => {
+        if (repeatIdPlaceHolderMap.has(repeatId)) {
+          repeatIdPlaceHolderMap.delete(repeatId);
+        }
+      });
+      repeatFunctionMap.delete(id);
+    }
+  };
+
+  // src/js/mob/mobjs/component/action/removeAndDestroy/removeItselfFromParent.js
+  var removeItselfFromParent = ({ id, parentId, componentName }) => {
+    if (!id) return;
+    const value = componentMap.get(parentId ?? "");
+    if (!value) return;
+    const { child } = value;
+    if (!parentId || !child) return;
+    componentMap.set(parentId, {
+      ...value,
+      child: {
+        ...child,
+        ...removeChildFromChildrenArray({
+          currentChild: child,
+          id,
+          componentName
+        })
+      }
+    });
+  };
+
+  // src/js/mob/mobjs/component/action/removeAndDestroy/removeAndDestroyById.js
+  var removeAndDestroyById = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const instanceValue = componentMap.get(id);
+    if (!instanceValue) return;
+    const {
+      parentId,
+      componentName,
+      child,
+      element,
+      state,
+      destroy: destroy2,
+      parentPropsWatcher
+    } = instanceValue;
+    Object.values(child ?? {}).flat().forEach((childId) => {
+      removeAndDestroyById({ id: childId });
+    });
+    removeItselfFromParent({ id, parentId, componentName });
+    destroy2?.();
+    state.destroy();
+    if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+    removeInvalidateId({ id });
+    removeRepeaterId({ id });
+    removeBindTextParentById({ id });
+    removeBindObjectParentById({ id });
+    removeCurrentIdToBindProps({ componentId: id });
+    element?.removeCustomComponent?.();
+    element?.remove();
+    instanceValue.methods = null;
+    instanceValue.refs = null;
+    instanceValue.repeaterInnerWrap = null;
+    instanceValue.element = null;
+    instanceValue.currentRepeaterState = null;
+    instanceValue.state = null;
+    componentMap.delete(id);
+  };
+
+  // src/js/mob/mobjs/component/action/state/getStateByName.js
+  var getStateByName = (name = "") => {
+    const id = getIdByInstanceName(name);
+    if (!id) console.warn(`component ${name}, not found`);
+    return getStateById(id);
+  };
+
+  // src/js/mob/mobjs/component/action/freeze.js
+  var freezePropById = ({ id = "", prop }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { freezedPros } = item;
+    if (!freezedPros) return;
+    componentMap.set(id, {
+      ...item,
+      freezedPros: [.../* @__PURE__ */ new Set([...freezedPros, prop])]
+    });
+  };
+  var unFreezePropById = ({ id = "", prop }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { freezedPros } = item;
+    if (!freezedPros) return;
+    componentMap.set(id, {
+      ...item,
+      freezedPros: freezedPros.filter((currentProp) => currentProp !== prop)
+    });
+  };
+  var getFreezePropStatus = ({ id = "", prop }) => {
+    if (!id || id === "") return false;
+    const item = componentMap.get(id);
+    const freezedPros = item?.freezedPros;
+    if (!freezedPros) return false;
+    return freezedPros.includes(prop);
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/setParentRepeater.js
+  var setParentRepeater = ({ repeatId, host }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    const parent = (
+      /** @type{HTMLElement} */
+      host.parentNode
+    );
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      element: parent
+    });
+    repeatIdHostMap.set(repeatId, host);
+  };
+
+  // src/js/mob/mobjs/webComponent/repeat.js
+  var defineRepeatComponent = () => {
+    customElements.define(
+      "mobjs-repeat",
+      class extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: "open" });
+        }
+        connectedCallback() {
+          const skip = getSkipAddUserComponent();
+          if (skip) return;
+          const { dataset } = this.shadowRoot?.host ?? {};
+          if (dataset) {
+            const host = (
+              /** @type {HTMLElement} */
+              this.shadowRoot?.host
+            );
+            const repeatId = host?.getAttribute(ATTR_MOBJS_REPEAT) ?? "";
+            setParentRepeater({ repeatId, host });
+          }
+        }
+        removeCustomComponent() {
+          if (!this.shadowRoot) return;
+          this.parentElement?.removeChild(this);
+        }
+      }
+    );
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/invalidateIdHostMap.js
+  var invalidateIdHostMap = /* @__PURE__ */ new Map();
+
+  // src/js/mob/mobjs/modules/invalidate/action/setParentInvalidate.js
+  var setParentInvalidate = ({ invalidateId, host }) => {
+    const item = invalidateIdPlaceHolderMap.get(invalidateId);
+    if (!item) return;
+    const parent = (
+      /** @type{HTMLElement} */
+      host.parentNode
+    );
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      ...item,
+      element: parent
+    });
+    invalidateIdHostMap.set(invalidateId, host);
+  };
+
+  // src/js/mob/mobjs/webComponent/invalidate.js
+  var defineInvalidateComponent = () => {
+    customElements.define(
+      "mobjs-invalidate",
+      class extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: "open" });
+        }
+        connectedCallback() {
+          const { dataset } = this.shadowRoot?.host ?? {};
+          if (dataset) {
+            const host = (
+              /** @type {HTMLElement} */
+              this.shadowRoot?.host
+            );
+            const invalidateId = host.getAttribute(ATTR_INVALIDATE) ?? "";
+            setParentInvalidate({ invalidateId, host });
+          }
+        }
+        removeCustomComponent() {
+          if (!this.shadowRoot) return;
+          this.parentElement?.removeChild(this);
+        }
+      }
+    );
+  };
+
+  // src/js/mob/mobjs/modules/slot/index.js
+  var slotPlaceholder = /* @__PURE__ */ new Set();
+  var addSlotPlaceholder = (slot) => {
+    slotPlaceholder.add(slot);
+  };
+  var clearSlotPlaceHolder = () => {
+    slotPlaceholder.clear();
+  };
+  var getUnamedPlaceholderSlot = ({ element }) => {
+    return [...slotPlaceholder].find((slot) => {
+      const hasSlot = !slot?.getSlotName?.() && element.contains(slot);
+      if (hasSlot) slotPlaceholder.delete(slot);
+      return hasSlot;
+    });
+  };
+  var getSlotByName = ({ name, element }) => {
+    return [...slotPlaceholder].find((slot) => {
+      const hasSlot = slot?.getSlotName?.() === name && element.contains(slot);
+      if (hasSlot) slotPlaceholder.delete(slot);
+      return hasSlot;
+    });
+  };
+  var getAllSlot = () => {
+    return [...slotPlaceholder];
+  };
+  var getSlotPlaceholderSize = () => {
+    return slotPlaceholder.size;
+  };
+
+  // src/js/mob/mobjs/webComponent/slot.js
+  var defineSlotComponent = () => {
+    customElements.define(
+      "mobjs-slot",
+      class extends HTMLElement {
+        /**
+         * @type {string|undefined|null}
+         */
+        #slotName;
+        /**
+         * @type {string|undefined|null}
+         */
+        #staticProps;
+        /**
+         * @type {string|undefined|null}
+         */
+        #dynamicProps;
+        constructor() {
+          super();
+          this.attachShadow({ mode: "open" });
+          this.#slotName = "";
+          this.isSlot = true;
+          const { dataset } = this.shadowRoot?.host ?? {};
+          if (dataset) {
+            this.#slotName = this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
+            this.#staticProps = this.shadowRoot?.host.getAttribute(ATTR_PROPS);
+            this.#dynamicProps = this.shadowRoot?.host.getAttribute(ATTR_BIND_PROPS);
+          }
+        }
+        connectedCallback() {
+          const host = this.shadowRoot?.host;
+          if (!host) return;
+          if (!useSlotQuery) addSlotPlaceholder(host);
+        }
+        removeCustomComponent() {
+          if (!this.shadowRoot) return;
+          this.parentElement?.removeChild(this);
+        }
+        getSlotName() {
+          return this.#slotName;
+        }
+        getStaticProps() {
+          return this.#staticProps;
+        }
+        getDynamicProps() {
+          return this.#dynamicProps;
+        }
+      }
+    );
+  };
+
+  // src/js/mob/mobjs/webComponent/userComponent.js
+  var defineUserComponent = (componentList) => {
+    Object.entries(componentList).forEach(([key, value]) => {
+      const {
+        connectedCallback: _connectedCallBack,
+        disconnectedCallback: _disconnectedCallback,
+        adoptedCallback: _adoptedCallback,
+        attributeChangedCallback: _attributeChangedCallback,
+        style,
+        attributeToObserve
+      } = value.componentParams;
+      customElements.define(
+        key,
+        class extends HTMLElement {
+          /**
+           * @type {string}
+           */
+          #componentname;
+          /**
+           * @type {string}
+           */
+          #componentId;
+          /**
+           * @type {import('../type').ComponentPropsType<import('../type').MobComponentMap, import('../type').MobComponentMap>}
+           */
+          #params;
+          /**
+           * @type {boolean}
+           */
+          #isPlaceholder;
+          /**
+           * @type {string|undefined|null}
+           */
+          #name;
+          /**
+           * @type {string|undefined|null}
+           */
+          #staticPropsId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #dynamicPropsId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #bindEventsId;
+          /**
+           * @type {string}
+           */
+          #dynamicPropsFromSlotId;
+          /**
+           * @type {string}
+           */
+          #propsFromSlotId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #currentRepeatValueId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #slotPosition;
+          /**
+           * @type {string|undefined|null}
+           */
+          #currentKey;
+          /**
+           * @type {string|undefined|null}
+           */
+          #parentId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #componentRepeatId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #delegateEventId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #repeatPropBind;
+          /**
+           * @type {string|undefined|null}
+           */
+          #bindRefId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #bindRefName;
+          static get observedAttributes() {
+            return attributeToObserve;
+          }
+          constructor() {
+            super();
+            this.attachShadow({ mode: "open" });
+            this.active = false;
+            this.#componentId = modules_exports.getUnivoqueId();
+            this.#params = {};
+            this.#componentname = key;
+            this.#isPlaceholder = true;
+            this.isUserComponent = true;
+            this.#dynamicPropsFromSlotId = "";
+            this.#propsFromSlotId = "";
+            const host = this.shadowRoot?.host;
+            if (!host) return;
+            const skip = getSkipAddUserComponent();
+            if (skip) return;
+            [
+              this.#name,
+              this.#staticPropsId,
+              this.#dynamicPropsId,
+              this.#currentKey,
+              this.#bindEventsId,
+              this.#currentRepeatValueId,
+              this.#slotPosition,
+              this.#parentId,
+              this.#componentRepeatId,
+              this.#delegateEventId,
+              this.#repeatPropBind,
+              this.#bindRefId,
+              this.#bindRefName
+            ] = [
+              ATTR_INSTANCENAME,
+              ATTR_PROPS,
+              ATTR_BIND_PROPS,
+              ATTR_KEY,
+              ATTR_BIND_EVENTS,
+              ATTR_CURRENT_LIST_VALUE,
+              ATTR_SLOT,
+              ATTR_PARENT_ID,
+              ATTR_CHILD_REPEATID,
+              ATTR_WEAK_BIND_EVENTS,
+              ATTR_REPEATER_PROP_BIND,
+              ATTR_BIND_REFS_ID,
+              ATTR_BIND_REFS_NAME
+            ].map((attribute) => host.getAttribute(attribute) ?? "");
+            if (this.#slotPosition && !this.active) {
+              this.style.visibility = "hidden";
+            }
+            if (!this.shadowRoot) return;
+            if (style) {
+              const styleTag = document.createElement("style");
+              styleTag.textContent = style;
+              this.shadowRoot.append(styleTag);
+            }
+            const slot = document.createElement("slot");
+            this.shadowRoot.append(slot);
+          }
+          getComponentName() {
+            return this.#componentname;
+          }
+          /**
+           * @param { string } value
+           */
+          setId(value2) {
+            this.#componentId = value2;
+          }
+          getId() {
+            return this.#componentId;
+          }
+          getParentId() {
+            return this.#parentId;
+          }
+          /**
+           * @param { string } id
+           */
+          setParentId(id) {
+            this.#parentId = id;
+          }
+          getIsPlaceholder() {
+            return this.#isPlaceholder;
+          }
+          getInstanceName() {
+            return this.#name;
+          }
+          getStaticPropsId() {
+            return this.#staticPropsId;
+          }
+          getDynamicPropsid() {
+            return this.#dynamicPropsId;
+          }
+          getBindEventsId() {
+            return this.#bindEventsId;
+          }
+          getCurrentKey() {
+            return this.#currentKey;
+          }
+          /**
+           * @param {string} value
+           */
+          setDynamicPropsFromSlotId(value2) {
+            this.#dynamicPropsFromSlotId = value2;
+          }
+          getDynamicPropsFromSlotId() {
+            return this.#dynamicPropsFromSlotId;
+          }
+          /**
+           * @param {string} value
+           */
+          setPropsFromSlotId(value2) {
+            this.#propsFromSlotId = value2;
+          }
+          getPropsFromSlotId() {
+            return this.#propsFromSlotId;
+          }
+          /**
+           * @param {any} value
+           */
+          setRepeatValue(value2) {
+            this.#currentRepeatValueId = value2;
+          }
+          getRepeatValue() {
+            return this.#currentRepeatValueId;
+          }
+          getSlotPosition() {
+            return this.#slotPosition;
+          }
+          getDelegateEventId() {
+            return this.#delegateEventId;
+          }
+          getRepeaterPropBind() {
+            return this.#repeatPropBind ?? void 0;
+          }
+          /**
+           * @param {string} value
+           */
+          setRepeaterPropBind(value2) {
+            this.#repeatPropBind = value2;
+          }
+          getComponentRepeatId() {
+            return this.#componentRepeatId;
+          }
+          getBindRefId() {
+            return this.#bindRefId;
+          }
+          getBindRefName() {
+            return this.#bindRefName;
+          }
+          resetParams() {
+            this.active = false;
+            this.#componentId = "";
+            this.#params = {};
+          }
+          /**
+           * @param {import('../type').ComponentPropsType<import('../type').MobComponentMap,import('../type').MobComponentMap>} data
+           */
+          inizializeCustomComponent(data) {
+            if (this.active) return;
+            this.active = true;
+            this.#componentId = data.id;
+            this.#params = data;
+            this.#isPlaceholder = false;
+            _connectedCallBack?.({
+              context: this,
+              params: this.#params
+            });
+          }
+          connectedCallback() {
+            const skip = getSkipAddUserComponent();
+            if (skip) return;
+            if (this.#isPlaceholder) {
+              const host = this.shadowRoot?.host;
+              if (!useQuery) addUserPlaceholder(host);
+              return;
+            }
+          }
+          disconnectedCallback() {
+            if (!this.shadowRoot) return;
+            if (!useQuery) {
+              const host = this.shadowRoot?.host;
+              removeUserPlaceholder(host);
+            }
+            if (!this.active) return;
+            _disconnectedCallback?.({
+              context: this,
+              params: this.#params
+            });
+            this.resetParams();
+          }
+          removeCustomComponent() {
+            if (!this.shadowRoot || !this.active) return;
+            this.parentElement?.removeChild(this);
+          }
+          adoptedCallback() {
+            if (!this.shadowRoot || !this.active) return;
+            _adoptedCallback?.({
+              context: this,
+              params: this.#params
+            });
+          }
+          /**
+           * @param {string} name
+           * @param {any} oldValue
+           * @param {any} newValue
+           */
+          attributeChangedCallback(name, oldValue, newValue) {
+            if (!this.shadowRoot || !this.active) return;
+            _attributeChangedCallback?.({
+              name,
+              oldValue,
+              newValue,
+              context: this,
+              params: this.#params
+            });
+          }
+        }
+      );
+    });
+  };
+
+  // src/js/mob/mobjs/webComponent/bindText.js
+  var defineBindTextComponent = () => {
+    customElements.define(
+      "mobjs-bind-text",
+      class extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: "open" });
+        }
+        connectedCallback() {
+          const { dataset } = this.shadowRoot?.host ?? {};
+          if (dataset) {
+            const host = this.shadowRoot?.host ?? document.createElement("div");
+            const componentId = host?.getAttribute(ATTR_COMPONENT_ID) ?? "";
+            const bindTextId = host?.getAttribute(ATTR_BIND_TEXT_ID) ?? "";
+            addBindTextPlaceHolderMap({
+              host,
+              componentId,
+              bindTextId
+            });
+          }
+        }
+        removeCustomComponent() {
+          if (!this.shadowRoot) return;
+          this.parentElement?.removeChild(this);
+        }
+      }
+    );
+  };
+
+  // src/js/mob/mobjs/webComponent/bindObject.js
+  var defineBindObjectComponent = () => {
+    customElements.define(
+      "mobjs-bind-object",
+      class extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: "open" });
+        }
+        connectedCallback() {
+          const { dataset } = this.shadowRoot?.host ?? {};
+          if (dataset) {
+            const host = this.shadowRoot?.host ?? document.createElement("div");
+            const componentId = host?.getAttribute(ATTR_COMPONENT_ID) ?? "";
+            const bindObjectId = host?.getAttribute(ATTR_BIND_OBJECT_ID) ?? "";
+            addBindObjectPlaceHolderMap({
+              host,
+              componentId,
+              bindObjectId
+            });
+          }
+        }
+        removeCustomComponent() {
+          if (!this.shadowRoot) return;
+          this.parentElement?.removeChild(this);
+        }
+      }
+    );
+  };
+
+  // src/js/mob/mobjs/component/componentList.js
+  var componentListMap = {};
+  var availableComponent = /* @__PURE__ */ new Set();
+  var setComponentList = () => {
+    componentListMap = [...availableComponent.values()].reduce(
+      (previous, current) => ({ ...previous, ...current }),
+      {}
+    );
+    console.log(`component loaded:${Object.keys(componentListMap).length}`);
+    defineUserComponent(componentListMap);
+    defineSlotComponent();
+    defineInvalidateComponent();
+    defineRepeatComponent();
+    defineBindTextComponent();
+    defineBindObjectComponent();
+  };
+  var useComponent = (components) => {
+    if (!components || components?.length === 0) return;
+    components.forEach((component) => {
+      availableComponent.add(component);
+    });
+  };
+
+  // src/js/mob/mobjs/component/getComponentList.js
+  var getComponentList = () => {
+    return componentListMap;
+  };
+
+  // src/js/mob/mobjs/component/action/state/checkIfStateIsExportable.js
+  var checkIfStateIsExportable = ({ componentName, propName }) => {
+    const componentList = getComponentList();
+    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
+    return exportableState.includes(propName);
+  };
+
+  // src/js/mob/mobjs/component/action/state/setStateById.js
+  var setStateById = (id = "", prop = "", value, { emit = true } = {}) => {
+    if ((!id || id === "") && (!prop || prop === "") && !value) return;
+    const isFreezed2 = getFreezePropStatus({ id, prop });
+    if (isFreezed2) {
+      return;
+    }
+    const item = componentMap.get(id);
+    const state = item?.state;
+    const componentName = item?.componentName ?? "";
+    const stateIsExportable = checkIfStateIsExportable({
+      componentName,
+      propName: prop
+    });
+    if (!stateIsExportable) {
+      console.warn(
+        `setStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
+      );
+      return;
+    }
+    if (!state) {
+      console.warn(`setStateById failed no id found on prop: ${prop}`);
+      return;
+    }
+    state.set(prop, value, { emit });
+  };
+
+  // src/js/mob/mobjs/component/action/state/setStateByName.js
+  var setStateByName = (name = "") => {
+    const id = getIdByInstanceName(name);
+    if (!id) console.warn(`component ${name}, not found`);
+    return (prop, value, { emit = true } = {}) => setStateById(id, prop, value, { emit });
+  };
+
+  // src/js/mob/mobjs/component/action/state/updateStateById.js
+  var updateStateById = (id = "", prop = "", value, { emit = true, clone = false } = {}) => {
+    if ((!id || id === "") && (!prop || prop === "") && !value) return;
+    const isFreezed2 = getFreezePropStatus({ id, prop });
+    if (isFreezed2) {
+      return;
+    }
+    const item = componentMap.get(id);
+    const state = item?.state;
+    const componentName = item?.componentName ?? "";
+    const stateIsExportable = checkIfStateIsExportable({
+      componentName,
+      propName: prop
+    });
+    if (!stateIsExportable) {
+      console.warn(
+        `updateStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
+      );
+      return;
+    }
+    if (!state) {
+      console.warn(`updateStateById failed no id found on prop: ${prop}`);
+      return;
+    }
+    state.update(prop, value, { emit, clone });
+  };
+
+  // src/js/mob/mobjs/component/action/state/updateStateByName.js
+  var updateStateByName = (name = "") => {
+    const id = getIdByInstanceName(name);
+    if (!id) console.warn(`component ${name}, not found`);
+    return (prop, value, { emit = true, clone = false } = {}) => updateStateById(id, prop, value, { emit, clone });
+  };
+
+  // src/js/mob/mobjs/component/createComponent/index.js
+  var defaultComponent = {
+    scoped: false,
+    maxParseIteration: 5e3,
+    debug: false
+  };
+  var setDefaultComponent = (obj) => {
+    defaultComponent = { ...defaultComponent, ...obj };
+  };
+  var getDefaultComponent = () => defaultComponent;
+  var getDebugMode = () => {
+    const { debug } = getDefaultComponent();
+    return debug;
+  };
+  var createComponent = ({
+    name = "",
+    component = () => "",
+    state = {},
+    exportState = [],
+    scoped,
+    connectedCallback = () => {
+    },
+    disconnectedCallback = () => {
+    },
+    adoptedCallback = () => {
+    },
+    attributeToObserve = [],
+    attributeChangedCallback = () => {
+    },
+    style = "",
+    child = []
+  }) => {
+    useComponent(child);
+    return {
+      [name]: {
+        componentFunction: component,
+        componentParams: {
+          exportState,
+          scoped,
+          state,
+          connectedCallback,
+          disconnectedCallback,
+          adoptedCallback,
+          attributeToObserve,
+          attributeChangedCallback,
+          style,
+          child
+        }
+      }
+    };
+  };
+
+  // src/js/mob/mobjs/route/routeList/index.js
+  var routeList = [];
+  var indexPage = "";
+  var pageNotFound = "";
+  var setRouteList = (list) => {
+    routeList = [...list];
+  };
+  var getRouteByName = ({ routeName = "" }) => {
+    return routeList.find(({ name }) => routeName === name);
+  };
+  var setIndex = ({ routeName = "" }) => {
+    indexPage = routeName;
+  };
+  var getIndex = () => indexPage;
+  var setPageNotFound = ({ routeName = "" }) => {
+    pageNotFound = routeName;
+  };
+  var getPageNotFound = () => pageNotFound;
+
+  // src/js/mob/mobjs/query/queryComponentUseSlot.js
+  function selectAll2(root2) {
+    const result = [];
+    for (const node of walkPreOrder(root2)) {
+      if (node?.isUserComponent && node?.getSlotPosition?.()) {
+        result.push(node);
+      }
+    }
+    return result;
+  }
+  var queryComponentUseSlot = (node) => {
+    let result = [];
+    const root2 = node || document.body;
+    for (const child of root2.children) {
+      result = [...result, ...selectAll2(child)];
+    }
+    return result;
+  };
+
+  // src/js/mob/mobjs/query/queryGenericSlot.js
+  function selectAll3(root2) {
+    const result = [];
+    for (const node of walkPreOrder(root2)) {
+      if (node?.isSlot && node?.getSlotName?.()) {
+        result.push(node);
+      }
+    }
+    return result;
+  }
+  var queryGenericSlot = (node) => {
+    let result = [];
+    const root2 = node || document.body;
+    for (const child of root2.children) {
+      result = [...result, ...selectAll3(child)];
+    }
+    return result;
+  };
+
+  // src/js/mob/mobjs/query/querySpecificSlot.js
+  function selectAll4(root2, slotName) {
+    for (const node of walkPreOrder(root2)) {
+      if (node?.isSlot && node?.getSlotName?.() === slotName) {
+        return node;
+      }
+    }
+    return null;
+  }
+  var querySecificSlot = (node, slotName) => {
+    const root2 = node || document.body;
+    for (const child of root2.children) {
+      const result = selectAll4(child, slotName);
+      if (result) return result;
+    }
+    return null;
+  };
+
+  // src/js/mob/mobjs/query/queryUnNamedSlot.js
+  function selectAll5(root2) {
+    for (const node of walkPreOrder(root2)) {
+      if (node?.isSlot && !node?.getSlotName?.()) {
+        return node;
+      }
+    }
+    return null;
+  }
+  var queryUnNamedSlot = (node) => {
+    const root2 = node || document.body;
+    for (const child of root2.children) {
+      const result = selectAll5(child);
+      if (result) return result;
+    }
+    return null;
+  };
+
+  // src/js/mob/mobjs/component/action/props.js
+  var setDynamicPropsWatch = ({ id = "", unWatchArray = [] }) => {
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { parentPropsWatcher } = item;
+    if (!parentPropsWatcher) return;
+    componentMap.set(id, {
+      ...item,
+      parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray]
+    });
+  };
+  var unBind = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentPropsWatcher = item?.parentPropsWatcher ?? [];
+    parentPropsWatcher.forEach((unwatch) => {
+      unwatch();
+    });
+  };
+
+  // src/js/mob/mobjs/queque/utils.js
+  function awaitNextLoop() {
+    return new Promise((resolve) => modules_exports.useNextLoop(() => resolve()));
+  }
+
+  // src/js/mob/mobjs/queque/tick.js
+  var queque = /* @__PURE__ */ new Map();
+  var maxQueuqueSize = 1e5;
+  var incrementTickQueuque = (props) => {
+    if (queque.size >= maxQueuqueSize) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+      return () => {
+      };
+    }
+    const id = modules_exports.getUnivoqueId();
+    queque.set(id, props);
+    return () => queque.delete(id);
+  };
+  var queueIsResolved = () => {
+    return queque.size === 0 || queque.size >= maxQueuqueSize;
+  };
+  var tick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      queque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved()) {
+        resolve();
+        return;
+      }
+      tick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
+
+  // src/js/mob/mobjs/queque/tickRepeater.js
+  var repeaterQueque = /* @__PURE__ */ new Map();
+  var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
+  var maxQueuqueSize2 = 1e3;
+  var incrementRepeaterTickQueuque = (props) => {
+    if (repeaterQueque.size >= maxQueuqueSize2) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize2})`);
+      return () => {
+      };
+    }
+    const id = modules_exports.getUnivoqueId();
+    repeaterQueque.set(id, props);
+    return () => repeaterQueque.delete(id);
+  };
+  var queueIsResolved2 = () => {
+    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize2;
+  };
+  var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      repeaterQueque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved2() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved2()) {
+        resolve();
+        return;
+      }
+      repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
+
+  // src/js/mob/mobjs/queque/tickInvalidate.js
+  var invalidateQueque = /* @__PURE__ */ new Map();
+  var invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
+  var maxQueuqueSize3 = 1e3;
+  var incrementInvalidateTickQueuque = (props) => {
+    if (invalidateQueque.size >= maxQueuqueSize3) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
+      return () => {
+      };
+    }
+    const id = modules_exports.getUnivoqueId();
+    invalidateQueque.set(id, props);
+    return () => invalidateQueque.delete(id);
+  };
+  var queueIsResolved3 = () => {
+    return invalidateQueque.size === 0 || invalidateQueque.size >= maxQueuqueSize3;
+  };
+  var invalidateTick = async ({
+    debug = false,
+    previousResolve
+  } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      invalidateQueque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved3() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved3()) {
+        resolve();
+        return;
+      }
+      invalidateTick({
+        debug,
+        previousResolve: previousResolve ?? resolve
+      });
+    });
+  };
+
+  // src/js/mob/mobjs/modules/bindProps/index.js
+  var setBindProps = (data) => {
+    const hasProps = "props" in data;
+    if (!hasProps) {
+      console.warn(`bindProps not valid`);
+      return;
+    }
+    const bindDetected = data?.bind && modules_exports.checkType(Array, data.bind) ? data.bind : (() => {
+      currentKey_exports.initializeCurrentDependencies();
+      if (modules_exports.checkType(Function, data.props)) {
+        data.props({}, {}, 0);
+      }
+      return currentKey_exports.getCurrentDependencies();
+    })();
+    if (bindDetected.length === 0) {
+      console.warn(`bindProps not valid, no dependencies found`);
+      return;
+    }
+    const dataUpdated = { ...data, bind: bindDetected };
+    const id = modules_exports.getUnivoqueId();
+    bindPropsMap.set(id, {
+      ...dataUpdated,
+      componentId: "",
+      propsId: id
+    });
+    return id;
+  };
+  var updateBindProp = ({
+    componentId,
+    bind,
+    props,
+    currentParentId,
+    fireCallback
+  }) => {
+    if (!currentParentId) return;
+    const parentState = getStateById(currentParentId);
+    if (!parentState) return;
+    const parentStateKeys = Object.keys(parentState);
+    const bindArrayIsValid = bind.every(
+      (state) => parentStateKeys.includes(state)
+    );
+    if (!bindArrayIsValid) {
+      console.warn(
+        `bind props error: Some prop ${JSON.stringify(bind)} doesn't exist`
+      );
+    }
+    const componentExist = componentMap.has(componentId);
+    if (!componentExist) return;
+    const currentRepeaterState = getRepeaterStateById({
+      id: componentId
+    });
+    let newProps;
+    try {
+      newProps = props?.(
+        parentState,
+        currentRepeaterState.current,
+        currentRepeaterState?.index
+      );
+    } catch {
+      console.log("bindProps error:", componentId);
+      const element = getElementById({ id: componentId });
+      if (!element) return;
+      if (!document.body.contains(element))
+        removeAndDestroyById({ id: componentId });
+    }
+    if (!newProps) return;
+    Object.entries(newProps).forEach(([key, value]) => {
+      setStateById(componentId, key, value, { emit: fireCallback });
+    });
+  };
+  var addCurrentIdToBindProps = ({
+    propsId,
+    repeatPropBind,
+    componentId
+  }) => {
+    if (!propsId) return;
+    for (const [key, value] of bindPropsMap) {
+      if (key === propsId) {
+        bindPropsMap.set(key, { ...value, componentId });
+      }
+    }
+    applyBindProps({
+      componentId,
+      repeatPropBind,
+      inizilizeWatcher: false
+    });
+  };
+  var removeCurrentToBindPropsByPropsId = ({ propsId }) => {
+    if (!propsId) return;
+    bindPropsMap.delete(propsId);
+  };
+  var applyBindProps = async ({
+    componentId,
+    repeatPropBind,
+    inizilizeWatcher
+  }) => {
+    const dynamicPropsFilteredArray = [...bindPropsMap.values()].filter(
+      (item) => {
+        const currentComponentId = item?.componentId;
+        return currentComponentId === componentId;
+      }
+    );
+    if (!dynamicPropsFilteredArray) return;
+    for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
+      const { bind, props, parentId } = dynamicpropsfiltered;
+      const bindUpdated = repeatPropBind && repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
+      const currentParentId = parentId ?? getParentIdById(componentId);
+      if (!inizilizeWatcher) {
+        updateBindProp({
+          componentId,
+          bind: bindUpdated,
+          props,
+          currentParentId: currentParentId ?? "",
+          fireCallback: false
+        });
+      }
+      if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
+        await repeaterTick();
+        updateBindProp({
+          componentId,
+          bind: bindUpdated,
+          props,
+          currentParentId: currentParentId ?? "",
+          fireCallback: true
+        });
+      }
+      if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
+        await invalidateTick();
+        updateBindProp({
+          componentId,
+          bind: bindUpdated,
+          props,
+          currentParentId: currentParentId ?? "",
+          fireCallback: true
+        });
+      }
+      if (!inizilizeWatcher) return;
+      let watchIsRunning = false;
+      const unWatchArray = bindUpdated.map((state) => {
+        return watchById(currentParentId, state, async () => {
+          await repeaterTick();
+          await invalidateTick();
+          if (watchIsRunning) return;
+          const decrementQueue = incrementTickQueuque({
+            state,
+            id: componentId,
+            type: QUEQUE_TYPE_BINDPROPS
+          });
+          watchIsRunning = true;
+          modules_exports.useNextLoop(() => {
+            updateBindProp({
+              componentId,
+              bind: bindUpdated,
+              props,
+              currentParentId: currentParentId ?? "",
+              fireCallback: true
+            });
+            watchIsRunning = false;
+            decrementQueue();
+          });
+        });
+      });
+      setDynamicPropsWatch({
+        id: componentId,
+        unWatchArray: unWatchArray.filter((item) => item !== void 0)
+      });
+    }
+    if (!inizilizeWatcher) return;
+    for (const [key, value] of bindPropsMap) {
+      const { componentId: currentComponentId } = value;
+      if (currentComponentId === componentId) {
+        bindPropsMap.delete(key);
+      }
+    }
+  };
+  var removeOrphansBindProps = () => {
+    bindPropsMap.clear();
+  };
+
+  // src/js/mob/mobjs/modules/staticProps/index.js
+  var staticPropsMap = /* @__PURE__ */ new Map();
+  var setStaticProps = (props = {}) => {
+    const id = modules_exports.getUnivoqueId();
+    staticPropsMap.set(id, props);
+    return id;
+  };
+  var getPropsFromParent = (id = "") => {
+    const props = staticPropsMap.get(id);
+    staticPropsMap.delete(id);
+    return props ?? {};
+  };
+  var removeCurrentToPropsByPropsId = ({ propsId }) => {
+    if (!propsId) return;
+    staticPropsMap.delete(propsId);
+  };
+  var removeOrphansPropsFromParent = () => {
+    staticPropsMap.clear();
+  };
+
+  // src/js/mob/mobjs/modules/repeater/repeaterValue/index.js
+  var currentRepeaterValueMap = /* @__PURE__ */ new Map();
+  var setComponentRepeaterState = (current) => {
+    const id = modules_exports.getUnivoqueId();
+    currentRepeaterValueMap.set(id, current);
+    return id;
+  };
+  var getComponentRepeaterState = (id = "") => {
+    if (!id) return DEFAULT_CURRENT_REPEATER_STATE;
+    const value = currentRepeaterValueMap.get(id);
+    currentRepeaterValueMap.delete(id);
+    return value ?? DEFAULT_CURRENT_REPEATER_STATE;
+  };
+
+  // src/js/mob/mobjs/parse/steps/constant.js
+  var ELEMENT_TYPE_NODE = "node";
+  var ELEMENT_TYPE_TEXT = "text";
+  var ELEMENT_TYPE_MIX_NODE_TEXT = "mix";
+  var ELEMENT_TYPE_NOT_VALID = "not-valid";
+
+  // src/js/mob/mobjs/parse/steps/utils.js
+  var renderHtml = String.raw;
+  var getElementOrTextFromNode = (node) => {
+    const childNodes = node.childNodes;
+    if (childNodes.length === 0) {
+      return {
+        item: void 0,
+        type: ELEMENT_TYPE_NOT_VALID
+      };
+    }
+    const children = node.children;
+    if (children.length === 1 && childNodes.length === 1) {
+      return {
+        item: node.children?.[0],
+        type: ELEMENT_TYPE_NODE
+      };
+    }
+    if (childNodes.length > 1)
+      return {
+        item: node.innerHTML,
+        type: ELEMENT_TYPE_MIX_NODE_TEXT
+      };
+    const textContent = node.textContent;
+    if (textContent && textContent.length > 0)
+      return {
+        item: textContent,
+        type: ELEMENT_TYPE_TEXT
+      };
+    return {
+      item: void 0,
+      type: ELEMENT_TYPE_NOT_VALID
+    };
+  };
+  var insertElementOrText = ({
+    parent,
+    itemObject,
+    position: position2 = "afterend"
+  }) => {
+    const { item, type } = itemObject;
+    if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
+      parent.insertAdjacentHTML(
+        position2,
+        /** @type{string} */
+        item
+      );
+      return;
+    }
+    if (type === ELEMENT_TYPE_NODE) {
+      parent.insertAdjacentElement(
+        position2,
+        /** @type{Element} */
+        item
+      );
+      return;
+    }
+    if (type === ELEMENT_TYPE_TEXT) {
+      parent.insertAdjacentText(
+        position2,
+        /** @type{string} */
+        item
+      );
+      return;
+    }
+    return;
+  };
+  var setRepeatAttribute = ({
+    components,
+    current,
+    index,
+    bind,
+    repeatId,
+    key
+  }) => {
+    components.forEach((component) => {
+      if (!component.hasAttribute(ATTR_CURRENT_LIST_VALUE)) {
+        component.setAttribute(
+          ATTR_CURRENT_LIST_VALUE,
+          setComponentRepeaterState({
+            current,
+            index
+          })
+        );
+      }
+      if (!component.hasAttribute(ATTR_KEY)) {
+        component.setAttribute(ATTR_KEY, `${key}`);
+      }
+      if (!component.hasAttribute(ATTR_REPEATER_PROP_BIND)) {
+        component.setAttribute(ATTR_REPEATER_PROP_BIND, `${bind}`);
+      }
+      if (!component.hasAttribute(ATTR_CHILD_REPEATID)) {
+        component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
+      }
+    });
+  };
+  var serializeFragment = (fragment) => {
+    const serializer = new XMLSerializer();
+    const xmlnAttribute = ' xmlns="http://www.w3.org/1999/xhtml"';
+    const rawString = serializer.serializeToString(fragment);
+    const regEx = new RegExp(xmlnAttribute, "g");
+    return rawString.replaceAll(regEx, "");
+  };
+
+  // src/js/mob/mobjs/parse/steps/convertToRealElement.js
+  var getNewElement2 = ({ element, content }) => {
+    const { debug } = getDefaultComponent();
+    if (element.parentNode) {
+      const node = document.createRange().createContextualFragment(content).firstElementChild;
+      if (node) element.after(node);
+      if (debug)
+        element.insertAdjacentHTML(
+          "afterend",
+          `<!--  ${element.tagName.toLowerCase()} --> `
+        );
+      return (
+        /** @type {HTMLElement} */
+        element.nextElementSibling
+      );
+    }
+    return;
+  };
+  var removeOrphanSlot = ({ element }) => {
+    const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
+    slots.forEach((slot) => {
+      const dynamicPropsIdFromSlot = slot.getDynamicProps();
+      if (dynamicPropsIdFromSlot && dynamicPropsIdFromSlot !== "") {
+        removeCurrentToBindPropsByPropsId({
+          propsId: dynamicPropsIdFromSlot
+        });
+      }
+      const staticPropsIdFromSlot = slot.getStaticProps();
+      if (staticPropsIdFromSlot && staticPropsIdFromSlot !== "") {
+        removeCurrentToPropsByPropsId({ propsId: staticPropsIdFromSlot });
+      }
+      slot?.removeCustomComponent();
+      slot?.remove();
+    });
+  };
+  var addToNamedSlot = ({ element }) => {
+    const componentWithSlot = useQuery || forceComponentChildQuery ? queryComponentUseSlot(element) : getAllUserComponentUseNamedSlot({ element });
+    if (componentWithSlot.length === 0) return;
+    const slots = [...componentWithSlot].map((component) => {
+      const slotName = component?.getSlotPosition();
+      const slot = useSlotQuery ? querySecificSlot(element, slotName) : getSlotByName({ name: slotName, element });
+      if (!slot) return { slot: null, elementMoved: null };
+      slot.parentNode?.insertBefore(component, slot);
+      const elementMoved = (
+        /** @type {HTMLElement} */
+        slot.previousSibling
+      );
+      return { slot, elementMoved };
+    });
+    slots.forEach(({ slot, elementMoved }) => {
+      if (!slot) return;
+      const propsIdFromSlot = slot.getStaticProps();
+      if (propsIdFromSlot)
+        elementMoved?.setPropsFromSlotId?.(propsIdFromSlot);
+      const bindPropsIdFromSlot = slot.getDynamicProps();
+      if (bindPropsIdFromSlot)
+        elementMoved?.setDynamicPropsFromSlotId?.(bindPropsIdFromSlot);
+      slot?.removeCustomComponent();
+      slot?.remove();
+    });
+  };
+  var executeConversion = ({ element, content }) => {
+    const prevContent = getElementOrTextFromNode(element);
+    const newElement = getNewElement2({ element, content });
+    if (newElement) {
+      const id = element.getId();
+      const delegateEventId = element?.getDelegateEventId();
+      const bindRefId = element?.getBindRefId();
+      const bindRefName = element?.getBindRefName();
+      const unNamedSlot = useSlotQuery ? queryUnNamedSlot(newElement) : getUnamedPlaceholderSlot({ element: newElement });
+      if (unNamedSlot) {
+        insertElementOrText({
+          parent: unNamedSlot,
+          itemObject: prevContent,
+          position: "afterend"
+        });
+        unNamedSlot.remove();
+      }
+      if (!unNamedSlot) {
+        insertElementOrText({
+          parent: newElement,
+          itemObject: prevContent,
+          position: "afterbegin"
+        });
+      }
+      addToNamedSlot({ element: newElement });
+      removeOrphanSlot({ element: newElement });
+      if (delegateEventId && delegateEventId.length > 0)
+        newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
+      if (bindRefId && bindRefId.length > 0)
+        newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
+      if (bindRefName && bindRefName.length > 0)
+        newElement.setAttribute(ATTR_BIND_REFS_NAME, bindRefName);
+      const { debug } = getDefaultComponent();
+      if (debug) newElement.setAttribute(ATTR_IS_COMPONENT, id ?? "");
+    }
+    element.remove();
+    return newElement;
+  };
+  var convertToRealElement = ({ element, content }) => {
+    return {
+      newElement: executeConversion({
+        element,
+        content
+      })
+    };
+  };
+
+  // src/js/mob/mobjs/parse/utils.js
+  var currentIterationCounter = 0;
+  var incrementCurrentIterationCounter = () => {
+    currentIterationCounter += 1;
+  };
+  var getCurrentIterationCounter = () => currentIterationCounter;
+  var resetCurrentIterationCounter = () => {
+    currentIterationCounter = 0;
+  };
+  var getParseSourceArray = ({ element, currentSelectors }) => {
+    if (currentSelectors.length > 0) {
+      const componentToParse = currentSelectors[0];
+      const parseSourceArray = currentSelectors.slice(1);
+      return { componentToParse, parseSourceArray };
+    } else {
+      const query = useQuery ? [...queryAllFutureComponent(element)] : getFirstUserChildPlaceHolder(element);
+      const componentToParse = query?.[0];
+      const parseSourceArray = query.slice(1);
+      return { componentToParse, parseSourceArray };
+    }
+  };
+
+  // src/js/mob/mobjs/component/action/removeAndDestroy/setDestroyCallback.js
+  var setDestroyCallback = ({ cb = () => {
+  }, id }) => {
+    if (!id) return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    componentMap.set(id, { ...item, destroy: cb });
+  };
+
+  // src/js/mob/mobjs/modules/onMount/index.js
+  var onMountCallbackMap = /* @__PURE__ */ new Map();
+  var addOnMoutCallback = ({ id, cb = () => {
+  } }) => {
+    onMountCallbackMap.set(id, cb);
+  };
+  var fireOnMountCallBack = async ({ id, element }) => {
+    const callback2 = onMountCallbackMap.get(id);
+    const destroyCallback = await callback2?.({
+      element
+    });
+    setDestroyCallback({ cb: destroyCallback, id });
+    onMountCallbackMap.delete(id);
+  };
+
+  // src/js/mob/mobjs/modules/commonEvent.js
+  var shouldFireEvent = true;
+  var allowFireEvent = () => {
+    shouldFireEvent = true;
+  };
+  var preventFireEvent = () => {
+    shouldFireEvent = false;
+  };
+  var getFireEvent = () => shouldFireEvent;
+
+  // src/js/mob/mobjs/modules/bindEvents/index.js
+  var bindEventMap = /* @__PURE__ */ new Map();
+  var setBindEvents = (eventsData = []) => {
+    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
+    const id = modules_exports.getUnivoqueId();
+    bindEventMap.set(id, eventsDataParsed);
+    return id;
+  };
+  var applyBindEvents = ({ element, componentId, bindEventsId }) => {
+    const eventArray = bindEventMap.get(bindEventsId);
+    if (!eventArray) return;
+    eventArray.forEach((event) => {
+      const [eventName] = Object.keys(event);
+      const [callback2] = Object.values(event);
+      if (!eventName || !callback2) return;
+      element.addEventListener(eventName, async (e) => {
+        if (!getFireEvent()) return;
+        preventFireEvent();
+        await tick();
+        allowFireEvent();
+        const currentRepeaterState = getRepeaterStateById({
+          id: componentId
+        });
+        callback2(
+          e,
+          currentRepeaterState?.current,
+          currentRepeaterState?.index
+        );
+      });
+    });
+    bindEventMap.delete(bindEventsId);
+  };
+  var removeOrphansBindEvent = () => {
+    bindEventMap.clear();
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/setRepeatFunction.js
+  var setRepeatFunction = ({ id, repeatId, fn }) => {
+    const currentFunctions = repeatFunctionMap.get(id) ?? [];
+    repeatFunctionMap.set(id, [
+      ...currentFunctions,
+      { repeatId, fn, unsubscribe: () => {
+      } }
+    ]);
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/setRepeaterPlaceholderMapScopeId.js
+  var setRepeaterPlaceholderMapScopeId = ({ repeatId, scopeId }) => {
+    repeatIdPlaceHolderMap.set(repeatId, {
+      element: void 0,
+      initialized: false,
+      scopeId,
+      key: "",
+      children: []
+    });
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/setRepeaterPlaceholderMapInitialized.js
+  var setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      initialized: true
+    });
+  };
+
+  // src/js/mob/mobjs/component/action/removeAndDestroy/destroyComponentInsideNodeById.js
+  var destroyComponentInsideNodeById = ({ id, container }) => {
+    const instanceValue = componentMap.get(id);
+    const child = instanceValue?.child;
+    if (!child) return;
+    const allChild = Object.values(child ?? {}).flat();
+    allChild.forEach((id2) => {
+      const state = componentMap.get(id2);
+      const element = state?.element;
+      if (element && container?.contains(element) && element !== container) {
+        removeAndDestroyById({ id: id2 });
+      }
+    });
+  };
+
+  // src/js/mob/mobjs/modules/commonRepeatInvalidate.js
+  var MODULE_REPEATER = "repeater";
+  var MODULE_INVALIDATE = "invalidate";
+  var getRepeatOrInvalidateInsideElement = ({
+    element,
+    skipInitialized = false,
+    onlyInitialized = false,
+    componentId,
+    module
+  }) => {
+    const entries = module === MODULE_REPEATER ? [...repeatIdPlaceHolderMap.entries()] : [...invalidateIdPlaceHolderMap.entries()];
+    return entries.filter(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ([_id, { element: currentElement, initialized: initialized7, scopeId }]) => {
+        if (componentId && !compareIdOrParentIdRecursive({
+          id: scopeId ?? "",
+          compareValue: componentId
+        }))
+          return;
+        if (skipInitialized && initialized7) return false;
+        if (onlyInitialized && !initialized7) return false;
+        return currentElement && element?.contains(currentElement) && element !== currentElement;
+      }
+    ).map(([id, parent]) => ({
+      id,
+      parent: parent?.element
+    }));
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/removeRepeatByRepeatId.js
+  var removeRepeatByRepeatId = ({ id, repeatId }) => {
+    if (!repeatFunctionMap.has(id)) return;
+    const value = repeatFunctionMap.get(id);
+    if (!value) return;
+    const valueParsed = value.filter((item) => item.repeatId !== repeatId);
+    if (repeatIdPlaceHolderMap.has(repeatId)) {
+      repeatIdPlaceHolderMap.delete(repeatId);
+    }
+    repeatFunctionMap.set(id, valueParsed);
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/destroyNestedRepeat.js
+  var destroyNestedRepeat = ({ id, repeatParent }) => {
+    const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
+      element: repeatParent,
+      skipInitialized: false,
+      onlyInitialized: true,
+      componentId: id,
+      module: MODULE_REPEATER
+    });
+    const repeatChildToDeleteParsed = [...repeatFunctionMap.values()].flat().filter((item) => {
+      return repeatChildToDelete.some((current) => {
+        return current.id === item.repeatId;
+      });
+    });
+    repeatChildToDeleteParsed.forEach((item) => {
+      item.unsubscribe();
+      removeRepeatByRepeatId({
+        id,
+        repeatId: item.repeatId
+      });
+    });
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/inizializeNestedRepeat.js
+  var inizializeNestedRepeat = ({ repeatParent, id }) => {
+    if (!repeatParent) return;
+    const newRepeatChild = getRepeatOrInvalidateInsideElement({
+      element: repeatParent,
+      skipInitialized: true,
+      onlyInitialized: false,
+      componentId: id,
+      module: MODULE_REPEATER
+    });
+    const repeatChildToInizialize = [...repeatFunctionMap.values()].flat().filter(({ repeatId }) => {
+      return newRepeatChild.some((current) => {
+        return current.id === repeatId;
+      });
+    });
+    repeatChildToInizialize.forEach(({ fn }) => {
+      fn();
+    });
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/addInvalidateUnsubcribe.js
+  var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    const item = currentFunctions.map((item2) => {
+      if (item2.invalidateId === invalidateId) {
+        return { ...item2, unsubscribe: unsubscribe3 };
+      }
+      return item2;
+    });
+    invalidateFunctionMap.set(id, item);
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/removeInvalidateByInvalidateId.js
+  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
+    if (!invalidateFunctionMap.has(id)) return;
+    const value = invalidateFunctionMap.get(id);
+    if (!value) return;
+    const valueParsed = value.filter(
+      (item) => item.invalidateId !== invalidateId
+    );
+    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+      invalidateIdPlaceHolderMap.delete(invalidateId);
+    }
+    invalidateFunctionMap.set(id, valueParsed);
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/destroyNestedInvalidate.js
+  var destroyNestedInvalidate = ({ id, invalidateParent }) => {
+    const invalidatechildToDelete = getRepeatOrInvalidateInsideElement({
+      element: invalidateParent,
+      skipInitialized: false,
+      onlyInitialized: true,
+      componentId: id,
+      module: MODULE_INVALIDATE
+    });
+    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
+      return invalidatechildToDelete.some((current) => {
+        return current.id === item.invalidateId;
+      });
+    });
+    invalidateChildToDeleteParsed.forEach((item) => {
+      item.unsubscribe.forEach((fn) => {
+        fn();
+      });
+      removeInvalidateByInvalidateId({
+        id,
+        invalidateId: item.invalidateId
+      });
+    });
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/getInvalidateParent.js
+  var getInvalidateParent = ({ id }) => {
+    if (!invalidateIdPlaceHolderMap.has(id)) {
+      return;
+    }
+    if (invalidateIdHostMap.has(id)) {
+      const host = invalidateIdHostMap.get(id);
+      host?.removeCustomComponent();
+      host?.remove();
+      invalidateIdHostMap.delete(id);
+    }
+    const parent = invalidateIdPlaceHolderMap.get(id);
+    return parent?.element;
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/inizializeNestedInvalidate.js
+  var inizializeNestedInvalidate = ({ invalidateParent, id }) => {
+    if (!invalidateParent) return;
+    const newInvalidateChild = getRepeatOrInvalidateInsideElement({
+      element: invalidateParent,
+      skipInitialized: true,
+      onlyInitialized: false,
+      componentId: id,
+      module: MODULE_INVALIDATE
+    });
+    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter(({ invalidateId }) => {
+      return newInvalidateChild.some((current) => {
+        return current.id === invalidateId;
+      });
+    });
+    invalidateChildToInizialize.forEach(({ fn }) => {
+      fn();
+    });
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/inizializeInvalidateWatch.js
+  var inizializeInvalidateWatch = async ({
+    bind = [],
+    beforeUpdate = () => Promise.resolve(),
+    afterUpdate = () => {
+    },
+    watch,
+    id,
+    invalidateId,
+    persistent = false,
+    renderFunction
+  }) => {
+    let watchIsRunning = false;
+    const fallBackParentId = getFallBackParentByElement({
+      element: getInvalidateParent({ id: invalidateId })
+    });
+    afterUpdate();
+    const unsubScribeArray = bind.map((state) => {
+      const unsubscribe3 = watch(state, async () => {
+        if (watchIsRunning) return;
+        freezePropById({ id, prop: state });
+        const invalidateParent = getInvalidateParent({
+          id: invalidateId
+        });
+        const descrementQueue = incrementTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
+        const decrementInvalidateQueque = incrementInvalidateTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
+        watchIsRunning = true;
+        modules_exports.useNextLoop(async () => {
+          if (!invalidateParent) {
+            unFreezePropById({ id, prop: state });
+            return;
+          }
+          await beforeUpdate();
+          destroyNestedInvalidate({ id, invalidateParent });
+          destroyNestedRepeat({ id, repeatParent: invalidateParent });
+          destroyComponentInsideNodeById({
+            id: fallBackParentId ?? id,
+            container: invalidateParent
+          });
+          invalidateParent.textContent = "";
+          invalidateParent.insertAdjacentHTML(
+            "afterbegin",
+            renderFunction()
+          );
+          mainStore.set(
+            MAIN_STORE_ASYNC_PARSER,
+            {
+              element: invalidateParent,
+              parentId: fallBackParentId ?? id,
+              persistent
+            },
+            { emit: false }
+          );
+          await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+          watchIsRunning = false;
+          descrementQueue();
+          decrementInvalidateQueque();
+          inizializeNestedInvalidate({ invalidateParent, id });
+          inizializeNestedRepeat({ repeatParent: invalidateParent, id });
+          unFreezePropById({ id, prop: state });
+          afterUpdate();
+        });
+      });
+      return unsubscribe3;
+    });
+    addInvalidateUnsubcribe({
+      id,
+      invalidateId,
+      unsubscribe: unsubScribeArray
+    });
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/setInvalidateFunction.js
+  var setInvalidateFunction = ({ id, invalidateId, fn }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    invalidateFunctionMap.set(id, [
+      ...currentFunctions,
+      { invalidateId, fn, unsubscribe: [() => {
+      }] }
+    ]);
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/setInvalidatePlaceholderMapInitialized.js
+  var setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
+    const item = invalidateIdPlaceHolderMap.get(invalidateId);
+    if (!item) return;
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      ...item,
+      initialized: true
+    });
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/setInvalidatePlaceholderMapScopedId.js
+  var setInvalidatePlaceholderMapScopedId = ({
+    invalidateId,
+    scopeId
+  }) => {
+    invalidateIdPlaceHolderMap.set(invalidateId, {
+      element: void 0,
+      initialized: false,
+      scopeId
+    });
+  };
+
+  // src/js/mob/mobjs/route/domRef/root.js
+  var root = document.createElement("div");
+  var setRoot = ({ element }) => {
+    root = element;
+  };
+  var getRoot = () => root;
+
+  // src/js/mob/mobjs/modules/delegateEvents/index.js
+  var tempDelegateEventMap = /* @__PURE__ */ new Map();
+  var eventDelegationMap = /* @__PURE__ */ new WeakMap();
+  var eventToAdd = [];
+  var eventRegistered = [];
+  var setDelegateBindEvent = (eventsData = []) => {
+    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
+    const id = modules_exports.getUnivoqueId();
+    tempDelegateEventMap.set(id, eventsDataParsed);
+    return id;
+  };
+  var findParentElementInMap = (target) => {
+    let parent = target?.parentNode;
+    while (parent) {
+      if (eventDelegationMap.has(parent))
+        return { target: parent, data: eventDelegationMap.get(parent) };
+      parent = parent?.parentNode;
+    }
+    return { target: void 0, data: void 0 };
+  };
+  var getItemFromTarget = (target) => {
+    const data = eventDelegationMap.get(target);
+    if (data) return { target, data: eventDelegationMap.get(target) };
+    return findParentElementInMap(target);
+  };
+  async function handleAction(eventKey, event) {
+    const target = event?.target;
+    if (!target) return;
+    if (!getFireEvent()) return;
+    preventFireEvent();
+    await tick();
+    allowFireEvent();
+    const { target: targetParsed, data } = getItemFromTarget(target);
+    if (!data || !document.contains(targetParsed)) return;
+    const currentEvent = data.find(({ event: event2 }) => event2 === eventKey);
+    if (!currentEvent) return;
+    const { callback: callback2 } = currentEvent;
+    const componentId = getIdByElement({ element: targetParsed });
+    const currentRepeaterState = componentId ? getRepeaterStateById({
+      id: componentId
+    }) : DEFAULT_CURRENT_REPEATER_STATE;
+    Object.defineProperty(event, "target", { value: targetParsed });
+    callback2(event, currentRepeaterState?.current, currentRepeaterState?.index);
+  }
+  var applyDelegationBindEvent = async (root2) => {
+    await repeaterTick();
+    await invalidateTick();
+    const parent = root2.parentNode;
+    const elements = parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
+    [...elements].forEach((element) => {
+      const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? "";
+      element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
+      const data = tempDelegateEventMap.get(id);
+      tempDelegateEventMap.delete(id);
+      const dataParsed = data?.flatMap((item) => {
+        return Object.entries(item).map((current) => {
+          const [event, callback2] = current;
+          if (!eventToAdd.includes(event)) eventToAdd.push(event);
+          return { event, callback: callback2 };
+        });
+      });
+      eventDelegationMap.set(element, dataParsed);
+    });
+    const rootElement = getRoot();
+    eventToAdd.forEach((eventKey) => {
+      if (eventRegistered.includes(eventKey)) return;
+      eventRegistered.push(eventKey);
+      rootElement.addEventListener(
+        eventKey,
+        handleAction.bind(null, eventKey)
+      );
+    });
+  };
+
+  // src/js/mob/mobjs/modules/bindRefs/index.js
+  var getBindRefs = ({ element }) => {
+    const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
+    const initialValue = {};
+    return [...refs].reduce((previous, current) => {
+      const refId = current.getAttribute(ATTR_BIND_REFS_ID);
+      const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
+      current.removeAttribute(ATTR_BIND_REFS_ID);
+      current.removeAttribute(ATTR_BIND_REFS_NAME);
+      if (!refName) return previous;
+      const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
+      return { ...previous, [refName]: newRefsByName };
+    }, initialValue);
+  };
+  var getRefsSorter = (refs) => {
+    return [
+      ...new Set(
+        refs.sort((a, b) => {
+          if (a === b || !a || !b) return 0;
+          if (a.compareDocumentPosition(b) & 2) {
+            return 1;
+          }
+          return -1;
+        })
+      )
+    ];
+  };
+  var mergeRefsAndOrder = ({ refs, refName, element }) => {
+    return {
+      ...refs,
+      [refName]: getRefsSorter([...refs[refName], element])
+    };
+  };
+  var addBindRefsToComponent = (refs) => {
+    Object.entries(refs).forEach(([refName, entries]) => {
+      entries.forEach(({ element, scopeId }) => {
+        const item = componentMap.get(scopeId);
+        if (!item) return;
+        const { refs: previousRef } = item;
+        if (!previousRef) return;
+        const newRefs = refName in previousRef ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
+        componentMap.set(scopeId, {
+          ...item,
+          refs: newRefs
+        });
+      });
+    });
+  };
+  var getBindRefsById = ({ id }) => {
+    const item = componentMap.get(id);
+    if (!item) return {};
+    const { refs, element } = item;
+    if (!refs) return {};
+    const refsUpdated = Object.entries(refs).map(([name, collection]) => {
+      return {
+        name,
+        collection: collection.filter((ref) => element.contains(ref))
+      };
+    }).reduce((previous, current) => {
+      return { ...previous, [current.name]: current.collection };
+    }, {});
+    componentMap.set(id, {
+      ...item,
+      refs: refsUpdated
+    });
+    return refsUpdated;
+  };
+  var getBindRefById = ({ id }) => {
+    const refs = getBindRefsById({ id });
+    return Object.entries(refs).reduce((previous, [name, collection]) => {
+      return { ...previous, [name]: collection?.[0] };
+    }, {});
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/addRepeatUnsubcribe.js
+  var addRepeatUnsubcribe = ({ id, repeatId, unsubscribe: unsubscribe3 }) => {
+    const currentFunctions = repeatFunctionMap.get(id) ?? [];
+    const item = currentFunctions.map((item2) => {
+      if (item2.repeatId === repeatId) {
+        return { ...item2, unsubscribe: unsubscribe3 };
+      }
+      return item2;
+    });
+    repeatFunctionMap.set(id, item);
+  };
+
+  // src/js/mob/mobjs/modules/repeater/activeRepeater/index.js
+  var activeRepeatMap = /* @__PURE__ */ new Set();
+  var addActiveRepeat = ({ id, state, container }) => {
+    activeRepeatMap.add({ id, state, container });
+  };
+  var removeActiveRepeat = ({ id, state, container }) => {
+    if (!container) return;
+    activeRepeatMap.forEach((repeat) => {
+      if (id === repeat.id && state === repeat.state && container === repeat.container) {
+        activeRepeatMap.delete(repeat);
+      }
+    });
+  };
+  var getActiveRepeater = ({ id = "", state = "", container }) => {
+    const repeatIsActive = [...activeRepeatMap].some((repeat) => {
+      return id === repeat.id && state === repeat.state && container === repeat.container;
+    });
+    return repeatIsActive;
+  };
+
+  // src/js/mob/mobjs/utils.js
+  var staticProps = (props = {}) => {
+    return `${ATTR_PROPS}="${setStaticProps(props)}"`;
+  };
+  var clamp2 = (num, lower, upper) => {
+    return Math.min(Math.max(num, lower), upper);
+  };
+
+  // src/js/mob/mobjs/modules/repeater/update/getProxi.js
+  var REPEAT_PROXI_INDEX = "index";
+  var getRepeatProxi = ({
+    id,
+    bind,
+    hasKey,
+    key = "",
+    keyValue = "",
+    index
+  }) => {
+    const inistalState = getStateById(id);
+    const startValue = hasKey ? inistalState?.[bind]?.find(
+      (item) => item[key] === keyValue
+    ) : inistalState?.[bind]?.[index];
+    let currentValue = startValue;
+    let lastValue = startValue;
+    return new Proxy(
+      {},
+      {
+        get(_, prop) {
+          currentKey_exports.setCurrentDependencies(bind);
+          const state = getStateById(id);
+          const maxValue = Math.max(state?.[bind].length - 1, 0);
+          if (prop === REPEAT_PROXI_INDEX) {
+            if (hasKey) {
+              const indexByKey = state?.[bind]?.findIndex(
+                (item) => item[key] === keyValue
+              );
+              return clamp2(indexByKey, 0, maxValue);
+            }
+            return clamp2(index, 0, maxValue);
+          }
+          if (hasKey) {
+            lastValue = currentValue ?? lastValue;
+            currentValue = state?.[bind]?.find(
+              (item) => item[key] === keyValue
+            );
+            return currentValue ?? lastValue;
+          }
+          lastValue = currentValue ?? lastValue;
+          currentValue = state?.[bind]?.[clamp2(index, 0, maxValue)];
+          return currentValue ?? lastValue;
+        },
+        set() {
+          return false;
+        }
+      }
+    );
+  };
+
+  // src/js/mob/mobjs/modules/repeater/update/utils.js
+  var updateRepeaterWitoutKey = ({
+    id,
+    diff,
+    current,
+    previousLenght,
+    render: render2,
+    state,
+    repeatId
+  }) => {
+    setSkipAddUserComponent(true);
+    const serializedFragment = [...new Array(diff).keys()].map((_item, index) => {
+      const initialValue = current?.[index + previousLenght];
+      const initialIndex = index + previousLenght;
+      const proxiObject = getRepeatProxi({
+        id,
+        bind: state,
+        hasKey: false,
+        index: initialIndex
+      });
+      const rawRender = render2({
+        initialIndex,
+        initialValue,
+        current: proxiObject,
+        sync: () => ""
+      });
+      let fragment = document.createRange().createContextualFragment(rawRender);
+      const components = queryAllFutureComponent(fragment, false);
+      setRepeatAttribute({
+        components,
+        current: initialValue,
+        index: initialIndex,
+        bind: state,
+        repeatId,
+        key: void 0
+      });
+      const serializedRender = serializeFragment(fragment);
+      fragment = null;
+      return serializedRender;
+    }).join("");
+    setSkipAddUserComponent(false);
+    return serializedFragment;
+  };
+  var updateRepeaterWithoutKeyUseSync = ({
+    id,
+    diff,
+    previousLenght,
+    current,
+    state,
+    repeatId,
+    render: render2
+  }) => {
+    return [...new Array(diff).keys()].map((_item, index) => {
+      const initialValue = current?.[index + previousLenght];
+      const initialIndex = index + previousLenght;
+      const sync = (
+        /* HTML */
+        () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+          {
+            current: initialValue,
+            index: initialIndex
+          }
+        )}"
+            ${ATTR_REPEATER_PROP_BIND}="${state}"
+            ${ATTR_CHILD_REPEATID}="${repeatId}"`
+      );
+      const proxiObject = getRepeatProxi({
+        id,
+        bind: state,
+        hasKey: false,
+        index: initialIndex
+      });
+      return render2({
+        sync,
+        initialIndex,
+        initialValue,
+        current: proxiObject
+      });
+    }).join("");
+  };
+  var updateRepeaterWithtKey = ({
+    id,
+    currentValue,
+    index,
+    state,
+    repeatId,
+    key,
+    keyValue,
+    render: render2
+  }) => {
+    setSkipAddUserComponent(true);
+    const proxiObject = getRepeatProxi({
+      id,
+      bind: state,
+      hasKey: true,
+      key,
+      keyValue,
+      index
+    });
+    let fragment = document.createRange().createContextualFragment(
+      render2({
+        initialIndex: index,
+        initialValue: currentValue,
+        current: proxiObject,
+        sync: () => ""
+      })
+    );
+    const components = queryAllFutureComponent(fragment, false);
+    setRepeatAttribute({
+      components,
+      current: currentValue,
+      index,
+      bind: state,
+      repeatId,
+      key: keyValue
+    });
+    setSkipAddUserComponent(false);
+    const serializedRender = serializeFragment(fragment);
+    fragment = null;
+    return serializedRender;
+  };
+  var updateRepeaterWithtKeyUseSync = ({
+    id,
+    currentValue,
+    index,
+    state,
+    repeatId,
+    key,
+    keyValue,
+    render: render2
+  }) => {
+    const proxiObject = getRepeatProxi({
+      id,
+      bind: state,
+      hasKey: true,
+      key,
+      keyValue,
+      index
+    });
+    const sync = () => (
+      /* HTML */
+      ` ${ATTR_KEY}="${keyValue}"
+        ${ATTR_REPEATER_PROP_BIND}="${state}"
+        ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
+        current: currentValue,
+        index
+      })}"
+        ${ATTR_CHILD_REPEATID}="${repeatId}"`
+    );
+    return render2({
+      initialIndex: index,
+      initialValue: currentValue,
+      current: proxiObject,
+      sync
+    });
+  };
+  var getRenderWithoutSync = ({
+    id,
+    currentUnique,
+    render: render2,
+    bind,
+    repeatId,
+    key = "",
+    hasKey
+  }) => {
+    setSkipAddUserComponent(true);
+    const rawRender = currentUnique.map((item, index) => {
+      const proxiObject = getRepeatProxi({
+        id,
+        bind,
+        hasKey,
+        key,
+        keyValue: hasKey ? item?.[key] : "",
+        index
+      });
+      let fragment = document.createRange().createContextualFragment(
+        render2({
+          initialIndex: index,
+          initialValue: item,
+          current: proxiObject,
+          sync: () => ""
+        })
+      );
+      const components = queryAllFutureComponent(fragment, false);
+      setRepeatAttribute({
+        components,
+        current: item,
+        index,
+        bind,
+        repeatId,
+        key: hasKey ? item?.[key] : ""
+      });
+      const serializedRender = serializeFragment(fragment);
+      fragment = null;
+      return serializedRender;
+    }).join("");
+    setSkipAddUserComponent(false);
+    return rawRender;
+  };
+  var getRenderWithSync = ({
+    id,
+    currentUnique,
+    key = "",
+    bind,
+    repeatId,
+    hasKey,
+    render: render2
+  }) => {
+    const rawRender = () => {
+      return currentUnique.map((item, index) => {
+        const sync = (
+          /* HTML */
+          () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+            {
+              current: item,
+              index
+            }
+          )}"
+                            ${ATTR_KEY}="${hasKey ? item?.[key] : ""}"
+                            ${ATTR_REPEATER_PROP_BIND}="${bind}"
+                            ${ATTR_CHILD_REPEATID}="${repeatId}"`
+        );
+        const proxiObject = getRepeatProxi({
+          id,
+          bind,
+          hasKey,
+          key,
+          keyValue: hasKey ? item?.[key] : "",
+          index
+        });
+        return render2({
+          sync,
+          initialIndex: index,
+          initialValue: item,
+          current: proxiObject
+        });
+      }).join("");
+    };
+    return rawRender();
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/setRepeatChild.js
+  var setRepeaterChild = ({ repeatId, id, bind }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    const { element } = item;
+    if (!element) return;
+    const children = (
+      /** @type{HTMLElement[]} */
+      [...element.children]
+    );
+    const state = getStateById(id);
+    const stateByProp = state[bind];
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      key: bind,
+      children: children.map((child, index) => {
+        return { index, value: stateByProp[index], element: child };
+      })
+    });
+  };
+  var getRepeaterChild = ({ repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return [];
+    const { children } = item;
+    return children;
+  };
+
+  // src/js/mob/mobjs/modules/repeater/update/addWithKey.js
+  var addWithKey = ({
+    state = "",
+    current = [],
+    previous = [],
+    repeaterParentElement = document.createElement("div"),
+    key = "",
+    id = "",
+    render: render2,
+    repeatId,
+    useSync
+  }) => {
+    const currentUnique = getUnivoqueByKey({ data: current, key });
+    const keyToRemove = getNewElement(previous, currentUnique, key);
+    const elementToRemoveByKey = keyToRemove.map((item) => {
+      const keyValue = item?.[key];
+      return getElementByKeyAndRepeatId({
+        keyValue,
+        repeatId
+      });
+    }).filter(Boolean);
+    const elementToRemoveByComponent = elementToRemoveByKey.length > 0;
+    elementToRemoveByKey.forEach((element) => {
+      const currentId = getIdByElement({ element });
+      if (!currentId) return;
+      const elementWrapper = getRepeaterInnerWrap({ id: currentId });
+      const nestedParent = (
+        /** @type {HTMLElement} */
+        elementWrapper ?? element
+      );
+      destroyNestedInvalidate({ id, invalidateParent: nestedParent });
+      destroyNestedRepeat({ id, repeatParent: nestedParent });
+      if (elementWrapper) {
+        destroyComponentInsideNodeById({
+          id: getParentIdById(currentId) ?? "",
+          container: elementWrapper
+        });
+        elementWrapper.remove();
+      } else {
+        removeAndDestroyById({ id: currentId });
+      }
+    });
+    if (!elementToRemoveByComponent) {
+      const childrenFromRepeater = getRepeaterChild({ repeatId });
+      const itemToRemove = childrenFromRepeater.filter((item) => {
+        return keyToRemove.map((item2) => item2?.[key]).includes(item.value?.[key]);
+      });
+      itemToRemove.forEach((item) => {
+        const { element: currentElement } = item;
+        destroyNestedInvalidate({ id, invalidateParent: currentElement });
+        destroyNestedRepeat({ id, repeatParent: currentElement });
+        destroyComponentInsideNodeById({
+          id,
+          container: currentElement
+        });
+      });
+    }
+    const newSequenceByKey = mixPreviousAndCurrentData(
+      currentUnique,
+      previous,
+      key
+    ).map(({ keyValue, isNewElement, index }) => {
+      if (isNewElement)
+        return { keyValue, isNewElement, index, wrapper: void 0 };
+      const element = getElementByKeyAndRepeatId({
+        keyValue,
+        repeatId
+      });
+      const id2 = element ? getIdByElement({ element }) : void 0;
+      const wrapperParsed = element ? getRepeaterInnerWrap({ id: id2 }) : (() => {
+        const childrenFromRepeater = getRepeaterChild({ repeatId });
+        return childrenFromRepeater.find(
+          (item) => item.value?.[key] === keyValue
+        )?.element;
+      })();
+      return {
+        keyValue,
+        isNewElement,
+        index,
+        persistentElement: element,
+        persistentDOMwrapper: wrapperParsed
+      };
+    });
+    repeaterParentElement.replaceChildren();
+    newSequenceByKey.forEach(
+      ({
+        isNewElement,
+        keyValue,
+        index,
+        persistentElement,
+        persistentDOMwrapper
+      }) => {
+        if (!isNewElement) {
+          const { debug } = getDefaultComponent();
+          if (debug && !persistentDOMwrapper && elementToRemoveByComponent) {
+            const componentName = getComponentNameByElement(persistentElement);
+            repeaterParentElement.insertAdjacentHTML(
+              "beforeend",
+              `<!-- ${componentName} --> `
+            );
+          }
+          if (persistentDOMwrapper) {
+            repeaterParentElement.append(persistentDOMwrapper);
+          }
+          if (!persistentDOMwrapper && persistentElement) {
+            repeaterParentElement.append(persistentElement);
+          }
+          return;
+        }
+        const currentValue = currentUnique?.[index];
+        const currentRender = useSync ? updateRepeaterWithtKeyUseSync({
+          id,
+          currentValue,
+          index,
+          state,
+          repeatId,
+          key,
+          keyValue,
+          render: render2
+        }) : updateRepeaterWithtKey({
+          id,
+          currentValue,
+          index,
+          state,
+          repeatId,
+          key,
+          keyValue,
+          render: render2
+        });
+        repeaterParentElement.insertAdjacentHTML(
+          "beforeend",
+          currentRender
+        );
+      }
+    );
+    return currentUnique;
+  };
+
+  // src/js/mob/mobjs/modules/repeater/update/addWithoutKey.js
+  var addWithoutKey = ({
+    state = "",
+    current = [],
+    previous = [],
+    repeaterParentElement = document.createElement("div"),
+    render: render2,
+    repeatId,
+    id,
+    useSync
+  }) => {
+    const currentLenght = current.length;
+    const previousLenght = previous.length;
+    const diff = currentLenght - previousLenght;
+    if (diff > 0) {
+      const currentRender = useSync ? updateRepeaterWithoutKeyUseSync({
+        id,
+        diff,
+        previousLenght,
+        current,
+        state,
+        repeatId,
+        render: render2
+      }) : updateRepeaterWitoutKey({
+        id,
+        diff,
+        current,
+        previousLenght,
+        render: render2,
+        state,
+        repeatId
+      });
+      repeaterParentElement.insertAdjacentHTML("beforeend", currentRender);
+    }
+    if (diff < 0) {
+      const idsByRepeatId = getIdsByByRepeatId({
+        id,
+        repeatId
+      });
+      const childrenChunkedByWrapper = chunkIdsByCurrentValue({
+        children: idsByRepeatId
+      });
+      const elementToRemoveByKey = childrenChunkedByWrapper.filter(
+        (_child, i) => {
+          return i >= current.length;
+        }
+      );
+      elementToRemoveByKey.forEach((childArray) => {
+        childArray.forEach((childId) => {
+          const element = getElementById({ id: childId });
+          const elementWrapper = getRepeaterInnerWrap({
+            id: childId
+          });
+          const nestedParent = (
+            /** @type {HTMLElement} */
+            elementWrapper ?? element
+          );
+          destroyNestedInvalidate({ id, invalidateParent: nestedParent });
+          destroyNestedRepeat({ id, repeatParent: nestedParent });
+          if (elementWrapper) {
+            destroyComponentInsideNodeById({
+              id: getParentIdById(childId) ?? "",
+              container: elementWrapper
+            });
+            elementWrapper.remove();
+          } else {
+            removeAndDestroyById({ id: childId });
+          }
+        });
+      });
+      if (childrenChunkedByWrapper.length > 0) return [];
+      const childrenFromRepeater = getRepeaterChild({ repeatId });
+      if (!childrenFromRepeater) return [];
+      const childrenFromRepeaterToRemove = childrenFromRepeater.filter(
+        ({ index }) => {
+          return index >= current.length;
+        }
+      );
+      childrenFromRepeaterToRemove.forEach((item) => {
+        const { element: currentElement } = item;
+        destroyNestedInvalidate({ id, invalidateParent: currentElement });
+        destroyNestedRepeat({ id, repeatParent: currentElement });
+        destroyComponentInsideNodeById({
+          id,
+          container: currentElement
+        });
+        currentElement.remove();
+      });
+    }
+    return current;
+  };
+
+  // src/js/mob/mobjs/modules/repeater/update/index.js
+  var updateRepeater = async ({
+    state = "",
+    persistent,
+    repeaterParentElement = document.createElement("div"),
+    current = [],
+    previous = [],
+    key = "",
+    id,
+    fallBackParentId = "",
+    render: render2,
+    repeatId,
+    useSync
+  }) => {
+    const hasKey = listKeyExist({ current, previous, key });
+    const fn = hasKey ? addWithKey : addWithoutKey;
+    const currentUnivoque = fn({
+      state,
+      current,
+      previous,
+      repeaterParentElement,
+      key,
+      id,
+      render: render2,
+      repeatId,
+      useSync
+    });
+    mainStore.set(
+      MAIN_STORE_ASYNC_PARSER,
+      {
+        element: repeaterParentElement,
+        parentId: fallBackParentId ?? id,
+        persistent
+      },
+      { emit: false }
+    );
+    await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+    return currentUnivoque;
+  };
+
+  // src/js/mob/mobjs/modules/repeater/watch/index.js
+  var watchRepeat = ({
+    state = "",
+    setState,
+    persistent = false,
+    watch,
+    clean: clean2 = false,
+    beforeUpdate,
+    afterUpdate,
+    key = "",
+    id = "",
+    repeatId = "",
+    render: render2,
+    useSync = false
+  }) => {
+    const mainComponent = getElementById({ id });
+    const parentByElement = getRepeatParent({ id: repeatId });
+    const fallBackParentId = parentByElement ? getFallBackParentByElement({ element: parentByElement }) ?? "" : "";
+    afterUpdate();
+    const unsubscribe3 = watch(
+      state,
+      async (current, previous) => {
+        if (!modules_exports.checkType(Array, current)) return;
+        const repeaterParentElement = getRepeatParent({
+          id: repeatId
+        });
+        const descrementQueue = incrementTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_REPEATER
+        });
+        const descrementRepeaterQueue = incrementRepeaterTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_REPEATER
+        });
+        freezePropById({ id, prop: state });
+        const repeatIsRunning = getActiveRepeater({
+          id,
+          state,
+          container: repeaterParentElement
+        });
+        if (repeatIsRunning) {
+          unFreezePropById({ id, prop: state });
+          setState(state, previous, { emit: false });
+          descrementQueue();
+          descrementRepeaterQueue();
+          return;
+        }
+        const childrenBeforeUdateByRepeatId = getIdsByByRepeatId({
+          id,
+          repeatId
+        });
+        if (mainComponent) {
+          await beforeUpdate();
+        }
+        if (clean2) {
+          const currentChildern = getIdsByByRepeatId({
+            id,
+            repeatId
+          });
+          currentChildern.forEach((id2) => {
+            removeAndDestroyById({ id: id2 });
+          });
+          if (repeaterParentElement) {
+            repeaterParentElement.textContent = "";
+          }
+        }
+        if (repeaterParentElement)
+          addActiveRepeat({
+            id,
+            state,
+            container: repeaterParentElement
+          });
+        const currentUnivoque = await updateRepeater({
+          state,
+          persistent,
+          repeaterParentElement: repeaterParentElement ?? document.createElement("div"),
+          current,
+          previous: clean2 ? [] : previous,
+          key,
+          id,
+          fallBackParentId,
+          render: render2,
+          repeatId,
+          useSync
+        });
+        const childrenFilteredByRepeatId = getIdsByByRepeatId({
+          id,
+          repeatId
+        });
+        const hasKey = key && key !== "";
+        const childrenChunkedByWrapper = chunkIdsByCurrentValue({
+          children: childrenFilteredByRepeatId,
+          previousChildren: childrenBeforeUdateByRepeatId
+        });
+        const chunkChildrenOrdered = hasKey ? [
+          ...getOrderedChunkByCurrentRepeatValue({
+            children: childrenChunkedByWrapper,
+            key,
+            current
+          })
+        ] : childrenChunkedByWrapper;
+        chunkChildrenOrdered.forEach((childArray, index) => {
+          childArray.forEach((id2) => {
+            const currentValue = currentUnivoque?.[index];
+            if (!currentValue) return;
+            const realIndex = hasKey ? current.findIndex((value) => {
+              return `${value?.[key]}` === `${currentUnivoque?.[index]?.[key]}`;
+            }) : index;
+            setRepeaterStateById({
+              id: id2,
+              value: { current: currentValue, index: realIndex }
+            });
+          });
+        });
+        modules_exports.useNextLoop(async () => {
+          if (mainComponent) {
+            afterUpdate();
+          }
+          removeActiveRepeat({
+            id,
+            state,
+            container: repeaterParentElement
+          });
+          unFreezePropById({ id, prop: state });
+          descrementQueue();
+          descrementRepeaterQueue();
+          inizializeNestedInvalidate({
+            invalidateParent: repeaterParentElement,
+            id
+          });
+          inizializeNestedRepeat({
+            repeatParent: repeaterParentElement,
+            id
+          });
+          if (chunkChildrenOrdered.length === 0) {
+            setRepeaterChild({ repeatId, id, bind: state });
+          }
+        });
+      }
+    );
+    return unsubscribe3;
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/inizializeRepeatWatch.js
+  var inizializeRepeatWatch = ({
+    repeatId,
+    persistent,
+    state,
+    setState,
+    emit,
+    watch,
+    clean: clean2,
+    beforeUpdate,
+    afterUpdate,
+    key,
+    id,
+    render: render2,
+    useSync
+  }) => {
+    const unsubscribe3 = watchRepeat({
+      state,
+      setState,
+      persistent,
+      emit,
+      watch,
+      clean: clean2,
+      beforeUpdate,
+      afterUpdate,
+      key,
+      id,
+      repeatId,
+      render: render2,
+      useSync
+    });
+    addRepeatUnsubcribe({
+      id,
+      repeatId,
+      unsubscribe: unsubscribe3
+    });
+  };
+
+  // src/js/mob/mobjs/modules/bindEffect/index.js
+  var bindEffectMap = /* @__PURE__ */ new Map();
+  var getExplicitBind = (bind) => {
+    return (
+      /** @type{string[]} */
+      modules_exports.checkType(Array, bind) ? bind : [bind]
+    );
+  };
+  var getAutoBind = ({ toggleClass, toggleStyle, toggleAttribute }) => {
+    currentKey_exports.initializeCurrentDependencies();
+    Object.values(toggleStyle).forEach((fn) => fn());
+    Object.values(toggleClass).forEach((fn) => fn());
+    Object.values(toggleAttribute).forEach((fn) => fn());
+    return currentKey_exports.getCurrentDependencies();
+  };
+  var setBindEffect = ({ data, id }) => {
+    const dataToArray = modules_exports.checkType(Array, data) ? data : [data];
+    const dataBindToArray = dataToArray.map(
+      ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
+        const bindParsed = bind ? getExplicitBind(bind) : getAutoBind({
+          toggleStyle: toggleStyle ?? { fake: () => "" },
+          toggleClass: toggleClass ?? { fake: () => {
+          } },
+          toggleAttribute: toggleAttribute ?? { fake: () => {
+          } }
+        });
+        return {
+          bind: bindParsed,
+          toggleClass: toggleClass ?? {},
+          toggleStyle: toggleStyle ?? {},
+          toggleAttribute: toggleAttribute ?? {}
+        };
+      }
+    );
+    const item = {
+      parentId: id,
+      items: dataBindToArray
+    };
+    const univoqueId = modules_exports.getUnivoqueId();
+    bindEffectMap.set(univoqueId, item);
+    return univoqueId;
+  };
+  var applyBindEffect = (element) => {
+    const occurrences = (
+      /** @type{HTMLElement[]} */
+      [
+        ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`)
+      ]
+    );
+    occurrences.forEach((target) => {
+      const id = target.getAttribute(ATTR_BIND_EFFECT);
+      if (!id) return;
+      const data = bindEffectMap.get(id);
+      if (!data) return;
+      target.removeAttribute(ATTR_BIND_EFFECT);
+      watchBindEffect({ data, element: target });
+      bindEffectMap.delete(id);
+    });
+  };
+  var applyClass = ({ ref, data }) => {
+    if (!data) return;
+    Object.entries(data).forEach(([className, fn]) => {
+      if (!ref.deref()) return;
+      ref.deref().classList.toggle(className, fn?.());
+    });
+  };
+  var applyStyle = ({ ref, data }) => {
+    Object.entries(data).forEach(([styleName, fn]) => {
+      if (!ref.deref()) return;
+      ref.deref().style[styleName] = fn?.() ?? "";
+    });
+  };
+  var applyAttribute = ({ ref, data }) => {
+    Object.entries(data).forEach(([attributeName, fn]) => {
+      if (!ref.deref()) return;
+      const value = fn?.();
+      if (!value) {
+        ref.deref().removeAttribute(attributeName);
+        return;
+      }
+      ref.deref()?.setAttribute(attributeName, value);
+    });
+  };
+  var watchBindEffect = ({ data, element }) => {
+    const ref = new WeakRef(element);
+    const { parentId: id } = data;
+    const { items } = data;
+    const unsubScribeFunction = items.flatMap(
+      ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
+        let watchIsRunning = false;
+        const states = getStateById(id);
+        return bind.map((state) => {
+          const initialStateValue = states?.[state];
+          const isArray = checkType(Array, initialStateValue);
+          const shouldRender = !isArray || initialStateValue.length > 0;
+          if (toggleClass && shouldRender) {
+            modules_exports.useFrame(() => {
+              applyClass({ ref, data: toggleClass });
+            });
+          }
+          if (toggleStyle && shouldRender) {
+            modules_exports.useFrame(() => {
+              applyStyle({ ref, data: toggleStyle });
+            });
+          }
+          if (toggleAttribute && shouldRender) {
+            modules_exports.useFrame(() => {
+              applyAttribute({ ref, data: toggleAttribute });
+            });
+          }
+          return watchById(id, state, (value) => {
+            if (!ref || !ref?.deref()) {
+              unsubScribeFunction.forEach((fn) => {
+                if (fn) fn();
+              });
+              unsubScribeFunction.length = 0;
+              return;
+            }
+            if (watchIsRunning) return;
+            watchIsRunning = true;
+            modules_exports.useNextLoop(() => {
+              modules_exports.useFrame(() => {
+                const shouldRender2 = !isArray || value.length > 0;
+                if (toggleClass && shouldRender2 && ref.deref()) {
+                  applyClass({ ref, data: toggleClass });
+                }
+                if (toggleStyle && shouldRender2 && ref.deref()) {
+                  applyStyle({ ref, data: toggleStyle });
+                }
+                if (toggleAttribute && shouldRender2 && ref.deref()) {
+                  applyAttribute({ ref, data: toggleAttribute });
+                }
+                watchIsRunning = false;
+              });
+            });
+          });
+        });
+      }
+    );
+  };
+
+  // src/js/mob/mobjs/parse/steps/getParamsForComponent.js
+  var getParamsForComponentFunction = ({
+    getState,
+    setState,
+    updateState,
+    getProxi,
+    emit,
+    emitAsync,
+    computed,
+    watch,
+    bindStore,
+    id,
+    key,
+    bindEventsId,
+    debug
+  }) => {
+    const repeatIdArray = [];
+    return {
+      bindEventsId,
+      key,
+      id,
+      getState,
+      setState,
+      updateState,
+      getProxi,
+      emit,
+      emitAsync,
+      computed,
+      watch,
+      bindStore,
+      debug,
+      repeatIdArray,
+      renderComponent: async ({
+        attachTo,
+        component,
+        position: position2 = "afterbegin",
+        clean: clean2 = true
+      }) => {
+        if (clean2) {
+          destroyComponentInsideNodeById({ id, container: attachTo });
+          attachTo.textContent = "";
+        }
+        attachTo.insertAdjacentHTML(position2, component);
+        mainStore.set(
+          MAIN_STORE_ASYNC_PARSER,
+          {
+            element: attachTo,
+            parentId: id,
+            persistent: componentIsPersistent(id)
+          },
+          { emit: false }
+        );
+        return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+      },
+      getChildren: (componentName) => {
+        return getChildrenIdByName({ id, componentName });
+      },
+      /**
+       * ts issue, prop coem as string\number\symbol, convert in string.
+       */
+      freezeProp: (prop) => freezePropById({ id, prop: prop.toString() }),
+      unFreezeProp: (prop) => unFreezePropById({ id, prop: prop.toString() }),
+      unBind: () => unBind({ id }),
+      bindProps: (data) => {
+        const dataNormalized = "props" in data ? data : { props: data };
+        return `${ATTR_BIND_PROPS}="${setBindProps({
+          ...dataNormalized,
+          parentId: dataNormalized?.forceParent ? void 0 : id
+        })}" `;
+      },
+      staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
+      remove: () => {
+        removeAndDestroyById({ id });
+      },
+      removeDOM: (element) => {
+        destroyComponentInsideNodeById({ id, container: element });
+        element.textContent = "";
+      },
+      getParentId: () => getParentIdById(id),
+      watchParent: (prop, cb) => {
+        const unsubscribeParent = watchById(getParentIdById(id), prop, cb);
+        if (unsubscribeParent)
+          setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
+      },
+      onMount: (cb) => addOnMoutCallback({ id, cb }),
+      bindEvents: (eventsData) => {
+        return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;
+      },
+      delegateEvents: (eventsData) => {
+        return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
+          eventsData
+        )}"`;
+      },
+      bindEffect: (effectData) => {
+        return `${ATTR_BIND_EFFECT}="${setBindEffect({ data: effectData, id })}"`;
+      },
+      addMethod: (name, fn) => {
+        addMethodById({ id, name, fn });
+      },
+      setRef: (value) => {
+        return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value}"`;
+      },
+      getRef: () => {
+        return getBindRefById({ id });
+      },
+      getRefs: () => {
+        return getBindRefsById({ id });
+      },
+      bindText: (strings, ...values) => {
+        const bindTextId = modules_exports.getUnivoqueId();
+        const render2 = () => renderBindText(id, strings, ...values);
+        createBindTextWatcher(id, bindTextId, render2, ...values);
+        return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render2()}`;
+      },
+      bindObject: (strings, ...values) => {
+        const keys = getBindObjectKeys(values);
+        const bindObjectId = modules_exports.getUnivoqueId();
+        const render2 = () => renderBindObject(strings, ...values);
+        createBindObjectWatcher(id, bindObjectId, keys, render2);
+        return `<mobjs-bind-object ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_OBJECT_ID}="${bindObjectId}"></mobjs-bind-object>${render2()}`;
+      },
+      invalidate: ({
+        bind,
+        render: render2,
+        beforeUpdate = () => Promise.resolve(),
+        afterUpdate = () => {
+        }
+      }) => {
+        const invalidateId = modules_exports.getUnivoqueId();
+        const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
+        const invalidateRender = () => render2();
+        let isInizialized = false;
+        setInvalidatePlaceholderMapScopedId({ invalidateId, scopeId: id });
+        setInvalidateFunction({
+          id,
+          invalidateId,
+          fn: () => {
+            if (isInizialized) return;
+            inizializeInvalidateWatch({
+              bind: (
+                /** @type{Array<string>} */
+                modules_exports.checkType(Array, bind) ? bind : [bind]
+              ),
+              watch,
+              beforeUpdate,
+              afterUpdate,
+              persistent: componentIsPersistent(id),
+              id,
+              invalidateId,
+              renderFunction: invalidateRender
+            });
+            isInizialized = true;
+            setInvalidatePlaceholderMapInitialized({
+              invalidateId
+            });
+          }
+        });
+        return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
+      },
+      repeat: ({
+        bind,
+        clean: clean2 = false,
+        beforeUpdate = () => Promise.resolve(),
+        afterUpdate = () => {
+        },
+        key: key2 = "",
+        render: render2,
+        useSync = false
+      }) => {
+        const repeatId = modules_exports.getUnivoqueId();
+        const hasKey = key2 !== "";
+        const initialState = getState()?.[bind];
+        const currentUnique = hasKey ? getUnivoqueByKey({ data: initialState, key: key2 }) : initialState;
+        setSkipAddUserComponent(true);
+        const initialRender = useSync ? getRenderWithSync({
+          id,
+          currentUnique,
+          key: key2,
+          bind,
+          repeatId,
+          hasKey,
+          render: render2
+        }) : getRenderWithoutSync({
+          id,
+          currentUnique,
+          render: render2,
+          bind,
+          repeatId,
+          key: key2,
+          hasKey
+        });
+        setSkipAddUserComponent(false);
+        let isInizialized = false;
+        setRepeaterPlaceholderMapScopeId({
+          repeatId,
+          scopeId: id
+        });
+        setRepeatFunction({
+          id,
+          repeatId,
+          fn: () => {
+            if (isInizialized) return;
+            inizializeRepeatWatch({
+              repeatId,
+              persistent: componentIsPersistent(id),
+              state: bind,
+              setState,
+              emit,
+              watch,
+              clean: clean2,
+              beforeUpdate,
+              afterUpdate,
+              key: key2,
+              id,
+              render: render2,
+              useSync
+            });
+            isInizialized = true;
+            setRepeaterPlaceholderMapInitialized({
+              repeatId
+            });
+            setRepeaterChild({ repeatId, id, bind });
+          }
+        });
+        return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialRender}`;
+      }
+    };
+  };
+
+  // src/js/mob/mobjs/component/action/state/exportState.js
+  var filterExportableStateFromObject = ({
+    componentName,
+    currentProps = {}
+  }) => {
+    const componentList = getComponentList();
+    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
+    return Object.entries(currentProps).filter(([key]) => {
+      return exportableState.includes(key);
+    }).reduce((previous, current) => {
+      const [key, value] = current;
+      return { ...previous, [key]: value };
+    }, {});
+  };
+
+  // src/js/mob/mobjs/parse/steps/getParamsFromWebComponent.js
+  var getParamsFromWebComponent = ({ element, parentIdForced }) => {
+    const id = element.getId();
+    const instanceName = element.getInstanceName();
+    const parentIdFromWebComponent = element.getParentId();
+    const parentId = parentIdFromWebComponent && parentIdFromWebComponent.length > 0 ? parentIdFromWebComponent : parentIdForced;
+    const propsId = element.getStaticPropsId();
+    const dynamicPropsId = element.getDynamicPropsid();
+    const bindEventsId = element.getBindEventsId();
+    const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
+    const propsSlot = element.getPropsFromSlotId();
+    const currentRepeaterValueId = element.getRepeatValue();
+    const componentRepeatId = element.getComponentRepeatId();
+    const key = element.getCurrentKey() ?? "";
+    const componentName = element.getComponentName();
+    const cleanProsId = propsId?.split(" ").join("");
+    const cleanProsFromSlot = propsSlot?.split(" ").join("");
+    const propsFromParent = getPropsFromParent(cleanProsId);
+    const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
+    const baseProps = { ...element.dataset };
+    const repeatPropBind = element.getRepeaterPropBind();
+    const currentRepeatValue = getComponentRepeaterState(
+      currentRepeaterValueId
+    );
+    return {
+      element,
+      props: {
+        ...filterExportableStateFromObject({
+          componentName,
+          currentProps: baseProps
+        }),
+        ...filterExportableStateFromObject({
+          componentName,
+          currentProps: propsFromParent
+        }),
+        ...filterExportableStateFromObject({
+          componentName,
+          currentProps: propsFromSlot
+        })
+      },
+      id,
+      componentName,
+      instanceName,
+      key,
+      dynamicPropsId,
+      dynamicPropsIdFromSlot,
+      repeatPropBind,
+      bindEventsId,
+      currentRepeatValue,
+      parentId,
+      componentRepeatId
+    };
+  };
+
+  // src/js/mob/mobjs/component/index.js
+  var addComponentToStore = ({
+    element,
+    instanceName = "",
+    props = {},
+    state = {},
+    methods = {},
+    key = "",
+    currentRepeaterState = DEFAULT_CURRENT_REPEATER_STATE,
+    repeaterInnerWrap,
+    repeatPropBind = "",
+    componentRepeatId = "",
+    parentPropsWatcher = [() => {
+    }],
+    refs = {},
+    destroy: destroy2 = () => {
+    },
+    freezedPros = [],
+    persistent = false,
+    child = {},
+    parentId = "",
+    id = "",
+    componentName = ""
+  }) => {
+    const store2 = modules_exports.createStore(state);
+    addPropsToState({ props, store: store2 });
+    componentMap.set(id, {
+      element,
+      componentName,
+      instanceName,
+      destroy: destroy2,
+      parentPropsWatcher,
+      refs,
+      methods,
+      key,
+      currentRepeaterState,
+      repeaterInnerWrap,
+      repeatPropBind,
+      componentRepeatId,
+      persistent,
+      id,
+      parentId,
+      freezedPros,
+      child,
+      state: store2
+    });
+    return {
+      getState: () => store2.get(),
+      setState: (prop = "", value = {}, { emit = true } = {}) => {
+        const isFreezed2 = getFreezePropStatus({ id, prop });
+        if (isFreezed2) return;
+        store2.set(prop, value, { emit: emit ?? true });
+      },
+      updateState: (prop = "", updateFunction = () => {
+      }, { emit = true, clone = false } = {}) => {
+        const isFreezed2 = getFreezePropStatus({ id, prop });
+        if (isFreezed2) return;
+        store2.update(prop, updateFunction, {
+          emit: emit ?? true,
+          clone: clone ?? false
+        });
+      },
+      getProxi: () => store2.getProxi(),
+      emit: (prop = "") => store2.emit(prop),
+      emitAsync: async (prop = "") => await store2.emitAsync(prop),
+      computed: (prop = "", fn = () => {
+      }, keys = []) => store2.computed(prop, fn, keys),
+      watch: (prop = "", cb = () => {
+      }, { wait = false, immediate = false } = {}) => store2.watch(prop, cb, {
+        wait: wait ?? false,
+        immediate: immediate ?? false
+      }),
+      bindStore: (value) => {
+        store2.bindStore(value);
+      },
+      debug: () => store2.debug()
+    };
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/getInvalidateFunctions.js
+  var getInvalidateFunctions = ({ id }) => {
+    return invalidateFunctionMap.get(id) ?? [];
+  };
+
+  // src/js/mob/mobjs/modules/repeater/action/getRepeatFunctions.js
+  var getRepeatFunctions = ({ id }) => {
+    return repeatFunctionMap.get(id) ?? [];
+  };
+
+  // src/js/mob/mobjs/parse/parseFunction.js
+  var parseComponentsRecursive = async ({
+    element,
+    functionToFireAtTheEnd = [],
+    persistent = false,
+    currentSelectors = [],
+    parentIdForced = ""
+  }) => {
+    if (!element) return;
+    const componentList = getComponentList();
+    const { componentToParse, parseSourceArray } = getParseSourceArray({
+      element,
+      currentSelectors
+    });
+    const parseLimitReached = getCurrentIterationCounter() === getDefaultComponent().maxParseIteration;
+    incrementCurrentIterationCounter();
+    if (parseLimitReached)
+      console.warn(
+        `dom parse reached max parse limit: ${getCurrentIterationCounter()}`
+      );
+    if (!componentToParse || parseLimitReached) {
+      const bindRefs = getBindRefs({ element });
+      if (Object.keys(bindRefs).length > 0) addBindRefsToComponent(bindRefs);
+      for (const item of functionToFireAtTheEnd.reverse()) {
+        const {
+          onMount,
+          initializeBindPropsWatcher,
+          fireInvalidateFunction,
+          fireRepeatFunction
+        } = item;
+        await onMount();
+        fireRepeatFunction();
+        fireInvalidateFunction();
+        initializeBindPropsWatcher();
+      }
+      functionToFireAtTheEnd.length = 0;
+      currentSelectors.length = 0;
+      applyDelegationBindEvent(element);
+      applyBindEffect(element);
+      switchBindTextMap();
+      switchBindObjectMap();
+      return;
+    }
+    const componentToParseName = componentToParse.getComponentName();
+    const userFunctionComponent = componentList?.[componentToParseName]?.componentFunction;
+    const componentParams = componentList?.[componentToParseName]?.componentParams;
+    const { scoped } = componentParams;
+    if (!userFunctionComponent) {
+      console.warn(`${componentToParseName} component is not registered.`);
+      componentToParse.remove();
+      await parseComponentsRecursive({
+        element,
+        functionToFireAtTheEnd,
+        persistent,
+        currentSelectors: parseSourceArray,
+        parentIdForced
+      });
+      return;
+    }
+    const {
+      props,
+      id,
+      componentName,
+      instanceName,
+      key,
+      dynamicPropsId,
+      dynamicPropsIdFromSlot,
+      currentRepeatValue,
+      bindEventsId,
+      parentId,
+      componentRepeatId,
+      repeatPropBind
+    } = getParamsFromWebComponent({
+      element: componentToParse,
+      parentIdForced
+    });
+    const state = componentParams?.state ?? {};
+    const {
+      getState,
+      setState,
+      updateState,
+      getProxi,
+      emit,
+      emitAsync,
+      computed,
+      watch,
+      debug,
+      bindStore
+    } = addComponentToStore({
+      element: componentToParse,
+      props,
+      state,
+      id,
+      componentName,
+      instanceName,
+      key,
+      repeatPropBind,
+      persistent,
+      parentId,
+      componentRepeatId
+    });
+    addSelfIdToParentComponent({ id });
+    if (componentRepeatId && componentRepeatId?.length > 0) {
+      setRepeaterStateById({ id, value: currentRepeatValue });
+      setRepeaterInnerWrap({
+        id,
+        repeatId: componentRepeatId,
+        element: componentToParse
+      });
+    }
+    addCurrentIdToBindProps({
+      propsId: dynamicPropsId,
+      repeatPropBind,
+      componentId: id
+    });
+    addCurrentIdToBindProps({
+      propsId: dynamicPropsIdFromSlot,
+      componentId: id
+    });
+    const objectFromComponentFunction = getParamsForComponentFunction({
+      getState,
+      setState,
+      updateState,
+      getProxi,
+      emit,
+      emitAsync,
+      computed,
+      watch,
+      id,
+      key,
+      bindEventsId,
+      debug,
+      bindStore
+    });
+    const content = await userFunctionComponent(objectFromComponentFunction);
+    const classList = componentToParse.classList;
+    const { newElement } = convertToRealElement({
+      content,
+      // @ts-ignore
+      element: componentToParse
+    });
+    if (!useSlotQuery) clearSlotPlaceHolder();
+    newElement?.classList.add(...classList);
+    addParentIdToFutureComponent({ element: newElement, id });
+    if (!newElement) {
+      return;
+    }
+    setElementById({ id, newElement });
+    const invalidateFunctions = getInvalidateFunctions({ id });
+    const repeatFunctions = getRepeatFunctions({ id });
+    if (bindEventsId) {
+      applyBindEvents({
+        element: newElement,
+        componentId: id,
+        bindEventsId
+      });
+    }
+    const shoulBeScoped = scoped ?? getDefaultComponent().scoped;
+    if (shoulBeScoped) {
+      await fireOnMountCallBack({
+        id,
+        element: newElement
+      });
+    }
+    newElement?.inizializeCustomComponent?.(objectFromComponentFunction);
+    functionToFireAtTheEnd.push({
+      onMount: async () => {
+        if (shoulBeScoped) return;
+        await fireOnMountCallBack({
+          id,
+          element: newElement
+        });
+      },
+      initializeBindPropsWatcher: () => {
+        applyBindProps({
+          componentId: id,
+          repeatPropBind,
+          inizilizeWatcher: true
+        });
+      },
+      fireInvalidateFunction: invalidateFunctions.length > 0 ? () => {
+        invalidateFunctions.forEach(({ fn }) => {
+          fn?.();
+        });
+      } : () => {
+      },
+      fireRepeatFunction: repeatFunctions.length > 0 ? () => {
+        repeatFunctions.forEach(({ fn }) => {
+          fn?.();
+        });
+      } : () => {
+      }
+    });
+    await parseComponentsRecursive({
+      element,
+      functionToFireAtTheEnd,
+      persistent,
+      currentSelectors: parseSourceArray,
+      parentIdForced
+    });
+  };
+
+  // src/js/mob/mobjs/parse/index.js
+  var parseComponents = async ({
+    element,
+    persistent = false,
+    parentIdForced = ""
+  }) => {
+    await parseComponentsRecursive({
+      element,
+      persistent,
+      parentIdForced
+    });
+    resetCurrentIterationCounter();
+  };
+  var initParseWatcher = () => {
+    mainStore.watch(
+      MAIN_STORE_ASYNC_PARSER,
+      async ({ element, parentId, persistent = false }) => {
+        await parseComponents({
+          element,
+          parentIdForced: parentId ?? "",
+          persistent
+        });
+      }
+    );
+  };
+
+  // src/js/mob/mobjs/route/constant.js
+  var HISTORY_BACK = "BACK";
+  var HISTORY_NEXT = "NEXT";
+
+  // src/js/mob/mobjs/route/scroll/index.js
+  var historyBack = [];
+  var historyNext = [];
+  var deleteLastHistoryBack = () => {
+    const arrayLenght = historyBack.length;
+    if (arrayLenght >= 1) historyBack.length = historyBack.length - 1;
+  };
+  var deleteLastHistoryNext = () => {
+    const arrayLenght = historyNext.length;
+    if (arrayLenght >= 1) historyNext.length = historyNext.length - 1;
+  };
+  var setHistoryBack = (value) => {
+    historyBack.push(value);
+  };
+  var setHistoryNext = (value) => {
+    historyNext.push(value);
+  };
+  var resetNext = () => {
+    historyNext = [];
+  };
+  var historyBackSize = () => {
+    return historyBack.length;
+  };
+  var getLastHistoryBack = () => {
+    const value = historyBack.at(-1);
+    deleteLastHistoryBack();
+    return value;
+  };
+  var getPenultimateHistoryNext = () => {
+    const value = historyNext.at(-2);
+    deleteLastHistoryNext();
+    return value;
+  };
+  var getLastHistoryNext = () => {
+    const value = historyNext.at(-1);
+    return value;
+  };
+  var getLastHistory = (direction2) => {
+    if (direction2 === HISTORY_BACK) {
+      return getLastHistoryBack();
+    }
+    return getPenultimateHistoryNext();
+  };
+
+  // src/js/mob/mobjs/component/action/removeAndDestroy/removeOrphanTempIds.js
+  var removeOrphanTempIds = () => {
+    removeOrphansPropsFromParent();
+    removeOrphansBindEvent();
+    removeOrphansBindProps();
+  };
+
+  // src/js/mob/mobjs/component/action/removeAndDestroy/removeCancellableComponent.js
+  var removeCancellableComponent = () => {
+    const cancellableComponents = [...componentMap.values()].filter(
+      ({ persistent }) => !persistent
+    );
+    cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));
+  };
+
+  // src/js/mob/mobjs/route/pageTransition/index.js
+  var pageTransition = () => {
+  };
+  var beforePageTransition = () => {
+  };
+  var setBeforePageTransition = ({ fn }) => {
+    if (!fn) return;
+    beforePageTransition = fn;
+  };
+  var setPageTransition = ({ fn }) => {
+    if (!fn) return;
+    pageTransition = fn;
+  };
+  var getBeforePageTransition = () => beforePageTransition;
+  var getPageTransition = () => pageTransition;
+
+  // src/js/mob/mobjs/route/scroll/restoreScroll.js
+  var restoreScroll = true;
+  var setRestoreScroll = (value) => {
+    restoreScroll = value;
+  };
+  var getRestoreScroll = () => restoreScroll;
+
+  // src/js/mob/mobjs/route/loadRoute/index.js
+  var loadRoute = async ({
+    route = "",
+    templateName = "",
+    restoreScroll: restoreScroll2 = true,
+    params = {},
+    scrollY: scrollY2,
+    comeFromHistory = false
+  }) => {
+    mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
+    await tick();
+    const contentElement = getContentElement();
+    if (!contentElement || !(contentElement instanceof HTMLElement)) return;
+    if (comeFromHistory) contentElement.style.visibility = "hidden";
+    const { activeRoute } = mainStore.get();
+    mainStore.set(MAIN_STORE_BEFORE_ROUTE_LEAVES, {
+      route: activeRoute.route,
+      templateName: activeRoute.templateName
+    });
+    mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, { route, templateName });
+    let skip = false;
+    const unWatchRouteChange = mainStore.watch(
+      MAIN_STORE_BEFORE_ROUTE_CHANGE,
+      () => {
+        skip = true;
+      }
+    );
+    removeOrphanTempIds();
+    mainStore.set(MAIN_STORE_ACTIVE_ROUTE, { route, templateName });
+    mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
+    const routeObejct = getRouteByName({ routeName: route });
+    const props = routeObejct?.props ?? {};
+    const content = await routeObejct?.layout?.({ params, props }) ?? "";
+    const beforePageTransition3 = getBeforePageTransition();
+    let clone = contentElement.cloneNode(true);
+    if (beforePageTransition3 && clone && !comeFromHistory) {
+      await beforePageTransition3({
+        // @ts-ignore
+        oldNode: clone,
+        oldRoute: activeRoute.route,
+        newRoute: route,
+        oldTemplateName: activeRoute.templateName,
+        newTemplateName: templateName
+      });
+      contentElement?.parentNode?.insertBefore(clone, contentElement);
+    }
+    contentElement.replaceChildren();
+    removeCancellableComponent();
+    contentElement.insertAdjacentHTML("afterbegin", content);
+    await parseComponents({ element: contentElement });
+    if (comeFromHistory) contentElement.style.visibility = "";
+    if (!skip)
+      mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, { route, templateName });
+    if (getRestoreScroll() && restoreScroll2) scrollTo(0, scrollY2);
+    const pageTransition3 = getPageTransition();
+    if (pageTransition3 && !comeFromHistory) {
+      await pageTransition3({
+        oldNode: clone,
+        newNode: contentElement,
+        oldRoute: activeRoute.route,
+        newRoute: route,
+        oldTemplateName: activeRoute.templateName,
+        newTemplateName: templateName
+      });
+      clone.remove();
+    }
+    clone = null;
+    document.body.dataset["route"] = route;
+    document.body.dataset["template"] = templateName;
+    unWatchRouteChange?.();
+    mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
+  };
+
+  // src/js/mob/mobjs/route/utils.js
+  var getRouteModule = ({ url = "" }) => {
+    const index = getIndex();
+    const pageNotFound3 = getPageNotFound();
+    if (url === "") return index;
+    return getRouteByName({ routeName: url }) ? url : pageNotFound3;
+  };
+  var getTemplateName = ({ url = "" }) => {
+    return getRouteByName({ routeName: url })?.templateName ?? "";
+  };
+  var getRestoreScrollVale = ({ url = "" }) => {
+    return getRouteByName({ routeName: url })?.restoreScroll ?? true;
+  };
+
+  // src/js/mob/mobjs/route/index.js
+  var previousHash = "";
+  var previousParamsToPush = "";
+  var currentSearch;
+  var historyDirection = "back";
+  var previousHistory;
+  var currentHistory;
+  var sanitizeParams = (value) => {
+    return value.replace("?", "").replace("/", "");
+  };
+  var sanitizeHash = (value) => {
+    return value.replace("#", "").replace("/", "").replace(".", "");
+  };
+  var getParams = (value) => {
+    return value.split("&").reduce((previous, current) => {
+      const currentParams = current.split("=");
+      const key = sanitizeParams(currentParams?.[0] ?? "");
+      const value2 = currentParams?.[1];
+      return key && key.length > 0 ? { ...previous, [key]: value2 } : previous;
+    }, {});
+  };
+  var hashHandler = async () => {
+    const historyObejct = { time: modules_exports.getTime(), scrollY: window.scrollY };
+    const { routeIsLoading } = mainStore.get();
+    if (routeIsLoading) {
+      history.replaceState(
+        { nextId: historyObejct },
+        "",
+        `#${previousHash}${previousParamsToPush}`
+      );
+      return;
+    }
+    const hashOriginal = globalThis.location.hash.slice(1);
+    const parts = hashOriginal.split("?");
+    const search = sanitizeParams(parts?.[1] ?? "");
+    const hash = sanitizeHash(parts?.[0] ?? "");
+    const params = getParams(currentSearch ?? search);
+    const paramsToPush = currentSearch || Object.keys(search).length > 0 ? `?${currentSearch ?? search}` : "";
+    if (!currentHistory)
+      history.replaceState(
+        { nextId: historyObejct },
+        "",
+        `#${hash}${paramsToPush}`
+      );
+    currentSearch = void 0;
+    previousHash = hash;
+    previousParamsToPush = paramsToPush;
+    if (!currentHistory) {
+      setHistoryBack(historyObejct);
+    }
+    if (currentHistory && historyDirection === HISTORY_BACK) {
+      setHistoryNext(historyObejct);
+    }
+    if (currentHistory && historyDirection === HISTORY_NEXT) {
+      setHistoryBack(getLastHistoryNext());
+    }
+    await loadRoute({
+      route: getRouteModule({ url: hash }),
+      templateName: getTemplateName({ url: hash }),
+      restoreScroll: getRestoreScrollVale({ url: hash }),
+      params,
+      scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY ?? 0 : 0,
+      comeFromHistory: currentHistory ? true : false
+    });
+  };
+  var router = () => {
+    hashHandler();
+    globalThis.addEventListener("popstate", (event) => {
+      currentHistory = event?.state?.nextId;
+      if (currentHistory && !previousHistory && historyBackSize() > 0) {
+        previousHistory = currentHistory;
+        historyDirection = HISTORY_BACK;
+        return;
+      }
+      if (currentHistory && previousHistory && previousHistory?.time > currentHistory?.time && historyBackSize() > 0) {
+        previousHistory = currentHistory;
+        historyDirection = HISTORY_BACK;
+        return;
+      }
+      if (currentHistory && previousHistory && previousHistory?.time < currentHistory?.time) {
+        previousHistory = currentHistory;
+        historyDirection = HISTORY_NEXT;
+        return;
+      }
+      previousHistory = void 0;
+      historyDirection = "";
+      resetNext();
+    });
+    globalThis.addEventListener("hashchange", () => {
+      hashHandler();
+    });
+  };
+  var loadUrl = ({ url = "" }) => {
+    const parts = url.split("?");
+    const hash = sanitizeHash(parts?.[0] ?? "");
+    const search = sanitizeParams(parts?.[1] ?? "");
+    if (search.length > 0) currentSearch = search;
+    globalThis.location.hash = hash;
+    if (hash === previousHash || previousHash === "") {
+      globalThis.dispatchEvent(new HashChangeEvent("hashchange"));
+    }
+  };
+
+  // src/js/mob/mobjs/inizializeApp/index.js
+  var inizializeApp = async ({
+    rootId,
+    wrapper: wrapper2,
+    contentId,
+    routes: routes2 = [],
+    afterInit = () => {
+    },
+    index = "home",
+    pageNotFound: pageNotFound3 = "pageNotFound",
+    beforePageTransition: beforePageTransition3,
+    pageTransition: pageTransition3,
+    restoreScroll: restoreScroll2 = true
+  }) => {
+    const rootEl = (
+      /** @type{HTMLElement} */
+      document.querySelector(rootId)
+    );
+    const wrapperDOM = await wrapper2();
+    if (!contentId || !rootEl) return;
+    setContentId({ contentId });
+    setRoot({ element: rootEl });
+    setPageTransition({ fn: pageTransition3 });
+    setBeforePageTransition({ fn: beforePageTransition3 });
+    setRestoreScroll(restoreScroll2);
+    initParseWatcher();
+    setComponentList();
+    setRouteList(routes2);
+    setIndex({ routeName: index });
+    setPageNotFound({ routeName: pageNotFound3 });
+    rootEl.insertAdjacentHTML("afterbegin", wrapperDOM);
+    setContentElement();
+    await parseComponents({ element: rootEl, persistent: true });
+    modules_exports.useFrameIndex(() => {
+      modules_exports.useNextTick(() => {
+        afterInit();
+      });
+    }, frameDelayAfterParse);
+    router();
+  };
+
+  // src/js/mob/mobjs/modules/invalidate/action/getNumberOfActiveInvalidate.js
+  var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
+
+  // src/js/mob/mobjs/modules/repeater/action/getNumberOfActiveRepeater.js
+  var getNumberOfActiveRepeater = () => {
+    return repeatIdPlaceHolderMap.size;
+  };
+
+  // src/js/mob/mobMotion/core.js
+  var core_exports = {};
+  __export(core_exports, {
+    clamp: () => clamp3,
+    getDefault: () => getDefault,
+    mq: () => mq2,
+    printDefault: () => printDefault,
+    setDefault: () => setDefault
+  });
+
   // src/js/mob/mobMotion/animation/spring/springConfig.js
   var springPresetConfig = {
     default: {
@@ -4758,7 +9698,7 @@
     }
     return Number.parseFloat(Number.parseFloat(x).toFixed(4));
   };
-  var clamp2 = (num, min2, max2) => {
+  var clamp3 = (num, min2, max2) => {
     return Math.min(Math.max(num, min2), max2);
   };
   var lerp = (start, end, amt) => {
@@ -12504,7 +17444,7 @@
       );
       const partial = this.isReverse ? this.timeAtReverse - (this.timeElapsed - this.timeAtReverse) : this.timeElapsed;
       if (!this.isInPause) {
-        this.currentTime = clamp2(partial, 0, this.duration);
+        this.currentTime = clamp3(partial, 0, this.duration);
         if (!this.skipFirstRender) {
           this.sequencers.forEach((item) => {
             item.draw({
@@ -14001,7 +18941,7 @@
      * @returns {number}
      */
     #getAnticipate(scrollTop) {
-      const step = this.#afterJustPinned && this.#afterJustPinnedCounter < 3 ? this.#lastStep : clamp2(Math.abs(scrollTop - this.#prevScroll), 0, 250);
+      const step = this.#afterJustPinned && this.#afterJustPinnedCounter < 3 ? this.#lastStep : clamp3(Math.abs(scrollTop - this.#prevScroll), 0, 250);
       if (this.#afterJustPinned && this.#afterJustPinnedCounter < this.#numeCycleToFreeze) {
         this.#afterJustPinnedCounter++;
       } else {
@@ -15743,7 +20683,7 @@
           return this.#invertSide ? partialVal : maxVal - partialVal;
         }
       })();
-      const clampValue = maxVal > 0 ? -clamp2(valePerDirections, 0, maxVal) : -clamp2(valePerDirections, maxVal, 0);
+      const clampValue = maxVal > 0 ? -clamp3(valePerDirections, 0, maxVal) : -clamp3(valePerDirections, maxVal, 0);
       this.#fixedShouldRender = this.#prevFixedClamp !== clampValue;
       this.#prevFixedClamp = clampValue;
       if (!this.#fixedShouldRender && !this.#firstTime) return this.#endValue;
@@ -15806,7 +20746,7 @@
       const vhStart = this.#scrollerHeight - this.#scrollerHeight / 100 * this.#opacityStart;
       const value = this.#align == MobScrollerConstant.ALIGN_START ? -this.#scrollerScroll * -1 : (this.#scrollerScroll + vhLimit - this.#offset) * -1;
       const valClamped = this.#align == MobScrollerConstant.ALIGN_START ? 1 - value / this.#offset : 1 - value / (this.#scrollerHeight - vhStart - vhLimit);
-      return clamp2(valClamped, 0, 1);
+      return clamp3(valClamped, 0, 1);
     }
     /**
      *
@@ -16043,5147 +20983,138 @@
     });
   }
 
-  // src/js/mob/mobjs/modules.js
-  var modules_exports2 = {};
-  __export(modules_exports2, {
-    afterRouteChange: () => afterRouteChange,
-    beforeRouteChange: () => beforeRouteChange,
-    beforeRouteLeave: () => beforeRouteLeave,
-    componentMap: () => componentMap,
-    createComponent: () => createComponent,
-    eventDelegationMap: () => eventDelegationMap,
-    getActiveParams: () => getActiveParams,
-    getActiveRoute: () => getActiveRoute,
-    getChildrenIdByName: () => getChildrenIdByName,
-    getComponentNameById: () => getComponentNameById,
-    getDebugMode: () => getDebugMode,
-    getIdByInstanceName: () => getIdByInstanceName,
-    getNumberOfActiveInvalidate: () => getNumberOfActiveInvalidate,
-    getNumberOfActiveRepeater: () => getNumberOfActiveRepeater,
-    getParentIdById: () => getParentIdById,
-    getPropsFromParent: () => getPropsFromParent,
-    getStateById: () => getStateById,
-    getStateByName: () => getStateByName,
-    getTree: () => getTree,
-    inizializeApp: () => inizializeApp,
-    loadUrl: () => loadUrl,
-    mainStore: () => mainStore,
-    onRouteLoading: () => onRouteLoading,
-    removeAndDestroyById: () => removeAndDestroyById,
-    setDefaultComponent: () => setDefaultComponent,
-    setStateById: () => setStateById,
-    setStateByName: () => setStateByName,
-    staticProps: () => staticProps,
-    tempDelegateEventMap: () => tempDelegateEventMap,
-    tick: () => tick,
-    updateStateByName: () => updateStateByName,
-    useComponent: () => useComponent,
-    useMethodArrayByName: () => useMethodArrayByName,
-    useMethodByName: () => useMethodByName,
-    watchById: () => watchById
+  // src/js/data/index.js
+  var commonData;
+  var getCommonData = () => commonData;
+  var loadData = async () => {
+    commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data) => data).catch((error) => console.warn("Something went wrong.", error));
+  };
+
+  // src/js/pageTransition/index.js
+  var scrollY = 0;
+  modules_exports2.beforeRouteChange(() => {
+    scrollY = window.scrollY;
   });
+  var beforePageTransition2 = async ({ oldNode }) => {
+    oldNode.classList.remove("current-route");
+    oldNode.classList.add("fake-content");
+    oldNode.style.position = "fixed";
+    oldNode.style.zIndex = "10";
+    oldNode.style.top = "var(--header-height)";
+    oldNode.style.left = "0";
+    oldNode.style.width = "100vw";
+    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
+    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
+  };
+  var pageTransition2 = async ({
+    oldNode,
+    newNode,
+    oldRoute,
+    newRoute
+  }) => {
+    if (core_exports.mq("max", "desktop") || oldRoute === newRoute) return;
+    newNode.style.opacity = "0";
+    const oldNodeTween = tween_exports.createTimeTween({
+      data: { opacity: 1 },
+      duration: 300
+    });
+    const newNodeTween = tween_exports.createTimeTween({
+      data: { opacity: 0 },
+      duration: 500
+    });
+    oldNodeTween.subscribe(({ opacity }) => {
+      oldNode.style.opacity = opacity;
+    });
+    newNodeTween.subscribe(({ opacity }) => {
+      newNode.style.opacity = opacity;
+    });
+    let tl = timeline_exports.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
+    await tl.play();
+    tl.destroy();
+    tl = null;
+    newNode.style.removeProperty("opacity");
+    newNode.classList.add("current-route");
+  };
 
-  // src/js/mob/mobjs/mainStore/constant.js
-  var MAIN_STORE_ACTIVE_ROUTE = "activeRoute";
-  var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
-  var MAIN_STORE_BEFORE_ROUTE_LEAVES = "beforeRouteLeave";
-  var MAIN_STORE_BEFORE_ROUTE_CHANGE = "beforeRouteChange";
-  var MAIN_STORE_AFTER_ROUTE_CHANGE = "afterRouteChange";
-  var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
-  var MAIN_STORE_ASYNC_PARSER = "repeaterParserAsync";
+  // src/js/component/lib/utils/getTriangle.js
+  var getTrinangle = (className = "") => {
+    return renderHtml`
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        <svg
+            width="685.75171"
+            height="641.88232"
+            viewBox="0 0 181.43847 169.83136"
+            version="1.1"
+            id="svg5"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:svg="http://www.w3.org/2000/svg"
+            class="${className}"
+        >
+            <g id="layer1" transform="translate(0.29348888,0.2718794)">
+                <path
+                    id="path1107"
+                    transform="matrix(-0.26371722,0.02139075,-0.02139075,-0.26371722,201.63975,129.69612)"
+                    d="M 719.78423,551.21438 37.632123,494.16328 772.89469,-88.468152 Z"
+                />
+            </g>
+        </svg>
+    `;
+  };
 
-  // src/js/mob/mobjs/mainStore/mainStore.js
-  var mainStore = modules_exports.createStore(
-    /** @type{MobStoreParams<import('./type').MainStore>} */
+  // src/js/component/common/typography/titles/title.js
+  var shouldUseTrinagle = (tag) => {
+    return tag === `h1` ? getTrinangle() : "";
+  };
+  var TitleFn = ({ getState }) => {
+    const { tag, color, isBold } = getState();
+    const colorClass = `is-${color}`;
+    const boldClass = isBold ? `is-bold` : "";
+    return renderHtml`<${tag} class="mob-title ${colorClass} ${boldClass}">
+        <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
+        <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
+            <mobjs-slot></mobjs-slot>
+        </${tag}>`;
+  };
+
+  // src/js/component/common/typography/titles/definition.js
+  var Title = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').Title>} */
     {
-      [MAIN_STORE_ACTIVE_ROUTE]: () => ({
-        value: { route: "", templateName: "" },
-        type: "any",
-        skipEqual: false
-      }),
-      [MAIN_STORE_ACTIVE_PARAMS]: () => ({
-        value: {},
-        type: "any",
-        skipEqual: false
-      }),
-      [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
-        value: { route: "", templateName: "" },
-        type: "any",
-        skipEqual: false
-      }),
-      [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
-        value: { route: "", templateName: "" },
-        type: "any",
-        skipEqual: false
-      }),
-      [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
-        value: { route: "", templateName: "" },
-        type: "any",
-        skipEqual: false
-      }),
-      [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
-        value: false,
-        type: Boolean
-      }),
-      [MAIN_STORE_ASYNC_PARSER]: {
-        element: () => ({
-          value: document.createElement("div"),
-          type: HTMLElement,
-          skipEqual: false
-        }),
-        parentId: () => ({
-          value: "",
-          type: String,
-          skipEqual: false
-        }),
-        persistent: () => ({
-          value: false,
-          type: Boolean,
-          skipEqual: false
-        })
-      }
-    }
-  );
-
-  // src/js/mob/mobjs/mainStore/mainStoreApi.js
-  var beforeRouteChange = (callback2) => {
-    return mainStore.watch(
-      MAIN_STORE_BEFORE_ROUTE_CHANGE,
-      ({ route, templateName }) => {
-        callback2({ route, templateName });
-      }
-    );
-  };
-  var beforeRouteLeave = (callback2) => {
-    return mainStore.watch(
-      MAIN_STORE_BEFORE_ROUTE_LEAVES,
-      ({ route, templateName }) => {
-        callback2({ route, templateName });
-      }
-    );
-  };
-  var afterRouteChange = (callback2) => {
-    return mainStore.watch(
-      MAIN_STORE_AFTER_ROUTE_CHANGE,
-      ({ route, templateName }) => {
-        callback2({ route, templateName });
-      }
-    );
-  };
-  var onRouteLoading = (callback2) => {
-    return mainStore.watch(MAIN_STORE_ROUTE_IS_LOADING, (state) => {
-      callback2(state);
-    });
-  };
-  var getActiveRoute = () => {
-    const { activeRoute } = mainStore.get();
-    return activeRoute;
-  };
-  var getActiveParams = () => {
-    const { activeParams } = mainStore.get();
-    return activeParams;
-  };
-
-  // src/js/mob/mobjs/constant.js
-  var ATTR_IS_COMPONENT = "data-mobjs";
-  var ATTR_COMPONENT_ID = "componentid";
-  var ATTR_BIND_TEXT_ID = "bindtextid";
-  var ATTR_BIND_OBJECT_ID = "bindobjectid";
-  var ATTR_PROPS = "staticprops";
-  var ATTR_BIND_PROPS = "bindprops";
-  var ATTR_INSTANCENAME = "name";
-  var ATTR_COMPONENT_NAME = "name";
-  var ATTR_SLOT = "slot";
-  var ATTR_CHILD_REPEATID = "repeaterchild";
-  var ATTR_KEY = "key";
-  var ATTR_CURRENT_LIST_VALUE = "currentRepeaterValue";
-  var ATTR_REPEATER_PROP_BIND = "repeatPropBind";
-  var ATTR_BIND_EVENTS = "bindevents";
-  var ATTR_WEAK_BIND_EVENTS = "weakbindevents";
-  var ATTR_BIND_EFFECT = "bindeffect";
-  var ATTR_PARENT_ID = "parentid";
-  var ATTR_BIND_REFS_ID = "bindrefid";
-  var ATTR_BIND_REFS_NAME = "bindrefname";
-  var ATTR_INVALIDATE = "invalidateid";
-  var ATTR_MOBJS_REPEAT = "mobjsrepeat";
-  var frameDelayAfterParse = 5;
-  var DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
-  var QUEQUE_TYPE_BINDPROPS = "QUEQUE_BINDPROPS";
-  var QUEQUE_TYPE_REPEATER = "QUEQUE_REPEATER";
-  var QUEQUE_TYPE_INVALIDATE = "QUEQUE_INVALIDATE";
-
-  // src/js/mob/mobjs/modules/repeater/repeatIdHostMap.js
-  var repeatIdHostMap = /* @__PURE__ */ new Map();
-
-  // src/js/mob/mobjs/modules/repeater/repeatIdPlaceHolderMap.js
-  var repeatIdPlaceHolderMap = /* @__PURE__ */ new Map();
-
-  // src/js/mob/mobjs/modules/repeater/action/getRepeaterParent.js
-  var getRepeatParent = ({ id }) => {
-    if (!repeatIdPlaceHolderMap.has(id)) {
-      return;
-    }
-    if (repeatIdHostMap.has(id)) {
-      const host = repeatIdHostMap.get(id);
-      host?.removeCustomComponent();
-      host?.remove();
-      repeatIdHostMap.delete(id);
-    }
-    const parent = repeatIdPlaceHolderMap.get(id);
-    return parent?.element;
-  };
-
-  // src/js/mob/mobjs/component/store.js
-  var componentMap = /* @__PURE__ */ new Map();
-
-  // src/js/mob/mobjs/component/action/repeater.js
-  var setRepeaterStateById = ({ id = "", value }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    componentMap.set(id, {
-      ...item,
-      currentRepeaterState: value
-    });
-  };
-  var getFirstChildOfElementParentOfElement = ({ rootNode, currentNode }) => {
-    if (!currentNode || !rootNode.contains(currentNode)) return;
-    if (currentNode.parentElement === rootNode) return currentNode;
-    return getFirstChildOfElementParentOfElement({
-      rootNode,
-      currentNode: currentNode.parentElement
-    });
-  };
-  var findFirstRepeaterElementWrap = ({ rootNode, node }) => {
-    if (!rootNode) return;
-    return getFirstChildOfElementParentOfElement({
-      rootNode,
-      currentNode: node.parentElement
-    });
-  };
-  var getRepeaterStateById = ({ id = "" }) => {
-    if (!id || id === "") return DEFAULT_CURRENT_REPEATER_STATE;
-    const item = componentMap.get(id);
-    const currentRepeaterState = item?.currentRepeaterState;
-    if (!currentRepeaterState) return DEFAULT_CURRENT_REPEATER_STATE;
-    return currentRepeaterState;
-  };
-  var setRepeaterInnerWrap = ({ id = "", repeatId = "", element }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const repeaterParentElement = getRepeatParent({
-      id: repeatId
-    });
-    const elementWrapper = findFirstRepeaterElementWrap({
-      rootNode: (
-        /** @type {HTMLElement} */
-        repeaterParentElement
-      ),
-      node: (
-        /** @type {HTMLElement} */
-        element
-      )
-    });
-    componentMap.set(id, {
-      ...item,
-      repeaterInnerWrap: elementWrapper
-    });
-  };
-  var getRepeaterInnerWrap = ({ id }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const repeaterInnerWrap = item?.repeaterInnerWrap;
-    return repeaterInnerWrap;
-  };
-
-  // src/js/mob/mobjs/modules/repeater/utils.js
-  var getNewElement = (current = [], previous = [], key = "") => {
-    return current.filter((el) => {
-      const value = el?.[key];
-      return !previous.some((a) => a?.[key] === value);
-    });
-  };
-  var mixPreviousAndCurrentData = (current, previous, key) => {
-    return current.map((el, index) => {
-      const value = el?.[key];
-      const isNewElement = !previous.some((a) => a?.[key] === value);
-      return isNewElement ? { isNewElement: true, keyValue: el?.[key], index } : { isNewElement: false, keyValue: el?.[key], index };
-    });
-  };
-  var arrayhaskey = ({ arr = [], key = "" }) => {
-    return arr.every((item) => {
-      return modules_exports.checkType(Object, item) && key in item;
-    });
-  };
-  var listKeyExist = ({ current, previous, key }) => {
-    return arrayhaskey({ arr: current, key }) && arrayhaskey({ arr: previous, key });
-  };
-  var getUnivoqueByKey = ({ data = [], key = "" }) => {
-    return data.filter(
-      (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
-    );
-  };
-  var chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
-    const initialState = {};
-    return previousChildren.length === 0 ? Object.values(
-      /**
-       * Chunk children by currentValue clean.
-       */
-      children.reduce((previous, current) => {
-        const { index } = getRepeaterStateById({ id: current });
-        if (index in previous) {
-          return {
-            ...previous,
-            [index]: [...previous[index], current]
-          };
-        }
-        return { ...previous, [index]: [current] };
-      }, initialState)
-    ) : Object.values(
-      /**
-       * New element has the same index of persistent element.
-       * Current value of persistent element is not updated.
-       * Mark new index element with `_` char
-       */
-      children.reduce((previous, current) => {
-        const { index } = getRepeaterStateById({ id: current });
-        const indexParsed = previousChildren.includes(current) ? `${index}` : `_${index}`;
-        const values = previous?.[indexParsed];
-        if (values) {
-          return {
-            ...previous,
-            [indexParsed]: [...values, current]
-          };
-        }
-        return { ...previous, [indexParsed]: [current] };
-      }, initialState)
-    );
-  };
-
-  // src/js/mob/mobjs/component/action/element.js
-  var setElementById = ({
-    id = "",
-    newElement = document.createElement("div")
-  }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    componentMap.set(id, { ...item, element: newElement });
-  };
-  var getElementById = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    return item?.element;
-  };
-  var getIdByElement = ({ element }) => {
-    const item = [...componentMap.values()].find((item2) => {
-      const currentElement = item2?.element;
-      return currentElement === element;
-    });
-    return item?.id ?? "";
-  };
-  var getElementByKeyAndRepeatId = ({
-    keyValue = "",
-    repeatId = ""
-  }) => {
-    if (keyValue?.length === 0) return;
-    const values = [...componentMap.values()];
-    const valuesFiltered = values.find(
-      (item) => `${item.key}` === `${keyValue}` && item.componentRepeatId === repeatId
-    );
-    return valuesFiltered?.element;
-  };
-  var getIdsByByRepeatId = ({ id, repeatId, filterById = false }) => {
-    if (!id || id === "") return [];
-    const values = [...componentMap.values()];
-    return values.filter((item) => {
-      return item?.componentRepeatId === repeatId;
-    }).filter((item) => {
-      if (filterById) return item?.parentId === id;
-      return item;
-    }).map((item) => {
-      return item.id;
-    });
-  };
-
-  // src/js/mob/mobjs/component/action/children.js
-  var getChildrenIdByName = ({ id = "", componentName = "" }) => {
-    if (!id || id === "") return [];
-    const item = componentMap.get(id);
-    const child = item?.child;
-    if (!child) {
-      console.warn(`getChildIdById failed no id found`);
-      return [];
-    }
-    return child?.[componentName] ?? [];
-  };
-  var getOrderedChunkByCurrentRepeatValue = ({
-    children,
-    key,
-    current,
-    useIndex = false
-  }) => {
-    const currentUnivoque = useIndex ? current : getUnivoqueByKey({ data: current, key });
-    const childrenParsed = children.map((items) => {
-      const { index: indexValue, current: currentValue } = getRepeaterStateById({
-        id: items?.[0]
-      });
-      return {
-        index: indexValue,
-        key: currentValue?.[key],
-        items
-      };
-    });
-    const currentParsed = currentUnivoque.map((item, index) => ({
-      index,
-      key: item?.[key]
-    }));
-    const orderdChildren = currentParsed.map((currentItem) => {
-      const prop = useIndex ? "index" : "key";
-      return childrenParsed.find(
-        (childrenItem) => childrenItem[prop] === currentItem[prop]
-      );
-    }).filter((item) => item !== void 0);
-    return orderdChildren.map(({ items }) => items);
-  };
-
-  // src/js/mob/mobjs/route/domRef/content.js
-  var contentAttributeId = "";
-  var DOMContentElement;
-  var setContentId = ({ contentId = "" }) => {
-    contentAttributeId = contentId;
-  };
-  var setContentElement = () => {
-    DOMContentElement = document?.querySelector(contentAttributeId);
-  };
-  var getContentElement = () => DOMContentElement;
-
-  // src/js/mob/mobjs/component/action/component.js
-  var getComponentNameById = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const component = item?.componentName;
-    if (!component) {
-      console.warn(`getComponentNameById failed no id found`);
-      return null;
-    }
-    return component;
-  };
-  var getComponentNameByElement = (element) => {
-    if (!element) return;
-    const componentName = [...componentMap.values()].find(
-      ({ element: currentElement }) => {
-        return currentElement === element;
-      }
-    );
-    if (!componentName) return "";
-    return componentName?.componentName;
-  };
-  var getIdByInstanceName = (name = "") => {
-    if (!name) return;
-    const instance = [...componentMap.values()].find(({ instanceName }) => {
-      return instanceName === name;
-    });
-    const id = instance?.id;
-    if (!id) return;
-    return id;
-  };
-  var getIdArrayByInstanceName = (name = "") => {
-    if (!name) return [];
-    return [...componentMap.values()].filter(({ instanceName }) => instanceName === name).map(({ id }) => id);
-  };
-  var componentIsPersistent = (id = "") => {
-    if (!id || id === "") return false;
-    const item = componentMap.get(id);
-    const element = item?.element;
-    if (!element) return false;
-    const contentElement = getContentElement();
-    return !contentElement?.contains(element);
-  };
-
-  // src/js/mob/mobjs/component/action/getTree.js
-  var getTreeRecursive = ({ chunk }) => {
-    return chunk.reduce((previous, current) => {
-      const [key, value] = current;
-      const { child, componentName, instanceName } = value;
-      const childrenId = new Set(Object.values(child ?? {}).flat());
-      const childrenChunk = [...componentMap.entries()].filter(
-        ([key2]) => childrenId.has(key2)
-      );
-      return [
-        ...previous,
-        {
-          id: key,
-          componentName,
-          instanceName,
-          children: getTreeRecursive({
-            chunk: childrenChunk
-          })
-        }
-      ];
-    }, []);
-  };
-  var getTree = () => {
-    const chunk = [...componentMap.entries()].filter(
-      ([, value]) => !value?.parentId || value?.parentId === ""
-    );
-    return getTreeRecursive({ chunk });
-  };
-
-  // src/js/mob/mobjs/component/action/methods.js
-  var addMethodById = ({ id, name, fn }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const methods = item?.methods;
-    if (!methods) return;
-    if (name in methods) {
-      console.warn(`Method ${name}, is already used by ${id}`);
-      return;
-    }
-    componentMap.set(id, {
-      ...item,
-      methods: { ...methods, [name]: fn }
-    });
-  };
-  var getMethodsById = ({ id }) => {
-    if (!id || id === "") return {};
-    const item = componentMap.get(id);
-    const methods = item?.methods;
-    if (!methods) return {};
-    if (Object.keys(methods).length === 0) {
-      console.warn(`no methods available for ${id} component`);
-      return {};
-    }
-    return methods;
-  };
-  var useMethodByName = (name) => {
-    const id = getIdByInstanceName(name);
-    if (!id || id === "") return {};
-    const methods = getMethodsById({ id });
-    if (Object.keys(methods).length === 0) {
-      console.warn(`no methods available for ${name} component`);
-      return {};
-    }
-    return methods;
-  };
-  var useMethodArrayByName = (name) => {
-    const ids = getIdArrayByInstanceName(name);
-    return ids.map((id) => getMethodsById({ id }));
-  };
-
-  // src/js/mob/mobjs/parse/useQuery.js
-  var useQuery = false;
-  var forceComponentChildQuery = true;
-  var useSlotQuery = false;
-
-  // src/js/mob/mobjs/query/queryAllFutureComponent.js
-  function* walkPreOrder(node) {
-    if (!node) return;
-    yield node;
-    for (const child of node.children) {
-      yield* walkPreOrder(child);
-    }
-  }
-  function selectAll(root2, firstOccurrence) {
-    const result = [];
-    for (const node of walkPreOrder(root2)) {
-      if (result.length > 0 && firstOccurrence) break;
-      if (node?.getIsPlaceholder?.()) {
-        result.push(node);
-      }
-    }
-    return result;
-  }
-  var queryAllFutureComponent = (node, firstOccurence = true) => {
-    let result = [];
-    const root2 = node || document.body;
-    for (const child of root2.children) {
-      result = [...result, ...selectAll(child, firstOccurence)];
-    }
-    return result;
-  };
-
-  // src/js/mob/mobjs/modules/userComponent/index.js
-  var userPlaceholder = /* @__PURE__ */ new Set();
-  var skipAddUserComponent = false;
-  var addUserPlaceholder = (element) => {
-    userPlaceholder.add(element);
-  };
-  var removeUserPlaceholder = (element) => {
-    userPlaceholder.delete(element);
-  };
-  var getFirstUserChildPlaceHolder = (element) => {
-    const userComponent = [...userPlaceholder].find((item) => {
-      return element?.contains(item) && item.getIsPlaceholder();
-    });
-    if (!userComponent) return [];
-    userPlaceholder.delete(userComponent);
-    return [userComponent];
-  };
-  var getAllUserChildPlaceholder = ({ element }) => {
-    return [...userPlaceholder].filter((component) => {
-      return element.contains(component) && element !== component && component.getIsPlaceholder?.();
-    }) ?? [];
-  };
-  var getAllUserComponentUseNamedSlot = ({ element }) => {
-    return [...userPlaceholder].filter((component) => {
-      return element.contains(component) && element !== component && component.getIsPlaceholder?.() && component?.getSlotPosition?.();
-    }) ?? [];
-  };
-  var getUserChildPlaceholderSize = () => {
-    return userPlaceholder.size;
-  };
-  var setSkipAddUserComponent = (value) => {
-    skipAddUserComponent = value;
-  };
-  var getSkipAddUserComponent = () => skipAddUserComponent;
-
-  // src/js/mob/mobjs/component/utils.js
-  var updateChildrenArray = ({
-    currentChild,
-    id = "",
-    componentName = ""
-  }) => {
-    const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = [...childGroupByName, id];
-    return currentChild;
-  };
-  var removeChildFromChildrenArray = ({
-    currentChild,
-    id = "",
-    componentName = ""
-  }) => {
-    const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = childGroupByName.filter(
-      (currentId) => {
-        return id !== currentId;
-      }
-    );
-    return currentChild;
-  };
-  var addPropsToState = ({ props, store: store2 }) => {
-    Object.entries(props).forEach(([key, value]) => {
-      store2.set(key, value);
-    });
-  };
-
-  // src/js/mob/mobjs/component/action/parent.js
-  var getParentIdById = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentId = item?.parentId;
-    if (!parentId) {
-      return;
-    }
-    return parentId;
-  };
-  var addSelfIdToParentComponent = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentId = item?.parentId;
-    const componentName = item?.componentName ?? "";
-    if (!parentId) return;
-    const value = componentMap.get(parentId);
-    if (!value) return;
-    const { child } = value;
-    if (!child) return;
-    componentMap.set(parentId, {
-      ...value,
-      child: {
-        ...child,
-        ...updateChildrenArray({
-          currentChild: child,
-          id,
-          componentName
-        })
-      }
-    });
-  };
-  var addParentIdToFutureComponent = ({ element, id }) => {
-    if (!element) return;
-    if (useQuery || forceComponentChildQuery) {
-      const children = queryAllFutureComponent(element, false);
-      children.forEach((child) => {
-        child.setParentId(id);
-      });
-      return;
-    }
-    const childrenComponent = getAllUserChildPlaceholder({ element });
-    childrenComponent.forEach((component) => {
-      component.setParentId(id);
-    });
-  };
-  var getFallBackParentByElement = ({ element }) => {
-    if (!element) return;
-    return [...componentMap.values()].findLast((item) => {
-      return item.element.contains(element) && item.element !== element;
-    })?.id;
-  };
-  var compareIdOrParentIdRecursive = ({ id, compareValue }) => {
-    if (id === compareValue) return true;
-    const item = componentMap.get(id);
-    if (!item) return false;
-    const parentId = item?.parentId ?? "";
-    return compareIdOrParentIdRecursive({ id: parentId, compareValue });
-  };
-
-  // src/js/mob/mobjs/modules/bindProps/bindPropsMap.js
-  var bindPropsMap = /* @__PURE__ */ new Map();
-
-  // src/js/mob/mobjs/modules/bindProps/removeCurrentIdToBindProps.js
-  var removeCurrentIdToBindProps = ({ componentId }) => {
-    if (!componentId) return;
-    for (const [key, value] of bindPropsMap) {
-      const { componentId: currentComponentId } = value;
-      if (currentComponentId === componentId) {
-        bindPropsMap.delete(key);
-      }
-    }
-  };
-
-  // src/js/mob/mobjs/component/action/state/getStateById.js
-  var getStateById = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const state = item?.state;
-    return state?.get();
-  };
-
-  // src/js/mob/mobjs/component/action/watch.js
-  var watchById = (id = "", prop = "", cb = () => {
-  }, { wait = false } = {}) => {
-    if ((!id || id === "") && (!prop || prop === "")) return;
-    const item = componentMap.get(id);
-    const state = item?.state;
-    return state?.watch(prop, cb, { wait: wait ?? false });
-  };
-
-  // src/js/mob/mobjs/modules/bindObject/index.js
-  var bindObjectMap = /* @__PURE__ */ new Map();
-  var bindObjectPlaceHolderMap = /* @__PURE__ */ new Map();
-  var addBindObjectPlaceHolderMap = ({
-    host,
-    componentId,
-    bindObjectId
-  }) => {
-    bindObjectPlaceHolderMap.set(host, {
-      componentId,
-      bindObjectId
-    });
-  };
-  var getBindObjectKeys = (values) => {
-    return values.map(
-      (item) => {
-        return "bind" in item && modules_exports.checkType(String, item.bind) ? item.bind : (() => {
-          currentKey_exports.initializeCurrentDependencies();
-          if ("value" in item) {
-            item?.value();
-          } else {
-            item();
-          }
-          return currentKey_exports.getFirstCurrentDependencies();
-        })();
-      }
-    );
-  };
-  var renderBindObject = (strings, ...values) => {
-    return strings.raw.reduce((accumulator, currentText, i) => {
-      return values?.[i] && "value" in values[i] ? accumulator + currentText + (values?.[i]?.value?.() ?? "") : accumulator + currentText + (values?.[i]?.() ?? "");
-    }, "");
-  };
-  var addBindObjectParent = ({ id, bindObjectId, parentElement }) => {
-    const items = bindObjectMap.get(id);
-    const itemsUpdated = items && items.length > 0 ? (() => {
-      const itemsFiltered = items.filter(
-        (item) => item.bindObjectId !== bindObjectId
-      );
-      return [
-        ...itemsFiltered,
-        { parentNode: parentElement, bindObjectId }
-      ];
-    })() : [{ parentNode: parentElement, bindObjectId }];
-    bindObjectMap.set(id, itemsUpdated);
-  };
-  var removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
-    const items = bindObjectMap.get(id);
-    if (!items) return;
-    const itemsUpdated = items.filter(
-      (item) => item.bindObjectId !== bindObjectId
-    );
-    bindObjectMap.set(id, itemsUpdated);
-  };
-  var switchBindObjectMap = () => {
-    [...bindObjectPlaceHolderMap].forEach(
-      ([placeholder, { componentId, bindObjectId }]) => {
-        const parentElement = placeholder.parentElement;
-        if (!parentElement) return;
-        addBindObjectParent({
-          id: componentId,
-          bindObjectId,
-          parentElement
-        });
-        placeholder?.removeCustomComponent?.();
-        placeholder?.remove();
-      }
-    );
-    bindObjectPlaceHolderMap.clear();
-  };
-  var removeBindObjectParentById = ({ id }) => {
-    bindObjectMap.delete(id);
-  };
-  var getParentBindObject = ({ id, bindObjectId }) => {
-    const item = bindObjectMap.get(id);
-    if (!item) return;
-    const current = item.find((item2) => {
-      return bindObjectId === item2.bindObjectId;
-    });
-    return current?.parentNode;
-  };
-  var getBindObjectParentSize = () => {
-    return [...bindObjectMap].reduce(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      (previous, [_, values]) => previous + values.length,
-      0
-    );
-  };
-  var createBindObjectWatcher = (id, bindObjectId, keys, render2) => {
-    let watchIsRunning = false;
-    let ref;
-    const states = getStateById(id);
-    const unsubScribeFunction = keys.map((state) => {
-      const isArray = checkType(Array, states?.[state]);
-      return watchById(id, state, (value) => {
-        if (watchIsRunning) return;
-        watchIsRunning = true;
-        modules_exports.useNextLoop(() => {
-          modules_exports.useFrame(() => {
-            if (!ref) {
-              let refElement = getParentBindObject({
-                id,
-                bindObjectId
-              });
-              if (refElement) {
-                ref = new WeakRef(refElement);
-                removeBindObjectByBindObjectId({
-                  id,
-                  bindObjectId
-                });
-                refElement = null;
-              }
-            }
-            const shouldRender = !isArray || value.length > 0;
-            if (ref && ref?.deref() && shouldRender) {
-              ref.deref().textContent = "";
-              ref.deref().insertAdjacentHTML("afterbegin", render2());
-            }
-            watchIsRunning = false;
-            modules_exports.useNextTick(async () => {
-              if (!ref || !ref?.deref()) {
-                unsubScribeFunction.forEach((fn) => {
-                  if (fn) fn();
-                });
-                unsubScribeFunction.length = 0;
-              }
-            });
-          });
-        });
-      });
-    });
-  };
-
-  // src/js/mob/mobjs/modules/bindtext/index.js
-  var bindTextMap = /* @__PURE__ */ new Map();
-  var bindTextPlaceHolderMap = /* @__PURE__ */ new Map();
-  var addBindTextPlaceHolderMap = ({
-    host,
-    componentId,
-    bindTextId
-  }) => {
-    bindTextPlaceHolderMap.set(host, {
-      componentId,
-      bindTextId
-    });
-  };
-  var arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
-  var splitPropUntilSquare = (value) => value.split("[")?.[0];
-  var parsePropValue = ({ previous, current }) => {
-    const arrayValues = arrayValuesFromProp(current);
-    const isArray = arrayValues && arrayValues?.length > 0;
-    return isArray ? arrayValues.reduce(
-      (accumulator, currentProp) => accumulator?.[currentProp],
-      previous[splitPropUntilSquare(current)]
-    ) : previous?.[current];
-  };
-  var renderBindText = (id, strings, ...values) => {
-    const props = getStateById(id);
-    const states = values.map((prop) => {
-      const propsToArray = prop.split(".");
-      return propsToArray.reduce(
-        (previous, current) => {
-          const finalPropValue = parsePropValue({ previous, current });
-          return finalPropValue ?? previous;
-        },
-        props
-      );
-    });
-    return strings.raw.reduce(
-      (accumulator, currentText, i) => accumulator + currentText + (states?.[i] ?? ""),
-      ""
-    );
-  };
-  var addBindTextParent = ({ id, bindTextId, parentElement }) => {
-    const items = bindTextMap.get(id);
-    const itemsUpdated = items && items.length > 0 ? (() => {
-      const itemsFiltered = items.filter(
-        (item) => item.bindTextId !== bindTextId
-      );
-      return [
-        ...itemsFiltered,
-        { parentNode: parentElement, bindTextId }
-      ];
-    })() : [{ parentNode: parentElement, bindTextId }];
-    bindTextMap.set(id, itemsUpdated);
-  };
-  var removeBindTextByBindTextId = ({ id, bindTextId }) => {
-    const items = bindTextMap.get(id);
-    if (!items) return;
-    const itemsUpdated = items.filter((item) => item.bindTextId !== bindTextId);
-    bindTextMap.set(id, itemsUpdated);
-  };
-  var switchBindTextMap = () => {
-    [...bindTextPlaceHolderMap].forEach(
-      ([placeholder, { componentId, bindTextId }]) => {
-        const parentElement = placeholder.parentElement;
-        if (!parentElement) return;
-        addBindTextParent({
-          id: componentId,
-          bindTextId,
-          parentElement
-        });
-        placeholder?.removeCustomComponent?.();
-        placeholder?.remove();
-      }
-    );
-    bindTextPlaceHolderMap.clear();
-  };
-  var removeBindTextParentById = ({ id }) => {
-    bindTextMap.delete(id);
-  };
-  var getParentBindText = ({ id, bindTextId }) => {
-    const item = bindTextMap.get(id);
-    if (!item) return;
-    const current = item.find((item2) => {
-      return bindTextId === item2.bindTextId;
-    });
-    return current?.parentNode;
-  };
-  var getBindTextParentSize = () => {
-    return [...bindTextMap].reduce(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      (previous, [_, values]) => previous + values.length,
-      0
-    );
-  };
-  var getBindTextPlaceholderSize = () => bindTextPlaceHolderMap.size;
-  var createBindTextWatcher = (id, bindTextId, render2, ...props) => {
-    let watchIsRunning = false;
-    let ref;
-    const unsubScribeFunction = props.map((state) => {
-      const propsToArray = state.split(".");
-      const stateToWatch = propsToArray?.[0];
-      const arrayValues = arrayValuesFromProp(stateToWatch);
-      const isArray = arrayValues && arrayValues?.length > 0;
-      const finalStateTowatch = isArray ? splitPropUntilSquare(stateToWatch) : stateToWatch;
-      if (!finalStateTowatch) return;
-      return watchById(id, finalStateTowatch, () => {
-        if (watchIsRunning) return;
-        watchIsRunning = true;
-        modules_exports.useNextLoop(() => {
-          modules_exports.useFrame(() => {
-            if (!ref) {
-              let refElement = getParentBindText({
-                id,
-                bindTextId
-              });
-              if (refElement) {
-                ref = new WeakRef(refElement);
-                removeBindTextByBindTextId({ id, bindTextId });
-                refElement = null;
-              }
-            }
-            if (ref && ref?.deref()) {
-              ref.deref().textContent = "";
-              ref.deref().insertAdjacentHTML("afterbegin", render2());
-            }
-            watchIsRunning = false;
-            modules_exports.useNextTick(async () => {
-              if (!ref || !ref?.deref()) {
-                unsubScribeFunction.forEach((fn) => {
-                  if (fn) fn();
-                });
-                unsubScribeFunction.length = 0;
-              }
-            });
-          });
-        });
-      });
-    });
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/invalidateFunctionMap.js
-  var invalidateFunctionMap = /* @__PURE__ */ new Map();
-
-  // src/js/mob/mobjs/modules/invalidate/invalidateIdPlaceHolderMap.js
-  var invalidateIdPlaceHolderMap = /* @__PURE__ */ new Map();
-
-  // src/js/mob/mobjs/modules/invalidate/action/removeInvalidateId.js
-  var removeInvalidateId = ({ id }) => {
-    if (invalidateFunctionMap.has(id)) {
-      const value = invalidateFunctionMap.get(id);
-      if (!value) return;
-      value.forEach(({ invalidateId }) => {
-        if (invalidateIdPlaceHolderMap.has(invalidateId)) {
-          invalidateIdPlaceHolderMap.delete(invalidateId);
-        }
-      });
-      invalidateFunctionMap.delete(id);
-    }
-  };
-
-  // src/js/mob/mobjs/modules/repeater/repeatFunctionMap.js
-  var repeatFunctionMap = /* @__PURE__ */ new Map();
-
-  // src/js/mob/mobjs/modules/repeater/action/removeRepeaterId.js
-  var removeRepeaterId = ({ id }) => {
-    if (repeatFunctionMap.has(id)) {
-      const value = repeatFunctionMap.get(id);
-      if (!value) return;
-      value.forEach(({ repeatId }) => {
-        if (repeatIdPlaceHolderMap.has(repeatId)) {
-          repeatIdPlaceHolderMap.delete(repeatId);
-        }
-      });
-      repeatFunctionMap.delete(id);
-    }
-  };
-
-  // src/js/mob/mobjs/component/action/removeAndDestroy/removeItselfFromParent.js
-  var removeItselfFromParent = ({ id, parentId, componentName }) => {
-    if (!id) return;
-    const value = componentMap.get(parentId ?? "");
-    if (!value) return;
-    const { child } = value;
-    if (!parentId || !child) return;
-    componentMap.set(parentId, {
-      ...value,
-      child: {
-        ...child,
-        ...removeChildFromChildrenArray({
-          currentChild: child,
-          id,
-          componentName
-        })
-      }
-    });
-  };
-
-  // src/js/mob/mobjs/component/action/removeAndDestroy/removeAndDestroyById.js
-  var removeAndDestroyById = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const instanceValue = componentMap.get(id);
-    if (!instanceValue) return;
-    const {
-      parentId,
-      componentName,
-      child,
-      element,
-      state,
-      destroy: destroy2,
-      parentPropsWatcher
-    } = instanceValue;
-    Object.values(child ?? {}).flat().forEach((childId) => {
-      removeAndDestroyById({ id: childId });
-    });
-    removeItselfFromParent({ id, parentId, componentName });
-    destroy2?.();
-    state.destroy();
-    if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
-    removeInvalidateId({ id });
-    removeRepeaterId({ id });
-    removeBindTextParentById({ id });
-    removeBindObjectParentById({ id });
-    removeCurrentIdToBindProps({ componentId: id });
-    element?.removeCustomComponent?.();
-    element?.remove();
-    instanceValue.methods = null;
-    instanceValue.refs = null;
-    instanceValue.repeaterInnerWrap = null;
-    instanceValue.element = null;
-    instanceValue.currentRepeaterState = null;
-    instanceValue.state = null;
-    componentMap.delete(id);
-  };
-
-  // src/js/mob/mobjs/component/action/state/getStateByName.js
-  var getStateByName = (name = "") => {
-    const id = getIdByInstanceName(name);
-    if (!id) console.warn(`component ${name}, not found`);
-    return getStateById(id);
-  };
-
-  // src/js/mob/mobjs/component/action/freeze.js
-  var freezePropById = ({ id = "", prop }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { freezedPros } = item;
-    if (!freezedPros) return;
-    componentMap.set(id, {
-      ...item,
-      freezedPros: [.../* @__PURE__ */ new Set([...freezedPros, prop])]
-    });
-  };
-  var unFreezePropById = ({ id = "", prop }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { freezedPros } = item;
-    if (!freezedPros) return;
-    componentMap.set(id, {
-      ...item,
-      freezedPros: freezedPros.filter((currentProp) => currentProp !== prop)
-    });
-  };
-  var getFreezePropStatus = ({ id = "", prop }) => {
-    if (!id || id === "") return false;
-    const item = componentMap.get(id);
-    const freezedPros = item?.freezedPros;
-    if (!freezedPros) return false;
-    return freezedPros.includes(prop);
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/setParentRepeater.js
-  var setParentRepeater = ({ repeatId, host }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
-    if (!item) return;
-    const parent = (
-      /** @type{HTMLElement} */
-      host.parentNode
-    );
-    repeatIdPlaceHolderMap.set(repeatId, {
-      ...item,
-      element: parent
-    });
-    repeatIdHostMap.set(repeatId, host);
-  };
-
-  // src/js/mob/mobjs/webComponent/repeat.js
-  var defineRepeatComponent = () => {
-    customElements.define(
-      "mobjs-repeat",
-      class extends HTMLElement {
-        constructor() {
-          super();
-          this.attachShadow({ mode: "open" });
-        }
-        connectedCallback() {
-          const skip = getSkipAddUserComponent();
-          if (skip) return;
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            const host = (
-              /** @type {HTMLElement} */
-              this.shadowRoot?.host
-            );
-            const repeatId = host?.getAttribute(ATTR_MOBJS_REPEAT) ?? "";
-            setParentRepeater({ repeatId, host });
-          }
-        }
-        removeCustomComponent() {
-          if (!this.shadowRoot) return;
-          this.parentElement?.removeChild(this);
-        }
-      }
-    );
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/invalidateIdHostMap.js
-  var invalidateIdHostMap = /* @__PURE__ */ new Map();
-
-  // src/js/mob/mobjs/modules/invalidate/action/setParentInvalidate.js
-  var setParentInvalidate = ({ invalidateId, host }) => {
-    const item = invalidateIdPlaceHolderMap.get(invalidateId);
-    if (!item) return;
-    const parent = (
-      /** @type{HTMLElement} */
-      host.parentNode
-    );
-    invalidateIdPlaceHolderMap.set(invalidateId, {
-      ...item,
-      element: parent
-    });
-    invalidateIdHostMap.set(invalidateId, host);
-  };
-
-  // src/js/mob/mobjs/webComponent/invalidate.js
-  var defineInvalidateComponent = () => {
-    customElements.define(
-      "mobjs-invalidate",
-      class extends HTMLElement {
-        constructor() {
-          super();
-          this.attachShadow({ mode: "open" });
-        }
-        connectedCallback() {
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            const host = (
-              /** @type {HTMLElement} */
-              this.shadowRoot?.host
-            );
-            const invalidateId = host.getAttribute(ATTR_INVALIDATE) ?? "";
-            setParentInvalidate({ invalidateId, host });
-          }
-        }
-        removeCustomComponent() {
-          if (!this.shadowRoot) return;
-          this.parentElement?.removeChild(this);
-        }
-      }
-    );
-  };
-
-  // src/js/mob/mobjs/modules/slot/index.js
-  var slotPlaceholder = /* @__PURE__ */ new Set();
-  var addSlotPlaceholder = (slot) => {
-    slotPlaceholder.add(slot);
-  };
-  var clearSlotPlaceHolder = () => {
-    slotPlaceholder.clear();
-  };
-  var getUnamedPlaceholderSlot = ({ element }) => {
-    return [...slotPlaceholder].find((slot) => {
-      const hasSlot = !slot?.getSlotName?.() && element.contains(slot);
-      if (hasSlot) slotPlaceholder.delete(slot);
-      return hasSlot;
-    });
-  };
-  var getSlotByName = ({ name, element }) => {
-    return [...slotPlaceholder].find((slot) => {
-      const hasSlot = slot?.getSlotName?.() === name && element.contains(slot);
-      if (hasSlot) slotPlaceholder.delete(slot);
-      return hasSlot;
-    });
-  };
-  var getAllSlot = () => {
-    return [...slotPlaceholder];
-  };
-  var getSlotPlaceholderSize = () => {
-    return slotPlaceholder.size;
-  };
-
-  // src/js/mob/mobjs/webComponent/slot.js
-  var defineSlotComponent = () => {
-    customElements.define(
-      "mobjs-slot",
-      class extends HTMLElement {
-        /**
-         * @type {string|undefined|null}
-         */
-        #slotName;
-        /**
-         * @type {string|undefined|null}
-         */
-        #staticProps;
-        /**
-         * @type {string|undefined|null}
-         */
-        #dynamicProps;
-        constructor() {
-          super();
-          this.attachShadow({ mode: "open" });
-          this.#slotName = "";
-          this.isSlot = true;
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            this.#slotName = this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
-            this.#staticProps = this.shadowRoot?.host.getAttribute(ATTR_PROPS);
-            this.#dynamicProps = this.shadowRoot?.host.getAttribute(ATTR_BIND_PROPS);
-          }
-        }
-        connectedCallback() {
-          const host = this.shadowRoot?.host;
-          if (!host) return;
-          if (!useSlotQuery) addSlotPlaceholder(host);
-        }
-        removeCustomComponent() {
-          if (!this.shadowRoot) return;
-          this.parentElement?.removeChild(this);
-        }
-        getSlotName() {
-          return this.#slotName;
-        }
-        getStaticProps() {
-          return this.#staticProps;
-        }
-        getDynamicProps() {
-          return this.#dynamicProps;
-        }
-      }
-    );
-  };
-
-  // src/js/mob/mobjs/webComponent/userComponent.js
-  var defineUserComponent = (componentList) => {
-    Object.entries(componentList).forEach(([key, value]) => {
-      const {
-        connectedCallback: _connectedCallBack,
-        disconnectedCallback: _disconnectedCallback,
-        adoptedCallback: _adoptedCallback,
-        attributeChangedCallback: _attributeChangedCallback,
-        style,
-        attributeToObserve
-      } = value.componentParams;
-      customElements.define(
-        key,
-        class extends HTMLElement {
-          /**
-           * @type {string}
-           */
-          #componentname;
-          /**
-           * @type {string}
-           */
-          #componentId;
-          /**
-           * @type {import('../type').ComponentPropsType<import('../type').MobComponentMap, import('../type').MobComponentMap>}
-           */
-          #params;
-          /**
-           * @type {boolean}
-           */
-          #isPlaceholder;
-          /**
-           * @type {string|undefined|null}
-           */
-          #name;
-          /**
-           * @type {string|undefined|null}
-           */
-          #staticPropsId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #dynamicPropsId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #bindEventsId;
-          /**
-           * @type {string}
-           */
-          #dynamicPropsFromSlotId;
-          /**
-           * @type {string}
-           */
-          #propsFromSlotId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #currentRepeatValueId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #slotPosition;
-          /**
-           * @type {string|undefined|null}
-           */
-          #currentKey;
-          /**
-           * @type {string|undefined|null}
-           */
-          #parentId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #componentRepeatId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #delegateEventId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #repeatPropBind;
-          /**
-           * @type {string|undefined|null}
-           */
-          #bindRefId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #bindRefName;
-          static get observedAttributes() {
-            return attributeToObserve;
-          }
-          constructor() {
-            super();
-            this.attachShadow({ mode: "open" });
-            this.active = false;
-            this.#componentId = modules_exports.getUnivoqueId();
-            this.#params = {};
-            this.#componentname = key;
-            this.#isPlaceholder = true;
-            this.isUserComponent = true;
-            this.#dynamicPropsFromSlotId = "";
-            this.#propsFromSlotId = "";
-            const host = this.shadowRoot?.host;
-            if (!host) return;
-            const skip = getSkipAddUserComponent();
-            if (skip) return;
-            [
-              this.#name,
-              this.#staticPropsId,
-              this.#dynamicPropsId,
-              this.#currentKey,
-              this.#bindEventsId,
-              this.#currentRepeatValueId,
-              this.#slotPosition,
-              this.#parentId,
-              this.#componentRepeatId,
-              this.#delegateEventId,
-              this.#repeatPropBind,
-              this.#bindRefId,
-              this.#bindRefName
-            ] = [
-              ATTR_INSTANCENAME,
-              ATTR_PROPS,
-              ATTR_BIND_PROPS,
-              ATTR_KEY,
-              ATTR_BIND_EVENTS,
-              ATTR_CURRENT_LIST_VALUE,
-              ATTR_SLOT,
-              ATTR_PARENT_ID,
-              ATTR_CHILD_REPEATID,
-              ATTR_WEAK_BIND_EVENTS,
-              ATTR_REPEATER_PROP_BIND,
-              ATTR_BIND_REFS_ID,
-              ATTR_BIND_REFS_NAME
-            ].map((attribute) => host.getAttribute(attribute) ?? "");
-            if (this.#slotPosition && !this.active) {
-              this.style.visibility = "hidden";
-            }
-            if (!this.shadowRoot) return;
-            if (style) {
-              const styleTag = document.createElement("style");
-              styleTag.textContent = style;
-              this.shadowRoot.append(styleTag);
-            }
-            const slot = document.createElement("slot");
-            this.shadowRoot.append(slot);
-          }
-          getComponentName() {
-            return this.#componentname;
-          }
-          /**
-           * @param { string } value
-           */
-          setId(value2) {
-            this.#componentId = value2;
-          }
-          getId() {
-            return this.#componentId;
-          }
-          getParentId() {
-            return this.#parentId;
-          }
-          /**
-           * @param { string } id
-           */
-          setParentId(id) {
-            this.#parentId = id;
-          }
-          getIsPlaceholder() {
-            return this.#isPlaceholder;
-          }
-          getInstanceName() {
-            return this.#name;
-          }
-          getStaticPropsId() {
-            return this.#staticPropsId;
-          }
-          getDynamicPropsid() {
-            return this.#dynamicPropsId;
-          }
-          getBindEventsId() {
-            return this.#bindEventsId;
-          }
-          getCurrentKey() {
-            return this.#currentKey;
-          }
-          /**
-           * @param {string} value
-           */
-          setDynamicPropsFromSlotId(value2) {
-            this.#dynamicPropsFromSlotId = value2;
-          }
-          getDynamicPropsFromSlotId() {
-            return this.#dynamicPropsFromSlotId;
-          }
-          /**
-           * @param {string} value
-           */
-          setPropsFromSlotId(value2) {
-            this.#propsFromSlotId = value2;
-          }
-          getPropsFromSlotId() {
-            return this.#propsFromSlotId;
-          }
-          /**
-           * @param {any} value
-           */
-          setRepeatValue(value2) {
-            this.#currentRepeatValueId = value2;
-          }
-          getRepeatValue() {
-            return this.#currentRepeatValueId;
-          }
-          getSlotPosition() {
-            return this.#slotPosition;
-          }
-          getDelegateEventId() {
-            return this.#delegateEventId;
-          }
-          getRepeaterPropBind() {
-            return this.#repeatPropBind ?? void 0;
-          }
-          /**
-           * @param {string} value
-           */
-          setRepeaterPropBind(value2) {
-            this.#repeatPropBind = value2;
-          }
-          getComponentRepeatId() {
-            return this.#componentRepeatId;
-          }
-          getBindRefId() {
-            return this.#bindRefId;
-          }
-          getBindRefName() {
-            return this.#bindRefName;
-          }
-          resetParams() {
-            this.active = false;
-            this.#componentId = "";
-            this.#params = {};
-          }
-          /**
-           * @param {import('../type').ComponentPropsType<import('../type').MobComponentMap,import('../type').MobComponentMap>} data
-           */
-          inizializeCustomComponent(data) {
-            if (this.active) return;
-            this.active = true;
-            this.#componentId = data.id;
-            this.#params = data;
-            this.#isPlaceholder = false;
-            _connectedCallBack?.({
-              context: this,
-              params: this.#params
-            });
-          }
-          connectedCallback() {
-            const skip = getSkipAddUserComponent();
-            if (skip) return;
-            if (this.#isPlaceholder) {
-              const host = this.shadowRoot?.host;
-              if (!useQuery) addUserPlaceholder(host);
-              return;
-            }
-          }
-          disconnectedCallback() {
-            if (!this.shadowRoot) return;
-            if (!useQuery) {
-              const host = this.shadowRoot?.host;
-              removeUserPlaceholder(host);
-            }
-            if (!this.active) return;
-            _disconnectedCallback?.({
-              context: this,
-              params: this.#params
-            });
-            this.resetParams();
-          }
-          removeCustomComponent() {
-            if (!this.shadowRoot || !this.active) return;
-            this.parentElement?.removeChild(this);
-          }
-          adoptedCallback() {
-            if (!this.shadowRoot || !this.active) return;
-            _adoptedCallback?.({
-              context: this,
-              params: this.#params
-            });
-          }
-          /**
-           * @param {string} name
-           * @param {any} oldValue
-           * @param {any} newValue
-           */
-          attributeChangedCallback(name, oldValue, newValue) {
-            if (!this.shadowRoot || !this.active) return;
-            _attributeChangedCallback?.({
-              name,
-              oldValue,
-              newValue,
-              context: this,
-              params: this.#params
-            });
-          }
-        }
-      );
-    });
-  };
-
-  // src/js/mob/mobjs/webComponent/bindText.js
-  var defineBindTextComponent = () => {
-    customElements.define(
-      "mobjs-bind-text",
-      class extends HTMLElement {
-        constructor() {
-          super();
-          this.attachShadow({ mode: "open" });
-        }
-        connectedCallback() {
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            const host = this.shadowRoot?.host ?? document.createElement("div");
-            const componentId = host?.getAttribute(ATTR_COMPONENT_ID) ?? "";
-            const bindTextId = host?.getAttribute(ATTR_BIND_TEXT_ID) ?? "";
-            addBindTextPlaceHolderMap({
-              host,
-              componentId,
-              bindTextId
-            });
-          }
-        }
-        removeCustomComponent() {
-          if (!this.shadowRoot) return;
-          this.parentElement?.removeChild(this);
-        }
-      }
-    );
-  };
-
-  // src/js/mob/mobjs/webComponent/bindObject.js
-  var defineBindObjectComponent = () => {
-    customElements.define(
-      "mobjs-bind-object",
-      class extends HTMLElement {
-        constructor() {
-          super();
-          this.attachShadow({ mode: "open" });
-        }
-        connectedCallback() {
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            const host = this.shadowRoot?.host ?? document.createElement("div");
-            const componentId = host?.getAttribute(ATTR_COMPONENT_ID) ?? "";
-            const bindObjectId = host?.getAttribute(ATTR_BIND_OBJECT_ID) ?? "";
-            addBindObjectPlaceHolderMap({
-              host,
-              componentId,
-              bindObjectId
-            });
-          }
-        }
-        removeCustomComponent() {
-          if (!this.shadowRoot) return;
-          this.parentElement?.removeChild(this);
-        }
-      }
-    );
-  };
-
-  // src/js/mob/mobjs/component/componentList.js
-  var componentListMap = {};
-  var availableComponent = /* @__PURE__ */ new Set();
-  var setComponentList = () => {
-    componentListMap = [...availableComponent.values()].reduce(
-      (previous, current) => ({ ...previous, ...current }),
-      {}
-    );
-    console.log(`component loaded:${Object.keys(componentListMap).length}`);
-    defineUserComponent(componentListMap);
-    defineSlotComponent();
-    defineInvalidateComponent();
-    defineRepeatComponent();
-    defineBindTextComponent();
-    defineBindObjectComponent();
-  };
-  var useComponent = (components) => {
-    if (!components || components?.length === 0) return;
-    components.forEach((component) => {
-      availableComponent.add(component);
-    });
-  };
-
-  // src/js/mob/mobjs/component/getComponentList.js
-  var getComponentList = () => {
-    return componentListMap;
-  };
-
-  // src/js/mob/mobjs/component/action/state/checkIfStateIsExportable.js
-  var checkIfStateIsExportable = ({ componentName, propName }) => {
-    const componentList = getComponentList();
-    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
-    return exportableState.includes(propName);
-  };
-
-  // src/js/mob/mobjs/component/action/state/setStateById.js
-  var setStateById = (id = "", prop = "", value, { emit = true } = {}) => {
-    if ((!id || id === "") && (!prop || prop === "") && !value) return;
-    const isFreezed2 = getFreezePropStatus({ id, prop });
-    if (isFreezed2) {
-      return;
-    }
-    const item = componentMap.get(id);
-    const state = item?.state;
-    const componentName = item?.componentName ?? "";
-    const stateIsExportable = checkIfStateIsExportable({
-      componentName,
-      propName: prop
-    });
-    if (!stateIsExportable) {
-      console.warn(
-        `setStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
-      );
-      return;
-    }
-    if (!state) {
-      console.warn(`setStateById failed no id found on prop: ${prop}`);
-      return;
-    }
-    state.set(prop, value, { emit });
-  };
-
-  // src/js/mob/mobjs/component/action/state/setStateByName.js
-  var setStateByName = (name = "") => {
-    const id = getIdByInstanceName(name);
-    if (!id) console.warn(`component ${name}, not found`);
-    return (prop, value, { emit = true } = {}) => setStateById(id, prop, value, { emit });
-  };
-
-  // src/js/mob/mobjs/component/action/state/updateStateById.js
-  var updateStateById = (id = "", prop = "", value, { emit = true, clone = false } = {}) => {
-    if ((!id || id === "") && (!prop || prop === "") && !value) return;
-    const isFreezed2 = getFreezePropStatus({ id, prop });
-    if (isFreezed2) {
-      return;
-    }
-    const item = componentMap.get(id);
-    const state = item?.state;
-    const componentName = item?.componentName ?? "";
-    const stateIsExportable = checkIfStateIsExportable({
-      componentName,
-      propName: prop
-    });
-    if (!stateIsExportable) {
-      console.warn(
-        `updateStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
-      );
-      return;
-    }
-    if (!state) {
-      console.warn(`updateStateById failed no id found on prop: ${prop}`);
-      return;
-    }
-    state.update(prop, value, { emit, clone });
-  };
-
-  // src/js/mob/mobjs/component/action/state/updateStateByName.js
-  var updateStateByName = (name = "") => {
-    const id = getIdByInstanceName(name);
-    if (!id) console.warn(`component ${name}, not found`);
-    return (prop, value, { emit = true, clone = false } = {}) => updateStateById(id, prop, value, { emit, clone });
-  };
-
-  // src/js/mob/mobjs/component/createComponent/index.js
-  var defaultComponent = {
-    scoped: false,
-    maxParseIteration: 5e3,
-    debug: false
-  };
-  var setDefaultComponent = (obj) => {
-    defaultComponent = { ...defaultComponent, ...obj };
-  };
-  var getDefaultComponent = () => defaultComponent;
-  var getDebugMode = () => {
-    const { debug } = getDefaultComponent();
-    return debug;
-  };
-  var createComponent = ({
-    name = "",
-    component = () => "",
-    state = {},
-    exportState = [],
-    scoped,
-    connectedCallback = () => {
-    },
-    disconnectedCallback = () => {
-    },
-    adoptedCallback = () => {
-    },
-    attributeToObserve = [],
-    attributeChangedCallback = () => {
-    },
-    style = "",
-    child = []
-  }) => {
-    useComponent(child);
-    return {
-      [name]: {
-        componentFunction: component,
-        componentParams: {
-          exportState,
-          scoped,
-          state,
-          connectedCallback,
-          disconnectedCallback,
-          adoptedCallback,
-          attributeToObserve,
-          attributeChangedCallback,
-          style,
-          child
-        }
-      }
-    };
-  };
-
-  // src/js/mob/mobjs/route/routeList/index.js
-  var routeList = [];
-  var indexPage = "";
-  var pageNotFound = "";
-  var setRouteList = (list) => {
-    routeList = [...list];
-  };
-  var getRouteByName = ({ routeName = "" }) => {
-    return routeList.find(({ name }) => routeName === name);
-  };
-  var setIndex = ({ routeName = "" }) => {
-    indexPage = routeName;
-  };
-  var getIndex = () => indexPage;
-  var setPageNotFound = ({ routeName = "" }) => {
-    pageNotFound = routeName;
-  };
-  var getPageNotFound = () => pageNotFound;
-
-  // src/js/mob/mobjs/query/queryComponentUseSlot.js
-  function selectAll2(root2) {
-    const result = [];
-    for (const node of walkPreOrder(root2)) {
-      if (node?.isUserComponent && node?.getSlotPosition?.()) {
-        result.push(node);
-      }
-    }
-    return result;
-  }
-  var queryComponentUseSlot = (node) => {
-    let result = [];
-    const root2 = node || document.body;
-    for (const child of root2.children) {
-      result = [...result, ...selectAll2(child)];
-    }
-    return result;
-  };
-
-  // src/js/mob/mobjs/query/queryGenericSlot.js
-  function selectAll3(root2) {
-    const result = [];
-    for (const node of walkPreOrder(root2)) {
-      if (node?.isSlot && node?.getSlotName?.()) {
-        result.push(node);
-      }
-    }
-    return result;
-  }
-  var queryGenericSlot = (node) => {
-    let result = [];
-    const root2 = node || document.body;
-    for (const child of root2.children) {
-      result = [...result, ...selectAll3(child)];
-    }
-    return result;
-  };
-
-  // src/js/mob/mobjs/query/querySpecificSlot.js
-  function selectAll4(root2, slotName) {
-    for (const node of walkPreOrder(root2)) {
-      if (node?.isSlot && node?.getSlotName?.() === slotName) {
-        return node;
-      }
-    }
-    return null;
-  }
-  var querySecificSlot = (node, slotName) => {
-    const root2 = node || document.body;
-    for (const child of root2.children) {
-      const result = selectAll4(child, slotName);
-      if (result) return result;
-    }
-    return null;
-  };
-
-  // src/js/mob/mobjs/query/queryUnNamedSlot.js
-  function selectAll5(root2) {
-    for (const node of walkPreOrder(root2)) {
-      if (node?.isSlot && !node?.getSlotName?.()) {
-        return node;
-      }
-    }
-    return null;
-  }
-  var queryUnNamedSlot = (node) => {
-    const root2 = node || document.body;
-    for (const child of root2.children) {
-      const result = selectAll5(child);
-      if (result) return result;
-    }
-    return null;
-  };
-
-  // src/js/mob/mobjs/component/action/props.js
-  var setDynamicPropsWatch = ({ id = "", unWatchArray = [] }) => {
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { parentPropsWatcher } = item;
-    if (!parentPropsWatcher) return;
-    componentMap.set(id, {
-      ...item,
-      parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray]
-    });
-  };
-  var unBind = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentPropsWatcher = item?.parentPropsWatcher ?? [];
-    parentPropsWatcher.forEach((unwatch) => {
-      unwatch();
-    });
-  };
-
-  // src/js/mob/mobjs/queque/utils.js
-  function awaitNextLoop() {
-    return new Promise((resolve) => modules_exports.useNextLoop(() => resolve()));
-  }
-
-  // src/js/mob/mobjs/queque/tick.js
-  var queque = /* @__PURE__ */ new Map();
-  var maxQueuqueSize = 1e5;
-  var incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
-      return () => {
-      };
-    }
-    const id = modules_exports.getUnivoqueId();
-    queque.set(id, props);
-    return () => queque.delete(id);
-  };
-  var queueIsResolved = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize;
-  };
-  var tick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      queque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved()) {
-        resolve();
-        return;
-      }
-      tick({ debug, previousResolve: previousResolve ?? resolve });
-    });
-  };
-
-  // src/js/mob/mobjs/queque/tickRepeater.js
-  var repeaterQueque = /* @__PURE__ */ new Map();
-  var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
-  var maxQueuqueSize2 = 1e3;
-  var incrementRepeaterTickQueuque = (props) => {
-    if (repeaterQueque.size >= maxQueuqueSize2) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize2})`);
-      return () => {
-      };
-    }
-    const id = modules_exports.getUnivoqueId();
-    repeaterQueque.set(id, props);
-    return () => repeaterQueque.delete(id);
-  };
-  var queueIsResolved2 = () => {
-    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize2;
-  };
-  var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      repeaterQueque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved2() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved2()) {
-        resolve();
-        return;
-      }
-      repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
-    });
-  };
-
-  // src/js/mob/mobjs/queque/tickInvalidate.js
-  var invalidateQueque = /* @__PURE__ */ new Map();
-  var invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
-  var maxQueuqueSize3 = 1e3;
-  var incrementInvalidateTickQueuque = (props) => {
-    if (invalidateQueque.size >= maxQueuqueSize3) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
-      return () => {
-      };
-    }
-    const id = modules_exports.getUnivoqueId();
-    invalidateQueque.set(id, props);
-    return () => invalidateQueque.delete(id);
-  };
-  var queueIsResolved3 = () => {
-    return invalidateQueque.size === 0 || invalidateQueque.size >= maxQueuqueSize3;
-  };
-  var invalidateTick = async ({
-    debug = false,
-    previousResolve
-  } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      invalidateQueque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved3() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved3()) {
-        resolve();
-        return;
-      }
-      invalidateTick({
-        debug,
-        previousResolve: previousResolve ?? resolve
-      });
-    });
-  };
-
-  // src/js/mob/mobjs/modules/bindProps/index.js
-  var setBindProps = (data) => {
-    const hasProps = "props" in data;
-    if (!hasProps) {
-      console.warn(`bindProps not valid`);
-      return;
-    }
-    const bindDetected = data?.bind && modules_exports.checkType(Array, data.bind) ? data.bind : (() => {
-      currentKey_exports.initializeCurrentDependencies();
-      if (modules_exports.checkType(Function, data.props)) {
-        data.props({}, {}, 0);
-      }
-      return currentKey_exports.getCurrentDependencies();
-    })();
-    if (bindDetected.length === 0) {
-      console.warn(`bindProps not valid, no dependencies found`);
-      return;
-    }
-    const dataUpdated = { ...data, bind: bindDetected };
-    const id = modules_exports.getUnivoqueId();
-    bindPropsMap.set(id, {
-      ...dataUpdated,
-      componentId: "",
-      propsId: id
-    });
-    return id;
-  };
-  var updateBindProp = ({
-    componentId,
-    bind,
-    props,
-    currentParentId,
-    fireCallback
-  }) => {
-    if (!currentParentId) return;
-    const parentState = getStateById(currentParentId);
-    if (!parentState) return;
-    const parentStateKeys = Object.keys(parentState);
-    const bindArrayIsValid = bind.every(
-      (state) => parentStateKeys.includes(state)
-    );
-    if (!bindArrayIsValid) {
-      console.warn(
-        `bind props error: Some prop ${JSON.stringify(bind)} doesn't exist`
-      );
-    }
-    const componentExist = componentMap.has(componentId);
-    if (!componentExist) return;
-    const currentRepeaterState = getRepeaterStateById({
-      id: componentId
-    });
-    let newProps;
-    try {
-      newProps = props?.(
-        parentState,
-        currentRepeaterState.current,
-        currentRepeaterState?.index
-      );
-    } catch {
-      console.log("bindProps error:", componentId);
-      const element = getElementById({ id: componentId });
-      if (!element) return;
-      if (!document.body.contains(element))
-        removeAndDestroyById({ id: componentId });
-    }
-    if (!newProps) return;
-    Object.entries(newProps).forEach(([key, value]) => {
-      setStateById(componentId, key, value, { emit: fireCallback });
-    });
-  };
-  var addCurrentIdToBindProps = ({
-    propsId,
-    repeatPropBind,
-    componentId
-  }) => {
-    if (!propsId) return;
-    for (const [key, value] of bindPropsMap) {
-      if (key === propsId) {
-        bindPropsMap.set(key, { ...value, componentId });
-      }
-    }
-    applyBindProps({
-      componentId,
-      repeatPropBind,
-      inizilizeWatcher: false
-    });
-  };
-  var removeCurrentToBindPropsByPropsId = ({ propsId }) => {
-    if (!propsId) return;
-    bindPropsMap.delete(propsId);
-  };
-  var applyBindProps = async ({
-    componentId,
-    repeatPropBind,
-    inizilizeWatcher
-  }) => {
-    const dynamicPropsFilteredArray = [...bindPropsMap.values()].filter(
-      (item) => {
-        const currentComponentId = item?.componentId;
-        return currentComponentId === componentId;
-      }
-    );
-    if (!dynamicPropsFilteredArray) return;
-    for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
-      const { bind, props, parentId } = dynamicpropsfiltered;
-      const bindUpdated = repeatPropBind && repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
-      const currentParentId = parentId ?? getParentIdById(componentId);
-      if (!inizilizeWatcher) {
-        updateBindProp({
-          componentId,
-          bind: bindUpdated,
-          props,
-          currentParentId: currentParentId ?? "",
-          fireCallback: false
-        });
-      }
-      if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
-        await repeaterTick();
-        updateBindProp({
-          componentId,
-          bind: bindUpdated,
-          props,
-          currentParentId: currentParentId ?? "",
-          fireCallback: true
-        });
-      }
-      if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
-        await invalidateTick();
-        updateBindProp({
-          componentId,
-          bind: bindUpdated,
-          props,
-          currentParentId: currentParentId ?? "",
-          fireCallback: true
-        });
-      }
-      if (!inizilizeWatcher) return;
-      let watchIsRunning = false;
-      const unWatchArray = bindUpdated.map((state) => {
-        return watchById(currentParentId, state, async () => {
-          await repeaterTick();
-          await invalidateTick();
-          if (watchIsRunning) return;
-          const decrementQueue = incrementTickQueuque({
-            state,
-            id: componentId,
-            type: QUEQUE_TYPE_BINDPROPS
-          });
-          watchIsRunning = true;
-          modules_exports.useNextLoop(() => {
-            updateBindProp({
-              componentId,
-              bind: bindUpdated,
-              props,
-              currentParentId: currentParentId ?? "",
-              fireCallback: true
-            });
-            watchIsRunning = false;
-            decrementQueue();
-          });
-        });
-      });
-      setDynamicPropsWatch({
-        id: componentId,
-        unWatchArray: unWatchArray.filter((item) => item !== void 0)
-      });
-    }
-    if (!inizilizeWatcher) return;
-    for (const [key, value] of bindPropsMap) {
-      const { componentId: currentComponentId } = value;
-      if (currentComponentId === componentId) {
-        bindPropsMap.delete(key);
-      }
-    }
-  };
-  var removeOrphansBindProps = () => {
-    bindPropsMap.clear();
-  };
-
-  // src/js/mob/mobjs/modules/staticProps/index.js
-  var staticPropsMap = /* @__PURE__ */ new Map();
-  var setStaticProps = (props = {}) => {
-    const id = modules_exports.getUnivoqueId();
-    staticPropsMap.set(id, props);
-    return id;
-  };
-  var getPropsFromParent = (id = "") => {
-    const props = staticPropsMap.get(id);
-    staticPropsMap.delete(id);
-    return props ?? {};
-  };
-  var removeCurrentToPropsByPropsId = ({ propsId }) => {
-    if (!propsId) return;
-    staticPropsMap.delete(propsId);
-  };
-  var removeOrphansPropsFromParent = () => {
-    staticPropsMap.clear();
-  };
-
-  // src/js/mob/mobjs/modules/repeater/repeaterValue/index.js
-  var currentRepeaterValueMap = /* @__PURE__ */ new Map();
-  var setComponentRepeaterState = (current) => {
-    const id = modules_exports.getUnivoqueId();
-    currentRepeaterValueMap.set(id, current);
-    return id;
-  };
-  var getComponentRepeaterState = (id = "") => {
-    if (!id) return DEFAULT_CURRENT_REPEATER_STATE;
-    const value = currentRepeaterValueMap.get(id);
-    currentRepeaterValueMap.delete(id);
-    return value ?? DEFAULT_CURRENT_REPEATER_STATE;
-  };
-
-  // src/js/mob/mobjs/parse/steps/constant.js
-  var ELEMENT_TYPE_NODE = "node";
-  var ELEMENT_TYPE_TEXT = "text";
-  var ELEMENT_TYPE_MIX_NODE_TEXT = "mix";
-  var ELEMENT_TYPE_NOT_VALID = "not-valid";
-
-  // src/js/mob/mobjs/parse/steps/utils.js
-  var renderHtml = String.raw;
-  var getElementOrTextFromNode = (node) => {
-    const childNodes = node.childNodes;
-    if (childNodes.length === 0) {
-      return {
-        item: void 0,
-        type: ELEMENT_TYPE_NOT_VALID
-      };
-    }
-    const children = node.children;
-    if (children.length === 1 && childNodes.length === 1) {
-      return {
-        item: node.children?.[0],
-        type: ELEMENT_TYPE_NODE
-      };
-    }
-    if (childNodes.length > 1)
-      return {
-        item: node.innerHTML,
-        type: ELEMENT_TYPE_MIX_NODE_TEXT
-      };
-    const textContent = node.textContent;
-    if (textContent && textContent.length > 0)
-      return {
-        item: textContent,
-        type: ELEMENT_TYPE_TEXT
-      };
-    return {
-      item: void 0,
-      type: ELEMENT_TYPE_NOT_VALID
-    };
-  };
-  var insertElementOrText = ({
-    parent,
-    itemObject,
-    position: position2 = "afterend"
-  }) => {
-    const { item, type } = itemObject;
-    if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
-      parent.insertAdjacentHTML(
-        position2,
-        /** @type{string} */
-        item
-      );
-      return;
-    }
-    if (type === ELEMENT_TYPE_NODE) {
-      parent.insertAdjacentElement(
-        position2,
-        /** @type{Element} */
-        item
-      );
-      return;
-    }
-    if (type === ELEMENT_TYPE_TEXT) {
-      parent.insertAdjacentText(
-        position2,
-        /** @type{string} */
-        item
-      );
-      return;
-    }
-    return;
-  };
-  var setRepeatAttribute = ({
-    components,
-    current,
-    index,
-    bind,
-    repeatId,
-    key
-  }) => {
-    components.forEach((component) => {
-      if (!component.hasAttribute(ATTR_CURRENT_LIST_VALUE)) {
-        component.setAttribute(
-          ATTR_CURRENT_LIST_VALUE,
-          setComponentRepeaterState({
-            current,
-            index
-          })
-        );
-      }
-      if (!component.hasAttribute(ATTR_KEY)) {
-        component.setAttribute(ATTR_KEY, `${key}`);
-      }
-      if (!component.hasAttribute(ATTR_REPEATER_PROP_BIND)) {
-        component.setAttribute(ATTR_REPEATER_PROP_BIND, `${bind}`);
-      }
-      if (!component.hasAttribute(ATTR_CHILD_REPEATID)) {
-        component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
-      }
-    });
-  };
-  var serializeFragment = (fragment) => {
-    const serializer = new XMLSerializer();
-    const xmlnAttribute = ' xmlns="http://www.w3.org/1999/xhtml"';
-    const rawString = serializer.serializeToString(fragment);
-    const regEx = new RegExp(xmlnAttribute, "g");
-    return rawString.replaceAll(regEx, "");
-  };
-
-  // src/js/mob/mobjs/parse/steps/convertToRealElement.js
-  var getNewElement2 = ({ element, content }) => {
-    const { debug } = getDefaultComponent();
-    if (element.parentNode) {
-      const node = document.createRange().createContextualFragment(content).firstElementChild;
-      if (node) element.after(node);
-      if (debug)
-        element.insertAdjacentHTML(
-          "afterend",
-          `<!--  ${element.tagName.toLowerCase()} --> `
-        );
-      return (
-        /** @type {HTMLElement} */
-        element.nextElementSibling
-      );
-    }
-    return;
-  };
-  var removeOrphanSlot = ({ element }) => {
-    const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
-    slots.forEach((slot) => {
-      const dynamicPropsIdFromSlot = slot.getDynamicProps();
-      if (dynamicPropsIdFromSlot && dynamicPropsIdFromSlot !== "") {
-        removeCurrentToBindPropsByPropsId({
-          propsId: dynamicPropsIdFromSlot
-        });
-      }
-      const staticPropsIdFromSlot = slot.getStaticProps();
-      if (staticPropsIdFromSlot && staticPropsIdFromSlot !== "") {
-        removeCurrentToPropsByPropsId({ propsId: staticPropsIdFromSlot });
-      }
-      slot?.removeCustomComponent();
-      slot?.remove();
-    });
-  };
-  var addToNamedSlot = ({ element }) => {
-    const componentWithSlot = useQuery || forceComponentChildQuery ? queryComponentUseSlot(element) : getAllUserComponentUseNamedSlot({ element });
-    if (componentWithSlot.length === 0) return;
-    const slots = [...componentWithSlot].map((component) => {
-      const slotName = component?.getSlotPosition();
-      const slot = useSlotQuery ? querySecificSlot(element, slotName) : getSlotByName({ name: slotName, element });
-      if (!slot) return { slot: null, elementMoved: null };
-      slot.parentNode?.insertBefore(component, slot);
-      const elementMoved = (
-        /** @type {HTMLElement} */
-        slot.previousSibling
-      );
-      return { slot, elementMoved };
-    });
-    slots.forEach(({ slot, elementMoved }) => {
-      if (!slot) return;
-      const propsIdFromSlot = slot.getStaticProps();
-      if (propsIdFromSlot)
-        elementMoved?.setPropsFromSlotId?.(propsIdFromSlot);
-      const bindPropsIdFromSlot = slot.getDynamicProps();
-      if (bindPropsIdFromSlot)
-        elementMoved?.setDynamicPropsFromSlotId?.(bindPropsIdFromSlot);
-      slot?.removeCustomComponent();
-      slot?.remove();
-    });
-  };
-  var executeConversion = ({ element, content }) => {
-    const prevContent = getElementOrTextFromNode(element);
-    const newElement = getNewElement2({ element, content });
-    if (newElement) {
-      const id = element.getId();
-      const delegateEventId = element?.getDelegateEventId();
-      const bindRefId = element?.getBindRefId();
-      const bindRefName = element?.getBindRefName();
-      const unNamedSlot = useSlotQuery ? queryUnNamedSlot(newElement) : getUnamedPlaceholderSlot({ element: newElement });
-      if (unNamedSlot) {
-        insertElementOrText({
-          parent: unNamedSlot,
-          itemObject: prevContent,
-          position: "afterend"
-        });
-        unNamedSlot.remove();
-      }
-      if (!unNamedSlot) {
-        insertElementOrText({
-          parent: newElement,
-          itemObject: prevContent,
-          position: "afterbegin"
-        });
-      }
-      addToNamedSlot({ element: newElement });
-      removeOrphanSlot({ element: newElement });
-      if (delegateEventId && delegateEventId.length > 0)
-        newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
-      if (bindRefId && bindRefId.length > 0)
-        newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
-      if (bindRefName && bindRefName.length > 0)
-        newElement.setAttribute(ATTR_BIND_REFS_NAME, bindRefName);
-      const { debug } = getDefaultComponent();
-      if (debug) newElement.setAttribute(ATTR_IS_COMPONENT, id ?? "");
-    }
-    element.remove();
-    return newElement;
-  };
-  var convertToRealElement = ({ element, content }) => {
-    return {
-      newElement: executeConversion({
-        element,
-        content
-      })
-    };
-  };
-
-  // src/js/mob/mobjs/parse/utils.js
-  var currentIterationCounter = 0;
-  var incrementCurrentIterationCounter = () => {
-    currentIterationCounter += 1;
-  };
-  var getCurrentIterationCounter = () => currentIterationCounter;
-  var resetCurrentIterationCounter = () => {
-    currentIterationCounter = 0;
-  };
-  var getParseSourceArray = ({ element, currentSelectors }) => {
-    if (currentSelectors.length > 0) {
-      const componentToParse = currentSelectors[0];
-      const parseSourceArray = currentSelectors.slice(1);
-      return { componentToParse, parseSourceArray };
-    } else {
-      const query = useQuery ? [...queryAllFutureComponent(element)] : getFirstUserChildPlaceHolder(element);
-      const componentToParse = query?.[0];
-      const parseSourceArray = query.slice(1);
-      return { componentToParse, parseSourceArray };
-    }
-  };
-
-  // src/js/mob/mobjs/component/action/removeAndDestroy/setDestroyCallback.js
-  var setDestroyCallback = ({ cb = () => {
-  }, id }) => {
-    if (!id) return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    componentMap.set(id, { ...item, destroy: cb });
-  };
-
-  // src/js/mob/mobjs/modules/onMount/index.js
-  var onMountCallbackMap = /* @__PURE__ */ new Map();
-  var addOnMoutCallback = ({ id, cb = () => {
-  } }) => {
-    onMountCallbackMap.set(id, cb);
-  };
-  var fireOnMountCallBack = async ({ id, element }) => {
-    const callback2 = onMountCallbackMap.get(id);
-    const destroyCallback = await callback2?.({
-      element
-    });
-    setDestroyCallback({ cb: destroyCallback, id });
-    onMountCallbackMap.delete(id);
-  };
-
-  // src/js/mob/mobjs/modules/commonEvent.js
-  var shouldFireEvent = true;
-  var allowFireEvent = () => {
-    shouldFireEvent = true;
-  };
-  var preventFireEvent = () => {
-    shouldFireEvent = false;
-  };
-  var getFireEvent = () => shouldFireEvent;
-
-  // src/js/mob/mobjs/modules/bindEvents/index.js
-  var bindEventMap = /* @__PURE__ */ new Map();
-  var setBindEvents = (eventsData = []) => {
-    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
-    const id = modules_exports.getUnivoqueId();
-    bindEventMap.set(id, eventsDataParsed);
-    return id;
-  };
-  var applyBindEvents = ({ element, componentId, bindEventsId }) => {
-    const eventArray = bindEventMap.get(bindEventsId);
-    if (!eventArray) return;
-    eventArray.forEach((event) => {
-      const [eventName] = Object.keys(event);
-      const [callback2] = Object.values(event);
-      if (!eventName || !callback2) return;
-      element.addEventListener(eventName, async (e) => {
-        if (!getFireEvent()) return;
-        preventFireEvent();
-        await tick();
-        allowFireEvent();
-        const currentRepeaterState = getRepeaterStateById({
-          id: componentId
-        });
-        callback2(
-          e,
-          currentRepeaterState?.current,
-          currentRepeaterState?.index
-        );
-      });
-    });
-    bindEventMap.delete(bindEventsId);
-  };
-  var removeOrphansBindEvent = () => {
-    bindEventMap.clear();
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/setRepeatFunction.js
-  var setRepeatFunction = ({ id, repeatId, fn }) => {
-    const currentFunctions = repeatFunctionMap.get(id) ?? [];
-    repeatFunctionMap.set(id, [
-      ...currentFunctions,
-      { repeatId, fn, unsubscribe: () => {
-      } }
-    ]);
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/setRepeaterPlaceholderMapScopeId.js
-  var setRepeaterPlaceholderMapScopeId = ({ repeatId, scopeId }) => {
-    repeatIdPlaceHolderMap.set(repeatId, {
-      element: void 0,
-      initialized: false,
-      scopeId,
-      key: "",
-      children: []
-    });
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/setRepeaterPlaceholderMapInitialized.js
-  var setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
-    if (!item) return;
-    repeatIdPlaceHolderMap.set(repeatId, {
-      ...item,
-      initialized: true
-    });
-  };
-
-  // src/js/mob/mobjs/component/action/removeAndDestroy/destroyComponentInsideNodeById.js
-  var destroyComponentInsideNodeById = ({ id, container }) => {
-    const instanceValue = componentMap.get(id);
-    const child = instanceValue?.child;
-    if (!child) return;
-    const allChild = Object.values(child ?? {}).flat();
-    allChild.forEach((id2) => {
-      const state = componentMap.get(id2);
-      const element = state?.element;
-      if (element && container?.contains(element) && element !== container) {
-        removeAndDestroyById({ id: id2 });
-      }
-    });
-  };
-
-  // src/js/mob/mobjs/modules/commonRepeatInvalidate.js
-  var MODULE_REPEATER = "repeater";
-  var MODULE_INVALIDATE = "invalidate";
-  var getRepeatOrInvalidateInsideElement = ({
-    element,
-    skipInitialized = false,
-    onlyInitialized = false,
-    componentId,
-    module
-  }) => {
-    const entries = module === MODULE_REPEATER ? [...repeatIdPlaceHolderMap.entries()] : [...invalidateIdPlaceHolderMap.entries()];
-    return entries.filter(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_id, { element: currentElement, initialized: initialized7, scopeId }]) => {
-        if (componentId && !compareIdOrParentIdRecursive({
-          id: scopeId ?? "",
-          compareValue: componentId
-        }))
-          return;
-        if (skipInitialized && initialized7) return false;
-        if (onlyInitialized && !initialized7) return false;
-        return currentElement && element?.contains(currentElement) && element !== currentElement;
-      }
-    ).map(([id, parent]) => ({
-      id,
-      parent: parent?.element
-    }));
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/removeRepeatByRepeatId.js
-  var removeRepeatByRepeatId = ({ id, repeatId }) => {
-    if (!repeatFunctionMap.has(id)) return;
-    const value = repeatFunctionMap.get(id);
-    if (!value) return;
-    const valueParsed = value.filter((item) => item.repeatId !== repeatId);
-    if (repeatIdPlaceHolderMap.has(repeatId)) {
-      repeatIdPlaceHolderMap.delete(repeatId);
-    }
-    repeatFunctionMap.set(id, valueParsed);
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/destroyNestedRepeat.js
-  var destroyNestedRepeat = ({ id, repeatParent }) => {
-    const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
-      element: repeatParent,
-      skipInitialized: false,
-      onlyInitialized: true,
-      componentId: id,
-      module: MODULE_REPEATER
-    });
-    const repeatChildToDeleteParsed = [...repeatFunctionMap.values()].flat().filter((item) => {
-      return repeatChildToDelete.some((current) => {
-        return current.id === item.repeatId;
-      });
-    });
-    repeatChildToDeleteParsed.forEach((item) => {
-      item.unsubscribe();
-      removeRepeatByRepeatId({
-        id,
-        repeatId: item.repeatId
-      });
-    });
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/inizializeNestedRepeat.js
-  var inizializeNestedRepeat = ({ repeatParent, id }) => {
-    if (!repeatParent) return;
-    const newRepeatChild = getRepeatOrInvalidateInsideElement({
-      element: repeatParent,
-      skipInitialized: true,
-      onlyInitialized: false,
-      componentId: id,
-      module: MODULE_REPEATER
-    });
-    const repeatChildToInizialize = [...repeatFunctionMap.values()].flat().filter(({ repeatId }) => {
-      return newRepeatChild.some((current) => {
-        return current.id === repeatId;
-      });
-    });
-    repeatChildToInizialize.forEach(({ fn }) => {
-      fn();
-    });
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/addInvalidateUnsubcribe.js
-  var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
-    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    const item = currentFunctions.map((item2) => {
-      if (item2.invalidateId === invalidateId) {
-        return { ...item2, unsubscribe: unsubscribe3 };
-      }
-      return item2;
-    });
-    invalidateFunctionMap.set(id, item);
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/removeInvalidateByInvalidateId.js
-  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
-    if (!invalidateFunctionMap.has(id)) return;
-    const value = invalidateFunctionMap.get(id);
-    if (!value) return;
-    const valueParsed = value.filter(
-      (item) => item.invalidateId !== invalidateId
-    );
-    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
-      invalidateIdPlaceHolderMap.delete(invalidateId);
-    }
-    invalidateFunctionMap.set(id, valueParsed);
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/destroyNestedInvalidate.js
-  var destroyNestedInvalidate = ({ id, invalidateParent }) => {
-    const invalidatechildToDelete = getRepeatOrInvalidateInsideElement({
-      element: invalidateParent,
-      skipInitialized: false,
-      onlyInitialized: true,
-      componentId: id,
-      module: MODULE_INVALIDATE
-    });
-    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
-      return invalidatechildToDelete.some((current) => {
-        return current.id === item.invalidateId;
-      });
-    });
-    invalidateChildToDeleteParsed.forEach((item) => {
-      item.unsubscribe.forEach((fn) => {
-        fn();
-      });
-      removeInvalidateByInvalidateId({
-        id,
-        invalidateId: item.invalidateId
-      });
-    });
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/getInvalidateParent.js
-  var getInvalidateParent = ({ id }) => {
-    if (!invalidateIdPlaceHolderMap.has(id)) {
-      return;
-    }
-    if (invalidateIdHostMap.has(id)) {
-      const host = invalidateIdHostMap.get(id);
-      host?.removeCustomComponent();
-      host?.remove();
-      invalidateIdHostMap.delete(id);
-    }
-    const parent = invalidateIdPlaceHolderMap.get(id);
-    return parent?.element;
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/inizializeNestedInvalidate.js
-  var inizializeNestedInvalidate = ({ invalidateParent, id }) => {
-    if (!invalidateParent) return;
-    const newInvalidateChild = getRepeatOrInvalidateInsideElement({
-      element: invalidateParent,
-      skipInitialized: true,
-      onlyInitialized: false,
-      componentId: id,
-      module: MODULE_INVALIDATE
-    });
-    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter(({ invalidateId }) => {
-      return newInvalidateChild.some((current) => {
-        return current.id === invalidateId;
-      });
-    });
-    invalidateChildToInizialize.forEach(({ fn }) => {
-      fn();
-    });
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/inizializeInvalidateWatch.js
-  var inizializeInvalidateWatch = async ({
-    bind = [],
-    beforeUpdate = () => Promise.resolve(),
-    afterUpdate = () => {
-    },
-    watch,
-    id,
-    invalidateId,
-    persistent = false,
-    renderFunction
-  }) => {
-    let watchIsRunning = false;
-    const fallBackParentId = getFallBackParentByElement({
-      element: getInvalidateParent({ id: invalidateId })
-    });
-    afterUpdate();
-    const unsubScribeArray = bind.map((state) => {
-      const unsubscribe3 = watch(state, async () => {
-        if (watchIsRunning) return;
-        freezePropById({ id, prop: state });
-        const invalidateParent = getInvalidateParent({
-          id: invalidateId
-        });
-        const descrementQueue = incrementTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_INVALIDATE
-        });
-        const decrementInvalidateQueque = incrementInvalidateTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_INVALIDATE
-        });
-        watchIsRunning = true;
-        modules_exports.useNextLoop(async () => {
-          if (!invalidateParent) {
-            unFreezePropById({ id, prop: state });
-            return;
-          }
-          await beforeUpdate();
-          destroyNestedInvalidate({ id, invalidateParent });
-          destroyNestedRepeat({ id, repeatParent: invalidateParent });
-          destroyComponentInsideNodeById({
-            id: fallBackParentId ?? id,
-            container: invalidateParent
-          });
-          invalidateParent.textContent = "";
-          invalidateParent.insertAdjacentHTML(
-            "afterbegin",
-            renderFunction()
-          );
-          mainStore.set(
-            MAIN_STORE_ASYNC_PARSER,
-            {
-              element: invalidateParent,
-              parentId: fallBackParentId ?? id,
-              persistent
-            },
-            { emit: false }
-          );
-          await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
-          watchIsRunning = false;
-          descrementQueue();
-          decrementInvalidateQueque();
-          inizializeNestedInvalidate({ invalidateParent, id });
-          inizializeNestedRepeat({ repeatParent: invalidateParent, id });
-          unFreezePropById({ id, prop: state });
-          afterUpdate();
-        });
-      });
-      return unsubscribe3;
-    });
-    addInvalidateUnsubcribe({
-      id,
-      invalidateId,
-      unsubscribe: unsubScribeArray
-    });
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/setInvalidateFunction.js
-  var setInvalidateFunction = ({ id, invalidateId, fn }) => {
-    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    invalidateFunctionMap.set(id, [
-      ...currentFunctions,
-      { invalidateId, fn, unsubscribe: [() => {
-      }] }
-    ]);
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/setInvalidatePlaceholderMapInitialized.js
-  var setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
-    const item = invalidateIdPlaceHolderMap.get(invalidateId);
-    if (!item) return;
-    invalidateIdPlaceHolderMap.set(invalidateId, {
-      ...item,
-      initialized: true
-    });
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/setInvalidatePlaceholderMapScopedId.js
-  var setInvalidatePlaceholderMapScopedId = ({
-    invalidateId,
-    scopeId
-  }) => {
-    invalidateIdPlaceHolderMap.set(invalidateId, {
-      element: void 0,
-      initialized: false,
-      scopeId
-    });
-  };
-
-  // src/js/mob/mobjs/route/domRef/root.js
-  var root = document.createElement("div");
-  var setRoot = ({ element }) => {
-    root = element;
-  };
-  var getRoot = () => root;
-
-  // src/js/mob/mobjs/modules/delegateEvents/index.js
-  var tempDelegateEventMap = /* @__PURE__ */ new Map();
-  var eventDelegationMap = /* @__PURE__ */ new WeakMap();
-  var eventToAdd = [];
-  var eventRegistered = [];
-  var setDelegateBindEvent = (eventsData = []) => {
-    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
-    const id = modules_exports.getUnivoqueId();
-    tempDelegateEventMap.set(id, eventsDataParsed);
-    return id;
-  };
-  var findParentElementInMap = (target) => {
-    let parent = target?.parentNode;
-    while (parent) {
-      if (eventDelegationMap.has(parent))
-        return { target: parent, data: eventDelegationMap.get(parent) };
-      parent = parent?.parentNode;
-    }
-    return { target: void 0, data: void 0 };
-  };
-  var getItemFromTarget = (target) => {
-    const data = eventDelegationMap.get(target);
-    if (data) return { target, data: eventDelegationMap.get(target) };
-    return findParentElementInMap(target);
-  };
-  async function handleAction(eventKey, event) {
-    const target = event?.target;
-    if (!target) return;
-    if (!getFireEvent()) return;
-    preventFireEvent();
-    await tick();
-    allowFireEvent();
-    const { target: targetParsed, data } = getItemFromTarget(target);
-    if (!data || !document.contains(targetParsed)) return;
-    const currentEvent = data.find(({ event: event2 }) => event2 === eventKey);
-    if (!currentEvent) return;
-    const { callback: callback2 } = currentEvent;
-    const componentId = getIdByElement({ element: targetParsed });
-    const currentRepeaterState = componentId ? getRepeaterStateById({
-      id: componentId
-    }) : DEFAULT_CURRENT_REPEATER_STATE;
-    Object.defineProperty(event, "target", { value: targetParsed });
-    callback2(event, currentRepeaterState?.current, currentRepeaterState?.index);
-  }
-  var applyDelegationBindEvent = async (root2) => {
-    await repeaterTick();
-    await invalidateTick();
-    const parent = root2.parentNode;
-    const elements = parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
-    [...elements].forEach((element) => {
-      const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? "";
-      element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
-      const data = tempDelegateEventMap.get(id);
-      tempDelegateEventMap.delete(id);
-      const dataParsed = data?.flatMap((item) => {
-        return Object.entries(item).map((current) => {
-          const [event, callback2] = current;
-          if (!eventToAdd.includes(event)) eventToAdd.push(event);
-          return { event, callback: callback2 };
-        });
-      });
-      eventDelegationMap.set(element, dataParsed);
-    });
-    const rootElement = getRoot();
-    eventToAdd.forEach((eventKey) => {
-      if (eventRegistered.includes(eventKey)) return;
-      eventRegistered.push(eventKey);
-      rootElement.addEventListener(
-        eventKey,
-        handleAction.bind(null, eventKey)
-      );
-    });
-  };
-
-  // src/js/mob/mobjs/modules/bindRefs/index.js
-  var getBindRefs = ({ element }) => {
-    const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
-    const initialValue = {};
-    return [...refs].reduce((previous, current) => {
-      const refId = current.getAttribute(ATTR_BIND_REFS_ID);
-      const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
-      current.removeAttribute(ATTR_BIND_REFS_ID);
-      current.removeAttribute(ATTR_BIND_REFS_NAME);
-      if (!refName) return previous;
-      const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
-      return { ...previous, [refName]: newRefsByName };
-    }, initialValue);
-  };
-  var getRefsSorter = (refs) => {
-    return [
-      ...new Set(
-        refs.sort((a, b) => {
-          if (a === b || !a || !b) return 0;
-          if (a.compareDocumentPosition(b) & 2) {
-            return 1;
-          }
-          return -1;
-        })
-      )
-    ];
-  };
-  var mergeRefsAndOrder = ({ refs, refName, element }) => {
-    return {
-      ...refs,
-      [refName]: getRefsSorter([...refs[refName], element])
-    };
-  };
-  var addBindRefsToComponent = (refs) => {
-    Object.entries(refs).forEach(([refName, entries]) => {
-      entries.forEach(({ element, scopeId }) => {
-        const item = componentMap.get(scopeId);
-        if (!item) return;
-        const { refs: previousRef } = item;
-        if (!previousRef) return;
-        const newRefs = refName in previousRef ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
-        componentMap.set(scopeId, {
-          ...item,
-          refs: newRefs
-        });
-      });
-    });
-  };
-  var getBindRefsById = ({ id }) => {
-    const item = componentMap.get(id);
-    if (!item) return {};
-    const { refs, element } = item;
-    if (!refs) return {};
-    const refsUpdated = Object.entries(refs).map(([name, collection]) => {
-      return {
-        name,
-        collection: collection.filter((ref) => element.contains(ref))
-      };
-    }).reduce((previous, current) => {
-      return { ...previous, [current.name]: current.collection };
-    }, {});
-    componentMap.set(id, {
-      ...item,
-      refs: refsUpdated
-    });
-    return refsUpdated;
-  };
-  var getBindRefById = ({ id }) => {
-    const refs = getBindRefsById({ id });
-    return Object.entries(refs).reduce((previous, [name, collection]) => {
-      return { ...previous, [name]: collection?.[0] };
-    }, {});
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/addRepeatUnsubcribe.js
-  var addRepeatUnsubcribe = ({ id, repeatId, unsubscribe: unsubscribe3 }) => {
-    const currentFunctions = repeatFunctionMap.get(id) ?? [];
-    const item = currentFunctions.map((item2) => {
-      if (item2.repeatId === repeatId) {
-        return { ...item2, unsubscribe: unsubscribe3 };
-      }
-      return item2;
-    });
-    repeatFunctionMap.set(id, item);
-  };
-
-  // src/js/mob/mobjs/modules/repeater/activeRepeater/index.js
-  var activeRepeatMap = /* @__PURE__ */ new Set();
-  var addActiveRepeat = ({ id, state, container }) => {
-    activeRepeatMap.add({ id, state, container });
-  };
-  var removeActiveRepeat = ({ id, state, container }) => {
-    if (!container) return;
-    activeRepeatMap.forEach((repeat) => {
-      if (id === repeat.id && state === repeat.state && container === repeat.container) {
-        activeRepeatMap.delete(repeat);
-      }
-    });
-  };
-  var getActiveRepeater = ({ id = "", state = "", container }) => {
-    const repeatIsActive = [...activeRepeatMap].some((repeat) => {
-      return id === repeat.id && state === repeat.state && container === repeat.container;
-    });
-    return repeatIsActive;
-  };
-
-  // src/js/mob/mobjs/utils.js
-  var staticProps = (props = {}) => {
-    return `${ATTR_PROPS}="${setStaticProps(props)}"`;
-  };
-  var clamp3 = (num, lower, upper) => {
-    return Math.min(Math.max(num, lower), upper);
-  };
-
-  // src/js/mob/mobjs/modules/repeater/update/getProxi.js
-  var REPEAT_PROXI_INDEX = "index";
-  var getRepeatProxi = ({
-    id,
-    bind,
-    hasKey,
-    key = "",
-    keyValue = "",
-    index
-  }) => {
-    const inistalState = getStateById(id);
-    const startValue = hasKey ? inistalState?.[bind]?.find(
-      (item) => item[key] === keyValue
-    ) : inistalState?.[bind]?.[index];
-    let currentValue = startValue;
-    let lastValue = startValue;
-    return new Proxy(
-      {},
-      {
-        get(_, prop) {
-          currentKey_exports.setCurrentDependencies(bind);
-          const state = getStateById(id);
-          const maxValue = Math.max(state?.[bind].length - 1, 0);
-          if (prop === REPEAT_PROXI_INDEX) {
-            if (hasKey) {
-              const indexByKey = state?.[bind]?.findIndex(
-                (item) => item[key] === keyValue
-              );
-              return clamp3(indexByKey, 0, maxValue);
-            }
-            return clamp3(index, 0, maxValue);
-          }
-          if (hasKey) {
-            lastValue = currentValue ?? lastValue;
-            currentValue = state?.[bind]?.find(
-              (item) => item[key] === keyValue
-            );
-            return currentValue ?? lastValue;
-          }
-          lastValue = currentValue ?? lastValue;
-          currentValue = state?.[bind]?.[clamp3(index, 0, maxValue)];
-          return currentValue ?? lastValue;
-        },
-        set() {
-          return false;
-        }
-      }
-    );
-  };
-
-  // src/js/mob/mobjs/modules/repeater/update/utils.js
-  var updateRepeaterWitoutKey = ({
-    id,
-    diff,
-    current,
-    previousLenght,
-    render: render2,
-    state,
-    repeatId
-  }) => {
-    setSkipAddUserComponent(true);
-    const serializedFragment = [...new Array(diff).keys()].map((_item, index) => {
-      const initialValue = current?.[index + previousLenght];
-      const initialIndex = index + previousLenght;
-      const proxiObject = getRepeatProxi({
-        id,
-        bind: state,
-        hasKey: false,
-        index: initialIndex
-      });
-      const rawRender = render2({
-        initialIndex,
-        initialValue,
-        current: proxiObject,
-        sync: () => ""
-      });
-      let fragment = document.createRange().createContextualFragment(rawRender);
-      const components = queryAllFutureComponent(fragment, false);
-      setRepeatAttribute({
-        components,
-        current: initialValue,
-        index: initialIndex,
-        bind: state,
-        repeatId,
-        key: void 0
-      });
-      const serializedRender = serializeFragment(fragment);
-      fragment = null;
-      return serializedRender;
-    }).join("");
-    setSkipAddUserComponent(false);
-    return serializedFragment;
-  };
-  var updateRepeaterWithoutKeyUseSync = ({
-    id,
-    diff,
-    previousLenght,
-    current,
-    state,
-    repeatId,
-    render: render2
-  }) => {
-    return [...new Array(diff).keys()].map((_item, index) => {
-      const initialValue = current?.[index + previousLenght];
-      const initialIndex = index + previousLenght;
-      const sync = (
-        /* HTML */
-        () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-          {
-            current: initialValue,
-            index: initialIndex
-          }
-        )}"
-            ${ATTR_REPEATER_PROP_BIND}="${state}"
-            ${ATTR_CHILD_REPEATID}="${repeatId}"`
-      );
-      const proxiObject = getRepeatProxi({
-        id,
-        bind: state,
-        hasKey: false,
-        index: initialIndex
-      });
-      return render2({
-        sync,
-        initialIndex,
-        initialValue,
-        current: proxiObject
-      });
-    }).join("");
-  };
-  var updateRepeaterWithtKey = ({
-    id,
-    currentValue,
-    index,
-    state,
-    repeatId,
-    key,
-    keyValue,
-    render: render2
-  }) => {
-    setSkipAddUserComponent(true);
-    const proxiObject = getRepeatProxi({
-      id,
-      bind: state,
-      hasKey: true,
-      key,
-      keyValue,
-      index
-    });
-    let fragment = document.createRange().createContextualFragment(
-      render2({
-        initialIndex: index,
-        initialValue: currentValue,
-        current: proxiObject,
-        sync: () => ""
-      })
-    );
-    const components = queryAllFutureComponent(fragment, false);
-    setRepeatAttribute({
-      components,
-      current: currentValue,
-      index,
-      bind: state,
-      repeatId,
-      key: keyValue
-    });
-    setSkipAddUserComponent(false);
-    const serializedRender = serializeFragment(fragment);
-    fragment = null;
-    return serializedRender;
-  };
-  var updateRepeaterWithtKeyUseSync = ({
-    id,
-    currentValue,
-    index,
-    state,
-    repeatId,
-    key,
-    keyValue,
-    render: render2
-  }) => {
-    const proxiObject = getRepeatProxi({
-      id,
-      bind: state,
-      hasKey: true,
-      key,
-      keyValue,
-      index
-    });
-    const sync = () => (
-      /* HTML */
-      ` ${ATTR_KEY}="${keyValue}"
-        ${ATTR_REPEATER_PROP_BIND}="${state}"
-        ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
-        current: currentValue,
-        index
-      })}"
-        ${ATTR_CHILD_REPEATID}="${repeatId}"`
-    );
-    return render2({
-      initialIndex: index,
-      initialValue: currentValue,
-      current: proxiObject,
-      sync
-    });
-  };
-  var getRenderWithoutSync = ({
-    id,
-    currentUnique,
-    render: render2,
-    bind,
-    repeatId,
-    key = "",
-    hasKey
-  }) => {
-    setSkipAddUserComponent(true);
-    const rawRender = currentUnique.map((item, index) => {
-      const proxiObject = getRepeatProxi({
-        id,
-        bind,
-        hasKey,
-        key,
-        keyValue: hasKey ? item?.[key] : "",
-        index
-      });
-      let fragment = document.createRange().createContextualFragment(
-        render2({
-          initialIndex: index,
-          initialValue: item,
-          current: proxiObject,
-          sync: () => ""
-        })
-      );
-      const components = queryAllFutureComponent(fragment, false);
-      setRepeatAttribute({
-        components,
-        current: item,
-        index,
-        bind,
-        repeatId,
-        key: hasKey ? item?.[key] : ""
-      });
-      const serializedRender = serializeFragment(fragment);
-      fragment = null;
-      return serializedRender;
-    }).join("");
-    setSkipAddUserComponent(false);
-    return rawRender;
-  };
-  var getRenderWithSync = ({
-    id,
-    currentUnique,
-    key = "",
-    bind,
-    repeatId,
-    hasKey,
-    render: render2
-  }) => {
-    const rawRender = () => {
-      return currentUnique.map((item, index) => {
-        const sync = (
-          /* HTML */
-          () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-            {
-              current: item,
-              index
-            }
-          )}"
-                            ${ATTR_KEY}="${hasKey ? item?.[key] : ""}"
-                            ${ATTR_REPEATER_PROP_BIND}="${bind}"
-                            ${ATTR_CHILD_REPEATID}="${repeatId}"`
-        );
-        const proxiObject = getRepeatProxi({
-          id,
-          bind,
-          hasKey,
-          key,
-          keyValue: hasKey ? item?.[key] : "",
-          index
-        });
-        return render2({
-          sync,
-          initialIndex: index,
-          initialValue: item,
-          current: proxiObject
-        });
-      }).join("");
-    };
-    return rawRender();
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/setRepeatChild.js
-  var setRepeaterChild = ({ repeatId, id, bind }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
-    if (!item) return;
-    const { element } = item;
-    if (!element) return;
-    const children = (
-      /** @type{HTMLElement[]} */
-      [...element.children]
-    );
-    const state = getStateById(id);
-    const stateByProp = state[bind];
-    repeatIdPlaceHolderMap.set(repeatId, {
-      ...item,
-      key: bind,
-      children: children.map((child, index) => {
-        return { index, value: stateByProp[index], element: child };
-      })
-    });
-  };
-  var getRepeaterChild = ({ repeatId }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
-    if (!item) return [];
-    const { children } = item;
-    return children;
-  };
-
-  // src/js/mob/mobjs/modules/repeater/update/addWithKey.js
-  var addWithKey = ({
-    state = "",
-    current = [],
-    previous = [],
-    repeaterParentElement = document.createElement("div"),
-    key = "",
-    id = "",
-    render: render2,
-    repeatId,
-    useSync
-  }) => {
-    const currentUnique = getUnivoqueByKey({ data: current, key });
-    const keyToRemove = getNewElement(previous, currentUnique, key);
-    const elementToRemoveByKey = keyToRemove.map((item) => {
-      const keyValue = item?.[key];
-      return getElementByKeyAndRepeatId({
-        keyValue,
-        repeatId
-      });
-    }).filter(Boolean);
-    const elementToRemoveByComponent = elementToRemoveByKey.length > 0;
-    elementToRemoveByKey.forEach((element) => {
-      const currentId = getIdByElement({ element });
-      if (!currentId) return;
-      const elementWrapper = getRepeaterInnerWrap({ id: currentId });
-      const nestedParent = (
-        /** @type {HTMLElement} */
-        elementWrapper ?? element
-      );
-      destroyNestedInvalidate({ id, invalidateParent: nestedParent });
-      destroyNestedRepeat({ id, repeatParent: nestedParent });
-      if (elementWrapper) {
-        destroyComponentInsideNodeById({
-          id: getParentIdById(currentId) ?? "",
-          container: elementWrapper
-        });
-        elementWrapper.remove();
-      } else {
-        removeAndDestroyById({ id: currentId });
-      }
-    });
-    if (!elementToRemoveByComponent) {
-      const childrenFromRepeater = getRepeaterChild({ repeatId });
-      const itemToRemove = childrenFromRepeater.filter((item) => {
-        return keyToRemove.map((item2) => item2?.[key]).includes(item.value?.[key]);
-      });
-      itemToRemove.forEach((item) => {
-        const { element: currentElement } = item;
-        destroyNestedInvalidate({ id, invalidateParent: currentElement });
-        destroyNestedRepeat({ id, repeatParent: currentElement });
-        destroyComponentInsideNodeById({
-          id,
-          container: currentElement
-        });
-      });
-    }
-    const newSequenceByKey = mixPreviousAndCurrentData(
-      currentUnique,
-      previous,
-      key
-    ).map(({ keyValue, isNewElement, index }) => {
-      if (isNewElement)
-        return { keyValue, isNewElement, index, wrapper: void 0 };
-      const element = getElementByKeyAndRepeatId({
-        keyValue,
-        repeatId
-      });
-      const id2 = element ? getIdByElement({ element }) : void 0;
-      const wrapperParsed = element ? getRepeaterInnerWrap({ id: id2 }) : (() => {
-        const childrenFromRepeater = getRepeaterChild({ repeatId });
-        return childrenFromRepeater.find(
-          (item) => item.value?.[key] === keyValue
-        )?.element;
-      })();
-      return {
-        keyValue,
-        isNewElement,
-        index,
-        persistentElement: element,
-        persistentDOMwrapper: wrapperParsed
-      };
-    });
-    repeaterParentElement.replaceChildren();
-    newSequenceByKey.forEach(
-      ({
-        isNewElement,
-        keyValue,
-        index,
-        persistentElement,
-        persistentDOMwrapper
-      }) => {
-        if (!isNewElement) {
-          const { debug } = getDefaultComponent();
-          if (debug && !persistentDOMwrapper && elementToRemoveByComponent) {
-            const componentName = getComponentNameByElement(persistentElement);
-            repeaterParentElement.insertAdjacentHTML(
-              "beforeend",
-              `<!-- ${componentName} --> `
-            );
-          }
-          if (persistentDOMwrapper) {
-            repeaterParentElement.append(persistentDOMwrapper);
-          }
-          if (!persistentDOMwrapper && persistentElement) {
-            repeaterParentElement.append(persistentElement);
-          }
-          return;
-        }
-        const currentValue = currentUnique?.[index];
-        const currentRender = useSync ? updateRepeaterWithtKeyUseSync({
-          id,
-          currentValue,
-          index,
-          state,
-          repeatId,
-          key,
-          keyValue,
-          render: render2
-        }) : updateRepeaterWithtKey({
-          id,
-          currentValue,
-          index,
-          state,
-          repeatId,
-          key,
-          keyValue,
-          render: render2
-        });
-        repeaterParentElement.insertAdjacentHTML(
-          "beforeend",
-          currentRender
-        );
-      }
-    );
-    return currentUnique;
-  };
-
-  // src/js/mob/mobjs/modules/repeater/update/addWithoutKey.js
-  var addWithoutKey = ({
-    state = "",
-    current = [],
-    previous = [],
-    repeaterParentElement = document.createElement("div"),
-    render: render2,
-    repeatId,
-    id,
-    useSync
-  }) => {
-    const currentLenght = current.length;
-    const previousLenght = previous.length;
-    const diff = currentLenght - previousLenght;
-    if (diff > 0) {
-      const currentRender = useSync ? updateRepeaterWithoutKeyUseSync({
-        id,
-        diff,
-        previousLenght,
-        current,
-        state,
-        repeatId,
-        render: render2
-      }) : updateRepeaterWitoutKey({
-        id,
-        diff,
-        current,
-        previousLenght,
-        render: render2,
-        state,
-        repeatId
-      });
-      repeaterParentElement.insertAdjacentHTML("beforeend", currentRender);
-    }
-    if (diff < 0) {
-      const idsByRepeatId = getIdsByByRepeatId({
-        id,
-        repeatId
-      });
-      const childrenChunkedByWrapper = chunkIdsByCurrentValue({
-        children: idsByRepeatId
-      });
-      const elementToRemoveByKey = childrenChunkedByWrapper.filter(
-        (_child, i) => {
-          return i >= current.length;
-        }
-      );
-      elementToRemoveByKey.forEach((childArray) => {
-        childArray.forEach((childId) => {
-          const element = getElementById({ id: childId });
-          const elementWrapper = getRepeaterInnerWrap({
-            id: childId
-          });
-          const nestedParent = (
-            /** @type {HTMLElement} */
-            elementWrapper ?? element
-          );
-          destroyNestedInvalidate({ id, invalidateParent: nestedParent });
-          destroyNestedRepeat({ id, repeatParent: nestedParent });
-          if (elementWrapper) {
-            destroyComponentInsideNodeById({
-              id: getParentIdById(childId) ?? "",
-              container: elementWrapper
-            });
-            elementWrapper.remove();
-          } else {
-            removeAndDestroyById({ id: childId });
-          }
-        });
-      });
-      if (childrenChunkedByWrapper.length > 0) return [];
-      const childrenFromRepeater = getRepeaterChild({ repeatId });
-      if (!childrenFromRepeater) return [];
-      const childrenFromRepeaterToRemove = childrenFromRepeater.filter(
-        ({ index }) => {
-          return index >= current.length;
-        }
-      );
-      childrenFromRepeaterToRemove.forEach((item) => {
-        const { element: currentElement } = item;
-        destroyNestedInvalidate({ id, invalidateParent: currentElement });
-        destroyNestedRepeat({ id, repeatParent: currentElement });
-        destroyComponentInsideNodeById({
-          id,
-          container: currentElement
-        });
-        currentElement.remove();
-      });
-    }
-    return current;
-  };
-
-  // src/js/mob/mobjs/modules/repeater/update/index.js
-  var updateRepeater = async ({
-    state = "",
-    persistent,
-    repeaterParentElement = document.createElement("div"),
-    current = [],
-    previous = [],
-    key = "",
-    id,
-    fallBackParentId = "",
-    render: render2,
-    repeatId,
-    useSync
-  }) => {
-    const hasKey = listKeyExist({ current, previous, key });
-    const fn = hasKey ? addWithKey : addWithoutKey;
-    const currentUnivoque = fn({
-      state,
-      current,
-      previous,
-      repeaterParentElement,
-      key,
-      id,
-      render: render2,
-      repeatId,
-      useSync
-    });
-    mainStore.set(
-      MAIN_STORE_ASYNC_PARSER,
-      {
-        element: repeaterParentElement,
-        parentId: fallBackParentId ?? id,
-        persistent
-      },
-      { emit: false }
-    );
-    await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
-    return currentUnivoque;
-  };
-
-  // src/js/mob/mobjs/modules/repeater/watch/index.js
-  var watchRepeat = ({
-    state = "",
-    setState,
-    persistent = false,
-    watch,
-    clean: clean2 = false,
-    beforeUpdate,
-    afterUpdate,
-    key = "",
-    id = "",
-    repeatId = "",
-    render: render2,
-    useSync = false
-  }) => {
-    const mainComponent = getElementById({ id });
-    const parentByElement = getRepeatParent({ id: repeatId });
-    const fallBackParentId = parentByElement ? getFallBackParentByElement({ element: parentByElement }) ?? "" : "";
-    afterUpdate();
-    const unsubscribe3 = watch(
-      state,
-      async (current, previous) => {
-        if (!modules_exports.checkType(Array, current)) return;
-        const repeaterParentElement = getRepeatParent({
-          id: repeatId
-        });
-        const descrementQueue = incrementTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_REPEATER
-        });
-        const descrementRepeaterQueue = incrementRepeaterTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_REPEATER
-        });
-        freezePropById({ id, prop: state });
-        const repeatIsRunning = getActiveRepeater({
-          id,
-          state,
-          container: repeaterParentElement
-        });
-        if (repeatIsRunning) {
-          unFreezePropById({ id, prop: state });
-          setState(state, previous, { emit: false });
-          descrementQueue();
-          descrementRepeaterQueue();
-          return;
-        }
-        const childrenBeforeUdateByRepeatId = getIdsByByRepeatId({
-          id,
-          repeatId
-        });
-        if (mainComponent) {
-          await beforeUpdate();
-        }
-        if (clean2) {
-          const currentChildern = getIdsByByRepeatId({
-            id,
-            repeatId
-          });
-          currentChildern.forEach((id2) => {
-            removeAndDestroyById({ id: id2 });
-          });
-          if (repeaterParentElement) {
-            repeaterParentElement.textContent = "";
-          }
-        }
-        if (repeaterParentElement)
-          addActiveRepeat({
-            id,
-            state,
-            container: repeaterParentElement
-          });
-        const currentUnivoque = await updateRepeater({
-          state,
-          persistent,
-          repeaterParentElement: repeaterParentElement ?? document.createElement("div"),
-          current,
-          previous: clean2 ? [] : previous,
-          key,
-          id,
-          fallBackParentId,
-          render: render2,
-          repeatId,
-          useSync
-        });
-        const childrenFilteredByRepeatId = getIdsByByRepeatId({
-          id,
-          repeatId
-        });
-        const hasKey = key && key !== "";
-        const childrenChunkedByWrapper = chunkIdsByCurrentValue({
-          children: childrenFilteredByRepeatId,
-          previousChildren: childrenBeforeUdateByRepeatId
-        });
-        const chunkChildrenOrdered = hasKey ? [
-          ...getOrderedChunkByCurrentRepeatValue({
-            children: childrenChunkedByWrapper,
-            key,
-            current
-          })
-        ] : childrenChunkedByWrapper;
-        chunkChildrenOrdered.forEach((childArray, index) => {
-          childArray.forEach((id2) => {
-            const currentValue = currentUnivoque?.[index];
-            if (!currentValue) return;
-            const realIndex = hasKey ? current.findIndex((value) => {
-              return `${value?.[key]}` === `${currentUnivoque?.[index]?.[key]}`;
-            }) : index;
-            setRepeaterStateById({
-              id: id2,
-              value: { current: currentValue, index: realIndex }
-            });
-          });
-        });
-        modules_exports.useNextLoop(async () => {
-          if (mainComponent) {
-            afterUpdate();
-          }
-          removeActiveRepeat({
-            id,
-            state,
-            container: repeaterParentElement
-          });
-          unFreezePropById({ id, prop: state });
-          descrementQueue();
-          descrementRepeaterQueue();
-          inizializeNestedInvalidate({
-            invalidateParent: repeaterParentElement,
-            id
-          });
-          inizializeNestedRepeat({
-            repeatParent: repeaterParentElement,
-            id
-          });
-          if (chunkChildrenOrdered.length === 0) {
-            setRepeaterChild({ repeatId, id, bind: state });
-          }
-        });
-      }
-    );
-    return unsubscribe3;
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/inizializeRepeatWatch.js
-  var inizializeRepeatWatch = ({
-    repeatId,
-    persistent,
-    state,
-    setState,
-    emit,
-    watch,
-    clean: clean2,
-    beforeUpdate,
-    afterUpdate,
-    key,
-    id,
-    render: render2,
-    useSync
-  }) => {
-    const unsubscribe3 = watchRepeat({
-      state,
-      setState,
-      persistent,
-      emit,
-      watch,
-      clean: clean2,
-      beforeUpdate,
-      afterUpdate,
-      key,
-      id,
-      repeatId,
-      render: render2,
-      useSync
-    });
-    addRepeatUnsubcribe({
-      id,
-      repeatId,
-      unsubscribe: unsubscribe3
-    });
-  };
-
-  // src/js/mob/mobjs/modules/bindEffect/index.js
-  var bindEffectMap = /* @__PURE__ */ new Map();
-  var getExplicitBind = (bind) => {
-    return (
-      /** @type{string[]} */
-      modules_exports.checkType(Array, bind) ? bind : [bind]
-    );
-  };
-  var getAutoBind = ({ toggleClass, toggleStyle, toggleAttribute }) => {
-    currentKey_exports.initializeCurrentDependencies();
-    Object.values(toggleStyle).forEach((fn) => fn());
-    Object.values(toggleClass).forEach((fn) => fn());
-    Object.values(toggleAttribute).forEach((fn) => fn());
-    return currentKey_exports.getCurrentDependencies();
-  };
-  var setBindEffect = ({ data, id }) => {
-    const dataToArray = modules_exports.checkType(Array, data) ? data : [data];
-    const dataBindToArray = dataToArray.map(
-      ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
-        const bindParsed = bind ? getExplicitBind(bind) : getAutoBind({
-          toggleStyle: toggleStyle ?? { fake: () => "" },
-          toggleClass: toggleClass ?? { fake: () => {
-          } },
-          toggleAttribute: toggleAttribute ?? { fake: () => {
-          } }
-        });
-        return {
-          bind: bindParsed,
-          toggleClass: toggleClass ?? {},
-          toggleStyle: toggleStyle ?? {},
-          toggleAttribute: toggleAttribute ?? {}
-        };
-      }
-    );
-    const item = {
-      parentId: id,
-      items: dataBindToArray
-    };
-    const univoqueId = modules_exports.getUnivoqueId();
-    bindEffectMap.set(univoqueId, item);
-    return univoqueId;
-  };
-  var applyBindEffect = (element) => {
-    const occurrences = (
-      /** @type{HTMLElement[]} */
-      [
-        ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`)
-      ]
-    );
-    occurrences.forEach((target) => {
-      const id = target.getAttribute(ATTR_BIND_EFFECT);
-      if (!id) return;
-      const data = bindEffectMap.get(id);
-      if (!data) return;
-      target.removeAttribute(ATTR_BIND_EFFECT);
-      watchBindEffect({ data, element: target });
-      bindEffectMap.delete(id);
-    });
-  };
-  var applyClass = ({ ref, data }) => {
-    if (!data) return;
-    Object.entries(data).forEach(([className, fn]) => {
-      if (!ref.deref()) return;
-      ref.deref().classList.toggle(className, fn?.());
-    });
-  };
-  var applyStyle = ({ ref, data }) => {
-    Object.entries(data).forEach(([styleName, fn]) => {
-      if (!ref.deref()) return;
-      ref.deref().style[styleName] = fn?.() ?? "";
-    });
-  };
-  var applyAttribute = ({ ref, data }) => {
-    Object.entries(data).forEach(([attributeName, fn]) => {
-      if (!ref.deref()) return;
-      const value = fn?.();
-      if (!value) {
-        ref.deref().removeAttribute(attributeName);
-        return;
-      }
-      ref.deref()?.setAttribute(attributeName, value);
-    });
-  };
-  var watchBindEffect = ({ data, element }) => {
-    const ref = new WeakRef(element);
-    const { parentId: id } = data;
-    const { items } = data;
-    const unsubScribeFunction = items.flatMap(
-      ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
-        let watchIsRunning = false;
-        const states = getStateById(id);
-        return bind.map((state) => {
-          const initialStateValue = states?.[state];
-          const isArray = checkType(Array, initialStateValue);
-          const shouldRender = !isArray || initialStateValue.length > 0;
-          if (toggleClass && shouldRender) {
-            modules_exports.useFrame(() => {
-              applyClass({ ref, data: toggleClass });
-            });
-          }
-          if (toggleStyle && shouldRender) {
-            modules_exports.useFrame(() => {
-              applyStyle({ ref, data: toggleStyle });
-            });
-          }
-          if (toggleAttribute && shouldRender) {
-            modules_exports.useFrame(() => {
-              applyAttribute({ ref, data: toggleAttribute });
-            });
-          }
-          return watchById(id, state, (value) => {
-            if (!ref || !ref?.deref()) {
-              unsubScribeFunction.forEach((fn) => {
-                if (fn) fn();
-              });
-              unsubScribeFunction.length = 0;
-              return;
-            }
-            if (watchIsRunning) return;
-            watchIsRunning = true;
-            modules_exports.useNextLoop(() => {
-              modules_exports.useFrame(() => {
-                const shouldRender2 = !isArray || value.length > 0;
-                if (toggleClass && shouldRender2 && ref.deref()) {
-                  applyClass({ ref, data: toggleClass });
-                }
-                if (toggleStyle && shouldRender2 && ref.deref()) {
-                  applyStyle({ ref, data: toggleStyle });
-                }
-                if (toggleAttribute && shouldRender2 && ref.deref()) {
-                  applyAttribute({ ref, data: toggleAttribute });
-                }
-                watchIsRunning = false;
-              });
-            });
-          });
-        });
-      }
-    );
-  };
-
-  // src/js/mob/mobjs/parse/steps/getParamsForComponent.js
-  var getParamsForComponentFunction = ({
-    getState,
-    setState,
-    updateState,
-    getProxi,
-    emit,
-    emitAsync,
-    computed,
-    watch,
-    bindStore,
-    id,
-    key,
-    bindEventsId,
-    debug
-  }) => {
-    const repeatIdArray = [];
-    return {
-      bindEventsId,
-      key,
-      id,
-      getState,
-      setState,
-      updateState,
-      getProxi,
-      emit,
-      emitAsync,
-      computed,
-      watch,
-      bindStore,
-      debug,
-      repeatIdArray,
-      renderComponent: async ({
-        attachTo,
-        component,
-        position: position2 = "afterbegin",
-        clean: clean2 = true
-      }) => {
-        if (clean2) {
-          destroyComponentInsideNodeById({ id, container: attachTo });
-          attachTo.textContent = "";
-        }
-        attachTo.insertAdjacentHTML(position2, component);
-        mainStore.set(
-          MAIN_STORE_ASYNC_PARSER,
-          {
-            element: attachTo,
-            parentId: id,
-            persistent: componentIsPersistent(id)
-          },
-          { emit: false }
-        );
-        return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
-      },
-      getChildren: (componentName) => {
-        return getChildrenIdByName({ id, componentName });
-      },
-      /**
-       * ts issue, prop coem as string\number\symbol, convert in string.
-       */
-      freezeProp: (prop) => freezePropById({ id, prop: prop.toString() }),
-      unFreezeProp: (prop) => unFreezePropById({ id, prop: prop.toString() }),
-      unBind: () => unBind({ id }),
-      bindProps: (data) => {
-        const dataNormalized = "props" in data ? data : { props: data };
-        return `${ATTR_BIND_PROPS}="${setBindProps({
-          ...dataNormalized,
-          parentId: dataNormalized?.forceParent ? void 0 : id
-        })}" `;
-      },
-      staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
-      remove: () => {
-        removeAndDestroyById({ id });
-      },
-      removeDOM: (element) => {
-        destroyComponentInsideNodeById({ id, container: element });
-        element.textContent = "";
-      },
-      getParentId: () => getParentIdById(id),
-      watchParent: (prop, cb) => {
-        const unsubscribeParent = watchById(getParentIdById(id), prop, cb);
-        if (unsubscribeParent)
-          setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
-      },
-      onMount: (cb) => addOnMoutCallback({ id, cb }),
-      bindEvents: (eventsData) => {
-        return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;
-      },
-      delegateEvents: (eventsData) => {
-        return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
-          eventsData
-        )}"`;
-      },
-      bindEffect: (effectData) => {
-        return `${ATTR_BIND_EFFECT}="${setBindEffect({ data: effectData, id })}"`;
-      },
-      addMethod: (name, fn) => {
-        addMethodById({ id, name, fn });
-      },
-      setRef: (value) => {
-        return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value}"`;
-      },
-      getRef: () => {
-        return getBindRefById({ id });
-      },
-      getRefs: () => {
-        return getBindRefsById({ id });
-      },
-      bindText: (strings, ...values) => {
-        const bindTextId = modules_exports.getUnivoqueId();
-        const render2 = () => renderBindText(id, strings, ...values);
-        createBindTextWatcher(id, bindTextId, render2, ...values);
-        return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render2()}`;
-      },
-      bindObject: (strings, ...values) => {
-        const keys = getBindObjectKeys(values);
-        const bindObjectId = modules_exports.getUnivoqueId();
-        const render2 = () => renderBindObject(strings, ...values);
-        createBindObjectWatcher(id, bindObjectId, keys, render2);
-        return `<mobjs-bind-object ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_OBJECT_ID}="${bindObjectId}"></mobjs-bind-object>${render2()}`;
-      },
-      invalidate: ({
-        bind,
-        render: render2,
-        beforeUpdate = () => Promise.resolve(),
-        afterUpdate = () => {
-        }
-      }) => {
-        const invalidateId = modules_exports.getUnivoqueId();
-        const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
-        const invalidateRender = () => render2();
-        let isInizialized = false;
-        setInvalidatePlaceholderMapScopedId({ invalidateId, scopeId: id });
-        setInvalidateFunction({
-          id,
-          invalidateId,
-          fn: () => {
-            if (isInizialized) return;
-            inizializeInvalidateWatch({
-              bind: (
-                /** @type{Array<string>} */
-                modules_exports.checkType(Array, bind) ? bind : [bind]
-              ),
-              watch,
-              beforeUpdate,
-              afterUpdate,
-              persistent: componentIsPersistent(id),
-              id,
-              invalidateId,
-              renderFunction: invalidateRender
-            });
-            isInizialized = true;
-            setInvalidatePlaceholderMapInitialized({
-              invalidateId
-            });
-          }
-        });
-        return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
-      },
-      repeat: ({
-        bind,
-        clean: clean2 = false,
-        beforeUpdate = () => Promise.resolve(),
-        afterUpdate = () => {
-        },
-        key: key2 = "",
-        render: render2,
-        useSync = false
-      }) => {
-        const repeatId = modules_exports.getUnivoqueId();
-        const hasKey = key2 !== "";
-        const initialState = getState()?.[bind];
-        const currentUnique = hasKey ? getUnivoqueByKey({ data: initialState, key: key2 }) : initialState;
-        setSkipAddUserComponent(true);
-        const initialRender = useSync ? getRenderWithSync({
-          id,
-          currentUnique,
-          key: key2,
-          bind,
-          repeatId,
-          hasKey,
-          render: render2
-        }) : getRenderWithoutSync({
-          id,
-          currentUnique,
-          render: render2,
-          bind,
-          repeatId,
-          key: key2,
-          hasKey
-        });
-        setSkipAddUserComponent(false);
-        let isInizialized = false;
-        setRepeaterPlaceholderMapScopeId({
-          repeatId,
-          scopeId: id
-        });
-        setRepeatFunction({
-          id,
-          repeatId,
-          fn: () => {
-            if (isInizialized) return;
-            inizializeRepeatWatch({
-              repeatId,
-              persistent: componentIsPersistent(id),
-              state: bind,
-              setState,
-              emit,
-              watch,
-              clean: clean2,
-              beforeUpdate,
-              afterUpdate,
-              key: key2,
-              id,
-              render: render2,
-              useSync
-            });
-            isInizialized = true;
-            setRepeaterPlaceholderMapInitialized({
-              repeatId
-            });
-            setRepeaterChild({ repeatId, id, bind });
-          }
-        });
-        return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialRender}`;
-      }
-    };
-  };
-
-  // src/js/mob/mobjs/component/action/state/exportState.js
-  var filterExportableStateFromObject = ({
-    componentName,
-    currentProps = {}
-  }) => {
-    const componentList = getComponentList();
-    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
-    return Object.entries(currentProps).filter(([key]) => {
-      return exportableState.includes(key);
-    }).reduce((previous, current) => {
-      const [key, value] = current;
-      return { ...previous, [key]: value };
-    }, {});
-  };
-
-  // src/js/mob/mobjs/parse/steps/getParamsFromWebComponent.js
-  var getParamsFromWebComponent = ({ element, parentIdForced }) => {
-    const id = element.getId();
-    const instanceName = element.getInstanceName();
-    const parentIdFromWebComponent = element.getParentId();
-    const parentId = parentIdFromWebComponent && parentIdFromWebComponent.length > 0 ? parentIdFromWebComponent : parentIdForced;
-    const propsId = element.getStaticPropsId();
-    const dynamicPropsId = element.getDynamicPropsid();
-    const bindEventsId = element.getBindEventsId();
-    const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
-    const propsSlot = element.getPropsFromSlotId();
-    const currentRepeaterValueId = element.getRepeatValue();
-    const componentRepeatId = element.getComponentRepeatId();
-    const key = element.getCurrentKey() ?? "";
-    const componentName = element.getComponentName();
-    const cleanProsId = propsId?.split(" ").join("");
-    const cleanProsFromSlot = propsSlot?.split(" ").join("");
-    const propsFromParent = getPropsFromParent(cleanProsId);
-    const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
-    const baseProps = { ...element.dataset };
-    const repeatPropBind = element.getRepeaterPropBind();
-    const currentRepeatValue = getComponentRepeaterState(
-      currentRepeaterValueId
-    );
-    return {
-      element,
-      props: {
-        ...filterExportableStateFromObject({
-          componentName,
-          currentProps: baseProps
-        }),
-        ...filterExportableStateFromObject({
-          componentName,
-          currentProps: propsFromParent
-        }),
-        ...filterExportableStateFromObject({
-          componentName,
-          currentProps: propsFromSlot
-        })
-      },
-      id,
-      componentName,
-      instanceName,
-      key,
-      dynamicPropsId,
-      dynamicPropsIdFromSlot,
-      repeatPropBind,
-      bindEventsId,
-      currentRepeatValue,
-      parentId,
-      componentRepeatId
-    };
-  };
-
-  // src/js/mob/mobjs/component/index.js
-  var addComponentToStore = ({
-    element,
-    instanceName = "",
-    props = {},
-    state = {},
-    methods = {},
-    key = "",
-    currentRepeaterState = DEFAULT_CURRENT_REPEATER_STATE,
-    repeaterInnerWrap,
-    repeatPropBind = "",
-    componentRepeatId = "",
-    parentPropsWatcher = [() => {
-    }],
-    refs = {},
-    destroy: destroy2 = () => {
-    },
-    freezedPros = [],
-    persistent = false,
-    child = {},
-    parentId = "",
-    id = "",
-    componentName = ""
-  }) => {
-    const store2 = modules_exports.createStore(state);
-    addPropsToState({ props, store: store2 });
-    componentMap.set(id, {
-      element,
-      componentName,
-      instanceName,
-      destroy: destroy2,
-      parentPropsWatcher,
-      refs,
-      methods,
-      key,
-      currentRepeaterState,
-      repeaterInnerWrap,
-      repeatPropBind,
-      componentRepeatId,
-      persistent,
-      id,
-      parentId,
-      freezedPros,
-      child,
-      state: store2
-    });
-    return {
-      getState: () => store2.get(),
-      setState: (prop = "", value = {}, { emit = true } = {}) => {
-        const isFreezed2 = getFreezePropStatus({ id, prop });
-        if (isFreezed2) return;
-        store2.set(prop, value, { emit: emit ?? true });
-      },
-      updateState: (prop = "", updateFunction = () => {
-      }, { emit = true, clone = false } = {}) => {
-        const isFreezed2 = getFreezePropStatus({ id, prop });
-        if (isFreezed2) return;
-        store2.update(prop, updateFunction, {
-          emit: emit ?? true,
-          clone: clone ?? false
-        });
-      },
-      getProxi: () => store2.getProxi(),
-      emit: (prop = "") => store2.emit(prop),
-      emitAsync: async (prop = "") => await store2.emitAsync(prop),
-      computed: (prop = "", fn = () => {
-      }, keys = []) => store2.computed(prop, fn, keys),
-      watch: (prop = "", cb = () => {
-      }, { wait = false, immediate = false } = {}) => store2.watch(prop, cb, {
-        wait: wait ?? false,
-        immediate: immediate ?? false
-      }),
-      bindStore: (value) => {
-        store2.bindStore(value);
-      },
-      debug: () => store2.debug()
-    };
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/getInvalidateFunctions.js
-  var getInvalidateFunctions = ({ id }) => {
-    return invalidateFunctionMap.get(id) ?? [];
-  };
-
-  // src/js/mob/mobjs/modules/repeater/action/getRepeatFunctions.js
-  var getRepeatFunctions = ({ id }) => {
-    return repeatFunctionMap.get(id) ?? [];
-  };
-
-  // src/js/mob/mobjs/parse/parseFunction.js
-  var parseComponentsRecursive = async ({
-    element,
-    functionToFireAtTheEnd = [],
-    persistent = false,
-    currentSelectors = [],
-    parentIdForced = ""
-  }) => {
-    if (!element) return;
-    const componentList = getComponentList();
-    const { componentToParse, parseSourceArray } = getParseSourceArray({
-      element,
-      currentSelectors
-    });
-    const parseLimitReached = getCurrentIterationCounter() === getDefaultComponent().maxParseIteration;
-    incrementCurrentIterationCounter();
-    if (parseLimitReached)
-      console.warn(
-        `dom parse reached max parse limit: ${getCurrentIterationCounter()}`
-      );
-    if (!componentToParse || parseLimitReached) {
-      const bindRefs = getBindRefs({ element });
-      if (Object.keys(bindRefs).length > 0) addBindRefsToComponent(bindRefs);
-      for (const item of functionToFireAtTheEnd.reverse()) {
-        const {
-          onMount,
-          initializeBindPropsWatcher,
-          fireInvalidateFunction,
-          fireRepeatFunction
-        } = item;
-        await onMount();
-        fireRepeatFunction();
-        fireInvalidateFunction();
-        initializeBindPropsWatcher();
-      }
-      functionToFireAtTheEnd.length = 0;
-      currentSelectors.length = 0;
-      applyDelegationBindEvent(element);
-      applyBindEffect(element);
-      switchBindTextMap();
-      switchBindObjectMap();
-      return;
-    }
-    const componentToParseName = componentToParse.getComponentName();
-    const userFunctionComponent = componentList?.[componentToParseName]?.componentFunction;
-    const componentParams = componentList?.[componentToParseName]?.componentParams;
-    const { scoped } = componentParams;
-    if (!userFunctionComponent) {
-      console.warn(`${componentToParseName} component is not registered.`);
-      componentToParse.remove();
-      await parseComponentsRecursive({
-        element,
-        functionToFireAtTheEnd,
-        persistent,
-        currentSelectors: parseSourceArray,
-        parentIdForced
-      });
-      return;
-    }
-    const {
-      props,
-      id,
-      componentName,
-      instanceName,
-      key,
-      dynamicPropsId,
-      dynamicPropsIdFromSlot,
-      currentRepeatValue,
-      bindEventsId,
-      parentId,
-      componentRepeatId,
-      repeatPropBind
-    } = getParamsFromWebComponent({
-      element: componentToParse,
-      parentIdForced
-    });
-    const state = componentParams?.state ?? {};
-    const {
-      getState,
-      setState,
-      updateState,
-      getProxi,
-      emit,
-      emitAsync,
-      computed,
-      watch,
-      debug,
-      bindStore
-    } = addComponentToStore({
-      element: componentToParse,
-      props,
-      state,
-      id,
-      componentName,
-      instanceName,
-      key,
-      repeatPropBind,
-      persistent,
-      parentId,
-      componentRepeatId
-    });
-    addSelfIdToParentComponent({ id });
-    if (componentRepeatId && componentRepeatId?.length > 0) {
-      setRepeaterStateById({ id, value: currentRepeatValue });
-      setRepeaterInnerWrap({
-        id,
-        repeatId: componentRepeatId,
-        element: componentToParse
-      });
-    }
-    addCurrentIdToBindProps({
-      propsId: dynamicPropsId,
-      repeatPropBind,
-      componentId: id
-    });
-    addCurrentIdToBindProps({
-      propsId: dynamicPropsIdFromSlot,
-      componentId: id
-    });
-    const objectFromComponentFunction = getParamsForComponentFunction({
-      getState,
-      setState,
-      updateState,
-      getProxi,
-      emit,
-      emitAsync,
-      computed,
-      watch,
-      id,
-      key,
-      bindEventsId,
-      debug,
-      bindStore
-    });
-    const content = await userFunctionComponent(objectFromComponentFunction);
-    const classList = componentToParse.classList;
-    const { newElement } = convertToRealElement({
-      content,
-      // @ts-ignore
-      element: componentToParse
-    });
-    if (!useSlotQuery) clearSlotPlaceHolder();
-    newElement?.classList.add(...classList);
-    addParentIdToFutureComponent({ element: newElement, id });
-    if (!newElement) {
-      return;
-    }
-    setElementById({ id, newElement });
-    const invalidateFunctions = getInvalidateFunctions({ id });
-    const repeatFunctions = getRepeatFunctions({ id });
-    if (bindEventsId) {
-      applyBindEvents({
-        element: newElement,
-        componentId: id,
-        bindEventsId
-      });
-    }
-    const shoulBeScoped = scoped ?? getDefaultComponent().scoped;
-    if (shoulBeScoped) {
-      await fireOnMountCallBack({
-        id,
-        element: newElement
-      });
-    }
-    newElement?.inizializeCustomComponent?.(objectFromComponentFunction);
-    functionToFireAtTheEnd.push({
-      onMount: async () => {
-        if (shoulBeScoped) return;
-        await fireOnMountCallBack({
-          id,
-          element: newElement
-        });
-      },
-      initializeBindPropsWatcher: () => {
-        applyBindProps({
-          componentId: id,
-          repeatPropBind,
-          inizilizeWatcher: true
-        });
-      },
-      fireInvalidateFunction: invalidateFunctions.length > 0 ? () => {
-        invalidateFunctions.forEach(({ fn }) => {
-          fn?.();
-        });
-      } : () => {
-      },
-      fireRepeatFunction: repeatFunctions.length > 0 ? () => {
-        repeatFunctions.forEach(({ fn }) => {
-          fn?.();
-        });
-      } : () => {
-      }
-    });
-    await parseComponentsRecursive({
-      element,
-      functionToFireAtTheEnd,
-      persistent,
-      currentSelectors: parseSourceArray,
-      parentIdForced
-    });
-  };
-
-  // src/js/mob/mobjs/parse/index.js
-  var parseComponents = async ({
-    element,
-    persistent = false,
-    parentIdForced = ""
-  }) => {
-    await parseComponentsRecursive({
-      element,
-      persistent,
-      parentIdForced
-    });
-    resetCurrentIterationCounter();
-  };
-  var initParseWatcher = () => {
-    mainStore.watch(
-      MAIN_STORE_ASYNC_PARSER,
-      async ({ element, parentId, persistent = false }) => {
-        await parseComponents({
-          element,
-          parentIdForced: parentId ?? "",
-          persistent
-        });
-      }
-    );
-  };
-
-  // src/js/mob/mobjs/route/constant.js
-  var HISTORY_BACK = "BACK";
-  var HISTORY_NEXT = "NEXT";
-
-  // src/js/mob/mobjs/route/scroll/index.js
-  var historyBack = [];
-  var historyNext = [];
-  var deleteLastHistoryBack = () => {
-    const arrayLenght = historyBack.length;
-    if (arrayLenght >= 1) historyBack.length = historyBack.length - 1;
-  };
-  var deleteLastHistoryNext = () => {
-    const arrayLenght = historyNext.length;
-    if (arrayLenght >= 1) historyNext.length = historyNext.length - 1;
-  };
-  var setHistoryBack = (value) => {
-    historyBack.push(value);
-  };
-  var setHistoryNext = (value) => {
-    historyNext.push(value);
-  };
-  var resetNext = () => {
-    historyNext = [];
-  };
-  var historyBackSize = () => {
-    return historyBack.length;
-  };
-  var getLastHistoryBack = () => {
-    const value = historyBack.at(-1);
-    deleteLastHistoryBack();
-    return value;
-  };
-  var getPenultimateHistoryNext = () => {
-    const value = historyNext.at(-2);
-    deleteLastHistoryNext();
-    return value;
-  };
-  var getLastHistoryNext = () => {
-    const value = historyNext.at(-1);
-    return value;
-  };
-  var getLastHistory = (direction2) => {
-    if (direction2 === HISTORY_BACK) {
-      return getLastHistoryBack();
-    }
-    return getPenultimateHistoryNext();
-  };
-
-  // src/js/mob/mobjs/component/action/removeAndDestroy/removeOrphanTempIds.js
-  var removeOrphanTempIds = () => {
-    removeOrphansPropsFromParent();
-    removeOrphansBindEvent();
-    removeOrphansBindProps();
-  };
-
-  // src/js/mob/mobjs/component/action/removeAndDestroy/removeCancellableComponent.js
-  var removeCancellableComponent = () => {
-    const cancellableComponents = [...componentMap.values()].filter(
-      ({ persistent }) => !persistent
-    );
-    cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));
-  };
-
-  // src/js/mob/mobjs/route/pageTransition/index.js
-  var pageTransition = () => {
-  };
-  var beforePageTransition = () => {
-  };
-  var setBeforePageTransition = ({ fn }) => {
-    if (!fn) return;
-    beforePageTransition = fn;
-  };
-  var setPageTransition = ({ fn }) => {
-    if (!fn) return;
-    pageTransition = fn;
-  };
-  var getBeforePageTransition = () => beforePageTransition;
-  var getPageTransition = () => pageTransition;
-
-  // src/js/mob/mobjs/route/scroll/restoreScroll.js
-  var restoreScroll = true;
-  var setRestoreScroll = (value) => {
-    restoreScroll = value;
-  };
-  var getRestoreScroll = () => restoreScroll;
-
-  // src/js/mob/mobjs/route/loadRoute/index.js
-  var loadRoute = async ({
-    route = "",
-    templateName = "",
-    restoreScroll: restoreScroll2 = true,
-    params = {},
-    scrollY: scrollY2,
-    comeFromHistory = false
-  }) => {
-    mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
-    await tick();
-    const contentElement = getContentElement();
-    if (!contentElement || !(contentElement instanceof HTMLElement)) return;
-    if (comeFromHistory) contentElement.style.visibility = "hidden";
-    const { activeRoute } = mainStore.get();
-    mainStore.set(MAIN_STORE_BEFORE_ROUTE_LEAVES, {
-      route: activeRoute.route,
-      templateName: activeRoute.templateName
-    });
-    mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, { route, templateName });
-    let skip = false;
-    const unWatchRouteChange = mainStore.watch(
-      MAIN_STORE_BEFORE_ROUTE_CHANGE,
-      () => {
-        skip = true;
-      }
-    );
-    removeOrphanTempIds();
-    mainStore.set(MAIN_STORE_ACTIVE_ROUTE, { route, templateName });
-    mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
-    const routeObejct = getRouteByName({ routeName: route });
-    const props = routeObejct?.props ?? {};
-    const content = await routeObejct?.layout?.({ params, props }) ?? "";
-    const beforePageTransition3 = getBeforePageTransition();
-    let clone = contentElement.cloneNode(true);
-    if (beforePageTransition3 && clone && !comeFromHistory) {
-      await beforePageTransition3({
-        // @ts-ignore
-        oldNode: clone,
-        oldRoute: activeRoute.route,
-        newRoute: route,
-        oldTemplateName: activeRoute.templateName,
-        newTemplateName: templateName
-      });
-      contentElement?.parentNode?.insertBefore(clone, contentElement);
-    }
-    contentElement.replaceChildren();
-    removeCancellableComponent();
-    contentElement.insertAdjacentHTML("afterbegin", content);
-    await parseComponents({ element: contentElement });
-    if (comeFromHistory) contentElement.style.visibility = "";
-    if (!skip)
-      mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, { route, templateName });
-    if (getRestoreScroll() && restoreScroll2) scrollTo(0, scrollY2);
-    const pageTransition3 = getPageTransition();
-    if (pageTransition3 && !comeFromHistory) {
-      await pageTransition3({
-        oldNode: clone,
-        newNode: contentElement,
-        oldRoute: activeRoute.route,
-        newRoute: route,
-        oldTemplateName: activeRoute.templateName,
-        newTemplateName: templateName
-      });
-      clone.remove();
-    }
-    clone = null;
-    document.body.dataset["route"] = route;
-    document.body.dataset["template"] = templateName;
-    unWatchRouteChange?.();
-    mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
-  };
-
-  // src/js/mob/mobjs/route/utils.js
-  var getRouteModule = ({ url = "" }) => {
-    const index = getIndex();
-    const pageNotFound3 = getPageNotFound();
-    if (url === "") return index;
-    return getRouteByName({ routeName: url }) ? url : pageNotFound3;
-  };
-  var getTemplateName = ({ url = "" }) => {
-    return getRouteByName({ routeName: url })?.templateName ?? "";
-  };
-  var getRestoreScrollVale = ({ url = "" }) => {
-    return getRouteByName({ routeName: url })?.restoreScroll ?? true;
-  };
-
-  // src/js/mob/mobjs/route/index.js
-  var previousHash = "";
-  var previousParamsToPush = "";
-  var currentSearch;
-  var historyDirection = "back";
-  var previousHistory;
-  var currentHistory;
-  var sanitizeParams = (value) => {
-    return value.replace("?", "").replace("/", "");
-  };
-  var sanitizeHash = (value) => {
-    return value.replace("#", "").replace("/", "").replace(".", "");
-  };
-  var getParams = (value) => {
-    return value.split("&").reduce((previous, current) => {
-      const currentParams = current.split("=");
-      const key = sanitizeParams(currentParams?.[0] ?? "");
-      const value2 = currentParams?.[1];
-      return key && key.length > 0 ? { ...previous, [key]: value2 } : previous;
-    }, {});
-  };
-  var hashHandler = async () => {
-    const historyObejct = { time: modules_exports.getTime(), scrollY: window.scrollY };
-    const { routeIsLoading } = mainStore.get();
-    if (routeIsLoading) {
-      history.replaceState(
-        { nextId: historyObejct },
-        "",
-        `#${previousHash}${previousParamsToPush}`
-      );
-      return;
-    }
-    const hashOriginal = globalThis.location.hash.slice(1);
-    const parts = hashOriginal.split("?");
-    const search = sanitizeParams(parts?.[1] ?? "");
-    const hash = sanitizeHash(parts?.[0] ?? "");
-    const params = getParams(currentSearch ?? search);
-    const paramsToPush = currentSearch || Object.keys(search).length > 0 ? `?${currentSearch ?? search}` : "";
-    if (!currentHistory)
-      history.replaceState(
-        { nextId: historyObejct },
-        "",
-        `#${hash}${paramsToPush}`
-      );
-    currentSearch = void 0;
-    previousHash = hash;
-    previousParamsToPush = paramsToPush;
-    if (!currentHistory) {
-      setHistoryBack(historyObejct);
-    }
-    if (currentHistory && historyDirection === HISTORY_BACK) {
-      setHistoryNext(historyObejct);
-    }
-    if (currentHistory && historyDirection === HISTORY_NEXT) {
-      setHistoryBack(getLastHistoryNext());
-    }
-    await loadRoute({
-      route: getRouteModule({ url: hash }),
-      templateName: getTemplateName({ url: hash }),
-      restoreScroll: getRestoreScrollVale({ url: hash }),
-      params,
-      scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY ?? 0 : 0,
-      comeFromHistory: currentHistory ? true : false
-    });
-  };
-  var router = () => {
-    hashHandler();
-    globalThis.addEventListener("popstate", (event) => {
-      currentHistory = event?.state?.nextId;
-      if (currentHistory && !previousHistory && historyBackSize() > 0) {
-        previousHistory = currentHistory;
-        historyDirection = HISTORY_BACK;
-        return;
-      }
-      if (currentHistory && previousHistory && previousHistory?.time > currentHistory?.time && historyBackSize() > 0) {
-        previousHistory = currentHistory;
-        historyDirection = HISTORY_BACK;
-        return;
-      }
-      if (currentHistory && previousHistory && previousHistory?.time < currentHistory?.time) {
-        previousHistory = currentHistory;
-        historyDirection = HISTORY_NEXT;
-        return;
-      }
-      previousHistory = void 0;
-      historyDirection = "";
-      resetNext();
-    });
-    globalThis.addEventListener("hashchange", () => {
-      hashHandler();
-    });
-  };
-  var loadUrl = ({ url = "" }) => {
-    const parts = url.split("?");
-    const hash = sanitizeHash(parts?.[0] ?? "");
-    const search = sanitizeParams(parts?.[1] ?? "");
-    if (search.length > 0) currentSearch = search;
-    globalThis.location.hash = hash;
-    if (hash === previousHash || previousHash === "") {
-      globalThis.dispatchEvent(new HashChangeEvent("hashchange"));
-    }
-  };
-
-  // src/js/mob/mobjs/inizializeApp/index.js
-  var inizializeApp = async ({
-    rootId,
-    wrapper: wrapper2,
-    contentId,
-    routes: routes2 = [],
-    afterInit = () => {
-    },
-    index = "home",
-    pageNotFound: pageNotFound3 = "pageNotFound",
-    beforePageTransition: beforePageTransition3,
-    pageTransition: pageTransition3,
-    restoreScroll: restoreScroll2 = true
-  }) => {
-    const rootEl = (
-      /** @type{HTMLElement} */
-      document.querySelector(rootId)
-    );
-    const wrapperDOM = await wrapper2();
-    if (!contentId || !rootEl) return;
-    setContentId({ contentId });
-    setRoot({ element: rootEl });
-    setPageTransition({ fn: pageTransition3 });
-    setBeforePageTransition({ fn: beforePageTransition3 });
-    setRestoreScroll(restoreScroll2);
-    initParseWatcher();
-    setComponentList();
-    setRouteList(routes2);
-    setIndex({ routeName: index });
-    setPageNotFound({ routeName: pageNotFound3 });
-    rootEl.insertAdjacentHTML("afterbegin", wrapperDOM);
-    setContentElement();
-    await parseComponents({ element: rootEl, persistent: true });
-    modules_exports.useFrameIndex(() => {
-      modules_exports.useNextTick(() => {
-        afterInit();
-      });
-    }, frameDelayAfterParse);
-    router();
-  };
-
-  // src/js/mob/mobjs/modules/invalidate/action/getNumberOfActiveInvalidate.js
-  var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
-
-  // src/js/mob/mobjs/modules/repeater/action/getNumberOfActiveRepeater.js
-  var getNumberOfActiveRepeater = () => {
-    return repeatIdPlaceHolderMap.size;
-  };
-
-  // src/svg/scroll_arrow.svg
-  var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
-
-  // src/js/component/common/quickNav/nextPage.js
-  var QuickNavFn = ({ getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    modules_exports2.beforeRouteChange(() => {
-      proxi.active = false;
-      proxi.nextRoute = "";
-      proxi.prevRoute = "";
-      proxi.backRoute = "";
-      proxi.color = "white";
-    });
-    return renderHtml`<div
-        class="c-quick-nav-container"
-        ${bindEffect([
-      {
-        toggleClass: { active: () => proxi.active }
-      },
-      {
-        toggleClass: {
-          "fill-white": () => proxi.color === "white",
-          "fill-black": () => proxi.color === "black"
-        }
-      }
-    ])}
-    >
-        <a
-            class="c-quick-nav c-quick-nav--back"
-            ${bindEffect({
-      toggleClass: { "is-disable": () => !proxi.backRoute },
-      toggleAttribute: {
-        href: () => {
-          const route = proxi.backRoute;
-          return route.length > 0 ? route : null;
-        }
-      }
-    })}
-            >${scroll_arrow_default}</a
-        >
-        <a
-            class="c-quick-nav c-quick-nav--prev"
-            ${bindEffect({
-      toggleClass: { "is-disable": () => !proxi.prevRoute },
-      toggleAttribute: {
-        href: () => {
-          const route = proxi.prevRoute;
-          return route.length > 0 ? route : null;
-        }
-      }
-    })}
-            >${scroll_arrow_default}</a
-        >
-        <a
-            class="c-quick-nav c-quick-nav--next"
-            ${bindEffect({
-      toggleClass: { "is-disable": () => !proxi.nextRoute },
-      toggleAttribute: {
-        href: () => {
-          const route = proxi.nextRoute;
-          return route && route.length > 0 ? route : null;
-        }
-      }
-    })}
-            >${scroll_arrow_default}</a
-        >
-    </div>`;
-  };
-
-  // src/js/component/common/quickNav/definition.js
-  var QuickNav = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').QuickNav>} */
-    {
-      name: "quick-nav",
-      component: QuickNavFn,
-      exportState: ["color", "active", "prevRoute", "nextRoute", "backRoute"],
+      name: "mob-title",
+      component: TitleFn,
+      exportState: ["tag", "color", "isBold"],
       state: {
+        tag: () => ({
+          value: "h1",
+          type: String
+        }),
         color: () => ({
-          value: "white",
+          value: "black",
           type: String,
-          validate: (value) => {
-            return ["white", "black"].includes(value);
+          validate: (val2) => {
+            return ["white", "hightlight", "black"].includes(val2);
           }
         }),
-        active: () => ({
+        isBold: () => ({
           value: false,
           type: Boolean
-        }),
-        backRoute: () => ({
-          value: "",
-          type: String
-        }),
-        prevRoute: () => ({
-          value: "",
-          type: String
-        }),
-        nextRoute: () => ({
-          value: "",
-          type: String
         })
       }
     }
   );
 
-  // src/js/component/common/routeLoader/routeLoader.js
-  var RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    onMount(({ element }) => {
-      proxi.isDisable = true;
-      let tweenOut = tween_exports.createTimeTween({
-        data: { opacity: 1, scale: 1 },
-        duration: 500
-      });
-      tweenOut.subscribe(({ opacity, scale }) => {
-        element.style.opacity = opacity;
-        element.style.transform = `scale(${scale})`;
-      });
-      const unsubscribeBeforeRouteChange = modules_exports2.beforeRouteChange(() => {
-        tweenOut.goTo({ opacity: 1, scale: 1 });
-        proxi.isDisable = false;
-      });
-      const unsubScribeAfterRouteChange = modules_exports2.afterRouteChange(async () => {
-        await tweenOut.goTo({ opacity: 0, scale: 0.9 });
-        proxi.isDisable = true;
-      });
-      return () => {
-        tweenOut.destroy();
-        tweenOut = null;
-        unsubscribeBeforeRouteChange();
-        unsubScribeAfterRouteChange();
-      };
-    });
+  // src/js/pages/404/index.js
+  modules_exports2.useComponent([Title]);
+  var pageNotFound2 = () => {
     return renderHtml`
-        <div
-            class="c-loader center-viewport"
-            ${bindEffect({
-      toggleClass: { disable: () => proxi.isDisable }
-    })}
-        >
-            <span class="c-loader__inner"></span>
+        <div class="page-not-found">
+            <mob-title ${modules_exports2.staticProps({ tag: "h3", color: "highlight" })}>
+                Page not found
+            </mob-title>
+            <a href="./#home">back to home</a>
         </div>
     `;
   };
-
-  // src/js/component/common/routeLoader/definition.js
-  var RouteLoader = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').RouteLoader>} */
-    {
-      name: "route-loader",
-      component: RouteLoaderFn,
-      state: {
-        isLoading: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isDisable: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/scrolldownLabel/scrolldownLabel.js
-  var ScrollDownLabelFn = ({ getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    return renderHtml`
-        <div
-            class="c-scroller-down-label"
-            ${bindEffect({
-      toggleClass: { active: () => proxi.active }
-    })}
-        >
-            <h1>Scroll down</h1>
-            ${scroll_arrow_default}
-        </div>
-    `;
-  };
-
-  // src/js/component/common/scrolldownLabel/definition.js
-  var ScrollDownLabel = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').ScrollDownLabel>} */
-    {
-      name: "scroll-down-label",
-      component: ScrollDownLabelFn,
-      exportState: ["active"],
-      state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
 
   // src/js/mob/mobMotion/plugin/pageScroll/pageScroller.js
   var isActive = false;
@@ -23377,8 +23308,8 @@
      */
     #calculateValue() {
       const percentValue = this.#endValue * 100 / this.#maxValue;
-      this.#percent = clamp2(percentValue, 0, 100);
-      this.#endValue = clamp2(this.#endValue, 0, this.#maxValue);
+      this.#percent = clamp3(percentValue, 0, 100);
+      this.#endValue = clamp3(this.#endValue, 0, this.#maxValue);
       this.#motion.goTo({ val: this.#endValue });
       this.#onUpdateCallback?.({
         value: -this.#endValue,
@@ -23495,1072 +23426,6 @@
         });
       }, 3);
     }
-  };
-
-  // src/js/component/layout/navigation/store/navStore.js
-  var navigationStore = modules_exports.createStore(
-    /** @type{MobStoreParams<import('./type').NavigationStore>} */
-    {
-      activeNavigationSection: () => ({
-        value: "",
-        type: String,
-        skipEqual: false
-      }),
-      navigationIsOpen: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  );
-  navigationStore.set("activeNavigationSection", "");
-
-  // src/js/component/common/scrollToTop/triangles.js
-  var Triangles = renderHtml`
-    <svg
-        width="140mm"
-        height="140mm"
-        viewBox="0 0 139.99999 140"
-        version="1.1"
-        id="svg5"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:svg="http://www.w3.org/2000/svg"
-    >
-        <defs id="defs2" />
-        <g id="layer1" transform="translate(-47.229393,-65.97476)">
-            <path
-                style="fill-opacity:1"
-                id="path846"
-                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
-                transform="matrix(0.23369642,0,0,0.23369642,5.8240088,16.026465)"
-            />
-            <path
-                style="fill-opacity:1"
-                id="path846-3"
-                transform="matrix(-0.10716864,0,0,-0.10716864,108.53022,161.51294)"
-                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
-            />
-            <path
-                style="fill-opacity:1"
-                id="path846-3-6"
-                transform="matrix(-0.02667159,-0.04619655,0.04619655,-0.02667159,79.271975,140.55737)"
-                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
-            />
-            <path
-                style="fill-opacity:1"
-                id="path846-3-6-7"
-                transform="matrix(0.01432203,0.02480649,-0.02480649,0.01432203,119.95024,86.660707)"
-                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
-            />
-        </g>
-    </svg>
-`;
-
-  // src/js/component/common/scrollToTop/ScrollToTop.js
-  var ScrollToTopFn = ({
-    delegateEvents,
-    bindEffect,
-    bindStore,
-    getProxi
-  }) => {
-    bindStore(navigationStore);
-    const proxi = getProxi();
-    return renderHtml`
-        <div
-            class="scroll-to-top"
-            ${bindEffect({
-      toggleClass: {
-        active: () => {
-          return proxi.active && !proxi.navigationIsOpen;
-        },
-        shift: () => proxi.navigationIsOpen
-      }
-    })}
-        >
-            <button
-                type="button"
-                class="scroll-to-top__button"
-                ${delegateEvents({
-      click: () => {
-        MobBodyScroll.to(0);
-      }
-    })}
-            ></button>
-            <div class="scroll-to-top__triangles">${Triangles}</div>
-        </div>
-    `;
-  };
-
-  // src/js/component/common/scrollToTop/definition.js
-  var ScrollToTop = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').ScrollToTop>} */
-    {
-      name: "scroll-to-top",
-      component: ScrollToTopFn,
-      exportState: ["active"],
-      state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/debug/debugButton.js
-  var DebugButtonFn = () => {
-    return renderHtml`
-        <button type="button" class="c-btn-debug">
-            <mobjs-slot></mobjs-slot>
-        </button>
-    `;
-  };
-
-  // src/js/component/common/debug/definition.js
-  var DebugButton = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<any>} */
-    {
-      name: "debug-button",
-      component: DebugButtonFn
-    }
-  );
-
-  // src/js/component/common/debug/consoleLog.js
-  var consoleLogDebug = () => {
-    modules_exports2.mainStore.debugStore();
-    console.log("componentMap", modules_exports2.componentMap);
-    console.log("Tree structure:", modules_exports2.getTree());
-    console.log("bindEventMap", bindEventMap);
-    console.log("currentListValueMap", currentRepeaterValueMap);
-    console.log("activeRepeatMap", activeRepeatMap);
-    console.log("onMountCallbackMap", onMountCallbackMap);
-    console.log("staticPropsMap", staticPropsMap);
-    console.log("dynamicPropsMap", bindPropsMap);
-    console.log("eventDelegationMap", modules_exports2.eventDelegationMap);
-    console.log("tempDelegateEventMap", modules_exports2.tempDelegateEventMap);
-    console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
-    console.log("invalidateIdHostMap", invalidateIdHostMap.size);
-    console.log("invalidateFunctionMap", invalidateFunctionMap);
-    console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
-    console.log("repeatFunctionMap", repeatFunctionMap);
-    console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
-    console.log("slotPlaceholderSize", getSlotPlaceholderSize());
-    console.log("bindTextMapSize", getBindTextParentSize());
-    console.log("bindTextPlaceholderMapSize", getBindTextPlaceholderSize());
-  };
-
-  // src/js/component/layout/footer/footer.js
-  var FooterFn = ({ delegateEvents }) => {
-    return renderHtml`
-        <footer class="l-footer">
-            <div class="l-footer__container">
-                <footer-nav></footer-nav>
-                <div class="l-footer__debug">
-                    <debug-button
-                        class="c-button-debug"
-                        ${delegateEvents({
-      click: () => {
-        const methods = modules_exports2.useMethodByName("debugOverlay");
-        methods?.toggle();
-      }
-    })}
-                    >
-                        Debug App</debug-button
-                    >
-                    <debug-button
-                        class="c-button-console"
-                        ${delegateEvents({
-      click: () => {
-        consoleLogDebug();
-      }
-    })}
-                    >
-                        Log
-                    </debug-button>
-                </div>
-            </div>
-        </footer>
-    `;
-  };
-
-  // src/js/component/layout/footer/footerNav/footerButton.js
-  var FooterNavButtonFn = ({ getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    navigationStore.watch("activeNavigationSection", (current) => {
-      proxi.active = current === proxi.section;
-    });
-    return renderHtml`
-        <button
-            type="button"
-            class="footer-nav__button"
-            ${bindEffect({
-      toggleClass: { current: () => proxi.active }
-    })}
-        >
-            ${proxi.label}
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/footer/footerNav/footerNav.js
-  var getItems = ({ delegateEvents, staticProps: staticProps2 }) => {
-    const data = getCommonData();
-    return data.footer.nav.map(({ label, url, section }) => {
-      return renderHtml`<li class="footer-nav__item">
-                <footer-nav-button
-                    ${delegateEvents({
-        click: () => {
-          modules_exports2.loadUrl({ url });
-          navigationStore.set("navigationIsOpen", false);
-        }
-      })}
-                    ${staticProps2({
-        label,
-        section
-      })}
-                ></footer-nav-button>
-            </li> `;
-    }).join("");
-  };
-  var FooterNavFn = ({ delegateEvents, staticProps: staticProps2 }) => {
-    return renderHtml`
-        <ul class="footer-nav">
-            ${getItems({ delegateEvents, staticProps: staticProps2 })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/layout/footer/footerNav/definition.js
-  var FooterNavButton = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').FooterNavButton>} */
-    {
-      name: "footer-nav-button",
-      component: FooterNavButtonFn,
-      exportState: ["label", "section"],
-      state: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        section: () => ({
-          value: "",
-          type: String
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-  var FooterNav = modules_exports2.createComponent({
-    name: "footer-nav",
-    component: FooterNavFn,
-    child: [FooterNavButton]
-  });
-
-  // src/js/component/layout/footer/definition.js
-  var Footer = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<any>} */
-    {
-      name: "mob-footer",
-      component: FooterFn,
-      child: [FooterNav, DebugButton]
-    }
-  );
-
-  // src/js/component/layout/header/header.js
-  function titleHandler() {
-    modules_exports2.loadUrl({ url: "#home" });
-    navigationStore.set("navigationIsOpen", false);
-    const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
-    mainNavigationMethods?.closeAllAccordion();
-    const navContainerMethods = modules_exports2.useMethodByName("navigation-container");
-    navContainerMethods?.scrollTop();
-  }
-  var HeaderFn = ({ delegateEvents, bindEffect, getProxi, onMount }) => {
-    const proxi = getProxi();
-    onMount(() => {
-      setTimeout(() => {
-        proxi.isMounted = true;
-      }, 500);
-    });
-    return renderHtml`
-        <header class="l-header">
-            <div class="l-header__container">
-                <div class="l-header__grid">
-                    <div class="l-header__toggle">
-                        <mob-header-toggle></mob-header-toggle>
-                    </div>
-                    <button
-                        type="button"
-                        class="l-header__title"
-                        ${delegateEvents({
-      click: () => {
-        titleHandler();
-      }
-    })}
-                    >
-                        <div class="l-header__title-container">
-                            <h3
-                                ${bindEffect({
-      toggleClass: {
-        visible: () => proxi.isMounted
-      }
-    })}
-                            >
-                                <span>Mob</span>Project
-                            </h3>
-                            <h5
-                                ${bindEffect({
-      toggleClass: {
-        visible: () => proxi.isMounted
-      }
-    })}
-                            >
-                                v 1.0
-                            </h5>
-                        </div>
-                    </button>
-                    <div class="l-header__utils">
-                        <mob-header-nav></mob-header-nav>
-                    </div>
-                </div>
-            </div>
-        </header>
-    `;
-  };
-
-  // src/svg/icon-github.svg
-  var icon_github_default = '<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>\n\n';
-
-  // src/js/component/layout/header/headernav.js
-  var icon = {
-    github: icon_github_default
-  };
-  var onClick = ({ event }) => {
-    const button = event.target;
-    console.log(button);
-    const { url } = (
-      /** @type{HTMLButtonElement} */
-      button?.dataset ?? ""
-    );
-    modules_exports2.loadUrl({ url });
-    navigationStore.set("navigationIsOpen", false);
-  };
-  function additems({ delegateEvents }) {
-    const header = getCommonData().header;
-    const { links } = header;
-    return links.map((link) => {
-      const { svg, url, internal } = link;
-      return renderHtml`<li class="l-header__sidenav__item">
-                ${internal ? renderHtml`
-                          <button
-                              type="button"
-                              data-url="${url}"
-                              class="l-header__sidenav__link"
-                              ${delegateEvents({
-        click: (event) => {
-          console.log("click");
-          onClick({ event });
-        }
-      })}
-                          >
-                              ${icon[svg]}
-                          </button>
-                      ` : renderHtml`
-                          <a
-                              href="${url}"
-                              target="_blank"
-                              class="l-header__sidenav__link"
-                          >
-                              ${icon[svg]}
-                          </a>
-                      `}
-            </li>`;
-    }).join("");
-  }
-  var HeadernavFn = ({ delegateEvents }) => {
-    return renderHtml`
-        <ul class="l-header__sidenav">
-            ${additems({ delegateEvents })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/layout/header/headerToggle.js
-  var HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {
-    const proxi = getProxi();
-    navigationStore.watch("navigationIsOpen", (value) => {
-      proxi.isOpen = value;
-    });
-    return renderHtml`
-        <button
-            class="hamburger hamburger--squeeze"
-            type="button"
-            ${delegateEvents({
-      click: () => {
-        navigationStore.update(
-          "navigationIsOpen",
-          (state) => !state
-        );
-      }
-    })}
-            ${bindEffect({
-      toggleClass: {
-        "is-open": () => proxi.isOpen
-      }
-    })}
-        >
-            <div class="hamburger-box">
-                <div class="hamburger-inner"></div>
-            </div>
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/header/definition.js
-  var HeaderNav = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<any>} */
-    {
-      name: "mob-header-nav",
-      component: HeadernavFn
-    }
-  );
-  var HeaderToggle = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').HeaderToggle>} */
-    {
-      name: "mob-header-toggle",
-      component: HeaderToggleFn,
-      state: {
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-  var Header = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').Header>} */
-    {
-      name: "mob-header",
-      component: HeaderFn,
-      state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
-      },
-      child: [HeaderNav, HeaderToggle]
-    }
-  );
-
-  // src/js/component/layout/navigation/animation/navScroller.js
-  var currentPercent = 0;
-  var initNavigationScoller = ({ root: root2 }) => {
-    const screenEl = (
-      /** @type{HTMLElement} */
-      root2.querySelector(".l-navcontainer__wrap")
-    );
-    const scrollerEl = (
-      /** @type{HTMLElement} */
-      root2.querySelector(".l-navcontainer__scroll")
-    );
-    const percentEl = (
-      /** @type{HTMLElement} */
-      root2.querySelector(".l-navcontainer__percent")
-    );
-    const setDelay = 200;
-    const navScroller = new MobSmoothScroller({
-      screen: screenEl,
-      scroller: scrollerEl,
-      direction: "vertical",
-      drag: true,
-      scopedEvent: false,
-      breakpoint: "small",
-      onUpdate: ({ percent }) => {
-        const { navigationIsOpen } = navigationStore.get();
-        if (!navigationIsOpen) return;
-        currentPercent = Math.round(percent) / 100;
-        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
-      }
-    });
-    navScroller.init();
-    navigationStore.watch("activeNavigationSection", (section) => {
-      const currentSection = (
-        /** @type{HTMLElement} */
-        document.querySelector(`[data-sectionname='${section}']`)
-      );
-      if (!currentSection) return;
-      const header = (
-        /** @type{HTMLElement} */
-        document.querySelector(".l-header")
-      );
-      const navHeight = outerHeight(scrollerEl);
-      const headerHeight = outerHeight(header);
-      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight);
-      const maxValue = percent;
-      navScroller.move(maxValue);
-    });
-    navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
-        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
-        return;
-      }
-      percentEl.style.transform = `translateZ(0) scaleX(0)`;
-    });
-    return {
-      scrollNativationToTop: () => {
-        setTimeout(() => {
-          navScroller.move(0);
-          navigationStore.set("activeNavigationSection", "no-section");
-        }, setDelay);
-      },
-      refreshScroller: () => {
-        navScroller.refresh();
-      }
-    };
-  };
-
-  // src/js/component/layout/navigation/navContainer.js
-  function closeNavigation({ main, setState }) {
-    setState("isOpen", false);
-    modules_exports.useFrame(() => {
-      document.body.style.overflow = "";
-      main.classList.remove("shift");
-    });
-  }
-  function openNavigation({ main, setState }) {
-    const methods = modules_exports2.useMethodByName("navigation-container");
-    methods?.refresh();
-    setState("isOpen", true);
-    modules_exports.useFrame(() => {
-      document.body.style.overflow = "hidden";
-      main.classList.add("shift");
-    });
-  }
-  function addMainHandler({ main }) {
-    main.addEventListener("click", () => {
-      navigationStore.set("navigationIsOpen", false);
-    });
-  }
-  var toTopBtnHandler = () => {
-    const navContainerMethods = modules_exports2.useMethodByName("navigation-container");
-    navContainerMethods?.scrollTop();
-    const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
-    mainNavigationMethods?.closeAllAccordion();
-    const { navigationIsOpen } = navigationStore.get();
-    if (!navigationIsOpen) MobBodyScroll.to(0);
-  };
-  var NavigationContainerFn = ({
-    onMount,
-    addMethod,
-    setState,
-    delegateEvents,
-    bindEffect,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    onMount(({ element }) => {
-      const main = (
-        /** @type{HTMLElement} */
-        document.querySelector("main.main")
-      );
-      navigationStore.watch("navigationIsOpen", (val2) => {
-        if (val2 && main) {
-          openNavigation({ main, setState });
-          return;
-        }
-        closeNavigation({ main, setState });
-      });
-      addMainHandler({ main });
-      const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
-        root: element
-      });
-      addMethod("scrollTop", scrollNativationToTop);
-      addMethod("refresh", refreshScroller);
-      return () => {
-      };
-    });
-    return renderHtml`
-        <div
-            class="l-navcontainer"
-            ${bindEffect({
-      toggleClass: { active: () => proxi.isOpen }
-    })}
-        >
-            <div class="l-navcontainer__side">
-                <div class="l-navcontainer__percent"></div>
-                <button
-                    class="l-navcontainer__totop"
-                    ${delegateEvents({
-      click: () => {
-        toTopBtnHandler();
-      }
-    })}
-                ></button>
-            </div>
-            <div class="l-navcontainer__wrap">
-                <div class="l-navcontainer__scroll">
-                    <mob-navigation name="main_navigation"></mob-navigation>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigation.js
-  function getItems2({ data, staticProps: staticProps2, bindProps, proxi }) {
-    return data.map((item, index) => {
-      const {
-        label,
-        url,
-        activeId,
-        children,
-        section,
-        sectioName,
-        scrollToSection
-      } = item;
-      if (section) {
-        return renderHtml`
-                    <mob-navigation-label
-                        ${staticProps2({ label, sectioName })}
-                    ></mob-navigation-label>
-                `;
-      }
-      return children ? renderHtml`
-                      <mob-navigation-submenu
-                          ${staticProps2({
-        headerButton: {
-          label,
-          url
-        },
-        children,
-        callback: () => proxi.currentAccordionId = index
-      })}
-                          ${bindProps(
-        /** @returns{ReturnBindProps<NavigationSubmenu>} */
-        () => ({
-          isOpen: proxi.currentAccordionId === index
-        })
-      )}
-                      >
-                      </mob-navigation-submenu>
-                  ` : renderHtml`
-                      <li class="l-navigation__item">
-                          <mob-navigation-button
-                              ${staticProps2({
-        label,
-        url,
-        scrollToSection: scrollToSection ?? "no-scroll",
-        activeId: activeId ?? -1
-      })}
-                          ></mob-navigation-button>
-                      </li>
-                  `;
-    }).join("");
-  }
-  var NavigationFn = ({
-    staticProps: staticProps2,
-    setState,
-    bindProps,
-    addMethod,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    const { navigation: data } = getCommonData();
-    addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
-      setState("currentAccordionId", -1, { emit: fireCallback });
-    });
-    return renderHtml`
-        <nav class="l-navigation">
-            <ul class="l-navigation__list">
-                ${getItems2({
-      data,
-      staticProps: staticProps2,
-      bindProps,
-      proxi
-    })}
-            </ul>
-        </nav>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigationButton.js
-  var NavigationButtonFn = ({
-    setState,
-    getState,
-    delegateEvents,
-    getProxi,
-    bindEffect
-  }) => {
-    const proxi = getProxi();
-    const {
-      label,
-      url,
-      arrowClass,
-      subMenuClass,
-      fireRoute,
-      callback: callback2,
-      scrollToSection,
-      activeId
-    } = getState();
-    modules_exports2.afterRouteChange(({ route }) => {
-      modules_exports.useFrame(() => {
-        const urlParsed = url.split("?");
-        const hash = urlParsed?.[0] ?? "";
-        const activeParams = modules_exports2.getActiveParams();
-        const paramsMatch = activeId === -1 || activeParams?.["activeId"] === `${activeId}`;
-        const isActiveRoute = route === hash && paramsMatch;
-        setState("isCurrent", isActiveRoute);
-        if (isActiveRoute && fireRoute) {
-          callback2();
-          navigationStore.set("activeNavigationSection", scrollToSection);
-        }
-      });
-    });
-    return renderHtml`
-        <button
-            type="button"
-            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
-            ${delegateEvents({
-      click: () => {
-        callback2();
-        if (!fireRoute) return;
-        modules_exports2.loadUrl({ url });
-        navigationStore.set("navigationIsOpen", false);
-      }
-    })}
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.isOpen,
-        current: () => proxi.isCurrent
-      }
-    })}
-        >
-            ${label}
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigationLabel.js
-  var NavigationLabelFn = ({ bindStore, bindEffect, getProxi }) => {
-    bindStore(navigationStore);
-    const proxi = getProxi();
-    return renderHtml`
-        <div
-            class="l-navigation__label"
-            data-sectionname="${proxi.sectioName}"
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.sectioName === proxi.activeNavigationSection
-      }
-    })}
-        >
-            ${proxi.label}
-        </div>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigationSubmenu.js
-  function getSubmenu({ proxi, staticProps: staticProps2 }) {
-    return proxi.children.map((child) => {
-      const { label, url, scrollToSection, activeId } = child;
-      return renderHtml`
-                <li class="l-navigation__submenu__item">
-                    <mob-navigation-button
-                        ${staticProps2({
-        callback: proxi.callback,
-        label,
-        url,
-        subMenuClass: "l-navigation__link--submenu",
-        scrollToSection,
-        activeId: activeId ?? -1
-      })}
-                    ></mob-navigation-button>
-                </li>
-            `;
-    }).join("");
-  }
-  var NavigationSubmenuFn = ({
-    onMount,
-    staticProps: staticProps2,
-    bindProps,
-    watch,
-    setRef,
-    getRef,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    const { label, url, activeId } = proxi.headerButton;
-    onMount(() => {
-      const { content } = getRef();
-      MobSlide.subscribe(content);
-      MobSlide.reset(content);
-      watch(
-        "isOpen",
-        async (isOpen) => {
-          const action2 = isOpen ? "down" : "up";
-          await MobSlide[action2](content);
-          const navContainerMethods = modules_exports2.useMethodByName(
-            "navigation-container"
-          );
-          navContainerMethods?.refresh();
-          if (isOpen) return;
-          const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
-          mainNavigationMethods?.closeAllAccordion({
-            fireCallback: false
-          });
-        },
-        { immediate: true }
-      );
-      return () => {
-      };
-    });
-    return renderHtml`
-        <li class="l-navigation__item has-child">
-            <mob-navigation-button
-                ${staticProps2({
-      label,
-      url,
-      arrowClass: "l-navigation__link--arrow",
-      fireRoute: false,
-      activeId: activeId ?? -1,
-      callback: () => {
-        proxi.isOpen = !proxi.isOpen;
-        if (proxi.isOpen) proxi.callback();
-      }
-    })}
-                ${bindProps(
-      /** @returns {ReturnBindProps<NavigationButton>} */
-      () => ({
-        isOpen: proxi.isOpen
-      })
-    )}
-            ></mob-navigation-button>
-            <ul class="l-navigation__submenu" ${setRef("content")}>
-                ${getSubmenu({ proxi, staticProps: staticProps2 })}
-            </ul>
-        </li>
-    `;
-  };
-
-  // src/js/component/layout/navigation/definition.js
-  var NavigationButton = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationButton>} */
-    {
-      name: "mob-navigation-button",
-      component: NavigationButtonFn,
-      exportState: [
-        "label",
-        "url",
-        "arrowClass",
-        "subMenuClass",
-        "fireRoute",
-        "callback",
-        "isOpen",
-        "scrollToSection",
-        "activeId"
-      ],
-      state: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        url: () => ({
-          value: "",
-          type: String
-        }),
-        activeId: () => ({
-          value: -1,
-          type: Number
-        }),
-        scrollToSection: () => ({
-          value: "",
-          type: String
-        }),
-        arrowClass: () => ({
-          value: "",
-          type: String
-        }),
-        subMenuClass: () => ({
-          value: "",
-          type: String
-        }),
-        fireRoute: () => ({
-          value: true,
-          type: Boolean
-        }),
-        callback: () => ({
-          value: () => {
-          },
-          type: Function
-        }),
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isCurrent: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-  var NavigationLabel = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationLabel>} */
-    {
-      name: "mob-navigation-label",
-      component: NavigationLabelFn,
-      exportState: ["label", "sectioName"],
-      state: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        sectioName: () => ({
-          value: "",
-          type: String
-        })
-      }
-    }
-  );
-  var NavigationSubmenu = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationSubmenu>} */
-    {
-      name: "mob-navigation-submenu",
-      component: NavigationSubmenuFn,
-      exportState: ["children", "headerButton", "isOpen", "callback"],
-      state: {
-        callback: () => ({
-          value: () => {
-          },
-          type: Function
-        }),
-        headerButton: () => ({
-          value: {},
-          type: "Any"
-        }),
-        children: () => ({
-          value: [],
-          type: Array
-        }),
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        })
-      },
-      child: [NavigationButton]
-    }
-  );
-  var Navigation = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').Navigation>} */
-    {
-      name: "mob-navigation",
-      component: NavigationFn,
-      exportState: ["currentAccordionId"],
-      state: {
-        currentAccordionId: () => ({
-          value: -1,
-          type: Number,
-          skipEqual: false
-        })
-      },
-      child: [NavigationLabel, NavigationSubmenu, NavigationButton]
-    }
-  );
-  var NavigationContainer = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationContainer>} */
-    {
-      name: "mob-navigation-container",
-      component: NavigationContainerFn,
-      child: [Navigation],
-      state: {
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/lib/utils/getTriangle.js
-  var getTrinangle = (className = "") => {
-    return renderHtml`
-        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-        <svg
-            width="685.75171"
-            height="641.88232"
-            viewBox="0 0 181.43847 169.83136"
-            version="1.1"
-            id="svg5"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:svg="http://www.w3.org/2000/svg"
-            class="${className}"
-        >
-            <g id="layer1" transform="translate(0.29348888,0.2718794)">
-                <path
-                    id="path1107"
-                    transform="matrix(-0.26371722,0.02139075,-0.02139075,-0.26371722,201.63975,129.69612)"
-                    d="M 719.78423,551.21438 37.632123,494.16328 772.89469,-88.468152 Z"
-                />
-            </g>
-        </svg>
-    `;
-  };
-
-  // src/js/component/common/typography/titles/title.js
-  var shouldUseTrinagle = (tag) => {
-    return tag === `h1` ? getTrinangle() : "";
-  };
-  var TitleFn = ({ getState }) => {
-    const { tag, color, isBold } = getState();
-    const colorClass = `is-${color}`;
-    const boldClass = isBold ? `is-bold` : "";
-    return renderHtml`<${tag} class="mob-title ${colorClass} ${boldClass}">
-        <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
-        <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
-            <mobjs-slot></mobjs-slot>
-        </${tag}>`;
-  };
-
-  // src/js/component/common/typography/titles/definition.js
-  var Title = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').Title>} */
-    {
-      name: "mob-title",
-      component: TitleFn,
-      exportState: ["tag", "color", "isBold"],
-      state: {
-        tag: () => ({
-          value: "h1",
-          type: String
-        }),
-        color: () => ({
-          value: "black",
-          type: String,
-          validate: (val2) => {
-            return ["white", "hightlight", "black"].includes(val2);
-          }
-        }),
-        isBold: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/pages/404/index.js
-  modules_exports2.useComponent([Title]);
-  var pageNotFound2 = () => {
-    return renderHtml`
-        <div class="page-not-found">
-            <mob-title ${modules_exports2.staticProps({ tag: "h3", color: "highlight" })}>
-                Page not found
-            </mob-title>
-            <a href="./#home">back to home</a>
-        </div>
-    `;
   };
 
   // src/js/component/pages/layoutLinks/animation/linksScroller.js
@@ -28188,6 +27053,23 @@ Loading snippet ...</pre
   }) => {
     return canvasHeight / 2 - (height + gutter) * (numberOfRow + 1) / 2 - height / 2;
   };
+
+  // src/js/component/layout/navigation/store/navStore.js
+  var navigationStore = modules_exports.createStore(
+    /** @type{MobStoreParams<import('./type').NavigationStore>} */
+    {
+      activeNavigationSection: () => ({
+        value: "",
+        type: String,
+        skipEqual: false
+      }),
+      navigationIsOpen: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  );
+  navigationStore.set("activeNavigationSection", "");
 
   // src/js/component/pages/animatedPattern/animatedPatternN0/animation/animation.js
   var animatedPatternN0Animation = ({
@@ -34944,6 +33826,1203 @@ Loading snippet ...</pre
     }
   ];
 
+  // src/js/utils/pageScroll.js
+  var usePageScroll = () => {
+    const rootElement = (
+      /** @type{HTMLElement} */
+      document.querySelector("#root")
+    );
+    if (!rootElement) return;
+    InitMobPageScroll({ rootElement });
+    modules_exports2.mainStore.watch("beforeRouteChange", () => {
+      FreezeMobPageScroll();
+    });
+    modules_exports2.mainStore.watch("afterRouteChange", () => {
+      modules_exports.useFrameIndex(() => {
+        UnFreezeAndUPdateMobPageScroll();
+      }, 3);
+    });
+  };
+
+  // src/js/utils/scrollbarWith.js
+  var setValue = () => {
+    const value = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty(
+      "--scrollbar-with",
+      `${value}px`
+    );
+  };
+  var getScrollbarWith = () => {
+    setValue();
+    modules_exports.useResize(() => {
+      setValue();
+    });
+  };
+
+  // src/svg/scroll_arrow.svg
+  var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
+
+  // src/js/component/common/quickNav/nextPage.js
+  var QuickNavFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    modules_exports2.beforeRouteChange(() => {
+      proxi.active = false;
+      proxi.nextRoute = "";
+      proxi.prevRoute = "";
+      proxi.backRoute = "";
+      proxi.color = "white";
+    });
+    return renderHtml`<div
+        class="c-quick-nav-container"
+        ${bindEffect([
+      {
+        toggleClass: { active: () => proxi.active }
+      },
+      {
+        toggleClass: {
+          "fill-white": () => proxi.color === "white",
+          "fill-black": () => proxi.color === "black"
+        }
+      }
+    ])}
+    >
+        <a
+            class="c-quick-nav c-quick-nav--back"
+            ${bindEffect({
+      toggleClass: { "is-disable": () => !proxi.backRoute },
+      toggleAttribute: {
+        href: () => {
+          const route = proxi.backRoute;
+          return route.length > 0 ? route : null;
+        }
+      }
+    })}
+            >${scroll_arrow_default}</a
+        >
+        <a
+            class="c-quick-nav c-quick-nav--prev"
+            ${bindEffect({
+      toggleClass: { "is-disable": () => !proxi.prevRoute },
+      toggleAttribute: {
+        href: () => {
+          const route = proxi.prevRoute;
+          return route.length > 0 ? route : null;
+        }
+      }
+    })}
+            >${scroll_arrow_default}</a
+        >
+        <a
+            class="c-quick-nav c-quick-nav--next"
+            ${bindEffect({
+      toggleClass: { "is-disable": () => !proxi.nextRoute },
+      toggleAttribute: {
+        href: () => {
+          const route = proxi.nextRoute;
+          return route && route.length > 0 ? route : null;
+        }
+      }
+    })}
+            >${scroll_arrow_default}</a
+        >
+    </div>`;
+  };
+
+  // src/js/component/common/quickNav/definition.js
+  var QuickNav = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').QuickNav>} */
+    {
+      name: "quick-nav",
+      component: QuickNavFn,
+      exportState: ["color", "active", "prevRoute", "nextRoute", "backRoute"],
+      state: {
+        color: () => ({
+          value: "white",
+          type: String,
+          validate: (value) => {
+            return ["white", "black"].includes(value);
+          }
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        }),
+        backRoute: () => ({
+          value: "",
+          type: String
+        }),
+        prevRoute: () => ({
+          value: "",
+          type: String
+        }),
+        nextRoute: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/routeLoader/routeLoader.js
+  var RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    onMount(({ element }) => {
+      proxi.isDisable = true;
+      let tweenOut = tween_exports.createTimeTween({
+        data: { opacity: 1, scale: 1 },
+        duration: 500
+      });
+      tweenOut.subscribe(({ opacity, scale }) => {
+        element.style.opacity = opacity;
+        element.style.transform = `scale(${scale})`;
+      });
+      const unsubscribeBeforeRouteChange = modules_exports2.beforeRouteChange(() => {
+        tweenOut.goTo({ opacity: 1, scale: 1 });
+        proxi.isDisable = false;
+      });
+      const unsubScribeAfterRouteChange = modules_exports2.afterRouteChange(async () => {
+        await tweenOut.goTo({ opacity: 0, scale: 0.9 });
+        proxi.isDisable = true;
+      });
+      return () => {
+        tweenOut.destroy();
+        tweenOut = null;
+        unsubscribeBeforeRouteChange();
+        unsubScribeAfterRouteChange();
+      };
+    });
+    return renderHtml`
+        <div
+            class="c-loader center-viewport"
+            ${bindEffect({
+      toggleClass: { disable: () => proxi.isDisable }
+    })}
+        >
+            <span class="c-loader__inner"></span>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/routeLoader/definition.js
+  var RouteLoader = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').RouteLoader>} */
+    {
+      name: "route-loader",
+      component: RouteLoaderFn,
+      state: {
+        isLoading: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isDisable: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/scrolldownLabel/scrolldownLabel.js
+  var ScrollDownLabelFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    return renderHtml`
+        <div
+            class="c-scroller-down-label"
+            ${bindEffect({
+      toggleClass: { active: () => proxi.active }
+    })}
+        >
+            <h1>Scroll down</h1>
+            ${scroll_arrow_default}
+        </div>
+    `;
+  };
+
+  // src/js/component/common/scrolldownLabel/definition.js
+  var ScrollDownLabel = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollDownLabel>} */
+    {
+      name: "scroll-down-label",
+      component: ScrollDownLabelFn,
+      exportState: ["active"],
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/scrollToTop/triangles.js
+  var Triangles = renderHtml`
+    <svg
+        width="140mm"
+        height="140mm"
+        viewBox="0 0 139.99999 140"
+        version="1.1"
+        id="svg5"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:svg="http://www.w3.org/2000/svg"
+    >
+        <defs id="defs2" />
+        <g id="layer1" transform="translate(-47.229393,-65.97476)">
+            <path
+                style="fill-opacity:1"
+                id="path846"
+                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
+                transform="matrix(0.23369642,0,0,0.23369642,5.8240088,16.026465)"
+            />
+            <path
+                style="fill-opacity:1"
+                id="path846-3"
+                transform="matrix(-0.10716864,0,0,-0.10716864,108.53022,161.51294)"
+                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
+            />
+            <path
+                style="fill-opacity:1"
+                id="path846-3-6"
+                transform="matrix(-0.02667159,-0.04619655,0.04619655,-0.02667159,79.271975,140.55737)"
+                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
+            />
+            <path
+                style="fill-opacity:1"
+                id="path846-3-6-7"
+                transform="matrix(0.01432203,0.02480649,-0.02480649,0.01432203,119.95024,86.660707)"
+                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
+            />
+        </g>
+    </svg>
+`;
+
+  // src/js/component/common/scrollToTop/ScrollToTop.js
+  var ScrollToTopFn = ({
+    delegateEvents,
+    bindEffect,
+    bindStore,
+    getProxi
+  }) => {
+    bindStore(navigationStore);
+    const proxi = getProxi();
+    return renderHtml`
+        <div
+            class="scroll-to-top"
+            ${bindEffect({
+      toggleClass: {
+        active: () => {
+          return proxi.active && !proxi.navigationIsOpen;
+        },
+        shift: () => proxi.navigationIsOpen
+      }
+    })}
+        >
+            <button
+                type="button"
+                class="scroll-to-top__button"
+                ${delegateEvents({
+      click: () => {
+        MobBodyScroll.to(0);
+      }
+    })}
+            ></button>
+            <div class="scroll-to-top__triangles">${Triangles}</div>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/scrollToTop/definition.js
+  var ScrollToTop = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollToTop>} */
+    {
+      name: "scroll-to-top",
+      component: ScrollToTopFn,
+      exportState: ["active"],
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/debug/debugButton.js
+  var DebugButtonFn = () => {
+    return renderHtml`
+        <button type="button" class="c-btn-debug">
+            <mobjs-slot></mobjs-slot>
+        </button>
+    `;
+  };
+
+  // src/js/component/common/debug/definition.js
+  var DebugButton = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "debug-button",
+      component: DebugButtonFn
+    }
+  );
+
+  // src/js/component/common/debug/consoleLog.js
+  var consoleLogDebug = () => {
+    modules_exports2.mainStore.debugStore();
+    console.log("componentMap", modules_exports2.componentMap);
+    console.log("Tree structure:", modules_exports2.getTree());
+    console.log("bindEventMap", bindEventMap);
+    console.log("currentListValueMap", currentRepeaterValueMap);
+    console.log("activeRepeatMap", activeRepeatMap);
+    console.log("onMountCallbackMap", onMountCallbackMap);
+    console.log("staticPropsMap", staticPropsMap);
+    console.log("dynamicPropsMap", bindPropsMap);
+    console.log("eventDelegationMap", modules_exports2.eventDelegationMap);
+    console.log("tempDelegateEventMap", modules_exports2.tempDelegateEventMap);
+    console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
+    console.log("invalidateIdHostMap", invalidateIdHostMap.size);
+    console.log("invalidateFunctionMap", invalidateFunctionMap);
+    console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
+    console.log("repeatFunctionMap", repeatFunctionMap);
+    console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
+    console.log("slotPlaceholderSize", getSlotPlaceholderSize());
+    console.log("bindTextMapSize", getBindTextParentSize());
+    console.log("bindTextPlaceholderMapSize", getBindTextPlaceholderSize());
+  };
+
+  // src/js/component/layout/footer/footer.js
+  var FooterFn = ({ delegateEvents }) => {
+    return renderHtml`
+        <footer class="l-footer">
+            <div class="l-footer__container">
+                <footer-nav></footer-nav>
+                <div class="l-footer__debug">
+                    <debug-button
+                        class="c-button-debug"
+                        ${delegateEvents({
+      click: () => {
+        const methods = modules_exports2.useMethodByName("debugOverlay");
+        methods?.toggle();
+      }
+    })}
+                    >
+                        Debug App</debug-button
+                    >
+                    <debug-button
+                        class="c-button-console"
+                        ${delegateEvents({
+      click: () => {
+        consoleLogDebug();
+      }
+    })}
+                    >
+                        Log
+                    </debug-button>
+                </div>
+            </div>
+        </footer>
+    `;
+  };
+
+  // src/js/component/layout/footer/footerNav/footerButton.js
+  var FooterNavButtonFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    navigationStore.watch("activeNavigationSection", (current) => {
+      proxi.active = current === proxi.section;
+    });
+    return renderHtml`
+        <button
+            type="button"
+            class="footer-nav__button"
+            ${bindEffect({
+      toggleClass: { current: () => proxi.active }
+    })}
+        >
+            ${proxi.label}
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/footer/footerNav/footerNav.js
+  var getItems = ({ delegateEvents, staticProps: staticProps2 }) => {
+    const data = getCommonData();
+    return data.footer.nav.map(({ label, url, section }) => {
+      return renderHtml`<li class="footer-nav__item">
+                <footer-nav-button
+                    ${delegateEvents({
+        click: () => {
+          modules_exports2.loadUrl({ url });
+          navigationStore.set("navigationIsOpen", false);
+        }
+      })}
+                    ${staticProps2({
+        label,
+        section
+      })}
+                ></footer-nav-button>
+            </li> `;
+    }).join("");
+  };
+  var FooterNavFn = ({ delegateEvents, staticProps: staticProps2 }) => {
+    return renderHtml`
+        <ul class="footer-nav">
+            ${getItems({ delegateEvents, staticProps: staticProps2 })}
+        </ul>
+    `;
+  };
+
+  // src/js/component/layout/footer/footerNav/definition.js
+  var FooterNavButton = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').FooterNavButton>} */
+    {
+      name: "footer-nav-button",
+      component: FooterNavButtonFn,
+      exportState: ["label", "section"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        section: () => ({
+          value: "",
+          type: String
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+  var FooterNav = modules_exports2.createComponent({
+    name: "footer-nav",
+    component: FooterNavFn,
+    child: [FooterNavButton]
+  });
+
+  // src/js/component/layout/footer/definition.js
+  var Footer = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "mob-footer",
+      component: FooterFn,
+      child: [FooterNav, DebugButton]
+    }
+  );
+
+  // src/js/component/layout/header/header.js
+  function titleHandler() {
+    modules_exports2.loadUrl({ url: "#home" });
+    navigationStore.set("navigationIsOpen", false);
+    const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
+    mainNavigationMethods?.closeAllAccordion();
+    const navContainerMethods = modules_exports2.useMethodByName("navigation-container");
+    navContainerMethods?.scrollTop();
+  }
+  var HeaderFn = ({ delegateEvents, bindEffect, getProxi, onMount }) => {
+    const proxi = getProxi();
+    onMount(() => {
+      setTimeout(() => {
+        proxi.isMounted = true;
+      }, 500);
+    });
+    return renderHtml`
+        <header class="l-header">
+            <div class="l-header__container">
+                <div class="l-header__grid">
+                    <div class="l-header__toggle">
+                        <mob-header-toggle></mob-header-toggle>
+                    </div>
+                    <button
+                        type="button"
+                        class="l-header__title"
+                        ${delegateEvents({
+      click: () => {
+        titleHandler();
+      }
+    })}
+                    >
+                        <div class="l-header__title-container">
+                            <h3
+                                ${bindEffect({
+      toggleClass: {
+        visible: () => proxi.isMounted
+      }
+    })}
+                            >
+                                <span>Mob</span>Project
+                            </h3>
+                            <h5
+                                ${bindEffect({
+      toggleClass: {
+        visible: () => proxi.isMounted
+      }
+    })}
+                            >
+                                v 1.0
+                            </h5>
+                        </div>
+                    </button>
+                    <div class="l-header__utils">
+                        <mob-header-nav></mob-header-nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+    `;
+  };
+
+  // src/svg/icon-github.svg
+  var icon_github_default = '<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>\n\n';
+
+  // src/js/component/layout/header/headernav.js
+  var icon = {
+    github: icon_github_default
+  };
+  var onClick = ({ event }) => {
+    const button = event.target;
+    console.log(button);
+    const { url } = (
+      /** @type{HTMLButtonElement} */
+      button?.dataset ?? ""
+    );
+    modules_exports2.loadUrl({ url });
+    navigationStore.set("navigationIsOpen", false);
+  };
+  function additems({ delegateEvents }) {
+    const header = getCommonData().header;
+    const { links } = header;
+    return links.map((link) => {
+      const { svg, url, internal } = link;
+      return renderHtml`<li class="l-header__sidenav__item">
+                ${internal ? renderHtml`
+                          <button
+                              type="button"
+                              data-url="${url}"
+                              class="l-header__sidenav__link"
+                              ${delegateEvents({
+        click: (event) => {
+          console.log("click");
+          onClick({ event });
+        }
+      })}
+                          >
+                              ${icon[svg]}
+                          </button>
+                      ` : renderHtml`
+                          <a
+                              href="${url}"
+                              target="_blank"
+                              class="l-header__sidenav__link"
+                          >
+                              ${icon[svg]}
+                          </a>
+                      `}
+            </li>`;
+    }).join("");
+  }
+  var HeadernavFn = ({ delegateEvents }) => {
+    return renderHtml`
+        <ul class="l-header__sidenav">
+            ${additems({ delegateEvents })}
+        </ul>
+    `;
+  };
+
+  // src/js/component/layout/header/headerToggle.js
+  var HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {
+    const proxi = getProxi();
+    navigationStore.watch("navigationIsOpen", (value) => {
+      proxi.isOpen = value;
+    });
+    return renderHtml`
+        <button
+            class="hamburger hamburger--squeeze"
+            type="button"
+            ${delegateEvents({
+      click: () => {
+        navigationStore.update(
+          "navigationIsOpen",
+          (state) => !state
+        );
+      }
+    })}
+            ${bindEffect({
+      toggleClass: {
+        "is-open": () => proxi.isOpen
+      }
+    })}
+        >
+            <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+            </div>
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/header/definition.js
+  var HeaderNav = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "mob-header-nav",
+      component: HeadernavFn
+    }
+  );
+  var HeaderToggle = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').HeaderToggle>} */
+    {
+      name: "mob-header-toggle",
+      component: HeaderToggleFn,
+      state: {
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+  var Header = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').Header>} */
+    {
+      name: "mob-header",
+      component: HeaderFn,
+      state: {
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [HeaderNav, HeaderToggle]
+    }
+  );
+
+  // src/js/component/layout/navigation/animation/navScroller.js
+  var currentPercent = 0;
+  var initNavigationScoller = ({ root: root2 }) => {
+    const screenEl = (
+      /** @type{HTMLElement} */
+      root2.querySelector(".l-navcontainer__wrap")
+    );
+    const scrollerEl = (
+      /** @type{HTMLElement} */
+      root2.querySelector(".l-navcontainer__scroll")
+    );
+    const percentEl = (
+      /** @type{HTMLElement} */
+      root2.querySelector(".l-navcontainer__percent")
+    );
+    const setDelay = 200;
+    const navScroller = new MobSmoothScroller({
+      screen: screenEl,
+      scroller: scrollerEl,
+      direction: "vertical",
+      drag: true,
+      scopedEvent: false,
+      breakpoint: "small",
+      onUpdate: ({ percent }) => {
+        const { navigationIsOpen } = navigationStore.get();
+        if (!navigationIsOpen) return;
+        currentPercent = Math.round(percent) / 100;
+        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+      }
+    });
+    navScroller.init();
+    navigationStore.watch("activeNavigationSection", (section) => {
+      const currentSection = (
+        /** @type{HTMLElement} */
+        document.querySelector(`[data-sectionname='${section}']`)
+      );
+      if (!currentSection) return;
+      const header = (
+        /** @type{HTMLElement} */
+        document.querySelector(".l-header")
+      );
+      const navHeight = outerHeight(scrollerEl);
+      const headerHeight = outerHeight(header);
+      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight);
+      const maxValue = percent;
+      navScroller.move(maxValue);
+    });
+    navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+        return;
+      }
+      percentEl.style.transform = `translateZ(0) scaleX(0)`;
+    });
+    return {
+      scrollNativationToTop: () => {
+        setTimeout(() => {
+          navScroller.move(0);
+          navigationStore.set("activeNavigationSection", "no-section");
+        }, setDelay);
+      },
+      refreshScroller: () => {
+        navScroller.refresh();
+      }
+    };
+  };
+
+  // src/js/component/layout/navigation/navContainer.js
+  function closeNavigation({ main, setState }) {
+    setState("isOpen", false);
+    modules_exports.useFrame(() => {
+      document.body.style.overflow = "";
+      main.classList.remove("shift");
+    });
+  }
+  function openNavigation({ main, setState }) {
+    const methods = modules_exports2.useMethodByName("navigation-container");
+    methods?.refresh();
+    setState("isOpen", true);
+    modules_exports.useFrame(() => {
+      document.body.style.overflow = "hidden";
+      main.classList.add("shift");
+    });
+  }
+  function addMainHandler({ main }) {
+    main.addEventListener("click", () => {
+      navigationStore.set("navigationIsOpen", false);
+    });
+  }
+  var toTopBtnHandler = () => {
+    const navContainerMethods = modules_exports2.useMethodByName("navigation-container");
+    navContainerMethods?.scrollTop();
+    const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
+    mainNavigationMethods?.closeAllAccordion();
+    const { navigationIsOpen } = navigationStore.get();
+    if (!navigationIsOpen) MobBodyScroll.to(0);
+  };
+  var NavigationContainerFn = ({
+    onMount,
+    addMethod,
+    setState,
+    delegateEvents,
+    bindEffect,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    onMount(({ element }) => {
+      const main = (
+        /** @type{HTMLElement} */
+        document.querySelector("main.main")
+      );
+      navigationStore.watch("navigationIsOpen", (val2) => {
+        if (val2 && main) {
+          openNavigation({ main, setState });
+          return;
+        }
+        closeNavigation({ main, setState });
+      });
+      addMainHandler({ main });
+      const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
+        root: element
+      });
+      addMethod("scrollTop", scrollNativationToTop);
+      addMethod("refresh", refreshScroller);
+      return () => {
+      };
+    });
+    return renderHtml`
+        <div
+            class="l-navcontainer"
+            ${bindEffect({
+      toggleClass: { active: () => proxi.isOpen }
+    })}
+        >
+            <div class="l-navcontainer__side">
+                <div class="l-navcontainer__percent"></div>
+                <button
+                    class="l-navcontainer__totop"
+                    ${delegateEvents({
+      click: () => {
+        toTopBtnHandler();
+      }
+    })}
+                ></button>
+            </div>
+            <div class="l-navcontainer__wrap">
+                <div class="l-navcontainer__scroll">
+                    <mob-navigation name="main_navigation"></mob-navigation>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigation.js
+  function getItems2({ data, staticProps: staticProps2, bindProps, proxi }) {
+    return data.map((item, index) => {
+      const {
+        label,
+        url,
+        activeId,
+        children,
+        section,
+        sectioName,
+        scrollToSection
+      } = item;
+      if (section) {
+        return renderHtml`
+                    <mob-navigation-label
+                        ${staticProps2({ label, sectioName })}
+                    ></mob-navigation-label>
+                `;
+      }
+      return children ? renderHtml`
+                      <mob-navigation-submenu
+                          ${staticProps2({
+        headerButton: {
+          label,
+          url
+        },
+        children,
+        callback: () => proxi.currentAccordionId = index
+      })}
+                          ${bindProps(
+        /** @returns{ReturnBindProps<NavigationSubmenu>} */
+        () => ({
+          isOpen: proxi.currentAccordionId === index
+        })
+      )}
+                      >
+                      </mob-navigation-submenu>
+                  ` : renderHtml`
+                      <li class="l-navigation__item">
+                          <mob-navigation-button
+                              ${staticProps2({
+        label,
+        url,
+        scrollToSection: scrollToSection ?? "no-scroll",
+        activeId: activeId ?? -1
+      })}
+                          ></mob-navigation-button>
+                      </li>
+                  `;
+    }).join("");
+  }
+  var NavigationFn = ({
+    staticProps: staticProps2,
+    setState,
+    bindProps,
+    addMethod,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const { navigation: data } = getCommonData();
+    addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
+      setState("currentAccordionId", -1, { emit: fireCallback });
+    });
+    return renderHtml`
+        <nav class="l-navigation">
+            <ul class="l-navigation__list">
+                ${getItems2({
+      data,
+      staticProps: staticProps2,
+      bindProps,
+      proxi
+    })}
+            </ul>
+        </nav>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigationButton.js
+  var NavigationButtonFn = ({
+    setState,
+    getState,
+    delegateEvents,
+    getProxi,
+    bindEffect
+  }) => {
+    const proxi = getProxi();
+    const {
+      label,
+      url,
+      arrowClass,
+      subMenuClass,
+      fireRoute,
+      callback: callback2,
+      scrollToSection,
+      activeId
+    } = getState();
+    modules_exports2.afterRouteChange(({ route }) => {
+      modules_exports.useFrame(() => {
+        const urlParsed = url.split("?");
+        const hash = urlParsed?.[0] ?? "";
+        const activeParams = modules_exports2.getActiveParams();
+        const paramsMatch = activeId === -1 || activeParams?.["activeId"] === `${activeId}`;
+        const isActiveRoute = route === hash && paramsMatch;
+        setState("isCurrent", isActiveRoute);
+        if (isActiveRoute && fireRoute) {
+          callback2();
+          navigationStore.set("activeNavigationSection", scrollToSection);
+        }
+      });
+    });
+    return renderHtml`
+        <button
+            type="button"
+            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
+            ${delegateEvents({
+      click: () => {
+        callback2();
+        if (!fireRoute) return;
+        modules_exports2.loadUrl({ url });
+        navigationStore.set("navigationIsOpen", false);
+      }
+    })}
+            ${bindEffect({
+      toggleClass: {
+        active: () => proxi.isOpen,
+        current: () => proxi.isCurrent
+      }
+    })}
+        >
+            ${label}
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigationLabel.js
+  var NavigationLabelFn = ({ bindStore, bindEffect, getProxi }) => {
+    bindStore(navigationStore);
+    const proxi = getProxi();
+    return renderHtml`
+        <div
+            class="l-navigation__label"
+            data-sectionname="${proxi.sectioName}"
+            ${bindEffect({
+      toggleClass: {
+        active: () => proxi.sectioName === proxi.activeNavigationSection
+      }
+    })}
+        >
+            ${proxi.label}
+        </div>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigationSubmenu.js
+  function getSubmenu({ proxi, staticProps: staticProps2 }) {
+    return proxi.children.map((child) => {
+      const { label, url, scrollToSection, activeId } = child;
+      return renderHtml`
+                <li class="l-navigation__submenu__item">
+                    <mob-navigation-button
+                        ${staticProps2({
+        callback: proxi.callback,
+        label,
+        url,
+        subMenuClass: "l-navigation__link--submenu",
+        scrollToSection,
+        activeId: activeId ?? -1
+      })}
+                    ></mob-navigation-button>
+                </li>
+            `;
+    }).join("");
+  }
+  var NavigationSubmenuFn = ({
+    onMount,
+    staticProps: staticProps2,
+    bindProps,
+    watch,
+    setRef,
+    getRef,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const { label, url, activeId } = proxi.headerButton;
+    onMount(() => {
+      const { content } = getRef();
+      MobSlide.subscribe(content);
+      MobSlide.reset(content);
+      watch(
+        "isOpen",
+        async (isOpen) => {
+          const action2 = isOpen ? "down" : "up";
+          await MobSlide[action2](content);
+          const navContainerMethods = modules_exports2.useMethodByName(
+            "navigation-container"
+          );
+          navContainerMethods?.refresh();
+          if (isOpen) return;
+          const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
+          mainNavigationMethods?.closeAllAccordion({
+            fireCallback: false
+          });
+        },
+        { immediate: true }
+      );
+      return () => {
+      };
+    });
+    return renderHtml`
+        <li class="l-navigation__item has-child">
+            <mob-navigation-button
+                ${staticProps2({
+      label,
+      url,
+      arrowClass: "l-navigation__link--arrow",
+      fireRoute: false,
+      activeId: activeId ?? -1,
+      callback: () => {
+        proxi.isOpen = !proxi.isOpen;
+        if (proxi.isOpen) proxi.callback();
+      }
+    })}
+                ${bindProps(
+      /** @returns {ReturnBindProps<NavigationButton>} */
+      () => ({
+        isOpen: proxi.isOpen
+      })
+    )}
+            ></mob-navigation-button>
+            <ul class="l-navigation__submenu" ${setRef("content")}>
+                ${getSubmenu({ proxi, staticProps: staticProps2 })}
+            </ul>
+        </li>
+    `;
+  };
+
+  // src/js/component/layout/navigation/definition.js
+  var NavigationButton = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationButton>} */
+    {
+      name: "mob-navigation-button",
+      component: NavigationButtonFn,
+      exportState: [
+        "label",
+        "url",
+        "arrowClass",
+        "subMenuClass",
+        "fireRoute",
+        "callback",
+        "isOpen",
+        "scrollToSection",
+        "activeId"
+      ],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        url: () => ({
+          value: "",
+          type: String
+        }),
+        activeId: () => ({
+          value: -1,
+          type: Number
+        }),
+        scrollToSection: () => ({
+          value: "",
+          type: String
+        }),
+        arrowClass: () => ({
+          value: "",
+          type: String
+        }),
+        subMenuClass: () => ({
+          value: "",
+          type: String
+        }),
+        fireRoute: () => ({
+          value: true,
+          type: Boolean
+        }),
+        callback: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isCurrent: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+  var NavigationLabel = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationLabel>} */
+    {
+      name: "mob-navigation-label",
+      component: NavigationLabelFn,
+      exportState: ["label", "sectioName"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        sectioName: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+  var NavigationSubmenu = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationSubmenu>} */
+    {
+      name: "mob-navigation-submenu",
+      component: NavigationSubmenuFn,
+      exportState: ["children", "headerButton", "isOpen", "callback"],
+      state: {
+        callback: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        headerButton: () => ({
+          value: {},
+          type: "Any"
+        }),
+        children: () => ({
+          value: [],
+          type: Array
+        }),
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [NavigationButton]
+    }
+  );
+  var Navigation = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').Navigation>} */
+    {
+      name: "mob-navigation",
+      component: NavigationFn,
+      exportState: ["currentAccordionId"],
+      state: {
+        currentAccordionId: () => ({
+          value: -1,
+          type: Number,
+          skipEqual: false
+        })
+      },
+      child: [NavigationLabel, NavigationSubmenu, NavigationButton]
+    }
+  );
+  var NavigationContainer = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationContainer>} */
+    {
+      name: "mob-navigation-container",
+      component: NavigationContainerFn,
+      child: [Navigation],
+      state: {
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
   // src/js/component/lib/animation/verticalScroller.js
   var verticalScroller = ({ screen, scroller, scrollbar }) => {
     let instance;
@@ -36514,80 +36593,6 @@ Loading snippet ...</pre
         <scroll-to-top name="scroll-to-top"></scroll-to-top>
         <links-mobjs></links-mobjs>
     `;
-  };
-
-  // src/js/utils/scrollbarWith.js
-  var setValue = () => {
-    const value = window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty(
-      "--scrollbar-with",
-      `${value}px`
-    );
-  };
-  var getScrollbarWith = () => {
-    setValue();
-    modules_exports.useResize(() => {
-      setValue();
-    });
-  };
-
-  // src/js/pageTransition/index.js
-  var scrollY = 0;
-  modules_exports2.beforeRouteChange(() => {
-    scrollY = window.scrollY;
-  });
-  var beforePageTransition2 = async ({ oldNode }) => {
-    oldNode.classList.remove("current-route");
-    oldNode.classList.add("fake-content");
-    oldNode.style.position = "fixed";
-    oldNode.style.zIndex = "10";
-    oldNode.style.top = "var(--header-height)";
-    oldNode.style.left = "0";
-    oldNode.style.width = "100vw";
-    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
-    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
-  };
-  var pageTransition2 = async ({
-    oldNode,
-    newNode,
-    oldRoute,
-    newRoute
-  }) => {
-    if (core_exports.mq("max", "desktop") || oldRoute === newRoute) return;
-    newNode.style.opacity = "0";
-    const oldNodeTween = tween_exports.createTimeTween({
-      data: { opacity: 1 },
-      duration: 300
-    });
-    const newNodeTween = tween_exports.createTimeTween({
-      data: { opacity: 0 },
-      duration: 500
-    });
-    oldNodeTween.subscribe(({ opacity }) => {
-      oldNode.style.opacity = opacity;
-    });
-    newNodeTween.subscribe(({ opacity }) => {
-      newNode.style.opacity = opacity;
-    });
-    let tl = timeline_exports.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
-    await tl.play();
-    tl.destroy();
-    tl = null;
-    newNode.style.removeProperty("opacity");
-    newNode.classList.add("current-route");
-  };
-
-  // src/js/utils/pageScroll.js
-  var usePageScroll = () => {
-    InitMobPageScroll({ rootElement: document.querySelector("#root") });
-    modules_exports2.mainStore.watch("beforeRouteChange", () => {
-      FreezeMobPageScroll();
-    });
-    modules_exports2.mainStore.watch("afterRouteChange", () => {
-      modules_exports.useFrameIndex(() => {
-        UnFreezeAndUPdateMobPageScroll();
-      }, 3);
-    });
   };
 
   // src/js/main.js
