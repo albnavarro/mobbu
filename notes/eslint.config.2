@@ -1,15 +1,27 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import tseslint from 'typescript-eslint';
 import tsParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 
 export default defineConfig([
+    js.configs.recommended,
+    tseslint.configs.recommended,
+    tseslint.configs.stylistic,
+    importPlugin.flatConfigs.recommended,
+    eslintPluginUnicorn.configs.recommended,
+    eslintConfigPrettier,
     {
         files: ['**/*.js', '**/*.d.ts'],
+        // plugins: {
+        //     js,
+        //     eslintConfigPrettier,
+        //     eslintPluginUnicorn,
+        //     importPlugin,
+        // },
         languageOptions: {
             ecmaVersion: 'latest',
             sourceType: 'module',
@@ -19,21 +31,6 @@ export default defineConfig([
                 requireConfigFile: true,
             },
         },
-        plugins: {
-            js,
-            eslintConfigPrettier,
-            eslintPluginUnicorn,
-            importPlugin,
-            tseslint,
-        },
-        extends: [
-            'js/recommended',
-            eslintPluginUnicorn.configs.recommended,
-            eslintConfigPrettier,
-            importPlugin.flatConfigs.recommended,
-            tseslint.configs.recommended,
-            tseslint.configs.stylistic,
-        ],
         rules: {
             'unicorn/template-indent': 'off',
             'unicorn/filename-case': 'off',
