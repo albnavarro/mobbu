@@ -1,4 +1,4 @@
-import { MobTimeline } from '../../../src/js/mobMotion';
+import { MobTimeline } from '@mobMotion';
 
 const myTimeline = MobTimeline.createAsyncTimeline({
     repeat: -1,

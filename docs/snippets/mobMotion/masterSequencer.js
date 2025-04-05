@@ -1,4 +1,4 @@
-import { MobTween, MobTimeline } from '../../../src/js/mobMotion';
+import { MobTween, MobTimeline } from '@mobMotion';
 
 const masterSequencer = MobTween.createMasterSequencer();
 

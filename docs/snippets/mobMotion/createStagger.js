@@ -1,4 +1,4 @@
-import { MobTimeline, MobTween, MobScroll } from '../../../src/js/mobMotion';
+import { MobTimeline, MobTween, MobScroll } from '@mobMotion';
 
 const triggerElement = document.querySelector('.trigger');
 const targets = document.querySelectorAll('.targets');

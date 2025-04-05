@@ -1,4 +1,4 @@
-import { MobTween, MobTimeline } from '../../../src/js/mobMotion';
+import { MobTimeline, MobTween } from '@mobMotion';
 
 /**
  * Target

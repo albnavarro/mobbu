@@ -1,4 +1,4 @@
-import { MobScroll } from '../../../src/js/mobMotion';
+import { MobScroll } from '@mobMotion';
 
 /**
  * Create instance.

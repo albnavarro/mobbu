@@ -1,4 +1,4 @@
-import { MobScroll, MobTween } from '../../../src/js/mobMotion';
+import { MobScroll, MobTween } from '@mobMotion';
 
 const myTarget = document.querySelector('myTarget');
 

@@ -1,4 +1,4 @@
-import { MobTimeline } from '../../../src/js/mobMotion';
+import { MobTimeline } from '@mobMotion';
 
 /**
  * Add sequencer to timeline.

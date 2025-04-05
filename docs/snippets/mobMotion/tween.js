@@ -1,4 +1,4 @@
-import { MobTween } from '../../../src/js/mobMotion';
+import { MobTween } from '@mobMotion';
 
 const myTween = MobTween.createTimeTween({
     data: { x: 0, y: 0, rotate: 0 },
