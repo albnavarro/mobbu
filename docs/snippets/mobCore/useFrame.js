@@ -1,4 +1,4 @@
-import { MobCore } from '../../../src/js/mobCore';
+import { MobCore } from '@mobCore';
 
 MobCore.useframe(({ fps, shouldrender, time }) => {
     // code ...

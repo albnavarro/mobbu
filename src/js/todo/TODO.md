@@ -1,5 +1,9 @@
 # MobCore
 
+### eslint:
+- passare a defineConfig
+- https://eslint.org/blog/2025/03/flat-config-extends-define-config-global-ignores/
+
 ### useSwipe.
 - Implementare.
 

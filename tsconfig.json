@@ -27,6 +27,7 @@
     },
     "ts-node": { "esm": true },
     "include": [
+        "src/js/main.js",
         "src/js/mob/mobjs",
         "src/js/mob/mobMotion",
         "src/js/mob/mobCore",

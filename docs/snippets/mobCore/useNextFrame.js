@@ -1,4 +1,4 @@
-import { MobCore } from '../../../src/js/mobCore';
+import { MobCore } from '@mobCore';
 
 const loop = () => {
     MobCore.useNextFrame(({ fps, shouldRender, time }) => {

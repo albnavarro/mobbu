@@ -1,15 +1,15 @@
 // @ts-check
 
+import { MobCore } from '@mobCore';
+import { MobJs } from '@mobJs';
+import { MobMotionCore, MobTween } from '@mobMotion';
 import { loadData } from './data';
-import { MobMotionCore, MobTween } from './mob/mobMotion';
-import { wrapper } from './wrapper';
-import { MobCore } from './mob/mobCore';
-import { setBrowserClass } from './utils/utils';
-import { getScrollbarWith } from './utils/scrollbarWith';
 import { beforePageTransition, pageTransition } from './pageTransition';
 import { routes } from './pages';
 import { usePageScroll } from './utils/pageScroll';
-import { MobJs } from './mob/mobjs';
+import { getScrollbarWith } from './utils/scrollbarWith';
+import { setBrowserClass } from './utils/utils';
+import { wrapper } from './wrapper';
 // import { stateTest } from './test/mapTest/mapTest';
 // import { initTestMapStore } from './test/mapStore';
 // import { storeTest } from './test/storeTest';

@@ -1,4 +1,4 @@
-import { MobCore } from '../../../src/js/mobCore';
+import { MobCore } from '@mobCore';
 
 MobCore.useFrame(() => {
     MobCore.useNextTick(({ fps, shouldRender, time }) => {

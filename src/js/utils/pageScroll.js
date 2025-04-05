@@ -7,7 +7,12 @@ import {
 } from '../mob/mobMotion/plugin';
 
 export const usePageScroll = () => {
-    InitMobPageScroll({ rootElement: document.querySelector('#root') });
+    const rootElement = /** @type{HTMLElement} */ (
+        document.querySelector('#root')
+    );
+
+    if (!rootElement) return;
+    InitMobPageScroll({ rootElement });
 
     MobJs.mainStore.watch('beforeRouteChange', () => {
         FreezeMobPageScroll();
