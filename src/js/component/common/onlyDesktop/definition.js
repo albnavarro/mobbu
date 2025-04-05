@@ -1,11 +1,11 @@
 //@ts-check
 
-import { MobJs } from '../../../mob/mobjs';
-import { MobMotionCore } from '../../../mob/mobMotion';
+import { MobJs } from '@mobJs';
 import { OnlyDesktopFn } from './onlyDesktop';
+import { MobMotionCore } from '@mobMotion';
 
 /**
- * @import { CreateComponentParams } from "../../../mob/mobjs/type";
+ * @import { CreateComponentParams } from "@mobJsType";
  **/
 
 export const OnlyDesktop = MobJs.createComponent(

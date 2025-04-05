@@ -1,10 +1,10 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mob/mobjs/type';
+ * @import { MobComponent } from '@mobJsType';
  **/
 
-import { html } from '../../../mob/mobjs';
+import { html } from '@mobJs';
 import { navigationStore } from '../navigation/store/navStore';
 
 /** @type {MobComponent<import('./type').HeaderToggle>} */

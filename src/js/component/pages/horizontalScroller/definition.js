@@ -1,12 +1,12 @@
 //@ts-check
 
-import { MobJs } from '../../../mob/mobjs';
+import { MobJs } from '@mobJs';
 import { HorizontalScrollerFn } from './horizontalScroller';
 import { HorizontalScrollerButton } from './horizontalScrollerButton/definition';
 import { HorizontalScrollerSection } from './horizontalScrollerSection/definition';
 
 /**
- * @import { CreateComponentParams } from "../../../mob/mobjs/type";
+ * @import { CreateComponentParams } from "@mobJsType";
  **/
 
 export const HorizontalScroller = MobJs.createComponent(

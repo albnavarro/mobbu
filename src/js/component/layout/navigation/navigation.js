@@ -1,13 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps } from '../../../mob/mobjs/type';
- * @import { StaticProps, BindProps } from '../../../mob/mobjs/type';
+ * @import { MobComponent, ReturnBindProps, StaticProps, BindProps  } from '@mobJsType';
  * @import { Navigation, NavigationSubmenu } from './type';
  **/
 
+import { html } from '@mobJs';
 import { getCommonData } from '../../../data';
-import { html } from '../../../mob/mobjs';
 
 /**
  * @description

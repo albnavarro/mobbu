@@ -1,11 +1,11 @@
 //@ts-check
 
-import { MobJs } from '../../../../mob/mobjs';
+import { MobJs } from '@mobJs';
 import { benchMarkDefinitionPartial } from '../partials/definitionPartial';
 import { BenchMarkRepeatNoKyFn } from './benchmarkRepeatNoKey';
 
 /**
- * @import { CreateComponentParams } from "../../../../mob/mobjs/type";
+ * @import { CreateComponentParams } from "@mobJsType";
  **/
 
 export const BenchMarkRepeatNoKey = MobJs.createComponent(

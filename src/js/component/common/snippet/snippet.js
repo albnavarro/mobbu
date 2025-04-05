@@ -1,14 +1,14 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mob/mobjs/type';
+ * @import { MobComponent } from '@mobJsType';
  * @import { Snippet } from './type';
  **/
 
+import { html } from '@mobJs';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { loadTextContent } from '../../../utils/utils';
-import { html } from '../../../mob/mobjs';
 
 hljs.registerLanguage('javascript', javascript);
 

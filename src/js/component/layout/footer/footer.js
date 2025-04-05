@@ -1,14 +1,14 @@
 //@ts-check
 
-import { html, MobJs } from '../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 import { consoleLogDebug } from '../../common/debug/consoleLog';
 
 /**
- * @import {UseMethodByName} from '../../../mob/mobjs/type'
- * @import {DebugOverlay} from '../../common/debug/debugOverlay/type'
+ * @import { MobComponent, UseMethodByName } from '@mobJsType'
+ * @import { DebugOverlay } from '../../common/debug/debugOverlay/type'
  */
 
-/** @type {import("../../../mob/mobjs/type").MobComponent} */
+/** @type {MobComponent} */
 export const FooterFn = ({ delegateEvents }) => {
     return html`
         <footer class="l-footer">

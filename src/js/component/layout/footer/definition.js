@@ -1,12 +1,12 @@
 //@ts-check
 
-import { MobJs } from '../../../mob/mobjs';
+import { MobJs } from '@mobJs';
 import { DebugButton } from '../../common/debug/definition';
 import { FooterFn } from './footer';
 import { FooterNav } from './footerNav/definition';
 
 /**
- * @import { CreateComponentParams } from "../../../mob/mobjs/type";
+ * @import { CreateComponentParams } from "@mobJsType";
  **/
 
 export const Footer = MobJs.createComponent(

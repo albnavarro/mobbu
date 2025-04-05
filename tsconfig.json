@@ -13,7 +13,17 @@
         "noPropertyAccessFromIndexSignature": true,
         "skipLibCheck": true,
         "strict": true,
-        "target": "ESNext"
+        "target": "ESNext",
+        "paths": {
+            "@mobCore": ["./src/js/mob/mobCore"],
+            "@mobStoreType": ["./src/js/mob/mobCore/store/type"],
+            "@mobCoreUtils": ["./src/js/mob/mobCore/utils"],
+            "@mobJs": ["./src/js/mob/mobjs"],
+            "@mobJsType": ["./src/js/mob/mobjs/type"],
+            "@mobMotion": ["./src/js/mob/mobMotion"],
+            "@mobMotionType": ["./src/js/mob/mobMotion/type"],
+            "@mobMotionPlugin": ["./src/js/mob/mobMotion/plugin"]
+        }
     },
     "ts-node": { "esm": true },
     "include": [

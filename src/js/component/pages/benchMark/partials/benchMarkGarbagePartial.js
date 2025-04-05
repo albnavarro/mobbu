@@ -1,4 +1,4 @@
-import { html } from '../../../../mob/mobjs';
+import { html } from '@mobJs';
 
 export const benchMarkGarbagePartial = () => {
     return html`

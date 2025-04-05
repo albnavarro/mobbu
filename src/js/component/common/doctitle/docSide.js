@@ -1,8 +1,8 @@
 //@ts-check
 
-import { html } from '../../../mob/mobjs';
+import { html } from '@mobJs';
 
-/** @type {import("../../../mob/mobjs/type").MobComponent} */
+/** @type {import("@mobJsType").MobComponent} */
 export const DocTitleFn = () => {
     return html`
         <div class="c-doc-title">

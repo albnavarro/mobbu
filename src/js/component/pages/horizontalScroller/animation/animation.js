@@ -1,16 +1,16 @@
 // @ts-check
-import { MobCore } from '../../../../mob/mobCore';
-import { outerWidth } from '../../../../mob/mobCore/utils';
-import { MobScroll } from '../../../../mob/mobMotion';
-import { MobHorizontalScroller } from '../../../../mob/mobMotion/plugin';
+import { MobCore } from '@mobCore';
+import { MobHorizontalScroller } from '@mobMotionPlugin';
+import { outerWidth } from '@mobCoreUtils';
+import { MobScroll } from '@mobMotion';
 
 let sideWidth = 0;
 
 /**
  * @param {object} params
  * @param {HTMLElement[]} params.indicators
- * @param {import('../../../../mob/mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
- * @returns {import( '../../../../mob/mobMotion/type').MobScroller[]}
+ * @param {import('@mobJsType').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
+ * @returns {import( '@mobMotionType').MobScroller[]}
  */
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {

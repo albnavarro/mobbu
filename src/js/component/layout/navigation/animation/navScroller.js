@@ -1,5 +1,5 @@
-import { outerHeight } from '../../../../mob/mobCore/utils';
-import { MobSmoothScroller } from '../../../../mob/mobMotion/plugin';
+import { outerHeight } from '@mobCoreUtils';
+import { MobSmoothScroller } from '@mobMotionPlugin';
 import { navigationStore } from '../store/navStore';
 
 let currentPercent = 0;

@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { BindProps, MobComponent, StaticProps } from '../../../mob/mobjs/type';
- * @import { LinksMobJs, LinksMobJsButton } from './type';]
+ * @import { BindProps, MobComponent, StaticProps } from '@mobJsType';
+ * @import { LinksMobJs, LinksMobJsButton } from './type';
  **/
 
+import { html, MobJs } from '@mobJs';
 import { getCommonData } from '../../../data';
-import { html, MobJs } from '../../../mob/mobjs';
 import {
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_TRAVERSAL_MOBJS,

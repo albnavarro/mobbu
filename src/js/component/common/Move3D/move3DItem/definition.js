@@ -1,6 +1,6 @@
 //@ts-check
 
-import { MobJs } from '../../../../mob/mobjs';
+import { MobJs } from '@mobJs';
 import { Move3DItemfn } from './Move3DItem';
 
 /**

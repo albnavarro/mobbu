@@ -1,10 +1,8 @@
-// @ts-check
-
 /**
- * @import { MobComponent } from '../../../../../mob/mobjs/type';
+ * @import { MobComponent } from '@mobJsType';
  **/
 
-import { html, MobJs } from '../../../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { generateTreeComponents } from './recursiveTree';
 

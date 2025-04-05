@@ -1,7 +1,9 @@
 //@ts-check
 
-import { MobTimeline, MobTween } from '../../../../../mob/mobMotion';
-import { clamp } from '../../../../../mob/mobMotion/animation/utils/animationUtils';
+import { MobCore } from '@mobCore';
+import { offset } from '@mobCoreUtils';
+import { MobJs } from '@mobJs';
+import { MobMotionCore, MobTimeline, MobTween } from '@mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -9,9 +11,6 @@ import {
     getOffsetCanvas,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
-import { offset } from '../../../../../mob/mobCore/utils';
-import { MobCore } from '../../../../../mob/mobCore';
-import { MobJs } from '../../../../../mob/mobjs';
 
 /** @type{import('../type').CaterpillarN1Animation} */
 export const caterpillarN1Animation = ({
@@ -257,12 +256,12 @@ export const caterpillarN1Animation = ({
         const xCenter = x - canvas.width / 2 - left;
         const yCenter = y - canvas.height / 2 - top;
         centerTween.goTo({
-            x: clamp(
+            x: MobMotionCore.clamp(
                 xCenter,
                 -winWidth / 2 + 400 + left,
                 winWidth / 2 - 400 - left
             ),
-            y: clamp(
+            y: MobMotionCore.clamp(
                 yCenter,
                 -winHeight / 2 + 200 + top,
                 winHeight / 2 - 200 - top

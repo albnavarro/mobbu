@@ -1,9 +1,9 @@
 //@ts-check
 
-import { html } from '../../../mob/mobjs';
+import { html } from '@mobJs';
 import { navigationStore } from './store/navStore';
 
-/** @type {import('../../../mob/mobjs/type').MobComponent<import('./type').NavigationLabel>} */
+/** @type {import('@mobJsType').MobComponent<import('./type').NavigationLabel>} */
 export const NavigationLabelFn = ({ bindStore, bindEffect, getProxi }) => {
     bindStore(navigationStore);
     const proxi = getProxi();

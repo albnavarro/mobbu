@@ -1,14 +1,15 @@
-import { html } from '../../../mob/mobjs';
+import { html } from '@mobJs';
 import { linksScroller } from './animation/linksScroller';
+
+/**
+ * @import { MobComponent } from '@mobJsType';
+ **/
 
 /**
  * @param {number} index
  * @returns { string }
  */
 const getCounter = (index) => (index < 10 ? `0${index}` : `${index}`);
-/**
- * @import { MobComponent } from '../../../mob/mobjs/type';
- **/
 
 /** @type {MobComponent<import('./type').LayoutLinks>} */
 export const LayoutLinksFn = ({

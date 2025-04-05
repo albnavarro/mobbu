@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { GetState, MobComponent } from '../../../mob/mobjs/type';
+ * @import { GetState, MobComponent } from '@mobJsType';
  **/
 
-import { MobCore } from '../../../mob/mobCore';
-import { html } from '../../../mob/mobjs';
-import { MobMotionCore } from '../../../mob/mobMotion';
+import { MobCore } from '@mobCore';
+import { html } from '@mobJs';
+import { MobMotionCore } from '@mobMotion';
 
 /**
  * @param {object} params

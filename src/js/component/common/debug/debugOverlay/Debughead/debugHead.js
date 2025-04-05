@@ -1,10 +1,10 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../../../mob/mobjs/type';
+ * @import { MobComponent } from '@mobJsType';
  **/
 
-import { html, MobJs } from '../../../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 import { getBindObjectParentSize } from '../../../../../mob/mobjs/modules/bindObject';
 import { getBindTextParentSize } from '../../../../../mob/mobjs/modules/bindtext';
 

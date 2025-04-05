@@ -1,11 +1,11 @@
 // @ts-check
 
 /**
- * @import { MobComponent,  UseMethodByName } from '../../../../../../mob/mobjs/type';
+ * @import { MobComponent,  UseMethodByName } from '@mobJsType';
  **/
 
-import { html, MobJs } from '../../../../../../mob/mobjs';
-import { MobSlide } from '../../../../../../mob/mobMotion/plugin';
+import { html, MobJs } from '@mobJs';
+import { MobSlide } from '@mobMotionPlugin';
 import { debugActiveComponentStore } from '../../Store/DebugActiveComponent';
 import { generateTreeComponents } from '../recursiveTree';
 

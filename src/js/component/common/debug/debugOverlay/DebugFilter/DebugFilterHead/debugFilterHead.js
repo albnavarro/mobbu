@@ -1,9 +1,9 @@
 // @ts-check
 
-import { html, MobJs } from '../../../../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 
 /**
- * @import { MobComponent, UseMethodByName } from '../../../../../../mob/mobjs/type';
+ * @import { MobComponent, UseMethodByName } from '@mobJsType';
  **/
 
 const refreshList = async (testString = '') => {

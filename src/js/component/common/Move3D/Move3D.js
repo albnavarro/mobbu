@@ -1,11 +1,12 @@
 //@ts-check
 
-import { MobCore } from '../../../mob/mobCore';
-import { html } from '../../../mob/mobjs';
-import { MobMotionCore, MobTween } from '../../../mob/mobMotion';
-import { NOOP } from '../../../mob/mobMotion/utils/functionsUtils';
+import { MobCore } from '@mobCore';
+import { html } from '@mobJs';
+import { MobMotionCore, MobTween } from '@mobMotion';
 import { Recursive3Dshape } from './partials/recursive3Dshape';
 import { getChildrenMethod, getMove3DDimension } from './utils';
+
+const NOOP = () => {};
 
 /**
  * @import { MobComponent } from '../../../mob/mobjs/type';

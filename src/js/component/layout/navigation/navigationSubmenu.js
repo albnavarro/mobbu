@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps, StaticProps, UseMethodByName } from '../../../mob/mobjs/type';
+ * @import { MobComponent, ReturnBindProps, StaticProps, UseMethodByName } from '@mobJsType';
  * @import { Navigation, NavigationButton, NavigationContainer, NavigationSubmenu } from './type';
  **/
 
-import { html, MobJs } from '../../../mob/mobjs';
-import { MobSlide } from '../../../mob/mobMotion/plugin';
+import { html, MobJs } from '@mobJs';
+import { MobSlide } from '@mobMotionPlugin';
 
 /**
  * @param {object} params

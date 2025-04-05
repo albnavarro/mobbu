@@ -1,11 +1,11 @@
 //@ts-check
 
 /**
- * @import { DelegateEvents, MobComponent, StaticProps } from '../../../../mob/mobjs/type';
+ * @import { DelegateEvents, MobComponent, StaticProps } from '@mobJsType';
  **/
 
+import { html, MobJs } from '@mobJs';
 import { getCommonData } from '../../../../data';
-import { html, MobJs } from '../../../../mob/mobjs';
 import { navigationStore } from '../../navigation/store/navStore';
 
 /**

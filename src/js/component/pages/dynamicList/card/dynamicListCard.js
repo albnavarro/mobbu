@@ -1,14 +1,14 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps, StaticProps, DelegateEvents  } from '../../../../mob/mobjs/type';
+ * @import { MobComponent, ReturnBindProps, StaticProps, DelegateEvents  } from '@mobJsType';
  * @import { DynamicListCardInner } from './innerCard/type';
  * @import { DynamicListCard } from './type';
  * @import { DynamicCounter } from '../counter/type';
  * @import { DynamicListButton } from '../button/type';
  **/
 
-import { html, MobJs } from '../../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 import { innerData } from '../data';
 
 /** @param {number} numberOfItem */

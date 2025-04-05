@@ -1,9 +1,9 @@
 //@ts-check
 
-import { html, MobJs } from '../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 
 /**
- * @import { MobComponent, SetStateByName } from '../../../mob/mobjs/type';
+ * @import { MobComponent, SetStateByName } from '@mobJsType';
  * @import { ScrollToTop } from '../scrollToTop/type';
  **/
 

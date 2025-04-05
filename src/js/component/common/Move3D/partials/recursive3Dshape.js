@@ -1,6 +1,6 @@
 //@ts-check
 
-import { html, MobJs } from '../../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 
 /**
  * @param {object} params

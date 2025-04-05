@@ -1,7 +1,7 @@
 //@ts-check
 
-import { html, MobJs } from '../../../../mob/mobjs';
-import { MobTween } from '../../../../mob/mobMotion';
+import { html, MobJs } from '@mobJs';
+import { MobTween } from '@mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
 
 /** @type{(component: {tagName: string, className: string, props: any} ) => string} */

@@ -1,10 +1,10 @@
 // @ts-check
 
 /**
- * @import { MobComponent, UseMethodByName } from '../../../../../../mob/mobjs/type';
+ * @import { MobComponent, UseMethodByName } from '@mobJsType';
  **/
 
-import { html, MobJs } from '../../../../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../../constant';
 
 const updateId = (id = '') => {

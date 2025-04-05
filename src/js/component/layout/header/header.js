@@ -1,10 +1,10 @@
 //@ts-check
 
 /**
- * @import { MobComponent, UseMethodByName } from '../../../mob/mobjs/type';
+ * @import { MobComponent, UseMethodByName } from '@mobJsType';
  **/
 
-import { html, MobJs } from '../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function titleHandler() {

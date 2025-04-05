@@ -1,11 +1,11 @@
 // @ts-check
 
-import { html, MobJs } from '../../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 import { consoleLogDebug } from '../consoleLog';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
 
 /**
- * @import { MobComponent, ReturnBindProps } from '../../../../mob/mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '@mobJsType';
  * @import { DebugHead } from './Debughead/type';
  **/
 

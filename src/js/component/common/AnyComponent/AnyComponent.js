@@ -1,9 +1,9 @@
 //@ts-check
 
-import { html } from '../../../mob/mobjs';
+import { html } from '@mobJs';
 
 /**
- * @import { MobComponent } from '../../../mob/mobjs/type';
+ * @import { MobComponent } from '@mobJsType';
  **/
 
 /** @type {MobComponent<import('./type').AnyComponent>} */

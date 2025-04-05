@@ -1,10 +1,10 @@
 //@ts-check
 
 /**
- * @import { GetRef, GetState, MobComponent } from '../../../../../mob/mobjs/type';
+ * @import { GetRef, GetState, MobComponent } from '@mobJsType';
  **/
 
-import { html, MobJs } from '../../../../../mob/mobjs';
+import { html, MobJs } from '@mobJs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '../Store/DebugActiveComponent';

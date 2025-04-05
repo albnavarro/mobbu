@@ -1,16 +1,15 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps } from '../../../mob/mobjs/type';
- * @import { DelegateEvents, BindProps } from '../../../mob/mobjs/type';
+ * @import { MobComponent, ReturnBindProps, DelegateEvents, BindProps  } from '@mobJsType';
  * @import {ScrollTo} from './type'
  * @import {ScrollToButton} from './button/type'
  */
 
-import { offset } from '../../../mob/mobCore/utils';
-import { html } from '../../../mob/mobjs';
-import { MobMotionCore } from '../../../mob/mobMotion';
-import { MobBodyScroll } from '../../../mob/mobMotion/plugin';
+import { offset } from '@mobCoreUtils';
+import { html } from '@mobJs';
+import { MobMotionCore } from '@mobMotion';
+import { MobBodyScroll } from '@mobMotionPlugin';
 
 let disableObservereffect = false;
 

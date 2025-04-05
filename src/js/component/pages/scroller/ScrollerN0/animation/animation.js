@@ -1,6 +1,9 @@
 // @ts-check
 
-import { MobScroll, MobTween } from '../../../../../mob/mobMotion';
+import { MobCore } from '@mobCore';
+import { outerHeight } from '@mobCoreUtils';
+import { MobJs } from '@mobJs';
+import { MobScroll, MobTween } from '@mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -13,9 +16,6 @@ import {
     roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
-import { outerHeight } from '../../../../../mob/mobCore/utils';
-import { MobCore } from '../../../../../mob/mobCore';
-import { MobJs } from '../../../../../mob/mobjs';
 
 /** @type{import('../type').ScrollerN0Animation} */
 export const scrollerN0Animation = ({

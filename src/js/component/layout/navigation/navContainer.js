@@ -1,13 +1,13 @@
 //@ts-check
 
-import { MobCore } from '../../../mob/mobCore';
-import { html, MobJs } from '../../../mob/mobjs';
-import { MobBodyScroll } from '../../../mob/mobMotion/plugin';
+import { MobCore } from '@mobCore';
+import { html, MobJs } from '@mobJs';
+import { MobBodyScroll } from '@mobMotionPlugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
 
 /**
- * @import {SetState, UseMethodByName} from '../../../mob/mobjs/type'
+ * @import {SetState, UseMethodByName} from '@mobJsType'
  */
 
 /**

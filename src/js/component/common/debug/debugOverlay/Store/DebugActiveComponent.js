@@ -1,8 +1,8 @@
 /**
- * @import { MobStoreParams } from '../../../../../mob/mobCore/store/type';
+ * @import { MobStoreParams } from '@mobStoreType';
  **/
 
-import { MobCore } from '../../../../../mob/mobCore';
+import { MobCore } from '@mobCore';
 
 export const debugActiveComponentStore = MobCore.createStore(
     /** @type{MobStoreParams<import('./type').DebugActiveComponentStore>} */

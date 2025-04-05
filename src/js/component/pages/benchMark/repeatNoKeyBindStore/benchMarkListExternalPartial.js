@@ -1,7 +1,7 @@
 //@ts-check
 
-import { MobCore } from '../../../../mob/mobCore';
-import { html, MobJs } from '../../../../mob/mobjs';
+import { MobCore } from '@mobCore';
+import { html, MobJs } from '@mobJs';
 import {
     createBenchMarkArray,
     shuffle,
@@ -9,7 +9,7 @@ import {
 import { getExternalStore } from './store';
 
 /**
- * @import { DelegateEvents, SetRef, GetRef, GetState, BindEffect } from '../../../../mob/mobjs/type';
+ * @import { DelegateEvents, SetRef, GetRef, GetState, BindEffect } from '@mobJsType';
  **/
 
 /**

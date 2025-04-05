@@ -1,4 +1,4 @@
-import { MobSmoothScroller } from '../../../../mob/mobMotion/plugin';
+import { MobSmoothScroller } from '@mobMotionPlugin';
 import { inspirationAnimation } from './inspiration';
 import { createPathAnimation } from './pathAnimation';
 import { aboutSection1 } from './section1';

@@ -1,4 +1,4 @@
-import { MobTween } from '../../../../mob/mobMotion';
+import { MobTween } from '@mobMotion';
 
 /** @type{import('../type').AboutSvgAnimation} */
 export const aboutSvgAnimation = ({ elements }) => {

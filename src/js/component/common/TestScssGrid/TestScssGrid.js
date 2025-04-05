@@ -1,4 +1,4 @@
-import { html } from '../../../mob/mobjs';
+import { html } from '@mobJs';
 
 /** @type{import("../../../mob/mobjs/type").MobComponent} */
 export const TestScssGridFn = () => {

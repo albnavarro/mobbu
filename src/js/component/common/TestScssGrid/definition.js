@@ -1,5 +1,5 @@
 //@ts-check
-import { MobJs } from '../../../mob/mobjs';
+import { MobJs } from '@mobJs';
 import { TestScssGridFn } from './TestScssGrid';
 
 /**

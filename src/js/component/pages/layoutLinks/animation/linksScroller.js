@@ -1,4 +1,4 @@
-import { MobSmoothScroller } from '../../../../mob/mobMotion/plugin';
+import { MobSmoothScroller } from '@mobMotionPlugin';
 
 /** @type{import("../type").LinksScroller} */
 export const linksScroller = ({

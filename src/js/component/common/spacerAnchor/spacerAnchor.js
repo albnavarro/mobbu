@@ -1,13 +1,13 @@
 //@ts-check
 
 /**
- * @import { MobComponent, UseMethodByName } from '../../../mob/mobjs/type';
+ * @import { MobComponent, UseMethodByName } from '@mobJsType';
  * @import { SpacerAnchor } from './type';
  **/
 
-import { MobCore } from '../../../mob/mobCore';
-import { isVisibleInViewport } from '../../../mob/mobCore/utils';
-import { html, MobJs } from '../../../mob/mobjs';
+import { MobCore } from '@mobCore';
+import { html, MobJs } from '@mobJs';
+import { isVisibleInViewport } from '@mobCoreUtils';
 
 /**
  * @param {object} params

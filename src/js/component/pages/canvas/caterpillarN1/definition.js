@@ -1,11 +1,11 @@
 //@ts-check
 
-import { MobJs } from '../../../../mob/mobjs';
+import { MobJs } from '@mobJs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { CaterpillarN1Fn } from './caterpillarN1';
 
 /**
- * @import { CreateComponentParams } from "../../../../mob/mobjs/type";
+ * @import { CreateComponentParams } from "@mobJsType";
  **/
 
 export const CaterpillarN1 = MobJs.createComponent(

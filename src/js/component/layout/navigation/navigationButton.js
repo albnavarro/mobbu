@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mob/mobjs/type';
+ * @import { MobComponent } from '@mobJsType';
  * @import { NavigationButton } from './type';
  **/
 
-import { MobCore } from '../../../mob/mobCore';
-import { html, MobJs } from '../../../mob/mobjs';
+import { MobCore } from '@mobCore';
+import { html, MobJs } from '@mobJs';
 import { navigationStore } from './store/navStore';
 
 /** @type {MobComponent<NavigationButton>} */

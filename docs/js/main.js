@@ -29412,12 +29412,12 @@ Loading snippet ...</pre
       const xCenter = x - canvas.width / 2 - left;
       const yCenter = y - canvas.height / 2 - top;
       centerTween.goTo({
-        x: clamp2(
+        x: core_exports.clamp(
           xCenter,
           -winWidth / 2 + 400 + left,
           winWidth / 2 - 400 - left
         ),
-        y: clamp2(
+        y: core_exports.clamp(
           yCenter,
           -winHeight / 2 + 200 + top,
           winHeight / 2 - 200 - top
@@ -32537,6 +32537,8 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/Move3D/Move3D.js
+  var NOOP2 = () => {
+  };
   var Move3Dfn = ({
     onMount,
     setRef,
@@ -32561,12 +32563,12 @@ Loading snippet ...</pre
     let firstDrag = false;
     let pageCoord = { x: 0, y: 0 };
     let lastScrolledTop = 0;
-    let unsubscribeTouchStart = NOOP;
-    let unsubscribeTouchEnd = NOOP;
-    let unsubscribeTouchDown = NOOP;
-    let unsubscribeTouchUp = NOOP;
-    let unsubscribeTouchMove = NOOP;
-    let unsubscribeScroll = NOOP;
+    let unsubscribeTouchStart = NOOP2;
+    let unsubscribeTouchEnd = NOOP2;
+    let unsubscribeTouchDown = NOOP2;
+    let unsubscribeTouchUp = NOOP2;
+    let unsubscribeTouchMove = NOOP2;
+    let unsubscribeScroll = NOOP2;
     let childrenMethods = [];
     let spring = tween_exports.createSpring({ data: { delta: 0, ax: 0, ay: 0 } });
     const onMouseUp = () => {

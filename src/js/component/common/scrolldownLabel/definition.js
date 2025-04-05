@@ -1,8 +1,8 @@
-import { MobJs } from '../../../mob/mobjs';
+import { MobJs } from '@mobJs';
 import { ScrollDownLabelFn } from './scrolldownLabel';
 
 /**
- * @import { CreateComponentParams } from "../../../mob/mobjs/type";
+ * @import { CreateComponentParams } from "@mobJsType";
  **/
 
 export const ScrollDownLabel = MobJs.createComponent(
