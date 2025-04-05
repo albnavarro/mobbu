@@ -1,5 +1,6 @@
 //@ts-check
 
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { MobCore } from '@mobCore';
 import { offset } from '@mobCoreUtils';
 import { MobJs } from '@mobJs';
@@ -12,8 +13,7 @@ import {
     getOffsetCanvas,
     getOffsetXCenter,
     getOffsetYCenter,
-} from '../../../../../utils/canvasUtils';
-import { navigationStore } from '../../../../layout/navigation/store/navStore';
+} from '@utils/canvasUtils';
 
 /** @type{import('../type').AnimatedPatternN1Animation} */
 export const animatedPatternN1Animation = ({

@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { detectFirefox, detectSafari } from '../../../../utils/utils';
+import { detectFirefox, detectSafari } from '@utils/utils';
 import { AnimatedPatternN1Fn } from './animatedPatternN1';
 
 /**

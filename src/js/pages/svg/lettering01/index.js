@@ -2,8 +2,8 @@ import { AnyComponent } from '@commonComponent/AnyComponent/definition';
 import { Move3D } from '@commonComponent/Move3D/definition';
 import { updateQuickNavState } from '@commonComponent/quickNav/utils';
 import { html, MobJs } from '@mobJs';
-import { parseSvg } from '../../../utils/parseSvg';
-import { loadTextContent } from '../../../utils/utils';
+import { parseSvg } from '@utils/parseSvg';
+import { loadTextContent } from '@utils/utils';
 import { getLettering01 } from './lettering01Data';
 
 MobJs.useComponent([Move3D, AnyComponent]);

@@ -1,16 +1,16 @@
 // @ts-check
 
-import { QuickNav } from '../component/common/quickNav/definition';
-import { RouteLoader } from '../component/common/routeLoader/definition';
-import { ScrollDownLabel } from '../component/common/scrolldownLabel/definition';
-import { ScrollToTop } from '../component/common/scrollToTop/definition';
-import { Footer } from '../component/layout/footer/definition';
-import { Header } from '../component/layout/header/definition';
-import { NavigationContainer } from '../component/layout/navigation/definition';
-import { LinksMobJs } from '../component/common/linksMobJs/definition';
-import { OnlyDesktop } from '../component/common/onlyDesktop/definition';
-import { DebugOverlay } from '../component/common/debug/debugOverlay/definition';
-import { TestScssGrid } from '../component/common/TestScssGrid/definition';
+import { DebugOverlay } from '@commonComponent/debug/debugOverlay/definition';
+import { LinksMobJs } from '@commonComponent/linksMobJs/definition';
+import { OnlyDesktop } from '@commonComponent/onlyDesktop/definition';
+import { QuickNav } from '@commonComponent/quickNav/definition';
+import { RouteLoader } from '@commonComponent/routeLoader/definition';
+import { ScrollDownLabel } from '@commonComponent/scrolldownLabel/definition';
+import { ScrollToTop } from '@commonComponent/scrollToTop/definition';
+import { TestScssGrid } from '@commonComponent/TestScssGrid/definition';
+import { Footer } from '@layoutComponent/footer/definition';
+import { Header } from '@layoutComponent/header/definition';
+import { NavigationContainer } from '@layoutComponent/navigation/definition';
 import { html, MobJs } from '@mobJs';
 
 MobJs.useComponent([

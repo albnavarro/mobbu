@@ -3,12 +3,12 @@
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import { MobMotionCore, MobTween } from '@mobMotion';
+import { usePageScroll } from '@utils/pageScroll';
+import { setBrowserClass } from '@utils/utils';
 import { loadData } from './data';
 import { beforePageTransition, pageTransition } from './pageTransition';
 import { routes } from './pages';
-import { usePageScroll } from './utils/pageScroll';
 import { getScrollbarWith } from './utils/scrollbarWith';
-import { setBrowserClass } from './utils/utils';
 import { wrapper } from './wrapper';
 // import { stateTest } from './test/mapTest/mapTest';
 // import { initTestMapStore } from './test/mapStore';

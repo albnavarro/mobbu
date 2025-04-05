@@ -1,5 +1,6 @@
 //@ts-check
 
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import { MobTimeline, MobTween } from '@mobMotion';
@@ -8,8 +9,7 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-} from '../../../../../utils/canvasUtils';
-import { navigationStore } from '../../../../layout/navigation/store/navStore';
+} from '@utils/canvasUtils';
 
 /**
  * @param {object} params

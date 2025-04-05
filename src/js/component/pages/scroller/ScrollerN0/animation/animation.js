@@ -1,5 +1,6 @@
 // @ts-check
 
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
 import { MobJs } from '@mobJs';
@@ -14,8 +15,7 @@ import {
     getOffsetYCenter,
     roundRectCustom,
     roundRectIsSupported,
-} from '../../../../../utils/canvasUtils';
-import { navigationStore } from '../../../../layout/navigation/store/navStore';
+} from '@utils/canvasUtils';
 
 /** @type{import('../type').ScrollerN0Animation} */
 export const scrollerN0Animation = ({

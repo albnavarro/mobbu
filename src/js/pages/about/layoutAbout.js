@@ -1,6 +1,6 @@
 import { html, MobJs } from '@mobJs';
 import { AboutComponent } from '@pagesComponent/about/definition';
-import { loadJsonContent, loadTextContent } from '../../utils/utils';
+import { loadJsonContent, loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([AboutComponent]);
 

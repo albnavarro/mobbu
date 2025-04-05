@@ -1,5 +1,5 @@
 import { html, MobJs } from '@mobJs';
-import { loadJsonContent } from '../../utils/utils';
+import { loadJsonContent } from '@utils/utils';
 import { LayoutLinks } from '@pagesComponent/layoutLinks/definition';
 
 MobJs.useComponent([LayoutLinks]);

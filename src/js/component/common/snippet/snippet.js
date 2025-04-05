@@ -8,7 +8,7 @@
 import { html } from '@mobJs';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
-import { loadTextContent } from '../../../utils/utils';
+import { loadTextContent } from '@utils/utils';
 
 hljs.registerLanguage('javascript', javascript);
 

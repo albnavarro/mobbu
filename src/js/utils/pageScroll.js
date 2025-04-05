@@ -1,10 +1,10 @@
-import { MobCore } from '../mob/mobCore';
-import { MobJs } from '../mob/mobjs';
+import { MobCore } from '@mobCore';
+import { MobJs } from '@mobJs';
 import {
     FreezeMobPageScroll,
     InitMobPageScroll,
     UnFreezeAndUPdateMobPageScroll,
-} from '../mob/mobMotion/plugin';
+} from '@mobMotionPlugin';
 
 export const usePageScroll = () => {
     const rootElement = /** @type{HTMLElement} */ (

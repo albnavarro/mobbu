@@ -7,7 +7,7 @@
  **/
 
 import { html } from '@mobJs';
-import { loadJsonContent } from '../../../utils/utils';
+import { loadJsonContent } from '@utils/utils';
 import { getTrinangle } from '../../lib/utils/getTriangle';
 
 /**

@@ -20983,208 +20983,6 @@
     });
   }
 
-  // src/js/data/index.js
-  var commonData;
-  var getCommonData = () => commonData;
-  var loadData = async () => {
-    commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data) => data).catch((error) => console.warn("Something went wrong.", error));
-  };
-
-  // src/js/pageTransition/index.js
-  var scrollY = 0;
-  modules_exports2.beforeRouteChange(() => {
-    scrollY = window.scrollY;
-  });
-  var beforePageTransition2 = async ({ oldNode }) => {
-    oldNode.classList.remove("current-route");
-    oldNode.classList.add("fake-content");
-    oldNode.style.position = "fixed";
-    oldNode.style.zIndex = "10";
-    oldNode.style.top = "var(--header-height)";
-    oldNode.style.left = "0";
-    oldNode.style.width = "100vw";
-    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
-    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
-  };
-  var pageTransition2 = async ({
-    oldNode,
-    newNode,
-    oldRoute,
-    newRoute
-  }) => {
-    if (core_exports.mq("max", "desktop") || oldRoute === newRoute) return;
-    newNode.style.opacity = "0";
-    const oldNodeTween = tween_exports.createTimeTween({
-      data: { opacity: 1 },
-      duration: 300
-    });
-    const newNodeTween = tween_exports.createTimeTween({
-      data: { opacity: 0 },
-      duration: 500
-    });
-    oldNodeTween.subscribe(({ opacity }) => {
-      oldNode.style.opacity = opacity;
-    });
-    newNodeTween.subscribe(({ opacity }) => {
-      newNode.style.opacity = opacity;
-    });
-    let tl = timeline_exports.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
-    await tl.play();
-    tl.destroy();
-    tl = null;
-    newNode.style.removeProperty("opacity");
-    newNode.classList.add("current-route");
-  };
-
-  // src/js/component/lib/utils/getTriangle.js
-  var getTrinangle = (className = "") => {
-    return renderHtml`
-        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-        <svg
-            width="685.75171"
-            height="641.88232"
-            viewBox="0 0 181.43847 169.83136"
-            version="1.1"
-            id="svg5"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:svg="http://www.w3.org/2000/svg"
-            class="${className}"
-        >
-            <g id="layer1" transform="translate(0.29348888,0.2718794)">
-                <path
-                    id="path1107"
-                    transform="matrix(-0.26371722,0.02139075,-0.02139075,-0.26371722,201.63975,129.69612)"
-                    d="M 719.78423,551.21438 37.632123,494.16328 772.89469,-88.468152 Z"
-                />
-            </g>
-        </svg>
-    `;
-  };
-
-  // src/js/component/common/typography/titles/title.js
-  var shouldUseTrinagle = (tag) => {
-    return tag === `h1` ? getTrinangle() : "";
-  };
-  var TitleFn = ({ getState }) => {
-    const { tag, color, isBold } = getState();
-    const colorClass = `is-${color}`;
-    const boldClass = isBold ? `is-bold` : "";
-    return renderHtml`<${tag} class="mob-title ${colorClass} ${boldClass}">
-        <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
-        <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
-            <mobjs-slot></mobjs-slot>
-        </${tag}>`;
-  };
-
-  // src/js/component/common/typography/titles/definition.js
-  var Title = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').Title>} */
-    {
-      name: "mob-title",
-      component: TitleFn,
-      exportState: ["tag", "color", "isBold"],
-      state: {
-        tag: () => ({
-          value: "h1",
-          type: String
-        }),
-        color: () => ({
-          value: "black",
-          type: String,
-          validate: (val2) => {
-            return ["white", "hightlight", "black"].includes(val2);
-          }
-        }),
-        isBold: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/pages/404/index.js
-  modules_exports2.useComponent([Title]);
-  var pageNotFound2 = () => {
-    return renderHtml`
-        <div class="page-not-found">
-            <mob-title ${modules_exports2.staticProps({ tag: "h3", color: "highlight" })}>
-                Page not found
-            </mob-title>
-            <a href="./#home">back to home</a>
-        </div>
-    `;
-  };
-
-  // src/js/utils/utils.js
-  function detectSafari() {
-    const userAgentString = navigator.userAgent;
-    let safariAgent = userAgentString.includes("Safari");
-    const chromeAgent = userAgentString.includes("Chrome");
-    if (chromeAgent && safariAgent) safariAgent = false;
-    return safariAgent;
-  }
-  function detectFirefox() {
-    const userAgentString = navigator.userAgent;
-    let firefixAgent = userAgentString.includes("Firefox");
-    const chromeAgent = userAgentString.includes("Chrome");
-    if (chromeAgent && firefixAgent) firefixAgent = false;
-    return firefixAgent;
-  }
-  function setBrowserClass() {
-    const userAgent = navigator.userAgent;
-    const body = document.body;
-    if (/chrome|chromium|crios/i.test(userAgent)) {
-      body.classList.add("is-chrome");
-      return;
-    }
-    if (/firefox|fxios/i.test(userAgent)) {
-      body.classList.add("is-firefox");
-      return;
-    }
-    if (/safari/i.test(userAgent)) {
-      body.classList.add("is-safari");
-      return;
-    }
-    if (/edg/i.test(userAgent)) {
-      body.classList.add("is-edge");
-      return;
-    }
-  }
-  var loadTextContent = async ({ source }) => {
-    const response = await fetch(source);
-    if (!response.ok) {
-      console.warn(`${source} not found`);
-      return {
-        success: false,
-        data: ""
-      };
-    }
-    const data = await response.text();
-    return {
-      success: true,
-      data
-    };
-  };
-  var loadJsonContent = async ({ source }) => {
-    const response = await fetch(source);
-    if (!response.ok) {
-      console.warn(`${source} not found`);
-      return {
-        success: false,
-        data: ""
-      };
-    }
-    const data = await response.json();
-    return {
-      success: true,
-      data
-    };
-  };
-  function randomIntFromInterval(min2, max2) {
-    return Math.floor(Math.random() * (max2 - min2 + 1) + min2);
-  }
-
   // src/js/mob/mobMotion/plugin/pageScroll/pageScroller.js
   var isActive = false;
   var lastScrollValue = window.scrollY;
@@ -23495,6 +23293,226 @@
         });
       }, 3);
     }
+  };
+
+  // src/js/utils/pageScroll.js
+  var usePageScroll = () => {
+    const rootElement = (
+      /** @type{HTMLElement} */
+      document.querySelector("#root")
+    );
+    if (!rootElement) return;
+    InitMobPageScroll({ rootElement });
+    modules_exports2.mainStore.watch("beforeRouteChange", () => {
+      FreezeMobPageScroll();
+    });
+    modules_exports2.mainStore.watch("afterRouteChange", () => {
+      modules_exports.useFrameIndex(() => {
+        UnFreezeAndUPdateMobPageScroll();
+      }, 3);
+    });
+  };
+
+  // src/js/utils/utils.js
+  function detectSafari() {
+    const userAgentString = navigator.userAgent;
+    let safariAgent = userAgentString.includes("Safari");
+    const chromeAgent = userAgentString.includes("Chrome");
+    if (chromeAgent && safariAgent) safariAgent = false;
+    return safariAgent;
+  }
+  function detectFirefox() {
+    const userAgentString = navigator.userAgent;
+    let firefixAgent = userAgentString.includes("Firefox");
+    const chromeAgent = userAgentString.includes("Chrome");
+    if (chromeAgent && firefixAgent) firefixAgent = false;
+    return firefixAgent;
+  }
+  function setBrowserClass() {
+    const userAgent = navigator.userAgent;
+    const body = document.body;
+    if (/chrome|chromium|crios/i.test(userAgent)) {
+      body.classList.add("is-chrome");
+      return;
+    }
+    if (/firefox|fxios/i.test(userAgent)) {
+      body.classList.add("is-firefox");
+      return;
+    }
+    if (/safari/i.test(userAgent)) {
+      body.classList.add("is-safari");
+      return;
+    }
+    if (/edg/i.test(userAgent)) {
+      body.classList.add("is-edge");
+      return;
+    }
+  }
+  var loadTextContent = async ({ source }) => {
+    const response = await fetch(source);
+    if (!response.ok) {
+      console.warn(`${source} not found`);
+      return {
+        success: false,
+        data: ""
+      };
+    }
+    const data = await response.text();
+    return {
+      success: true,
+      data
+    };
+  };
+  var loadJsonContent = async ({ source }) => {
+    const response = await fetch(source);
+    if (!response.ok) {
+      console.warn(`${source} not found`);
+      return {
+        success: false,
+        data: ""
+      };
+    }
+    const data = await response.json();
+    return {
+      success: true,
+      data
+    };
+  };
+  function randomIntFromInterval(min2, max2) {
+    return Math.floor(Math.random() * (max2 - min2 + 1) + min2);
+  }
+
+  // src/js/data/index.js
+  var commonData;
+  var getCommonData = () => commonData;
+  var loadData = async () => {
+    commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data) => data).catch((error) => console.warn("Something went wrong.", error));
+  };
+
+  // src/js/pageTransition/index.js
+  var scrollY = 0;
+  modules_exports2.beforeRouteChange(() => {
+    scrollY = window.scrollY;
+  });
+  var beforePageTransition2 = async ({ oldNode }) => {
+    oldNode.classList.remove("current-route");
+    oldNode.classList.add("fake-content");
+    oldNode.style.position = "fixed";
+    oldNode.style.zIndex = "10";
+    oldNode.style.top = "var(--header-height)";
+    oldNode.style.left = "0";
+    oldNode.style.width = "100vw";
+    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
+    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
+  };
+  var pageTransition2 = async ({
+    oldNode,
+    newNode,
+    oldRoute,
+    newRoute
+  }) => {
+    if (core_exports.mq("max", "desktop") || oldRoute === newRoute) return;
+    newNode.style.opacity = "0";
+    const oldNodeTween = tween_exports.createTimeTween({
+      data: { opacity: 1 },
+      duration: 300
+    });
+    const newNodeTween = tween_exports.createTimeTween({
+      data: { opacity: 0 },
+      duration: 500
+    });
+    oldNodeTween.subscribe(({ opacity }) => {
+      oldNode.style.opacity = opacity;
+    });
+    newNodeTween.subscribe(({ opacity }) => {
+      newNode.style.opacity = opacity;
+    });
+    let tl = timeline_exports.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
+    await tl.play();
+    tl.destroy();
+    tl = null;
+    newNode.style.removeProperty("opacity");
+    newNode.classList.add("current-route");
+  };
+
+  // src/js/component/lib/utils/getTriangle.js
+  var getTrinangle = (className = "") => {
+    return renderHtml`
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        <svg
+            width="685.75171"
+            height="641.88232"
+            viewBox="0 0 181.43847 169.83136"
+            version="1.1"
+            id="svg5"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:svg="http://www.w3.org/2000/svg"
+            class="${className}"
+        >
+            <g id="layer1" transform="translate(0.29348888,0.2718794)">
+                <path
+                    id="path1107"
+                    transform="matrix(-0.26371722,0.02139075,-0.02139075,-0.26371722,201.63975,129.69612)"
+                    d="M 719.78423,551.21438 37.632123,494.16328 772.89469,-88.468152 Z"
+                />
+            </g>
+        </svg>
+    `;
+  };
+
+  // src/js/component/common/typography/titles/title.js
+  var shouldUseTrinagle = (tag) => {
+    return tag === `h1` ? getTrinangle() : "";
+  };
+  var TitleFn = ({ getState }) => {
+    const { tag, color, isBold } = getState();
+    const colorClass = `is-${color}`;
+    const boldClass = isBold ? `is-bold` : "";
+    return renderHtml`<${tag} class="mob-title ${colorClass} ${boldClass}">
+        <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
+        <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
+            <mobjs-slot></mobjs-slot>
+        </${tag}>`;
+  };
+
+  // src/js/component/common/typography/titles/definition.js
+  var Title = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').Title>} */
+    {
+      name: "mob-title",
+      component: TitleFn,
+      exportState: ["tag", "color", "isBold"],
+      state: {
+        tag: () => ({
+          value: "h1",
+          type: String
+        }),
+        color: () => ({
+          value: "black",
+          type: String,
+          validate: (val2) => {
+            return ["white", "hightlight", "black"].includes(val2);
+          }
+        }),
+        isBold: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/pages/404/index.js
+  modules_exports2.useComponent([Title]);
+  var pageNotFound2 = () => {
+    return renderHtml`
+        <div class="page-not-found">
+            <mob-title ${modules_exports2.staticProps({ tag: "h3", color: "highlight" })}>
+                Page not found
+            </mob-title>
+            <a href="./#home">back to home</a>
+        </div>
+    `;
   };
 
   // src/js/component/pages/layoutLinks/animation/linksScroller.js
@@ -33826,24 +33844,6 @@ Loading snippet ...</pre
     }
   ];
 
-  // src/js/utils/pageScroll.js
-  var usePageScroll = () => {
-    const rootElement = (
-      /** @type{HTMLElement} */
-      document.querySelector("#root")
-    );
-    if (!rootElement) return;
-    InitMobPageScroll({ rootElement });
-    modules_exports2.mainStore.watch("beforeRouteChange", () => {
-      FreezeMobPageScroll();
-    });
-    modules_exports2.mainStore.watch("afterRouteChange", () => {
-      modules_exports.useFrameIndex(() => {
-        UnFreezeAndUPdateMobPageScroll();
-      }, 3);
-    });
-  };
-
   // src/js/utils/scrollbarWith.js
   var setValue = () => {
     const value = window.innerWidth - document.documentElement.clientWidth;
@@ -33859,1169 +33859,10 @@ Loading snippet ...</pre
     });
   };
 
-  // src/svg/scroll_arrow.svg
-  var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
-
-  // src/js/component/common/quickNav/nextPage.js
-  var QuickNavFn = ({ getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    modules_exports2.beforeRouteChange(() => {
-      proxi.active = false;
-      proxi.nextRoute = "";
-      proxi.prevRoute = "";
-      proxi.backRoute = "";
-      proxi.color = "white";
-    });
-    return renderHtml`<div
-        class="c-quick-nav-container"
-        ${bindEffect([
-      {
-        toggleClass: { active: () => proxi.active }
-      },
-      {
-        toggleClass: {
-          "fill-white": () => proxi.color === "white",
-          "fill-black": () => proxi.color === "black"
-        }
-      }
-    ])}
-    >
-        <a
-            class="c-quick-nav c-quick-nav--back"
-            ${bindEffect({
-      toggleClass: { "is-disable": () => !proxi.backRoute },
-      toggleAttribute: {
-        href: () => {
-          const route = proxi.backRoute;
-          return route.length > 0 ? route : null;
-        }
-      }
-    })}
-            >${scroll_arrow_default}</a
-        >
-        <a
-            class="c-quick-nav c-quick-nav--prev"
-            ${bindEffect({
-      toggleClass: { "is-disable": () => !proxi.prevRoute },
-      toggleAttribute: {
-        href: () => {
-          const route = proxi.prevRoute;
-          return route.length > 0 ? route : null;
-        }
-      }
-    })}
-            >${scroll_arrow_default}</a
-        >
-        <a
-            class="c-quick-nav c-quick-nav--next"
-            ${bindEffect({
-      toggleClass: { "is-disable": () => !proxi.nextRoute },
-      toggleAttribute: {
-        href: () => {
-          const route = proxi.nextRoute;
-          return route && route.length > 0 ? route : null;
-        }
-      }
-    })}
-            >${scroll_arrow_default}</a
-        >
-    </div>`;
-  };
-
-  // src/js/component/common/quickNav/definition.js
-  var QuickNav = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').QuickNav>} */
-    {
-      name: "quick-nav",
-      component: QuickNavFn,
-      exportState: ["color", "active", "prevRoute", "nextRoute", "backRoute"],
-      state: {
-        color: () => ({
-          value: "white",
-          type: String,
-          validate: (value) => {
-            return ["white", "black"].includes(value);
-          }
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        }),
-        backRoute: () => ({
-          value: "",
-          type: String
-        }),
-        prevRoute: () => ({
-          value: "",
-          type: String
-        }),
-        nextRoute: () => ({
-          value: "",
-          type: String
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/routeLoader/routeLoader.js
-  var RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    onMount(({ element }) => {
-      proxi.isDisable = true;
-      let tweenOut = tween_exports.createTimeTween({
-        data: { opacity: 1, scale: 1 },
-        duration: 500
-      });
-      tweenOut.subscribe(({ opacity, scale }) => {
-        element.style.opacity = opacity;
-        element.style.transform = `scale(${scale})`;
-      });
-      const unsubscribeBeforeRouteChange = modules_exports2.beforeRouteChange(() => {
-        tweenOut.goTo({ opacity: 1, scale: 1 });
-        proxi.isDisable = false;
-      });
-      const unsubScribeAfterRouteChange = modules_exports2.afterRouteChange(async () => {
-        await tweenOut.goTo({ opacity: 0, scale: 0.9 });
-        proxi.isDisable = true;
-      });
-      return () => {
-        tweenOut.destroy();
-        tweenOut = null;
-        unsubscribeBeforeRouteChange();
-        unsubScribeAfterRouteChange();
-      };
-    });
-    return renderHtml`
-        <div
-            class="c-loader center-viewport"
-            ${bindEffect({
-      toggleClass: { disable: () => proxi.isDisable }
-    })}
-        >
-            <span class="c-loader__inner"></span>
-        </div>
-    `;
-  };
-
-  // src/js/component/common/routeLoader/definition.js
-  var RouteLoader = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').RouteLoader>} */
-    {
-      name: "route-loader",
-      component: RouteLoaderFn,
-      state: {
-        isLoading: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isDisable: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/scrolldownLabel/scrolldownLabel.js
-  var ScrollDownLabelFn = ({ getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    return renderHtml`
-        <div
-            class="c-scroller-down-label"
-            ${bindEffect({
-      toggleClass: { active: () => proxi.active }
-    })}
-        >
-            <h1>Scroll down</h1>
-            ${scroll_arrow_default}
-        </div>
-    `;
-  };
-
-  // src/js/component/common/scrolldownLabel/definition.js
-  var ScrollDownLabel = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').ScrollDownLabel>} */
-    {
-      name: "scroll-down-label",
-      component: ScrollDownLabelFn,
-      exportState: ["active"],
-      state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/scrollToTop/triangles.js
-  var Triangles = renderHtml`
-    <svg
-        width="140mm"
-        height="140mm"
-        viewBox="0 0 139.99999 140"
-        version="1.1"
-        id="svg5"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:svg="http://www.w3.org/2000/svg"
-    >
-        <defs id="defs2" />
-        <g id="layer1" transform="translate(-47.229393,-65.97476)">
-            <path
-                style="fill-opacity:1"
-                id="path846"
-                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
-                transform="matrix(0.23369642,0,0,0.23369642,5.8240088,16.026465)"
-            />
-            <path
-                style="fill-opacity:1"
-                id="path846-3"
-                transform="matrix(-0.10716864,0,0,-0.10716864,108.53022,161.51294)"
-                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
-            />
-            <path
-                style="fill-opacity:1"
-                id="path846-3-6"
-                transform="matrix(-0.02667159,-0.04619655,0.04619655,-0.02667159,79.271975,140.55737)"
-                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
-            />
-            <path
-                style="fill-opacity:1"
-                id="path846-3-6-7"
-                transform="matrix(0.01432203,0.02480649,-0.02480649,0.01432203,119.95024,86.660707)"
-                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
-            />
-        </g>
-    </svg>
-`;
-
-  // src/js/component/common/scrollToTop/ScrollToTop.js
-  var ScrollToTopFn = ({
-    delegateEvents,
-    bindEffect,
-    bindStore,
-    getProxi
-  }) => {
-    bindStore(navigationStore);
-    const proxi = getProxi();
-    return renderHtml`
-        <div
-            class="scroll-to-top"
-            ${bindEffect({
-      toggleClass: {
-        active: () => {
-          return proxi.active && !proxi.navigationIsOpen;
-        },
-        shift: () => proxi.navigationIsOpen
-      }
-    })}
-        >
-            <button
-                type="button"
-                class="scroll-to-top__button"
-                ${delegateEvents({
-      click: () => {
-        MobBodyScroll.to(0);
-      }
-    })}
-            ></button>
-            <div class="scroll-to-top__triangles">${Triangles}</div>
-        </div>
-    `;
-  };
-
-  // src/js/component/common/scrollToTop/definition.js
-  var ScrollToTop = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').ScrollToTop>} */
-    {
-      name: "scroll-to-top",
-      component: ScrollToTopFn,
-      exportState: ["active"],
-      state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/debug/debugButton.js
-  var DebugButtonFn = () => {
-    return renderHtml`
-        <button type="button" class="c-btn-debug">
-            <mobjs-slot></mobjs-slot>
-        </button>
-    `;
-  };
-
-  // src/js/component/common/debug/definition.js
-  var DebugButton = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<any>} */
-    {
-      name: "debug-button",
-      component: DebugButtonFn
-    }
-  );
-
-  // src/js/component/common/debug/consoleLog.js
-  var consoleLogDebug = () => {
-    modules_exports2.mainStore.debugStore();
-    console.log("componentMap", modules_exports2.componentMap);
-    console.log("Tree structure:", modules_exports2.getTree());
-    console.log("bindEventMap", bindEventMap);
-    console.log("currentListValueMap", currentRepeaterValueMap);
-    console.log("activeRepeatMap", activeRepeatMap);
-    console.log("onMountCallbackMap", onMountCallbackMap);
-    console.log("staticPropsMap", staticPropsMap);
-    console.log("dynamicPropsMap", bindPropsMap);
-    console.log("eventDelegationMap", modules_exports2.eventDelegationMap);
-    console.log("tempDelegateEventMap", modules_exports2.tempDelegateEventMap);
-    console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
-    console.log("invalidateIdHostMap", invalidateIdHostMap.size);
-    console.log("invalidateFunctionMap", invalidateFunctionMap);
-    console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
-    console.log("repeatFunctionMap", repeatFunctionMap);
-    console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
-    console.log("slotPlaceholderSize", getSlotPlaceholderSize());
-    console.log("bindTextMapSize", getBindTextParentSize());
-    console.log("bindTextPlaceholderMapSize", getBindTextPlaceholderSize());
-  };
-
-  // src/js/component/layout/footer/footer.js
-  var FooterFn = ({ delegateEvents }) => {
-    return renderHtml`
-        <footer class="l-footer">
-            <div class="l-footer__container">
-                <footer-nav></footer-nav>
-                <div class="l-footer__debug">
-                    <debug-button
-                        class="c-button-debug"
-                        ${delegateEvents({
-      click: () => {
-        const methods = modules_exports2.useMethodByName("debugOverlay");
-        methods?.toggle();
-      }
-    })}
-                    >
-                        Debug App</debug-button
-                    >
-                    <debug-button
-                        class="c-button-console"
-                        ${delegateEvents({
-      click: () => {
-        consoleLogDebug();
-      }
-    })}
-                    >
-                        Log
-                    </debug-button>
-                </div>
-            </div>
-        </footer>
-    `;
-  };
-
-  // src/js/component/layout/footer/footerNav/footerButton.js
-  var FooterNavButtonFn = ({ getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    navigationStore.watch("activeNavigationSection", (current) => {
-      proxi.active = current === proxi.section;
-    });
-    return renderHtml`
-        <button
-            type="button"
-            class="footer-nav__button"
-            ${bindEffect({
-      toggleClass: { current: () => proxi.active }
-    })}
-        >
-            ${proxi.label}
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/footer/footerNav/footerNav.js
-  var getItems = ({ delegateEvents, staticProps: staticProps2 }) => {
-    const data = getCommonData();
-    return data.footer.nav.map(({ label, url, section }) => {
-      return renderHtml`<li class="footer-nav__item">
-                <footer-nav-button
-                    ${delegateEvents({
-        click: () => {
-          modules_exports2.loadUrl({ url });
-          navigationStore.set("navigationIsOpen", false);
-        }
-      })}
-                    ${staticProps2({
-        label,
-        section
-      })}
-                ></footer-nav-button>
-            </li> `;
-    }).join("");
-  };
-  var FooterNavFn = ({ delegateEvents, staticProps: staticProps2 }) => {
-    return renderHtml`
-        <ul class="footer-nav">
-            ${getItems({ delegateEvents, staticProps: staticProps2 })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/layout/footer/footerNav/definition.js
-  var FooterNavButton = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').FooterNavButton>} */
-    {
-      name: "footer-nav-button",
-      component: FooterNavButtonFn,
-      exportState: ["label", "section"],
-      state: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        section: () => ({
-          value: "",
-          type: String
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-  var FooterNav = modules_exports2.createComponent({
-    name: "footer-nav",
-    component: FooterNavFn,
-    child: [FooterNavButton]
-  });
-
-  // src/js/component/layout/footer/definition.js
-  var Footer = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<any>} */
-    {
-      name: "mob-footer",
-      component: FooterFn,
-      child: [FooterNav, DebugButton]
-    }
-  );
-
-  // src/js/component/layout/header/header.js
-  function titleHandler() {
-    modules_exports2.loadUrl({ url: "#home" });
-    navigationStore.set("navigationIsOpen", false);
-    const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
-    mainNavigationMethods?.closeAllAccordion();
-    const navContainerMethods = modules_exports2.useMethodByName("navigation-container");
-    navContainerMethods?.scrollTop();
-  }
-  var HeaderFn = ({ delegateEvents, bindEffect, getProxi, onMount }) => {
-    const proxi = getProxi();
-    onMount(() => {
-      setTimeout(() => {
-        proxi.isMounted = true;
-      }, 500);
-    });
-    return renderHtml`
-        <header class="l-header">
-            <div class="l-header__container">
-                <div class="l-header__grid">
-                    <div class="l-header__toggle">
-                        <mob-header-toggle></mob-header-toggle>
-                    </div>
-                    <button
-                        type="button"
-                        class="l-header__title"
-                        ${delegateEvents({
-      click: () => {
-        titleHandler();
-      }
-    })}
-                    >
-                        <div class="l-header__title-container">
-                            <h3
-                                ${bindEffect({
-      toggleClass: {
-        visible: () => proxi.isMounted
-      }
-    })}
-                            >
-                                <span>Mob</span>Project
-                            </h3>
-                            <h5
-                                ${bindEffect({
-      toggleClass: {
-        visible: () => proxi.isMounted
-      }
-    })}
-                            >
-                                v 1.0
-                            </h5>
-                        </div>
-                    </button>
-                    <div class="l-header__utils">
-                        <mob-header-nav></mob-header-nav>
-                    </div>
-                </div>
-            </div>
-        </header>
-    `;
-  };
-
-  // src/svg/icon-github.svg
-  var icon_github_default = '<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>\n\n';
-
-  // src/js/component/layout/header/headernav.js
-  var icon = {
-    github: icon_github_default
-  };
-  var onClick = ({ event }) => {
-    const button = event.target;
-    console.log(button);
-    const { url } = (
-      /** @type{HTMLButtonElement} */
-      button?.dataset ?? ""
-    );
-    modules_exports2.loadUrl({ url });
-    navigationStore.set("navigationIsOpen", false);
-  };
-  function additems({ delegateEvents }) {
-    const header = getCommonData().header;
-    const { links } = header;
-    return links.map((link) => {
-      const { svg, url, internal } = link;
-      return renderHtml`<li class="l-header__sidenav__item">
-                ${internal ? renderHtml`
-                          <button
-                              type="button"
-                              data-url="${url}"
-                              class="l-header__sidenav__link"
-                              ${delegateEvents({
-        click: (event) => {
-          console.log("click");
-          onClick({ event });
-        }
-      })}
-                          >
-                              ${icon[svg]}
-                          </button>
-                      ` : renderHtml`
-                          <a
-                              href="${url}"
-                              target="_blank"
-                              class="l-header__sidenav__link"
-                          >
-                              ${icon[svg]}
-                          </a>
-                      `}
-            </li>`;
-    }).join("");
-  }
-  var HeadernavFn = ({ delegateEvents }) => {
-    return renderHtml`
-        <ul class="l-header__sidenav">
-            ${additems({ delegateEvents })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/layout/header/headerToggle.js
-  var HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {
-    const proxi = getProxi();
-    navigationStore.watch("navigationIsOpen", (value) => {
-      proxi.isOpen = value;
-    });
-    return renderHtml`
-        <button
-            class="hamburger hamburger--squeeze"
-            type="button"
-            ${delegateEvents({
-      click: () => {
-        navigationStore.update(
-          "navigationIsOpen",
-          (state) => !state
-        );
-      }
-    })}
-            ${bindEffect({
-      toggleClass: {
-        "is-open": () => proxi.isOpen
-      }
-    })}
-        >
-            <div class="hamburger-box">
-                <div class="hamburger-inner"></div>
-            </div>
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/header/definition.js
-  var HeaderNav = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<any>} */
-    {
-      name: "mob-header-nav",
-      component: HeadernavFn
-    }
-  );
-  var HeaderToggle = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').HeaderToggle>} */
-    {
-      name: "mob-header-toggle",
-      component: HeaderToggleFn,
-      state: {
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-  var Header = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').Header>} */
-    {
-      name: "mob-header",
-      component: HeaderFn,
-      state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
-      },
-      child: [HeaderNav, HeaderToggle]
-    }
-  );
-
-  // src/js/component/layout/navigation/animation/navScroller.js
-  var currentPercent = 0;
-  var initNavigationScoller = ({ root: root2 }) => {
-    const screenEl = (
-      /** @type{HTMLElement} */
-      root2.querySelector(".l-navcontainer__wrap")
-    );
-    const scrollerEl = (
-      /** @type{HTMLElement} */
-      root2.querySelector(".l-navcontainer__scroll")
-    );
-    const percentEl = (
-      /** @type{HTMLElement} */
-      root2.querySelector(".l-navcontainer__percent")
-    );
-    const setDelay = 200;
-    const navScroller = new MobSmoothScroller({
-      screen: screenEl,
-      scroller: scrollerEl,
-      direction: "vertical",
-      drag: true,
-      scopedEvent: false,
-      breakpoint: "small",
-      onUpdate: ({ percent }) => {
-        const { navigationIsOpen } = navigationStore.get();
-        if (!navigationIsOpen) return;
-        currentPercent = Math.round(percent) / 100;
-        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
-      }
-    });
-    navScroller.init();
-    navigationStore.watch("activeNavigationSection", (section) => {
-      const currentSection = (
-        /** @type{HTMLElement} */
-        document.querySelector(`[data-sectionname='${section}']`)
-      );
-      if (!currentSection) return;
-      const header = (
-        /** @type{HTMLElement} */
-        document.querySelector(".l-header")
-      );
-      const navHeight = outerHeight(scrollerEl);
-      const headerHeight = outerHeight(header);
-      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight);
-      const maxValue = percent;
-      navScroller.move(maxValue);
-    });
-    navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
-        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
-        return;
-      }
-      percentEl.style.transform = `translateZ(0) scaleX(0)`;
-    });
-    return {
-      scrollNativationToTop: () => {
-        setTimeout(() => {
-          navScroller.move(0);
-          navigationStore.set("activeNavigationSection", "no-section");
-        }, setDelay);
-      },
-      refreshScroller: () => {
-        navScroller.refresh();
-      }
-    };
-  };
-
-  // src/js/component/layout/navigation/navContainer.js
-  function closeNavigation({ main, setState }) {
-    setState("isOpen", false);
-    modules_exports.useFrame(() => {
-      document.body.style.overflow = "";
-      main.classList.remove("shift");
-    });
-  }
-  function openNavigation({ main, setState }) {
-    const methods = modules_exports2.useMethodByName("navigation-container");
-    methods?.refresh();
-    setState("isOpen", true);
-    modules_exports.useFrame(() => {
-      document.body.style.overflow = "hidden";
-      main.classList.add("shift");
-    });
-  }
-  function addMainHandler({ main }) {
-    main.addEventListener("click", () => {
-      navigationStore.set("navigationIsOpen", false);
-    });
-  }
-  var toTopBtnHandler = () => {
-    const navContainerMethods = modules_exports2.useMethodByName("navigation-container");
-    navContainerMethods?.scrollTop();
-    const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
-    mainNavigationMethods?.closeAllAccordion();
-    const { navigationIsOpen } = navigationStore.get();
-    if (!navigationIsOpen) MobBodyScroll.to(0);
-  };
-  var NavigationContainerFn = ({
-    onMount,
-    addMethod,
-    setState,
-    delegateEvents,
-    bindEffect,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    onMount(({ element }) => {
-      const main = (
-        /** @type{HTMLElement} */
-        document.querySelector("main.main")
-      );
-      navigationStore.watch("navigationIsOpen", (val2) => {
-        if (val2 && main) {
-          openNavigation({ main, setState });
-          return;
-        }
-        closeNavigation({ main, setState });
-      });
-      addMainHandler({ main });
-      const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
-        root: element
-      });
-      addMethod("scrollTop", scrollNativationToTop);
-      addMethod("refresh", refreshScroller);
-      return () => {
-      };
-    });
-    return renderHtml`
-        <div
-            class="l-navcontainer"
-            ${bindEffect({
-      toggleClass: { active: () => proxi.isOpen }
-    })}
-        >
-            <div class="l-navcontainer__side">
-                <div class="l-navcontainer__percent"></div>
-                <button
-                    class="l-navcontainer__totop"
-                    ${delegateEvents({
-      click: () => {
-        toTopBtnHandler();
-      }
-    })}
-                ></button>
-            </div>
-            <div class="l-navcontainer__wrap">
-                <div class="l-navcontainer__scroll">
-                    <mob-navigation name="main_navigation"></mob-navigation>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigation.js
-  function getItems2({ data, staticProps: staticProps2, bindProps, proxi }) {
-    return data.map((item, index) => {
-      const {
-        label,
-        url,
-        activeId,
-        children,
-        section,
-        sectioName,
-        scrollToSection
-      } = item;
-      if (section) {
-        return renderHtml`
-                    <mob-navigation-label
-                        ${staticProps2({ label, sectioName })}
-                    ></mob-navigation-label>
-                `;
-      }
-      return children ? renderHtml`
-                      <mob-navigation-submenu
-                          ${staticProps2({
-        headerButton: {
-          label,
-          url
-        },
-        children,
-        callback: () => proxi.currentAccordionId = index
-      })}
-                          ${bindProps(
-        /** @returns{ReturnBindProps<NavigationSubmenu>} */
-        () => ({
-          isOpen: proxi.currentAccordionId === index
-        })
-      )}
-                      >
-                      </mob-navigation-submenu>
-                  ` : renderHtml`
-                      <li class="l-navigation__item">
-                          <mob-navigation-button
-                              ${staticProps2({
-        label,
-        url,
-        scrollToSection: scrollToSection ?? "no-scroll",
-        activeId: activeId ?? -1
-      })}
-                          ></mob-navigation-button>
-                      </li>
-                  `;
-    }).join("");
-  }
-  var NavigationFn = ({
-    staticProps: staticProps2,
-    setState,
-    bindProps,
-    addMethod,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    const { navigation: data } = getCommonData();
-    addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
-      setState("currentAccordionId", -1, { emit: fireCallback });
-    });
-    return renderHtml`
-        <nav class="l-navigation">
-            <ul class="l-navigation__list">
-                ${getItems2({
-      data,
-      staticProps: staticProps2,
-      bindProps,
-      proxi
-    })}
-            </ul>
-        </nav>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigationButton.js
-  var NavigationButtonFn = ({
-    setState,
-    getState,
-    delegateEvents,
-    getProxi,
-    bindEffect
-  }) => {
-    const proxi = getProxi();
-    const {
-      label,
-      url,
-      arrowClass,
-      subMenuClass,
-      fireRoute,
-      callback: callback2,
-      scrollToSection,
-      activeId
-    } = getState();
-    modules_exports2.afterRouteChange(({ route }) => {
-      modules_exports.useFrame(() => {
-        const urlParsed = url.split("?");
-        const hash = urlParsed?.[0] ?? "";
-        const activeParams = modules_exports2.getActiveParams();
-        const paramsMatch = activeId === -1 || activeParams?.["activeId"] === `${activeId}`;
-        const isActiveRoute = route === hash && paramsMatch;
-        setState("isCurrent", isActiveRoute);
-        if (isActiveRoute && fireRoute) {
-          callback2();
-          navigationStore.set("activeNavigationSection", scrollToSection);
-        }
-      });
-    });
-    return renderHtml`
-        <button
-            type="button"
-            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
-            ${delegateEvents({
-      click: () => {
-        callback2();
-        if (!fireRoute) return;
-        modules_exports2.loadUrl({ url });
-        navigationStore.set("navigationIsOpen", false);
-      }
-    })}
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.isOpen,
-        current: () => proxi.isCurrent
-      }
-    })}
-        >
-            ${label}
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigationLabel.js
-  var NavigationLabelFn = ({ bindStore, bindEffect, getProxi }) => {
-    bindStore(navigationStore);
-    const proxi = getProxi();
-    return renderHtml`
-        <div
-            class="l-navigation__label"
-            data-sectionname="${proxi.sectioName}"
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.sectioName === proxi.activeNavigationSection
-      }
-    })}
-        >
-            ${proxi.label}
-        </div>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigationSubmenu.js
-  function getSubmenu({ proxi, staticProps: staticProps2 }) {
-    return proxi.children.map((child) => {
-      const { label, url, scrollToSection, activeId } = child;
-      return renderHtml`
-                <li class="l-navigation__submenu__item">
-                    <mob-navigation-button
-                        ${staticProps2({
-        callback: proxi.callback,
-        label,
-        url,
-        subMenuClass: "l-navigation__link--submenu",
-        scrollToSection,
-        activeId: activeId ?? -1
-      })}
-                    ></mob-navigation-button>
-                </li>
-            `;
-    }).join("");
-  }
-  var NavigationSubmenuFn = ({
-    onMount,
-    staticProps: staticProps2,
-    bindProps,
-    watch,
-    setRef,
-    getRef,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    const { label, url, activeId } = proxi.headerButton;
-    onMount(() => {
-      const { content } = getRef();
-      MobSlide.subscribe(content);
-      MobSlide.reset(content);
-      watch(
-        "isOpen",
-        async (isOpen) => {
-          const action2 = isOpen ? "down" : "up";
-          await MobSlide[action2](content);
-          const navContainerMethods = modules_exports2.useMethodByName(
-            "navigation-container"
-          );
-          navContainerMethods?.refresh();
-          if (isOpen) return;
-          const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
-          mainNavigationMethods?.closeAllAccordion({
-            fireCallback: false
-          });
-        },
-        { immediate: true }
-      );
-      return () => {
-      };
-    });
-    return renderHtml`
-        <li class="l-navigation__item has-child">
-            <mob-navigation-button
-                ${staticProps2({
-      label,
-      url,
-      arrowClass: "l-navigation__link--arrow",
-      fireRoute: false,
-      activeId: activeId ?? -1,
-      callback: () => {
-        proxi.isOpen = !proxi.isOpen;
-        if (proxi.isOpen) proxi.callback();
-      }
-    })}
-                ${bindProps(
-      /** @returns {ReturnBindProps<NavigationButton>} */
-      () => ({
-        isOpen: proxi.isOpen
-      })
-    )}
-            ></mob-navigation-button>
-            <ul class="l-navigation__submenu" ${setRef("content")}>
-                ${getSubmenu({ proxi, staticProps: staticProps2 })}
-            </ul>
-        </li>
-    `;
-  };
-
-  // src/js/component/layout/navigation/definition.js
-  var NavigationButton = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationButton>} */
-    {
-      name: "mob-navigation-button",
-      component: NavigationButtonFn,
-      exportState: [
-        "label",
-        "url",
-        "arrowClass",
-        "subMenuClass",
-        "fireRoute",
-        "callback",
-        "isOpen",
-        "scrollToSection",
-        "activeId"
-      ],
-      state: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        url: () => ({
-          value: "",
-          type: String
-        }),
-        activeId: () => ({
-          value: -1,
-          type: Number
-        }),
-        scrollToSection: () => ({
-          value: "",
-          type: String
-        }),
-        arrowClass: () => ({
-          value: "",
-          type: String
-        }),
-        subMenuClass: () => ({
-          value: "",
-          type: String
-        }),
-        fireRoute: () => ({
-          value: true,
-          type: Boolean
-        }),
-        callback: () => ({
-          value: () => {
-          },
-          type: Function
-        }),
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isCurrent: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-  var NavigationLabel = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationLabel>} */
-    {
-      name: "mob-navigation-label",
-      component: NavigationLabelFn,
-      exportState: ["label", "sectioName"],
-      state: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        sectioName: () => ({
-          value: "",
-          type: String
-        })
-      }
-    }
-  );
-  var NavigationSubmenu = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationSubmenu>} */
-    {
-      name: "mob-navigation-submenu",
-      component: NavigationSubmenuFn,
-      exportState: ["children", "headerButton", "isOpen", "callback"],
-      state: {
-        callback: () => ({
-          value: () => {
-          },
-          type: Function
-        }),
-        headerButton: () => ({
-          value: {},
-          type: "Any"
-        }),
-        children: () => ({
-          value: [],
-          type: Array
-        }),
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        })
-      },
-      child: [NavigationButton]
-    }
-  );
-  var Navigation = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').Navigation>} */
-    {
-      name: "mob-navigation",
-      component: NavigationFn,
-      exportState: ["currentAccordionId"],
-      state: {
-        currentAccordionId: () => ({
-          value: -1,
-          type: Number,
-          skipEqual: false
-        })
-      },
-      child: [NavigationLabel, NavigationSubmenu, NavigationButton]
-    }
-  );
-  var NavigationContainer = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationContainer>} */
-    {
-      name: "mob-navigation-container",
-      component: NavigationContainerFn,
-      child: [Navigation],
-      state: {
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
+  // src/js/component/common/debug/debugOverlay/constant.js
+  var RESET_FILTER_DEBUG = "reset";
+  var DEBUG_USE_TREE = "tree";
+  var DEBUG_USE_FILTER_COMPONENT = "filter_component";
 
   // src/js/component/lib/animation/verticalScroller.js
   var verticalScroller = ({ screen, scroller, scrollbar }) => {
@@ -35078,256 +33919,6 @@ Loading snippet ...</pre
     };
   };
 
-  // src/js/component/common/linksMobJs/linksMobJs.js
-  var getItems3 = ({ staticProps: staticProps2, bindProps, proxi }) => {
-    return proxi.data.map((item) => {
-      const { label, url, isLabel } = item;
-      return isLabel ? renderHtml`<h3 class="c-params-mobjs__label">${label}</h3>` : renderHtml`<li>
-                      <links-mobjs-button
-                          ${staticProps2({
-        label,
-        url
-      })}
-                          ${bindProps(() => ({
-        active: proxi.activeSection === url
-      }))}
-                      ></links-mobjs-button>
-                  </li>`;
-    }).join("");
-  };
-  var LinksMobJsFn = ({
-    staticProps: staticProps2,
-    setRef,
-    getRef,
-    onMount,
-    setState,
-    bindProps,
-    invalidate,
-    bindEffect,
-    getProxi
-  }) => {
-    const mainData = getCommonData();
-    const proxi = getProxi();
-    const templateData = {
-      [PAGE_TEMPLATE_COMPONENT_MOBJS]: mainData.sideBarLinks.mobJsComponentParams,
-      [PAGE_TEMPLATE_TRAVERSAL_MOBJS]: mainData.sideBarLinks.mobJsTraversal
-    };
-    onMount(() => {
-      const { screenEl, scrollerEl, scrollbar } = getRef();
-      let init7 = () => {
-      };
-      let destroy2 = () => {
-      };
-      let move2 = () => {
-      };
-      let updateScroller = () => {
-      };
-      let hideScrolBar = () => {
-      };
-      let isActive2 = false;
-      scrollbar.addEventListener("input", () => {
-        move2?.(scrollbar.value);
-      });
-      navigationStore.watch("navigationIsOpen", (value) => {
-        const { templateName } = modules_exports2.getActiveRoute();
-        if (!(templateName in templateData)) return;
-        setState("shift", value);
-      });
-      const unsubscribeRoute = modules_exports2.afterRouteChange(
-        async ({ templateName, route }) => {
-          const currentData = templateData?.[templateName] ?? [];
-          setState("data", currentData);
-          await modules_exports2.tick();
-          setState("activeSection", route);
-          if (currentData.length > 0) {
-            setState("hide", false);
-            if (isActive2) {
-              updateScroller();
-              hideScrolBar();
-              return;
-            }
-            ({ init: init7, destroy: destroy2, move: move2, updateScroller, hideScrolBar } = verticalScroller({
-              screen: screenEl,
-              scroller: scrollerEl,
-              scrollbar
-            }));
-            isActive2 = true;
-            init7();
-            updateScroller();
-            move2(0);
-            hideScrolBar();
-          }
-          if (currentData.length === 0) {
-            setState("hide", true);
-            destroy2?.();
-            isActive2 = false;
-          }
-        }
-      );
-      return () => {
-        destroy2?.();
-        unsubscribeRoute();
-        init7 = () => {
-        };
-        destroy2 = () => {
-        };
-        move2 = () => {
-        };
-        updateScroller = () => {
-        };
-      };
-    });
-    return renderHtml`<div
-        class="c-params-mobjs"
-        ${setRef("screenEl")}
-        ${bindEffect({
-      toggleClass: {
-        hide: () => proxi.hide,
-        shift: () => proxi.shift
-      }
-    })}
-    >
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef("scrollbar")}
-            class="c-params-mobjs__scrollbar"
-        />
-        <ul ${setRef("scrollerEl")}>
-            ${invalidate({
-      bind: ["data"],
-      render: () => {
-        return getItems3({
-          staticProps: staticProps2,
-          bindProps,
-          proxi
-        });
-      }
-    })}
-        </ul>
-    </div>`;
-  };
-
-  // src/js/component/common/linksMobJs/linksMobJsButton.js
-  var LinksMobJsButtonFn = ({ getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    return renderHtml` <a
-        href="./#${proxi.url}"
-        ${bindEffect({
-      toggleClass: { current: () => proxi.active }
-    })}
-        ><span>${proxi.label}</span></a
-    >`;
-  };
-
-  // src/js/component/common/linksMobJs/definition.js
-  var LinksMobJsButton = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').LinksMobJsButton>} */
-    {
-      name: "links-mobjs-button",
-      component: LinksMobJsButtonFn,
-      exportState: ["label", "url", "active"],
-      state: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        url: () => ({
-          value: "",
-          type: String
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-  var LinksMobJs = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').LinksMobJs>} */
-    {
-      name: "links-mobjs",
-      component: LinksMobJsFn,
-      child: [LinksMobJsButton],
-      state: {
-        data: () => ({
-          value: [],
-          type: Array
-        }),
-        activeSection: () => ({
-          value: "",
-          type: String
-        }),
-        hide: () => ({
-          value: false,
-          type: Boolean
-        }),
-        shift: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/onlyDesktop/onlyDesktop.js
-  var getContent = ({ getState }) => {
-    const { active: active2 } = getState();
-    return active2 ? `` : renderHtml`
-              <div class="only-desktop">
-                  <h3>This site is available only on desktop</h3>
-              </div>
-          `;
-  };
-  var OnlyDesktopFn = ({ onMount, setState, getState, invalidate }) => {
-    onMount(() => {
-      modules_exports.useResize(() => {
-        setState(
-          "active",
-          /** @type {boolean} */
-          core_exports.mq("min", "desktop")
-        );
-      });
-      return () => {
-      };
-    });
-    return renderHtml`
-        <div class="only-desktop-container">
-            ${invalidate({
-      bind: "active",
-      render: () => {
-        return getContent({ getState });
-      }
-    })}
-        </div>
-    `;
-  };
-
-  // src/js/component/common/onlyDesktop/definition.js
-  var OnlyDesktop = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import('./type').OnlyDesktop>} */
-    {
-      name: "only-desktop",
-      component: OnlyDesktopFn,
-      state: {
-        active: () => ({
-          value: core_exports.mq("min", "desktop"),
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/debug/debugOverlay/constant.js
-  var RESET_FILTER_DEBUG = "reset";
-  var DEBUG_USE_TREE = "tree";
-  var DEBUG_USE_FILTER_COMPONENT = "filter_component";
-
   // src/js/component/common/debug/debugOverlay/Store/DebugActiveComponent.js
   var debugActiveComponentStore = modules_exports.createStore(
     /** @type{MobStoreParams<import('./type').DebugActiveComponentStore>} */
@@ -35375,7 +33966,7 @@ Loading snippet ...</pre
             </div>`;
     }).join("");
   };
-  var getContent2 = ({ getState }) => {
+  var getContent = ({ getState }) => {
     const { id } = getState();
     if (id === RESET_FILTER_DEBUG) return "";
     const item = modules_exports2.componentMap.get(id);
@@ -35520,7 +34111,7 @@ Loading snippet ...</pre
             ${invalidate({
       bind: "id",
       render: () => {
-        return getContent2({ getState });
+        return getContent({ getState });
       }
     })}
         </div>
@@ -36066,6 +34657,30 @@ Loading snippet ...</pre
     }
   );
 
+  // src/js/component/common/debug/consoleLog.js
+  var consoleLogDebug = () => {
+    modules_exports2.mainStore.debugStore();
+    console.log("componentMap", modules_exports2.componentMap);
+    console.log("Tree structure:", modules_exports2.getTree());
+    console.log("bindEventMap", bindEventMap);
+    console.log("currentListValueMap", currentRepeaterValueMap);
+    console.log("activeRepeatMap", activeRepeatMap);
+    console.log("onMountCallbackMap", onMountCallbackMap);
+    console.log("staticPropsMap", staticPropsMap);
+    console.log("dynamicPropsMap", bindPropsMap);
+    console.log("eventDelegationMap", modules_exports2.eventDelegationMap);
+    console.log("tempDelegateEventMap", modules_exports2.tempDelegateEventMap);
+    console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
+    console.log("invalidateIdHostMap", invalidateIdHostMap.size);
+    console.log("invalidateFunctionMap", invalidateFunctionMap);
+    console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
+    console.log("repeatFunctionMap", repeatFunctionMap);
+    console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
+    console.log("slotPlaceholderSize", getSlotPlaceholderSize());
+    console.log("bindTextMapSize", getBindTextParentSize());
+    console.log("bindTextPlaceholderMapSize", getBindTextPlaceholderSize());
+  };
+
   // src/js/component/common/debug/debugOverlay/debugOverlay.js
   var DebugOverlayFn = ({
     delegateEvents,
@@ -36532,6 +35147,538 @@ Loading snippet ...</pre
     }
   );
 
+  // src/js/component/common/linksMobJs/linksMobJs.js
+  var getItems = ({ staticProps: staticProps2, bindProps, proxi }) => {
+    return proxi.data.map((item) => {
+      const { label, url, isLabel } = item;
+      return isLabel ? renderHtml`<h3 class="c-params-mobjs__label">${label}</h3>` : renderHtml`<li>
+                      <links-mobjs-button
+                          ${staticProps2({
+        label,
+        url
+      })}
+                          ${bindProps(() => ({
+        active: proxi.activeSection === url
+      }))}
+                      ></links-mobjs-button>
+                  </li>`;
+    }).join("");
+  };
+  var LinksMobJsFn = ({
+    staticProps: staticProps2,
+    setRef,
+    getRef,
+    onMount,
+    setState,
+    bindProps,
+    invalidate,
+    bindEffect,
+    getProxi
+  }) => {
+    const mainData = getCommonData();
+    const proxi = getProxi();
+    const templateData = {
+      [PAGE_TEMPLATE_COMPONENT_MOBJS]: mainData.sideBarLinks.mobJsComponentParams,
+      [PAGE_TEMPLATE_TRAVERSAL_MOBJS]: mainData.sideBarLinks.mobJsTraversal
+    };
+    onMount(() => {
+      const { screenEl, scrollerEl, scrollbar } = getRef();
+      let init7 = () => {
+      };
+      let destroy2 = () => {
+      };
+      let move2 = () => {
+      };
+      let updateScroller = () => {
+      };
+      let hideScrolBar = () => {
+      };
+      let isActive2 = false;
+      scrollbar.addEventListener("input", () => {
+        move2?.(scrollbar.value);
+      });
+      navigationStore.watch("navigationIsOpen", (value) => {
+        const { templateName } = modules_exports2.getActiveRoute();
+        if (!(templateName in templateData)) return;
+        setState("shift", value);
+      });
+      const unsubscribeRoute = modules_exports2.afterRouteChange(
+        async ({ templateName, route }) => {
+          const currentData = templateData?.[templateName] ?? [];
+          setState("data", currentData);
+          await modules_exports2.tick();
+          setState("activeSection", route);
+          if (currentData.length > 0) {
+            setState("hide", false);
+            if (isActive2) {
+              updateScroller();
+              hideScrolBar();
+              return;
+            }
+            ({ init: init7, destroy: destroy2, move: move2, updateScroller, hideScrolBar } = verticalScroller({
+              screen: screenEl,
+              scroller: scrollerEl,
+              scrollbar
+            }));
+            isActive2 = true;
+            init7();
+            updateScroller();
+            move2(0);
+            hideScrolBar();
+          }
+          if (currentData.length === 0) {
+            setState("hide", true);
+            destroy2?.();
+            isActive2 = false;
+          }
+        }
+      );
+      return () => {
+        destroy2?.();
+        unsubscribeRoute();
+        init7 = () => {
+        };
+        destroy2 = () => {
+        };
+        move2 = () => {
+        };
+        updateScroller = () => {
+        };
+      };
+    });
+    return renderHtml`<div
+        class="c-params-mobjs"
+        ${setRef("screenEl")}
+        ${bindEffect({
+      toggleClass: {
+        hide: () => proxi.hide,
+        shift: () => proxi.shift
+      }
+    })}
+    >
+        <input
+            type="range"
+            id="test"
+            name="test"
+            min="0"
+            max="100"
+            value="0"
+            step=".5"
+            ${setRef("scrollbar")}
+            class="c-params-mobjs__scrollbar"
+        />
+        <ul ${setRef("scrollerEl")}>
+            ${invalidate({
+      bind: ["data"],
+      render: () => {
+        return getItems({
+          staticProps: staticProps2,
+          bindProps,
+          proxi
+        });
+      }
+    })}
+        </ul>
+    </div>`;
+  };
+
+  // src/js/component/common/linksMobJs/linksMobJsButton.js
+  var LinksMobJsButtonFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    return renderHtml` <a
+        href="./#${proxi.url}"
+        ${bindEffect({
+      toggleClass: { current: () => proxi.active }
+    })}
+        ><span>${proxi.label}</span></a
+    >`;
+  };
+
+  // src/js/component/common/linksMobJs/definition.js
+  var LinksMobJsButton = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').LinksMobJsButton>} */
+    {
+      name: "links-mobjs-button",
+      component: LinksMobJsButtonFn,
+      exportState: ["label", "url", "active"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        url: () => ({
+          value: "",
+          type: String
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+  var LinksMobJs = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').LinksMobJs>} */
+    {
+      name: "links-mobjs",
+      component: LinksMobJsFn,
+      child: [LinksMobJsButton],
+      state: {
+        data: () => ({
+          value: [],
+          type: Array
+        }),
+        activeSection: () => ({
+          value: "",
+          type: String
+        }),
+        hide: () => ({
+          value: false,
+          type: Boolean
+        }),
+        shift: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/onlyDesktop/onlyDesktop.js
+  var getContent2 = ({ getState }) => {
+    const { active: active2 } = getState();
+    return active2 ? `` : renderHtml`
+              <div class="only-desktop">
+                  <h3>This site is available only on desktop</h3>
+              </div>
+          `;
+  };
+  var OnlyDesktopFn = ({ onMount, setState, getState, invalidate }) => {
+    onMount(() => {
+      modules_exports.useResize(() => {
+        setState(
+          "active",
+          /** @type {boolean} */
+          core_exports.mq("min", "desktop")
+        );
+      });
+      return () => {
+      };
+    });
+    return renderHtml`
+        <div class="only-desktop-container">
+            ${invalidate({
+      bind: "active",
+      render: () => {
+        return getContent2({ getState });
+      }
+    })}
+        </div>
+    `;
+  };
+
+  // src/js/component/common/onlyDesktop/definition.js
+  var OnlyDesktop = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').OnlyDesktop>} */
+    {
+      name: "only-desktop",
+      component: OnlyDesktopFn,
+      state: {
+        active: () => ({
+          value: core_exports.mq("min", "desktop"),
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/svg/scroll_arrow.svg
+  var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
+
+  // src/js/component/common/quickNav/nextPage.js
+  var QuickNavFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    modules_exports2.beforeRouteChange(() => {
+      proxi.active = false;
+      proxi.nextRoute = "";
+      proxi.prevRoute = "";
+      proxi.backRoute = "";
+      proxi.color = "white";
+    });
+    return renderHtml`<div
+        class="c-quick-nav-container"
+        ${bindEffect([
+      {
+        toggleClass: { active: () => proxi.active }
+      },
+      {
+        toggleClass: {
+          "fill-white": () => proxi.color === "white",
+          "fill-black": () => proxi.color === "black"
+        }
+      }
+    ])}
+    >
+        <a
+            class="c-quick-nav c-quick-nav--back"
+            ${bindEffect({
+      toggleClass: { "is-disable": () => !proxi.backRoute },
+      toggleAttribute: {
+        href: () => {
+          const route = proxi.backRoute;
+          return route.length > 0 ? route : null;
+        }
+      }
+    })}
+            >${scroll_arrow_default}</a
+        >
+        <a
+            class="c-quick-nav c-quick-nav--prev"
+            ${bindEffect({
+      toggleClass: { "is-disable": () => !proxi.prevRoute },
+      toggleAttribute: {
+        href: () => {
+          const route = proxi.prevRoute;
+          return route.length > 0 ? route : null;
+        }
+      }
+    })}
+            >${scroll_arrow_default}</a
+        >
+        <a
+            class="c-quick-nav c-quick-nav--next"
+            ${bindEffect({
+      toggleClass: { "is-disable": () => !proxi.nextRoute },
+      toggleAttribute: {
+        href: () => {
+          const route = proxi.nextRoute;
+          return route && route.length > 0 ? route : null;
+        }
+      }
+    })}
+            >${scroll_arrow_default}</a
+        >
+    </div>`;
+  };
+
+  // src/js/component/common/quickNav/definition.js
+  var QuickNav = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').QuickNav>} */
+    {
+      name: "quick-nav",
+      component: QuickNavFn,
+      exportState: ["color", "active", "prevRoute", "nextRoute", "backRoute"],
+      state: {
+        color: () => ({
+          value: "white",
+          type: String,
+          validate: (value) => {
+            return ["white", "black"].includes(value);
+          }
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        }),
+        backRoute: () => ({
+          value: "",
+          type: String
+        }),
+        prevRoute: () => ({
+          value: "",
+          type: String
+        }),
+        nextRoute: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/routeLoader/routeLoader.js
+  var RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    onMount(({ element }) => {
+      proxi.isDisable = true;
+      let tweenOut = tween_exports.createTimeTween({
+        data: { opacity: 1, scale: 1 },
+        duration: 500
+      });
+      tweenOut.subscribe(({ opacity, scale }) => {
+        element.style.opacity = opacity;
+        element.style.transform = `scale(${scale})`;
+      });
+      const unsubscribeBeforeRouteChange = modules_exports2.beforeRouteChange(() => {
+        tweenOut.goTo({ opacity: 1, scale: 1 });
+        proxi.isDisable = false;
+      });
+      const unsubScribeAfterRouteChange = modules_exports2.afterRouteChange(async () => {
+        await tweenOut.goTo({ opacity: 0, scale: 0.9 });
+        proxi.isDisable = true;
+      });
+      return () => {
+        tweenOut.destroy();
+        tweenOut = null;
+        unsubscribeBeforeRouteChange();
+        unsubScribeAfterRouteChange();
+      };
+    });
+    return renderHtml`
+        <div
+            class="c-loader center-viewport"
+            ${bindEffect({
+      toggleClass: { disable: () => proxi.isDisable }
+    })}
+        >
+            <span class="c-loader__inner"></span>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/routeLoader/definition.js
+  var RouteLoader = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').RouteLoader>} */
+    {
+      name: "route-loader",
+      component: RouteLoaderFn,
+      state: {
+        isLoading: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isDisable: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/scrolldownLabel/scrolldownLabel.js
+  var ScrollDownLabelFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    return renderHtml`
+        <div
+            class="c-scroller-down-label"
+            ${bindEffect({
+      toggleClass: { active: () => proxi.active }
+    })}
+        >
+            <h1>Scroll down</h1>
+            ${scroll_arrow_default}
+        </div>
+    `;
+  };
+
+  // src/js/component/common/scrolldownLabel/definition.js
+  var ScrollDownLabel = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollDownLabel>} */
+    {
+      name: "scroll-down-label",
+      component: ScrollDownLabelFn,
+      exportState: ["active"],
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/scrollToTop/triangles.js
+  var Triangles = renderHtml`
+    <svg
+        width="140mm"
+        height="140mm"
+        viewBox="0 0 139.99999 140"
+        version="1.1"
+        id="svg5"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:svg="http://www.w3.org/2000/svg"
+    >
+        <defs id="defs2" />
+        <g id="layer1" transform="translate(-47.229393,-65.97476)">
+            <path
+                style="fill-opacity:1"
+                id="path846"
+                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
+                transform="matrix(0.23369642,0,0,0.23369642,5.8240088,16.026465)"
+            />
+            <path
+                style="fill-opacity:1"
+                id="path846-3"
+                transform="matrix(-0.10716864,0,0,-0.10716864,108.53022,161.51294)"
+                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
+            />
+            <path
+                style="fill-opacity:1"
+                id="path846-3-6"
+                transform="matrix(-0.02667159,-0.04619655,0.04619655,-0.02667159,79.271975,140.55737)"
+                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
+            />
+            <path
+                style="fill-opacity:1"
+                id="path846-3-6-7"
+                transform="matrix(0.01432203,0.02480649,-0.02480649,0.01432203,119.95024,86.660707)"
+                d="M 569.10562,588.28308 373.8052,701.03981 178.50481,813.79657 l 1e-5,-225.5135 -1e-5,-225.51347 195.3004,112.75675 z"
+            />
+        </g>
+    </svg>
+`;
+
+  // src/js/component/common/scrollToTop/ScrollToTop.js
+  var ScrollToTopFn = ({
+    delegateEvents,
+    bindEffect,
+    bindStore,
+    getProxi
+  }) => {
+    bindStore(navigationStore);
+    const proxi = getProxi();
+    return renderHtml`
+        <div
+            class="scroll-to-top"
+            ${bindEffect({
+      toggleClass: {
+        active: () => {
+          return proxi.active && !proxi.navigationIsOpen;
+        },
+        shift: () => proxi.navigationIsOpen
+      }
+    })}
+        >
+            <button
+                type="button"
+                class="scroll-to-top__button"
+                ${delegateEvents({
+      click: () => {
+        MobBodyScroll.to(0);
+      }
+    })}
+            ></button>
+            <div class="scroll-to-top__triangles">${Triangles}</div>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/scrollToTop/definition.js
+  var ScrollToTop = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').ScrollToTop>} */
+    {
+      name: "scroll-to-top",
+      component: ScrollToTopFn,
+      exportState: ["active"],
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
   // src/js/component/common/TestScssGrid/TestScssGrid.js
   var TestScssGridFn = () => {
     return renderHtml`
@@ -36552,6 +35699,859 @@ Loading snippet ...</pre
     {
       name: "test-scss-grid",
       component: TestScssGridFn
+    }
+  );
+
+  // src/js/component/common/debug/debugButton.js
+  var DebugButtonFn = () => {
+    return renderHtml`
+        <button type="button" class="c-btn-debug">
+            <mobjs-slot></mobjs-slot>
+        </button>
+    `;
+  };
+
+  // src/js/component/common/debug/definition.js
+  var DebugButton = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "debug-button",
+      component: DebugButtonFn
+    }
+  );
+
+  // src/js/component/layout/footer/footer.js
+  var FooterFn = ({ delegateEvents }) => {
+    return renderHtml`
+        <footer class="l-footer">
+            <div class="l-footer__container">
+                <footer-nav></footer-nav>
+                <div class="l-footer__debug">
+                    <debug-button
+                        class="c-button-debug"
+                        ${delegateEvents({
+      click: () => {
+        const methods = modules_exports2.useMethodByName("debugOverlay");
+        methods?.toggle();
+      }
+    })}
+                    >
+                        Debug App</debug-button
+                    >
+                    <debug-button
+                        class="c-button-console"
+                        ${delegateEvents({
+      click: () => {
+        consoleLogDebug();
+      }
+    })}
+                    >
+                        Log
+                    </debug-button>
+                </div>
+            </div>
+        </footer>
+    `;
+  };
+
+  // src/js/component/layout/footer/footerNav/footerButton.js
+  var FooterNavButtonFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    navigationStore.watch("activeNavigationSection", (current) => {
+      proxi.active = current === proxi.section;
+    });
+    return renderHtml`
+        <button
+            type="button"
+            class="footer-nav__button"
+            ${bindEffect({
+      toggleClass: { current: () => proxi.active }
+    })}
+        >
+            ${proxi.label}
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/footer/footerNav/footerNav.js
+  var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
+    const data = getCommonData();
+    return data.footer.nav.map(({ label, url, section }) => {
+      return renderHtml`<li class="footer-nav__item">
+                <footer-nav-button
+                    ${delegateEvents({
+        click: () => {
+          modules_exports2.loadUrl({ url });
+          navigationStore.set("navigationIsOpen", false);
+        }
+      })}
+                    ${staticProps2({
+        label,
+        section
+      })}
+                ></footer-nav-button>
+            </li> `;
+    }).join("");
+  };
+  var FooterNavFn = ({ delegateEvents, staticProps: staticProps2 }) => {
+    return renderHtml`
+        <ul class="footer-nav">
+            ${getItems2({ delegateEvents, staticProps: staticProps2 })}
+        </ul>
+    `;
+  };
+
+  // src/js/component/layout/footer/footerNav/definition.js
+  var FooterNavButton = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').FooterNavButton>} */
+    {
+      name: "footer-nav-button",
+      component: FooterNavButtonFn,
+      exportState: ["label", "section"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        section: () => ({
+          value: "",
+          type: String
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+  var FooterNav = modules_exports2.createComponent({
+    name: "footer-nav",
+    component: FooterNavFn,
+    child: [FooterNavButton]
+  });
+
+  // src/js/component/layout/footer/definition.js
+  var Footer = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "mob-footer",
+      component: FooterFn,
+      child: [FooterNav, DebugButton]
+    }
+  );
+
+  // src/js/component/layout/header/header.js
+  function titleHandler() {
+    modules_exports2.loadUrl({ url: "#home" });
+    navigationStore.set("navigationIsOpen", false);
+    const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
+    mainNavigationMethods?.closeAllAccordion();
+    const navContainerMethods = modules_exports2.useMethodByName("navigation-container");
+    navContainerMethods?.scrollTop();
+  }
+  var HeaderFn = ({ delegateEvents, bindEffect, getProxi, onMount }) => {
+    const proxi = getProxi();
+    onMount(() => {
+      setTimeout(() => {
+        proxi.isMounted = true;
+      }, 500);
+    });
+    return renderHtml`
+        <header class="l-header">
+            <div class="l-header__container">
+                <div class="l-header__grid">
+                    <div class="l-header__toggle">
+                        <mob-header-toggle></mob-header-toggle>
+                    </div>
+                    <button
+                        type="button"
+                        class="l-header__title"
+                        ${delegateEvents({
+      click: () => {
+        titleHandler();
+      }
+    })}
+                    >
+                        <div class="l-header__title-container">
+                            <h3
+                                ${bindEffect({
+      toggleClass: {
+        visible: () => proxi.isMounted
+      }
+    })}
+                            >
+                                <span>Mob</span>Project
+                            </h3>
+                            <h5
+                                ${bindEffect({
+      toggleClass: {
+        visible: () => proxi.isMounted
+      }
+    })}
+                            >
+                                v 1.0
+                            </h5>
+                        </div>
+                    </button>
+                    <div class="l-header__utils">
+                        <mob-header-nav></mob-header-nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+    `;
+  };
+
+  // src/svg/icon-github.svg
+  var icon_github_default = '<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>\n\n';
+
+  // src/js/component/layout/header/headernav.js
+  var icon = {
+    github: icon_github_default
+  };
+  var onClick = ({ event }) => {
+    const button = event.target;
+    console.log(button);
+    const { url } = (
+      /** @type{HTMLButtonElement} */
+      button?.dataset ?? ""
+    );
+    modules_exports2.loadUrl({ url });
+    navigationStore.set("navigationIsOpen", false);
+  };
+  function additems({ delegateEvents }) {
+    const header = getCommonData().header;
+    const { links } = header;
+    return links.map((link) => {
+      const { svg, url, internal } = link;
+      return renderHtml`<li class="l-header__sidenav__item">
+                ${internal ? renderHtml`
+                          <button
+                              type="button"
+                              data-url="${url}"
+                              class="l-header__sidenav__link"
+                              ${delegateEvents({
+        click: (event) => {
+          console.log("click");
+          onClick({ event });
+        }
+      })}
+                          >
+                              ${icon[svg]}
+                          </button>
+                      ` : renderHtml`
+                          <a
+                              href="${url}"
+                              target="_blank"
+                              class="l-header__sidenav__link"
+                          >
+                              ${icon[svg]}
+                          </a>
+                      `}
+            </li>`;
+    }).join("");
+  }
+  var HeadernavFn = ({ delegateEvents }) => {
+    return renderHtml`
+        <ul class="l-header__sidenav">
+            ${additems({ delegateEvents })}
+        </ul>
+    `;
+  };
+
+  // src/js/component/layout/header/headerToggle.js
+  var HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {
+    const proxi = getProxi();
+    navigationStore.watch("navigationIsOpen", (value) => {
+      proxi.isOpen = value;
+    });
+    return renderHtml`
+        <button
+            class="hamburger hamburger--squeeze"
+            type="button"
+            ${delegateEvents({
+      click: () => {
+        navigationStore.update(
+          "navigationIsOpen",
+          (state) => !state
+        );
+      }
+    })}
+            ${bindEffect({
+      toggleClass: {
+        "is-open": () => proxi.isOpen
+      }
+    })}
+        >
+            <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+            </div>
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/header/definition.js
+  var HeaderNav = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "mob-header-nav",
+      component: HeadernavFn
+    }
+  );
+  var HeaderToggle = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').HeaderToggle>} */
+    {
+      name: "mob-header-toggle",
+      component: HeaderToggleFn,
+      state: {
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+  var Header = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').Header>} */
+    {
+      name: "mob-header",
+      component: HeaderFn,
+      state: {
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [HeaderNav, HeaderToggle]
+    }
+  );
+
+  // src/js/component/layout/navigation/animation/navScroller.js
+  var currentPercent = 0;
+  var initNavigationScoller = ({ root: root2 }) => {
+    const screenEl = (
+      /** @type{HTMLElement} */
+      root2.querySelector(".l-navcontainer__wrap")
+    );
+    const scrollerEl = (
+      /** @type{HTMLElement} */
+      root2.querySelector(".l-navcontainer__scroll")
+    );
+    const percentEl = (
+      /** @type{HTMLElement} */
+      root2.querySelector(".l-navcontainer__percent")
+    );
+    const setDelay = 200;
+    const navScroller = new MobSmoothScroller({
+      screen: screenEl,
+      scroller: scrollerEl,
+      direction: "vertical",
+      drag: true,
+      scopedEvent: false,
+      breakpoint: "small",
+      onUpdate: ({ percent }) => {
+        const { navigationIsOpen } = navigationStore.get();
+        if (!navigationIsOpen) return;
+        currentPercent = Math.round(percent) / 100;
+        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+      }
+    });
+    navScroller.init();
+    navigationStore.watch("activeNavigationSection", (section) => {
+      const currentSection = (
+        /** @type{HTMLElement} */
+        document.querySelector(`[data-sectionname='${section}']`)
+      );
+      if (!currentSection) return;
+      const header = (
+        /** @type{HTMLElement} */
+        document.querySelector(".l-header")
+      );
+      const navHeight = outerHeight(scrollerEl);
+      const headerHeight = outerHeight(header);
+      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight);
+      const maxValue = percent;
+      navScroller.move(maxValue);
+    });
+    navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+        return;
+      }
+      percentEl.style.transform = `translateZ(0) scaleX(0)`;
+    });
+    return {
+      scrollNativationToTop: () => {
+        setTimeout(() => {
+          navScroller.move(0);
+          navigationStore.set("activeNavigationSection", "no-section");
+        }, setDelay);
+      },
+      refreshScroller: () => {
+        navScroller.refresh();
+      }
+    };
+  };
+
+  // src/js/component/layout/navigation/navContainer.js
+  function closeNavigation({ main, setState }) {
+    setState("isOpen", false);
+    modules_exports.useFrame(() => {
+      document.body.style.overflow = "";
+      main.classList.remove("shift");
+    });
+  }
+  function openNavigation({ main, setState }) {
+    const methods = modules_exports2.useMethodByName("navigation-container");
+    methods?.refresh();
+    setState("isOpen", true);
+    modules_exports.useFrame(() => {
+      document.body.style.overflow = "hidden";
+      main.classList.add("shift");
+    });
+  }
+  function addMainHandler({ main }) {
+    main.addEventListener("click", () => {
+      navigationStore.set("navigationIsOpen", false);
+    });
+  }
+  var toTopBtnHandler = () => {
+    const navContainerMethods = modules_exports2.useMethodByName("navigation-container");
+    navContainerMethods?.scrollTop();
+    const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
+    mainNavigationMethods?.closeAllAccordion();
+    const { navigationIsOpen } = navigationStore.get();
+    if (!navigationIsOpen) MobBodyScroll.to(0);
+  };
+  var NavigationContainerFn = ({
+    onMount,
+    addMethod,
+    setState,
+    delegateEvents,
+    bindEffect,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    onMount(({ element }) => {
+      const main = (
+        /** @type{HTMLElement} */
+        document.querySelector("main.main")
+      );
+      navigationStore.watch("navigationIsOpen", (val2) => {
+        if (val2 && main) {
+          openNavigation({ main, setState });
+          return;
+        }
+        closeNavigation({ main, setState });
+      });
+      addMainHandler({ main });
+      const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
+        root: element
+      });
+      addMethod("scrollTop", scrollNativationToTop);
+      addMethod("refresh", refreshScroller);
+      return () => {
+      };
+    });
+    return renderHtml`
+        <div
+            class="l-navcontainer"
+            ${bindEffect({
+      toggleClass: { active: () => proxi.isOpen }
+    })}
+        >
+            <div class="l-navcontainer__side">
+                <div class="l-navcontainer__percent"></div>
+                <button
+                    class="l-navcontainer__totop"
+                    ${delegateEvents({
+      click: () => {
+        toTopBtnHandler();
+      }
+    })}
+                ></button>
+            </div>
+            <div class="l-navcontainer__wrap">
+                <div class="l-navcontainer__scroll">
+                    <mob-navigation name="main_navigation"></mob-navigation>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigation.js
+  function getItems3({ data, staticProps: staticProps2, bindProps, proxi }) {
+    return data.map((item, index) => {
+      const {
+        label,
+        url,
+        activeId,
+        children,
+        section,
+        sectioName,
+        scrollToSection
+      } = item;
+      if (section) {
+        return renderHtml`
+                    <mob-navigation-label
+                        ${staticProps2({ label, sectioName })}
+                    ></mob-navigation-label>
+                `;
+      }
+      return children ? renderHtml`
+                      <mob-navigation-submenu
+                          ${staticProps2({
+        headerButton: {
+          label,
+          url
+        },
+        children,
+        callback: () => proxi.currentAccordionId = index
+      })}
+                          ${bindProps(
+        /** @returns{ReturnBindProps<NavigationSubmenu>} */
+        () => ({
+          isOpen: proxi.currentAccordionId === index
+        })
+      )}
+                      >
+                      </mob-navigation-submenu>
+                  ` : renderHtml`
+                      <li class="l-navigation__item">
+                          <mob-navigation-button
+                              ${staticProps2({
+        label,
+        url,
+        scrollToSection: scrollToSection ?? "no-scroll",
+        activeId: activeId ?? -1
+      })}
+                          ></mob-navigation-button>
+                      </li>
+                  `;
+    }).join("");
+  }
+  var NavigationFn = ({
+    staticProps: staticProps2,
+    setState,
+    bindProps,
+    addMethod,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const { navigation: data } = getCommonData();
+    addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
+      setState("currentAccordionId", -1, { emit: fireCallback });
+    });
+    return renderHtml`
+        <nav class="l-navigation">
+            <ul class="l-navigation__list">
+                ${getItems3({
+      data,
+      staticProps: staticProps2,
+      bindProps,
+      proxi
+    })}
+            </ul>
+        </nav>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigationButton.js
+  var NavigationButtonFn = ({
+    setState,
+    getState,
+    delegateEvents,
+    getProxi,
+    bindEffect
+  }) => {
+    const proxi = getProxi();
+    const {
+      label,
+      url,
+      arrowClass,
+      subMenuClass,
+      fireRoute,
+      callback: callback2,
+      scrollToSection,
+      activeId
+    } = getState();
+    modules_exports2.afterRouteChange(({ route }) => {
+      modules_exports.useFrame(() => {
+        const urlParsed = url.split("?");
+        const hash = urlParsed?.[0] ?? "";
+        const activeParams = modules_exports2.getActiveParams();
+        const paramsMatch = activeId === -1 || activeParams?.["activeId"] === `${activeId}`;
+        const isActiveRoute = route === hash && paramsMatch;
+        setState("isCurrent", isActiveRoute);
+        if (isActiveRoute && fireRoute) {
+          callback2();
+          navigationStore.set("activeNavigationSection", scrollToSection);
+        }
+      });
+    });
+    return renderHtml`
+        <button
+            type="button"
+            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
+            ${delegateEvents({
+      click: () => {
+        callback2();
+        if (!fireRoute) return;
+        modules_exports2.loadUrl({ url });
+        navigationStore.set("navigationIsOpen", false);
+      }
+    })}
+            ${bindEffect({
+      toggleClass: {
+        active: () => proxi.isOpen,
+        current: () => proxi.isCurrent
+      }
+    })}
+        >
+            ${label}
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigationLabel.js
+  var NavigationLabelFn = ({ bindStore, bindEffect, getProxi }) => {
+    bindStore(navigationStore);
+    const proxi = getProxi();
+    return renderHtml`
+        <div
+            class="l-navigation__label"
+            data-sectionname="${proxi.sectioName}"
+            ${bindEffect({
+      toggleClass: {
+        active: () => proxi.sectioName === proxi.activeNavigationSection
+      }
+    })}
+        >
+            ${proxi.label}
+        </div>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigationSubmenu.js
+  function getSubmenu({ proxi, staticProps: staticProps2 }) {
+    return proxi.children.map((child) => {
+      const { label, url, scrollToSection, activeId } = child;
+      return renderHtml`
+                <li class="l-navigation__submenu__item">
+                    <mob-navigation-button
+                        ${staticProps2({
+        callback: proxi.callback,
+        label,
+        url,
+        subMenuClass: "l-navigation__link--submenu",
+        scrollToSection,
+        activeId: activeId ?? -1
+      })}
+                    ></mob-navigation-button>
+                </li>
+            `;
+    }).join("");
+  }
+  var NavigationSubmenuFn = ({
+    onMount,
+    staticProps: staticProps2,
+    bindProps,
+    watch,
+    setRef,
+    getRef,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const { label, url, activeId } = proxi.headerButton;
+    onMount(() => {
+      const { content } = getRef();
+      MobSlide.subscribe(content);
+      MobSlide.reset(content);
+      watch(
+        "isOpen",
+        async (isOpen) => {
+          const action2 = isOpen ? "down" : "up";
+          await MobSlide[action2](content);
+          const navContainerMethods = modules_exports2.useMethodByName(
+            "navigation-container"
+          );
+          navContainerMethods?.refresh();
+          if (isOpen) return;
+          const mainNavigationMethods = modules_exports2.useMethodByName("main_navigation");
+          mainNavigationMethods?.closeAllAccordion({
+            fireCallback: false
+          });
+        },
+        { immediate: true }
+      );
+      return () => {
+      };
+    });
+    return renderHtml`
+        <li class="l-navigation__item has-child">
+            <mob-navigation-button
+                ${staticProps2({
+      label,
+      url,
+      arrowClass: "l-navigation__link--arrow",
+      fireRoute: false,
+      activeId: activeId ?? -1,
+      callback: () => {
+        proxi.isOpen = !proxi.isOpen;
+        if (proxi.isOpen) proxi.callback();
+      }
+    })}
+                ${bindProps(
+      /** @returns {ReturnBindProps<NavigationButton>} */
+      () => ({
+        isOpen: proxi.isOpen
+      })
+    )}
+            ></mob-navigation-button>
+            <ul class="l-navigation__submenu" ${setRef("content")}>
+                ${getSubmenu({ proxi, staticProps: staticProps2 })}
+            </ul>
+        </li>
+    `;
+  };
+
+  // src/js/component/layout/navigation/definition.js
+  var NavigationButton = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationButton>} */
+    {
+      name: "mob-navigation-button",
+      component: NavigationButtonFn,
+      exportState: [
+        "label",
+        "url",
+        "arrowClass",
+        "subMenuClass",
+        "fireRoute",
+        "callback",
+        "isOpen",
+        "scrollToSection",
+        "activeId"
+      ],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        url: () => ({
+          value: "",
+          type: String
+        }),
+        activeId: () => ({
+          value: -1,
+          type: Number
+        }),
+        scrollToSection: () => ({
+          value: "",
+          type: String
+        }),
+        arrowClass: () => ({
+          value: "",
+          type: String
+        }),
+        subMenuClass: () => ({
+          value: "",
+          type: String
+        }),
+        fireRoute: () => ({
+          value: true,
+          type: Boolean
+        }),
+        callback: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isCurrent: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+  var NavigationLabel = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationLabel>} */
+    {
+      name: "mob-navigation-label",
+      component: NavigationLabelFn,
+      exportState: ["label", "sectioName"],
+      state: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        sectioName: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+  var NavigationSubmenu = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationSubmenu>} */
+    {
+      name: "mob-navigation-submenu",
+      component: NavigationSubmenuFn,
+      exportState: ["children", "headerButton", "isOpen", "callback"],
+      state: {
+        callback: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        headerButton: () => ({
+          value: {},
+          type: "Any"
+        }),
+        children: () => ({
+          value: [],
+          type: Array
+        }),
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [NavigationButton]
+    }
+  );
+  var Navigation = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').Navigation>} */
+    {
+      name: "mob-navigation",
+      component: NavigationFn,
+      exportState: ["currentAccordionId"],
+      state: {
+        currentAccordionId: () => ({
+          value: -1,
+          type: Number,
+          skipEqual: false
+        })
+      },
+      child: [NavigationLabel, NavigationSubmenu, NavigationButton]
+    }
+  );
+  var NavigationContainer = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import('./type').NavigationContainer>} */
+    {
+      name: "mob-navigation-container",
+      component: NavigationContainerFn,
+      child: [Navigation],
+      state: {
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
   );
 

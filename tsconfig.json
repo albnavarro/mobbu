@@ -26,7 +26,8 @@
             "@mobMotionPlugin": ["./src/js/mob/mobMotion/plugin"],
             "@commonComponent/*": ["./src/js/component/common/*"],
             "@layoutComponent/*": ["./src/js/component/layout/*"],
-            "@pagesComponent/*": ["./src/js/component/pages/*"]
+            "@pagesComponent/*": ["./src/js/component/pages/*"],
+            "@utils/*": ["./src/js/utils/*"]
         }
     },
     "ts-node": { "esm": true },
@@ -38,6 +39,7 @@
         "src/js/component",
         "src/js/pages",
         "src/js/wrapper",
-        "src/js/pageTransition"
+        "src/js/pageTransition",
+        "src/js/utils"
     ]
 }

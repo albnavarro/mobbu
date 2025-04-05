@@ -3,7 +3,7 @@ import { DocTitle } from '@commonComponent/doctitle/definition';
 import { DocsTitleSmall } from '@commonComponent/doctitleSmall/definition';
 import { HtmlContent } from '@commonComponent/htmlContent/definition';
 import { html, MobJs } from '@mobJs';
-import { loadJsonContent } from '../../utils/utils';
+import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
 
 MobJs.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);

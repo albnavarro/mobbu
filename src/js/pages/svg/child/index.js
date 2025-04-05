@@ -1,5 +1,5 @@
 import { html, MobJs } from '@mobJs';
-import { loadTextContent } from '../../../utils/utils';
+import { loadTextContent } from '@utils/utils';
 import { svgChild } from '@pagesComponent/svg/child/definition';
 
 MobJs.useComponent([svgChild]);

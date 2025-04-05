@@ -1,5 +1,6 @@
 //@ts-check
 
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { MobCore } from '@mobCore';
 import { offset } from '@mobCoreUtils';
 import { MobJs } from '@mobJs';
@@ -9,8 +10,7 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-} from '../../../../../utils/canvasUtils';
-import { navigationStore } from '../../../../layout/navigation/store/navStore';
+} from '@utils/canvasUtils';
 
 /** @type{import('../type').CaterpillarN1Animation} */
 export const caterpillarN1Animation = ({
