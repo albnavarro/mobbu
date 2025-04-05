@@ -4,6 +4,10 @@ import { html, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
 
+/**
+ * @import { MobComponent} from '@mobJsType';
+ **/
+
 /** @type{(component: {tagName: string, className: string, props: any} ) => string} */
 const getComponent = (component) => {
     if (component?.tagName.length === 0) {
@@ -16,10 +20,6 @@ const getComponent = (component) => {
             </${component.tagName}>
         </div>`;
 };
-
-/**
- * @import { MobComponent} from '@mobJsType';
- **/
 
 /** @type{import('./type').Move3DItemMove} */
 const move = ({
