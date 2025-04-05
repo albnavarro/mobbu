@@ -1,12 +1,12 @@
 //@ts-check
 
-import { html } from '../../../mobjs';
-import { MobBodyScroll } from '../../../mobMotion/plugin';
+import { html } from '../../../mob/mobjs';
+import { MobBodyScroll } from '../../../mob/mobMotion/plugin';
 import { navigationStore } from '../../layout/navigation/store/navStore';
 import { Triangles } from './triangles';
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent } from '../../../mob/mobjs/type';
  * @import { ScrollToTop } from './type';
  **/
 

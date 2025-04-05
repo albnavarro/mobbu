@@ -1,4 +1,4 @@
-import { html } from '../../../mobjs';
+import { html } from '../../../mob/mobjs';
 import { linksScroller } from './animation/linksScroller';
 
 /**
@@ -7,7 +7,7 @@ import { linksScroller } from './animation/linksScroller';
  */
 const getCounter = (index) => (index < 10 ? `0${index}` : `${index}`);
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent } from '../../../mob/mobjs/type';
  **/
 
 /** @type {MobComponent<import('./type').LayoutLinks>} */

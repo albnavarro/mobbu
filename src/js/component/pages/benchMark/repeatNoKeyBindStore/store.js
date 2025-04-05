@@ -1,10 +1,10 @@
-import { MobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mob/mobCore';
 
 /**
- * @import { MobStoreParams} from "../../../../mobCore/store/type".MobStore;
+ * @import { MobStoreParams} from "../../../../mob/mobCore/store/type".MobStore;
  **/
 
-/** @type {import('../../../../mobCore/store/type').MobStoreReturnType<import('./type').ExternalStore>} */
+/** @type {import('../../../../mob/mobCore/store/type').MobStoreReturnType<import('./type').ExternalStore>} */
 let externalStore;
 
 export const createExternalStore = () => {

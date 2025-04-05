@@ -11,7 +11,7 @@ import { LinksMobJs } from '../component/common/linksMobJs/definition';
 import { OnlyDesktop } from '../component/common/onlyDesktop/definition';
 import { DebugOverlay } from '../component/common/debug/debugOverlay/definition';
 import { TestScssGrid } from '../component/common/TestScssGrid/definition';
-import { html, MobJs } from '../mobjs';
+import { html, MobJs } from '../mob/mobjs';
 
 MobJs.useComponent([
     Header,

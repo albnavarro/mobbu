@@ -1,11 +1,11 @@
 //@ts-check
 
-import { MobJs } from '../../../../../mobjs';
+import { MobJs } from '../../../../../mob/mobjs';
 import { DebugHeadFn } from './debugHead';
 import { DebugSearch } from './DebugSearch/definition';
 
 /**
- * @import { CreateComponentParams } from "../../../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../../../mob/mobjs/type";
  **/
 
 export const DebugHead = MobJs.createComponent(

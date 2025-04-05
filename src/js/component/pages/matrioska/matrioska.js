@@ -1,13 +1,13 @@
 //@ts-check
 
 /**
- * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat,  UpdateStateByName, Invalidate, GetState, ReturnBindProps } from '../../../mobjs/type'
+ * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat,  UpdateStateByName, Invalidate, GetState, ReturnBindProps } from '../../../mob/mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
  */
 
-import { MobCore } from '../../../mobCore';
-import { html, MobJs } from '../../../mobjs';
+import { MobCore } from '../../../mob/mobCore';
+import { html, MobJs } from '../../../mob/mobjs';
 
 const buttons = [
     {

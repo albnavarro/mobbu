@@ -1,11 +1,11 @@
 //@ts-check
 
-import { offset } from '../../../../mobCore/utils';
-import { html } from '../../../../mobjs';
-import { MobBodyScroll } from '../../../../mobMotion/plugin';
+import { offset } from '../../../../mob/mobCore/utils';
+import { html } from '../../../../mob/mobjs';
+import { MobBodyScroll } from '../../../../mob/mobMotion/plugin';
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { MobComponent } from '../../../../mob/mobjs/type';
  * @import { AnchorBUtton } from './type';
  **/
 

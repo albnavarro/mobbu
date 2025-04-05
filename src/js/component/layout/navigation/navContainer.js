@@ -1,13 +1,13 @@
 //@ts-check
 
-import { MobCore } from '../../../mobCore';
-import { html, MobJs } from '../../../mobjs';
-import { MobBodyScroll } from '../../../mobMotion/plugin';
+import { MobCore } from '../../../mob/mobCore';
+import { html, MobJs } from '../../../mob/mobjs';
+import { MobBodyScroll } from '../../../mob/mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
 
 /**
- * @import {SetState, UseMethodByName} from '../../../mobjs/type'
+ * @import {SetState, UseMethodByName} from '../../../mob/mobjs/type'
  */
 
 /**
@@ -67,7 +67,7 @@ const toTopBtnHandler = () => {
     if (!navigationIsOpen) MobBodyScroll.to(0);
 };
 
-/** @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationContainer>} */
+/** @type {import('../../../mob/mobjs/type').MobComponent<import('./type').NavigationContainer>} */
 export const NavigationContainerFn = ({
     onMount,
     addMethod,

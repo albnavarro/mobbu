@@ -1,7 +1,7 @@
 //@ts-check
 
-import { MobCore } from '../../../../../mobCore';
-import { MobTimeline, MobTween } from '../../../../../mobMotion';
+import { MobCore } from '../../../../../mob/mobCore';
+import { MobTimeline, MobTween } from '../../../../../mob/mobMotion';
 import { detectSafari } from '../../../../../utils/utils';
 
 /** @type{import('../type').ChildAnimation} */

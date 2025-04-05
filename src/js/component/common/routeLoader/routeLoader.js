@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent } from '../../../mob/mobjs/type';
  * @import { RouteLoader } from './type';
  **/
 
-import { html, MobJs } from '../../../mobjs';
-import { MobTween } from '../../../mobMotion';
+import { html, MobJs } from '../../../mob/mobjs';
+import { MobTween } from '../../../mob/mobMotion';
 
 /** @type {MobComponent<RouteLoader>} */
 export const RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {

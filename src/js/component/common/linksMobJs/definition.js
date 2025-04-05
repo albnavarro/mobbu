@@ -1,11 +1,11 @@
 //@ts-check
 
-import { MobJs } from '../../../mobjs';
+import { MobJs } from '../../../mob/mobjs';
 import { LinksMobJsFn } from './linksMobJs';
 import { LinksMobJsButtonFn } from './linksMobJsButton';
 
 /**
- * @import { CreateComponentParams } from "../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../mob/mobjs/type";
  **/
 
 export const LinksMobJsButton = MobJs.createComponent(

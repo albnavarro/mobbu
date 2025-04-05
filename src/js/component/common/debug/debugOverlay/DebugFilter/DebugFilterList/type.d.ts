@@ -1,4 +1,4 @@
-import { GetRef } from '../../../../../../mobjs/type';
+import { GetRef } from '../../../../../../mob/mobjs/type';
 import { DebugFilterListItem } from './DebugFilterLitItem/type';
 
 export interface DebugFilterList {

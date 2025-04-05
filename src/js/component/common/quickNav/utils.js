@@ -1,9 +1,9 @@
 // @ts-check
 
-import { MobJs } from '../../../mobjs';
+import { MobJs } from '../../../mob/mobjs';
 
 /**
- * @import { SetStateByName } from '../../../mobjs/type';
+ * @import { SetStateByName } from '../../../mob/mobjs/type';
  **/
 
 /**

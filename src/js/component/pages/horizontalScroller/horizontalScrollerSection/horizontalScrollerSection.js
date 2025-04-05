@@ -1,8 +1,8 @@
 //@ts-check
 
-import { html } from '../../../../mobjs';
+import { html } from '../../../../mob/mobjs';
 
-/** @type {import("../../../../mobjs/type").MobComponent<import("./type").HorizontalScrollerSection>} */
+/** @type {import("../../../../mob/mobjs/type").MobComponent<import("./type").HorizontalScrollerSection>} */
 export const HorizontalScrollerSectionFn = ({ getState }) => {
     const { id, pinClass } = getState();
 

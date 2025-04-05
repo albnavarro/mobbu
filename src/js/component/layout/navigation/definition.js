@@ -1,6 +1,6 @@
 //@ts-check
 
-import { MobJs } from '../../../mobjs';
+import { MobJs } from '../../../mob/mobjs';
 import { NavigationContainerFn } from './navContainer';
 import { NavigationFn } from './navigation';
 import { NavigationButtonFn } from './navigationButton';
@@ -8,7 +8,7 @@ import { NavigationLabelFn } from './navigationLabel';
 import { NavigationSubmenuFn } from './navigationSubmenu';
 
 /**
- * @import { CreateComponentParams } from "../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../mob/mobjs/type";
  **/
 
 export const NavigationButton = MobJs.createComponent(

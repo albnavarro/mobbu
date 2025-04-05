@@ -1,15 +1,15 @@
 //@ts-check
 
 /**
- * @import { MobComponent, SetState, BindProps, StaticProps, DelegateEvents, ReturnBindProps } from '../../../mobjs/type';
+ * @import { MobComponent, SetState, BindProps, StaticProps, DelegateEvents, ReturnBindProps } from '../../../mob/mobjs/type';
  * @import { HorizontalScroller } from './type';
  * @import { HorizontalScrollerButton } from './horizontalScrollerButton/type';
  **/
 
-import { offset, outerHeight } from '../../../mobCore/utils';
-import { html } from '../../../mobjs';
-import { MobMotionCore } from '../../../mobMotion';
-import { MobBodyScroll } from '../../../mobMotion/plugin';
+import { offset, outerHeight } from '../../../mob/mobCore/utils';
+import { html } from '../../../mob/mobjs';
+import { MobMotionCore } from '../../../mob/mobMotion';
+import { MobBodyScroll } from '../../../mob/mobMotion/plugin';
 import { horizontalScrollerAnimation } from './animation/animation';
 
 /**

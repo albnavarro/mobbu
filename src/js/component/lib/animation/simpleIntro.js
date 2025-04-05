@@ -1,6 +1,6 @@
 //@ts-check
 
-import { MobTimeline, MobTween } from '../../../mobMotion';
+import { MobTimeline, MobTween } from '../../../mob/mobMotion';
 
 /** @type {import('./type').SimpleIntroAnimation} */
 export const simpleIntroAnimation = ({ refs }) => {

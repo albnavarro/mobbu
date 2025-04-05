@@ -1,14 +1,14 @@
 //@ts-check
 
-import { MobCore } from '../../../mobCore';
-import { html } from '../../../mobjs';
-import { MobMotionCore, MobTween } from '../../../mobMotion';
-import { NOOP } from '../../../mobMotion/utils/functionsUtils';
+import { MobCore } from '../../../mob/mobCore';
+import { html } from '../../../mob/mobjs';
+import { MobMotionCore, MobTween } from '../../../mob/mobMotion';
+import { NOOP } from '../../../mob/mobMotion/utils/functionsUtils';
 import { Recursive3Dshape } from './partials/recursive3Dshape';
 import { getChildrenMethod, getMove3DDimension } from './utils';
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent } from '../../../mob/mobjs/type';
  **/
 
 /** @type {MobComponent<import('./type').Move3D>} */

@@ -1,10 +1,10 @@
 //@ts-check
 
-import { html } from '../../../../mobjs';
+import { html } from '../../../../mob/mobjs';
 import { benchMarkListPartial } from '../partials/benchMarkListPartial';
 
 /**
- * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../../mob/mobjs/type';
  * @import {BenchMarkFakeComponent} from '../fakeComponent/type';
  **/
 

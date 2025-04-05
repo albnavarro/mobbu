@@ -1,11 +1,11 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent } from '../../../mob/mobjs/type';
  * @import { HomeComponent } from './type';
  **/
 
-import { html } from '../../../mobjs';
+import { html } from '../../../mob/mobjs';
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
 
 /**

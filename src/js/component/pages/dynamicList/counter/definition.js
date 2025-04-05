@@ -1,10 +1,10 @@
 //@ts-check
 
-import { MobJs } from '../../../../mobjs';
+import { MobJs } from '../../../../mob/mobjs';
 import { DynamicListCounterFn } from './dynamicListCounter';
 
 /**
- * @import { CreateComponentParams } from "../../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../../mob/mobjs/type";
  **/
 
 export const DynamicCounter = MobJs.createComponent(

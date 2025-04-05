@@ -1,11 +1,11 @@
 import { updateQuickNavState } from '../../../component/common/quickNav/utils';
 import { StarSvg } from '../../../component/common/SvgShape/Star/definition';
 import { Move3DPage } from '../../../component/pages/move3D/definition';
-import { html, MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mob/mobjs';
 
 MobJs.useComponent([Move3DPage, StarSvg]);
 
-/** @type{import('../../../mobjs/type').PageAsync} */
+/** @type{import('../../../mob/mobjs/type').PageAsync} */
 export const move3DRoute = async ({ props }) => {
     const { data, prevRoute, nextRoute } = props;
 

@@ -1,4 +1,4 @@
-import { MobScroll, MobTween } from '../../../../mobMotion';
+import { MobScroll, MobTween } from '../../../../mob/mobMotion';
 
 /** @type{import("../type").AboutSection2} */
 export const sectionContentAnimation = ({ title, copy }) => {

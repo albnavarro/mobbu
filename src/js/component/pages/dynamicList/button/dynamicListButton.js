@@ -1,8 +1,8 @@
 //@ts-check
 
-import { html } from '../../../../mobjs';
+import { html } from '../../../../mob/mobjs';
 
-/** @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListButton>} */
+/** @type {import('../../../../mob/mobjs/type').MobComponent<import('./type').DynamicListButton>} */
 export const DynamicListButtonFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
 

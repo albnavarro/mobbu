@@ -1,11 +1,11 @@
 import { updateQuickNavState } from '../../../component/common/quickNav/utils';
 import { ScrollerN0 } from '../../../component/pages/scroller/ScrollerN0/definition';
-import { html, MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mob/mobjs';
 import { scrollerParams } from './scrollerParams';
 
 MobJs.useComponent([ScrollerN0]);
 
-/** @type{import('../../../mobjs/type').Page} */
+/** @type{import('../../../mob/mobjs/type').Page} */
 export const scrollerN0 = ({ params }) => {
     const { version } = params;
 

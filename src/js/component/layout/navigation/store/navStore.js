@@ -1,9 +1,9 @@
 //@ts-check
 
-import { MobCore } from '../../../../mobCore';
+import { MobCore } from '../../../../mob/mobCore';
 
 /**
- * @import { MobStoreParams} from "../../../../mobCore/store/type".MobStore;
+ * @import { MobStoreParams} from "../../../../mob/mobCore/store/type".MobStore;
  **/
 
 export const navigationStore = MobCore.createStore(

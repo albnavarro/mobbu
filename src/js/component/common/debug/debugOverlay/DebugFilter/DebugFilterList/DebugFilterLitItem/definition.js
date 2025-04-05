@@ -1,10 +1,10 @@
 //@ts-check
 
-import { MobJs } from '../../../../../../../mobjs';
+import { MobJs } from '../../../../../../../mob/mobjs';
 import { DebugFilterListItemFn } from './debugFilterListItem';
 
 /**
- * @import { CreateComponentParams } from "../../../../../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../../../../../mob/mobjs/type";
  **/
 
 export const DebugFilterListItem = MobJs.createComponent(

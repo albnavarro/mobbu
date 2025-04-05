@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent, SetRef } from '../../../../mobjs/type';
+ * @import { MobComponent, SetRef } from '../../../../mob/mobjs/type';
  * @import { SvgChild } from './type';
  **/
 
-import { html } from '../../../../mobjs';
-import { MobMotionCore } from '../../../../mobMotion';
+import { html } from '../../../../mob/mobjs';
+import { MobMotionCore } from '../../../../mob/mobMotion';
 import { updateQuickNavState } from '../../../common/quickNav/utils';
 import { childAnimations } from './animation/animation';
 

@@ -1,7 +1,7 @@
 // @ts-check
 
-import { outerHeight, outerWidth } from '../../../mobCore/utils';
-import { MobSmoothScroller } from '../../../mobMotion/plugin';
+import { outerHeight, outerWidth } from '../../../mob/mobCore/utils';
+import { MobSmoothScroller } from '../../../mob/mobMotion/plugin';
 
 /** @type{import('./type').VerticalScroller} */
 export const verticalScroller = ({ screen, scroller, scrollbar }) => {

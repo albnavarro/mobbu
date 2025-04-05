@@ -1,9 +1,9 @@
 //@ts-check
 
-import { html } from '../../../../../mobjs';
+import { html } from '../../../../../mob/mobjs';
 
 /**
- * @import { StaticProps } from '../../../../../mobjs/type';
+ * @import { StaticProps } from '../../../../../mob/mobjs/type';
  **/
 
 /**

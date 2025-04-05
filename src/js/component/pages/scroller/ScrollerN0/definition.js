@@ -1,11 +1,11 @@
 //@ts-check
 
-import { MobJs } from '../../../../mobjs';
+import { MobJs } from '../../../../mob/mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { ScrollerN0Fn } from './scrollerN0';
 
 /**
- * @import { CreateComponentParams } from "../../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../../mob/mobjs/type";
  **/
 
 export const ScrollerN0 = MobJs.createComponent(

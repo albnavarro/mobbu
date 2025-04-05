@@ -1,9 +1,9 @@
 /**
- * @import { BindEffect, DelegateEvents, GetState, MobComponent, SetRef } from '../../../mobjs/type';
+ * @import { BindEffect, DelegateEvents, GetState, MobComponent, SetRef } from '../../../mob/mobjs/type';
  **/
 
-import { MobCore } from '../../../mobCore';
-import { html } from '../../../mobjs';
+import { MobCore } from '../../../mob/mobCore';
+import { html } from '../../../mob/mobjs';
 import { aboutAnimation } from './animation';
 import { aboutSvgAnimation } from './animation/svgAnimation';
 

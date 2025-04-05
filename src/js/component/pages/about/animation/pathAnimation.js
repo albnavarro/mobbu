@@ -1,8 +1,8 @@
 // https://bennettfeely.com/clippy/
 
-import { MobCore } from '../../../../mobCore';
-import { outerWidth } from '../../../../mobCore/utils';
-import { MobScroll, MobTimeline, MobTween } from '../../../../mobMotion';
+import { MobCore } from '../../../../mob/mobCore';
+import { outerWidth } from '../../../../mob/mobCore/utils';
+import { MobScroll, MobTimeline, MobTween } from '../../../../mob/mobMotion';
 import { randomIntFromInterval } from '../../../../utils/utils';
 
 /** @type{import('../type').CreatePathAnimation} */

@@ -56,7 +56,7 @@ const mobMotionOverviewBreadCrumbs = [
 ];
 
 /**
- * @type {import('../mobjs/type').Route[]}
+ * @type {import('../mob/mobjs/type').Route[]}
  */
 export const routes = [
     {

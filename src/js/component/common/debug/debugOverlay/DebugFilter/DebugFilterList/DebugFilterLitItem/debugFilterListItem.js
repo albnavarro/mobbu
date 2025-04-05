@@ -1,10 +1,10 @@
 //@ts-check
 
 /**
- * @import { MobComponent, UseMethodByName } from '../../../../../../../mobjs/type';
+ * @import { MobComponent, UseMethodByName } from '../../../../../../../mob/mobjs/type';
  **/
 
-import { html, MobJs } from '../../../../../../../mobjs';
+import { html, MobJs } from '../../../../../../../mob/mobjs';
 import { debugActiveComponentStore } from '../../../Store/DebugActiveComponent';
 
 /** @type{MobComponent<import('./type').DebugFilterListItem>} */

@@ -1,14 +1,13 @@
 //@ts-check
 
 /**
- * @import { Current, MobComponent, ReturnBindProps } from '../../../../mobjs/type';
- * @import { StaticProps, BindProps, DelegateEvents } from '../../../../mobjs/type';
+ * @import { Current, MobComponent, ReturnBindProps, StaticProps, BindProps, DelegateEvents  } from '../../../../mob/mobjs/type';
  * @import { DynamicListCard } from '../card/type';
  * @import { DynamicListRepeater } from './type';
  * @import { DynamicListSlottedLabel } from '../slottedLabel/type';
  **/
 
-import { html } from '../../../../mobjs';
+import { html } from '../../../../mob/mobjs';
 
 /**
  * @param {object} param

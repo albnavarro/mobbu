@@ -1,6 +1,6 @@
 //@ts-check
 
-import { MobTween } from '../../../../../mobMotion';
+import { MobTween } from '../../../../../mob/mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -8,9 +8,9 @@ import {
     getOffsetCanvas,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
-import { offset } from '../../../../../mobCore/utils';
-import { MobCore } from '../../../../../mobCore';
-import { MobJs } from '../../../../../mobjs';
+import { offset } from '../../../../../mob/mobCore/utils';
+import { MobCore } from '../../../../../mob/mobCore';
+import { MobJs } from '../../../../../mob/mobjs';
 
 /**
  *  @param {object} params

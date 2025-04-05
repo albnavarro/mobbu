@@ -1,10 +1,10 @@
 //@ts-check
 
-import { MobJs } from '../../../mobjs';
+import { MobJs } from '../../../mob/mobjs';
 import { ScrollToTopFn } from './ScrollToTop';
 
 /**
- * @import { CreateComponentParams } from "../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../mob/mobjs/type";
  **/
 
 export const ScrollToTop = MobJs.createComponent(

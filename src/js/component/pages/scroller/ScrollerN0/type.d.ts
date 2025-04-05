@@ -1,4 +1,4 @@
-import { StaggerObject } from '../../../../mobMotion/animation/utils/stagger/type';
+import { StaggerObject } from '../../../../mob/mobMotion/animation/utils/stagger/type';
 
 export interface ScrollerN0 {
     state: {

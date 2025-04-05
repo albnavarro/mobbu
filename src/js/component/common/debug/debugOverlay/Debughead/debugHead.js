@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../../../mobjs/type';
+ * @import { MobComponent } from '../../../../../mob/mobjs/type';
  **/
 
-import { html, MobJs } from '../../../../../mobjs';
-import { getBindObjectParentSize } from '../../../../../mobjs/modules/bindObject';
-import { getBindTextParentSize } from '../../../../../mobjs/modules/bindtext';
+import { html, MobJs } from '../../../../../mob/mobjs';
+import { getBindObjectParentSize } from '../../../../../mob/mobjs/modules/bindObject';
+import { getBindTextParentSize } from '../../../../../mob/mobjs/modules/bindtext';
 
 /** @type{MobComponent<import('./type').DebugHead>} */
 export const DebugHeadFn = ({ invalidate, getProxi }) => {

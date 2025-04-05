@@ -1,6 +1,6 @@
 //@ts-check
 
-import { MobTimeline, MobTween } from '../../../../../mobMotion';
+import { MobTimeline, MobTween } from '../../../../../mob/mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -12,8 +12,8 @@ import {
     roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
-import { MobCore } from '../../../../../mobCore';
-import { MobJs } from '../../../../../mobjs';
+import { MobCore } from '../../../../../mob/mobCore';
+import { MobJs } from '../../../../../mob/mobjs';
 
 /** @type{import('../type').AnimatedPatternN0Animation} */
 export const animatedPatternN0Animation = ({

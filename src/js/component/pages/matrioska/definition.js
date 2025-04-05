@@ -1,13 +1,13 @@
 //@ts-check
 
-import { MobCore } from '../../../mobCore';
-import { MobJs } from '../../../mobjs';
+import { MobCore } from '../../../mob/mobCore';
+import { MobJs } from '../../../mob/mobjs';
 import { DynamicListButton } from '../dynamicList/button/definition';
 import { MatrioskaFn } from './matrioska';
 import { MatrioskaItem } from './matrioskaItem/definition';
 
 /**
- * @import { CreateComponentParams } from "../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../mob/mobjs/type";
  **/
 
 /**

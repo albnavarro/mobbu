@@ -3,7 +3,7 @@ import { DocTitle } from '../../component/common/doctitle/definition';
 import { DocsTitleSmall } from '../../component/common/doctitleSmall/definition';
 import { HtmlContent } from '../../component/common/htmlContent/definition';
 import { ScrollTo } from '../../component/common/scrollTo/definition';
-import { html, MobJs } from '../../mobjs';
+import { html, MobJs } from '../../mob/mobjs';
 import { loadJsonContent } from '../../utils/utils';
 import { getBreadCrumbs } from './utils';
 
@@ -15,7 +15,7 @@ MobJs.useComponent([
     HtmlContent,
 ]);
 
-/** @type{import('../../mobjs/type').PageAsync<{},import('./type.d.ts').LayoutSidebarAnchor['props']>} */
+/** @type{import('../../mob/mobjs/type').PageAsync<{},import('./type.d.ts').LayoutSidebarAnchor['props']>} */
 export const layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs } = props;
     const { data } = await loadJsonContent({ source });

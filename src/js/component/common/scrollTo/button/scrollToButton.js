@@ -1,8 +1,8 @@
 //@ts-check
 
-import { html } from '../../../../mobjs';
+import { html } from '../../../../mob/mobjs';
 
-/** @type {import("../../../../mobjs/type").MobComponent<import("./type").ScrollToButton>} */
+/** @type {import("../../../../mob/mobjs/type").MobComponent<import("./type").ScrollToButton>} */
 export const ScrollToButtonFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
 

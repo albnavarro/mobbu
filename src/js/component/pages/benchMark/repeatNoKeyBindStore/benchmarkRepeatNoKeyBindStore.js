@@ -1,6 +1,6 @@
 //@ts-check
 
-import { html } from '../../../../mobjs';
+import { html } from '../../../../mob/mobjs';
 import { benchMarkListExternalPartial } from './benchMarkListExternalPartial';
 import {
     createExternalStore,
@@ -9,7 +9,7 @@ import {
 } from './store';
 
 /**
- * @import { MobComponent, ReturnBindProps } from '../../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../../mob/mobjs/type';
  * @import {BenchMarkFakeComponent} from '../fakeComponent/type';
  **/
 

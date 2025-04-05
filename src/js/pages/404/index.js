@@ -1,5 +1,5 @@
 import { Title } from '../../component/common/typography/titles/definition';
-import { html, MobJs } from '../../mobjs';
+import { html, MobJs } from '../../mob/mobjs';
 
 MobJs.useComponent([Title]);
 

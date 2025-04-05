@@ -1,9 +1,9 @@
 //@ts-check
 
-import { html } from '../../../mobjs';
-import { MobTween } from '../../../mobMotion';
+import { html } from '../../../mob/mobjs';
+import { MobTween } from '../../../mob/mobMotion';
 
-/** @type {import("../../../mobjs/type").MobComponent<import('./type').Loader>} */
+/** @type {import("../../../mob/mobjs/type").MobComponent<import('./type').Loader>} */
 export const LoaderFn = ({ onMount, watch, remove, getState }) => {
     const { position } = getState();
 

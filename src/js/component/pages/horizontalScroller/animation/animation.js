@@ -1,16 +1,16 @@
 // @ts-check
-import { MobCore } from '../../../../mobCore';
-import { outerWidth } from '../../../../mobCore/utils';
-import { MobScroll } from '../../../../mobMotion';
-import { MobHorizontalScroller } from '../../../../mobMotion/plugin';
+import { MobCore } from '../../../../mob/mobCore';
+import { outerWidth } from '../../../../mob/mobCore/utils';
+import { MobScroll } from '../../../../mob/mobMotion';
+import { MobHorizontalScroller } from '../../../../mob/mobMotion/plugin';
 
 let sideWidth = 0;
 
 /**
  * @param {object} params
  * @param {HTMLElement[]} params.indicators
- * @param {import('../../../../mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
- * @returns {import( '../../../../mobMotion/type').MobScroller[]}
+ * @param {import('../../../../mob/mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
+ * @returns {import( '../../../../mob/mobMotion/type').MobScroller[]}
  */
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
@@ -51,7 +51,7 @@ const createPins = ({ indicators, setState }) => {
 
 /**
  * @param {object} params
- * @param {import( '../../../../mobMotion/type').MobScroller[]} params.pins
+ * @param {import( '../../../../mob/mobMotion/type').MobScroller[]} params.pins
  */
 const refreshPins = ({ pins }) => {
     pins.forEach((pin) => pin.refresh());
@@ -60,7 +60,7 @@ const refreshPins = ({ pins }) => {
 /**
  * @param {object} params
  * @param {HTMLElement[]} params.titles
- * @returns {import( '../../../../mobMotion/type').MobScroller[]}
+ * @returns {import( '../../../../mob/mobMotion/type').MobScroller[]}
  */
 const createParallax = ({ titles }) => {
     return [...titles].map((title) => {
@@ -107,7 +107,7 @@ const hideNav = ({ nav }) => {
  * @param {HTMLElement[]} params.titles
  * @param {HTMLElement} params.nav
  * @param {boolean} params.animatePin
- * @param {import('../../../../mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
+ * @param {import('../../../../mob/mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
  * @param {HTMLElement} params.rootRef
  */
 export const horizontalScrollerAnimation = ({

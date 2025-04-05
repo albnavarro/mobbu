@@ -1,4 +1,4 @@
-import { MobCore } from '../mobCore';
+import { MobCore } from '../mob/mobCore';
 
 const setValue = () => {
     const value = window.innerWidth - document.documentElement.clientWidth;

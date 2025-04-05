@@ -1,10 +1,10 @@
 //@ts-check
 
-import { MobCore } from '../../../../mobCore';
-import { html, MobJs } from '../../../../mobjs';
+import { MobCore } from '../../../../mob/mobCore';
+import { html, MobJs } from '../../../../mob/mobjs';
 
 /**
- * @import { DelegateEvents, SetRef, GetRef,  SetState, UpdateState, GetState, BindEffect } from '../../../../mobjs/type';
+ * @import { DelegateEvents, SetRef, GetRef,  SetState, UpdateState, GetState, BindEffect } from '../../../../mob/mobjs/type';
  **/
 
 /**

@@ -1,13 +1,13 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { MobComponent } from '../../../mob/mobjs/type';
  * @import { ScrollDownLabel } from './type';
  **/
 
 // @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';
-import { html } from '../../../mobjs';
+import { html } from '../../../mob/mobjs';
 
 /** @type {MobComponent<ScrollDownLabel>} */
 export const ScrollDownLabelFn = ({ getProxi, bindEffect }) => {

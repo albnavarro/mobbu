@@ -1,12 +1,12 @@
 //@ts-check
 
-import { MobJs } from '../../../../mobjs';
+import { MobJs } from '../../../../mob/mobjs';
 import { DynamicListCard } from '../card/definition';
 import { DynamicListSlottedLabel } from '../slottedLabel/definition';
 import { DynamicListRepeaterFn } from './dynamicListRepeater';
 
 /**
- * @import { CreateComponentParams } from "../../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../../mob/mobjs/type";
  **/
 
 export const DynamicListRepeater = MobJs.createComponent(

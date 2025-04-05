@@ -1,13 +1,13 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';]
+ * @import { MobComponent } from '../../../mob/mobjs/type';]
  * @import { QuickNav } from './type';
  **/
 
 // @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';
-import { html, MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mob/mobjs';
 
 /** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({ getProxi, bindEffect }) => {

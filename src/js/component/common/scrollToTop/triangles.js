@@ -1,4 +1,4 @@
-import { html } from '../../../mobjs';
+import { html } from '../../../mob/mobjs';
 
 export const Triangles = html`
     <svg

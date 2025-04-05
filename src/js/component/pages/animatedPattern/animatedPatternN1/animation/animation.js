@@ -1,7 +1,10 @@
 //@ts-check
 
-import { MobTimeline, MobTween } from '../../../../../mobMotion';
-import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
+import {
+    MobMotionCore,
+    MobTimeline,
+    MobTween,
+} from '../../../../../mob/mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -12,9 +15,9 @@ import {
     getOffsetYCenter,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
-import { offset } from '../../../../../mobCore/utils';
-import { MobCore } from '../../../../../mobCore';
-import { MobJs } from '../../../../../mobjs';
+import { offset } from '../../../../../mob/mobCore/utils';
+import { MobCore } from '../../../../../mob/mobCore';
+import { MobJs } from '../../../../../mob/mobjs';
 
 /** @type{import('../type').AnimatedPatternN1Animation} */
 export const animatedPatternN1Animation = ({
@@ -187,7 +190,7 @@ export const animatedPatternN1Animation = ({
                 /**
                  * Clamp scale factor between .1 and 1.
                  */
-                const scaleFactor = clamp(Math.abs(delta), 0, 2);
+                const scaleFactor = MobMotionCore.clamp(Math.abs(delta), 0, 2);
 
                 /**
                  * Basic data for setTransform.

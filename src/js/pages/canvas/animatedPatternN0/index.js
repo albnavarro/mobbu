@@ -1,11 +1,11 @@
 import { updateQuickNavState } from '../../../component/common/quickNav/utils';
 import { AnimatedPatternN0 } from '../../../component/pages/animatedPattern/animatedPatternN0/definition';
-import { html, MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mob/mobjs';
 import { animatedPatternN0Params } from './animatedPatternN0Params';
 
 MobJs.useComponent([AnimatedPatternN0]);
 
-/** @type{import('../../../mobjs/type').Page} */
+/** @type{import('../../../mob/mobjs/type').Page} */
 export const animatedPatternN0 = ({ params }) => {
     const { version } = params;
 

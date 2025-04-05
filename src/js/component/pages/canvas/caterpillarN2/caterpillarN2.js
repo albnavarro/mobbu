@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { MobComponent } from '../../../../mob/mobjs/type';
  * @import { CaterpillarN2, CaterpillarN2Button } from './type';
  **/
 
-import { MobCore } from '../../../../mobCore';
-import { html } from '../../../../mobjs';
+import { MobCore } from '../../../../mob/mobCore';
+import { html } from '../../../../mob/mobjs';
 import { canvasBackground } from '../../../../utils/canvasUtils';
 import { caterpillarN2Animation } from './animation/animation';
 

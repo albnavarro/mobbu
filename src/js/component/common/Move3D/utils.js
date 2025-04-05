@@ -1,10 +1,10 @@
 //@ts-check
 
-import { offset, outerHeight, outerWidth } from '../../../mobCore/utils';
-import { MobJs } from '../../../mobjs';
+import { offset, outerHeight, outerWidth } from '../../../mob/mobCore/utils';
+import { MobJs } from '../../../mob/mobjs';
 
 /**
- * @import {UseMethodArrayByName} from '../../../mobjs/type'
+ * @import {UseMethodArrayByName} from '../../../mob/mobjs/type'
  */
 
 /**

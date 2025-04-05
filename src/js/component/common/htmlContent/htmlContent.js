@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { BindProps, MobComponentAsync, StaticProps } from '../../../mobjs/type';
+ * @import { BindProps, MobComponentAsync, StaticProps } from '../../../mob/mobjs/type';
  * @import { HtmlContent } from './type';
  * @import { Loader } from '../loader/type';
  **/
 
-import { html } from '../../../mobjs';
+import { html } from '../../../mob/mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 import { getTrinangle } from '../../lib/utils/getTriangle';
 

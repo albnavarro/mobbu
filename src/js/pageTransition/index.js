@@ -1,5 +1,5 @@
-import { MobJs } from '../mobjs';
-import { MobTimeline, MobMotionCore, MobTween } from '../mobMotion';
+import { MobJs } from '../mob/mobjs';
+import { MobTimeline, MobMotionCore, MobTween } from '../mob/mobMotion';
 
 let scrollY = 0;
 
@@ -8,7 +8,7 @@ MobJs.beforeRouteChange(() => {
 });
 
 /**
- * @type {import('../mobjs/type').BeforePageTransition}
+ * @type {import('../mob/mobjs/type').BeforePageTransition}
  */
 export const beforePageTransition = async ({ oldNode }) => {
     oldNode.classList.remove('current-route');
@@ -24,7 +24,7 @@ export const beforePageTransition = async ({ oldNode }) => {
 };
 
 /**
- * @type {import('../mobjs/type').PageTransition}
+ * @type {import('../mob/mobjs/type').PageTransition}
  */
 export const pageTransition = async ({
     oldNode,

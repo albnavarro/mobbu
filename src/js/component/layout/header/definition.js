@@ -1,12 +1,12 @@
 //@ts-check
 
-import { MobJs } from '../../../mobjs';
+import { MobJs } from '../../../mob/mobjs';
 import { HeaderFn } from './header';
 import { HeadernavFn } from './headernav';
 import { HeaderToggleFn } from './headerToggle';
 
 /**
- * @import { CreateComponentParams } from "../../../mobjs/type";
+ * @import { CreateComponentParams } from "../../../mob/mobjs/type";
  **/
 
 export const HeaderNav = MobJs.createComponent(

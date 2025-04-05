@@ -1,6 +1,6 @@
-import { html } from '../../../mobjs';
+import { html } from '../../../mob/mobjs';
 
-/** @type{import("../../../mobjs/type").MobComponent} */
+/** @type{import("../../../mob/mobjs/type").MobComponent} */
 export const TestScssGridFn = () => {
     return html`
         <div class="test-grid">

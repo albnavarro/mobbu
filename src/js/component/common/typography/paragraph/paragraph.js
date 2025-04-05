@@ -1,8 +1,8 @@
 //@ts-check
 
-import { html } from '../../../../mobjs';
+import { html } from '../../../../mob/mobjs';
 
-/** @type {import("../../../../mobjs/type").MobComponent<import("./type").Paragraph>} */
+/** @type {import("../../../../mob/mobjs/type").MobComponent<import("./type").Paragraph>} */
 export const ParagraphFn = ({ getState }) => {
     const { style, color, boxed, note } = getState();
     const colorClass = `is-${color}`;

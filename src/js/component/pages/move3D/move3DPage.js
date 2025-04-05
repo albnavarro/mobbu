@@ -1,9 +1,9 @@
 //@ts-check
 
-import { html } from '../../../mobjs';
+import { html } from '../../../mob/mobjs';
 
 /**
- * @import { BindObject, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '../../../mobjs/type';
+ * @import { BindObject, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '../../../mob/mobjs/type';
  **/
 
 /**

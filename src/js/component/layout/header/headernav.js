@@ -1,13 +1,13 @@
 //@ts-check
 
 /**
- * @import { DelegateEvents, MobComponent } from '../../../mobjs/type';
+ * @import { DelegateEvents, MobComponent } from '../../../mob/mobjs/type';
  **/
 
 // @ts-ignore
 import githubIcon from '../../../../svg/icon-github.svg';
 import { getCommonData } from '../../../data';
-import { html, MobJs } from '../../../mobjs';
+import { html, MobJs } from '../../../mob/mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 /** @type{Record<string, any>} */

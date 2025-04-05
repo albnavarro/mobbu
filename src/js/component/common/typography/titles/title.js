@@ -1,6 +1,6 @@
 //@ts-check
 
-import { html } from '../../../../mobjs';
+import { html } from '../../../../mob/mobjs';
 import { getTrinangle } from '../../../lib/utils/getTriangle';
 
 /**
@@ -10,7 +10,7 @@ const shouldUseTrinagle = (tag) => {
     return tag === `h1` ? getTrinangle() : '';
 };
 
-/** @type {import("../../../../mobjs/type").MobComponent<import("./type").Title>} */
+/** @type {import("../../../../mob/mobjs/type").MobComponent<import("./type").Title>} */
 export const TitleFn = ({ getState }) => {
     const { tag, color, isBold } = getState();
     const colorClass = `is-${color}`;

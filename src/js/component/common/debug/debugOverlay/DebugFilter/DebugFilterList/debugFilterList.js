@@ -1,11 +1,11 @@
 // @ts-check
 
-import { MobCore } from '../../../../../../mobCore';
-import { html, MobJs } from '../../../../../../mobjs';
+import { MobCore } from '../../../../../../mob/mobCore';
+import { html, MobJs } from '../../../../../../mob/mobjs';
 import { verticalScroller } from '../../../../../lib/animation/verticalScroller';
 
 /**
- * @import { MobComponent, ReturnBindProps } from '../../../../../../mobjs/type';
+ * @import { MobComponent, ReturnBindProps } from '../../../../../../mob/mobjs/type';
  * @import { DebugFilterListItem } from './DebugFilterLitItem/type';
  */
 

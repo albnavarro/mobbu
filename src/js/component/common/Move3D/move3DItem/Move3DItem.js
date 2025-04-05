@@ -1,7 +1,7 @@
 //@ts-check
 
-import { html, MobJs } from '../../../../mobjs';
-import { MobTween } from '../../../../mobMotion';
+import { html, MobJs } from '../../../../mob/mobjs';
+import { MobTween } from '../../../../mob/mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
 
 /** @type{(component: {tagName: string, className: string, props: any} ) => string} */
@@ -18,7 +18,7 @@ const getComponent = (component) => {
 };
 
 /**
- * @import { MobComponent} from '../../../../mobjs/type';
+ * @import { MobComponent} from '../../../../mob/mobjs/type';
  **/
 
 /** @type{import('./type').Move3DItemMove} */

@@ -4,7 +4,7 @@ import { BenchMarkRepeatWithKeyNested } from '../../component/pages/benchMark/re
 import { BenchMarkRepeatNoKey } from '../../component/pages/benchMark/repeatNoKey/definition';
 import { BenchMarkRepeatNoKeyBindStore } from '../../component/pages/benchMark/repeatNoKeyBindStore/definition';
 import { BenchMarkRepeatWithNoKeyNested } from '../../component/pages/benchMark/repeatNoKeyKeyNested/definition';
-import { html, MobJs } from '../../mobjs';
+import { html, MobJs } from '../../mob/mobjs';
 
 MobJs.useComponent([
     BenchMarkInvalidate,
@@ -15,7 +15,7 @@ MobJs.useComponent([
     BenchMarkRepeatNoKeyBindStore,
 ]);
 
-/** @type{import('../../mobjs/type').PageAsync} */
+/** @type{import('../../mob/mobjs/type').PageAsync} */
 export const benchMark = async ({ props }) => {
     const { rootComponent } = props;
     console.log(rootComponent);

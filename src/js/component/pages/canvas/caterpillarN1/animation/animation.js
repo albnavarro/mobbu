@@ -1,7 +1,7 @@
 //@ts-check
 
-import { MobTimeline, MobTween } from '../../../../../mobMotion';
-import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
+import { MobTimeline, MobTween } from '../../../../../mob/mobMotion';
+import { clamp } from '../../../../../mob/mobMotion/animation/utils/animationUtils';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -9,9 +9,9 @@ import {
     getOffsetCanvas,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
-import { offset } from '../../../../../mobCore/utils';
-import { MobCore } from '../../../../../mobCore';
-import { MobJs } from '../../../../../mobjs';
+import { offset } from '../../../../../mob/mobCore/utils';
+import { MobCore } from '../../../../../mob/mobCore';
+import { MobJs } from '../../../../../mob/mobjs';
 
 /** @type{import('../type').CaterpillarN1Animation} */
 export const caterpillarN1Animation = ({
