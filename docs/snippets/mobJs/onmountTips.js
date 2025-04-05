@@ -1,4 +1,4 @@
-import { html } from '../../../src/js/mobjs';
+import { html } from '@mobJs';
 
 const loadContent = async ({ element, source }) => {
     const response = await fetch(source);
@@ -12,7 +12,7 @@ const loadContent = async ({ element, source }) => {
 };
 
 /**
- * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = async ({ onMount, getState }) => {
     const { lazyLoad, source } = getState();

@@ -1,7 +1,7 @@
-import { html } from '../../../src/js/mobjs';
+import { html } from '@mobJs';
 
 /**
- * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyLayout>}
  */
 export const MyLayout = ({ staticProps, bindProps }) => {
     return html`
@@ -23,8 +23,10 @@ export const MyLayout = ({ staticProps, bindProps }) => {
     `;
 };
 
+import { html } from '@mobJs';
+
 /**
- * @type {import("../mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ bindProps }) => {
     return html`

@@ -1,7 +1,7 @@
-import { timeline, tween } from '../mobMotion';
+import { timeline, tween } from '@mobMotion';
 
 /**
- * @type {import('../../../src/js/mobjs/type').PageTransition}
+ * @type {import('@mobJsType').PageTransition}
  */
 export const pageTransition = async ({
     oldNode,

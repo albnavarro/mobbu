@@ -2,10 +2,10 @@
 export type UnFreezeProp<T> = (prop: keyof T) => void;
 **/
 
-import { html } from '../../../src/js/mobjs';
+import { html } from '@mobJs';
 
 /**
- * @type {import("../mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount, unFreezeProp }) => {
     onMount(() => {

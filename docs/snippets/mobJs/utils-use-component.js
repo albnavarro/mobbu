@@ -1,4 +1,4 @@
-import { MobJs, html } from '../../../src/js/mobjs';
+import { MobJs, html } from '@MobJs';
 
 MobJs.useComponent([Header, Footer]);
 

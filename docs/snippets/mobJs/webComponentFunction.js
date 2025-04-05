@@ -1,4 +1,4 @@
-import { html } from '../../../src/js/mobjs';
+import { html } from '@mobJs';
 
 /**
  * Default component

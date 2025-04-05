@@ -1,7 +1,9 @@
+import { html } from '@mobJs';
+
 /**
- * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyLayout>}
  */
-export const MyLayout = ({ html }) => {
+export const MyLayout = () => {
     return html`
         <section>
             <div class="col">
@@ -14,10 +16,12 @@ export const MyLayout = ({ html }) => {
     `;
 };
 
+import { html } from '@mobJs';
+
 /**
- * @type {import("../mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ html }) => {
+export const MyComponent = () => {
     return html`
         <my-layout>
             <my-content slot="left"></my-content>

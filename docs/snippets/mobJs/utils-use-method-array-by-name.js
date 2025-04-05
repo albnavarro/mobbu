@@ -1,7 +1,7 @@
-import { html, MobJs } from '../../../src/js/mobjs';
+import { html, MobJs } from '@mobjs';
 
 /**
- * @type {import('../../../src/js/mobjs/type').mobComponent<import('./type').MyComponent>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount }) => {
     onMount(() => {

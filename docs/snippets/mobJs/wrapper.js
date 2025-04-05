@@ -5,7 +5,7 @@
  * parameters, since the wrapper is not a component
  * we can make use of global utilities.
  */
-import { MobJs, html } from '../../../src/js/mobjs';
+import { MobJs, html } from '@mobJs';
 
 /**
  * Import components definition used in wrapper.
@@ -33,7 +33,7 @@ export const wrapper = async () => {
  * main.js
  */
 import { wrapper } from './wrapper';
-import { MobJs } from '../../../src/js/mobjs';
+import { MobJs } from '@mobJs';
 
 MobJs.inizializeApp({
     /**

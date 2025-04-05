@@ -1,4 +1,4 @@
-import { html } from '../../../src/js/mobjs';
+import { html } from '@mobJs';
 
 function myAsyncFunction() {
     return new Promise((resolve) => {
@@ -9,7 +9,7 @@ function myAsyncFunction() {
 }
 
 /**
- * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = async ({ onMount }) => {
     onMount(async () => {

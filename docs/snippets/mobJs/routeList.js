@@ -1,4 +1,4 @@
-import { MobJs } from '../../../src/js/mobjs';
+import { MobJs } from '@mobJs';
 
 /**
  * routeList.js

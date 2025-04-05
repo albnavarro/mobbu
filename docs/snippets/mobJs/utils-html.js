@@ -1,3 +1,3 @@
-import { html } from '../../../src/js/mobjs';
+import { html } from '@mobJs';
 
 html`<div></div>`;

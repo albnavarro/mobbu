@@ -1,6 +1,6 @@
 // './routes/my_route';
 
-import { MobJs, html } from '../../../src/js/mobjs';
+import { MobJs, html } from '@mobJs';
 
 /**
  * Import components definition used in wrapper.

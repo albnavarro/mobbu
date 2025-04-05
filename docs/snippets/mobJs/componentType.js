@@ -16,10 +16,10 @@ export interface MyComponent {
     }
 **/
 
-import { html } from '../../../src/js/mobjs';
+import { html } from '@mobJs';
 
 /**
- * @type {import("../mobjs/type").MobComponent<import('./type').MyComponent>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = () => {
     return html` <div></div> `;

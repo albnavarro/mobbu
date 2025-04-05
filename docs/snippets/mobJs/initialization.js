@@ -1,7 +1,7 @@
 import { routes } from './routes';
 import { wrapper } from './wrapper';
 import { beforePageTransition, pageTransition } from './pageTransition';
-import { MobJs } from '../../../src/js/mobjs';
+import { MobJs } from '@mobJs';
 
 MobJs.inizializeApp({
     /**

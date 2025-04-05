@@ -1,11 +1,11 @@
-import { html, MobJs } from '../../../src/js/mobjs';
+import { html, MobJs } from '@mobJs';
 
 /**
- * @type {import('../../../src/js/mobjs/type').MobComponent<import('./type').MyComponent>}
+ * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount }) => {
     /**
-     * @type {import('./mobjs/type').SetStateByName<import('./otherComponent/type').OtherComponent>}
+     * @type {import('@mobJsType').SetStateByName<import('./otherComponent/type').OtherComponent>}
      */
     const setOtherComponentState = MobJs.setStateByName('otherComponent');
 
