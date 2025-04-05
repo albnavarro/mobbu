@@ -32,6 +32,7 @@
         "src/js/mob/mobCore",
         "src/js/component",
         "src/js/pages",
-        "src/js/wrapper"
+        "src/js/wrapper",
+        "src/js/pageTransition"
     ]
 }

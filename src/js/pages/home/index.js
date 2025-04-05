@@ -1,5 +1,5 @@
+import { html, MobJs } from '@mobJs';
 import { HomeComponent } from '../../component/pages/homepage/definition';
-import { html, MobJs } from '../../mob/mobjs';
 import { loadTextContent } from '../../utils/utils';
 
 MobJs.useComponent([HomeComponent]);

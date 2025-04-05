@@ -15,7 +15,7 @@ import { invalidateIdPlaceHolderMap } from '../../../mob/mobjs/modules/invalidat
 import { invalidateIdHostMap } from '../../../mob/mobjs/modules/invalidate/invalidateIdHostMap';
 import { invalidateFunctionMap } from '../../../mob/mobjs/modules/invalidate/invalidateFunctionMap';
 import { bindPropsMap } from '../../../mob/mobjs/modules/bindProps/bindPropsMap';
-import { MobJs } from '../../../mob/mobjs';
+import { MobJs } from '@mobJs';
 
 export const consoleLogDebug = () => {
     MobJs.mainStore.debugStore();

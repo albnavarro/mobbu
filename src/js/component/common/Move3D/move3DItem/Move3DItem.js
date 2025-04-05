@@ -18,7 +18,7 @@ const getComponent = (component) => {
 };
 
 /**
- * @import { MobComponent} from '../../../../mob/mobjs/type';
+ * @import { MobComponent} from '@mobJsType';
  **/
 
 /** @type{import('./type').Move3DItemMove} */

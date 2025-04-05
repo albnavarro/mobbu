@@ -1,14 +1,14 @@
+import { html, MobJs } from '@mobJs';
 import { DocContainer } from '../../component/common/docsContainer/definition';
 import { DocTitle } from '../../component/common/doctitle/definition';
 import { DocsTitleSmall } from '../../component/common/doctitleSmall/definition';
 import { HtmlContent } from '../../component/common/htmlContent/definition';
-import { html, MobJs } from '../../mob/mobjs';
 import { loadJsonContent } from '../../utils/utils';
 import { getBreadCrumbs } from './utils';
 
 MobJs.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
 
-/** @type{import('../../mob/mobjs/type').PageAsync} */
+/** @type{import('@mobJsType').PageAsync} */
 export const layoutSidebarLinks = async ({ props }) => {
     const { source, title, breadCrumbs } = props;
     const { data } = await loadJsonContent({ source });

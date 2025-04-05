@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 import { Move3DItemfn } from './Move3DItem';
 
 /**
- * @import { CreateComponentParams } from "../../../../mob/mobjs/type";
+ * @import { CreateComponentParams } from "@mobJsType";
  **/
 
 export const Move3DItem = MobJs.createComponent(

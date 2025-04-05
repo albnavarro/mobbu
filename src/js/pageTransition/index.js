@@ -1,5 +1,5 @@
-import { MobJs } from '../mob/mobjs';
-import { MobTimeline, MobMotionCore, MobTween } from '../mob/mobMotion';
+import { MobJs } from '@mobJs';
+import { MobTimeline, MobMotionCore, MobTween } from '@mobMotion';
 
 let scrollY = 0;
 
@@ -14,7 +14,7 @@ export const beforePageTransition = async ({ oldNode }) => {
     oldNode.classList.remove('current-route');
     oldNode.classList.add('fake-content');
     oldNode.style.position = 'fixed';
-    oldNode.style.zIndex = 10;
+    oldNode.style.zIndex = '10';
     oldNode.style.top = 'var(--header-height)';
     oldNode.style.left = '0';
     oldNode.style.width = '100vw';
@@ -34,7 +34,7 @@ export const pageTransition = async ({
 }) => {
     if (MobMotionCore.mq('max', 'desktop') || oldRoute === newRoute) return;
 
-    newNode.style.opacity = 0;
+    /** @type{HTMLElement} */ (newNode).style.opacity = '0';
 
     const oldNodeTween = MobTween.createTimeTween({
         data: { opacity: 1 },
@@ -47,11 +47,11 @@ export const pageTransition = async ({
     });
 
     oldNodeTween.subscribe(({ opacity }) => {
-        oldNode.style.opacity = opacity;
+        /** @type{HTMLElement} */ (oldNode).style.opacity = opacity;
     });
 
     newNodeTween.subscribe(({ opacity }) => {
-        newNode.style.opacity = opacity;
+        /** @type{HTMLElement} */ (newNode).style.opacity = opacity;
     });
 
     let tl = MobTimeline.createAsyncTimeline({ repeat: 1 })
@@ -63,8 +63,9 @@ export const pageTransition = async ({
     await tl.play();
 
     tl.destroy();
+    // @ts-ignore
     tl = null;
 
-    newNode.style.removeProperty('opacity');
-    newNode.classList.add('current-route');
+    /** @type{HTMLElement} */ (newNode).style.removeProperty('opacity');
+    /** @type{HTMLElement} */ (newNode).classList.add('current-route');
 };

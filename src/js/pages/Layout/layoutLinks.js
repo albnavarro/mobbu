@@ -1,10 +1,10 @@
+import { html, MobJs } from '@mobJs';
 import { LayoutLinks } from '../../component/pages/layoutLinks/definition';
-import { html, MobJs } from '../../mob/mobjs';
 import { loadJsonContent } from '../../utils/utils';
 
 MobJs.useComponent([LayoutLinks]);
 
-/** @type{import('../../mob/mobjs/type').PageAsync} */
+/** @type{import('@mobJsType').PageAsync} */
 export const layoutLinksPage = async ({ props }) => {
     const { source } = props;
     const { data } = await loadJsonContent({ source });

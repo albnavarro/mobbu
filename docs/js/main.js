@@ -24563,6 +24563,237 @@
     `;
   };
 
+  // src/js/component/pages/layoutLinks/animation/linksScroller.js
+  var linksScroller = ({
+    screenElement,
+    scrollerElement,
+    hideControls
+  }) => {
+    const scroller = new MobSmoothScroller({
+      screen: screenElement,
+      scroller: scrollerElement,
+      direction: "horizontal",
+      drag: true,
+      easeType: "lerp",
+      breakpoint: "small",
+      afterInit: ({ shouldScroll }) => {
+        hideControls(shouldScroll);
+      },
+      afterRefresh: ({ shouldScroll }) => {
+        hideControls(shouldScroll);
+      }
+    });
+    scroller.init();
+    return {
+      destroy: () => {
+        scroller.destroy();
+      }
+    };
+  };
+
+  // src/js/component/pages/layoutLinks/layoutLinks.js
+  var getCounter = (index) => index < 10 ? `0${index}` : `${index}`;
+  var LayoutLinksFn = ({
+    setRef,
+    getRef,
+    onMount,
+    bindEffect,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    onMount(() => {
+      const { screenElement, scrollerElement } = getRef();
+      const { destroy: destroy2 } = linksScroller({
+        screenElement,
+        scrollerElement,
+        hideControls: (value) => {
+          proxi.showControls = value;
+        }
+      });
+      setTimeout(() => {
+        proxi.isMounted = true;
+      }, 500);
+      return () => {
+        destroy2();
+      };
+    });
+    return renderHtml`<div class="l-links">
+        <div
+            class="l-links__under is-white"
+            ${bindEffect({
+      toggleClass: {
+        "is-visible": () => proxi.isMounted
+      }
+    })}
+        >
+            ${proxi.title}
+        </div>
+        <div class="l-links__grid">
+            <div class="l-links__row l-links__row" ${setRef("screenElement")}>
+                <div class="l-links__row__white">
+                    <h6 class="l-links__over is-black">${proxi.title}</h6>
+                </div>
+                <div class="l-links__title">
+                    <h1 class="title-big">${proxi.title}</h1>
+                </div>
+                <div
+                    class="l-links__scroller"
+                    ${setRef("scrollerElement")}
+                    ${bindEffect({
+      toggleClass: {
+        "use-drag-cursor": () => proxi.showControls
+      }
+    })}
+                >
+                    <ul class="l-links__list">
+                        ${proxi.items.map((item, index) => {
+      return (
+        /* HTML */
+        `
+                                    <li class="l-links__list__item">
+                                        <a
+                                            class="l-links__list__link"
+                                            href="${item.url}"
+                                        >
+                                            <span class="l-links__list__counter"
+                                                >${getCounter(index)}</span
+                                            >
+                                            <h6>${item.title}</h6>
+                                        </a>
+                                    </li>
+                                `
+      );
+    }).join("")}
+                    </ul>
+                </div>
+            </div>
+            <h6
+                class="l-links__scroll"
+                ${bindEffect({
+      toggleClass: {
+        active: () => proxi.showControls
+      }
+    })}
+            >
+                Scroll or drag
+            </h6>
+        </div>
+    </div>`;
+  };
+
+  // src/js/component/pages/layoutLinks/definition.js
+  var LayoutLinks = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<import ('./type').LayoutLinks>} */
+    {
+      name: "layout-links",
+      component: LayoutLinksFn,
+      exportState: ["title", "items"],
+      state: {
+        title: () => ({
+          value: "",
+          type: String
+        }),
+        items: () => ({
+          value: [],
+          type: Array
+        }),
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        }),
+        showControls: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: []
+    }
+  );
+
+  // src/js/utils/utils.js
+  function detectSafari() {
+    const userAgentString = navigator.userAgent;
+    let safariAgent = userAgentString.includes("Safari");
+    const chromeAgent = userAgentString.includes("Chrome");
+    if (chromeAgent && safariAgent) safariAgent = false;
+    return safariAgent;
+  }
+  function detectFirefox() {
+    const userAgentString = navigator.userAgent;
+    let firefixAgent = userAgentString.includes("Firefox");
+    const chromeAgent = userAgentString.includes("Chrome");
+    if (chromeAgent && firefixAgent) firefixAgent = false;
+    return firefixAgent;
+  }
+  function setBrowserClass() {
+    const userAgent = navigator.userAgent;
+    const body = document.body;
+    if (/chrome|chromium|crios/i.test(userAgent)) {
+      body.classList.add("is-chrome");
+      return;
+    }
+    if (/firefox|fxios/i.test(userAgent)) {
+      body.classList.add("is-firefox");
+      return;
+    }
+    if (/safari/i.test(userAgent)) {
+      body.classList.add("is-safari");
+      return;
+    }
+    if (/edg/i.test(userAgent)) {
+      body.classList.add("is-edge");
+      return;
+    }
+  }
+  var loadTextContent = async ({ source }) => {
+    const response = await fetch(source);
+    if (!response.ok) {
+      console.warn(`${source} not found`);
+      return {
+        success: false,
+        data: ""
+      };
+    }
+    const data = await response.text();
+    return {
+      success: true,
+      data
+    };
+  };
+  var loadJsonContent = async ({ source }) => {
+    const response = await fetch(source);
+    if (!response.ok) {
+      console.warn(`${source} not found`);
+      return {
+        success: false,
+        data: ""
+      };
+    }
+    const data = await response.json();
+    return {
+      success: true,
+      data
+    };
+  };
+  function randomIntFromInterval(min2, max2) {
+    return Math.floor(Math.random() * (max2 - min2 + 1) + min2);
+  }
+
+  // src/js/pages/Layout/layoutLinks.js
+  modules_exports2.useComponent([LayoutLinks]);
+  var layoutLinksPage = async ({ props }) => {
+    const { source } = props;
+    const { data } = await loadJsonContent({ source });
+    return renderHtml` <div class="l-links">
+        <layout-links
+            ${modules_exports2.staticProps({
+      title: data.title,
+      items: data.items
+    })}
+        ></layout-links>
+    </div>`;
+  };
+
   // src/js/component/common/docsContainer/docContainer.js
   var DocContainerFn = ({ onMount }) => {
     const setToTopState = modules_exports2.setStateByName("scroll-to-top");
@@ -25392,75 +25623,6 @@
     };
   }
 
-  // src/js/utils/utils.js
-  function detectSafari() {
-    const userAgentString = navigator.userAgent;
-    let safariAgent = userAgentString.includes("Safari");
-    const chromeAgent = userAgentString.includes("Chrome");
-    if (chromeAgent && safariAgent) safariAgent = false;
-    return safariAgent;
-  }
-  function detectFirefox() {
-    const userAgentString = navigator.userAgent;
-    let firefixAgent = userAgentString.includes("Firefox");
-    const chromeAgent = userAgentString.includes("Chrome");
-    if (chromeAgent && firefixAgent) firefixAgent = false;
-    return firefixAgent;
-  }
-  function setBrowserClass() {
-    const userAgent = navigator.userAgent;
-    const body = document.body;
-    if (/chrome|chromium|crios/i.test(userAgent)) {
-      body.classList.add("is-chrome");
-      return;
-    }
-    if (/firefox|fxios/i.test(userAgent)) {
-      body.classList.add("is-firefox");
-      return;
-    }
-    if (/safari/i.test(userAgent)) {
-      body.classList.add("is-safari");
-      return;
-    }
-    if (/edg/i.test(userAgent)) {
-      body.classList.add("is-edge");
-      return;
-    }
-  }
-  var loadTextContent = async ({ source }) => {
-    const response = await fetch(source);
-    if (!response.ok) {
-      console.warn(`${source} not found`);
-      return {
-        success: false,
-        data: ""
-      };
-    }
-    const data = await response.text();
-    return {
-      success: true,
-      data
-    };
-  };
-  var loadJsonContent = async ({ source }) => {
-    const response = await fetch(source);
-    if (!response.ok) {
-      console.warn(`${source} not found`);
-      return {
-        success: false,
-        data: ""
-      };
-    }
-    const data = await response.json();
-    return {
-      success: true,
-      data
-    };
-  };
-  function randomIntFromInterval(min2, max2) {
-    return Math.floor(Math.random() * (max2 - min2 + 1) + min2);
-  }
-
   // src/js/component/common/snippet/snippet.js
   core_default.registerLanguage("javascript", javascript);
   var loadSnippet = async ({ ref, source }) => {
@@ -26105,168 +26267,6 @@ Loading snippet ...</pre
             <doc-title slot="section-title">${title}</doc-title>
         </div>
     </doc-container>`;
-  };
-
-  // src/js/component/pages/layoutLinks/animation/linksScroller.js
-  var linksScroller = ({
-    screenElement,
-    scrollerElement,
-    hideControls
-  }) => {
-    const scroller = new MobSmoothScroller({
-      screen: screenElement,
-      scroller: scrollerElement,
-      direction: "horizontal",
-      drag: true,
-      easeType: "lerp",
-      breakpoint: "small",
-      afterInit: ({ shouldScroll }) => {
-        hideControls(shouldScroll);
-      },
-      afterRefresh: ({ shouldScroll }) => {
-        hideControls(shouldScroll);
-      }
-    });
-    scroller.init();
-    return {
-      destroy: () => {
-        scroller.destroy();
-      }
-    };
-  };
-
-  // src/js/component/pages/layoutLinks/layoutLinks.js
-  var getCounter = (index) => index < 10 ? `0${index}` : `${index}`;
-  var LayoutLinksFn = ({
-    setRef,
-    getRef,
-    onMount,
-    bindEffect,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    onMount(() => {
-      const { screenElement, scrollerElement } = getRef();
-      const { destroy: destroy2 } = linksScroller({
-        screenElement,
-        scrollerElement,
-        hideControls: (value) => {
-          proxi.showControls = value;
-        }
-      });
-      setTimeout(() => {
-        proxi.isMounted = true;
-      }, 500);
-      return () => {
-        destroy2();
-      };
-    });
-    return renderHtml`<div class="l-links">
-        <div
-            class="l-links__under is-white"
-            ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
-      }
-    })}
-        >
-            ${proxi.title}
-        </div>
-        <div class="l-links__grid">
-            <div class="l-links__row l-links__row" ${setRef("screenElement")}>
-                <div class="l-links__row__white">
-                    <h6 class="l-links__over is-black">${proxi.title}</h6>
-                </div>
-                <div class="l-links__title">
-                    <h1 class="title-big">${proxi.title}</h1>
-                </div>
-                <div
-                    class="l-links__scroller"
-                    ${setRef("scrollerElement")}
-                    ${bindEffect({
-      toggleClass: {
-        "use-drag-cursor": () => proxi.showControls
-      }
-    })}
-                >
-                    <ul class="l-links__list">
-                        ${proxi.items.map((item, index) => {
-      return (
-        /* HTML */
-        `
-                                    <li class="l-links__list__item">
-                                        <a
-                                            class="l-links__list__link"
-                                            href="${item.url}"
-                                        >
-                                            <span class="l-links__list__counter"
-                                                >${getCounter(index)}</span
-                                            >
-                                            <h6>${item.title}</h6>
-                                        </a>
-                                    </li>
-                                `
-      );
-    }).join("")}
-                    </ul>
-                </div>
-            </div>
-            <h6
-                class="l-links__scroll"
-                ${bindEffect({
-      toggleClass: {
-        active: () => proxi.showControls
-      }
-    })}
-            >
-                Scroll or drag
-            </h6>
-        </div>
-    </div>`;
-  };
-
-  // src/js/component/pages/layoutLinks/definition.js
-  var LayoutLinks = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<import ('./type').LayoutLinks>} */
-    {
-      name: "layout-links",
-      component: LayoutLinksFn,
-      exportState: ["title", "items"],
-      state: {
-        title: () => ({
-          value: "",
-          type: String
-        }),
-        items: () => ({
-          value: [],
-          type: Array
-        }),
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        }),
-        showControls: () => ({
-          value: false,
-          type: Boolean
-        })
-      },
-      child: []
-    }
-  );
-
-  // src/js/pages/Layout/layoutLinks.js
-  modules_exports2.useComponent([LayoutLinks]);
-  var layoutLinksPage = async ({ props }) => {
-    const { source } = props;
-    const { data } = await loadJsonContent({ source });
-    return renderHtml` <div class="l-links">
-        <layout-links
-            ${modules_exports2.staticProps({
-      title: data.title,
-      items: data.items
-    })}
-        ></layout-links>
-    </div>`;
   };
 
   // src/js/component/pages/about/animation/inspiration.js
@@ -36540,7 +36540,7 @@ Loading snippet ...</pre
     oldNode.classList.remove("current-route");
     oldNode.classList.add("fake-content");
     oldNode.style.position = "fixed";
-    oldNode.style.zIndex = 10;
+    oldNode.style.zIndex = "10";
     oldNode.style.top = "var(--header-height)";
     oldNode.style.left = "0";
     oldNode.style.width = "100vw";
@@ -36554,7 +36554,7 @@ Loading snippet ...</pre
     newRoute
   }) => {
     if (core_exports.mq("max", "desktop") || oldRoute === newRoute) return;
-    newNode.style.opacity = 0;
+    newNode.style.opacity = "0";
     const oldNodeTween = tween_exports.createTimeTween({
       data: { opacity: 1 },
       duration: 300

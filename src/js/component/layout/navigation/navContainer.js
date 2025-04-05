@@ -67,7 +67,7 @@ const toTopBtnHandler = () => {
     if (!navigationIsOpen) MobBodyScroll.to(0);
 };
 
-/** @type {import('../../../mob/mobjs/type').MobComponent<import('./type').NavigationContainer>} */
+/** @type {import('@mobJsType').MobComponent<import('./type').NavigationContainer>} */
 export const NavigationContainerFn = ({
     onMount,
     addMethod,

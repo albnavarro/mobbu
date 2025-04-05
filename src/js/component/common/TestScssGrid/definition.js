@@ -3,7 +3,7 @@ import { MobJs } from '@mobJs';
 import { TestScssGridFn } from './TestScssGrid';
 
 /**
- * @import { CreateComponentParams } from "../../../mob/mobjs/type";
+ * @import { CreateComponentParams } from "@mobJsType";
  **/
 
 export const TestScssGrid = MobJs.createComponent(

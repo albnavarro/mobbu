@@ -1,8 +1,8 @@
 // @ts-check
 import { pageNotFound } from './404';
+import { layoutLinksPage } from './Layout/layoutLinks';
 import { layoutSidebarAnchor } from './Layout/layoutSidebarAnchor';
 import { layoutSidebarLinks } from './Layout/layoutSidebarLinks';
-import { layoutLinksPage } from './Layout/layoutLinks';
 import { layoutAbout } from './about/layoutAbout';
 import { benchMark } from './benchmark';
 import { animatedPatternN0 } from './canvas/animatedPatternN0';
@@ -56,7 +56,7 @@ const mobMotionOverviewBreadCrumbs = [
 ];
 
 /**
- * @type {import('../mob/mobjs/type').Route[]}
+ * @type {import('@mobJsType').Route[]}
  */
 export const routes = [
     {

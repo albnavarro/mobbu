@@ -107,7 +107,7 @@ const hideNav = ({ nav }) => {
  * @param {HTMLElement[]} params.titles
  * @param {HTMLElement} params.nav
  * @param {boolean} params.animatePin
- * @param {import('../../../../mob/mobjs/type').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
+ * @param {import('@mobJsType').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
  * @param {HTMLElement} params.rootRef
  */
 export const horizontalScrollerAnimation = ({

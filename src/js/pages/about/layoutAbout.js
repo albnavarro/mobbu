@@ -1,10 +1,10 @@
+import { html, MobJs } from '@mobJs';
 import { AboutComponent } from '../../component/pages/about/definition';
-import { html, MobJs } from '../../mob/mobjs';
 import { loadJsonContent, loadTextContent } from '../../utils/utils';
 
 MobJs.useComponent([AboutComponent]);
 
-/** @type{import('../../mob/mobjs/type').PageAsync} */
+/** @type{import('@mobJsType').PageAsync} */
 export const layoutAbout = async () => {
     const { data } = await loadJsonContent({
         source: './data/about/index.json',

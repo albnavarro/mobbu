@@ -1,7 +1,7 @@
+import { html, MobJs } from '@mobJs';
 import { AnyComponent } from '../../../component/common/AnyComponent/definition';
 import { Move3D } from '../../../component/common/Move3D/definition';
 import { updateQuickNavState } from '../../../component/common/quickNav/utils';
-import { html, MobJs } from '../../../mob/mobjs';
 import { parseSvg } from '../../../utils/parseSvg';
 import { loadTextContent } from '../../../utils/utils';
 import { getLettering01 } from './lettering01Data';

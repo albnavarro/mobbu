@@ -5,7 +5,7 @@ import { DebugHeadFn } from './debugHead';
 import { DebugSearch } from './DebugSearch/definition';
 
 /**
- * @import { CreateComponentParams } from "../../../../../mob/mobjs/type";
+ * @import { CreateComponentParams } from "@mobJsType";
  **/
 
 export const DebugHead = MobJs.createComponent(
