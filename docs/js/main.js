@@ -21116,6 +21116,75 @@
     `;
   };
 
+  // src/js/utils/utils.js
+  function detectSafari() {
+    const userAgentString = navigator.userAgent;
+    let safariAgent = userAgentString.includes("Safari");
+    const chromeAgent = userAgentString.includes("Chrome");
+    if (chromeAgent && safariAgent) safariAgent = false;
+    return safariAgent;
+  }
+  function detectFirefox() {
+    const userAgentString = navigator.userAgent;
+    let firefixAgent = userAgentString.includes("Firefox");
+    const chromeAgent = userAgentString.includes("Chrome");
+    if (chromeAgent && firefixAgent) firefixAgent = false;
+    return firefixAgent;
+  }
+  function setBrowserClass() {
+    const userAgent = navigator.userAgent;
+    const body = document.body;
+    if (/chrome|chromium|crios/i.test(userAgent)) {
+      body.classList.add("is-chrome");
+      return;
+    }
+    if (/firefox|fxios/i.test(userAgent)) {
+      body.classList.add("is-firefox");
+      return;
+    }
+    if (/safari/i.test(userAgent)) {
+      body.classList.add("is-safari");
+      return;
+    }
+    if (/edg/i.test(userAgent)) {
+      body.classList.add("is-edge");
+      return;
+    }
+  }
+  var loadTextContent = async ({ source }) => {
+    const response = await fetch(source);
+    if (!response.ok) {
+      console.warn(`${source} not found`);
+      return {
+        success: false,
+        data: ""
+      };
+    }
+    const data = await response.text();
+    return {
+      success: true,
+      data
+    };
+  };
+  var loadJsonContent = async ({ source }) => {
+    const response = await fetch(source);
+    if (!response.ok) {
+      console.warn(`${source} not found`);
+      return {
+        success: false,
+        data: ""
+      };
+    }
+    const data = await response.json();
+    return {
+      success: true,
+      data
+    };
+  };
+  function randomIntFromInterval(min2, max2) {
+    return Math.floor(Math.random() * (max2 - min2 + 1) + min2);
+  }
+
   // src/js/mob/mobMotion/plugin/pageScroll/pageScroller.js
   var isActive = false;
   var lastScrollValue = window.scrollY;
@@ -23574,75 +23643,6 @@
       child: []
     }
   );
-
-  // src/js/utils/utils.js
-  function detectSafari() {
-    const userAgentString = navigator.userAgent;
-    let safariAgent = userAgentString.includes("Safari");
-    const chromeAgent = userAgentString.includes("Chrome");
-    if (chromeAgent && safariAgent) safariAgent = false;
-    return safariAgent;
-  }
-  function detectFirefox() {
-    const userAgentString = navigator.userAgent;
-    let firefixAgent = userAgentString.includes("Firefox");
-    const chromeAgent = userAgentString.includes("Chrome");
-    if (chromeAgent && firefixAgent) firefixAgent = false;
-    return firefixAgent;
-  }
-  function setBrowserClass() {
-    const userAgent = navigator.userAgent;
-    const body = document.body;
-    if (/chrome|chromium|crios/i.test(userAgent)) {
-      body.classList.add("is-chrome");
-      return;
-    }
-    if (/firefox|fxios/i.test(userAgent)) {
-      body.classList.add("is-firefox");
-      return;
-    }
-    if (/safari/i.test(userAgent)) {
-      body.classList.add("is-safari");
-      return;
-    }
-    if (/edg/i.test(userAgent)) {
-      body.classList.add("is-edge");
-      return;
-    }
-  }
-  var loadTextContent = async ({ source }) => {
-    const response = await fetch(source);
-    if (!response.ok) {
-      console.warn(`${source} not found`);
-      return {
-        success: false,
-        data: ""
-      };
-    }
-    const data = await response.text();
-    return {
-      success: true,
-      data
-    };
-  };
-  var loadJsonContent = async ({ source }) => {
-    const response = await fetch(source);
-    if (!response.ok) {
-      console.warn(`${source} not found`);
-      return {
-        success: false,
-        data: ""
-      };
-    }
-    const data = await response.json();
-    return {
-      success: true,
-      data
-    };
-  };
-  function randomIntFromInterval(min2, max2) {
-    return Math.floor(Math.random() * (max2 - min2 + 1) + min2);
-  }
 
   // src/js/pages/Layout/layoutLinks.js
   modules_exports2.useComponent([LayoutLinks]);

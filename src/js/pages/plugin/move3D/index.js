@@ -1,7 +1,7 @@
+import { updateQuickNavState } from '@commonComponent/quickNav/utils';
+import { StarSvg } from '@commonComponent/SvgShape/Star/definition';
 import { html, MobJs } from '@mobJs';
-import { updateQuickNavState } from '../../../component/common/quickNav/utils';
-import { StarSvg } from '../../../component/common/SvgShape/Star/definition';
-import { Move3DPage } from '../../../component/pages/move3D/definition';
+import { Move3DPage } from '@pagesComponent/move3D/definition';
 
 MobJs.useComponent([Move3DPage, StarSvg]);
 

@@ -1,5 +1,5 @@
 import { html, MobJs } from '@mobJs';
-import { DynamicList } from '../../component/pages/dynamicList/definition';
+import { DynamicList } from '@pagesComponent/dynamicList/definition';
 
 MobJs.useComponent([DynamicList]);
 

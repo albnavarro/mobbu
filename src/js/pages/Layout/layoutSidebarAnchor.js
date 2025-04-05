@@ -1,9 +1,9 @@
+import { DocContainer } from '@commonComponent/docsContainer/definition';
+import { DocTitle } from '@commonComponent/doctitle/definition';
+import { DocsTitleSmall } from '@commonComponent/doctitleSmall/definition';
+import { HtmlContent } from '@commonComponent/htmlContent/definition';
+import { ScrollTo } from '@commonComponent/scrollTo/definition';
 import { html, MobJs } from '@mobJs';
-import { DocContainer } from '../../component/common/docsContainer/definition';
-import { DocTitle } from '../../component/common/doctitle/definition';
-import { DocsTitleSmall } from '../../component/common/doctitleSmall/definition';
-import { HtmlContent } from '../../component/common/htmlContent/definition';
-import { ScrollTo } from '../../component/common/scrollTo/definition';
 import { loadJsonContent } from '../../utils/utils';
 import { getBreadCrumbs } from './utils';
 

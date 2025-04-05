@@ -1,10 +1,10 @@
 import { html, MobJs } from '@mobJs';
-import { BenchMarkInvalidate } from '../../component/pages/benchMark/invalidate/definition';
-import { BenchMarkRepeatWithKey } from '../../component/pages/benchMark/repeatKey/definition';
-import { BenchMarkRepeatWithKeyNested } from '../../component/pages/benchMark/repeatKeyNested/definition';
-import { BenchMarkRepeatNoKey } from '../../component/pages/benchMark/repeatNoKey/definition';
-import { BenchMarkRepeatNoKeyBindStore } from '../../component/pages/benchMark/repeatNoKeyBindStore/definition';
-import { BenchMarkRepeatWithNoKeyNested } from '../../component/pages/benchMark/repeatNoKeyKeyNested/definition';
+import { BenchMarkInvalidate } from '@pagesComponent/benchMark/invalidate/definition';
+import { BenchMarkRepeatWithKey } from '@pagesComponent/benchMark/repeatKey/definition';
+import { BenchMarkRepeatWithKeyNested } from '@pagesComponent/benchMark/repeatKeyNested/definition';
+import { BenchMarkRepeatNoKey } from '@pagesComponent/benchMark/repeatNoKey/definition';
+import { BenchMarkRepeatNoKeyBindStore } from '@pagesComponent/benchMark/repeatNoKeyBindStore/definition';
+import { BenchMarkRepeatWithNoKeyNested } from '@pagesComponent/benchMark/repeatNoKeyKeyNested/definition';
 
 MobJs.useComponent([
     BenchMarkInvalidate,

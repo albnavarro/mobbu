@@ -1,5 +1,5 @@
 import { html, MobJs } from '@mobJs';
-import { Matrioska } from '../../component/pages/matrioska/definition';
+import { Matrioska } from '@pagesComponent/matrioska/definition';
 
 MobJs.useComponent([Matrioska]);
 

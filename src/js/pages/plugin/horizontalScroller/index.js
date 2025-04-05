@@ -1,6 +1,6 @@
+import { updateQuickNavState } from '@commonComponent/quickNav/utils';
 import { html, MobJs } from '@mobJs';
-import { updateQuickNavState } from '../../../component/common/quickNav/utils';
-import { HorizontalScroller } from '../../../component/pages/horizontalScroller/definition';
+import { HorizontalScroller } from '@pagesComponent/horizontalScroller/definition';
 
 MobJs.useComponent([HorizontalScroller]);
 
