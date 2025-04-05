@@ -9,7 +9,7 @@ import { html, MobJs } from '@mobJs';
 import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 // @ts-ignore
 import githubIcon from '../../../../svg/icon-github.svg';
-import { getCommonData } from '../../../data';
+import { getCommonData } from '@data/index';
 
 /** @type{Record<string, any>} */
 const icon = {

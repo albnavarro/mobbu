@@ -6,9 +6,9 @@
  **/
 
 import { verticalScroller } from '@componentLibs/animation/verticalScroller';
+import { getCommonData } from '@data/index';
 import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { html, MobJs } from '@mobJs';
-import { getCommonData } from '../../../data';
 import {
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_TRAVERSAL_MOBJS,

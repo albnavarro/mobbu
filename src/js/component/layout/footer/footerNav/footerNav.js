@@ -6,7 +6,7 @@
 
 import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { html, MobJs } from '@mobJs';
-import { getCommonData } from '../../../../data';
+import { getCommonData } from '@data/index';
 
 /**
  * @param {object} params

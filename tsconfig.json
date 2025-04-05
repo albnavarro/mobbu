@@ -16,19 +16,31 @@
         "target": "ESNext",
         "baseUrl": ".",
         "paths": {
+            // mobCore
             "@mobCore": ["./src/js/mob/mobCore"],
             "@mobStoreType": ["./src/js/mob/mobCore/store/type"],
             "@mobCoreUtils": ["./src/js/mob/mobCore/utils"],
+
+            // mobJs
             "@mobJs": ["./src/js/mob/mobjs"],
             "@mobJsType": ["./src/js/mob/mobjs/type"],
+
+            // mobMotion
             "@mobMotion": ["./src/js/mob/mobMotion"],
             "@mobMotionType": ["./src/js/mob/mobMotion/type"],
             "@mobMotionPlugin": ["./src/js/mob/mobMotion/plugin"],
+
+            // components
             "@commonComponent/*": ["./src/js/component/common/*"],
             "@layoutComponent/*": ["./src/js/component/layout/*"],
             "@pagesComponent/*": ["./src/js/component/pages/*"],
             "@componentLibs/*": ["./src/js/component/lib/*"],
-            "@utils/*": ["./src/js/utils/*"]
+
+            // utils
+            "@utils/*": ["./src/js/utils/*"],
+
+            // add data
+            "@data/*": ["./src/js/data/*"]
         }
     },
     "ts-node": { "esm": true },

@@ -6,7 +6,7 @@
  **/
 
 import { html } from '@mobJs';
-import { getCommonData } from '../../../data';
+import { getCommonData } from '@data/index';
 
 /**
  * @description
