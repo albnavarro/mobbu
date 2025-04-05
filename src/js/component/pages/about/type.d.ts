@@ -6,7 +6,7 @@ import {
     MobSequencer,
     MobSpring,
     MobTimeTween,
-} from '../../../mob/mobMotion/type';
+} from '@mobMotionType';
 
 export interface About {
     state: {

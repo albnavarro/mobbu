@@ -51,7 +51,7 @@ const createPins = ({ indicators, setState }) => {
 
 /**
  * @param {object} params
- * @param {import( '../../../../mob/mobMotion/type').MobScroller[]} params.pins
+ * @param {import( '@mobMotionType').MobScroller[]} params.pins
  */
 const refreshPins = ({ pins }) => {
     pins.forEach((pin) => pin.refresh());
@@ -60,7 +60,7 @@ const refreshPins = ({ pins }) => {
 /**
  * @param {object} params
  * @param {HTMLElement[]} params.titles
- * @returns {import( '../../../../mob/mobMotion/type').MobScroller[]}
+ * @returns {import( '@mobMotionType').MobScroller[]}
  */
 const createParallax = ({ titles }) => {
     return [...titles].map((title) => {
