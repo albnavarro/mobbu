@@ -1,5 +1,8 @@
 // @ts-nocheck
 
+// https://github.com/sverweij/dependency-cruiser
+// npx depcruise src
+
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import js from '@eslint/js';

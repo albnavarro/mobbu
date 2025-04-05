@@ -1,7 +1,7 @@
-import { mobStore } from '../mob/mobCore/store/mobStore.js';
+import { MobCore } from '../mob/mobCore';
 
 export const initTestMapStore = async () => {
-    const test = mobStore({
+    const test = MobCore.createStore({
         prop1: () => ({
             value: 30,
             type: Number,
