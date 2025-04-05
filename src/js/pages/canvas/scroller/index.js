@@ -25,9 +25,12 @@ export const scrollerN0 = ({ params }) => {
 
     return html`<div>
         <scroller-n0
-            ${MobJs.staticProps({
-                ...props.animation,
-            })}
+            ${MobJs.staticProps(
+                /** @type{import('@pagesComponent/scroller/ScrollerN0/type').ScrollerN0['state']} */
+                ({
+                    ...props.animation,
+                })
+            )}
         ></scroller-n0>
     </div>`;
 };

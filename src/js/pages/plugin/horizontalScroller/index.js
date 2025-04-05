@@ -17,9 +17,12 @@ export const horizontalScroller = async () => {
 
     return html`<div>
         <horizontal-scroller
-            ${MobJs.staticProps({
-                animatePin: false,
-            })}
+            ${MobJs.staticProps(
+                /** @type{import('@pagesComponent/horizontalScroller/type').HorizontalScroller['state']} */
+                ({
+                    animatePin: false,
+                })
+            )}
         ></horizontal-scroller>
     </div>`;
 };

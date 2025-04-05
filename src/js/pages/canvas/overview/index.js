@@ -22,10 +22,13 @@ export const canvas_overview = async () => {
     return html` <doc-container>
         <html-content
             slot="docs"
-            ${MobJs.staticProps({
-                data: data.data,
-                useMaxWidth: true,
-            })}
+            ${MobJs.staticProps(
+                /** @type{import('@commonComponent/htmlContent/type').HtmlContent['state']} */
+                ({
+                    data: data.data,
+                    useMaxWidth: true,
+                })
+            )}
         ></html-content>
         <doc-title-small slot="section-title-small">Canvas </doc-title-small>
         <scroll-to name="scrollTo" slot="section-links"></scroll-to>

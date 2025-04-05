@@ -28,9 +28,12 @@ export const animatedPatternN0 = ({ params }) => {
 
     return html`<div class="l-padding">
         <animatedpattern-n0
-            ${MobJs.staticProps({
-                ...props.animation,
-            })}
+            ${MobJs.staticProps(
+                /** @type{import('@pagesComponent/animatedPattern/animatedPatternN0/type').AnimatedPatternN0['state']} */
+                ({
+                    ...props.animation,
+                })
+            )}
         ></animatedpattern-n0>
     </div>`;
 };

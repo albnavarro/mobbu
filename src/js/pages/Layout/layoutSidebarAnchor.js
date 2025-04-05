@@ -24,10 +24,13 @@ export const layoutSidebarAnchor = async ({ props }) => {
         <div>
             <html-content
                 slot="docs"
-                ${MobJs.staticProps({
-                    data: data.data,
-                    useMaxWidth: true,
-                })}
+                ${MobJs.staticProps(
+                    /** @type{import('@commonComponent/htmlContent/type').HtmlContent['state']} */
+                    ({
+                        data: data.data,
+                        useMaxWidth: true,
+                    })
+                )}
             ></html-content>
             <doc-title-small slot="section-title-small"
                 ><div>

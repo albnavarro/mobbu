@@ -11,10 +11,13 @@ export const layoutLinksPage = async ({ props }) => {
 
     return html` <div class="l-links">
         <layout-links
-            ${MobJs.staticProps({
-                title: data.title,
-                items: data.items,
-            })}
+            ${MobJs.staticProps(
+                /** @type{import('@pagesComponent/layoutLinks/type').LayoutLinks['state']} */
+                ({
+                    title: data.title,
+                    items: data.items,
+                })
+            )}
         ></layout-links>
     </div>`;
 };

@@ -11,9 +11,12 @@ export const home = async () => {
 
     return html`
         <home-component
-            ${MobJs.staticProps({
-                svg,
-            })}
+            ${MobJs.staticProps(
+                /** @type{import('@pagesComponent/homepage/type').HomeComponent['state']} */
+                ({
+                    svg,
+                })
+            )}
         ></home-component>
     `;
 };

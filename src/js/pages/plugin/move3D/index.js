@@ -18,5 +18,10 @@ export const move3DRoute = async ({ props }) => {
         color: 'white',
     });
 
-    return html`<move-3d-page ${MobJs.staticProps({ data })}></move-3d-page> `;
+    return html`<move-3d-page
+        ${MobJs.staticProps(
+            /** @type{import('@pagesComponent/move3D/type').Move3DPage['state']} */
+            ({ data })
+        )}
+    ></move-3d-page> `;
 };

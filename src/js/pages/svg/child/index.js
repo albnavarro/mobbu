@@ -14,6 +14,11 @@ export const child = async () => {
     });
 
     return html`<div>
-        <svg-child ${MobJs.staticProps({ svg, star })}></svg-child>
+        <svg-child
+            ${MobJs.staticProps(
+                /** @type{import('@pagesComponent/svg/child/type').SvgChild['state']} */
+                ({ svg, star })
+            )}
+        ></svg-child>
     </div>`;
 };

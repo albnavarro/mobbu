@@ -58,7 +58,7 @@ export const lettering01 = async () => {
     return html`<div class="l-lettering01">
         <move-3d
             ${MobJs.staticProps(
-                /** @type{import('../../../component/common/Move3D/type').Move3D['state']} */ ({
+                /** @type{import('@commonComponent/Move3D/type').Move3D['state']} */ ({
                     shape: getLettering01({
                         letter_d,
                         letter_r,
