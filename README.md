@@ -8,7 +8,7 @@ https://albnavarro.github.io/mobbu/
 
 
 ## Node version:
-up to 22
+v23.5.0
 
 ## Installing:
 npm i

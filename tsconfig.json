@@ -1,9 +1,9 @@
-// https://github.com/Artxe2/jsdoc-subpkg-example
-// https://dev.to/artxe2/how-to-set-up-jsdoc-for-npm-packages-1jm1
-//"lib": ["ES2023", "DOM", "DOM.Iterable"],
-
 {
     "compilerOptions": {
+        "types": [
+            // ... your other types
+            "node"
+        ],
         "allowSyntheticDefaultImports": true,
         "checkJs": true,
         "lib": ["ESNext", "DOM", "DOM.Iterable"],
