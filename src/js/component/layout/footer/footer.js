@@ -1,7 +1,7 @@
 //@ts-check
 
+import { consoleLogDebug } from '@commonComponent/debug/consoleLog';
 import { html, MobJs } from '@mobJs';
-import { consoleLogDebug } from '../../common/debug/consoleLog';
 
 /**
  * @import { MobComponent, UseMethodByName } from '@mobJsType'

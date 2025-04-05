@@ -4,8 +4,8 @@
  * @import { MobComponent, UseMethodByName } from '@mobJsType';
  **/
 
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { html, MobJs } from '@mobJs';
-import { navigationStore } from '../navigation/store/navStore';
 
 function titleHandler() {
     MobJs.loadUrl({ url: '#home' });

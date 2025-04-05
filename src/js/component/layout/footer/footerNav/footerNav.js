@@ -4,9 +4,9 @@
  * @import { DelegateEvents, MobComponent, StaticProps } from '@mobJsType';
  **/
 
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { html, MobJs } from '@mobJs';
 import { getCommonData } from '../../../../data';
-import { navigationStore } from '../../navigation/store/navStore';
 
 /**
  * @param {object} params

@@ -1,13 +1,13 @@
 //@ts-check
 
+import { Loader } from '@commonComponent/loader/definition';
+import { Snippet } from '@commonComponent/snippet/definition';
+import { SpacerAnchor } from '@commonComponent/spacerAnchor/definition';
+import { AnchorButton } from '@commonComponent/typography/AnchorButton/definition';
+import { List } from '@commonComponent/typography/list/definition';
+import { Paragraph } from '@commonComponent/typography/paragraph/definition';
+import { Title } from '@commonComponent/typography/titles/definition';
 import { MobJs } from '@mobJs';
-import { Loader } from '../loader/definition';
-import { Snippet } from '../snippet/definition';
-import { SpacerAnchor } from '../spacerAnchor/definition';
-import { AnchorButton } from '../typography/AnchorButton/definition';
-import { List } from '../typography/list/definition';
-import { Paragraph } from '../typography/paragraph/definition';
-import { Title } from '../typography/titles/definition';
 import { HtmlContentFn } from './htmlContent';
 
 /**

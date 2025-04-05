@@ -35702,24 +35702,6 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/component/common/debug/debugButton.js
-  var DebugButtonFn = () => {
-    return renderHtml`
-        <button type="button" class="c-btn-debug">
-            <mobjs-slot></mobjs-slot>
-        </button>
-    `;
-  };
-
-  // src/js/component/common/debug/definition.js
-  var DebugButton = modules_exports2.createComponent(
-    /** @type{CreateComponentParams<any>} */
-    {
-      name: "debug-button",
-      component: DebugButtonFn
-    }
-  );
-
   // src/js/component/layout/footer/footer.js
   var FooterFn = ({ delegateEvents }) => {
     return renderHtml`
@@ -35829,6 +35811,24 @@ Loading snippet ...</pre
     component: FooterNavFn,
     child: [FooterNavButton]
   });
+
+  // src/js/component/common/debug/debugButton.js
+  var DebugButtonFn = () => {
+    return renderHtml`
+        <button type="button" class="c-btn-debug">
+            <mobjs-slot></mobjs-slot>
+        </button>
+    `;
+  };
+
+  // src/js/component/common/debug/definition.js
+  var DebugButton = modules_exports2.createComponent(
+    /** @type{CreateComponentParams<any>} */
+    {
+      name: "debug-button",
+      component: DebugButtonFn
+    }
+  );
 
   // src/js/component/layout/footer/definition.js
   var Footer = modules_exports2.createComponent(

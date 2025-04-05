@@ -7,7 +7,7 @@
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
-import { canvasBackground } from '../../../../utils/canvasUtils';
+import { canvasBackground } from '@utils/canvasUtils';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,

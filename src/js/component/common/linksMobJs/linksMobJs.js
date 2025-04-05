@@ -5,14 +5,14 @@
  * @import { LinksMobJs, LinksMobJsButton } from './type';
  **/
 
+import { verticalScroller } from '@componentLibs/animation/verticalScroller';
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { html, MobJs } from '@mobJs';
 import { getCommonData } from '../../../data';
 import {
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_TRAVERSAL_MOBJS,
 } from '../../../pages';
-import { navigationStore } from '../../layout/navigation/store/navStore';
-import { verticalScroller } from '../../lib/animation/verticalScroller';
 
 /**
  * @param {object} param

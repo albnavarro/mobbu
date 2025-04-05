@@ -14,7 +14,7 @@ import {
 /**
  * @param {object} params
  * @param {any} params.value
- * @param {import('../../../../../mob/mobMotion/animation/utils/timeline/type').DirectionType} params.direction
+ * @param {import('src/js/mob/mobMotion/animation/utils/timeline/type').DirectionType} params.direction
  * @param {boolean} params.isForced
  */
 const logAddMethods = ({ value, direction, isForced }) => {

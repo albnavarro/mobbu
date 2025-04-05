@@ -1,8 +1,8 @@
 // @ts-check
 
+import { verticalScroller } from '@componentLibs/animation/verticalScroller';
 import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
-import { verticalScroller } from '../../../../../lib/animation/verticalScroller';
 
 /**
  * @import { MobComponent, ReturnBindProps } from '@mobJsType';

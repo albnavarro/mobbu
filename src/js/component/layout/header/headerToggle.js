@@ -4,8 +4,8 @@
  * @import { MobComponent } from '@mobJsType';
  **/
 
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { html } from '@mobJs';
-import { navigationStore } from '../navigation/store/navStore';
 
 /** @type {MobComponent<import('./type').HeaderToggle>} */
 export const HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {

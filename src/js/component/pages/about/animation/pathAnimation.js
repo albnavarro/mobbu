@@ -3,7 +3,7 @@
 import { MobCore } from '@mobCore';
 import { outerWidth } from '@mobCoreUtils';
 import { MobScroll, MobTimeline, MobTween } from '@mobMotion';
-import { randomIntFromInterval } from '../../../../utils/utils';
+import { randomIntFromInterval } from '@utils/utils';
 
 /** @type{import('../type').CreatePathAnimation} */
 export const createPathAnimation = ({

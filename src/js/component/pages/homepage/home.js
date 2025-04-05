@@ -5,8 +5,8 @@
  * @import { HomeComponent } from './type';
  **/
 
+import { simpleIntroAnimation } from '@componentLibs/animation/simpleIntro';
 import { html } from '@mobJs';
-import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
 
 /**
  * @param {object} params

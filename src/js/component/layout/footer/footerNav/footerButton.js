@@ -5,8 +5,8 @@
  * @import { FooterNavButton } from './type';
  **/
 
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { html } from '@mobJs';
-import { navigationStore } from '../../navigation/store/navStore';
 
 /** @type {MobComponent<FooterNavButton>} */
 export const FooterNavButtonFn = ({ getProxi, bindEffect }) => {

@@ -1,9 +1,9 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DebugButton } from '../../common/debug/definition';
 import { FooterFn } from './footer';
 import { FooterNav } from './footerNav/definition';
+import { DebugButton } from '@commonComponent/debug/definition';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

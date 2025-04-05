@@ -1,7 +1,7 @@
 //@ts-check
 
+import { Move3D } from '@commonComponent/Move3D/definition';
 import { MobJs } from '@mobJs';
-import { Move3D } from '../../common/Move3D/definition';
 import { Move3DPagefn } from './move3DPage';
 
 /**

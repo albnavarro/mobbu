@@ -4,8 +4,8 @@
  * @import { GetRef, GetState, MobComponent } from '@mobJsType';
  **/
 
+import { verticalScroller } from '@componentLibs/animation/verticalScroller';
 import { html, MobJs } from '@mobJs';
-import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '../Store/DebugActiveComponent';
 

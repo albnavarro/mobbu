@@ -1,8 +1,8 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { OnlyDesktopFn } from './onlyDesktop';
 import { MobMotionCore } from '@mobMotion';
+import { OnlyDesktopFn } from './onlyDesktop';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

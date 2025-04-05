@@ -1,7 +1,7 @@
 //@ts-check
 
+import { getTrinangle } from '@componentLibs/utils/getTriangle';
 import { html } from '@mobJs';
-import { getTrinangle } from '../../../lib/utils/getTriangle';
 
 /**
  * @param {string} tag

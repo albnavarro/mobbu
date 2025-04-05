@@ -1,4 +1,4 @@
-import { StaggerObject } from '../../../../mobMotion/animation/utils/stagger/type';
+import { StaggerObject } from 'src/js/mob/mobMotion/animation/utils/stagger/type';
 
 export interface AnimatedPatternN0 {
     state: {

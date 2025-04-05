@@ -2,8 +2,8 @@
  * @import { MobComponent } from '@mobJsType';
  **/
 
+import { verticalScroller } from '@componentLibs/animation/verticalScroller';
 import { html, MobJs } from '@mobJs';
-import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { generateTreeComponents } from './recursiveTree';
 
 /** @type{import('../DebugFilter/DebugFilterList/type').DebugInitScroller} */

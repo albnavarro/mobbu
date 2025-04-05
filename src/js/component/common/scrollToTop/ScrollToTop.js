@@ -1,8 +1,8 @@
 //@ts-check
 
+import { navigationStore } from '@layoutComponent/navigation/store/navStore';
 import { html } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';
-import { navigationStore } from '../../layout/navigation/store/navStore';
 import { Triangles } from './triangles';
 
 /**

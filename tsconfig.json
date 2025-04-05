@@ -27,6 +27,7 @@
             "@commonComponent/*": ["./src/js/component/common/*"],
             "@layoutComponent/*": ["./src/js/component/layout/*"],
             "@pagesComponent/*": ["./src/js/component/pages/*"],
+            "@componentLibs/*": ["./src/js/component/lib/*"],
             "@utils/*": ["./src/js/utils/*"]
         }
     },
