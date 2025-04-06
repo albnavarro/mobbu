@@ -3,6 +3,10 @@ import { ChildComponent1 } from '../childComponent1';
 import { ChildComponent2 } from '../childComponent2';
 import { MyComponentFn } from '../myComponent';
 
+/**
+ * @import { CreateComponentParams } from "@mobJsType";
+ **/
+
 export const MyComponent = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').MyComponent>} */
     ({
