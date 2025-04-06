@@ -10,7 +10,16 @@ import { defineBindObjectComponent } from '../webComponent/bindObject';
 /**
  * @type {{[key:string]:import('../mainStore/type').ComponentListMap}}
  */
-export let componentListMap = {};
+let componentListMap = {};
+
+/**
+ * @description
+ *
+ * @returns {{[key:string]:import('../mainStore/type').ComponentListMap}}
+ */
+export const getComponentList = () => {
+    return componentListMap;
+};
 
 /**
  * @type {Set<import('../type').CreateComponentReturnType>}

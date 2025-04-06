@@ -51,6 +51,7 @@ export default defineConfig([
             'unicorn/no-keyword-prefix': 'off',
             'import/no-unresolved': 'off',
             'import/no-cycle': 'error',
+            'import/no-mutable-exports': 'error',
             '@typescript-eslint/no-explicit-any': 'off',
             '@typescript-eslint/ban-ts-comment': 'off',
             '@typescript-eslint/no-empty-function': 'off',

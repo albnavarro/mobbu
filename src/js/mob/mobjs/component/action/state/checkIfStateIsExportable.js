@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getComponentList } from '../../getComponentList';
+import { getComponentList } from '../../componentList';
 
 /**
  * @param {object} obj

@@ -2,7 +2,6 @@
 
 import { setElementById } from '../component/action/element';
 import { convertToRealElement } from './steps/convertToRealElement';
-import { getComponentList } from '../component/getComponentList';
 import { getDefaultComponent } from '../component/createComponent';
 import {
     getCurrentIterationCounter,
@@ -32,6 +31,7 @@ import { useSlotQuery } from './useQuery';
 import { switchBindTextMap } from '../modules/bindtext';
 import { switchBindObjectMap } from '../modules/bindObject';
 import { applyBindEffect } from '../modules/bindEffect';
+import { getComponentList } from '../component/componentList';
 
 /**
  * @param {object} obj
