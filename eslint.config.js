@@ -43,7 +43,6 @@ export default defineConfig([
             'unicorn/template-indent': 'off',
             'unicorn/filename-case': 'off',
             'unicorn/prevent-abbreviations': 'off',
-            'unicorn/prefer-top-level-await': 'off',
             'unicorn/no-array-for-each': 'off',
             'unicorn/no-array-reduce': 'off',
             'unicorn/no-null': 'off',
