@@ -1,6 +1,7 @@
 # MobCore
 
 ### eslint:
+- Valutare: `unicorn/no-array-for-each': 'off'` `--fix` sembra funzionare in maniera corretta.
 - Aggiungere https://github.com/gajus/eslint-plugin-jsdoc
 - Valutare per ora solo a livello di store https://github.com/eslint-functional/eslint-plugin-functional
 
