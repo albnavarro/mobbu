@@ -5,7 +5,7 @@
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
 import { aboutAnimation } from './animation';
-import { aboutSvgAnimation } from './animation/svgAnimation';
+import { aboutSvgAnimation } from './animation/svg-animation';
 
 /** @type{(value: number) => void} */
 let _goTo = () => {};

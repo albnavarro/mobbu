@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { SpacerAnchorFn } from './spacerAnchor';
+import { SpacerAnchorFn } from './spacer-anchor';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

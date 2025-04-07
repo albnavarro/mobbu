@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { AnyComponentFn } from './AnyComponent';
+import { AnyComponentFn } from './any-component';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

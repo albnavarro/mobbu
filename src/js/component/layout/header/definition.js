@@ -2,8 +2,8 @@
 
 import { MobJs } from '@mobJs';
 import { HeaderFn } from './header';
-import { HeadernavFn } from './headernav';
-import { HeaderToggleFn } from './headerToggle';
+import { HeadernavFn } from './header-nav';
+import { HeaderToggleFn } from './header-toggle';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

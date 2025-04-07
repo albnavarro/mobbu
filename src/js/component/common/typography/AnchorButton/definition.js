@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { AnchorButtonFn } from './AnchorButton';
+import { AnchorButtonFn } from './anchor-button';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

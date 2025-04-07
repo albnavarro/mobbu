@@ -8,7 +8,7 @@ import { List } from '@commonComponent/typography/list/definition';
 import { Paragraph } from '@commonComponent/typography/paragraph/definition';
 import { Title } from '@commonComponent/typography/titles/definition';
 import { MobJs } from '@mobJs';
-import { HtmlContentFn } from './htmlContent';
+import { HtmlContentFn } from './html-content';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

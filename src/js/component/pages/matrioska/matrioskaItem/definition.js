@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { MatrioskaItemFn } from './matrioskaItem';
+import { MatrioskaItemFn } from './matrioska-item';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

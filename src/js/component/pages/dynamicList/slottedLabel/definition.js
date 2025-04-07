@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DynamicListSlottedLabelFn } from './dynamicListSlottedLabel';
+import { DynamicListSlottedLabelFn } from './dynamic-list-slotted-label';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

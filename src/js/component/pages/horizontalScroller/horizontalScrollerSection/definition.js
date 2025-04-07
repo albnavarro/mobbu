@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { HorizontalScrollerSectionFn } from './horizontalScrollerSection';
+import { HorizontalScrollerSectionFn } from './horizontal-scroller-section';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

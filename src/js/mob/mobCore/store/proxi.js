@@ -1,8 +1,8 @@
 import { STORE_SET } from './constant';
-import { setCurrentDependencies } from './currentKey';
-import { storeMap, updateMainMap } from './storeMap';
-import { storeSetEntryPoint } from './storeSet';
-import { checkIfPropIsComputed } from './storeUtils';
+import { setCurrentDependencies } from './current-key';
+import { storeMap, updateMainMap } from './store-map';
+import { storeSetEntryPoint } from './store-set';
+import { checkIfPropIsComputed } from './store-utils';
 
 /**
  * @description

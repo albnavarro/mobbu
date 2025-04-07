@@ -2,7 +2,7 @@
 
 import { Move3D } from '@commonComponent/Move3D/definition';
 import { MobJs } from '@mobJs';
-import { Move3DPagefn } from './move3DPage';
+import { Move3DPagefn } from './move-3d-page';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

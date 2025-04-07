@@ -5,7 +5,7 @@ import { DynamicListButton } from '../button/definition';
 import { DynamicCounter } from '../counter/definition';
 import { innerData } from '../data';
 import { DynamicListEmpty } from '../empty/definition';
-import { DynamicListCardFn } from './dynamicListCard';
+import { DynamicListCardFn } from './dynamic-list-card';
 import { DynamicListCardInner } from './innerCard/definition';
 
 /**

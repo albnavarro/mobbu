@@ -1,7 +1,7 @@
 // @ts-check
 
-import { removeOrphanTempIds } from '../../component/action/removeAndDestroy/removeOrphanTempIds';
-import { removeCancellableComponent } from '../../component/action/removeAndDestroy/removeCancellableComponent';
+import { removeOrphanTempIds } from '../../component/action/removeAndDestroy/remove-orphan-temp-ids';
+import { removeCancellableComponent } from '../../component/action/removeAndDestroy/remove-cancellable-component';
 import { getRouteByName } from '../routeList';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
@@ -12,10 +12,10 @@ import {
     MAIN_STORE_ROUTE_IS_LOADING,
 } from '../../mainStore/constant';
 import { getContentElement } from '../domRef/content';
-import { mainStore } from '../../mainStore/mainStore';
+import { mainStore } from '../../mainStore/main-store';
 import { getBeforePageTransition, getPageTransition } from '../pageTransition';
 import { parseComponents } from '../../parse';
-import { getRestoreScroll } from '../scroll/restoreScroll';
+import { getRestoreScroll } from '../scroll/restore-scroll';
 import { tick } from '../../queque/tick';
 
 /**

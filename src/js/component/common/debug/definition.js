@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DebugButtonFn } from './debugButton';
+import { DebugButtonFn } from './debug-button';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

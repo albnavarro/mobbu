@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mq as _mq } from './utils/mediaManager.js';
+import { mq as _mq } from './utils/media-manager.js';
 import { handleSetUp } from './setup.js';
 
 /**
@@ -179,4 +179,4 @@ function mq(action, breakpoint) {
 }
 
 export { setDefault, printDefault, getDefault, mq };
-export { clamp } from './animation/utils/animationUtils.js';
+export { clamp } from './animation/utils/animation-utils.js';

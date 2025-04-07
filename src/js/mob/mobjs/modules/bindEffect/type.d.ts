@@ -1,5 +1,5 @@
 import { OnlyStringKey } from '../../../mobCore/store/type';
-import { ExtractState } from '../../tsUtils/mobComponentProps';
+import { ExtractState } from '../../tsUtils/mob-component-props';
 
 export interface BindEffectObject<T> {
     bind?: OnlyStringKey<ExtractState<T>>[] | OnlyStringKey<ExtractState<T>>;

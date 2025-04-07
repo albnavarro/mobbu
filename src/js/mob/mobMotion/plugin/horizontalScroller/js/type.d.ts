@@ -1,4 +1,4 @@
-import MobScroller from '../../../animation/scroller/MobScroller';
+import MobScroller from '../../../animation/scroller/mob-scroller';
 import { MqAction, MqValues } from '../../../utils/type';
 
 export type HorizontalScrollerOnTick = (arg0: {

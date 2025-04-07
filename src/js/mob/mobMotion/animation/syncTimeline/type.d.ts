@@ -1,7 +1,7 @@
-import MobMasterSequencer from '../sequencer/MobMasterSequencer';
-import MobSequencer from '../sequencer/MobSequencer';
+import MobMasterSequencer from '../sequencer/mob-master-sequencer';
+import MobSequencer from '../sequencer/mob-sequencer';
 import { DirectionType, DirectionTypeObjectLoop } from '../utils/timeline/type';
-import MobSyncTimeline from './MobSyncTimeline';
+import MobSyncTimeline from './mob-sync-timeline';
 
 export interface SyncTimeline {
     duration?: number;

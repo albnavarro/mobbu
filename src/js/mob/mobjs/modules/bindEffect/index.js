@@ -1,6 +1,6 @@
 import { MobCore, MobDetectBindKey } from '../../../mobCore';
-import { checkType } from '../../../mobCore/store/storeType';
-import { getStateById } from '../../component/action/state/getStateById';
+import { checkType } from '../../../mobCore/store/store-type';
+import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 import { ATTR_BIND_EFFECT } from '../../constant';
 

@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
-import { OnlyDesktopFn } from './onlyDesktop';
+import { OnlyDesktopFn } from './only-desktop';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

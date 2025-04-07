@@ -1,8 +1,8 @@
 import { MobSmoothScroller } from '@mobMotionPlugin';
 import { inspirationAnimation } from './inspiration';
-import { createPathAnimation } from './pathAnimation';
+import { createPathAnimation } from './path-animation';
 import { aboutSection1 } from './section1';
-import { sectionContentAnimation } from './sectionContent';
+import { sectionContentAnimation } from './section-content';
 
 /** @type{import('../type').AboutScroller} */
 export const aboutAnimation = ({

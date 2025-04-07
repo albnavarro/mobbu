@@ -11,9 +11,9 @@ import {
     freezePropById,
     unFreezePropById,
 } from '../../../component/action/freeze';
-import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/removeAndDestroyById';
+import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/remove-and-destroy-by-id';
 import { incrementTickQueuque } from '../../../queque/tick';
-import { incrementRepeaterTickQueuque } from '../../../queque/tickRepeater';
+import { incrementRepeaterTickQueuque } from '../../../queque/tick-repeater';
 import { QUEQUE_TYPE_REPEATER } from '../../../constant';
 import {
     addActiveRepeat,
@@ -21,12 +21,12 @@ import {
     removeActiveRepeat,
 } from '../activeRepeater';
 import { updateRepeater } from '../update';
-import { inizializeNestedInvalidate } from '../../invalidate/action/inizializeNestedInvalidate';
+import { inizializeNestedInvalidate } from '../../invalidate/action/inizialize-nested-invalidate';
 import { getFallBackParentByElement } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
-import { getRepeatParent } from '../action/getRepeaterParent';
-import { inizializeNestedRepeat } from '../action/inizializeNestedRepeat';
-import { setRepeaterChild } from '../action/setRepeatChild';
+import { getRepeatParent } from '../action/get-repeater-parent';
+import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
+import { setRepeaterChild } from '../action/set-repeat-child';
 
 /**
  * @param {import('../type').WatchList} param

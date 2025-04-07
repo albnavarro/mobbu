@@ -1,8 +1,8 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { FooterNavButtonFn } from './footerButton';
-import { FooterNavFn } from './footerNav';
+import { FooterNavButtonFn } from './footer-button';
+import { FooterNavFn } from './footer-nav';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

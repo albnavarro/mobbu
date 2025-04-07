@@ -1,5 +1,5 @@
-import { eventStore } from './events/eventStore.js';
-import { handleLoad } from './events/loadutils/handleLoad.js';
+import { eventStore } from './events/event-store.js';
+import { handleLoad } from './events/loadutils/handle-load.js';
 import {
     handleMouseClick,
     handleMouseDown,
@@ -9,22 +9,22 @@ import {
     handleTouchEnd,
     handleTouchMove,
     handleTouchStart,
-} from './events/mouseUtils/handleMouse.js';
-import { handleCache } from './events/rafutils/handleCache.js';
-import { handleFrame } from './events/rafutils/handleFrame.js';
-import { handleFrameIndex } from './events/rafutils/handleFrameIndex.js';
-import { handleNextFrame } from './events/rafutils/handleNextFrame.js';
-import { handleNextTick } from './events/rafutils/handleNextTick.js';
-import { loadFps } from './events/rafutils/loadFps.js';
-import { handleResize } from './events/resizeUtils/handleResize.js';
-import { handleScroll } from './events/scrollUtils/handleScroll.js';
-import { handleScrollImmediate } from './events/scrollUtils/handleScrollImmediate.js';
-import { handleScrollThrottle } from './events/scrollUtils/handleScrollThrottle.js';
+} from './events/mouseUtils/handle-mouse.js';
+import { handleCache } from './events/rafutils/handle-cache.js';
+import { handleFrame } from './events/rafutils/handle-frame.js';
+import { handleFrameIndex } from './events/rafutils/handle-frame-index.js';
+import { handleNextFrame } from './events/rafutils/handle-next-frame.js';
+import { handleNextTick } from './events/rafutils/handle-next-tick.js';
+import { loadFps } from './events/rafutils/load-fps.js';
+import { handleResize } from './events/resizeUtils/handle-resize.js';
+import { handleScroll } from './events/scrollUtils/handle-scroll.js';
+import { handleScrollImmediate } from './events/scrollUtils/handle-scroll-immediate.js';
+import { handleScrollThrottle } from './events/scrollUtils/handle-scroll-throttle.js';
 import {
     handleScrollEnd,
     handleScrollStart,
-} from './events/scrollUtils/handleScrollUtils';
-import { handleVisibilityChange } from './events/visibilityChange/handleVisibilityChange.js';
+} from './events/scrollUtils/handle-scroll-utils.js';
+import { handleVisibilityChange } from './events/visibilityChange/handle-visibility-change.js';
 import { mobStore } from './store';
 import {
     handlePointerDown,
@@ -33,7 +33,7 @@ import {
     handlePointerOut,
     handlePointerOver,
     handlePointerUp,
-} from './events/pointerEvent/handlePointer.js';
+} from './events/pointerEvent/handle-pointer.js';
 
 /**
  * @description
@@ -849,10 +849,10 @@ export {
     createStore,
 };
 
-export { normalizeWheel } from './events/mouseUtils/normalizeWhell.js';
-export { ANIMATION_STOP_REJECT } from './events/errorHandler/catchAnimationReject.js';
-export { useNextLoop } from './utils/nextTick.js';
+export { normalizeWheel } from './events/mouseUtils/normalize-whell.js';
+export { ANIMATION_STOP_REJECT } from './events/errorHandler/catch-animation-reject.js';
+export { useNextLoop } from './utils/next-tick.js';
 export { getTime } from './events/rafutils/time.js';
-export { checkType, getTypeName } from './store/storeType.js';
+export { checkType, getTypeName } from './store/store-type.js';
 export { getUnivoqueId } from './utils/index.js';
 export { debounceFuncion as useDebounce } from './events/debounce.js';

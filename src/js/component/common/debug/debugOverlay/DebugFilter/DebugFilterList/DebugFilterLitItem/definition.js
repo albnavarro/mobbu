@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DebugFilterListItemFn } from './debugFilterListItem';
+import { DebugFilterListItemFn } from './debug-filter-list-item';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

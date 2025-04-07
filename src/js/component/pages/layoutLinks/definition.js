@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { LayoutLinksFn } from './layoutLinks';
+import { LayoutLinksFn } from './layout-links';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

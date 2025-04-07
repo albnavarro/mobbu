@@ -1,6 +1,6 @@
 //@ts-check
 
-import { consoleLogDebug } from '@commonComponent/debug/consoleLog';
+import { consoleLogDebug } from '@commonComponent/debug/console-log';
 import { html, MobJs } from '@mobJs';
 
 /**

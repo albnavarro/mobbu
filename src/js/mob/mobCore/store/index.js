@@ -5,25 +5,25 @@ import {
     storeComputedEntryPoint,
     storeQuickSetEntrypoint,
     storeSetEntryPoint,
-} from './storeSet';
-import { updateMainMap } from './storeMap';
-import { inizializeAllProps, inizializeValidation } from './initialValidation';
+} from './store-set';
+import { updateMainMap } from './store-map';
+import { inizializeAllProps, inizializeValidation } from './initial-validation';
 import { watchEntryPoint } from './watch';
-import { inizializeInstance } from './inizializeInstance';
-import { storeGetEntryPoint, storeGetPropEntryPoint } from './storeGet';
-import { storeEmitAsyncEntryPoint, storeEmitEntryPoint } from './storeEmit';
+import { inizializeInstance } from './inizialize-instance';
+import { storeGetEntryPoint, storeGetPropEntryPoint } from './store-get';
+import { storeEmitAsyncEntryPoint, storeEmitEntryPoint } from './store-emit';
 import {
     storeDebugEntryPoint,
     storeDebugStoreEntryPoint,
     storeDebugValidateEntryPoint,
     storeGetValidationEntryPoint,
-} from './storeDebug';
+} from './store-debug';
 import { STORE_SET, STORE_UPDATE } from './constant';
 import { getProxiEntryPoint } from './proxi';
-import { bindStoreEntryPoint } from './bindStore';
+import { bindStoreEntryPoint } from './bind-store';
 import { destroyStoreEntryPoint } from './destroy';
-import { checkIfPropIsComputed } from './storeUtils';
-import { useNextLoop } from '../utils/nextTick';
+import { checkIfPropIsComputed } from './store-utils';
+import { useNextLoop } from '../utils/next-tick';
 
 /**
  * @param {import('./type').MobStoreParams} data

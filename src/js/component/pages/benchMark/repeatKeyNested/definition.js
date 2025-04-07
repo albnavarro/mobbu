@@ -1,8 +1,8 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { benchMarkDefinitionPartial } from '../partials/definitionPartial';
-import { BenchMarkRepeatWithKyFnNested } from './benchmarkRepeatWithKeyNested';
+import { benchMarkDefinitionPartial } from '../partials/definition-partial';
+import { BenchMarkRepeatWithKyFnNested } from './benchmark-repeat-with-key-nested';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

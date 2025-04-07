@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DocTitleSmallFn } from './docSide';
+import { DocTitleSmallFn } from './doc-title-small';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

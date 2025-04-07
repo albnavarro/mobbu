@@ -3,16 +3,16 @@
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import { MobMotionCore, MobTween } from '@mobMotion';
-import { usePageScroll } from '@utils/pageScroll';
+import { usePageScroll } from '@utils/page-scroll';
 import { setBrowserClass } from '@utils/utils';
 import { loadData } from './data';
 import { beforePageTransition, pageTransition } from './pageTransition';
 import { routes } from './pages';
-import { getScrollbarWith } from './utils/scrollbarWith';
+import { getScrollbarWith } from './utils/scrollbar-with';
 import { wrapper } from './wrapper';
 // import { stateTest } from './test/mapTest/mapTest';
 // import { initTestMapStore } from './test/mapStore';
-// import { storeTest } from './test/storeTest';
+// import { storeTest } from './test/store-test';
 
 /**
  * Set default

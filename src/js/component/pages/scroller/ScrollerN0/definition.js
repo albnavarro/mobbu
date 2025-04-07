@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { detectFirefox, detectSafari } from '@utils/utils';
-import { ScrollerN0Fn } from './scrollerN0';
+import { ScrollerN0Fn } from './scroller-n0';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

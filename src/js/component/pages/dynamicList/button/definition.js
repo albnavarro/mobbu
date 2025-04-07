@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DynamicListButtonFn } from './dynamicListButton';
+import { DynamicListButtonFn } from './dynamic-list-button';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

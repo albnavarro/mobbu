@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { ScrollToButtonFn } from './scrollToButton';
+import { ScrollToButtonFn } from './scroll-to-button';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

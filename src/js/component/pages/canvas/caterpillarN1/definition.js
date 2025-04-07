@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { detectFirefox, detectSafari } from '@utils/utils';
-import { CaterpillarN1Fn } from './caterpillarN1';
+import { CaterpillarN1Fn } from './caterpillar-n1';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

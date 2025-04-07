@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { QuickNavFn } from './nextPage';
+import { QuickNavFn } from './next-page';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

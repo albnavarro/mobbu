@@ -1,12 +1,12 @@
 // @ts-check
 
-import { MobScrollerConstant } from '../scroller/MobScrollerConstant';
+import { MobScrollerConstant } from '../scroller/mob-scroller-constant';
 import {
     STAGGER_START,
     STAGGER_TYPE_CENTER,
     STAGGER_TYPE_END,
     STAGGER_TYPE_EQUAL,
-} from './stagger/staggerCostant';
+} from './stagger/stagger-costant';
 
 /**
  * @param {string[]} choice

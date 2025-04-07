@@ -1,7 +1,7 @@
 // @ts-check
 
 import { MobCore } from '../../mobCore';
-import { mainStore } from '../mainStore/mainStore';
+import { mainStore } from '../mainStore/main-store';
 import { HISTORY_BACK, HISTORY_NEXT } from './constant';
 import {
     historyBackSize,

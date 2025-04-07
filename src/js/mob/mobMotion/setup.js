@@ -1,7 +1,7 @@
 // @ts-check
 
 import { MobCore } from '../mobCore/index.js';
-import { springPresetConfig } from './animation/spring/springConfig.js';
+import { springPresetConfig } from './animation/spring/spring-config.js';
 import {
     defaultMqValueDefault,
     easeDefault,
@@ -17,8 +17,8 @@ import {
     springConfigDefault,
     tweenDurationDefault,
     tweenRealtiveDefault,
-} from './animation/utils/setUp/setUpValidation.js';
-import { mergeDeep } from './utils/mergeDeep.js';
+} from './animation/utils/setUp/set-up-validation.js';
+import { mergeDeep } from './utils/merge-deep.js';
 
 /**
  * @type {import('./animation/utils/setUp/type.js').SetUpGetData}

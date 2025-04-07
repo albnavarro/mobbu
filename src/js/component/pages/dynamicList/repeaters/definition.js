@@ -3,7 +3,7 @@
 import { MobJs } from '@mobJs';
 import { DynamicListCard } from '../card/definition';
 import { DynamicListSlottedLabel } from '../slottedLabel/definition';
-import { DynamicListRepeaterFn } from './dynamicListRepeater';
+import { DynamicListRepeaterFn } from './dynamic-list-repeater';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

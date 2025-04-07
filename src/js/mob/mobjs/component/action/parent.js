@@ -1,7 +1,7 @@
 // @ts-check
 
-import { forceComponentChildQuery, useQuery } from '../../parse/useQuery';
-import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
+import { forceComponentChildQuery, useQuery } from '../../parse/use-query';
+import { queryAllFutureComponent } from '../../query/query-all-future-component';
 import { getAllUserChildPlaceholder } from '../../modules/userComponent';
 import { componentMap } from '../store';
 import { updateChildrenArray } from '../utils';

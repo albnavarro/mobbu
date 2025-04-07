@@ -1,7 +1,7 @@
 import { updateQuickNavState } from '@commonComponent/quickNav/utils';
 import { html, MobJs } from '@mobJs';
 import { ScrollerN0 } from '@pagesComponent/scroller/ScrollerN0/definition';
-import { scrollerParams } from './scrollerParams';
+import { scrollerParams } from './scroller-params';
 
 MobJs.useComponent([ScrollerN0]);
 

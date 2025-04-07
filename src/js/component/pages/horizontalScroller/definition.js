@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { HorizontalScrollerFn } from './horizontalScroller';
+import { HorizontalScrollerFn } from './horizontal-scroller';
 import { HorizontalScrollerButton } from './horizontalScrollerButton/definition';
 import { HorizontalScrollerSection } from './horizontalScrollerSection/definition';
 

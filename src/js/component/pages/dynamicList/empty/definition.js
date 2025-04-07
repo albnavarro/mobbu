@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DynamicListEmptyFn } from './dynamicListEmpty';
+import { DynamicListEmptyFn } from './dynamic-list-empty';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

@@ -1,6 +1,6 @@
 // @ts-check
 
-import { useComponent } from '../componentList';
+import { useComponent } from '../component-list';
 
 let defaultComponent = {
     scoped: false,

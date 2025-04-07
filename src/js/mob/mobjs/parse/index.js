@@ -1,8 +1,8 @@
 // @ts-check
 
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
-import { mainStore } from '../mainStore/mainStore';
-import { parseComponentsRecursive } from './parseFunction';
+import { mainStore } from '../mainStore/main-store';
+import { parseComponentsRecursive } from './parse-function';
 import { resetCurrentIterationCounter } from './utils';
 
 /**

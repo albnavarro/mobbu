@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DocContainerFn } from './docContainer';
+import { DocContainerFn } from './doc-container';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobCore } from '../../../mobCore';
-import { getStateById } from '../../component/action/state/getStateById';
+import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 
 /** @type {Map<string, import("./type").BindText[]>} */

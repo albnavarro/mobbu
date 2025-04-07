@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { RouteLoaderFn } from './routeLoader';
+import { RouteLoaderFn } from './route-loader';
 /**
  * @import { CreateComponentParams } from "@mobJsType";
  **/

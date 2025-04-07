@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { ScrollDownLabelFn } from './scrolldownLabel';
+import { ScrollDownLabelFn } from './scroll-down-label';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

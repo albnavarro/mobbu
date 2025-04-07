@@ -2,7 +2,7 @@
 
 import { MobCore } from '../../mobCore';
 import { frameDelayAfterParse } from '../constant';
-import { setComponentList } from '../component/componentList';
+import { setComponentList } from '../component/component-list';
 import { setIndex, setPageNotFound, setRouteList } from '../route/routeList';
 import { initParseWatcher, parseComponents } from '../parse';
 import { router } from '../route';
@@ -13,7 +13,7 @@ import {
     setBeforePageTransition,
     setPageTransition,
 } from '../route/pageTransition';
-import { setRestoreScroll } from '../route/scroll/restoreScroll';
+import { setRestoreScroll } from '../route/scroll/restore-scroll';
 
 /**
  * @type {( arg0: import('../type').InizializeApp) => Promise<void>}

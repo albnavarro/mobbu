@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DebugTreeItemFn } from './debugTreeItem';
+import { DebugTreeItemFn } from './debug-tree-item';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

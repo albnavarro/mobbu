@@ -1,18 +1,22 @@
 //@ts-check
 
 import { MobCore } from '../../../mobCore';
-import { checkType } from '../../../mobCore/store/storeType';
+import { checkType } from '../../../mobCore/store/store-type';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { getIdByElement } from '../../component/action/element';
 import { tick } from '../../queque/tick';
-import { invalidateTick } from '../../queque/tickInvalidate';
-import { repeaterTick } from '../../queque/tickRepeater';
+import { invalidateTick } from '../../queque/tick-invalidate';
+import { repeaterTick } from '../../queque/tick-repeater';
 import {
     ATTR_WEAK_BIND_EVENTS,
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant';
 import { getRoot } from '../../route/domRef/root';
-import { allowFireEvent, getFireEvent, preventFireEvent } from '../commonEvent';
+import {
+    allowFireEvent,
+    getFireEvent,
+    preventFireEvent,
+} from '../common-event';
 
 /**
  * @type {Map<string,Array<{[key:string]: () => void}>>}

@@ -1,8 +1,8 @@
 // @ts-check
 
-import { queryAllFutureComponent } from '../query/queryAllFutureComponent';
+import { queryAllFutureComponent } from '../query/query-all-future-component';
 import { getFirstUserChildPlaceHolder } from '../modules/userComponent';
-import { useQuery } from './useQuery';
+import { useQuery } from './use-query';
 
 /**
  * @type {number}

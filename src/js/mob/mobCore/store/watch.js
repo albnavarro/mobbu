@@ -1,9 +1,9 @@
 // @ts-check
 
 import { getUnivoqueId } from '../utils';
-import { getLogStyle } from './logStyle';
-import { getStateFromMainMap, storeMap, updateMainMap } from './storeMap';
-import { storeWatchWarning } from './storeWarining';
+import { getLogStyle } from './log-style';
+import { getStateFromMainMap, storeMap, updateMainMap } from './store-map';
+import { storeWatchWarning } from './store-warining';
 
 /**
  * @param {import("./type").MobStoreWatchAction} param

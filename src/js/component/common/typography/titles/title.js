@@ -1,6 +1,6 @@
 //@ts-check
 
-import { getTrinangle } from '@componentLibs/utils/getTriangle';
+import { getTrinangle } from '@componentLibs/utils/get-triangle';
 import { html } from '@mobJs';
 
 /**

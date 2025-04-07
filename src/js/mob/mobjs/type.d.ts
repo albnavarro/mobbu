@@ -42,7 +42,7 @@ import {
     PartialCurrent,
     PartialBindEffect,
     ExtractState,
-} from './tsUtils/mobComponentProps';
+} from './tsUtils/mob-component-props';
 import { OnlyStringKey } from './tsUtils/utils';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;

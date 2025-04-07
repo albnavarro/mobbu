@@ -1,5 +1,5 @@
-import { removeSelfIdToBindInstanceBy } from './bindStore';
-import { getStateFromMainMap, removeStateFromMainMap } from './storeMap';
+import { removeSelfIdToBindInstanceBy } from './bind-store';
+import { getStateFromMainMap, removeStateFromMainMap } from './store-map';
 
 /**
  * @param {string} instanceId

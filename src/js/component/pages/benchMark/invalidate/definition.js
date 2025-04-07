@@ -1,8 +1,8 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { benchMarkDefinitionPartial } from '../partials/definitionPartial';
-import { BenchMarkInvalidateFn } from './benchmarkInvalidate';
+import { benchMarkDefinitionPartial } from '../partials/definition-partial';
+import { BenchMarkInvalidateFn } from './benchmark-invalidate';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

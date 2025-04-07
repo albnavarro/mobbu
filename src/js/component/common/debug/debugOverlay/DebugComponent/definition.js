@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../constant';
-import { DebugComponentFn } from './debugComponent';
+import { DebugComponentFn } from './debug-component';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

@@ -1,8 +1,8 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { LinksMobJsFn } from './linksMobJs';
-import { LinksMobJsButtonFn } from './linksMobJsButton';
+import { LinksMobJsFn } from './links-mobjs';
+import { LinksMobJsButtonFn } from './links-mobjs-button';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

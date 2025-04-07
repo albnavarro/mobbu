@@ -4,20 +4,23 @@ import { MobCore, MobDetectBindKey } from '../../../mobCore';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch } from '../../component/action/props';
-import { setStateById } from '../../component/action/state/setStateById';
-import { getStateById } from '../../component/action/state/getStateById';
+import { setStateById } from '../../component/action/state/set-state-by-id';
+import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 import { incrementTickQueuque } from '../../queque/tick';
 import { componentMap } from '../../component/store';
 import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
-import { repeaterQuequeIsEmpty, repeaterTick } from '../../queque/tickRepeater';
+import {
+    repeaterQuequeIsEmpty,
+    repeaterTick,
+} from '../../queque/tick-repeater';
 import {
     invalidateQuequeIsEmpty,
     invalidateTick,
-} from '../../queque/tickInvalidate';
+} from '../../queque/tick-invalidate';
 import { getElementById } from '../../component/action/element';
-import { removeAndDestroyById } from '../../component/action/removeAndDestroy/removeAndDestroyById';
-import { bindPropsMap } from './bindPropsMap';
+import { removeAndDestroyById } from '../../component/action/removeAndDestroy/remove-and-destroy-by-id';
+import { bindPropsMap } from './bind-props-map';
 
 /**
  * @type {import('./type').SetBindProps} data

@@ -8,10 +8,10 @@ import {
     serializeFragment,
     setRepeatAttribute,
 } from '../../../parse/steps/utils';
-import { queryAllFutureComponent } from '../../../query/queryAllFutureComponent';
+import { queryAllFutureComponent } from '../../../query/query-all-future-component';
 import { setSkipAddUserComponent } from '../../userComponent';
 import { setComponentRepeaterState } from '../repeaterValue';
-import { getRepeatProxi } from './getProxi';
+import { getRepeatProxi } from './get-proxi';
 
 /**
  * @param {object} params

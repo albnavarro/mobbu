@@ -1,9 +1,9 @@
 // @ts-check
 import { pageNotFound } from './404';
-import { layoutLinksPage } from './Layout/layoutLinks';
-import { layoutSidebarAnchor } from './Layout/layoutSidebarAnchor';
-import { layoutSidebarLinks } from './Layout/layoutSidebarLinks';
-import { layoutAbout } from './about/layoutAbout';
+import { layoutLinksPage } from './Layout/layout-links';
+import { layoutSidebarAnchor } from './Layout/layout-sidebar-anchor';
+import { layoutSidebarLinks } from './Layout/layout-sidebar-links';
+import { layoutAbout } from './about/layout-about';
 import { benchMark } from './benchmark';
 import { animatedPatternN0 } from './canvas/animatedPatternN0';
 import { animatedPatternN1 } from './canvas/animatedPatternN1';

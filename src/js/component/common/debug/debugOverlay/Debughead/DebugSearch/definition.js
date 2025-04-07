@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DebugSearchFn } from './debugSearch';
+import { DebugSearchFn } from './debug-search';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

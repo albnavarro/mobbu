@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DebugFilterListFn } from './debugFilterList';
+import { DebugFilterListFn } from './debug-filter-list';
 import { DebugFilterListItem } from './DebugFilterLitItem/definition';
 
 /**

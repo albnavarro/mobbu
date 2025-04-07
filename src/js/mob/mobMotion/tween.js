@@ -1,12 +1,12 @@
 // @ts-check
 
-import MobLerp from './animation/lerp/MobLerp.js';
-import MobScrollerTween from './animation/scroller/MobScrollerTween.js';
-import MobMasterSequencer from './animation/sequencer/MobMasterSequencer.js';
-import MobSequencer from './animation/sequencer/MobSequencer.js';
-import MobSpring from './animation/spring/MobSpring.js';
-import MobTimeTween from './animation/tween/MobTimeTween.js';
-import { MobCreateStaggers } from './animation/sequencer/MobCreateStagger.js';
+import MobLerp from './animation/lerp/mob-lerp.js';
+import MobScrollerTween from './animation/scroller/mob-scroller-tween.js';
+import MobMasterSequencer from './animation/sequencer/mob-master-sequencer.js';
+import MobSequencer from './animation/sequencer/mob-sequencer.js';
+import MobSpring from './animation/spring/mob-spring.js';
+import MobTimeTween from './animation/tween/mob-time-tween.js';
+import { MobCreateStaggers } from './animation/sequencer/mob-create-stagger.js';
 
 /**
  * @param {import('./animation/scroller/type').MobScrollerTween} data

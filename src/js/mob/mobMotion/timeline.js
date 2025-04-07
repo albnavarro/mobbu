@@ -1,7 +1,7 @@
 // @ts-check
 
-import MobAsyncTimeline from './animation/asyncTimeline/AsyncTimeline.js';
-import MobSyncTimeline from './animation/syncTimeline/MobSyncTimeline.js';
+import MobAsyncTimeline from './animation/asyncTimeline/async-timeline.js';
+import MobSyncTimeline from './animation/syncTimeline/mob-sync-timeline.js';
 
 /**
  * @param {import('./animation/syncTimeline/type.js').SyncTimeline} data

@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DebugTreeFn } from './debugTree';
+import { DebugTreeFn } from './debug-tree';
 import { DebugTreeItem } from './DebugTreeItem/definition';
 
 /**

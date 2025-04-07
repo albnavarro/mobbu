@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { detectFirefox, detectSafari } from '@utils/utils';
-import { AnimatedPatternN0Fn } from './animatedPatternN0';
+import { AnimatedPatternN0Fn } from './animated-pattern-n0';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

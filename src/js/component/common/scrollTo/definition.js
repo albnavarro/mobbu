@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { ScrollToButton } from './button/definition';
-import { ScrollToFn } from './scrollTo';
+import { ScrollToFn } from './scroll-to';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

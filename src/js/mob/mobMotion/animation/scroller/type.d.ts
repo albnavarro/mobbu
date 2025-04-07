@@ -1,10 +1,10 @@
 import { MqAction, MqValues } from '../../utils/type';
-import MobMasterSequencer from '../sequencer/MobMasterSequencer';
-import MobSequencer from '../sequencer/MobSequencer';
+import MobMasterSequencer from '../sequencer/mob-master-sequencer';
+import MobSequencer from '../sequencer/mob-sequencer';
 import { SpringChoiceConfig } from '../spring/type';
 import { EaseTypes } from '../tween/type';
 import { StaggerObject } from '../utils/stagger/type';
-import MobScrollerTween from './MobScrollerTween';
+import MobScrollerTween from './mob-scroller-tween';
 
 export interface DynamicStart {
     position: 'bottom' | 'top' | 'left' | 'right';

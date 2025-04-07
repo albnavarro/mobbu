@@ -1,8 +1,8 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { benchMarkDefinitionPartial } from '../partials/definitionPartial';
-import { BenchMarkRepeatNoKyFn } from './benchmarkRepeatNoKey';
+import { benchMarkDefinitionPartial } from '../partials/definition-partial';
+import { BenchMarkRepeatNoKyFn } from './benchmark-repeat-no-key';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

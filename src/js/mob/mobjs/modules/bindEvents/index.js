@@ -1,10 +1,14 @@
 // @ts-check
 
 import { MobCore } from '../../../mobCore';
-import { checkType } from '../../../mobCore/store/storeType';
+import { checkType } from '../../../mobCore/store/store-type';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { tick } from '../../queque/tick';
-import { allowFireEvent, getFireEvent, preventFireEvent } from '../commonEvent';
+import {
+    allowFireEvent,
+    getFireEvent,
+    preventFireEvent,
+} from '../common-event';
 
 /**
  * @type {Map<string,Array<{[key:string]: (arg0: object, arg1:Record<string, any>, arg2: number) => {}}>>}

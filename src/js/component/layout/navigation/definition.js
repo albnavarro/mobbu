@@ -1,11 +1,11 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { NavigationContainerFn } from './navContainer';
+import { NavigationContainerFn } from './nav-container';
 import { NavigationFn } from './navigation';
-import { NavigationButtonFn } from './navigationButton';
-import { NavigationLabelFn } from './navigationLabel';
-import { NavigationSubmenuFn } from './navigationSubmenu';
+import { NavigationButtonFn } from './navigation-button';
+import { NavigationLabelFn } from './navigation-label';
+import { NavigationSubmenuFn } from './navigation-submenu';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

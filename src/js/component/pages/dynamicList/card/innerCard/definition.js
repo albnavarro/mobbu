@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DynamicListCardInnerFn } from './dynamicListCardInner';
+import { DynamicListCardInnerFn } from './dynamic-list-card-inner';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

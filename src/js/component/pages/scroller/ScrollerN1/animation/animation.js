@@ -1,6 +1,6 @@
 // @ts-check
 
-import { navigationStore } from '@layoutComponent/navigation/store/navStore';
+import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
 import { MobJs } from '@mobJs';
@@ -10,7 +10,7 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-} from '@utils/canvasUtils';
+} from '@utils/canvas-utils';
 
 /**
  * @param {object} params

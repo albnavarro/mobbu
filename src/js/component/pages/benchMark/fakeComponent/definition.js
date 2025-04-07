@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { BenchMarkFakeComponentFn } from './benchmarkFakeComponent';
+import { BenchMarkFakeComponentFn } from './benchmark-fake-component';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

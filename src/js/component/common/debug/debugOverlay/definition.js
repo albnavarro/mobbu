@@ -6,7 +6,7 @@ import { DebugComponent } from './DebugComponent/definition';
 import { DebugFilterHead } from './DebugFilter/DebugFilterHead/definition';
 import { DebugFilterList } from './DebugFilter/DebugFilterList/definition';
 import { DebugHead } from './Debughead/definition';
-import { DebugOverlayFn } from './debugOverlay';
+import { DebugOverlayFn } from './debug-overlay';
 import { DebugTree } from './DebugTree/definition';
 
 /**

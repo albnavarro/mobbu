@@ -5,7 +5,7 @@
  * @import { HomeComponent } from './type';
  **/
 
-import { simpleIntroAnimation } from '@componentLibs/animation/simpleIntro';
+import { simpleIntroAnimation } from '@componentLibs/animation/simple-intro';
 import { html } from '@mobJs';
 
 /**

@@ -1,9 +1,9 @@
 // @ts-check
 
 import { MAIN_STORE_ASYNC_PARSER } from '../../../mainStore/constant';
-import { mainStore } from '../../../mainStore/mainStore';
-import { addWithKey } from './addWithKey';
-import { addWithoutKey } from './addWithoutKey';
+import { mainStore } from '../../../mainStore/main-store';
+import { addWithKey } from './add-with-key';
+import { addWithoutKey } from './add-without-key';
 import { listKeyExist } from '../utils';
 
 /**

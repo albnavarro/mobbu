@@ -1,7 +1,7 @@
 // @ts-check
 
-import { MobScrollerConstant } from './animation/scroller/MobScrollerConstant.js';
-import MobScroller from './animation/scroller/MobScroller.js';
+import { MobScrollerConstant } from './animation/scroller/mob-scroller-constant.js';
+import MobScroller from './animation/scroller/mob-scroller.js';
 
 /**
  * @param {import('./animation/scroller/type').MobScrollerCommon & import('./animation/scroller/type').Parallax} data

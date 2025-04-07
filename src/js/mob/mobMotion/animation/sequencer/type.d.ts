@@ -4,7 +4,7 @@ import {
     DirectionType,
     DirectionTypeObjectSequencer,
 } from '../utils/timeline/type';
-import MobSequencer from './MobSequencer';
+import MobSequencer from './mob-sequencer';
 
 export interface SequencerProps {
     data: Record<string, number>;

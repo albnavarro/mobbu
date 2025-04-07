@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DebugHeadFn } from './debugHead';
+import { DebugHeadFn } from './debug-head';
 import { DebugSearch } from './DebugSearch/definition';
 
 /**

@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { ScrollToTopFn } from './ScrollToTop';
+import { ScrollToTopFn } from './scroll-to-top';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

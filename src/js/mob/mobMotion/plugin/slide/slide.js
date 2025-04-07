@@ -2,7 +2,7 @@
 
 import { MobCore } from '../../../mobCore/index.js';
 import { outerHeight } from '../../../mobCore/utils/index.js';
-import MobTimeTween from '../../animation/tween/MobTimeTween.js';
+import MobTimeTween from '../../animation/tween/mob-time-tween.js';
 
 /** @type {Map<HTMLElement,import('./type').MobSlide>} */
 const slideItems = new Map();

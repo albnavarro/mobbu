@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { BenchMarkFakeComponent } from '../fakeComponent/definition';
-import { BenchMarkRepeatNoKyBindStoreFn } from './benchmarkRepeatNoKeyBindStore';
+import { BenchMarkRepeatNoKyBindStoreFn } from './benchmark-repeat-no-key-bind-store';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

@@ -4,7 +4,7 @@ import {
     MAIN_STORE_BEFORE_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
 } from '../mainStore/constant';
-import { mainStore } from '../mainStore/mainStore';
+import { mainStore } from '../mainStore/main-store';
 
 export const debugRoute = () => {
     /**

@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DynamicListCounterFn } from './dynamicListCounter';
+import { DynamicListCounterFn } from './dynamic-list-counter';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

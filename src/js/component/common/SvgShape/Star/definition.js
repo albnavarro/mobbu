@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { StarSvgFn } from './StarSvg';
+import { StarSvgFn } from './star-svg';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

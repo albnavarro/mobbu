@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { Move3DItemfn } from './Move3DItem';
+import { Move3DItemfn } from './move-3d-item';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

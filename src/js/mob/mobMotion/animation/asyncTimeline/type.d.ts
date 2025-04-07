@@ -4,7 +4,7 @@ import {
     DirectionTypeAsync,
     DirectionTypeObjectLoop,
 } from '../utils/timeline/type';
-import MobAsyncTimeline from './AsyncTimeline';
+import MobAsyncTimeline from './async-timeline';
 
 export interface AsyncTimeline {
     /**

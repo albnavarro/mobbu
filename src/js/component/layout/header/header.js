@@ -4,7 +4,7 @@
  * @import { MobComponent, UseMethodByName } from '@mobJsType';
  **/
 
-import { navigationStore } from '@layoutComponent/navigation/store/navStore';
+import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html, MobJs } from '@mobJs';
 
 function titleHandler() {
