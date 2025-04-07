@@ -1,8 +1,8 @@
 # MobCore
 
 ### eslint:
-- passare a defineConfig
-- https://eslint.org/blog/2025/03/flat-config-extends-define-config-global-ignores/
+- Aggiungere https://github.com/gajus/eslint-plugin-jsdoc
+- Valutare per ora solo a livello di store https://github.com/eslint-functional/eslint-plugin-functional
 
 ### DOCS
 - Aggiungere i tipi allo store.
@@ -21,17 +21,6 @@
 - In `bindObject` é stato fatto un controllo che bind sia una `stringa` e non una `funzione` ( myfunction.bind() )
 - Sarebbe da cambiare un' altra key piú idonea.
 - Quensto si riflette su `repeat` `invalidate` etc..
-
-## bindProp
-- Sarebbe interessante capire come ( piú che altro a livello di `TS`) avere un funzione in modalitá auto come:
-- senza dover tornare l' oggetto con `prop: () => ...`
-
-```js
-${bindProp(() => ({
-    prop: proxi.prop
-    prop2: proxi.prop2
-}))}
-```
 
 ## Page transition.
 - Possibilitá di sovrascrivere le due funzioni per rotta.
