@@ -13,7 +13,7 @@ import { innerData } from '../data';
 
 /** @param {number} numberOfItem */
 function createArray(numberOfItem) {
-    return [...new Array(numberOfItem).keys()].map((i) => i + 1);
+    return [...Array.from({ length: numberOfItem }).keys()].map((i) => i + 1);
 }
 
 /**

@@ -55,24 +55,26 @@ export const caterpillarN1Animation = ({
     /**
      *
      */
-    let squareData = [...new Array(numItems).keys()].map((_item, i) => {
-        const relativeIndex =
-            i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
+    let squareData = [...Array.from({ length: numItems }).keys()].map(
+        (_item, i) => {
+            const relativeIndex =
+                i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
-        const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
+            const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
 
-        return {
-            width: relativeIndex * width,
-            height: relativeIndex * height,
-            x: 0,
-            y: 0,
-            hasFill: fill.includes(i),
-            opacity: opacityVal,
-            radius,
-            rotate: 0,
-            relativeIndex,
-        };
-    });
+            return {
+                width: relativeIndex * width,
+                height: relativeIndex * height,
+                x: 0,
+                y: 0,
+                hasFill: fill.includes(i),
+                opacity: opacityVal,
+                radius,
+                rotate: 0,
+                relativeIndex,
+            };
+        }
+    );
 
     /**
      * Create rotation tween.

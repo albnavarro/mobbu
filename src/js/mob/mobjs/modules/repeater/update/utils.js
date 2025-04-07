@@ -38,7 +38,7 @@ export const updateRepeaterWitoutKey = ({
     /**
      * Create palcehodler component
      */
-    const serializedFragment = [...new Array(diff).keys()]
+    const serializedFragment = [...Array.from({ length: diff }).keys()]
         .map((_item, index) => {
             const initialValue = current?.[index + previousLenght];
             const initialIndex = index + previousLenght;
@@ -109,7 +109,7 @@ export const updateRepeaterWithoutKeyUseSync = ({
     repeatId,
     render,
 }) => {
-    return [...new Array(diff).keys()]
+    return [...Array.from({ length: diff }).keys()]
         .map((_item, index) => {
             const initialValue = current?.[index + previousLenght];
             const initialIndex = index + previousLenght;

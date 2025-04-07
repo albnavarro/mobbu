@@ -64,25 +64,27 @@ export const caterpillarN2Animation = ({
     /**
      *
      */
-    let squareData = [...new Array(numItems).keys()].map((_item, i) => {
-        const relativeIndex =
-            i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
+    let squareData = [...Array.from({ length: numItems }).keys()].map(
+        (_item, i) => {
+            const relativeIndex =
+                i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
-        const itemWidth = width + (width / 3) * relativeIndex;
-        const itemHeight = height + (height / 3) * relativeIndex;
-        const opacityVal = fill.includes(i) ? 1 : (numItems - i) * opacity;
+            const itemWidth = width + (width / 3) * relativeIndex;
+            const itemHeight = height + (height / 3) * relativeIndex;
+            const opacityVal = fill.includes(i) ? 1 : (numItems - i) * opacity;
 
-        return {
-            width: itemWidth,
-            height: itemHeight,
-            x: 0,
-            y: 0,
-            hasFill: fill.includes(i),
-            opacity: opacityVal,
-            radius,
-            rotate: 0,
-        };
-    });
+            return {
+                width: itemWidth,
+                height: itemHeight,
+                x: 0,
+                y: 0,
+                hasFill: fill.includes(i),
+                opacity: opacityVal,
+                radius,
+                rotate: 0,
+            };
+        }
+    );
 
     /**
      * Initial misure.

@@ -84,7 +84,9 @@ export const createGrid = ({
     const initValue = { row: 0, col: -1, items: [] };
 
     return [
-        ...new Array(numberOfRow * numberOfColumn + numberOfRow).keys(),
+        ...Array.from({
+            length: numberOfRow * numberOfColumn + numberOfRow,
+        }).keys(),
     ].reduce((previous) => {
         const { row, col, items: previousItems } = previous;
         const newCol = col < numberOfColumn ? col + 1 : 0;

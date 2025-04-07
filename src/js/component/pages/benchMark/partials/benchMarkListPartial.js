@@ -29,7 +29,7 @@ export const createBenchMarkArray = (numberOfItem) => {
         ? numberOfItem
         : 0;
 
-    return [...new Array(valueSanitized).keys()].map((i) => ({
+    return [...Array.from({ length: valueSanitized }).keys()].map((i) => ({
         label: `comp-${i + 1}`,
     }));
 };

@@ -94,27 +94,30 @@ export const caterpillarN0Animation = ({
     /**
      * Setup data.
      */
-    let stemData = [...new Array(amountOfPath).keys()].map((_item, i) => {
-        const count = i;
-        const index = count < amountOfPath / 2 ? amountOfPath - count : count;
-        const relativeIndex = index - (amountOfPath - index);
+    let stemData = [...Array.from({ length: amountOfPath }).keys()].map(
+        (_item, i) => {
+            const count = i;
+            const index =
+                count < amountOfPath / 2 ? amountOfPath - count : count;
+            const relativeIndex = index - (amountOfPath - index);
 
-        return {
-            width: Math.floor(
-                getWithRounded({ width, relativeIndex, amountOfPath })
-            ),
-            height: Math.floor(
-                getHeightRounded({ height, relativeIndex, amountOfPath })
-            ),
-            fill,
-            stroke,
-            opacity: relativeIndex * opacity,
-            rotate: 0,
-            y: 0,
-            relativeIndex,
-            index: i,
-        };
-    });
+            return {
+                width: Math.floor(
+                    getWithRounded({ width, relativeIndex, amountOfPath })
+                ),
+                height: Math.floor(
+                    getHeightRounded({ height, relativeIndex, amountOfPath })
+                ),
+                fill,
+                stroke,
+                opacity: relativeIndex * opacity,
+                rotate: 0,
+                y: 0,
+                relativeIndex,
+                index: i,
+            };
+        }
+    );
 
     /**
      * Subdived oginal array in half and reverse the half section.

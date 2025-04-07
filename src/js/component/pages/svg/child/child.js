@@ -27,7 +27,7 @@ const playAnimation = async ({ playIntro }) => {
  * @param {SetRef<import('./type.d.ts').SvgChild>} params.setRef
  */
 const getTrail = ({ star, setRef }) => {
-    return [...new Array(numberOfStar).keys()]
+    return [...Array.from({ length: numberOfStar }).keys()]
         .map((_item, index) => {
             return html`
                 <div

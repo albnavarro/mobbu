@@ -93,25 +93,27 @@ export const scrollerN1Animation = ({
     /**
      * Setup data.
      */
-    let stemData = [...new Array(amountOfPath).keys()].map((_item, i) => {
-        const relativeIndex =
-            i >= amountOfPath / 2
-                ? amountOfPath / 2 + (amountOfPath / 2 - i)
-                : i;
+    let stemData = [...Array.from({ length: amountOfPath }).keys()].map(
+        (_item, i) => {
+            const relativeIndex =
+                i >= amountOfPath / 2
+                    ? amountOfPath / 2 + (amountOfPath / 2 - i)
+                    : i;
 
-        return {
-            width: Math.floor(
-                getWithRounded({ width, relativeIndex, amountOfPath })
-            ),
-            height: Math.floor(
-                getHeightRounded({ height, relativeIndex, amountOfPath })
-            ),
-            opacity: relativeIndex * opacity,
-            rotate: 0,
-            relativeIndex,
-            index: i,
-        };
-    });
+            return {
+                width: Math.floor(
+                    getWithRounded({ width, relativeIndex, amountOfPath })
+                ),
+                height: Math.floor(
+                    getHeightRounded({ height, relativeIndex, amountOfPath })
+                ),
+                opacity: relativeIndex * opacity,
+                rotate: 0,
+                relativeIndex,
+                index: i,
+            };
+        }
+    );
 
     /**
      * Create tween.

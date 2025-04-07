@@ -189,7 +189,7 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
  * @returns {string}
  */
 const getShapeTrail = ({ setRef }) => {
-    const items = [...new Array(1).keys()];
+    const items = [...Array.from({ length: 1 }).keys()];
 
     return html`${items
         .map(() => {

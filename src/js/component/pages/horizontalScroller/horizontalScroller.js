@@ -22,7 +22,7 @@ import { horizontalScrollerAnimation } from './animation/animation';
 const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
     const pinClass = pinIsVisible ? '' : 'hidden';
 
-    return [...new Array(numOfCol).keys()]
+    return [...Array.from({ length: numOfCol }).keys()]
         .map((_col, i) => {
             return html`
                 <horizontal-scroller-section
@@ -53,7 +53,7 @@ const getNav = ({
     delegateEvents,
     proxi,
 }) => {
-    return [...new Array(numOfCol).keys()]
+    return [...Array.from({ length: numOfCol }).keys()]
         .map((_col, i) => {
             return html`
                 <horizontal-scroller-button
