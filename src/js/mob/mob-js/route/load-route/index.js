@@ -1,8 +1,8 @@
 // @ts-check
 
-import { removeOrphanTempIds } from '../../component/action/removeAndDestroy/remove-orphan-temp-ids';
-import { removeCancellableComponent } from '../../component/action/removeAndDestroy/remove-cancellable-component';
-import { getRouteByName } from '../routeList';
+import { removeOrphanTempIds } from '../../component/action/remove-and-destroy/remove-orphan-temp-ids';
+import { removeCancellableComponent } from '../../component/action/remove-and-destroy/remove-cancellable-component';
+import { getRouteByName } from '../route-list';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
@@ -10,10 +10,10 @@ import {
     MAIN_STORE_BEFORE_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
     MAIN_STORE_ROUTE_IS_LOADING,
-} from '../../mainStore/constant';
-import { getContentElement } from '../domRef/content';
-import { mainStore } from '../../mainStore/main-store';
-import { getBeforePageTransition, getPageTransition } from '../pageTransition';
+} from '../../main-store/constant';
+import { getContentElement } from '../dom-ref/content';
+import { mainStore } from '../../main-store/main-store';
+import { getBeforePageTransition, getPageTransition } from '../page-transition';
 import { parseComponents } from '../../parse';
 import { getRestoreScroll } from '../scroll/restore-scroll';
 import { tick } from '../../queque/tick';

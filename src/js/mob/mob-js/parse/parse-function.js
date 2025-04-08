@@ -2,21 +2,21 @@
 
 import { setElementById } from '../component/action/element';
 import { convertToRealElement } from './steps/convert-to-real-element';
-import { getDefaultComponent } from '../component/createComponent';
+import { getDefaultComponent } from '../component/create-component';
 import {
     getCurrentIterationCounter,
     getParseSourceArray,
     incrementCurrentIterationCounter,
 } from './utils';
-import { fireOnMountCallBack } from '../modules/onMount';
-import { applyBindEvents } from '../modules/bindEvents';
-import { addCurrentIdToBindProps, applyBindProps } from '../modules/bindProps';
+import { fireOnMountCallBack } from '../modules/on-mount';
+import { applyBindEvents } from '../modules/bind-events';
+import { addCurrentIdToBindProps, applyBindProps } from '../modules/bind-props';
 import { getParamsForComponentFunction } from './steps/get-params-for-component';
 import {
     addParentIdToFutureComponent,
     addSelfIdToParentComponent,
 } from '../component/action/parent';
-import { applyDelegationBindEvent } from '../modules/delegateEvents';
+import { applyDelegationBindEvent } from '../modules/delegate-events';
 import { getParamsFromWebComponent } from './steps/get-params-from-web-component';
 import { addComponentToStore } from '../component';
 import {
@@ -25,12 +25,12 @@ import {
 } from '../component/action/repeater';
 import { getInvalidateFunctions } from '../modules/invalidate/action/get-invalidate-functions';
 import { getRepeatFunctions } from '../modules/repeater/action/get-repeat-functions';
-import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
+import { addBindRefsToComponent, getBindRefs } from '../modules/bind-refs';
 import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './use-query';
-import { switchBindTextMap } from '../modules/bindtext';
-import { switchBindObjectMap } from '../modules/bindObject';
-import { applyBindEffect } from '../modules/bindEffect';
+import { switchBindTextMap } from '../modules/bind-text';
+import { switchBindObjectMap } from '../modules/bind-object';
+import { applyBindEffect } from '../modules/bind-effetc';
 import { getComponentList } from '../component/component-list';
 
 /**
@@ -38,7 +38,7 @@ import { getComponentList } from '../component/component-list';
  * @param {HTMLElement} obj.element
  * @param {boolean} [ obj.persistent  ]
  * @param {Array<{onMount:Function, initializeBindPropsWatcher:function, fireInvalidateFunction:function, fireRepeatFunction:function}>} [ obj.functionToFireAtTheEnd ]
- * @param {Array<import("../webComponent/type").UserComponent>} [ obj.currentSelectors ]
+ * @param {Array<import("../web-component/type").UserComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
  * @param {boolean} [ obj.checkBindRef ]
  * @return {Promise<void>}

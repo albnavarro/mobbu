@@ -1,7 +1,7 @@
 import { MobStoreReturnType } from '../../mob-core/store/type';
-import { BindEffectObject } from '../modules/bindEffect/type';
-import { BindEventsObject } from '../modules/bindEvents/type';
-import { DelegateEventObject } from '../modules/delegateEvents/type';
+import { BindEffectObject } from '../modules/bind-effetc/type';
+import { BindEventsObject } from '../modules/bind-events/type';
+import { DelegateEventObject } from '../modules/delegate-events/type';
 import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 
 export type ExtractState<T> = T['state'];

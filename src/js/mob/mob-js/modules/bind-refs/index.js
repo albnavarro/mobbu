@@ -9,7 +9,7 @@ import { ATTR_BIND_REFS_ID, ATTR_BIND_REFS_NAME } from '../../constant';
  * All ref has parent id so is possible to get it at the end of current parse
  *
  * @param {object} params
- * @param {HTMLElement|import("../../webComponent/type").UserComponent} params.element
+ * @param {HTMLElement|import("../../web-component/type").UserComponent} params.element
  * @returns {{ [key: string ]: {element:HTMLElement, scopeId:string}[] }}
  */
 export const getBindRefs = ({ element }) => {

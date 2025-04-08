@@ -1,12 +1,12 @@
 // @ts-check
 
 /**
- * @type {Set<import('../../webComponent/type').SlotComponent>}
+ * @type {Set<import('../../web-component/type').SlotComponent>}
  */
 export const slotPlaceholder = new Set();
 
 /**
- * @param {import('../../webComponent/type').SlotComponent} slot
+ * @param {import('../../web-component/type').SlotComponent} slot
  * @returns {void}
  */
 export const addSlotPlaceholder = (slot) => {
@@ -25,8 +25,8 @@ export const clearSlotPlaceHolder = () => {
 
 /**
  * @param {object} params
- * @param {HTMLElement|import('../../webComponent/type').UserComponent} params.element
- * @returns {import('../../webComponent/type').SlotComponent|undefined}
+ * @param {HTMLElement|import('../../web-component/type').UserComponent} params.element
+ * @returns {import('../../web-component/type').SlotComponent|undefined}
  */
 export const getUnamedPlaceholderSlot = ({ element }) => {
     return [...slotPlaceholder].find((slot) => {
@@ -40,8 +40,8 @@ export const getUnamedPlaceholderSlot = ({ element }) => {
 /**
  * @param {object} params
  * @param {string} params.name
- * @param {HTMLElement|import('../../webComponent/type').UserComponent} params.element
- * @returns {import('../../webComponent/type').SlotComponent|undefined}
+ * @param {HTMLElement|import('../../web-component/type').UserComponent} params.element
+ * @returns {import('../../web-component/type').SlotComponent|undefined}
  */
 export const getSlotByName = ({ name, element }) => {
     return [...slotPlaceholder].find((slot) => {
@@ -54,7 +54,7 @@ export const getSlotByName = ({ name, element }) => {
 };
 
 /**
- * @returns {import('../../webComponent/type').SlotComponent[]}
+ * @returns {import('../../web-component/type').SlotComponent[]}
  */
 export const getAllSlot = () => {
     return [...slotPlaceholder];

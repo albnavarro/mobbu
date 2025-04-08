@@ -1,7 +1,7 @@
 // @ts-check
 
-import { MAIN_STORE_ASYNC_PARSER } from '../../../mainStore/constant';
-import { mainStore } from '../../../mainStore/main-store';
+import { MAIN_STORE_ASYNC_PARSER } from '../../../main-store/constant';
+import { mainStore } from '../../../main-store/main-store';
 import { addWithKey } from './add-with-key';
 import { addWithoutKey } from './add-without-key';
 import { listKeyExist } from '../utils';

@@ -9,13 +9,13 @@ import {
     getElementByKeyAndRepeatId,
     getIdByElement,
 } from '../../../component/action/element';
-import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/remove-and-destroy-by-id';
+import { removeAndDestroyById } from '../../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import { destroyNestedInvalidate } from '../../invalidate/action/destroy-nested-invalidate';
 import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
-import { getDefaultComponent } from '../../../component/createComponent';
+import { getDefaultComponent } from '../../../component/create-component';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
-import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroy-component-inside-node-by-id';
+import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import { getComponentNameByElement } from '../../../component/action/component';
 import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
 import { getRepeaterChild } from '../action/set-repeat-child';

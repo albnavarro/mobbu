@@ -1,7 +1,7 @@
 // @ts-check
 
 import { ATTR_PROPS } from './constant';
-import { setStaticProps } from './modules/staticProps';
+import { setStaticProps } from './modules/static-props';
 
 /**
  * @param {{[key:string]:any}} props

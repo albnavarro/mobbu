@@ -1,11 +1,11 @@
 //@ts-check
 
-import { ATTR_BIND_OBJECT_ID, ATTR_COMPONENT_ID } from '../constant';
-import { addBindObjectPlaceHolderMap } from '../modules/bindObject';
+import { ATTR_BIND_TEXT_ID, ATTR_COMPONENT_ID } from '../constant';
+import { addBindTextPlaceHolderMap } from '../modules/bind-text';
 
-export const defineBindObjectComponent = () => {
+export const defineBindTextComponent = () => {
     customElements.define(
-        'mobjs-bind-object',
+        'mobjs-bind-text',
         class extends HTMLElement {
             constructor() {
                 super();
@@ -21,13 +21,13 @@ export const defineBindObjectComponent = () => {
                         this.shadowRoot?.host ?? document.createElement('div');
                     const componentId =
                         host?.getAttribute(ATTR_COMPONENT_ID) ?? '';
-                    const bindObjectId =
-                        host?.getAttribute(ATTR_BIND_OBJECT_ID) ?? '';
+                    const bindTextId =
+                        host?.getAttribute(ATTR_BIND_TEXT_ID) ?? '';
 
-                    addBindObjectPlaceHolderMap({
+                    addBindTextPlaceHolderMap({
                         host,
                         componentId,
-                        bindObjectId,
+                        bindTextId,
                     });
                 }
             }

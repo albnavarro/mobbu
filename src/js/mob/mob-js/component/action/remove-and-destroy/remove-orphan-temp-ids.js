@@ -1,8 +1,8 @@
 // @ts-check
 
-import { removeOrphansBindEvent } from '../../../modules/bindEvents';
-import { removeOrphansBindProps } from '../../../modules/bindProps';
-import { removeOrphansPropsFromParent } from '../../../modules/staticProps';
+import { removeOrphansBindEvent } from '../../../modules/bind-events';
+import { removeOrphansBindProps } from '../../../modules/bind-props';
+import { removeOrphansPropsFromParent } from '../../../modules/static-props';
 
 /**
  * @returns { void }

@@ -3,8 +3,8 @@ import {
     MAIN_STORE_AFTER_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
-} from '../mainStore/constant';
-import { mainStore } from '../mainStore/main-store';
+} from '../main-store/constant';
+import { mainStore } from '../main-store/main-store';
 
 export const debugRoute = () => {
     /**

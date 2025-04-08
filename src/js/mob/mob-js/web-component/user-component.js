@@ -21,10 +21,10 @@ import {
     addUserPlaceholder,
     getSkipAddUserComponent,
     removeUserPlaceholder,
-} from '../modules/userComponent';
+} from '../modules/user-component';
 
 /**
- * @param {{[key:string]:import('../mainStore/type').ComponentListMap}} componentList
+ * @param {{[key:string]:import('../main-store/type').ComponentListMap}} componentList
  */
 export const defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {

@@ -9,8 +9,8 @@ import {
     setRepeatAttribute,
 } from '../../../parse/steps/utils';
 import { queryAllFutureComponent } from '../../../query/query-all-future-component';
-import { setSkipAddUserComponent } from '../../userComponent';
-import { setComponentRepeaterState } from '../repeaterValue';
+import { setSkipAddUserComponent } from '../../user-component';
+import { setComponentRepeaterState } from '../repeater-value';
 import { getRepeatProxi } from './get-proxi';
 
 /**

@@ -4326,7 +4326,7 @@
     watchById: () => watchById
   });
 
-  // src/js/mob/mob-js/mainStore/constant.js
+  // src/js/mob/mob-js/main-store/constant.js
   var MAIN_STORE_ACTIVE_ROUTE = "activeRoute";
   var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
   var MAIN_STORE_BEFORE_ROUTE_LEAVES = "beforeRouteLeave";
@@ -4335,7 +4335,7 @@
   var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
   var MAIN_STORE_ASYNC_PARSER = "repeaterParserAsync";
 
-  // src/js/mob/mob-js/mainStore/main-store.js
+  // src/js/mob/mob-js/main-store/main-store.js
   var mainStore = modules_exports.createStore(
     /** @type{MobStoreParams<import('./type').MainStore>} */
     {
@@ -4388,7 +4388,7 @@
     }
   );
 
-  // src/js/mob/mob-js/mainStore/main-store-api.js
+  // src/js/mob/mob-js/main-store/main-store-api.js
   var beforeRouteChange = (callback2) => {
     return mainStore.watch(
       MAIN_STORE_BEFORE_ROUTE_CHANGE,
@@ -4691,7 +4691,7 @@
     return orderdChildren.map(({ items }) => items);
   };
 
-  // src/js/mob/mob-js/route/domRef/content.js
+  // src/js/mob/mob-js/route/dom-ref/content.js
   var contentAttributeId = "";
   var DOMContentElement;
   var setContentId = ({ contentId = "" }) => {
@@ -4847,7 +4847,7 @@
     return result;
   };
 
-  // src/js/mob/mob-js/modules/userComponent/index.js
+  // src/js/mob/mob-js/modules/user-component/index.js
   var userPlaceholder = /* @__PURE__ */ new Set();
   var skipAddUserComponent = false;
   var addUserPlaceholder = (element) => {
@@ -4971,10 +4971,10 @@
     return compareIdOrParentIdRecursive({ id: parentId, compareValue });
   };
 
-  // src/js/mob/mob-js/modules/bindProps/bind-props-map.js
+  // src/js/mob/mob-js/modules/bind-props/bind-props-map.js
   var bindPropsMap = /* @__PURE__ */ new Map();
 
-  // src/js/mob/mob-js/modules/bindProps/remove-current-id-to-bind-props.js
+  // src/js/mob/mob-js/modules/bind-props/remove-current-id-to-bind-props.js
   var removeCurrentIdToBindProps = ({ componentId }) => {
     if (!componentId) return;
     for (const [key, value] of bindPropsMap) {
@@ -5002,7 +5002,7 @@
     return state?.watch(prop, cb, { wait: wait ?? false });
   };
 
-  // src/js/mob/mob-js/modules/bindObject/index.js
+  // src/js/mob/mob-js/modules/bind-object/index.js
   var bindObjectMap = /* @__PURE__ */ new Map();
   var bindObjectPlaceHolderMap = /* @__PURE__ */ new Map();
   var addBindObjectPlaceHolderMap = ({
@@ -5135,7 +5135,7 @@
     });
   };
 
-  // src/js/mob/mob-js/modules/bindtext/index.js
+  // src/js/mob/mob-js/modules/bind-text/index.js
   var bindTextMap = /* @__PURE__ */ new Map();
   var bindTextPlaceHolderMap = /* @__PURE__ */ new Map();
   var addBindTextPlaceHolderMap = ({
@@ -5311,7 +5311,7 @@
     }
   };
 
-  // src/js/mob/mob-js/component/action/removeAndDestroy/remove-itself-from-parent.js
+  // src/js/mob/mob-js/component/action/remove-and-destroy/remove-itself-from-parent.js
   var removeItselfFromParent = ({ id, parentId, componentName }) => {
     if (!id) return;
     const value = componentMap.get(parentId ?? "");
@@ -5331,7 +5331,7 @@
     });
   };
 
-  // src/js/mob/mob-js/component/action/removeAndDestroy/remove-and-destroy-by-id.js
+  // src/js/mob/mob-js/component/action/remove-and-destroy/remove-and-destroy-by-id.js
   var removeAndDestroyById = ({ id = "" }) => {
     if (!id || id === "") return;
     const instanceValue = componentMap.get(id);
@@ -5421,7 +5421,7 @@
     repeatIdHostMap.set(repeatId, host);
   };
 
-  // src/js/mob/mob-js/webComponent/repeat.js
+  // src/js/mob/mob-js/web-component/repeat.js
   var defineRepeatComponent = () => {
     customElements.define(
       "mobjs-repeat",
@@ -5469,7 +5469,7 @@
     invalidateIdHostMap.set(invalidateId, host);
   };
 
-  // src/js/mob/mob-js/webComponent/invalidate.js
+  // src/js/mob/mob-js/web-component/invalidate.js
   var defineInvalidateComponent = () => {
     customElements.define(
       "mobjs-invalidate",
@@ -5526,7 +5526,7 @@
     return slotPlaceholder.size;
   };
 
-  // src/js/mob/mob-js/webComponent/slot.js
+  // src/js/mob/mob-js/web-component/slot.js
   var defineSlotComponent = () => {
     customElements.define(
       "mobjs-slot",
@@ -5577,7 +5577,7 @@
     );
   };
 
-  // src/js/mob/mob-js/webComponent/user-component.js
+  // src/js/mob/mob-js/web-component/user-component.js
   var defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {
       const {
@@ -5888,7 +5888,7 @@
     });
   };
 
-  // src/js/mob/mob-js/webComponent/bind-text.js
+  // src/js/mob/mob-js/web-component/bind-text.js
   var defineBindTextComponent = () => {
     customElements.define(
       "mobjs-bind-text",
@@ -5918,7 +5918,7 @@
     );
   };
 
-  // src/js/mob/mob-js/webComponent/bind-object.js
+  // src/js/mob/mob-js/web-component/bind-object.js
   var defineBindObjectComponent = () => {
     customElements.define(
       "mobjs-bind-object",
@@ -6049,7 +6049,7 @@
     return (prop, value, { emit = true, clone = false } = {}) => updateStateById(id, prop, value, { emit, clone });
   };
 
-  // src/js/mob/mob-js/component/createComponent/index.js
+  // src/js/mob/mob-js/component/create-component/index.js
   var defaultComponent = {
     scoped: false,
     maxParseIteration: 5e3,
@@ -6101,7 +6101,7 @@
     };
   };
 
-  // src/js/mob/mob-js/route/routeList/index.js
+  // src/js/mob/mob-js/route/route-list/index.js
   var routeList = [];
   var indexPage = "";
   var pageNotFound = "";
@@ -6335,7 +6335,7 @@
     });
   };
 
-  // src/js/mob/mob-js/modules/bindProps/index.js
+  // src/js/mob/mob-js/modules/bind-props/index.js
   var setBindProps = (data) => {
     const hasProps = "props" in data;
     if (!hasProps) {
@@ -6514,7 +6514,7 @@
     bindPropsMap.clear();
   };
 
-  // src/js/mob/mob-js/modules/staticProps/index.js
+  // src/js/mob/mob-js/modules/static-props/index.js
   var staticPropsMap = /* @__PURE__ */ new Map();
   var setStaticProps = (props = {}) => {
     const id = modules_exports.getUnivoqueId();
@@ -6534,7 +6534,7 @@
     staticPropsMap.clear();
   };
 
-  // src/js/mob/mob-js/modules/repeater/repeaterValue/index.js
+  // src/js/mob/mob-js/modules/repeater/repeater-value/index.js
   var currentRepeaterValueMap = /* @__PURE__ */ new Map();
   var setComponentRepeaterState = (current) => {
     const id = modules_exports.getUnivoqueId();
@@ -6786,7 +6786,7 @@
     }
   };
 
-  // src/js/mob/mob-js/component/action/removeAndDestroy/set-destroy-callback.js
+  // src/js/mob/mob-js/component/action/remove-and-destroy/set-destroy-callback.js
   var setDestroyCallback = ({ cb = () => {
   }, id }) => {
     if (!id) return;
@@ -6795,7 +6795,7 @@
     componentMap.set(id, { ...item, destroy: cb });
   };
 
-  // src/js/mob/mob-js/modules/onMount/index.js
+  // src/js/mob/mob-js/modules/on-mount/index.js
   var onMountCallbackMap = /* @__PURE__ */ new Map();
   var addOnMoutCallback = ({ id, cb = () => {
   } }) => {
@@ -6820,7 +6820,7 @@
   };
   var getFireEvent = () => shouldFireEvent;
 
-  // src/js/mob/mob-js/modules/bindEvents/index.js
+  // src/js/mob/mob-js/modules/bind-events/index.js
   var bindEventMap = /* @__PURE__ */ new Map();
   var setBindEvents = (eventsData = []) => {
     const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
@@ -6887,7 +6887,7 @@
     });
   };
 
-  // src/js/mob/mob-js/component/action/removeAndDestroy/destroy-component-inside-node-by-id.js
+  // src/js/mob/mob-js/component/action/remove-and-destroy/destroy-component-inside-node-by-id.js
   var destroyComponentInsideNodeById = ({ id, container }) => {
     const instanceValue = componentMap.get(id);
     const child = instanceValue?.child;
@@ -7184,14 +7184,14 @@
     });
   };
 
-  // src/js/mob/mob-js/route/domRef/root.js
+  // src/js/mob/mob-js/route/dom-ref/root.js
   var root = document.createElement("div");
   var setRoot = ({ element }) => {
     root = element;
   };
   var getRoot = () => root;
 
-  // src/js/mob/mob-js/modules/delegateEvents/index.js
+  // src/js/mob/mob-js/modules/delegate-events/index.js
   var tempDelegateEventMap = /* @__PURE__ */ new Map();
   var eventDelegationMap = /* @__PURE__ */ new WeakMap();
   var eventToAdd = [];
@@ -7265,7 +7265,7 @@
     });
   };
 
-  // src/js/mob/mob-js/modules/bindRefs/index.js
+  // src/js/mob/mob-js/modules/bind-refs/index.js
   var getBindRefs = ({ element }) => {
     const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
     const initialValue = {};
@@ -7351,7 +7351,7 @@
     repeatFunctionMap.set(id, item);
   };
 
-  // src/js/mob/mob-js/modules/repeater/activeRepeater/index.js
+  // src/js/mob/mob-js/modules/repeater/active-repeater/index.js
   var activeRepeatMap = /* @__PURE__ */ new Set();
   var addActiveRepeat = ({ id, state, container }) => {
     activeRepeatMap.add({ id, state, container });
@@ -8150,7 +8150,7 @@
     });
   };
 
-  // src/js/mob/mob-js/modules/bindEffect/index.js
+  // src/js/mob/mob-js/modules/bind-effetc/index.js
   var bindEffectMap = /* @__PURE__ */ new Map();
   var getExplicitBind = (bind) => {
     return (
@@ -8954,14 +8954,14 @@
     return getPenultimateHistoryNext();
   };
 
-  // src/js/mob/mob-js/component/action/removeAndDestroy/remove-orphan-temp-ids.js
+  // src/js/mob/mob-js/component/action/remove-and-destroy/remove-orphan-temp-ids.js
   var removeOrphanTempIds = () => {
     removeOrphansPropsFromParent();
     removeOrphansBindEvent();
     removeOrphansBindProps();
   };
 
-  // src/js/mob/mob-js/component/action/removeAndDestroy/remove-cancellable-component.js
+  // src/js/mob/mob-js/component/action/remove-and-destroy/remove-cancellable-component.js
   var removeCancellableComponent = () => {
     const cancellableComponents = [...componentMap.values()].filter(
       ({ persistent }) => !persistent
@@ -8969,7 +8969,7 @@
     cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));
   };
 
-  // src/js/mob/mob-js/route/pageTransition/index.js
+  // src/js/mob/mob-js/route/page-transition/index.js
   var pageTransition = () => {
   };
   var beforePageTransition = () => {
@@ -8992,7 +8992,7 @@
   };
   var getRestoreScroll = () => restoreScroll;
 
-  // src/js/mob/mob-js/route/loadRoute/index.js
+  // src/js/mob/mob-js/route/load-route/index.js
   var loadRoute = async ({
     route = "",
     templateName = "",
@@ -9182,7 +9182,7 @@
     }
   };
 
-  // src/js/mob/mob-js/inizializeApp/index.js
+  // src/js/mob/mob-js/initialize-app/index.js
   var inizializeApp = async ({
     rootId,
     wrapper: wrapper2,

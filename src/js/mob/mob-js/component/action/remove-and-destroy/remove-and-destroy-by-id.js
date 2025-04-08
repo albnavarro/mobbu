@@ -1,8 +1,8 @@
 // @ts-check
 
-import { removeCurrentIdToBindProps } from '../../../modules/bindProps/remove-current-id-to-bind-props';
-import { removeBindObjectParentById } from '../../../modules/bindObject';
-import { removeBindTextParentById } from '../../../modules/bindtext';
+import { removeCurrentIdToBindProps } from '../../../modules/bind-props/remove-current-id-to-bind-props';
+import { removeBindObjectParentById } from '../../../modules/bind-object';
+import { removeBindTextParentById } from '../../../modules/bind-text';
 import { removeInvalidateId } from '../../../modules/invalidate/action/remove-invalidate-id';
 import { removeRepeaterId } from '../../../modules/repeater/action/remove-repeater-id';
 import { componentMap } from '../../store';

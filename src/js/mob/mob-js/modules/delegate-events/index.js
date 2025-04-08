@@ -11,7 +11,7 @@ import {
     ATTR_WEAK_BIND_EVENTS,
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant';
-import { getRoot } from '../../route/domRef/root';
+import { getRoot } from '../../route/dom-ref/root';
 import {
     allowFireEvent,
     getFireEvent,

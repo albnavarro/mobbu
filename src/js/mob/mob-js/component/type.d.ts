@@ -11,7 +11,7 @@ import {
     MobStoreStoreProxi,
     BindStore,
 } from '../../mob-core/store/type';
-import { UserComponent } from '../webComponent/type';
+import { UserComponent } from '../web-component/type';
 
 export interface ComponentCommon {
     key: string;

@@ -6,15 +6,15 @@ import {
     ATTR_IS_COMPONENT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../../constant';
-import { getDefaultComponent } from '../../component/createComponent';
+import { getDefaultComponent } from '../../component/create-component';
 import { queryComponentUseSlot } from '../../query/query-component-use-slot';
 import { queryGenericSlot } from '../../query/query-generic-slot';
 import { querySecificSlot } from '../../query/query-specific-slot';
 import { queryUnNamedSlot } from '../../query/query-unnamed-slot';
-import { removeCurrentToBindPropsByPropsId } from '../../modules/bindProps';
-import { removeCurrentToPropsByPropsId } from '../../modules/staticProps';
+import { removeCurrentToBindPropsByPropsId } from '../../modules/bind-props';
+import { removeCurrentToPropsByPropsId } from '../../modules/static-props';
 import { forceComponentChildQuery, useSlotQuery, useQuery } from '../use-query';
-import { getAllUserComponentUseNamedSlot } from '../../modules/userComponent';
+import { getAllUserComponentUseNamedSlot } from '../../modules/user-component';
 import {
     getAllSlot,
     getSlotByName,
@@ -24,9 +24,9 @@ import { getElementOrTextFromNode, insertElementOrText } from './utils';
 
 /**
  * @param {object} obj
- * @param {import("../../webComponent/type").UserComponent|HTMLElement} obj.element
+ * @param {import("../../web-component/type").UserComponent|HTMLElement} obj.element
  * @param {string} obj.content
- * @returns {HTMLElement|import("../../webComponent/type").UserComponent|undefined}
+ * @returns {HTMLElement|import("../../web-component/type").UserComponent|undefined}
  *
  * @description
  * Get new element from content ( render ).
@@ -171,9 +171,9 @@ const addToNamedSlot = ({ element }) => {
 
 /**
  * @param {object} obj
- * @param {import("../../webComponent/type").UserComponent|HTMLElement} obj.element
+ * @param {import("../../web-component/type").UserComponent|HTMLElement} obj.element
  * @param {string} obj.content
- * @returns {HTMLElement|import("../../webComponent/type").UserComponent|undefined}
+ * @returns {HTMLElement|import("../../web-component/type").UserComponent|undefined}
  */
 const executeConversion = ({ element, content }) => {
     /**
@@ -266,9 +266,9 @@ const executeConversion = ({ element, content }) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement|import("../../webComponent/type").UserComponent} obj.element
+ * @param {HTMLElement|import("../../web-component/type").UserComponent} obj.element
  * @param {string} obj.content
- * @returns {{ newElement:( HTMLElement|import("../../webComponent/type").UserComponent|undefined ) } | {newElement:( HTMLElement|undefined )}}
+ * @returns {{ newElement:( HTMLElement|import("../../web-component/type").UserComponent|undefined ) } | {newElement:( HTMLElement|undefined )}}
  *
  * @description
  * Add content to component

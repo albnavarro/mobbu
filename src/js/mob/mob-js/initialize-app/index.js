@@ -3,16 +3,16 @@
 import { MobCore } from '../../mob-core';
 import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../component/component-list';
-import { setIndex, setPageNotFound, setRouteList } from '../route/routeList';
+import { setIndex, setPageNotFound, setRouteList } from '../route/route-list';
 import { initParseWatcher, parseComponents } from '../parse';
 import { router } from '../route';
 // import { debugRoute } from '../route/test';
-import { setContentElement, setContentId } from '../route/domRef/content';
-import { setRoot } from '../route/domRef/root';
+import { setContentElement, setContentId } from '../route/dom-ref/content';
+import { setRoot } from '../route/dom-ref/root';
 import {
     setBeforePageTransition,
     setPageTransition,
-} from '../route/pageTransition';
+} from '../route/page-transition';
 import { setRestoreScroll } from '../route/scroll/restore-scroll';
 
 /**

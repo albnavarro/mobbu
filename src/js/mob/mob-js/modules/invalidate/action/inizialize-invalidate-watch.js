@@ -6,10 +6,10 @@ import {
     unFreezePropById,
 } from '../../../component/action/freeze';
 import { getFallBackParentByElement } from '../../../component/action/parent';
-import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroy-component-inside-node-by-id';
+import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import { QUEQUE_TYPE_INVALIDATE } from '../../../constant';
-import { MAIN_STORE_ASYNC_PARSER } from '../../../mainStore/constant';
-import { mainStore } from '../../../mainStore/main-store';
+import { MAIN_STORE_ASYNC_PARSER } from '../../../main-store/constant';
+import { mainStore } from '../../../main-store/main-store';
 import { incrementTickQueuque } from '../../../queque/tick';
 import { incrementInvalidateTickQueuque } from '../../../queque/tick-invalidate';
 import { destroyNestedRepeat } from '../../repeater/action/destroy-nested-repeat';

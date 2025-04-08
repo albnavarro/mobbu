@@ -1,21 +1,21 @@
 // @ts-check
 
-import { defineRepeatComponent } from '../webComponent/repeat';
-import { defineInvalidateComponent } from '../webComponent/invalidate';
-import { defineSlotComponent } from '../webComponent/slot';
-import { defineUserComponent } from '../webComponent/user-component';
-import { defineBindTextComponent } from '../webComponent/bind-text';
-import { defineBindObjectComponent } from '../webComponent/bind-object';
+import { defineRepeatComponent } from '../web-component/repeat';
+import { defineInvalidateComponent } from '../web-component/invalidate';
+import { defineSlotComponent } from '../web-component/slot';
+import { defineUserComponent } from '../web-component/user-component';
+import { defineBindTextComponent } from '../web-component/bind-text';
+import { defineBindObjectComponent } from '../web-component/bind-object';
 
 /**
- * @type {{[key:string]:import('../mainStore/type').ComponentListMap}}
+ * @type {{[key:string]:import('../main-store/type').ComponentListMap}}
  */
 let componentListMap = {};
 
 /**
  * @description
  *
- * @returns {{[key:string]:import('../mainStore/type').ComponentListMap}}
+ * @returns {{[key:string]:import('../main-store/type').ComponentListMap}}
  */
 export const getComponentList = () => {
     return componentListMap;

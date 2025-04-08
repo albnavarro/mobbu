@@ -4,7 +4,7 @@ import { walkPreOrder } from './query-all-future-component';
 
 /**
  * @param {Element} root
- * @returns {import("../webComponent/type").SlotComponent[]}
+ * @returns {import("../web-component/type").SlotComponent[]}
  */
 function selectAll(root) {
     const result = [];
@@ -18,7 +18,7 @@ function selectAll(root) {
 
 /**
  * @param {Element} node
- * @returns {import("../webComponent/type").SlotComponent[]}
+ * @returns {import("../web-component/type").SlotComponent[]}
  */
 export const queryGenericSlot = (node) => {
     /** @type {any[]} */

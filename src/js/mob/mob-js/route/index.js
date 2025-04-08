@@ -1,7 +1,7 @@
 // @ts-check
 
 import { MobCore } from '../../mob-core';
-import { mainStore } from '../mainStore/main-store';
+import { mainStore } from '../main-store/main-store';
 import { HISTORY_BACK, HISTORY_NEXT } from './constant';
 import {
     historyBackSize,
@@ -11,7 +11,7 @@ import {
     setHistoryBack,
     setHistoryNext,
 } from './scroll';
-import { loadRoute } from './loadRoute';
+import { loadRoute } from './load-route';
 import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
 
 /** @type{string} */

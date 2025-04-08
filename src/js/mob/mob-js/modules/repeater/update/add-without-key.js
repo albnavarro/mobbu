@@ -1,6 +1,6 @@
 // @ts-check
 
-import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/remove-and-destroy-by-id';
+import { removeAndDestroyById } from '../../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import {
     getElementById,
     getIdsByByRepeatId,
@@ -10,7 +10,7 @@ import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
-import { destroyComponentInsideNodeById } from '../../../component/action/removeAndDestroy/destroy-component-inside-node-by-id';
+import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import {
     updateRepeaterWitoutKey,
     updateRepeaterWithoutKeyUseSync,

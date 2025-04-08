@@ -7,7 +7,7 @@ export {
     onRouteLoading,
     getActiveRoute,
     getActiveParams,
-} from './mainStore/main-store-api';
+} from './main-store/main-store-api';
 export { getChildrenIdByName } from './component/action/children';
 export {
     getComponentNameById,
@@ -19,7 +19,7 @@ export {
     useMethodArrayByName,
 } from './component/action/methods';
 export { getParentIdById } from './component/action/parent';
-export { removeAndDestroyById } from './component/action/removeAndDestroy/remove-and-destroy-by-id';
+export { removeAndDestroyById } from './component/action/remove-and-destroy/remove-and-destroy-by-id';
 export { getStateById } from './component/action/state/get-state-by-id';
 export { getStateByName } from './component/action/state/get-state-by-name';
 export { setStateById } from './component/action/state/set-state-by-id';
@@ -31,17 +31,17 @@ export {
     createComponent,
     getDebugMode,
     setDefaultComponent,
-} from './component/createComponent';
+} from './component/create-component';
 export { componentMap } from './component/store';
-export { inizializeApp } from './inizializeApp';
-export { mainStore } from './mainStore/main-store';
+export { inizializeApp } from './initialize-app';
+export { mainStore } from './main-store/main-store';
 export {
     eventDelegationMap,
     tempDelegateEventMap,
-} from './modules/delegateEvents';
+} from './modules/delegate-events';
 export { getNumberOfActiveInvalidate } from './modules/invalidate/action/get-number-of-active-invalidate';
 export { getNumberOfActiveRepeater } from './modules/repeater/action/get-number-of-active-repeater';
-export { getPropsFromParent } from './modules/staticProps';
+export { getPropsFromParent } from './modules/static-props';
 export { tick } from './queque/tick';
 export { loadUrl } from './route';
 export { staticProps } from './utils';

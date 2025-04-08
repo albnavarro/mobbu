@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {Set<import('../../webComponent/type').UserComponent>}
+ * @type {Set<import('../../web-component/type').UserComponent>}
  */
 const userPlaceholder = new Set();
 
@@ -9,7 +9,7 @@ const userPlaceholder = new Set();
 let skipAddUserComponent = false;
 
 /**
- * @param {import('../../webComponent/type').UserComponent} element
+ * @param {import('../../web-component/type').UserComponent} element
  * @returns {void}
  */
 export const addUserPlaceholder = (element) => {
@@ -17,7 +17,7 @@ export const addUserPlaceholder = (element) => {
 };
 
 /**
- * @param {import('../../webComponent/type').UserComponent} element
+ * @param {import('../../web-component/type').UserComponent} element
  * @returns {void}
  */
 export const removeUserPlaceholder = (element) => {
@@ -26,7 +26,7 @@ export const removeUserPlaceholder = (element) => {
 
 /**
  * @param {Element} element
- * @returns {import('../../webComponent/type').UserComponent[]}
+ * @returns {import('../../web-component/type').UserComponent[]}
  *
  * @description
  * useComponent is inserted in orderf if dom insert ( naturally traversal ).
@@ -50,7 +50,7 @@ export const getFirstUserChildPlaceHolder = (element) => {
 /**
  * @param {object} params
  * @param {Element} params.element
- * @returns {Array<import('../../webComponent/type').UserComponent>}
+ * @returns {Array<import('../../web-component/type').UserComponent>}
  *
  * @description
  */
@@ -69,7 +69,7 @@ export const getAllUserChildPlaceholder = ({ element }) => {
 /**
  * @param {object} params
  * @param {Element} params.element
- * @returns {Array<import('../../webComponent/type').UserComponent>}
+ * @returns {Array<import('../../web-component/type').UserComponent>}
  *
  * @description
  */

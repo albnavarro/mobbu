@@ -24,7 +24,7 @@ export function* walkPreOrder(node) {
 /**
  * @param {Element} root
  * @param {boolean} firstOccurrence
- * @returns {import("../webComponent/type").UserComponent[]}
+ * @returns {import("../web-component/type").UserComponent[]}
  */
 function selectAll(root, firstOccurrence) {
     const result = [];
@@ -45,7 +45,7 @@ function selectAll(root, firstOccurrence) {
 /**
  * @param {Element|DocumentFragment} node
  * @param {boolean} firstOccurence
- * @returns {Array<import("../webComponent/type").UserComponent>}
+ * @returns {Array<import("../web-component/type").UserComponent>}
  */
 export const queryAllFutureComponent = (node, firstOccurence = true) => {
     /** @type {any[]} */

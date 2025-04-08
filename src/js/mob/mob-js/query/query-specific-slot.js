@@ -9,7 +9,7 @@ import { walkPreOrder } from './query-all-future-component';
 /**
  * @param {Element} root
  * @param {string} slotName
- * @returns {import("../webComponent/type").SlotComponent|null}
+ * @returns {import("../web-component/type").SlotComponent|null}
  */
 function selectAll(root, slotName) {
     for (const node of walkPreOrder(root)) {
@@ -23,7 +23,7 @@ function selectAll(root, slotName) {
 /**
  * @param {Element} node
  * @param {string} slotName
- * @returns {import("../webComponent/type").SlotComponent|null}
+ * @returns {import("../web-component/type").SlotComponent|null}
  */
 export const querySecificSlot = (node, slotName) => {
     const root = node || document.body;

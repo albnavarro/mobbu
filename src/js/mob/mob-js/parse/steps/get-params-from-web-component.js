@@ -1,12 +1,12 @@
 // @ts-check
 
-import { getComponentRepeaterState } from '../../modules/repeater/repeaterValue';
-import { getPropsFromParent } from '../../modules/staticProps';
+import { getComponentRepeaterState } from '../../modules/repeater/repeater-value';
+import { getPropsFromParent } from '../../modules/static-props';
 import { filterExportableStateFromObject } from '../../component/action/state/export-state';
 
 /**
  * @param {object} obj
- * @param {import("../../webComponent/type").UserComponent} obj.element
+ * @param {import("../../web-component/type").UserComponent} obj.element
  * @param {string|undefined} obj.parentIdForced
  * @returns {import('./type').ComponentData}
  *

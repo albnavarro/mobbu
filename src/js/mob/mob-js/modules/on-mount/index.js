@@ -1,6 +1,6 @@
 // @ts-check
 
-import { setDestroyCallback } from '../../component/action/removeAndDestroy/set-destroy-callback';
+import { setDestroyCallback } from '../../component/action/remove-and-destroy/set-destroy-callback';
 
 /**
  * @type {Map<string,Function>}
@@ -23,7 +23,7 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
 /**
  * @param {object} params
  * @param {string} params.id - component id
- * @param {HTMLElement|import("../../webComponent/type").UserComponent} params.element - root component HTMLElement.
+ * @param {HTMLElement|import("../../web-component/type").UserComponent} params.element - root component HTMLElement.
  *
  * @description
  * Fire onMount callback.

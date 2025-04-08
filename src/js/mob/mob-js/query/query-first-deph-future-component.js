@@ -5,7 +5,7 @@
 /**
  * @param {Element} root
  * @param {[]} result
- * @returns {import("../webComponent/type").UserComponent[]}
+ * @returns {import("../web-component/type").UserComponent[]}
  */
 function selectFirstDepth(root, result) {
     // @ts-ignore
@@ -19,7 +19,7 @@ function selectFirstDepth(root, result) {
 
 /**
  * @param {Element} node
- * @returns {Array<import("../webComponent/type").UserComponent>}
+ * @returns {Array<import("../web-component/type").UserComponent>}
  */
 export const queryFirstDepthFutureComponent = (node) => {
     return selectFirstDepth(node, []);

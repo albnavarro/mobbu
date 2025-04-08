@@ -19,7 +19,7 @@ import {
     invalidateTick,
 } from '../../queque/tick-invalidate';
 import { getElementById } from '../../component/action/element';
-import { removeAndDestroyById } from '../../component/action/removeAndDestroy/remove-and-destroy-by-id';
+import { removeAndDestroyById } from '../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import { bindPropsMap } from './bind-props-map';
 
 /**

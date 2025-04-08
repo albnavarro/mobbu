@@ -1,7 +1,7 @@
 // @ts-check
 
 import { queryAllFutureComponent } from '../query/query-all-future-component';
-import { getFirstUserChildPlaceHolder } from '../modules/userComponent';
+import { getFirstUserChildPlaceHolder } from '../modules/user-component';
 import { useQuery } from './use-query';
 
 /**
@@ -31,8 +31,8 @@ export const resetCurrentIterationCounter = () => {
 /**
  * @param {object} obj
  * @param {Element} obj.element
- * @param {Array<import("../webComponent/type").UserComponent>} obj.currentSelectors
- * @return {{componentToParse:import("../webComponent/type").UserComponent, parseSourceArray:Array<import("../webComponent/type").UserComponent> }}
+ * @param {Array<import("../web-component/type").UserComponent>} obj.currentSelectors
+ * @return {{componentToParse:import("../web-component/type").UserComponent, parseSourceArray:Array<import("../web-component/type").UserComponent> }}
  */
 export const getParseSourceArray = ({ element, currentSelectors }) => {
     if (currentSelectors.length > 0) {

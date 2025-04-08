@@ -11,7 +11,7 @@ import {
     freezePropById,
     unFreezePropById,
 } from '../../../component/action/freeze';
-import { removeAndDestroyById } from '../../../component/action/removeAndDestroy/remove-and-destroy-by-id';
+import { removeAndDestroyById } from '../../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import { incrementTickQueuque } from '../../../queque/tick';
 import { incrementRepeaterTickQueuque } from '../../../queque/tick-repeater';
 import { QUEQUE_TYPE_REPEATER } from '../../../constant';
@@ -19,7 +19,7 @@ import {
     addActiveRepeat,
     getActiveRepeater,
     removeActiveRepeat,
-} from '../activeRepeater';
+} from '../active-repeater';
 import { updateRepeater } from '../update';
 import { inizializeNestedInvalidate } from '../../invalidate/action/inizialize-nested-invalidate';
 import { getFallBackParentByElement } from '../../../component/action/parent';

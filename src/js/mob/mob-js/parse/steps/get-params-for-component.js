@@ -15,8 +15,8 @@ import { setInvalidatePlaceholderMapInitialized } from '../../modules/invalidate
 import { setInvalidatePlaceholderMapScopedId } from '../../modules/invalidate/action/set-invalidate-placeholder-map-scoped-id';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch, unBind } from '../../component/action/props';
-import { destroyComponentInsideNodeById } from '../../component/action/removeAndDestroy/destroy-component-inside-node-by-id';
-import { removeAndDestroyById } from '../../component/action/removeAndDestroy/remove-and-destroy-by-id';
+import { destroyComponentInsideNodeById } from '../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
+import { removeAndDestroyById } from '../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import { watchById } from '../../component/action/watch';
 import {
     ATTR_BIND_EFFECT,
@@ -32,30 +32,30 @@ import {
     ATTR_PROPS,
     ATTR_WEAK_BIND_EVENTS,
 } from '../../constant';
-import { MAIN_STORE_ASYNC_PARSER } from '../../mainStore/constant';
-import { mainStore } from '../../mainStore/main-store';
-import { setBindEvents } from '../../modules/bindEvents';
-import { setBindProps } from '../../modules/bindProps';
-import { addOnMoutCallback } from '../../modules/onMount';
-import { setStaticProps } from '../../modules/staticProps';
-import { setDelegateBindEvent } from '../../modules/delegateEvents';
+import { MAIN_STORE_ASYNC_PARSER } from '../../main-store/constant';
+import { mainStore } from '../../main-store/main-store';
+import { setBindEvents } from '../../modules/bind-events';
+import { setBindProps } from '../../modules/bind-props';
+import { addOnMoutCallback } from '../../modules/on-mount';
+import { setStaticProps } from '../../modules/static-props';
+import { setDelegateBindEvent } from '../../modules/delegate-events';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
-import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
-import { createBindTextWatcher, renderBindText } from '../../modules/bindtext';
+import { getBindRefById, getBindRefsById } from '../../modules/bind-refs';
+import { createBindTextWatcher, renderBindText } from '../../modules/bind-text';
 import { inizializeRepeatWatch } from '../../modules/repeater/action/inizialize-repeat-watch';
 import {
     createBindObjectWatcher,
     getBindObjectKeys,
     renderBindObject,
-} from '../../modules/bindObject';
-import { setSkipAddUserComponent } from '../../modules/userComponent';
+} from '../../modules/bind-object';
+import { setSkipAddUserComponent } from '../../modules/user-component';
 import {
     getRenderWithoutSync,
     getRenderWithSync,
 } from '../../modules/repeater/update/utils';
 import { setRepeaterChild } from '../../modules/repeater/action/set-repeat-child';
-import { setBindEffect } from '../../modules/bindEffect';
+import { setBindEffect } from '../../modules/bind-effetc';
 import { componentIsPersistent } from '../../component/action/component';
 
 /**

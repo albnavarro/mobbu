@@ -6,7 +6,7 @@ import {
     ATTR_KEY,
     ATTR_REPEATER_PROP_BIND,
 } from '../../constant';
-import { setComponentRepeaterState } from '../../modules/repeater/repeaterValue';
+import { setComponentRepeaterState } from '../../modules/repeater/repeater-value';
 import {
     ELEMENT_TYPE_MIX_NODE_TEXT,
     ELEMENT_TYPE_NODE,
@@ -141,7 +141,7 @@ export const insertElementOrText = ({
  *
  *
  * @param {object} params
- * @param {import('../../webComponent/type').UserComponent[]} params.components
+ * @param {import('../../web-component/type').UserComponent[]} params.components
  * @param {Record<string, any>} params.current
  * @param {number} params.index
  * @param {string} params.bind
