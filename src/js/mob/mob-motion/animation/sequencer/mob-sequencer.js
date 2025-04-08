@@ -28,11 +28,11 @@ import {
     easeIsValid,
     initialDataPropValidate,
     sequencerRangeValidate,
-} from '../utils/tweenAction/tween-validation.js';
+} from '../utils/tween-action/tween-validation.js';
 import { handleSetUp } from '../../setup.js';
 import { MobCore } from '../../../mob-core/index.js';
 import { directionConstant } from '../utils/timeline/timeline-constant.js';
-import { getValueObj } from '../utils/tweenAction/get-values.js';
+import { getValueObj } from '../utils/tween-action/get-values.js';
 import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/stagger-costant.js';
 import { sequencerGetValusOnDraw } from './get-values-on-draw.js';
 import { setPropFromAncestor } from './set-prop-from-ancestor.js';

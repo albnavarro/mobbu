@@ -18,12 +18,12 @@ import {
     valueIsBooleanAndReturnDefault,
     valueIsFunctionAndReturnDefault,
     valueIsNumberAndReturnDefault,
-} from '../../../animation/utils/tweenAction/tween-validation';
+} from '../../../animation/utils/tween-action/tween-validation';
 import { MobCore } from '../../../../mob-core';
 import {
     FreezeMobPageScroll,
     UnFreezeMobPageScroll,
-} from '../../pageScroll/page-scroller';
+} from '../../page-scroll/page-scroller';
 
 export class MobHorizontalScroller {
     /**

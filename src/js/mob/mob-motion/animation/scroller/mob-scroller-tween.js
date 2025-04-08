@@ -11,14 +11,14 @@ import {
     updateSubscribersCache,
 } from '../utils/callbacks/set-callback.js';
 import { syncCallback } from '../utils/callbacks/sync-callback.js';
-import { goToUtils } from '../utils/tweenAction/actions.js';
+import { goToUtils } from '../utils/tween-action/actions.js';
 import { staggerIsOutOfRangeWarning } from '../utils/warning.js';
 import {
     durationIsValid,
     easeScrollerTweenIsValid,
-} from '../utils/tweenAction/tween-validation.js';
+} from '../utils/tween-action/tween-validation.js';
 import { MobCore } from '../../../mob-core/index.js';
-import { getValueObj } from '../utils/tweenAction/get-values.js';
+import { getValueObj } from '../utils/tween-action/get-values.js';
 import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/stagger-costant.js';
 
 export default class MobScrollerTween {
@@ -252,7 +252,7 @@ export default class MobScrollerTween {
     /**
      * Return the new array maeged with main array created in setData
      *
-     * @param  {import('../utils/tweenAction/type.js').GoToParamsType[]} newData new datato merge
+     * @param  {import('../utils/tween-action/type.js').GoToParamsType[]} newData new datato merge
      * @return {void}
      */
     #mergeData(newData) {

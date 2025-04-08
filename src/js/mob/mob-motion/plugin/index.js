@@ -1,6 +1,6 @@
-export { MobBodyScroll } from './bodyScroll/body-scroll.js';
-export { MobHorizontalScroller } from './horizontalScroller/js/horizontal-scroller.js';
-export { MobMouseParallax } from './mouseParallax/mouse-parallax.js';
+export { MobBodyScroll } from './body-scroll/body-scroll.js';
+export { MobHorizontalScroller } from './horizontal-scroller/js/horizontal-scroller.js';
+export { MobMouseParallax } from './mouse-parallax/mouse-parallax.js';
 export {
     DestroyMobPageScroll,
     FreezeMobPageScroll,
@@ -8,6 +8,6 @@ export {
     UnFreezeAndUPdateMobPageScroll,
     UnFreezeMobPageScroll,
     UpdateMobPageScroll,
-} from './pageScroll/page-scroller.js';
+} from './page-scroll/page-scroller.js';
 export { MobSlide } from './slide/slide.js';
-export { MobSmoothScroller } from './smoothScroller/smooth-scroller.js';
+export { MobSmoothScroller } from './smooth-scroller/smooth-scroller.js';

@@ -6,13 +6,13 @@ import {
     easeTweenIsValid,
     valueIsBooleanAndReturnDefault,
     valueIsNumberAndReturnDefault,
-} from '../../animation/utils/tweenAction/tween-validation.js';
+} from '../../animation/utils/tween-action/tween-validation.js';
 import { offset, isNode } from '../../../mob-core/utils/index.js';
 import {
     FreezeMobPageScroll,
     UnFreezeAndUPdateMobPageScroll,
     UpdateMobPageScroll,
-} from '../pageScroll/page-scroller.js';
+} from '../page-scroll/page-scroller.js';
 
 /** @type {import('../../animation/tween/type.js').EaseTypes} */
 const defaultPreset = 'easeOutQuad';

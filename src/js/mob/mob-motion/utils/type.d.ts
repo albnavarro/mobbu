@@ -1,4 +1,4 @@
-import { AllActionType } from '../animation/utils/tweenAction/type';
+import { AllActionType } from '../animation/utils/tween-action/type';
 
 export type MqAction = 'min' | 'max';
 export type MqActionMethods = 'min' | 'max' | 'get';

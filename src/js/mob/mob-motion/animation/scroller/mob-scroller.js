@@ -33,7 +33,7 @@ import {
     valueIsBooleanAndReturnDefault,
     valueIsNumberAndReturnDefault,
     valueIsStringAndReturnDefault,
-} from '../utils/tweenAction/tween-validation.js';
+} from '../utils/tween-action/tween-validation.js';
 import { MobScrollerConstant } from './mob-scroller-constant.js';
 import { MobScrollerEmitter } from './mob-scroller-emitter.js';
 import { MobScrollerMarker } from './mob-scroller-marker.js';

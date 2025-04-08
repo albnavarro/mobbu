@@ -14,7 +14,7 @@ import {
     valueIsBooleanAndReturnDefault,
     valueIsFunctionAndReturnDefault,
     valueIsNumberAndReturnDefault,
-} from '../../animation/utils/tweenAction/tween-validation.js';
+} from '../../animation/utils/tween-action/tween-validation.js';
 import { MobCore } from '../../../mob-core/index.js';
 import {
     isDescendant,
@@ -24,7 +24,7 @@ import {
 import {
     FreezeMobPageScroll,
     UnFreezeMobPageScroll,
-} from '../pageScroll/page-scroller.js';
+} from '../page-scroll/page-scroller.js';
 
 export class MobSmoothScroller {
     /**

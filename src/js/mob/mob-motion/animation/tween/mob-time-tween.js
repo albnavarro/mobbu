@@ -6,7 +6,7 @@ import {
     setFromToByCurrent,
     setReverseValues,
     setRelativeTween,
-} from '../utils/tweenAction/set-values.js';
+} from '../utils/tween-action/set-values.js';
 import { mergeDeep } from '../../utils/merge-deep.js';
 import { setStagger } from '../utils/stagger/set-stagger.js';
 import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/stagger-costant.js';
@@ -27,7 +27,7 @@ import {
     goFromUtils,
     goFromToUtils,
     setUtils,
-} from '../utils/tweenAction/actions.js';
+} from '../utils/tween-action/actions.js';
 import { initRaf } from '../utils/init-raf.js';
 import {
     compareKeysWarning,
@@ -40,15 +40,15 @@ import {
     easeTweenIsValidGetFunction,
     relativeIsValid,
     valueIsBooleanAndTrue,
-} from '../utils/tweenAction/tween-validation.js';
+} from '../utils/tween-action/tween-validation.js';
 import { MobCore } from '../../../mob-core/index.js';
 import { shouldInizializzeStagger } from '../utils/stagger/should-inizialize.js';
-import { mergeArrayTween } from '../utils/tweenAction/merge-array.js';
+import { mergeArrayTween } from '../utils/tween-action/merge-array.js';
 import {
     getValueObj,
     getValueObjFromNative,
     getValueObjToNative,
-} from '../utils/tweenAction/get-values.js';
+} from '../utils/tween-action/get-values.js';
 import { tweenGetValueOnDraw } from './get-values-on-draw.js';
 
 export default class MobTimeTween {

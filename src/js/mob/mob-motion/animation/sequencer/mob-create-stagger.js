@@ -18,7 +18,7 @@ import {
     durationIsValid,
     staggerItemsIsValid,
     validateStaggerItems,
-} from '../utils/tweenAction/tween-validation.js';
+} from '../utils/tween-action/tween-validation.js';
 import { getStaggerFromProps } from '../utils/stagger/stagger-utils.js';
 import { MobCore } from '../../../mob-core/index.js';
 

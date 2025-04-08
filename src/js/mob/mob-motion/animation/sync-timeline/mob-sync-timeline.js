@@ -6,7 +6,7 @@ import {
     durationIsValid,
     repeatIsValid,
     valueIsBooleanAndReturnDefault,
-} from '../utils/tweenAction/tween-validation.js';
+} from '../utils/tween-action/tween-validation.js';
 import { MobCore } from '../../../mob-core/index.js';
 import { directionConstant } from '../utils/timeline/timeline-constant.js';
 import { fpsLoadedLog } from '../utils/fps-log-inizialization.js';

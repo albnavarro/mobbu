@@ -17,11 +17,11 @@ import {
     springConfigDefault,
     tweenDurationDefault,
     tweenRealtiveDefault,
-} from './animation/utils/setUp/set-up-validation.js';
+} from './animation/utils/set-up/set-up-validation.js';
 import { mergeDeep } from './utils/merge-deep.js';
 
 /**
- * @type {import('./animation/utils/setUp/type.js').SetUpGetData}
+ * @type {import('./animation/utils/set-up/type.js').SetUpGetData}
  */
 function getData() {
     return {
@@ -78,7 +78,7 @@ export const handleSetUp = (() => {
      * @description
      * - Here it is possible to modify the default values of the various modules of the library
      *
-     * @type {import('./animation/utils/setUp/type.js').SetSetUp}
+     * @type {import('./animation/utils/set-up/type.js').SetSetUp}
      *
      *
      * @example
@@ -197,7 +197,7 @@ export const handleSetUp = (() => {
      * @description
      * Returns the value of a specific property
      *
-     * @type {import('./animation/utils/setUp/type.js').GetSetUp}
+     * @type {import('./animation/utils/set-up/type.js').GetSetUp}
      *
      * @example
      * ```javascript

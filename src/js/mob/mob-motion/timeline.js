@@ -1,10 +1,10 @@
 // @ts-check
 
-import MobAsyncTimeline from './animation/asyncTimeline/async-timeline.js';
-import MobSyncTimeline from './animation/syncTimeline/mob-sync-timeline.js';
+import MobAsyncTimeline from './animation/async-timeline/async-timeline.js';
+import MobSyncTimeline from './animation/sync-timeline/mob-sync-timeline.js';
 
 /**
- * @param {import('./animation/syncTimeline/type.js').SyncTimeline} data
+ * @param {import('./animation/sync-timeline/type.js').SyncTimeline} data
  * @return {MobSyncTimeline}
  *
  * @example
@@ -48,7 +48,7 @@ function createSyncTimeline(data) {
 }
 
 /**
- * @param {import('./animation/asyncTimeline/type.js').AsyncTimeline} data
+ * @param {import('./animation/async-timeline/type.js').AsyncTimeline} data
  * @return {MobAsyncTimeline}
  *
  * @example

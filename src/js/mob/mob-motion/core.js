@@ -7,7 +7,7 @@ import { handleSetUp } from './setup.js';
  * @description
  * - Here it is possible to modify the default values of the various modules of the library
  *
- * @type {import('./animation/utils/setUp/type.js').SetSetUp} props
+ * @type {import('./animation/utils/set-up/type.js').SetSetUp} props
  *
  *
  * @example
@@ -116,7 +116,7 @@ function setDefault(props) {
  * @description
  * Returns the value of a specific property
  *
- * @type {import('./animation/utils/setUp/type.js').GetSetUp} prop
+ * @type {import('./animation/utils/set-up/type.js').GetSetUp} prop
  *
  * @example
  * ```javascript

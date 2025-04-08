@@ -16,7 +16,7 @@ import {
     timelineSetTweenLabelIsValid,
     valueIsBooleanAndReturnDefault,
     valueStringIsValid,
-} from '../utils/tweenAction/tween-validation.js';
+} from '../utils/tween-action/tween-validation.js';
 import {
     asyncTimelineMetodsInsideGroupWarining,
     relativePropInsideTimelineWarning,

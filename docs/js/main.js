@@ -9280,7 +9280,7 @@
     }
   };
 
-  // src/js/mob/mob-motion/animation/utils/setUp/set-up-validation.js
+  // src/js/mob/mob-motion/animation/utils/set-up/set-up-validation.js
   var easeReference = {
     easeLinear: "easeLinear",
     easeInQuad: "easeInQuad",
@@ -9753,7 +9753,7 @@
     createTimeTween: () => createTimeTween
   });
 
-  // src/js/mob/mob-motion/animation/utils/tweenAction/set-values.js
+  // src/js/mob/mob-motion/animation/utils/tween-action/set-values.js
   var setFromByCurrent = (arr) => {
     return arr.map((item) => {
       if (!item.settled) {
@@ -10723,7 +10723,7 @@
     return MobScrollerConstant.PX;
   };
 
-  // src/js/mob/mob-motion/animation/utils/tweenAction/tween-validation.js
+  // src/js/mob/mob-motion/animation/utils/tween-action/tween-validation.js
   var dataTweenValueIsValid = (val2) => {
     return modules_exports.checkType(Number, val2) || // @ts-ignore
     modules_exports.checkType(Function, val2) && modules_exports.checkType(Number, val2());
@@ -11823,7 +11823,7 @@
     };
   };
 
-  // src/js/mob/mob-motion/animation/utils/tweenAction/actions.js
+  // src/js/mob/mob-motion/animation/utils/tween-action/actions.js
   var goToUtils = (obj) => {
     return Object.keys(obj).map((item) => {
       if (!dataTweenValueIsValid(obj[item])) {
@@ -12000,7 +12000,7 @@
     });
   };
 
-  // src/js/mob/mob-motion/animation/utils/tweenAction/get-values.js
+  // src/js/mob/mob-motion/animation/utils/tween-action/get-values.js
   var getValueObj = (arr, key) => {
     return arr.map((item) => ({ [item["prop"]]: Number.parseFloat(item[key]) })).reduce((p, c) => ({ ...p, ...c }), {});
   };
@@ -12015,7 +12015,7 @@
     }).reduce((p, c) => ({ ...p, ...c }), {});
   };
 
-  // src/js/mob/mob-motion/animation/utils/tweenAction/merge-array.js
+  // src/js/mob/mob-motion/animation/utils/tween-action/merge-array.js
   var mergeArray = (newData, data) => {
     return data.map((item) => {
       const itemToMerge = newData.find((newItem) => {
@@ -13017,7 +13017,7 @@
     /**
      * Return the new array maeged with main array created in setData
      *
-     * @param  {import('../utils/tweenAction/type.js').GoToParamsType[]} newData new datato merge
+     * @param  {import('../utils/tween-action/type.js').GoToParamsType[]} newData new datato merge
      * @return {void}
      */
     #mergeData(newData) {
@@ -15859,7 +15859,7 @@
     Promise.resolve(input)
   );
 
-  // src/js/mob/mob-motion/animation/asyncTimeline/async-reduce-data.js
+  // src/js/mob/mob-motion/animation/async-timeline/async-reduce-data.js
   var asyncReduceData = (data, activeData) => {
     return Object.entries(data).map((item) => {
       const [prop, val2] = item;
@@ -15870,7 +15870,7 @@
     }, {});
   };
 
-  // src/js/mob/mob-motion/animation/asyncTimeline/async-reduce-tween.js
+  // src/js/mob/mob-motion/animation/async-timeline/async-reduce-tween.js
   var asyncReduceTween = (tweenList, tween2, index) => {
     let currentId = tween2?.getId?.();
     const initialData = tween2?.getInitialData?.() || {};
@@ -15902,7 +15902,7 @@
     }, initialData);
   };
 
-  // src/js/mob/mob-motion/animation/asyncTimeline/loop-callback.js
+  // src/js/mob/mob-motion/animation/async-timeline/loop-callback.js
   var resolveTweenPromise = ({
     reject,
     res,
@@ -15931,7 +15931,7 @@
     });
   };
 
-  // src/js/mob/mob-motion/animation/asyncTimeline/async-timeline.js
+  // src/js/mob/mob-motion/animation/async-timeline/async-timeline.js
   var MobAsyncTimeline = class {
     /**
      * @type {number}
@@ -17365,7 +17365,7 @@
     }
   };
 
-  // src/js/mob/mob-motion/animation/syncTimeline/mob-sync-timeline.js
+  // src/js/mob/mob-motion/animation/sync-timeline/mob-sync-timeline.js
   var MobSyncTimeline = class {
     /**
      * @param {import('./type.js').SyncTimeline} data
@@ -20990,7 +20990,7 @@
     });
   }
 
-  // src/js/mob/mob-motion/plugin/pageScroll/page-scroller.js
+  // src/js/mob/mob-motion/plugin/page-scroll/page-scroller.js
   var isActive = false;
   var lastScrollValue = window.scrollY;
   var smoothIsActive = false;
@@ -21118,7 +21118,7 @@
     update2();
   };
 
-  // src/js/mob/mob-motion/plugin/bodyScroll/body-scroll.js
+  // src/js/mob/mob-motion/plugin/body-scroll/body-scroll.js
   var defaultPreset = "easeOutQuad";
   var tween = new MobTimeTween({ ease: defaultPreset, data: { val: 0 } });
   var isRunning = false;
@@ -21210,14 +21210,14 @@
     };
   })();
 
-  // src/js/mob/mob-motion/plugin/horizontalScroller/js/horizontal-scroller-constant.js
+  // src/js/mob/mob-motion/plugin/horizontal-scroller/js/horizontal-scroller-constant.js
   var horizontalScrollerContstant = {
     END: "END",
     START: "START",
     CENTER: "CENTER"
   };
 
-  // src/js/mob/mob-motion/plugin/horizontalScroller/js/horizontal-scroller-css.js
+  // src/js/mob/mob-motion/plugin/horizontal-scroller/js/horizontal-scroller-css.js
   var getAlign = (columnAlign) => {
     switch (columnAlign) {
       case horizontalScrollerContstant.END: {
@@ -21261,7 +21261,7 @@
     mainContainer.prepend(styleDiv);
   };
 
-  // src/js/mob/mob-motion/plugin/horizontalScroller/js/horizontal-scroller.js
+  // src/js/mob/mob-motion/plugin/horizontal-scroller/js/horizontal-scroller.js
   var MobHorizontalScroller = class {
     /**
      * @type {boolean}
@@ -22420,7 +22420,7 @@
     return { subscribe, reset, up, down };
   })();
 
-  // src/js/mob/mob-motion/plugin/smoothScroller/smooth-scroller.js
+  // src/js/mob/mob-motion/plugin/smooth-scroller/smooth-scroller.js
   var MobSmoothScroller = class {
     /**
      * @type {boolean}

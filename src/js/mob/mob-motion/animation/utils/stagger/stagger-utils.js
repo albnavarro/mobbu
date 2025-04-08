@@ -8,7 +8,7 @@ import {
     validateStaggerFrom,
     validateStaggerType,
     validateStaggerWaitComplete,
-} from '../tweenAction/tween-validation.js';
+} from '../tween-action/tween-validation.js';
 import {
     DIRECTION_COL,
     STAGGER_DEFAULT_OBJ,

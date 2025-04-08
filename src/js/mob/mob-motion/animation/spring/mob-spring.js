@@ -7,7 +7,7 @@ import {
     setFromToByCurrent,
     setReverseValues,
     setRelative,
-} from '../utils/tweenAction/set-values.js';
+} from '../utils/tween-action/set-values.js';
 import { mergeDeep } from '../../utils/merge-deep.js';
 import { setStagger } from '../utils/stagger/set-stagger.js';
 import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/stagger-costant.js';
@@ -28,7 +28,7 @@ import {
     goFromUtils,
     goFromToUtils,
     setUtils,
-} from '../utils/tweenAction/actions.js';
+} from '../utils/tween-action/actions.js';
 import { initRaf } from '../utils/init-raf.js';
 import {
     compareKeysWarning,
@@ -41,7 +41,7 @@ import {
     springConfigIsValidAndGetNew,
     springConfigPropIsValid,
     valueIsBooleanAndTrue,
-} from '../utils/tweenAction/tween-validation.js';
+} from '../utils/tween-action/tween-validation.js';
 import { handleSetUp } from '../../setup.js';
 import { MobCore } from '../../../mob-core/index.js';
 import { shouldInizializzeStagger } from '../utils/stagger/should-inizialize.js';
@@ -50,8 +50,8 @@ import {
     getValueObj,
     getValueObjFromNative,
     getValueObjToNative,
-} from '../utils/tweenAction/get-values.js';
-import { mergeArray } from '../utils/tweenAction/merge-array.js';
+} from '../utils/tween-action/get-values.js';
+import { mergeArray } from '../utils/tween-action/merge-array.js';
 import { springGetValuesOndraw } from './get-values-on-draw.js';
 import { springPresetConfig } from './spring-config.js';
 

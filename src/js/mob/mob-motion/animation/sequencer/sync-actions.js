@@ -1,7 +1,7 @@
 // @ts-check
 
 import { getTweenFn } from '../tween/tween-config.js';
-import { dataTweenValueIsValid } from '../utils/tweenAction/tween-validation.js';
+import { dataTweenValueIsValid } from '../utils/tween-action/tween-validation.js';
 import { dataTweenValueIsNotValidWarning } from '../utils/warning.js';
 
 /**
