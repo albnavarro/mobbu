@@ -6,7 +6,7 @@ import { html, MobJs } from '@mobJs';
 
 /**
  * @import { MobComponent, ReturnBindProps } from '@mobJsType';
- * @import { DebugFilterListItem } from './DebugFilterLitItem/type';
+ * @import { DebugFilterListItem } from './item/type';
  */
 
 /** @type{import('./type').DebugInitScroller} */

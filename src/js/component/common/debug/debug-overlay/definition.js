@@ -2,12 +2,12 @@
 
 import { MobJs } from '@mobJs';
 import { DEBUG_USE_TREE } from './constant';
-import { DebugComponent } from './DebugComponent/definition';
-import { DebugFilterHead } from './DebugFilter/DebugFilterHead/definition';
-import { DebugFilterList } from './DebugFilter/DebugFilterList/definition';
-import { DebugHead } from './Debughead/definition';
+import { DebugComponent } from './debug-component/definition';
+import { DebugFilterHead } from './debug-filter/head/definition';
+import { DebugFilterList } from './debug-filter/list/definition';
+import { DebugHead } from './head/definition';
 import { DebugOverlayFn } from './debug-overlay';
-import { DebugTree } from './DebugTree/definition';
+import { DebugTree } from './tree/definition';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

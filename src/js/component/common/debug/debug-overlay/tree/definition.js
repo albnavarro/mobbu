@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { DebugTreeFn } from './debug-tree';
-import { DebugTreeItem } from './DebugTreeItem/definition';
+import { DebugTreeItem } from './item/definition';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

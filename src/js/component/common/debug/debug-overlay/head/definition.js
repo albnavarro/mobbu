@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { DebugHeadFn } from './debug-head';
-import { DebugSearch } from './DebugSearch/definition';
+import { DebugSearch } from './search/definition';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

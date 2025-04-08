@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { DebugFilterListFn } from './debug-filter-list';
-import { DebugFilterListItem } from './DebugFilterLitItem/definition';
+import { DebugFilterListItem } from './item/definition';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

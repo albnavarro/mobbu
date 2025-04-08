@@ -8,7 +8,7 @@ import { html, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../../constant';
 
 const updateId = (id = '') => {
-    /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+    /** @type{UseMethodByName<import('../../debug-component/type').DebugComponent>} */
     const methods = MobJs.useMethodByName('debug_component');
     methods?.updateId(id ?? '');
 };
@@ -119,7 +119,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                     type="button"
                     ${delegateEvents({
                         click: () => {
-                            /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+                            /** @type{UseMethodByName<import('../../debug-component/type').DebugComponent>} */
                             const methods =
                                 MobJs.useMethodByName('debug_component');
                             methods?.refreshId();

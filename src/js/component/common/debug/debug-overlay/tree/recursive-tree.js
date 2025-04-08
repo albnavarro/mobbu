@@ -8,8 +8,8 @@ import { html } from '@mobJs';
 
 /**
  * @param {object} params
- * @param {import('./DebugTreeItem/type').DebugTreeItem['state'][]} params.data
- * @param {StaticProps<import('./DebugTreeItem/type').DebugTreeItem>} params.staticProps
+ * @param {import('./item/type').DebugTreeItem['state'][]} params.data
+ * @param {StaticProps<import('./item/type').DebugTreeItem>} params.staticProps
  *
  * @return { string }
  */

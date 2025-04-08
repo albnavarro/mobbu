@@ -9,7 +9,7 @@ import { html, MobJs } from '@mobJs';
 const refreshList = async (testString = '') => {
     await MobJs.tick();
 
-    /** @type{UseMethodByName<import('../DebugFilterList/type').DebugFilterList>} */
+    /** @type{UseMethodByName<import('../list/type').DebugFilterList>} */
     const methods = MobJs.useMethodByName('debug_filter_list');
     methods?.refreshList?.({ testString });
 };

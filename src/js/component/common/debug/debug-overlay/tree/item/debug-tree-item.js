@@ -6,7 +6,7 @@
 
 import { html, MobJs } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
-import { debugActiveComponentStore } from '../../Store/debug-active-component';
+import { debugActiveComponentStore } from '../../store/debug-active-component';
 import { generateTreeComponents } from '../recursive-tree';
 
 /**
@@ -122,7 +122,7 @@ export const DebugTreeItemFn = ({
                 class="c-debug-tree-item__expand"
                 ${delegateEvents({
                     click: () => {
-                        /** @type{UseMethodByName<import('../../DebugComponent/type').DebugComponent>} */
+                        /** @type{UseMethodByName<import('../../debug-component/type').DebugComponent>} */
                         const methods =
                             MobJs.useMethodByName('debug_component');
                         methods?.updateId(proxi.id);

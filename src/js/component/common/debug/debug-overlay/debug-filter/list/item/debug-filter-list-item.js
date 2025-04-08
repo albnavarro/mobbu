@@ -4,8 +4,8 @@
  * @import { MobComponent, UseMethodByName } from '@mobJsType';
  **/
 
+import { debugActiveComponentStore } from '@commonComponent/debug/debug-overlay/store/debug-active-component';
 import { html, MobJs } from '@mobJs';
-import { debugActiveComponentStore } from '../../../Store/debug-active-component';
 
 /** @type{MobComponent<import('./type').DebugFilterListItem>} */
 export const DebugFilterListItemFn = ({
@@ -34,7 +34,7 @@ export const DebugFilterListItemFn = ({
                 class="c-debug-filter-list-item__expand"
                 ${delegateEvents({
                     click: () => {
-                        /** @type{UseMethodByName<import('../../../DebugComponent/type').DebugComponent>} */
+                        /** @type{UseMethodByName<import('../../../debug-component/type').DebugComponent>} */
                         const methods =
                             MobJs.useMethodByName('debug_component');
                         methods?.updateId(proxi.id);

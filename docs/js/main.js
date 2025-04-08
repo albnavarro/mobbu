@@ -33907,7 +33907,7 @@ Loading snippet ...</pre
     });
   };
 
-  // src/js/component/common/debug/debugOverlay/constant.js
+  // src/js/component/common/debug/debug-overlay/constant.js
   var RESET_FILTER_DEBUG = "reset";
   var DEBUG_USE_TREE = "tree";
   var DEBUG_USE_FILTER_COMPONENT = "filter_component";
@@ -33967,7 +33967,7 @@ Loading snippet ...</pre
     };
   };
 
-  // src/js/component/common/debug/debugOverlay/Store/debug-active-component.js
+  // src/js/component/common/debug/debug-overlay/store/debug-active-component.js
   var debugActiveComponentStore = modules_exports.createStore(
     /** @type{MobStoreParams<import('./type').DebugActiveComponentStore>} */
     {
@@ -33978,7 +33978,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/component/common/debug/debugOverlay/DebugComponent/debug-component.js
+  // src/js/component/common/debug/debug-overlay/debug-component/debug-component.js
   var getClassList = (value) => {
     if (!value) return "";
     return [...value].reduce(
@@ -34166,7 +34166,7 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugComponent/definition.js
+  // src/js/component/common/debug/debug-overlay/debug-component/definition.js
   var DebugComponent = modules_exports2.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugComponent>} */
     {
@@ -34182,7 +34182,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterHead/debug-filter-head.js
+  // src/js/component/common/debug/debug-overlay/debug-filter/head/debug-filter-head.js
   var refreshList = async (testString = "") => {
     await modules_exports2.tick();
     const methods = modules_exports2.useMethodByName("debug_filter_list");
@@ -34233,7 +34233,7 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterHead/definition.js
+  // src/js/component/common/debug/debug-overlay/debug-filter/head/definition.js
   var DebugFilterHead = modules_exports2.createComponent(
     /** @type{CreateComponentParams<any>} */
     {
@@ -34242,7 +34242,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/debug-filter-list.js
+  // src/js/component/common/debug/debug-overlay/debug-filter/list/debug-filter-list.js
   var initScroller2 = async ({ getRef }) => {
     await modules_exports2.tick();
     const { screen, scroller, scrollbar } = getRef();
@@ -34412,7 +34412,7 @@ Loading snippet ...</pre
     `;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/debug-filter-list-item.js
+  // src/js/component/common/debug/debug-overlay/debug-filter/list/item/debug-filter-list-item.js
   var DebugFilterListItemFn = ({
     delegateEvents,
     bindText,
@@ -34454,7 +34454,7 @@ Loading snippet ...</pre
     `;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/definition.js
+  // src/js/component/common/debug/debug-overlay/debug-filter/list/item/definition.js
   var DebugFilterListItem = modules_exports2.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugFilterListItem>} */
     {
@@ -34482,7 +34482,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/definition.js
+  // src/js/component/common/debug/debug-overlay/debug-filter/list/definition.js
   var DebugFilterList = modules_exports2.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugFilterList>} */
     {
@@ -34506,7 +34506,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/component/common/debug/debugOverlay/Debughead/debug-head.js
+  // src/js/component/common/debug/debug-overlay/head/debug-head.js
   var DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
     return renderHtml`<div class="c-debug-head">
@@ -34553,7 +34553,7 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/Debughead/DebugSearch/debug-search.js
+  // src/js/component/common/debug/debug-overlay/head/search/debug-search.js
   var updateId = (id = "") => {
     const methods = modules_exports2.useMethodByName("debug_component");
     methods?.updateId(id ?? "");
@@ -34674,7 +34674,7 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/Debughead/DebugSearch/definition.js
+  // src/js/component/common/debug/debug-overlay/head/search/definition.js
   var DebugSearch = modules_exports2.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugSearch>} */
     {
@@ -34683,7 +34683,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/component/common/debug/debugOverlay/Debughead/definition.js
+  // src/js/component/common/debug/debug-overlay/head/definition.js
   var DebugHead = modules_exports2.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugHead>} */
     {
@@ -34729,7 +34729,7 @@ Loading snippet ...</pre
     console.log("bindTextPlaceholderMapSize", getBindTextPlaceholderSize());
   };
 
-  // src/js/component/common/debug/debugOverlay/debug-overlay.js
+  // src/js/component/common/debug/debug-overlay/debug-overlay.js
   var DebugOverlayFn = ({
     delegateEvents,
     addMethod,
@@ -34881,7 +34881,7 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/recursive-tree.js
+  // src/js/component/common/debug/debug-overlay/tree/recursive-tree.js
   var generateTreeComponents = ({ data, staticProps: staticProps2 }) => {
     return data.map(({ id, componentName, instanceName, children }) => {
       return renderHtml`<debug-tree-item
@@ -34895,7 +34895,7 @@ Loading snippet ...</pre
     }).join("");
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/debug-tree.js
+  // src/js/component/common/debug/debug-overlay/tree/debug-tree.js
   var initScroller3 = async ({ getRef }) => {
     await modules_exports2.tick();
     const { screen, scroller, scrollbar } = getRef();
@@ -35006,7 +35006,7 @@ Loading snippet ...</pre
     `;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/debug-tree-item.js
+  // src/js/component/common/debug/debug-overlay/tree/item/debug-tree-item.js
   var getCounter2 = (value) => {
     return value > 0 ? `( ${value} ) ` : "";
   };
@@ -35109,7 +35109,7 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/definition.js
+  // src/js/component/common/debug/debug-overlay/tree/item/definition.js
   var DebugTreeItem = modules_exports2.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugTreeItem>} */
     {
@@ -35149,7 +35149,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/definition.js
+  // src/js/component/common/debug/debug-overlay/tree/definition.js
   var DebugTree = modules_exports2.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugTree>} */
     {
@@ -35169,7 +35169,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/component/common/debug/debugOverlay/definition.js
+  // src/js/component/common/debug/debug-overlay/definition.js
   var DebugOverlay = modules_exports2.createComponent(
     /** @type{CreateComponentParams<import('./type').DebugOverlay>} */
     {

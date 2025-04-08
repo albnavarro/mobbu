@@ -6,7 +6,7 @@ import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
 
 /**
  * @import { MobComponent, ReturnBindProps } from '@mobJsType';
- * @import { DebugHead } from './Debughead/type';
+ * @import { DebugHead } from './head/type';
  **/
 
 /** @type{MobComponent<import('./type').DebugOverlay>} */

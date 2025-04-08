@@ -1,5 +1,5 @@
 import { GetRef } from '@mobJsType';
-import { DebugFilterListItem } from './DebugFilterLitItem/type';
+import { DebugFilterListItem } from './item/type';
 
 export interface DebugFilterList {
     state: {

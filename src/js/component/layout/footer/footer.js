@@ -5,7 +5,7 @@ import { html, MobJs } from '@mobJs';
 
 /**
  * @import { MobComponent, UseMethodByName } from '@mobJsType'
- * @import { DebugOverlay } from '../../common/debug/debugOverlay/type'
+ * @import { DebugOverlay } from '../../common/debug/debug-overlay/type'
  */
 
 /** @type {MobComponent} */

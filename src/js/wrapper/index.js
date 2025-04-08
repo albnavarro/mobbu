@@ -1,6 +1,6 @@
 // @ts-check
 
-import { DebugOverlay } from '@commonComponent/debug/debugOverlay/definition';
+import { DebugOverlay } from '@commonComponent/debug/debug-overlay/definition';
 import { LinksMobJs } from '@commonComponent/links-mob-js/definition';
 import { OnlyDesktop } from '@commonComponent/only-desktop/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';
