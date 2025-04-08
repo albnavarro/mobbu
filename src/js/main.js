@@ -6,12 +6,10 @@ import { MobMotionCore, MobTween } from '@mobMotion';
 import { usePageScroll } from '@utils/page-scroll';
 import { setBrowserClass } from '@utils/utils';
 import { loadData } from './data';
-import { beforePageTransition, pageTransition } from './pageTransition';
+import { beforePageTransition, pageTransition } from './page-transition';
 import { routes } from './pages';
 import { getScrollbarWith } from './utils/scrollbar-with';
 import { wrapper } from './wrapper';
-// import { stateTest } from './test/mapTest/mapTest';
-// import { initTestMapStore } from './test/mapStore';
 // import { storeTest } from './test/store-test';
 
 /**

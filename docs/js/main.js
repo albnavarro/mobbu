@@ -23396,7 +23396,7 @@
     commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data) => data).catch((error) => console.warn("Something went wrong.", error));
   };
 
-  // src/js/pageTransition/index.js
+  // src/js/page-transition/index.js
   var scrollY = 0;
   modules_exports2.beforeRouteChange(() => {
     scrollY = window.scrollY;
@@ -23674,7 +23674,7 @@
     }
   );
 
-  // src/js/pages/Layout/layout-links.js
+  // src/js/pages/layout/layout-links.js
   modules_exports2.useComponent([LayoutLinks]);
   var layoutLinksPage = async ({ props }) => {
     const { source } = props;
@@ -25095,7 +25095,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/pages/Layout/utils.js
+  // src/js/pages/layout/utils.js
   var getBreadCrumbs = ({ breadCrumbs }) => breadCrumbs.map(
     (item, index) => index === breadCrumbs.length - 1 ? renderHtml`<a href="${item.url}" class="breadcrumbs__arrow">
                           <div class="breadcrumbs__arrow__start"></div>
@@ -25108,7 +25108,7 @@ Loading snippet ...</pre
                   >`
   ).join("");
 
-  // src/js/pages/Layout/layout-sidebar-anchor.js
+  // src/js/pages/layout/layout-sidebar-anchor.js
   modules_exports2.useComponent([
     DocContainer,
     DocsTitleSmall,
@@ -25144,7 +25144,7 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/Layout/layout-sidebar-links.js
+  // src/js/pages/layout/layout-sidebar-links.js
   modules_exports2.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
   var layoutSidebarLinks = async ({ props }) => {
     const { source, title, breadCrumbs } = props;
@@ -30456,7 +30456,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/pages/dynamicList/index.js
+  // src/js/pages/dynamic-list/index.js
   modules_exports2.useComponent([DynamicList]);
   var dynamic_list = () => {
     return renderHtml` <dynamic-list> </dynamic-list> `;
@@ -31381,7 +31381,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/pages/plugin/horizontalScroller/index.js
+  // src/js/pages/plugin/horizontal-scroller/index.js
   modules_exports2.useComponent([HorizontalScroller]);
   var horizontalScroller = async () => {
     updateQuickNavState({
@@ -32359,7 +32359,7 @@ Loading snippet ...</pre
     }
   );
 
-  // src/js/pages/plugin/move3D/index.js
+  // src/js/pages/plugin/move-3d/index.js
   modules_exports2.useComponent([Move3DPage, StarSvg]);
   var move3DRoute = async ({ props }) => {
     const { data, prevRoute, nextRoute } = props;
@@ -32744,7 +32744,7 @@ Loading snippet ...</pre
     }
   ];
 
-  // src/js/pages/plugin/move3D/props.js
+  // src/js/pages/plugin/move-3d/props.js
   var move3DrouteProps = {
     shape1: {
       prevRoute: "#horizontalScroller?version=0&activeId=0",
@@ -32792,7 +32792,7 @@ Loading snippet ...</pre
     return serialized;
   };
 
-  // src/js/pages/svg/lettering01/lettering-01-data.js
+  // src/js/pages/svg/lettering-01/lettering-01-data.js
   var getLettering01 = ({
     letter_d,
     letter_p,
@@ -33043,7 +33043,7 @@ Loading snippet ...</pre
     ];
   };
 
-  // src/js/pages/svg/lettering01/index.js
+  // src/js/pages/svg/lettering-01/index.js
   modules_exports2.useComponent([Move3D, AnyComponent]);
   var lettering01 = async () => {
     const { data: lettering012 } = await loadTextContent({

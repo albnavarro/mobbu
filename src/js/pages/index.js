@@ -1,8 +1,8 @@
 // @ts-check
 import { pageNotFound } from './404';
-import { layoutLinksPage } from './Layout/layout-links';
-import { layoutSidebarAnchor } from './Layout/layout-sidebar-anchor';
-import { layoutSidebarLinks } from './Layout/layout-sidebar-links';
+import { layoutLinksPage } from './layout/layout-links';
+import { layoutSidebarAnchor } from './layout/layout-sidebar-anchor';
+import { layoutSidebarLinks } from './layout/layout-sidebar-links';
 import { layoutAbout } from './about/layout-about';
 import { benchMark } from './benchmark';
 import { animatedPatternN0 } from './canvas/animatedPatternN0';
@@ -12,13 +12,13 @@ import { caterpillarN1 } from './canvas/caterpillarN1';
 import { caterpillarN2 } from './canvas/caterpillarN2';
 import { scrollerN0 } from './canvas/scroller';
 import { scrollerN1 } from './canvas/scrollerN1';
-import { dynamic_list } from './dynamicList';
+import { dynamic_list } from './dynamic-list';
 import { home } from './home';
 import { matrioska_page } from './matrioska';
-import { horizontalScroller } from './plugin/horizontalScroller';
-import { move3DRoute } from './plugin/move3D';
-import { move3DrouteProps } from './plugin/move3D/props';
-import { lettering01 } from './svg/lettering01';
+import { horizontalScroller } from './plugin/horizontal-scroller';
+import { move3DRoute } from './plugin/move-3d';
+import { move3DrouteProps } from './plugin/move-3d/props';
+import { lettering01 } from './svg/lettering-01';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
 export const PAGE_TEMPLATE_TRAVERSAL_MOBJS = 'templateMobJsTraversal';
