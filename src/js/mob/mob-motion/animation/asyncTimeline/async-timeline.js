@@ -1,7 +1,7 @@
 // @ts-check
 
-import { handleNextFrame } from '../../../mob-core/events/rafutils/handle-next-frame.js';
-import { handleNextTick } from '../../../mob-core/events/rafutils/handle-next-tick.js';
+import { handleNextFrame } from '../../../mob-core/events/raf-utils/handle-next-frame.js';
+import { handleNextTick } from '../../../mob-core/events/raf-utils/handle-next-tick.js';
 import { MobCore } from '../../../mob-core/index.js';
 import { NOOP } from '../../utils/functions-utils.js';
 import { directionConstant } from '../utils/timeline/timeline-constant.js';

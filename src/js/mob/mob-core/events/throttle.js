@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-this-assignment */
 /* eslint-disable @typescript-eslint/no-this-alias */
 
-import { getTime } from './rafutils/time';
+import { getTime } from './raf-utils/time';
 
 /**
  * @param {Function} func

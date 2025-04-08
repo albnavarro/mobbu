@@ -2,8 +2,8 @@
 
 import { handleScrollImmediate } from './handle-scroll-immediate.js';
 import { debounceFuncion } from '../debounce.js';
-import { handleFrame } from '../rafutils/handle-frame.js';
-import { handleNextTick } from '../rafutils/handle-next-tick.js';
+import { handleFrame } from '../raf-utils/handle-frame.js';
+import { handleNextTick } from '../raf-utils/handle-next-tick.js';
 import { getUnivoqueId } from '../../utils/index.js';
 
 /**

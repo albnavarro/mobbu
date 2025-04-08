@@ -483,7 +483,7 @@ export const getRetReverseValue = (propierties, val) => {
 
 /**
  * @param {Object} param
- * @param {import('../../../mob-core/events/scrollUtils/type.js').HandleScrollCallback<import('../../../mob-core/events/scrollUtils/type.js').HandleScroll>} param.callback
+ * @param {import('../../../mob-core/events/scroll-utils/type.js').HandleScrollCallback<import('../../../mob-core/events/scroll-utils/type.js').HandleScroll>} param.callback
  * @param {boolean} param.pin
  * @param {boolean} param.ease
  * @param {boolean} param.useThrottle

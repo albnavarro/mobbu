@@ -3296,7 +3296,7 @@
     }
   );
 
-  // src/js/mob/mob-core/events/loadutils/handle-load.js
+  // src/js/mob/mob-core/events/load-utils/handle-load.js
   var initialized = false;
   var callbacks = /* @__PURE__ */ new Map();
   function handler() {
@@ -3327,7 +3327,7 @@
   };
   var handleLoad = /* @__PURE__ */ (() => addCallback)();
 
-  // src/js/mob/mob-core/events/mouseUtils/normalize-whell.js
+  // src/js/mob/mob-core/events/mouse-utils/normalize-whell.js
   var PIXEL_STEP = 10;
   var LINE_HEIGHT = 40;
   var PAGE_HEIGHT = 800;
@@ -3375,7 +3375,7 @@
     return { spinX: sX, spinY: sY, pixelX: pX, pixelY: pY };
   }
 
-  // src/js/mob/mob-core/events/mouseUtils/handle-mouse.js
+  // src/js/mob/mob-core/events/mouse-utils/handle-mouse.js
   function getPageData({ type, event }) {
     const touchEvent = (
       /** @type{TouchEvent} */
@@ -3474,7 +3474,7 @@
   var handleTouchEnd = handleMouse("touchend");
   var handleMouseWheel = handleMouse("wheel");
 
-  // src/js/mob/mob-core/events/rafutils/handle-cache.js
+  // src/js/mob/mob-core/events/raf-utils/handle-cache.js
   var cacheCoutner = 0;
   var subscriberMap = /* @__PURE__ */ new Map();
   var add = (el = {}, fn = () => {
@@ -3566,7 +3566,7 @@
     };
   })();
 
-  // src/js/mob/mob-core/events/visibilityChange/handle-visibility-change.js
+  // src/js/mob/mob-core/events/visibility-change/handle-visibility-change.js
   var initialized2 = false;
   var callbacks2 = /* @__PURE__ */ new Map();
   function handler2() {
@@ -3599,7 +3599,7 @@
   };
   var handleVisibilityChange = /* @__PURE__ */ (() => addCb)();
 
-  // src/js/mob/mob-core/events/rafutils/handle-next-tick.js
+  // src/js/mob/mob-core/events/raf-utils/handle-next-tick.js
   var callbacks3 = [];
   var add2 = (cb = () => {
   }, priority = 100) => {
@@ -3615,7 +3615,7 @@
     return { add: add2, fire: fire2 };
   })();
 
-  // src/js/mob/mob-core/events/rafutils/handle-next-frame.js
+  // src/js/mob/mob-core/events/raf-utils/handle-next-frame.js
   var callbacks4 = [];
   var add3 = (callBack) => {
     callbacks4.push(callBack);
@@ -3629,7 +3629,7 @@
     return { add: add3, get: get2 };
   })();
 
-  // src/js/mob/mob-core/events/rafutils/handle-frame-index.js
+  // src/js/mob/mob-core/events/raf-utils/handle-frame-index.js
   var indexCallbackMap = /* @__PURE__ */ new Map();
   var updateKeys = (currentFrameLimit2) => {
     const oldMapToArray = [...indexCallbackMap.entries()];
@@ -3662,7 +3662,7 @@
     };
   })();
 
-  // src/js/mob/mob-core/events/errorHandler/catch-animation-reject.js
+  // src/js/mob/mob-core/events/error-handler/catch-animation-reject.js
   var ANIMATION_STOP_REJECT = "animationStop";
   var catchAnimationReject = () => {
     globalThis.addEventListener("unhandledrejection", (e) => {
@@ -3670,7 +3670,7 @@
     });
   };
 
-  // src/js/mob/mob-core/events/rafutils/load-fps.js
+  // src/js/mob/mob-core/events/raf-utils/load-fps.js
   var loadFpsIsReady = false;
   var loadFps = (duration2 = 30) => {
     if (loadFpsIsReady) {
@@ -3711,13 +3711,13 @@
     });
   };
 
-  // src/js/mob/mob-core/events/rafutils/time.js
+  // src/js/mob/mob-core/events/raf-utils/time.js
   var getTime = () => {
     return typeof globalThis === "undefined" ? Date.now() : globalThis.performance.now();
   };
   var defaultTimestep = 1 / 60 * 1e3;
 
-  // src/js/mob/mob-core/events/rafutils/handle-frame.js
+  // src/js/mob/mob-core/events/raf-utils/handle-frame.js
   loadFps();
   var currentFrameLimit = 1e7;
   var firstRunDuration = 2e3;
@@ -3860,7 +3860,7 @@
     };
   };
 
-  // src/js/mob/mob-core/events/resizeUtils/handle-resize.js
+  // src/js/mob/mob-core/events/resize-utils/handle-resize.js
   var initialized3 = false;
   var callbacks5 = /* @__PURE__ */ new Map();
   var debouceFunctionReference = () => {
@@ -3909,7 +3909,7 @@
   };
   var handleResize = /* @__PURE__ */ (() => addCb2)();
 
-  // src/js/mob/mob-core/events/scrollUtils/handle-scroll-immediate.js
+  // src/js/mob/mob-core/events/scroll-utils/handle-scroll-immediate.js
   var initialized4 = false;
   var callbacks6 = /* @__PURE__ */ new Map();
   var UP = "UP";
@@ -3957,7 +3957,7 @@
     return addCb3;
   })();
 
-  // src/js/mob/mob-core/events/scrollUtils/handle-scroll.js
+  // src/js/mob/mob-core/events/scroll-utils/handle-scroll.js
   var initialized5 = false;
   var callbacks7 = /* @__PURE__ */ new Map();
   var unsubscribe = () => {
@@ -4016,7 +4016,7 @@
     };
   };
 
-  // src/js/mob/mob-core/events/scrollUtils/handle-scroll-throttle.js
+  // src/js/mob/mob-core/events/scroll-utils/handle-scroll-throttle.js
   var initialized6 = false;
   var callbacks8 = /* @__PURE__ */ new Map();
   var throttleFunctionReference;
@@ -4055,7 +4055,7 @@
   };
   var handleScrollThrottle = /* @__PURE__ */ (() => addCb5)();
 
-  // src/js/mob/mob-core/events/scrollUtils/handle-scroll-utils.js
+  // src/js/mob/mob-core/events/scroll-utils/handle-scroll-utils.js
   var unsubscribeScrollStart = () => {
   };
   var unsubscribeScrollEnd = () => {
@@ -4121,7 +4121,7 @@
   var handleScrollStart = handleScrollUtils("START");
   var handleScrollEnd = handleScrollUtils("END");
 
-  // src/js/mob/mob-core/events/pointerEvent/handle-pointer.js
+  // src/js/mob/mob-core/events/pointer-event/handle-pointer.js
   function handlePointer(eventType) {
     let initialized7 = false;
     const callbacks9 = /* @__PURE__ */ new Map();
@@ -22925,7 +22925,7 @@
       }, 3);
     }
     /**
-     * @param {import('../../../mob-core/events/mouseUtils/type.js').MouseEventParsed} params
+     * @param {import('../../../mob-core/events/mouse-utils/type.js').MouseEventParsed} params
      */
     #detectSwipe({ pixelX }) {
       if (!this.#useSwipe || !pixelX || this.#swipeisActive || this.#onSwipeCallback.length === 0)

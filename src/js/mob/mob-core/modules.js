@@ -1,5 +1,5 @@
 import { eventStore } from './events/event-store.js';
-import { handleLoad } from './events/loadutils/handle-load.js';
+import { handleLoad } from './events/load-utils/handle-load.js';
 import {
     handleMouseClick,
     handleMouseDown,
@@ -9,22 +9,22 @@ import {
     handleTouchEnd,
     handleTouchMove,
     handleTouchStart,
-} from './events/mouseUtils/handle-mouse.js';
-import { handleCache } from './events/rafutils/handle-cache.js';
-import { handleFrame } from './events/rafutils/handle-frame.js';
-import { handleFrameIndex } from './events/rafutils/handle-frame-index.js';
-import { handleNextFrame } from './events/rafutils/handle-next-frame.js';
-import { handleNextTick } from './events/rafutils/handle-next-tick.js';
-import { loadFps } from './events/rafutils/load-fps.js';
-import { handleResize } from './events/resizeUtils/handle-resize.js';
-import { handleScroll } from './events/scrollUtils/handle-scroll.js';
-import { handleScrollImmediate } from './events/scrollUtils/handle-scroll-immediate.js';
-import { handleScrollThrottle } from './events/scrollUtils/handle-scroll-throttle.js';
+} from './events/mouse-utils/handle-mouse.js';
+import { handleCache } from './events/raf-utils/handle-cache.js';
+import { handleFrame } from './events/raf-utils/handle-frame.js';
+import { handleFrameIndex } from './events/raf-utils/handle-frame-index.js';
+import { handleNextFrame } from './events/raf-utils/handle-next-frame.js';
+import { handleNextTick } from './events/raf-utils/handle-next-tick.js';
+import { loadFps } from './events/raf-utils/load-fps.js';
+import { handleResize } from './events/resize-utils/handle-resize.js';
+import { handleScroll } from './events/scroll-utils/handle-scroll.js';
+import { handleScrollImmediate } from './events/scroll-utils/handle-scroll-immediate.js';
+import { handleScrollThrottle } from './events/scroll-utils/handle-scroll-throttle.js';
 import {
     handleScrollEnd,
     handleScrollStart,
-} from './events/scrollUtils/handle-scroll-utils.js';
-import { handleVisibilityChange } from './events/visibilityChange/handle-visibility-change.js';
+} from './events/scroll-utils/handle-scroll-utils.js';
+import { handleVisibilityChange } from './events/visibility-change/handle-visibility-change.js';
 import { mobStore } from './store';
 import {
     handlePointerDown,
@@ -33,7 +33,7 @@ import {
     handlePointerOut,
     handlePointerOver,
     handlePointerUp,
-} from './events/pointerEvent/handle-pointer.js';
+} from './events/pointer-event/handle-pointer.js';
 
 /**
  * @description
@@ -180,7 +180,7 @@ function shouldMakeSomething() {
  * Execute a callBack within the first available request animation frame.
  * Use this method to modify elements of the DOM
  *
- * @param {import('./events/rafutils/type.js').HandleFrameCallbak} callback - callback function
+ * @param {import('./events/raf-utils/type.js').HandleFrameCallbak} callback - callback function
  * @returns {void}
  *
  * @example
@@ -199,7 +199,7 @@ function useFrame(callback = () => {}) {
  * @description
  * Execute callbacks after scheduling the request animation frame. Use this method to read data from the DOM. To execute callbacks exactly after the request animation frame, set the global property deferredNextTick to true.
  *
- * @param {import('./events/rafutils/type.js').HandleFrameCallbak} callback - callback function
+ * @param {import('./events/raf-utils/type.js').HandleFrameCallbak} callback - callback function
  * @returns {void}
  *
  * @example
@@ -238,7 +238,7 @@ function useNextTick(callback = () => {}) {
  * @description
  * Execute a callback to the next available frame allowing the creation of a request animation frame loop
  *
- * @param {import('./events/rafutils/type.js').HandleFrameCallbak} callback - callback function
+ * @param {import('./events/raf-utils/type.js').HandleFrameCallbak} callback - callback function
  * @returns {void}
  *
  * @example
@@ -262,7 +262,7 @@ function useNextFrame(callback = () => {}) {
  * @description
  * Add callback to a specific frame.
  *
- * @param {import('./events/rafutils/type.js').HandleFrameCallbak} callback - callback function
+ * @param {import('./events/raf-utils/type.js').HandleFrameCallbak} callback - callback function
  * @param {number} frame
  * @returns {void}
  *
@@ -284,7 +284,7 @@ function useFrameIndex(callback = () => {}, frame = 0) {
  * After the method will be resolved the first time, subsequent calls will be resolved immediately returning the previously calculated value.
  * The method is launched the first time automatically at the first loading.
  *
- * @param {import('./events/rafutils/type.js').LoadFpsCall} callback - callback function
+ * @param {import('./events/raf-utils/type.js').LoadFpsCall} callback - callback function
  * @return {Promise<{averageFPS: number}>}
  *
  */
@@ -326,7 +326,7 @@ const useCache = handleCache;
  * @description
  * Add callback on resize using a debounce function.
  *
- * @param {import('./events/resizeUtils/type.js').HandleResizeCallback} callback - callback function fired on resize.
+ * @param {import('./events/resize-utils/type.js').HandleResizeCallback} callback - callback function fired on resize.
  * @returns {() => void}
  *
  * @example
@@ -354,7 +354,7 @@ function useResize(callback = () => {}) {
  * @description
  * Add callback on tab change.
  *
- * @param {import('./events/visibilityChange/type.js').VisibilityChangeCallback} callback - callback function fired on tab change.
+ * @param {import('./events/visibility-change/type.js').VisibilityChangeCallback} callback - callback function fired on tab change.
  * @returns {() => void}
  *
  * @example
@@ -375,7 +375,7 @@ function useVisibilityChange(callback = () => {}) {
  * @description
  * Add callback on mouse click
  *
- * @param {import('./events/mouseUtils/type.js').MouseEventCallback} callback - callback function fired on mouse click.
+ * @param {import('./events/mouse-utils/type.js').MouseEventCallback} callback - callback function fired on mouse click.
  * @returns {() => void}
  *
  * @example
@@ -398,7 +398,7 @@ function useMouseClick(callback = () => {}) {
  * @description
  * Add callback on mouse down
  *
- * @param {import('./events/mouseUtils/type.js').MouseEventCallback} callback - callback function fired on mouse down.
+ * @param {import('./events/mouse-utils/type.js').MouseEventCallback} callback - callback function fired on mouse down.
  * @returns {() => void}
  *
  * @example
@@ -421,7 +421,7 @@ function useMouseDown(callback = () => {}) {
  * @description
  * Add callback on touch start
  *
- * @param {import('./events/mouseUtils/type.js').MouseEventCallback} callback - callback function fired on mouse touch start.
+ * @param {import('./events/mouse-utils/type.js').MouseEventCallback} callback - callback function fired on mouse touch start.
  * @returns {() => void}
  *
  * @example
@@ -444,7 +444,7 @@ function useTouchStart(callback = () => {}) {
  * @description
  * Add callback on mouse move
  *
- * @param {import('./events/mouseUtils/type.js').MouseEventCallback} callback - callback function fired on mouse move.
+ * @param {import('./events/mouse-utils/type.js').MouseEventCallback} callback - callback function fired on mouse move.
  * @returns {() => void}
  *
  * @example
@@ -467,7 +467,7 @@ function useMouseMove(callback = () => {}) {
  * @description
  * Add callback on touch move
  *
- * @param {import('./events/mouseUtils/type.js').MouseEventCallback} callback - callback function fired on touch move.
+ * @param {import('./events/mouse-utils/type.js').MouseEventCallback} callback - callback function fired on touch move.
  * @returns {() => void}
  *
  * @example
@@ -490,7 +490,7 @@ function useTouchMove(callback = () => {}) {
  * @description
  * Add callback on mouse up
  *
- * @param {import('./events/mouseUtils/type.js').MouseEventCallback} callback - callback function fired on mouse up.
+ * @param {import('./events/mouse-utils/type.js').MouseEventCallback} callback - callback function fired on mouse up.
  * @returns {() => void}
  *
  * @example
@@ -513,7 +513,7 @@ function useMouseUp(callback = () => {}) {
  * @description
  * Add callback on touch end.
  *
- * @param {import('./events/mouseUtils/type.js').MouseEventCallback} callback - callback function fired on touch end.
+ * @param {import('./events/mouse-utils/type.js').MouseEventCallback} callback - callback function fired on touch end.
  * @returns {() => void}
  *
  * @example
@@ -536,7 +536,7 @@ function useTouchEnd(callback = () => {}) {
  * @description
  * Add callback on mouse wheel.
  *
- * @param {import('./events/mouseUtils/type.js').MouseEventCallback} callback - callback function fired on mouse wheel.
+ * @param {import('./events/mouse-utils/type.js').MouseEventCallback} callback - callback function fired on mouse wheel.
  * @returns {() => void}
  *
  * @example
@@ -569,7 +569,7 @@ function useMouseWheel(callback = () => {}) {
  * @description
  * Perform a callback to the first nextTick available after scrolling
  *
- * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScroll>} callback - callback function
+ * @param {import('./events/scroll-utils/type.js').HandleScrollCallback<import('./events/scroll-utils/type.js').HandleScroll>} callback - callback function
  * @return {() => void} unsubscribe callback
  *
  * @example
@@ -590,7 +590,7 @@ function useScroll(callback = () => {}) {
  * @description
  * Execute a callback immediately on scroll
  *
- * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScroll>} callback - callback function
+ * @param {import('./events/scroll-utils/type.js').HandleScrollCallback<import('./events/scroll-utils/type.js').HandleScroll>} callback - callback function
  * @return {() => void} unsubscribe callback
  *
  * @example
@@ -611,7 +611,7 @@ function useScrollImmediate(callback = () => {}) {
  * @description
  * Performs a scroll callback using a throttle function
  *
- * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScroll>} callback - callback function
+ * @param {import('./events/scroll-utils/type.js').HandleScrollCallback<import('./events/scroll-utils/type.js').HandleScroll>} callback - callback function
  * @return {() => void} unsubscribe callback
  *
  * @example
@@ -638,7 +638,7 @@ function useScrollThrottle(callback = () => {}) {
  * @description
  * Execute a callback at the beginning of the scroll
  *
- * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScrollUtils>} callback - callback function
+ * @param {import('./events/scroll-utils/type.js').HandleScrollCallback<import('./events/scroll-utils/type.js').HandleScrollUtils>} callback - callback function
  * @return {() => void} unsubscribe callback
  *
  * @example
@@ -659,7 +659,7 @@ function useScrollStart(callback = () => {}) {
  * @description
  * Execute a callback at the end of the scroll
  *
- * @param {import('./events/scrollUtils/type.js').HandleScrollCallback<import('./events/scrollUtils/type.js').HandleScrollUtils>} callback - callback function
+ * @param {import('./events/scroll-utils/type.js').HandleScrollCallback<import('./events/scroll-utils/type.js').HandleScrollUtils>} callback - callback function
  * @returns {() => void}
  *
  * @example
@@ -677,7 +677,7 @@ function useScrollEnd(callback = () => {}) {
 }
 
 /**
- * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+ * @param {import('./events/pointer-event/type.js').PointerEventCallback} callback - callback function
  * @returns {() => void}
  *
  * @example
@@ -696,7 +696,7 @@ function usePointerOver(callback = () => {}) {
 }
 
 /**
- * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+ * @param {import('./events/pointer-event/type.js').PointerEventCallback} callback - callback function
  * @returns {() => void}
  *
  * @example
@@ -715,7 +715,7 @@ function usePointerDown(callback = () => {}) {
 }
 
 /**
- * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+ * @param {import('./events/pointer-event/type.js').PointerEventCallback} callback - callback function
  * @returns {() => void}
  *
  * @example
@@ -734,7 +734,7 @@ function usePointerMove(callback = () => {}) {
 }
 
 /**
- * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+ * @param {import('./events/pointer-event/type.js').PointerEventCallback} callback - callback function
  * @returns {() => void}
  *
  * @example
@@ -753,7 +753,7 @@ function usePointerUp(callback = () => {}) {
 }
 
 /**
- * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+ * @param {import('./events/pointer-event/type.js').PointerEventCallback} callback - callback function
  * @returns {() => void}
  *
  * @example
@@ -772,7 +772,7 @@ function usePointerOut(callback = () => {}) {
 }
 
 /**
- * @param {import('./events/pointerEvent/type.js').PointerEventCallback} callback - callback function
+ * @param {import('./events/pointer-event/type.js').PointerEventCallback} callback - callback function
  * @returns {() => void}
  *
  * @example
@@ -849,10 +849,10 @@ export {
     createStore,
 };
 
-export { normalizeWheel } from './events/mouseUtils/normalize-whell.js';
-export { ANIMATION_STOP_REJECT } from './events/errorHandler/catch-animation-reject.js';
+export { normalizeWheel } from './events/mouse-utils/normalize-whell.js';
+export { ANIMATION_STOP_REJECT } from './events/error-handler/catch-animation-reject.js';
 export { useNextLoop } from './utils/next-tick.js';
-export { getTime } from './events/rafutils/time.js';
+export { getTime } from './events/raf-utils/time.js';
 export { checkType, getTypeName } from './store/store-type.js';
 export { getUnivoqueId } from './utils/index.js';
 export { debounceFuncion as useDebounce } from './events/debounce.js';

@@ -638,7 +638,7 @@ export class MobSmoothScroller {
     }
 
     /**
-     * @param {import('../../../mob-core/events/mouseUtils/type.js').MouseEventParsed} params
+     * @param {import('../../../mob-core/events/mouse-utils/type.js').MouseEventParsed} params
      */
     #detectSwipe({ pixelX }) {
         if (

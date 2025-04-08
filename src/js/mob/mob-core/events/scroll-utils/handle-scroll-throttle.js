@@ -1,7 +1,7 @@
 // @ts-check
 
-import { handleFrame } from '../rafutils/handle-frame.js';
-import { handleNextTick } from '../rafutils/handle-next-tick.js';
+import { handleFrame } from '../raf-utils/handle-frame.js';
+import { handleNextTick } from '../raf-utils/handle-next-tick.js';
 import { throttle } from '../throttle.js';
 import { handleScrollImmediate } from './handle-scroll-immediate.js';
 import { eventStore } from '../event-store.js';

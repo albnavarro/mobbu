@@ -1,4 +1,4 @@
-import { MouseEventParsed } from '../../../mob-core/events/mouseUtils/type';
+import { MouseEventParsed } from '../../../mob-core/events/mouse-utils/type';
 import { MqAction, MqValues } from '../../utils/type';
 
 export type OnTick = (arg0: {

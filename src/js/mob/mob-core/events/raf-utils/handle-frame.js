@@ -1,11 +1,11 @@
 // @ts-check
 
-import { handleVisibilityChange } from '../visibilityChange/handle-visibility-change.js';
+import { handleVisibilityChange } from '../visibility-change/handle-visibility-change.js';
 import { handleCache } from './handle-cache.js';
 import { handleNextTick } from './handle-next-tick.js';
 import { handleNextFrame } from './handle-next-frame.js';
 import { handleFrameIndex } from './handle-frame-index.js';
-import { catchAnimationReject } from '../errorHandler/catch-animation-reject.js';
+import { catchAnimationReject } from '../error-handler/catch-animation-reject.js';
 import { loadFps } from './load-fps.js';
 import { eventStore } from '../event-store.js';
 import { defaultTimestep, getTime } from './time.js';
