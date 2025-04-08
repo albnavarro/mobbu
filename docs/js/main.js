@@ -1568,7 +1568,7 @@
     }
   });
 
-  // src/js/mob/mobCore/modules.js
+  // src/js/mob/mob-core/modules.js
   var modules_exports = {};
   __export(modules_exports, {
     ANIMATION_STOP_REJECT: () => ANIMATION_STOP_REJECT,
@@ -1615,7 +1615,7 @@
     useVisibilityChange: () => useVisibilityChange
   });
 
-  // src/js/mob/mobCore/utils/index.js
+  // src/js/mob/mob-core/utils/index.js
   function outerHeight(element) {
     if (!element) return 0;
     let height = element.offsetHeight;
@@ -1736,7 +1736,7 @@
     return Math.min(Math.max(num, lower), upper);
   };
 
-  // src/js/mob/mobCore/utils/next-tick.js
+  // src/js/mob/mob-core/utils/next-tick.js
   var setTimeOutQueque = /* @__PURE__ */ new Set();
   var useNextLoop = (fn) => {
     setTimeOutQueque.add(fn);
@@ -1750,7 +1750,7 @@
     }
   };
 
-  // src/js/mob/mobCore/store/store-type.js
+  // src/js/mob/mob-core/store/store-type.js
   var TYPE_IS_ANY = "ANY";
   var UNTYPED = "UNTYPED";
   var STRING = "STRING";
@@ -1886,7 +1886,7 @@
     }
   };
 
-  // src/js/mob/mobCore/store/check-equality.js
+  // src/js/mob/mob-core/store/check-equality.js
   var mapsAreEqual = (m1, m2) => m1.size === m2.size && [...m1.keys()].every((key) => m1.get(key) === m2.get(key));
   var setsAreEqual = (a, b) => a.size === b.size && [...a].every((value) => b.has(value));
   var arrayAreEquals = (a, b) => {
@@ -1967,11 +1967,11 @@
     }
   };
 
-  // src/js/mob/mobCore/store/constant.js
+  // src/js/mob/mob-core/store/constant.js
   var STORE_SET = "SET";
   var STORE_UPDATE = "UPDATE";
 
-  // src/js/mob/mobCore/store/current-key.js
+  // src/js/mob/mob-core/store/current-key.js
   var current_key_exports = {};
   __export(current_key_exports, {
     getCurrentDependencies: () => getCurrentDependencies,
@@ -2000,7 +2000,7 @@
     current_computed_keys = [...current_computed_keys, key];
   };
 
-  // src/js/mob/mobCore/store/fire-queque.js
+  // src/js/mob/mob-core/store/fire-queque.js
   var waitMap = /* @__PURE__ */ new Map();
   var runCallbackQueqe = ({
     callBackWatcher,
@@ -2047,11 +2047,11 @@
     }
   };
 
-  // src/js/mob/mobCore/store/log-style.js
+  // src/js/mob/mob-core/store/log-style.js
   var logStyle = "padding: 10px;";
   var getLogStyle = () => logStyle;
 
-  // src/js/mob/mobCore/store/store-map.js
+  // src/js/mob/mob-core/store/store-map.js
   var storeMap = /* @__PURE__ */ new Map();
   var getStateFromMainMap = (id) => {
     const valueNow = storeMap.get(id);
@@ -2064,7 +2064,7 @@
     storeMap.delete(id);
   };
 
-  // src/js/mob/mobCore/store/store-warining.js
+  // src/js/mob/mob-core/store/store-warining.js
   var storeDepthWarning = (data, style) => {
     console.warn(
       `%c MobStore supports an object with a depth of up to 2 levels, set 'Any' type to use obj as value, the input object has ${data} level`,
@@ -2166,7 +2166,7 @@
     );
   };
 
-  // src/js/mob/mobCore/store/store-utils.js
+  // src/js/mob/mob-core/store/store-utils.js
   var maxDepth = (object) => {
     if (!storeType.isObject(object)) return 0;
     const values = Object.values(object);
@@ -2272,7 +2272,7 @@
     return isComputed;
   };
 
-  // src/js/mob/mobCore/store/store-set.js
+  // src/js/mob/mob-core/store/store-set.js
   var setProp = ({
     instanceId,
     state,
@@ -2679,7 +2679,7 @@
     });
   };
 
-  // src/js/mob/mobCore/store/initial-validation.js
+  // src/js/mob/mob-core/store/initial-validation.js
   var inizializeValidation = (initialState) => {
     const { store: store2 } = initialState;
     const validationStatusObject = Object.entries(store2).reduce(
@@ -2711,7 +2711,7 @@
     });
   };
 
-  // src/js/mob/mobCore/store/watch.js
+  // src/js/mob/mob-core/store/watch.js
   var storeWatchAction = ({ state, prop, callback: callback2, wait }) => {
     const { store: store2, callBackWatcher } = state;
     const logStyle2 = getLogStyle();
@@ -2784,7 +2784,7 @@
     return unsubscribe3;
   };
 
-  // src/js/mob/mobCore/store/inizialize-instance.js
+  // src/js/mob/mob-core/store/inizialize-instance.js
   var inizializeInstance = (data) => {
     const dataDepth = maxDepth(data);
     return {
@@ -2841,7 +2841,7 @@
     };
   };
 
-  // src/js/mob/mobCore/store/store-get.js
+  // src/js/mob/mob-core/store/store-get.js
   var storeGet = (instanceId) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return {};
@@ -2882,7 +2882,7 @@
     return storeGetProp({ instanceId: currentBindId, prop });
   };
 
-  // src/js/mob/mobCore/store/store-emit.js
+  // src/js/mob/mob-core/store/store-emit.js
   var storeEmit = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
@@ -2960,7 +2960,7 @@
     });
   };
 
-  // src/js/mob/mobCore/store/store-debug.js
+  // src/js/mob/mob-core/store/store-debug.js
   var storeGetValidationEntryPoint = ({ instanceId }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
@@ -2984,7 +2984,7 @@
     console.log(state);
   };
 
-  // src/js/mob/mobCore/store/proxi.js
+  // src/js/mob/mob-core/store/proxi.js
   var getProxiEntryPoint = ({ instanceId }) => {
     const state = storeMap.get(instanceId);
     if (!state) return {};
@@ -3061,7 +3061,7 @@
     return bindedProxiArray;
   };
 
-  // src/js/mob/mobCore/store/bind-store.js
+  // src/js/mob/mob-core/store/bind-store.js
   var addSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
     const state = getStateFromMainMap(bindId);
     if (!state) return;
@@ -3106,7 +3106,7 @@
     });
   };
 
-  // src/js/mob/mobCore/store/destroy.js
+  // src/js/mob/mob-core/store/destroy.js
   var destroyStoreEntryPoint = (instanceId) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
@@ -3125,7 +3125,7 @@
     removeStateFromMainMap(instanceId);
   };
 
-  // src/js/mob/mobCore/store/index.js
+  // src/js/mob/mob-core/store/index.js
   var mobStore = (data = {}) => {
     const instanceId = getUnivoqueId();
     const initialState = inizializeInstance(data);
@@ -3224,7 +3224,7 @@
     };
   };
 
-  // src/js/mob/mobCore/events/event-store.js
+  // src/js/mob/mob-core/events/event-store.js
   var eventStore = mobStore(
     /** @type{MobStoreParams<import('./type').EventStore>} */
     {
@@ -3296,7 +3296,7 @@
     }
   );
 
-  // src/js/mob/mobCore/events/loadutils/handle-load.js
+  // src/js/mob/mob-core/events/loadutils/handle-load.js
   var initialized = false;
   var callbacks = /* @__PURE__ */ new Map();
   function handler() {
@@ -3327,7 +3327,7 @@
   };
   var handleLoad = /* @__PURE__ */ (() => addCallback)();
 
-  // src/js/mob/mobCore/events/mouseUtils/normalize-whell.js
+  // src/js/mob/mob-core/events/mouseUtils/normalize-whell.js
   var PIXEL_STEP = 10;
   var LINE_HEIGHT = 40;
   var PAGE_HEIGHT = 800;
@@ -3375,7 +3375,7 @@
     return { spinX: sX, spinY: sY, pixelX: pX, pixelY: pY };
   }
 
-  // src/js/mob/mobCore/events/mouseUtils/handle-mouse.js
+  // src/js/mob/mob-core/events/mouseUtils/handle-mouse.js
   function getPageData({ type, event }) {
     const touchEvent = (
       /** @type{TouchEvent} */
@@ -3474,7 +3474,7 @@
   var handleTouchEnd = handleMouse("touchend");
   var handleMouseWheel = handleMouse("wheel");
 
-  // src/js/mob/mobCore/events/rafutils/handle-cache.js
+  // src/js/mob/mob-core/events/rafutils/handle-cache.js
   var cacheCoutner = 0;
   var subscriberMap = /* @__PURE__ */ new Map();
   var add = (el = {}, fn = () => {
@@ -3566,7 +3566,7 @@
     };
   })();
 
-  // src/js/mob/mobCore/events/visibilityChange/handle-visibility-change.js
+  // src/js/mob/mob-core/events/visibilityChange/handle-visibility-change.js
   var initialized2 = false;
   var callbacks2 = /* @__PURE__ */ new Map();
   function handler2() {
@@ -3599,7 +3599,7 @@
   };
   var handleVisibilityChange = /* @__PURE__ */ (() => addCb)();
 
-  // src/js/mob/mobCore/events/rafutils/handle-next-tick.js
+  // src/js/mob/mob-core/events/rafutils/handle-next-tick.js
   var callbacks3 = [];
   var add2 = (cb = () => {
   }, priority = 100) => {
@@ -3615,7 +3615,7 @@
     return { add: add2, fire: fire2 };
   })();
 
-  // src/js/mob/mobCore/events/rafutils/handle-next-frame.js
+  // src/js/mob/mob-core/events/rafutils/handle-next-frame.js
   var callbacks4 = [];
   var add3 = (callBack) => {
     callbacks4.push(callBack);
@@ -3629,7 +3629,7 @@
     return { add: add3, get: get2 };
   })();
 
-  // src/js/mob/mobCore/events/rafutils/handle-frame-index.js
+  // src/js/mob/mob-core/events/rafutils/handle-frame-index.js
   var indexCallbackMap = /* @__PURE__ */ new Map();
   var updateKeys = (currentFrameLimit2) => {
     const oldMapToArray = [...indexCallbackMap.entries()];
@@ -3662,7 +3662,7 @@
     };
   })();
 
-  // src/js/mob/mobCore/events/errorHandler/catch-animation-reject.js
+  // src/js/mob/mob-core/events/errorHandler/catch-animation-reject.js
   var ANIMATION_STOP_REJECT = "animationStop";
   var catchAnimationReject = () => {
     globalThis.addEventListener("unhandledrejection", (e) => {
@@ -3670,7 +3670,7 @@
     });
   };
 
-  // src/js/mob/mobCore/events/rafutils/load-fps.js
+  // src/js/mob/mob-core/events/rafutils/load-fps.js
   var loadFpsIsReady = false;
   var loadFps = (duration2 = 30) => {
     if (loadFpsIsReady) {
@@ -3711,13 +3711,13 @@
     });
   };
 
-  // src/js/mob/mobCore/events/rafutils/time.js
+  // src/js/mob/mob-core/events/rafutils/time.js
   var getTime = () => {
     return typeof globalThis === "undefined" ? Date.now() : globalThis.performance.now();
   };
   var defaultTimestep = 1 / 60 * 1e3;
 
-  // src/js/mob/mobCore/events/rafutils/handle-frame.js
+  // src/js/mob/mob-core/events/rafutils/handle-frame.js
   loadFps();
   var currentFrameLimit = 1e7;
   var firstRunDuration = 2e3;
@@ -3850,7 +3850,7 @@
     };
   })();
 
-  // src/js/mob/mobCore/events/debounce.js
+  // src/js/mob/mob-core/events/debounce.js
   var debounceFuncion = function debounce(fn, time2 = 200) {
     let timeout;
     return function() {
@@ -3860,7 +3860,7 @@
     };
   };
 
-  // src/js/mob/mobCore/events/resizeUtils/handle-resize.js
+  // src/js/mob/mob-core/events/resizeUtils/handle-resize.js
   var initialized3 = false;
   var callbacks5 = /* @__PURE__ */ new Map();
   var debouceFunctionReference = () => {
@@ -3909,7 +3909,7 @@
   };
   var handleResize = /* @__PURE__ */ (() => addCb2)();
 
-  // src/js/mob/mobCore/events/scrollUtils/handle-scroll-immediate.js
+  // src/js/mob/mob-core/events/scrollUtils/handle-scroll-immediate.js
   var initialized4 = false;
   var callbacks6 = /* @__PURE__ */ new Map();
   var UP = "UP";
@@ -3957,7 +3957,7 @@
     return addCb3;
   })();
 
-  // src/js/mob/mobCore/events/scrollUtils/handle-scroll.js
+  // src/js/mob/mob-core/events/scrollUtils/handle-scroll.js
   var initialized5 = false;
   var callbacks7 = /* @__PURE__ */ new Map();
   var unsubscribe = () => {
@@ -3991,7 +3991,7 @@
   };
   var handleScroll = /* @__PURE__ */ (() => addCb4)();
 
-  // src/js/mob/mobCore/events/throttle.js
+  // src/js/mob/mob-core/events/throttle.js
   var throttle = (func, limit) => {
     let lastFunc;
     let lastRan;
@@ -4016,7 +4016,7 @@
     };
   };
 
-  // src/js/mob/mobCore/events/scrollUtils/handle-scroll-throttle.js
+  // src/js/mob/mob-core/events/scrollUtils/handle-scroll-throttle.js
   var initialized6 = false;
   var callbacks8 = /* @__PURE__ */ new Map();
   var throttleFunctionReference;
@@ -4055,7 +4055,7 @@
   };
   var handleScrollThrottle = /* @__PURE__ */ (() => addCb5)();
 
-  // src/js/mob/mobCore/events/scrollUtils/handle-scroll-utils.js
+  // src/js/mob/mob-core/events/scrollUtils/handle-scroll-utils.js
   var unsubscribeScrollStart = () => {
   };
   var unsubscribeScrollEnd = () => {
@@ -4121,7 +4121,7 @@
   var handleScrollStart = handleScrollUtils("START");
   var handleScrollEnd = handleScrollUtils("END");
 
-  // src/js/mob/mobCore/events/pointerEvent/handle-pointer.js
+  // src/js/mob/mob-core/events/pointerEvent/handle-pointer.js
   function handlePointer(eventType) {
     let initialized7 = false;
     const callbacks9 = /* @__PURE__ */ new Map();
@@ -4157,7 +4157,7 @@
   var handlePointerOut = handlePointer("pointerout");
   var handlePointerLeave = handlePointer("pointerleave");
 
-  // src/js/mob/mobCore/modules.js
+  // src/js/mob/mob-core/modules.js
   function createStore(data) {
     return mobStore(data);
   }
@@ -4286,7 +4286,7 @@
   }
   var store = eventStore;
 
-  // src/js/mob/mobjs/modules.js
+  // src/js/mob/mob-js/modules.js
   var modules_exports2 = {};
   __export(modules_exports2, {
     afterRouteChange: () => afterRouteChange,
@@ -4326,7 +4326,7 @@
     watchById: () => watchById
   });
 
-  // src/js/mob/mobjs/mainStore/constant.js
+  // src/js/mob/mob-js/mainStore/constant.js
   var MAIN_STORE_ACTIVE_ROUTE = "activeRoute";
   var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
   var MAIN_STORE_BEFORE_ROUTE_LEAVES = "beforeRouteLeave";
@@ -4335,7 +4335,7 @@
   var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
   var MAIN_STORE_ASYNC_PARSER = "repeaterParserAsync";
 
-  // src/js/mob/mobjs/mainStore/main-store.js
+  // src/js/mob/mob-js/mainStore/main-store.js
   var mainStore = modules_exports.createStore(
     /** @type{MobStoreParams<import('./type').MainStore>} */
     {
@@ -4388,7 +4388,7 @@
     }
   );
 
-  // src/js/mob/mobjs/mainStore/main-store-api.js
+  // src/js/mob/mob-js/mainStore/main-store-api.js
   var beforeRouteChange = (callback2) => {
     return mainStore.watch(
       MAIN_STORE_BEFORE_ROUTE_CHANGE,
@@ -4427,7 +4427,7 @@
     return activeParams;
   };
 
-  // src/js/mob/mobjs/constant.js
+  // src/js/mob/mob-js/constant.js
   var ATTR_IS_COMPONENT = "data-mobjs";
   var ATTR_COMPONENT_ID = "componentid";
   var ATTR_BIND_TEXT_ID = "bindtextid";
@@ -4455,13 +4455,13 @@
   var QUEQUE_TYPE_REPEATER = "QUEQUE_REPEATER";
   var QUEQUE_TYPE_INVALIDATE = "QUEQUE_INVALIDATE";
 
-  // src/js/mob/mobjs/modules/repeater/repeat-id-host-map.js
+  // src/js/mob/mob-js/modules/repeater/repeat-id-host-map.js
   var repeatIdHostMap = /* @__PURE__ */ new Map();
 
-  // src/js/mob/mobjs/modules/repeater/repeat-id-placeholder-map.js
+  // src/js/mob/mob-js/modules/repeater/repeat-id-placeholder-map.js
   var repeatIdPlaceHolderMap = /* @__PURE__ */ new Map();
 
-  // src/js/mob/mobjs/modules/repeater/action/get-repeater-parent.js
+  // src/js/mob/mob-js/modules/repeater/action/get-repeater-parent.js
   var getRepeatParent = ({ id }) => {
     if (!repeatIdPlaceHolderMap.has(id)) {
       return;
@@ -4476,10 +4476,10 @@
     return parent?.element;
   };
 
-  // src/js/mob/mobjs/component/store.js
+  // src/js/mob/mob-js/component/store.js
   var componentMap = /* @__PURE__ */ new Map();
 
-  // src/js/mob/mobjs/component/action/repeater.js
+  // src/js/mob/mob-js/component/action/repeater.js
   var setRepeaterStateById = ({ id = "", value }) => {
     if (!id || id === "") return;
     const item = componentMap.get(id);
@@ -4540,7 +4540,7 @@
     return repeaterInnerWrap;
   };
 
-  // src/js/mob/mobjs/modules/repeater/utils.js
+  // src/js/mob/mob-js/modules/repeater/utils.js
   var getNewElement = (current = [], previous = [], key = "") => {
     return current.filter((el) => {
       const value = el?.[key];
@@ -4604,7 +4604,7 @@
     );
   };
 
-  // src/js/mob/mobjs/component/action/element.js
+  // src/js/mob/mob-js/component/action/element.js
   var setElementById = ({
     id = "",
     newElement = document.createElement("div")
@@ -4650,7 +4650,7 @@
     });
   };
 
-  // src/js/mob/mobjs/component/action/children.js
+  // src/js/mob/mob-js/component/action/children.js
   var getChildrenIdByName = ({ id = "", componentName = "" }) => {
     if (!id || id === "") return [];
     const item = componentMap.get(id);
@@ -4691,7 +4691,7 @@
     return orderdChildren.map(({ items }) => items);
   };
 
-  // src/js/mob/mobjs/route/domRef/content.js
+  // src/js/mob/mob-js/route/domRef/content.js
   var contentAttributeId = "";
   var DOMContentElement;
   var setContentId = ({ contentId = "" }) => {
@@ -4702,7 +4702,7 @@
   };
   var getContentElement = () => DOMContentElement;
 
-  // src/js/mob/mobjs/component/action/component.js
+  // src/js/mob/mob-js/component/action/component.js
   var getComponentNameById = (id = "") => {
     if (!id || id === "") return;
     const item = componentMap.get(id);
@@ -4745,7 +4745,7 @@
     return !contentElement?.contains(element);
   };
 
-  // src/js/mob/mobjs/component/action/get-tree.js
+  // src/js/mob/mob-js/component/action/get-tree.js
   var getTreeRecursive = ({ chunk }) => {
     return chunk.reduce((previous, current) => {
       const [key, value] = current;
@@ -4774,7 +4774,7 @@
     return getTreeRecursive({ chunk });
   };
 
-  // src/js/mob/mobjs/component/action/methods.js
+  // src/js/mob/mob-js/component/action/methods.js
   var addMethodById = ({ id, name, fn }) => {
     if (!id || id === "") return;
     const item = componentMap.get(id);
@@ -4815,12 +4815,12 @@
     return ids.map((id) => getMethodsById({ id }));
   };
 
-  // src/js/mob/mobjs/parse/use-query.js
+  // src/js/mob/mob-js/parse/use-query.js
   var useQuery = false;
   var forceComponentChildQuery = true;
   var useSlotQuery = false;
 
-  // src/js/mob/mobjs/query/query-all-future-component.js
+  // src/js/mob/mob-js/query/query-all-future-component.js
   function* walkPreOrder(node) {
     if (!node) return;
     yield node;
@@ -4847,7 +4847,7 @@
     return result;
   };
 
-  // src/js/mob/mobjs/modules/userComponent/index.js
+  // src/js/mob/mob-js/modules/userComponent/index.js
   var userPlaceholder = /* @__PURE__ */ new Set();
   var skipAddUserComponent = false;
   var addUserPlaceholder = (element) => {
@@ -4882,7 +4882,7 @@
   };
   var getSkipAddUserComponent = () => skipAddUserComponent;
 
-  // src/js/mob/mobjs/component/utils.js
+  // src/js/mob/mob-js/component/utils.js
   var updateChildrenArray = ({
     currentChild,
     id = "",
@@ -4911,7 +4911,7 @@
     });
   };
 
-  // src/js/mob/mobjs/component/action/parent.js
+  // src/js/mob/mob-js/component/action/parent.js
   var getParentIdById = (id = "") => {
     if (!id || id === "") return;
     const item = componentMap.get(id);
@@ -4971,10 +4971,10 @@
     return compareIdOrParentIdRecursive({ id: parentId, compareValue });
   };
 
-  // src/js/mob/mobjs/modules/bindProps/bind-props-map.js
+  // src/js/mob/mob-js/modules/bindProps/bind-props-map.js
   var bindPropsMap = /* @__PURE__ */ new Map();
 
-  // src/js/mob/mobjs/modules/bindProps/remove-current-id-to-bind-props.js
+  // src/js/mob/mob-js/modules/bindProps/remove-current-id-to-bind-props.js
   var removeCurrentIdToBindProps = ({ componentId }) => {
     if (!componentId) return;
     for (const [key, value] of bindPropsMap) {
@@ -4985,7 +4985,7 @@
     }
   };
 
-  // src/js/mob/mobjs/component/action/state/get-state-by-id.js
+  // src/js/mob/mob-js/component/action/state/get-state-by-id.js
   var getStateById = (id = "") => {
     if (!id || id === "") return;
     const item = componentMap.get(id);
@@ -4993,7 +4993,7 @@
     return state?.get();
   };
 
-  // src/js/mob/mobjs/component/action/watch.js
+  // src/js/mob/mob-js/component/action/watch.js
   var watchById = (id = "", prop = "", cb = () => {
   }, { wait = false } = {}) => {
     if ((!id || id === "") && (!prop || prop === "")) return;
@@ -5002,7 +5002,7 @@
     return state?.watch(prop, cb, { wait: wait ?? false });
   };
 
-  // src/js/mob/mobjs/modules/bindObject/index.js
+  // src/js/mob/mob-js/modules/bindObject/index.js
   var bindObjectMap = /* @__PURE__ */ new Map();
   var bindObjectPlaceHolderMap = /* @__PURE__ */ new Map();
   var addBindObjectPlaceHolderMap = ({
@@ -5135,7 +5135,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/bindtext/index.js
+  // src/js/mob/mob-js/modules/bindtext/index.js
   var bindTextMap = /* @__PURE__ */ new Map();
   var bindTextPlaceHolderMap = /* @__PURE__ */ new Map();
   var addBindTextPlaceHolderMap = ({
@@ -5274,13 +5274,13 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/invalidate/invalidate-function-map.js
+  // src/js/mob/mob-js/modules/invalidate/invalidate-function-map.js
   var invalidateFunctionMap = /* @__PURE__ */ new Map();
 
-  // src/js/mob/mobjs/modules/invalidate/invalidate-id-placeholder-map.js
+  // src/js/mob/mob-js/modules/invalidate/invalidate-id-placeholder-map.js
   var invalidateIdPlaceHolderMap = /* @__PURE__ */ new Map();
 
-  // src/js/mob/mobjs/modules/invalidate/action/remove-invalidate-id.js
+  // src/js/mob/mob-js/modules/invalidate/action/remove-invalidate-id.js
   var removeInvalidateId = ({ id }) => {
     if (invalidateFunctionMap.has(id)) {
       const value = invalidateFunctionMap.get(id);
@@ -5294,10 +5294,10 @@
     }
   };
 
-  // src/js/mob/mobjs/modules/repeater/repeat-function-map.js
+  // src/js/mob/mob-js/modules/repeater/repeat-function-map.js
   var repeatFunctionMap = /* @__PURE__ */ new Map();
 
-  // src/js/mob/mobjs/modules/repeater/action/remove-repeater-id.js
+  // src/js/mob/mob-js/modules/repeater/action/remove-repeater-id.js
   var removeRepeaterId = ({ id }) => {
     if (repeatFunctionMap.has(id)) {
       const value = repeatFunctionMap.get(id);
@@ -5311,7 +5311,7 @@
     }
   };
 
-  // src/js/mob/mobjs/component/action/removeAndDestroy/remove-itself-from-parent.js
+  // src/js/mob/mob-js/component/action/removeAndDestroy/remove-itself-from-parent.js
   var removeItselfFromParent = ({ id, parentId, componentName }) => {
     if (!id) return;
     const value = componentMap.get(parentId ?? "");
@@ -5331,7 +5331,7 @@
     });
   };
 
-  // src/js/mob/mobjs/component/action/removeAndDestroy/remove-and-destroy-by-id.js
+  // src/js/mob/mob-js/component/action/removeAndDestroy/remove-and-destroy-by-id.js
   var removeAndDestroyById = ({ id = "" }) => {
     if (!id || id === "") return;
     const instanceValue = componentMap.get(id);
@@ -5368,14 +5368,14 @@
     componentMap.delete(id);
   };
 
-  // src/js/mob/mobjs/component/action/state/get-state-by-name.js
+  // src/js/mob/mob-js/component/action/state/get-state-by-name.js
   var getStateByName = (name = "") => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
     return getStateById(id);
   };
 
-  // src/js/mob/mobjs/component/action/freeze.js
+  // src/js/mob/mob-js/component/action/freeze.js
   var freezePropById = ({ id = "", prop }) => {
     if (!id || id === "") return;
     const item = componentMap.get(id);
@@ -5406,7 +5406,7 @@
     return freezedPros.includes(prop);
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/set-parent-repeater.js
+  // src/js/mob/mob-js/modules/repeater/action/set-parent-repeater.js
   var setParentRepeater = ({ repeatId, host }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
@@ -5421,7 +5421,7 @@
     repeatIdHostMap.set(repeatId, host);
   };
 
-  // src/js/mob/mobjs/webComponent/repeat.js
+  // src/js/mob/mob-js/webComponent/repeat.js
   var defineRepeatComponent = () => {
     customElements.define(
       "mobjs-repeat",
@@ -5451,10 +5451,10 @@
     );
   };
 
-  // src/js/mob/mobjs/modules/invalidate/invalidate-id-host-map.js
+  // src/js/mob/mob-js/modules/invalidate/invalidate-id-host-map.js
   var invalidateIdHostMap = /* @__PURE__ */ new Map();
 
-  // src/js/mob/mobjs/modules/invalidate/action/set-parent-invalidate.js
+  // src/js/mob/mob-js/modules/invalidate/action/set-parent-invalidate.js
   var setParentInvalidate = ({ invalidateId, host }) => {
     const item = invalidateIdPlaceHolderMap.get(invalidateId);
     if (!item) return;
@@ -5469,7 +5469,7 @@
     invalidateIdHostMap.set(invalidateId, host);
   };
 
-  // src/js/mob/mobjs/webComponent/invalidate.js
+  // src/js/mob/mob-js/webComponent/invalidate.js
   var defineInvalidateComponent = () => {
     customElements.define(
       "mobjs-invalidate",
@@ -5497,7 +5497,7 @@
     );
   };
 
-  // src/js/mob/mobjs/modules/slot/index.js
+  // src/js/mob/mob-js/modules/slot/index.js
   var slotPlaceholder = /* @__PURE__ */ new Set();
   var addSlotPlaceholder = (slot) => {
     slotPlaceholder.add(slot);
@@ -5526,7 +5526,7 @@
     return slotPlaceholder.size;
   };
 
-  // src/js/mob/mobjs/webComponent/slot.js
+  // src/js/mob/mob-js/webComponent/slot.js
   var defineSlotComponent = () => {
     customElements.define(
       "mobjs-slot",
@@ -5577,7 +5577,7 @@
     );
   };
 
-  // src/js/mob/mobjs/webComponent/user-component.js
+  // src/js/mob/mob-js/webComponent/user-component.js
   var defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {
       const {
@@ -5888,7 +5888,7 @@
     });
   };
 
-  // src/js/mob/mobjs/webComponent/bind-text.js
+  // src/js/mob/mob-js/webComponent/bind-text.js
   var defineBindTextComponent = () => {
     customElements.define(
       "mobjs-bind-text",
@@ -5918,7 +5918,7 @@
     );
   };
 
-  // src/js/mob/mobjs/webComponent/bind-object.js
+  // src/js/mob/mob-js/webComponent/bind-object.js
   var defineBindObjectComponent = () => {
     customElements.define(
       "mobjs-bind-object",
@@ -5948,7 +5948,7 @@
     );
   };
 
-  // src/js/mob/mobjs/component/component-list.js
+  // src/js/mob/mob-js/component/component-list.js
   var componentListMap = {};
   var getComponentList = () => {
     return componentListMap;
@@ -5974,14 +5974,14 @@
     });
   };
 
-  // src/js/mob/mobjs/component/action/state/check-if-state-is-exportable.js
+  // src/js/mob/mob-js/component/action/state/check-if-state-is-exportable.js
   var checkIfStateIsExportable = ({ componentName, propName }) => {
     const componentList = getComponentList();
     const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
     return exportableState.includes(propName);
   };
 
-  // src/js/mob/mobjs/component/action/state/set-state-by-id.js
+  // src/js/mob/mob-js/component/action/state/set-state-by-id.js
   var setStateById = (id = "", prop = "", value, { emit = true } = {}) => {
     if ((!id || id === "") && (!prop || prop === "") && !value) return;
     const isFreezed2 = getFreezePropStatus({ id, prop });
@@ -6008,14 +6008,14 @@
     state.set(prop, value, { emit });
   };
 
-  // src/js/mob/mobjs/component/action/state/set-state-by-name.js
+  // src/js/mob/mob-js/component/action/state/set-state-by-name.js
   var setStateByName = (name = "") => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
     return (prop, value, { emit = true } = {}) => setStateById(id, prop, value, { emit });
   };
 
-  // src/js/mob/mobjs/component/action/state/update-state-by-id.js
+  // src/js/mob/mob-js/component/action/state/update-state-by-id.js
   var updateStateById = (id = "", prop = "", value, { emit = true, clone = false } = {}) => {
     if ((!id || id === "") && (!prop || prop === "") && !value) return;
     const isFreezed2 = getFreezePropStatus({ id, prop });
@@ -6042,14 +6042,14 @@
     state.update(prop, value, { emit, clone });
   };
 
-  // src/js/mob/mobjs/component/action/state/update-state-by-name.js
+  // src/js/mob/mob-js/component/action/state/update-state-by-name.js
   var updateStateByName = (name = "") => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
     return (prop, value, { emit = true, clone = false } = {}) => updateStateById(id, prop, value, { emit, clone });
   };
 
-  // src/js/mob/mobjs/component/createComponent/index.js
+  // src/js/mob/mob-js/component/createComponent/index.js
   var defaultComponent = {
     scoped: false,
     maxParseIteration: 5e3,
@@ -6101,7 +6101,7 @@
     };
   };
 
-  // src/js/mob/mobjs/route/routeList/index.js
+  // src/js/mob/mob-js/route/routeList/index.js
   var routeList = [];
   var indexPage = "";
   var pageNotFound = "";
@@ -6120,7 +6120,7 @@
   };
   var getPageNotFound = () => pageNotFound;
 
-  // src/js/mob/mobjs/query/query-component-use-slot.js
+  // src/js/mob/mob-js/query/query-component-use-slot.js
   function selectAll2(root2) {
     const result = [];
     for (const node of walkPreOrder(root2)) {
@@ -6139,7 +6139,7 @@
     return result;
   };
 
-  // src/js/mob/mobjs/query/query-generic-slot.js
+  // src/js/mob/mob-js/query/query-generic-slot.js
   function selectAll3(root2) {
     const result = [];
     for (const node of walkPreOrder(root2)) {
@@ -6158,7 +6158,7 @@
     return result;
   };
 
-  // src/js/mob/mobjs/query/query-specific-slot.js
+  // src/js/mob/mob-js/query/query-specific-slot.js
   function selectAll4(root2, slotName) {
     for (const node of walkPreOrder(root2)) {
       if (node?.isSlot && node?.getSlotName?.() === slotName) {
@@ -6176,7 +6176,7 @@
     return null;
   };
 
-  // src/js/mob/mobjs/query/query-unnamed-slot.js
+  // src/js/mob/mob-js/query/query-unnamed-slot.js
   function selectAll5(root2) {
     for (const node of walkPreOrder(root2)) {
       if (node?.isSlot && !node?.getSlotName?.()) {
@@ -6194,7 +6194,7 @@
     return null;
   };
 
-  // src/js/mob/mobjs/component/action/props.js
+  // src/js/mob/mob-js/component/action/props.js
   var setDynamicPropsWatch = ({ id = "", unWatchArray = [] }) => {
     const item = componentMap.get(id);
     if (!item) return;
@@ -6214,12 +6214,12 @@
     });
   };
 
-  // src/js/mob/mobjs/queque/utils.js
+  // src/js/mob/mob-js/queque/utils.js
   function awaitNextLoop() {
     return new Promise((resolve) => modules_exports.useNextLoop(() => resolve()));
   }
 
-  // src/js/mob/mobjs/queque/tick.js
+  // src/js/mob/mob-js/queque/tick.js
   var queque = /* @__PURE__ */ new Map();
   var maxQueuqueSize = 1e5;
   var incrementTickQueuque = (props) => {
@@ -6255,7 +6255,7 @@
     });
   };
 
-  // src/js/mob/mobjs/queque/tick-repeater.js
+  // src/js/mob/mob-js/queque/tick-repeater.js
   var repeaterQueque = /* @__PURE__ */ new Map();
   var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
   var maxQueuqueSize2 = 1e3;
@@ -6292,7 +6292,7 @@
     });
   };
 
-  // src/js/mob/mobjs/queque/tick-invalidate.js
+  // src/js/mob/mob-js/queque/tick-invalidate.js
   var invalidateQueque = /* @__PURE__ */ new Map();
   var invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
   var maxQueuqueSize3 = 1e3;
@@ -6335,7 +6335,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/bindProps/index.js
+  // src/js/mob/mob-js/modules/bindProps/index.js
   var setBindProps = (data) => {
     const hasProps = "props" in data;
     if (!hasProps) {
@@ -6514,7 +6514,7 @@
     bindPropsMap.clear();
   };
 
-  // src/js/mob/mobjs/modules/staticProps/index.js
+  // src/js/mob/mob-js/modules/staticProps/index.js
   var staticPropsMap = /* @__PURE__ */ new Map();
   var setStaticProps = (props = {}) => {
     const id = modules_exports.getUnivoqueId();
@@ -6534,7 +6534,7 @@
     staticPropsMap.clear();
   };
 
-  // src/js/mob/mobjs/modules/repeater/repeaterValue/index.js
+  // src/js/mob/mob-js/modules/repeater/repeaterValue/index.js
   var currentRepeaterValueMap = /* @__PURE__ */ new Map();
   var setComponentRepeaterState = (current) => {
     const id = modules_exports.getUnivoqueId();
@@ -6548,13 +6548,13 @@
     return value ?? DEFAULT_CURRENT_REPEATER_STATE;
   };
 
-  // src/js/mob/mobjs/parse/steps/constant.js
+  // src/js/mob/mob-js/parse/steps/constant.js
   var ELEMENT_TYPE_NODE = "node";
   var ELEMENT_TYPE_TEXT = "text";
   var ELEMENT_TYPE_MIX_NODE_TEXT = "mix";
   var ELEMENT_TYPE_NOT_VALID = "not-valid";
 
-  // src/js/mob/mobjs/parse/steps/utils.js
+  // src/js/mob/mob-js/parse/steps/utils.js
   var renderHtml = String.raw;
   var getElementOrTextFromNode = (node) => {
     const childNodes = node.childNodes;
@@ -6656,7 +6656,7 @@
     return rawString.replaceAll(regEx, "");
   };
 
-  // src/js/mob/mobjs/parse/steps/convert-to-real-element.js
+  // src/js/mob/mob-js/parse/steps/convert-to-real-element.js
   var getNewElement2 = ({ element, content }) => {
     const { debug } = getDefaultComponent();
     if (element.parentNode) {
@@ -6764,7 +6764,7 @@
     };
   };
 
-  // src/js/mob/mobjs/parse/utils.js
+  // src/js/mob/mob-js/parse/utils.js
   var currentIterationCounter = 0;
   var incrementCurrentIterationCounter = () => {
     currentIterationCounter += 1;
@@ -6786,7 +6786,7 @@
     }
   };
 
-  // src/js/mob/mobjs/component/action/removeAndDestroy/set-destroy-callback.js
+  // src/js/mob/mob-js/component/action/removeAndDestroy/set-destroy-callback.js
   var setDestroyCallback = ({ cb = () => {
   }, id }) => {
     if (!id) return;
@@ -6795,7 +6795,7 @@
     componentMap.set(id, { ...item, destroy: cb });
   };
 
-  // src/js/mob/mobjs/modules/onMount/index.js
+  // src/js/mob/mob-js/modules/onMount/index.js
   var onMountCallbackMap = /* @__PURE__ */ new Map();
   var addOnMoutCallback = ({ id, cb = () => {
   } }) => {
@@ -6810,7 +6810,7 @@
     onMountCallbackMap.delete(id);
   };
 
-  // src/js/mob/mobjs/modules/common-event.js
+  // src/js/mob/mob-js/modules/common-event.js
   var shouldFireEvent = true;
   var allowFireEvent = () => {
     shouldFireEvent = true;
@@ -6820,7 +6820,7 @@
   };
   var getFireEvent = () => shouldFireEvent;
 
-  // src/js/mob/mobjs/modules/bindEvents/index.js
+  // src/js/mob/mob-js/modules/bindEvents/index.js
   var bindEventMap = /* @__PURE__ */ new Map();
   var setBindEvents = (eventsData = []) => {
     const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
@@ -6856,7 +6856,7 @@
     bindEventMap.clear();
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/set-repeat-function.js
+  // src/js/mob/mob-js/modules/repeater/action/set-repeat-function.js
   var setRepeatFunction = ({ id, repeatId, fn }) => {
     const currentFunctions = repeatFunctionMap.get(id) ?? [];
     repeatFunctionMap.set(id, [
@@ -6866,7 +6866,7 @@
     ]);
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/set-repeater-placeholder-map-scope-id.js
+  // src/js/mob/mob-js/modules/repeater/action/set-repeater-placeholder-map-scope-id.js
   var setRepeaterPlaceholderMapScopeId = ({ repeatId, scopeId }) => {
     repeatIdPlaceHolderMap.set(repeatId, {
       element: void 0,
@@ -6877,7 +6877,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/set-repeater-placeholder-map-initialized.js
+  // src/js/mob/mob-js/modules/repeater/action/set-repeater-placeholder-map-initialized.js
   var setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
@@ -6887,7 +6887,7 @@
     });
   };
 
-  // src/js/mob/mobjs/component/action/removeAndDestroy/destroy-component-inside-node-by-id.js
+  // src/js/mob/mob-js/component/action/removeAndDestroy/destroy-component-inside-node-by-id.js
   var destroyComponentInsideNodeById = ({ id, container }) => {
     const instanceValue = componentMap.get(id);
     const child = instanceValue?.child;
@@ -6902,7 +6902,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/common-repeat-invalidate.js
+  // src/js/mob/mob-js/modules/common-repeat-invalidate.js
   var MODULE_REPEATER = "repeater";
   var MODULE_INVALIDATE = "invalidate";
   var getRepeatOrInvalidateInsideElement = ({
@@ -6931,7 +6931,7 @@
     }));
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/remove-repeat-by-repeat-id.js
+  // src/js/mob/mob-js/modules/repeater/action/remove-repeat-by-repeat-id.js
   var removeRepeatByRepeatId = ({ id, repeatId }) => {
     if (!repeatFunctionMap.has(id)) return;
     const value = repeatFunctionMap.get(id);
@@ -6943,7 +6943,7 @@
     repeatFunctionMap.set(id, valueParsed);
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/destroy-nested-repeat.js
+  // src/js/mob/mob-js/modules/repeater/action/destroy-nested-repeat.js
   var destroyNestedRepeat = ({ id, repeatParent }) => {
     const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
       element: repeatParent,
@@ -6966,7 +6966,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/inizialize-nested-repeat.js
+  // src/js/mob/mob-js/modules/repeater/action/inizialize-nested-repeat.js
   var inizializeNestedRepeat = ({ repeatParent, id }) => {
     if (!repeatParent) return;
     const newRepeatChild = getRepeatOrInvalidateInsideElement({
@@ -6986,7 +6986,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/add-invalidate-unsubcribe.js
+  // src/js/mob/mob-js/modules/invalidate/action/add-invalidate-unsubcribe.js
   var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
     const currentFunctions = invalidateFunctionMap.get(id) ?? [];
     const item = currentFunctions.map((item2) => {
@@ -6998,7 +6998,7 @@
     invalidateFunctionMap.set(id, item);
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/remove-invalidate-by-invalidate-id.js
+  // src/js/mob/mob-js/modules/invalidate/action/remove-invalidate-by-invalidate-id.js
   var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
     if (!invalidateFunctionMap.has(id)) return;
     const value = invalidateFunctionMap.get(id);
@@ -7012,7 +7012,7 @@
     invalidateFunctionMap.set(id, valueParsed);
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/destroy-nested-invalidate.js
+  // src/js/mob/mob-js/modules/invalidate/action/destroy-nested-invalidate.js
   var destroyNestedInvalidate = ({ id, invalidateParent }) => {
     const invalidatechildToDelete = getRepeatOrInvalidateInsideElement({
       element: invalidateParent,
@@ -7037,7 +7037,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/get-invalidate-parent.js
+  // src/js/mob/mob-js/modules/invalidate/action/get-invalidate-parent.js
   var getInvalidateParent = ({ id }) => {
     if (!invalidateIdPlaceHolderMap.has(id)) {
       return;
@@ -7052,7 +7052,7 @@
     return parent?.element;
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/inizialize-nested-invalidate.js
+  // src/js/mob/mob-js/modules/invalidate/action/inizialize-nested-invalidate.js
   var inizializeNestedInvalidate = ({ invalidateParent, id }) => {
     if (!invalidateParent) return;
     const newInvalidateChild = getRepeatOrInvalidateInsideElement({
@@ -7072,7 +7072,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/inizialize-invalidate-watch.js
+  // src/js/mob/mob-js/modules/invalidate/action/inizialize-invalidate-watch.js
   var inizializeInvalidateWatch = async ({
     bind = [],
     beforeUpdate = () => Promise.resolve(),
@@ -7152,7 +7152,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/set-invalidate-function.js
+  // src/js/mob/mob-js/modules/invalidate/action/set-invalidate-function.js
   var setInvalidateFunction = ({ id, invalidateId, fn }) => {
     const currentFunctions = invalidateFunctionMap.get(id) ?? [];
     invalidateFunctionMap.set(id, [
@@ -7162,7 +7162,7 @@
     ]);
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/set-invalidate-placeholder-map-initialized.js
+  // src/js/mob/mob-js/modules/invalidate/action/set-invalidate-placeholder-map-initialized.js
   var setInvalidatePlaceholderMapInitialized = ({ invalidateId }) => {
     const item = invalidateIdPlaceHolderMap.get(invalidateId);
     if (!item) return;
@@ -7172,7 +7172,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/set-invalidate-placeholder-map-scoped-id.js
+  // src/js/mob/mob-js/modules/invalidate/action/set-invalidate-placeholder-map-scoped-id.js
   var setInvalidatePlaceholderMapScopedId = ({
     invalidateId,
     scopeId
@@ -7184,14 +7184,14 @@
     });
   };
 
-  // src/js/mob/mobjs/route/domRef/root.js
+  // src/js/mob/mob-js/route/domRef/root.js
   var root = document.createElement("div");
   var setRoot = ({ element }) => {
     root = element;
   };
   var getRoot = () => root;
 
-  // src/js/mob/mobjs/modules/delegateEvents/index.js
+  // src/js/mob/mob-js/modules/delegateEvents/index.js
   var tempDelegateEventMap = /* @__PURE__ */ new Map();
   var eventDelegationMap = /* @__PURE__ */ new WeakMap();
   var eventToAdd = [];
@@ -7265,7 +7265,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/bindRefs/index.js
+  // src/js/mob/mob-js/modules/bindRefs/index.js
   var getBindRefs = ({ element }) => {
     const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
     const initialValue = {};
@@ -7339,7 +7339,7 @@
     }, {});
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/add-repeat-unsubcribe.js
+  // src/js/mob/mob-js/modules/repeater/action/add-repeat-unsubcribe.js
   var addRepeatUnsubcribe = ({ id, repeatId, unsubscribe: unsubscribe3 }) => {
     const currentFunctions = repeatFunctionMap.get(id) ?? [];
     const item = currentFunctions.map((item2) => {
@@ -7351,7 +7351,7 @@
     repeatFunctionMap.set(id, item);
   };
 
-  // src/js/mob/mobjs/modules/repeater/activeRepeater/index.js
+  // src/js/mob/mob-js/modules/repeater/activeRepeater/index.js
   var activeRepeatMap = /* @__PURE__ */ new Set();
   var addActiveRepeat = ({ id, state, container }) => {
     activeRepeatMap.add({ id, state, container });
@@ -7371,7 +7371,7 @@
     return repeatIsActive;
   };
 
-  // src/js/mob/mobjs/utils.js
+  // src/js/mob/mob-js/utils.js
   var staticProps = (props = {}) => {
     return `${ATTR_PROPS}="${setStaticProps(props)}"`;
   };
@@ -7379,7 +7379,7 @@
     return Math.min(Math.max(num, lower), upper);
   };
 
-  // src/js/mob/mobjs/modules/repeater/update/get-proxi.js
+  // src/js/mob/mob-js/modules/repeater/update/get-proxi.js
   var REPEAT_PROXI_INDEX = "index";
   var getRepeatProxi = ({
     id,
@@ -7429,7 +7429,7 @@
     );
   };
 
-  // src/js/mob/mobjs/modules/repeater/update/utils.js
+  // src/js/mob/mob-js/modules/repeater/update/utils.js
   var updateRepeaterWitoutKey = ({
     id,
     diff,
@@ -7670,7 +7670,7 @@
     return rawRender();
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/set-repeat-child.js
+  // src/js/mob/mob-js/modules/repeater/action/set-repeat-child.js
   var setRepeaterChild = ({ repeatId, id, bind }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
@@ -7697,7 +7697,7 @@
     return children;
   };
 
-  // src/js/mob/mobjs/modules/repeater/update/add-with-key.js
+  // src/js/mob/mob-js/modules/repeater/update/add-with-key.js
   var addWithKey = ({
     state = "",
     current = [],
@@ -7835,7 +7835,7 @@
     return currentUnique;
   };
 
-  // src/js/mob/mobjs/modules/repeater/update/add-without-key.js
+  // src/js/mob/mob-js/modules/repeater/update/add-without-key.js
   var addWithoutKey = ({
     state = "",
     current = [],
@@ -7927,7 +7927,7 @@
     return current;
   };
 
-  // src/js/mob/mobjs/modules/repeater/update/index.js
+  // src/js/mob/mob-js/modules/repeater/update/index.js
   var updateRepeater = async ({
     state = "",
     persistent,
@@ -7967,7 +7967,7 @@
     return currentUnivoque;
   };
 
-  // src/js/mob/mobjs/modules/repeater/watch/index.js
+  // src/js/mob/mob-js/modules/repeater/watch/index.js
   var watchRepeat = ({
     state = "",
     setState,
@@ -8112,7 +8112,7 @@
     return unsubscribe3;
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/inizialize-repeat-watch.js
+  // src/js/mob/mob-js/modules/repeater/action/inizialize-repeat-watch.js
   var inizializeRepeatWatch = ({
     repeatId,
     persistent,
@@ -8150,7 +8150,7 @@
     });
   };
 
-  // src/js/mob/mobjs/modules/bindEffect/index.js
+  // src/js/mob/mob-js/modules/bindEffect/index.js
   var bindEffectMap = /* @__PURE__ */ new Map();
   var getExplicitBind = (bind) => {
     return (
@@ -8291,7 +8291,7 @@
     );
   };
 
-  // src/js/mob/mobjs/parse/steps/get-params-for-component.js
+  // src/js/mob/mob-js/parse/steps/get-params-for-component.js
   var getParamsForComponentFunction = ({
     getState,
     setState,
@@ -8520,7 +8520,7 @@
     };
   };
 
-  // src/js/mob/mobjs/component/action/state/export-state.js
+  // src/js/mob/mob-js/component/action/state/export-state.js
   var filterExportableStateFromObject = ({
     componentName,
     currentProps = {}
@@ -8535,7 +8535,7 @@
     }, {});
   };
 
-  // src/js/mob/mobjs/parse/steps/get-params-from-web-component.js
+  // src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
   var getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const id = element.getId();
     const instanceName = element.getInstanceName();
@@ -8589,7 +8589,7 @@
     };
   };
 
-  // src/js/mob/mobjs/component/index.js
+  // src/js/mob/mob-js/component/index.js
   var addComponentToStore = ({
     element,
     instanceName = "",
@@ -8668,17 +8668,17 @@
     };
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/get-invalidate-functions.js
+  // src/js/mob/mob-js/modules/invalidate/action/get-invalidate-functions.js
   var getInvalidateFunctions = ({ id }) => {
     return invalidateFunctionMap.get(id) ?? [];
   };
 
-  // src/js/mob/mobjs/modules/repeater/action/get-repeat-functions.js
+  // src/js/mob/mob-js/modules/repeater/action/get-repeat-functions.js
   var getRepeatFunctions = ({ id }) => {
     return repeatFunctionMap.get(id) ?? [];
   };
 
-  // src/js/mob/mobjs/parse/parse-function.js
+  // src/js/mob/mob-js/parse/parse-function.js
   var parseComponentsRecursive = async ({
     element,
     functionToFireAtTheEnd = [],
@@ -8880,7 +8880,7 @@
     });
   };
 
-  // src/js/mob/mobjs/parse/index.js
+  // src/js/mob/mob-js/parse/index.js
   var parseComponents = async ({
     element,
     persistent = false,
@@ -8906,11 +8906,11 @@
     );
   };
 
-  // src/js/mob/mobjs/route/constant.js
+  // src/js/mob/mob-js/route/constant.js
   var HISTORY_BACK = "BACK";
   var HISTORY_NEXT = "NEXT";
 
-  // src/js/mob/mobjs/route/scroll/index.js
+  // src/js/mob/mob-js/route/scroll/index.js
   var historyBack = [];
   var historyNext = [];
   var deleteLastHistoryBack = () => {
@@ -8954,14 +8954,14 @@
     return getPenultimateHistoryNext();
   };
 
-  // src/js/mob/mobjs/component/action/removeAndDestroy/remove-orphan-temp-ids.js
+  // src/js/mob/mob-js/component/action/removeAndDestroy/remove-orphan-temp-ids.js
   var removeOrphanTempIds = () => {
     removeOrphansPropsFromParent();
     removeOrphansBindEvent();
     removeOrphansBindProps();
   };
 
-  // src/js/mob/mobjs/component/action/removeAndDestroy/remove-cancellable-component.js
+  // src/js/mob/mob-js/component/action/removeAndDestroy/remove-cancellable-component.js
   var removeCancellableComponent = () => {
     const cancellableComponents = [...componentMap.values()].filter(
       ({ persistent }) => !persistent
@@ -8969,7 +8969,7 @@
     cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));
   };
 
-  // src/js/mob/mobjs/route/pageTransition/index.js
+  // src/js/mob/mob-js/route/pageTransition/index.js
   var pageTransition = () => {
   };
   var beforePageTransition = () => {
@@ -8985,14 +8985,14 @@
   var getBeforePageTransition = () => beforePageTransition;
   var getPageTransition = () => pageTransition;
 
-  // src/js/mob/mobjs/route/scroll/restore-scroll.js
+  // src/js/mob/mob-js/route/scroll/restore-scroll.js
   var restoreScroll = true;
   var setRestoreScroll = (value) => {
     restoreScroll = value;
   };
   var getRestoreScroll = () => restoreScroll;
 
-  // src/js/mob/mobjs/route/loadRoute/index.js
+  // src/js/mob/mob-js/route/loadRoute/index.js
   var loadRoute = async ({
     route = "",
     templateName = "",
@@ -9065,7 +9065,7 @@
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
   };
 
-  // src/js/mob/mobjs/route/utils.js
+  // src/js/mob/mob-js/route/utils.js
   var getRouteModule = ({ url = "" }) => {
     const index = getIndex();
     const pageNotFound3 = getPageNotFound();
@@ -9079,7 +9079,7 @@
     return getRouteByName({ routeName: url })?.restoreScroll ?? true;
   };
 
-  // src/js/mob/mobjs/route/index.js
+  // src/js/mob/mob-js/route/index.js
   var previousHash = "";
   var previousParamsToPush = "";
   var currentSearch;
@@ -9182,7 +9182,7 @@
     }
   };
 
-  // src/js/mob/mobjs/inizializeApp/index.js
+  // src/js/mob/mob-js/inizializeApp/index.js
   var inizializeApp = async ({
     rootId,
     wrapper: wrapper2,
@@ -9223,15 +9223,15 @@
     router();
   };
 
-  // src/js/mob/mobjs/modules/invalidate/action/get-number-of-active-invalidate.js
+  // src/js/mob/mob-js/modules/invalidate/action/get-number-of-active-invalidate.js
   var getNumberOfActiveInvalidate = () => invalidateIdPlaceHolderMap.size;
 
-  // src/js/mob/mobjs/modules/repeater/action/get-number-of-active-repeater.js
+  // src/js/mob/mob-js/modules/repeater/action/get-number-of-active-repeater.js
   var getNumberOfActiveRepeater = () => {
     return repeatIdPlaceHolderMap.size;
   };
 
-  // src/js/mob/mobMotion/core.js
+  // src/js/mob/mob-motion/core.js
   var core_exports = {};
   __export(core_exports, {
     clamp: () => clamp3,
@@ -9241,7 +9241,7 @@
     setDefault: () => setDefault
   });
 
-  // src/js/mob/mobMotion/animation/spring/spring-config.js
+  // src/js/mob/mob-motion/animation/spring/spring-config.js
   var springPresetConfig = {
     default: {
       tension: 20,
@@ -9280,7 +9280,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/utils/setUp/set-up-validation.js
+  // src/js/mob/mob-motion/animation/utils/setUp/set-up-validation.js
   var easeReference = {
     easeLinear: "easeLinear",
     easeInQuad: "easeInQuad",
@@ -9547,7 +9547,7 @@
     return isValid ? value : easeDefault;
   };
 
-  // src/js/mob/mobMotion/utils/merge-deep.js
+  // src/js/mob/mob-motion/utils/merge-deep.js
   var mergeDeep = (target, source, isMergingArrays = true) => {
     target = ((obj) => {
       let cloneObj;
@@ -9586,7 +9586,7 @@
     return target;
   };
 
-  // src/js/mob/mobMotion/setup.js
+  // src/js/mob/mob-motion/setup.js
   function getData() {
     return {
       deferredNextTick: modules_exports.store.getProp("deferredNextTick"),
@@ -9661,7 +9661,7 @@
     };
   })();
 
-  // src/js/mob/mobMotion/utils/media-manager.js
+  // src/js/mob/mob-motion/utils/media-manager.js
   var max = (breakpoint = "desktop") => {
     return window.innerWidth < handleSetUp.get("mq")[breakpoint];
   };
@@ -9675,7 +9675,7 @@
     return { max, min, getBreackpoint };
   })();
 
-  // src/js/mob/mobMotion/animation/utils/animation-utils.js
+  // src/js/mob/mob-motion/animation/utils/animation-utils.js
   var getRoundedValue = (x) => {
     if (modules_exports.checkType(Number, x)) {
       return Math.round(x * 1e4) / 1e4 || 0;
@@ -9717,7 +9717,7 @@
   };
   var arrayColumn = (arr, n) => arr.map((x) => x[n]);
 
-  // src/js/mob/mobMotion/core.js
+  // src/js/mob/mob-motion/core.js
   function setDefault(props) {
     handleSetUp.set(props);
   }
@@ -9741,7 +9741,7 @@
     }
   }
 
-  // src/js/mob/mobMotion/tween.js
+  // src/js/mob/mob-motion/tween.js
   var tween_exports = {};
   __export(tween_exports, {
     createLerp: () => createLerp,
@@ -9753,7 +9753,7 @@
     createTimeTween: () => createTimeTween
   });
 
-  // src/js/mob/mobMotion/animation/utils/tweenAction/set-values.js
+  // src/js/mob/mob-motion/animation/utils/tweenAction/set-values.js
   var setFromByCurrent = (arr) => {
     return arr.map((item) => {
       if (!item.settled) {
@@ -9804,7 +9804,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/utils/stagger/stagger-costant.js
+  // src/js/mob/mob-motion/animation/utils/stagger/stagger-costant.js
   var DIRECTION_ROW = "row";
   var DIRECTION_COL = "col";
   var DIRECTION_RADIAL = "radial";
@@ -9835,7 +9835,7 @@
     frame: 0
   };
 
-  // src/js/mob/mobMotion/animation/scroller/mob-scroller-constant.js
+  // src/js/mob/mob-motion/animation/scroller/mob-scroller-constant.js
   var MobScrollerConstant = {
     // Constant misure units
     /**
@@ -10072,7 +10072,7 @@
     ON_NOOP: "ON_NOOP"
   };
 
-  // src/js/mob/mobMotion/animation/utils/warning.js
+  // src/js/mob/mob-motion/animation/utils/warning.js
   var possibleChoice = (choice) => {
     return choice.map((item) => {
       return `${item} | `;
@@ -10408,7 +10408,7 @@
     );
   };
 
-  // src/js/mob/mobMotion/animation/tween/tween-config.js
+  // src/js/mob/mob-motion/animation/tween/tween-config.js
   var tweenConfig = {
     [easeReference.easeLinear]: (elapsed, initialValue, amountOfChange, duration2) => {
       return amountOfChange * elapsed / duration2 + initialValue;
@@ -10625,7 +10625,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/utils/regex-validation.js
+  // src/js/mob/mob-motion/animation/utils/regex-validation.js
   var escapeRegExp = (text) => {
     return text ? text.replaceAll(/[\s#$()*+,.?[\\\]^{|}-]/g, String.raw`\$&`) : "";
   };
@@ -10660,7 +10660,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/scroller/get-constant-from-regex.js
+  // src/js/mob/mob-motion/animation/scroller/get-constant-from-regex.js
   var getPropiertiesValueFromConstant = (value) => {
     if (!value) return value;
     if (exactMatchInsensitive(value, MobScrollerConstant.PROP_VERTICAL))
@@ -10723,7 +10723,7 @@
     return MobScrollerConstant.PX;
   };
 
-  // src/js/mob/mobMotion/animation/utils/tweenAction/tween-validation.js
+  // src/js/mob/mob-motion/animation/utils/tweenAction/tween-validation.js
   var dataTweenValueIsValid = (val2) => {
     return modules_exports.checkType(Number, val2) || // @ts-ignore
     modules_exports.checkType(Function, val2) && modules_exports.checkType(Number, val2());
@@ -11223,7 +11223,7 @@
     return isValid ? value : "0";
   };
 
-  // src/js/mob/mobMotion/animation/utils/stagger/stagger-utils.js
+  // src/js/mob/mob-motion/animation/utils/stagger/stagger-utils.js
   var getEachByFps = (each) => {
     const { instantFps } = modules_exports.store.get();
     const eachByFps = Math.round(each * (instantFps / 60));
@@ -11251,7 +11251,7 @@
     return callbackCache.length > callbackDefault.length ? callbackCache : callbackDefault;
   };
 
-  // src/js/mob/mobMotion/animation/utils/stagger/get-default-stagger.js
+  // src/js/mob/mob-motion/animation/utils/stagger/get-default-stagger.js
   var isOdd = (num) => num % 2;
   var getRandomInt = (max2) => Math.floor(Math.random() * max2);
   var getRandomChoice = (arrayChunk, each, index) => {
@@ -11458,7 +11458,7 @@
     };
   };
 
-  // src/js/mob/mobMotion/animation/utils/stagger/get-radial-stagger.js
+  // src/js/mob/mob-motion/animation/utils/stagger/get-radial-stagger.js
   var getRadialY = (arr, x, y) => {
     return arr.reduce((total, row, i) => {
       const offset2 = Math.abs(i - y);
@@ -11560,7 +11560,7 @@
     };
   };
 
-  // src/js/mob/mobMotion/animation/utils/stagger/set-stagger.js
+  // src/js/mob/mob-motion/animation/utils/stagger/set-stagger.js
   var getRadial = ({
     arrayDefault,
     arrayOnStop,
@@ -11680,7 +11680,7 @@
     };
   };
 
-  // src/js/mob/mobMotion/animation/utils/callbacks/default-callback.js
+  // src/js/mob/mob-motion/animation/utils/callbacks/default-callback.js
   var defaultCallback = ({
     stagger,
     callback: callback2,
@@ -11776,10 +11776,10 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/utils/callbacks/call-back-store.js
+  // src/js/mob/mob-motion/animation/utils/callbacks/call-back-store.js
   var callBackStore = modules_exports.createStore({ id: 0 });
 
-  // src/js/mob/mobMotion/animation/utils/callbacks/set-callback.js
+  // src/js/mob/mob-motion/animation/utils/callbacks/set-callback.js
   var updateSubScribers = (currentCallback, arrayOfCallback) => {
     const { id } = callBackStore.get();
     const arrayOfCallbackUpdated = [
@@ -11823,7 +11823,7 @@
     };
   };
 
-  // src/js/mob/mobMotion/animation/utils/tweenAction/actions.js
+  // src/js/mob/mob-motion/animation/utils/tweenAction/actions.js
   var goToUtils = (obj) => {
     return Object.keys(obj).map((item) => {
       if (!dataTweenValueIsValid(obj[item])) {
@@ -11967,7 +11967,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/utils/init-raf.js
+  // src/js/mob/mob-motion/animation/utils/init-raf.js
   var initRaf = (callbackPauseArray, rafFunction, pauseFunction, resolve) => {
     modules_exports.useFrame(() => {
       modules_exports.useNextTick(({ time: time2, fps: fps2 }) => {
@@ -11978,12 +11978,12 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/utils/fps-log-inizialization.js
+  // src/js/mob/mob-motion/animation/utils/fps-log-inizialization.js
   var fpsLoadedLog = (label, fps2) => {
     console.log(`stagger on ${label} loaded at: ${fps2} fps`);
   };
 
-  // src/js/mob/mobMotion/animation/utils/stagger/should-inizialize.js
+  // src/js/mob/mob-motion/animation/utils/stagger/should-inizialize.js
   var shouldInizializzeStagger = (each, firstRun, arrayToCompare1, arrayToCompare2) => {
     if (!modules_exports.checkType(Number, each)) {
       staggerEachWarning();
@@ -11991,7 +11991,7 @@
     return each > 0 && firstRun && (arrayToCompare1.length > 0 || arrayToCompare2.length > 0);
   };
 
-  // src/js/mob/mobMotion/animation/utils/resume-tween.js
+  // src/js/mob/mob-motion/animation/utils/resume-tween.js
   var resume = (rafFunction, resolveFunction) => {
     modules_exports.useFrame(() => {
       modules_exports.useNextTick(({ time: time2, fps: fps2 }) => {
@@ -12000,7 +12000,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/utils/tweenAction/get-values.js
+  // src/js/mob/mob-motion/animation/utils/tweenAction/get-values.js
   var getValueObj = (arr, key) => {
     return arr.map((item) => ({ [item["prop"]]: Number.parseFloat(item[key]) })).reduce((p, c) => ({ ...p, ...c }), {});
   };
@@ -12015,7 +12015,7 @@
     }).reduce((p, c) => ({ ...p, ...c }), {});
   };
 
-  // src/js/mob/mobMotion/animation/utils/tweenAction/merge-array.js
+  // src/js/mob/mob-motion/animation/utils/tweenAction/merge-array.js
   var mergeArray = (newData, data) => {
     return data.map((item) => {
       const itemToMerge = newData.find((newItem) => {
@@ -12033,7 +12033,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/lerp/get-values-on-draw.js
+  // src/js/mob/mob-motion/animation/lerp/get-values-on-draw.js
   var lerpGetValuesOnDraw = ({ values, fps: fps2, velocity, precision }) => {
     return values.map((item) => {
       if (item.settled) return item;
@@ -12056,7 +12056,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/lerp/mob-lerp.js
+  // src/js/mob/mob-motion/animation/lerp/mob-lerp.js
   var MobLerp = class {
     /**
      * @type {import('../utils/stagger/type.js').StaggerObject}
@@ -12783,7 +12783,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/utils/callbacks/sync-callback.js
+  // src/js/mob/mob-motion/animation/utils/callbacks/sync-callback.js
   var syncCallback = ({
     each,
     useStagger,
@@ -12823,7 +12823,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/scroller/mob-scroller-tween.js
+  // src/js/mob/mob-motion/animation/scroller/mob-scroller-tween.js
   var MobScrollerTween = class {
     /**
      * @type {Function}
@@ -13116,7 +13116,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/mob-master-sequencer.js
+  // src/js/mob/mob-motion/animation/sequencer/mob-master-sequencer.js
   var MobMasterSequencer = class {
     /**
      * @trype {string}
@@ -13227,7 +13227,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/sync-actions.js
+  // src/js/mob/mob-motion/animation/sequencer/sync-actions.js
   var goToSyncUtils = (obj, ease) => {
     return Object.keys(obj).map((item) => {
       if (!dataTweenValueIsValid(obj[item])) {
@@ -13284,14 +13284,14 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/utils/timeline/timeline-constant.js
+  // src/js/mob/mob-motion/animation/utils/timeline/timeline-constant.js
   var directionConstant = {
     BACKWARD: "backward",
     FORWARD: "forward",
     NONE: "none"
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/reduce-function.js
+  // src/js/mob/mob-motion/animation/sequencer/reduce-function.js
   var propToSet = {
     fromValue: {
       get: "toValue",
@@ -13321,7 +13321,7 @@
     }, true);
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/get-values-on-draw.js
+  // src/js/mob/mob-motion/animation/sequencer/get-values-on-draw.js
   var sequencerGetValusOnDraw = ({ timeline, valuesState, partial }) => {
     return valuesState.map((valueItem) => {
       const item = timeline.reduce(
@@ -13377,7 +13377,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/set-prop-from-ancestor.js
+  // src/js/mob/mob-motion/animation/sequencer/set-prop-from-ancestor.js
   var setPropFromAncestor = ({ timeline, activeProp }) => {
     return timeline.map((item, index) => {
       const { values, propToFind } = item;
@@ -13407,14 +13407,14 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/order-row.js
+  // src/js/mob/mob-motion/animation/sequencer/order-row.js
   var orderByProp = (arr, prop) => {
     return arr.sort((a, b) => {
       return a?.[prop] - b?.[prop];
     });
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/insert-new-row.js
+  // src/js/mob/mob-motion/animation/sequencer/insert-new-row.js
   var insertNewRow = ({
     timeline,
     values,
@@ -13438,7 +13438,7 @@
     return orderByProp(timelineOrderByStart, "priority");
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/merge-new-values.js
+  // src/js/mob/mob-motion/animation/sequencer/merge-new-values.js
   var mergeNewValues = ({ data, values }) => {
     return values.map((item) => {
       const itemToMerge = data.find((newItem) => {
@@ -13451,7 +13451,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/mob-sequencer.js
+  // src/js/mob/mob-motion/animation/sequencer/mob-sequencer.js
   var MobSequencer = class {
     /**
      * Basic array with all the propierties, is created in setData methods
@@ -14086,7 +14086,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/spring/get-values-on-draw.js
+  // src/js/mob/mob-motion/animation/spring/get-values-on-draw.js
   var springGetValuesOndraw = ({
     values,
     tension,
@@ -14123,7 +14123,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/spring/mob-spring.js
+  // src/js/mob/mob-motion/animation/spring/mob-spring.js
   var MobSpring = class {
     /**
      * @type {import('../utils/stagger/type.js').StaggerObject}
@@ -14898,7 +14898,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/tween/get-values-on-draw.js
+  // src/js/mob/mob-motion/animation/tween/get-values-on-draw.js
   var tweenGetValueOnDraw = ({
     values,
     timeElapsed: timeElapsed2,
@@ -14925,7 +14925,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/tween/mob-time-tween.js
+  // src/js/mob/mob-motion/animation/tween/mob-time-tween.js
   var MobTimeTween = class {
     /**
      * @type {Function}
@@ -15688,7 +15688,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/sequencer/mob-create-stagger.js
+  // src/js/mob/mob-motion/animation/sequencer/mob-create-stagger.js
   var getStaggerEqual = ({ each, duration: duration2, numItem, index, eachByNumItem }) => {
     if (each === 1) {
       const stepDuration = duration2 / numItem;
@@ -15821,7 +15821,7 @@
     return staggers;
   };
 
-  // src/js/mob/mobMotion/tween.js
+  // src/js/mob/mob-motion/tween.js
   function createScrollerTween(data) {
     return new MobScrollerTween(data);
   }
@@ -15844,14 +15844,14 @@
     return new MobLerp(data);
   }
 
-  // src/js/mob/mobMotion/timeline.js
+  // src/js/mob/mob-motion/timeline.js
   var timeline_exports = {};
   __export(timeline_exports, {
     createAsyncTimeline: () => createAsyncTimeline,
     createSyncTimeline: () => createSyncTimeline
   });
 
-  // src/js/mob/mobMotion/utils/functions-utils.js
+  // src/js/mob/mob-motion/utils/functions-utils.js
   var NOOP = () => {
   };
   var pipe = (...functions) => (input) => functions.reduce(
@@ -15859,7 +15859,7 @@
     Promise.resolve(input)
   );
 
-  // src/js/mob/mobMotion/animation/asyncTimeline/async-reduce-data.js
+  // src/js/mob/mob-motion/animation/asyncTimeline/async-reduce-data.js
   var asyncReduceData = (data, activeData) => {
     return Object.entries(data).map((item) => {
       const [prop, val2] = item;
@@ -15870,7 +15870,7 @@
     }, {});
   };
 
-  // src/js/mob/mobMotion/animation/asyncTimeline/async-reduce-tween.js
+  // src/js/mob/mob-motion/animation/asyncTimeline/async-reduce-tween.js
   var asyncReduceTween = (tweenList, tween2, index) => {
     let currentId = tween2?.getId?.();
     const initialData = tween2?.getInitialData?.() || {};
@@ -15902,7 +15902,7 @@
     }, initialData);
   };
 
-  // src/js/mob/mobMotion/animation/asyncTimeline/loop-callback.js
+  // src/js/mob/mob-motion/animation/asyncTimeline/loop-callback.js
   var resolveTweenPromise = ({
     reject,
     res,
@@ -15931,7 +15931,7 @@
     });
   };
 
-  // src/js/mob/mobMotion/animation/asyncTimeline/async-timeline.js
+  // src/js/mob/mob-motion/animation/asyncTimeline/async-timeline.js
   var MobAsyncTimeline = class {
     /**
      * @type {number}
@@ -17365,7 +17365,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/syncTimeline/mob-sync-timeline.js
+  // src/js/mob/mob-motion/animation/syncTimeline/mob-sync-timeline.js
   var MobSyncTimeline = class {
     /**
      * @param {import('./type.js').SyncTimeline} data
@@ -18009,7 +18009,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/timeline.js
+  // src/js/mob/mob-motion/timeline.js
   function createSyncTimeline(data) {
     return new MobSyncTimeline(data);
   }
@@ -18017,14 +18017,14 @@
     return new MobAsyncTimeline(data);
   }
 
-  // src/js/mob/mobMotion/scroller.js
+  // src/js/mob/mob-motion/scroller.js
   var scroller_exports = {};
   __export(scroller_exports, {
     createParallax: () => createParallax,
     createScrollTrigger: () => createScrollTrigger
   });
 
-  // src/js/mob/mobMotion/animation/scroller/mob-scroller-emitter.js
+  // src/js/mob/mob-motion/animation/scroller/mob-scroller-emitter.js
   var action = ({ prevValue, value, maxVal }) => {
     if (value >= maxVal && prevValue <= maxVal && maxVal >= 0 || value <= maxVal && prevValue >= maxVal && maxVal <= 0)
       return MobScrollerConstant.ON_LEAVE;
@@ -18064,7 +18064,7 @@
     fn[action({ prevValue, value, maxVal })]();
   }
 
-  // src/js/mob/mobMotion/animation/scroller/mob-scroller-marker.js
+  // src/js/mob/mob-motion/animation/scroller/mob-scroller-marker.js
   var getMarker = ({ startMarker, endMarker, label }) => {
     if (!startMarker && !endMarker) {
       const labelSanitized = label.replaceAll(/^[^a-z]+|[^\w.:-]+/gi, "-");
@@ -18249,7 +18249,7 @@
     };
   };
 
-  // src/js/mob/mobMotion/animation/scroller/mob-scroller-pin-utils.js
+  // src/js/mob/mob-motion/animation/scroller/mob-scroller-pin-utils.js
   var getMarkerWrapperStyle = ({ marker, direction: direction2, invertSide }) => {
     if (!marker) return {};
     const borderColor = handleSetUp.get("scrollTrigger")?.markerColor?.item || "#14df3b";
@@ -18261,7 +18261,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/scroller/mob-scroller-pin.js
+  // src/js/mob/mob-motion/animation/scroller/mob-scroller-pin.js
   var MobScrollerPin = class {
     /**
      * @type{number}
@@ -19059,7 +19059,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/animation/scroller/warning.js
+  // src/js/mob/mob-motion/animation/scroller/warning.js
   var scrollerWarningNoUnitMiusure = () => {
     console.warn(
       "parallax prop checker: value in start or end prop with no unit misure is not allowed, failed operation, use vh in vertical mode or vw in horizontal or px"
@@ -19076,7 +19076,7 @@
     );
   };
 
-  // src/js/mob/mobMotion/animation/scroller/mob-scroller-utils.js
+  // src/js/mob/mob-motion/animation/scroller/mob-scroller-utils.js
   var returnWhenFail = () => {
     return {
       numberVal: 0,
@@ -19314,7 +19314,7 @@
     return modules_exports.useScroll(callback2);
   };
 
-  // src/js/mob/mobMotion/animation/scroller/mob-scroller.js
+  // src/js/mob/mob-motion/animation/scroller/mob-scroller.js
   var MobScroller = class {
     /**
      * @type {boolean}
@@ -20974,7 +20974,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/scroller.js
+  // src/js/mob/mob-motion/scroller.js
   function createParallax(data) {
     return new MobScroller({
       ...data,
@@ -20990,7 +20990,7 @@
     });
   }
 
-  // src/js/mob/mobMotion/plugin/pageScroll/page-scroller.js
+  // src/js/mob/mob-motion/plugin/pageScroll/page-scroller.js
   var isActive = false;
   var lastScrollValue = window.scrollY;
   var smoothIsActive = false;
@@ -21118,7 +21118,7 @@
     update2();
   };
 
-  // src/js/mob/mobMotion/plugin/bodyScroll/body-scroll.js
+  // src/js/mob/mob-motion/plugin/bodyScroll/body-scroll.js
   var defaultPreset = "easeOutQuad";
   var tween = new MobTimeTween({ ease: defaultPreset, data: { val: 0 } });
   var isRunning = false;
@@ -21210,14 +21210,14 @@
     };
   })();
 
-  // src/js/mob/mobMotion/plugin/horizontalScroller/js/horizontal-scroller-constant.js
+  // src/js/mob/mob-motion/plugin/horizontalScroller/js/horizontal-scroller-constant.js
   var horizontalScrollerContstant = {
     END: "END",
     START: "START",
     CENTER: "CENTER"
   };
 
-  // src/js/mob/mobMotion/plugin/horizontalScroller/js/horizontal-scroller-css.js
+  // src/js/mob/mob-motion/plugin/horizontalScroller/js/horizontal-scroller-css.js
   var getAlign = (columnAlign) => {
     switch (columnAlign) {
       case horizontalScrollerContstant.END: {
@@ -21261,7 +21261,7 @@
     mainContainer.prepend(styleDiv);
   };
 
-  // src/js/mob/mobMotion/plugin/horizontalScroller/js/horizontal-scroller.js
+  // src/js/mob/mob-motion/plugin/horizontalScroller/js/horizontal-scroller.js
   var MobHorizontalScroller = class {
     /**
      * @type {boolean}
@@ -22340,7 +22340,7 @@
     }
   };
 
-  // src/js/mob/mobMotion/plugin/slide/slide.js
+  // src/js/mob/mob-motion/plugin/slide/slide.js
   var slideItems = /* @__PURE__ */ new Map();
   var isNode2 = (target) => {
     const isValid = modules_exports.checkType(Element, target);
@@ -22420,7 +22420,7 @@
     return { subscribe, reset, up, down };
   })();
 
-  // src/js/mob/mobMotion/plugin/smoothScroller/smooth-scroller.js
+  // src/js/mob/mob-motion/plugin/smoothScroller/smooth-scroller.js
   var MobSmoothScroller = class {
     /**
      * @type {boolean}
@@ -22925,7 +22925,7 @@
       }, 3);
     }
     /**
-     * @param {import('../../../mobCore/events/mouseUtils/type.js').MouseEventParsed} params
+     * @param {import('../../../mob-core/events/mouseUtils/type.js').MouseEventParsed} params
      */
     #detectSwipe({ pixelX }) {
       if (!this.#useSwipe || !pixelX || this.#swipeisActive || this.#onSwipeCallback.length === 0)

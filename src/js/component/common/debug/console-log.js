@@ -1,20 +1,20 @@
-import { bindEventMap } from '../../../mob/mobjs/modules/bindEvents';
-import { currentRepeaterValueMap } from '../../../mob/mobjs/modules/repeater/repeaterValue';
-import { onMountCallbackMap } from '../../../mob/mobjs/modules/onMount';
-import { activeRepeatMap } from '../../../mob/mobjs/modules/repeater/activeRepeater';
-import { staticPropsMap } from '../../../mob/mobjs/modules/staticProps';
-import { getSlotPlaceholderSize } from '../../../mob/mobjs/modules/slot';
-import { getUserChildPlaceholderSize } from '../../../mob/mobjs/modules/userComponent';
+import { bindEventMap } from '../../../mob/mob-js/modules/bindEvents';
+import { currentRepeaterValueMap } from '../../../mob/mob-js/modules/repeater/repeaterValue';
+import { onMountCallbackMap } from '../../../mob/mob-js/modules/onMount';
+import { activeRepeatMap } from '../../../mob/mob-js/modules/repeater/activeRepeater';
+import { staticPropsMap } from '../../../mob/mob-js/modules/staticProps';
+import { getSlotPlaceholderSize } from '../../../mob/mob-js/modules/slot';
+import { getUserChildPlaceholderSize } from '../../../mob/mob-js/modules/userComponent';
 import {
     getBindTextParentSize,
     getBindTextPlaceholderSize,
-} from '../../../mob/mobjs/modules/bindtext';
-import { repeatIdPlaceHolderMap } from '../../../mob/mobjs/modules/repeater/repeat-id-placeholder-map';
-import { repeatFunctionMap } from '../../../mob/mobjs/modules/repeater/repeat-function-map';
-import { invalidateIdPlaceHolderMap } from '../../../mob/mobjs/modules/invalidate/invalidate-id-placeholder-map';
-import { invalidateIdHostMap } from '../../../mob/mobjs/modules/invalidate/invalidate-id-host-map';
-import { invalidateFunctionMap } from '../../../mob/mobjs/modules/invalidate/invalidate-function-map';
-import { bindPropsMap } from '../../../mob/mobjs/modules/bindProps/bind-props-map';
+} from '../../../mob/mob-js/modules/bindtext';
+import { repeatIdPlaceHolderMap } from '../../../mob/mob-js/modules/repeater/repeat-id-placeholder-map';
+import { repeatFunctionMap } from '../../../mob/mob-js/modules/repeater/repeat-function-map';
+import { invalidateIdPlaceHolderMap } from '../../../mob/mob-js/modules/invalidate/invalidate-id-placeholder-map';
+import { invalidateIdHostMap } from '../../../mob/mob-js/modules/invalidate/invalidate-id-host-map';
+import { invalidateFunctionMap } from '../../../mob/mob-js/modules/invalidate/invalidate-function-map';
+import { bindPropsMap } from '../../../mob/mob-js/modules/bindProps/bind-props-map';
 import { MobJs } from '@mobJs';
 
 export const consoleLogDebug = () => {

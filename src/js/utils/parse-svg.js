@@ -1,4 +1,4 @@
-import { serializeFragment } from '../mob/mobjs/parse/steps/utils';
+import { serializeFragment } from '../mob/mob-js/parse/steps/utils';
 
 /**
  * @param {object} params

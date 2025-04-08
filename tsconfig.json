@@ -17,18 +17,18 @@
         "baseUrl": ".",
         "paths": {
             // mobCore
-            "@mobCore": ["./src/js/mob/mobCore"],
-            "@mobStoreType": ["./src/js/mob/mobCore/store/type"],
-            "@mobCoreUtils": ["./src/js/mob/mobCore/utils"],
+            "@mobCore": ["./src/js/mob/mob-core"],
+            "@mobStoreType": ["./src/js/mob/mob-core/store/type"],
+            "@mobCoreUtils": ["./src/js/mob/mob-core/utils"],
 
             // mobJs
-            "@mobJs": ["./src/js/mob/mobjs"],
-            "@mobJsType": ["./src/js/mob/mobjs/type"],
+            "@mobJs": ["./src/js/mob/mob-js"],
+            "@mobJsType": ["./src/js/mob/mob-js/type"],
 
             // mobMotion
-            "@mobMotion": ["./src/js/mob/mobMotion"],
-            "@mobMotionType": ["./src/js/mob/mobMotion/type"],
-            "@mobMotionPlugin": ["./src/js/mob/mobMotion/plugin"],
+            "@mobMotion": ["./src/js/mob/mob-motion"],
+            "@mobMotionType": ["./src/js/mob/mob-motion/type"],
+            "@mobMotionPlugin": ["./src/js/mob/mob-motion/plugin"],
 
             // components
             "@commonComponent/*": ["./src/js/component/common/*"],
@@ -46,9 +46,9 @@
     "ts-node": { "esm": true },
     "include": [
         "src/js/main.js",
-        "src/js/mob/mobjs",
-        "src/js/mob/mobMotion",
-        "src/js/mob/mobCore",
+        "src/js/mob/mob-js",
+        "src/js/mob/mob-motion",
+        "src/js/mob/mob-core",
         "src/js/component",
         "src/js/pages",
         "src/js/wrapper",

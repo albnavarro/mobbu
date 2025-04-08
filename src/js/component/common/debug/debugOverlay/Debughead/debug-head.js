@@ -5,8 +5,8 @@
  **/
 
 import { html, MobJs } from '@mobJs';
-import { getBindObjectParentSize } from '../../../../../mob/mobjs/modules/bindObject';
-import { getBindTextParentSize } from '../../../../../mob/mobjs/modules/bindtext';
+import { getBindObjectParentSize } from '../../../../../mob/mob-js/modules/bindObject';
+import { getBindTextParentSize } from '../../../../../mob/mob-js/modules/bindtext';
 
 /** @type{MobComponent<import('./type').DebugHead>} */
 export const DebugHeadFn = ({ invalidate, getProxi }) => {

@@ -1,4 +1,4 @@
-import { MobCore } from '../mob/mobCore';
+import { MobCore } from '../mob/mob-core';
 
 export const initTestMapStore = async () => {
     const test = MobCore.createStore({
