@@ -1,6 +1,6 @@
-import { AnyComponent } from '@commonComponent/AnyComponent/definition';
-import { Move3D } from '@commonComponent/Move3D/definition';
-import { updateQuickNavState } from '@commonComponent/quickNav/utils';
+import { AnyComponent } from '@commonComponent/any-component/definition';
+import { Move3D } from '@commonComponent/move-3d/definition';
+import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
@@ -58,7 +58,7 @@ export const lettering01 = async () => {
     return html`<div class="l-lettering01">
         <move-3d
             ${MobJs.staticProps(
-                /** @type{import('@commonComponent/Move3D/type').Move3D['state']} */ ({
+                /** @type{import('@commonComponent/move-3d/type').Move3D['state']} */ ({
                     shape: getLettering01({
                         letter_d,
                         letter_r,

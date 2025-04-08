@@ -1,4 +1,4 @@
-import { Move3DChildren } from '@commonComponent/Move3D/type';
+import { Move3DChildren } from '@commonComponent/move-3d/type';
 
 export type GetLettering02 = (arg0: {
     letter_d: string;

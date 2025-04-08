@@ -2,9 +2,9 @@
 
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
-import { DynamicListButton } from '../dynamicList/button/definition';
+import { DynamicListButton } from '../dynamic-list/button/definition';
 import { MatrioskaFn } from './matrioska';
-import { MatrioskaItem } from './matrioskaItem/definition';
+import { MatrioskaItem } from './item/definition';
 
 /**
  * @import { CreateComponentParams } from "@mobJsType";

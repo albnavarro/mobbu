@@ -1,6 +1,6 @@
-import { updateQuickNavState } from '@commonComponent/quickNav/utils';
+import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
-import { ScrollerN0 } from '@pagesComponent/scroller/ScrollerN0/definition';
+import { ScrollerN0 } from '@pagesComponent/scroller/n0/definition';
 import { scrollerParams } from './scroller-params';
 
 MobJs.useComponent([ScrollerN0]);
@@ -26,7 +26,7 @@ export const scrollerN0 = ({ params }) => {
     return html`<div>
         <scroller-n0
             ${MobJs.staticProps(
-                /** @type{import('@pagesComponent/scroller/ScrollerN0/type').ScrollerN0['state']} */
+                /** @type{import('@pagesComponent/scroller/n0/type').ScrollerN0['state']} */
                 ({
                     ...props.animation,
                 })

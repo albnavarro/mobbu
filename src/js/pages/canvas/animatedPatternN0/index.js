@@ -1,6 +1,6 @@
-import { updateQuickNavState } from '@commonComponent/quickNav/utils';
+import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
-import { AnimatedPatternN0 } from '@pagesComponent/animatedPattern/animatedPatternN0/definition';
+import { AnimatedPatternN0 } from '@pagesComponent/animated-pattern/n0/definition';
 import { animatedPatternN0Params } from './animated-pattern-n0-params';
 
 MobJs.useComponent([AnimatedPatternN0]);
@@ -29,7 +29,7 @@ export const animatedPatternN0 = ({ params }) => {
     return html`<div class="l-padding">
         <animatedpattern-n0
             ${MobJs.staticProps(
-                /** @type{import('@pagesComponent/animatedPattern/animatedPatternN0/type').AnimatedPatternN0['state']} */
+                /** @type{import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['state']} */
                 ({
                     ...props.animation,
                 })

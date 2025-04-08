@@ -1,8 +1,8 @@
-import { DocContainer } from '@commonComponent/docsContainer/definition';
-import { DocTitle } from '@commonComponent/doctitle/definition';
-import { DocsTitleSmall } from '@commonComponent/doctitleSmall/definition';
-import { HtmlContent } from '@commonComponent/htmlContent/definition';
-import { ScrollTo } from '@commonComponent/scrollTo/definition';
+import { DocContainer } from '@commonComponent/doc-container/definition';
+import { DocTitle } from '@commonComponent/doc-title/definition';
+import { DocsTitleSmall } from '@commonComponent/doc-title-small/definition';
+import { HtmlContent } from '@commonComponent/html-content/definition';
+import { ScrollTo } from '@commonComponent/scroll-to/definition';
 import { html, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
@@ -25,7 +25,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
             <html-content
                 slot="docs"
                 ${MobJs.staticProps(
-                    /** @type{import('@commonComponent/htmlContent/type').HtmlContent['state']} */
+                    /** @type{import('@commonComponent/html-content/type').HtmlContent['state']} */
                     ({
                         data: data.data,
                         useMaxWidth: true,

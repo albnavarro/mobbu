@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { FooterFn } from './footer';
-import { FooterNav } from './footerNav/definition';
+import { FooterNav } from './footer-nav/definition';
 import { DebugButton } from '@commonComponent/debug/definition';
 
 /**

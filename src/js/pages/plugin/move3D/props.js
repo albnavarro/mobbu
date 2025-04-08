@@ -1,4 +1,4 @@
-import { move3DShape1 } from '../../../component/common/Move3D/shape/shape1';
+import { move3DShape1 } from '@commonComponent/move-3d/shape/shape1';
 
 export const move3DrouteProps = {
     shape1: {

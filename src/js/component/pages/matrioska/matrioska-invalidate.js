@@ -3,7 +3,7 @@
 /**
  * @import {  MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, UpdateStateByName, GetState, Invalidate, ReturnBindProps } from '@mobJsType'
  * @import { Matrioska } from './type'
- * @import { MatrioskaItem } from './matrioskaItem/type'
+ * @import { MatrioskaItem } from './item/type'
  */
 
 import { MobCore } from '@mobCore';

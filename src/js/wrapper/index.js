@@ -1,13 +1,13 @@
 // @ts-check
 
 import { DebugOverlay } from '@commonComponent/debug/debugOverlay/definition';
-import { LinksMobJs } from '@commonComponent/linksMobJs/definition';
-import { OnlyDesktop } from '@commonComponent/onlyDesktop/definition';
-import { QuickNav } from '@commonComponent/quickNav/definition';
-import { RouteLoader } from '@commonComponent/routeLoader/definition';
-import { ScrollDownLabel } from '@commonComponent/scrolldownLabel/definition';
-import { ScrollToTop } from '@commonComponent/scrollToTop/definition';
-import { TestScssGrid } from '@commonComponent/TestScssGrid/definition';
+import { LinksMobJs } from '@commonComponent/links-mob-js/definition';
+import { OnlyDesktop } from '@commonComponent/only-desktop/definition';
+import { QuickNav } from '@commonComponent/quick-nav/definition';
+import { RouteLoader } from '@commonComponent/route-loader/definition';
+import { ScrollDownLabel } from '@commonComponent/scroll-down-label/definition';
+import { ScrollToTop } from '@commonComponent/scroll-to-top/definition';
+import { TestScssGrid } from '@commonComponent/test-scss-grid/definition';
 import { Footer } from '@layoutComponent/footer/definition';
 import { Header } from '@layoutComponent/header/definition';
 import { NavigationContainer } from '@layoutComponent/navigation/definition';

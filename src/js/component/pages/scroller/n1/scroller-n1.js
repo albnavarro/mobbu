@@ -1,0 +1,75 @@
+//@ts-check
+
+/**
+ * @import { MobComponent } from '@mobJsType';
+ * @import { ScrollerN1 } from './type';
+ **/
+
+import { MobCore } from '@mobCore';
+import { html } from '@mobJs';
+import { canvasBackground } from '@utils/canvas-utils';
+import {
+    activateScrollDownArrow,
+    deactivateScrollDownArrow,
+} from '../../../common/scroll-down-label/utils';
+import { scrollerN1Animation } from './animation/animation';
+
+/** @type {MobComponent<ScrollerN1>} */
+export const ScrollerN1Fn = ({
+    onMount,
+    getState,
+    setState,
+    setRef,
+    getRef,
+    bindEffect,
+    getProxi,
+}) => {
+    const proxi = getProxi();
+
+    document.body.style.background = canvasBackground;
+
+    onMount(() => {
+        /** Show scroll down label. */
+        activateScrollDownArrow();
+
+        /**
+         * Refs
+         */
+        const { canvas, canvasScroller } = getRef();
+
+        const destroyAnimation = scrollerN1Animation({
+            canvas,
+            canvasScroller,
+            ...getState(),
+        });
+
+        MobCore.useFrame(() => {
+            setState('isMounted', true);
+        });
+
+        return () => {
+            destroyAnimation();
+            deactivateScrollDownArrow();
+            document.body.style.background = '';
+        };
+    });
+
+    /**
+     * Desktop
+     */
+    return html`
+        <div>
+            <div class="c-canvas c-canvas--fixed ">
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    ${bindEffect({
+                        toggleClass: { active: () => proxi.isMounted },
+                    })}
+                >
+                    <canvas ${setRef('canvas')}></canvas>
+                </div>
+            </div>
+            <div class="c-canvas-scroller" ${setRef('canvasScroller')}></div>
+        </div>
+    `;
+};

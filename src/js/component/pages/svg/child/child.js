@@ -7,7 +7,7 @@
 
 import { html } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
-import { updateQuickNavState } from '../../../common/quickNav/utils';
+import { updateQuickNavState } from '../../../common/quick-nav/utils';
 import { childAnimations } from './animation/animation';
 
 const numberOfStar = 10;

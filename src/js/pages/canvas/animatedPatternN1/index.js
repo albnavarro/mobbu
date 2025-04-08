@@ -1,6 +1,6 @@
-import { updateQuickNavState } from '@commonComponent/quickNav/utils';
+import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
-import { AnimatedPatternN1 } from '@pagesComponent/animatedPattern/animatedPatternN1/definition';
+import { AnimatedPatternN1 } from '@pagesComponent/animated-pattern/n1/definition';
 
 MobJs.useComponent([AnimatedPatternN1]);
 

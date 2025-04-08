@@ -1,6 +1,6 @@
-import { updateQuickNavState } from '@commonComponent/quickNav/utils';
+import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
-import { CaterpillarN0 } from '@pagesComponent/canvas/caterpillarN0/definition';
+import { CaterpillarN0 } from '@pagesComponent/canvas/n0/definition';
 
 MobJs.useComponent([CaterpillarN0]);
 
