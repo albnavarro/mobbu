@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { FooterNavButton } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {FooterNavButton} from './type';
+ */
 
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html } from '@mobJs';

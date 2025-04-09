@@ -1,23 +1,22 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps, StaticProps, BindProps  } from '@mobJsType';
- * @import { Navigation, NavigationSubmenu } from './type';
- **/
+ * @import {MobComponent, ReturnBindProps, StaticProps, BindProps} from '@mobJsType';
+ * @import {Navigation, NavigationSubmenu} from './type';
+ */
 
 import { html } from '@mobJs';
 import { getCommonData } from '@data/index';
 
 /**
- * @description
  * Create first level items.
  *
  * @param {object} param
  * @param {import('../../../data/type').CommonData['navigation']} param.data
  * @param {StaticProps} param.staticProps
- * @param {BindProps<Navigation,NavigationSubmenu>} param.bindProps
+ * @param {BindProps<Navigation, NavigationSubmenu>} param.bindProps
  * @param {Navigation['state']} param.proxi
- **/
+ */
 function getItems({ data, staticProps, bindProps, proxi }) {
     return data
         .map((item, index) => {
@@ -52,7 +51,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                                   (proxi.currentAccordionId = index),
                           })}
                           ${bindProps(
-                              /** @returns{ReturnBindProps<NavigationSubmenu>} */
+                              /** @returns {ReturnBindProps<NavigationSubmenu>} */
                               () => ({
                                   isOpen: proxi.currentAccordionId === index,
                               })

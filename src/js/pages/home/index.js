@@ -12,7 +12,7 @@ export const home = async () => {
     return html`
         <home-component
             ${MobJs.staticProps(
-                /** @type{import('@pagesComponent/homepage/type').HomeComponent['state']} */
+                /** @type {import('@pagesComponent/homepage/type').HomeComponent['state']} */
                 ({
                     svg,
                 })

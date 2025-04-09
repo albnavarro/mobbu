@@ -4,12 +4,12 @@ import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 
 /**
- * @import { DelegateEvents, SetRef, GetRef,  SetState, UpdateState, GetState, BindEffect } from '@mobJsType';
- **/
+ * @import {DelegateEvents, SetRef, GetRef,  SetState, UpdateState, GetState, BindEffect} from '@mobJsType';
+ */
 
 /**
- * @param {Array<{label:string}>} array
- * @returns {Array<{label:string}>}
+ * @param {{ label: string }[]} array
+ * @returns {{ label: string }[]}
  */
 export const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -22,7 +22,7 @@ export const shuffle = (array) => {
 
 /**
  * @param {number} numberOfItem
- * @returns {{label:string}[]}
+ * @returns {{ label: string }[]}
  */
 export const createBenchMarkArray = (numberOfItem) => {
     const valueSanitized = MobCore.checkType(Number, numberOfItem)
@@ -38,7 +38,7 @@ export const createBenchMarkArray = (numberOfItem) => {
  * @param {object} params
  * @param {SetState<import('../type').BenchMark>} params.setState
  * @param {number} params.value
- * @param {boolean} [ params.useShuffle ]
+ * @param {boolean} [params.useShuffle]
  */
 const setData = async ({ setState, value, useShuffle = false }) => {
     setState('isLoading', true);
@@ -100,13 +100,13 @@ export const benchMarkListPartial = ({
                 placeholder="Number of component"
                 ${setRef('input')}
                 ${delegateEvents({
-                    keypress: (/** @type{Event} */ event) => {
+                    keypress: (/** @type {Event} */ event) => {
                         // @ts-ignore
                         if (event.keyCode === 13) {
                             event.preventDefault();
 
                             const value = Number(
-                                /** @type{HTMLInputElement} */ (event.target)
+                                /** @type {HTMLInputElement} */ (event.target)
                                     ?.value ?? 0
                             );
 
@@ -122,7 +122,7 @@ export const benchMarkListPartial = ({
                     click: () => {
                         const { input } = getRef();
                         const value = Number(
-                            /** @type{HTMLInputElement} */ (input)?.value ?? 0
+                            /** @type {HTMLInputElement} */ (input)?.value ?? 0
                         );
 
                         setData({ setState, value });

@@ -10,6 +10,7 @@
 ### repeater/invalidate
 
 1. First rendering.
+
     - Al primo parse il DOM del modulo viene esesguito in maniera sincrona, le due funzioni `repeat` e `invalidate` ritornano direttamante il primo rendering alla prima esecuzione.
     - In quest caso vale il discorso `Default assignment`
 

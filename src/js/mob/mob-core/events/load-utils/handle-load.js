@@ -3,21 +3,21 @@
 import { getUnivoqueId } from '../../utils';
 
 /**
- * @type{boolean}
+ * @type {boolean}
  */
 let initialized = false;
 
 /**
- * @type {Map<string,() => void>}
+ * @type {Map<string, () => void>}
  */
 const callbacks = new Map();
 
 /**
- * @return void
+ * @returns Void
  */
 function handler() {
     /**
-     * if - if there is no subscritor remove handler
+     * If - if there is no subscritor remove handler
      */
     if (callbacks.size === 0) {
         globalThis.removeEventListener('DOMContentLoaded', handler);
@@ -34,10 +34,9 @@ function handler() {
 }
 
 /**
- * @description
- * init - if listener is not inizializad add it
+ * Init - if listener is not inizializad add it
  *
- * @return {void}
+ * @returns {void}
  */
 function init() {
     if (initialized) return;
@@ -50,20 +49,19 @@ function init() {
 }
 
 /**
- * @description
  * Add callback on page load
+ *
+ * @example
+ *     ```javascript
+ *
+ *     handleLoad(() => {
+ *         ...
+ *     });
+ *
+ *     ```;
  *
  * @param {() => void} cb - Callback function executed on page load
  * @returns {() => void}
- *
- * @example
- * ```javascript
- *
- * handleLoad(() => {
- *     ...
- * });
- *
- * ```
  */
 const addCallback = (cb) => {
     const id = getUnivoqueId();
@@ -77,6 +75,6 @@ const addCallback = (cb) => {
 };
 
 /**
- * @description Function to execute a callback on page load
+ * Function to execute a callback on page load
  */
 export const handleLoad = (() => addCallback)();

@@ -5,11 +5,11 @@ import { RESET_FILTER_DEBUG } from '../constant';
 import { DebugComponentFn } from './debug-component';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const DebugComponent = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').DebugComponent>} */
+    /** @type {CreateComponentParams<import('./type').DebugComponent>} */
     ({
         name: 'debug-component',
         component: DebugComponentFn,

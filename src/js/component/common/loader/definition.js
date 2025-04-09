@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { LoaderFn } from './loader';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const Loader = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').Loader>} */
+    /** @type {CreateComponentParams<import('./type').Loader>} */
     ({
         name: 'mob-loader',
         component: LoaderFn,

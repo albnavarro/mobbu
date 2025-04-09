@@ -47,9 +47,7 @@ export const mobStore = (data = {}) => {
     updateMainMap(instanceId, stateUpdated);
 
     /**
-     * Validate all props
-     * Perform a set() on all props, and update state
-     * First time strict has no effect
+     * Validate all props Perform a set() on all props, and update state First time strict has no effect
      */
     inizializeAllProps(instanceId, initialState);
 

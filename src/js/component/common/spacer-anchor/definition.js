@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { SpacerAnchorFn } from './spacer-anchor';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const SpacerAnchor = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').SpacerAnchor>} */
+    /** @type {CreateComponentParams<import('./type').SpacerAnchor>} */
     ({
         name: 'mob-spacer',
         component: SpacerAnchorFn,

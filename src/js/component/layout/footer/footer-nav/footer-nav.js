@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import { DelegateEvents, MobComponent, StaticProps } from '@mobJsType';
- **/
+ * @import {DelegateEvents, MobComponent, StaticProps} from '@mobJsType';
+ */
 
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html, MobJs } from '@mobJs';

@@ -5,7 +5,7 @@ import { outerWidth } from '@mobCoreUtils';
 import { MobScroll, MobTimeline, MobTween } from '@mobMotion';
 import { randomIntFromInterval } from '@utils/utils';
 
-/** @type{import('../type').CreatePathAnimation} */
+/** @type {import('../type').CreatePathAnimation} */
 export const createPathAnimation = ({
     pathElement,
     scrollerElement,
@@ -52,8 +52,7 @@ export const createPathAnimation = ({
     };
 
     /**
-     * Sequencer
-     * Scroll shape mutation
+     * Sequencer Scroll shape mutation
      */
     const pathSequencer = MobTween.createSequencer({
         data: { ...sequencerData[0] },
@@ -65,8 +64,7 @@ export const createPathAnimation = ({
     });
 
     /**
-     * The senquencer is inverted.
-     * start from 10.
+     * The senquencer is inverted. start from 10.
      */
     pathSequencer
         .goTo(
@@ -161,8 +159,7 @@ export const createPathAnimation = ({
     });
 
     /**
-     * Tween
-     * Perpetual movement
+     * Tween Perpetual movement
      */
     const pathTween = MobTween.createTimeTween({
         data: { ...timelineData },
@@ -188,8 +185,7 @@ export const createPathAnimation = ({
     );
 
     /**
-     * Timeline
-     * Loop pathTween
+     * Timeline Loop pathTween
      */
     const pathTimeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
@@ -218,8 +214,7 @@ export const createPathAnimation = ({
     pathTimeline.play();
 
     /**
-     * Main loop
-     * Apply Perpetual + scroll value
+     * Main loop Apply Perpetual + scroll value
      */
     let shouldLoop = true;
     const loop = () => {

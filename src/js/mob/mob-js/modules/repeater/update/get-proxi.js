@@ -5,19 +5,15 @@ import { clamp } from '../../../utils';
 const REPEAT_PROXI_INDEX = 'index';
 
 /**
- * @description
- * Reactive state for repeat.
- * Note:
- * bindObject can run after 'item' is destroyed ( wekRef issue ).
- * So clamp index value with current array length.
- * The item is not visible but can fire error.
+ * Reactive state for repeat. Note: bindObject can run after 'item' is destroyed ( wekRef issue ). So clamp index value
+ * with current array length. The item is not visible but can fire error.
  *
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bind
  * @param {boolean} params.hasKey
- * @param {string} [ params.key ]
- * @param {any} [ params.keyValue ]
+ * @param {string} [params.key]
+ * @param {any} [params.keyValue]
  * @param {number} params.index
  * @returns {Record<string, any>}
  */
@@ -35,7 +31,7 @@ export const getRepeatProxi = ({
     const inistalState = getStateById(id);
     const startValue = hasKey
         ? inistalState?.[bind]?.find(
-              (/** @type {{ [x: string]: any; }} */ item) =>
+              (/** @type {{ [x: string]: any }} */ item) =>
                   item[key] === keyValue
           )
         : inistalState?.[bind]?.[index];
@@ -53,8 +49,7 @@ export const getRepeatProxi = ({
                 MobDetectBindKey.setCurrentDependencies(bind);
 
                 /**
-                 * Use last updated state
-                 * Proxi target should be not last value.
+                 * Use last updated state Proxi target should be not last value.
                  */
                 const state = getStateById(id);
                 const maxValue = Math.max(state?.[bind].length - 1, 0);
@@ -68,7 +63,7 @@ export const getRepeatProxi = ({
                      */
                     if (hasKey) {
                         const indexByKey = state?.[bind]?.findIndex(
-                            (/** @type {{ [x: string]: any; }} */ item) =>
+                            (/** @type {{ [x: string]: any }} */ item) =>
                                 item[key] === keyValue
                         );
 
@@ -82,14 +77,12 @@ export const getRepeatProxi = ({
                 }
 
                 /**
-                 * Return current.value ( default ).
-                 * Return value by key
-                 * Prevent undefined, return last value fallback
+                 * Return current.value ( default ). Return value by key Prevent undefined, return last value fallback
                  */
                 if (hasKey) {
                     lastValue = currentValue ?? lastValue;
                     currentValue = state?.[bind]?.find(
-                        (/** @type {{ [x: string]: any; }} */ item) =>
+                        (/** @type {{ [x: string]: any }} */ item) =>
                             item[key] === keyValue
                     );
 
@@ -97,8 +90,7 @@ export const getRepeatProxi = ({
                 }
 
                 /**
-                 * Return value without key.
-                 * Prevent undefined, return last value fallback
+                 * Return value without key. Prevent undefined, return last value fallback
                  */
                 lastValue = currentValue ?? lastValue;
                 currentValue = state?.[bind]?.[clamp(index, 0, maxValue)];

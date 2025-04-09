@@ -21,13 +21,11 @@ export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
 };
 
 /**
+ * Unbind reactive props from component
+ *
  * @param {object} obj
  * @param {string} obj.id
- * @return void
- *
- *
- * @description
- * Unbind reactive props from component
+ * @returns Void
  */
 export const unBind = ({ id = '' }) => {
     if (!id || id === '') return;

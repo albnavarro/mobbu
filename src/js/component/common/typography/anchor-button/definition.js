@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { AnchorButtonFn } from './anchor-button';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const AnchorButton = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').AnchorBUtton>} */
+    /** @type {CreateComponentParams<import('./type').AnchorBUtton>} */
     ({
         name: 'anchor-button',
         component: AnchorButtonFn,

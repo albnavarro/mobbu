@@ -13,7 +13,7 @@ import { getUnivoqueId } from '../../utils/index.js';
 let initialized = false;
 
 /**
- * @type {Map<string,import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>>}
+ * @type {Map<string, import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>>}
  */
 const callbacks = new Map();
 
@@ -32,7 +32,7 @@ let unsubscribe = () => {};
  */
 function handler(scrollData) {
     /**
-     * if - if there is no subscritor remove handler
+     * If - if there is no subscritor remove handler
      */
     if (callbacks.size === 0) {
         unsubscribe();
@@ -51,9 +51,9 @@ function handler(scrollData) {
 }
 
 /**
- * init - if listener is not inizializad remove it
+ * Init - if listener is not inizializad remove it
  *
- * @return {void}
+ * @returns {void}
  */
 function init() {
     if (initialized) return;
@@ -61,7 +61,7 @@ function init() {
 
     // @ts-ignore
     throttleFunctionReference = throttle(
-        (/** @type{any} */ scrollData) => handler(scrollData),
+        (/** @type {any} */ scrollData) => handler(scrollData),
         eventStore.getProp('throttle')
     );
 
@@ -70,24 +70,23 @@ function init() {
 }
 
 /**
- * @description
  * Performs a scroll callback using a throttle function
  *
- * @param {import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>} cb - callback function
- * @return {() => void} unsubscribe callback
- *
  * @example
- * ```javascript
- * const unsubscribe = handleScrollThrottle(({ direction, scrollY }) => {
- *     // code
- * });
+ *     ```javascript
+ *     const unsubscribe = handleScrollThrottle(({ direction, scrollY }) => {
+ *         // code
+ *     });
  *
- * unsubscribe()
+ *     unsubscribe()
  *
- * Define throttle value from default:
- * handleSetUp.set({ throttle: 100 });
+ *     Define throttle value from default:
+ *     handleSetUp.set({ throttle: 100 });
  *
- * ```
+ *     ```;
+ *
+ * @param {import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>} cb - Callback function
+ * @returns {() => void} Unsubscribe callback
  */
 const addCb = (cb) => {
     const id = getUnivoqueId();
@@ -101,7 +100,6 @@ const addCb = (cb) => {
 };
 
 /**
- * @description
  * Performs a scroll callback using a throttle function
  */
 export const handleScrollThrottle = (() => addCb)();

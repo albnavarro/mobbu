@@ -4,11 +4,9 @@ import { componentMap } from '../../store';
 import { removeAndDestroyById } from './remove-and-destroy-by-id';
 
 /**
- * @returns { void }
+ * Remove non persistent component from store. ( all component without element defined in wrapper ).
  *
- * @description
- * Remove non persistent component from store.
- * ( all component without element defined in wrapper ).
+ * @returns {void}
  */
 
 export const removeCancellableComponent = () => {

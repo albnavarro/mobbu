@@ -2,12 +2,12 @@ import { html } from '@mobJs';
 import { linksScroller } from './animation/links-scroller';
 
 /**
- * @import { MobComponent } from '@mobJsType';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ */
 
 /**
  * @param {number} index
- * @returns { string }
+ * @returns {string}
  */
 const getCounter = (index) => (index < 10 ? `0${index}` : `${index}`);
 

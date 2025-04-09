@@ -84,13 +84,11 @@ import { getPropiertiesValueFromConstant } from '../../scroller/get-constant-fro
 import { MobCore } from '../../../../mob-core';
 
 /**
- *
- * @param {(Number|Function)} val
- * @returns {boolean}
- *
- * @description
  * Check if new prop value to update is valid
- **/
+ *
+ * @param {Number | Function} val
+ * @returns {boolean}
+ */
 export const dataTweenValueIsValid = (val) => {
     return (
         MobCore.checkType(Number, val) ||
@@ -100,13 +98,12 @@ export const dataTweenValueIsValid = (val) => {
 };
 
 /**
- * @param {Object} param
- * @param {number|undefined} param.start
- * @param {number|undefined} param.end
- * @returns {boolean}
- *
- * @description
  * Check if sequencer start && end value is valid
+ *
+ * @param {Object} param
+ * @param {number | undefined} param.start
+ * @param {number | undefined} param.end
+ * @returns {boolean}
  */
 export const sequencerRangeValidate = ({ start, end }) => {
     const startIsValid = MobCore.checkType(Number, start);
@@ -117,30 +114,26 @@ export const sequencerRangeValidate = ({ start, end }) => {
 };
 
 /**
- *
- * @param {number|undefined} duration
- * @returns {number}
- *
- * @description
  * Check if new duration value is Valid
- **/
+ *
+ * @param {number | undefined} duration
+ * @returns {number}
+ */
 export const durationIsValid = (duration) => {
     const isValid = MobCore.checkType(Number, duration);
     if (!isValid && duration) durationWarining(duration);
 
     return isValid
-        ? /** @type{number} */ (duration)
+        ? /** @type {number} */ (duration)
         : handleSetUp.get('sequencer').duration;
 };
 
 /**
- *
- * @param {number|undefined} repeat
- * @returns {number}
- *
- * @description
  * Check if repeat definition is valid
- **/
+ *
+ * @param {number | undefined} repeat
+ * @returns {number}
+ */
 export const repeatIsValid = (repeat) => {
     const isValid = MobCore.checkType(Number, repeat);
     if (!isValid && repeat) repeatWarining(repeat);
@@ -149,13 +142,11 @@ export const repeatIsValid = (repeat) => {
 };
 
 /**
- *
- * @param {import('../../tween/type').EaseTypes|undefined} ease
- * @returns {import('../../tween/type').EaseTypes}
- *
- * @description
  * Check if ease definition is valid
- **/
+ *
+ * @param {import('../../tween/type').EaseTypes | undefined} ease
+ * @returns {import('../../tween/type').EaseTypes}
+ */
 export const easeIsValid = (ease) => {
     const isValid = ease && ease in tweenConfig;
     if (!isValid && ease) tweenEaseWarning(ease);
@@ -164,13 +155,11 @@ export const easeIsValid = (ease) => {
 };
 
 /**
- *
- * @param {import('../../tween/type').EaseTypes|undefined} ease
- * @returns {Function}
- *
- * @description
  * Check if ease definition is valid
- **/
+ *
+ * @param {import('../../tween/type').EaseTypes | undefined} ease
+ * @returns {Function}
+ */
 export const easeScrollerTweenIsValid = (ease) => {
     const isValid = ease && ease in tweenConfig;
     if (!isValid && ease) tweenEaseWarning(ease);
@@ -181,13 +170,12 @@ export const easeScrollerTweenIsValid = (ease) => {
 };
 
 /**
- * @param {string|undefined} prop
- * @param {number|undefined} value
- * @returns {boolean}
- *
- * @description
  * Check if new tween prop is valid
- **/
+ *
+ * @param {string | undefined} prop
+ * @param {number | undefined} value
+ * @returns {boolean}
+ */
 export const initialDataPropValidate = (prop, value) => {
     const propIsValid = MobCore.checkType(String, prop);
     const valueIsValid = MobCore.checkType(Number, value);
@@ -199,11 +187,9 @@ export const initialDataPropValidate = (prop, value) => {
 };
 
 /**
- * @param {number|undefined} each
- * @returns {boolean|undefined}
- *
- * @description
- **/
+ * @param {number | undefined} each
+ * @returns {boolean | undefined}
+ */
 export const validateStaggerEach = (each) => {
     if (!each) return;
 
@@ -214,11 +200,9 @@ export const validateStaggerEach = (each) => {
 };
 
 /**
- * @param {('start'|'end'|'center'|'edges'|'random'|{x:number,y:number}|number)}  from
- * @returns {boolean|undefined}
- *
- * @description
- **/
+ * @param {'start' | 'end' | 'center' | 'edges' | 'random' | { x: number; y: number } | number} from
+ * @returns {boolean | undefined}
+ */
 export const validateStaggerFrom = (from) => {
     if (!from) return;
 
@@ -242,11 +226,9 @@ export const validateStaggerFrom = (from) => {
 };
 
 /**
- * @param {number|undefined} val
- * @returns {boolean|undefined}
- *
- * @description
- **/
+ * @param {number | undefined} val
+ * @returns {boolean | undefined}
+ */
 export const validateStaggerColRow = (val) => {
     if (!val) return;
 
@@ -257,11 +239,9 @@ export const validateStaggerColRow = (val) => {
 };
 
 /**
- * @param {('row'|'col'|'radial')} direction
- * @returns {boolean|undefined}
- *
- * @description
- **/
+ * @param {'row' | 'col' | 'radial'} direction
+ * @returns {boolean | undefined}
+ */
 export const validateStaggerDirection = (direction) => {
     if (!direction) return;
 
@@ -274,11 +254,9 @@ export const validateStaggerDirection = (direction) => {
 };
 
 /**
- * @param {boolean|undefined} waitComplete
- * @returns {boolean|undefined}
- *
- * @description
- **/
+ * @param {boolean | undefined} waitComplete
+ * @returns {boolean | undefined}
+ */
 export const validateStaggerWaitComplete = (waitComplete) => {
     if (!waitComplete) return;
 
@@ -289,12 +267,11 @@ export const validateStaggerWaitComplete = (waitComplete) => {
 };
 
 /**
+ * Return only the boolean value
+ *
  * @param {[] | (object | HTMLElement)[]} arr
  * @returns {boolean}
- *
- * @description
- * Return only the boolean value
- **/
+ */
 export const validateStaggerItems = (arr = []) => {
     const isValid = MobCore.checkType(Array, [...arr]) && arr.length > 0;
     if (!isValid) createStaggerItemsWarning();
@@ -303,23 +280,20 @@ export const validateStaggerItems = (arr = []) => {
 };
 
 /**
- * @param {(object | HTMLElement)[]} arr
- * @returns {any[]|[]}
- *
- * @description
  * Return the array fallback
- **/
+ *
+ * @param {(object | HTMLElement)[]} arr
+ * @returns {any[] | []}
+ */
 export const staggerItemsIsValid = (arr = []) => {
     const isValid = MobCore.checkType(Array, [...arr]) && arr.length > 0;
     return isValid ? arr : [];
 };
 
 /**
- * @param {string|undefined} type
- * @returns {boolean|undefined}
- *
- * @description
- **/
+ * @param {string | undefined} type
+ * @returns {boolean | undefined}
+ */
 export const validateStaggerType = (type) => {
     if (!type) return;
 
@@ -340,31 +314,27 @@ export const validateStaggerType = (type) => {
 };
 
 /**
- *
- * @param {number|undefined} duration
- * @returns {number}
- *
- * @description
  * Check if new tween duration value is Valid
- **/
+ *
+ * @param {number | undefined} duration
+ * @returns {number}
+ */
 export const durationTweenIsValid = (duration) => {
     const isValid = MobCore.checkType(Number, duration);
     if (!isValid && duration) durationWarining(duration);
 
     return isValid
-        ? /** @type{number} */ (duration)
+        ? /** @type {number} */ (duration)
         : handleSetUp.get('tween').duration;
 };
 
 /**
- *
- * @param {boolean|undefined} val  relative prop
- * @param {('tween'|'spring'|'lerp')} tweenType relative prop
- * @returns {boolean}
- *
- * @description
  * Check if new relative value is Valid
- **/
+ *
+ * @param {boolean | undefined} val Relative prop
+ * @param {'tween' | 'spring' | 'lerp'} tweenType Relative prop
+ * @returns {boolean}
+ */
 export const relativeIsValid = (val, tweenType) => {
     const isValid = MobCore.checkType(Boolean, val);
     if (!isValid && val) relativeWarining(val, tweenType);
@@ -375,13 +345,11 @@ export const relativeIsValid = (val, tweenType) => {
 };
 
 /**
- *
- * @param {string|undefined} ease
- * @returns {Function}
- *
- * @description
  * Check if ease definition is valid
- **/
+ *
+ * @param {string | undefined} ease
+ * @returns {Function}
+ */
 export const easeTweenIsValidGetFunction = (ease) => {
     const isValid = ease && ease in tweenConfig;
     if (!isValid && ease) tweenEaseWarning(ease);
@@ -392,13 +360,11 @@ export const easeTweenIsValidGetFunction = (ease) => {
 };
 
 /**
- *
- * @param {import('../../tween/type').EaseTypes|undefined} ease
- * @returns {import('../../tween/type').EaseTypes}
- *
- * @description
  * Check if ease definition is valid
- **/
+ *
+ * @param {import('../../tween/type').EaseTypes | undefined} ease
+ * @returns {import('../../tween/type').EaseTypes}
+ */
 export const easeTweenIsValid = (ease) => {
     const isValid = ease && ease in tweenConfig;
     if (!isValid && ease) tweenEaseWarning(ease);
@@ -407,13 +373,11 @@ export const easeTweenIsValid = (ease) => {
 };
 
 /**
- *
- * @param {string|undefined} config
- * @returns {import('../../spring/type').SpringProps}
- *
- * @description
  * Check if spring config is valid and return new config
- **/
+ *
+ * @param {string | undefined} config
+ * @returns {import('../../spring/type').SpringProps}
+ */
 export const springConfigIsValidAndGetNew = (config) => {
     const { config: allConfig } = handleSetUp.get('spring');
 
@@ -456,13 +420,11 @@ export const springConfigIsValidAndGetNew = (config) => {
 };
 
 /**
- *
- * @param {string|undefined} config
- * @returns {string|boolean|undefined}
- *
- * @description
  * Check if spring config is valid
- **/
+ *
+ * @param {string | undefined} config
+ * @returns {string | boolean | undefined}
+ */
 export const springConfigIsValid = (config) => {
     const { config: allConfig } = handleSetUp.get('spring');
     const isValid = config && config in allConfig;
@@ -472,13 +434,11 @@ export const springConfigIsValid = (config) => {
 };
 
 /**
- *
- * @param {Partial<import('../../spring/type').SpringProps>|undefined} obj
- * @returns {Partial<import('../../spring/type').SpringProps>|{}}
- *
- * @description
  * Check if every spring config prop is valid
- **/
+ *
+ * @param {Partial<import('../../spring/type').SpringProps> | undefined} obj
+ * @returns {Partial<import('../../spring/type').SpringProps> | {}}
+ */
 export const springConfigPropIsValid = (obj) => {
     const isValid =
         MobCore.checkType(Object, obj) &&
@@ -494,13 +454,11 @@ export const springConfigPropIsValid = (obj) => {
 };
 
 /**
- *
- * @param {(Number|Function|undefined)} duration
- * @returns {number}
- *
- * @description
  * Check if duration definition is valid
- **/
+ *
+ * @param {Number | Function | undefined} duration
+ * @returns {number}
+ */
 export const durationIsNumberOrFunctionIsValid = (duration) => {
     const durationIsFn = MobCore.checkType(Function, duration);
     // @ts-ignore
@@ -512,13 +470,11 @@ export const durationIsNumberOrFunctionIsValid = (duration) => {
 };
 
 /**
+ * Check if value is Boolan and true
  *
  * @param {boolean} value
  * @param {string} label
- *
- * @description
- * Check if value is Boolan and true
- **/
+ */
 export const valueIsBooleanAndTrue = (value, label) => {
     const isValid = MobCore.checkType(Boolean, value);
     if (!isValid && value) booleanWarning(value, label);
@@ -527,15 +483,13 @@ export const valueIsBooleanAndTrue = (value, label) => {
 };
 
 /**
+ * Check if value is Boolan and reteurn Default
  *
- * @param {boolean|undefined} value
+ * @param {boolean | undefined} value
  * @param {string} label
  * @param {boolean} defaultValue
  * @returns {boolean}
- *
- * @description
- * Check if value is Boolan and reteurn Default
- **/
+ */
 export const valueIsBooleanAndReturnDefault = (value, label, defaultValue) => {
     const isValid = MobCore.checkType(Boolean, value);
     if (!isValid && value) booleanWarning(value, label);
@@ -545,15 +499,13 @@ export const valueIsBooleanAndReturnDefault = (value, label, defaultValue) => {
 };
 
 /**
+ * Check if value is String and return default
  *
- * @param {string|undefined} value
+ * @param {string | undefined} value
  * @param {string} label
  * @param {any} defaultValue
  * @returns {string}
- *
- * @description
- * Check if value is String and return default
- **/
+ */
 export const valueIsStringAndReturnDefault = (value, label, defaultValue) => {
     const isValid = MobCore.checkType(String, value);
     if (!isValid && value) stringWarning(value, label);
@@ -563,33 +515,29 @@ export const valueIsStringAndReturnDefault = (value, label, defaultValue) => {
 };
 
 /**
+ * Check if value is Number and return default
  *
- * @param {number|undefined} value
+ * @param {number | undefined} value
  * @param {string} label
  * @param {any} defaultValue
  * @returns {number}
- *
- * @description
- * Check if value is Number and return default
- **/
+ */
 export const valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
     const isValid = MobCore.checkType(Number, value);
     if (!isValid && value) naumberWarning(value, label);
 
-    return isValid ? /** @type{number} */ (value) : defaultValue;
+    return isValid ? /** @type {number} */ (value) : defaultValue;
 };
 
 /**
+ * Check if value is Function and return default
  *
  * @template T
- * @param {T|undefined} value
+ * @param {T | undefined} value
  * @param {string} label
- * @param {(() => void)|undefined} defaultValue
+ * @param {(() => void) | undefined} defaultValue
  * @returns {T}
- *
- * @description
- * Check if value is Function and return default
- **/
+ */
 export const valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
     const isValid = MobCore.checkType(Function, value);
     if (!isValid && value) functionWarning(value, label);
@@ -599,49 +547,43 @@ export const valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
 };
 
 /**
- *
- * @param {number|undefined} value
- * @returns {number}
- *
- * @description
  * Check if velocity is valid
- **/
+ *
+ * @param {number | undefined} value
+ * @returns {number}
+ */
 export const lerpVelocityIsValid = (value) => {
     // @ts-ignore
     const isValid = MobCore.checkType(Number, value) && value > 0 && value <= 1;
     if (!isValid && value) lerpVelocityWarining();
 
     return isValid
-        ? /** @type{number} */ (value)
+        ? /** @type {number} */ (value)
         : handleSetUp.get('lerp').velocity;
 };
 
 /**
- *
- * @param {number|undefined} value
- * @returns {number}
- *
- * @description
  * Check if precision is valid
- **/
+ *
+ * @param {number | undefined} value
+ * @returns {number}
+ */
 export const lerpPrecisionIsValid = (value) => {
     const isValid = MobCore.checkType(Number, value);
     if (!isValid && value) lerpPrecisionWarining();
 
     return isValid
-        ? /** @type{number} */ (value)
+        ? /** @type {number} */ (value)
         : handleSetUp.get('lerp').precision;
 };
 
 /**
+ * Check if value is a string.
  *
- * @param {string|undefined} value
+ * @param {string | undefined} value
  * @param {string} label
  * @returns {boolean}
- *
- * @description
- * Check if value is a string.
- **/
+ */
 export const valueStringIsValid = (value, label) => {
     const isValid = MobCore.checkType(String, value);
     if (!isValid && value) valueStringWarning(label);
@@ -650,13 +592,11 @@ export const valueStringIsValid = (value, label) => {
 };
 
 /**
- *
- * @param {number|undefined} value
- * @returns {number|undefined}
- *
- * @description
  * Check if Delay is a Number and return Number || null.
- **/
+ *
+ * @param {number | undefined} value
+ * @returns {number | undefined}
+ */
 export const asyncTimelineDelayIsValid = (value) => {
     const isValid = MobCore.checkType(Number, value);
     if (!isValid && value) asyncTimelineDelayWarning();
@@ -665,13 +605,11 @@ export const asyncTimelineDelayIsValid = (value) => {
 };
 
 /**
+ * Check if tween is lerp|spring|tween
  *
  * @param {any} instance
  * @returns {boolean}
- *
- * @description
- * Check if tween is lerp|spring|tween
- **/
+ */
 export const asyncTimelineTweenIsValid = (instance) => {
     const isValid =
         instance?.getType?.() &&
@@ -685,26 +623,22 @@ export const asyncTimelineTweenIsValid = (instance) => {
 };
 
 /**
- *
- * @param {string|Number|null} index
- * @param {string|null} label
- *
- * @description
  * Check if label is found
- **/
+ *
+ * @param {string | Number | null} index
+ * @param {string | null} label
+ */
 export const playLabelIsValid = (index, label) => {
     if (index === -1) playLabelWarining(label);
 };
 
 /**
+ * Check if value is A function and return default
  *
- * @param {Function|undefined} fn
+ * @param {Function | undefined} fn
  * @param {any} defaultValue
  * @param {string} label
- *
- * @description
- * Check if value is A function and return default
- **/
+ */
 export const functionIsValidAndReturnDefault = (fn, defaultValue, label) => {
     const isValid = MobCore.checkType(Function, fn);
     if (!isValid && fn) functionIsValidAndReturnDefaultWarining(label, fn);
@@ -713,13 +647,11 @@ export const functionIsValidAndReturnDefault = (fn, defaultValue, label) => {
 };
 
 /**
+ * Check if value is A function
  *
  * @param {(arg0: import('../timeline/type').DirectionTypeAsync) => void} fn
  * @returns {(arg0: import('../timeline/type').DirectionTypeAsync) => void}
- *
- * @description
- * Check if value is A function
- **/
+ */
 export const addAsyncFunctionIsValid = (fn) => {
     const isValid = MobCore.checkType(Function, fn);
     if (!isValid && fn) addAsyncFunctionWarining(fn);
@@ -732,12 +664,10 @@ export const addAsyncFunctionIsValid = (fn) => {
 };
 
 /**
- *
- * @param {any[]|undefined} arr
- *
- * @description
  * Check if value is an Array
- **/
+ *
+ * @param {any[] | undefined} arr
+ */
 export const timelineSetTweenArrayIsValid = (arr) => {
     const isValid = MobCore.checkType(Array, arr);
     if (!isValid && arr) timelineSetTweenArrayWarining(arr);
@@ -746,12 +676,10 @@ export const timelineSetTweenArrayIsValid = (arr) => {
 };
 
 /**
- *
- * @param {string|undefined} label
- *
- * @description
  * Check if value is an string
- **/
+ *
+ * @param {string | undefined} label
+ */
 export const timelineSetTweenLabelIsValid = (label) => {
     const isValid = MobCore.checkType(String, label);
     if (!isValid && label) timelineSetTweenLabelWarining(label);
@@ -760,14 +688,12 @@ export const timelineSetTweenLabelIsValid = (label) => {
 };
 
 /**
- *
- * @param {(string|HTMLElement|globalThis|undefined)} element
- * @param {(boolean)} returnWindow
- * @returns {HTMLElement}
- *
- * @description
  * Check if value is a valid Element and return element|window|element
- **/
+ *
+ * @param {string | HTMLElement | globalThis | undefined} element
+ * @param {boolean} returnWindow
+ * @returns {HTMLElement}
+ */
 export const domNodeIsValidAndReturnElOrWin = (
     element,
     returnWindow = false
@@ -778,18 +704,16 @@ export const domNodeIsValidAndReturnElOrWin = (
 
     // @ts-ignore
     return returnWindow
-        ? /** @type{HTMLElement} */ (realEl ?? globalThis)
-        : /** @type{HTMLElement} */ (realEl ?? document.createElement('div'));
+        ? /** @type {HTMLElement} */ (realEl ?? globalThis)
+        : /** @type {HTMLElement} */ (realEl ?? document.createElement('div'));
 };
 
 /**
- *
- * @param {(string|HTMLElement|undefined)} element
- * @returns {HTMLElement|undefined}
- *
- * @description
  * Check if value is a valid Element
- **/
+ *
+ * @param {string | HTMLElement | undefined} element
+ * @returns {HTMLElement | undefined}
+ */
 export const domNodeIsValidAndReturnNull = (element) => {
     const isNode = MobCore.checkType(Element, element);
     // @ts-ignore
@@ -804,14 +728,12 @@ export const domNodeIsValidAndReturnNull = (element) => {
  */
 
 /**
+ * Check if value is a valid direction
  *
- * @param {string|undefined} direction
+ * @param {string | undefined} direction
  * @param {string} component
  * @returns {string}
- *
- * @description
- * Check if value is a valid direction
- **/
+ */
 export const directionIsValid = (direction, component) => {
     if (!direction) return MobScrollerConstant.DIRECTION_VERTICAL;
 
@@ -827,14 +749,12 @@ export const directionIsValid = (direction, component) => {
 };
 
 /**
- *
- * @param {any|undefined} obj
- * @param {string} label
- * @returns {any} dynamicStart|dynamicEnd|null Object
- *
- * @description
  * Check if dynamicStart|dynamicEnd is a valid direction
- **/
+ *
+ * @param {any | undefined} obj
+ * @param {string} label
+ * @returns {any} DynamicStart|dynamicEnd|null Object
+ */
 export const scrollerDynamicValueIsValid = (obj, label) => {
     const positionChoice = [
         MobScrollerConstant.POSITION_TOP,
@@ -866,13 +786,11 @@ export const scrollerDynamicValueIsValid = (obj, label) => {
 };
 
 /**
- *
- * @param {Function|undefined} fn
- * @returns {Function|undefined}
- *
- * @description
  * Check if dynamicRange is a functiom that return a Number
- **/
+ *
+ * @param {Function | undefined} fn
+ * @returns {Function | undefined}
+ */
 export const scrollerDynamicRangeIsValid = (fn) => {
     const isValid =
         MobCore.checkType(Function, fn) && MobCore.checkType(Number, fn?.());
@@ -883,13 +801,11 @@ export const scrollerDynamicRangeIsValid = (fn) => {
 };
 
 /**
- *
- * @param {any|undefined} instance
- * @returns {any} parallaxTween|HandleSequencer|{}
- *
- * @description
  * Check if tween is parallaxTween|HandleSequencer
- **/
+ *
+ * @param {any | undefined} instance
+ * @returns {any} ParallaxTween|HandleSequencer|{}
+ */
 export const scrollerTweenIsValid = (instance) => {
     const isValid =
         instance?.getType?.() &&
@@ -902,13 +818,11 @@ export const scrollerTweenIsValid = (instance) => {
 };
 
 /**
- *
- * @param {( string|Number|undefined )} value
- * @returns {( string|Number )} ALign value
- *
- * @description
  * Check if Align value is valid
- **/
+ *
+ * @param {string | Number | undefined} value
+ * @returns {string | Number} ALign value
+ */
 export const scrollerAlignIsValid = (value) => {
     if (!value) return MobScrollerConstant.ALIGN_CENTER;
 
@@ -931,13 +845,11 @@ export const scrollerAlignIsValid = (value) => {
 };
 
 /**
- *
- * @param {string|undefined} value
- * @returns {string|boolean} ALign value
- *
- * @description
  * Check if unSwitch value is valid
- **/
+ *
+ * @param {string | undefined} value
+ * @returns {string | boolean} ALign value
+ */
 export const scrollerOnSwitchIsValid = (value) => {
     if (!value) return false;
 
@@ -956,15 +868,13 @@ export const scrollerOnSwitchIsValid = (value) => {
 };
 
 /**
+ * Check if value is Number and return default
  *
- * @param {number|undefined} value
+ * @param {number | undefined} value
  * @param {string} label
  * @param {number} defaultValue
  * @returns {number}
- *
- * @description
- * Check if value is Number and return default
- **/
+ */
 export const scrollerOpacityIsValid = (value, label, defaultValue) => {
     if (value === undefined || value === null) return defaultValue;
 
@@ -975,13 +885,11 @@ export const scrollerOpacityIsValid = (value, label, defaultValue) => {
 };
 
 /**
- *
- * @param {string|undefined} value
- * @returns {string}
- *
- * @description
  * Check if type propierties is valid
- **/
+ *
+ * @param {string | undefined} value
+ * @returns {string}
+ */
 export const scrollerTypeIsValid = (value) => {
     if (!value) return MobScrollerConstant.TYPE_PARALLAX;
 
@@ -999,14 +907,12 @@ export const scrollerTypeIsValid = (value) => {
 };
 
 /**
+ * Check if range propierties is valid
  *
- * @param {string|number|undefined} value
+ * @param {string | number | undefined} value
  * @param {string} type
  * @returns {string}
- *
- * @description
- * Check if range propierties is valid
- **/
+ */
 export const scrollerRangeIsValid = (value, type) => {
     const parsedValue = () => {
         if (type === MobScrollerConstant.TYPE_PARALLAX) {
@@ -1039,15 +945,13 @@ export const scrollerRangeIsValid = (value, type) => {
 };
 
 /**
+ * Check if breakpoint prop is valid
  *
- * @param {import('../../../utils/type').MqValues|undefined} mq
+ * @param {import('../../../utils/type').MqValues | undefined} mq
  * @param {string} label
  * @param {string} component
  * @returns {import('../../../utils/type').MqValues}
- *
- * @description
- * Check if breakpoint prop is valid
- **/
+ */
 export const breakpointIsValid = (mq, label, component) => {
     const defaultMq = handleSetUp.get('defaultMq').value;
     if (!mq) return defaultMq;
@@ -1062,15 +966,13 @@ export const breakpointIsValid = (mq, label, component) => {
 };
 
 /**
+ * Check if queryType prop is valid
  *
- * @param {import('../../../utils/type').MqAction|undefined} type
+ * @param {import('../../../utils/type').MqAction | undefined} type
  * @param {string} label
  * @param {string} component
  * @returns {import('../../../utils/type').MqAction}
- *
- * @description
- * Check if queryType prop is valid
- **/
+ */
 export const breakpointTypeIsValid = (type, label, component) => {
     const defaultType = handleSetUp.get('defaultMq').type;
     if (!type) return defaultType;
@@ -1084,14 +986,13 @@ export const breakpointTypeIsValid = (type, label, component) => {
 };
 
 /**
- * @description
  * Check if propierties prop is valid
  *
- * @param {string|undefined} value
+ * @param {string | undefined} value
  * @param {string} type
- * @param {boolean|undefined} tweenIsParallaxTween
- * @param {boolean|undefined} tweenIsSequencer
- * @returns {{ propierties:string, shouldTrackOnlyEvents:boolean }}
+ * @param {boolean | undefined} tweenIsParallaxTween
+ * @param {boolean | undefined} tweenIsSequencer
+ * @returns {{ propierties: string; shouldTrackOnlyEvents: boolean }}
  */
 export const scrollerPropiertiesIsValid = (
     value,
@@ -1112,8 +1013,7 @@ export const scrollerPropiertiesIsValid = (
         };
 
     /**
-     * Skip render if no propierties is given.
-     * Use scrollTrigger only for track events.
+     * Skip render if no propierties is given. Use scrollTrigger only for track events.
      */
     const shouldTrackOnlyEvents =
         type === MobScrollerConstant.TYPE_SCROLLTRIGGER && !value;
@@ -1142,8 +1042,7 @@ export const scrollerPropiertiesIsValid = (
     if (!isValid && value) scrollerPropiertiesWarining(value, choice);
 
     /**
-     * Inside Parallax sequencer is not allowed
-     * So return verticasl props
+     * Inside Parallax sequencer is not allowed So return verticasl props
      */
     const notParallaxTweenInsideParallax =
         type === MobScrollerConstant.TYPE_PARALLAX &&
@@ -1188,13 +1087,11 @@ export const scrollerPropiertiesIsValid = (
 };
 
 /**
- *
- * @param {string|undefined} value
- * @returns {string}
- *
- * @description
  * Check if easeType is valid
- **/
+ *
+ * @param {string | undefined} value
+ * @returns {string}
+ */
 export const scrollerEaseTypeIsValid = (value) => {
     if (!value) return MobScrollerConstant.EASE_LERP;
 
@@ -1230,14 +1127,12 @@ export const genericEaseTypeIsValid = (value, component) => {
 };
 
 /**
+ * Check if springConfig is valid
  *
- * @param {import('../../spring/type').SpringChoiceConfig|undefined} config
+ * @param {import('../../spring/type').SpringChoiceConfig | undefined} config
  * @param {string} type
  * @returns {import('../../spring/type').SpringChoiceConfig}
- *
- * @description
- * Check if springConfig is valid
- **/
+ */
 export const scrollerSpringConfigIsValid = (config, type) => {
     const defaultConfig =
         type === MobScrollerConstant.TYPE_PARALLAX
@@ -1256,14 +1151,12 @@ export const scrollerSpringConfigIsValid = (config, type) => {
 };
 
 /**
+ * Check if lerpConfig is valid
  *
- * @param {number|undefined} value
+ * @param {number | undefined} value
  * @param {string} type
  * @returns {number}
- *
- * @description
- * Check if lerpConfig is valid
- **/
+ */
 export const scrollerLerpConfigIsValid = (value, type) => {
     const isValid =
         // @ts-ignore
@@ -1276,18 +1169,16 @@ export const scrollerLerpConfigIsValid = (value, type) => {
             ? handleSetUp.get('parallax').lerpConfig
             : handleSetUp.get('scrollTrigger').lerpConfig;
 
-    return isValid ? /** @type{number} */ (value) : defaultConfig;
+    return isValid ? /** @type {number} */ (value) : defaultConfig;
 };
 
 /**
+ * Check if lerpConfig is valid
  *
  * @param {string} value
  * @param {string} properties
  * @returns {string}
- *
- * @description
- * Check if lerpConfig is valid
- **/
+ */
 export const checkStringRangeOnPropierties = (value, properties) => {
     const parallalxXYRangeChoice = [
         MobScrollerConstant.PX,
@@ -1351,8 +1242,7 @@ export const checkStringRangeOnPropierties = (value, properties) => {
     }
 
     /**
-     * Other props without unit misure
-     * Only Number
+     * Other props without unit misure Only Number
      */
     const isValid = checkIfIsOnlyNumberPositiveNegative(value);
     if (!isValid) scrollTriggerCustomRangeWarning(properties);

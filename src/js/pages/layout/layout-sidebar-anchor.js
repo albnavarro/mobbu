@@ -15,7 +15,7 @@ MobJs.useComponent([
     HtmlContent,
 ]);
 
-/** @type{import('@mobJsType').PageAsync<{},import('./type').LayoutSidebarAnchor['props']>} */
+/** @type {import('@mobJsType').PageAsync<{}, import('./type').LayoutSidebarAnchor['props']>} */
 export const layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs } = props;
     const { data } = await loadJsonContent({ source });
@@ -25,7 +25,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
             <html-content
                 slot="docs"
                 ${MobJs.staticProps(
-                    /** @type{import('@commonComponent/html-content/type').HtmlContent['state']} */
+                    /** @type {import('@commonComponent/html-content/type').HtmlContent['state']} */
                     ({
                         data: data.data,
                         useMaxWidth: true,

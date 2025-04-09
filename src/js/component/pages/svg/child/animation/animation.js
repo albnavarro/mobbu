@@ -4,7 +4,7 @@ import { MobCore } from '@mobCore';
 import { MobTimeline, MobTween } from '@mobMotion';
 import { detectSafari } from '@utils/utils';
 
-/** @type{import('../type').ChildAnimation} */
+/** @type {import('../type').ChildAnimation} */
 export const childAnimations = ({ groups, trails }) => {
     const RAD2DEG = 180 / Math.PI;
 

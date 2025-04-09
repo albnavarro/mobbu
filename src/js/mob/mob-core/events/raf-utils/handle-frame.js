@@ -17,7 +17,6 @@ import { useNextLoop } from '../../utils/next-tick.js';
 loadFps();
 
 /**
- * @description
  * 10000 is maximum stagger frame delay
  */
 const currentFrameLimit = 10_000_000;
@@ -73,10 +72,9 @@ let timeLost = 0;
 let isStopped = false;
 
 /**
- * @type {number}
- *
- * @description
  * Stable fps
+ *
+ * @type {number}
  */
 let fps = 60;
 
@@ -111,25 +109,23 @@ let mustMakeSomethingIsActive = false;
 let shouldMakeSomethingIsActive = false;
 
 /**
- * @returns {boolean}
- *
- * @description
  * Check if frame dropped a lot.
+ *
+ * @returns {boolean}
  */
 const mustMakeSomethingCheck = () => fps < (maxFps / 5) * 3;
 
 /**
  * @returns {boolean}
  *
- * Check if frame dropped medium.
+ *   Check if frame dropped medium.
  */
 const shouldMakeSomethingCheck = () => fps < (maxFps / 5) * 4;
 
 /**
- * @returns void
- *
- * @description
  * If frame dropper for X seconds mustMakeSomethingIsActive = true
+ *
+ * @returns Void
  */
 const mustMakeSomethingStart = () => {
     if (!mustMakeSomethingCheck() || mustMakeSomethingIsActive) return;
@@ -141,10 +137,9 @@ const mustMakeSomethingStart = () => {
 };
 
 /**
- * @returns void
- *
- * @description
  * If frame dropper for X seconds shouldMakeSomethingIsActive = true
+ *
+ * @returns Void
  */
 const shouldMakeSomethingStart = () => {
     if (!shouldMakeSomethingCheck() || shouldMakeSomethingIsActive) return;
@@ -156,8 +151,6 @@ const shouldMakeSomethingStart = () => {
 };
 
 /**
- *
- * @description
  * Stop timer when user change tab
  */
 handleVisibilityChange(({ visibilityState }) => {
@@ -172,10 +165,9 @@ eventStore.watch('requestFrame', () => {
 });
 
 /**
- * @returns void
- *
- * @description
  * Next tick function
+ *
+ * @returns Void
  */
 const nextTickFn = () => {
     /*
@@ -228,12 +220,12 @@ const nextTickFn = () => {
 
 /**
  * @param {number} timestamp
- * @returns void
+ * @returns Void
  */
 const render = (timestamp) => {
     /**
      * Update time
-     **/
+     */
     time = timestamp;
     timeElapsed = time - rawTime;
 
@@ -251,9 +243,8 @@ const render = (timestamp) => {
     const frameDuration = Math.round(1000 / fps);
 
     /**
-     * Get time lost
-     * ( if the difference of current time with last time and frame duration is han 100ms ).
-     * Problem with workspace and switch to dirrent application without fire visibilityChange event.
+     * Get time lost ( if the difference of current time with last time and frame duration is han 100ms ). Problem with
+     * workspace and switch to dirrent application without fire visibilityChange event.
      */
     timeLost = Math.abs(time - lastTime - frameDuration);
     const timeToSubsctract = timeLost > 100 ? timeLost : 0;
@@ -272,13 +263,11 @@ const render = (timestamp) => {
     }
 
     /**
-     * Get fps
-     * Update fps every second
-     **/
+     * Get fps Update fps every second
+     */
     if (time > fpsPrevTime + 1000 && !isStopped) {
         /**
-         * Calc fps
-         * Set fps when stable after 2 seconds otherwise use instantFps
+         * Calc fps Set fps when stable after 2 seconds otherwise use instantFps
          */
         fps =
             time > firstRunDuration
@@ -288,8 +277,7 @@ const render = (timestamp) => {
         frames = 0;
 
         /**
-         * Prevent fps error;
-         * Se a minimum of 30 fps.
+         * Prevent fps error; Se a minimum of 30 fps.
          */
         fps = fps < 30 ? eventStore.getProp('instantFps') : fps;
     }
@@ -310,7 +298,7 @@ const render = (timestamp) => {
     shouldMakeSomethingStart();
 
     /**
-     *Fire callbnack
+     * Fire callbnack
      */
     callback.forEach((item) => item({ time, fps }));
 
@@ -320,18 +308,18 @@ const render = (timestamp) => {
     handleFrameIndex.fire({ currentFrame, time, fps });
 
     /**
-     *Fire handleCache callBack
+     * Fire handleCache callBack
      */
     handleCache.fire(currentFrame);
 
     /**
-     *  Update currentFrame
+     * Update currentFrame
      */
     currentFrame++;
     eventStore.quickSetProp('currentFrame', currentFrame);
 
     /**
-     *Reset props
+     * Reset props
      */
     callback.length = 0;
     isStopped = false;
@@ -346,10 +334,9 @@ const render = (timestamp) => {
 };
 
 /**
- * @returns void
- *
- * @description
  * Init new frame if is not running
+ *
+ * @returns Void
  */
 const initFrame = () => {
     if (frameIsRuning) return;
@@ -364,13 +351,11 @@ const initFrame = () => {
 };
 
 /**
- * @description
-    Execute a callBack within the first available request animation frame.
-    Use this method to modify elements of the DOM
+ * Execute a callBack within the first available request animation frame.
+ *     Use this method to modify elements of the DOM
  */
 export const handleFrame = (() => {
     /**
-     * @description
      * Get current fps
      *
      * @returns {number}
@@ -378,37 +363,32 @@ export const handleFrame = (() => {
     const getFps = () => fps;
 
     /**
-     * @returns {boolean}
+     * Return the mustMakeSomethingIsActive status. If frame dropped the value is true for X seconds.
      *
-     * @description
-     * Return the mustMakeSomethingIsActive status.
-     * If frame dropped the value is true for X seconds.
+     * @returns {boolean}
      */
     const mustMakeSomething = () => mustMakeSomethingIsActive;
 
     /**
-     * @returns {boolean}
+     * Return the mustMakeSomethingIsActive status. If frame dropped the value is true for X seconds.
      *
-     * @description
-     * Return the mustMakeSomethingIsActive status.
-     * If frame dropped the value is true for X seconds.
+     * @returns {boolean}
      */
     const shouldMakeSomething = () => shouldMakeSomethingIsActive;
 
     /**
-     * @description
      * Add callback
      *
-     * @param {import('./type.js').HandleFrameCallbak} cb - callback function
-     * @returns void
-     *
      * @example
-     * ```javascript
-     * handleFrame.add(({ fps, time }) => {
-     *     // code ...
-     * });
+     *     ```javascript
+     *     handleFrame.add(({ fps, time }) => {
+     *         // code ...
+     *     });
      *
-     * ```
+     *     ```;
+     *
+     * @param {import('./type.js').HandleFrameCallbak} cb - Callback function
+     * @returns Void
      */
     const add = (cb) => {
         callback.push(cb);
@@ -416,10 +396,9 @@ export const handleFrame = (() => {
     };
 
     /**
-     * @description
      * Add an array of callback
      *
-     * @param {import('./type.js').HandleFrameArray} arr - array of callback
+     * @param {import('./type.js').HandleFrameArray} arr - Array of callback
      */
     const addMultiple = (arr = []) => {
         callback = [...callback, ...arr];

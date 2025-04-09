@@ -1,6 +1,6 @@
 /**
  * @param {Element} node
- * @returns {import("../web-component/type").UserComponent[]}
+ * @returns {import('../web-component/type').UserComponent[]}
  */
 export const queryUserComponentIterator = (node) => {
     const nodeIterator = document.createNodeIterator(
@@ -15,12 +15,12 @@ export const queryUserComponentIterator = (node) => {
         }
     );
 
-    /** @type {import("../web-component/type").UserComponent[]} */
+    /** @type {import('../web-component/type').UserComponent[]} */
     const result = [];
 
     while (nodeIterator.nextNode()) {
         result.push(
-            /** @type{import("../web-component/type").UserComponent} */ (
+            /** @type {import('../web-component/type').UserComponent} */ (
                 nodeIterator.referenceNode
             )
         );

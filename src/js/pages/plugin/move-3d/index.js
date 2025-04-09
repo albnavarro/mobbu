@@ -5,7 +5,7 @@ import { Move3DPage } from '@pagesComponent/move-3d/definition';
 
 MobJs.useComponent([Move3DPage, StarSvg]);
 
-/** @type{import('@mobJsType').PageAsync} */
+/** @type {import('@mobJsType').PageAsync} */
 export const move3DRoute = async ({ props }) => {
     const { data, prevRoute, nextRoute } = props;
 
@@ -20,7 +20,7 @@ export const move3DRoute = async ({ props }) => {
 
     return html`<move-3d-page
         ${MobJs.staticProps(
-            /** @type{import('@pagesComponent/move-3d/type').Move3DPage['state']} */
+            /** @type {import('@pagesComponent/move-3d/type').Move3DPage['state']} */
             ({ data })
         )}
     ></move-3d-page> `;

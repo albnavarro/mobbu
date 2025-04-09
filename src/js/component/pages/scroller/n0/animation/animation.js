@@ -17,7 +17,7 @@ import {
     roundRectIsSupported,
 } from '@utils/canvas-utils';
 
-/** @type{import('../type').ScrollerN0Animation} */
+/** @type {import('../type').ScrollerN0Animation} */
 export const scrollerN0Animation = ({
     canvas,
     canvasScroller,
@@ -70,8 +70,7 @@ export const scrollerN0Animation = ({
     }).items;
 
     /**
-     * Add props to transform.
-     * Order by hasFill, so is like z-index: -1.
+     * Add props to transform. Order by hasFill, so is like z-index: -1.
      */
     let data = reorder
         ? gridData
@@ -134,7 +133,7 @@ export const scrollerN0Animation = ({
 
         const context = useOffscreen
             ? offScreenCtx
-            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+            : /** @type {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} */ (
                   ctx
               );
 
@@ -180,7 +179,7 @@ export const scrollerN0Animation = ({
                  * Draw.
                  */
                 roundRectCustom(
-                    /** @type{CanvasRenderingContext2D} */ (context),
+                    /** @type {CanvasRenderingContext2D} */ (context),
                     Math.round(-centerX + x),
                     Math.round(-centerY + y),
                     width,

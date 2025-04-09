@@ -7,12 +7,10 @@ import {
 } from '../utils/regex-validation.js';
 
 /**
- * @description
- * Support function for parallaxPropiertiesIsValid
- * Get exact prop name from constant ( resolve sensitive typing )
+ * Support function for parallaxPropiertiesIsValid Get exact prop name from constant ( resolve sensitive typing )
  *
- * @param {string|undefined} value
- * @returns string
+ * @param {string | undefined} value
+ * @returns String
  */
 export const getPropiertiesValueFromConstant = (value) => {
     /**
@@ -54,10 +52,9 @@ export const getPropiertiesValueFromConstant = (value) => {
 };
 
 /**
- * @description
  * Return unit misure for parallax form lower/upper mix case typing
  *
- * @param {string|undefined} pattern
+ * @param {string | undefined} pattern
  * @returns {string}
  */
 export const getStartEndUnitMisure = (pattern) => {
@@ -76,11 +73,10 @@ export const getStartEndUnitMisure = (pattern) => {
 };
 
 /**
- * @description
  * Return position for parallax form lower/upper mix case typing
  *
  * @param {string} position
- * @returns string
+ * @returns String
  */
 export const getScrollerPositionFromContanst = (position) => {
     if (exactMatchInsensitive(position, MobScrollerConstant.POSITION_TOP))
@@ -99,11 +95,10 @@ export const getScrollerPositionFromContanst = (position) => {
 };
 
 /**
- * @description
  * Return range unit misure for parallax form lower/upper mix case typing
  *
  * @param {string} string
- * @returns string
+ * @returns String
  */
 export const getRangeUnitMisure = (string) => {
     if (exactMatchInsesitiveNumberProp(string, MobScrollerConstant.PX))

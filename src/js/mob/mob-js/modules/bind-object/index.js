@@ -3,7 +3,7 @@ import { checkType } from '../../../mob-core/store/store-type';
 import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 
-/** @type {Map<string, import("./type").BindObject[]>} */
+/** @type {Map<string, import('./type').BindObject[]>} */
 export const bindObjectMap = new Map();
 
 /** @type {Map<Element, import('./type').BindObjectPlaceHolder>} */
@@ -34,11 +34,10 @@ export const addBindObjectPlaceHolderMap = ({
 export const getBindObjectKeys = (values) => {
     return values.map(
         (
-            /** @type {{ bind?: string; value: () => void; }|(() => void)} */ item
+            /** @type {{ bind?: string; value: () => void } | (() => void)} */ item
         ) => {
             /**
-             * Get explicit keys or auto ( with proxies ).
-             * Bind should be a string not native bind methods of function
+             * Get explicit keys or auto ( with proxies ). Bind should be a string not native bind methods of function
              */
             return 'bind' in item && MobCore.checkType(String, item.bind)
                 ? item.bind
@@ -59,7 +58,7 @@ export const getBindObjectKeys = (values) => {
 /**
  * @param {TemplateStringsArray} strings
  * @param {any[]} values
- * @returns { string }
+ * @returns {string}
  */
 export const renderBindObject = (strings, ...values) => {
     return strings.raw.reduce((accumulator, currentText, i) => {
@@ -83,9 +82,8 @@ export const addBindObjectParent = ({ id, bindObjectId, parentElement }) => {
         items && items.length > 0
             ? (() => {
                   /**
-                   * When placeholder change position ( slot/repeater )
-                   * Add multiple time.
-                   * Remove the old and use last with last parent element.
+                   * When placeholder change position ( slot/repeater ) Add multiple time. Remove the old and use last
+                   * with last parent element.
                    */
                   const itemsFiltered = items.filter(
                       (item) => item.bindObjectId !== bindObjectId
@@ -118,10 +116,10 @@ export const removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
 };
 
 /**
- * @description
- * At the end of parse delete web component and add data to real map
- * New map has componentId as key, so easy to destroy, one map for every bindText in component.
- * We need end of parse to get real parent element ( slot/repeater/invalidate issue ).
+ * At the end of parse delete web component and add data to real map New map has componentId as key, so easy to destroy,
+ * one map for every bindText in component. We need end of parse to get real parent element ( slot/repeater/invalidate
+ * issue ).
+ *
  * @returns {void}
  */
 export const switchBindObjectMap = () => {
@@ -158,7 +156,7 @@ export const removeBindObjectParentById = ({ id }) => {
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bindObjectId
- * @returns {HTMLElement|undefined}
+ * @returns {HTMLElement | undefined}
  */
 const getParentBindObject = ({ id, bindObjectId }) => {
     const item = bindObjectMap.get(id);
@@ -200,13 +198,11 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
      */
     let watchIsRunning = false;
 
-    /** @type{WeakRef<HTMLElement>} */
+    /** @type {WeakRef<HTMLElement>} */
     let ref;
 
     /**
-     * proxiIndex issue.
-     * Get states to check if there is an array
-     * Will check that array has always a length > 0
+     * ProxiIndex issue. Get states to check if there is an array Will check that array has always a length > 0
      */
     const states = getStateById(id);
 
@@ -228,8 +224,7 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                         });
 
                         /**
-                         * skip if refElement is undefined.
-                         * refElement is settled to null to remove any reference.
+                         * Skip if refElement is undefined. refElement is settled to null to remove any reference.
                          */
                         if (refElement) {
                             ref = new WeakRef(refElement);
@@ -243,8 +238,7 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                     }
 
                     /**
-                     * Repeat ProxiIndex issue.
-                     * Array che be destroyed before element will removed.
+                     * Repeat ProxiIndex issue. Array che be destroyed before element will removed.
                      * proxi.data[proxiIndex.value].prop can fail when array is empty.
                      */
                     const shouldRender = !isArray || value.length > 0;

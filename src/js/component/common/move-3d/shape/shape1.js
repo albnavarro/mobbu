@@ -1,6 +1,6 @@
 //@ts-check
 
-/** @type{import("../type").Move3DChildren[]} */
+/** @type {import('../type').Move3DChildren[]} */
 export const move3DShape1 = [
     {
         props: {

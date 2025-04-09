@@ -9,8 +9,8 @@ import { getChildrenMethod, getMove3DDimension } from './utils';
 const NOOP = () => {};
 
 /**
- * @import { MobComponent } from '@mobJsType';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ */
 
 /** @type {MobComponent<import('./type').Move3D>} */
 export const Move3Dfn = ({
@@ -24,7 +24,7 @@ export const Move3Dfn = ({
     bindEffect,
 }) => {
     /**
-     * base id for checlren instance
+     * Base id for checlren instance
      */
     const childrenId = MobCore.getUnivoqueId();
 
@@ -54,7 +54,7 @@ export const Move3Dfn = ({
     let unsubscribeTouchUp = NOOP;
     let unsubscribeTouchMove = NOOP;
     let unsubscribeScroll = NOOP;
-    /** @type{any[]} */
+    /** @type {any[]} */
     let childrenMethods = [];
 
     /**
@@ -184,7 +184,7 @@ export const Move3Dfn = ({
         onMove();
     };
 
-    /** @type{(arg0: {page: { x: number, y:number }}) => boolean} */
+    /** @type{(arg0: {page: { x: number, y:number }} ) => boolean} */
     const draggable = ({ page }) => {
         return (
             page.y > offSetTop &&
@@ -194,7 +194,7 @@ export const Move3Dfn = ({
         );
     };
 
-    /** @type{(arg0: {page: { x: number, y:number }}) => void } */
+    /** @type{(arg0: {page: { x: number, y:number }} ) => void } */
     const onMouseDown = ({ page }) => {
         if (draggable({ page })) {
             onDrag = true;

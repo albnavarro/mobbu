@@ -5,10 +5,10 @@ import { MobScrollerConstant } from './mob-scroller-constant';
 
 /**
  * @param {Object} param
- * @param {string} [ param.marker ]
+ * @param {string} [param.marker]
  * @param {string} param.direction
- * @param {boolean|undefined} param.invertSide
- * @return {Object}
+ * @param {boolean | undefined} param.invertSide
+ * @returns {Object}
  */
 export const getMarkerWrapperStyle = ({ marker, direction, invertSide }) => {
     if (!marker) return {};

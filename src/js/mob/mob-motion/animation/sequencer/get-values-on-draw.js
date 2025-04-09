@@ -6,10 +6,10 @@ import { checkIsLastUsableProp } from './reduce-function';
 
 /**
  * @param {Object} param
- * @param {import("./type").SequencerRow[]} param.timeline
- * @param {import("./type").SequencerValue[]} param.valuesState
+ * @param {import('./type').SequencerRow[]} param.timeline
+ * @param {import('./type').SequencerValue[]} param.valuesState
  * @param {number} param.partial
- * @return {import("./type").SequencerValue[]}
+ * @returns {import('./type').SequencerValue[]}
  */
 export const sequencerGetValusOnDraw = ({ timeline, valuesState, partial }) => {
     /**
@@ -17,7 +17,14 @@ export const sequencerGetValusOnDraw = ({ timeline, valuesState, partial }) => {
      */
     return valuesState.map((valueItem) => {
         /**
-         * @type {{toValue:(number|function), fromValue:(number|function), start:number, end:number, ease:function}|{}}
+         * @type {{
+         *           toValue: number | function;
+         *           fromValue: number | function;
+         *           start: number;
+         *           end: number;
+         *           ease: function;
+         *       }
+         *     | {}}
          */
         const item = timeline.reduce(
             (previous, { start, end, values }, index) => {
@@ -52,8 +59,8 @@ export const sequencerGetValusOnDraw = ({ timeline, valuesState, partial }) => {
                 );
 
                 /**
-                 * Id the prop is settled or is inactive skip
-                 * Check if in the next step of timeline the same prop is active an start before partial
+                 * Id the prop is settled or is inactive skip Check if in the next step of timeline the same prop is
+                 * active an start before partial
                  */
                 if (!isLastUsableProp) return previous;
 

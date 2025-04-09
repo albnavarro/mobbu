@@ -8,7 +8,6 @@ import { removeInvalidateByInvalidateId } from './remove-invalidate-by-invalidat
 import { invalidateFunctionMap } from '../invalidate-function-map';
 
 /**
- * @description
  * Destroy nester invalidate.
  *
  * @param {object} params

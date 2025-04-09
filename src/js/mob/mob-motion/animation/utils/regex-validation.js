@@ -2,7 +2,7 @@
 
 /**
  * @param {string} text
- * @returns string
+ * @returns String
  */
 const escapeRegExp = (text) => {
     // @ts-ignore
@@ -13,7 +13,7 @@ const escapeRegExp = (text) => {
 
 /**
  * @param {string} pattern
- * @returns boolean
+ * @returns Boolean
  */
 export const checkIfIsOnlyNumberPositiveNegative = (pattern) => {
     return /^[+-]?\d+(\.\d+)?$/.test(pattern);
@@ -21,19 +21,18 @@ export const checkIfIsOnlyNumberPositiveNegative = (pattern) => {
 
 /**
  * @param {string} pattern
- * @returns boolean
+ * @returns Boolean
  */
 export const checkIfIsOnlyNumber = (pattern) => {
     return /^\d+\.\d+$|^\d+$/.test(pattern);
 };
 
 /**
- * @description
  * Compare two string exact match case insensitive
  *
  * @param {string} string
  * @param {string} pattern
- * @returns number
+ * @returns Number
  */
 export const exactMatchInsensitive = (string, pattern) => {
     const regex = new RegExp(`^${escapeRegExp(pattern)}$`, 'i');
@@ -42,12 +41,11 @@ export const exactMatchInsensitive = (string, pattern) => {
 };
 
 /**
- * @description
  * Compare two string exact match case insensitive with number at string start
  *
  * @param {string} string
  * @param {string} pattern
- * @returns number
+ * @returns Number
  */
 export const exactMatchInsesitiveNumberProp = (string, pattern) => {
     const regex = new RegExp(`[0-9]${pattern}$`, 'i');
@@ -56,11 +54,9 @@ export const exactMatchInsesitiveNumberProp = (string, pattern) => {
 };
 
 /**
- * @description
- *
  * @param {string[]} arr
  * @param {string} string
- * @returns boolean
+ * @returns Boolean
  */
 export const exactMatchInsesitiveNumberPropArray = (arr, string) => {
     return arr.some((unitMisure) => {
@@ -71,11 +67,9 @@ export const exactMatchInsesitiveNumberPropArray = (arr, string) => {
 };
 
 /**
- * @description
- *
  * @param {string[]} arr
  * @param {string} string
- * @returns boolean
+ * @returns Boolean
  */
 export const exactMatchInsesitivePropArray = (arr, string) => {
     return arr.some((unitMisure) => {

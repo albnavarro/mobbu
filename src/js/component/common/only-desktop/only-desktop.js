@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import { GetState, MobComponent } from '@mobJsType';
- **/
+ * @import {GetState, MobComponent} from '@mobJsType';
+ */
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';

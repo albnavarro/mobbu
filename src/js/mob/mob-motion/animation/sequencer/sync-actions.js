@@ -5,9 +5,9 @@ import { dataTweenValueIsValid } from '../utils/tween-action/tween-validation.js
 import { dataTweenValueIsNotValidWarning } from '../utils/warning.js';
 
 /**
- * @param {Record<string, number|(() => number)>} obj
+ * @param {Record<string, number | (() => number)>} obj
  * @param {string} ease
- * @returns {{prop: string, toValue: number|(() => number), ease: () => void}[]}
+ * @returns {{ prop: string; toValue: number | (() => number); ease: () => void }[]}
  */
 export const goToSyncUtils = (obj, ease) => {
     return Object.keys(obj).map((item) => {
@@ -29,9 +29,9 @@ export const goToSyncUtils = (obj, ease) => {
 };
 
 /**
- * @param {Record<string, number|(() => number)>} obj
+ * @param {Record<string, number | (() => number)>} obj
  * @param {string} ease
- * @returns {{prop: string, fromValue: number|(() => number), ease: () => void}[]}
+ * @returns {{ prop: string; fromValue: number | (() => number); ease: () => void }[]}
  */
 export const goFromSyncUtils = (obj, ease) => {
     return Object.keys(obj).map((item) => {
@@ -53,10 +53,15 @@ export const goFromSyncUtils = (obj, ease) => {
 };
 
 /**
- * @param {Record<string, number|(() => number)>} fromObj
- * @param {Record<string, number|(() => number)>} toObj
+ * @param {Record<string, number | (() => number)>} fromObj
+ * @param {Record<string, number | (() => number)>} toObj
  * @param {string} ease
- * @returns {{prop: string, fromValue: number|(() => number), toValue: number|(() => number), ease: () => void}[]}
+ * @returns {{
+ *     prop: string;
+ *     fromValue: number | (() => number);
+ *     toValue: number | (() => number);
+ *     ease: () => void;
+ * }[]}
  */
 export const goFromToSyncUtils = (fromObj, toObj, ease) => {
     return Object.keys(fromObj).map((item) => {

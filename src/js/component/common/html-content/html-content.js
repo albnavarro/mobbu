@@ -1,10 +1,10 @@
 //@ts-check
 
 /**
- * @import { BindProps, MobComponentAsync, StaticProps } from '@mobJsType';
- * @import { HtmlContent } from './type';
- * @import { Loader } from '../loader/type';
- **/
+ * @import {BindProps, MobComponentAsync, StaticProps} from '@mobJsType';
+ * @import {HtmlContent} from './type';
+ * @import {Loader} from '../loader/type';
+ */
 
 import { getTrinangle } from '@componentLibs/utils/get-triangle';
 import { html } from '@mobJs';
@@ -48,7 +48,7 @@ const getData = async ({ source, data }) => {
 /**
  * @param {object} param
  * @param {any} param.data
- * @param {BindProps<HtmlContent,Loader>} param.bindProps
+ * @param {BindProps<HtmlContent, Loader>} param.bindProps
  */
 const getLoader = ({ data, bindProps }) => {
     if (data && data.length > 0) return '';

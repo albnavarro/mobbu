@@ -27,40 +27,40 @@ interface BindPropsObject<T, R> {
 type BindPropsFunction<R> = () => Partial<ExtractState<R>>;
 
 /**
- * bindProps.
+ * BindProps.
  */
 export type PartialBindProps<T, R> = (
     arg0: BindPropsObject<T, R> | BindPropsFunction<R>
 ) => string;
 
 /**
- * delegateEvents
+ * DelegateEvents
  */
 export type PartialDelegateEvents = (
     arg0: DelegateEventObject | DelegateEventObject[]
 ) => any;
 
 /**
- * bindEvents
+ * BindEvents
  */
 export type PartialBindEvents = (
     arg0: BindEventsObject | BindEventsObject[]
 ) => void;
 
 /**
- * bindClass
+ * BindClass
  */
 export type PartialBindEffect<T> = (
     arg0: BindEffectObject<T> | BindEffectObject<T>[]
 ) => string;
 
 /**
- * getState
+ * GetState
  */
 export type PartialGetState<T> = () => ExtractState<T>;
 
 /**
- * setState
+ * SetState
  */
 export type PartialSetState<T> = <K extends keyof ExtractState<T>>(
     prop: K,
@@ -71,7 +71,7 @@ export type PartialSetState<T> = <K extends keyof ExtractState<T>>(
 ) => void;
 
 /**
- * afterState
+ * AfterState
  */
 export type PartialUpdateState<T> = <K extends keyof ExtractState<T>>(
     prop: K,
@@ -83,17 +83,17 @@ export type PartialUpdateState<T> = <K extends keyof ExtractState<T>>(
 ) => void;
 
 /**
- * get proxi function
+ * Get proxi function
  */
 export type PartialGetProxi<T> = () => ExtractState<T>;
 
 /**
- * get proxi state
+ * Get proxi state
  */
 export type PartialGetProxiState<T> = ExtractState<T>;
 
 /**
- * setStateByName
+ * SetStateByName
  */
 export type PartialSetStateByName<T> = <K extends keyof ExtractState<T>>(
     prop: K,
@@ -105,7 +105,7 @@ export type PartialSetStateByName<T> = <K extends keyof ExtractState<T>>(
 ) => void;
 
 /**
- * updateStetByName
+ * UpdateStetByName
  */
 export type PartialUpdateStateByName<T> = <K extends keyof ExtractState<T>>(
     prop: K,
@@ -117,19 +117,19 @@ export type PartialUpdateStateByName<T> = <K extends keyof ExtractState<T>>(
 ) => void;
 
 /**
- * emit
+ * Emit
  */
 export type PartialEmit<T> = (prop: keyof ExtractState<T>) => void;
 
 /**
- * emitAsync
+ * EmitAsync
  */
 export type PartialEmitAsync<T> = (
     prop: keyof ExtractState<T>
 ) => Promise<{ success: boolean }>;
 
 /**
- * computed
+ * Computed
  */
 export type PartialCompunted<T> = <K extends keyof ExtractState<T>>(
     prop: K,
@@ -138,7 +138,7 @@ export type PartialCompunted<T> = <K extends keyof ExtractState<T>>(
 ) => void;
 
 /**
- * watch
+ * Watch
  */
 export type PartialWatch<T> = <K extends keyof ExtractState<T>>(
     prop: K,
@@ -154,7 +154,7 @@ export type PartialWatch<T> = <K extends keyof ExtractState<T>>(
 ) => () => void;
 
 /**
- * bindStore
+ * BindStore
  */
 export type PartialBindStore = (
     value: MobStoreReturnType<any> | MobStoreReturnType<any>[]
@@ -171,22 +171,22 @@ export type PartialRemoveDOM = (element: HTMLElement) => void;
 export type PartialRemove = () => void;
 
 /**
- * getChildren
+ * GetChildren
  */
 export type PartialGetChildren = (componentName: string) => string[];
 
 /**
- * freezeProp
+ * FreezeProp
  */
 export type PartialFreezeProp<T> = (prop: keyof ExtractState<T>) => void;
 
 /**
- * unFreezeProp
+ * UnFreezeProp
  */
 export type PartialUnFreezeProp<T> = (prop: keyof ExtractState<T>) => void;
 
 /**
- * getParentId
+ * GetParentId
  */
 export type PartialGetParentId = () => string | undefined;
 
@@ -200,7 +200,7 @@ export interface PartialCurrent<T, K> {
 }
 
 /**
- * watchParent
+ * WatchParent
  */
 export type PartialWatchParent = (
     prop: string,
@@ -213,7 +213,7 @@ export type PartialWatchParent = (
 export type PartialUnBind = () => void;
 
 /**
- * onMount
+ * OnMount
  */
 export type PartialOnMount = (
     arg0: (arg1: {
@@ -222,87 +222,76 @@ export type PartialOnMount = (
 ) => void;
 
 /**
- * repeat
+ * Repeat
  */
 export type PartialRepeat<T> = <
     K extends keyof ExtractState<T> & string,
 >(arg0: {
     /**
-     * @description
      * Clean previous item.
      */
     clean?: boolean;
 
     /**
-     * @description
      * Array of object used to create list
      */
     bind: K;
 
     /**
-     * @description
      * Unique key used to track the mutation of each individual component.
      */
     key?: string | undefined;
 
     /**
-     * @description
      * Add manually sync attributes to repeater child.
      */
     useSync?: boolean;
 
     /**
-     * @description
      * Function fired before update
      *
      * @example
-     *
-     * ${repeat({
+     *     ${repeat({
      *     beforeUpdate: () => {
-     *         ....
+     *     ....
      *     },
-     * })}
+     *     })}
      */
     beforeUpdate?(): Promise<void> | void;
 
     /**
-     * @description
      * Function fired after update
      *
      * @example
-     *
-     * ${repeat({
+     *     ${repeat({
      *     afterUpdate: () => {
-     *         ....
+     *     ....
      *     },
-     * })}
+     *     })}
      */
     afterUpdate?(): void;
 
     /**
-     * @description
      * Render child component.
      *
-     * - sync props is necessary (obbligatorie) for tracking key and store current and index value.
-     *   this props can be used "ONCE".
-     *
+     * - Sync props is necessary (obbligatorie) for tracking key and store current and index value. this props can be used
+     *   "ONCE".
      *
      * @example
+     *     ```javascript
      *
-     * ```javascript
-     *
-     * <div>
+     *     <div>
      *     ${repeat({
-     *         ...
-     *         render: ({ current }) => {
-     *            return html`
-     *                <my-component></my-component>
-     *            `
-     *         }
+     *     ...
+     *     render: ({ current }) => {
+     *     return html`
+     *     <my-component></my-component>
+     *     `
+     *     }
      *     })}
-     * </div>
+     *     </div>
      *
-     * ```
+     *     ```
      */
     render: (arg0: {
         sync: () => string;
@@ -350,8 +339,7 @@ export type PartialMethods<T> = <
 export type PartialUseMethodByName<T> = ExtractMethods<T>;
 
 /**
- * Mapped type:
- * Transform each propierties in array.
+ * Mapped type: Transform each propierties in array.
  */
 type RefToArray<Type> = {
     [Property in keyof Type]: Type[Property][];

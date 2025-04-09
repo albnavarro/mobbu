@@ -9,17 +9,17 @@ export const defineSlotComponent = () => {
         'mobjs-slot',
         class extends HTMLElement {
             /**
-             * @type {string|undefined|null}
+             * @type {string | undefined | null}
              */
             #slotName;
 
             /**
-             * @type {string|undefined|null}
+             * @type {string | undefined | null}
              */
             #staticProps;
 
             /**
-             * @type {string|undefined|null}
+             * @type {string | undefined | null}
              */
             #dynamicProps;
 

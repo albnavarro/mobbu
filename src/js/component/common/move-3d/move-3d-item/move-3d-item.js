@@ -5,8 +5,8 @@ import { MobTween } from '@mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
 
 /**
- * @import { MobComponent} from '@mobJsType';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ */
 
 /** @type{(component: {tagName: string, className: string, props: any} ) => string} */
 const getComponent = (component) => {
@@ -21,7 +21,7 @@ const getComponent = (component) => {
         </div>`;
 };
 
-/** @type{import('./type').Move3DItemMove} */
+/** @type {import('./type').Move3DItemMove} */
 const move = ({
     delta: currentDelta,
     factor,

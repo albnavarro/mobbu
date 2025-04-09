@@ -3,8 +3,8 @@
 import { MobJs } from '@mobJs';
 
 /**
- * @import { SetStateByName } from '@mobJsType';
- **/
+ * @import {SetStateByName} from '@mobJsType';
+ */
 
 /**
  * @type {import('./type').UpdateQuickNavState}

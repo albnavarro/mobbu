@@ -3,12 +3,10 @@
 import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
 
 /**
- * @description
- * Set initialized to true.
- * Set scopedId.
+ * Set initialized to true. Set scopedId.
  *
  * @param {object} params
- * @param {string} params.invalidateId - invalidateId
+ * @param {string} params.invalidateId - InvalidateId
  * @returns {void}
  */
 

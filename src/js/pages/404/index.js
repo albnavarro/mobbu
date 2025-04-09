@@ -8,7 +8,7 @@ export const pageNotFound = () => {
         <div class="page-not-found">
             <mob-title
                 ${MobJs.staticProps(
-                    /** @type{import('@commonComponent/typography/titles/type').Title['state']} */
+                    /** @type {import('@commonComponent/typography/titles/type').Title['state']} */
                     ({ tag: 'h3', color: 'hightlight' })
                 )}
             >

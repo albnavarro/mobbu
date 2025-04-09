@@ -7,14 +7,12 @@ import { getTime } from './raf-utils/time';
  * @param {Function} func
  * @param {number} limit
  * @returns {Function}
- *
- * @description
  */
 export const throttle = (func, limit) => {
-    /** @type{any} */
+    /** @type {any} */
     let lastFunc;
 
-    /** @type{any} */
+    /** @type {any} */
     let lastRan;
 
     return function () {

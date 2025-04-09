@@ -14,25 +14,25 @@ import {
 import { loadRoute } from './load-route';
 import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
 
-/** @type{string} */
+/** @type {string} */
 let previousHash = '';
 
-/** @type{string} */
+/** @type {string} */
 let previousParamsToPush = '';
 
-/** @type{string|undefined} */
+/** @type {string | undefined} */
 let currentSearch;
 
-/** @type{string} */
+/** @type {string} */
 let historyDirection = 'back';
 
 /**
- * @type {import('./type').HistoryType|undefined}
+ * @type {import('./type').HistoryType | undefined}
  */
 let previousHistory;
 
 /**
- * @type {import('./type').HistoryType|undefined}
+ * @type {import('./type').HistoryType | undefined}
  */
 let currentHistory;
 
@@ -54,7 +54,7 @@ const sanitizeHash = (value) => {
 
 /**
  * @param {string} value
- * @returns {{[key:string]:any}}
+ * @returns {{ [key: string]: any }}
  */
 const getParams = (value) => {
     return value.split('&').reduce((previous, current) => {
@@ -67,7 +67,6 @@ const getParams = (value) => {
 };
 
 /**
- * @description
  * Get hash from url and load new route.
  */
 const hashHandler = async () => {
@@ -108,8 +107,7 @@ const hashHandler = async () => {
             : '';
 
     /**
-     * set unique id to route.
-     * Useful in poState to check if come from backButton
+     * Set unique id to route. Useful in poState to check if come from backButton
      */
     if (!currentHistory)
         history.replaceState(
@@ -165,7 +163,6 @@ const hashHandler = async () => {
 };
 
 /**
- * @description
  * Initialize router.
  */
 export const router = () => {
@@ -198,7 +195,7 @@ export const router = () => {
         }
 
         /**
-         * prev
+         * Prev
          */
         if (
             currentHistory &&
@@ -225,7 +222,6 @@ export const router = () => {
 };
 
 /**
- * @description
  * Set hash in current browser url.
  */
 export const loadUrl = ({ url = '' }) => {

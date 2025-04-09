@@ -9,11 +9,11 @@ import { DynamicListCardFn } from './dynamic-list-card';
 import { DynamicListCardInner } from './innerCard/definition';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const DynamicListCard = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').DynamicListCard>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListCard>} */
     ({
         name: 'dynamic-list-card',
         component: DynamicListCardFn,

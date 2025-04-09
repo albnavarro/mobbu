@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps,  StaticProps, DelegateEvents, BindProps  } from '@mobJsType';
- * @import { DynamicList } from './type';
- * @import { DynamicListButton } from './button/type';]
- * @import { DynamicListRepeater } from './repeaters/type';]
- * @import { DynamicListCardInner } from './card/innerCard/type';]
- **/
+ * @import {MobComponent, ReturnBindProps,  StaticProps, DelegateEvents, BindProps} from '@mobJsType';
+ * @import {DynamicList} from './type';
+ * @import {DynamicListButton} from './button/type';]
+ * @import {DynamicListRepeater} from './repeaters/type';]
+ * @import {DynamicListCardInner} from './card/innerCard/type';]
+ */
 
 import { html, MobJs } from '@mobJs';
 import { startData, state1, state2, state3 } from './data';
@@ -52,7 +52,7 @@ const repeaters = [
  * @param {object} param
  * @param {StaticProps} param.staticProps
  * @param {DelegateEvents} param.delegateEvents
- * @param {BindProps<DynamicList,DynamicListButton>} param.bindProps
+ * @param {BindProps<DynamicList, DynamicListButton>} param.bindProps
  * @param {DynamicList['state']} param.proxi
  */
 function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
@@ -73,7 +73,7 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
                         },
                     })}
                     ${bindProps(
-                        /** @returns{ReturnBindProps<DynamicListButton>} */
+                        /** @returns {ReturnBindProps<DynamicListButton>} */
                         () => ({
                             active: index === proxi.activeSample,
                         })
@@ -104,7 +104,7 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
                         label,
                     })}
                     ${bindProps(
-                        /** @returns{ReturnBindProps<DynamicListRepeater>} */
+                        /** @returns {ReturnBindProps<DynamicListRepeater>} */
                         () => ({
                             data: proxi.data,
                             counter: proxi.counter,
@@ -176,7 +176,7 @@ export const DynamicListFn = ({
                             return html`<div class="validate-test-wrapper">
                                 <dynamic-list-card-inner
                                     ${bindProps(
-                                        /** @returns{ReturnBindProps<DynamicListCardInner>} */
+                                        /** @returns {ReturnBindProps<DynamicListCardInner>} */
                                         () => ({
                                             key: `${proxi.counter}`,
                                         })

@@ -7,14 +7,12 @@ import { MobScrollerConstant } from './mob-scroller-constant.js';
  * @param {number} obj.prevValue
  * @param {number} obj.value
  * @param {number} obj.maxVal
- *
  * @returns {string}
- *
  */
 const action = ({ prevValue, value, maxVal }) => {
     /**
      * ON_LEAVE
-     **/
+     */
     if (
         (value >= maxVal && prevValue <= maxVal && maxVal >= 0) ||
         (value <= maxVal && prevValue >= maxVal && maxVal <= 0)
@@ -23,7 +21,7 @@ const action = ({ prevValue, value, maxVal }) => {
 
     /**
      * ON_ENTER_BACK
-     **/
+     */
     if (
         (value > maxVal && prevValue <= maxVal && maxVal <= 0) ||
         (value < maxVal && prevValue >= maxVal && maxVal >= 0)
@@ -32,7 +30,7 @@ const action = ({ prevValue, value, maxVal }) => {
 
     /**
      * ON_LEAVE_BACK
-     **/
+     */
     if (
         (value >= 0 && prevValue <= 0 && maxVal <= 0) ||
         (value <= 0 && prevValue >= 0 && maxVal >= 0)
@@ -41,7 +39,7 @@ const action = ({ prevValue, value, maxVal }) => {
 
     /**
      * ON_ENTER
-     **/
+     */
     if (
         (value > 0 && value < maxVal && prevValue <= 0 && maxVal >= 0) ||
         (value < 0 && prevValue >= 0 && maxVal <= 0)
@@ -60,9 +58,7 @@ const action = ({ prevValue, value, maxVal }) => {
  * @param {Function} obj.onEnterBack
  * @param {Function} obj.onLeave
  * @param {Function} obj.onLeaveBack
- *
- * @returns void
- *
+ * @returns Void
  */
 export function MobScrollerEmitter({
     prevValue,

@@ -1,33 +1,31 @@
 // @ts-check
 
 /**
- * @type {Set<{'id':string,'state':string,'container':HTMLElement}>}
+ * @type {Set<{ id: string; state: string; container: HTMLElement }>}
  */
 export const activeRepeatMap = new Set();
 
 /**
+ * Set active repeat
+ *
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.state
  * @param {HTMLElement} obj.container
- * @return void
- *
- * @description
- * Set active repeat
+ * @returns Void
  */
 export const addActiveRepeat = ({ id, state, container }) => {
     activeRepeatMap.add({ id, state, container });
 };
 
 /**
+ * Remove active repeat
+ *
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.state
- * @param {HTMLElement|undefined} obj.container
- * @return void
- *
- * @description
- * Remove active repeat
+ * @param {HTMLElement | undefined} obj.container
+ * @returns Void
  */
 export const removeActiveRepeat = ({ id, state, container }) => {
     if (!container) return;
@@ -44,14 +42,13 @@ export const removeActiveRepeat = ({ id, state, container }) => {
 };
 
 /**
+ * Get active repeat
+ *
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.state
- * @param {HTMLElement|undefined} obj.container
- * @return {boolean}
- *
- * @description
- * Get active repeat
+ * @param {HTMLElement | undefined} obj.container
+ * @returns {boolean}
  */
 export const getActiveRepeater = ({ id = '', state = '', container }) => {
     const repeatIsActive = [...activeRepeatMap].some((repeat) => {

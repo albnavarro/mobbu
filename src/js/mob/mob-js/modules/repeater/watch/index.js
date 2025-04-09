@@ -30,7 +30,7 @@ import { setRepeaterChild } from '../action/set-repeat-child';
 
 /**
  * @param {import('../type').WatchList} param
- * @return {() => void}
+ * @returns {() => void}
  */
 export const watchRepeat = ({
     state = '',
@@ -49,9 +49,8 @@ export const watchRepeat = ({
     const mainComponent = getElementById({ id });
 
     /**
-     * When repater is created nested Main component is not parsed.
-     * So addSelfIdToParentComponent doesn't work.
-     * Get first element that contains repaterParent start from last map element.
+     * When repater is created nested Main component is not parsed. So addSelfIdToParentComponent doesn't work. Get
+     * first element that contains repaterParent start from last map element.
      */
     const parentByElement = getRepeatParent({ id: repeatId });
     const fallBackParentId = parentByElement
@@ -59,21 +58,17 @@ export const watchRepeat = ({
         : '';
 
     /**
-     * Fire first callback
-     * The main parse is ended.
+     * Fire first callback The main parse is ended.
      */
     afterUpdate();
 
     /**
-     * Watcher is destroyed with the component tahu implement list repeater.
-     * repater works if data is an array ( is a list so data must be an array )
+     * Watcher is destroyed with the component tahu implement list repeater. repater works if data is an array ( is a
+     * list so data must be an array )
      */
     const unsubscribe = watch(
         state,
-        async (
-            /** @type {Array<any>} */ current,
-            /** @type {Array<any>} */ previous
-        ) => {
+        async (/** @type {any[]} */ current, /** @type {any[]} */ previous) => {
             if (!MobCore.checkType(Array, current)) return;
 
             const repeaterParentElement = getRepeatParent({
@@ -96,18 +91,13 @@ export const watchRepeat = ({
             });
 
             /**
-             * Secure step 1.
-             * Avoid state mutation during list construction.
-             * Useful when list component is async.
+             * Secure step 1. Avoid state mutation during list construction. Useful when list component is async.
              */
             freezePropById({ id, prop: state });
 
             /**
-             * Secure step 2 ( if step 1 fail, but i don't think ).
-             * Check if the same repeat is running
-             * Id true, skip and revert the new state to previous without fire watch
-             * So the data is consistent with dom
-             *
+             * Secure step 2 ( if step 1 fail, but i don't think ). Check if the same repeat is running Id true, skip
+             * and revert the new state to previous without fire watch So the data is consistent with dom
              */
             const repeatIsRunning = getActiveRepeater({
                 id,
@@ -117,8 +107,7 @@ export const watchRepeat = ({
 
             if (repeatIsRunning) {
                 /**
-                 * If repater is running:
-                 * back to previous state without fire callback
+                 * If repater is running: back to previous state without fire callback
                  */
                 unFreezePropById({ id, prop: state });
                 setState(state, previous, { emit: false });
@@ -155,8 +144,7 @@ export const watchRepeat = ({
 
                 if (repeaterParentElement) {
                     /**
-                     * Web component trick.
-                     * Sure to delete host element.
+                     * Web component trick. Sure to delete host element.
                      */
                     repeaterParentElement.textContent = '';
                 }
@@ -205,9 +193,8 @@ export const watchRepeat = ({
             const hasKey = key && key !== '';
 
             /**
-             * For singling component inside same repeater item.
-             * Group all children by wrapper ( or undefined if there is no wrapper )
-             * So the index and current value is fine.
+             * For singling component inside same repeater item. Group all children by wrapper ( or undefined if there
+             * is no wrapper ) So the index and current value is fine.
              */
             const childrenChunkedByWrapper = chunkIdsByCurrentValue({
                 children: childrenFilteredByRepeatId,
@@ -215,19 +202,14 @@ export const watchRepeat = ({
             });
 
             /**
-             * Ik key is used and element change position
-             * Order children by DOM position.
-             * Withiut key element is rendered in traversal order.
-             * Compare first item of chunk
+             * Ik key is used and element change position Order children by DOM position. Withiut key element is
+             * rendered in traversal order. Compare first item of chunk
              *
-             * If no key is used, children only update it's state.
-             * Element are add to componentMap in tree traversal order.
-             * So is natuarally ordered.
+             * If no key is used, children only update it's state. Element are add to componentMap in tree traversal
+             * order. So is natuarally ordered.
              *
-             * In case is necessary (in case of ?):
-             * It is possible use `getOrderedChunkByCurrentRepeatValue` with useIndex
-             * The key is undefined here.
-             * Only component added has new index, the index is added on creation.
+             * In case is necessary (in case of ?): It is possible use `getOrderedChunkByCurrentRepeatValue` with
+             * useIndex The key is undefined here. Only component added has new index, the index is added on creation.
              * So the index of new element here is the right index.
              */
             const chunkChildrenOrdered = hasKey
@@ -250,10 +232,10 @@ export const watchRepeat = ({
 
             /**
              * Update children current value ( for "immutable" children ).
-             * - repeater without key: item persistence.
-             * - repeater with key: item moved.
-             * Update storeComponent currentRepeaterState
-             * propierties so bindPros get last current/index value when watch.
+             *
+             * - Repeater without key: item persistence.
+             * - Repeater with key: item moved. Update storeComponent currentRepeaterState propierties so bindPros get
+             *   last current/index value when watch.
              */
             chunkChildrenOrdered.forEach((childArray, index) => {
                 childArray.forEach((id) => {
@@ -261,7 +243,6 @@ export const watchRepeat = ({
                     if (!currentValue) return;
 
                     /**
-                     * @description
                      * Find real index in original array ( current )
                      */
                     const realIndex = hasKey
@@ -274,9 +255,7 @@ export const watchRepeat = ({
                         : index;
 
                     /**
-                     * Store current value in store
-                     * to use in dynamicrops
-                     * FrstRepeaterChild
+                     * Store current value in store to use in dynamicrops FrstRepeaterChild
                      */
                     setRepeaterStateById({
                         id,
@@ -297,8 +276,7 @@ export const watchRepeat = ({
                 }
 
                 /**
-                 * Remove active repeater after all so avoid multiple
-                 * fire on the same repeater while running.
+                 * Remove active repeater after all so avoid multiple fire on the same repeater while running.
                  *
                  * Use 2 frmae after onMount/Fyre dynamic timing.
                  */
@@ -335,8 +313,8 @@ export const watchRepeat = ({
                 });
 
                 /**
-                 * If there is no component in repeater update repaaterMapChildren.
-                 * This utils is used only when repeat has no component inside.
+                 * If there is no component in repeater update repaaterMapChildren. This utils is used only when repeat
+                 * has no component inside.
                  */
                 if (chunkChildrenOrdered.length === 0) {
                     setRepeaterChild({ repeatId, id, bind: state });

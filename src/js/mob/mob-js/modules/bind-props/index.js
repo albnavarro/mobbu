@@ -23,25 +23,24 @@ import { removeAndDestroyById } from '../../component/action/remove-and-destroy/
 import { bindPropsMap } from './bind-props-map';
 
 /**
- * @type {import('./type').SetBindProps} data
- *
- * @description
  * Store props and return a unique identifier
  *
  * @example
- * ```javascript
- *   <MyComponent
- *       data-bindprops="${bindProps({
- *           bind: ['state1', 'state1'],
- *           props: ({ state1, state2 }) => {
- *               return {
- *                   childState1: state1,
- *                   childState2: state2
- *               };
- *           },
- *       })}"
- *   ></MyComponent>
- * ```
+ *     ```javascript
+ *       <MyComponent
+ *           data-bindprops="${bindProps({
+ *               bind: ['state1', 'state1'],
+ *               props: ({ state1, state2 }) => {
+ *                   return {
+ *                       childState1: state1,
+ *                       childState2: state2,
+ *                   };
+ *               },
+ *           })}"
+ *       ></MyComponent>
+ *     ```;
+ *
+ * @type {import('./type').SetBindProps} data
  */
 export const setBindProps = (data) => {
     const hasProps = 'props' in data;
@@ -87,17 +86,15 @@ export const setBindProps = (data) => {
 };
 
 /**
- * @param {object} obj
- * @param {string} obj.componentId
- * @param {Array<string>} obj.bind
- * @param {(arg0: Record<string, any>, value:Record<string, any>, index: number ) => object} obj.props
- * @param {string} obj.currentParentId
- * @param {boolean} obj.fireCallback
- * @return void
- *
- * @description
  * Store props and return a unique identifier
  *
+ * @param {object} obj
+ * @param {string} obj.componentId
+ * @param {string[]} obj.bind
+ * @param {(arg0: Record<string, any>, value: Record<string, any>, index: number) => object} obj.props
+ * @param {string} obj.currentParentId
+ * @param {boolean} obj.fireCallback
+ * @returns Void
  */
 const updateBindProp = ({
     componentId,
@@ -177,15 +174,13 @@ const updateBindProp = ({
 };
 
 /**
- * @param {object} obj
- * @param {string|undefined} obj.propsId
- * @param {string|undefined} [ obj.repeatPropBind ]
- * @param {string} obj.componentId
- * @return void
- *
- * @description
  * Add componentId to dynamic props stored and initialize them.
  *
+ * @param {object} obj
+ * @param {string | undefined} obj.propsId
+ * @param {string | undefined} [obj.repeatPropBind]
+ * @param {string} obj.componentId
+ * @returns Void
  */
 export const addCurrentIdToBindProps = ({
     propsId,
@@ -208,13 +203,11 @@ export const addCurrentIdToBindProps = ({
 };
 
 /**
- * @param {object} obj
- * @param {string} obj.propsId
- * @return void
- *
- * @description
  * If slot is not used remove id reference orphans from store.
  *
+ * @param {object} obj
+ * @param {string} obj.propsId
+ * @returns Void
  */
 export const removeCurrentToBindPropsByPropsId = ({ propsId }) => {
     if (!propsId) return;
@@ -223,16 +216,13 @@ export const removeCurrentToBindPropsByPropsId = ({ propsId }) => {
 };
 
 /**
+ * Update component state, if inizilizeWatcher === true add watcher to parent ( or specific component ) state.
+ *
  * @param {object} obj
  * @param {string} obj.componentId
- * @param {string|undefined} [ obj.repeatPropBind ]
+ * @param {string | undefined} [obj.repeatPropBind]
  * @param {boolean} obj.inizilizeWatcher
- * @return void
- *
- * @description
- * Update component state, if inizilizeWatcher === true
- * add watcher to parent ( or specific component ) state.
- *
+ * @returns Void
  */
 export const applyBindProps = async ({
     componentId,
@@ -240,10 +230,7 @@ export const applyBindProps = async ({
     inizilizeWatcher,
 }) => {
     /**
-     *
-     * @description
-     * Get dynamic prop by component.
-     * Dynamic props can arrive from component || slot.
+     * Get dynamic prop by component. Dynamic props can arrive from component || slot.
      */
     const dynamicPropsFilteredArray = [...bindPropsMap.values()].filter(
         (item) => {
@@ -279,15 +266,11 @@ export const applyBindProps = async ({
         const currentParentId = parentId ?? getParentIdById(componentId);
 
         /**
-         * Normally props is initialized after repeater
-         * So on created we doesn't have the props ready
-         * Fire setDynamicProp once before repeater tick to
-         * add value in store and use it onCreated
+         * Normally props is initialized after repeater So on created we doesn't have the props ready Fire
+         * setDynamicProp once before repeater tick to add value in store and use it onCreated
          *
-         * The values calculated here can refer to the previous
-         * state of the store, in the next step after the repeaters
-         * have been executed it will be updated with the latest
-         * state of the store.
+         * The values calculated here can refer to the previous state of the store, in the next step after the repeaters
+         * have been executed it will be updated with the latest state of the store.
          */
         if (!inizilizeWatcher) {
             updateBindProp({
@@ -304,8 +287,7 @@ export const applyBindProps = async ({
          */
         if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
             /**
-             * Initialize props after repater
-             * So we have the last value of currentValue && index
+             * Initialize props after repater So we have the last value of currentValue && index
              */
             await repeaterTick();
 
@@ -326,8 +308,7 @@ export const applyBindProps = async ({
          */
         if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
             /**
-             * Initialize props after repater
-             * So we have the last value of currentValue && index
+             * Initialize props after repater So we have the last value of currentValue && index
              */
             await invalidateTick();
 
@@ -350,7 +331,7 @@ export const applyBindProps = async ({
          */
         let watchIsRunning = false;
 
-        const unWatchArray = bindUpdated.map((/** @type{string} */ state) => {
+        const unWatchArray = bindUpdated.map((/** @type {string} */ state) => {
             return watchById(currentParentId, state, async () => {
                 /**
                  * Fire bindProps after repeater.
@@ -373,8 +354,7 @@ export const applyBindProps = async ({
                 });
 
                 /**
-                 * Fire watch only once if multiple props change.
-                 * Wait the end of current block.
+                 * Fire watch only once if multiple props change. Wait the end of current block.
                  */
                 watchIsRunning = true;
                 MobCore.useNextLoop(() => {
@@ -397,8 +377,7 @@ export const applyBindProps = async ({
         });
 
         /**
-         * Add unwatch function to store.
-         * So we lounch them on destroy.
+         * Add unwatch function to store. So we lounch them on destroy.
          */
         setDynamicPropsWatch({
             id: componentId,
@@ -424,13 +403,10 @@ export const applyBindProps = async ({
 };
 
 /**
- * @return void
+ * Delete all refs of events. If slot in unused and a propsFromStore is unused remain in store So when active parser
+ * counter is equal 0 ( no parser is running ) remove all reference
  *
- * @description
- * Delete all refs of events.
- * If slot in unused and a propsFromStore is unused remain in store
- * So when active parser counter is equal 0 ( no parser is running )
- * remove all reference
+ * @returns Void
  */
 export const removeOrphansBindProps = () => {
     bindPropsMap.clear();

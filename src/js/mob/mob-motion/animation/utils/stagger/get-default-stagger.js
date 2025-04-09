@@ -14,25 +14,24 @@ import { getEachByFps } from './stagger-utils.js';
 
 /**
  * @param {number} num
- * @returns boolean
+ * @returns Boolean
  */
 const isOdd = (num) => num % 2;
 
 /**
  * @param {number} max
- * @returns number
+ * @returns Number
  */
 const getRandomInt = (max) => Math.floor(Math.random() * max);
 
 /**
+ * Get random frame without duplicate
+ *
  * @template {any[]} T
  * @param {T} arrayChunk
  * @param {number} each
  * @param {number} index
- * @returns number
- *
- * @description
- * Get random frame without duplicate
+ * @returns Number
  */
 export const getRandomChoice = (arrayChunk, each, index) => {
     // Get previous result
@@ -50,14 +49,13 @@ export const getRandomChoice = (arrayChunk, each, index) => {
 };
 
 /**
+ * Get frame per index
+ *
  * @param {number} index
  * @param {number} arraylenght
  * @param {import('./type.js').StaggerObject} stagger
  * @param {number[]} randomChoice
- * @returns {{'index':number, 'frame':number}}
- *
- * @description
- * Get frame per index
+ * @returns {{ index: number; frame: number }}
  */
 const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
     const { from, each } = stagger;
@@ -219,16 +217,13 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
 };
 
 /**
+ * Default grid direction is COL In case of ROW grid convert col to row, something like rotate the matrix
+ *
  * @template {any[]} T
  * @param {T} arrayDefault
  * @param {import('./type.js').StaggerObject} stagger
  * @param {number} chunckSizeCol
- *
- * @returns {T} arr
- *
- * @description
- * Default grid direction is COL
- * In case of ROW grid convert col to row, something like rotate the matrix
+ * @returns {T} Arr
  */
 const getItemsByRow = (arrayDefault, stagger, chunckSizeCol) => {
     // Reorder main array if direction === row
@@ -260,8 +255,8 @@ export const getDefaultStagger = ({
     fastestStagger,
 }) => {
     /**
-     * If col/row is 1 use length of array, is used for default stagger without grid.
-     * With a value greater than 1 row/col logic is active
+     * If col/row is 1 use length of array, is used for default stagger without grid. With a value greater than 1
+     * row/col logic is active
      */
     const chunckSizeCol =
         stagger?.grid?.col <= 1 ? arrayDefault.length : stagger.grid.col;

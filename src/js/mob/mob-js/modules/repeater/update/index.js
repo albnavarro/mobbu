@@ -7,22 +7,21 @@ import { addWithoutKey } from './add-without-key';
 import { listKeyExist } from '../utils';
 
 /**
+ * Update repater list.
+ *
  * @param {object} obj
  * @param {string} obj.state
  * @param {boolean} obj.persistent
  * @param {HTMLElement} obj.repeaterParentElement
- * @param {Array<any>} obj.current
- * @param {Array<any>} obj.previous
+ * @param {any[]} obj.current
+ * @param {any[]} obj.previous
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {string} obj.fallBackParentId
  * @param {string} obj.repeatId
  * @param {import('../type').RepeaterRender} obj.render
  * @param {boolean} obj.useSync
- * @return {Promise.<Array.<any>>}
- *
- * @description
- * Update repater list.
+ * @returns {Promise<any[]>}
  */
 export const updateRepeater = async ({
     state = '',
@@ -48,8 +47,7 @@ export const updateRepeater = async ({
     const fn = hasKey ? addWithKey : addWithoutKey;
 
     /**
-     * Execute function.
-     * Get unique array of data ( current compared with previous )
+     * Execute function. Get unique array of data ( current compared with previous )
      */
     const currentUnivoque = fn({
         state,
@@ -64,10 +62,8 @@ export const updateRepeater = async ({
     });
 
     /**
-     * Parse inner component.
-     * Use pub/sub to avoid circular dependencies.
-     * Parse current HTMLDom to create inner component.
-     * Scan and await the end of possible noew component creation.
+     * Parse inner component. Use pub/sub to avoid circular dependencies. Parse current HTMLDom to create inner
+     * component. Scan and await the end of possible noew component creation.
      */
     mainStore.set(
         MAIN_STORE_ASYNC_PARSER,

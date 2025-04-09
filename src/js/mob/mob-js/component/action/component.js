@@ -4,10 +4,9 @@ import { getContentElement } from '../../route/dom-ref/content';
 import { componentMap } from '../store';
 
 /**
- * @param {string} id
+ * Get component name By id
  *
- * @description
- * get component name By id
+ * @param {string} id
  */
 export const getComponentNameById = (id = '') => {
     if (!id || id === '') return;
@@ -24,10 +23,9 @@ export const getComponentNameById = (id = '') => {
 };
 
 /**
- * @param {HTMLElement|undefined} element
+ * Get component name By element
  *
- * @description
- * get component name By element
+ * @param {HTMLElement | undefined} element
  */
 export const getComponentNameByElement = (element) => {
     if (!element) return;
@@ -44,11 +42,10 @@ export const getComponentNameByElement = (element) => {
 };
 
 /**
- * @param {string} name
- * @returns {string|undefined}
- *
- * @description
  * Get id by user definition name.
+ *
+ * @param {string} name
+ * @returns {string | undefined}
  */
 export const getIdByInstanceName = (name = '') => {
     if (!name) return;
@@ -64,11 +61,10 @@ export const getIdByInstanceName = (name = '') => {
 };
 
 /**
+ * Get Array of id by user definition name.
+ *
  * @param {string} name
  * @returns {string[]}
- *
- * @description
- * Get Array of id by user definition name.
  */
 export const getIdArrayByInstanceName = (name = '') => {
     if (!name) return [];
@@ -79,11 +75,10 @@ export const getIdArrayByInstanceName = (name = '') => {
 };
 
 /**
+ * Get component name By id
+ *
  * @param {string} id
  * @returns {boolean}
- *
- * @description
- * get component name By id
  */
 export const componentHasKey = (id = '') => {
     if (!id || id === '') return false;
@@ -99,11 +94,10 @@ export const componentHasKey = (id = '') => {
 };
 
 /**
- * @param {string} id
- * @returns {boolean|undefined}
- *
- * @description
  * Check if component is persistent ( is outside content node element ).
+ *
+ * @param {string} id
+ * @returns {boolean | undefined}
  */
 export const componentIsPersistent = (id = '') => {
     if (!id || id === '') return false;

@@ -50,7 +50,7 @@ function getHeightRounded({ height, relativeIndex, amountOfPath }) {
     );
 }
 
-/** @type{import('../type').ScrollerN1Animation} */
+/** @type {import('../type').ScrollerN1Animation} */
 export const scrollerN1Animation = ({
     canvas,
     canvasScroller,
@@ -146,7 +146,7 @@ export const scrollerN1Animation = ({
 
         const context = useOffscreen
             ? offScreenCtx
-            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+            : /** @type {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} */ (
                   ctx
               );
 
@@ -169,7 +169,6 @@ export const scrollerN1Animation = ({
 
             /**
              * Center canvas in the screen
-             *
              */
 
             const scale = 1;

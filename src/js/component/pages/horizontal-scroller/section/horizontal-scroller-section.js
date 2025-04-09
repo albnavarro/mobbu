@@ -2,7 +2,7 @@
 
 import { html } from '@mobJs';
 
-/** @type {import("@mobJsType").MobComponent<import("./type").HorizontalScrollerSection>} */
+/** @type {import('@mobJsType').MobComponent<import('./type').HorizontalScrollerSection>} */
 export const HorizontalScrollerSectionFn = ({ getState }) => {
     const { id, pinClass } = getState();
 

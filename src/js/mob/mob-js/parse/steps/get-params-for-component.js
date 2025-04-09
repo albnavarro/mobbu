@@ -59,12 +59,13 @@ import { setBindEffect } from '../../modules/bind-effetc';
 import { componentIsPersistent } from '../../component/action/component';
 
 /**
- * @param {import('./type').GetParamsForComponent} obj.state
- * @returns {import('../../type').ComponentPropsType<import('../../type').MobComponentMap, import('../../type').MobComponentMap>}
+ * Create component Reuturn all prosps/method for user function.
  *
- * @description
- * Create component
- * Reuturn all prosps/method for user function.
+ * @param {import('./type').GetParamsForComponent} obj.state
+ * @returns {import('../../type').ComponentPropsType<
+ *     import('../../type').MobComponentMap,
+ *     import('../../type').MobComponentMap
+ * >}
  */
 export const getParamsForComponentFunction = ({
     getState,
@@ -82,7 +83,6 @@ export const getParamsForComponentFunction = ({
     debug,
 }) => {
     /**
-     * @description
      * Initialize repeatId collector.
      *
      * @type {string[]}
@@ -111,8 +111,7 @@ export const getParamsForComponentFunction = ({
             clean = true,
         }) => {
             /**
-             * Remove all children inside attachTo.
-             * If needed.
+             * Remove all children inside attachTo. If needed.
              */
             if (clean) {
                 destroyComponentInsideNodeById({ id, container: attachTo });
@@ -138,19 +137,18 @@ export const getParamsForComponentFunction = ({
             );
             return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
         },
-        getChildren: (/** @type{string} */ componentName) => {
+        getChildren: (/** @type {string} */ componentName) => {
             return getChildrenIdByName({ id, componentName });
         },
         /**
-         * ts issue, prop coem as string\number\symbol, convert in string.
+         * Ts issue, prop coem as string\number\symbol, convert in string.
          */
         freezeProp: (prop) => freezePropById({ id, prop: prop.toString() }),
         unFreezeProp: (prop) => unFreezePropById({ id, prop: prop.toString() }),
         unBind: () => unBind({ id }),
         bindProps: (data) => {
             /**
-             * 'props' is required filed in explicit mode.
-             * If props is not used is in auto mode ( data is a function )
+             * 'props' is required filed in explicit mode. If props is not used is in auto mode ( data is a function )
              */
             const dataNormalized = 'props' in data ? data : { props: data };
 
@@ -224,8 +222,7 @@ export const getParamsForComponentFunction = ({
             const invalidateRender = () => render();
 
             /**
-             * When invalidate is inizilized runtime, all neseted invalidate is initialized.
-             * Fire each repeater once.
+             * When invalidate is inizilized runtime, all neseted invalidate is initialized. Fire each repeater once.
              */
             let isInizialized = false;
 
@@ -241,7 +238,7 @@ export const getParamsForComponentFunction = ({
                      * Fire invalidate id after component parse
                      */
                     inizializeInvalidateWatch({
-                        bind: /** @type{Array<string>} */ (
+                        bind: /** @type {string[]} */ (
                             MobCore.checkType(Array, bind) ? bind : [bind]
                         ),
                         watch,
@@ -275,7 +272,7 @@ export const getParamsForComponentFunction = ({
             const repeatId = MobCore.getUnivoqueId();
             const hasKey = key !== '';
 
-            /** type @type{Record<string, any>[]} */
+            /** Type @type{Record<string, any>[]} */
             const initialState = getState()?.[bind];
             const currentUnique = hasKey
                 ? getUnivoqueByKey({ data: initialState, key })
@@ -306,8 +303,7 @@ export const getParamsForComponentFunction = ({
             setSkipAddUserComponent(false);
 
             /**
-             * When repeater is inizilized runtime, all neseted repater is initialized.
-             * Fire each repeater once.
+             * When repeater is inizilized runtime, all neseted repater is initialized. Fire each repeater once.
              */
             let isInizialized = false;
 

@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { ListFn } from './list';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const List = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').List>} */
+    /** @type {CreateComponentParams<import('./type').List>} */
     ({
         name: 'mob-list',
         component: ListFn,

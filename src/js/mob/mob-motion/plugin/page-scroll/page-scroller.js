@@ -5,13 +5,13 @@ import { MobCore } from '../../../mob-core';
 
 let isActive = false;
 
-/** @type{number} */
+/** @type {number} */
 let lastScrollValue = window.scrollY;
 
-/** @type{boolean} */
+/** @type {boolean} */
 let smoothIsActive = false;
 
-/** @type{boolean} */
+/** @type {boolean} */
 let isFreezed = false;
 
 /** @type{() => void} */
@@ -23,10 +23,10 @@ let stop = () => {};
 /** @type{() => void} */
 let update = () => {};
 
-/** @type{HTMLElement|undefined} */
+/** @type {HTMLElement | undefined} */
 let rootElementToObserve;
 
-/** @type{import('./type').MobPageScroller} */
+/** @type {import('./type').MobPageScroller} */
 const MobPageScroller = ({ velocity, rootElement }) => {
     let lerp = MobTween.createLerp({ data: { scrollValue: window.scrollY } });
     rootElementToObserve = rootElement;
@@ -139,7 +139,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
     };
 };
 
-/** @type{(arg0?: {velocity?: number, rootElement?: HTMLElement}) => void} */
+/** @type{(arg0?: {velocity?: number, rootElement?: HTMLElement} ) => void} */
 export const InitMobPageScroll = ({
     velocity = 100,
     rootElement = document.createElement('div'),

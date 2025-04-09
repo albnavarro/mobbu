@@ -8,7 +8,6 @@ import {
 import { removeRepeatByRepeatId } from './remove-repeat-by-repeat-id';
 
 /**
- * @description
  * Destroy nester repeat.
  *
  * @param {object} params
@@ -19,8 +18,7 @@ import { removeRepeatByRepeatId } from './remove-repeat-by-repeat-id';
 
 export const destroyNestedRepeat = ({ id, repeatParent }) => {
     /**
-     * Filter repater with scopeId equal or descendants of componentId
-     * Avoid unnecessary element.contains() check.
+     * Filter repater with scopeId equal or descendants of componentId Avoid unnecessary element.contains() check.
      */
     const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
         element: repeatParent,

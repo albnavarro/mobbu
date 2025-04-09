@@ -6,7 +6,7 @@ import { useNextLoop } from '../utils/next-tick';
 const waitMap = new Map();
 
 /**
- * @param {import("./type").MobStoreCallbackQueue} param
+ * @param {import('./type').MobStoreCallbackQueue} param
  * @returns {void}
  */
 export const runCallbackQueqe = ({
@@ -76,7 +76,7 @@ export const runCallbackQueqe = ({
                 propsPerIdNow?.delete(prop);
 
                 /**
-                 * if instanceId has no more prop in queque delete.
+                 * If instanceId has no more prop in queque delete.
                  */
                 if (propsPerIdNow?.size === 0) {
                     waitMap.delete(instanceId);
@@ -87,7 +87,7 @@ export const runCallbackQueqe = ({
 };
 
 /**
- * @param {import("./type").MobStoreCallbackQueue} param
+ * @param {import('./type').MobStoreCallbackQueue} param
  * @returns {Promise<any>}
  */
 export const runCallbackQueqeAsync = async ({

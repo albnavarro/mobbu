@@ -3,27 +3,23 @@
 /** @type {string} */
 let contentAttributeId = '';
 
-/** @type {HTMLElement|null} */
+/** @type {HTMLElement | null} */
 let DOMContentElement;
 
 /**
- * @param {object} obj
- * @param {string} obj.contentId
- * returns void
- *
- *
- * @description
  * Set root app.
+ *
+ * @param {object} obj
+ * @param {string} obj.contentId returns void
  */
 export const setContentId = ({ contentId = '' }) => {
     contentAttributeId = contentId;
 };
 
 /**
- * @returns {string}
- *
- * @description
  * Set root app.
+ *
+ * @returns {string}
  */
 export const getContentId = () => contentAttributeId;
 
@@ -32,5 +28,5 @@ export const setContentElement = () => {
     DOMContentElement = document?.querySelector(contentAttributeId);
 };
 
-/** @returns {HTMLElement|null} */
+/** @returns {HTMLElement | null} */
 export const getContentElement = () => DOMContentElement;

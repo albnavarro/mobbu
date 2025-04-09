@@ -14,10 +14,9 @@ export const addSlotPlaceholder = (slot) => {
 };
 
 /**
- * @returns {void}
- *
- * @description
  * Clean array after convertToRealElement
+ *
+ * @returns {void}
  */
 export const clearSlotPlaceHolder = () => {
     slotPlaceholder.clear();
@@ -25,8 +24,8 @@ export const clearSlotPlaceHolder = () => {
 
 /**
  * @param {object} params
- * @param {HTMLElement|import('../../web-component/type').UserComponent} params.element
- * @returns {import('../../web-component/type').SlotComponent|undefined}
+ * @param {HTMLElement | import('../../web-component/type').UserComponent} params.element
+ * @returns {import('../../web-component/type').SlotComponent | undefined}
  */
 export const getUnamedPlaceholderSlot = ({ element }) => {
     return [...slotPlaceholder].find((slot) => {
@@ -40,8 +39,8 @@ export const getUnamedPlaceholderSlot = ({ element }) => {
 /**
  * @param {object} params
  * @param {string} params.name
- * @param {HTMLElement|import('../../web-component/type').UserComponent} params.element
- * @returns {import('../../web-component/type').SlotComponent|undefined}
+ * @param {HTMLElement | import('../../web-component/type').UserComponent} params.element
+ * @returns {import('../../web-component/type').SlotComponent | undefined}
  */
 export const getSlotByName = ({ name, element }) => {
     return [...slotPlaceholder].find((slot) => {
@@ -62,8 +61,6 @@ export const getAllSlot = () => {
 
 /**
  * @returns {number}
- *
- * @description
  */
 export const getSlotPlaceholderSize = () => {
     return slotPlaceholder.size;

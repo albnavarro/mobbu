@@ -10,7 +10,7 @@ let sideWidth = 0;
  * @param {object} params
  * @param {HTMLElement[]} params.indicators
  * @param {import('@mobJsType').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
- * @returns {import( '@mobMotionType').MobScroller[]}
+ * @returns {import('@mobMotionType').MobScroller[]}
  */
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
@@ -51,7 +51,7 @@ const createPins = ({ indicators, setState }) => {
 
 /**
  * @param {object} params
- * @param {import( '@mobMotionType').MobScroller[]} params.pins
+ * @param {import('@mobMotionType').MobScroller[]} params.pins
  */
 const refreshPins = ({ pins }) => {
     pins.forEach((pin) => pin.refresh());
@@ -60,7 +60,7 @@ const refreshPins = ({ pins }) => {
 /**
  * @param {object} params
  * @param {HTMLElement[]} params.titles
- * @returns {import( '@mobMotionType').MobScroller[]}
+ * @returns {import('@mobMotionType').MobScroller[]}
  */
 const createParallax = ({ titles }) => {
     return [...titles].map((title) => {
@@ -156,8 +156,7 @@ export const horizontalScrollerAnimation = ({
         },
         onEnterBack: () => {
             /**
-             * With fast scroll forward bottom of the page pin can lost position.
-             * So upodate when scroller back active.
+             * With fast scroll forward bottom of the page pin can lost position. So upodate when scroller back active.
              */
             refreshPins({ pins });
             showNav({ nav });

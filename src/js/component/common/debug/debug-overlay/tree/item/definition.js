@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { DebugTreeItemFn } from './debug-tree-item';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const DebugTreeItem = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').DebugTreeItem>} */
+    /** @type {CreateComponentParams<import('./type').DebugTreeItem>} */
     ({
         name: 'debug-tree-item',
         component: DebugTreeItemFn,

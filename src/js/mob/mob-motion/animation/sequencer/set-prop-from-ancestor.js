@@ -1,17 +1,15 @@
 import { getFirstValidValueBack, propToSet } from './reduce-function';
 
 /**
- * @description
- * setPropFromAncestor
- * Add/Update toValue/fromValue (propTofind) in case a new row of type goTo/goFrom is inserted.
- * Update only active item in row.
- * After reorder the timeline (start/priority) update each value with the nearest previous value.
+ * SetPropFromAncestor Add/Update toValue/fromValue (propTofind) in case a new row of type goTo/goFrom is inserted.
+ * Update only active item in row. After reorder the timeline (start/priority) update each value with the nearest
+ * previous value.
  *
- * goFromTo has both toValue and fromValue, so skip
+ * GoFromTo has both toValue and fromValue, so skip
  *
- * @param  {Object} param
- * @param  {import("./type").SequencerRow[]} param.timeline
- * @param  {string[]} param.activeProp current props to update
+ * @param {Object} param
+ * @param {import('./type').SequencerRow[]} param.timeline
+ * @param {string[]} param.activeProp Current props to update
  */
 export const setPropFromAncestor = ({ timeline, activeProp }) => {
     /**

@@ -7,7 +7,7 @@ import {
 } from '@mobMotionPlugin';
 
 export const usePageScroll = () => {
-    const rootElement = /** @type{HTMLElement} */ (
+    const rootElement = /** @type {HTMLElement} */ (
         document.querySelector('#root')
     );
 
@@ -20,8 +20,7 @@ export const usePageScroll = () => {
 
     MobJs.mainStore.watch('afterRouteChange', () => {
         /**
-         * with 3 frame.
-         * last animation frame will fired one frame after stop
+         * With 3 frame. last animation frame will fired one frame after stop
          */
         MobCore.useFrameIndex(() => {
             UnFreezeAndUPdateMobPageScroll();

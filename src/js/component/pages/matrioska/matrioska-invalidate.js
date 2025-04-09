@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import {  MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, UpdateStateByName, GetState, Invalidate, ReturnBindProps } from '@mobJsType'
- * @import { Matrioska } from './type'
- * @import { MatrioskaItem } from './item/type'
+ * @import {MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, UpdateStateByName, GetState, Invalidate, ReturnBindProps} from '@mobJsType'
+ * @import {Matrioska} from './type'
+ * @import {MatrioskaItem} from './item/type'
  */
 
 import { MobCore } from '@mobCore';
@@ -39,11 +39,11 @@ function getRandomInt(max) {
 }
 
 /**
- * @param { object } params
- * @param { DelegateEvents } params.delegateEvents
- * @param { UpdateState<Matrioska> } params.updateState
- * @param { Invalidate<Matrioska> } params.invalidate
- * @param { GetState<Matrioska> } params.getState
+ * @param {object} params
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {UpdateState<Matrioska>} params.updateState
+ * @param {Invalidate<Matrioska>} params.invalidate
+ * @param {GetState<Matrioska>} params.getState
  */
 const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
     return html`
@@ -55,7 +55,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         ${delegateEvents({
                             click: () => {
                                 updateState(
-                                    /** @type {'level1'|'level2'|'level3'} */ (
+                                    /** @type {'level1' | 'level2' | 'level3'} */ (
                                         button.state
                                     ),
                                     (val) => {
@@ -71,7 +71,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         ${delegateEvents({
                             click: () => {
                                 updateState(
-                                    /** @type {'level1'|'level2'|'level3'} */ (
+                                    /** @type {'level1' | 'level2' | 'level3'} */ (
                                         button.state
                                     ),
                                     (val) => {
@@ -90,7 +90,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                     >
                     <div class="matrioska__head__counter">
                         ${invalidate({
-                            bind: /** @type {'level1'|'level2'|'level3'} */ (
+                            bind: /** @type {'level1' | 'level2' | 'level3'} */ (
                                 button.state
                             ),
                             render: () => {
@@ -122,12 +122,12 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
 };
 
 /**
- * @param { object } params
- * @param { StaticProps<MatrioskaItem> } params.staticProps
- * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
- * @param { DelegateEvents } params.delegateEvents
- * @param { GetState<Matrioska> } params.getState,
- * @param { Invalidate<Matrioska> } params.invalidate
+ * @param {object} params
+ * @param {StaticProps<MatrioskaItem>} params.staticProps
+ * @param {BindProps<Matrioska, MatrioskaItem>} params.bindProps
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {GetState<Matrioska>} params.getState,
+ * @param {Invalidate<Matrioska>} params.invalidate
  */
 const getSecondLevel = ({
     staticProps,
@@ -184,12 +184,12 @@ const getSecondLevel = ({
 };
 
 /**
- * @param { object } params
- * @param { StaticProps<MatrioskaItem> } params.staticProps
- * @param { DelegateEvents } params.delegateEvents
- * @param { Invalidate<Matrioska> } params.invalidate
- * @param { GetState<Matrioska> } params.getState
- * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
+ * @param {object} params
+ * @param {StaticProps<MatrioskaItem>} params.staticProps
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {Invalidate<Matrioska>} params.invalidate
+ * @param {GetState<Matrioska>} params.getState
+ * @param {BindProps<Matrioska, MatrioskaItem>} params.bindProps
  */
 const getThirdLevel = ({
     staticProps,
@@ -282,7 +282,7 @@ const getThirdLevel = ({
     </div>`;
 };
 
-/** @type { MobComponent<Matrioska> } */
+/** @type {MobComponent<Matrioska>} */
 export const MatrioskaInvalidateFn = ({
     delegateEvents,
     updateState,
@@ -323,7 +323,7 @@ export const MatrioskaInvalidateFn = ({
                                             ${staticProps({ level: 'level 1' })}
                                             ${bindProps({
                                                 bind: ['counter'],
-                                                /** @returns{ReturnBindProps<MatrioskaItem>} */
+                                                /** @returns {ReturnBindProps<MatrioskaItem>} */
                                                 props: ({ counter }) => {
                                                     return {
                                                         key: `${item.key}`,

@@ -3,11 +3,10 @@
 import { componentMap } from '../../store';
 
 /**
- * @param {string} id
- * @return object
- *
- * @description
  * Get state
+ *
+ * @param {string} id
+ * @returns Object
  */
 
 export const getStateById = (id = '') => {

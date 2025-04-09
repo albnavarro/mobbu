@@ -27,20 +27,18 @@ import {
 } from './store-warining';
 
 /**
- * ----------------------------
- *  SET
- * -------------------------
+ * ## SET
  */
 
 /**
  * @param {Object} param
  * @param {string} param.instanceId
- * @param {import("./type").StoreMapValue} param.state
+ * @param {import('./type').StoreMapValue} param.state
  * @param {string} param.prop
  * @param {any} param.val
  * @param {boolean} param.fireCallback
  * @param {boolean} param.useStrict
- * @returns {import("./type").StoreMapValue|undefined}
+ * @returns {import('./type').StoreMapValue | undefined}
  */
 const setProp = ({
     instanceId,
@@ -106,7 +104,7 @@ const setProp = ({
     /**
      * Get validate status
      */
-    const isValidated = /** @type {Object<string,function>} */ (fnValidate)[
+    const isValidated = /** @type {Object<string, function>} */ (fnValidate)[
         prop
     ]?.(valueTransformed, oldVal);
 
@@ -121,8 +119,7 @@ const setProp = ({
     validationStatusObject[prop] = isValidated;
 
     /**
-     * Check if last value is equal new value.
-     * if true and skipEqual is true for this prop return.
+     * Check if last value is equal new value. if true and skipEqual is true for this prop return.
      */
     const isEqual = skipEqual[prop]
         ? checkEquality(type[prop], oldVal, valueTransformed)
@@ -160,12 +157,12 @@ const setProp = ({
 /**
  * @param {Object} param
  * @param {string} param.instanceId
- * @param {import("./type").StoreMapValue} param.state
+ * @param {import('./type').StoreMapValue} param.state
  * @param {string} param.prop
  * @param {any} param.val
  * @param {boolean} param.fireCallback
  * @param {boolean} param.useStrict
- * @returns {import("./type").StoreMapValue|undefined}
+ * @returns {import('./type').StoreMapValue | undefined}
  */
 const setObj = ({
     instanceId,
@@ -293,18 +290,19 @@ const setObj = ({
     );
 
     /**
-     * Validate value (value passed to setObj is a Object to merge with original) and store the result in validationStatusObject arr
-     * id there is no validation return true, otherwise get boolean value from fnValidate obj
+     * Validate value (value passed to setObj is a Object to merge with original) and store the result in
+     * validationStatusObject arr id there is no validation return true, otherwise get boolean value from fnValidate
+     * obj
      */
     Object.entries(newValParsedByStrict).forEach((item) => {
         const [subProp, subVal] = item;
         const subValOld = store[prop][subProp];
 
         /**
-         * If in first level we have an object without the 'Any' type  specified
-         * is interpreted like nested object, so fail the fnValidate function if we set a different key with set methods.
-         * Because the new key doesn't exist in original object, so log a warning.
-         * The only way to use obj is specify 'Any' key to not broke the globe object logic.
+         * If in first level we have an object without the 'Any' type specified is interpreted like nested object, so
+         * fail the fnValidate function if we set a different key with set methods. Because the new key doesn't exist in
+         * original object, so log a warning. The only way to use obj is specify 'Any' key to not broke the globe object
+         * logic.
          */
         const validateResult = fnValidate[prop][subProp]?.(subVal, subValOld);
         if (validateResult === undefined) {
@@ -355,9 +353,8 @@ const setObj = ({
         : false;
 
     /**
-     * If shouldSkipEqual = true and previous object is equal new object return.
-     * If at least one modified property of the object has skipEqual set to false
-     * then the entire object is considered mutated even if all values are equal
+     * If shouldSkipEqual = true and previous object is equal new object return. If at least one modified property of
+     * the object has skipEqual set to false then the entire object is considered mutated even if all values are equal
      */
     if (prevValueIsEqualNew) return;
 
@@ -390,8 +387,8 @@ const setObj = ({
 };
 
 /**
- * @param {import("./type").storeSetAction} params
- * @returns {import("./type").StoreMapValue|undefined}
+ * @param {import('./type').storeSetAction} params
+ * @returns {import('./type').StoreMapValue | undefined}
  */
 export const storeSetAction = ({
     instanceId,
@@ -417,16 +414,15 @@ export const storeSetAction = ({
     }
 
     /**
-     * Id value is Map or Se or Objectt create a new old value.
-     * This is mutable promitives, if it passed by reference mutate the original.
+     * Id value is Map or Se or Objectt create a new old value. This is mutable promitives, if it passed by reference
+     * mutate the original.
      */
     const previousValue = clone
         ? cloneValueOrGet({ value: store[prop] })
         : store[prop];
 
     /**
-     * Check if newValue is a param or function.
-     * Id prop type is a function or last value is a function skip.
+     * Check if newValue is a param or function. Id prop type is a function or last value is a function skip.
      */
     const valueParsed = action === STORE_UPDATE ? value(previousValue) : value;
 
@@ -516,9 +512,7 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
 };
 
 /**
- * ----------------------------
- *  COMPUTED
- * -------------------------
+ * ## COMPUTED
  */
 
 /**
@@ -642,7 +636,7 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
 };
 
 /**
- * @param {import("./type").MobStoreComputedAction} params
+ * @param {import('./type').MobStoreComputedAction} params
  * @returns {void}
  */
 export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
@@ -680,7 +674,6 @@ export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
 };
 
 /**
- * @description
  * Initialize first computed values.
  *
  * @param {Object} param
@@ -725,10 +718,8 @@ export const initializeCompuntedProp = ({
     const value = callback(valuesObject);
 
     /**
-     * Update computed prop.
-     * On initialization will not fire callback or computed prop.
-     * Only update value
-     * This methods update storeMap itself.
+     * Update computed prop. On initialization will not fire callback or computed prop. Only update value This methods
+     * update storeMap itself.
      */
     storeSetEntryPoint({
         instanceId,

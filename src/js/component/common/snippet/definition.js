@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { SnippetFn } from './snippet';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const Snippet = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').Snippet>} */
+    /** @type {CreateComponentParams<import('./type').Snippet>} */
     ({
         name: 'mob-snippet',
         component: SnippetFn,

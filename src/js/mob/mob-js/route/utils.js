@@ -3,12 +3,11 @@
 import { getIndex, getPageNotFound, getRouteByName } from './route-list';
 
 /**
+ * Validate url, in not exist return pageNotFound.
+ *
  * @param {object} obj
  * @param {string} obj.url
  * @returns {string}
- *
- * @description
- * Validate url, in not exist return pageNotFound.
  */
 export const getRouteModule = ({ url = '' }) => {
     const index = getIndex();
@@ -20,24 +19,22 @@ export const getRouteModule = ({ url = '' }) => {
 };
 
 /**
+ * Validate url, in not exist return pageNotFound.
+ *
  * @param {object} obj
  * @param {string} obj.url
  * @returns {string}
- *
- * @description
- * Validate url, in not exist return pageNotFound.
  */
 export const getTemplateName = ({ url = '' }) => {
     return getRouteByName({ routeName: url })?.templateName ?? '';
 };
 
 /**
+ * Validate url, in not exist return pageNotFound.
+ *
  * @param {object} obj
  * @param {string} obj.url
  * @returns {boolean}
- *
- * @description
- * Validate url, in not exist return pageNotFound.
  */
 export const getRestoreScrollVale = ({ url = '' }) => {
     return getRouteByName({ routeName: url })?.restoreScroll ?? true;

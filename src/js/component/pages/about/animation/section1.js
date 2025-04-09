@@ -1,6 +1,6 @@
 import { MobScroll, MobTween } from '@mobMotion';
 
-/** @type{import("../type").AboutSection1} */
+/** @type {import('../type').AboutSection1} */
 export const aboutSection1 = ({ title_1, title_2 }) => {
     const title1tween = MobTween.createScrollerTween({
         from: { y: 0 },

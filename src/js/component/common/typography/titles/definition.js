@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { TitleFn } from './title';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const Title = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').Title>} */
+    /** @type {CreateComponentParams<import('./type').Title>} */
     ({
         name: 'mob-title',
         component: TitleFn,

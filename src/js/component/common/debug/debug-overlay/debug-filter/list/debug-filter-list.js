@@ -5,11 +5,11 @@ import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 
 /**
- * @import { MobComponent, ReturnBindProps } from '@mobJsType';
- * @import { DebugFilterListItem } from './item/type';
+ * @import {MobComponent, ReturnBindProps} from '@mobJsType';
+ * @import {DebugFilterListItem} from './item/type';
  */
 
-/** @type{import('./type').DebugInitScroller} */
+/** @type {import('./type').DebugInitScroller} */
 const initScroller = async ({ getRef }) => {
     await MobJs.tick();
 
@@ -39,13 +39,13 @@ const initScroller = async ({ getRef }) => {
 };
 
 const randomString = MobCore.getUnivoqueId();
-const getFakeReplacement = (/** @type{number} */ index) =>
+const getFakeReplacement = (/** @type {number} */ index) =>
     `{{${randomString}${index}}}`;
 
 /**
  * @param {object} params
  * @param {string} params.testString
- * @returns {Omit<DebugFilterListItem['state'], 'currentId'>[]} params
+ * @returns {Omit<DebugFilterListItem['state'], 'currentId'>[]} Params
  */
 const getDataFiltered = ({ testString }) => {
     const stringParsed =
@@ -60,8 +60,7 @@ const getDataFiltered = ({ testString }) => {
         active: false,
         tag: (() => {
             /**
-             * Avoid to replce string in <span> tag added.
-             * Repelce placeholder, and trask order
+             * Avoid to replce string in <span> tag added. Repelce placeholder, and trask order
              */
             const stringParseWithPlaceholder = stringParsed.reduce(
                 (previous, current, index) => {
@@ -87,7 +86,7 @@ const getDataFiltered = ({ testString }) => {
     }));
 };
 
-/** @type{MobComponent<import('./type').DebugFilterList>} */
+/** @type {MobComponent<import('./type').DebugFilterList>} */
 export const DebugFilterListFn = ({
     onMount,
     setRef,
@@ -123,23 +122,19 @@ export const DebugFilterListFn = ({
      */
     addMethod('refreshList', async ({ testString }) => {
         /**
-         * With very large result (800/1000 item)
-         * before create list set loading true.
-         * Await css con be applied before large parse that block thread.
+         * With very large result (800/1000 item) before create list set loading true. Await css con be applied before
+         * large parse that block thread.
          */
         proxi.isLoading = true;
         await MobJs.tick();
 
         /**
-         * Await one tick.
-         * Generate label need apply classList before generate list.
+         * Await one tick. Generate label need apply classList before generate list.
          */
         MobCore.useNextTick(async () => {
             /**
-             * After useFrame of isLoading watcher
-             * Set current data state.
-             * With very large result (500/1000 item)
-             * before create list set loading true.
+             * After useFrame of isLoading watcher Set current data state. With very large result (500/1000 item) before
+             * create list set loading true.
              */
             proxi.data = getDataFiltered({ testString });
 
@@ -221,7 +216,7 @@ export const DebugFilterListFn = ({
                                         name: current.value.name,
                                     })}
                                     ${bindProps(
-                                        /** @returns{ReturnBindProps<DebugFilterListItem>} */
+                                        /** @returns {ReturnBindProps<DebugFilterListItem>} */
                                         () => ({
                                             tag: current.value.tag,
                                         })

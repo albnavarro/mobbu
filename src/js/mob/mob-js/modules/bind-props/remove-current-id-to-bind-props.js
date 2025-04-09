@@ -1,13 +1,11 @@
 import { bindPropsMap } from './bind-props-map';
 
 /**
- * @param {object} obj
- * @param {string} obj.componentId
- * @return void
- *
- * @description
  * Remove dynamic prop reference by componentId.
  *
+ * @param {object} obj
+ * @param {string} obj.componentId
+ * @returns Void
  */
 
 export const removeCurrentIdToBindProps = ({ componentId }) => {

@@ -117,7 +117,7 @@ export class MobHorizontalScroller {
     #ease;
 
     /**
-     * @type {'lerp'|'spring'}
+     * @type {'lerp' | 'spring'}
      */
     #easeType;
 
@@ -192,7 +192,7 @@ export class MobHorizontalScroller {
     #afterDestroy;
 
     /**
-     * @type {import('./type').HorizontalScrollerOnTick|undefined}
+     * @type {import('./type').HorizontalScrollerOnTick | undefined}
      */
     #onTick;
     /**
@@ -225,17 +225,14 @@ export class MobHorizontalScroller {
     #columns;
 
     /**
-     * @type {NodeListOf<HTMLElement>|undefined}
+     * @type {NodeListOf<HTMLElement> | undefined}
      */
     #shadows;
 
-    /**
-     *
-     */
     #shadowMainClassTransition;
 
     /**
-     * @type {NodeListOf<HTMLElement>|[]}
+     * @type {NodeListOf<HTMLElement> | []}
      */
     #buttons;
 
@@ -260,7 +257,6 @@ export class MobHorizontalScroller {
     #percentRange;
 
     /**
-     * @description
      * Initialize children.
      *
      * @type {MobScroller[]}
@@ -269,50 +265,51 @@ export class MobHorizontalScroller {
 
     /**
      * Scoped event.
+     *
      * @type {(arg0: MouseEvent) => void}
-     * @return {void}
+     * @returns {void}
      */
     #onMouseMove;
 
     /**
      * @type {(arg0: MouseEvent) => void}
-     * @return {void}
+     * @returns {void}
      */
     #onMouseDown;
 
     /**
      * @type {(arg0: MouseEvent) => void}
-     * @return {void}
+     * @returns {void}
      */
     #onMouseUp;
 
     /**
      * @type {(arg0: MouseEvent) => void}
-     * @return {void}
+     * @returns {void}
      */
     #onMouseLeave;
 
     /**
      * @type {(arg0: TouchEvent) => void}
-     * @return {void}
+     * @returns {void}
      */
     #onTouchStart;
 
     /**
      * @type {() => void}
-     * @return {void}
+     * @returns {void}
      */
     #onTouchEnd;
 
     /**
      * @type {(arg0: TouchEvent) => void}
-     * @return {void}
+     * @returns {void}
      */
     #onTouchMove;
 
     /**
      * @type {EventListener}
-     * @return {void}
+     * @returns {void}
      */
     #preventFireClick;
 
@@ -322,96 +319,85 @@ export class MobHorizontalScroller {
     #firstTouchValue;
 
     /**
-     * @param  { import('./type').MobHorizontalScroller } data
-     *
-     * @description
-     *
      * Create new HorizontalScroller instance.
      *
-     * Special attributes to handle shadow elements:
-     * Apply the following data-attributes to any element
+     * Special attributes to handle shadow elements: Apply the following data-attributes to any element
      *
-     * `data-shadow="<String>"`
-     * Create a vertical shadow element with a custom className.
+     * `data-shadow="<String>"` Create a vertical shadow element with a custom className.
      *
-     * `data-debug`
-     * Makes the shadow element visible
+     * `data-debug` Makes the shadow element visible
      *
-     * Available methods:
-     * myHorizontalScroller.init();
-     * myHorizontalScroller.refresh();
-     * myHorizontalScroller.destroy();
+     * Available methods: myHorizontalScroller.init(); myHorizontalScroller.refresh(); myHorizontalScroller.destroy();
      *
      * @example
-     *
-     * ```html
-     *     HTML:
-     *     <div class="root">
-     *         <div class="container">
-     *             <div class="row">
-     *                 <section class="column" data-shadow="section1">
-     *                     <h1>title</h1>
-     *                 </section>
-     *                 <section class="column">
-     *                     <h1 data-shadow="title" data-debug>title</h1>
-     *                 </section>
-     *                 ...
+     *     ```html
+     *         HTML:
+     *         <div class="root">
+     *             <div class="container">
+     *                 <div class="row">
+     *                     <section class="column" data-shadow="section1">
+     *                         <h1>title</h1>
+     *                     </section>
+     *                     <section class="column">
+     *                         <h1 data-shadow="title" data-debug>title</h1>
+     *                     </section>
+     *                     ...
+     *                 </div>
+     *                 <div class="trigger"></div>
      *             </div>
-     *             <div class="trigger"></div>
      *         </div>
-     *     </div>
-     * ```
-     * ```javascript
-     *     JS:
-     *     const myHorizontalScroller = new HorizontalScroller({
-     *         root: '.root',
-     *         container: '.container',
-     *         row: '.row',
-     *         column: '.column',
-     *         trigger: '.trigger',
-     *         shadowClass: '.myShadowClass,
-     *         useThrottle: [ Boolean ],
-     *         useSticky: [ Boolean ],
-     *         animatePin: [ Boolean ],
-     *         forceTranspond: [ Boolean ],
-     *         useWillChange: [ Boolean ],
-     *         animateAtStart: [ Boolean ],
-     *         queryType: [ String ],
-     *         breakpoint: [ String ],
-     *         ease: [ Boolean ],
-     *         easeType: [ String ],
-     *         addCss: [ Boolean ],
-     *         columnHeight: [ Number ],
-     *         columnWidth: [ Number ],
-     *         columnAlign: [ String ],
-     *         children: [child1,child2, ...],
-     *         onEnter: () => {
-     *             ...
-     *         },
-     *         onEnterBack: () => {
-     *             ...
-     *         },
-     *         onLeave: () => {
-     *             ...
-     *         },
-     *         onLeaveBack: () => {
-     *             ...
-     *         },
-     *         afterInit: () => {
-     *             ...
-     *         },
-     *         onTick: ({ value, parentIsMoving, percent }) => {
-     *             ...
-     *         },
-     *         afterRefresh: () => {
-     *             ...
-     *         },
-     *         afterDestroy: () => {
-     *             ...
-     *         },
-     *     });
-     * ```
+     *     ``````javascript
+     *         JS:
+     *         const myHorizontalScroller = new HorizontalScroller({
+     *             root: '.root',
+     *             container: '.container',
+     *             row: '.row',
+     *             column: '.column',
+     *             trigger: '.trigger',
+     *             shadowClass: '.myShadowClass,
+     *             useThrottle: [ Boolean ],
+     *             useSticky: [ Boolean ],
+     *             animatePin: [ Boolean ],
+     *             forceTranspond: [ Boolean ],
+     *             useWillChange: [ Boolean ],
+     *             animateAtStart: [ Boolean ],
+     *             queryType: [ String ],
+     *             breakpoint: [ String ],
+     *             ease: [ Boolean ],
+     *             easeType: [ String ],
+     *             addCss: [ Boolean ],
+     *             columnHeight: [ Number ],
+     *             columnWidth: [ Number ],
+     *             columnAlign: [ String ],
+     *             children: [child1,child2, ...],
+     *             onEnter: () => {
+     *                 ...
+     *             },
+     *             onEnterBack: () => {
+     *                 ...
+     *             },
+     *             onLeave: () => {
+     *                 ...
+     *             },
+     *             onLeaveBack: () => {
+     *                 ...
+     *             },
+     *             afterInit: () => {
+     *                 ...
+     *             },
+     *             onTick: ({ value, parentIsMoving, percent }) => {
+     *                 ...
+     *             },
+     *             afterRefresh: () => {
+     *                 ...
+     *             },
+     *             afterDestroy: () => {
+     *                 ...
+     *             },
+     *         });
+     *     ```;
      *
+     * @param {import('./type').MobHorizontalScroller} data
      */
     constructor(data) {
         this.#propsisValid = true;
@@ -726,11 +712,10 @@ export class MobHorizontalScroller {
     }
 
     /**
-     * @description
      * Initialize insatance
      *
      * @example
-     * myInstance.init()
+     *     myInstance.init();
      *
      * @type {() => void}
      */
@@ -1018,7 +1003,7 @@ export class MobHorizontalScroller {
                     const diffAmount = offset - offset / screenRatio;
 
                     /**
-                     * @type {HTMLElement|null}
+                     * @type {HTMLElement | null}
                      */
                     const shadowTransitionEl =
                         this.#mainContainer.querySelector(
@@ -1026,28 +1011,28 @@ export class MobHorizontalScroller {
                         );
 
                     /**
-                     * @type {HTMLElement|null|undefined}
+                     * @type {HTMLElement | null | undefined}
                      */
                     const inCenterMarker = shadowTransitionEl?.querySelector(
                         `.${this.#shadowMainClassTransition}--in-center`
                     );
 
                     /**
-                     * @type {HTMLElement|null|undefined}
+                     * @type {HTMLElement | null | undefined}
                      */
                     const outCenterMarker = shadowTransitionEl?.querySelector(
                         `.${this.#shadowMainClassTransition}--out-center`
                     );
 
                     /**
-                     * @type {HTMLElement|null|undefined}
+                     * @type {HTMLElement | null | undefined}
                      */
                     const leftMarker = shadowTransitionEl?.querySelector(
                         `.${this.#shadowMainClassTransition}--left`
                     );
 
                     /**
-                     * @type {HTMLElement|null|undefined}
+                     * @type {HTMLElement | null | undefined}
                      */
                     const endMarker = shadowTransitionEl?.querySelector(
                         `.${this.#shadowMainClassTransition}--end`
@@ -1246,11 +1231,10 @@ export class MobHorizontalScroller {
     }
 
     /**
-     * @description
      * Refresh instance
      *
      * @example
-     * myInstance.refresh()
+     *     myInstance.refresh();
      *
      * @type {() => Promise<boolean>}
      */
@@ -1277,7 +1261,7 @@ export class MobHorizontalScroller {
     }
 
     /**
-     * @type {(arg0: {destroyAll?: boolean}) => void}
+     * @type {(arg0: { destroyAll?: boolean }) => void}
      */
     #killScroller({ destroyAll = false }) {
         if (this.#moduleisActive || destroyAll) {
@@ -1306,8 +1290,7 @@ export class MobHorizontalScroller {
                     if (styleDiv) styleDiv.remove();
 
                     /**
-                     * All element is null only on Destroy.
-                     * Avoid to use union type with null.
+                     * All element is null only on Destroy. Avoid to use union type with null.
                      */
 
                     // @ts-ignore
@@ -1376,11 +1359,10 @@ export class MobHorizontalScroller {
     }
 
     /**
-     * @description
      * Destroy instance
      *
      * @example
-     * myInstance.destroy()
+     *     myInstance.destroy();
      *
      * @type {() => void}
      */

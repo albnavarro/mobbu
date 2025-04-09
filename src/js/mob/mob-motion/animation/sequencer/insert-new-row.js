@@ -3,17 +3,16 @@
 import { orderByProp } from './order-row';
 
 /**
- * @description
  * Update timeline and order by start value and priority.
  *
  * @param {Object} param
- * @param {import("./type").SequencerRow[]} param.timeline
- * @param {import("./type").SequencerValue[]} param.values
+ * @param {import('./type').SequencerRow[]} param.timeline
+ * @param {import('./type').SequencerValue[]} param.values
  * @param {number} param.start
  * @param {number} param.end
  * @param {number} param.duration
  * @param {import('./type').PropToFind} param.propToFind
- * @return {import('./type').SequencerRow[]}
+ * @returns {import('./type').SequencerRow[]}
  */
 export const insertNewRow = ({
     timeline,

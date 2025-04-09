@@ -1,8 +1,6 @@
 import { MobCore } from '../../mob-core';
 
 /**
- * @description
- *
  * @returns {Promise<void>}
  */
 export function awaitNextLoop() {

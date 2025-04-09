@@ -1,10 +1,9 @@
 // @ts-check
 
 /**
- * @description
  * Set fromValue with currentValue
  *
- * @type {import("./type").UpdateTweenValue}
+ * @type {import('./type').UpdateTweenValue}
  */
 export const setFromByCurrent = (arr) => {
     return arr.map((item) => {
@@ -17,10 +16,9 @@ export const setFromByCurrent = (arr) => {
 };
 
 /**
- * @description
  * Set fromValue and currentValue with toValue
  *
- * @type {import("./type").UpdateTweenValue}
+ * @type {import('./type').UpdateTweenValue}
  */
 export const setFromCurrentByTo = (arr) => {
     return arr.map((item) => {
@@ -32,10 +30,9 @@ export const setFromCurrentByTo = (arr) => {
 };
 
 /**
- * @description
  * Set toValue and fromValue with currentValue
  *
- * @type {import("./type").UpdateTweenValue}
+ * @type {import('./type').UpdateTweenValue}
  */
 export const setFromToByCurrent = (arr) => {
     return arr.map((item) => {
@@ -47,10 +44,9 @@ export const setFromToByCurrent = (arr) => {
 };
 
 /**
- * @description
  * Revert fromValue and toValue
  *
- * @type {import("./type").SetReverseValues}
+ * @type {import('./type').SetReverseValues}
  */
 export const setReverseValues = (obj, arr) => {
     const keysTorevert = Object.keys(obj);
@@ -66,11 +62,9 @@ export const setReverseValues = (obj, arr) => {
 };
 
 /**
- * @description
- * Set toValue in relative mode, sum value from currentValue
- * Used by spring and lerp
+ * Set toValue in relative mode, sum value from currentValue Used by spring and lerp
  *
- * @type {import("./type").SetRelative}
+ * @type {import('./type').SetRelative}
  */
 export const setRelative = (arr, relative) => {
     return arr.map((item) => {
@@ -87,11 +81,9 @@ export const setRelative = (arr, relative) => {
 const tweenSmallNumber = 0.000_01;
 
 /**
- * @description
- * Set toValue in relative mode, sum value from currentValue
- * Used by classic tween
+ * Set toValue in relative mode, sum value from currentValue Used by classic tween
  *
- * @type {import("./type").SetRelativeTween}
+ * @type {import('./type').SetRelativeTween}
  */
 export const setRelativeTween = (arr, relative) => {
     return arr.map((item) => {

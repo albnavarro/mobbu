@@ -17,7 +17,6 @@ import {
 import { MobCore } from '../../../mob-core/index.js';
 
 /**
- * @description
  * Fail return with bad data
  *
  * @returns {import('./utils-type.js').scrollTriggerLimitValues}
@@ -32,7 +31,6 @@ const returnWhenFail = () => {
 };
 
 /**
- * @description
  * Get px value to add (es: top +100px)
  *
  * @param {object} obj
@@ -42,8 +40,7 @@ const returnWhenFail = () => {
  * @param {number} obj.isNegative
  * @param {number} obj.startPoint
  * @param {boolean} obj.isFromTopLeft
- *
- * @returns number
+ * @returns Number
  */
 const getValueInPx = ({
     invert,
@@ -65,7 +62,6 @@ const getValueInPx = ({
 };
 
 /**
- * @description
  * Get vw/vh value to add (es: top +50vh)
  *
  * @param {object} obj
@@ -76,8 +72,7 @@ const getValueInPx = ({
  * @param {number} obj.isNegative
  * @param {number} obj.startPoint
  * @param {boolean} obj.isFromTopLeft
- *
- * @returns number
+ * @returns Number
  */
 const getValueInVwVh = ({
     invert,
@@ -105,8 +100,7 @@ const getValueInVwVh = ({
 
 /**
  * @param {import('./utils-type.js').scrollTriggerIsInviewPort} obj
- *
- * @return { boolean }
+ * @returns {boolean}
  */
 export const detectViewPortInterception = ({
     offset,
@@ -122,16 +116,15 @@ export const detectViewPortInterception = ({
 };
 
 /**
- * @param  {string[]}  values spitted input value es: 100px +h => ['100px','+height', 'top']
- * @param  {string}  direction
- * @return {import('./utils-type.js').scrollTriggerLimitValues} return object with values or default
- *
- * @description
  * Filter input value with number in value and additional value
  *
  * @example
- *  { numberVal: '100px', additionalVal: '+height', position:"top" }
- *  default:  { numberVal: '0', additionalVal: '', position:"bottom" }
+ *     { numberVal: '100px', additionalVal: '+height', position:"top" }
+ *     default:  { numberVal: '0', additionalVal: '', position:"bottom" }
+ *
+ * @param {string[]} values Spitted input value es: 100px +h => ['100px','+height', 'top']
+ * @param {string} direction
+ * @returns {import('./utils-type.js').scrollTriggerLimitValues} Return object with values or default
  */
 export const getStartEndValue = (values, direction) => {
     // Get number value if exist, check values array to find a item with almost 1 number ad get it
@@ -203,15 +196,12 @@ export const getStartEndValue = (values, direction) => {
 };
 
 /**
- * @description
  * Get start point withuot addition value
  *
  * @param {number} screenUnit
  * @param {string} data
  * @param {string} direction
- *
  * @returns {import('./utils-type.js').scrollTriggerStartEndPartials}
- *
  */
 export const getStartPoint = (screenUnit, data, direction) => {
     /**
@@ -260,7 +250,6 @@ export const getStartPoint = (screenUnit, data, direction) => {
 };
 
 /**
- * @description
  * Get end point withuot addition value
  *
  * @param {number} screenUnit
@@ -269,9 +258,7 @@ export const getStartPoint = (screenUnit, data, direction) => {
  * @param {number} scrollerHeight
  * @param {boolean} invertSide
  * @param {string} direction
- *
  * @returns {import('./utils-type.js').scrollTriggerStartEndPartials}
- *
  */
 export const getEndPoint = (
     screenUnit,
@@ -377,9 +364,7 @@ export const getEndPoint = (
  * @param {string} stringValue
  * @param {number} height
  * @param {number} width
- *
  * @returns {number}
- *
  */
 export const processFixedLimit = (value, stringValue, height, width) => {
     const str = String(stringValue);
@@ -423,12 +408,10 @@ export const processFixedLimit = (value, stringValue, height, width) => {
 
 /**
  * @param {object} obj
- * @param {string|boolean} obj.switchPropierties
+ * @param {string | boolean} obj.switchPropierties
  * @param {boolean} obj.isReverse
  * @param {number} obj.value
- *
  * @returns {number}
- *
  */
 export const getValueOnSwitch = ({ switchPropierties, isReverse, value }) => {
     switch (switchPropierties) {
@@ -465,9 +448,7 @@ export const getValueOnSwitch = ({ switchPropierties, isReverse, value }) => {
 /**
  * @param {string} propierties
  * @param {number} val
- *
  * @returns {number}
- *
  */
 export const getRetReverseValue = (propierties, val) => {
     switch (propierties) {
@@ -483,7 +464,9 @@ export const getRetReverseValue = (propierties, val) => {
 
 /**
  * @param {Object} param
- * @param {import('../../../mob-core/events/scroll-utils/type.js').HandleScrollCallback<import('../../../mob-core/events/scroll-utils/type.js').HandleScroll>} param.callback
+ * @param {import('../../../mob-core/events/scroll-utils/type.js').HandleScrollCallback<
+ *     import('../../../mob-core/events/scroll-utils/type.js').HandleScroll
+ * >} param.callback
  * @param {boolean} param.pin
  * @param {boolean} param.ease
  * @param {boolean} param.useThrottle
@@ -491,8 +474,8 @@ export const getRetReverseValue = (propierties, val) => {
  */
 export const getScrollFunction = ({ callback, pin, ease, useThrottle }) => {
     /**
-     * If use pin we have to get fresh value on scroll
-     * Otherwise we can optimize and fire scroll callback after requerst animationFrame
+     * If use pin we have to get fresh value on scroll Otherwise we can optimize and fire scroll callback after requerst
+     * animationFrame
      */
     if (pin) return MobCore.useScrollImmediate(callback);
 

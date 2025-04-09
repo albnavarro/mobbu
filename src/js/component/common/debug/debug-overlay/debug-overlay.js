@@ -5,11 +5,11 @@ import { consoleLogDebug } from '../console-log';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
 
 /**
- * @import { MobComponent, ReturnBindProps } from '@mobJsType';
- * @import { DebugHead } from './head/type';
- **/
+ * @import {MobComponent, ReturnBindProps} from '@mobJsType';
+ * @import {DebugHead} from './head/type';
+ */
 
-/** @type{MobComponent<import('./type').DebugOverlay>} */
+/** @type {MobComponent<import('./type').DebugOverlay>} */
 export const DebugOverlayFn = ({
     delegateEvents,
     addMethod,
@@ -27,9 +27,8 @@ export const DebugOverlayFn = ({
 
     onMount(() => {
         /**
-         * Close overlay on route change.
-         * Avoid infinite debuf overlay filter item increase.
-         * If filter list is visible avoid to count them.
+         * Close overlay on route change. Avoid infinite debuf overlay filter item increase. If filter list is visible
+         * avoid to count them.
          */
         const unsubScribeBeforeRouterChange = MobJs.beforeRouteChange(() => {
             proxi.active = false;
@@ -83,7 +82,7 @@ export const DebugOverlayFn = ({
             <div class="c-debug-overlay__head">
                 <debug-head
                     ${bindProps(
-                        /** @returns{ReturnBindProps<DebugHead>} */
+                        /** @returns {ReturnBindProps<DebugHead>} */
                         () => ({
                             active: proxi.active,
                         })

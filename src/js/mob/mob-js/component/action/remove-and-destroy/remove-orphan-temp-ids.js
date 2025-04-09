@@ -5,17 +5,14 @@ import { removeOrphansBindProps } from '../../../modules/bind-props';
 import { removeOrphansPropsFromParent } from '../../../modules/static-props';
 
 /**
- * @returns { void }
+ * Remove orphan omponent from store. Secure check.
  *
- * @description
- * Remove orphan omponent from store.
- * Secure check.
+ * @returns {void}
  */
 
 export const removeOrphanTempIds = () => {
     /**
-     * Remove props reference.
-     * Async loading and interrupt can leave rubbish.
+     * Remove props reference. Async loading and interrupt can leave rubbish.
      */
     removeOrphansPropsFromParent();
     removeOrphansBindEvent();

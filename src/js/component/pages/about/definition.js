@@ -5,8 +5,8 @@ import { MobMotionCore } from '@mobMotion';
 import { AboutComponentFn } from './about';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const AboutComponent = MobJs.createComponent(
     /** @type{CreateComponentParams<import ('./type').About>} */

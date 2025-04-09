@@ -4,13 +4,11 @@ import { sliceIntoChunks } from '../animation-utils.js';
 import { MERGE_FROM_UP, MERGE_FROM_DOWN } from './stagger-costant.js';
 
 /**
- * @description
  * Get radial in y direction
  *
  * @param {any[][]} arr
  * @param {number} x
  * @param {number} y
- *
  * @returns Array<Array>
  */
 const getRadialY = (arr, x, y) => {
@@ -26,22 +24,20 @@ const getRadialY = (arr, x, y) => {
 };
 
 /**
- * @description
  * Get radial in x direction
  *
- * @template {any[]}T
+ * @template {any[]} T
  * @param {T} arr
  * @param {number} x
  * @param {number} y
  * @param {T} chunk
- *
  * @returns {T}
  */
 const getRadialX = (arr, x, y, chunk) => {
     return arr.reduce((total, _row, i) => {
         const offset = Math.abs(i - y);
 
-        /** @type{any[][]} */
+        /** @type {any[][]} */
         const newRow = [];
 
         // Avoid duplicate form before and after y
@@ -84,19 +80,17 @@ const getRadialX = (arr, x, y, chunk) => {
  * @param {any[][]} arr
  * @param {number} i
  * @param {number} i2
- *
- * @returns boolean
+ * @returns Boolean
  */
 const isAvailableIntoChunk = (arr, i, i2) => {
     return arr[i] !== undefined && arr[i][i2] !== undefined;
 };
 
 /**
- * @template {any[]}T
+ * @template {any[]} T
  * @param {T} arr
  * @param {import('./type.js').StaggerObject} stagger
- *
- * @returns {{cleanArray: Array<T> }}
+ * @returns {{ cleanArray: T[] }}
  */
 export const getRadialArray = (arr, stagger) => {
     const { col } = stagger.grid;
@@ -129,9 +123,9 @@ export const getRadialArray = (arr, stagger) => {
         mergeDirection === MERGE_FROM_DOWN
             ? radialXY.reduce(
                   (
-                      /** @type{any[][]} */ previous,
-                      /** @type{[]} */ _current,
-                      /** @type{number} */ index
+                      /** @type {any[][]} */ previous,
+                      /** @type {[]} */ _current,
+                      /** @type {number} */ index
                   ) => {
                       if (index < y) {
                           return previous;
@@ -151,9 +145,9 @@ export const getRadialArray = (arr, stagger) => {
             : radialXY
                   .reduce(
                       (
-                          /** @type{any[][]} */ previous,
-                          /** @type{[]} */ _current,
-                          /** @type{number} */ index
+                          /** @type {any[][]} */ previous,
+                          /** @type {[]} */ _current,
+                          /** @type {number} */ index
                       ) => {
                           if (index > y) {
                               return previous;
@@ -174,7 +168,7 @@ export const getRadialArray = (arr, stagger) => {
 
     // Remove empty row added at start
     const cleanArray = finalArray.reduce(
-        (/** @type{any[][]} */ previous, /** @type{[]} */ current) => {
+        (/** @type {any[][]} */ previous, /** @type {[]} */ current) => {
             return current.length === 0 ? previous : [...previous, current];
         },
         []

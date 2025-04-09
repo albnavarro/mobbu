@@ -3,7 +3,7 @@
 import { html } from '@mobJs';
 import { MobTween } from '@mobMotion';
 
-/** @type {import("@mobJsType").MobComponent<import('./type').Loader>} */
+/** @type {import('@mobJsType').MobComponent<import('./type').Loader>} */
 export const LoaderFn = ({ onMount, watch, remove, getState }) => {
     const { position } = getState();
 

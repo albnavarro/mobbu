@@ -1,28 +1,26 @@
 // @ts-check
 
 /**
- *@type {() => void}
+ * @type {() => void}
  */
 export const NOOP = () => {};
 
 /**
- * @param {...() => Promise<any>} functions
- * @returns {Awaited<any>}
- *
- * @description
  * Pipe chain of function that return a promise.
  *
  * @example
+ *     ``` javascript
+ *     pipe(
+ *         myFunction1,
+ *         myFunction2,
+ *         myFunction3,
+ *     )(initalValue).then((result) => {
+ *         ....
+ *     });
+ *     ```;
  *
- *``` javascript
- * pipe(
- *     myFunction1,
- *     myFunction2,
- *     myFunction3,
- * )(initalValue).then((result) => {
- *     ....
- * });
- * ```
+ * @param {...(() => Promise<any>)} functions
+ * @returns {Awaited<any>}
  */
 export const pipe =
     (...functions) =>

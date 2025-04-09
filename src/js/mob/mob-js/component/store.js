@@ -1,6 +1,6 @@
 // @ts-check
 
 /**
- * @type {Map<string,import("./type").ComponentStore>}
+ * @type {Map<string, import('./type').ComponentStore>}
  */
 export const componentMap = new Map();

@@ -4,13 +4,13 @@ import { MobCore } from '../../../../mob-core';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../../constant';
 
 /**
- * @type {Map<string,{'current':object, 'index':number}>}
+ * @type {Map<string, { current: object; index: number }>}
  */
 export const currentRepeaterValueMap = new Map();
 
 /**
- * @param {{ current:object, index:number}} current
- * @returns string
+ * @param {{ current: object; index: number }} current
+ * @returns String
  */
 export const setComponentRepeaterState = (current) => {
     /**
@@ -23,8 +23,8 @@ export const setComponentRepeaterState = (current) => {
 };
 
 /**
- * @param {( string | undefined )} id
- * @return {{ current:object, index:number}}
+ * @param {string | undefined} id
+ * @returns {{ current: object; index: number }}
  */
 export const getComponentRepeaterState = (id = '') => {
     if (!id) return DEFAULT_CURRENT_REPEATER_STATE;

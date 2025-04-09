@@ -3,18 +3,18 @@
 import { html, MobJs } from '@mobJs';
 
 /**
- * @import { MobComponent, UseMethodByName } from '@mobJsType';
- **/
+ * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ */
 
 const refreshList = async (testString = '') => {
     await MobJs.tick();
 
-    /** @type{UseMethodByName<import('../list/type').DebugFilterList>} */
+    /** @type {UseMethodByName<import('../list/type').DebugFilterList>} */
     const methods = MobJs.useMethodByName('debug_filter_list');
     methods?.refreshList?.({ testString });
 };
 
-/** @type{MobComponent<import('./type').DebugFilterHead>} */
+/** @type {MobComponent<import('./type').DebugFilterHead>} */
 export const DebugFilterHeadFn = ({
     onMount,
     setRef,
@@ -23,8 +23,7 @@ export const DebugFilterHeadFn = ({
 }) => {
     onMount(() => {
         /**
-         * Update filter list on mount.
-         * No filter is applied here.
+         * Update filter list on mount. No filter is applied here.
          */
         refreshList();
     });
@@ -37,11 +36,11 @@ export const DebugFilterHeadFn = ({
             value=""
             ${setRef('input')}
             ${delegateEvents({
-                keypress: (/** @type{KeyboardEvent} */ event) => {
+                keypress: (/** @type {KeyboardEvent} */ event) => {
                     if (event.code.toLowerCase() === 'enter') {
                         event.preventDefault();
 
-                        const testString = /** @type{HTMLInputElement} */ (
+                        const testString = /** @type {HTMLInputElement} */ (
                             event.target
                         ).value;
                         refreshList(testString);

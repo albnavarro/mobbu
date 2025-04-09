@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { QuickNav } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {QuickNav} from './type';
+ */
 
 import { html, MobJs } from '@mobJs';
 // @ts-ignore

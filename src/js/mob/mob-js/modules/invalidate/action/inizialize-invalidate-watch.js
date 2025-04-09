@@ -26,11 +26,10 @@ import { inizializeNestedInvalidate } from './inizialize-nested-invalidate';
  * @param {() => void} params.afterUpdate
  * @param {import('../../../type').Watch<any>} params.watch
  * @param {string} params.id
- * @param {boolean|undefined} params.persistent
+ * @param {boolean | undefined} params.persistent
  * @param {string} params.invalidateId
  * @param {() => string} params.renderFunction
  * @returns {Promise<any>}
- *
  */
 
 export const inizializeInvalidateWatch = async ({
@@ -49,17 +48,15 @@ export const inizializeInvalidateWatch = async ({
     let watchIsRunning = false;
 
     /**
-     * When invalidateId is created nested Main component is not parsed.
-     * So addSelfIdToParentComponent doesn't work.
-     * Get first element that contains invalidateParent start from last map element.
+     * When invalidateId is created nested Main component is not parsed. So addSelfIdToParentComponent doesn't work. Get
+     * first element that contains invalidateParent start from last map element.
      */
     const fallBackParentId = getFallBackParentByElement({
         element: getInvalidateParent({ id: invalidateId }),
     });
 
     /**
-     * Fire first callback
-     * The main parse is ended.
+     * Fire first callback The main parse is ended.
      */
     afterUpdate();
 

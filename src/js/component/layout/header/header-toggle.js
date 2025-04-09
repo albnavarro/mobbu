@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '@mobJsType';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ */
 
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html } from '@mobJs';

@@ -29,8 +29,7 @@ import { MobCore } from '../../../mob-core/index.js';
  * @param {number} obj.numItem
  * @param {number} obj.index
  * @param {number} obj.eachByNumItem
- *
- * @returns {{start:number, end:number}}
+ * @returns {{ start: number; end: number }}
  */
 const getStaggerEqual = ({ each, duration, numItem, index, eachByNumItem }) => {
     if (each === 1) {
@@ -62,8 +61,7 @@ const getStaggerEqual = ({ each, duration, numItem, index, eachByNumItem }) => {
  * @param {number} obj.index
  * @param {number} obj.eachByNumItem
  * @param {string} obj.type
- *
- * @returns {{start:number, end:number}}
+ * @returns {{ start: number; end: number }}
  */
 const getStaggerSpecial = ({
     duration,
@@ -109,42 +107,40 @@ const getStaggerSpecial = ({
 };
 
 /**
- * @template T
- * @param { import('./type.js').CreateSequencerType<T> & import('../utils/stagger/type.js').StaggerPropiertiesObject } data
- * @returns {import('./type.js').CreateStagger<T>[]} Stagger array
+ *
  *
  * @example
- * ```javascript
+ *     ```javascript
  *
  *
- * const staggers = MobCreateStaggers({
- *     items: Array.<Element|Object>,
- *     stagger: {
- *         stagger.type: [ String ],
- *         from: [ Number|String|{x:number,y:number} ],
- *         grid: {
- *             col: [ Number ],
- *             row: [ Number ],
- *             direction: [ String ]
+ *     const staggers = MobCreateStaggers({
+ *         items: Array.<Element|Object>,
+ *         stagger: {
+ *             stagger.type: [ String ],
+ *             from: [ Number|String|{x:number,y:number} ],
+ *             grid: {
+ *                 col: [ Number ],
+ *                 row: [ Number ],
+ *                 direction: [ String ]
+ *             },
  *         },
- *     },
- *     duration: [ Number ],
- * });
+ *         duration: [ Number ],
+ *     });
  *
  *
- * staggers.forEach(({ item, start, end, index }) => {
- *     const sequencer = mobbu
- *         .createSequencer({ ... })
- *         .goTo({ ... }, { start, end ...});
- *     sequencer.subscribe(({ ... }) => { ... });
- *     masterSequencer.add(sequencer);
- * });
+ *     staggers.forEach(({ item, start, end, index }) => {
+ *         const sequencer = mobbu
+ *             .createSequencer({ ... })
+ *             .goTo({ ... }, { start, end ...});
+ *         sequencer.subscribe(({ ... }) => { ... });
+ *         masterSequencer.add(sequencer);
+ *     });
  *
- * ```
+ *     ```;
  *
- * @description
- *
- * ```
+ * @template T
+ * @param {import('./type.js').CreateSequencerType<T> & import('../utils/stagger/type.js').StaggerPropiertiesObject} data
+ * @returns {import('./type.js').CreateStagger<T>[]} Stagger array
  */
 export const MobCreateStaggers = (data) => {
     // @ts-ignore
@@ -171,8 +167,7 @@ export const MobCreateStaggers = (data) => {
     });
 
     /**
-     * Check of array length is > 0
-     * Recheck the items array after inizializtion to return fallback
+     * Check of array length is > 0 Recheck the items array after inizializtion to return fallback
      */
     if (!validateStaggerItems(items)) {
         return fallBack;
@@ -180,7 +175,7 @@ export const MobCreateStaggers = (data) => {
 
     /**
      * Secure check
-     **/
+     */
     if (stagger.grid?.col > items.length) {
         staggerIsOutOfRangeWarning(items.length);
         each = 1;
@@ -209,10 +204,9 @@ export const MobCreateStaggers = (data) => {
     });
 
     /**
-     * Remove element with no dom item ,is possible with row and item fantasiose
-     * In tween there is no problem beciuse use NOOP callback
-     * Accept only dom element and object
-     * */
+     * Remove element with no dom item ,is possible with row and item fantasiose In tween there is no problem beciuse
+     * use NOOP callback Accept only dom element and object
+     */
     const staggerArrayFiltered = staggerArray.filter(
         ({ item }) =>
             MobCore.checkType(Element, item) || MobCore.checkType(Object, item)

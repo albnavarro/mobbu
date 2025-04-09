@@ -1,6 +1,6 @@
 /**
- * @type {import("./type").SpringPresentConfigType} springConfigStringTypes
- **/
+ * @type {import('./type').SpringPresentConfigType} springConfigStringTypes
+ */
 export const springPresetConfig = {
     default: {
         tension: 20,

@@ -15,13 +15,12 @@ import {
 } from './constant';
 
 /**
- * @param {object} obj
- * @param {{bind:Array<string>, props: Function}|undefined} obj.dynamicProps
- * @param {string|undefined} obj.stateToWatch
- * @returns {{bind:Array<string>, props: function}|undefined}
- *
- * @description
  * Remove watch state from bind.
+ *
+ * @param {object} obj
+ * @param {{ bind: string[]; props: Function } | undefined} obj.dynamicProps
+ * @param {string | undefined} obj.stateToWatch
+ * @returns {{ bind: string[]; props: function } | undefined}
  */
 export const removeWatchFromDynamicProps = ({ dynamicProps, stateToWatch }) => {
     if (!dynamicProps || !('bind' in dynamicProps) || !stateToWatch)
@@ -29,7 +28,7 @@ export const removeWatchFromDynamicProps = ({ dynamicProps, stateToWatch }) => {
 
     const { bind } = dynamicProps;
     const newBind = bind.filter(
-        (/** @type{string} */ state) => state !== stateToWatch
+        (/** @type {string} */ state) => state !== stateToWatch
     );
 
     return { ...dynamicProps, bind: newBind };
@@ -38,11 +37,10 @@ export const removeWatchFromDynamicProps = ({ dynamicProps, stateToWatch }) => {
 export const renderHtml = String.raw;
 
 /**
- * @description
  * Detect if child of element is element / text / mix text and element
  *
  * @param {Element} node
- * @returns {{item: Element|string|undefined, type: string}}
+ * @returns {{ item: Element | string | undefined; type: string }}
  */
 export const getElementOrTextFromNode = (node) => {
     const childNodes = node.childNodes;
@@ -98,12 +96,11 @@ export const getElementOrTextFromNode = (node) => {
 };
 
 /**
- * @description
  * Insert DOM inside node by specific type.
  *
  * @param {object} params
  * @param {Element} params.parent
- * @param {{item: Element|string|undefined, type: string}} params.itemObject
+ * @param {{ item: Element | string | undefined; type: string }} params.itemObject
  * @param {InsertPosition} params.position
  * @returns {void}
  */
@@ -115,17 +112,17 @@ export const insertElementOrText = ({
     const { item, type } = itemObject;
 
     if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
-        parent.insertAdjacentHTML(position, /** @type{string} */ (item));
+        parent.insertAdjacentHTML(position, /** @type {string} */ (item));
         return;
     }
 
     if (type === ELEMENT_TYPE_NODE) {
-        parent.insertAdjacentElement(position, /** @type{Element} */ (item));
+        parent.insertAdjacentElement(position, /** @type {Element} */ (item));
         return;
     }
 
     if (type === ELEMENT_TYPE_TEXT) {
-        parent.insertAdjacentText(position, /** @type{string} */ (item));
+        parent.insertAdjacentText(position, /** @type {string} */ (item));
         return;
     }
 
@@ -133,12 +130,8 @@ export const insertElementOrText = ({
 };
 
 /**
- * @description
- * With more repeat in same scope, we have multiple render() function nested.
- * The first render() fired is the inneer function ( deepest ).
- * So the other override attributes.
- * Add attributes only if there is no correspondences.
- *
+ * With more repeat in same scope, we have multiple render() function nested. The first render() fired is the inneer
+ * function ( deepest ). So the other override attributes. Add attributes only if there is no correspondences.
  *
  * @param {object} params
  * @param {import('../../web-component/type').UserComponent[]} params.components
@@ -146,7 +139,7 @@ export const insertElementOrText = ({
  * @param {number} params.index
  * @param {string} params.bind
  * @param {string} params.repeatId
- * @param {string|undefined} params.key
+ * @param {string | undefined} params.key
  * @returns {void}
  */
 export const setRepeatAttribute = ({

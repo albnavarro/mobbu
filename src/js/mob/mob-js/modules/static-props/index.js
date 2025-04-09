@@ -3,27 +3,25 @@
 import { MobCore } from '../../../mob-core';
 
 /**
- * @type {Map<string,object>}
+ * @type {Map<string, object>}
  */
 export const staticPropsMap = new Map();
 
 /**
- *
- * @param {object} [ props ]
- * @return {string} props id in store.
- *
- * @description
  * Store props and return a unique identifier
  *
  * @example
- * ```javascript
- *   <MyComponent
- *       data-staticprops="${staticProps({
- *           childState1: key,
- *           callBack: () => setState('parentState', key)
- *       })}"
- *   ></MyComponent>
- * ```
+ *     ```javascript
+ *       <MyComponent
+ *           data-staticprops="${staticProps({
+ *               childState1: key,
+ *               callBack: () => setState('parentState', key),
+ *           })}"
+ *       ></MyComponent>
+ *     ```;
+ *
+ * @param {object} [props]
+ * @returns {string} Props id in store.
  */
 export const setStaticProps = (props = {}) => {
     /**
@@ -36,12 +34,10 @@ export const setStaticProps = (props = {}) => {
 };
 
 /**
- * @property {string} id
- *
- * @return {object}
- *
- * @description
  * Return props by id
+ *
+ * @property {string} id
+ * @returns {object}
  */
 export const getPropsFromParent = (id = '') => {
     const props = staticPropsMap.get(id);
@@ -51,13 +47,11 @@ export const getPropsFromParent = (id = '') => {
 };
 
 /**
- * @param {object} obj
- * @param {string} obj.propsId
- * @return void
- *
- * @description
  * If slot is not used remove id reference orphans from store.
  *
+ * @param {object} obj
+ * @param {string} obj.propsId
+ * @returns Void
  */
 export const removeCurrentToPropsByPropsId = ({ propsId }) => {
     if (!propsId) return;
@@ -65,13 +59,10 @@ export const removeCurrentToPropsByPropsId = ({ propsId }) => {
 };
 
 /**
- * @return void
+ * Delete all refs of props. If slot in unused and a propsFromStore is unused remain in store So when active parser
+ * counter is equal 0 ( no parser is running ) remove all reference
  *
- * @description
- * Delete all refs of props.
- * If slot in unused and a propsFromStore is unused remain in store
- * So when active parser counter is equal 0 ( no parser is running )
- * remove all reference
+ * @returns Void
  */
 export const removeOrphansPropsFromParent = () => {
     staticPropsMap.clear();

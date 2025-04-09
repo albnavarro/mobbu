@@ -5,11 +5,11 @@ import { ScrollToButton } from './button/definition';
 import { ScrollToFn } from './scroll-to';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const ScrollTo = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').ScrollTo>} */
+    /** @type {CreateComponentParams<import('./type').ScrollTo>} */
     ({
         name: 'scroll-to',
         component: ScrollToFn,
@@ -27,7 +27,7 @@ export const ScrollTo = MobJs.createComponent(
                 type: Array,
                 transform: (value) => {
                     return value.toSorted(
-                        function (/** @type{any} */ a, /** @type{any} */ b) {
+                        function (/** @type {any} */ a, /** @type {any} */ b) {
                             const { element: elementA } = a;
                             const { element: elementB } = b;
                             if (elementA === elementB || !elementA || !elementB)

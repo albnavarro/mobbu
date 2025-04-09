@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { DebugFilterListItemFn } from './debug-filter-list-item';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const DebugFilterListItem = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').DebugFilterListItem>} */
+    /** @type {CreateComponentParams<import('./type').DebugFilterListItem>} */
     ({
         name: 'debug-filter-list-item',
         component: DebugFilterListItemFn,

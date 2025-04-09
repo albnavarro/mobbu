@@ -9,13 +9,13 @@ import {
 import { getExternalStore } from './store';
 
 /**
- * @import { DelegateEvents, SetRef, GetRef, GetState, BindEffect } from '@mobJsType';
- **/
+ * @import {DelegateEvents, SetRef, GetRef, GetState, BindEffect} from '@mobJsType';
+ */
 
 /**
  * @param {object} params
  * @param {number} params.value
- * @param {boolean} [ params.useShuffle ]
+ * @param {boolean} [params.useShuffle]
  */
 const setData = async ({ value, useShuffle = false }) => {
     const externalStore = getExternalStore();
@@ -79,12 +79,12 @@ export const benchMarkListExternalPartial = ({
                 placeholder="Number of component"
                 ${setRef('input')}
                 ${delegateEvents({
-                    keypress: (/** @type{KeyboardEvent} */ event) => {
+                    keypress: (/** @type {KeyboardEvent} */ event) => {
                         if (event.code.toLowerCase() === 'enter') {
                             event.preventDefault();
 
                             const value = Number(
-                                /** @type{HTMLInputElement} */ (event.target)
+                                /** @type {HTMLInputElement} */ (event.target)
                                     ?.value ?? 0
                             );
 
@@ -100,7 +100,7 @@ export const benchMarkListExternalPartial = ({
                     click: () => {
                         const { input } = getRef();
                         const value = Number(
-                            /** @type{HTMLInputElement} */ (input)?.value ?? 0
+                            /** @type {HTMLInputElement} */ (input)?.value ?? 0
                         );
 
                         setData({ value });

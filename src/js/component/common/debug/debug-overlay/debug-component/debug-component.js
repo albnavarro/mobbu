@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import { GetRef, GetState, MobComponent } from '@mobJsType';
- **/
+ * @import {GetRef, GetState, MobComponent} from '@mobJsType';
+ */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { html, MobJs } from '@mobJs';
@@ -10,7 +10,7 @@ import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '../store/debug-active-component';
 
 /**
- * @param {DOMTokenList|undefined} value
+ * @param {DOMTokenList | undefined} value
  * @returns {string}
  */
 const getClassList = (value) => {
@@ -23,7 +23,7 @@ const getClassList = (value) => {
 };
 
 /**
- * @param {{[ key:string ]:any }} methods
+ * @param {{ [key: string]: any }} methods
  * @returns {string}
  */
 const getObjectKeys = (methods) => {
@@ -33,7 +33,7 @@ const getObjectKeys = (methods) => {
 };
 
 /**
- * @param {{}|{[ key:string ]: string[] }} child
+ * @param {{} | { [key: string]: string[] }} child
  * @returns {string}
  */
 const getChild = (child) => {
@@ -48,7 +48,7 @@ const getChild = (child) => {
 };
 
 /**
- * @param {string[]|undefined} props
+ * @param {string[] | undefined} props
  * @returns {string}
  */
 const getFreezeProp = (props) => {
@@ -57,11 +57,11 @@ const getFreezeProp = (props) => {
 };
 
 /**
- * @param {object|undefined} states
+ * @param {object | undefined} states
  * @returns {string}
  */
 const getStateProps = (states) => {
-    return Object.entries(/** @type{any[]} */ (states))
+    return Object.entries(/** @type {any[]} */ (states))
         .map(([key, value]) => {
             return html`<div>
                 <strong>${key}:</strong>
@@ -178,7 +178,7 @@ const initScroller = ({ getRef }) => {
     };
 };
 
-/** @type{MobComponent<import('./type').DebugComponent>} */
+/** @type {MobComponent<import('./type').DebugComponent>} */
 export const DebugComponentFn = ({
     onMount,
     addMethod,

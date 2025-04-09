@@ -7,9 +7,7 @@ let restoreScroll = true;
 
 /**
  * @param {boolean} value
- * @returns { void }
- *
- * @description
+ * @returns {void}
  */
 export const setRestoreScroll = (value) => {
     restoreScroll = value;
@@ -17,7 +15,5 @@ export const setRestoreScroll = (value) => {
 
 /**
  * @returns {boolean}
- *
- * @description
  */
 export const getRestoreScroll = () => restoreScroll;

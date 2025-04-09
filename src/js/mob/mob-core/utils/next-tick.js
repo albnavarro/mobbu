@@ -24,17 +24,11 @@ export const useNextLoop = (fn) => {
 // https://macarthur.me/posts/navigating-the-event-loop
 
 /**
- * alternative 1
- * Safari not support at moment.
- * requestIdleCallback(() => {
- *     fn();
- * });
+ * Alternative 1 Safari not support at moment. requestIdleCallback(() => { fn(); });
  */
 
 /**
- * alternative 2:
+ * Alternative 2:
  *
- * const channel = new MessageChannel();
- * channel.port1.onmessage = fn;
- * channel.port2.postMessage('');
+ * Const channel = new MessageChannel(); channel.port1.onmessage = fn; channel.port2.postMessage('');
  */

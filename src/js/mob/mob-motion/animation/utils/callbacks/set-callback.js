@@ -4,11 +4,9 @@ import { MobCore } from '../../../../mob-core';
 import { callBackStore } from './call-back-store';
 
 /**
- * @type {import('./type').SetCallBack}
- *
- * @description
  * Add callback to Stack.
  *
+ * @type {import('./type').SetCallBack}
  */
 export const updateSubScribers = (currentCallback, arrayOfCallback) => {
     // Get new unbubscribeId.

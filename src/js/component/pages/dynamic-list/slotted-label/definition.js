@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { DynamicListSlottedLabelFn } from './dynamic-list-slotted-label';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const DynamicListSlottedLabel = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').DynamicListSlottedLabel>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListSlottedLabel>} */
     ({
         name: 'dynamic-slotted-label',
         component: DynamicListSlottedLabelFn,

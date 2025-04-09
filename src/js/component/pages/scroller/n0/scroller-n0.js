@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { ScrollerN0 } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {ScrollerN0} from './type';
+ */
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';

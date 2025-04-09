@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { SvgChildFn } from './child';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const svgChild = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').SvgChild>} */
+    /** @type {CreateComponentParams<import('./type').SvgChild>} */
     ({
         name: 'svg-child',
         component: SvgChildFn,

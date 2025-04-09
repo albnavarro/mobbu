@@ -15,7 +15,7 @@ import {
     getOffsetYCenter,
 } from '@utils/canvas-utils';
 
-/** @type{import('../type').AnimatedPatternN1Animation} */
+/** @type {import('../type').AnimatedPatternN1Animation} */
 export const animatedPatternN1Animation = ({
     canvas,
     numberOfRow,
@@ -128,7 +128,7 @@ export const animatedPatternN1Animation = ({
 
         const context = useOffscreen
             ? offScreenCtx
-            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+            : /** @type {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} */ (
                   ctx
               );
 
@@ -255,7 +255,7 @@ export const animatedPatternN1Animation = ({
      * @param {number} params.x
      * @param {number} params.y
      * @returns {void}
-     **/
+     */
     const move = ({ x, y }) => {
         centerTween.goTo({ mouseX: x - left, mouseY: y - top });
     };

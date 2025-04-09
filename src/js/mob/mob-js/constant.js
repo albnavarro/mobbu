@@ -1,151 +1,151 @@
 // @ts-check
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_IS_COMPONENT = 'data-mobjs';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_COMPONENT_ID = 'componentid';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_BIND_TEXT_ID = 'bindtextid';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_BIND_OBJECT_ID = 'bindobjectid';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_IS_COMPONENT_VALUE = 'mobjs';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_PROPS = 'staticprops';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_BIND_PROPS = 'bindprops';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_INSTANCENAME = 'name';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_COMPONENT_NAME = 'name';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_SLOT = 'slot';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_CHILD_REPEATID = 'repeaterchild';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_KEY = 'key';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_CURRENT_LIST_VALUE = 'currentRepeaterValue';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_REPEATER_PROP_BIND = 'repeatPropBind';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_BIND_EVENTS = 'bindevents';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_WEAK_BIND_EVENTS = 'weakbindevents';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_BIND_EFFECT = 'bindeffect';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_PARENT_ID = 'parentid';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_REFS = 'ref';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_BIND_REFS_ID = 'bindrefid';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_BIND_REFS_NAME = 'bindrefname';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_INVALIDATE = 'invalidateid';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const ATTR_MOBJS_REPEAT = 'mobjsrepeat';
 
 /**
- * @type {number};
+ * @type {number} ;
  */
 export const frameDelayAfterParse = 5;
 
 /**
- * @type {import("./modules/repeater/type").CurrentRepeaterState};
+ * @type {import('./modules/repeater/type').CurrentRepeaterState} ;
  */
 export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const QUEQUE_TYPE_BINDPROPS = 'QUEQUE_BINDPROPS';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const QUEQUE_TYPE_REPEATER = 'QUEQUE_REPEATER';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const QUEQUE_TYPE_INVALIDATE = 'QUEQUE_INVALIDATE';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const QUEQUE_TYPE_PARSE_WATCH_ASYNC = 'PARSE_WATCH_ASYNC';
 
 /**
- * @type {string};
+ * @type {string} ;
  */
 export const QUEQUE_TYPE_PARSE_COMPONENT = 'PARSE_COMPONENT';

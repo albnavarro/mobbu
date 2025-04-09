@@ -19,12 +19,12 @@ import {
 } from '../common-event';
 
 /**
- * @type {Map<string,Array<{[key:string]: () => void}>>}
+ * @type {Map<string, { [key: string]: () => void }[]>}
  */
 export const tempDelegateEventMap = new Map();
 
 /**
- * @type {WeakMap<object,import('./type').WeakBindEventsDataArray | undefined>}
+ * @type {WeakMap<object, import('./type').WeakBindEventsDataArray | undefined>}
  */
 export const eventDelegationMap = new WeakMap();
 
@@ -39,12 +39,10 @@ const eventToAdd = [];
 const eventRegistered = [];
 
 /**
- * @param {( import('./type').DelegateEventObject<Event>|import('./type').DelegateEventObject<Event>[] )} [ eventsData ]
- * @return {string} props id in store.
- *
- * @description
  * Store props and return a unique identifier
  *
+ * @param {import('./type').DelegateEventObject<Event> | import('./type').DelegateEventObject<Event>[]} [eventsData]
+ * @returns {string} Props id in store.
  */
 export const setDelegateBindEvent = (eventsData = []) => {
     const eventsDataParsed = checkType(Object, eventsData)
@@ -62,8 +60,8 @@ export const setDelegateBindEvent = (eventsData = []) => {
 };
 
 /**
- * @param {EventTarget|undefined} target
- * @returns {{ target:EventTarget|undefined,data:import('./type').WeakBindEventsDataArray | undefined}}
+ * @param {EventTarget | undefined} target
+ * @returns {{ target: EventTarget | undefined; data: import('./type').WeakBindEventsDataArray | undefined }}
  */
 const findParentElementInMap = (target) => {
     // @ts-ignore
@@ -80,16 +78,15 @@ const findParentElementInMap = (target) => {
 
 /**
  * @param {EventTarget} target
- * @returns {{ target:EventTarget|undefined,data:import('./type').WeakBindEventsDataArray | undefined}}
+ * @returns {{ target: EventTarget | undefined; data: import('./type').WeakBindEventsDataArray | undefined }}
  */
 const getItemFromTarget = (target) => {
     const data = eventDelegationMap.get(target);
     if (data) return { target, data: eventDelegationMap.get(target) };
 
     /**
-     * Wall up DOM tree searcing first element in map.
-     * If event.target is inside element where eventi is applied.
-     **/
+     * Wall up DOM tree searcing first element in map. If event.target is inside element where eventi is applied.
+     */
     return findParentElementInMap(target);
 };
 
@@ -103,9 +100,8 @@ async function handleAction(eventKey, event) {
     if (!target) return;
 
     /**
-     * Fire one event at time on end of app tick.
-     * Set shouldFireEvent to true immediatyle after tick to restore
-     * event if callback fail.
+     * Fire one event at time on end of app tick. Set shouldFireEvent to true immediatyle after tick to restore event if
+     * callback fail.
      */
     if (!getFireEvent()) return;
     preventFireEvent();
@@ -137,8 +133,7 @@ async function handleAction(eventKey, event) {
         : DEFAULT_CURRENT_REPEATER_STATE;
 
     /**
-     * Replace target with new target
-     * ( parent of original target if event.tatget is inside )
+     * Replace target with new target ( parent of original target if event.tatget is inside )
      */
     Object.defineProperty(event, 'target', { value: targetParsed });
 
@@ -149,12 +144,10 @@ async function handleAction(eventKey, event) {
 }
 
 /**
- * @param {HTMLElement} root
- * @return { Promise<any> }
- *
- * @description
  * Store props and return a unique identifier
  *
+ * @param {HTMLElement} root
+ * @returns {Promise<any>}
  */
 export const applyDelegationBindEvent = async (root) => {
     /**

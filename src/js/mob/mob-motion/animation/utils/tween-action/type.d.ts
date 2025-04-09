@@ -45,9 +45,7 @@ export interface TweenParam {
 }
 
 /**
- * Merge tween data
- * Mapped type.
- * Merge Type with TargetType
+ * Merge tween data Mapped type. Merge Type with TargetType
  */
 type MergetTweenReturnType<Type, TargetType> = {
     [Property in keyof Type]: TargetType[Property];

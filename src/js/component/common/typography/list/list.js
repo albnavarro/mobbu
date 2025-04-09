@@ -3,14 +3,14 @@
 import { html } from '@mobJs';
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { List } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {List} from './type';
+ */
 
 /**
  * @param {object} params
- * @param {Record<'label'|'url', string>[]|string[]} params.items
- * @param {boolean} [ params.links ]
+ * @param {Record<'label' | 'url', string>[] | string[]} params.items
+ * @param {boolean} [params.links]
  * @returns {string}
  */
 const getList = ({ items, links }) => {

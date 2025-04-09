@@ -147,17 +147,17 @@ export default class MobScroller {
     #unsubscribeMarker;
 
     /**
-     * @type {Element|undefined}
+     * @type {Element | undefined}
      */
     #startMarker;
 
     /**
-     * @type {Element|undefined}
+     * @type {Element | undefined}
      */
     #endMarker;
 
     /**
-     * @type {number|undefined}
+     * @type {number | undefined}
      */
     #lastValue;
 
@@ -172,7 +172,7 @@ export default class MobScroller {
     #fixedShouldRender;
 
     /**
-     * @type {number|undefined}
+     * @type {number | undefined}
      */
     #prevFixedClamp;
 
@@ -197,7 +197,7 @@ export default class MobScroller {
     #force3D;
 
     /**
-     * @type {MobScrollerPin|undefined}
+     * @type {MobScrollerPin | undefined}
      */
     #pinInstance;
 
@@ -231,145 +231,121 @@ export default class MobScroller {
      */
 
     /**
-     * @description
      * @type {boolean}
      */
     #pin;
 
     /**
-     * @description
      * @type {boolean}
      */
     #animatePin;
 
     /**
-     * @description
      * @type {boolean}
      */
     #forceTranspond;
 
     /**
-     * @description
      * @type {boolean}
      */
     #anticipatePinOnLoad;
 
     /**
-     * @description
      * @type {string}
      */
     #start;
 
     /**
-     * @description
      * @type {string}
      */
     #end;
 
     /**
-     * @description
      * @type {boolean}
      */
     #fromTo;
 
     /**
-     * @description
      * @type {boolean}
      */
     #invertSide;
 
     /**
-     * @description
      * @type {string}
      */
     #marker;
 
     /**
-     * @description
      * @type {import('./type.js').DynamicStart}
      */
     #dynamicStart;
 
     /**
-     * @description
      * @type {import('./type.js').DynamicEnd}
      */
     #dynamicEnd;
 
     /**
-     * @description
-     * @type {Function|undefined}
+     * @type {Function | undefined}
      */
     #dynamicRange;
 
     /**
-     * @description
      * @type {boolean}
      */
     #animateAtStart;
 
     /**
-     * @description
      * @type {Function}
      */
     #onEnter;
 
     /**
-     * @description
      * @type {Function}
      */
     #onEnterBack;
 
     /**
-     * @description
      * @type {Function}
      */
     #onLeave;
 
     /**
-     * @description
      * @type {Function}
      */
     #onLeaveBack;
 
     /**
-     * @description
      * @type {Function}
      */
     #onTickCallback;
 
     /**
-     * @description
-     * @type {string|number}
+     * @type {string | number}
      */
     #align;
 
     /**
-     * @description
-     * @type {string|boolean}
+     * @type {string | boolean}
      */
     #onSwitch;
 
     /**
-     * @description
      * @type {boolean}
      */
     #reverse;
 
     /**
-     * @description
      * @type {number}
      */
     #opacityStart;
 
     /**
-     * @description
      * @type {number}
      */
     #opacityEnd;
 
     /**
-     * @description
      * @type {boolean}
      */
     #limiterOff;
@@ -379,90 +355,72 @@ export default class MobScroller {
      */
 
     /**
-     * @description
-     * @type {boolean|undefined}
+     * @type {boolean | undefined}
      */
     #useWillChange;
 
     /**
-     * @description
      * @type {import('../../type.js').MobMasterSequencer | MobScrollerTween | MobSequencer}
      */
     #tween;
 
     /**
-     *
-     */
-
-    /**
-     * @description
-     * @type {HTMLElement|null}
+     * @type {HTMLElement | null}
      */
     #item;
 
     /**
-     * @description
-     * @type {HTMLElement|globalThis|null}
+     * @type {HTMLElement | globalThis | null}
      */
     #scroller;
 
     /**
-     * @description
-     * @type {HTMLElement|globalThis|null}
+     * @type {HTMLElement | globalThis | null}
      */
     #screen;
 
     /**
-     * @description
-     * @type {HTMLElement|null|undefined}
+     * @type {HTMLElement | null | undefined}
      */
     #trigger;
 
     /**
-     * @description
-     * @type {HTMLElement|null|undefined}
+     * @type {HTMLElement | null | undefined}
      */
     #applyTo;
 
     /**
-     * @description
      * @type {string}
      */
     #direction;
 
     /**
-     * @description
      * @type {boolean}
      */
     #disableForce3D;
 
     // With pin active no throttle is usable, pin need precision
     /**
-     * @description
      * @type {boolean}
      */
     #useThrottle;
 
     /**
-     * @description
      * @type {string}
      */
     #type;
 
     /**
-     * @description
      * @type {number}
      */
     #perspective;
 
     /**
-     * @description
      * @type {string}
      */
     #breakpoint;
 
     /**
-     * @description
      * @type {string}
      */
     #queryType;
@@ -473,58 +431,46 @@ export default class MobScroller {
     #propierties;
 
     /**
-     * @description
-     * Skip render and set a default 100px value for
-     * trigger the events.
+     * Skip render and set a default 100px value for trigger the events.
      *
      * @type {boolean}
      */
     #shouldTrackOnlyEvents;
 
     /**
-     * @description
-     * @type {string|number}
+     * @type {string | number}
      */
     #range;
 
     /**
-     * @description
-     * Get properties, check if there is sequencer inside a Parallax,
-     * In case return y propierties
+     * Get properties, check if there is sequencer inside a Parallax, In case return y propierties
      *
      * @type {boolean}
      */
     #ease;
 
     /**
-     * @description
-     * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
-     * In case return a lerp
+     * Get easeType properties, Check if a sequencer is used inside a scrollTrigger In case return a lerp
      *
      * @type {string}
      */
     #easeType;
 
     /**
-     * @description
-     * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
-     * In case return a lerp
+     * Get easeType properties, Check if a sequencer is used inside a scrollTrigger In case return a lerp
      *
      * @type {import('../spring/type.js').SpringChoiceConfig}
      */
     #springConfig;
 
     /**
-     * @description
-     * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
-     * In case return a lerp
+     * Get easeType properties, Check if a sequencer is used inside a scrollTrigger In case return a lerp
      *
      * @type {number}
      */
     #lerpConfig;
 
     /**
-     * @description
      * Add more precision to motion spring/lerp to trigger better force3D
      *
      * @type {any}
@@ -532,7 +478,6 @@ export default class MobScroller {
     #motionParameters;
 
     /**
-     * @description
      * Add more precision to motion spring/lerp to trigger better force3D
      *
      * @type {import('./type.js').MobScrollerMotion}
@@ -540,106 +485,103 @@ export default class MobScroller {
     #motion;
 
     /**
-     * @param  { import('./type.js').MobScrollerCommon & import('./type.js').Parallax &  import('./type.js').ScrollTrigger} data
-     *
-     * @example
-     *
-     * ```javascript
-     *  Parallax property schema:
-     *
-     *
-     *  const myParallax = new MobScroller({
-     *      type: 'parallax',
-     *      item: String | Element,
-     *      applyTo: [ String | Element ],
-     *      trigger: [ String | Element ],
-     *      screen: [ String | Element ],
-     *      scroller: [ String | Element ],
-     *      breakpoint: [ String ],
-     *      queryType: [ String ],
-     *      direction: [ String ],
-     *      propierties: [ String ],
-     *      tween: [ MobSequencer | MobScrollerTween ],
-     *      range: [ String | Number ],
-     *      align: [ String ],
-     *      onSwitch: [ String ],
-     *      reverse: [ Boolean ],
-     *      ease: [ Boolean ],
-     *      easeType: [ String ],
-     *      lerpConfig: [ Number ],
-     *      springConfig: [ String ],
-     *      opacityEnd: [ Number ],
-     *      opacityStart: [ Number ],
-     *      limiterOff: [ Boolean ],
-     *      perspective: [ Number ],
-     *      disableForce3D: [ Boolean ],
-     *      useThrottle: [ Boolean ],
-     *  });
-     *
-     *
-     *
-     *  Scrolltrigger property schema:
-     *
-     *
-     *  const myScrollTrigger = new MobScroller({
-     *      item: String | Element,
-     *      applyTo: [ String | Element ],
-     *      trigger: [ String | Element ],
-     *      screen: [ String | Element ],
-     *      scroller: [ String | Element ],
-     *      breakpoint: [ String ],
-     *      queryType: [ String ],
-     *      direction: [ String ],
-     *      propierties: [ String ],
-     *      tween: [ MobSequencer | MobScrollerTween ],
-     *      range: [ String ],
-     *      dynamicRange: [ Function ],
-     *      fromTo: [ Boolean ],
-     *      start: [ String ],
-     *      dynamicStart: {
-     *         position: [ String ],
-     *         value: [ Function ]
-     *      },
-     *      end: [ String ],
-     *      dynamicEnd: {
-     *         position: [ String ],
-     *         value: [ Function ]
-     *      },
-     *      ease: [ Boolean ],
-     *      easeType: [ String ],
-     *      lerpConfig: [ Number ],
-     *      springConfig: [ String ],
-     *      pin: [ Boolean ],
-     *      animatePin: [ Boolean ],
-     *      anticipatePinOnLoad: [ Boolean ],
-     *      marker: [ String ],
-     *      forceTranspond: [ Boolean ],
-     *      animateAtStart: [ Boolean ],
-     *      disableForce3D: [ Boolean ],
-     *      onEnter: [ Function ],
-     *      onEnterBack: [ Function ],
-     *      onLeave: [ Function ],
-     *      onLeaveBack: [ Function ],
-     *      onTick: [ Function ],
-     *      perspective: [ Number ],
-     *      useThrottle: [ Boolean ],
-     *  });
-     *
-     *
-     * ```
-     *
-     * @description
      * Available methods:
      *
      * ```javascript
-     *
-     *
-     * myInstance.init()
-     * myInstance.destroy()
-     * myInstance.refresh()
-     * myInstance.move()
-     *
+     * myInstance.init();
+     * myInstance.destroy();
+     * myInstance.refresh();
+     * myInstance.move();
      * ```
+     *
+     * @example
+     *     ```javascript
+     *      Parallax property schema:
+     *
+     *
+     *      const myParallax = new MobScroller({
+     *          type: 'parallax',
+     *          item: String | Element,
+     *          applyTo: [ String | Element ],
+     *          trigger: [ String | Element ],
+     *          screen: [ String | Element ],
+     *          scroller: [ String | Element ],
+     *          breakpoint: [ String ],
+     *          queryType: [ String ],
+     *          direction: [ String ],
+     *          propierties: [ String ],
+     *          tween: [ MobSequencer | MobScrollerTween ],
+     *          range: [ String | Number ],
+     *          align: [ String ],
+     *          onSwitch: [ String ],
+     *          reverse: [ Boolean ],
+     *          ease: [ Boolean ],
+     *          easeType: [ String ],
+     *          lerpConfig: [ Number ],
+     *          springConfig: [ String ],
+     *          opacityEnd: [ Number ],
+     *          opacityStart: [ Number ],
+     *          limiterOff: [ Boolean ],
+     *          perspective: [ Number ],
+     *          disableForce3D: [ Boolean ],
+     *          useThrottle: [ Boolean ],
+     *      });
+     *
+     *
+     *
+     *      Scrolltrigger property schema:
+     *
+     *
+     *      const myScrollTrigger = new MobScroller({
+     *          item: String | Element,
+     *          applyTo: [ String | Element ],
+     *          trigger: [ String | Element ],
+     *          screen: [ String | Element ],
+     *          scroller: [ String | Element ],
+     *          breakpoint: [ String ],
+     *          queryType: [ String ],
+     *          direction: [ String ],
+     *          propierties: [ String ],
+     *          tween: [ MobSequencer | MobScrollerTween ],
+     *          range: [ String ],
+     *          dynamicRange: [ Function ],
+     *          fromTo: [ Boolean ],
+     *          start: [ String ],
+     *          dynamicStart: {
+     *             position: [ String ],
+     *             value: [ Function ]
+     *          },
+     *          end: [ String ],
+     *          dynamicEnd: {
+     *             position: [ String ],
+     *             value: [ Function ]
+     *          },
+     *          ease: [ Boolean ],
+     *          easeType: [ String ],
+     *          lerpConfig: [ Number ],
+     *          springConfig: [ String ],
+     *          pin: [ Boolean ],
+     *          animatePin: [ Boolean ],
+     *          anticipatePinOnLoad: [ Boolean ],
+     *          marker: [ String ],
+     *          forceTranspond: [ Boolean ],
+     *          animateAtStart: [ Boolean ],
+     *          disableForce3D: [ Boolean ],
+     *          onEnter: [ Function ],
+     *          onEnterBack: [ Function ],
+     *          onLeave: [ Function ],
+     *          onLeaveBack: [ Function ],
+     *          onTick: [ Function ],
+     *          perspective: [ Number ],
+     *          useThrottle: [ Boolean ],
+     *      });
+     *
+     *
+     *     ```;
+     *
+     * @param {import('./type.js').MobScrollerCommon &
+     *     import('./type.js').Parallax &
+     *     import('./type.js').ScrollTrigger} data
      */
 
     constructor(data) {
@@ -868,12 +810,9 @@ export default class MobScroller {
         );
 
         /**
-         * @description
-         * Get properties, check if there is sequencer inside a Parallax,
-         * In case return y propierties
+         * Get properties, check if there is sequencer inside a Parallax, In case return y propierties
          *
-         * In case of scrollTrigger if no propierties is specified skip render.
-         * Use scrollTrigger only for check events.
+         * In case of scrollTrigger if no propierties is specified skip render. Use scrollTrigger only for check events.
          */
         const { propierties, shouldTrackOnlyEvents } =
             scrollerPropiertiesIsValid(
@@ -896,8 +835,7 @@ export default class MobScroller {
         );
 
         /**
-         * Check if ease is spring and tween is a sequencer.
-         * Not allowed.
+         * Check if ease is spring and tween is a sequencer. Not allowed.
          */
         if (
             tweenIsSequencer &&
@@ -935,7 +873,6 @@ export default class MobScroller {
     }
 
     /**
-     * @description
      * Initialize instance
      */
     init() {
@@ -970,20 +907,19 @@ export default class MobScroller {
         }
 
         /**
-         * If scroller is !== window the instance is controlled by another component
-         * Use move() methods to control children
+         * If scroller is !== window the instance is controlled by another component Use move() methods to control
+         * children
          */
         if (this.#ease) {
             /**
-             *  Force transform3D onscroll start
+             * Force transform3D onscroll start
              */
             this.#unsubscribeScrollStart = MobCore.useScrollStart(() => {
                 if (!this.#disableForce3D) this.#force3D = true;
             });
 
             /**
-             * Avoid error with scroll module operation
-             * Clean render at the end of the scroll
+             * Avoid error with scroll module operation Clean render at the end of the scroll
              */
             this.#unsubscribeScrollEnd = MobCore.useScrollEnd(() => {
                 MobCore.useFrame(() => {
@@ -1088,26 +1024,20 @@ export default class MobScroller {
     }
 
     /**
-     * @description
-     *
-     * @param {HTMLElement|globalThis} scroller
+     * @param {HTMLElement | globalThis} scroller
      */
     setScroller(scroller) {
         this.#scroller = domNodeIsValidAndReturnElOrWin(scroller, true);
     }
 
     /**
-     * @description
-     *
-     * @param {HTMLElement|globalThis} screen
+     * @param {HTMLElement | globalThis} screen
      */
     setScreen(screen) {
         this.#screen = domNodeIsValidAndReturnElOrWin(screen, true);
     }
 
     /**
-     * @description
-     *
      * @param {string} direction
      */
     setDirection(direction) {
@@ -1115,8 +1045,6 @@ export default class MobScroller {
     }
 
     /**
-     * @description
-     *
      * @param {import('../../utils/type.js').MqValues} breakpoint
      */
     setBreakPoint(breakpoint) {
@@ -1128,8 +1056,6 @@ export default class MobScroller {
     }
 
     /**
-     * @description
-     *
      * @param {import('../../utils/type.js').MqAction} queryType
      */
     setQueryType(queryType) {
@@ -1155,9 +1081,6 @@ export default class MobScroller {
         }
     }
 
-    /**
-     *
-     */
     #setMotion() {
         const initialValue =
             MobScrollerConstant.PROP_SCALE ||
@@ -1231,9 +1154,6 @@ export default class MobScroller {
         }
     }
 
-    /**
-     *
-     */
     #calcRangeAndUnitMiusure() {
         if (this.#dynamicRange) {
             const range = this.#dynamicRange();
@@ -1247,8 +1167,7 @@ export default class MobScroller {
             const isNegative = firstChar === '-' ? -1 : 1;
 
             /**
-             * Check if px|vw|deg or other is associated with the right props
-             * Ex: rotate have a value like '45deg'
+             * Check if px|vw|deg or other is associated with the right props Ex: rotate have a value like '45deg'
              */
             const strParsed = checkStringRangeOnPropierties(
                 str,
@@ -1270,9 +1189,6 @@ export default class MobScroller {
         }
     }
 
-    /**
-     *
-     */
     #calcFixedLimit() {
         const screenUnit = this.#scrollerHeight / 100;
 
@@ -1378,9 +1294,6 @@ export default class MobScroller {
         if (this.#invertSide) this.#startPoint -= this.#height;
     }
 
-    /**
-     *
-     */
     #setMarker() {
         if (this.#marker) {
             // Add Marker
@@ -1400,9 +1313,6 @@ export default class MobScroller {
         }
     }
 
-    /**
-     *
-     */
     #calcOffset() {
         const el = this.#trigger ?? this.#item;
 
@@ -1420,6 +1330,7 @@ export default class MobScroller {
 
         /**
          * Reset transform for get right offset value if transform is applied itself
+         *
          * @ts-ignore all element is not window ( check the if statement ).
          */
         el.style.transform = '';
@@ -1429,23 +1340,23 @@ export default class MobScroller {
                 this.#scroller === globalThis
                     ? Math.trunc(offset(el).top)
                     : Math.trunc(offset(el).top) -
-                      offset(/** @type{HTMLElement} */ (this.#scroller)).top;
+                      offset(/** @type {HTMLElement} */ (this.#scroller)).top;
         } else {
             this.#offset =
                 this.#scroller === globalThis
                     ? Math.trunc(offset(el).left)
                     : Math.trunc(offset(el).left) -
-                      offset(/** @type{HTMLElement} */ (this.#scroller)).left;
+                      offset(/** @type {HTMLElement} */ (this.#scroller)).left;
         }
 
         if (this.#screen && this.#screen !== globalThis) {
             this.#offset -=
                 this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
                     ? Math.trunc(
-                          offset(/** @type{HTMLElement} */ (this.#screen)).top
+                          offset(/** @type {HTMLElement} */ (this.#screen)).top
                       )
                     : Math.trunc(
-                          position(/** @type{HTMLElement} */ (this.#screen))
+                          position(/** @type {HTMLElement} */ (this.#screen))
                               .left
                       );
         }
@@ -1455,9 +1366,6 @@ export default class MobScroller {
         }
     }
 
-    /**
-     *
-     */
     #calcScreenPosition() {
         if (this.#screen === globalThis || !this.#screen) return;
 
@@ -1467,16 +1375,13 @@ export default class MobScroller {
         this.#screenPosition =
             this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
                 ? Math.trunc(
-                      offset(/** @type{HTMLElement} */ (this.#screen)).top
+                      offset(/** @type {HTMLElement} */ (this.#screen)).top
                   )
                 : Math.trunc(
-                      position(/** @type{HTMLElement} */ (this.#screen)).left
+                      position(/** @type {HTMLElement} */ (this.#screen)).left
                   );
     }
 
-    /**
-     *
-     */
     #calcHeight() {
         const el = this.#trigger ?? this.#item;
 
@@ -1488,9 +1393,6 @@ export default class MobScroller {
                 : Math.trunc(el.offsetWidth);
     }
 
-    /**
-     *
-     */
     #calcWidth() {
         const el = this.#trigger ?? this.#item;
 
@@ -1502,9 +1404,6 @@ export default class MobScroller {
                 : Math.trunc(el.offsetHeight);
     }
 
-    /**
-     *
-     */
     #getScrollerOffset() {
         if (!this.#scroller) return;
 
@@ -1516,14 +1415,11 @@ export default class MobScroller {
         } else {
             this.#scrollerScroll =
                 this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
-                    ? -offset(/** @type{HTMLElement} */ (this.#scroller)).top
-                    : -offset(/** @type{HTMLElement} */ (this.#scroller)).left;
+                    ? -offset(/** @type {HTMLElement} */ (this.#scroller)).top
+                    : -offset(/** @type {HTMLElement} */ (this.#scroller)).left;
         }
     }
 
-    /**
-     *
-     */
     #getScreenHeight() {
         if (!this.#screen) return;
 
@@ -1549,7 +1445,6 @@ export default class MobScroller {
     }
 
     /**
-     * @description
      * Recalculate positions and align all values
      */
     refresh() {
@@ -1607,35 +1502,29 @@ export default class MobScroller {
     }
 
     /**
-     * @description
-     * Method used to control the instance from the outside.
-     * The methods accept two parameters:
+     * Method used to control the instance from the outside. The methods accept two parameters:
      *
-     * `value`: The scroll position of the parent.
-     * If no value is provided, the instance will calculate it autonomously.
+     * `value`: The scroll position of the parent. If no value is provided, the instance will calculate it autonomously.
      *
-     * `parentIsMoving`: Value that indicates if the component using the method is moving.
-     * The value is used to manage the addition of the translate3D property.
-     * The default value is false
-     *
+     * `parentIsMoving`: Value that indicates if the component using the method is moving. The value is used to manage
+     * the addition of the translate3D property. The default value is false
      *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * Control the instance from another scrollTrigger:
+     *     Control the instance from another scrollTrigger:
      *
-     * const myScroller = mobbu.createScrollTrigger({
-     *     ...
-     *     onTick: ({ value, parentIsMoving }) => {
-     *         myInstance.move({ value, parentIsMoving });
-     *     },
-     *     ...
-     * });
-     * ```
+     *     const myScroller = mobbu.createScrollTrigger({
+     *         ...
+     *         onTick: ({ value, parentIsMoving }) => {
+     *             myInstance.move({ value, parentIsMoving });
+     *         },
+     *         ...
+     *     });
+     *     ```;
      *
      * @param {import('./type.js').MobScrollerMove} obj
-     *
      */
     move({ value, parentIsMoving = false }) {
         if (!mq[this.#queryType](this.#breakpoint) || !value) return;
@@ -1653,9 +1542,7 @@ export default class MobScroller {
     }
 
     /**
-     * @description
-     * Trigger scrollStart event
-     * Used by smoothScroll to activate 3D if child (this) have ease = true
+     * Trigger scrollStart event Used by smoothScroll to activate 3D if child (this) have ease = true
      */
     triggerScrollStart() {
         if (!this.#ease) return;
@@ -1663,9 +1550,7 @@ export default class MobScroller {
     }
 
     /**
-     * @description
-     * Trigger scrollEnd event
-     * Used by smoothScroll to deactivate 3D if child (this) have ease = false
+     * Trigger scrollEnd event Used by smoothScroll to deactivate 3D if child (this) have ease = false
      */
     triggerScrollEnd() {
         if (this.#ease) return;
@@ -1674,7 +1559,7 @@ export default class MobScroller {
     }
 
     /**
-     * @param {number|undefined} value
+     * @param {number | undefined} value
      */
     #getScrollValueOnMove(value) {
         if (value === undefined) return;
@@ -1684,7 +1569,6 @@ export default class MobScroller {
     }
 
     /**
-     * @description
      * Stop lerp|spring tween.
      */
     stopMotion() {
@@ -1692,7 +1576,7 @@ export default class MobScroller {
     }
 
     /**
-     * @param {number} [ scrollVal ]
+     * @param {number} [scrollVal]
      */
     #updateEndValue(scrollVal) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
@@ -1770,7 +1654,7 @@ export default class MobScroller {
     }
 
     /**
-     * @param {number} [ scrollVal ]
+     * @param {number} [scrollVal]
      */
     #easeRender(scrollVal) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
@@ -1807,8 +1691,8 @@ export default class MobScroller {
 
     /**
      * @param {object} params
-     * @param {boolean} [ params.forceRender ]
-     * @param {boolean} [ params.parentIsMoving ]
+     * @param {boolean} [params.forceRender]
+     * @param {boolean} [params.parentIsMoving]
      * @returns {void}
      */
     #noEasingRender({ forceRender = false, parentIsMoving = false } = {}) {
@@ -1864,9 +1748,6 @@ export default class MobScroller {
         });
     }
 
-    /**
-     *
-     */
     #getFixedValue() {
         const partials = this.#invertSide
             ? -(
@@ -1976,9 +1857,6 @@ export default class MobScroller {
         }
     }
 
-    /**
-     *
-     */
     #getOpacityValue() {
         const vhLimit = (this.#scrollerHeight / 100) * this.#opacityEnd;
         const vhStart =
@@ -1998,9 +1876,6 @@ export default class MobScroller {
         return clamp(valClamped, 0, 1);
     }
 
-    /**
-     *
-     */
     #getIsNaNValue() {
         const valuetoNumber = Number(this.#range);
         const rangeNumber = Number.isNaN(valuetoNumber) ? 0 : valuetoNumber;
@@ -2056,7 +1931,6 @@ export default class MobScroller {
     }
 
     /**
-     *
      * Here the value is a number.
      */
     #getIsANumberValue() {
@@ -2114,8 +1988,7 @@ export default class MobScroller {
             this.#willChangeIsActive && this.#force3D ? 'transform' : '';
 
         /**
-         * If frame drop a little (1/5) remove decimal.
-         * Used by transform ( not scale ).
+         * If frame drop a little (1/5) remove decimal. Used by transform ( not scale ).
          */
         const valueParsed = MobCore.shouldMakeSomething()
             ? Math.round(value)
@@ -2212,10 +2085,9 @@ export default class MobScroller {
     }
 
     /**
-     * @description
      * Reset sequencer/parallaxTween style
      *
-     * @param {HTMLElement|null} item
+     * @param {HTMLElement | null} item
      */
     #resetTweenStyle(item) {
         // @ts-ignore
@@ -2223,7 +2095,6 @@ export default class MobScroller {
     }
 
     /**
-     * @description
      * Reset default style
      */
     #getResetStyle() {
@@ -2253,7 +2124,6 @@ export default class MobScroller {
     }
 
     /**
-     * @description
      * Destroy instance
      */
     destroy() {

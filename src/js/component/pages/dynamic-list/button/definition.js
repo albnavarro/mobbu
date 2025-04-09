@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { DynamicListButtonFn } from './dynamic-list-button';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const DynamicListButton = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').DynamicListButton>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListButton>} */
     ({
         name: 'dynamic-list-button',
         component: DynamicListButtonFn,

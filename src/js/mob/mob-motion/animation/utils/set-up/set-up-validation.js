@@ -277,16 +277,14 @@ export const setupValidation = (obj) => {
 };
 
 /**
+ * Check if prop valid
+ *
  * @param {Object} obj
  * @param {any} obj.prop
  * @param {any} obj.value
  * @param {any} obj.defaultValue
  * @param {any} obj.type
- *
- * @returns any
- *
- * @description
- * Check if prop valid
+ * @returns Any
  */
 const checkSetUpType = ({ prop, value, defaultValue, type }) => {
     const isValid = MobCore.checkType(type, value);
@@ -302,8 +300,7 @@ const checkSetUpType = ({ prop, value, defaultValue, type }) => {
 
 /**
  * @param {Record<string, any>} obj
- *
- * @returns any
+ * @returns Any
  */
 const checkSetUpMq = (obj) => {
     const isValid =
@@ -321,10 +318,9 @@ const checkSetUpMq = (obj) => {
 };
 
 /**
- * @param {string|undefined} value
+ * @param {string | undefined} value
  * @param {string} label
- *
- * @returns string
+ * @returns String
  */
 export const checkSetUpEase = (value, label) => {
     // @ts-ignore

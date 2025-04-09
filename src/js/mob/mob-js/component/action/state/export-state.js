@@ -5,8 +5,8 @@ import { getComponentList } from '../../component-list';
 /**
  * @param {object} obj
  * @param {string} obj.componentName
- * @param {{string:any}|{}} obj.currentProps
- * @returns {{string:any}|{}}
+ * @param {{ string: any } | {}} obj.currentProps
+ * @returns {{ string: any } | {}}
  */
 export const filterExportableStateFromObject = ({
     componentName,

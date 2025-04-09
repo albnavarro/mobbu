@@ -7,7 +7,8 @@
 
     &__content {
         flex: auto;
-        background: radial-gradient(
+        background:
+            radial-gradient(
                 farthest-side at bottom left,
                 rgba($white, 1),
                 transparent

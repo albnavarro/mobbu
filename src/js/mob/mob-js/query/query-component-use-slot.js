@@ -8,7 +8,7 @@ import { walkPreOrder } from './query-all-future-component';
 
 /**
  * @param {Element} root
- * @returns {Array<HTMLElement>}
+ * @returns {HTMLElement[]}
  */
 function selectAll(root) {
     const result = [];
@@ -22,7 +22,7 @@ function selectAll(root) {
 
 /**
  * @param {Element} node
- * @returns {Array<Element>}
+ * @returns {Element[]}
  */
 export const queryComponentUseSlot = (node) => {
     /** @type {any[]} */

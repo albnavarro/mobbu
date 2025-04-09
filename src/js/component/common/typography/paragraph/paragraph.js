@@ -2,7 +2,7 @@
 
 import { html } from '@mobJs';
 
-/** @type {import("@mobJsType").MobComponent<import("./type").Paragraph>} */
+/** @type {import('@mobJsType').MobComponent<import('./type').Paragraph>} */
 export const ParagraphFn = ({ getState }) => {
     const { style, color, boxed, note } = getState();
     const colorClass = `is-${color}`;

@@ -5,8 +5,8 @@ import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial'
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 
 /**
- * @import { MobComponent, ReturnBindProps } from '@mobJsType';
- * @import { BenchMarkFakeComponent } from '../fake-component/type';
+ * @import {MobComponent, ReturnBindProps} from '@mobJsType';
+ * @import {BenchMarkFakeComponent} from '../fake-component/type';
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
@@ -61,7 +61,7 @@ export const BenchMarkRepeatWithKyFn = ({
                         <benchmark-fake-component
                             class="old"
                             ${bindProps(
-                                /** @returns{ReturnBindProps<BenchMarkFakeComponent>} */
+                                /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
                                 () => ({
                                     index: current.index,
                                     label: current.value.label,

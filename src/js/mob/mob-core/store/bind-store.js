@@ -5,7 +5,7 @@ import { checkType } from './store-type';
  * @param {object} params
  * @param {string} params.selfId
  * @param {string} params.bindId
- * @returns { void }
+ * @returns {void}
  */
 const addSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
     const state = getStateFromMainMap(bindId);
@@ -24,7 +24,7 @@ const addSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
  * @param {object} params
  * @param {string} params.selfId
  * @param {string} params.bindId
- * @returns { void }
+ * @returns {void}
  */
 export const removeSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
     const state = getStateFromMainMap(bindId);
@@ -41,9 +41,9 @@ export const removeSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
 
 /**
  * @param {object} params
- * @param {import("./type").BindStoreValueType} params.value
+ * @param {import('./type').BindStoreValueType} params.value
  * @param {string} params.instanceId
- * @returns { void }
+ * @returns {void}
  */
 export const bindStoreEntryPoint = ({ value, instanceId }) => {
     const state = getStateFromMainMap(instanceId);
@@ -52,7 +52,7 @@ export const bindStoreEntryPoint = ({ value, instanceId }) => {
     const { bindInstance } = state;
     if (!bindInstance) return;
 
-    /** @type{string[]} */
+    /** @type {string[]} */
     const ids = checkType(Array, value)
         ? // @ts-ignore
           value.map((/** @type {getIdI: () => string} */ store) =>

@@ -3,11 +3,11 @@
 import { html } from '@mobJs';
 
 /**
- * @import { MobComponent } from "@mobJsType";
- * @import { MatrioskaItem } from "./type";
- **/
+ * @import {MobComponent} from "@mobJsType";
+ * @import {MatrioskaItem} from "./type";
+ */
 
-/** @type { MobComponent<MatrioskaItem> } */
+/** @type {MobComponent<MatrioskaItem>} */
 export const MatrioskaItemFn = ({ getProxi, bindText, id, bindEffect }) => {
     const proxi = getProxi();
 

@@ -3,11 +3,10 @@
 import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
 
 /**
- * @description
  * Set initialized to true.
  *
  * @param {object} params
- * @param {string} params.repeatId - repeatId
+ * @param {string} params.repeatId - RepeatId
  * @returns {void}
  */
 export const setRepeaterPlaceholderMapInitialized = ({ repeatId }) => {

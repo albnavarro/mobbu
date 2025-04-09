@@ -4,12 +4,11 @@ import { invalidateIdHostMap } from '../invalidate-id-host-map';
 import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
 
 /**
- * @description
  * Get invalidate parent by invalidate id.
  *
  * @param {object} params
  * @param {string} params.id
- * @returns {HTMLElement|undefined}
+ * @returns {HTMLElement | undefined}
  */
 
 export const getInvalidateParent = ({ id }) => {

@@ -12,7 +12,7 @@ import {
     getOffsetCanvas,
 } from '@utils/canvas-utils';
 
-/** @type{import('../type').CaterpillarN1Animation} */
+/** @type {import('../type').CaterpillarN1Animation} */
 export const caterpillarN1Animation = ({
     canvas,
     numItems,
@@ -52,9 +52,6 @@ export const caterpillarN1Animation = ({
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    /**
-     *
-     */
     let squareData = [...Array.from({ length: numItems }).keys()].map(
         (_item, i) => {
             const relativeIndex =
@@ -126,7 +123,7 @@ export const caterpillarN1Animation = ({
 
         const context = useOffscreen
             ? offScreenCtx
-            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+            : /** @type {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} */ (
                   ctx
               );
 

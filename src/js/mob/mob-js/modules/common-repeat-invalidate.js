@@ -8,16 +8,15 @@ export const MODULE_REPEATER = 'repeater';
 export const MODULE_INVALIDATE = 'invalidate';
 
 /**
- * @description
  * Get all repeat or invalidate inside HTMLElement
  *
  * @param {object} params
  * @param {HTMLElement} params.element
- * @param {boolean} [ params.skipInitialized ]
- * @param {boolean} [ params.onlyInitialized ]
- * @param {string} [ params.componentId ]
+ * @param {boolean} [params.skipInitialized]
+ * @param {boolean} [params.onlyInitialized]
+ * @param {string} [params.componentId]
  * @param {string} params.module
- * @returns {{id: string, parent:HTMLElement|undefined}[]}
+ * @returns {{ id: string; parent: HTMLElement | undefined }[]}
  */
 export const getRepeatOrInvalidateInsideElement = ({
     element,
@@ -36,8 +35,8 @@ export const getRepeatOrInvalidateInsideElement = ({
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             ([_id, { element: currentElement, initialized, scopeId }]) => {
                 /**
-                 * When destroy nested repat compare the the scope id is the same or a parent id
-                 * Check only repeate descendants by scopeId
+                 * When destroy nested repat compare the the scope id is the same or a parent id Check only repeate
+                 * descendants by scopeId
                  */
                 if (
                     componentId &&
@@ -49,14 +48,12 @@ export const getRepeatOrInvalidateInsideElement = ({
                     return;
 
                 /**
-                 * Only not initialized.
-                 * Use on create nested modules
+                 * Only not initialized. Use on create nested modules
                  */
                 if (skipInitialized && initialized) return false;
 
                 /**
-                 * Only initialized.
-                 * Use on destroy nested modules
+                 * Only initialized. Use on destroy nested modules
                  */
                 if (onlyInitialized && !initialized) return false;
 

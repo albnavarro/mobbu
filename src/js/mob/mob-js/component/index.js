@@ -7,12 +7,10 @@ import { componentMap } from './store';
 import { addPropsToState } from './utils';
 
 /**
+ * Add component to store.
+ *
  * @param {import('./type').ComponentStoreInput} params
  * @returns {import('./type').ComponentStoreReturn}
- *
- *
- * @description
- * Add component to store.
  */
 export const addComponentToStore = ({
     element,

@@ -3,13 +3,11 @@
 /**
  * @template T
  * @param {T} fn
- * @param {number} [ time ]
+ * @param {number} [time]
  * @returns T
- *
- * @description
  */
 export const debounceFuncion = function debounce(fn, time = 200) {
-    /** @type{number} */
+    /** @type {number} */
     let timeout;
 
     return function () {

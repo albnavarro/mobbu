@@ -4,12 +4,10 @@ import { getUnivoqueId } from '../../utils';
 import { eventStore } from '../event-store';
 
 /**
- * @type {number}
+ * Increment and decrement when we add or fire a item. hadleFrame use that to check if the requestAnimationFrame have to
+ * go on. Indeicate fi there is frame to render.
  *
- * @description
- * Increment and decrement when we add or fire a item.
- * hadleFrame use that to check if the requestAnimationFrame have to go on.
- * Indeicate fi there is frame to render.
+ * @type {number}
  */
 let cacheCoutner = 0;
 
@@ -19,12 +17,11 @@ let cacheCoutner = 0;
 const subscriberMap = new Map();
 
 /**
- * @param {Object|HTMLElement} el
- * @param {(arg0: any, arg1: Object|HTMLElement) => void} fn
- * @returns {{id:string,unsubscribe:() => void}}
- *
- * @description
  * Add new item to cache.
+ *
+ * @param {Object | HTMLElement} el
+ * @param {(arg0: any, arg1: Object | HTMLElement) => void} fn
+ * @returns {{ id: string; unsubscribe: () => void }}
  */
 const add = (el = {}, fn = () => {}) => {
     const id = getUnivoqueId();
@@ -57,14 +54,13 @@ const add = (el = {}, fn = () => {}) => {
 };
 
 /**
+ * Add new data on existing id in a specific frame.
+ *
  * @param {Object} obj
  * @param {string} obj.id
  * @param {Record<string, number>} obj.callBackObject
  * @param {number} obj.frame
- * @returns void
- *
- * @description
- * Add new data on existing id in a specific frame.
+ * @returns Void
  */
 const update = ({ id, callBackObject, frame }) => {
     if (!subscriberMap.has(id)) return;
@@ -76,9 +72,7 @@ const update = ({ id, callBackObject, frame }) => {
     const { data } = item;
 
     /**
-     * If frame is overridden the counter is not synchronized with real
-     * number of callback.
-     * So skip.
+     * If frame is overridden the counter is not synchronized with real number of callback. So skip.
      */
     if (data.has(frame + currentFrame)) return;
 
@@ -87,23 +81,21 @@ const update = ({ id, callBackObject, frame }) => {
 };
 
 /**
+ * Remove item from cache.
+ *
  * @memberof module:handleCache
  * @param {string} id
- * @returns void
- *
- * @description
- * Remove item from cache.
+ * @returns Void
  */
 const remove = (id) => {
     if (subscriberMap.has(id)) subscriberMap.delete(id);
 };
 
 /**
- * @param {string} id
- * @returns void
- *
- * @description
  * Reset item data
+ *
+ * @param {string} id
+ * @returns Void
  */
 const clean = (id) => {
     const el = subscriberMap.get(id);
@@ -119,23 +111,21 @@ const clean = (id) => {
 };
 
 /**
+ * Get item object
+ *
  * @memberof module:handleCache
  * @param {string} id
- * @returns {import('./type').HandleCacheSubscriberValue|{}}
- *
- * @description
- * Get item object
+ * @returns {import('./type').HandleCacheSubscriberValue | {}}
  */
 const get = (id) => {
     return subscriberMap.get(id) ?? {};
 };
 
 /**
- * @param {number} frameCounter - frame to render.
- * @returns void
- *
- * @description
  * Render obj on specific frame and delete rendered object.
+ *
+ * @param {number} frameCounter - Frame to render.
+ * @returns Void
  */
 const fire = (frameCounter) => {
     for (const value of subscriberMap.values()) {
@@ -152,13 +142,12 @@ const fire = (frameCounter) => {
 };
 
 /**
+ * Render immediately obj using existing id/function
+ *
  * @param {Object} obj
  * @param {string} obj.id
  * @param {Record<string, number>} obj.obj
- * @returns void
- *
- * @description
- * Render immediately obj using existing id/function
+ * @returns Void
  */
 const fireObject = ({ id, obj = {} }) => {
     if (!subscriberMap.has(id)) return;
@@ -171,18 +160,16 @@ const fireObject = ({ id, obj = {} }) => {
 };
 
 /**
- * @returns {number}
- *
- * @description
  * Get current number of frame to render.
+ *
+ * @returns {number}
  */
 const getCacheCounter = () => cacheCoutner;
 
 /**
- * @param {number} maxFramecounter
- *
- * @description
  * When frameCounter become too big reset and recalculate all the frame values.
+ *
+ * @param {number} maxFramecounter
  */
 const updateFrameId = (maxFramecounter) => {
     for (const [key, value] of subscriberMap) {
@@ -199,7 +186,6 @@ const updateFrameId = (maxFramecounter) => {
 };
 
 /**
- * @description
  * @module handleCache
  */
 export const handleCache = (() => {

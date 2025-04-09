@@ -1,19 +1,19 @@
 // @ts-check
 
 /**
- * @import { MobComponent, UseMethodByName } from '@mobJsType';
- **/
+ * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ */
 
 import { html, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../../constant';
 
 const updateId = (id = '') => {
-    /** @type{UseMethodByName<import('../../debug-component/type').DebugComponent>} */
+    /** @type {UseMethodByName<import('../../debug-component/type').DebugComponent>} */
     const methods = MobJs.useMethodByName('debug_component');
     methods?.updateId(id ?? '');
 };
 
-/** @type{MobComponent<import('./type').DebugSearch>} */
+/** @type {MobComponent<import('./type').DebugSearch>} */
 export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
     return html`<div class="c-debug-search">
         <div>
@@ -25,11 +25,11 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                 type="text"
                 ${setRef('id_input')}
                 ${delegateEvents({
-                    keypress: (/** @type{KeyboardEvent} */ event) => {
+                    keypress: (/** @type {KeyboardEvent} */ event) => {
                         if (event.code.toLowerCase() === 'enter') {
                             event.preventDefault();
 
-                            const id = /** @type{HTMLInputElement} */ (
+                            const id = /** @type {HTMLInputElement} */ (
                                 event.target
                             ).value;
 
@@ -44,7 +44,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                 ${delegateEvents({
                     click: () => {
                         const { id_input } = getRef();
-                        const id = /** @type{HTMLInputElement} */ (id_input)
+                        const id = /** @type {HTMLInputElement} */ (id_input)
                             .value;
 
                         updateId(id);
@@ -63,12 +63,12 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                 type="text"
                 ${setRef('instance_input')}
                 ${delegateEvents({
-                    keypress: (/** @type{KeyboardEvent} */ event) => {
+                    keypress: (/** @type {KeyboardEvent} */ event) => {
                         if (event.code.toLowerCase() === 'enter') {
                             event.preventDefault();
 
                             const instanceName =
-                                /** @type{HTMLInputElement} */ (event.target)
+                                /** @type {HTMLInputElement} */ (event.target)
                                     .value;
 
                             const id = MobJs.getIdByInstanceName(instanceName);
@@ -119,7 +119,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                     type="button"
                     ${delegateEvents({
                         click: () => {
-                            /** @type{UseMethodByName<import('../../debug-component/type').DebugComponent>} */
+                            /** @type {UseMethodByName<import('../../debug-component/type').DebugComponent>} */
                             const methods =
                                 MobJs.useMethodByName('debug_component');
                             methods?.refreshId();

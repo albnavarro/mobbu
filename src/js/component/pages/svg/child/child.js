@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent, SetRef } from '@mobJsType';
- * @import { SvgChild } from './type';
- **/
+ * @import {MobComponent, SetRef} from '@mobJsType';
+ * @import {SvgChild} from './type';
+ */
 
 import { html } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
@@ -78,7 +78,7 @@ export const SvgChildFn = ({ onMount, getState, getRef, setRef }) => {
         } = getRef();
 
         const childMethods = childAnimations({
-            groups: /** @type{HTMLElement[]} */ ([...stagger]),
+            groups: /** @type {HTMLElement[]} */ ([...stagger]),
             trails: [
                 trail0,
                 trail1,

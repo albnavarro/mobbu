@@ -4,7 +4,7 @@ import { loadJsonContent, loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([AboutComponent]);
 
-/** @type{import('@mobJsType').PageAsync} */
+/** @type {import('@mobJsType').PageAsync} */
 export const layoutAbout = async () => {
     const { data } = await loadJsonContent({
         source: './data/about/index.json',
@@ -16,7 +16,7 @@ export const layoutAbout = async () => {
 
     return html`<about-component
         ${MobJs.staticProps(
-            /** @type{import('@pagesComponent/about/type').About['state']} */
+            /** @type {import('@pagesComponent/about/type').About['state']} */
             ({
                 block_1: data.block_1,
                 block_2: data.block_2,

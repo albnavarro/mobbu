@@ -2,15 +2,14 @@
 import { mobStore } from '../store';
 
 /**
- * @import { MobStoreParams, MobStoreReturnType} from "../store/type".MobStore;
- **/
+ * @import {MobStoreParams, MobStoreReturnType} from "../store/type".MobStore;
+ */
 
-/** @type{MobStoreReturnType<import('./type').EventStore>} */
+/** @type {MobStoreReturnType<import('./type').EventStore>} */
 export const eventStore = mobStore(
-    /** @type{MobStoreParams<import('./type').EventStore>} */
+    /** @type {MobStoreParams<import('./type').EventStore>} */
     ({
         /**
-         * @description
          * Use passive event.
          */
         usePassive: () => ({
@@ -19,7 +18,6 @@ export const eventStore = mobStore(
         }),
 
         /**
-         * @description
          * Frame Event
          */
         currentFrame: () => ({
@@ -28,7 +26,6 @@ export const eventStore = mobStore(
         }),
 
         /**
-         * @description
          * Initial fps value
          */
         instantFps: () => ({
@@ -37,7 +34,6 @@ export const eventStore = mobStore(
         }),
 
         /**
-         * @description
          * Trigger nexFrame
          */
         requestFrame: () => ({
@@ -46,7 +42,6 @@ export const eventStore = mobStore(
         }),
 
         /**
-         * @description
          * Send nextTick on next loop
          */
         deferredNextTick: () => ({
@@ -55,7 +50,6 @@ export const eventStore = mobStore(
         }),
 
         /**
-         * @description
          * Throttle scroll value
          */
         throttle: () => ({
@@ -64,7 +58,6 @@ export const eventStore = mobStore(
         }),
 
         /**
-         * @description
          * Mouse wheell spinY max value ( 2.5 | -2.5 )
          */
         spinYMaxValue: () => ({
@@ -73,7 +66,6 @@ export const eventStore = mobStore(
         }),
 
         /**
-         * @description
          * Mouse wheell spinX max value ( 2.5 | -2.5 )
          */
         spinXMaxValue: () => ({

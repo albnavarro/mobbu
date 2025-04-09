@@ -7,12 +7,12 @@ import { MatrioskaFn } from './matrioska';
 import { MatrioskaItem } from './item/definition';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 /**
- * @param {Array<{key:number, value:string}>} array
- * @returns {Array<{key:number, value:string}>}
+ * @param {{ key: number; value: string }[]} array
+ * @returns {{ key: number; value: string }[]}
  */
 const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -23,7 +23,7 @@ const shuffle = (array) => {
 };
 
 export const Matrioska = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').Matrioska>} */
+    /** @type {CreateComponentParams<import('./type').Matrioska>} */
     ({
         name: 'page-matrioska',
         component: MatrioskaFn,

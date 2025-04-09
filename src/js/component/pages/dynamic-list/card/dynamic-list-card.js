@@ -1,12 +1,12 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps, StaticProps, DelegateEvents  } from '@mobJsType';
- * @import { DynamicListCardInner } from './innerCard/type';
- * @import { DynamicListCard } from './type';
- * @import { DynamicCounter } from '../counter/type';
- * @import { DynamicListButton } from '../button/type';
- **/
+ * @import {MobComponent, ReturnBindProps, StaticProps, DelegateEvents} from '@mobJsType';
+ * @import {DynamicListCardInner} from './innerCard/type';
+ * @import {DynamicListCard} from './type';
+ * @import {DynamicCounter} from '../counter/type';
+ * @import {DynamicListButton} from '../button/type';
+ */
 
 import { html, MobJs } from '@mobJs';
 import { innerData } from '../data';
@@ -96,7 +96,7 @@ export const DynamicListCardFn = ({
                         },
                     })}
                     ${bindProps(
-                        /** @returns{ReturnBindProps<DynamicListButton>} */
+                        /** @returns {ReturnBindProps<DynamicListButton>} */
                         () => ({
                             active: proxi.isSelected,
                         })
@@ -118,7 +118,7 @@ export const DynamicListCardFn = ({
                             parentListId: proxi.parentListId,
                         })}
                         ${bindProps(
-                            /** @return {ReturnBindProps<DynamicCounter>} */
+                            /** @returns {ReturnBindProps<DynamicCounter>} */
                             () => ({
                                 counter: proxi.counter,
                             })
@@ -154,7 +154,7 @@ export const DynamicListCardFn = ({
                             render: ({ current }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps(
-                                        /** @return {ReturnBindProps<DynamicListCardInner>} */
+                                        /** @returns {ReturnBindProps<DynamicListCardInner>} */
                                         () => ({
                                             key: `${current.value.key}`,
                                         })
@@ -171,7 +171,7 @@ export const DynamicListCardFn = ({
                             render: ({ current }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps(
-                                        /** @return {ReturnBindProps<DynamicListCardInner>} */
+                                        /** @returns {ReturnBindProps<DynamicListCardInner>} */
                                         () => ({
                                             key: `${current.value.key}`,
                                         })

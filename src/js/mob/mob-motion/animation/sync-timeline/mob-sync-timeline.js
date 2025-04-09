@@ -13,40 +13,40 @@ import { fpsLoadedLog } from '../utils/fps-log-inizialization.js';
 
 export default class MobSyncTimeline {
     /**
-     * @param {import('./type.js').SyncTimeline} data
+     * Available methods:
+     *
+     * ```javascript
+     * myTimeline.add();
+     * myTimeline.onLoopEnd();
+     * myTimeline.onComplete();
+     * myTimeline.onUpdate();
+     * myTimeline.stop();
+     * myTimeline.play();
+     * myTimeline.playReverse();
+     * myTimeline.playFrom();
+     * myTimeline.playFromReverse();
+     * myTimeline.reverse();
+     * myTimeline.pause();
+     * myTimeline.resume();
+     * myTimeline.isActive();
+     * myTimeline.isPaused();
+     * myTimeline.getDirection();
+     * myTimeline.getTime();
+     * myTimeline.destroy();
+     * ```
      *
      * @example
-     * ```javascript
-     * const myTimeline = new HandleSyncTimeline({
-     *   duration: [ Number ],
-     *   yoyo: [ Boolean ],
-     *   repeat: [ Number ]
-     * })
+     *     ```javascript
+     *     const myTimeline = new HandleSyncTimeline({
+     *       duration: [ Number ],
+     *       yoyo: [ Boolean ],
+     *       repeat: [ Number ]
+     *     })
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Available methods:
-     * ```javascript
-     * myTimeline.add()
-     * myTimeline.onLoopEnd()
-     * myTimeline.onComplete()
-     * myTimeline.onUpdate()
-     * myTimeline.stop()
-     * myTimeline.play()
-     * myTimeline.playReverse()
-     * myTimeline.playFrom()
-     * myTimeline.playFromReverse()
-     * myTimeline.reverse()
-     * myTimeline.pause()
-     * myTimeline.resume()
-     * myTimeline.isActive()
-     * myTimeline.isPaused()
-     * myTimeline.getDirection()
-     * myTimeline.getTime()
-     * myTimeline.destroy()
-     * ```
+     * @param {import('./type.js').SyncTimeline} data
      */
     constructor(data = {}) {
         /**
@@ -187,7 +187,10 @@ export default class MobSyncTimeline {
 
         /**
          * @private
-         * @type {import('./type.js').SyncTimelineEvent<{direction: import('../utils/timeline/type.js').DirectionType, loop:number}>[]}
+         * @type {import('./type.js').SyncTimelineEvent<{
+         *     direction: import('../utils/timeline/type.js').DirectionType;
+         *     loop: number;
+         * }>[]}
          */
         this.callbackLoop = [];
 
@@ -199,7 +202,10 @@ export default class MobSyncTimeline {
 
         /**
          * @private
-         * @type {import('./type.js').SyncTimelineEvent<{time:number,direction:import('../utils/timeline/type.js').DirectionType }>[]}
+         * @type {import('./type.js').SyncTimelineEvent<{
+         *     time: number;
+         *     direction: import('../utils/timeline/type.js').DirectionType;
+         * }>[]}
          */
         this.callbackOnUpdate = [];
 
@@ -276,9 +282,8 @@ export default class MobSyncTimeline {
         this.loopIteration++;
 
         /**
-         * Loop control
-         * Check if end of time has been achieved
-         * */
+         * Loop control Check if end of time has been achieved
+         */
         if (
             partial <= this.duration - frameThreshold &&
             partial >= 0 + frameThreshold &&
@@ -340,7 +345,7 @@ export default class MobSyncTimeline {
 
         /**
          * Timelinee is ended, no repeat or loop max iteration is reached
-         **/
+         */
         if (
             !this.repeat ||
             (this.loopCounter === this.repeat - 1 &&
@@ -371,7 +376,7 @@ export default class MobSyncTimeline {
 
         /**
          * In yoyo mode time line have to reverst at the end of cycle
-         **/
+         */
         if (this.yoyo) {
             this.reverse();
             this.#goToNextFrame();
@@ -380,7 +385,7 @@ export default class MobSyncTimeline {
 
         /**
          * Reverse playing
-         **/
+         */
         if (this.isPlayngReverse) {
             this.#resetTime();
             this.startTime = time;
@@ -394,7 +399,7 @@ export default class MobSyncTimeline {
 
         /**
          * Default playing
-         **/
+         */
         this.#resetTime();
         this.startTime = time;
         if (this.isReverse) this.isPlayngReverse = !this.isPlayngReverse;
@@ -457,12 +462,12 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @type {import('./type.js').SyncTimelinePlay}
+     * Plays the timeline starting from the initial value With useCurrent set to true and with the timeline active, it
+     * will reverse the direction from the current value if it is scrolling in reverse, otherwise it will continue in
+     * the current direction. With useCurrent set to false (default) the animation will always start from frame 0
+     * towards the final value.
      *
-     * @description
-     * Plays the timeline starting from the initial value
-     * With useCurrent set to true and with the timeline active, it will reverse the direction from the current value if it is scrolling in reverse, otherwise it will continue in the current direction.
-     * With useCurrent set to false (default) the animation will always start from frame 0 towards the final value.
+     * @type {import('./type.js').SyncTimelinePlay}
      */
     play(props = {}) {
         return new Promise((resolve, reject) => {
@@ -487,24 +492,24 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @type {import('./type.js').SyncTimelinePlayFrom} value
+     * Plays the timeline forward starting from the specific time or from a label defined in a Handle Sequencer |
+     * HandleMasterSequencer instance
      *
      * @example
-     * ```javascript
-     * myTimeline.playFrom(1000).then(() => {
-     *      // code
-     * })
-
-     * myTimeline.playFrom('myLabel').then(() => {
-     *      // code
-     * })
-
+     *     ```javascript
+     *     myTimeline.playFrom(1000).then(() => {
+     *          // code
+     *     })
+     *
+     *     myTimeline.playFrom('myLabel').then(() => {
+     *          // code
+     *     })
      *
      *
-     * ```
      *
-     * @description
-     * Plays the timeline forward starting from the specific time or from a label defined in a Handle Sequencer | HandleMasterSequencer instance
+     *     ```;
+     *
+     * @type {import('./type.js').SyncTimelinePlayFrom} value
      */
     playFrom(value = 0) {
         return new Promise((resolve, reject) => {
@@ -550,24 +555,24 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @type {import('./type.js').syncTimelinePlayFromReverse} value
+     * Plays the timeline backward starting from the specific time or from a label defined in a Handle Sequencer |
+     * HandleMasterSequencer instance
      *
      * @example
-     * ```javascript
-     * myTimeline.playFromReverse(1000).then(() => {
-     *      // code
-     * })
-
-     * myTimeline.playFromReverse('myLabel').then(() => {
-     *      // code
-     * })
-
+     *     ```javascript
+     *     myTimeline.playFromReverse(1000).then(() => {
+     *          // code
+     *     })
+     *
+     *     myTimeline.playFromReverse('myLabel').then(() => {
+     *          // code
+     *     })
      *
      *
-     * ```
      *
-     * @description
-     * Plays the timeline backward starting from the specific time or from a label defined in a Handle Sequencer | HandleMasterSequencer instance
+     *     ```;
+     *
+     * @type {import('./type.js').syncTimelinePlayFromReverse} value
      */
     playFromReverse(value) {
         return new Promise((resolve, reject) => {
@@ -586,24 +591,24 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @type {import('./type.js').SyncTimelinePlayReverse} 
+     * Plays the timeline starting from the end value With useCurrent set to true and with the timeline active, it will
+     * reverse the direction from the current value if it is scrolling in reverse, otherwise it will continue in the
+     * current direction. With useCurrent set to false (default) the animation will always start from the final value
+     * towards the initial value.
      *
      * @example
-     * ```javascript
-     * myTimeline.playReverse({
-     *      useCurrent: true
-     * }).then(() => {
-     *      // code
-     * })
-
+     *     ```javascript
+     *     myTimeline.playReverse({
+     *          useCurrent: true
+     *     }).then(() => {
+     *          // code
+     *     })
      *
      *
-     * ```
      *
-     * @description
-     * Plays the timeline starting from the end value
-     * With useCurrent set to true and with the timeline active, it will reverse the direction from the current value if it is scrolling in reverse, otherwise it will continue in the current direction.
-     * With useCurrent set to false (default) the animation will always start from the final value towards the initial value.
+     *     ```;
+     *
+     * @type {import('./type.js').SyncTimelinePlayReverse}
      */
     playReverse(props = {}) {
         return new Promise((resolve, reject) => {
@@ -661,7 +666,6 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @description
      * Find label than match the occurrency and return the time
      *
      * @param {number} partial
@@ -751,11 +755,9 @@ export default class MobSyncTimeline {
         }
 
         /**
-         * Con lo stagger il render del last frame ( es senza translate3d)
-         * va in conflitto con cleanCached
-         * Il render parziale viene perso.
-         * Utitlizziamo il render onStop solo se clarCahe é diabilitato cosi
-         * da far finire in maniera naturale il tween di ogni stagger.
+         * Con lo stagger il render del last frame ( es senza translate3d) va in conflitto con cleanCached Il render
+         * parziale viene perso. Utitlizziamo il render onStop solo se clarCahe é diabilitato cosi da far finire in
+         * maniera naturale il tween di ogni stagger.
          */
 
         // Fire callbackLoop onStop of each sequencr
@@ -770,18 +772,17 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @type {import('./type.js').SyncTimelineAdd}
+     * Add the instance of a sequencer | masterSequencer to the timeline
      *
      * @example
-     * ```javascript
-     * myTimeline.add(mySequencer);
-     * myTimeline.add(myMasterSequencer);
+     *     ```javascript
+     *     myTimeline.add(mySequencer);
+     *     myTimeline.add(myMasterSequencer);
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Add the instance of a sequencer | masterSequencer to the timeline
+     * @type {import('./type.js').SyncTimelineAdd}
      */
     add(sequencer) {
         sequencer.setStretchFactor(this.duration);
@@ -807,51 +808,48 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @type {import('./type.js').SyncTimelineIsActive}
+     * Return active status
      *
      * @example
-     * ```javascript
-     * const isActive = myTimeline.isActive();
+     *     ```javascript
+     *     const isActive = myTimeline.isActive();
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Return active status
+     * @type {import('./type.js').SyncTimelineIsActive}
      */
     isActive() {
         return !this.isStopped;
     }
 
     /**
-     * @type {import('./type.js').SyncTimelineIsPaused}
+     * Return pause status
      *
      * @example
-     * ```javascript
-     * const isPaused = myTimeline.isPaused();
+     *     ```javascript
+     *     const isPaused = myTimeline.isPaused();
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Return pause status
+     * @type {import('./type.js').SyncTimelineIsPaused}
      */
     isPaused() {
         return this.isInPause;
     }
 
     /**
-     * @type {import('./type.js').SyncTimelineGetDirection}
+     * Return direction forward|backward|none
      *
      * @example
-     * ```javascript
-     * myTimeline.getDirection();
+     *     ```javascript
+     *     myTimeline.getDirection();
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Return direction forward|backward|none
+     * @type {import('./type.js').SyncTimelineGetDirection}
      */
     getDirection() {
         if (this.isStopped) return directionConstant.NONE;
@@ -862,36 +860,35 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @type {import('./type.js').SyncTimelineTime}
+     * Get current time
      *
      * @example
-     * ```javascript
-     * myTimeline.getTime();
+     *     ```javascript
+     *     myTimeline.getTime();
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Get current time
+     * @type {import('./type.js').SyncTimelineTime}
      */
     getTime() {
         return this.currentTime;
     }
 
     /**
-     * @type {import('./type.js').SyncTimelineOnLoopEnd}
+     * Callback thrown at the end of each cycle
      *
      * @example
-     *```javascript
-     * const unsubscribeOnLoopEnd = myTimeline.onLoopEnd(({direction, loop})=>{
-     *      /// code
-     * })
-     * unsubscribeOnLoopEnd();
+     *     ```javascript
+     *     const unsubscribeOnLoopEnd = myTimeline.onLoopEnd(({direction, loop})=>{
+     *          /// code
+     *     })
+     *     unsubscribeOnLoopEnd();
      *
      *
-     * ```
-     * @description
-     * Callback thrown at the end of each cycle
+     *     ```;
+     *
+     * @type {import('./type.js').SyncTimelineOnLoopEnd}
      */
     onLoopEnd(cb = () => {}) {
         this.callbackLoop.push({ cb, id: this.callbackId });
@@ -906,19 +903,19 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @type {import('./type.js').SyncTimelineOnComplete}
+     * Callback thrown at the end of timeline
      *
      * @example
-     *```javascript
-     * const unsubscribeOnComplete = myTimeline.onComplete(() => {
-     *      /// code
-     * })
-     * unsubscribeOnComplete();
+     *     ```javascript
+     *     const unsubscribeOnComplete = myTimeline.onComplete(() => {
+     *          /// code
+     *     })
+     *     unsubscribeOnComplete();
      *
      *
-     * ```
-     * @description
-     * Callback thrown at the end of timeline
+     *     ```;
+     *
+     * @type {import('./type.js').SyncTimelineOnComplete}
      */
     onComplete(cb = () => {}) {
         this.callbackComplete.push({ cb, id: this.callbackId });
@@ -933,19 +930,19 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @type {import('./type.js').SyncTimelineOnUpdate}
+     * Callback thrown at each frame during the animation
      *
      * @example
-     *```javascript
-     * const unsubscribeOnUpdate = myTimeline.onUpdate(({direction, time}) => {
-     *      /// code
-     * })
-     * unsubscribeOnUpdate();
+     *     ```javascript
+     *     const unsubscribeOnUpdate = myTimeline.onUpdate(({direction, time}) => {
+     *          /// code
+     *     })
+     *     unsubscribeOnUpdate();
      *
      *
-     * ```
-     * @description
-     * Callback thrown at each frame during the animation
+     *     ```;
+     *
+     * @type {import('./type.js').SyncTimelineOnUpdate}
      */
     onUpdate(cb = () => {}) {
         this.callbackOnUpdate.push({ cb, id: this.callbackId });
@@ -960,7 +957,6 @@ export default class MobSyncTimeline {
     }
 
     /**
-     * @description
      * Destroy timeline and all the sequencer
      */
     destroy() {

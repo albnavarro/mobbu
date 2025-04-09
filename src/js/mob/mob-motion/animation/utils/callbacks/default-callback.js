@@ -3,10 +3,9 @@
 import { MobCore } from '../../../../mob-core/index.js';
 
 /**
- * @type {import('./type.js').DefaultCallback}
- *
- * @description
  * Fire callback while Running
+ *
+ * @type {import('./type.js').DefaultCallback}
  */
 export const defaultCallback = ({
     stagger,
@@ -47,8 +46,7 @@ export const defaultCallback = ({
     });
 
     /**
-     * Fire callback with cache stagger.
-     * Update handleCache store.
+     * Fire callback with cache stagger. Update handleCache store.
      */
     callbackCache.forEach(({ cb, frame }) => {
         MobCore.useCache.update({ id: cb, callBackObject, frame });
@@ -56,10 +54,9 @@ export const defaultCallback = ({
 };
 
 /**
- * @type {import('./type.js').DefaultCallbackOnComplete}
+ * Callback on complete
  *
- * @description
- *Callback on complete
+ * @type {import('./type.js').DefaultCallbackOnComplete}
  */
 export const defaultCallbackOnComplete = ({
     onComplete,

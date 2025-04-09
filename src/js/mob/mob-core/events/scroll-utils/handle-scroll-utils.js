@@ -22,7 +22,7 @@ let unsubscribeScrollEnd = () => {};
 let debouceFunctionReference = () => {};
 
 /**
- * @param {('START'|'END')} type
+ * @param {'START' | 'END'} type
  */
 function handleScrollUtils(type) {
     /**
@@ -31,7 +31,7 @@ function handleScrollUtils(type) {
     let initialized = false;
 
     /**
-     * @type {Map<string,import('./type.js').HandleScrollCallback<import('./type.js').HandleScrollUtils>>}
+     * @type {Map<string, import('./type.js').HandleScrollCallback<import('./type.js').HandleScrollUtils>>}
      */
     const callbacks = new Map();
 
@@ -41,13 +41,13 @@ function handleScrollUtils(type) {
     let isScrolling = false;
 
     /**
-     * @returns void
+     * @returns Void
      */
     function handler() {
         isScrolling = false;
 
         /**
-         * if - if there is no subscritor remove handler
+         * If - if there is no subscritor remove handler
          */
         if (callbacks.size === 0) {
             unsubscribeScrollEnd();
@@ -79,9 +79,9 @@ function handleScrollUtils(type) {
     }
 
     /**
-     * init - if listener is not inizializad remove it
+     * Init - if listener is not inizializad remove it
      *
-     * @return {void}
+     * @returns {void}
      */
     function init() {
         if (initialized) return;
@@ -113,8 +113,8 @@ function handleScrollUtils(type) {
     }
 
     /**
-     * @param {import('./type.js').HandleScrollCallback<import('./type.js').HandleScrollUtils>} cb - callback function
-     * @return {() => void} unsubscribe callback
+     * @param {import('./type.js').HandleScrollCallback<import('./type.js').HandleScrollUtils>} cb - Callback function
+     * @returns {() => void} Unsubscribe callback
      */
     const addCb = (cb) => {
         const id = getUnivoqueId();
@@ -131,33 +131,31 @@ function handleScrollUtils(type) {
 }
 
 /**
- * @description
  * Execute a callback at the beginning of the scroll
  *
  * @example
- * ```javascript
- * const unsubscribe = handleScrollStart(({ scrollY }) => {
- *     // code
- * });
+ *     ```javascript
+ *     const unsubscribe = handleScrollStart(({ scrollY }) => {
+ *         // code
+ *     });
  *
- * unsubscribe()
+ *     unsubscribe()
  *
- * ```
+ *     ```;
  */
 export const handleScrollStart = handleScrollUtils('START');
 
 /**
- * @description
  * Execute a callback at the end of the scroll
  *
  * @example
- * ```javascript
- * const unsubscribe = handleScrollEnd(({ scrollY }) => {
- *     // code
- * });
+ *     ```javascript
+ *     const unsubscribe = handleScrollEnd(({ scrollY }) => {
+ *         // code
+ *     });
  *
- * unsubscribe()
+ *     unsubscribe()
  *
- * ```
+ *     ```;
  */
 export const handleScrollEnd = handleScrollUtils('END');

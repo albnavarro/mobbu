@@ -13,9 +13,8 @@ export const inizializeValidation = (initialState) => {
     const { store } = initialState;
 
     /**
-     * Initialize empty Object if prop is an object.
-     * Need to avois error on validation assignment ( key in object doesn't exist ).
-     * No collision with any, any is used with complete declaration ( type etc.. )
+     * Initialize empty Object if prop is an object. Need to avois error on validation assignment ( key in object
+     * doesn't exist ). No collision with any, any is used with complete declaration ( type etc.. )
      */
     const validationStatusObject = Object.entries(store).reduce(
         (previous, current) => {

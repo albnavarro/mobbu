@@ -5,12 +5,12 @@ import { html } from '@mobJs';
 
 /**
  * @param {string} tag
- **/
+ */
 const shouldUseTrinagle = (tag) => {
     return tag === `h1` ? getTrinangle() : '';
 };
 
-/** @type {import("@mobJsType").MobComponent<import("./type").Title>} */
+/** @type {import('@mobJsType').MobComponent<import('./type').Title>} */
 export const TitleFn = ({ getState }) => {
     const { tag, color, isBold } = getState();
     const colorClass = `is-${color}`;

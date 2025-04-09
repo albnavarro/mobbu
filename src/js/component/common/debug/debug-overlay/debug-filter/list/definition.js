@@ -5,11 +5,11 @@ import { DebugFilterListFn } from './debug-filter-list';
 import { DebugFilterListItem } from './item/definition';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const DebugFilterList = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').DebugFilterList>} */
+    /** @type {CreateComponentParams<import('./type').DebugFilterList>} */
     ({
         name: 'debug-filter-list',
         component: DebugFilterListFn,

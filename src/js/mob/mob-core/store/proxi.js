@@ -5,7 +5,6 @@ import { storeSetEntryPoint } from './store-set';
 import { checkIfPropIsComputed } from './store-utils';
 
 /**
- * @description
  * Proxi state/states with the original reference of store object.
  *
  * @param {object} params
@@ -31,7 +30,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
      * Create self proxi
      */
     const selfProxi = new Proxy(store, {
-        set(target, /** @type{string} */ prop, value) {
+        set(target, /** @type {string} */ prop, value) {
             if (prop in target) {
                 const isComputed = checkIfPropIsComputed({ instanceId, prop });
                 if (isComputed) return false;
@@ -50,7 +49,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
 
             return false;
         },
-        get(target, /** @type{string} */ prop) {
+        get(target, /** @type {string} */ prop) {
             if (!(prop in target)) {
                 return false;
             }
@@ -81,8 +80,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
     }
 
     /**
-     * Create proxi for binded store.
-     * Binded proxi has only read operation.
+     * Create proxi for binded store. Binded proxi has only read operation.
      */
     const bindedProxi = bindInstance.map((id) => {
         const state = storeMap.get(id);
@@ -92,7 +90,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
             set() {
                 return false;
             },
-            get(target, /** @type{string} */ prop) {
+            get(target, /** @type {string} */ prop) {
                 if (!(prop in target)) {
                     return false;
                 }
@@ -111,8 +109,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
     });
 
     /**
-     * Create a proxy with all new proxi.
-     * Reflect operation to the proxies with prop
+     * Create a proxy with all new proxi. Reflect operation to the proxies with prop
      */
     const bindedProxiArray = new Proxy([selfProxi, ...bindedProxi], {
         set(proxies, prop, value) {

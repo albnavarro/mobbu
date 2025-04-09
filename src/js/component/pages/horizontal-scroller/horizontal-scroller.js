@@ -1,10 +1,10 @@
 //@ts-check
 
 /**
- * @import { MobComponent, SetState, BindProps, StaticProps, DelegateEvents, ReturnBindProps } from '@mobJsType';
- * @import { HorizontalScroller } from './type';
- * @import { HorizontalScrollerButton } from './button/type';
- **/
+ * @import {MobComponent, SetState, BindProps, StaticProps, DelegateEvents, ReturnBindProps} from '@mobJsType';
+ * @import {HorizontalScroller} from './type';
+ * @import {HorizontalScrollerButton} from './button/type';
+ */
 
 import { offset, outerHeight } from '@mobCoreUtils';
 import { html } from '@mobJs';
@@ -64,7 +64,7 @@ const getNav = ({
                         click: () => setState('currentId', i),
                     })}
                     ${bindProps(
-                        /** @returns{ReturnBindProps<HorizontalScrollerButton>} */
+                        /** @returns {ReturnBindProps<HorizontalScrollerButton>} */
                         () => ({
                             active:
                                 proxi.currentId === i ||
@@ -120,8 +120,7 @@ export const HorizontalScrollerFn = ({
             if (id === -1) return;
 
             /**
-             * Hre the nav is open so on route landing the offset is wrong
-             * So, refresh scroller and the scroll to item.
+             * Hre the nav is open so on route landing the offset is wrong So, refresh scroller and the scroll to item.
              */
 
             /**
@@ -140,9 +139,8 @@ export const HorizontalScrollerFn = ({
             const height = outerHeight(shadowCenter);
             const scrollValue =
                 /**
-                 * Need previous and current value difference > 0 so add 1px.
-                 *                              active: currentId || currentIdFromScroll
-                 * ( onLeaveBack issue )
+                 * Need previous and current value difference > 0 so add 1px. active: currentId || currentIdFromScroll (
+                 * onLeaveBack issue )
                  */
                 // @ts-ignore
                 Number.parseInt(id) === 0

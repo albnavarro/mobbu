@@ -109,42 +109,42 @@ export class MobSmoothScroller {
 
     /**
      * @type {() => void}
-     * @return {void}
+     * @returns {void}
      */
     #subscribeMouseDown;
 
     /**
      * @type {() => void}
-     * @return {void}
+     * @returns {void}
      */
     #subscribeMouseUp;
 
     /**
      * @type {() => void}
-     * @return {void}
+     * @returns {void}
      */
     #subscribeMouseWheel;
 
     /**
      * @type {() => void}
-     * @return {void}
+     * @returns {void}
      */
     #subscribeMouseMove;
 
     /**
      * @type {() => void}
-     * @return {void}
+     * @returns {void}
      */
     #subscribeTouchMove;
 
     /**
      * @type {() => void}
-     * @return {void}
+     * @returns {void}
      */
     #subscribeMouseClick;
 
     /**
-     * @type {MobLerp|MobSpring}
+     * @type {MobLerp | MobSpring}
      */
     #motion;
 
@@ -169,7 +169,7 @@ export class MobSmoothScroller {
     #isDestroyed;
 
     /**
-     * @type {'lerp'|'spring'}
+     * @type {'lerp' | 'spring'}
      */
     #easeType;
 
@@ -183,12 +183,8 @@ export class MobSmoothScroller {
      */
     #queryType;
 
-    /**
-     */
     #scroller;
 
-    /**
-     */
     #screen;
 
     /**
@@ -277,47 +273,45 @@ export class MobSmoothScroller {
     #revertSwipeDirection;
 
     /**
-     * @param { import('./type.js').MobSmoothScroller } data
+     * Create new SmoothScroller instance.
      *
-     * @description
+     *        Available methods:
+     *        mySmoothScroll.init();
+     *        mySmoothScroll.refresh();
+     *        mySmoothScroll.destroy();
+     *        mySmoothScroll.move();
+     *        mySmoothScroll.set();
      *
-       Create new SmoothScroller instance.
-
-       Available methods:
-       mySmoothScroll.init();
-       mySmoothScroll.refresh();
-       mySmoothScroll.destroy();
-       mySmoothScroll.move();
-       mySmoothScroll.set();
-
      * @example
-       ```javascript
-       const mySmoothScroller = new SmoothScroller({
-           screen: [String | Element],
-           scroller: [String | Element],
-           direction: [String],
-           speed: [Number],
-           drag: [Boolean],
-           scopedEvent: [Boolean],
-           children: [child1,child2, ...],
-           ease: [Boolean],
-           easeType: [String],
-           afterInit: () => {
-               ...
-           },
-           onTick: ({ value, parentIsMoving, percent }) => {
-               ...
-           },
-           onUpdate: ({ value, percent }) => {
-               ...
-           },
-           afterRefresh: () => {
-               ...
-           },
-       });
-
-       mySmoothScroller.init();
-       ```
+     *     ```javascript
+     *        const mySmoothScroller = new SmoothScroller({
+     *            screen: [String | Element],
+     *            scroller: [String | Element],
+     *            direction: [String],
+     *            speed: [Number],
+     *            drag: [Boolean],
+     *            scopedEvent: [Boolean],
+     *            children: [child1,child2, ...],
+     *            ease: [Boolean],
+     *            easeType: [String],
+     *            afterInit: () => {
+     *                ...
+     *            },
+     *            onTick: ({ value, parentIsMoving, percent }) => {
+     *                ...
+     *            },
+     *            onUpdate: ({ value, percent }) => {
+     *                ...
+     *            },
+     *            afterRefresh: () => {
+     *                ...
+     *            },
+     *        });
+     *
+     *        mySmoothScroller.init();
+     *        ```;
+     *
+     * @param {import('./type.js').MobSmoothScroller} data
      */
     constructor(data) {
         this.#propsIsValid = true;
@@ -371,7 +365,7 @@ export class MobSmoothScroller {
         );
 
         this.#scroller = MobCore.checkType(String, data?.scroller)
-            ? document.querySelector(/** @type{string} */ (data.scroller))
+            ? document.querySelector(/** @type {string} */ (data.scroller))
             : data.scroller;
 
         if (!this.#scroller) {
@@ -383,7 +377,7 @@ export class MobSmoothScroller {
             ? (() => {
                   return MobCore.checkType(String, data.screen)
                       ? document.querySelector(
-                            /** @type{string} */ (data.screen)
+                            /** @type {string} */ (data.screen)
                         )
                       : data.screen;
               })()
@@ -494,7 +488,6 @@ export class MobSmoothScroller {
     }
 
     /**
-     * @description
      * Check if is scrollable
      *
      * @type {() => boolean}
@@ -504,11 +497,10 @@ export class MobSmoothScroller {
     }
 
     /**
-     * @description
      * Initialize insatance
      *
      * @example
-     * myInstance.init()
+     *     myInstance.init();
      *
      * @type {() => void}
      */
@@ -528,10 +520,10 @@ export class MobSmoothScroller {
         }
 
         /**
-         * scoped event
+         * Scoped event
          */
         if (this.#scopedEvent) {
-            /** @type{HTMLElement} */ (this.#scroller).addEventListener(
+            /** @type {HTMLElement} */ (this.#scroller).addEventListener(
                 'wheel',
                 this.#scopedWhell,
                 {
@@ -539,7 +531,7 @@ export class MobSmoothScroller {
                 }
             );
 
-            /** @type{HTMLElement} */ (this.#scroller).addEventListener(
+            /** @type {HTMLElement} */ (this.#scroller).addEventListener(
                 'mousemove',
                 this.#scopedTouchMove,
                 {
@@ -547,7 +539,7 @@ export class MobSmoothScroller {
                 }
             );
 
-            /** @type{HTMLElement} */ (this.#scroller).addEventListener(
+            /** @type {HTMLElement} */ (this.#scroller).addEventListener(
                 'touchmove',
                 this.#scopedTouchMove,
                 {
@@ -600,7 +592,7 @@ export class MobSmoothScroller {
         /**
          * UnFreeze page scroller
          */
-        /** @type{HTMLElement} */ (this.#scroller).addEventListener(
+        /** @type {HTMLElement} */ (this.#scroller).addEventListener(
             'mouseleave',
             () => {
                 UnFreezeMobPageScroll();
@@ -677,7 +669,7 @@ export class MobSmoothScroller {
             this.#scroller.style['user-select'] = 'none';
         }
 
-        const activeElement = /** @type{HTMLElement} */ (
+        const activeElement = /** @type {HTMLElement} */ (
             this.#scroller
         ).querySelectorAll('a, button');
 
@@ -696,7 +688,7 @@ export class MobSmoothScroller {
 
         // @ts-ignore
         this.#scroller.style['user-select'] = '';
-        const activeElement = /** @type{HTMLElement} */ (
+        const activeElement = /** @type {HTMLElement} */ (
             this.#scroller
         ).querySelectorAll('a, button');
 
@@ -715,14 +707,13 @@ export class MobSmoothScroller {
 
         this.#motion.setData({ val: 0 });
         this.#unsubscribeMotion = this.#motion.subscribe(({ val }) => {
-            /** @type{HTMLElement} */ (this.#scroller).style.transform =
+            /** @type {HTMLElement} */ (this.#scroller).style.transform =
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
                     ? `translate3d(0px, 0px, 0px) translateY(${-val}px)`
                     : `translate3d(0px, 0px, 0px) translateX(${-val}px)`;
 
             /**
-             * TODO Move to scroll Start (scopedEvent or not , wheel touch etc...)
-             * Used by instance with ease = true;
+             * TODO Move to scroll Start (scopedEvent or not , wheel touch etc...) Used by instance with ease = true;
              */
             this.#children.forEach((element) => {
                 element.triggerScrollStart();
@@ -745,7 +736,7 @@ export class MobSmoothScroller {
         });
 
         this.#unsubscribeOnComplete = this.#motion.onComplete(({ val }) => {
-            /** @type{HTMLElement} */ (this.#scroller).style.transform =
+            /** @type {HTMLElement} */ (this.#scroller).style.transform =
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
                     ? `translateY(${-val}px)`
                     : `translateX(${-val}px)`;
@@ -777,18 +768,18 @@ export class MobSmoothScroller {
         this.#screenWidth =
             this.#screen === document.documentElement
                 ? window.innerWidth
-                : outerWidth(/** @type{HTMLElement} */ (this.#screen));
+                : outerWidth(/** @type {HTMLElement} */ (this.#screen));
 
         this.#screenHeight =
             this.#screen === document.documentElement
                 ? window.innerHeight
-                : outerHeight(/** @type{HTMLElement} */ (this.#screen));
+                : outerHeight(/** @type {HTMLElement} */ (this.#screen));
 
         this.#maxValue =
             this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
-                ? /** @type{HTMLElement} */ (this.#scroller).offsetHeight -
+                ? /** @type {HTMLElement} */ (this.#scroller).offsetHeight -
                   this.#screenHeight
-                : /** @type{HTMLElement} */ (this.#scroller).offsetWidth -
+                : /** @type {HTMLElement} */ (this.#scroller).offsetWidth -
                   this.#screenWidth;
 
         this.#calculateValue();
@@ -810,7 +801,7 @@ export class MobSmoothScroller {
     }
 
     /**
-     * @type {(arg0: {spinY: number}) => void}
+     * @type {(arg0: { spinY: number }) => void}
      */
     #onScopedWhell({ spinY }) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
@@ -821,8 +812,7 @@ export class MobSmoothScroller {
     }
 
     /**
-     * Listener related event.
-     * Global
+     * Listener related event. Global
      */
 
     /**
@@ -834,8 +824,8 @@ export class MobSmoothScroller {
         if (
             target === this.#scroller ||
             isDescendant(
-                /** @type{HTMLElement} */ (this.#scroller),
-                /** @type{HTMLElement} */ (target)
+                /** @type {HTMLElement} */ (this.#scroller),
+                /** @type {HTMLElement} */ (target)
             )
         ) {
             this.#firstTouchValue = this.#endValue;
@@ -865,8 +855,8 @@ export class MobSmoothScroller {
         if (
             (target === this.#scroller ||
                 isDescendant(
-                    /** @type{HTMLElement} */ (this.#scroller),
-                    /** @type{HTMLElement} */ (target)
+                    /** @type {HTMLElement} */ (this.#scroller),
+                    /** @type {HTMLElement} */ (target)
                 )) &&
             this.#dragEnable &&
             this.#drag
@@ -901,8 +891,8 @@ export class MobSmoothScroller {
         if (
             target === this.#scroller ||
             isDescendant(
-                /** @type{HTMLElement} */ (this.#scroller),
-                /** @type{HTMLElement} */ (target)
+                /** @type {HTMLElement} */ (this.#scroller),
+                /** @type {HTMLElement} */ (target)
             )
         ) {
             this.#dragEnable = false;
@@ -928,14 +918,13 @@ export class MobSmoothScroller {
     }
 
     /**
-     * @description
      * Move scroller
      *
-     * @param {number} percent position in percent, from 0 to 100
-     * @return {Promise<void>} percent position in percent, from 0 to 100
-     *
      * @example
-     * myInstance.move(val);
+     *     myInstance.move(val);
+     *
+     * @param {number} percent Position in percent, from 0 to 100
+     * @returns {Promise<void>} Percent position in percent, from 0 to 100
      */
     move(percent) {
         if (!mq[this.#queryType](this.#breakpoint))
@@ -945,8 +934,8 @@ export class MobSmoothScroller {
         this.#endValue = (this.#percent * this.#maxValue) / 100;
 
         /**
-         * this.motion use spring or lerp, so goTo generic type is not the same.
-         * But we don't use props here, so skip ts error
+         * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts
+         * error
          */
 
         // @ts-ignore
@@ -954,14 +943,12 @@ export class MobSmoothScroller {
     }
 
     /**
-     *
-     * @description
      * Move scroller immediatr
      *
-     * @param {number} percent position in percent, from 0 to 100
-     *
      * @example
-     * myInstance.set(val);
+     *     myInstance.set(val);
+     *
+     * @param {number} percent Position in percent, from 0 to 100
      */
     set(percent) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
@@ -970,8 +957,8 @@ export class MobSmoothScroller {
         this.#endValue = (this.#percent * this.#maxValue) / 100;
 
         /**
-         * this.motion use spring or lerp, so set generic type is not the same.
-         * But we don't use props here, so skip ts error
+         * This.motion use spring or lerp, so set generic type is not the same. But we don't use props here, so skip ts
+         * error
          */
 
         // @ts-ignore
@@ -979,7 +966,6 @@ export class MobSmoothScroller {
     }
 
     /**
-     * @description
      * Utils
      *
      * @type {() => void}
@@ -990,8 +976,8 @@ export class MobSmoothScroller {
         this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
 
         /**
-         * this.motion use spring or lerp, so goTo generic type is not the same.
-         * But we don't use props here, so skip ts error
+         * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts
+         * error
          */
 
         // @ts-ignore
@@ -1015,8 +1001,8 @@ export class MobSmoothScroller {
             mq[this.#queryType](this.#breakpoint) &&
             (target === this.#scroller ||
                 isDescendant(
-                    /** @type{HTMLElement} */ (this.#scroller),
-                    /** @type{HTMLElement} */ (target)
+                    /** @type {HTMLElement} */ (this.#scroller),
+                    /** @type {HTMLElement} */ (target)
                 )) &&
             Math.abs(this.#endValue - this.#firstTouchValue) > this.#threshold
         ) {
@@ -1037,11 +1023,10 @@ export class MobSmoothScroller {
     }
 
     /**
-     * @description
      * Refresh instance
      *
      * @example
-     * myInstance.refresh()
+     *     myInstance.refresh();
      *
      * @type {() => void}
      */
@@ -1052,8 +1037,9 @@ export class MobSmoothScroller {
 
             MobCore.useFrame(() => {
                 MobCore.useNextTick(() => {
-                    /** @type{HTMLElement} */ (this.#scroller).style.transform =
-                        '';
+                    /** @type {HTMLElement} */ (
+                        this.#scroller
+                    ).style.transform = '';
                 });
             });
             return;
@@ -1076,11 +1062,10 @@ export class MobSmoothScroller {
     }
 
     /**
-     * @description
      * Destroy instance
      *
      * @example
-     * myInstance.destroy()
+     *     myInstance.destroy();
      *
      * @type {() => void}
      */
@@ -1113,15 +1098,15 @@ export class MobSmoothScroller {
         this.#afterInit = NOOP;
 
         if (this.#scopedEvent) {
-            /** @type{HTMLElement} */ (this.#scroller)?.removeEventListener(
+            /** @type {HTMLElement} */ (this.#scroller)?.removeEventListener(
                 'wheel',
                 this.#scopedWhell
             );
-            /** @type{HTMLElement} */ (this.#scroller)?.removeEventListener(
+            /** @type {HTMLElement} */ (this.#scroller)?.removeEventListener(
                 'mousemove',
                 this.#scopedTouchMove
             );
-            /** @type{HTMLElement} */ (this.#scroller)?.removeEventListener(
+            /** @type {HTMLElement} */ (this.#scroller)?.removeEventListener(
                 'touchmove',
                 this.#scopedTouchMove
             );

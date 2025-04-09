@@ -4,7 +4,7 @@ import { LayoutLinks } from '@pagesComponent/layout-links/definition';
 
 MobJs.useComponent([LayoutLinks]);
 
-/** @type{import('@mobJsType').PageAsync} */
+/** @type {import('@mobJsType').PageAsync} */
 export const layoutLinksPage = async ({ props }) => {
     const { source } = props;
     const { data } = await loadJsonContent({ source });
@@ -12,7 +12,7 @@ export const layoutLinksPage = async ({ props }) => {
     return html` <div class="l-links">
         <layout-links
             ${MobJs.staticProps(
-                /** @type{import('@pagesComponent/layout-links/type').LayoutLinks['state']} */
+                /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['state']} */
                 ({
                     title: data.title,
                     items: data.items,

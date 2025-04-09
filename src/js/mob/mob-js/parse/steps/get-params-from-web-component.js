@@ -5,13 +5,12 @@ import { getPropsFromParent } from '../../modules/static-props';
 import { filterExportableStateFromObject } from '../../component/action/state/export-state';
 
 /**
- * @param {object} obj
- * @param {import("../../web-component/type").UserComponent} obj.element
- * @param {string|undefined} obj.parentIdForced
- * @returns {import('./type').ComponentData}
- *
- * @description
  * Create base DOM component from component tag.
+ *
+ * @param {object} obj
+ * @param {import('../../web-component/type').UserComponent} obj.element
+ * @param {string | undefined} obj.parentIdForced
+ * @returns {import('./type').ComponentData}
  */
 export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const id = element.getId();
@@ -19,11 +18,11 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const parentIdFromWebComponent = element.getParentId();
 
     /**
-     * First choice is parentId passed directly in webComponent
-     * Second choice is parentId passed to initParseWatcher ( renderComponent: render component runtime ).
+     * First choice is parentId passed directly in webComponent Second choice is parentId passed to initParseWatcher (
+     * renderComponent: render component runtime ).
      *
-     * After first level of Node will render, all childrn has the right parentID:
-     * `addParentIdToFutureComponent({ element: newElement, id });`
+     * After first level of Node will render, all childrn has the right parentID: `addParentIdToFutureComponent({
+     * element: newElement, id });`
      *
      * So after first level of node tree parentIdFromWebComponent always win.
      */

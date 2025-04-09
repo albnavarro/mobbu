@@ -15,7 +15,7 @@ import {
     roundRectIsSupported,
 } from '@utils/canvas-utils';
 
-/** @type{import('../type').AnimatedPatternN0Animation} */
+/** @type {import('../type').AnimatedPatternN0Animation} */
 export const animatedPatternN0Animation = ({
     canvas,
     numberOfRow,
@@ -67,8 +67,7 @@ export const animatedPatternN0Animation = ({
     }).items;
 
     /**
-     * Add props to transform.
-     * Order byy hasFill, so is like z-index: -1.
+     * Add props to transform. Order byy hasFill, so is like z-index: -1.
      */
     let data = reorder
         ? gridData
@@ -124,7 +123,7 @@ export const animatedPatternN0Animation = ({
 
         const context = useOffscreen
             ? offScreenCtx
-            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+            : /** @type {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} */ (
                   ctx
               );
 

@@ -69,8 +69,8 @@ export default class MobSpring {
     /**
      * @type {import('./type.js').SpringProps}
      *
-     * This value lives from user call ( goTo etc..) until next call
-     **/
+     *   This value lives from user call ( goTo etc..) until next call
+     */
     #configProps;
 
     /**
@@ -94,12 +94,12 @@ export default class MobSpring {
     #currentReject;
 
     /**
-     * @type{Promise<void>|undefined}
+     * @type {Promise<void> | undefined}
      */
     #promise;
 
     /**
-     * @type {import('./type.js').SpringValues[]|[]}
+     * @type {import('./type.js').SpringValues[] | []}
      */
     #values;
 
@@ -129,7 +129,7 @@ export default class MobSpring {
     #callbackStartInPause;
 
     /**
-     * @type {Array<() => void>}
+     * @type {(() => void)[]}
      */
     #unsubscribeCache;
 
@@ -154,12 +154,10 @@ export default class MobSpring {
     #fpsInLoading;
 
     /**
-     * @description
-     * This value is the base value merged with new value in custom prop
-     * passed form user in goTo etc..
+     * This value is the base value merged with new value in custom prop passed form user in goTo etc..
      *
      * @type {import('./type.js').SpringDefault}
-     **/
+     */
     #defaultProps;
 
     /**
@@ -173,56 +171,55 @@ export default class MobSpring {
     #fastestStagger;
 
     /**
-     * @param {import('./type.js').SpringTweenProps} [ data ]
+     * Available methods:
+     *
+     * ```javascript
+     * mySpring.set();
+     * mySpring.goTo();
+     * mySpring.goFrom();
+     * mySpring.goFromTo();
+     * mySpring.subscribe();
+     * mySpring.subscribeCache();
+     * mySpring.onComplete();
+     * mySpring.updateConfigProp();
+     * mySpring.updateConfig();
+     * mySpring.getId();
+     * mySpring.get();
+     * mySpring.getTo();
+     * mySpring.getFrom();
+     * mySpring.getToNativeType();
+     * mySpring.getFromNativeType();
+     * ```
      *
      * @example
-     * ```javascript
-     * const mySpring = new HandleSpring({
-     *   data: Object.<string, number>,
-     *   config: String,
-     *   configProps: {
-     *      tension: Number,
-     *      mass: Number,
-     *      friction: Number,
-     *      velocity: Number,
-     *      precision: Number,
-     *   },
-     *   relative: Boolean
-     *   stagger:{
-     *      each: Number,
-     *      from: Number|String|{x:number,y:number},
-     *      grid: {
-     *          col: Number,
-     *          row: Number,
-     *          direction: String,
-     *      },
-     *      waitComplete: Boolean,
-     *   },
-     * })
+     *     ```javascript
+     *     const mySpring = new HandleSpring({
+     *       data: Object.<string, number>,
+     *       config: String,
+     *       configProps: {
+     *          tension: Number,
+     *          mass: Number,
+     *          friction: Number,
+     *          velocity: Number,
+     *          precision: Number,
+     *       },
+     *       relative: Boolean
+     *       stagger:{
+     *          each: Number,
+     *          from: Number|String|{x:number,y:number},
+     *          grid: {
+     *              col: Number,
+     *              row: Number,
+     *              direction: String,
+     *          },
+     *          waitComplete: Boolean,
+     *       },
+     *     })
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Available methods:
-     * ```javascript
-     * mySpring.set()
-     * mySpring.goTo()
-     * mySpring.goFrom()
-     * mySpring.goFromTo()
-     * mySpring.subscribe()
-     * mySpring.subscribeCache()
-     * mySpring.onComplete()
-     * mySpring.updateConfigProp()
-     * mySpring.updateConfig()
-     * mySpring.getId()
-     * mySpring.get()
-     * mySpring.getTo()
-     * mySpring.getFrom()
-     * mySpring.getToNativeType()
-     * mySpring.getFromNativeType()
-     *
-     * ```
+     * @param {import('./type.js').SpringTweenProps} [data]
      */
     constructor(data) {
         this.#stagger = getStaggerFromProps(data ?? {});
@@ -255,9 +252,7 @@ export default class MobSpring {
         this.#fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
 
         /**
-         * @private
-         * Set initial store data if defined in constructor props
-         * If not use setData methods
+         * @private Set initial store data if defined in constructor props If not use setData methods
          */
         const props = data?.data;
         if (props) this.setData(props);
@@ -271,7 +266,6 @@ export default class MobSpring {
      * @param {number} friction
      * @param {number} mass
      * @param {number} precision
-     *
      * @returns {void}
      */
     #draw(_time, fps, res = () => {}, tension, friction, mass, precision) {
@@ -309,9 +303,7 @@ export default class MobSpring {
                 this.#isActive = false;
 
                 /**
-                 * End of animation
-                 * Set fromValue with ended value
-                 * At the next call fromValue become the start value
+                 * End of animation Set fromValue with ended value At the next call fromValue become the start value
                  */
                 this.#values = [...this.#values].map((item) => {
                     return {
@@ -372,10 +364,10 @@ export default class MobSpring {
     }
 
     /**
-     * @param {number} time current global time
-     * @param {number} fps current FPS
-     * @param {Function} res current promise resolve
-     **/
+     * @param {number} time Current global time
+     * @param {number} fps Current FPS
+     * @param {Function} res Current promise resolve
+     */
     #onReuqestAnim(time, fps, res) {
         this.#values = [...this.#values].map((item) => {
             return {
@@ -396,17 +388,15 @@ export default class MobSpring {
     }
 
     /**
-     * @description
      * Inzialize stagger array
      *
      * @returns {Promise<any>}
      */
     async #inzializeStagger() {
         /**
-         * First time il there is a stagger load fps then go next step
-         * next time no need to calculate stagger and jump directly next step
-         *
-         **/
+         * First time il there is a stagger load fps then go next step next time no need to calculate stagger and jump
+         * directly next step
+         */
         if (
             shouldInizializzeStagger(
                 this.#stagger.each,
@@ -441,7 +431,7 @@ export default class MobSpring {
 
             if (this.#callbackCache.length > this.#callback.length) {
                 this.#callbackCache =
-                    /** @type{import('../utils/callbacks/type.js').CallbackCache} */ (
+                    /** @type {import('../utils/callbacks/type.js').CallbackCache} */ (
                         staggerArray
                     );
             } else {
@@ -461,9 +451,8 @@ export default class MobSpring {
     }
 
     /**
-     * @param {(value:any) => void} res
-     * @param {(value:any) => void} reject
-     *
+     * @param {(value: any) => void} res
+     * @param {(value: any) => void} reject
      * @returns {Promise<any>}
      */
     async #startRaf(res, reject) {
@@ -493,8 +482,8 @@ export default class MobSpring {
         this.#values = setFromToByCurrent(this.#values);
 
         /**
-         * If isRunning clear all funture stagger.
-         * If tween is ended and the lst stagger is running, let it reach end position.
+         * If isRunning clear all funture stagger. If tween is ended and the lst stagger is running, let it reach end
+         * position.
          */
         if (this.#isActive && clearCache)
             this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
@@ -533,18 +522,17 @@ export default class MobSpring {
     }
 
     /**
-     * @type {import('../../utils/type.js').SetData} obj Initial data structure
-     *
-     * @description
-     * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
-     *
+     * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called
+     * after creating the instance
      *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * mySpring.setData({ val: 100 });
-     * ```
+     *     mySpring.setData({ val: 100 });
+     *     ```;
+     *
+     * @type {import('../../utils/type.js').SetData} obj Initial data structure
      */
     setData(obj) {
         this.#values = Object.entries(obj).map((item) => {
@@ -581,19 +569,16 @@ export default class MobSpring {
     }
 
     /**
-     * @type  {import('./type.js').SpringMergeProps}
-     *
-     * @description
      * Merge special props with default props
+     *
+     * @type {import('./type.js').SpringMergeProps}
      */
     #mergeProps(props) {
         const springParams = handleSetUp.get('spring');
 
         /**
-         * @description
-         * Step 1
-         * Get news confic props ( mass, friction etc... )
-         * Get props from new config ( wobble etc.. ) or get each default prop.
+         * Step 1 Get news confic props ( mass, friction etc... ) Get props from new config ( wobble etc.. ) or get each
+         * default prop.
          *
          * @type {import('./type.js').SpringPresentConfigType}
          */
@@ -627,8 +612,7 @@ export default class MobSpring {
         const { relative } = newProps;
 
         /**
-         * Current spring config used in current cycle.
-         * Current relative value used in current cycle.
+         * Current spring config used in current cycle. Current relative value used in current cycle.
          */
         this.#configProps = configProps;
         this.#relative = relative;
@@ -637,7 +621,7 @@ export default class MobSpring {
     }
 
     /**
-     * @type {import('../../utils/type.js').GoTo<import('./type.js').SpringActions>} obj to Values
+     * @type {import('../../utils/type.js').GoTo<import('./type.js').SpringActions>} obj To Values
      */
     goTo(obj, props = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
@@ -648,7 +632,7 @@ export default class MobSpring {
     }
 
     /**
-     * @type {import('../../utils/type.js').GoFrom<import('./type.js').SpringActions>} obj to Values
+     * @type {import('../../utils/type.js').GoFrom<import('./type.js').SpringActions>} obj To Values
      */
     goFrom(obj, props = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
@@ -659,7 +643,7 @@ export default class MobSpring {
     }
 
     /**
-     * @type {import('../../utils/type.js').GoFromTo<import('./type.js').SpringActions>} obj to Values
+     * @type {import('../../utils/type.js').GoFromTo<import('./type.js').SpringActions>} obj To Values
      */
     goFromTo(fromObj, toObj, props = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
@@ -675,7 +659,7 @@ export default class MobSpring {
     }
 
     /**
-     * @type {import('../../utils/type.js').Set<import('./type.js').SpringActions>} obj to Values
+     * @type {import('../../utils/type.js').Set<import('./type.js').SpringActions>} obj To Values
      */
     set(obj, props = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
@@ -686,7 +670,7 @@ export default class MobSpring {
     }
 
     /**
-     * @type {import('../../utils/type.js').SetImmediate<import('./type.js').SpringActions>} obj to Values
+     * @type {import('../../utils/type.js').SetImmediate<import('./type.js').SpringActions>} obj To Values
      */
     setImmediate(obj, props = {}) {
         if (this.#pauseStatus) return;
@@ -707,7 +691,7 @@ export default class MobSpring {
     }
 
     /**
-     * @type {import('../../utils/type.js').DoAction<import('./type.js').SpringActions>} obj to Values
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').SpringActions>} obj To Values
      */
     #doAction(data, props = {}, obj) {
         this.#values = mergeArray(data, this.#values);
@@ -737,157 +721,147 @@ export default class MobSpring {
     }
 
     /**
-     * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').SpringGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = mySpring.get();
-     * ```
+     *     const { prop } = mySpring.get();
+     *     ```;
+     *
+     * @type {import('./type.js').SpringGetValue}
      */
     get() {
         return getValueObj(this.#values, 'currentValue');
     }
 
     /**
-     * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').SpringGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = mySpring.getIntialData();
-     * ```
+     *     const { prop } = mySpring.getIntialData();
+     *     ```;
+     *
+     * @type {import('./type.js').SpringGetValue}
      */
     getInitialData() {
         return getValueObj(this.#initialData, 'currentValue');
     }
 
     /**
-     * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').SpringGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = mySpring.getFrom();
-     * ```
+     *     const { prop } = mySpring.getFrom();
+     *     ```;
+     *
+     * @type {import('./type.js').SpringGetValue}
      */
     getFrom() {
         return getValueObj(this.#values, 'fromValue');
     }
 
     /**
-     * @description
      * Get to values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').SpringGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = mySpring.getTo();
-     * ```
+     *     const { prop } = mySpring.getTo();
+     *     ```;
+     *
+     * @type {import('./type.js').SpringGetValue}
      */
     getTo() {
         return getValueObj(this.#values, 'toValue');
     }
 
     /**
-     * @description
      * Get From values, if the single value is a function it returns the same function.
      *
-     * @type {import('./type.js').SpringGetValueNative}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = mySpring.getFromNativeType();
-     * ```
+     *     const { prop } = mySpring.getFromNativeType();
+     *     ```;
+     *
+     * @type {import('./type.js').SpringGetValueNative}
      */
     getFromNativeType() {
         return getValueObjFromNative(this.#values);
     }
 
     /**
-     * @description
      * Get To values, if the single value is a function it returns the same function.
      *
-     * @type {import('./type.js').SpringGetValueNative}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = mySpring.getToNativeType();
-     * ```
+     *     const { prop } = mySpring.getToNativeType();
+     *     ```;
+     *
+     * @type {import('./type.js').SpringGetValueNative}
      */
     getToNativeType() {
         return getValueObjToNative(this.#values);
     }
 
     /**
-     * @description
      * Get tween type
      *
-     * @type {import('./type.js').SpringGetType} tween type
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const type = mySpring.getType();
-     * ```
+     *     const type = mySpring.getType();
+     *     ```;
+     *
+     * @type {import('./type.js').SpringGetType} tween Type
      */
     getType() {
         return 'SPRING';
     }
 
     /**
-     * @description
      * Get univoque Id
      *
-     * @type {import('./type.js').SpringGetId}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const type = mySpring.getId();
-     * ```
+     *     const type = mySpring.getId();
+     *     ```;
+     *
+     * @type {import('./type.js').SpringGetId}
      */
     getId() {
         return this.#uniqueId;
     }
 
     /**
+     * Update config object, every || some properties The change will be persistent
+     *
+     * @example
+     *     ```javascript
+     *      mySpring.updateConfigProp({
+     *          mass: 2,
+     *          friction: 5
+     *      })
+     *
+     *
+     *      ```;
+     *
      * @type {import('./type.js').SpringUdateConfigProp}
-     *
-     *  @example
-     *  ```javascript
-     *  mySpring.updateConfigProp({
-     *      mass: 2,
-     *      friction: 5
-     *  })
-     *
-     *
-     *  ```
-     *
-     * @description
-     * Update config object, every || some properties
-     * The change will be persistent
      */
     updateConfigProp(configProps = {}) {
         const configToMerge = springConfigPropIsValid(configProps);
@@ -899,12 +873,9 @@ export default class MobSpring {
     }
 
     /**
-     *
-     * @description
-     * updateConfig - Update config object with new preset
+     * UpdateConfig - Update config object with new preset
      *
      * @type {import('./type.js').SpringUdateConfig}
-     *
      */
     updateConfig(config) {
         this.#configProps = springConfigIsValidAndGetNew(config);
@@ -916,9 +887,8 @@ export default class MobSpring {
     /**
      * @type {import('./type.js').SpringSubscribe}
      *
-     * ```
-     * @description
-     * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
+     *       @description
+     *       Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
     subscribe(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
@@ -931,10 +901,9 @@ export default class MobSpring {
     }
 
     /**
-     * @type {import('./type.js').SpringSubscribeCache}
-     *
-     * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
+     *
+     * @type {import('./type.js').SpringSubscribeCache}
      */
     subscribeCache(item, fn) {
         const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } =
@@ -951,13 +920,12 @@ export default class MobSpring {
     }
 
     /**
-     * Support callback to asyncTimeline.
-     * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
-     * Add callback to start in pause to stack
+     * Support callback to asyncTimeline. Callback to manage the departure of tweens in a timeline. If a delay is
+     * applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will
+     * automatically pause. Add callback to start in pause to stack
      *
-     * @param  {() => boolean} cb cal function
-     * @return {() => void} unsubscribe callback
-     *
+     * @param {() => boolean} cb Cal function
+     * @returns {() => void} Unsubscribe callback
      */
     onStartInPause(cb) {
         const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
@@ -967,14 +935,12 @@ export default class MobSpring {
     }
 
     /**
+     * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the
+     * scroll trigger is inactive). Useful for applying a different style to an inactive element. A typical example is
+     * to remove the teansform3D property:
+     *
      * @type {import('./type.js').SpringOnComplete}
-     *
-     *
-     * @description
-     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-     *  Useful for applying a different style to an inactive element.
-     *  A typical example is to remove the teansform3D property:
-     **/
+     */
     onComplete(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
             cb,
@@ -989,7 +955,6 @@ export default class MobSpring {
     }
 
     /**
-     * @description
      * Destroy tween
      */
     destroy() {

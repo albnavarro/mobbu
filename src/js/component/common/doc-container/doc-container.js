@@ -3,9 +3,9 @@
 import { html, MobJs } from '@mobJs';
 
 /**
- * @import { MobComponent, SetStateByName } from '@mobJsType';
- * @import { ScrollToTop } from '../scroll-to-top/type';
- **/
+ * @import {MobComponent, SetStateByName} from '@mobJsType';
+ * @import {ScrollToTop} from '../scroll-to-top/type';
+ */
 
 /** @type {MobComponent} */
 export const DocContainerFn = ({ onMount }) => {

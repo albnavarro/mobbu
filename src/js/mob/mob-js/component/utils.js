@@ -1,19 +1,15 @@
 // @ts-check
 
 /**
+ * Support getChildrenIdByName action. Update child obj id, insert new child id in the array of same component family.
+ *
+ * [componentName] : [string, string, ...]
+ *
  * @param {object} obj
  * @param {Record<string, string[]>} obj.currentChild
  * @param {string} obj.id
  * @param {string} obj.componentName
- *
- * @return {{string: Array.<string>}|{}}
- *
- *
- * @description
- * Support getChildrenIdByName action.
- * Update child obj id, insert new child id in the array of same component family.
- *
- * [componentName] : [string, string, ...]
+ * @returns {{ string: string[] } | {}}
  */
 export const updateChildrenArray = ({
     currentChild,
@@ -26,18 +22,13 @@ export const updateChildrenArray = ({
 };
 
 /**
+ * Support getChildrenIdByName action. Remove child obj id from the array of same component family.
+ *
  * @param {object} obj
  * @param {Record<string, string[]>} obj.currentChild
  * @param {string} obj.id
  * @param {string} obj.componentName
- *
- * @return {{string: Array.<string>}|{}}
- *
- *
- * @description
- * Support getChildrenIdByName action.
- * Remove child obj id from  the array of same component family.
- *
+ * @returns {{ string: string[] } | {}}
  */
 export const removeChildFromChildrenArray = ({
     currentChild,
@@ -56,7 +47,7 @@ export const removeChildFromChildrenArray = ({
 /**
  * @param {object} obj
  * @param {object} obj.props
- * @param {import("../../mob-core/store/type").MobStoreReturnType<any>} obj.store - SimpleStore instance
+ * @param {import('../../mob-core/store/type').MobStoreReturnType<any>} obj.store - SimpleStore instance
  * @returns {void}
  */
 export const addPropsToState = ({ props, store }) => {

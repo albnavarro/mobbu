@@ -3,7 +3,7 @@
 import { MobCore } from '../../../mob-core';
 
 /**
- * @param {(time: number, fps: number,resolveFunction: (arg0: any) => void) => void} rafFunction
+ * @param {(time: number, fps: number, resolveFunction: (arg0: any) => void) => void} rafFunction
  * @param {(arg0: any) => void} resolveFunction
  */
 export const resume = (rafFunction, resolveFunction) => {

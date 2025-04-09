@@ -7,11 +7,10 @@ import { componentMap } from '../store';
 import { updateChildrenArray } from '../utils';
 
 /**
- * @param {string} id
- * @returns {string|undefined}
- *
- * @description
  * Get parent id By id
+ *
+ * @param {string} id
+ * @returns {string | undefined}
  */
 export const getParentIdById = (id = '') => {
     if (!id || id === '') return;
@@ -28,12 +27,10 @@ export const getParentIdById = (id = '') => {
 };
 
 /**
+ * Update child id. From current component id get parentID and then add to parent child id
+ *
  * @param {object} obj
  * @param {string} obj.id
- *
- * @description
- * Update child id.
- * From current component id get parentID and then add to parent child id
  */
 export const addSelfIdToParentComponent = ({ id = '' }) => {
     if (!id || id === '') return;
@@ -64,14 +61,12 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
 };
 
 /**
- * @param {object} params
- * @param {HTMLElement|undefined} params.element
- * @param {string} params.id
- * @returns void
+ * Add self id to future component. If id is assigned to component nested in next cycle will be override.
  *
- * @description
- * Add self id to future component.
- * If id is assigned to component nested in next cycle will be override.
+ * @param {object} params
+ * @param {HTMLElement | undefined} params.element
+ * @param {string} params.id
+ * @returns Void
  */
 export const addParentIdToFutureComponent = ({ element, id }) => {
     if (!element) return;
@@ -92,12 +87,11 @@ export const addParentIdToFutureComponent = ({ element, id }) => {
 };
 
 /**
- * @param {object} params
- * @param {HTMLElement|undefined} params.element
- * @returns {string|undefined}
- *
- * @description
  * Get first element that contains repaterParent start from last map element.
+ *
+ * @param {object} params
+ * @param {HTMLElement | undefined} params.element
+ * @returns {string | undefined}
  */
 export const getFallBackParentByElement = ({ element }) => {
     if (!element) return;

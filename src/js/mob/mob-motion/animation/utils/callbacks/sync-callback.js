@@ -3,10 +3,9 @@
 import { MobCore } from '../../../../mob-core';
 
 /**
- * @type {import('./type').SyncCallback}
- *
- * @description
  * Fire callback while Running
+ *
+ * @type {import('./type').SyncCallback}
  */
 export const syncCallback = ({
     each,

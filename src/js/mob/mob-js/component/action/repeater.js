@@ -5,14 +5,12 @@ import { getRepeatParent } from '../../modules/repeater/action/get-repeater-pare
 import { componentMap } from '../store.js';
 
 /**
+ * Update element root from generic to real after conversion.
  *
  * @param {object} obj
  * @param {string} obj.id
  * @param {any} obj.value
- * @return { void }
- *
- * @description
- * Update element root from generic to real after conversion.
+ * @returns {void}
  */
 export const setRepeaterStateById = ({ id = '', value }) => {
     if (!id || id === '') return;
@@ -27,14 +25,12 @@ export const setRepeaterStateById = ({ id = '', value }) => {
 };
 
 /**
- * @description
- * Find first element children of rootNode that contains currentNode.
- * Use to find repeater innerWrap.
+ * Find first element children of rootNode that contains currentNode. Use to find repeater innerWrap.
  *
  * @param {object} params
  * @param {HTMLElement} params.rootNode
- * @param {HTMLElement|null} params.currentNode
- * @returns {HTMLElement|undefined}
+ * @param {HTMLElement | null} params.currentNode
+ * @returns {HTMLElement | undefined}
  */
 const getFirstChildOfElementParentOfElement = ({ rootNode, currentNode }) => {
     if (!currentNode || !rootNode.contains(currentNode)) return;
@@ -47,14 +43,12 @@ const getFirstChildOfElementParentOfElement = ({ rootNode, currentNode }) => {
 };
 
 /**
+ * Find Dom element that container firstRepeaterElement.
  *
  * @param {object} obj
  * @param {HTMLElement} obj.rootNode
  * @param {HTMLElement} obj.node
- * @return {HTMLElement|Element|undefined}
- *
- * @description
- * Find Dom element that container firstRepeaterElement.
+ * @returns {HTMLElement | Element | undefined}
  */
 export const findFirstRepeaterElementWrap = ({ rootNode, node }) => {
     if (!rootNode) return;
@@ -70,13 +64,11 @@ export const findFirstRepeaterElementWrap = ({ rootNode, node }) => {
 };
 
 /**
+ * Update element root from generic to real after conversion.
  *
  * @param {object} obj
  * @param {string} obj.id
- * @return {import('../../modules/repeater/type').CurrentRepeaterState}
- *
- * @description
- * Update element root from generic to real after conversion.
+ * @returns {import('../../modules/repeater/type').CurrentRepeaterState}
  */
 export const getRepeaterStateById = ({ id = '' }) => {
     if (!id || id === '') return DEFAULT_CURRENT_REPEATER_STATE;
@@ -89,13 +81,11 @@ export const getRepeaterStateById = ({ id = '' }) => {
 };
 
 /**
+ * Update element root from generic to real after conversion.
  *
  * @param {object} obj
  * @param {string} obj.id
- * @return {string}
- *
- * @description
- * Update element root from generic to real after conversion.
+ * @returns {string}
  */
 export const getRepeaterPropBind = ({ id = '' }) => {
     if (!id || id === '') return '';
@@ -109,15 +99,13 @@ export const getRepeaterPropBind = ({ id = '' }) => {
 };
 
 /**
+ * Update element root from generic to real after conversion.
  *
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.repeatId
- * @param {HTMLElement|Element} obj.element
- * @returns{void}
- *
- * @description
- * Update element root from generic to real after conversion.
+ * @param {HTMLElement | Element} obj.element
+ * @returns {void}
  */
 export const setRepeaterInnerWrap = ({ id = '', repeatId = '', element }) => {
     if (!id || id === '') return;
@@ -141,12 +129,9 @@ export const setRepeaterInnerWrap = ({ id = '', repeatId = '', element }) => {
 };
 
 /**
- *
  * @param {object} obj
- * @param {string|undefined} obj.id
- * @return {HTMLElement|Element|undefined}
- *
- * @description
+ * @param {string | undefined} obj.id
+ * @returns {HTMLElement | Element | undefined}
  */
 export const getRepeaterInnerWrap = ({ id }) => {
     if (!id || id === '') return;

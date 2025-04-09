@@ -8,7 +8,7 @@ import { getBreadCrumbs } from './utils';
 
 MobJs.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
 
-/** @type{import('@mobJsType').PageAsync} */
+/** @type {import('@mobJsType').PageAsync} */
 export const layoutSidebarLinks = async ({ props }) => {
     const { source, title, breadCrumbs } = props;
     const { data } = await loadJsonContent({ source });
@@ -18,7 +18,7 @@ export const layoutSidebarLinks = async ({ props }) => {
             <html-content
                 slot="docs"
                 ${MobJs.staticProps(
-                    /** @type{import('@commonComponent/html-content/type').HtmlContent['state']} */
+                    /** @type {import('@commonComponent/html-content/type').HtmlContent['state']} */
                     ({
                         data: data.data,
                         useMaxWidth: true,

@@ -5,8 +5,8 @@ import { detectFirefox, detectSafari } from '@utils/utils';
 import { CaterpillarN2Fn } from './caterpillar-n2';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 const duration = 10;
 
@@ -54,7 +54,7 @@ const buttons = {
 };
 
 export const CaterpillarN2 = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').CaterpillarN2>} */
+    /** @type {CreateComponentParams<import('./type').CaterpillarN2>} */
     ({
         name: 'caterpillar-n2',
         component: CaterpillarN2Fn,

@@ -1,8 +1,8 @@
 import { MobCore } from '@mobCore';
 
 /**
- * @import { MobStoreParams, MobStoreReturnType } from "@mobStoreType";
- **/
+ * @import {MobStoreParams, MobStoreReturnType} from "@mobStoreType";
+ */
 
 /** @type {MobStoreReturnType<import('./type').ExternalStore>} */
 let externalStore;
@@ -11,7 +11,7 @@ export const createExternalStore = () => {
     if (externalStore) return;
 
     externalStore = MobCore.createStore(
-        /** @type{MobStoreParams<import('./type').ExternalStore>} */
+        /** @type {MobStoreParams<import('./type').ExternalStore>} */
         ({
             data: () => ({
                 value: [],

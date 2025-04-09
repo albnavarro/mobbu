@@ -1,6 +1,6 @@
 import { MobSmoothScroller } from '@mobMotionPlugin';
 
-/** @type{import("../type").LinksScroller} */
+/** @type {import('../type').LinksScroller} */
 export const linksScroller = ({
     screenElement,
     scrollerElement,

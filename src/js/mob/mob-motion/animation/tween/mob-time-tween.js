@@ -53,8 +53,7 @@ import { tweenGetValueOnDraw } from './get-values-on-draw.js';
 
 export default class MobTimeTween {
     /**
-     * @type {Function}
-     *  This value lives from user call ( goTo etc..) until next call
+     * @type {Function} This value lives from user call ( goTo etc..) until next call
      */
     #ease;
 
@@ -89,7 +88,7 @@ export default class MobTimeTween {
     #currentReject;
 
     /**
-     * @type{Promise<void>|undefined}
+     * @type {Promise<void> | undefined}
      */
     #promise;
 
@@ -124,7 +123,7 @@ export default class MobTimeTween {
     #callbackStartInPause;
 
     /**
-     * @type {Array<() => void>}
+     * @type {(() => void)[]}
      */
     #unsubscribeCache;
 
@@ -174,11 +173,9 @@ export default class MobTimeTween {
     #fpsInLoading;
 
     /**
-     * @description
-     * This value is the base value merged with new value in custom prop
-     * passed form user in goTo etc..
+     * This value is the base value merged with new value in custom prop passed form user in goTo etc..
      *
-     * @type{import('./type.js').TimeTweenDefault}
+     * @type {import('./type.js').TimeTweenDefault}
      */
     #defaultProps;
 
@@ -193,49 +190,48 @@ export default class MobTimeTween {
     #fastestStagger;
 
     /**
-     * @param {import('./type.js').TimeTweenProps} [ data ]
+     * Available methods:
+     *
+     * ```javascript
+     * myTween.set();
+     * myTween.goTo();
+     * myTween.goFrom();
+     * myTween.goFromTo();
+     * myTween.subscribe();
+     * myTween.subscribeCache();
+     * myTween.onComplete();
+     * myTween.updateEase();
+     * myTween.getId();
+     * myTween.get();
+     * myTween.getTo();
+     * myTween.getFrom();
+     * myTween.getToNativeType();
+     * myTween.getFromNativeType();
+     * ```
      *
      * @example
-     * ```javascript
-     * const myTween = new HandleTween({
-     *   data: Object.<string, number>,
-     *   duration: Number,
-     *   ease: String,
-     *   relative: Boolean
-     *   stagger:{
-     *      each: Number,
-     *      from: Number|String|{x:number,y:number},
-     *      grid: {
-     *          col: Number,
-     *          row: Number,
-     *          direction: String
-     *      },
-     *      waitComplete: Boolean,
-     *   },
-     * })
+     *     ```javascript
+     *     const myTween = new HandleTween({
+     *       data: Object.<string, number>,
+     *       duration: Number,
+     *       ease: String,
+     *       relative: Boolean
+     *       stagger:{
+     *          each: Number,
+     *          from: Number|String|{x:number,y:number},
+     *          grid: {
+     *              col: Number,
+     *              row: Number,
+     *              direction: String
+     *          },
+     *          waitComplete: Boolean,
+     *       },
+     *     })
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Available methods:
-     * ```javascript
-     * myTween.set()
-     * myTween.goTo()
-     * myTween.goFrom()
-     * myTween.goFromTo()
-     * myTween.subscribe()
-     * myTween.subscribeCache()
-     * myTween.onComplete()
-     * myTween.updateEase()
-     * myTween.getId()
-     * myTween.get()
-     * myTween.getTo()
-     * myTween.getFrom()
-     * myTween.getToNativeType()
-     * myTween.getFromNativeType()
-     *
-     * ```
+     * @param {import('./type.js').TimeTweenProps} [data]
      */
     constructor(data) {
         this.#ease = easeTweenIsValidGetFunction(data?.ease);
@@ -279,7 +275,6 @@ export default class MobTimeTween {
     /**
      * @param {number} time
      * @param {Function} res
-     *
      * @returns {void}
      */
     #draw(time, res = () => {}) {
@@ -326,9 +321,7 @@ export default class MobTimeTween {
                 this.#pauseTime = 0;
 
                 /**
-                 * End of animation
-                 * Set fromValue with ended value
-                 * At the next call fromValue become the start value
+                 * End of animation Set fromValue with ended value At the next call fromValue become the start value
                  */
                 this.#values = [...this.#values].map((item) => {
                     if (!item.shouldUpdate) return item;
@@ -373,29 +366,26 @@ export default class MobTimeTween {
     }
 
     /**
-     * @param {number} time current global time
-     * @param {number} fps current FPS
-     * @param {Function} res current promise resolve
-     *
+     * @param {number} time Current global time
+     * @param {number} fps Current FPS
+     * @param {Function} res Current promise resolve
      * @returns {void}
-     **/
+     */
     #onReuqestAnim(time, fps, res) {
         this.#startTime = time;
         this.#draw(time, res);
     }
 
     /**
-     * @description
      * Inzialize stagger array
      *
      * @returns {Promise<any>}
      */
     async #inzializeStagger() {
         /**
-         * First time il there is a stagger load fps then go next step
-         * next time no need to calculate stagger and jump directly next step
-         *
-         **/
+         * First time il there is a stagger load fps then go next step next time no need to calculate stagger and jump
+         * directly next step
+         */
         if (
             shouldInizializzeStagger(
                 this.#stagger.each,
@@ -430,7 +420,7 @@ export default class MobTimeTween {
 
             if (this.#callbackCache.length > this.#callback.length) {
                 this.#callbackCache =
-                    /** @type{import('../utils/callbacks/type.js').CallbackCache} */ (
+                    /** @type {import('../utils/callbacks/type.js').CallbackCache} */ (
                         staggerArray
                     );
             } else {
@@ -450,9 +440,8 @@ export default class MobTimeTween {
     }
 
     /**
-     * @param {(value:any) => void} res
-     * @param {(value:any) => void} reject
-     *
+     * @param {(value: any) => void} res
+     * @param {(value: any) => void} reject
      * @returns {Promise<any>}
      */
     async #startRaf(res, reject) {
@@ -483,8 +472,8 @@ export default class MobTimeTween {
         this.#values = setFromToByCurrent(this.#values);
 
         /**
-         * If isRunning clear all funture stagger.
-         * If tween is ended and the lst stagger is running, let it reach end position.
+         * If isRunning clear all funture stagger. If tween is ended and the lst stagger is running, let it reach end
+         * position.
          */
         if (this.#isActive && clearCache)
             this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
@@ -562,7 +551,6 @@ export default class MobTimeTween {
     }
 
     /**
-     * @description
      * Reject promise and update form value with current
      *
      * @returns {void}
@@ -587,11 +575,9 @@ export default class MobTimeTween {
     }
 
     /**
-     * @type  {import('./type.js').TimeTweenMergeProps}
-     *
-     * @description
      * Merge special props with default props
      *
+     * @type {import('./type.js').TimeTweenMergeProps}
      */
     #mergeProps(props) {
         const newProps = { ...this.#defaultProps, ...props };
@@ -603,7 +589,7 @@ export default class MobTimeTween {
     }
 
     /**
-     * @type {import('../../utils/type.js').GoTo<import('./type.js').TimeTweenAction>} obj to Values
+     * @type {import('../../utils/type.js').GoTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goTo(obj, props = {}) {
         if (this.#pauseStatus || this.#comeFromResume) this.stop();
@@ -613,7 +599,7 @@ export default class MobTimeTween {
     }
 
     /**
-     * @type {import('../../utils/type.js').GoFrom<import('./type.js').TimeTweenAction>} obj to Values
+     * @type {import('../../utils/type.js').GoFrom<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFrom(obj, props = {}) {
         if (this.#pauseStatus || this.#comeFromResume) this.stop();
@@ -623,7 +609,7 @@ export default class MobTimeTween {
     }
 
     /**
-     * @type {import('../../utils/type.js').GoFromTo<import('./type.js').TimeTweenAction>} obj to Values
+     * @type {import('../../utils/type.js').GoFromTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFromTo(fromObj, toObj, props = {}) {
         if (this.#pauseStatus || this.#comeFromResume) this.stop();
@@ -639,7 +625,7 @@ export default class MobTimeTween {
     }
 
     /**
-     * @type {import('../../utils/type.js').Set<import('./type.js').TimeTweenAction>} obj to Values
+     * @type {import('../../utils/type.js').Set<import('./type.js').TimeTweenAction>} obj To Values
      */
     set(obj, props = {}) {
         if (this.#pauseStatus || this.#comeFromResume) this.stop();
@@ -652,7 +638,7 @@ export default class MobTimeTween {
     }
 
     /**
-     * @type {import('../../utils/type.js').SetImmediate<import('./type.js').TimeTweenAction>} obj to Values
+     * @type {import('../../utils/type.js').SetImmediate<import('./type.js').TimeTweenAction>} obj To Values
      */
     setImmediate(obj, props = {}) {
         if (this.#pauseStatus || this.#comeFromResume) this.stop();
@@ -676,7 +662,7 @@ export default class MobTimeTween {
     }
 
     /**
-     * @type {import('../../utils/type.js').DoAction<import('./type.js').TimeTweenAction>} obj to Values
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').TimeTweenAction>} obj To Values
      */
     #doAction(data, props = {}, obj) {
         this.#values = mergeArrayTween(data, this.#values);
@@ -707,136 +693,128 @@ export default class MobTimeTween {
     }
 
     /**
-     * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').TimeTweenGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myTween.get();
-     * ```
+     *     const { prop } = myTween.get();
+     *     ```;
+     *
+     * @type {import('./type.js').TimeTweenGetValue}
      */
     get() {
         return getValueObj(this.#values, 'currentValue');
     }
 
     /**
-     * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').TimeTweenGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myTween.getIntialData();
-     * ```
+     *     const { prop } = myTween.getIntialData();
+     *     ```;
+     *
+     * @type {import('./type.js').TimeTweenGetValue}
      */
     getInitialData() {
         return getValueObj(this.#initialData, 'currentValue');
     }
 
     /**
-     * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').TimeTweenGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myTween.getFrom();
-     * ```
+     *     const { prop } = myTween.getFrom();
+     *     ```;
+     *
+     * @type {import('./type.js').TimeTweenGetValue}
      */
     getFrom() {
         return getValueObj(this.#values, 'fromValue');
     }
 
     /**
-     * @description
      * Get to values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').TimeTweenGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myTween.getTo();
-     * ```
+     *     const { prop } = myTween.getTo();
+     *     ```;
+     *
+     * @type {import('./type.js').TimeTweenGetValue}
      */
     getTo() {
         return getValueObj(this.#values, 'toValue');
     }
 
     /**
-     * @description
      * Get From values, if the single value is a function it returns the same function.
      *
-     * @type {import('./type.js').TimeTweenGetValueNative}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myTween.getFromNativeType();
-     * ```
+     *     const { prop } = myTween.getFromNativeType();
+     *     ```;
+     *
+     * @type {import('./type.js').TimeTweenGetValueNative}
      */
     getFromNativeType() {
         return getValueObjFromNative(this.#values);
     }
 
     /**
-     * @description
      * Get To values, if the single value is a function it returns the same function.
      *
-     * @type {import('./type.js').TimeTweenGetValueNative}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myTween.getToNativeType();
-     * ```
+     *     const { prop } = myTween.getToNativeType();
+     *     ```;
+     *
+     * @type {import('./type.js').TimeTweenGetValueNative}
      */
     getToNativeType() {
         return getValueObjToNative(this.#values);
     }
 
     /**
-     * @description
      * Get tween type
      *
-     * @type {import('./type.js').TimeTweenGetType} tween type
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const type = myTween.getType();
-     * ```
+     *     const type = myTween.getType();
+     *     ```;
+     *
+     * @type {import('./type.js').TimeTweenGetType} tween Type
      */
     getType() {
         return 'TWEEN';
     }
 
     /**
-     * @description
      * Get univoque Id
      *
-     * @type {import('./type.js').TimeTweenGetId}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const type = myTween.getId();
-     * ```
+     *     const type = myTween.getId();
+     *     ```;
+     *
+     * @type {import('./type.js').TimeTweenGetId}
      */
     getId() {
         return this.#uniqueId;
@@ -846,7 +824,6 @@ export default class MobTimeTween {
      * Update ease with new preset
      *
      * @type {import('./type.js').TimeTweenUpdateEase}
-     *
      */
     updateEase(ease) {
         this.#ease = easeTweenIsValidGetFunction(ease);
@@ -858,9 +835,8 @@ export default class MobTimeTween {
     /**
      * @type {import('./type.js').TimeTweenSubscribe}
      *
-     * ```
-     * @description
-     * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
+     *       @description
+     *       Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
     subscribe(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
@@ -873,10 +849,9 @@ export default class MobTimeTween {
     }
 
     /**
-     * @type {import('./type.js').TimeTweenSubscribeCache}
-     *
-     * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
+     *
+     * @type {import('./type.js').TimeTweenSubscribeCache}
      */
     subscribeCache(item, fn) {
         const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } =
@@ -893,13 +868,12 @@ export default class MobTimeTween {
     }
 
     /**
-     * Support callback to asyncTimeline.
-     * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
-     * Add callback to start in pause to stack
+     * Support callback to asyncTimeline. Callback to manage the departure of tweens in a timeline. If a delay is
+     * applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will
+     * automatically pause. Add callback to start in pause to stack
      *
-     * @param  {() => boolean} cb cal function
-     * @return {() => void} unsubscribe callback
-     *
+     * @param {() => boolean} cb Cal function
+     * @returns {() => void} Unsubscribe callback
      */
     onStartInPause(cb) {
         const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
@@ -909,14 +883,12 @@ export default class MobTimeTween {
     }
 
     /**
+     * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the
+     * scroll trigger is inactive). Useful for applying a different style to an inactive element. A typical example is
+     * to remove the teansform3D property:
+     *
      * @type {import('./type.js').TimeTweenOnComplete}
-     *
-     *
-     * @description
-     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-     *  Useful for applying a different style to an inactive element.
-     *  A typical example is to remove the teansform3D property:
-     **/
+     */
     onComplete(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
             cb,
@@ -931,7 +903,6 @@ export default class MobTimeTween {
     }
 
     /**
-     * @description
      * Destroy tween
      *
      * @returns {void}

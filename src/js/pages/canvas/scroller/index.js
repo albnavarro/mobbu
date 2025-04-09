@@ -5,7 +5,7 @@ import { scrollerParams } from './scroller-params';
 
 MobJs.useComponent([ScrollerN0]);
 
-/** @type{import('@mobJsType').Page} */
+/** @type {import('@mobJsType').Page} */
 export const scrollerN0 = ({ params }) => {
     const { version } = params;
 
@@ -26,7 +26,7 @@ export const scrollerN0 = ({ params }) => {
     return html`<div>
         <scroller-n0
             ${MobJs.staticProps(
-                /** @type{import('@pagesComponent/scroller/n0/type').ScrollerN0['state']} */
+                /** @type {import('@pagesComponent/scroller/n0/type').ScrollerN0['state']} */
                 ({
                     ...props.animation,
                 })

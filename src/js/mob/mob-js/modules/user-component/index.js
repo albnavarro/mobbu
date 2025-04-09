@@ -25,16 +25,14 @@ export const removeUserPlaceholder = (element) => {
 };
 
 /**
- * @param {Element} element
- * @returns {import('../../web-component/type').UserComponent[]}
- *
- * @description
- * useComponent is inserted in orderf if dom insert ( naturally traversal ).
- * Can't return array with all element because when in this map there element that change position.
- * When paren element switch position in parse the new element is different.
- * Get only first real element.
+ * UseComponent is inserted in orderf if dom insert ( naturally traversal ). Can't return array with all element because
+ * when in this map there element that change position. When paren element switch position in parse the new element is
+ * different. Get only first real element.
  *
  * Return an array with one element, to maintain compatibility with query solution.
+ *
+ * @param {Element} element
+ * @returns {import('../../web-component/type').UserComponent[]}
  */
 export const getFirstUserChildPlaceHolder = (element) => {
     const userComponent = [...userPlaceholder].find((item) => {
@@ -50,9 +48,7 @@ export const getFirstUserChildPlaceHolder = (element) => {
 /**
  * @param {object} params
  * @param {Element} params.element
- * @returns {Array<import('../../web-component/type').UserComponent>}
- *
- * @description
+ * @returns {import('../../web-component/type').UserComponent[]}
  */
 export const getAllUserChildPlaceholder = ({ element }) => {
     return (
@@ -69,9 +65,7 @@ export const getAllUserChildPlaceholder = ({ element }) => {
 /**
  * @param {object} params
  * @param {Element} params.element
- * @returns {Array<import('../../web-component/type').UserComponent>}
- *
- * @description
+ * @returns {import('../../web-component/type').UserComponent[]}
  */
 export const getAllUserComponentUseNamedSlot = ({ element }) => {
     return (
@@ -94,10 +88,8 @@ export const getUserChildPlaceholderSize = () => {
 };
 
 /**
- * @description
- * Redorder placeholder in traversal order.
- * Slot move element, so reorder all map
- * Should be not mandatory, but this smap is a foundamenal step
+ * Redorder placeholder in traversal order. Slot move element, so reorder all map Should be not mandatory, but this smap
+ * is a foundamenal step
  *
  * @returns {void}
  */
@@ -119,11 +111,9 @@ export const sortUserPlaceholder = () => {
 };
 
 /**
- * @returns {Promise<void>}
+ * Clean array at the end of app operation. Issue with element that switch position and there no real.
  *
- * @description
- * Clean array at the end of app operation.
- * Issue with element that switch position and there no real.
+ * @returns {Promise<void>}
  */
 export const clearUserPlaceHolder = async () => {
     userPlaceholder.clear();

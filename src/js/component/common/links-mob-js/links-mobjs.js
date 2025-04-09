@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { BindProps, MobComponent, StaticProps } from '@mobJsType';
- * @import { LinksMobJs, LinksMobJsButton } from './type';
- **/
+ * @import {BindProps, MobComponent, StaticProps} from '@mobJsType';
+ * @import {LinksMobJs, LinksMobJsButton} from './type';
+ */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { getCommonData } from '@data/index';

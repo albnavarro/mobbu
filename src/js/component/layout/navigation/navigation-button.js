@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { NavigationButton } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {NavigationButton} from './type';
+ */
 
 import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
@@ -51,8 +51,7 @@ export const NavigationButtonFn = ({
             setState('isCurrent', isActiveRoute);
 
             /**
-             * Set current accordion menu open state.
-             * On load route, or if route is loaded outside menu.
+             * Set current accordion menu open state. On load route, or if route is loaded outside menu.
              */
             if (isActiveRoute && fireRoute) {
                 callback();
@@ -72,8 +71,7 @@ export const NavigationButtonFn = ({
             ${delegateEvents({
                 click: () => {
                     /**
-                     * Set current accordion menu open state.
-                     * On Submenu label click.
+                     * Set current accordion menu open state. On Submenu label click.
                      */
                     callback();
                     if (!fireRoute) return;

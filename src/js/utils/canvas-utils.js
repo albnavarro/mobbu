@@ -5,7 +5,7 @@ export const canvasBackground = '#e8e8e8';
 /**
  * @param {object} params
  * @param {boolean} params.disableOffcanvas
- * @returns {{useOffscreen: boolean, context: 'bitmaprenderer'|'2d'}}
+ * @returns {{ useOffscreen: boolean; context: 'bitmaprenderer' | '2d' }}
  */
 export const getCanvasContext = ({ disableOffcanvas }) => {
     const useOffscreen = 'OffscreenCanvas' in globalThis && !disableOffcanvas;
@@ -17,7 +17,10 @@ export const getCanvasContext = ({ disableOffcanvas }) => {
  * @param {object} params
  * @param {boolean} params.useOffscreen
  * @param {HTMLCanvasElement} params.canvas
- * @returns {{offscreen: OffscreenCanvas|null , offScreenCtx: OffscreenCanvasRenderingContext2D|undefined|null}}
+ * @returns {{
+ *     offscreen: OffscreenCanvas | null;
+ *     offScreenCtx: OffscreenCanvasRenderingContext2D | undefined | null;
+ * }}
  */
 export const getOffsetCanvas = ({ useOffscreen, canvas }) => {
     const offscreen = useOffscreen
@@ -31,8 +34,8 @@ export const getOffsetCanvas = ({ useOffscreen, canvas }) => {
 /**
  * @param {object} params
  * @param {boolean} params.useOffscreen
- * @param {OffscreenCanvas|null} params.offscreen
- * @param {ImageBitmapRenderingContext|null} params.ctx
+ * @param {OffscreenCanvas | null} params.offscreen
+ * @param {ImageBitmapRenderingContext | null} params.ctx
  * @returns {void}
  */
 export const copyCanvasBitmap = ({ useOffscreen, offscreen, ctx }) => {
@@ -70,7 +73,7 @@ export const roundRectCustom = (ctx, x, y, w, h, r) => {
 };
 
 /**
- * @type {import("./type").CreateGrid}
+ * @type {import('./type').CreateGrid}
  */
 export const createGrid = ({
     canvas,
@@ -80,7 +83,7 @@ export const createGrid = ({
     cellHeight,
     gutter,
 }) => {
-    /** @type{import("./type").GridType} */
+    /** @type {import('./type').GridType} */
     const initValue = { row: 0, col: -1, items: [] };
 
     return [

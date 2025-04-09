@@ -10,14 +10,14 @@ export const benchMarkDefinitionPartial = (maxItem = 2001) => ({
         data: () => ({
             value: [],
             type: Array,
-            validate: (/** @type{any[]} */ value) => value.length < maxItem,
+            validate: (/** @type {any[]} */ value) => value.length < maxItem,
             strict: true,
             skipEqual: false,
         }),
         time: () => ({
             value: 0,
             type: Number,
-            transform: (/** @type{number} */ value) => Math.round(value),
+            transform: (/** @type {number} */ value) => Math.round(value),
             skipEqual: false,
         }),
         isLoading: () => ({

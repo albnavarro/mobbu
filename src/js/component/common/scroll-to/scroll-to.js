@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps, DelegateEvents, BindProps  } from '@mobJsType';
+ * @import {MobComponent, ReturnBindProps, DelegateEvents, BindProps} from '@mobJsType';
  * @import {ScrollTo} from './type'
  * @import {ScrollToButton} from './button/type'
  */
@@ -16,7 +16,7 @@ let disableObservereffect = false;
 /**
  * @param {Object} param
  * @param {DelegateEvents} param.delegateEvents
- * @param {BindProps<ScrollTo,ScrollToButton>} param.bindProps
+ * @param {BindProps<ScrollTo, ScrollToButton>} param.bindProps
  * @param {ScrollTo['state']} param.proxi
  * @returns {string}
  */
@@ -43,13 +43,13 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                                 await MobBodyScroll.to(offsetTop);
 
                                 /**
-                                 * back to enable spacerAnchor observer.
+                                 * Back to enable spacerAnchor observer.
                                  */
                                 disableObservereffect = false;
                             },
                         })}
                         ${bindProps(
-                            /** @returns{ReturnBindProps<ScrollToButton>} */
+                            /** @returns {ReturnBindProps<ScrollToButton>} */
                             () => ({
                                 active: proxi.activeLabel === item.label,
                                 label: item.label,
@@ -91,8 +91,7 @@ export const ScrollToFn = ({
         if (MobMotionCore.mq('max', 'large')) return;
 
         /**
-         * SpacerAnchor add label in different time during render.
-         * Use computed to get last array of label completed.
+         * SpacerAnchor add label in different time during render. Use computed to get last array of label completed.
          */
         computed('anchorItems', () => proxi.anchorItemsToBeComputed);
     });

@@ -22,26 +22,22 @@ export interface MouseEventParsed {
     preventDefault: () => void;
 
     /**
-     * @description
-     * available only on mouseWheel
+     * Available only on mouseWheel
      */
     spinX?: number;
 
     /**
-     * @description
-     * available only on mouseWheel
+     * Available only on mouseWheel
      */
     spinY?: number;
 
     /**
-     * @description
-     * available only on mouseWheel
+     * Available only on mouseWheel
      */
     pixelX?: number;
 
     /**
-     * @description
-     * available only on mouseWheel
+     * Available only on mouseWheel
      */
     pixelY?: number;
 }

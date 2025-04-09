@@ -5,11 +5,11 @@ import { FooterNavButtonFn } from './footer-button';
 import { FooterNavFn } from './footer-nav';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const FooterNavButton = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').FooterNavButton>} */
+    /** @type {CreateComponentParams<import('./type').FooterNavButton>} */
     ({
         name: 'footer-nav-button',
         component: FooterNavButtonFn,

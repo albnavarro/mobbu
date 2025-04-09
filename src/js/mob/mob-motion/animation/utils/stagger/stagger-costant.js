@@ -20,7 +20,7 @@ export const STAGGER_TYPE_END = 'end';
 export const STAGGER_TYPE_CENTER = 'center';
 
 /**
- * @type {import("./type").StaggerObject}
+ * @type {import('./type').StaggerObject}
  */
 export const STAGGER_DEFAULT_OBJ = {
     type: STAGGER_TYPE_EQUAL,
@@ -35,7 +35,7 @@ export const STAGGER_DEFAULT_OBJ = {
 };
 
 /**
- * @type {import("./type").StaggerFrameIndexObject}
+ * @type {import('./type').StaggerFrameIndexObject}
  */
 export const STAGGER_DEFAULT_INDEX_OBJ = {
     index: 0,

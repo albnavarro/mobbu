@@ -4,7 +4,7 @@ import { createPathAnimation } from './path-animation';
 import { aboutSection1 } from './section1';
 import { sectionContentAnimation } from './section-content';
 
-/** @type{import('../type').AboutScroller} */
+/** @type {import('../type').AboutScroller} */
 export const aboutAnimation = ({
     screenElement,
     scrollerElement,
@@ -86,8 +86,7 @@ export const aboutAnimation = ({
     aboutScroller.init();
 
     /**
-     * Refresh nav if is coming from menu.
-     * TODO: add afterNavigationClose state
+     * Refresh nav if is coming from menu. TODO: add afterNavigationClose state
      */
     setTimeout(() => {
         aboutScroller?.refresh?.();

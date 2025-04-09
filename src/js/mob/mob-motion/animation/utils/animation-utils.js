@@ -3,11 +3,10 @@
 import { MobCore } from '../../../mob-core';
 
 /**
+ * Sanitize Number in case is in calculator enutation.
+ *
  * @param {any} x
  * @returns {number}
- *
- * @description
- * Sanitize Number in case is in calculator enutation.
  */
 export const getRoundedValue = (x) => {
     if (MobCore.checkType(Number, x)) {
@@ -54,13 +53,11 @@ export const lerp = (start, end, amt) => {
 };
 
 /**
+ * Check if all keys of object is equal to another.
+ *
  * @param {Object} a
  * @param {Object} b
  * @returns {boolean}
- *
- * @description
- * Check if all keys of object is equal to another.
- *
  */
 export const compareKeys = (a, b) => {
     const aKeys = Object.keys(a).sort();
@@ -73,11 +70,10 @@ export const compareKeys = (a, b) => {
 };
 
 /**
+ * Subdivide array into chunks
+ *
  * @param {any[]} arr
  * @param {number} chunkSize
- *
- * @description
- * Subdivide array into chunks
  */
 export const sliceIntoChunks = (arr, chunkSize) => {
     const res = [];
@@ -89,10 +85,9 @@ export const sliceIntoChunks = (arr, chunkSize) => {
 };
 
 /**
+ * Subdivide array into columns
+ *
  * @param {any[]} arr
  * @param {number} n
- *
- * @description
- * Subdivide array into columns
  */
 export const arrayColumn = (arr, n) => arr.map((x) => x[n]);

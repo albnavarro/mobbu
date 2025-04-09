@@ -5,11 +5,10 @@ import { dataTweenValueIsValid } from './tween-validation.js';
 import { dataTweenValueIsNotValidWarning } from '../warning.js';
 
 /**
+ * Set goTo value, used by spring and lerp
+ *
  * @param {Record<string, number | (() => number)>} obj
  * @returns {import('./type.js').GoToParamsType[]}
- *
- * @description
- * Set goTo value, used by spring and lerp
  */
 export const goToUtils = (obj) => {
     return Object.keys(obj).map((item) => {
@@ -41,11 +40,10 @@ export const goToUtils = (obj) => {
 };
 
 /**
- * @param {Record<string, number | (() => number)>} obj
- * @return {import('./type.js').GoFromType[]}
- *
- * @description
  * Set goFrom value, used by spring and lerp
+ *
+ * @param {Record<string, number | (() => number)>} obj
+ * @returns {import('./type.js').GoFromType[]}
  */
 export const goFromUtils = (obj) => {
     return Object.keys(obj).map((item) => {
@@ -78,13 +76,11 @@ export const goFromUtils = (obj) => {
 };
 
 /**
+ * Set goFromTo value, used by spring and lerp
  *
  * @param {Record<string, number | (() => number)>} fromObj
  * @param {Record<string, number | (() => number)>} toObj
- * @return {import('./type.js').GoFromToType[]}
- *
- * @description
- * Set goFromTo value, used by spring and lerp
+ * @returns {import('./type.js').GoFromToType[]}
  */
 export const goFromToUtils = (fromObj, toObj) => {
     return Object.keys(fromObj).map((item) => {
@@ -134,11 +130,10 @@ export const goFromToUtils = (fromObj, toObj) => {
 };
 
 /**
+ * Set set value, used by spring and lerp
+ *
  * @param {Record<string, number | (() => number)>} obj
  * @returns {import('./type.js').GoFromToType[]}
- *
- * @description
- * Set set value, used by spring and lerp
  */
 export const setUtils = (obj) => {
     return Object.keys(obj).map((item) => {

@@ -109,297 +109,276 @@ export interface ComponentPropsType<T, R> {
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * const storeObject = getState();
-     * const { myProp } = getState();
+     *     const storeObject = getState();
+     *     const { myProp } = getState();
      *
-     * ```
+     *     ```;
      */
     getState: GetState<T>;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * Direct value:
-     * setState('myProp', newValue, true);
-     * setState('myPropObject', { myProp: newValue, ... });
+     *     Direct value:
+     *     setState('myProp', newValue, true);
+     *     setState('myPropObject', { myProp: newValue, ... });
      *
-     *  Use a Map and clone original data.
-     * setState('mySet', (set) => {
-     *     set.add(<val>)
-     *     return set
-     *  }, true, true);
+     *      Use a Map and clone original data.
+     *     setState('mySet', (set) => {
+     *         set.add(<val>)
+     *         return set
+     *      }, true, true);
      *
-     * ```
+     *     ```;
      */
     setState: SetState<T>;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * Function that return a value:
-     * setState('myProp', (currentValue) => currentValue + 1);
+     *     Function that return a value:
+     *     setState('myProp', (currentValue) => currentValue + 1);
      *
-     * Use spread to return a new data without mutate original
-     * setState('myObject', (obj) => ({ ...obj, ...{ prop: <val> }}))
-     * ```
+     *     Use spread to return a new data without mutate original
+     *     setState('myObject', (obj) => ({ ...obj, ...{ prop: <val> }}))
+     *     ```;
      */
     updateState: UpdateState<T>;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * Function that return a proxi;
-     * const proxiState = getProxi()
+     *     Function that return a proxi;
+     *     const proxiState = getProxi()
      *
-     * proxiState.myProp = ''
-     * console.log(proxiState.myProp)
-     * ```
+     *     proxiState.myProp = ''
+     *     console.log(proxiState.myProp)
+     *     ```;
      */
     getProxi: GetProxi<T>;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * emit('myProp');
+     *     emit('myProp');
      *
-     * ```
+     *     ```;
      */
     emit: Emit<T>;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * // Module1.
-     * watch('myProp', async (value) => {
-     *     await myAsyncFunction(value);
-     * });
+     *     // Module1.
+     *     watch('myProp', async (value) => {
+     *         await myAsyncFunction(value);
+     *     });
      *
-     * // Module2.
-     * // Set prop without execute related callBack.
-     * setState('myProp', value, false);
+     *     // Module2.
+     *     // Set prop without execute related callBack.
+     *     setState('myProp', value, false);
      *
-     * // Fire related async callBack.
-     * await emitAsync('myProp');
+     *     // Fire related async callBack.
+     *     await emitAsync('myProp');
      *
-     * ```
+     *     ```;
      */
     emitAsync: EmitAsync<T>;
 
     /**
-     *
-     * @description
-     * Update propierties value if some dependency change.
-     * Computed functions are resolved on the nextTick.
-     * If multiple dependencies change at the same time, the computed will be resolved only once.
+     * Update propierties value if some dependency change. Computed functions are resolved on the nextTick. If multiple
+     * dependencies change at the same time, the computed will be resolved only once.
      *
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * computed('prop', ['prop1', 'prop2'], (val1, val2) => {
-     *     return val1 + val2;
-     * });
+     *     computed('prop', ['prop1', 'prop2'], (val1, val2) => {
+     *         return val1 + val2;
+     *     });
      *
-     * computed('prop', ['objectProp'], (obj) => {
-     *      return obj.val1 + obj.val2;
-     * })
+     *     computed('prop', ['objectProp'], (obj) => {
+     *          return obj.val1 + obj.val2;
+     *     })
      *
-     * computed('objectProp', ['prop1', 'prop2'], (val1, val2) => {
-     *     return { sum: val1 + val2 };
-     * });
+     *     computed('objectProp', ['prop1', 'prop2'], (val1, val2) => {
+     *         return { sum: val1 + val2 };
+     *     });
      *
-     * computed('objectProp', ['objectProp1'], (obj) => {
-     *     return { sum: obj.val1 + obj.val2 };
-     * });
+     *     computed('objectProp', ['objectProp1'], (obj) => {
+     *         return { sum: obj.val1 + obj.val2 };
+     *     });
      *
-     * ```
+     *     ```;
      */
     computed: Computed<T>;
 
     /**
-     * @description
      * Watch state change.
      *
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * const unsubscribe =  watch('myprop', (newval, oldval, validate) => {
-     *      // code
-     * })
-     * unsubscribe();
+     *     const unsubscribe =  watch('myprop', (newval, oldval, validate) => {
+     *          // code
+     *     })
+     *     unsubscribe();
      *
-     * ```
-     *
+     *     ```;
      */
     watch: Watch<T>;
 
     /**
-     * @description
-     * Bind a store to self state object.
-     * Will be possible use in only read-mode the get/watch/proxi.
+     * Bind a store to self state object. Will be possible use in only read-mode the get/watch/proxi.
      *
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * bindStore([myStore, myStore2]);
-     * bindStore(myStore);
+     *     bindStore([myStore, myStore2]);
+     *     bindStore(myStore);
      *
-     * ```
-     *
+     *     ```;
      */
     bindStore: PartialBindStore;
 
     /**
-     * @description
-     * Remove and destroy specific DOM element ( not component ).
-     * Every time the dom is removed, any reference to any components present within it such as watchers etc... will be removed from the map.
+     * Remove and destroy specific DOM element ( not component ). Every time the dom is removed, any reference to any
+     * components present within it such as watchers etc... will be removed from the map.
      *
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * removeDOM(myHTMLElement)
+     *     removeDOM(myHTMLElement)
      *
-     * ```
+     *     ```;
      */
     removeDOM: RemoveDom;
 
     /**
-     * @description
      * Remove and destroy component.
      *
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * remove()
+     *     remove()
      *
-     * ```
+     *     ```;
      */
     remove: Remove;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * const componentsId = getChildren('MyComponent');
+     *     const componentsId = getChildren('MyComponent');
      *
-     * ```
+     *     ```;
      */
     getChildren: GetChildren;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * freezeProp('myStateProp');
+     *     freezeProp('myStateProp');
      *
-     * ```
+     *     ```;
      */
     freezeProp: FreezeProp<T>;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * unFreezeProp('myStateProp');
+     *     unFreezeProp('myStateProp');
      *
-     * ```
+     *     ```;
      */
     unFreezeProp: UnFreezeProp<T>;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * const parentId = getParentId():
+     *     const parentId = getParentId():
      *
-     * ```
+     *     ```;
      */
     getParentId: GetParentId;
 
     /**
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * const unsubscribe =  watchParent('myprop', (newval, oldval, validate) => {
-     *      // code
-     * })
-     * unsubscribe();
+     *     const unsubscribe =  watchParent('myprop', (newval, oldval, validate) => {
+     *          // code
+     *     })
+     *     unsubscribe();
      *
-     * ```
+     *     ```;
      */
     watchParent: WatchParent;
 
     /**
-     *
-     * @description
      * Non-reactive props.
      *
-     * - `Slot`
-     *  It is possible to combine this utility directly with a slot, the bindings will then be used by the component that will be hosted.
+     * - `Slot` It is possible to combine this utility directly with a slot, the bindings will then be used by the
+     *   component that will be hosted.
      *
      * @example
-     * ```javascript
-     * <MyComponent
-     *     ${staticProps({
-     *         childState1: key,
-     *         callBack: () => setState('parentState', key)
-     *     })}
-     * ></MyComponent>
-     * ```
+     *     ```javascript
+     *     <MyComponent
+     *         ${staticProps({
+     *             childState1: key,
+     *             callBack: () => setState('parentState', key),
+     *         })}
+     *     ></MyComponent>
+     *     ```;
      */
     staticProps: StaticProps<R>;
 
     /**
-     * @example
-     * ```javascript
-     * unBind()
-     * ```
+     * Detach binbProps. Note: The function will be active as soon as the whole route is rendered.
      *
-     * @description
-     * Detach binbProps.
-     * Note: The function will be active as soon as the whole route is rendered.
+     * @example
+     *     ```javascript
+     *     unBind()
+     *     ```;
      */
     unBind: UnBind;
 
     /**
-     * @description
-     * Bind props from parent to Children.
-     * The watch function must be used inside onMount() function.
+     * Bind props from parent to Children. The watch function must be used inside onMount() function.
      *
-     * - `forceParent`:
-     *   Basically, the states of the current function are bound. With this option the state(s) of the nearest relative will be observed regardless of the component in which the component is defined, a frequent case with the use of slots.
-     *   Default value is false.
-     *
-     * - `Extra props inside repeater:`
-     * `index` position of element inside array.
-     * Correspond to `myArray.map((_current, index) => { ... })`.
-     *
-     *
-     * - `Slot`
-     *  It is possible to combine this utility directly with a slot, the bindings will then be used by the component that will be hosted.
-     *
+     * - `forceParent`: Basically, the states of the current function are bound. With this option the state(s) of the
+     *   nearest relative will be observed regardless of the component in which the component is defined, a frequent
+     *   case with the use of slots. Default value is false.
+     * - `Extra props inside repeater:` `index` position of element inside array. Correspond to `myArray.map((_current,
+     *   index) => { ... })`.
+     * - `Slot` It is possible to combine this utility directly with a slot, the bindings will then be used by the
+     *   component that will be hosted.
      *
      * @example
-     * ```javascript
-     * <MyComponent
+     *     ```javascript
+     *     <MyComponent
      *     ${bindProps({
-     *         bind: ['state1','state2'],
-     *         forceParent: false,
-     *         props: ({ state1, state2 }, index) => {
-     *             return {
-     *                 <state>: ...
-     *                 <state>: ...
-     *             };
-     *         },
+     *     bind: ['state1','state2'],
+     *     forceParent: false,
+     *     props: ({ state1, state2 }, index) => {
+     *     return {
+     *     <state>: ...
+     *     <state>: ...
+     *     };
+     *     },
      *     })}
-     * ></MyComponent>
-     * ```
+     *     ></MyComponent>
+     *     ```
      */
     bindProps: BindProps<T, R>;
     // bindProps(arg0: {
@@ -409,295 +388,249 @@ export interface ComponentPropsType<T, R> {
     // }): string;
 
     /**
-     * @description
-     * Bind event to component.
-     * It is possible use an array to bind multiple event.
+     * Bind event to component. It is possible use an array to bind multiple event.
      *
-     * - `Extra props inside repeater:`
-     * Return the current value inside a repeater:
-     *
-     * - `Slot`
-     *  It is possible to combine this utility directly with a slot, the bindings will then be used by the component that will be hosted.
+     * - `Extra props inside repeater:` Return the current value inside a repeater:
+     * - `Slot` It is possible to combine this utility directly with a slot, the bindings will then be used by the
+     *   component that will be hosted.
      *
      * @example
-     * ```javascript
-     * <MyComponent
-     *       ${bindEvents({
-     *            click: (e, index) => myFunction(e)
-     *       })}
-     * ></MyComponent>
+     *     ```javascript
+     *     <MyComponent
+     *           ${bindEvents({
+     *               click: (e, index) => myFunction(e),
+     *           })}
+     *     ></MyComponent>
      *
-     * <MyComponent
-     *       ${bindEvents([
-     *           {
-     *               click: (e, index) => myFunction(e)
-     *           },
-     *           {
-     *               mousedown: (e, index) => myFunction(e)
-     *           },
-     *       ])}
-     * ></MyComponent>
-     * ```
+     *     <MyComponent
+     *           ${bindEvents([
+     *               {
+     *                   click: (e, index) => myFunction(e),
+     *               },
+     *               {
+     *                   mousedown: (e, index) => myFunction(e),
+     *               },
+     *           ])}
+     *     ></MyComponent>
+     *     ```;
      */
     bindEvents: BindEvents;
 
     /**
-     * @description
-     * Delegate event.
-     * Event is associated to document.
-     * If target of event is the dom element, the callBack will be fired.
-     * It is possible use an array to bind multiple event.
+     * Delegate event. Event is associated to document. If target of event is the dom element, the callBack will be
+     * fired. It is possible use an array to bind multiple event.
      *
-     * - `Extra props inside repeater:`
-     * Return the current value inside a repeater:
-     *
-     * - `Slot`
-     *  It is possible to combine this utility directly with a slot, the bindings will then be used by the component that will be hosted.
+     * - `Extra props inside repeater:` Return the current value inside a repeater:
+     * - `Slot` It is possible to combine this utility directly with a slot, the bindings will then be used by the
+     *   component that will be hosted.
      *
      * @example
-     * ```javascript
-     * <MyComponent
-     *       ${delegateEvents({
-     *            click: (e, index) => myFunction(e)
-     *       })}
-     * ></MyComponent>
+     *     ```javascript
+     *     <MyComponent
+     *           ${delegateEvents({
+     *               click: (e, index) => myFunction(e),
+     *           })}
+     *     ></MyComponent>
      *
-     * <MyComponent
-     *       ${delegateEvents([
-     *           {
-     *               click: (e, index) => myFunction(e)
-     *           },
-     *           {
-     *               mousedown: (e, index) => myFunction(e)
-     *           },
-     *       ])}
-     * ></MyComponent>
-     * ```
+     *     <MyComponent
+     *           ${delegateEvents([
+     *               {
+     *                   click: (e, index) => myFunction(e),
+     *               },
+     *               {
+     *                   mousedown: (e, index) => myFunction(e),
+     *               },
+     *           ])}
+     *     ></MyComponent>
+     *     ```;
      */
     delegateEvents: DelegateEvents;
 
-    /**
-     * @description
-     */
     bindEffect: BindEffect<T>;
 
     /**
-     * @description
      * Add method to current instance component;
      *
-     *
      * @example
-     * ```javascript
-     * export const MyComponent = ({ addMethod }) => {
+     *     ```javascript
+     *     export const MyComponent = ({ addMethod }) => {
      *     addMethod('myMethod', (val) => {
-     *         console.log(val)
+     *     console.log(val)
      *     })
      *
      *     return html`<div></div>`;
-     * };
-     * ```
+     *     };
+     *     ```
      */
     addMethod: PartialMethods<T>;
 
     /**
-     * @description
      * Add method to current instance component;
      *
-     *
      * @example
-     * ```javascript
-     * export const MyComponent = ({ addMethod }) => {
+     *     ```javascript
+     *     export const MyComponent = ({ addMethod }) => {
      *     return html`<div ${setRef('myRef')}></div>`;
-     * };
-     * ```
+     *     };
+     *     ```
      */
     setRef: PartialSetRef<T>;
 
     /**
-     * @description
      * Add method to current instance component;
      *
-     *
      * @example
-     * ```javascript
-     * export const MyComponent = ({ getRef }) => {
+     *     ```javascript
+     *     export const MyComponent = ({ getRef }) => {
      *     onMount(() => {
-     *         getRef()?.myRef.classList.add('myClass')
+     *     getRef()?.myRef.classList.add('myClass')
      *
-     *         return () => {}
+     *     return () => {}
      *     });
      *
      *     return html`<div ${setRef('myRef')}></div>`;
-     * };
-     * ```
+     *     };
+     *     ```
      */
     getRef: PartialGetRef<T>;
 
     /**
-     * @description
      * Add method to current instance component;
      *
-     *
      * @example
-     * ```javascript
-     * export const MyComponent = ({ getRef }) => {
+     *     ```javascript
+     *     export const MyComponent = ({ getRef }) => {
      *     onMount(() => {
-     *         getRef()?.myRef.forEach((ref) => {
-     *             ref.classList.add('myClass')
-     *         })
+     *     getRef()?.myRef.forEach((ref) => {
+     *     ref.classList.add('myClass')
+     *     })
      *
-     *         return () => {}
+     *     return () => {}
      *     });
      *
      *     return html`
-     *         <div ${setRef('myRef')}></div>
-     *         <div ${setRef('myRef')}></div>
+     *     <div ${setRef('myRef')}></div>
+     *     <div ${setRef('myRef')}></div>
      *     `;
-     * };
-     * ```
+     *     };
+     *     ```
      */
     getRefs: PartialGetRefs<T>;
 
-    /**
-     *
-     */
     bindText: PartialBindText;
 
-    /**
-     *
-     */
     bindObject: PartialBindText;
 
     /**
-     *
-     * @description
-     * Function fired on mount.
-     * Return destroy function.
+     * Function fired on mount. Return destroy function.
      *
      * @example
-     * ```javascript
+     *     ```javascript
      *
-     * export const MyComponent = ({ onMount }) => {
+     *     export const MyComponent = ({ onMount }) => {
      *     onMount(({ element }) => {
-     *         return () => {}
+     *     return () => {}
      *     });
      *
      *     return html`
-     *       <div>
-     *          <div></div>
-     *       </div>
+     *     <div>
+     *     <div></div>
+     *     </div>
      *     `;
-     * };
+     *     };
      *
-     * ```
+     *     ```
      */
     onMount: OnMount;
 
     /**
-     * @description
-     * The repeater utility accepts a simple array or an array of objects. An object array is necessary to be able to use a unique key to track the location of persistent elements.
+     * The repeater utility accepts a simple array or an array of objects. An object array is necessary to be able to
+     * use a unique key to track the location of persistent elements.
      *
-     *
-     * Note:
-     * If the same state with the data array is used in the same component several times but one with key and others not, use two different states, otherwise you may have unwanted effects (all repeaters act only in the same state but the same one risks being changed in different ways)
+     * Note: If the same state with the data array is used in the same component several times but one with key and
+     * others not, use two different states, otherwise you may have unwanted effects (all repeaters act only in the same
+     * state but the same one risks being changed in different ways)
      *
      * Propierties:
-     * - `watch`:
-     *   Reactive data base from compo state.
      *
-     * - `key`:
-     *   Optional key to use if you are using an array of objects.
-     *
-     * - `clean`:
-     *   Removes all previous instances each time the monitored state is updated.
-     *
-     * - `beforeUpdate`:
-     *   Event triggered before list update.
-     *
-     * - `afterUpdate`:
-     *   Event triggered after list update.
-     *
-     * - `render`:
-     *   Function that returns the dom of each item. within the new retaken DOM it will be possible to use standard utilities such as staticProps/bindProps/bindEvent ...
-     *
+     * - `watch`: Reactive data base from compo state.
+     * - `key`: Optional key to use if you are using an array of objects.
+     * - `clean`: Removes all previous instances each time the monitored state is updated.
+     * - `beforeUpdate`: Event triggered before list update.
+     * - `afterUpdate`: Event triggered after list update.
+     * - `render`: Function that returns the dom of each item. within the new retaken DOM it will be possible to use
+     *   standard utilities such as staticProps/bindProps/bindEvent ...
      *
      * @example
+     *     ```javascript
      *
-     * ```javascript
-     *
-     * <div>
+     *     <div>
      *     ${repeat({
-     *         clean: false,
-     *         watch: 'my_array_state',
-     *         key: 'my_object_unique_key',
-     *         beforeUpdate: ({ element, container, childrenId }) => {
-     *             ....
-     *         },
-     *         afterUpdate: ({ element, container, childrenId }) => {
-     *             ....
-     *         },
-     *         render: ({ sync }) => {
-     *            return html`
-     *                <my-component
-     *                    ${sync} !important
-     *                    ${staticProps({
-     *                        myState: value,
-     *                    })}
-     *                    ${bindProps({
-     *                        bind: ['my_array_state', 'myState2'],
-     *                        props: ({ myState2 }, index) => {
-     *                        const { my_array_state } = getState();
-     *
-     *                            return {
-     *                                myState2,
-     *                                label: my_array_state[index].myValue,
-     *                                index,
-     *                            };
-     *                        },
-     *                    })}
-     *                    ${bindEvents({
-     *                        mousedown: (event, index) =>
-     *                            //
-     *                    })}
-     *                >
-     *                </my-component>
-     *            `
-     *         }
+     *     clean: false,
+     *     watch: 'my_array_state',
+     *     key: 'my_object_unique_key',
+     *     beforeUpdate: ({ element, container, childrenId }) => {
+     *     ....
+     *     },
+     *     afterUpdate: ({ element, container, childrenId }) => {
+     *     ....
+     *     },
+     *     render: ({ sync }) => {
+     *     return html`
+     *     <my-component
+     *     ${sync} !important
+     *     ${staticProps({
+     *     myState: value,
      *     })}
-     * </div>
+     *     ${bindProps({
+     *     bind: ['my_array_state', 'myState2'],
+     *     props: ({ myState2 }, index) => {
+     *     const { my_array_state } = getState();
      *
-     * ```
+     *     return {
+     *     myState2,
+     *     label: my_array_state[index].myValue,
+     *     index,
+     *     };
+     *     },
+     *     })}
+     *     ${bindEvents({
+     *     mousedown: (event, index) =>
+     *     //
+     *     })}
+     *     >
+     *     </my-component>
+     *     `
+     *     }
+     *     })}
+     *     </div>
+     *
+     *     ```
      */
     repeat: Repeat<T>;
 
     /**
-     * @description
      * Internal use.
      */
     bindEventsId: string | undefined;
 
     /**
-     * @description
-     * Internal use.
-     * List if repeater id inside a single component
+     * Internal use. List if repeater id inside a single component
      */
     repeatIdArray: string[];
 
     /**
-     * @description
-     * Parse node with component to render.
-     * The function receives as an argument the root element to be parsed, if no element is supplied the root of the component will be used.
+     * Parse node with component to render. The function receives as an argument the root element to be parsed, if no
+     * element is supplied the root of the component will be used.
      */
     renderComponent: RenderComponent;
 
     /**
-     * @description
      * Invalidate component
      */
     invalidate: Invalidate<T>;
 
     /**
-     * @description
      * Debug state function.
      */
     debug: () => void;
@@ -711,10 +644,9 @@ export interface ComponentParsed<T> {
     exportState?: OnlyStringKey<ExtractState<T>>[];
 
     /**
-     * @description
-     * Fire onMount callback immediately, normally onMount is fired at the end of current parse.
-     * This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
-     * `default = false`.
+     * Fire onMount callback immediately, normally onMount is fired at the end of current parse. This means that if
+     * `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no
+     * effect to child component. `default = false`.
      */
     scoped?: boolean;
     connectedCallback?: (arg0: {
@@ -765,24 +697,23 @@ export type CreateComponent<T> = (
 
 export interface DefaultComponent {
     /**
-     * @description
      * Add DOM element in a dedicated request animation Frame.
-     * - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css transition working ).
-     * `default = false`.
+     *
+     * - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css
+     *   transition working ). `default = false`.
      */
     isolateCreation?: boolean;
 
     /**
-     * @description
-     * Fire onMount callback immediately, normally onMount is fired at the end of current parse.
-     * This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
-     * `default = false`.
+     * Fire onMount callback immediately, normally onMount is fired at the end of current parse. This means that if
+     * `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no
+     * effect to child component. `default = false`.
      */
     scoped?: boolean;
 
     /**
-     * @description
      * DOM creation use a recursive function, this value mimit the number of iteration.
+     *
      * - Prevent infinite loop, in case of error or wrong component incapsulation
      */
     maxParseIteration?: number;

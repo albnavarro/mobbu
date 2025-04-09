@@ -21,6 +21,8 @@ import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
 import { getRepeaterChild } from '../action/set-repeat-child';
 
 /**
+ * Add new children by key.
+ *
  * @param {object} obj
  * @param {string} obj.state
  * @param {Record<string, any>[]} obj.current
@@ -31,10 +33,7 @@ import { getRepeaterChild } from '../action/set-repeat-child';
  * @param {import('../type').RepeaterRender} obj.render
  * @param {string} obj.repeatId
  * @param {boolean} obj.useSync
- * @return {Array<any>}
- *
- * @description
- * Add new children by key.
+ * @returns {any[]}
  */
 export const addWithKey = ({
     state = '',
@@ -48,15 +47,12 @@ export const addWithKey = ({
     useSync,
 }) => {
     /**
-     * @description
      * Get unique data array by key
      */
     const currentUnique = getUnivoqueByKey({ data: current, key });
 
     /**
-     * ------------------
-     * REMOVE
-     * ------------------
+     * ## REMOVE
      *
      * Get element to delete from DOM and from componentMap
      */
@@ -74,17 +70,15 @@ export const addWithKey = ({
     const elementToRemoveByComponent = elementToRemoveByKey.length > 0;
 
     /**
-     * Component inside repeater.
-     * Remove at the end old element to avoid viual jump
+     * Component inside repeater. Remove at the end old element to avoid viual jump
      */
     elementToRemoveByKey.forEach((element) => {
         const currentId = getIdByElement({ element: element });
         if (!currentId) return;
 
         /**
-         * Then destroy component
-         * Destroy all component in repeater item wrapper child of scope component
-         * Or destroy single component if there is no wrapper.
+         * Then destroy component Destroy all component in repeater item wrapper child of scope component Or destroy
+         * single component if there is no wrapper.
          */
         const elementWrapper = getRepeaterInnerWrap({ id: currentId });
 
@@ -111,8 +105,7 @@ export const addWithKey = ({
     });
 
     /**
-     * No Component inside repeater.
-     * Remove at the end old element to avoid viual jump
+     * No Component inside repeater. Remove at the end old element to avoid viual jump
      */
     if (!elementToRemoveByComponent) {
         const childrenFromRepeater = getRepeaterChild({ repeatId });
@@ -142,12 +135,9 @@ export const addWithKey = ({
     }
 
     /**
-     * -------------------
-     *  NEW DATA
-     * ------------------
+     * ## NEW DATA
      *
-     * Get set of data with the right sequence of new list element
-     * mark old and new element with isNewElement props.
+     * Get set of data with the right sequence of new list element mark old and new element with isNewElement props.
      */
     const newSequenceByKey = mixPreviousAndCurrentData(
         currentUnique,
@@ -158,10 +148,8 @@ export const addWithKey = ({
             return { keyValue, isNewElement, index, wrapper: undefined };
 
         /**
-         * Get persistent element.
-         * Use find function to get first occurrence.
-         * If use a wrapper use first wrapper occurrence that contain other component
-         * If we don't use a wrapper we have only one component.
+         * Get persistent element. Use find function to get first occurrence. If use a wrapper use first wrapper
+         * occurrence that contain other component If we don't use a wrapper we have only one component.
          */
         const element = getElementByKeyAndRepeatId({
             keyValue,
@@ -171,13 +159,11 @@ export const addWithKey = ({
         const id = element ? getIdByElement({ element }) : undefined;
 
         /**
-         * useComponent:
-         * If persistent Element use a wrapper save it ( or undefined ).
-         * Than this element will added to DOM instead component.
+         * UseComponent: If persistent Element use a wrapper save it ( or undefined ). Than this element will added to
+         * DOM instead component.
          *
-         * do not useComponent
-         * Get item by key && keyValue from repeater map.
-         * Use wrapper filed to save persistent item/element.
+         * Do not useComponent Get item by key && keyValue from repeater map. Use wrapper filed to save persistent
+         * item/element.
          */
         const wrapperParsed = element
             ? getRepeaterInnerWrap({ id })
@@ -198,9 +184,7 @@ export const addWithKey = ({
     });
 
     /**
-     * -------------------
-     *  RESET
-     * ------------------
+     * ## RESET
      *
      * Reset parent Element
      */
@@ -208,9 +192,7 @@ export const addWithKey = ({
     repeaterParentElement.replaceChildren();
 
     /**
-     * -------------------
-     *  NEW DOM
-     * ------------------
+     * ## NEW DOM
      *
      * Add persistent element or new element to parse.
      */
@@ -224,9 +206,8 @@ export const addWithKey = ({
         }) => {
             if (!isNewElement) {
                 /**
-                 * If there is no wrapper when cut and paster component
-                 * we loose debug information.
-                 * Update debug information.
+                 * If there is no wrapper when cut and paster component we loose debug information. Update debug
+                 * information.
                  */
                 const { debug } = getDefaultComponent();
                 if (
@@ -258,7 +239,7 @@ export const addWithKey = ({
                 }
 
                 /**
-                 * if is not a new element return.
+                 * If is not a new element return.
                  */
                 return;
             }

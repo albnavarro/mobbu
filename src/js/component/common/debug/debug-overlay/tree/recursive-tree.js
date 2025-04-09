@@ -3,15 +3,14 @@
 import { html } from '@mobJs';
 
 /**
- * @import { StaticProps } from '@mobJsType';
- **/
+ * @import {StaticProps} from '@mobJsType';
+ */
 
 /**
  * @param {object} params
  * @param {import('./item/type').DebugTreeItem['state'][]} params.data
  * @param {StaticProps<import('./item/type').DebugTreeItem>} params.staticProps
- *
- * @return { string }
+ * @returns {string}
  */
 export const generateTreeComponents = ({ data, staticProps }) => {
     return data

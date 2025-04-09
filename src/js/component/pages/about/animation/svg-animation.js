@@ -1,6 +1,6 @@
 import { MobTween } from '@mobMotion';
 
-/** @type{import('../type').AboutSvgAnimation} */
+/** @type {import('../type').AboutSvgAnimation} */
 export const aboutSvgAnimation = ({ elements }) => {
     let svgSpring = MobTween.createSpring({
         data: { x: 0 },

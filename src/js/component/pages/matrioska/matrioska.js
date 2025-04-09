@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat,  UpdateStateByName, Invalidate, GetState, ReturnBindProps } from '@mobJsType'
- * @import { Matrioska } from './type'
- * @import { MatrioskaItem } from './item/type'
+ * @import {MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat,  UpdateStateByName, Invalidate, GetState, ReturnBindProps} from '@mobJsType'
+ * @import {Matrioska} from './type'
+ * @import {MatrioskaItem} from './item/type'
  */
 
 import { MobCore } from '@mobCore';
@@ -39,11 +39,11 @@ function getRandomInt(max) {
 }
 
 /**
- * @param { object } params
- * @param { DelegateEvents } params.delegateEvents
- * @param { UpdateState<Matrioska> } params.updateState
- * @param { Invalidate<Matrioska> } params.invalidate
- * @param { GetState<Matrioska> } params.getState
+ * @param {object} params
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {UpdateState<Matrioska>} params.updateState
+ * @param {Invalidate<Matrioska>} params.invalidate
+ * @param {GetState<Matrioska>} params.getState
  */
 const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
     return html`
@@ -55,7 +55,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         ${delegateEvents({
                             click: async () => {
                                 updateState(
-                                    /** @type {'level1'|'level2'|'level3'} */ (
+                                    /** @type {'level1' | 'level2' | 'level3'} */ (
                                         button.state
                                     ),
                                     (val) => {
@@ -73,7 +73,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                         ${delegateEvents({
                             click: async () => {
                                 updateState(
-                                    /** @type {'level1'|'level2'|'level3'} */ (
+                                    /** @type {'level1' | 'level2' | 'level3'} */ (
                                         button.state
                                     ),
                                     (val) => {
@@ -94,7 +94,7 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                     >
                     <div class="matrioska__head__counter">
                         ${invalidate({
-                            bind: /** @type {'level1'|'level2'|'level3'} */ (
+                            bind: /** @type {'level1' | 'level2' | 'level3'} */ (
                                 button.state
                             ),
                             render: () => {
@@ -126,12 +126,12 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
 };
 
 /**
- * @param { object } params
- * @param { Repeat<Matrioska> } params.repeat
- * @param { StaticProps<MatrioskaItem> } params.staticProps
- * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
- * @param { DelegateEvents } params.delegateEvents
- * @param { Matrioska['state'] } params.proxi
+ * @param {object} params
+ * @param {Repeat<Matrioska>} params.repeat
+ * @param {StaticProps<MatrioskaItem>} params.staticProps
+ * @param {BindProps<Matrioska, MatrioskaItem>} params.bindProps
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {Matrioska['state']} params.proxi
  */
 const getSecondLevel = ({
     repeat,
@@ -155,7 +155,7 @@ const getSecondLevel = ({
                                     level: 'level 2',
                                 })}
                                 ${bindProps(
-                                    /** @returns{ReturnBindProps<MatrioskaItem>} */
+                                    /** @returns {ReturnBindProps<MatrioskaItem>} */
                                     () => ({
                                         key: `${current.value.key}`,
                                         value: `${current.value.value}`,
@@ -181,12 +181,12 @@ const getSecondLevel = ({
 };
 
 /**
- * @param { object } params
- * @param { Repeat<Matrioska> } params.repeat
- * @param { StaticProps<MatrioskaItem> } params.staticProps
- * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
- * @param { DelegateEvents } params.delegateEvents
- * @param { Matrioska['state'] } params.proxi
+ * @param {object} params
+ * @param {Repeat<Matrioska>} params.repeat
+ * @param {StaticProps<MatrioskaItem>} params.staticProps
+ * @param {BindProps<Matrioska, MatrioskaItem>} params.bindProps
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {Matrioska['state']} params.proxi
  */
 const getThirdLevel = ({
     repeat,
@@ -217,7 +217,7 @@ const getThirdLevel = ({
                                     level: 'level 3',
                                 })}
                                 ${bindProps(
-                                    /** @returns{ReturnBindProps<MatrioskaItem>} */
+                                    /** @returns {ReturnBindProps<MatrioskaItem>} */
                                     () => ({
                                         key: `${current.value.key}`,
                                         value: `${current.value.value}`,
@@ -276,7 +276,7 @@ const getThirdLevel = ({
     `;
 };
 
-/** @type { MobComponent<Matrioska> } */
+/** @type {MobComponent<Matrioska>} */
 export const MatrioskaFn = ({
     delegateEvents,
     updateState,
@@ -316,7 +316,7 @@ export const MatrioskaFn = ({
                                     class="matrioska-item--1"
                                     ${staticProps({ level: 'level 1' })}
                                     ${bindProps(
-                                        /** @returns{ReturnBindProps<MatrioskaItem>} */
+                                        /** @returns {ReturnBindProps<MatrioskaItem>} */
                                         () => ({
                                             key: `${current.value.key}`,
                                             value: `${current.value.value}`,

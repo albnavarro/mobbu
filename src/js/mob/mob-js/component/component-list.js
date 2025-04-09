@@ -8,14 +8,12 @@ import { defineBindTextComponent } from '../web-component/bind-text';
 import { defineBindObjectComponent } from '../web-component/bind-object';
 
 /**
- * @type {{[key:string]:import('../main-store/type').ComponentListMap}}
+ * @type {{ [key: string]: import('../main-store/type').ComponentListMap }}
  */
 let componentListMap = {};
 
 /**
- * @description
- *
- * @returns {{[key:string]:import('../main-store/type').ComponentListMap}}
+ * @returns {{ [key: string]: import('../main-store/type').ComponentListMap }}
  */
 export const getComponentList = () => {
     return componentListMap;
@@ -27,10 +25,9 @@ export const getComponentList = () => {
 const availableComponent = new Set();
 
 /**
- * @description
  * Inizalize components
  *
- * @returns void
+ * @returns Void
  */
 export const setComponentList = () => {
     componentListMap = [...availableComponent.values()].reduce(
@@ -41,8 +38,7 @@ export const setComponentList = () => {
     console.log(`component loaded:${Object.keys(componentListMap).length}`);
 
     /**
-     * Register custom HTML tag component.
-     * Thios custom TAG will be converted in native DOM element during parse.
+     * Register custom HTML tag component. Thios custom TAG will be converted in native DOM element during parse.
      */
 
     defineUserComponent(componentListMap);

@@ -1,12 +1,12 @@
 import { HISTORY_BACK } from '../constant';
 
 /**
- * @type {( import('../type').HistoryType|undefined )[]}
+ * @type {(import('../type').HistoryType | undefined)[]}
  */
 const historyBack = [];
 
 /**
- * @type {( import('../type').HistoryType|undefined )[]}
+ * @type {(import('../type').HistoryType | undefined)[]}
  */
 let historyNext = [];
 
@@ -27,7 +27,7 @@ const deleteLastHistoryNext = () => {
 };
 
 /**
- * @param {import('../type').HistoryType|undefined} value
+ * @param {import('../type').HistoryType | undefined} value
  * @returns {void}
  */
 export const setHistoryBack = (value) => {
@@ -57,7 +57,7 @@ export const historyBackSize = () => {
 };
 
 /**
- * @returns {import('../type').HistoryType|undefined}
+ * @returns {import('../type').HistoryType | undefined}
  */
 const getLastHistoryBack = () => {
     const value = historyBack.at(-1);
@@ -66,7 +66,7 @@ const getLastHistoryBack = () => {
 };
 
 /**
- * @returns {import('../type').HistoryType|undefined}
+ * @returns {import('../type').HistoryType | undefined}
  */
 const getPenultimateHistoryNext = () => {
     const value = historyNext.at(-2);
@@ -81,7 +81,7 @@ export const getLastHistoryNext = () => {
 
 /**
  * @param {string} direction
- * @returns {import('../type').HistoryType|undefined}
+ * @returns {import('../type').HistoryType | undefined}
  */
 export const getLastHistory = (direction) => {
     if (direction === HISTORY_BACK) {

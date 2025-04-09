@@ -8,10 +8,9 @@ import { eventStore } from '../event-store.js';
 const indexCallbackMap = new Map();
 
 /**
- * @param {number} currentFrameLimit
- *
- * @description
  * Update each callback's frame when handleFrame resets its index to avoid too large numbers>
+ *
+ * @param {number} currentFrameLimit
  */
 const updateKeys = (currentFrameLimit) => {
     const oldMapToArray = [...indexCallbackMap.entries()];
@@ -23,25 +22,23 @@ const updateKeys = (currentFrameLimit) => {
 };
 
 /**
+ * Fire callback
+ *
+ * @example
+ *     ```javascript
+ *     handleFrameIndex.fire(({ currentFrame, fps,  time });      *
+ *     ```;
+ *
  * @param {Object} obj
  * @param {number} obj.currentFrame
  * @param {number} obj.time
  * @param {number} obj.fps
- * @return void
- *
- * @description
- * Fire callback
- *
- * @examples
- *
- * ```javascript
- * handleFrameIndex.fire(({ currentFrame, fps,  time });      *
- * ```
+ * @returns Void
  */
 const fire = ({ currentFrame, time, fps }) => {
     /**
-     * Get arrays of callBack related to the current currentFrame
-     * indexCb is a 'global' variables instead constant to reduce garbage collector
+     * Get arrays of callBack related to the current currentFrame indexCb is a 'global' variables instead constant to
+     * reduce garbage collector
      */
     const callabacks = indexCallbackMap.get(currentFrame) ?? [];
     if (!callabacks || callabacks.length === 0) return;
@@ -51,20 +48,19 @@ const fire = ({ currentFrame, time, fps }) => {
 };
 
 /**
- * @description
  * Add callback to a specific frame.
  *
  * @memberof module:handleFrameIndex
- * @param {import('./type.js').HandleFrameCallbak} callback - callback function
- * @param {number} index
- *
  * @example
- * ```javascript
- * handleFrameIndex.add(({ fps,  time }) => {
- *     // code ...
- * }, 5);
+ *     ```javascript
+ *     handleFrameIndex.add(({ fps,  time }) => {
+ *         // code ...
+ *     }, 5);
  *
- * ```
+ *     ```;
+ *
+ * @param {import('./type.js').HandleFrameCallbak} callback - Callback function
+ * @param {number} index
  */
 const add = (callback, index) => {
     /**
@@ -73,8 +69,7 @@ const add = (callback, index) => {
     const frameIndex = index + eventStore.getProp('currentFrame');
 
     /**
-     *  Add callback to array related to specific index idf exxist or create
-     *  in a bigger set of callaback
+     * Add callback to array related to specific index idf exxist or create in a bigger set of callaback
      */
     const callabacks = indexCallbackMap.get(frameIndex) ?? [];
     indexCallbackMap.set(frameIndex, [...callabacks, callback]);
@@ -82,7 +77,6 @@ const add = (callback, index) => {
 };
 
 /**
- * @description
  * Get callback array length
  *
  * @returns {number}
@@ -92,8 +86,6 @@ const getAmountOfFrameToFire = () => {
 };
 
 /**
- *
- * @description
  * Execute a callback at a specific frame.
  */
 export const handleFrameIndex = (() => {

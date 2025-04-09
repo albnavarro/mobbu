@@ -5,5 +5,8 @@
     "singleQuote": true,
     "bracketSpacing": true,
     "arrowParens": "always",
-    "printWidth": 80
+    "printWidth": 80,
+    "plugins": ["prettier-plugin-jsdoc"],
+    "jsdocPrintWidth": 120,
+    "jsdocCommentLineStrategy": "keep"
 }

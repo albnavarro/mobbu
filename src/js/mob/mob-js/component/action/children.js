@@ -6,12 +6,11 @@ import { getElementById } from './element';
 import { getRepeaterStateById } from './repeater';
 
 /**
+ * Get children id.
+ *
  * @param {object} obj
  * @param {string} obj.id
- * @returns {string[]|[]}
- *
- * @description
- * Get children id.
+ * @returns {string[] | []}
  */
 export const getChildrenById = ({ id = '' }) => {
     if (!id || id === '') return [];
@@ -31,13 +30,12 @@ export const getChildrenById = ({ id = '' }) => {
 };
 
 /**
+ * Get children id.
+ *
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.componentName
- * @returns {string[]|[]}
- *
- * @description
- * Get children id.
+ * @returns {string[] | []}
  */
 export const getChildrenIdByName = ({ id = '', componentName = '' }) => {
     if (!id || id === '') return [];
@@ -54,15 +52,13 @@ export const getChildrenIdByName = ({ id = '', componentName = '' }) => {
 };
 
 /**
+ * Update children order of a component
+ *
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.componentName
- * @param {Array<HTMLElement|undefined>} [ obj.filterBy ]
- * @return void
- *
- *
- * @description
- * Update children order of a component
+ * @param {(HTMLElement | undefined)[]} [obj.filterBy]
+ * @returns Void
  */
 export const updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
     /*
@@ -105,14 +101,11 @@ export const updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
 };
 
 /**
+ * Get a chunked array of children sorted by DOM position Compare the first element of each chunk
+ *
  * @param {object} obj
  * @param {string[][]} obj.children
- * @return {string[][]}
- *
- *
- * @description
- * Get a chunked array of children sorted by DOM position
- * Compare the first element of each chunk
+ * @returns {string[][]}
  */
 export const gerOrderedChunkByDOMPosition = ({ children }) => {
     return children
@@ -134,15 +127,14 @@ export const gerOrderedChunkByDOMPosition = ({ children }) => {
 };
 
 /**
+ * Get a chunked array of children sorted by Key
+ *
  * @param {object} obj
  * @param {string[][]} obj.children
  * @param {string} obj.key
  * @param {Record<string, any>[]} obj.current
- * @param {boolean} [ obj.useIndex ]
- * @return {string[][]}
- *
- * @description
- * Get a chunked array of children sorted by Key
+ * @param {boolean} [obj.useIndex]
+ * @returns {string[][]}
  */
 export const getOrderedChunkByCurrentRepeatValue = ({
     children,
@@ -189,7 +181,7 @@ export const getOrderedChunkByCurrentRepeatValue = ({
         .filter((item) => item !== undefined);
 
     /**
-     * return chunk of ids.
+     * Return chunk of ids.
      */
     return orderdChildren.map(({ items }) => items);
 };

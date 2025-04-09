@@ -1,27 +1,22 @@
 // @ts-check
 
 /**
- * @description
- *
- * Support class for grouping multiple sequencers.
- * Very useful when generating sequencers dynamically, such as through the use of a createStagger.
- * The following example uses a timeline but the same can be done using a scrollTrigger
- *
+ * Support class for grouping multiple sequencers. Very useful when generating sequencers dynamically, such as through
+ * the use of a createStagger. The following example uses a timeline but the same can be done using a scrollTrigger
  *
  * @example
- *
- * ```javascript
- * cont masterSequencer = new MobMasterSequencer();
- * const staggers = mobbu.createStaggers({})
- * staggers.forEach(({ item, start, end, index }) => {
- *     const sequencer = mobbu
- *         .createSequencer({ ... })
- *         .goTo({ ... }, { start, end ...});
- *     sequencer.subscribe(({ ... }) => { ... });
- *     masterSequencer.add(sequencer);
- * });
- * const timeline = mobbu.createSyncTimeline({}).add(masterSequencer)
- * ```
+ *     ```javascript
+ *     cont masterSequencer = new MobMasterSequencer();
+ *     const staggers = mobbu.createStaggers({})
+ *     staggers.forEach(({ item, start, end, index }) => {
+ *         const sequencer = mobbu
+ *             .createSequencer({ ... })
+ *             .goTo({ ... }, { start, end ...});
+ *         sequencer.subscribe(({ ... }) => { ... });
+ *         masterSequencer.add(sequencer);
+ *     });
+ *     const timeline = mobbu.createSyncTimeline({}).add(masterSequencer)
+ *     ```;
  */
 export default class MobMasterSequencer {
     /**
@@ -30,7 +25,7 @@ export default class MobMasterSequencer {
     #type;
 
     /**
-     * @type {import("./type").MasterSequencerItem[]}
+     * @type {import('./type').MasterSequencerItem[]}
      */
     #children;
 
@@ -44,7 +39,6 @@ export default class MobMasterSequencer {
      * @param {number} obj.partial
      * @param {boolean} obj.isLastDraw
      * @param {boolean} obj.useFrame
-     *
      * @returns {void}
      */
     draw({ partial, isLastDraw, useFrame }) {
@@ -54,7 +48,7 @@ export default class MobMasterSequencer {
     }
 
     /**
-     * @param {import("./type").MasterSequencerItem} item
+     * @param {import('./type').MasterSequencerItem} item
      * @returns {void}
      */
     add(item) {
@@ -98,7 +92,7 @@ export default class MobMasterSequencer {
     }
 
     /**
-     * @returns {import("./type").LabelType[]}
+     * @returns {import('./type').LabelType[]}
      */
     getLabels() {
         return this.#children.flatMap((item) => item.getLabels());

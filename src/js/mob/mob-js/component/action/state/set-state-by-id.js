@@ -5,14 +5,13 @@ import { getFreezePropStatus } from '../freeze';
 import { checkIfStateIsExportable } from './check-if-state-is-exportable';
 
 /**
+ * Set state
+ *
  * @param {string} id
  * @param {string} prop
  * @param {any} value
- * @param {{emit?: boolean}} [ options ]
+ * @param {{ emit?: boolean }} [options]
  * @returns {void}
- *
- * @description
- * Set state
  */
 
 export const setStateById = (

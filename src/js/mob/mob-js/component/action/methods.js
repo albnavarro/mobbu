@@ -2,13 +2,12 @@ import { componentMap } from '../store';
 import { getIdArrayByInstanceName, getIdByInstanceName } from './component';
 
 /**
+ * Add method to component
+ *
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.name
  * @param {(arg0: any) => void} obj.fn
- *
- * @description
- * Add method to component
  */
 export const addMethodById = ({ id, name, fn }) => {
     if (!id || id === '') return;
@@ -30,12 +29,11 @@ export const addMethodById = ({ id, name, fn }) => {
 };
 
 /**
+ * Get method by id
+ *
  * @param {object} obj
  * @param {string} obj.id
  * @returns {Partial<Record<string, (arg0: any) => void>>}
- *
- * @description
- * Get method by id
  */
 export const getMethodsById = ({ id }) => {
     if (!id || id === '') return {};
@@ -54,11 +52,10 @@ export const getMethodsById = ({ id }) => {
 };
 
 /**
+ * Get method by id
+ *
  * @param {string} name
  * @returns {import('../../type').UseMethodByName}
- *
- * @description
- * Get method by id
  */
 export const useMethodByName = (name) => {
     const id = getIdByInstanceName(name);
@@ -74,11 +71,10 @@ export const useMethodByName = (name) => {
 };
 
 /**
+ * Get array of method by id
+ *
  * @param {string} name
  * @returns {import('../../type').UseMethodByName[]}
- *
- * @description
- * Get array of  method by id
  */
 export const useMethodArrayByName = (name) => {
     const ids = getIdArrayByInstanceName(name);

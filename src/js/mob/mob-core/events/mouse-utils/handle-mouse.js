@@ -11,7 +11,7 @@ import { normalizeWheel } from './normalize-whell.js';
  * @returns {any}
  */
 function getPageData({ type, event }) {
-    const touchEvent = /** @type{TouchEvent} */ (event);
+    const touchEvent = /** @type {TouchEvent} */ (event);
 
     /**
      * 'touchend'
@@ -31,10 +31,9 @@ function getPageData({ type, event }) {
  * @param {import('./type.js').MouseEventType} obj.type
  * @param {Object} obj.event
  * @returns {any}
- * @description
  */
 function getClientData({ type, event }) {
-    const touchEvent = /** @type{TouchEvent} */ (event);
+    const touchEvent = /** @type {TouchEvent} */ (event);
 
     /**
      * 'touchend'
@@ -59,7 +58,7 @@ function handleMouse(eventType) {
     let initialized = false;
 
     /**
-     * @type {Map<string,import('./type.js').MouseEventCallback>}
+     * @type {Map<string, import('./type.js').MouseEventCallback>}
      */
     const callbacks = new Map();
 
@@ -76,11 +75,11 @@ function handleMouse(eventType) {
     });
 
     /**
-     * @param {MouseEvent|TouchEvent} event
+     * @param {MouseEvent | TouchEvent} event
      */
     function handler(event) {
         /**
-         * if - if there is no subscritor remove handler
+         * If - if there is no subscritor remove handler
          */
         if (callbacks.size === 0) {
             globalThis.removeEventListener(eventType, handler);
@@ -89,21 +88,21 @@ function handleMouse(eventType) {
             return;
         }
 
-        const type = /** @type{import('./type.js').MouseEventType} */ (
+        const type = /** @type {import('./type.js').MouseEventType} */ (
             event.type
         );
 
         /**
-         * @type {{ pageX:number, pageY:number }}
+         * @type {{ pageX: number; pageY: number }}
          */
         const { pageX, pageY } = getPageData({ type, event });
 
         /**
-         * @type {{ clientX:number, clientY:number }}
+         * @type {{ clientX: number; clientY: number }}
          */
         const { clientX, clientY } = getClientData({ type, event });
 
-        /** @type {EventTarget|null} */
+        /** @type {EventTarget | null} */
         const target = event.target;
 
         // Prepare data to callback
@@ -142,10 +141,9 @@ function handleMouse(eventType) {
     }
 
     /**
-     * @description
-     * init - if listener is not inizializad remove it
+     * Init - if listener is not inizializad remove it
      *
-     * @return {void}
+     * @returns {void}
      */
     function init() {
         if (initialized) return;
@@ -158,11 +156,10 @@ function handleMouse(eventType) {
     }
 
     /**
-     * @description
-     * add callback on mouse action
-     * @param {import('./type.js').MouseEventCallback} cb - callback function fired on mouse action.
-     * @returns {() => void}
+     * Add callback on mouse action
      *
+     * @param {import('./type.js').MouseEventCallback} cb - Callback function fired on mouse action.
+     * @returns {() => void}
      */
     const addCb = (cb) => {
         const id = getUnivoqueId();
@@ -179,155 +176,147 @@ function handleMouse(eventType) {
 }
 
 /**
- * @description
  * Add callback on mouse click
  *
  * @example
- * ```javascript
- * const unsubscribe = handleMouseClick(
- *     ({ client, page, preventDefault, target, type }) => {
- *         // code
- *     }
- * );
+ *     ```javascript
+ *     const unsubscribe = handleMouseClick(
+ *         ({ client, page, preventDefault, target, type }) => {
+ *             // code
+ *         }
+ *     );
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
  */
 export const handleMouseClick = handleMouse('click');
 
 /**
- * @description
  * Add callback on mouse down
  *
  * @example
- * ```javascript
- * const unsubscribe = handleMouseDown(
- *     ({ client, page, preventDefault, target, type }) => {
- *         // code
- *     }
- * );
+ *     ```javascript
+ *     const unsubscribe = handleMouseDown(
+ *         ({ client, page, preventDefault, target, type }) => {
+ *             // code
+ *         }
+ *     );
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
  */
 export const handleMouseDown = handleMouse('mousedown');
 
 /**
- * @description
  * Add callback on touch start
  *
  * @example
- * ```javascript
- * const unsubscribe = handleTouchStart(
- *     ({ client, page, preventDefault, target, type }) => {
- *         // code
- *     }
- * );
+ *     ```javascript
+ *     const unsubscribe = handleTouchStart(
+ *         ({ client, page, preventDefault, target, type }) => {
+ *             // code
+ *         }
+ *     );
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
  */
 export const handleTouchStart = handleMouse('touchstart');
 
 /**
- * @description
  * Add callback on handleMouseMove
  *
  * @example
- * ```javascript
- * const unsubscribe = handleMouseMove(
- *     ({ client, page, preventDefault, target, type }) => {
- *         // code
- *     }
- * );
+ *     ```javascript
+ *     const unsubscribe = handleMouseMove(
+ *         ({ client, page, preventDefault, target, type }) => {
+ *             // code
+ *         }
+ *     );
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
  */
 export const handleMouseMove = handleMouse('mousemove');
 
 /**
- * @description
  * Add callback on touch move
  *
  * @example
- * ```javascript
- * const unsubscribe = handleTouchMove(
- *     ({ client, page, preventDefault, target, type }) => {
- *         // code
- *     }
- * );
+ *     ```javascript
+ *     const unsubscribe = handleTouchMove(
+ *         ({ client, page, preventDefault, target, type }) => {
+ *             // code
+ *         }
+ *     );
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
  */
 export const handleTouchMove = handleMouse('touchmove');
 
 /**
- * @description
  * Add callback on mouse up
  *
  * @example
- * ```javascript
- * const unsubscribe = handleMouseUp(
- *     ({ client, page, preventDefault, target, type }) => {
- *         // code
- *     }
- * );
+ *     ```javascript
+ *     const unsubscribe = handleMouseUp(
+ *         ({ client, page, preventDefault, target, type }) => {
+ *             // code
+ *         }
+ *     );
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
  */
 export const handleMouseUp = handleMouse('mouseup');
 
 /**
- * @description
  * Add callback on touc end
  *
  * @example
- * ```javascript
- * const unsubscribe = handleTouchEnd(
- *     ({ client, page, preventDefault, target, type }) => {
- *         // code
- *     }
- * );
+ *     ```javascript
+ *     const unsubscribe = handleTouchEnd(
+ *         ({ client, page, preventDefault, target, type }) => {
+ *             // code
+ *         }
+ *     );
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
  */
 export const handleTouchEnd = handleMouse('touchend');
 
 /**
- * @description
  * Add callback on mouse wheel
  *
  * @example
- * ```javascript
- * const unsubscribe = handleMouseWheel(
- *     ({
- *         client,
- *         page,
- *         preventDefault,
- *         target,
- *         type,
- *         pixelX,
- *         pixelY,
- *         spinX,
- *         spinY,
- *     }) => {
- *         // code
- *     }
- * );
+ *     ```javascript
+ *     const unsubscribe = handleMouseWheel(
+ *         ({
+ *             client,
+ *             page,
+ *             preventDefault,
+ *             target,
+ *             type,
+ *             pixelX,
+ *             pixelY,
+ *             spinX,
+ *             spinY,
+ *         }) => {
+ *             // code
+ *         }
+ *     );
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
  */
 export const handleMouseWheel = handleMouse('wheel');

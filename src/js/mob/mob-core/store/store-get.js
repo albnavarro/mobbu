@@ -6,7 +6,7 @@ import { storeGetPropWarning } from './store-warining';
 
 /**
  * @param {string} instanceId
- * @returns {{[key: string]: any|{ [key: string]: any }}}
+ * @returns {{ [key: string]: any | { [key: string]: any } }}
  */
 const storeGet = (instanceId) => {
     const state = getStateFromMainMap(instanceId);
@@ -18,7 +18,7 @@ const storeGet = (instanceId) => {
 
 /**
  * @param {string} instanceId
- * @returns {{[key: string]: any|{ [key: string]: any }}}
+ * @returns {{ [key: string]: any | { [key: string]: any } }}
  */
 export const storeGetEntryPoint = (instanceId) => {
     const state = getStateFromMainMap(instanceId);

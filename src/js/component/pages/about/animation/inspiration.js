@@ -1,6 +1,6 @@
 import { MobScroll, MobTween } from '@mobMotion';
 
-/** @type{import("../type").InspirationAnimation} */
+/** @type {import('../type').InspirationAnimation} */
 export const inspirationAnimation = ({ inspirationItem, section4_title }) => {
     const masterSequencer = MobTween.createMasterSequencer();
 

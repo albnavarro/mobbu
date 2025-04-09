@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { CaterpillarN2, CaterpillarN2Button } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {CaterpillarN2, CaterpillarN2Button} from './type';
+ */
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';

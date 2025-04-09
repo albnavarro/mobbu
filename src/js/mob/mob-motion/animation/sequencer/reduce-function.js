@@ -12,22 +12,20 @@ export const propToSet = {
 };
 
 /**
- * @param {import("./type").SequencerRow[]} arr
+ * @param {import('./type').SequencerRow[]} arr
  * @param {number} index
  * @param {string} prop
- * @param {import("./type").PropToFindPartial} propToFind
- *
- * @returns {number|undefined}
+ * @param {import('./type').PropToFindPartial} propToFind
+ * @returns {number | undefined}
  */
 export const getFirstValidValueBack = (arr, index, prop, propToFind) => {
     return arr
         .slice(0, index)
         .reduceRight((previous, { values: valuesForward }) => {
             /**
-             * @description
              * Find active prop if exist
              *
-             * @type {Record<string, any>|undefined }
+             * @type {Record<string, any> | undefined}
              */
             const result = valuesForward.find(
                 ({ prop: propToCompare, active }) => {
@@ -36,8 +34,8 @@ export const getFirstValidValueBack = (arr, index, prop, propToFind) => {
             );
 
             /**
-             * Return only first valid value then skip the successive
-             * we return the value only when the accumulatore is null, so the first time we fond a value
+             * Return only first valid value then skip the successive we return the value only when the accumulatore is
+             * null, so the first time we fond a value
              */
             return result && !previous && previous !== 0
                 ? result[propToSet[propToFind].get]
@@ -48,11 +46,10 @@ export const getFirstValidValueBack = (arr, index, prop, propToFind) => {
 };
 
 /**
- * @param {import("./type").SequencerRow[]} arr
+ * @param {import('./type').SequencerRow[]} arr
  * @param {number} index
  * @param {string} prop
  * @param {number} partial
- *
  * @returns {boolean}
  */
 export const checkIsLastUsableProp = (arr, index, prop, partial) => {

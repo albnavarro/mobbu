@@ -9,13 +9,11 @@ import { componentMap } from '../../store';
 import { removeItselfFromParent } from './remove-itself-from-parent';
 
 /**
+ * Remove component to store and destroy it.
+ *
  * @param {object} obj
  * @param {string} obj.id
- * @return void
- *
- *
- * @description
- * Remove component to store and destroy it.
+ * @returns Void
  */
 
 export const removeAndDestroyById = ({ id = '' }) => {
@@ -80,9 +78,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
     element?.remove();
 
     /**
-     * Detach component.
-     * Remove inner reference ( esplicit mark for CG ).
-     * Detach component from map.
+     * Detach component. Remove inner reference ( esplicit mark for CG ). Detach component from map.
      */
 
     // @ts-ignore

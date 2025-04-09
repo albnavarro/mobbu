@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {import("../../type").Route[]}
+ * @type {import('../../type').Route[]}
  */
 let routeList = [];
 
@@ -16,64 +16,58 @@ let indexPage = '';
 let pageNotFound = '';
 
 /**
- * @param {import("../../type").Route[]} list
- * @returns void
- *
- * @description
  * Add route list to store.
+ *
+ * @param {import('../../type').Route[]} list
+ * @returns Void
  */
 export const setRouteList = (list) => {
     routeList = [...list];
 };
 
 /**
+ * Get route list to store.
+ *
  * @param {object} obj
  * @param {string} obj.routeName
- * @return {import("../../type").Route|undefined}
- *
- * @description
- * Get route list to store.
+ * @returns {import('../../type').Route | undefined}
  */
 export const getRouteByName = ({ routeName = '' }) => {
     return routeList.find(({ name }) => routeName === name);
 };
 
 /**
+ * Set index route.
+ *
  * @param {object} obj
  * @param {string} obj.routeName
- * @returns void
- *
- * @description
- * Set index route.
+ * @returns Void
  */
 export const setIndex = ({ routeName = '' }) => {
     indexPage = routeName;
 };
 
 /**
- * @returns  string
- *
- * @description
  * Get index route.
+ *
+ * @returns String
  */
 export const getIndex = () => indexPage;
 
 /**
+ * Set pageNotFound route.
+ *
  * @param {object} obj
  * @param {string} obj.routeName
- * @returns void
- *
- * @description
- * Set pageNotFound route.
+ * @returns Void
  */
 export const setPageNotFound = ({ routeName = '' }) => {
     pageNotFound = routeName;
 };
 
 /**
- * @returns  string
- *
- * @description
  * Get pageNotFound route.
+ *
+ * @returns String
  */
 export const getPageNotFound = () => pageNotFound;

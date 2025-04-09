@@ -4,8 +4,7 @@
 export type OnlyStringKey<T> = Extract<keyof T, string>;
 
 /**
- * Utils:
- * Exclude K value.
+ * Utils: Exclude K value.
  */
 export type NotValue<T, K> = T extends K ? never : T;
 
@@ -14,7 +13,6 @@ export type RemapToOptional<Type> = {
 };
 
 /**
- * Utils:
- * Get type of element in array
+ * Utils: Get type of element in array
  */
 export type ArrayElement<T> = T extends (infer U)[] ? U : null;

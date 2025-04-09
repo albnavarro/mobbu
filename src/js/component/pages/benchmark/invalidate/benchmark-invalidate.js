@@ -5,8 +5,8 @@ import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial'
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 
 /**
- * @import { MobComponent, ReturnBindProps } from '@mobJsType';
- **/
+ * @import {MobComponent, ReturnBindProps} from '@mobJsType';
+ */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
 export const BenchMarkInvalidateFn = ({
@@ -67,7 +67,9 @@ export const BenchMarkInvalidateFn = ({
                                             index,
                                         })}
                                         ${bindProps(
-                                            /** @returns{ReturnBindProps<import('../fake-component/type').BenchMarkFakeComponent>} */
+                                            /** @returns {ReturnBindProps<
+    import('../fake-component/type').BenchMarkFakeComponent
+>} */
                                             () => ({
                                                 counter: proxi.counter,
                                             })

@@ -8,11 +8,11 @@ import { NavigationLabelFn } from './navigation-label';
 import { NavigationSubmenuFn } from './navigation-submenu';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const NavigationButton = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationButton>} */
+    /** @type {CreateComponentParams<import('./type').NavigationButton>} */
     ({
         name: 'mob-navigation-button',
         component: NavigationButtonFn,
@@ -73,7 +73,7 @@ export const NavigationButton = MobJs.createComponent(
 );
 
 export const NavigationLabel = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationLabel>} */
+    /** @type {CreateComponentParams<import('./type').NavigationLabel>} */
     ({
         name: 'mob-navigation-label',
         component: NavigationLabelFn,
@@ -92,7 +92,7 @@ export const NavigationLabel = MobJs.createComponent(
 );
 
 export const NavigationSubmenu = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationSubmenu>} */
+    /** @type {CreateComponentParams<import('./type').NavigationSubmenu>} */
     ({
         name: 'mob-navigation-submenu',
         component: NavigationSubmenuFn,
@@ -120,7 +120,7 @@ export const NavigationSubmenu = MobJs.createComponent(
 );
 
 export const Navigation = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').Navigation>} */
+    /** @type {CreateComponentParams<import('./type').Navigation>} */
     ({
         name: 'mob-navigation',
         component: NavigationFn,
@@ -137,7 +137,7 @@ export const Navigation = MobJs.createComponent(
 );
 
 export const NavigationContainer = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').NavigationContainer>} */
+    /** @type {CreateComponentParams<import('./type').NavigationContainer>} */
     ({
         name: 'mob-navigation-container',
         component: NavigationContainerFn,

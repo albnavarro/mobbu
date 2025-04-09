@@ -3,15 +3,13 @@
 import { asyncReduceData } from './async-reduce-data';
 
 /**
- * @param {Array<import('./type').AsyncTimelineTweenItem[]>} tweenList
+ * Get Obj data of tween in specific index Indlude check when multiple tween is synchronized index: get data until
+ * specific index
+ *
+ * @param {import('./type').AsyncTimelineTweenItem[][]} tweenList
  * @param {import('./type').AsyncTimelineTween} tween
  * @param {number} index
- * @returns {Record<string, number|(() => number)>}
- *
- * @description
- * Get Obj data of tween in specific index
- * Indlude check when multiple tween is synchronized
- * index: get data until specific index
+ * @returns {Record<string, number | (() => number)>}
  */
 export const asyncReduceTween = (tweenList, tween, index) => {
     let currentId = tween?.getId?.();

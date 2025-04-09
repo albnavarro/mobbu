@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { HomeComponent } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {HomeComponent} from './type';
+ */
 
 import { simpleIntroAnimation } from '@componentLibs/animation/simple-intro';
 import { html } from '@mobJs';
@@ -27,7 +27,7 @@ export const HomeComponentFn = ({ onMount, getState, setState }) => {
         const svg_group = [...element.querySelectorAll('[ref="svg_group"]')];
 
         const { destroy, playIntro, playSvg } = simpleIntroAnimation({
-            refs: /** @type{HTMLElement[]} */ (svg_group),
+            refs: /** @type {HTMLElement[]} */ (svg_group),
         });
 
         setTimeout(() => {

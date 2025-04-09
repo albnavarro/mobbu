@@ -16,7 +16,7 @@ export const child = async () => {
     return html`<div>
         <svg-child
             ${MobJs.staticProps(
-                /** @type{import('@pagesComponent/svg/child/type').SvgChild['state']} */
+                /** @type {import('@pagesComponent/svg/child/type').SvgChild['state']} */
                 ({ svg, star })
             )}
         ></svg-child>

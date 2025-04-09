@@ -4,7 +4,7 @@ import { updateAll, updateStateByKey, updateStateByProp } from './uilts';
 
 export const stateTest = () => {
     /**
-     * @type {import("./type").myMap}
+     * @type {import('./type').myMap}
      */
     const myMap = new Map();
     myMap.set(0, { value: 'zero', active: false });

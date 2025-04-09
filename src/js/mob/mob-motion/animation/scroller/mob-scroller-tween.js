@@ -53,12 +53,12 @@ export default class MobScrollerTween {
     #callback;
 
     /**
-     * @type{import('../utils/callbacks/type.js').CallbackCache}
+     * @type {import('../utils/callbacks/type.js').CallbackCache}
      */
     #callbackCache;
 
     /**
-     * @type {Array<() => void>}
+     * @type {(() => void)[]}
      */
     #unsubscribeCache;
 
@@ -68,38 +68,38 @@ export default class MobScrollerTween {
     #type;
 
     /**
-     * @param {import('./type.js').MobScrollerTween} data
-     *
-     * @example
-     * ```js
-     * const myParallaxTween = new MobScrollerTween({
-     *   from: Object.<string, number>,
-     *   to: Object.<string, number>,
-     *   ease: [ String ],
-     *   stagger:{
-     *      each: [ Number ],
-     *      from: [ Number|String|{x:number,y:number} ],
-     *      grid: {
-     *          col: [ Number ],
-     *          row: [ Number ],
-     *          direction: [ String ]
-     *      },
-     *   },
-     * })
-     *
-     *
-     * ```
-     *
-     * @description
-     * Simplified tween specific to be used with scrollTrigger as an alternative to the more complex sequencer, ParallaxTween requires only one mutation step (from / to).
+     * Simplified tween specific to be used with scrollTrigger as an alternative to the more complex sequencer,
+     * ParallaxTween requires only one mutation step (from / to).
      *
      * Available methods:
-     * ```js
-     * myParallaxTween.subscribe()
-     * myParallaxTween.subscribeCache()
-     * myParallaxTween.onStop()
      *
+     * ```js
+     * myParallaxTween.subscribe();
+     * myParallaxTween.subscribeCache();
+     * myParallaxTween.onStop();
      * ```
+     *
+     * @example
+     *     ```js
+     *     const myParallaxTween = new MobScrollerTween({
+     *       from: Object.<string, number>,
+     *       to: Object.<string, number>,
+     *       ease: [ String ],
+     *       stagger:{
+     *          each: [ Number ],
+     *          from: [ Number|String|{x:number,y:number} ],
+     *          grid: {
+     *              col: [ Number ],
+     *              row: [ Number ],
+     *              direction: [ String ]
+     *          },
+     *       },
+     *     })
+     *
+     *
+     *     ```;
+     *
+     * @param {import('./type.js').MobScrollerTween} data
      */
     constructor(data) {
         this.#ease = easeScrollerTweenIsValid(data?.ease);
@@ -113,8 +113,7 @@ export default class MobScrollerTween {
         this.#type = 'parallaxTween';
 
         /**
-         * Set initial store data if defined in constructor props
-         * If not use setData methods
+         * Set initial store data if defined in constructor props If not use setData methods
          */
         const props = data?.from || null;
         if (props) this.setData(props);
@@ -125,7 +124,6 @@ export default class MobScrollerTween {
     }
 
     /**
-     * @description
      * Inzialize stagger array
      *
      * @returns {void}
@@ -152,7 +150,7 @@ export default class MobScrollerTween {
 
             if (this.#callbackCache.length > this.#callback.length) {
                 this.#callbackCache =
-                    /** @type{import('../utils/callbacks/type.js').CallbackCache} */ (
+                    /** @type {import('../utils/callbacks/type.js').CallbackCache} */ (
                         staggerArray
                     );
             } else {
@@ -167,21 +165,21 @@ export default class MobScrollerTween {
     }
 
     /**
-     * @param {object} obj
-     * @param {number} obj.partial - render at specific partial between 0 and duration
-     * @param {boolean} obj.isLastDraw - use the callback defined by the onStop method
-     * @param {boolean} obj.isLastDraw - compatibiliey with sequencer for Parallxx
-     * @param {boolean} obj.useFrame - compatibiliey with sequencer for Parallxx
      * @example
-     * ```js
-     * myParallaxTween.draw(
-     *      partial: 200,
-     *      isLastDraw: true,
-     * );
+     *     ```js
+     *     myParallaxTween.draw(
+     *          partial: 200,
+     *          isLastDraw: true,
+     *     );
      *
      *
-     * ```
-     * @description
+     *     ```;
+     *
+     * @param {object} obj
+     * @param {number} obj.partial - Render at specific partial between 0 and duration
+     * @param {boolean} obj.isLastDraw - Use the callback defined by the onStop method
+     * @param {boolean} obj.isLastDraw - Compatibiliey with sequencer for Parallxx
+     * @param {boolean} obj.useFrame - Compatibiliey with sequencer for Parallxx
      */
     draw({ partial, isLastDraw }) {
         this.#values = [...this.#values].map((item) => {
@@ -222,7 +220,6 @@ export default class MobScrollerTween {
     }
 
     /**
-     *
      * @type {import('./type.js').MobScrollerTweenSetData}
      */
     setData(obj) {
@@ -252,8 +249,8 @@ export default class MobScrollerTween {
     /**
      * Return the new array maeged with main array created in setData
      *
-     * @param  {import('../utils/tween-action/type.js').GoToParamsType[]} newData new datato merge
-     * @return {void}
+     * @param {import('../utils/tween-action/type.js').GoToParamsType[]} newData New datato merge
+     * @returns {void}
      */
     #mergeData(newData) {
         this.#values = this.#values.map((item) => {
@@ -269,10 +266,9 @@ export default class MobScrollerTween {
     /**
      * @type {import('./type.js').MobScrollerTweenGoTo}
      *
-     * ```
-     * @description
-     * Transform some properties of your choice from the `current value` to the `entered value`.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
+     *       @description
+     *       Transform some properties of your choice from the `current value` to the `entered value`.
+     *       The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
      */
     goTo(obj) {
         const data = goToUtils(obj);
@@ -281,10 +277,11 @@ export default class MobScrollerTween {
     }
 
     /**
-     * @type {import('./type.js').MobScrollerTweenSubscribe}
+     * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although
+     * it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is
+     * advisable to use the subscribeCache method .
      *
-     * @description
-     * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
+     * @type {import('./type.js').MobScrollerTweenSubscribe}
      */
     subscribe(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
@@ -297,12 +294,11 @@ export default class MobScrollerTween {
     }
 
     /**
-     * @type {import('./type.js').MobScrollerTweenOnStop}
+     * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the
+     * scroll trigger is inactive). Useful for applying a different style to an inactive element. A typical example is
+     * to remove the teansform3D property:
      *
-     * @description
-     * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-     * Useful for applying a different style to an inactive element.
-     * A typical example is to remove the teansform3D property:
+     * @type {import('./type.js').MobScrollerTweenOnStop}
      */
     onStop(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
@@ -333,8 +329,8 @@ export default class MobScrollerTween {
     }
 
     /**
-     * @description
      * Get duration
+     *
      * @type {import('./type.js').MobScrollerTweenGetDuration}
      */
     getDuration() {
@@ -342,8 +338,8 @@ export default class MobScrollerTween {
     }
 
     /**
-     * @description
      * Get tween type - 'parallaxTween'
+     *
      * @type {import('./type.js').MobScrollerTweenGet}
      */
     getType() {
@@ -351,8 +347,8 @@ export default class MobScrollerTween {
     }
 
     /**
-     * @description
      * Destroy sequencer
+     *
      * @type {() => void}
      */
     destroy() {

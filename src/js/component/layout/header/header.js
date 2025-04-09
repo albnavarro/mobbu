@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import { MobComponent, UseMethodByName } from '@mobJsType';
- **/
+ * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ */
 
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html, MobJs } from '@mobJs';
@@ -11,11 +11,11 @@ function titleHandler() {
     MobJs.loadUrl({ url: '#home' });
     navigationStore.set('navigationIsOpen', false);
 
-    /** @type{UseMethodByName<import('../navigation/type').Navigation>} */
+    /** @type {UseMethodByName<import('../navigation/type').Navigation>} */
     const mainNavigationMethods = MobJs.useMethodByName('main_navigation');
     mainNavigationMethods?.closeAllAccordion();
 
-    /** @type{UseMethodByName<import('../navigation/type').NavigationContainer>} */
+    /** @type {UseMethodByName<import('../navigation/type').NavigationContainer>} */
     const navContainerMethods = MobJs.useMethodByName('navigation-container');
     navContainerMethods?.scrollTop();
 }

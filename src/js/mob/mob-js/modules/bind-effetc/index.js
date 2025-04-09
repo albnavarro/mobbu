@@ -4,15 +4,15 @@ import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 import { ATTR_BIND_EFFECT } from '../../constant';
 
-/** @type{import("./type").BindEffectMap} */
+/** @type {import('./type').BindEffectMap} */
 const bindEffectMap = new Map();
 
 /**
- * @param {string|string[]} bind
+ * @param {string | string[]} bind
  * @returns {string[]}
  */
 const getExplicitBind = (bind) => {
-    return /** @type{string[]} */ (
+    return /** @type {string[]} */ (
         MobCore.checkType(Array, bind) ? bind : [bind]
     );
 };
@@ -33,12 +33,12 @@ const getAutoBind = ({ toggleClass, toggleStyle, toggleAttribute }) => {
 };
 
 /**
- * @description Save bindClass data in temporary map
+ * Save bindClass data in temporary map
  *
- * @type {import("./type").BindEffectSet}
+ * @type {import('./type').BindEffectSet}
  */
 export const setBindEffect = ({ data, id }) => {
-    /** @type{import('./type').BindEffectObject<any>[]} */
+    /** @type {import('./type').BindEffectObject<any>[]} */
     const dataToArray = MobCore.checkType(Array, data) ? data : [data];
 
     const dataBindToArray = dataToArray.map(
@@ -74,19 +74,18 @@ export const setBindEffect = ({ data, id }) => {
 };
 
 /**
- * @description Get data from map at the end of parse.
+ * Get data from map at the end of parse.
  *
  * @param {HTMLElement} element
  * @returns {void}
  */
 export const applyBindEffect = (element) => {
-    const occurrences = /** @type{HTMLElement[]} */ ([
+    const occurrences = /** @type {HTMLElement[]} */ ([
         ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`),
     ]);
 
     /**
-     * TODO:
-     * Check that target don't is garbage collected.
+     * TODO: Check that target don't is garbage collected.
      */
     occurrences.forEach((target) => {
         const id = target.getAttribute(ATTR_BIND_EFFECT);
@@ -136,7 +135,7 @@ const applyStyle = ({ ref, data }) => {
 /**
  * @param {object} params
  * @param {WeakRef<HTMLElement>} params.ref
- * @param {Record<string, () => string|null|undefined>} params.data
+ * @param {Record<string, () => string | null | undefined>} params.data
  * @returns {void}
  */
 const applyAttribute = ({ ref, data }) => {
@@ -156,7 +155,7 @@ const applyAttribute = ({ ref, data }) => {
 };
 
 /**
- * @description Apply watcher.
+ * Apply watcher.
  *
  * @param {object} params
  * @param {import('./type').BindEffectMapValue} params.data
@@ -164,7 +163,7 @@ const applyAttribute = ({ ref, data }) => {
  * @returns {void}
  */
 const watchBindEffect = ({ data, element }) => {
-    /** @type{WeakRef<HTMLElement>} */
+    /** @type {WeakRef<HTMLElement>} */
     const ref = new WeakRef(element);
 
     const { parentId: id } = data;
@@ -178,9 +177,7 @@ const watchBindEffect = ({ data, element }) => {
             let watchIsRunning = false;
 
             /**
-             * proxiIndex issue.
-             * Get states to check if there is an array
-             * Will check that array has always a length > 0
+             * ProxiIndex issue. Get states to check if there is an array Will check that array has always a length > 0
              */
             const states = getStateById(id);
 
@@ -189,8 +186,7 @@ const watchBindEffect = ({ data, element }) => {
                 const isArray = checkType(Array, initialStateValue);
 
                 /**
-                 * Repeat ProxiIndex issue.
-                 * Array che be destroyed before element will removed.
+                 * Repeat ProxiIndex issue. Array che be destroyed before element will removed.
                  * proxi.data[proxiIndex.value].prop can fail when array is empty.
                  */
                 const shouldRender = !isArray || initialStateValue.length > 0;
@@ -247,8 +243,7 @@ const watchBindEffect = ({ data, element }) => {
                     MobCore.useNextLoop(() => {
                         MobCore.useFrame(() => {
                             /**
-                             * Repeat ProxiIndex issue.
-                             * Array che be destroyed before element will removed.
+                             * Repeat ProxiIndex issue. Array che be destroyed before element will removed.
                              * proxi.data[proxiIndex.value].prop can fail when array is empty.
                              */
                             const shouldRender = !isArray || value.length > 0;

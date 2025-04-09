@@ -4,11 +4,10 @@ import { getIdByInstanceName } from '../component';
 import { updateStateById } from './update-state-by-id';
 
 /**
- * @param {string} name
- * @returns {(prop:string, value: any, options?: { emit?: boolean, clone?: boolean }) => void}
- *
- * @description
  * Set state
+ *
+ * @param {string} name
+ * @returns {(prop: string, value: any, options?: { emit?: boolean; clone?: boolean }) => void}
  */
 
 export const updateStateByName = (name = '') => {

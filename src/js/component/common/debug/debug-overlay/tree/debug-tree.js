@@ -1,12 +1,12 @@
 /**
- * @import { MobComponent } from '@mobJsType';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { html, MobJs } from '@mobJs';
 import { generateTreeComponents } from './recursive-tree';
 
-/** @type{import('../debug-filter/list/type').DebugInitScroller} */
+/** @type {import('../debug-filter/list/type').DebugInitScroller} */
 const initScroller = async ({ getRef }) => {
     await MobJs.tick();
 
@@ -35,7 +35,7 @@ const initScroller = async ({ getRef }) => {
     };
 };
 
-/** @type{MobComponent<import('./type').DebugTree>} */
+/** @type {MobComponent<import('./type').DebugTree>} */
 export const DebugTreeFn = ({
     onMount,
     setState,

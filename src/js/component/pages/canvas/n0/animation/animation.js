@@ -13,12 +13,12 @@ import {
 } from '@utils/canvas-utils';
 
 /**
- *  @param {object} params
- *  @param {number} params.width
- *  @param {number} params.relativeIndex
- *  @param {number} params.amountOfPath
- *  @returns {number}
- **/
+ * @param {object} params
+ * @param {number} params.width
+ * @param {number} params.relativeIndex
+ * @param {number} params.amountOfPath
+ * @returns {number}
+ */
 function getWithRounded({ width, relativeIndex, amountOfPath }) {
     return (
         Math.sqrt(
@@ -32,12 +32,12 @@ function getWithRounded({ width, relativeIndex, amountOfPath }) {
 }
 
 /**
- *  @param {object} params
- *  @param {number} params.height
- *  @param {number} params.relativeIndex
- *  @param {number} params.amountOfPath
- *  @returns {number}
- **/
+ * @param {object} params
+ * @param {number} params.height
+ * @param {number} params.relativeIndex
+ * @param {number} params.amountOfPath
+ * @returns {number}
+ */
 function getHeightRounded({ height, relativeIndex, amountOfPath }) {
     return (
         Math.sqrt(
@@ -50,7 +50,7 @@ function getHeightRounded({ height, relativeIndex, amountOfPath }) {
     );
 }
 
-/** @type{import('../type').CaterpillarN0Animation} */
+/** @type {import('../type').CaterpillarN0Animation} */
 export const caterpillarN0Animation = ({
     canvas,
     amountOfPath,
@@ -157,7 +157,7 @@ export const caterpillarN0Animation = ({
 
         const context = useOffscreen
             ? offScreenCtx
-            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+            : /** @type {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} */ (
                   ctx
               );
 

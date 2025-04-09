@@ -94,12 +94,12 @@ export default class MobLerp {
     #currentReject;
 
     /**
-     * @type{Promise<void>|undefined}
+     * @type {Promise<void> | undefined}
      */
     #promise;
 
     /**
-     * @type {import('./type.js').lerpValues[]|[]}
+     * @type {import('./type.js').lerpValues[] | []}
      */
     #values;
 
@@ -129,7 +129,7 @@ export default class MobLerp {
     #callbackStartInPause;
 
     /**
-     * @type {Array<() => void>}
+     * @type {(() => void)[]}
      */
     #unsubscribeCache;
 
@@ -154,17 +154,15 @@ export default class MobLerp {
     #fpsInLoading;
 
     /**
-     * @description
-     * This value is the base value merged with new value in custom prop
-     * passed form user in goTo etc..
+     * This value is the base value merged with new value in custom prop passed form user in goTo etc..
      *
      * @type {import('./type.js').lerpDefault}
-     **/
+     */
     #defaultProps;
 
     /**
      * @type {import('../utils/stagger/type.js').StaggerFrameIndexObject}
-     **/
+     */
     #slowlestStagger;
 
     /**
@@ -173,50 +171,49 @@ export default class MobLerp {
     #fastestStagger;
 
     /**
-     * @param {import('./type.js').lerpTweenProps} [ data ]
+     * Available methods:
+     *
+     * ```javascript
+     * myLerp.set();
+     * myLerp.goTo();
+     * myLerp.goFrom();
+     * myLerp.goFromTo();
+     * myLerp.subscribe();
+     * myLerp.subscribeCache();
+     * myLerp.onComplete();
+     * myLerp.updateVelocity();
+     * myLerp.updatePrecision();
+     * myLerp.getId();
+     * myLerp.get();
+     * myLerp.getTo();
+     * myLerp.getFrom();
+     * myLerp.getToNativeType();
+     * myLerp.getFromNativeType();
+     * ```
      *
      * @example
-     * ```javascript
-     * const myLerp = new MobLerp({
-     *   data: Object.<string, number>,
-     *   precision: Number,
-     *   velocity: Number,
-     *   relative: Boolean
-     *   stagger:{
-     *      each: Number,
-     *      from: Number|String|{x:number,y:number},
-     *      grid: {
-     *          col: Number,
-     *          row: Number,
-     *          direction: String,
-     *      },
-     *      waitComplete: Boolean,
-     *   },
-     * })
+     *     ```javascript
+     *     const myLerp = new MobLerp({
+     *       data: Object.<string, number>,
+     *       precision: Number,
+     *       velocity: Number,
+     *       relative: Boolean
+     *       stagger:{
+     *          each: Number,
+     *          from: Number|String|{x:number,y:number},
+     *          grid: {
+     *              col: Number,
+     *              row: Number,
+     *              direction: String,
+     *          },
+     *          waitComplete: Boolean,
+     *       },
+     *     })
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Available methods:
-     * ```javascript
-     * myLerp.set()
-     * myLerp.goTo()
-     * myLerp.goFrom()
-     * myLerp.goFromTo()
-     * myLerp.subscribe()
-     * myLerp.subscribeCache()
-     * myLerp.onComplete()
-     * myLerp.updateVelocity()
-     * myLerp.updatePrecision()
-     * myLerp.getId()
-     * myLerp.get()
-     * myLerp.getTo()
-     * myLerp.getFrom()
-     * myLerp.getToNativeType()
-     * myLerp.getFromNativeType()
-     *
-     * ```
+     * @param {import('./type.js').lerpTweenProps} [data]
      */
     constructor(data) {
         this.#stagger = getStaggerFromProps(data ?? {});
@@ -250,8 +247,7 @@ export default class MobLerp {
         this.#fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
 
         /**
-         * Set initial store data if defined in constructor props
-         * If not use setData methods
+         * Set initial store data if defined in constructor props If not use setData methods
          */
         const props = data?.data;
         if (props) this.setData(props);
@@ -260,8 +256,7 @@ export default class MobLerp {
     /**
      * @param {number} _time
      * @param {number} fps
-     * @param {(value:any) => void} res
-     *
+     * @param {(value: any) => void} res
      * @returns {void}
      */
     #draw(_time, fps, res = () => {}) {
@@ -294,9 +289,7 @@ export default class MobLerp {
                 this.#isActive = false;
 
                 /**
-                 * End of animation
-                 * Set fromValue with ended value
-                 * At the next call fromValue become the start value
+                 * End of animation Set fromValue with ended value At the next call fromValue become the start value
                  */
                 this.#values = [...this.#values].map((item) => {
                     return { ...item, fromValue: item.toValue };
@@ -339,10 +332,10 @@ export default class MobLerp {
     }
 
     /**
-     * @param {number} time current global time
-     * @param {number} fps current FPS
-     * @param {(value:any) => void} res current promise resolve
-     **/
+     * @param {number} time Current global time
+     * @param {number} fps Current FPS
+     * @param {(value: any) => void} res Current promise resolve
+     */
     #onReuqestAnim(time, fps, res) {
         this.#values = [...this.#values].map((item) => {
             return { ...item, currentValue: item.fromValue };
@@ -352,17 +345,15 @@ export default class MobLerp {
     }
 
     /**
-     * @description
      * Inzialize stagger array
      *
      * @returns {Promise<any>}
      */
     async #inzializeStagger() {
         /**
-         * First time il there is a stagger load fps then go next step
-         * next time no need to calculate stagger and jump directly next step
-         *
-         **/
+         * First time il there is a stagger load fps then go next step next time no need to calculate stagger and jump
+         * directly next step
+         */
         if (
             shouldInizializzeStagger(
                 this.#stagger.each,
@@ -397,7 +388,7 @@ export default class MobLerp {
 
             if (this.#callbackCache.length > this.#callback.length) {
                 this.#callbackCache =
-                    /** @type{import('../utils/callbacks/type.js').CallbackCache} */ (
+                    /** @type {import('../utils/callbacks/type.js').CallbackCache} */ (
                         staggerArray
                     );
             } else {
@@ -419,7 +410,6 @@ export default class MobLerp {
     /**
      * @param {(arg0: any) => void} res
      * @param {(value: any) => void} reject
-     *
      * @returns {Promise<any>}
      */
     async #startRaf(res, reject) {
@@ -449,8 +439,8 @@ export default class MobLerp {
         this.#values = setFromToByCurrent(this.#values);
 
         /**
-         * If isRunning clear all funture stagger.
-         * If tween is ended and the lst stagger is running, let it reach end position.
+         * If isRunning clear all funture stagger. If tween is ended and the lst stagger is running, let it reach end
+         * position.
          */
         if (this.#isActive && clearCache)
             this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
@@ -489,10 +479,10 @@ export default class MobLerp {
     }
 
     /**
-     * @type {import('../../utils/type.js').SetData}
+     * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called
+     * after creating the instance
      *
-     * @description
-     * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
+     * @type {import('../../utils/type.js').SetData}
      */
     setData(obj) {
         this.#values = Object.entries(obj).map((item) => {
@@ -528,7 +518,7 @@ export default class MobLerp {
     }
 
     /**
-     * @type  {import('./type.js').lerpMergeProps}
+     * @type {import('./type.js').lerpMergeProps}
      */
     #mergeProps(props) {
         const newProps = { ...this.#defaultProps, ...props };
@@ -541,7 +531,7 @@ export default class MobLerp {
     }
 
     /**
-     * @type {import('../../utils/type.js').GoTo<import('./type.js').lerpActions>} obj to Values
+     * @type {import('../../utils/type.js').GoTo<import('./type.js').lerpActions>} obj To Values
      */
     goTo(obj, props = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
@@ -552,7 +542,7 @@ export default class MobLerp {
     }
 
     /**
-     * @type {import('../../utils/type.js').GoFrom<import('./type.js').lerpActions>} obj to Values
+     * @type {import('../../utils/type.js').GoFrom<import('./type.js').lerpActions>} obj To Values
      */
     goFrom(obj, props = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
@@ -563,7 +553,7 @@ export default class MobLerp {
     }
 
     /**
-     * @type {import('../../utils/type.js').GoFromTo<import('./type.js').lerpActions>} obj to Values
+     * @type {import('../../utils/type.js').GoFromTo<import('./type.js').lerpActions>} obj To Values
      */
     goFromTo(fromObj, toObj, props = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
@@ -582,7 +572,7 @@ export default class MobLerp {
     }
 
     /**
-     * @type {import('../../utils/type.js').Set<import('./type.js').lerpActions>} obj to Values
+     * @type {import('../../utils/type.js').Set<import('./type.js').lerpActions>} obj To Values
      */
     set(obj, props = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
@@ -592,7 +582,7 @@ export default class MobLerp {
     }
 
     /**
-     * @type {import('../../utils/type.js').SetImmediate<import('./type.js').lerpActions>} obj to Values
+     * @type {import('../../utils/type.js').SetImmediate<import('./type.js').lerpActions>} obj To Values
      */
     setImmediate(obj, props = {}) {
         if (this.#pauseStatus) return;
@@ -613,7 +603,7 @@ export default class MobLerp {
     }
 
     /**
-     * @type {import('../../utils/type.js').DoAction<import('./type.js').lerpActions>} obj to Values
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').lerpActions>} obj To Values
      */
     #doAction(data, props, obj) {
         this.#values = mergeArray(data, this.#values);
@@ -643,155 +633,145 @@ export default class MobLerp {
     }
 
     /**
-     * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').lerpGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myLerp.get();
-     * ```
+     *     const { prop } = myLerp.get();
+     *     ```;
+     *
+     * @type {import('./type.js').lerpGetValue}
      */
     get() {
         return getValueObj(this.#values, 'currentValue');
     }
 
     /**
-     * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').lerpGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myLerp.getIntialData();
-     * ```
+     *     const { prop } = myLerp.getIntialData();
+     *     ```;
+     *
+     * @type {import('./type.js').lerpGetValue}
      */
     getInitialData() {
         return getValueObj(this.#initialData, 'currentValue');
     }
 
     /**
-     * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').lerpGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myLerp.getFrom();
-     * ```
+     *     const { prop } = myLerp.getFrom();
+     *     ```;
+     *
+     * @type {import('./type.js').lerpGetValue}
      */
     getFrom() {
         return getValueObj(this.#values, 'fromValue');
     }
 
     /**
-     * @description
      * Get to values, If the single value is a function it returns the result of the function.
      *
-     * @type {import('./type.js').lerpGetValue}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myLerp.getTo();
-     * ```
+     *     const { prop } = myLerp.getTo();
+     *     ```;
+     *
+     * @type {import('./type.js').lerpGetValue}
      */
     getTo() {
         return getValueObj(this.#values, 'toValue');
     }
 
     /**
-     * @description
      * Get From values, if the single value is a function it returns the same function.
      *
-     * @type {import('./type.js').lerpGetValueNative}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myLerp.getFromNativeType();
-     * ```
+     *     const { prop } = myLerp.getFromNativeType();
+     *     ```;
+     *
+     * @type {import('./type.js').lerpGetValueNative}
      */
     getFromNativeType() {
         return getValueObjFromNative(this.#values);
     }
 
     /**
-     * @description
      * Get To values, if the single value is a function it returns the same function.
      *
-     * @type {import('./type.js').lerpGetValueNative}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const { prop } = myLerp.getToNativeType();
-     * ```
+     *     const { prop } = myLerp.getToNativeType();
+     *     ```;
+     *
+     * @type {import('./type.js').lerpGetValueNative}
      */
     getToNativeType() {
         return getValueObjToNative(this.#values);
     }
 
     /**
-     * @description
      * Get tween type
      *
-     * @type {import('./type.js').lerpGetType} tween type
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const type = myLerp.getType();
-     * ```
+     *     const type = myLerp.getType();
+     *     ```;
+     *
+     * @type {import('./type.js').lerpGetType} tween Type
      */
     getType() {
         return 'LERP';
     }
 
     /**
-     * @description
      * Get univoque Id
      *
-     * @type {import('./type.js').lerpGetId}
-     *
      * @example
-     * ```javascript
+     *     ```javascript
      *
      *
-     * const type = myLerp.getId();
-     * ```
+     *     const type = myLerp.getId();
+     *     ```;
+     *
+     * @type {import('./type.js').lerpGetId}
      */
     getId() {
         return this.#uniqueId;
     }
 
     /**
-     * @type  {import('./type.js').lerpUpdateVelocity} 
+     * Update velocity value. `default value is 0.06`,the closer the value is to 1, the faster the transition will be.
+     * The change will be persistent
      *
      * @example
-     * ```javascript
-     * myLerp.updateVelocity(0.1)
+     *     ```javascript
+     *     myLerp.updateVelocity(0.1)
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Update velocity value.
-       `default value is 0.06`,the closer the value is to 1, the faster the transition will be.
-        The change will be persistent
+     * @type {import('./type.js').lerpUpdateVelocity}
      */
     updateVelocity(velocity) {
         this.#velocity = lerpVelocityIsValid(velocity);
@@ -801,19 +781,18 @@ export default class MobLerp {
     }
 
     /**
-     * @type  {import('./type.js').lerpUpdatePrecision} 
+     * Update precision value. When the calculated value is less than this number, the transition will be considered
+     * completed, the smaller the value, the greater the precision of the calculation, the `default value is 0.01`. The
+     * change will be persistent
      *
      * @example
-     * ```javascript
-     * myLerp.updatePrecision(0.5)
+     *     ```javascript
+     *     myLerp.updatePrecision(0.5)
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Update precision value.
-       When the calculated value is less than this number, the transition will be considered completed, the smaller the value, the greater the precision of the calculation, the `default value is 0.01`.
-       The change will be persistent
+     * @type {import('./type.js').lerpUpdatePrecision}
      */
     updatePrecision(precision) {
         this.#velocity = lerpPrecisionIsValid(precision);
@@ -825,9 +804,8 @@ export default class MobLerp {
     /**
      * @type {import('./type.js').lerpSubscribe}
      *
-     * ```
-     * @description
-     * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
+     *       @description
+     *       Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
     subscribe(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
@@ -839,10 +817,9 @@ export default class MobLerp {
     }
 
     /**
-     * @type {import('./type.js').lerpSubscribeCache}
-     *
-     * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
+     *
+     * @type {import('./type.js').lerpSubscribeCache}
      */
     subscribeCache(item, fn) {
         const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } =
@@ -859,13 +836,12 @@ export default class MobLerp {
     }
 
     /**
-     * Support callback to asyncTimeline.
-     * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
-     * Add callback to start in pause to stack
+     * Support callback to asyncTimeline. Callback to manage the departure of tweens in a timeline. If a delay is
+     * applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will
+     * automatically pause. Add callback to start in pause to stack
      *
-     * @param  {() => boolean} cb cal function
-     * @return {() => void} unsubscribe callback
-     *
+     * @param {() => boolean} cb Cal function
+     * @returns {() => void} Unsubscribe callback
      */
     onStartInPause(cb) {
         const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
@@ -875,14 +851,12 @@ export default class MobLerp {
     }
 
     /**
+     * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the
+     * scroll trigger is inactive). Useful for applying a different style to an inactive element. A typical example is
+     * to remove the teansform3D property:
+     *
      * @type {import('./type.js').lerpOnComplete}
-     *
-     *
-     * @description
-     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-     *  Useful for applying a different style to an inactive element.
-     *  A typical example is to remove the teansform3D property:
-     **/
+     */
     onComplete(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
             cb,
@@ -897,7 +871,6 @@ export default class MobLerp {
     }
 
     /**
-     * @description
      * Destroy tween
      */
     destroy() {

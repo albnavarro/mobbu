@@ -9,7 +9,7 @@ import { debounceFuncion } from '../debounce.js';
 let initialized = false;
 
 /**
- * @type {Map<String,import('./type.js').HandleResizeCallback>}
+ * @type {Map<String, import('./type.js').HandleResizeCallback>}
  */
 const callbacks = new Map();
 
@@ -29,7 +29,7 @@ let previousWindowHeight = window.innerHeight;
 let previousWindowWidth = window.innerWidth;
 
 /**
- * @returns void
+ * @returns Void
  */
 function handler() {
     /**
@@ -92,9 +92,9 @@ function handler() {
 }
 
 /**
- * init - if listener is not inizializad add it
+ * Init - if listener is not inizializad add it
  *
- * @return {void}
+ * @returns {void}
  */
 function init() {
     if (initialized) return;
@@ -110,28 +110,27 @@ function init() {
 }
 
 /**
- * @param {import('./type.js').HandleResizeCallback} cb - callback function fired on resize.
- * @returns {() => void}
- *
- * @description
  * Add callback on resize using a debounce function.
  *
  * @example
- * ```javascript
- * handleResize(
- *     ({
- *         documentHeight,
- *         horizontalResize,
- *         scrollY,
- *         verticalResize,
- *         windowsHeight,
- *         windowsWidth,
- *     }) => {
- *         // code
- *     }
- * );
+ *     ```javascript
+ *     handleResize(
+ *         ({
+ *             documentHeight,
+ *             horizontalResize,
+ *             scrollY,
+ *             verticalResize,
+ *             windowsHeight,
+ *             windowsWidth,
+ *         }) => {
+ *             // code
+ *         }
+ *     );
  *
- * ```
+ *     ```;
+ *
+ * @param {import('./type.js').HandleResizeCallback} cb - Callback function fired on resize.
+ * @returns {() => void}
  */
 const addCb = (cb) => {
     const id = getUnivoqueId();

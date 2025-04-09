@@ -3,13 +3,11 @@
 import { repeatFunctionMap } from '../repeat-function-map';
 
 /**
- * @description
- * Add new repeat unsubScribe function in map.
- * key is component id associated to these function.
+ * Add new repeat unsubScribe function in map. key is component id associated to these function.
  *
  * @param {object} params
- * @param {string} params.id - component id
- * @param {string} params.repeatId - repeat id
+ * @param {string} params.id - Component id
+ * @param {string} params.repeatId - Repeat id
  * @param {() => void} params.unsubscribe
  * @returns {void}
  */

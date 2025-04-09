@@ -3,12 +3,11 @@
 import { componentMap } from '../../store';
 
 /**
- * @param {object} obj
- * @param {() => void} [ obj.cb ] destroy callback function
- * @param {string} [ obj.id ] component id
- *
- * @description
  * Update deestroy call back by id.
+ *
+ * @param {object} obj
+ * @param {() => void} [obj.cb] Destroy callback function
+ * @param {string} [obj.id] Component id
  */
 
 export const setDestroyCallback = ({ cb = () => {}, id }) => {

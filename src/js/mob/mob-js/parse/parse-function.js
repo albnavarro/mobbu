@@ -34,17 +34,21 @@ import { applyBindEffect } from '../modules/bind-effetc';
 import { getComponentList } from '../component/component-list';
 
 /**
+ * Create all component from DOM.
+ *
  * @param {object} obj
  * @param {HTMLElement} obj.element
- * @param {boolean} [ obj.persistent  ]
- * @param {Array<{onMount:Function, initializeBindPropsWatcher:function, fireInvalidateFunction:function, fireRepeatFunction:function}>} [ obj.functionToFireAtTheEnd ]
- * @param {Array<import("../web-component/type").UserComponent>} [ obj.currentSelectors ]
- * @param {string} [ obj.parentIdForced ]
- * @param {boolean} [ obj.checkBindRef ]
- * @return {Promise<void>}
- *
- * @description
- * Create all component from DOM.
+ * @param {boolean} [obj.persistent]
+ * @param {{
+ *     onMount: Function;
+ *     initializeBindPropsWatcher: function;
+ *     fireInvalidateFunction: function;
+ *     fireRepeatFunction: function;
+ * }[]} [obj.functionToFireAtTheEnd]
+ * @param {import('../web-component/type').UserComponent[]} [obj.currentSelectors]
+ * @param {string} [obj.parentIdForced]
+ * @param {boolean} [obj.checkBindRef]
+ * @returns {Promise<void>}
  */
 export const parseComponentsRecursive = async ({
     element,
@@ -87,12 +91,10 @@ export const parseComponentsRecursive = async ({
         if (Object.keys(bindRefs).length > 0) addBindRefsToComponent(bindRefs);
 
         /**
-         * Fire onMount queue.
-         * Wait parse is ended to fire onMount callback.
+         * Fire onMount queue. Wait parse is ended to fire onMount callback.
          *
-         * Launch from the end so childn can initialize watch before parent.
-         * In case a watcher is watching a props initialized inside
-         * onMount state of parent.
+         * Launch from the end so childn can initialize watch before parent. In case a watcher is watching a props
+         * initialized inside onMount state of parent.
          */
         for (const item of functionToFireAtTheEnd.reverse()) {
             const {
@@ -115,10 +117,8 @@ export const parseComponentsRecursive = async ({
         currentSelectors.length = 0;
 
         /**
-         * Apply delegate event at the ends of all repeater parse.
-         * Important! do not use await here. We are inside a repeater queque !
-         * We can not await end of itself !
-         * This should be the last command.
+         * Apply delegate event at the ends of all repeater parse. Important! do not use await here. We are inside a
+         * repeater queque ! We can not await end of itself ! This should be the last command.
          */
         applyDelegationBindEvent(element);
         applyBindEffect(element);
@@ -216,11 +216,10 @@ export const parseComponentsRecursive = async ({
     addSelfIdToParentComponent({ id });
 
     /**
-     * Set initial currentRepeaterState for initialize dynamicProps.
-     * Only first child node of a repeater
+     * Set initial currentRepeaterState for initialize dynamicProps. Only first child node of a repeater
      *
-     * - update componentMap currentRepeaterState
-     * - update innerwrap
+     * - Update componentMap currentRepeaterState
+     * - Update innerwrap
      */
     if (componentRepeatId && componentRepeatId?.length > 0) {
         setRepeaterStateById({ id, value: currentRepeatValue });
@@ -232,8 +231,7 @@ export const parseComponentsRecursive = async ({
     }
 
     /**
-     * Initialize dynamic props and
-     * set initial state.
+     * Initialize dynamic props and set initial state.
      */
     addCurrentIdToBindProps({
         propsId: dynamicPropsId,
@@ -266,8 +264,7 @@ export const parseComponentsRecursive = async ({
     });
 
     /**
-     * Launch userFunctionComponent and wait for render function with custom DOM
-     * to add to component.
+     * Launch userFunctionComponent and wait for render function with custom DOM to add to component.
      */
     const content = await userFunctionComponent(objectFromComponentFunction);
 
@@ -291,21 +288,19 @@ export const parseComponentsRecursive = async ({
     if (!useSlotQuery) clearSlotPlaceHolder();
 
     /**
-     * copy all classes in new component.
+     * Copy all classes in new component.
      */
     newElement?.classList.add(...classList);
 
     /**
-     * Set parentId to component inside current.
-     * Add self id to future component.
-     * If id is assigned to component nested in next cycle will be override by current component.
+     * Set parentId to component inside current. Add self id to future component. If id is assigned to component nested
+     * in next cycle will be override by current component.
      */
     addParentIdToFutureComponent({ element: newElement, id });
 
     /**
-     * If element wad destroyed during parse
-     * es: repat function fired with async component to fast
-     * return without render dom component.
+     * If element wad destroyed during parse es: repat function fired with async component to fast return without render
+     * dom component.
      */
     if (!newElement) {
         return;
@@ -332,8 +327,7 @@ export const parseComponentsRecursive = async ({
     }
 
     /**
-     * Fire immediately onMount callback, scoped to current component DOM.
-     * Child is ignored.
+     * Fire immediately onMount callback, scoped to current component DOM. Child is ignored.
      */
     const shoulBeScoped = scoped ?? getDefaultComponent().scoped;
 
@@ -351,11 +345,7 @@ export const parseComponentsRecursive = async ({
     newElement?.inizializeCustomComponent?.(objectFromComponentFunction);
 
     /**
-     * Store onMount callback.
-     * Fire :
-     * 1 - onMount callback.
-     * 2 - Dynamic props.
-     * 3 - First repat from current state.
+     * Store onMount callback. Fire : 1 - onMount callback. 2 - Dynamic props. 3 - First repat from current state.
      */
     functionToFireAtTheEnd.push({
         onMount: async () => {

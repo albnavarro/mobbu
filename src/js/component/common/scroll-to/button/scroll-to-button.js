@@ -2,7 +2,7 @@
 
 import { html } from '@mobJs';
 
-/** @type {import("@mobJsType").MobComponent<import("./type").ScrollToButton>} */
+/** @type {import('@mobJsType').MobComponent<import('./type').ScrollToButton>} */
 export const ScrollToButtonFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
 

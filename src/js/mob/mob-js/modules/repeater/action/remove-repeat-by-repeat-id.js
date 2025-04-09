@@ -4,13 +4,11 @@ import { repeatFunctionMap } from '../repeat-function-map';
 import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
 
 /**
- * @description
- * Remove repeat by id filtered by repeatId
- * Remove only current repeater, each component use many repater.
+ * Remove repeat by id filtered by repeatId Remove only current repeater, each component use many repater.
  *
  * @param {object} params
- * @param {string} params.id - component id
- * @param {string} params.repeatId - repeat id
+ * @param {string} params.id - Component id
+ * @param {string} params.repeatId - Repeat id
  * @returns {void}
  */
 

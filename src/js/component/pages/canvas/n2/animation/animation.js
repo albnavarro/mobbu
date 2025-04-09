@@ -22,7 +22,7 @@ const logAddMethods = ({ value, direction, isForced }) => {
     console.log(`current: ${value}, direction: ${direction}`);
 };
 
-/** @type{import('../type').CaterpillarN2Animation} */
+/** @type {import('../type').CaterpillarN2Animation} */
 export const caterpillarN2Animation = ({
     canvas,
     numItems,
@@ -61,9 +61,6 @@ export const caterpillarN2Animation = ({
 
     const useRadius = false;
 
-    /**
-     *
-     */
     let squareData = [...Array.from({ length: numItems }).keys()].map(
         (_item, i) => {
             const relativeIndex =
@@ -158,7 +155,7 @@ export const caterpillarN2Animation = ({
 
         const context = useOffscreen
             ? offScreenCtx
-            : /** @type{CanvasRenderingContext2D|OffscreenCanvasRenderingContext2D} */ (
+            : /** @type {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} */ (
                   ctx
               );
 

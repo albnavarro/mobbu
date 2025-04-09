@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {import("./type").updateState}
+ * @type {import('./type').updateState}
  */
 export const updateStateByKey = ({ key, map, update, set }) => {
     const state = map.get(key);
@@ -13,7 +13,7 @@ export const updateStateByKey = ({ key, map, update, set }) => {
 };
 
 /**
- * @type {import("./type").updateStateByProp}
+ * @type {import('./type').updateStateByProp}
  */
 export const updateStateByProp = ({
     prop,
@@ -36,7 +36,7 @@ export const updateStateByProp = ({
 };
 
 /**
- * @type {import("./type").updateAll}
+ * @type {import('./type').updateAll}
  */
 export const updateAll = ({ map, update, set }) => {
     [...map.entries()].forEach(([key, state]) => {

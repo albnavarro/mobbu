@@ -7,7 +7,7 @@ import { getRoundedValue, lerp } from '../utils/animation-utils';
  * @param {number} param.fps
  * @param {number} param.velocity
  * @param {number} param.precision
- * @return {import('./type').lerpValues[]}
+ * @returns {import('./type').lerpValues[]}
  */
 export const lerpGetValuesOnDraw = ({ values, fps, velocity, precision }) => {
     return values.map((item) => {

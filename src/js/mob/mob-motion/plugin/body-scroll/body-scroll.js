@@ -20,14 +20,13 @@ const defaultPreset = 'easeOutQuad';
 /** @type {MobTimeTween} */
 const tween = new MobTimeTween({ ease: defaultPreset, data: { val: 0 } });
 
-/** @type{boolean} */
+/** @type {boolean} */
 let isRunning = false;
 
-/** @type{boolean} */
+/** @type {boolean} */
 let overflow = false;
 
 /**
- * @description
  * Init tween
  */
 tween.subscribe(({ val }) => {
@@ -71,30 +70,28 @@ MobCore.useTouchStart(() => {
 });
 
 /**
- * @description
  * Scroll body to values or element.
  */
 export const MobBodyScroll = (() => {
     /**
-     * @description
-     *
      * @example
-     *```javascript
-       bodyScroll.to(0, {
-           duration: 1000,
-           overflow: true,
-           ease: 'easeInExpo',
-       });
-
-       bodyScroll.to(myDomElement, {
-           duration: 1000,
-           overflow: true,
-           ease: 'easeInExpo',
-       });
-
-     *```
-     * @param {(Number|Element)} target
-     * @param {import('./type.js').MobBodyScroll} [ data ]
+     *     ```javascript
+     *            bodyScroll.to(0, {
+     *                duration: 1000,
+     *                overflow: true,
+     *                ease: 'easeInExpo',
+     *            });
+     *
+     *            bodyScroll.to(myDomElement, {
+     *                duration: 1000,
+     *                overflow: true,
+     *                ease: 'easeInExpo',
+     *            });
+     *
+     *     ```;
+     *
+     * @param {Number | Element} target
+     * @param {import('./type.js').MobBodyScroll} [data]
      */
     const to = (target, data) => {
         if (typeof globalThis === 'undefined') return;
@@ -113,8 +110,8 @@ export const MobBodyScroll = (() => {
             }
 
             return isNode(target)
-                ? offset(/** @type{HTMLElement} */ (target)).top
-                : /** @type{number} */ (target);
+                ? offset(/** @type {HTMLElement} */ (target)).top
+                : /** @type {number} */ (target);
         })();
 
         /**
@@ -134,7 +131,7 @@ export const MobBodyScroll = (() => {
 
         if (easeTweenIsValid(data?.ease)) {
             tween?.updateEase?.(
-                /** @type{import('../../animation/tween/type.js').EaseTypes} */ (
+                /** @type {import('../../animation/tween/type.js').EaseTypes} */ (
                     data?.ease
                 )
             );

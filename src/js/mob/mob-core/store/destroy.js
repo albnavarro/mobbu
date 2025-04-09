@@ -3,7 +3,7 @@ import { getStateFromMainMap, removeStateFromMainMap } from './store-map';
 
 /**
  * @param {string} instanceId
- * @returns { void }
+ * @returns {void}
  */
 export const destroyStoreEntryPoint = (instanceId) => {
     const state = getStateFromMainMap(instanceId);

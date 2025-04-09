@@ -1,6 +1,6 @@
 import { MobScroll, MobTween } from '@mobMotion';
 
-/** @type{import("../type").AboutSection2} */
+/** @type {import('../type').AboutSection2} */
 export const sectionContentAnimation = ({ title, copy }) => {
     const sectionContentSequencer = MobTween.createSequencer({
         data: {

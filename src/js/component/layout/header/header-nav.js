@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import { DelegateEvents, MobComponent } from '@mobJsType';
- **/
+ * @import {DelegateEvents, MobComponent} from '@mobJsType';
+ */
 
 import { html, MobJs } from '@mobJs';
 
@@ -24,7 +24,7 @@ const icon = {
 const onClick = ({ event }) => {
     const button = event.target;
     console.log(button);
-    const { url } = /** @type{HTMLButtonElement} */ (button)?.dataset ?? '';
+    const { url } = /** @type {HTMLButtonElement} */ (button)?.dataset ?? '';
     MobJs.loadUrl({ url });
     navigationStore.set('navigationIsOpen', false);
 };
@@ -35,7 +35,7 @@ const onClick = ({ event }) => {
  * @returns {string}
  */
 function additems({ delegateEvents }) {
-    /** @type{import('./type').HeaderLinks} */
+    /** @type {import('./type').HeaderLinks} */
     const header = getCommonData().header;
     const { links } = header;
 
@@ -51,7 +51,7 @@ function additems({ delegateEvents }) {
                               data-url="${url}"
                               class="l-header__sidenav__link"
                               ${delegateEvents({
-                                  click: (/** @type{Event} */ event) => {
+                                  click: (/** @type {Event} */ event) => {
                                       console.log('click');
                                       onClick({ event });
                                   },

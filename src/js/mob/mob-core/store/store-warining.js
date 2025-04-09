@@ -5,7 +5,7 @@ import { getTypeName } from './store-type';
 /**
  * @param {number} data
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeDepthWarning = (data, style) => {
     console.warn(
@@ -15,10 +15,10 @@ export const storeDepthWarning = (data, style) => {
 };
 
 /**
- * @param {Array.<String>} keys
+ * @param {String[]} keys
  * @param {string} prop
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeComputedWarning = (keys, prop, style) => {
     console.warn(
@@ -30,7 +30,7 @@ export const storeComputedWarning = (keys, prop, style) => {
 /**
  * @param {string} prop
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeSetWarning = (prop, style) => {
     console.warn(
@@ -43,7 +43,7 @@ export const storeSetWarning = (prop, style) => {
  * @param {string} prop
  * @param {string} val
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeSetPropValWarning = (prop, val, style) => {
     console.warn(
@@ -57,7 +57,7 @@ export const storeSetPropValWarning = (prop, val, style) => {
 /**
  * @param {string} prop
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeSetPropPropWarning = (prop, style) => {
     console.warn(
@@ -73,7 +73,7 @@ export const storeSetPropPropWarning = (prop, style) => {
  * @param {any} val
  * @param {any} type
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeSetPropTypeWarning = (prop, val, type, style) => {
     console.warn(
@@ -88,7 +88,7 @@ export const storeSetPropTypeWarning = (prop, val, type, style) => {
  * @param {string} prop
  * @param {any} val
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeSetObjectValWarning = (prop, val, style) => {
     console.warn(
@@ -100,7 +100,7 @@ export const storeSetObjectValWarning = (prop, val, style) => {
 /**
  * @param {string} prop
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeSetObjectPropWarning = (prop, style) => {
     console.warn(
@@ -110,10 +110,10 @@ export const storeSetObjectPropWarning = (prop, style) => {
 };
 
 /**
- * @param {Array.<String>} key
+ * @param {String[]} key
  * @param {string} prop
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeSetObjKeysWarning = (key, prop, style) => {
     console.warn(
@@ -126,7 +126,7 @@ export const storeSetObjKeysWarning = (key, prop, style) => {
  * @param {string} prop
  * @param {any} val
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeSetObjDepthWarning = (prop, val, style) => {
     console.warn(
@@ -143,7 +143,7 @@ export const storeSetObjDepthWarning = (prop, val, style) => {
  * @param {any} subVal
  * @param {string} type
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeSetObjTypeWarning = (prop, subProp, subVal, type, style) => {
     console.warn(
@@ -157,7 +157,7 @@ export const storeSetObjTypeWarning = (prop, subProp, subVal, type, style) => {
 /**
  * @param {string} prop
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeGetPropWarning = (prop, style) => {
     console.warn(
@@ -169,7 +169,7 @@ export const storeGetPropWarning = (prop, style) => {
 /**
  * @param {string} prop
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeEmitWarning = (prop, style) => {
     console.warn(
@@ -181,7 +181,7 @@ export const storeEmitWarning = (prop, style) => {
 /**
  * @param {string[]} keys
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeComputedKeyUsedWarning = (keys, style) => {
     console.warn(
@@ -193,7 +193,7 @@ export const storeComputedKeyUsedWarning = (keys, style) => {
 /**
  * @param {string} prop
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storeWatchWarning = (prop, style) => {
     console.warn(
@@ -205,7 +205,7 @@ export const storeWatchWarning = (prop, style) => {
 /**
  * @param {string} style
  * @param {string} CUSTOM_OBJECT
- * @returns void
+ * @returns Void
  */
 export const storeObjectIsNotAnyWarning = (style, CUSTOM_OBJECT) => {
     console.warn(
@@ -217,7 +217,7 @@ export const storeObjectIsNotAnyWarning = (style, CUSTOM_OBJECT) => {
 /**
  * @param {string} prop
  * @param {string} style
- * @returns void
+ * @returns Void
  */
 export const storePropInProxiWarning = (prop, style) => {
     console.warn(

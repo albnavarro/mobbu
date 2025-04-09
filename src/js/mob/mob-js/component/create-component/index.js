@@ -11,8 +11,6 @@ let defaultComponent = {
 /**
  * @param {import('../../type').DefaultComponent} obj
  * @returns {void}
- *
- * @description
  */
 export const setDefaultComponent = (obj) => {
     defaultComponent = { ...defaultComponent, ...obj };
@@ -29,11 +27,9 @@ export const getDebugMode = () => {
 };
 
 /**
- * @type {import('../../type').CreateComponent<any>}
+ * Format component definition in object key: value. name, function, props, state
  *
- * @description
- * Format component definition in object key: value.
- * name, function, props, state
+ * @type {import('../../type').CreateComponent<any>}
  */
 export const createComponent = ({
     name = '',
@@ -50,8 +46,7 @@ export const createComponent = ({
     child = [],
 }) => {
     /**
-     * Load child component.
-     * ( launch createComponent recursvly )
+     * Load child component. ( launch createComponent recursvly )
      */
     useComponent(child);
 

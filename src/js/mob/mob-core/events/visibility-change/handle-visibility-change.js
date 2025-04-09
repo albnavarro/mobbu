@@ -8,16 +8,13 @@ import { getUnivoqueId } from '../../utils';
 let initialized = false;
 
 /**
- * @type {Map<string,import('./type').VisibilityChangeCallback>}
+ * @type {Map<string, import('./type').VisibilityChangeCallback>}
  */
 const callbacks = new Map();
 
-/**
- *
- */
 function handler() {
     /**
-     * if - if there is no subscritor remove handler
+     * If - if there is no subscritor remove handler
      */
     if (callbacks.size === 0) {
         globalThis.removeEventListener('visibilitychange', handler);
@@ -37,9 +34,9 @@ function handler() {
 }
 
 /**
- * init - if listener is not inizializad remove it
+ * Init - if listener is not inizializad remove it
  *
- * @return {void}
+ * @returns {void}
  */
 function init() {
     if (initialized) return;
@@ -51,21 +48,20 @@ function init() {
 }
 
 /**
- * @description
  * Add callback on tab change
  *
- * @param {import('./type').VisibilityChangeCallback} cb - callback function fired on tab change.
- * @returns {() => void}
- *
  * @example
- * ```javascript
- *  const unsubscribe = handleVisibilityChange(({ visibilityState }) => {
- *      // code
- *  });
+ *     ```javascript
+ *      const unsubscribe = handleVisibilityChange(({ visibilityState }) => {
+ *          // code
+ *      });
  *
- *  unsubscribe()
+ *      unsubscribe()
  *
- * ```
+ *     ```;
+ *
+ * @param {import('./type').VisibilityChangeCallback} cb - Callback function fired on tab change.
+ * @returns {() => void}
  */
 const addCb = (cb) => {
     const id = getUnivoqueId();

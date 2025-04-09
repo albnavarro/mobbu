@@ -7,13 +7,12 @@ import {
 import { invalidateFunctionMap } from '../invalidate-function-map';
 
 /**
- * @description
- * Initialize watch function of nested invalidate.
- * Start initialize from older one, so child invalidate is render after parent invalidate
+ * Initialize watch function of nested invalidate. Start initialize from older one, so child invalidate is render after
+ * parent invalidate
  *
  * @param {object} params
- * @param {HTMLElement|undefined} params.invalidateParent
- * @param {string} params.id - componentId
+ * @param {HTMLElement | undefined} params.invalidateParent
+ * @param {string} params.id - ComponentId
  * @returns {void}
  */
 

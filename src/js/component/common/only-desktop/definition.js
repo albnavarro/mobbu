@@ -5,11 +5,11 @@ import { MobMotionCore } from '@mobMotion';
 import { OnlyDesktopFn } from './only-desktop';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const OnlyDesktop = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').OnlyDesktop>} */
+    /** @type {CreateComponentParams<import('./type').OnlyDesktop>} */
     ({
         name: 'only-desktop',
         component: OnlyDesktopFn,

@@ -11,7 +11,7 @@ import { handleScrollImmediate } from './handle-scroll-immediate.js';
 let initialized = false;
 
 /**
- * @type {Map<string,import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>>}
+ * @type {Map<string, import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>>}
  */
 const callbacks = new Map();
 
@@ -25,7 +25,7 @@ let unsubscribe = () => {};
  */
 function handler(scrollData) {
     /**
-     * if - if there is no subscritor remove handler
+     * If - if there is no subscritor remove handler
      */
     if (callbacks.size === 0) {
         unsubscribe();
@@ -44,9 +44,9 @@ function handler(scrollData) {
 }
 
 /**
- * init - if listener is not inizializad remove it
+ * Init - if listener is not inizializad remove it
  *
- * @return {void}
+ * @returns {void}
  */
 function init() {
     if (initialized) return;
@@ -56,21 +56,20 @@ function init() {
 }
 
 /**
- * @description
  * Perform a callback to the first nextTick available after scrolling
  *
- * @param {import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>} cb - callback function
- * @return {() => void} unsubscribe callback
- *
  * @example
- * ```javascript
- * const unsubscribe = handleScroll(({ direction, scrollY }) => {
- *     // code
- * });
+ *     ```javascript
+ *     const unsubscribe = handleScroll(({ direction, scrollY }) => {
+ *         // code
+ *     });
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
+ *
+ * @param {import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>} cb - Callback function
+ * @returns {() => void} Unsubscribe callback
  */
 const addCb = (cb) => {
     const id = getUnivoqueId();
@@ -84,7 +83,6 @@ const addCb = (cb) => {
 };
 
 /**
- * @description
  * Perform a callback to the first nextTick available after scrolling
  */
 export const handleScroll = (() => addCb)();

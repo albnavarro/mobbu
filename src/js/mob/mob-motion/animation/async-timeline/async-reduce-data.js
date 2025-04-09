@@ -1,11 +1,10 @@
 // @ts-check
 
 /**
+ * From data object return an object filtered by props in activeData
+ *
  * @param {Record<string, number | (() => number)>} data
  * @param {Record<string, number | (() => number)>} activeData
- *
- * @description
- * From data object return an object filtered by props in activeData
  */
 export const asyncReduceData = (data, activeData) => {
     return Object.entries(data)

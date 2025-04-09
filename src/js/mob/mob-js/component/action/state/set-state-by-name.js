@@ -4,11 +4,10 @@ import { getIdByInstanceName } from '../component';
 import { setStateById } from './set-state-by-id';
 
 /**
- * @param {string} name
- * @returns {(prop:string, value:any, options?: { emit?: boolean }) => void}
- *
- * @description
  * Set state
+ *
+ * @param {string} name
+ * @returns {(prop: string, value: any, options?: { emit?: boolean }) => void}
  */
 
 export const setStateByName = (name = '') => {

@@ -26,7 +26,7 @@ const getRadial = ({
 }) => {
     /**
      * Check if from is an Object
-     **/
+     */
     if (!MobCore.checkType(Object, stagger?.from)) {
         // @ts-ignore
         stagger.from = {};
@@ -121,9 +121,8 @@ const getDefault = ({
     fastestStagger,
 }) => {
     /**
-     * Check if from is a valid parameters
-     * If not set default start value
-     * **/
+     * Check if from is a valid parameters If not set default start value *
+     */
     const fromList = [
         STAGGER_START,
         STAGGER_END,
@@ -145,7 +144,7 @@ const getDefault = ({
 
     /**
      * DEFAULT STAGGER
-     **/
+     */
     return getDefaultStagger({
         arrayDefault,
         arrayOnStop,

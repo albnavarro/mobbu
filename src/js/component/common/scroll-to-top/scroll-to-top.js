@@ -6,9 +6,9 @@ import { MobBodyScroll } from '@mobMotionPlugin';
 import { Triangles } from './triangles';
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { ScrollToTop } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {ScrollToTop} from './type';
+ */
 
 /** @type {MobComponent<ScrollToTop>} */
 export const ScrollToTopFn = ({

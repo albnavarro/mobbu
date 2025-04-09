@@ -5,10 +5,10 @@ import { checkType, storeType } from './store-type.js';
 import { storeDepthWarning } from './store-warining.js';
 
 /**
+ * Get depth of Object
+ *
  * @param {Object} object
  * @returns {number}
- *
- * @description Get depth of Object
  */
 export const maxDepth = (object) => {
     if (!storeType.isObject(object)) return 0;
@@ -20,20 +20,14 @@ export const maxDepth = (object) => {
 };
 
 /**
- * @param {import('./type.js').MobStoreParams} data
- * @param {boolean} shouldRecursive - max 1 level of recurisivity.
- * @returns {Object<string,(Object<string,any>|any)>}
- *
- * @description
- * Get Main Store Object
- * If use a function with validation check if there is a function that return an object:
- * key: () => ({
- *   value: 0,
- *   validate: (val) => ....,
- *   ...
- * }),
+ * Get Main Store Object If use a function with validation check if there is a function that return an object: key: ()
+ * => ({ value: 0, validate: (val) => ...., ... }),
  *
  * Returns initial props value.
+ *
+ * @param {import('./type.js').MobStoreParams} data
+ * @param {boolean} shouldRecursive - Max 1 level of recurisivity.
+ * @returns {Object<string, Object<string, any> | any>}
  */
 export const getDataRecursive = (data, shouldRecursive = true) => {
     return Object.entries(data).reduce((p, c) => {
@@ -43,8 +37,7 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
             : {};
 
         /**
-         * First level value is an object.
-         * Recursive function if find an Object.
+         * First level value is an object. Recursive function if find an Object.
          */
         if (storeType.isObject(value) && shouldRecursive) {
             return {
@@ -79,14 +72,13 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
 };
 
 /**
+ * Returns specific object by Prop ( validate, skipequel, etc.. )
+ *
  * @param {import('./type.js').MobStoreParams} data
  * @param {string} prop
  * @param {any} fallback
- * @param {boolean} shouldRecursive - max 1 level of recursivity
- * @returns {Object<string,(Object<string,any>|any)>}
- *
- * @description
- * Returns specific object by Prop ( validate, skipequel, etc.. )
+ * @param {boolean} shouldRecursive - Max 1 level of recursivity
+ * @returns {Object<string, Object<string, any> | any>}
  */
 export const getPropRecursive = (
     data,
@@ -97,19 +89,18 @@ export const getPropRecursive = (
     return Object.entries(data).reduce((p, c) => {
         const [key, value] = c;
         const functionResult = storeType.isFunction(value)
-            ? /** @type{Function} */ (value)()
+            ? /** @type {Function} */ (value)()
             : {};
 
         /**
-         * First level value is an object.
-         * Recursive function if find an Object.
+         * First level value is an object. Recursive function if find an Object.
          */
         if (storeType.isObject(value) && shouldRecursive) {
             return {
                 ...p,
 
                 [key]: getPropRecursive(
-                    /** @type{import('./type.js').MobStoreParams} */ (value),
+                    /** @type {import('./type.js').MobStoreParams} */ (value),
                     prop,
                     fallback,
                     false
@@ -145,7 +136,7 @@ export const getPropRecursive = (
  * @param {import('./type.js').MobStoreParams} obj.data
  * @param {number} obj.depth
  * @param {string} obj.logStyle
- * @returns {Object<string,(Object<string,any>|any)>}
+ * @returns {Object<string, Object<string, any> | any>}
  */
 export const inizializeStoreData = ({ data, depth, logStyle }) => {
     if (depth > 2) {
@@ -163,7 +154,7 @@ export const inizializeStoreData = ({ data, depth, logStyle }) => {
  * @param {number} obj.depth
  * @param {string} obj.logStyle
  * @param {any} obj.fallback
- * @returns {Object<string,(Object<string,any>|any)>}
+ * @returns {Object<string, Object<string, any> | any>}
  */
 export const inizializeSpecificProp = ({
     data,

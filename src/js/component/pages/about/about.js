@@ -1,6 +1,6 @@
 /**
- * @import { BindEffect, DelegateEvents, GetState, MobComponent, SetRef } from '@mobJsType';
- **/
+ * @import {BindEffect, DelegateEvents, GetState, MobComponent, SetRef} from '@mobJsType';
+ */
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
@@ -247,8 +247,7 @@ export const AboutComponentFn = ({
         });
 
         /**
-         * Move about svg 1:1 with drag.
-         * Stop on fps slowdown.
+         * Move about svg 1:1 with drag. Stop on fps slowdown.
          */
         moveSvg = async (value) => {
             const shouldStop = MobCore.shouldMakeSomething();
@@ -315,9 +314,8 @@ export const AboutComponentFn = ({
                 _goTo(goToPercentage[proxi.activenavItem]);
             },
             /**
-             * Snap to active item.
-             * Debuounce update with 500,s value
-             * Scroll to the nearest section based on scroll direction
+             * Snap to active item. Debuounce update with 500,s value Scroll to the nearest section based on scroll
+             * direction
              */
             onScrollEnd: MobCore.useDebounce(() => {
                 _goTo(goToPercentage[proxi.activenavItem]);

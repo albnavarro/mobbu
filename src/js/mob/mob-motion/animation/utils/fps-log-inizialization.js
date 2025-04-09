@@ -3,7 +3,6 @@
 /**
  * @param {string} label
  * @param {number} fps
- *
  * @returns {void}
  */
 export const fpsLoadedLog = (label, fps) => {

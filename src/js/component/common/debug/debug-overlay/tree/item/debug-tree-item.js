@@ -1,8 +1,8 @@
 // @ts-check
 
 /**
- * @import { MobComponent,  UseMethodByName } from '@mobJsType';
- **/
+ * @import {MobComponent,  UseMethodByName} from '@mobJsType';
+ */
 
 import { html, MobJs } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
@@ -34,7 +34,7 @@ const activeItemChildren = ({ id, value }) => {
     return flatChildren.some((id) => activeItemChildren({ id, value }));
 };
 
-/** @type{MobComponent<import('./type').DebugTreeItem>} */
+/** @type {MobComponent<import('./type').DebugTreeItem>} */
 export const DebugTreeItemFn = ({
     onMount,
     staticProps,
@@ -79,7 +79,7 @@ export const DebugTreeItemFn = ({
             const action = isOpen ? 'down' : 'up';
             await MobSlide[action](content);
 
-            /** @type{UseMethodByName<import('../type').DebugTree>} */
+            /** @type {UseMethodByName<import('../type').DebugTree>} */
             const methods = MobJs.useMethodByName('debug_tree');
             methods?.refresh();
         });
@@ -122,7 +122,7 @@ export const DebugTreeItemFn = ({
                 class="c-debug-tree-item__expand"
                 ${delegateEvents({
                     click: () => {
-                        /** @type{UseMethodByName<import('../../debug-component/type').DebugComponent>} */
+                        /** @type {UseMethodByName<import('../../debug-component/type').DebugComponent>} */
                         const methods =
                             MobJs.useMethodByName('debug_component');
                         methods?.updateId(proxi.id);

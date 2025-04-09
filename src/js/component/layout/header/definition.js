@@ -6,11 +6,11 @@ import { HeadernavFn } from './header-nav';
 import { HeaderToggleFn } from './header-toggle';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const HeaderNav = MobJs.createComponent(
-    /** @type{CreateComponentParams<any>} */
+    /** @type {CreateComponentParams<any>} */
     ({
         name: 'mob-header-nav',
         component: HeadernavFn,
@@ -18,7 +18,7 @@ export const HeaderNav = MobJs.createComponent(
 );
 
 export const HeaderToggle = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').HeaderToggle>} */
+    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
     ({
         name: 'mob-header-toggle',
         component: HeaderToggleFn,
@@ -32,7 +32,7 @@ export const HeaderToggle = MobJs.createComponent(
 );
 
 export const Header = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').Header>} */
+    /** @type {CreateComponentParams<import('./type').Header>} */
     ({
         name: 'mob-header',
         component: HeaderFn,

@@ -8,7 +8,7 @@ import { getUnivoqueId } from '../../utils';
 let initialized = false;
 
 /**
- * @type {Map<string,import('./type').HandleScrollCallback<import('./type').HandleScroll>>}
+ * @type {Map<string, import('./type').HandleScrollCallback<import('./type').HandleScroll>>}
  */
 const callbacks = new Map();
 const UP = 'UP';
@@ -38,11 +38,11 @@ let scrollData = {
 };
 
 /**
- * @returns void
+ * @returns Void
  */
 function handler() {
     /**
-     * if - if there is no subscritor remove handler
+     * If - if there is no subscritor remove handler
      */
     if (callbacks.size === 0) {
         window.removeEventListener('scroll', handler);
@@ -62,8 +62,7 @@ function handler() {
     };
 
     /**
-     * Check if browser lost frame.
-     * If true skip.
+     * Check if browser lost frame. If true skip.
      */
     // callback.forEach(({ cb }) => cb(scrollData));
     for (const value of callbacks.values()) {
@@ -72,9 +71,9 @@ function handler() {
 }
 
 /**
- * init - if listener is not inizializad remove it
+ * Init - if listener is not inizializad remove it
  *
- * @return {void}
+ * @returns {void}
  */
 function init() {
     if (initialized) return;
@@ -86,21 +85,20 @@ function init() {
 }
 
 /**
- * @description
  * Execute a callback immediately on scroll
  *
- * @param {import('./type').HandleScrollCallback<import('./type').HandleScroll>} cb - callback function
- * @return {() => void} unsubscribe callback
- *
  * @example
- * ```javascript
- * const unsubscribe = handleScrollImmediate(({ direction, scrollY }) => {
- *     // code
- * });
+ *     ```javascript
+ *     const unsubscribe = handleScrollImmediate(({ direction, scrollY }) => {
+ *         // code
+ *     });
  *
- * unsubscribe();
+ *     unsubscribe();
  *
- * ```
+ *     ```;
+ *
+ * @param {import('./type').HandleScrollCallback<import('./type').HandleScroll>} cb - Callback function
+ * @returns {() => void} Unsubscribe callback
  */
 const addCb = (cb) => {
     const id = getUnivoqueId();
@@ -114,7 +112,6 @@ const addCb = (cb) => {
 };
 
 /**
- * @description
  * Execute a callback immediately on scroll
  */
 export const handleScrollImmediate = (() => {

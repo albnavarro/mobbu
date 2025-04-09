@@ -24,7 +24,7 @@ import {
 } from '../modules/user-component';
 
 /**
- * @param {{[key:string]:import('../main-store/type').ComponentListMap}} componentList
+ * @param {{ [key: string]: import('../main-store/type').ComponentListMap }} componentList
  */
 export const defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {
@@ -51,7 +51,10 @@ export const defineUserComponent = (componentList) => {
                 #componentId;
 
                 /**
-                 * @type {import('../type').ComponentPropsType<import('../type').MobComponentMap, import('../type').MobComponentMap>}
+                 * @type {import('../type').ComponentPropsType<
+                 *     import('../type').MobComponentMap,
+                 *     import('../type').MobComponentMap
+                 * >}
                  */
                 #params;
 
@@ -61,22 +64,22 @@ export const defineUserComponent = (componentList) => {
                 #isPlaceholder;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #name;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #staticPropsId;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #dynamicPropsId;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #bindEventsId;
 
@@ -91,47 +94,47 @@ export const defineUserComponent = (componentList) => {
                 #propsFromSlotId;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #currentRepeatValueId;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #slotPosition;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #currentKey;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #parentId;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #componentRepeatId;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #delegateEventId;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #repeatPropBind;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #bindRefId;
 
                 /**
-                 * @type {string|undefined|null}
+                 * @type {string | undefined | null}
                  */
                 #bindRefName;
 
@@ -155,13 +158,12 @@ export const defineUserComponent = (componentList) => {
                     this.#dynamicPropsFromSlotId = '';
                     this.#propsFromSlotId = '';
 
-                    /** host exist */
+                    /** Host exist */
                     const host = this.shadowRoot?.host;
                     if (!host) return;
 
                     /**
-                     * When fragment to repeater item is created to add attribute
-                     * skip
+                     * When fragment to repeater item is created to add attribute skip
                      */
                     const skip = getSkipAddUserComponent();
                     if (skip) return;
@@ -198,8 +200,8 @@ export const defineUserComponent = (componentList) => {
                     ].map((attribute) => host.getAttribute(attribute) ?? '');
 
                     /**
-                     * Placeholder element that will move to slot.
-                     * Add visibility hidden to avoid visiual jump before and after the sobstituition.
+                     * Placeholder element that will move to slot. Add visibility hidden to avoid visiual jump before
+                     * and after the sobstituition.
                      */
                     if (this.#slotPosition && !this.active) {
                         this.style.visibility = 'hidden';
@@ -225,7 +227,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param { string } value
+                 * @param {string} value
                  */
                 setId(value) {
                     this.#componentId = value;
@@ -240,7 +242,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param { string } id
+                 * @param {string} id
                  */
                 setParentId(id) {
                     this.#parentId = id;
@@ -342,7 +344,10 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param {import('../type').ComponentPropsType<import('../type').MobComponentMap,import('../type').MobComponentMap>} data
+                 * @param {import('../type').ComponentPropsType<
+                 *     import('../type').MobComponentMap,
+                 *     import('../type').MobComponentMap
+                 * >} data
                  */
                 inizializeCustomComponent(data) {
                     if (this.active) return;
@@ -361,8 +366,7 @@ export const defineUserComponent = (componentList) => {
 
                 connectedCallback() {
                     /**
-                     * When fragment to repeater item is created to add attribute
-                     * skip
+                     * When fragment to repeater item is created to add attribute skip
                      */
                     const skip = getSkipAddUserComponent();
                     if (skip) return;

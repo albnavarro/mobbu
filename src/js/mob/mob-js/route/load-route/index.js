@@ -19,16 +19,15 @@ import { getRestoreScroll } from '../scroll/restore-scroll';
 import { tick } from '../../queque/tick';
 
 /**
+ * Load new route.
+ *
  * @param {object} param
  * @param {string} param.route
  * @param {string} param.templateName
  * @param {boolean} param.restoreScroll
- * @param {{[key:string]: any}} param.params
+ * @param {{ [key: string]: any }} param.params
  * @param {boolean} param.comeFromHistory
  * @param {number} param.scrollY
- *
- * @description
- * Load new route.
  */
 export const loadRoute = async ({
     route = '',
@@ -66,9 +65,8 @@ export const loadRoute = async ({
     mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, { route, templateName });
 
     /**
-     * If another route change during loading current route
-     * ( async route with some delay or similar )
-     * skip fire after route change event
+     * If another route change during loading current route ( async route with some delay or similar ) skip fire after
+     * route change event
      */
     let skip = false;
     const unWatchRouteChange = mainStore.watch(
@@ -79,9 +77,7 @@ export const loadRoute = async ({
     );
 
     /**
-     * Clean DOM
-     * Remove props reference.
-     * Async loading and interrupt can leave rubbish.
+     * Clean DOM Remove props reference. Async loading and interrupt can leave rubbish.
      */
     removeOrphanTempIds();
 
@@ -107,13 +103,12 @@ export const loadRoute = async ({
     const content = (await routeObejct?.layout?.({ params, props })) ?? '';
 
     /**
-     * Clone old route.
-     * Execute function to manipulate old Node.
+     * Clone old route. Execute function to manipulate old Node.
      */
     const beforePageTransition = getBeforePageTransition();
 
     /**
-     * @type {Node|null}
+     * @type {Node | null}
      */
     let clone = contentElement.cloneNode(true);
 
@@ -129,9 +124,6 @@ export const loadRoute = async ({
         contentElement?.parentNode?.insertBefore(clone, contentElement);
     }
 
-    /**
-     *
-     */
     // contentEl.textContent = '';
     contentElement.replaceChildren();
 
@@ -156,8 +148,7 @@ export const loadRoute = async ({
     if (getRestoreScroll() && restoreScroll) scrollTo(0, scrollY);
 
     /**
-     * Animate pgae teansition.
-     * Remove old route.
+     * Animate pgae teansition. Remove old route.
      */
     const pageTransition = getPageTransition();
     if (pageTransition && !comeFromHistory) {

@@ -1,58 +1,56 @@
 // @ts-check
 
 /**
- * @type {{priority: number, cb: (arg0: {time: number, fps: number}) => void}[]}
+ * @type {{ priority: number; cb: (arg0: { time: number; fps: number }) => void }[]}
  */
 const callbacks = [];
 
 /**
- * @description
  * Add callback
  *
- * @param {import('./type.js').HandleFrameCallbak} cb - callback function
- * @param {number} [ priority ]
- *
  * @example
- * ```javascript
- * handleFrame.add(() => {
- *     handleNextTick.add(({ fps, time }) => {
- *         // code
- *     });
- * });
- *
- * Loop request animation frame using handleNextTick:
- * const loop = () => {
- *     handleNextTick.add(() => {
- *         // read from DOM
- *
- *         handleFrame.add(() => {
- *             // write to the DOM
- *             loop();
+ *     ```javascript
+ *     handleFrame.add(() => {
+ *         handleNextTick.add(({ fps, time }) => {
+ *             // code
  *         });
  *     });
- * };
  *
- * handleFrame.add(() => loop());
+ *     Loop request animation frame using handleNextTick:
+ *     const loop = () => {
+ *         handleNextTick.add(() => {
+ *             // read from DOM
  *
- * To tick exactly after the request animation frame:
- * mobbu.default('set', { deferredNextTick: true });
- * ```
+ *             handleFrame.add(() => {
+ *                 // write to the DOM
+ *                 loop();
+ *             });
+ *         });
+ *     };
+ *
+ *     handleFrame.add(() => loop());
+ *
+ *     To tick exactly after the request animation frame:
+ *     mobbu.default('set', { deferredNextTick: true });
+ *     ```;
+ *
+ * @param {import('./type.js').HandleFrameCallbak} cb - Callback function
+ * @param {number} [priority]
  */
 const add = (cb = () => {}, priority = 100) => {
     callbacks.push({ cb, priority });
 };
 
 /**
- * @description
  * Fire callback
  *
- * @param {import('./type.js').HandleFrame} cb - callback function
- *
  * @example
- * ```javascript
-   handleNextTick.fire({ time, fps });
+ *     ```javascript
+ *        handleNextTick.fire({ time, fps });
  *
- * ```
+ *     ```;
+ *
+ * @param {import('./type.js').HandleFrame} cb - Callback function
  */
 const fire = ({ time, fps }) => {
     if (callbacks.length === 0) return;
@@ -63,10 +61,10 @@ const fire = ({ time, fps }) => {
 };
 
 /**
- * @module handleNextTick
+ * Execute callbacks after scheduling the request animation frame. Use this method to read data from the DOM. To execute
+ * callbacks exactly after the request animation frame, set the global property deferredNextTick to true.
  *
- * @description
- * Execute callbacks after scheduling the request animation frame. Use this method to read data from the DOM. To execute callbacks exactly after the request animation frame, set the global property deferredNextTick to true.
+ * @module handleNextTick
  */
 export const handleNextTick = (() => {
     return { add, fire };

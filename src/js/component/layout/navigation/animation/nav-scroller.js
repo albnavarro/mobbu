@@ -7,17 +7,17 @@ let currentPercent = 0;
 /**
  * @param {object} params
  * @param {HTMLElement} params.root
- * @returns {{scrollNativationToTop: () => void, refreshScroller: () => void}}
+ * @returns {{ scrollNativationToTop: () => void; refreshScroller: () => void }}
  */
 export const initNavigationScoller = ({ root }) => {
-    const screenEl = /** @type{HTMLElement} */ (
+    const screenEl = /** @type {HTMLElement} */ (
         root.querySelector('.l-navcontainer__wrap')
     );
-    const scrollerEl = /** @type{HTMLElement} */ (
+    const scrollerEl = /** @type {HTMLElement} */ (
         root.querySelector('.l-navcontainer__scroll')
     );
     const percentEl =
-        /** @type{HTMLElement} */
+        /** @type {HTMLElement} */
         (root.querySelector('.l-navcontainer__percent'));
     const setDelay = 200;
 
@@ -46,13 +46,13 @@ export const initNavigationScoller = ({ root }) => {
      * Aign menu to current active main section label
      */
     navigationStore.watch('activeNavigationSection', (section) => {
-        const currentSection = /** @type{HTMLElement} */ (
+        const currentSection = /** @type {HTMLElement} */ (
             document.querySelector(`[data-sectionname='${section}']`)
         );
 
         if (!currentSection) return;
 
-        const header = /** @type{HTMLElement} */ (
+        const header = /** @type {HTMLElement} */ (
             document.querySelector('.l-header')
         );
         const navHeight = outerHeight(scrollerEl);

@@ -5,7 +5,7 @@ import { animatedPatternN0Params } from './animated-pattern-n0-params';
 
 MobJs.useComponent([AnimatedPatternN0]);
 
-/** @type{import('@mobJsType').Page} */
+/** @type {import('@mobJsType').Page} */
 export const animatedPatternN0 = ({ params }) => {
     const { version } = params;
 
@@ -29,7 +29,7 @@ export const animatedPatternN0 = ({ params }) => {
     return html`<div class="l-padding">
         <animatedpattern-n0
             ${MobJs.staticProps(
-                /** @type{import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['state']} */
+                /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['state']} */
                 ({
                     ...props.animation,
                 })

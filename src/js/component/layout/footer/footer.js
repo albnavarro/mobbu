@@ -4,8 +4,8 @@ import { consoleLogDebug } from '@commonComponent/debug/console-log';
 import { html, MobJs } from '@mobJs';
 
 /**
- * @import { MobComponent, UseMethodByName } from '@mobJsType'
- * @import { DebugOverlay } from '../../common/debug/debug-overlay/type'
+ * @import {MobComponent, UseMethodByName} from '@mobJsType'
+ * @import {DebugOverlay} from '../../common/debug/debug-overlay/type'
  */
 
 /** @type {MobComponent} */
@@ -19,7 +19,7 @@ export const FooterFn = ({ delegateEvents }) => {
                         class="c-button-debug"
                         ${delegateEvents({
                             click: () => {
-                                /** @type{UseMethodByName<DebugOverlay>} */
+                                /** @type {UseMethodByName<DebugOverlay>} */
                                 const methods =
                                     MobJs.useMethodByName('debugOverlay');
                                 methods?.toggle();

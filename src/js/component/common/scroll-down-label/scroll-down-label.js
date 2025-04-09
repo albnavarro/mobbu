@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { ScrollDownLabel } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {ScrollDownLabel} from './type';
+ */
 
 // @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';

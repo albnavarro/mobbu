@@ -16,9 +16,9 @@ export const setRepeaterChild = ({ repeatId, id, bind }) => {
     if (!element) return;
 
     /**
-     * Fall  back for repeater without component inside.
+     * Fall back for repeater without component inside.
      */
-    const children = /** @type{HTMLElement[]} */ ([...element.children]);
+    const children = /** @type {HTMLElement[]} */ ([...element.children]);
     const state = getStateById(id);
     const stateByProp = state[bind];
 
@@ -34,7 +34,7 @@ export const setRepeaterChild = ({ repeatId, id, bind }) => {
 /**
  * @param {object} params
  * @param {string} params.repeatId
- * @returns {{index:number, value:any, element: HTMLElement}[]}
+ * @returns {{ index: number; value: any; element: HTMLElement }[]}
  */
 export const getRepeaterChild = ({ repeatId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);

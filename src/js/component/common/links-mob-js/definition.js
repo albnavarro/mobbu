@@ -5,11 +5,11 @@ import { LinksMobJsFn } from './links-mobjs';
 import { LinksMobJsButtonFn } from './links-mobjs-button';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const LinksMobJsButton = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').LinksMobJsButton>} */
+    /** @type {CreateComponentParams<import('./type').LinksMobJsButton>} */
     ({
         name: 'links-mobjs-button',
         component: LinksMobJsButtonFn,
@@ -32,7 +32,7 @@ export const LinksMobJsButton = MobJs.createComponent(
 );
 
 export const LinksMobJs = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').LinksMobJs>} */
+    /** @type {CreateComponentParams<import('./type').LinksMobJs>} */
     ({
         name: 'links-mobjs',
         component: LinksMobJsFn,

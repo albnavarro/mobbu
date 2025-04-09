@@ -6,11 +6,10 @@ import { MobCore } from '../../../mob-core/index.js';
 
 /**
  * @param {object} obj
- * @param {Element|undefined} obj.startMarker
- * @param {Element|undefined} obj.endMarker
+ * @param {Element | undefined} obj.startMarker
+ * @param {Element | undefined} obj.endMarker
  * @param {string} obj.label
- *
- * @returns {{lastStartMarker:(Element|undefined), lastEndMarkerEl:(Element|undefined)}}
+ * @returns {{ lastStartMarker: Element | undefined; lastEndMarkerEl: Element | undefined }}
  */
 const getMarker = ({ startMarker, endMarker, label }) => {
     if (!startMarker && !endMarker) {
@@ -51,9 +50,8 @@ const getMarker = ({ startMarker, endMarker, label }) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement|globalThis|null} obj.screen
- *
- * @returns {{top:number,right:number,bottom:number,left:number}}
+ * @param {HTMLElement | globalThis | null} obj.screen
+ * @returns {{ top: number; right: number; bottom: number; left: number }}
  */
 const getPosition = ({ screen }) => {
     if (screen === globalThis) {
@@ -89,7 +87,6 @@ const getPosition = ({ screen }) => {
  * @param {number} obj.bottom
  * @param {number} obj.left
  * @param {number} obj.right
- *
  * @returns {Object}
  */
 const getStartStyle = ({
@@ -150,7 +147,6 @@ const getStartStyle = ({
  * @param {number} obj.bottom
  * @param {number} obj.left
  * @param {number} obj.right
- *
  * @returns {Object}
  */
 const getEndStyle = ({
@@ -203,16 +199,15 @@ const getEndStyle = ({
 };
 /**
  * @param {object} obj
- * @param {Element|undefined} obj.startMarker
- * @param {Element|undefined} obj.endMarker
+ * @param {Element | undefined} obj.startMarker
+ * @param {Element | undefined} obj.endMarker
  * @param {number} obj.startPoint
  * @param {number} obj.endPoint
- * @param {HTMLElement|globalThis|null} obj.screen
+ * @param {HTMLElement | globalThis | null} obj.screen
  * @param {string} obj.direction
  * @param {boolean} obj.invertSide
  * @param {string} obj.label
- *
- * @returns {{startMarker:(Element|undefined), endMarker:(Element|undefined)}}
+ * @returns {{ startMarker: Element | undefined; endMarker: Element | undefined }}
  */
 export const MobScrollerMarker = ({
     startMarker,

@@ -3,8 +3,8 @@
 import { html } from '@mobJs';
 
 /**
- * @import { BindObject, DelegateEvents, MobComponent, ProxiState, ReturnBindProps } from '@mobJsType';
- **/
+ * @import {BindObject, DelegateEvents, MobComponent, ProxiState, ReturnBindProps} from '@mobJsType';
+ */
 
 /**
  * @param {object} params
@@ -20,9 +20,9 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     type="range"
                     value=${proxiState.factor}
                     ${delegateEvents({
-                        input: (/** @type{KeyboardEvent} */ event) => {
+                        input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type{HTMLInputElement} */ (event.target)
+                                /** @type {HTMLInputElement} */ (event.target)
                                     .value ?? 0;
                             proxiState.factor = Number(value);
                         },
@@ -37,9 +37,9 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     type="range"
                     value=${proxiState.xDepth}
                     ${delegateEvents({
-                        input: (/** @type{KeyboardEvent} */ event) => {
+                        input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type{HTMLInputElement} */ (event.target)
+                                /** @type {HTMLInputElement} */ (event.target)
                                     .value ?? 0;
                             proxiState.xDepth = Number(value);
                         },
@@ -55,9 +55,9 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     value=${proxiState.xLimit}
                     max=${proxiState.xLimit}
                     ${delegateEvents({
-                        input: (/** @type{KeyboardEvent} */ event) => {
+                        input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type{HTMLInputElement} */ (event.target)
+                                /** @type {HTMLInputElement} */ (event.target)
                                     .value ?? 0;
                             proxiState.xLimit = Number(value);
                         },
@@ -72,9 +72,9 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     type="range"
                     value=${proxiState.yDepth}
                     ${delegateEvents({
-                        input: (/** @type{KeyboardEvent} */ event) => {
+                        input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type{HTMLInputElement} */ (event.target)
+                                /** @type {HTMLInputElement} */ (event.target)
                                     .value ?? 0;
                             proxiState.yDepth = Number(value);
                         },
@@ -90,9 +90,9 @@ const getControls = ({ delegateEvents, bindObject, proxiState }) => {
                     value=${proxiState.yLimit}
                     max=${proxiState.yLimit}
                     ${delegateEvents({
-                        input: (/** @type{KeyboardEvent} */ event) => {
+                        input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type{HTMLInputElement} */ (event.target)
+                                /** @type {HTMLInputElement} */ (event.target)
                                     .value ?? 0;
                             proxiState.yLimit = Number(value);
                         },
@@ -130,7 +130,7 @@ export const Move3DPagefn = ({
         ${getControls({ delegateEvents, bindObject, proxiState })}
         <move-3d
             ${bindProps(
-                /** @returns{ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
+                /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
                 () => ({
                     shape: proxiState.data,
                     xDepth: proxiState.xDepth,
@@ -144,7 +144,7 @@ export const Move3DPagefn = ({
         ></move-3d>
         <move-3d
             ${bindProps(
-                /** @returns{ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
+                /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
                 () => ({
                     shape: proxiState.data,
                     xDepth: proxiState.xDepth,

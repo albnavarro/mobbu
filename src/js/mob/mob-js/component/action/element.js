@@ -3,14 +3,12 @@
 import { componentMap } from '../store';
 
 /**
+ * Update element root from generic to real after conversion.
  *
  * @param {object} obj
  * @param {string} obj.id
- * @param {HTMLElement|import("../../web-component/type").UserComponent} obj.newElement
- * @return { void }
- *
- * @description
- * Update element root from generic to real after conversion.
+ * @param {HTMLElement | import('../../web-component/type').UserComponent} obj.newElement
+ * @returns {void}
  */
 export const setElementById = ({
     id = '',
@@ -25,13 +23,11 @@ export const setElementById = ({
 };
 
 /**
+ * Get element by id
  *
  * @param {object} obj
  * @param {string} obj.id
- * @return {HTMLElement|undefined}
- *
- * @description
- * Get element by id
+ * @returns {HTMLElement | undefined}
  */
 export const getElementById = ({ id = '' }) => {
     if (!id || id === '') return;
@@ -41,13 +37,11 @@ export const getElementById = ({ id = '' }) => {
 };
 
 /**
+ * Get element by id
  *
  * @param {object} obj
- * @param {HTMLElement|undefined} obj.element
- * @return {string|undefined}
- *
- * @description
- * Get element by id
+ * @param {HTMLElement | undefined} obj.element
+ * @returns {string | undefined}
  */
 export const getIdByElement = ({ element }) => {
     const item = [...componentMap.values()].find((item) => {
@@ -59,15 +53,12 @@ export const getIdByElement = ({ element }) => {
 };
 
 /**
+ * Get element by key and repeatId.
  *
  * @param {object} obj
  * @param {string} obj.keyValue
  * @param {string} obj.repeatId
- * @return {HTMLElement|undefined}
- *
- *
- * @description
- * Get element by key and repeatId.
+ * @returns {HTMLElement | undefined}
  */
 export const getElementByKeyAndRepeatId = ({
     keyValue = '',
@@ -86,14 +77,13 @@ export const getElementByKeyAndRepeatId = ({
 };
 
 /**
+ * Get children of component inside a element by a precompiler children list
+ *
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.repeatId
- * @param {boolean} [ obj.filterById ]
- * @return {string[]}
- *
- * @description
- * Get children of component inside a element by a precompiler children list
+ * @param {boolean} [obj.filterById]
+ * @returns {string[]}
  */
 export const getIdsByByRepeatId = ({ id, repeatId, filterById = false }) => {
     if (!id || id === '') return [];

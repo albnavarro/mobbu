@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {import("./type").DirectionSingleObject}
+ * @type {import('./type').DirectionSingleObject}
  */
 export const directionConstant = {
     BACKWARD: 'backward',

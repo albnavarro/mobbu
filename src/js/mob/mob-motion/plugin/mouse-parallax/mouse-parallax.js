@@ -49,17 +49,17 @@ export class MobMouseParallax {
     #offSetLeft;
 
     /**
-     * @type{import('../../type').MobSpring}
+     * @type {import('../../type').MobSpring}
      */
     #spring;
 
     /**
-     * @type {{x: number, y: number}}
+     * @type {{ x: number; y: number }}
      */
     #pageCoord;
 
     /**
-     * @type {{x: number, y: number}}
+     * @type {{ x: number; y: number }}
      */
     #clientCoord;
 
@@ -94,7 +94,7 @@ export class MobMouseParallax {
     #unsubscribeResize;
 
     /**
-     * @param { import('./type').MobMouseParallax } data
+     * @param {import('./type').MobMouseParallax} data
      */
     constructor(data) {
         this.#item = data.item;
@@ -121,11 +121,10 @@ export class MobMouseParallax {
     }
 
     /**
-     * @description
      * Initialize insatance
      *
      * @example
-     * myInstance.init()
+     *     myInstance.init();
      *
      * @type {() => void}
      */
@@ -157,7 +156,7 @@ export class MobMouseParallax {
     }
 
     /**
-     * @type {(arg0: {page: {x: number, y: number}, client: {x: number, y: number}}) => void}
+     * @type {(arg0: { page: { x: number; y: number }; client: { x: number; y: number } }) => void}
      */
     #setGlobalCoord({ page, client }) {
         this.#pageCoord = { x: page.x, y: page.y };

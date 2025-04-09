@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { ScrollToTopFn } from './scroll-to-top';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const ScrollToTop = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').ScrollToTop>} */
+    /** @type {CreateComponentParams<import('./type').ScrollToTop>} */
     ({
         name: 'scroll-to-top',
         component: ScrollToTopFn,

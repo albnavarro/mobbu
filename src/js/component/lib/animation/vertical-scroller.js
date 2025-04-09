@@ -3,9 +3,9 @@
 import { outerHeight, outerWidth } from '@mobCoreUtils';
 import { MobSmoothScroller } from '@mobMotionPlugin';
 
-/** @type{import('./type').VerticalScroller} */
+/** @type {import('./type').VerticalScroller} */
 export const verticalScroller = ({ screen, scroller, scrollbar }) => {
-    /** @type{MobSmoothScroller} */
+    /** @type {MobSmoothScroller} */
     let instance;
 
     return {

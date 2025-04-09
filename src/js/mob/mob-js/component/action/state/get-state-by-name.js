@@ -4,11 +4,10 @@ import { getIdByInstanceName } from '../component';
 import { getStateById } from './get-state-by-id';
 
 /**
- * @param {string} name
- * @return object
- *
- * @description
  * Get state by name
+ *
+ * @param {string} name
+ * @returns Object
  */
 
 export const getStateByName = (name = '') => {

@@ -32,7 +32,7 @@ function closeNavigation({ main, setState }) {
  * @returns {void}
  */
 function openNavigation({ main, setState }) {
-    /** @type{UseMethodByName<import('./type').NavigationContainer>} */
+    /** @type {UseMethodByName<import('./type').NavigationContainer>} */
     const methods = MobJs.useMethodByName('navigation-container');
     methods?.refresh();
     setState('isOpen', true);
@@ -55,11 +55,11 @@ function addMainHandler({ main }) {
 }
 
 const toTopBtnHandler = () => {
-    /** @type{UseMethodByName<import('./type').NavigationContainer>} */
+    /** @type {UseMethodByName<import('./type').NavigationContainer>} */
     const navContainerMethods = MobJs.useMethodByName('navigation-container');
     navContainerMethods?.scrollTop();
 
-    /** @type{UseMethodByName<import('./type').Navigation>} */
+    /** @type {UseMethodByName<import('./type').Navigation>} */
     const mainNavigationMethods = MobJs.useMethodByName('main_navigation');
     mainNavigationMethods?.closeAllAccordion();
 
@@ -79,7 +79,7 @@ export const NavigationContainerFn = ({
     const proxi = getProxi();
 
     onMount(({ element }) => {
-        const main = /** @type{HTMLElement} */ (
+        const main = /** @type {HTMLElement} */ (
             document.querySelector('main.main')
         );
 

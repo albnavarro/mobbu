@@ -8,11 +8,11 @@ import { DynamicListFn } from './dynamic-list';
 import { DynamicListRepeater } from './repeaters/definition';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const DynamicList = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').DynamicList>} */
+    /** @type {CreateComponentParams<import('./type').DynamicList>} */
     ({
         name: 'dynamic-list',
         component: DynamicListFn,

@@ -23,15 +23,13 @@ import {
 import { getElementOrTextFromNode, insertElementOrText } from './utils';
 
 /**
- * @param {object} obj
- * @param {import("../../web-component/type").UserComponent|HTMLElement} obj.element
- * @param {string} obj.content
- * @returns {HTMLElement|import("../../web-component/type").UserComponent|undefined}
+ * Get new element from content ( render ). Prevent accidentally return of element or component deleted runtime. Check
+ * parentNode to insertAdjacentHTML possible error.
  *
- * @description
- * Get new element from content ( render ).
- * Prevent accidentally return of element or component deleted runtime.
- * Check parentNode to insertAdjacentHTML possible error.
+ * @param {object} obj
+ * @param {import('../../web-component/type').UserComponent | HTMLElement} obj.element
+ * @param {string} obj.content
+ * @returns {HTMLElement | import('../../web-component/type').UserComponent | undefined}
  */
 const getNewElement = ({ element, content }) => {
     const { debug } = getDefaultComponent();
@@ -65,14 +63,12 @@ const getNewElement = ({ element, content }) => {
 };
 
 /**
+ * Remove unused slot placehodler. ( no element have sustitute slot ) If slot is not used remove id reference orphans
+ * from store.
+ *
  * @param {object} obj
  * @param {HTMLElement} obj.element
- * @returns void
- *
- * @description
- * Remove unused slot placehodler.
- * ( no element have sustitute slot )
- * If slot is not used remove id reference orphans from store.
+ * @returns Void
  */
 const removeOrphanSlot = ({ element }) => {
     const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
@@ -99,13 +95,11 @@ const removeOrphanSlot = ({ element }) => {
 };
 
 /**
+ * Move element to related slot if defined. And delete original slot placehodler
+ *
  * @param {object} obj
  * @param {HTMLElement} obj.element
- * @returns void
- *
- * @description
- * Move element to related slot if defined.
- * And delete original slot placehodler
+ * @returns Void
  */
 const addToNamedSlot = ({ element }) => {
     const componentWithSlot =
@@ -147,10 +141,9 @@ const addToNamedSlot = ({ element }) => {
         if (!slot) return;
 
         /**
-         * @type {string|undefined}
-         *
-         * @description
          * Set props id from slot to component.
+         *
+         * @type {string | undefined}
          */
         // @ts-ignore
         const propsIdFromSlot = slot.getStaticProps();
@@ -171,9 +164,9 @@ const addToNamedSlot = ({ element }) => {
 
 /**
  * @param {object} obj
- * @param {import("../../web-component/type").UserComponent|HTMLElement} obj.element
+ * @param {import('../../web-component/type').UserComponent | HTMLElement} obj.element
  * @param {string} obj.content
- * @returns {HTMLElement|import("../../web-component/type").UserComponent|undefined}
+ * @returns {HTMLElement | import('../../web-component/type').UserComponent | undefined}
  */
 const executeConversion = ({ element, content }) => {
     /**
@@ -200,8 +193,7 @@ const executeConversion = ({ element, content }) => {
         const bindRefName = element?.getBindRefName();
 
         /**
-         * if unNamedSlot is used.
-         * Replace un-named slot with previous content.
+         * If unNamedSlot is used. Replace un-named slot with previous content.
          */
         const unNamedSlot = useSlotQuery
             ? queryUnNamedSlot(newElement)
@@ -238,7 +230,7 @@ const executeConversion = ({ element, content }) => {
         removeOrphanSlot({ element: newElement });
 
         /**
-         * transfer delegateEventId if exist in placeholder element.
+         * Transfer delegateEventId if exist in placeholder element.
          */
         if (delegateEventId && delegateEventId.length > 0)
             newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
@@ -265,14 +257,13 @@ const executeConversion = ({ element, content }) => {
 };
 
 /**
- * @param {object} obj
- * @param {HTMLElement|import("../../web-component/type").UserComponent} obj.element
- * @param {string} obj.content
- * @returns {{ newElement:( HTMLElement|import("../../web-component/type").UserComponent|undefined ) } | {newElement:( HTMLElement|undefined )}}
- *
- * @description
  * Add content to component
  *
+ * @param {object} obj
+ * @param {HTMLElement | import('../../web-component/type').UserComponent} obj.element
+ * @param {string} obj.content
+ * @returns {{ newElement: HTMLElement | import('../../web-component/type').UserComponent | undefined }
+ *     | { newElement: HTMLElement | undefined }}
  */
 export const convertToRealElement = ({ element, content }) => {
     return {

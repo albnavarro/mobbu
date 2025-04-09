@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { BenchMarkFakeComponentFn } from './benchmark-fake-component';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const BenchMarkFakeComponent = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').BenchMarkFakeComponent>} */
+    /** @type {CreateComponentParams<import('./type').BenchMarkFakeComponent>} */
     ({
         name: 'benchmark-fake-component',
         component: BenchMarkFakeComponentFn,

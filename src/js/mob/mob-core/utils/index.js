@@ -1,11 +1,10 @@
 // @ts-check
 
 /**
+ * Return HTMLElement height with margin.
+ *
  * @param {HTMLElement} element
  * @returns {number}
- *
- * @description
- * Return HTMLElement height with margin.
  */
 export function outerHeight(element) {
     if (!element) return 0;
@@ -19,11 +18,10 @@ export function outerHeight(element) {
 }
 
 /**
+ * Return HTMLElement width with margin.
+ *
  * @param {HTMLElement} element
  * @returns {number}
- *
- * @description
- * Return HTMLElement width with margin.
  */
 export function outerWidth(element) {
     if (!element) return 0;
@@ -37,11 +35,10 @@ export function outerWidth(element) {
 }
 
 /**
- * @param {HTMLElement} element
- * @returns {{top: Number, left:Number}}
- *
- * @description
  * Return HTMLElement offset top/left value.
+ *
+ * @param {HTMLElement} element
+ * @returns {{ top: Number; left: Number }}
  */
 export function offset(element) {
     if (!element)
@@ -60,11 +57,19 @@ export function offset(element) {
 }
 
 /**
- * @param {HTMLElement|Element} element
- * @returns {{bottom: Number, height:Number, left:Number, right:Number, top:Number, width:Number, x:Number, y:Number}}
- *
- * @description
  * Return HTMLElement position object.
+ *
+ * @param {HTMLElement | Element} element
+ * @returns {{
+ *     bottom: Number;
+ *     height: Number;
+ *     left: Number;
+ *     right: Number;
+ *     top: Number;
+ *     width: Number;
+ *     x: Number;
+ *     y: Number;
+ * }}
  */
 export function position(element) {
     if (!element)
@@ -84,12 +89,11 @@ export function position(element) {
 }
 
 /**
+ * Return sinblings of element by className
+ *
  * @param {HTMLElement} element
  * @param {string} selector
- * @returns {Array.<ChildNode>}
- *
- * @description
- * Return sinblings of element by className
+ * @returns {ChildNode[]}
  */
 export function getSiblings(element, selector) {
     // Setup siblings array and get the first sibling
@@ -112,12 +116,11 @@ export function getSiblings(element, selector) {
 }
 
 /**
+ * Return all parent of element.
+ *
  * @param {HTMLElement} element
  * @param {string} selector
- * @returns {Array.<ChildNode>}
- *
- * @description
- * Return all parent of element.
+ * @returns {ChildNode[]}
  */
 export function getParents(element, selector) {
     // Set up a parent array
@@ -140,12 +143,11 @@ export function getParents(element, selector) {
 }
 
 /**
- * @param {HTMLElement|undefined} parent
- * @param {HTMLElement|undefined} child
- * @returns {boolean}
- *
- * @description
  * Check if child is descendant od parent.
+ *
+ * @param {HTMLElement | undefined} parent
+ * @param {HTMLElement | undefined} child
+ * @returns {boolean}
  */
 export function isDescendant(parent, child) {
     let node = child?.parentNode;
@@ -158,11 +160,10 @@ export function isDescendant(parent, child) {
 }
 
 /**
- * @param {HTMLElement} element
- * @returns {{x:number, y:number, z:number}|undefined}
- *
- * @description
  * Gets computed translate values
+ *
+ * @param {HTMLElement} element
+ * @returns {{ x: number; y: number; z: number } | undefined}
  */
 export function getTranslateValues(element) {
     const style = globalThis.getComputedStyle(element);
@@ -206,11 +207,10 @@ export function getTranslateValues(element) {
 }
 
 /**
+ * Returns true if it is a DOM node
+ *
  * @param {any} element
  * @returns {boolean}
- *
- * @description
- * Returns true if it is a DOM node
  */
 export function isNode(element) {
     return typeof Node === 'object'
@@ -222,11 +222,10 @@ export function isNode(element) {
 }
 
 /**
+ * Returns true if it is a DOM element
+ *
  * @param {any} element
  * @returns {boolean}
- *
- * @description
- * Returns true if it is a DOM element
  */
 export function isElement(element) {
     return typeof HTMLElement === 'object'
@@ -239,10 +238,9 @@ export function isElement(element) {
 }
 
 /**
- * @returns {string}
- *
- * @description
  * Generate univoque string id
+ *
+ * @returns {string}
  */
 export const getUnivoqueId = () => {
     return `_${Math.random().toString(36).slice(2, 9)}`;
@@ -296,8 +294,8 @@ export function isVisibleInViewport(element) {
             elementZIndex === '' &&
             elementOverlappingZIndex === '' &&
             /**
-             * If two positioned elements overlap without a z-index specified, the element
-             * positioned last in the HTML code will be shown on top
+             * If two positioned elements overlap without a z-index specified, the element positioned last in the HTML
+             * code will be shown on top
              */
             element.compareDocumentPosition(elementFromStartingPoint) &
                 Node.DOCUMENT_POSITION_FOLLOWING

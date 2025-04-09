@@ -12,11 +12,11 @@ import {
 } from './constant';
 
 /**
- * @import { MobStoreParams } from '../../mob-core/store/type';
- **/
+ * @import {MobStoreParams} from '../../mob-core/store/type';
+ */
 
 export const mainStore = MobCore.createStore(
-    /** @type{MobStoreParams<import('./type').MainStore>} */
+    /** @type {MobStoreParams<import('./type').MainStore>} */
     ({
         [MAIN_STORE_ACTIVE_ROUTE]: () => ({
             value: { route: '', templateName: '' },

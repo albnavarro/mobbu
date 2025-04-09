@@ -4,13 +4,12 @@ import { componentMap } from '../../component/store';
 import { ATTR_BIND_REFS_ID, ATTR_BIND_REFS_NAME } from '../../constant';
 
 /**
- * @description
- * Get all simple node HTMLElement from track id ( trackRefsCollection ).
- * All ref has parent id so is possible to get it at the end of current parse
+ * Get all simple node HTMLElement from track id ( trackRefsCollection ). All ref has parent id so is possible to get it
+ * at the end of current parse
  *
  * @param {object} params
- * @param {HTMLElement|import("../../web-component/type").UserComponent} params.element
- * @returns {{ [key: string ]: {element:HTMLElement, scopeId:string}[] }}
+ * @param {HTMLElement | import('../../web-component/type').UserComponent} params.element
+ * @returns {{ [key: string]: { element: HTMLElement; scopeId: string }[] }}
  */
 export const getBindRefs = ({ element }) => {
     const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
@@ -56,7 +55,7 @@ export const getRefsSorter = (refs) => {
 
 /**
  * @param {object} params
- * @param {{ [key: string ]: HTMLElement[] }} params.refs
+ * @param {{ [key: string]: HTMLElement[] }} params.refs
  * @param {string} params.refName
  * @param {HTMLElement} params.element
  */
@@ -68,7 +67,7 @@ const mergeRefsAndOrder = ({ refs, refName, element }) => {
 };
 
 /**
- * @param {{ [key: string ]: {element:HTMLElement, scopeId:string}[] }} refs
+ * @param {{ [key: string]: { element: HTMLElement; scopeId: string }[] }} refs
  */
 export const addBindRefsToComponent = (refs) => {
     Object.entries(refs).forEach(([refName, entries]) => {
@@ -95,7 +94,7 @@ export const addBindRefsToComponent = (refs) => {
 /**
  * @param {object} params
  * @param {string} params.id
- * @returns {{[key: string ]: HTMLElement[]}}
+ * @returns {{ [key: string]: HTMLElement[] }}
  */
 export const getBindRefsById = ({ id }) => {
     const item = componentMap.get(id);
@@ -132,7 +131,7 @@ export const getBindRefsById = ({ id }) => {
 /**
  * @param {object} params
  * @param {string} params.id
- * @returns {{[key: string ]: HTMLElement}}
+ * @returns {{ [key: string]: HTMLElement }}
  */
 export const getBindRefById = ({ id }) => {
     const refs = getBindRefsById({ id });

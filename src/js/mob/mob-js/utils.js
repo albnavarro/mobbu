@@ -4,23 +4,21 @@ import { ATTR_PROPS } from './constant';
 import { setStaticProps } from './modules/static-props';
 
 /**
- * @param {{[key:string]:any}} props
- * @returns {string}
- *
- * @description
  * Set static props
  *
  * @example
- * ```javascript
- * <MyComponent
+ *     ```javascript
+ *     <MyComponent
  *     ${staticProps({
- *         gutter: 1,
- *         ...
+ *     gutter: 1,
+ *     ...
  *     })}
- * ></MyComponent>
+ *     ></MyComponent>
  *
- * ```
+ *     ```
  *
+ * @param {{ [key: string]: any }} props
+ * @returns {string}
  */
 export const staticProps = (props = {}) => {
     return `${ATTR_PROPS}="${setStaticProps(props)}"`;

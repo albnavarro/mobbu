@@ -12,9 +12,7 @@ export type RepeaterRender = (arg0: {
 }) => string;
 
 /**
- * @description
- * Add new repeater id and props.
- * Tehe repeater will execute after component render.
+ * Add new repeater id and props. Tehe repeater will execute after component render.
  */
 export interface Repeater {
     beforeUpdate(): Promise<void> | void;

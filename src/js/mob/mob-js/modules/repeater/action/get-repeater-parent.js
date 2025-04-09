@@ -4,12 +4,11 @@ import { repeatIdHostMap } from '../repeat-id-host-map';
 import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
 
 /**
- * @description
  * Get repeat parent by repeat id.
  *
  * @param {object} params
  * @param {string} params.id
- * @returns {HTMLElement|undefined}
+ * @returns {HTMLElement | undefined}
  */
 export const getRepeatParent = ({ id }) => {
     if (!repeatIdPlaceHolderMap.has(id)) {

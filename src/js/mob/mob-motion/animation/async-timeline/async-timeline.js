@@ -51,17 +51,17 @@ export default class MobAsyncTimeline {
     #autoSet;
 
     /**
-     * @type {Array<import('./type.js').AsyncTimelineTweenItem[]>}
+     * @type {import('./type.js').AsyncTimelineTweenItem[][]}
      */
     #tweenList;
 
     /**
-     * @type {Array<import('./type.js').AsyncTimelineCurrentTween>}
+     * @type {import('./type.js').AsyncTimelineCurrentTween[]}
      */
     #currentTween;
 
     /**
-     * @type {Array<import('./type.js').AsyncTimelineTweenStore>}
+     * @type {import('./type.js').AsyncTimelineTweenStore[]}
      */
     #tweenStore;
 
@@ -76,7 +76,6 @@ export default class MobAsyncTimeline {
     #defaultObj;
 
     /**
-     * @description
      * Timeline state
      *
      * @type {import('./type.js').AsyncTimelineLabelState}
@@ -89,15 +88,14 @@ export default class MobAsyncTimeline {
     #starterFunction;
 
     /**
-     * @description
-     * group "name" star from 1 to avoid 0 = false
+     * Group "name" star from 1 to avoid 0 = false
      *
      * @type {number}
      */
     #groupCounter;
 
     /**
-     * @type {number|undefined}
+     * @type {number | undefined}
      */
     #groupId;
 
@@ -202,12 +200,12 @@ export default class MobAsyncTimeline {
     #id;
 
     /**
-     * @type {{cb: (arg0: import('../utils/timeline/type.js').DirectionTypeObjectLoop) => void, id: number}[]}
+     * @type {{ cb: (arg0: import('../utils/timeline/type.js').DirectionTypeObjectLoop) => void; id: number }[]}
      */
     #callbackLoop;
 
     /**
-     * @type {{cb: () => void, id: number}[]}
+     * @type {{ cb: () => void; id: number }[]}
      */
     #callbackComplete;
 
@@ -222,58 +220,54 @@ export default class MobAsyncTimeline {
     #currentReject;
 
     /**
-     * @param {import('./type.js').AsyncTimeline} data
+     * Available methods:
+     *
+     * ```javascript
+     * `Methods to create timeline`;
+     * myTimeline.set();
+     * myTimeline.goTo();
+     * myTimeline.goFrom();
+     * myTimeline.goFromTo();
+     * myTimeline.add();
+     * myTimeline.addAsync();
+     * myTimeline.sync();
+     * myTimeline.createGroup();
+     * myTimeline.closeGroup();
+     * myTimeline.suspend();
+     * myTimeline.label()`Methods to control timeline`;
+     * myTimeline.play();
+     * myTimeline.playFromLabel();
+     * myTimeline.playFrom();
+     * myTimeline.playFromReverse();
+     * myTimeline.playReverse();
+     * myTimeline.reverseNext();
+     * myTimeline.stop();
+     * myTimeline.pause();
+     * myTimeline.resume();
+     * myTimeline.isActive();
+     * myTimeline.isPaused();
+     * myTimeline.isSuspended();
+     * myTimeline.getDirection();
+     * myTimeline.setTween();
+     * myTimeline.get();
+     * myTimeline.onLoopEnd();
+     * myTimeline.onComplete();
+     * myTimeline.destroy();
+     * ```
      *
      * @example
-     * ```javascript
-     * const myTimeline = new MobAsyncTimeline({
-     *   yoyo: [ Boolean ],
-     *   repeat: [ Number ],
-     *   freeMode: [ Number ],
-     *   autoSet: [ Number ],
-     * })
+     *     ```javascript
+     *     const myTimeline = new MobAsyncTimeline({
+     *       yoyo: [ Boolean ],
+     *       repeat: [ Number ],
+     *       freeMode: [ Number ],
+     *       autoSet: [ Number ],
+     *     })
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Available methods:
-     * ```javascript
-     *
-     * `Methods to create timeline`
-     * myTimeline.set()
-     * myTimeline.goTo()
-     * myTimeline.goFrom()
-     * myTimeline.goFromTo()
-     * myTimeline.add()
-     * myTimeline.addAsync()
-     * myTimeline.sync()
-     * myTimeline.createGroup()
-     * myTimeline.closeGroup()
-     * myTimeline.suspend()
-     * myTimeline.label()
-     *
-     *
-     * `Methods to control timeline`
-     * myTimeline.play()
-     * myTimeline.playFromLabel()
-     * myTimeline.playFrom()
-     * myTimeline.playFromReverse()
-     * myTimeline.playReverse()
-     * myTimeline.reverseNext()
-     * myTimeline.stop()
-     * myTimeline.pause()
-     * myTimeline.resume()
-     * myTimeline.isActive()
-     * myTimeline.isPaused()
-     * myTimeline.isSuspended()
-     * myTimeline.getDirection()
-     * myTimeline.setTween()
-     * myTimeline.get()
-     * myTimeline.onLoopEnd()
-     * myTimeline.onComplete()
-     * myTimeline.destroy()
-     * ```
+     * @param {import('./type.js').AsyncTimeline} data
      */
     constructor(data) {
         this.#repeat = repeatIsValid(data?.repeat);
@@ -428,8 +422,6 @@ export default class MobAsyncTimeline {
             return item;
         });
 
-        /**
-         */
         const tweenPromises = currentTweelist.map((item) => {
             const { data } = item;
 
@@ -713,7 +705,7 @@ export default class MobAsyncTimeline {
 
                 /**
                  * Reverse on next step default
-                 **/
+                 */
                 if (this.#isReverseNext) {
                     this.#isReverseNext = false;
                     this.#currentIndex =
@@ -726,7 +718,7 @@ export default class MobAsyncTimeline {
 
                 /**
                  * Run next step default
-                 **/
+                 */
                 if (this.#currentIndex < this.#tweenList.length - 1) {
                     this.#currentIndex++;
                     this.#run();
@@ -735,7 +727,7 @@ export default class MobAsyncTimeline {
 
                 /**
                  * End of timeline, check repeat
-                 **/
+                 */
                 if (this.#loopCounter < this.#repeat || this.#repeat === -1) {
                     /*
                      * Start timeline in reverse mode here
@@ -778,9 +770,8 @@ export default class MobAsyncTimeline {
                 }
 
                 /**
-                 * All ended
-                 * Fire and of timeline
-                 **/
+                 * All ended Fire and of timeline
+                 */
                 this.#callbackComplete.forEach(({ cb }) => cb());
                 this.#isStopped = true;
 
@@ -805,9 +796,9 @@ export default class MobAsyncTimeline {
             })
             .finally(() => {
                 /**
-                Primise was completed
-                AddAsync is resolved
-                */
+                 * Primise was completed
+                 *             AddAsync is resolved
+                 */
                 this.#addAsyncIsActive = false;
             });
     }
@@ -1156,8 +1147,7 @@ export default class MobAsyncTimeline {
             'timeline add function'
         );
         /**
-         * Can't add this interpolation inside a group.
-         * groupId props is not null when active.
+         * Can't add this interpolation inside a group. groupId props is not null when active.
          */
         if (this.#groupId) {
             asyncTimelineMetodsInsideGroupWarining('add');
@@ -1184,8 +1174,7 @@ export default class MobAsyncTimeline {
         const cb = addAsyncFunctionIsValid(fn);
 
         /**
-         * Can't add this interpolation inside a group.
-         * groupId props is not null when active.
+         * Can't add this interpolation inside a group. groupId props is not null when active.
          */
         if (this.#groupId) {
             asyncTimelineMetodsInsideGroupWarining('addAsync');
@@ -1210,8 +1199,7 @@ export default class MobAsyncTimeline {
      */
     sync(syncProp) {
         /**
-         * Can't add this interpolation inside a group.
-         * groupId props is not null when active.
+         * Can't add this interpolation inside a group. groupId props is not null when active.
          */
         if (this.#groupId) {
             asyncTimelineMetodsInsideGroupWarining('sync');
@@ -1243,8 +1231,7 @@ export default class MobAsyncTimeline {
      */
     createGroup(groupProps = {}) {
         /**
-         * Can't add this interpolation inside a group.
-         * groupId props is not null when active.
+         * Can't add this interpolation inside a group. groupId props is not null when active.
          */
         if (this.#groupId) {
             asyncTimelineMetodsInsideGroupWarining('createGroup');
@@ -1290,8 +1277,7 @@ export default class MobAsyncTimeline {
      */
     suspend(fn = () => true) {
         /**
-         * Can't add this interpolation inside a group.
-         * groupId props is not null when active.
+         * Can't add this interpolation inside a group. groupId props is not null when active.
          */
         if (this.#groupId) {
             asyncTimelineMetodsInsideGroupWarining('suspend');
@@ -1316,8 +1302,7 @@ export default class MobAsyncTimeline {
      */
     label(labelProps = {}) {
         /**
-         * Can't add this interpolation inside a group.
-         * groupId props is not null when active.
+         * Can't add this interpolation inside a group. groupId props is not null when active.
          */
         if (this.#groupId) {
             asyncTimelineMetodsInsideGroupWarining('label');
@@ -1341,10 +1326,9 @@ export default class MobAsyncTimeline {
     }
 
     /**
-     * @type {() => void}
-     *
-     * @description
      * Add a set 'tween' at start and end of timeline.
+     *
+     * @type {() => void}
      */
     #addSetBlocks() {
         // Create set only one time
@@ -1526,7 +1510,7 @@ export default class MobAsyncTimeline {
 
                 this.#starterFunction.fn = () => {
                     /**
-                     * need to reset current data after reverse() of tween so use stop()
+                     * Need to reset current data after reverse() of tween so use stop()
                      */
                     this.stop();
                     this.#isStopped = false;
@@ -1558,9 +1542,8 @@ export default class MobAsyncTimeline {
                 this.#starterFunction.active = true;
 
                 /**
-                 * First loop reverse at the end start function fired
-                 * reverse set label.active at true
-                 * so label.active && starterFunction.active is necessary to fire cb
+                 * First loop reverse at the end start function fired reverse set label.active at true so label.active
+                 * && starterFunction.active is necessary to fire cb
                  */
                 this.playReverse({ forceYoYo: true });
             });
@@ -1615,14 +1598,14 @@ export default class MobAsyncTimeline {
                 this.#starterFunction.active = true;
 
                 /**
-                 * In playReverse first run is executed in forward direction.
-                 * This is useful to store the value needed in backward direction ( revertTween ).
+                 * In playReverse first run is executed in forward direction. This is useful to store the value needed
+                 * in backward direction ( revertTween ).
                  *
-                 * After this 'test' loop starterFunction function is fired.
-                 * playFromLabel method set the right direction.
+                 * After this 'test' loop starterFunction function is fired. playFromLabel method set the right
+                 * direction.
                  *
-                 * playFromLabel set label.active at true
-                 * So label.active && starterFunction.active is necessary to fire starterFunction
+                 * PlayFromLabel set label.active at true So label.active && starterFunction.active is necessary to fire
+                 * starterFunction
                  */
                 this.playReverse({ forceYoYo: false, resolve, reject });
             });
@@ -1648,9 +1631,8 @@ export default class MobAsyncTimeline {
                 this.#starterFunction.active = true;
 
                 /**
-                 * First loop reverse at the end start function fired
-                 * reverse set label.active at true
-                 * so label.active && starterFunction.active is necessary to fire cb
+                 * First loop reverse at the end start function fired reverse set label.active at true so label.active
+                 * && starterFunction.active is necessary to fire cb
                  */
                 this.playReverse({ forceYoYo: false, resolve, reject });
             });
@@ -1710,9 +1692,8 @@ export default class MobAsyncTimeline {
                 this.#labelState.index = this.#tweenList.length;
 
                 /**
-                 * When play reverse first loop is virtual
-                 * So increment the loop number by 1
-                 **/
+                 * When play reverse first loop is virtual So increment the loop number by 1
+                 */
                 this.#loopCounter--;
                 this.#sessionId++;
 
@@ -1833,75 +1814,82 @@ export default class MobAsyncTimeline {
     }
 
     /**
-     * @return {import('./type.js').AsyncTimelineCurrentTween[]} - Returns an array with all tweens active at the time the method is called
-     * @example
-     * ```javascript
-     * const tweens = myTimeline.get()
-     *
-     *
-     * ```
-     * @description
      * Get an array of active instance.
+     *
+     * @example
+     *     ```javascript
+     *     const tweens = myTimeline.get()
+     *
+     *
+     *     ```;
+     *
+     * @returns {import('./type.js').AsyncTimelineCurrentTween[]} - Returns an array with all tweens active at the time
+     *   the method is called
      */
     get() {
         return this.#currentTween;
     }
 
     /**
-     * @return {boolean} Returns a boolean value indicating whether the timeline is active
-     * @example
-     * ```javascript
-     * const isActive = myTimeline.isActive();
-     *
-     *
-     * ```
-     * @description
      * Return active state.
+     *
+     * @example
+     *     ```javascript
+     *     const isActive = myTimeline.isActive();
+     *
+     *
+     *     ```;
+     *
+     * @returns {boolean} Returns a boolean value indicating whether the timeline is active
      */
     isActive() {
         return !this.#isStopped;
     }
 
     /**
-     * @return {boolean} Returns a boolean value indicating whether the timeline is in pause
-     * @example
-     * ```javascript
-     * const isPaused = myTimeline.isPaused():
-     *
-     *
-     * ```
-     * @description
      * Return pause state.
+     *
+     * @example
+     *     ```javascript
+     *     const isPaused = myTimeline.isPaused():
+     *
+     *
+     *     ```;
+     *
+     * @returns {boolean} Returns a boolean value indicating whether the timeline is in pause
      */
     isPaused() {
         return this.#isInPause;
     }
 
     /**
-     * @return {boolean} Returns a boolean value indicating whether the timeline is suspended
+     * Return suspended state.
+     *
      * @example
-     * ```javascript
-     * const isSuspended = myTimeline.isSuspended();
+     *     ```javascript
+     *     const isSuspended = myTimeline.isSuspended();
      *
      *
-     * ```
-     * @description
-     * return suspended state.
+     *     ```;
+     *
+     * @returns {boolean} Returns a boolean value indicating whether the timeline is suspended
      */
     isSuspended() {
         return this.#isInSuspension;
     }
 
     /**
-     * @return {import('../utils/timeline/type.js').DirectionType} Returns a boolean value indicating whether the timeline is suspended
+     * Return current direction.
+     *
      * @example
-     * ```javascript
-     * const direction = myTimeline.getDirection();
+     *     ```javascript
+     *     const direction = myTimeline.getDirection();
      *
      *
-     * ```
-     * @description
-     * return current direction.
+     *     ```;
+     *
+     * @returns {import('../utils/timeline/type.js').DirectionType} Returns a boolean value indicating whether the
+     *   timeline is suspended
      */
     getDirection() {
         if (this.#isStopped) return directionConstant.NONE;
@@ -1945,7 +1933,6 @@ export default class MobAsyncTimeline {
     }
 
     /**
-     * @description
      * Destroy timeline and all the sequencer
      */
     destroy() {

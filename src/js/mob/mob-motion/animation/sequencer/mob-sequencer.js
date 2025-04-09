@@ -41,10 +41,11 @@ import { mergeNewValues } from './merge-new-values.js';
 
 export default class MobSequencer {
     /**
-     * Basic array with all the propierties, is created in setData methods
-     * in draw methods currentValue and settled will be updated for each prop
+     * Basic array with all the propierties, is created in setData methods in draw methods currentValue and settled will
+     * be updated for each prop
      *
-     * it is used as a mock to create the array to add to the timeline
+     * It is used as a mock to create the array to add to the timeline
+     *
      * @type {import('./type.js').SequencerValue[]}
      */
     #values;
@@ -82,7 +83,7 @@ export default class MobSequencer {
     #callbackAdd;
 
     /**
-     * @type {Array<() => void>}
+     * @type {(() => void)[]}
      */
     #unsubscribeCache;
 
@@ -137,41 +138,40 @@ export default class MobSequencer {
     #staggerIsReady;
 
     /**
-     * @param {import('./type.js').SequencerProps} data
+     * Available methods:
+     *
+     * ```javascript
+     * mySequencer.goTo();
+     * mySequencer.goFrom();
+     * mySequencer.goFromTo();
+     * mySequencer.add();
+     * mySequencer.label();
+     * mySequencer.subscribe();
+     * mySequencer.subscribeCache();
+     * mySequencer.onStop();
+     * ```
      *
      * @example
-     * ```javascript
-     * const mySequencer = new MobSequencer({
-     *   data: Object.<string, number>,
-     *   duration: [ Number ],
-     *   ease: [ String ],
-     *   stagger:{
-     *      each: [ Number ],
-     *      from: [ Number|String|{x:number,y:number} ],
-     *      grid: {
-     *          col: [ Number ],
-     *          row: [ Number ],
-     *          direction: [ String ]
-     *      },
-     *   },
-     * })
+     *     ```javascript
+     *     const mySequencer = new MobSequencer({
+     *       data: Object.<string, number>,
+     *       duration: [ Number ],
+     *       ease: [ String ],
+     *       stagger:{
+     *          each: [ Number ],
+     *          from: [ Number|String|{x:number,y:number} ],
+     *          grid: {
+     *              col: [ Number ],
+     *              row: [ Number ],
+     *              direction: [ String ]
+     *          },
+     *       },
+     *     })
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Available methods:
-     * ```javascript
-     * mySequencer.goTo()
-     * mySequencer.goFrom()
-     * mySequencer.goFromTo()
-     * mySequencer.add()
-     * mySequencer.label()
-     * mySequencer.subscribe()
-     * mySequencer.subscribeCache()
-     * mySequencer.onStop()
-     *
-     * ```
+     * @param {import('./type.js').SequencerProps} data
      */
     constructor(data) {
         this.#values = [];
@@ -198,15 +198,13 @@ export default class MobSequencer {
         this.#staggerIsReady = false;
 
         /**
-         * Set initial store data if defined in constructor props
-         * If not use setData methods
+         * Set initial store data if defined in constructor props If not use setData methods
          */
         const props = data?.data || null;
         if (props) this.setData(props);
     }
 
     /**
-     * @description
      * Inzialize stagger array
      */
     inzializeStagger() {
@@ -233,7 +231,7 @@ export default class MobSequencer {
 
             if (this.#callbackCache.length > this.#callback.length) {
                 this.#callbackCache =
-                    /** @type{import('../utils/callbacks/type.js').CallbackCache} */ (
+                    /** @type {import('../utils/callbacks/type.js').CallbackCache} */ (
                         staggerArray
                     );
             } else {
@@ -250,24 +248,23 @@ export default class MobSequencer {
     }
 
     /**
+     * @example
+     *     ```javascript
+     *     mySequencer.draw(
+     *          partial: 200,
+     *          isLastDraw: true,
+     *          useFrame: false,
+     *          direction: ('backward'|'forward'|'none')
+     *     );
+     *
+     *
+     *     ```;
+     *
      * @param {object} obj
      * @param {number} obj.partial
      * @param {boolean} obj.isLastDraw
      * @param {boolean} obj.useFrame
-     * @param {import('../utils/timeline/type.js').DirectionType} [ obj.direction ]
-     *
-     * @example
-     * ```javascript
-     * mySequencer.draw(
-     *      partial: 200,
-     *      isLastDraw: true,
-     *      useFrame: false,
-     *      direction: ('backward'|'forward'|'none')
-     * );
-     *
-     *
-     * ```
-     * @description
+     * @param {import('../utils/timeline/type.js').DirectionType} [obj.direction]
      */
     draw({
         partial = 0,
@@ -297,8 +294,7 @@ export default class MobSequencer {
      * @param {object} obj
      * @param {number} obj.partial
      * @param {boolean} obj.isLastDraw
-     * @param {import('../utils/timeline/type.js').DirectionType} [ obj.direction ]
-     *
+     * @param {import('../utils/timeline/type.js').DirectionType} [obj.direction]
      */
     #onDraw({
         partial = 0,
@@ -315,9 +311,8 @@ export default class MobSequencer {
         }
 
         /**
-         * Inside a timeline the direction is controlled by timeline and pass the value
-         * because timeline know the loop state and direction is stable
-         * Inside a parallax we have a fallback, but we don't have a loop
+         * Inside a timeline the direction is controlled by timeline and pass the value because timeline know the loop
+         * state and direction is stable Inside a parallax we have a fallback, but we don't have a loop
          *
          * On first run check is jumped
          */
@@ -379,9 +374,8 @@ export default class MobSequencer {
     }
 
     /**
-     * @description
-     * Methods call by syncTimeline, everty time user use play, playFrom etc.. or loop end.
-     * Reset the data that control add callback to have a new clean state
+     * Methods call by syncTimeline, everty time user use play, playFrom etc.. or loop end. Reset the data that control
+     * add callback to have a new clean state
      */
     resetLastValue() {
         this.#firstRun = true;
@@ -389,13 +383,11 @@ export default class MobSequencer {
     }
 
     /**
-     * @property {number} [ time=0 ]
+     * Fire addCallback first time without check the previous position. because first time we can start from any
+     * position and we doesn't a have previous position So we fire the callback once To skip this callback, check
+     * isForce prop in callback
      *
-     * @description
-     * Fire addCallback first time without check the previous position.
-     * because first time we can start from any position and we doesn't a have previous position
-     * So we fire the callback once
-     * To skip this callback, check isForce prop in callback
+     * @property {number} [time=0] Default is `0`
      */
     #actionAtFirstRender(time = 0) {
         if (!this.#forceAddFnAtFirstRun) return;
@@ -427,11 +419,9 @@ export default class MobSequencer {
     }
 
     /**
-     * @property {number} [ time=0 ]
-     *
-     * @description
      * Fire callBack at specific time
      *
+     * @property {number} [time=0] Default is `0`
      */
     #fireAddCallBack(time = 0) {
         this.#callbackAdd.forEach(({ fn, time: fnTime }) => {
@@ -468,12 +458,10 @@ export default class MobSequencer {
     }
 
     /**
-     * @type {import('./type.js').CequencerSetStretchFacor}
+     * Set factor between timeline duration and sequencer getDuration So start and end propierties will be proportionate
+     * to the duration of the timeline This methods is called by SyncTimeline
      *
-     * @description
-     * Set factor between timeline duration and sequencer getDuration
-     * So start and end propierties will be proportionate to the duration of the timeline
-     * This methods is called by SyncTimeline
+     * @type {import('./type.js').CequencerSetStretchFacor}
      */
     setStretchFactor(duration = 0) {
         const stretchFactor = duration / this.#duration;
@@ -528,30 +516,31 @@ export default class MobSequencer {
         });
 
         /**
-         * First time add a set with initial data.
-         * We create a value for ancestor/reduce mechenism
-         * This row has priority 0, so we are sure that is the first row of timeline array.
+         * First time add a set with initial data. We create a value for ancestor/reduce mechenism This row has priority
+         * 0, so we are sure that is the first row of timeline array.
          */
         this.goTo(obj, { start: 0, end: 0 });
         return this;
     }
 
     /**
-     * @type {import('./type.js').SequencerGoTo}
+     * Transform some properties of your choice from the `current value` to the `entered value`, the transformation will
+     * start from the value associated with start and will end in the value associated with end. The target value can be
+     * a number or a function that returns a number, when using a function the target value will become dynamic and will
+     * change in real time as the result of the function changes It is possible to associate an easing to the
+     * transformation, this easing will be applied only in this transformation.
      *
      * @example
-     * ```javascript
-     * mySequencer.goTo(
-     *     { string: number|function, ... },
-     *     { start: number, end: number, ease: string }
-     * );
+     *     ```javascript
+     *     mySequencer.goTo(
+     *         { string: number|function, ... },
+     *         { start: number, end: number, ease: string }
+     *     );
      *
      *
-     * ```
-     * @description
-     * Transform some properties of your choice from the `current value` to the `entered value`, the transformation will start from the value associated with start and will end in the value associated with end.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
-     * It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
+     *     ```;
+     *
+     * @type {import('./type.js').SequencerGoTo}
      */
     goTo(obj, props) {
         const propMerged = { ...this.#defaultProp, ...props };
@@ -587,21 +576,23 @@ export default class MobSequencer {
     }
 
     /**
-     * @type {import('./type.js').SequencerGoFrom} obj  to values
+     * Transform some properties of your choice from the `entered value` to the `current value`, the transformation will
+     * start from the value associated with start and will end in the value associated with end. The target value can be
+     * a number or a function that returns a number, when using a function the target value will become dynamic and will
+     * change in real time as the result of the function changes It is possible to associate an easing to the
+     * transformation, this easing will be applied only in this transformation.
      *
      * @example
-     * ```javascript
-     * mySequencer.goFrom(
-     *     { string: number|function, ... },
-     *     { start: number, end: number, ease: string }
-     * );
+     *     ```javascript
+     *     mySequencer.goFrom(
+     *         { string: number|function, ... },
+     *         { start: number, end: number, ease: string }
+     *     );
      *
      *
-     * ```
-     * @description
-     * Transform some properties of your choice from the `entered value` to the `current value`, the transformation will start from the value associated with start and will end in the value associated with end.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
-     * It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
+     *     ```;
+     *
+     * @type {import('./type.js').SequencerGoFrom} obj To values
      */
     goFrom(obj, props) {
         const propMerged = { ...this.#defaultProp, ...props };
@@ -637,23 +628,24 @@ export default class MobSequencer {
     }
 
     /**
-     * @type {import('./type.js').SequencerGoFromTo}
+     * Transform some properties of your choice from the `first entered value` to the `second entered value`, the
+     * transformation will start from the value associated with start and will end in the value associated with end. The
+     * target value can be a number or a function that returns a number, when using a function the target value will
+     * become dynamic and will change in real time as the result of the function changes It is possible to associate an
+     * easing to the transformation, this easing will be applied only in this transformation.
      *
      * @example
-     * ```javascript
-     * mySequencer.goFromTo(
-     *     { string: number|function, ... },
-     *     { string: number|function, ... },
-     *     { start: number, end: number, ease: string }
-     * );
+     *     ```javascript
+     *     mySequencer.goFromTo(
+     *         { string: number|function, ... },
+     *         { string: number|function, ... },
+     *         { start: number, end: number, ease: string }
+     *     );
      *
      *
-     * ```
+     *     ```;
      *
-     * @description
-     * Transform some properties of your choice from the `first entered value` to the `second entered value`, the transformation will start from the value associated with start and will end in the value associated with end.
-     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
-     * It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
+     * @type {import('./type.js').SequencerGoFromTo}
      */
     goFromTo(fromObj, toObj, props) {
         const propMerged = { ...this.#defaultProp, ...props };
@@ -685,17 +677,17 @@ export default class MobSequencer {
     }
 
     /**
-     * @type {import('./type.js').SequencerLabel}
+     * Adds a label associated with a specific step in a range between 0 and duration (default: 10). Both syncTimeline
+     * and scrollTrigger will take care of processing the value as needed
      *
      * @example
-     * ```javascript
-     * mySequencer.label('mylabel',5);
+     *     ```javascript
+     *     mySequencer.label('mylabel',5);
      *
      *
-     * ```
-     * @description
-     * Adds a label associated with a specific step in a range between 0 and duration (default: 10).
-     * Both syncTimeline and scrollTrigger will take care of processing the value as needed
+     *     ```;
+     *
+     * @type {import('./type.js').SequencerLabel}
      */
     label(name = '', time = 0) {
         this.#labels.push({ name, time });
@@ -704,6 +696,7 @@ export default class MobSequencer {
 
     /**
      * Return the array of entered labels
+     *
      * @type {import('./type.js').SequencerGetLabels}
      */
     getLabels() {
@@ -711,14 +704,12 @@ export default class MobSequencer {
     }
 
     /**
+     * Fire a function at a step in a range greater the 0 and minor duration. Both syncTimeline and scrollTrigger will
+     * take care of processing the value as needed.
+     *
+     * To interpect both end ( 0 and duration ) use the syncTimeline/scrollTrigger built in function:
+     *
      * @type {import('./type.js').SequencerAdd}
-     *
-     * @description
-     * Fire a function at a step in a range greater the 0 and minor duration.
-     * Both syncTimeline and scrollTrigger will take care of processing the value as needed.
-     *
-     * To interpect both end ( 0 and duration )
-     * use the syncTimeline/scrollTrigger built in function:
      */
     add(fn = () => {}, time = 0) {
         const fnIsValid = MobCore.checkType(Function, fn);
@@ -734,10 +725,11 @@ export default class MobSequencer {
     }
 
     /**
-     * @type {import('./type.js').SequencerSubscribe}
+     * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although
+     * it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is
+     * advisable to use the subscribeCache method.
      *
-     * @description
-     * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method.
+     * @type {import('./type.js').SequencerSubscribe}
      */
     subscribe(cb = () => {}) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
@@ -750,12 +742,11 @@ export default class MobSequencer {
     }
 
     /**
-     * @type {import('./type.js').SequencerOnStop}
+     * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the
+     * scroll trigger is inactive). Useful for applying a different style to an inactive element. A typical example is
+     * to remove the teansform3D property:
      *
-     * @description
-     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-     *  Useful for applying a different style to an inactive element.
-     *  A typical example is to remove the teansform3D property:
+     * @type {import('./type.js').SequencerOnStop}
      */
     onStop(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
@@ -769,10 +760,9 @@ export default class MobSequencer {
     }
 
     /**
-     * @type {import('./type.js').SequencerSubscribeCache}
-     *
-     * @description
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
+     *
+     * @type {import('./type.js').SequencerSubscribeCache}
      */
     subscribeCache(item, fn = () => {}) {
         const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } =
@@ -789,8 +779,8 @@ export default class MobSequencer {
     }
 
     /**
-     * @description
      * Get duration
+     *
      * @type {import('./type.js').SequencerGetDuration}
      */
     getDuration() {
@@ -798,8 +788,8 @@ export default class MobSequencer {
     }
 
     /**
-     * @description
      * Set duration
+     *
      * @type {import('./type.js').SequencerSetDuration}
      */
     setDuration(val = 0) {
@@ -807,34 +797,33 @@ export default class MobSequencer {
     }
 
     /**
-     * @type {import('./type.js').SequencerGetType}
-     * @description
      * Get tween type - 'sequencer'
+     *
+     * @type {import('./type.js').SequencerGetType}
      */
     getType() {
         return this.#type;
     }
 
     /**
-     * @description
-     * Removes all references of staggers not yet started by the handleCache function, method used by HandleSyncTimeline when it is stopped
+     * Removes all references of staggers not yet started by the handleCache function, method used by HandleSyncTimeline
+     * when it is stopped
      */
     cleanCachedId() {
         this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
     }
 
     /**
-     * @description
      * Disable stagger for one run
-     **/
+     */
     disableStagger() {
         this.#useStagger = false;
     }
 
     /**
-     * @type {() => void}
-     * @description
      * Destroy sequencer
+     *
+     * @type {() => void}
      */
     destroy() {
         this.#values = [];

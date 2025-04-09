@@ -9,27 +9,27 @@ import { getMarkerWrapperStyle } from './mob-scroller-pin-utils.js';
 
 export class MobScrollerPin {
     /**
-     * @type{number}
+     * @type {number}
      */
     #scrollerHeight;
 
     /**
-     * @type{number}
+     * @type {number}
      */
     #start;
 
     /**
-     * @type{number}
+     * @type {number}
      */
     #startFromTop;
 
     /**
-     * @type{boolean|undefined}
+     * @type {boolean | undefined}
      */
     #invertSide;
 
     /**
-     * @type{number}
+     * @type {number}
      */
     #end;
 
@@ -44,227 +44,193 @@ export class MobScrollerPin {
     #getEnd;
 
     /**
-     * @type{string}
+     * @type {string}
      */
     #direction;
 
     /**
-     * @type{number}
+     * @type {number}
      */
     #compesateValue;
 
     /**
-     * @description
-     * @type {HTMLElement|null|undefined}
+     * @type {HTMLElement | null | undefined}
      */
     #item;
 
     /**
-     * @description
-     * @type {MobSpring|undefined|null}
+     * @type {MobSpring | undefined | null}
      */
     #spring;
 
     /**
-     * @description
-     * @type {HTMLElement|undefined}
+     * @type {HTMLElement | undefined}
      */
     #wrapper;
 
     /**
-     * @description
-     * @type {String|undefined}
+     * @type {String | undefined}
      */
     #marker;
 
     /**
-     * @description
-     * @type {globalThis|HTMLElement}
+     * @type {globalThis | HTMLElement}
      */
     #screen;
 
     /**
-     * @description
-     * @type {HTMLElement|undefined}
+     * @type {HTMLElement | undefined}
      */
     #pin;
 
     /**
-     * @description
      * @type {boolean}
      */
     #isOver;
 
     /**
-     * @description
      * @type {boolean}
      */
     #isInner;
 
     /**
-     * @description
      * @type {boolean}
      */
     #isUnder;
 
     /**
-     * @description
      * @type {Function}
      */
     #unsubscribeScroll;
 
     /**
-     * @description
      * @type {Function}
      */
     #unsubscribeScrollStart;
 
     /**
-     * @description
      * @type {Function}
      */
     #unsubscribeSpring;
 
     /**
-     * @description
      * @type {boolean}
      */
     #firstTime;
 
     /**
-     * @description
      * Item style applied to pin wrapper
      *
-     * @type {Array<string>}
+     * @type {string[]}
      */
     #itemRequireStyleToWrapper;
 
     /**
-     * @description
      * Item style get and applied itself when transpond
      *
-     * @type {Array<string>}
+     * @type {string[]}
      */
     #itemRequireStyleWhenTraspond;
 
     /**
-     * @description
      * Paerent style to applied to pin
      *
-     * @type {Array<string>}
+     * @type {string[]}
      */
     #parentRequireStyle;
 
     /**
-     * @description
      * Item style applied to pin
      *
-     * @type {Array<string>}
+     * @type {string[]}
      */
     #itemRequireStyleToPin;
 
     /**
-     * @description
      * Parent style that activate transpond
      *
-     * @type {Array<string>}
+     * @type {string[]}
      */
     #styleToTranspond;
 
     /**
-     * @description
      * Skip parent style to activate transpond above with this value
      *
-     * @type {Array<string>}
+     * @type {string[]}
      */
     #nonRelevantRule;
 
     /**
-     * @description
      * @type {boolean}
      */
     #isInizialized;
 
     /**
-     * @description
      * @type {number}
      */
     #prevScroll;
 
     /**
-     * @description
      * @type {number}
      */
     #prevscrollY;
 
     /**
-     * @description
      * @type {boolean}
      */
     #animatePin;
 
     /**
-     * @description
      * @type {number}
      */
     #anticipateFactor;
 
     /**
-     * @description
      * @type {boolean}
      */
     #forceTranspond;
 
     /**
-     * @description
      * @type {boolean}
      */
     #justPinned;
 
     /**
-     * @description
      * @type {number}
      */
     #afterPinCounter;
 
     /**
-     * @description
      * @type {number}
      */
     #lastStep;
 
     /**
-     * @description
      * @type {boolean}
      */
     #afterJustPinned;
 
     /**
-     * @description
      * @type {number}
      */
     #afterJustPinnedCounter;
 
     /**
-     * @description
      * @type {number}
      */
     #numeCycleToFreeze;
 
     /**
-     * @description
      * @type {string}
      */
     #collisionStyleProp;
 
     /**
-     * @description
      * @type {boolean}
      */
     #shoulTranspond;
 
     /**
-     * @description
      * @type {boolean}
      */
     #anticipatePinOnLoad;
@@ -445,9 +411,8 @@ export class MobScrollerPin {
                     this.#pin
                 ) {
                     /**
-                     * In vertical mode gap to translate when pin is in fixed position
-                     * on window scroll is the same of collision
-                     * The same axis reset the two prop
+                     * In vertical mode gap to translate when pin is in fixed position on window scroll is the same of
+                     * collision The same axis reset the two prop
                      */
                     this.#pin.style.transform = `translate(0px, ${collision}px)`;
                 } else if (this.#pin) {
@@ -466,8 +431,7 @@ export class MobScrollerPin {
         if (!this.#item) this.#item = document.createElement('div');
 
         /**
-         * Wrap pin element
-         * pin-wrapper , use to cache potion into dom flow when pin go to fixed
+         * Wrap pin element pin-wrapper , use to cache potion into dom flow when pin go to fixed
          */
         const wrapper = document.createElement('div');
         wrapper.classList.add('pin-wrapper');
@@ -543,7 +507,6 @@ export class MobScrollerPin {
     }
 
     /**
-     * @description
      * Get style from item and apply to wrapper ( es: flex)
      */
     #addStyleFromPinToWrapper() {
@@ -563,8 +526,7 @@ export class MobScrollerPin {
     /**
      * @param {HTMLElement} target
      * @param {string} rule
-     *
-     * @returns {Record<string, any>|undefined}
+     * @returns {Record<string, any> | undefined}
      */
     #findStyle(target, rule) {
         let node = target.parentNode;
@@ -572,7 +534,7 @@ export class MobScrollerPin {
 
         while (node !== null && node !== document) {
             /** @type {Record<string, any>} */
-            const style = getComputedStyle(/** @type{Element} */ (node));
+            const style = getComputedStyle(/** @type {Element} */ (node));
 
             if (style[rule] && !this.#nonRelevantRule.includes(style[rule])) {
                 return { [rule]: style[rule] };
@@ -584,7 +546,7 @@ export class MobScrollerPin {
     }
 
     /**
-     * @returns {Record<string, string>|{}}
+     * @returns {Record<string, string> | {}}
      */
     #addRquiredStyle() {
         if (!this.#pin) return {};
@@ -822,9 +784,8 @@ export class MobScrollerPin {
             this.#pin.style[style] = `${left}px`;
 
             /**
-             * Frezze pin for two frame so avoid possible visual jump
-             * Item stop can stop ain the middle of anticipate step
-             * and just after item jump to original position
+             * Frezze pin for two frame so avoid possible visual jump Item stop can stop ain the middle of anticipate
+             * step and just after item jump to original position
              */
             this.#justPinned = true;
             this.#afterJustPinned = true;
@@ -908,13 +869,11 @@ export class MobScrollerPin {
 
     /**
      * @param {number} scrollTop
-     *
      * @returns {number}
      */
     #getAnticipate(scrollTop) {
         /**
-         * If come just after pin use the last step to avoid glitch
-         * If item is pinned too soon
+         * If come just after pin use the last step to avoid glitch If item is pinned too soon
          */
         const step =
             this.#afterJustPinned && this.#afterJustPinnedCounter < 3
@@ -944,8 +903,7 @@ export class MobScrollerPin {
     /**
      * @param {number} scrollTop
      * @param {string} scrollDirection
-     *
-     * @returns {{anticipateBottom:number,anticipateInnerIn:number,anticipateInnerOut:number}}
+     * @returns {{ anticipateBottom: number; anticipateInnerIn: number; anticipateInnerOut: number }}
      */
     #getAnticipateValue(scrollTop, scrollDirection) {
         if (
@@ -979,8 +937,7 @@ export class MobScrollerPin {
     /**
      * @param {number} scrollTop
      * @param {string} scrollDirection
-     *
-     * @returns {{anticipateBottom:number,anticipateInnerIn:number,anticipateInnerOut:number}}
+     * @returns {{ anticipateBottom: number; anticipateInnerIn: number; anticipateInnerOut: number }}
      */
     #getAnticipateValueInverted(scrollTop, scrollDirection) {
         if (
@@ -1018,8 +975,8 @@ export class MobScrollerPin {
         if (!this.#isInizialized || !this.#wrapper) return;
 
         /**
-         * Skip pin check for 3 scroll if is if just pinned
-         * this to prevent glitch if item is pinned too son and user stop scroll too soon
+         * Skip pin check for 3 scroll if is if just pinned this to prevent glitch if item is pinned too son and user
+         * stop scroll too soon
          */
         if (
             this.#justPinned &&

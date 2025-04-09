@@ -1,9 +1,9 @@
-/** @type{string[]} */
+/** @type {string[]} */
 let current_computed_keys = [];
 let active = false;
 
 /**
- * @returns{void}
+ * @returns {void}
  */
 export const initializeCurrentDependencies = () => {
     active = true;
@@ -11,11 +11,9 @@ export const initializeCurrentDependencies = () => {
 };
 
 /**
- * @description
- * Return a copy of items.
- * Avoid side effect.
+ * Return a copy of items. Avoid side effect.
  *
- * @returns{string[]}
+ * @returns {string[]}
  */
 export const getCurrentDependencies = () => {
     active = false;
@@ -23,11 +21,9 @@ export const getCurrentDependencies = () => {
 };
 
 /**
- * @description
- * Return a copy of items.
- * Avoid side effect.
+ * Return a copy of items. Avoid side effect.
  *
- * @returns{string}
+ * @returns {string}
  */
 export const getFirstCurrentDependencies = () => {
     active = false;
@@ -37,7 +33,7 @@ export const getFirstCurrentDependencies = () => {
 
 /**
  * @param {string} key
- * @returns{void}
+ * @returns {void}
  */
 export const setCurrentDependencies = (key) => {
     if (!active || !key) return;

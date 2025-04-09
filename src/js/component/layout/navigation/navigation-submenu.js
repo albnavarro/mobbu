@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent, ReturnBindProps, StaticProps, UseMethodByName } from '@mobJsType';
- * @import { Navigation, NavigationButton, NavigationContainer, NavigationSubmenu } from './type';
- **/
+ * @import {MobComponent, ReturnBindProps, StaticProps, UseMethodByName} from '@mobJsType';
+ * @import {Navigation, NavigationButton, NavigationContainer, NavigationSubmenu} from './type';
+ */
 
 import { html, MobJs } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
@@ -67,7 +67,7 @@ export const NavigationSubmenuFn = ({
                 const action = isOpen ? 'down' : 'up';
                 await MobSlide[action](content);
 
-                /** @type{UseMethodByName<NavigationContainer>} */
+                /** @type {UseMethodByName<NavigationContainer>} */
                 const navContainerMethods = MobJs.useMethodByName(
                     'navigation-container'
                 );
@@ -76,11 +76,10 @@ export const NavigationSubmenuFn = ({
                 if (isOpen) return;
 
                 /**
-                 * When accordion is closed form element itSelf
-                 * Need to reset currentAccordionId without fire callback.
+                 * When accordion is closed form element itSelf Need to reset currentAccordionId without fire callback.
                  */
 
-                /** @type{UseMethodByName<Navigation>} */
+                /** @type {UseMethodByName<Navigation>} */
                 const mainNavigationMethods =
                     MobJs.useMethodByName('main_navigation');
                 mainNavigationMethods?.closeAllAccordion({

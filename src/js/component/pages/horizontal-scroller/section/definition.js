@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { HorizontalScrollerSectionFn } from './horizontal-scroller-section';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const HorizontalScrollerSection = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').HorizontalScrollerSection>} */
+    /** @type {CreateComponentParams<import('./type').HorizontalScrollerSection>} */
     ({
         name: 'horizontal-scroller-section',
         component: HorizontalScrollerSectionFn,

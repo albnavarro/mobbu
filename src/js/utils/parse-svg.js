@@ -4,7 +4,7 @@ import { serializeFragment } from '../mob/mob-js/parse/steps/utils';
  * @param {object} params
  * @param {string} params.svg
  * @param {string} params.id
- * @returns string
+ * @returns String
  */
 export const parseSvg = ({ svg, id }) => {
     let fragment = document.createRange().createContextualFragment(svg);

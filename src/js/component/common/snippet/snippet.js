@@ -1,9 +1,9 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '@mobJsType';
- * @import { Snippet } from './type';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ * @import {Snippet} from './type';
+ */
 
 import { html } from '@mobJs';
 import hljs from 'highlight.js/lib/core';
@@ -49,8 +49,7 @@ export const SnippetFn = ({ onMount, getState, setRef, getRef }) => {
     const hasOverflowClass = hasOverflow ? 'has-overflow' : '';
 
     /**
-     * Get pre rem font size.
-     * Calculate full size of snippet before load.
+     * Get pre rem font size. Calculate full size of snippet before load.
      */
     const remValue = getComputedStyle(
         document.documentElement
@@ -64,8 +63,7 @@ export const SnippetFn = ({ onMount, getState, setRef, getRef }) => {
         const { codeEl } = getRef();
 
         /**
-         * Async onMount, component should be destroyed.
-         * Avoid desconstruct
+         * Async onMount, component should be destroyed. Avoid desconstruct
          */
         const stateObject = getState();
         const awaitLoad = stateObject?.awaitLoad;

@@ -4,7 +4,7 @@ import { MobCore } from '../../../mob-core';
 import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 
-/** @type {Map<string, import("./type").BindText[]>} */
+/** @type {Map<string, import('./type').BindText[]>} */
 export const bindTextMap = new Map();
 
 /** @type {Map<Element, import('./type').BindTextPlaceHolder>} */
@@ -29,7 +29,6 @@ export const addBindTextPlaceHolderMap = ({
 };
 
 /**
- * @description
  * Check if there is square brackets in a string with value eg. [0]
  *
  * @param {string} value
@@ -38,7 +37,6 @@ export const addBindTextPlaceHolderMap = ({
 const arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
 
 /**
- * @description
  * Split string until first square [ and return strign before [
  *
  * @param {string} value
@@ -48,7 +46,7 @@ const splitPropUntilSquare = (value) => value.split('[')?.[0];
 
 /**
  * @param {object} params
- * @param {{ [x:string]: any }} params.previous
+ * @param {{ [x: string]: any }} params.previous
  * @param {string} params.current
  * @returns {any[]}
  */
@@ -65,24 +63,23 @@ const parsePropValue = ({ previous, current }) => {
 };
 
 /**
- * @param {string} id - componentId
+ * @param {string} id - ComponentId
  * @param {TemplateStringsArray} strings
  * @param {any[]} values
- * @returns { string }
+ * @returns {string}
  */
 export const renderBindText = (id, strings, ...values) => {
     const props = getStateById(id);
 
     const states = values.map((prop) => {
         /**
-         * Get value if prop is:
-         * bindText`${'obj.prop1.prop2'}`
+         * Get value if prop is: bindText`${'obj.prop1.prop2'}`
          */
         const propsToArray = prop.split('.');
         return propsToArray.reduce(
             (
-                /** @type {{ [x: string]: any; }} */ previous,
-                /** @type {string } */ current
+                /** @type {{ [x: string]: any }} */ previous,
+                /** @type {string} */ current
             ) => {
                 /**
                  * Return prop value or array value
@@ -115,9 +112,8 @@ export const addBindTextParent = ({ id, bindTextId, parentElement }) => {
         items && items.length > 0
             ? (() => {
                   /**
-                   * When placeholder change position ( slot/repeater )
-                   * Add multiple time.
-                   * Remove the old and use last with last parent element.
+                   * When placeholder change position ( slot/repeater ) Add multiple time. Remove the old and use last
+                   * with last parent element.
                    */
                   const itemsFiltered = items.filter(
                       (item) => item.bindTextId !== bindTextId
@@ -148,10 +144,10 @@ export const removeBindTextByBindTextId = ({ id, bindTextId }) => {
 };
 
 /**
- * @description
- * At the end of parse delete web component and add data to real map
- * New map has componentId as key, so easy to destroy, one map for every bindText in component.
- * We need end of parse to get real parent element ( slot/repeater/invalidate issue ).
+ * At the end of parse delete web component and add data to real map New map has componentId as key, so easy to destroy,
+ * one map for every bindText in component. We need end of parse to get real parent element ( slot/repeater/invalidate
+ * issue ).
+ *
  * @returns {void}
  */
 export const switchBindTextMap = () => {
@@ -188,7 +184,7 @@ export const removeBindTextParentById = ({ id }) => {
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bindTextId
- * @returns {HTMLElement|undefined}
+ * @returns {HTMLElement | undefined}
  */
 const getParentBindText = ({ id, bindTextId }) => {
     const item = bindTextMap.get(id);
@@ -230,14 +226,12 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
      */
     let watchIsRunning = false;
 
-    /** @type{WeakRef<HTMLElement>} */
+    /** @type {WeakRef<HTMLElement>} */
     let ref;
 
     const unsubScribeFunction = props.map((state) => {
         /**
-         * Get state to watch if prop is:
-         * bindText`${'myProps.prop1.prop2'}`
-         * Get first prop
+         * Get state to watch if prop is: bindText`${'myProps.prop1.prop2'}` Get first prop
          */
         const propsToArray = state.split('.');
         const stateToWatch = propsToArray?.[0];
@@ -271,8 +265,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
                         });
 
                         /**
-                         * skip if refElement is undefined.
-                         * refElement is settled to null to remove any reference.
+                         * Skip if refElement is undefined. refElement is settled to null to remove any reference.
                          */
                         if (refElement) {
                             ref = new WeakRef(refElement);

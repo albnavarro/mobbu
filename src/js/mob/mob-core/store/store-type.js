@@ -66,25 +66,25 @@ export const SET = 'SET';
 export const MAP = 'MAP';
 
 export const storeType = {
-    isString: (/** @type{any} */ value) =>
+    isString: (/** @type {any} */ value) =>
         Object.prototype.toString.call(value) === '[object String]',
-    isNumber: (/** @type{any} */ value) =>
+    isNumber: (/** @type {any} */ value) =>
         Object.prototype.toString.call(value) === '[object Number]' &&
         Number.isFinite(value),
-    isObject: (/** @type{any} */ value) =>
+    isObject: (/** @type {any} */ value) =>
         Object.prototype.toString.call(value) === '[object Object]',
-    isFunction: (/** @type{any} */ value) =>
+    isFunction: (/** @type {any} */ value) =>
         Object.prototype.toString.call(value) === '[object Function]',
-    isArray: (/** @type{any} */ value) =>
+    isArray: (/** @type {any} */ value) =>
         Object.prototype.toString.call(value) === '[object Array]',
-    isBoolean: (/** @type{any} */ value) =>
+    isBoolean: (/** @type {any} */ value) =>
         Object.prototype.toString.call(value) === '[object Boolean]',
-    isElement: (/** @type{any} */ value) =>
+    isElement: (/** @type {any} */ value) =>
         value instanceof Element || value instanceof Document,
-    isHTMLElement: (/** @type{any} */ value) => value instanceof HTMLElement,
-    isSet: (/** @type{any} */ value) => value instanceof Set,
-    isMap: (/** @type{any} */ value) => value instanceof Map,
-    isNodeList: (/** @type{any} */ value) =>
+    isHTMLElement: (/** @type {any} */ value) => value instanceof HTMLElement,
+    isSet: (/** @type {any} */ value) => value instanceof Set,
+    isMap: (/** @type {any} */ value) => value instanceof Map,
+    isNodeList: (/** @type {any} */ value) =>
         Object.prototype.isPrototypeOf.call(NodeList.prototype, value),
 };
 

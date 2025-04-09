@@ -6,11 +6,11 @@ import { DynamicListSlottedLabel } from '../slotted-label/definition';
 import { DynamicListRepeaterFn } from './dynamic-list-repeater';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const DynamicListRepeater = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').DynamicListRepeater>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListRepeater>} */
     ({
         name: 'dynamic-list-repeater',
         component: DynamicListRepeaterFn,

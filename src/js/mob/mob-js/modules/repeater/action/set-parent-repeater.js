@@ -4,19 +4,18 @@ import { repeatIdHostMap } from '../repeat-id-host-map';
 import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
 
 /**
- * @description
  * Store parent repeat block from repeat webComponent.
  *
  * @param {object} params
- * @param {string} params.repeatId - repeat id
- * @param {HTMLElement} params.host  - webComponent root
+ * @param {string} params.repeatId - Repeat id
+ * @param {HTMLElement} params.host - WebComponent root
  */
 
 export const setParentRepeater = ({ repeatId, host }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
 
-    const parent = /** @type{HTMLElement} */ (host.parentNode);
+    const parent = /** @type {HTMLElement} */ (host.parentNode);
     repeatIdPlaceHolderMap.set(repeatId, {
         ...item,
         element: parent,

@@ -5,13 +5,12 @@ import {
 } from '../../common-repeat-invalidate';
 
 /**
- * @description
- * Initialize watch function of nested repeat.
- * Start initialize from older one, so child repeat is render after parent repeat
+ * Initialize watch function of nested repeat. Start initialize from older one, so child repeat is render after parent
+ * repeat
  *
  * @param {object} params
- * @param {HTMLElement|undefined} params.repeatParent
- * @param {string} params.id - componentId
+ * @param {HTMLElement | undefined} params.repeatParent
+ * @param {string} params.id - ComponentId
  * @returns {void}
  */
 export const inizializeNestedRepeat = ({ repeatParent, id }) => {

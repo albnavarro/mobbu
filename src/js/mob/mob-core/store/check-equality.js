@@ -20,12 +20,11 @@ const setsAreEqual = (a, b) =>
     a.size === b.size && [...a].every((value) => b.has(value));
 
 /**
+ * A function to compare if two arrays have the same elements regardless of their order
+ *
  * @param {[]} a
  * @param {[]} b
  * @returns {boolean}
- *
- * @description
- * A function to compare if two arrays have the same elements regardless of their order
  */
 const arrayAreEquals = (a, b) => {
     if (a.length !== b.length) return false;
@@ -42,8 +41,6 @@ const arrayAreEquals = (a, b) => {
  * @param {any} obj1
  * @param {any} obj2
  * @returns {boolean}
- *
- * @description
  */
 const objectAreEqual = (obj1, obj2, checkDataOrder = false) => {
     const checkDataOrderParanoic = false;
@@ -102,8 +99,6 @@ const objectAreEqual = (obj1, obj2, checkDataOrder = false) => {
  * @param {any} oldValue
  * @param {any} newValue
  * @returns {boolean}
- *
- * @description
  */
 export const checkEquality = (type, oldValue, newValue) => {
     switch (type) {

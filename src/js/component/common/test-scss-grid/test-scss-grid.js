@@ -1,6 +1,6 @@
 import { html } from '@mobJs';
 
-/** @type{import("@mobJsType").MobComponent} */
+/** @type {import('@mobJsType').MobComponent} */
 export const TestScssGridFn = () => {
     return html`
         <div class="test-grid">

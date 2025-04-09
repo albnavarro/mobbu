@@ -3,8 +3,8 @@
 import { html } from '@mobJs';
 
 /**
- * @import { MobComponent } from '@mobJsType';
- **/
+ * @import {MobComponent} from '@mobJsType';
+ */
 
 /** @type {MobComponent<import('./type').StarSvg>} */
 export const StarSvgFn = ({ getState }) => {

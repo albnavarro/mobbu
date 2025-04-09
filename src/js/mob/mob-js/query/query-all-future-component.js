@@ -2,10 +2,10 @@
 // https://stackfull.dev/applying-tree-traversal-algorithms-to-dom
 
 /**
- * @generator
  * @function walkPreOrder
  * @param {Element} node
  * @yields {HTMLElement}
+ * @generator
  */
 // @ts-ignore
 export function* walkPreOrder(node) {
@@ -24,14 +24,13 @@ export function* walkPreOrder(node) {
 /**
  * @param {Element} root
  * @param {boolean} firstOccurrence
- * @returns {import("../web-component/type").UserComponent[]}
+ * @returns {import('../web-component/type').UserComponent[]}
  */
 function selectAll(root, firstOccurrence) {
     const result = [];
     for (const node of walkPreOrder(root)) {
         /**
-         * Skip after first result.
-         * We are looking the first occurrence.
+         * Skip after first result. We are looking the first occurrence.
          */
         if (result.length > 0 && firstOccurrence) break;
 
@@ -43,9 +42,9 @@ function selectAll(root, firstOccurrence) {
 }
 
 /**
- * @param {Element|DocumentFragment} node
+ * @param {Element | DocumentFragment} node
  * @param {boolean} firstOccurence
- * @returns {Array<import("../web-component/type").UserComponent>}
+ * @returns {import('../web-component/type').UserComponent[]}
  */
 export const queryAllFutureComponent = (node, firstOccurence = true) => {
     /** @type {any[]} */

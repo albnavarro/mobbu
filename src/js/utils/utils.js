@@ -44,7 +44,7 @@ export function setBrowserClass() {
 /**
  * @param {object} params
  * @param {string} params.source
- * @returns {Promise<{success:boolean, data: any}>}
+ * @returns {Promise<{ success: boolean; data: any }>}
  */
 export const loadTextContent = async ({ source }) => {
     const response = await fetch(source);
@@ -66,7 +66,7 @@ export const loadTextContent = async ({ source }) => {
 /**
  * @param {object} params
  * @param {string} params.source
- * @returns {Promise<{success:boolean, data: any}>}
+ * @returns {Promise<{ success: boolean; data: any }>}
  */
 export const loadJsonContent = async ({ source }) => {
     const response = await fetch(source);

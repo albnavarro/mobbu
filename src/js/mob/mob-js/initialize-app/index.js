@@ -16,10 +16,9 @@ import {
 import { setRestoreScroll } from '../route/scroll/restore-scroll';
 
 /**
- * @type {( arg0: import('../type').InizializeApp) => Promise<void>}
- *
- * @description
  * Inizializa default route.
+ *
+ * @type {(arg0: import('../type').InizializeApp) => Promise<void>}
  */
 export const inizializeApp = async ({
     rootId,
@@ -34,20 +33,16 @@ export const inizializeApp = async ({
     restoreScroll = true,
 }) => {
     /**
-     * @type {HTMLElement|null}
+     * @type {HTMLElement | null}
      */
-    const rootEl = /** @type{HTMLElement} */ document.querySelector(rootId);
+    const rootEl = /** @type {HTMLElement} */ document.querySelector(rootId);
     const wrapperDOM = await wrapper();
 
     /**
-     * Validate initial data.
-     * Else skip.
+     * Validate initial data. Else skip.
      */
     if (!contentId || !rootEl) return;
 
-    /**
-     *
-     */
     setContentId({ contentId });
     setRoot({ element: rootEl });
     setPageTransition({ fn: pageTransition });
@@ -59,14 +54,8 @@ export const inizializeApp = async ({
      */
     initParseWatcher();
 
-    /**
-     *
-     */
     setComponentList();
 
-    /**
-     *
-     */
     setRouteList(routes);
 
     /**
@@ -87,15 +76,14 @@ export const inizializeApp = async ({
     setContentElement();
 
     /**
-     * Render common layout component.
-     * Initialize js on common layout component.
-     * All component here is persistent, so persistent  is set to true.
+     * Render common layout component. Initialize js on common layout component. All component here is persistent, so
+     * persistent is set to true.
      */
     await parseComponents({ element: rootEl, persistent: true });
 
     /**
-     * First callback after parse index.html first time.
-     * Wait 5 frames, so browser can clear gargbage collector created in parse step.
+     * First callback after parse index.html first time. Wait 5 frames, so browser can clear gargbage collector created
+     * in parse step.
      */
     MobCore.useFrameIndex(() => {
         MobCore.useNextTick(() => {
@@ -104,7 +92,7 @@ export const inizializeApp = async ({
     }, frameDelayAfterParse);
 
     /**
-     * set DOM content element
+     * Set DOM content element
      */
 
     /**

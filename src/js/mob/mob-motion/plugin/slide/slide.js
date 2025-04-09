@@ -4,7 +4,7 @@ import { MobCore } from '../../../mob-core/index.js';
 import { outerHeight } from '../../../mob-core/utils/index.js';
 import MobTimeTween from '../../animation/tween/mob-time-tween.js';
 
-/** @type {Map<HTMLElement,import('./type').MobSlide>} */
+/** @type {Map<HTMLElement, import('./type').MobSlide>} */
 const slideItems = new Map();
 
 /**
@@ -20,7 +20,6 @@ const isNode = (target) => {
 };
 
 /**
- * @description
  * Subscribe element to internal store.
  *
  * @param {HTMLElement} target
@@ -38,30 +37,26 @@ const setSlideData = (target) => {
 };
 
 /**
- * @description
- * Slide up-down utils.
- * It is essentially a small store where you can subscribe to dom elements and manage them.
+ * Slide up-down utils. It is essentially a small store where you can subscribe to dom elements and manage them.
  *
  * @example
+ *     ```javascript
+ *     Subscribe target in store:
+ *     const unsubscribe = slide.subscribe(target);
  *
- * ```javascript
- * Subscribe target in store:
- * const unsubscribe = slide.subscribe(target);
+ *     Reset target:
+ *     slide.reset(target);
  *
- * Reset target:
- * slide.reset(target);
+ *     Slide up-down:
+ *     slide.up(target).then(() => { ... });
+ *     slide.down(target).then(() => { ... });
  *
- * Slide up-down:
- * slide.up(target).then(() => { ... });
- * slide.down(target).then(() => { ... });
- *
- * Remove item from store:
- * unsubscribe();
- * ```
+ *     Remove item from store:
+ *     unsubscribe();
+ *     ```;
  */
 export const MobSlide = (() => {
     /**
-     * @description
      * Subscribe element to internal store.
      *
      * @param {HTMLElement} target - Dom node.
@@ -97,9 +92,7 @@ export const MobSlide = (() => {
     };
 
     /**
-     * @description
-     * Reset target height ( 0px ) .
-     * Set `overflow: hidden` to target.
+     * Reset target height ( 0px ) . Set `overflow: hidden` to target.
      *
      * @param {HTMLElement} target - Dom node.
      */
@@ -111,16 +104,14 @@ export const MobSlide = (() => {
     };
 
     /**
-     * @description
-     * Slide up target.
-     * Return a promise.
+     * Slide up target. Return a promise.
      *
      * @example
-     * ```javascript
-     * slide.up(myELement)
-     *      .then(() => { ... })
-     *      .catch(() => { ... })
-     * ```
+     *     ```javascript
+     *     slide.up(myELement)
+     *          .then(() => { ... })
+     *          .catch(() => { ... })
+     *     ```;
      *
      * @param {HTMLElement} target - Dom node.
      * @returns {Promise<any>} Promise fired on animation ends.
@@ -152,16 +143,14 @@ export const MobSlide = (() => {
     };
 
     /**
-     * @description
-     * Slide down target.
-     * Return a promise.
+     * Slide down target. Return a promise.
      *
      * @example
-     * ```javascript
-     * slide.down(myELement)
-     *      .then(() => { ... })
-     *      .catch(() => { ... })
-     * ```
+     *     ```javascript
+     *     slide.down(myELement)
+     *          .then(() => { ... })
+     *          .catch(() => { ... })
+     *     ```;
      *
      * @param {HTMLElement} target - Dom node.
      * @returns {Promise<any>} Promise fired on animation ends.

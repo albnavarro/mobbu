@@ -5,8 +5,8 @@ import { removeChildFromChildrenArray } from '../../utils';
 
 /**
  * @param {Object} param
- * @param {string|undefined} param.id
- * @param {string|undefined} param.parentId
+ * @param {string | undefined} param.id
+ * @param {string | undefined} param.parentId
  * @param {string} param.componentName
  */
 

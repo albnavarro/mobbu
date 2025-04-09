@@ -11,11 +11,11 @@ import { MobJs } from '@mobJs';
 import { HtmlContentFn } from './html-content';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const HtmlContent = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').HtmlContent>} */
+    /** @type {CreateComponentParams<import('./type').HtmlContent>} */
     ({
         name: 'html-content',
         component: HtmlContentFn,

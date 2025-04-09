@@ -9,9 +9,9 @@ import {
 } from './store';
 
 /**
- * @import { MobComponent, ReturnBindProps } from '@mobJsType';
+ * @import {MobComponent, ReturnBindProps} from '@mobJsType';
  * @import {BenchMarkFakeComponent} from '../fake-component/type';
- **/
+ */
 
 /** @type {MobComponent<import('./type').BenchMarkExternal>} */
 export const BenchMarkRepeatNoKyBindStoreFn = ({
@@ -69,7 +69,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                     return html`
                         <benchmark-fake-component
                             ${bindProps(
-                                /** @returns{ReturnBindProps<BenchMarkFakeComponent>} */
+                                /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
                                 () => ({
                                     index: current.index,
                                     label: current.value.label,

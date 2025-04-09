@@ -4,11 +4,11 @@ import { MobJs } from '@mobJs';
 import { ParagraphFn } from './paragraph';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const Paragraph = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').Paragraph>} */
+    /** @type {CreateComponentParams<import('./type').Paragraph>} */
     ({
         name: 'mob-paragraph',
         component: ParagraphFn,

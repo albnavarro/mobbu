@@ -4,7 +4,7 @@ import { MobCore } from '../../mob-core';
 import { awaitNextLoop } from './utils';
 
 /**
- * @type {Map<string,string>}
+ * @type {Map<string, string>}
  */
 const repeaterQueque = new Map();
 
@@ -14,8 +14,7 @@ const repeaterQueque = new Map();
 export const repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
 
 /**
- * Limit queque size.
- * Prevent possible side effect
+ * Limit queque size. Prevent possible side effect
  */
 const maxQueuqueSize = 1000;
 
@@ -37,8 +36,6 @@ export const incrementRepeaterTickQueuque = (props) => {
 };
 
 /**
- * @description
- *
  * @returns {boolean}
  */
 const queueIsResolved = () => {
@@ -46,12 +43,11 @@ const queueIsResolved = () => {
 };
 
 /**
- * @description
  * Await that all bind props is completed
  *
  * @param {object} params
- * @param {boolean} [ params.debug ]
- * @param {(value: void | PromiseLike<void>) => void} [ params.previousResolve ]
+ * @param {boolean} [params.debug]
+ * @param {(value: void | PromiseLike<void>) => void} [params.previousResolve]
  * @returns {Promise<void>}
  */
 export const repeaterTick = async ({ debug = false, previousResolve } = {}) => {

@@ -4,13 +4,12 @@ import { componentMap } from '../../store';
 import { removeAndDestroyById } from './remove-and-destroy-by-id';
 
 /**
+ * Remove all children od component inside a specific Node.
+ *
  * @param {Object} param
  * @param {string} param.id
- * @param {Element|HTMLElement} param.container
- * @returns void
- *
- * @description
- * Remove all children od component inside a specific Node.
+ * @param {Element | HTMLElement} param.container
+ * @returns Void
  */
 
 export const destroyComponentInsideNodeById = ({ id, container }) => {

@@ -5,11 +5,11 @@ import { detectFirefox, detectSafari } from '@utils/utils';
 import { ScrollerN1Fn } from './scroller-n1';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType";
+ */
 
 export const ScrollerN1 = MobJs.createComponent(
-    /** @type{CreateComponentParams<import('./type').ScrollerN1>} */
+    /** @type {CreateComponentParams<import('./type').ScrollerN1>} */
     ({
         name: 'scroller-n1',
         component: ScrollerN1Fn,

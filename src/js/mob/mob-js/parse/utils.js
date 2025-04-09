@@ -10,19 +10,19 @@ import { useQuery } from './use-query';
 let currentIterationCounter = 0;
 
 /**
- * @return {void}
+ * @returns {void}
  */
 export const incrementCurrentIterationCounter = () => {
     currentIterationCounter += 1;
 };
 
 /**
- * @return {number}
+ * @returns {number}
  */
 export const getCurrentIterationCounter = () => currentIterationCounter;
 
 /**
- * @return {void}
+ * @returns {void}
  */
 export const resetCurrentIterationCounter = () => {
     currentIterationCounter = 0;
@@ -31,8 +31,11 @@ export const resetCurrentIterationCounter = () => {
 /**
  * @param {object} obj
  * @param {Element} obj.element
- * @param {Array<import("../web-component/type").UserComponent>} obj.currentSelectors
- * @return {{componentToParse:import("../web-component/type").UserComponent, parseSourceArray:Array<import("../web-component/type").UserComponent> }}
+ * @param {import('../web-component/type').UserComponent[]} obj.currentSelectors
+ * @returns {{
+ *     componentToParse: import('../web-component/type').UserComponent;
+ *     parseSourceArray: import('../web-component/type').UserComponent[];
+ * }}
  */
 export const getParseSourceArray = ({ element, currentSelectors }) => {
     if (currentSelectors.length > 0) {

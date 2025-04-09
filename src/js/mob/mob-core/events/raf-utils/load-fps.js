@@ -8,21 +8,21 @@ import { eventStore } from '../event-store';
 let loadFpsIsReady = false;
 
 /**
- * @description -  Runs a request animation frame loop to detect the frame rate of the monitor.
- *   After the method will be resolved the first time, subsequent calls will be resolved immediately returning the previously calculated value.
- *   The method is launched the first time automatically at the first loading.
- *
- * @param {number} [ duration = 30 ] - loop duration in frame, the default value is 30.
- * @return {Promise.<import('./type').LoadFps>} The promise launched after the loop
+ * - Runs a request animation frame loop to detect the frame rate of the monitor. After the method will be resolved the
+ *   first time, subsequent calls will be resolved immediately returning the previously calculated value. The method is
+ *   launched the first time automatically at the first loading.
  *
  * @example
- * ```javascript
+ *     ```javascript
  *
- * loadFps(60).then(({ averageFPS }) => {
- *     // code
- * });
+ *     loadFps(60).then(({ averageFPS }) => {
+ *         // code
+ *     });
  *
- * ```
+ *     ```;
+ *
+ * @param {number} [duration=30] - Loop duration in frame, the default value is 30. Default is `30`
+ * @returns {Promise<import('./type').LoadFps>} The promise launched after the loop
  */
 export const loadFps = (duration = 30) => {
     if (loadFpsIsReady) {
@@ -35,7 +35,7 @@ export const loadFps = (duration = 30) => {
 
     return new Promise((resolve) => {
         /**
-         * @type {Array.<number>}
+         * @type {number[]}
          */
         const frameTimes = [];
 
