@@ -68,7 +68,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 26
+                "numLines": 28
             }
         },
         {
@@ -105,7 +105,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 26
+                "numLines": 11
             }
         },
         {

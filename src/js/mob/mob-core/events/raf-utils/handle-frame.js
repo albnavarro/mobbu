@@ -351,8 +351,7 @@ const initFrame = () => {
 };
 
 /**
- * Execute a callBack within the first available request animation frame.
- *     Use this method to modify elements of the DOM
+ * Execute a callBack within the first available request animation frame. Use this method to modify elements of the DOM
  */
 export const handleFrame = (() => {
     /**

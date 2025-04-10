@@ -95,7 +95,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 35
+                "numLines": 38
             }
         },
         {
@@ -132,7 +132,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 35
+                "numLines": 23
             }
         },
         {
@@ -150,7 +150,7 @@
                 "items": [
                     {
                         "label": "Reactive List",
-                        "url": "reactive list (repeat)"
+                        "url": "#mobJs-repeat"
                     }
                 ]
             }

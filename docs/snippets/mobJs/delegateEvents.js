@@ -1,25 +1,21 @@
 /**
-export interface delegateEventObject {
-    [key: string]: (arg0: Event, index: number) => void;
-}
-
-export type DelegateEvents = (
-    arg0: delegateEventObject | delegateEventObject[]
-) => any;
-**/
+ * Export interface delegateEventObject { [key: string]: (arg0: Event, index: number) => void; }
+ *
+ * Export type DelegateEvents = ( arg0: delegateEventObject | delegateEventObject[] ) => any;
+ */
 
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ delegateEvents, setState }) => {
+export const MyComponent = ({ delegateEvents, updateState }) => {
     return html`
         <div>
             <button
                 ${delegateEvents({
                     click: (event) => {
-                        setState('counter', (value) => (value += 1));
+                        updateState('counter', (value) => (value += 1));
                         event.preventDefault();
                     },
                 })}
@@ -29,11 +25,11 @@ export const MyComponent = ({ delegateEvents, setState }) => {
             <my-child-component
                 ${delegateEvents({
                     click: (event) => {
-                        setState('counter', (value) => (value += 1));
+                        updateState('counter', (value) => (value += 1));
                         event.preventDefault();
                     },
                     mousemove: (event) => {
-                        setState('counter', (value) => (value += 1));
+                        updateState('counter', (value) => (value += 1));
                     },
                 })}
             ></my-child-component>

@@ -2,7 +2,7 @@
     <button
         ${delegateEvents({
             click: (event, value, index) => {
-                setState('counter', (value) => (value += 1));
+                updateState('counter', (value) => (value += 1));
                 event.preventDefault(); 
             },
         })}
@@ -12,11 +12,11 @@
     <my-child-component
         ${delegateEvents({
             click: (event, value, index) => {
-                setState('counter', (value) => (value += 1));
+                updateState('counter', (value) => (value += 1));
                 event.preventDefault(); 
             },
             mousemove: (event, value, index) => {
-                setState('counter', (value) => (value += 1));
+                updateState('counter', (value) => (value += 1));
             },
         })}
     ></my-child-component>
