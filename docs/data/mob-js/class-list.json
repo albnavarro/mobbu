@@ -37,7 +37,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/classList.js",
+                "source": "./snippets/mob-js/class-list.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

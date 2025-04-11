@@ -70,7 +70,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/bindEffectExplicit.js",
+                "source": "./snippets/mob-js/bind-effect-explicit.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -93,7 +93,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/bindEffectAuto.js",
+                "source": "./snippets/mob-js/bind-effect-auto.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -116,7 +116,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/bindEffect1.js",
+                "source": "./snippets/mob-js/bind-effect-1.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -139,7 +139,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/bindEffect2.js",
+                "source": "./snippets/mob-js/bind-effect-2.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -162,7 +162,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/bindEffect3.js",
+                "source": "./snippets/mob-js/bind-effect-3.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

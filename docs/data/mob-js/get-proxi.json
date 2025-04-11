@@ -37,7 +37,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/getProxi.js",
+                "source": "./snippets/mob-js/get-proxi.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

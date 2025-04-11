@@ -31,7 +31,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/webComponentFunction.js",
+                "source": "./snippets/mob-js/web-component-function.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -154,7 +154,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/webComponentDefinition.js",
+                "source": "./snippets/mob-js/web-component-definition.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

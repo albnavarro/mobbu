@@ -85,7 +85,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/routingFunction.js",
+                "source": "./snippets/mob-js/routing-function.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -110,7 +110,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/routingAsyncFunction.js",
+                "source": "./snippets/mob-js/routing-async-function.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -154,7 +154,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/routeInizialization.js",
+                "source": "./snippets/mob-js/route-inizialization.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -179,7 +179,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/routingLink.js",
+                "source": "./snippets/mob-js/routing-link.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -204,7 +204,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/routeLinkJs.js",
+                "source": "./snippets/mob-js/route-link-js.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -264,7 +264,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/beforePageTransition.js",
+                "source": "./snippets/mob-js/before-page-transition.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -294,7 +294,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/pageTransition.js",
+                "source": "./snippets/mob-js/page-transition.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -348,7 +348,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/beforeRouteChange.js",
+                "source": "./snippets/mob-js/before-route-change.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -380,7 +380,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/beforeRouteLeave.js",
+                "source": "./snippets/mob-js/before-route-leave.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -412,7 +412,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/afterRouteChange.js",
+                "source": "./snippets/mob-js/after-route-change.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -444,7 +444,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/activeRoute.js",
+                "source": "./snippets/mob-js/active-route.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -476,7 +476,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/activeParams.js",
+                "source": "./snippets/mob-js/active-params.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
