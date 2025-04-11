@@ -13,7 +13,7 @@ let initialized = false;
 const callbacks = new Map();
 
 /**
- * @returns Void
+ * @returns {void}
  */
 function handler() {
     /**

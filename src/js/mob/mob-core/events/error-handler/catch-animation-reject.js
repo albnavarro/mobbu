@@ -6,7 +6,7 @@
 export const ANIMATION_STOP_REJECT = 'animationStop';
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const catchAnimationReject = () => {
     globalThis.addEventListener('unhandledrejection', (e) => {

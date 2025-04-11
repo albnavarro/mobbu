@@ -58,7 +58,7 @@ const action = ({ prevValue, value, maxVal }) => {
  * @param {Function} obj.onEnterBack
  * @param {Function} obj.onLeave
  * @param {Function} obj.onLeaveBack
- * @returns Void
+ * @returns {void}
  */
 export function MobScrollerEmitter({
     prevValue,

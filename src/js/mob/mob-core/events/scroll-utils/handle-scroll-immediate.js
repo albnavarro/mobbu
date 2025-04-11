@@ -38,7 +38,7 @@ let scrollData = {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 function handler() {
     /**

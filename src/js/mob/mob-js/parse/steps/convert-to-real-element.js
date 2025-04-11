@@ -68,7 +68,7 @@ const getNewElement = ({ element, content }) => {
  *
  * @param {object} obj
  * @param {HTMLElement} obj.element
- * @returns Void
+ * @returns {void}
  */
 const removeOrphanSlot = ({ element }) => {
     const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
@@ -99,7 +99,7 @@ const removeOrphanSlot = ({ element }) => {
  *
  * @param {object} obj
  * @param {HTMLElement} obj.element
- * @returns Void
+ * @returns {void}
  */
 const addToNamedSlot = ({ element }) => {
     const componentWithSlot =

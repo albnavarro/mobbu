@@ -24,7 +24,7 @@ const possibleChoice = (choice) => {
  * @param {string} label
  * @param {Object} fromObj
  * @param {Object} toObj
- * @returns Void
+ * @returns {void}
  */
 export const compareKeysWarning = (label, fromObj, toObj) => {
     console.warn(
@@ -36,7 +36,7 @@ export const compareKeysWarning = (label, fromObj, toObj) => {
 
 /**
  * @param {number} max
- * @returns Void
+ * @returns {void}
  */
 export const staggerIsOutOfRangeWarning = (max) => {
     console.warn(
@@ -46,7 +46,7 @@ export const staggerIsOutOfRangeWarning = (max) => {
 
 /**
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const dataTweenValueIsNotValidWarning = (label) => {
     console.warn(
@@ -56,7 +56,7 @@ export const dataTweenValueIsNotValidWarning = (label) => {
 
 /**
  * @param {any} val
- * @returns Void
+ * @returns {void}
  */
 export const sequencerRangeStartWarning = (val) => {
     console.warn(
@@ -66,7 +66,7 @@ export const sequencerRangeStartWarning = (val) => {
 
 /**
  * @param {any} val
- * @returns Void
+ * @returns {void}
  */
 export const sequencerRangeEndWarning = (val) => {
     console.warn(
@@ -75,7 +75,7 @@ export const sequencerRangeEndWarning = (val) => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const relativePropInsideTimelineWarning = () => {
     console.warn('relative prop is not allowed inside a timeline');
@@ -83,7 +83,7 @@ export const relativePropInsideTimelineWarning = () => {
 
 /**
  * @param {Function} val
- * @returns Void
+ * @returns {void}
  */
 export const timelineSuspendWarning = (val) => {
     console.warn(
@@ -92,7 +92,7 @@ export const timelineSuspendWarning = (val) => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const timelineReverseGoFromWarning = () => {
     console.warn(
@@ -102,7 +102,7 @@ export const timelineReverseGoFromWarning = () => {
 
 /**
  * @param {any} items
- * @returns Void
+ * @returns {void}
  */
 export const timelineSetTweenArrayWarining = (items) => {
     console.warn(`timeline setTween: ${items} is not an array of tween`);
@@ -110,7 +110,7 @@ export const timelineSetTweenArrayWarining = (items) => {
 
 /**
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const timelineSetTweenLabelWarining = (label) => {
     console.warn(`timeline setTween: ${label} is not a string`);
@@ -118,14 +118,14 @@ export const timelineSetTweenLabelWarining = (label) => {
 
 /**
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const timelineSetTweenLabelNotFoundWarining = (label) => {
     console.warn(`asyncTimeline.setTween() label: ${label} not found`);
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const timelineSetTweenFailWarining = () => {
     console.warn('setTween fail');
@@ -133,7 +133,7 @@ export const timelineSetTweenFailWarining = () => {
 
 /**
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const syncTimelineLabelWarning = (label) => {
     console.warn(`label ${label} not founded`);
@@ -141,7 +141,7 @@ export const syncTimelineLabelWarning = (label) => {
 
 /**
  * @param {any} fn
- * @returns Void
+ * @returns {void}
  */
 export const syncTimelineAddFnWarning = (fn) => {
     console.warn(`sequencer.add(fn,time) ${fn}: fn must be Function`);
@@ -149,7 +149,7 @@ export const syncTimelineAddFnWarning = (fn) => {
 
 /**
  * @param {any} time
- * @returns Void
+ * @returns {void}
  */
 export const syncTimelineAddTimeWarning = (time) => {
     console.warn(`sequencer.add(fn,time) ${time}: time must be a Number`);
@@ -157,14 +157,14 @@ export const syncTimelineAddTimeWarning = (time) => {
 
 /**
  * @param {any} preset
- * @returns Void
+ * @returns {void}
  */
 export const springPresetWarning = (preset) => {
     console.warn(`${preset} doesn't exist in spring configuration list`);
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const springConfigPropWarning = () => {
     console.warn(`Spring configProps: all prop must be a positive Number`);
@@ -172,7 +172,7 @@ export const springConfigPropWarning = () => {
 
 /**
  * @param {any} config
- * @returns Void
+ * @returns {void}
  */
 export const springConfigSpecificPropWarning = (config) => {
     console.warn(
@@ -182,14 +182,14 @@ export const springConfigSpecificPropWarning = (config) => {
 
 /**
  * @param {any} preset
- * @returns Void
+ * @returns {void}
  */
 export const tweenEaseWarning = (preset) => {
     console.warn(`${preset} doesn't exist in tweens ease function`);
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const staggerEachWarning = () => {
     console.warn(`stagger each must be a Number `);
@@ -197,7 +197,7 @@ export const staggerEachWarning = () => {
 
 /**
  * @param {any} val
- * @returns Void
+ * @returns {void}
  */
 export const staggerRowColGenericWarining = (val) => {
     console.warn(
@@ -206,14 +206,14 @@ export const staggerRowColGenericWarining = (val) => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const staggerWaitCompleteWarning = () => {
     console.warn('Stagger error: waitComplete propierties must be a Boolean');
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const staggerGridDirectionWarning = () => {
     console.warn(
@@ -222,7 +222,7 @@ export const staggerGridDirectionWarning = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const staggerRadialDirectionWarning = () => {
     console.warn(
@@ -231,7 +231,7 @@ export const staggerRadialDirectionWarning = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const staggerGridColRowWarning = () => {
     console.warn(
@@ -240,7 +240,7 @@ export const staggerGridColRowWarning = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const staggerColRowWarning = () => {
     console.warn(
@@ -250,7 +250,7 @@ export const staggerColRowWarning = () => {
 
 /**
  * @param {any} from
- * @returns Void
+ * @returns {void}
  */
 export const staggerFromGenericWarning = (from) => {
     console.warn(
@@ -260,7 +260,7 @@ export const staggerFromGenericWarning = (from) => {
 
 /**
  * @param {any} value
- * @returns Void
+ * @returns {void}
  */
 export const durationWarining = (value) => {
     console.warn(
@@ -270,7 +270,7 @@ export const durationWarining = (value) => {
 
 /**
  * @param {any} value
- * @returns Void
+ * @returns {void}
  */
 export const durationNumberOrFunctionWarining = (value) => {
     console.warn(
@@ -280,7 +280,7 @@ export const durationNumberOrFunctionWarining = (value) => {
 
 /**
  * @param {any} value
- * @returns Void
+ * @returns {void}
  */
 export const repeatWarining = (value) => {
     console.warn(
@@ -290,7 +290,7 @@ export const repeatWarining = (value) => {
 
 /**
  * @param {any} ease
- * @returns Void
+ * @returns {void}
  */
 export const easeWarning = (ease) => {
     console.warn(`ease definition error: ${ease} is not a valid  definition`);
@@ -298,7 +298,7 @@ export const easeWarning = (ease) => {
 
 /**
  * @param {any} prop
- * @returns Void
+ * @returns {void}
  */
 export const initialDataPropWarining = (prop) => {
     console.warn(
@@ -308,7 +308,7 @@ export const initialDataPropWarining = (prop) => {
 
 /**
  * @param {any} value
- * @returns Void
+ * @returns {void}
  */
 export const initialDataValueWarining = (value) => {
     console.warn(
@@ -317,14 +317,14 @@ export const initialDataValueWarining = (value) => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const createStaggerItemsWarning = () => {
     console.warn(`createStaggers error: items array can not be empty`);
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const createStaggerItemsTypeWarning = () => {
     console.warn(
@@ -333,7 +333,7 @@ export const createStaggerItemsTypeWarning = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const createStaggerTypeWarning = () => {
     console.warn(
@@ -343,7 +343,7 @@ export const createStaggerTypeWarning = () => {
 
 /**
  * @param {any} eachProportion
- * @returns Void
+ * @returns {void}
  */
 export const createStaggerEachWarning = (eachProportion) => {
     console.warn(
@@ -354,7 +354,7 @@ export const createStaggerEachWarning = (eachProportion) => {
 /**
  * @param {any} val
  * @param {any} tweenType
- * @returns Void
+ * @returns {void}
  */
 export const relativeWarining = (val, tweenType) => {
     console.warn(
@@ -365,7 +365,7 @@ export const relativeWarining = (val, tweenType) => {
 /**
  * @param {any} val
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const booleanWarning = (val, label) => {
     console.warn(`${label}: '${val}' is not Boolean`);
@@ -374,7 +374,7 @@ export const booleanWarning = (val, label) => {
 /**
  * @param {any} val
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const stringWarning = (val, label) => {
     console.warn(`${label}: '${val}' is not String`);
@@ -383,7 +383,7 @@ export const stringWarning = (val, label) => {
 /**
  * @param {any} val
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const naumberWarning = (val, label) => {
     console.warn(`${label}: '${val}' is not Number`);
@@ -392,14 +392,14 @@ export const naumberWarning = (val, label) => {
 /**
  * @param {any} val
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const functionWarning = (val, label) => {
     console.warn(`${label}: '${val}' is not Function`);
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const lerpVelocityWarining = () => {
     console.warn(
@@ -408,7 +408,7 @@ export const lerpVelocityWarining = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const lerpPrecisionWarining = () => {
     console.warn(
@@ -418,7 +418,7 @@ export const lerpPrecisionWarining = () => {
 
 /**
  * @param {any} methodName
- * @returns Void
+ * @returns {void}
  */
 export const asyncTimelineMetodsInsideGroupWarining = (methodName) => {
     console.warn(
@@ -428,14 +428,14 @@ export const asyncTimelineMetodsInsideGroupWarining = (methodName) => {
 
 /**
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const valueStringWarning = (label) => {
     console.warn(`${label} value must be a string`);
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const asyncTimelineTweenWaring = () => {
     console.warn(
@@ -444,7 +444,7 @@ export const asyncTimelineTweenWaring = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const asyncTimelineDelayWarning = () => {
     console.warn('asyncTimeline arror: delay must be a Number');
@@ -452,7 +452,7 @@ export const asyncTimelineDelayWarning = () => {
 
 /**
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const playLabelWarining = (label) => {
     console.warn(`${label} not found`);
@@ -460,7 +460,7 @@ export const playLabelWarining = (label) => {
 
 /**
  * @param {any} value
- * @returns Void
+ * @returns {void}
  */
 export const addAsyncFunctionWarining = (value) => {
     console.warn(`timeline add async function, ${value} is not a function `);
@@ -469,7 +469,7 @@ export const addAsyncFunctionWarining = (value) => {
 /**
  * @param {any} value
  * @param {any} component
- * @returns Void
+ * @returns {void}
  */
 export const scrollerDirectionWarining = (value, component) => {
     console.warn(
@@ -479,7 +479,7 @@ export const scrollerDirectionWarining = (value, component) => {
 
 /**
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const scrollerDynmicValueWarining = (label) => {
     console.warn(
@@ -488,7 +488,7 @@ export const scrollerDynmicValueWarining = (label) => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const scrollerDynmicRangeValueWarining = () => {
     console.warn(
@@ -497,7 +497,7 @@ export const scrollerDynmicRangeValueWarining = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const scrollerTweenWarning = () => {
     console.warn(
@@ -508,7 +508,7 @@ export const scrollerTweenWarning = () => {
 /**
  * @param {any} value
  * @param {any} choice
- * @returns Void
+ * @returns {void}
  */
 export const scrollerAlignWarining = (value, choice) => {
     console.warn(
@@ -521,7 +521,7 @@ export const scrollerAlignWarining = (value, choice) => {
 /**
  * @param {any} value
  * @param {any} choice
- * @returns Void
+ * @returns {void}
  */
 export const scrollerOnSwitchWarining = (value, choice) => {
     console.warn(
@@ -534,7 +534,7 @@ export const scrollerOnSwitchWarining = (value, choice) => {
 /**
  * @param {any} val
  * @param {any} label
- * @returns Void
+ * @returns {void}
  */
 export const scrollerOpacityWarning = (val, label) => {
     console.warn(
@@ -545,7 +545,7 @@ export const scrollerOpacityWarning = (val, label) => {
 /**
  * @param {any} value
  * @param {any} choice
- * @returns Void
+ * @returns {void}
  */
 export const scrollerTypeWarining = (value, choice) => {
     console.warn(
@@ -558,7 +558,7 @@ export const scrollerTypeWarining = (value, choice) => {
 /**
  * @param {any} value
  * @param {any} choice
- * @returns Void
+ * @returns {void}
  */
 export const scrollerPropiertiesWarining = (value, choice) => {
     console.warn(
@@ -571,7 +571,7 @@ export const scrollerPropiertiesWarining = (value, choice) => {
 /**
  * @param {any} value
  * @param {any} choice
- * @returns Void
+ * @returns {void}
  */
 export const scrollerEaseTypeWarining = (value, choice) => {
     console.warn(
@@ -585,7 +585,7 @@ export const scrollerEaseTypeWarining = (value, choice) => {
  * @param {any} value
  * @param {any} choice
  * @param {any} component
- * @returns Void
+ * @returns {void}
  */
 export const genericEaseTypeWarining = (value, choice, component) => {
     console.warn(
@@ -596,7 +596,7 @@ export const genericEaseTypeWarining = (value, choice, component) => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const scrollerEaseTypeSpringWarining = () => {
     console.warn(
@@ -607,7 +607,7 @@ export const scrollerEaseTypeSpringWarining = () => {
 /**
  * @param {any} value
  * @param {any} choice
- * @returns Void
+ * @returns {void}
  */
 export const scrollerSpringCongifWarining = (value, choice) => {
     console.warn(
@@ -619,7 +619,7 @@ export const scrollerSpringCongifWarining = (value, choice) => {
 
 /**
  * @param {any} value
- * @returns Void
+ * @returns {void}
  */
 export const scrollerRangeNumberWarning = (value) => {
     console.warn(
@@ -629,7 +629,7 @@ export const scrollerRangeNumberWarning = (value) => {
 
 /**
  * @param {any} value
- * @returns Void
+ * @returns {void}
  */
 export const scrollerRangeStringWarning = (value) => {
     console.warn(
@@ -642,7 +642,7 @@ export const scrollerRangeStringWarning = (value) => {
  * @param {any} choice
  * @param {any} label
  * @param {any} component
- * @returns Void
+ * @returns {void}
  */
 export const breakpointWarning = (mq, choice, label, component) => {
     console.warn(
@@ -653,7 +653,7 @@ export const breakpointWarning = (mq, choice, label, component) => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const scrollerUseSequencerWarining = () => {
     console.warn(
@@ -662,7 +662,7 @@ export const scrollerUseSequencerWarining = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const scrollerLerpConfigWarning = () => {
     console.warn(
@@ -671,7 +671,7 @@ export const scrollerLerpConfigWarning = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const scrollerNoTweenDefinedWarning = () => {
     console.warn(
@@ -680,7 +680,7 @@ export const scrollerNoTweenDefinedWarning = () => {
 };
 
 /**
- * @returns Void
+ * @returns {void}
  */
 export const scrollerUseTweenButNotProsDefinedWarning = () => {
     console.warn(
@@ -691,7 +691,7 @@ export const scrollerUseTweenButNotProsDefinedWarning = () => {
 /**
  * @param {any} label
  * @param {any} value
- * @returns Void
+ * @returns {void}
  */
 export const functionIsValidAndReturnDefaultWarining = (label, value) => {
     console.warn(`${label}: ${value} is not a function`);
@@ -701,7 +701,7 @@ export const functionIsValidAndReturnDefaultWarining = (label, value) => {
  * @param {any} string
  * @param {any} properties
  * @param {any} choice
- * @returns Void
+ * @returns {void}
  */
 export const scrollTriggerRangeWarning = (string, properties, choice) => {
     console.warn(
@@ -713,7 +713,7 @@ export const scrollTriggerRangeWarning = (string, properties, choice) => {
 
 /**
  * @param {any} properties
- * @returns Void
+ * @returns {void}
  */
 export const scrollTriggerCustomRangeWarning = (properties) => {
     console.warn(
@@ -724,7 +724,7 @@ export const scrollTriggerCustomRangeWarning = (properties) => {
 /**
  * @param {any} string
  * @param {any} properties
- * @returns Void
+ * @returns {void}
  */
 export const scrollTriggerRangeScaleWarning = (string, properties) => {
     console.warn(

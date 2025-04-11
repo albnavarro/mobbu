@@ -9,7 +9,6 @@ import { removeOrphansPropsFromParent } from '../../../modules/static-props';
  *
  * @returns {void}
  */
-
 export const removeOrphanTempIds = () => {
     /**
      * Remove props reference. Async loading and interrupt can leave rubbish.

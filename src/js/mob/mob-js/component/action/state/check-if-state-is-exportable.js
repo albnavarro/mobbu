@@ -8,7 +8,6 @@ import { getComponentList } from '../../component-list';
  * @param {string} obj.propName
  * @returns {boolean}
  */
-
 export const checkIfStateIsExportable = ({ componentName, propName }) => {
     const componentList = getComponentList();
 

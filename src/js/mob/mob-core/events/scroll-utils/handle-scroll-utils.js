@@ -41,7 +41,7 @@ function handleScrollUtils(type) {
     let isScrolling = false;
 
     /**
-     * @returns Void
+     * @returns {void}
      */
     function handler() {
         isScrolling = false;

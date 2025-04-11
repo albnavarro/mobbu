@@ -51,7 +51,7 @@ export const getPropsFromParent = (id = '') => {
  *
  * @param {object} obj
  * @param {string} obj.propsId
- * @returns Void
+ * @returns {void}
  */
 export const removeCurrentToPropsByPropsId = ({ propsId }) => {
     if (!propsId) return;
@@ -62,7 +62,7 @@ export const removeCurrentToPropsByPropsId = ({ propsId }) => {
  * Delete all refs of props. If slot in unused and a propsFromStore is unused remain in store So when active parser
  * counter is equal 0 ( no parser is running ) remove all reference
  *
- * @returns Void
+ * @returns {void}
  */
 export const removeOrphansPropsFromParent = () => {
     staticPropsMap.clear();

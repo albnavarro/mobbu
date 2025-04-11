@@ -5,9 +5,8 @@ import { bindPropsMap } from './bind-props-map';
  *
  * @param {object} obj
  * @param {string} obj.componentId
- * @returns Void
+ * @returns {void}
  */
-
 export const removeCurrentIdToBindProps = ({ componentId }) => {
     if (!componentId) return;
 

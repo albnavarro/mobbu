@@ -58,7 +58,7 @@ export const getChildrenIdByName = ({ id = '', componentName = '' }) => {
  * @param {string} obj.id
  * @param {string} obj.componentName
  * @param {(HTMLElement | undefined)[]} [obj.filterBy]
- * @returns Void
+ * @returns {void}
  */
 export const updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
     /*

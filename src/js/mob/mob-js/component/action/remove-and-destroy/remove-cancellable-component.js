@@ -8,7 +8,6 @@ import { removeAndDestroyById } from './remove-and-destroy-by-id';
  *
  * @returns {void}
  */
-
 export const removeCancellableComponent = () => {
     const cancellableComponents = [...componentMap.values()].filter(
         ({ persistent }) => !persistent

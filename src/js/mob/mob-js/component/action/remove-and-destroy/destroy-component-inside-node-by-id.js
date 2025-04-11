@@ -9,9 +9,8 @@ import { removeAndDestroyById } from './remove-and-destroy-by-id';
  * @param {Object} param
  * @param {string} param.id
  * @param {Element | HTMLElement} param.container
- * @returns Void
+ * @returns {void}
  */
-
 export const destroyComponentInsideNodeById = ({ id, container }) => {
     const instanceValue = componentMap.get(id);
     const child = instanceValue?.child;

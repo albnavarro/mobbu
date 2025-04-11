@@ -13,7 +13,7 @@ export const onMountCallbackMap = new Map();
  * @param {object} params
  * @param {string} params.id - Random Id
  * @param {import('./type').OnMountCallback} params.cb - OnMount callback
- * @returns Void
+ * @returns {void}
  */
 export const addOnMoutCallback = ({ id, cb = () => {} }) => {
     onMountCallbackMap.set(id, cb);
@@ -54,7 +54,7 @@ export const fireOnMountCallBack = async ({ id, element }) => {
  *
  * @param {object} params
  * @param {string} params.id - Random Id
- * @returns Void
+ * @returns {void}
  */
 export const removeOnMountCallbackReference = ({ id }) => {
     onMountCallbackMap.delete(id);

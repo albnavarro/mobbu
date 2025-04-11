@@ -9,7 +9,6 @@ import { removeChildFromChildrenArray } from '../../utils';
  * @param {string | undefined} param.parentId
  * @param {string} param.componentName
  */
-
 export const removeItselfFromParent = ({ id, parentId, componentName }) => {
     if (!id) return;
 

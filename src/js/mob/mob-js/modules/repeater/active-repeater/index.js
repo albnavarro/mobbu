@@ -12,7 +12,7 @@ export const activeRepeatMap = new Set();
  * @param {string} obj.id
  * @param {string} obj.state
  * @param {HTMLElement} obj.container
- * @returns Void
+ * @returns {void}
  */
 export const addActiveRepeat = ({ id, state, container }) => {
     activeRepeatMap.add({ id, state, container });
@@ -25,7 +25,7 @@ export const addActiveRepeat = ({ id, state, container }) => {
  * @param {string} obj.id
  * @param {string} obj.state
  * @param {HTMLElement | undefined} obj.container
- * @returns Void
+ * @returns {void}
  */
 export const removeActiveRepeat = ({ id, state, container }) => {
     if (!container) return;

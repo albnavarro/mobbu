@@ -66,7 +66,7 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
  * @param {object} params
  * @param {HTMLElement | undefined} params.element
  * @param {string} params.id
- * @returns Void
+ * @returns {void}
  */
 export const addParentIdToFutureComponent = ({ element, id }) => {
     if (!element) return;

@@ -94,7 +94,7 @@ export const setBindProps = (data) => {
  * @param {(arg0: Record<string, any>, value: Record<string, any>, index: number) => object} obj.props
  * @param {string} obj.currentParentId
  * @param {boolean} obj.fireCallback
- * @returns Void
+ * @returns {void}
  */
 const updateBindProp = ({
     componentId,
@@ -179,7 +179,7 @@ const updateBindProp = ({
  * @param {string | undefined} obj.propsId
  * @param {string | undefined} [obj.repeatPropBind]
  * @param {string} obj.componentId
- * @returns Void
+ * @returns {void}
  */
 export const addCurrentIdToBindProps = ({
     propsId,
@@ -206,7 +206,7 @@ export const addCurrentIdToBindProps = ({
  *
  * @param {object} obj
  * @param {string} obj.propsId
- * @returns Void
+ * @returns {void}
  */
 export const removeCurrentToBindPropsByPropsId = ({ propsId }) => {
     if (!propsId) return;
@@ -221,7 +221,7 @@ export const removeCurrentToBindPropsByPropsId = ({ propsId }) => {
  * @param {string} obj.componentId
  * @param {string | undefined} [obj.repeatPropBind]
  * @param {boolean} obj.inizilizeWatcher
- * @returns Void
+ * @returns {Promise<void>}
  */
 export const applyBindProps = async ({
     componentId,
@@ -405,7 +405,7 @@ export const applyBindProps = async ({
  * Delete all refs of events. If slot in unused and a propsFromStore is unused remain in store So when active parser
  * counter is equal 0 ( no parser is running ) remove all reference
  *
- * @returns Void
+ * @returns {void}
  */
 export const removeOrphansBindProps = () => {
     bindPropsMap.clear();

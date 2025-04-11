@@ -23,7 +23,7 @@ function hasAnchor({ label }) {
  * @param {string} params.id
  * @param {string} params.label
  * @param {HTMLElement} params.element
- * @returns Void
+ * @returns {Promise<void>}
  */
 const addItemToScrollComponent = async ({ id, label, element }) => {
     // Wait that all components is mounted.

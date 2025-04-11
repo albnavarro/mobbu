@@ -29,7 +29,7 @@ let previousWindowHeight = window.innerHeight;
 let previousWindowWidth = window.innerWidth;
 
 /**
- * @returns Void
+ * @returns {void}
  */
 function handler() {
     /**

@@ -33,7 +33,7 @@ const updateKeys = (currentFrameLimit) => {
  * @param {number} obj.currentFrame
  * @param {number} obj.time
  * @param {number} obj.fps
- * @returns Void
+ * @returns {void}
  */
 const fire = ({ currentFrame, time, fps }) => {
     /**

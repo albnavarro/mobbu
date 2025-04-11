@@ -13,9 +13,8 @@ import { removeItselfFromParent } from './remove-itself-from-parent';
  *
  * @param {object} obj
  * @param {string} obj.id
- * @returns Void
+ * @returns {void}
  */
-
 export const removeAndDestroyById = ({ id = '' }) => {
     if (!id || id === '') return;
 

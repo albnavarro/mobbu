@@ -27,7 +27,7 @@ const availableComponent = new Set();
 /**
  * Inizalize components
  *
- * @returns Void
+ * @returns {void}
  */
 export const setComponentList = () => {
     componentListMap = [...availableComponent.values()].reduce(

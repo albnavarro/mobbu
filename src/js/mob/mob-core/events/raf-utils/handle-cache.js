@@ -60,7 +60,7 @@ const add = (el = {}, fn = () => {}) => {
  * @param {string} obj.id
  * @param {Record<string, number>} obj.callBackObject
  * @param {number} obj.frame
- * @returns Void
+ * @returns {void}
  */
 const update = ({ id, callBackObject, frame }) => {
     if (!subscriberMap.has(id)) return;
@@ -85,7 +85,7 @@ const update = ({ id, callBackObject, frame }) => {
  *
  * @memberof module:handleCache
  * @param {string} id
- * @returns Void
+ * @returns {void}
  */
 const remove = (id) => {
     if (subscriberMap.has(id)) subscriberMap.delete(id);
@@ -95,7 +95,7 @@ const remove = (id) => {
  * Reset item data
  *
  * @param {string} id
- * @returns Void
+ * @returns {void}
  */
 const clean = (id) => {
     const el = subscriberMap.get(id);
@@ -125,7 +125,7 @@ const get = (id) => {
  * Render obj on specific frame and delete rendered object.
  *
  * @param {number} frameCounter - Frame to render.
- * @returns Void
+ * @returns {void}
  */
 const fire = (frameCounter) => {
     for (const value of subscriberMap.values()) {
@@ -147,7 +147,7 @@ const fire = (frameCounter) => {
  * @param {Object} obj
  * @param {string} obj.id
  * @param {Record<string, number>} obj.obj
- * @returns Void
+ * @returns {void}
  */
 const fireObject = ({ id, obj = {} }) => {
     if (!subscriberMap.has(id)) return;

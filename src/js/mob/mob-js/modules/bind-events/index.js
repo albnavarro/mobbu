@@ -90,7 +90,7 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
  * Delete all refs of events. If slot in unused and a propsFromStore is unused remain in store So when active parser
  * counter is equal 0 ( no parser is running ) remove all reference
  *
- * @returns Void
+ * @returns {void}
  */
 export const removeOrphansBindEvent = () => {
     bindEventMap.clear();

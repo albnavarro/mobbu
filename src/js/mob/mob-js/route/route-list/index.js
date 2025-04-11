@@ -19,7 +19,7 @@ let pageNotFound = '';
  * Add route list to store.
  *
  * @param {import('../../type').Route[]} list
- * @returns Void
+ * @returns {void}
  */
 export const setRouteList = (list) => {
     routeList = [...list];
@@ -41,7 +41,7 @@ export const getRouteByName = ({ routeName = '' }) => {
  *
  * @param {object} obj
  * @param {string} obj.routeName
- * @returns Void
+ * @returns {void}
  */
 export const setIndex = ({ routeName = '' }) => {
     indexPage = routeName;
@@ -59,7 +59,7 @@ export const getIndex = () => indexPage;
  *
  * @param {object} obj
  * @param {string} obj.routeName
- * @returns Void
+ * @returns {void}
  */
 export const setPageNotFound = ({ routeName = '' }) => {
     pageNotFound = routeName;

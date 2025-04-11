@@ -125,7 +125,7 @@ const shouldMakeSomethingCheck = () => fps < (maxFps / 5) * 4;
 /**
  * If frame dropper for X seconds mustMakeSomethingIsActive = true
  *
- * @returns Void
+ * @returns {void}
  */
 const mustMakeSomethingStart = () => {
     if (!mustMakeSomethingCheck() || mustMakeSomethingIsActive) return;
@@ -139,7 +139,7 @@ const mustMakeSomethingStart = () => {
 /**
  * If frame dropper for X seconds shouldMakeSomethingIsActive = true
  *
- * @returns Void
+ * @returns {void}
  */
 const shouldMakeSomethingStart = () => {
     if (!shouldMakeSomethingCheck() || shouldMakeSomethingIsActive) return;
@@ -167,7 +167,7 @@ eventStore.watch('requestFrame', () => {
 /**
  * Next tick function
  *
- * @returns Void
+ * @returns {void}
  */
 const nextTickFn = () => {
     /*
@@ -220,7 +220,7 @@ const nextTickFn = () => {
 
 /**
  * @param {number} timestamp
- * @returns Void
+ * @returns {void}
  */
 const render = (timestamp) => {
     /**
@@ -336,7 +336,7 @@ const render = (timestamp) => {
 /**
  * Init new frame if is not running
  *
- * @returns Void
+ * @returns {void}
  */
 const initFrame = () => {
     if (frameIsRuning) return;
@@ -387,7 +387,7 @@ export const handleFrame = (() => {
      *     ```;
      *
      * @param {import('./type.js').HandleFrameCallbak} cb - Callback function
-     * @returns Void
+     * @returns {void}
      */
     const add = (cb) => {
         callback.push(cb);

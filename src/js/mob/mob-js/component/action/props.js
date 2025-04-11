@@ -25,7 +25,7 @@ export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
  *
  * @param {object} obj
  * @param {string} obj.id
- * @returns Void
+ * @returns {void}
  */
 export const unBind = ({ id = '' }) => {
     if (!id || id === '') return;
