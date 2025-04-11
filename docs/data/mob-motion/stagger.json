@@ -73,7 +73,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/staggerInterface.js",
+                "source": "./snippets/mob-motion/staggerInterface.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -105,7 +105,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/each.js",
+                "source": "./snippets/mob-motion/each.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -151,7 +151,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/waitComplete.js",
+                "source": "./snippets/mob-motion/waitComplete.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -197,7 +197,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/from.js",
+                "source": "./snippets/mob-motion/from.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -243,7 +243,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/grid.js",
+                "source": "./snippets/mob-motion/grid.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

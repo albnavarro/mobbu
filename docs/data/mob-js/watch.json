@@ -44,7 +44,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/watch.js",
+                "source": "./snippets/mob-js/watch.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

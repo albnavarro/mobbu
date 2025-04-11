@@ -33,7 +33,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerInit.js",
+                "source": "./snippets/mob-motion/scrollTriggerInit.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -56,7 +56,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerType.d.ts",
+                "source": "./snippets/mob-motion/scrollTriggerType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -458,7 +458,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerRange.js",
+                "source": "./snippets/mob-motion/scrollTriggerRange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -509,7 +509,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerDynamicRange.js",
+                "source": "./snippets/mob-motion/scrollTriggerDynamicRange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -561,7 +561,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerTween.js",
+                "source": "./snippets/mob-motion/scrollTriggerTween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -689,7 +689,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerStart.js",
+                "source": "./snippets/mob-motion/scrollTriggerStart.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -788,7 +788,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerDynamicStart.js",
+                "source": "./snippets/mob-motion/scrollTriggerDynamicStart.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -842,7 +842,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerMarker.js",
+                "source": "./snippets/mob-motion/scrollTriggerMarker.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -971,7 +971,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerEasing.js",
+                "source": "./snippets/mob-motion/scrollTriggerEasing.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -1065,7 +1065,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerPin.js",
+                "source": "./snippets/mob-motion/scrollTriggerPin.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -1170,7 +1170,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerEvent.js",
+                "source": "./snippets/mob-motion/scrollTriggerEvent.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -1257,7 +1257,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerUtils.js",
+                "source": "./snippets/mob-motion/scrollTriggerUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -1302,7 +1302,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerInit.js",
+                "source": "./snippets/mob-motion/scrollTriggerInit.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -1357,7 +1357,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerMove.js",
+                "source": "./snippets/mob-motion/scrollTriggerMove.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -1395,7 +1395,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerRefresh.js",
+                "source": "./snippets/mob-motion/scrollTriggerRefresh.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -1427,7 +1427,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/scrollTriggerDestroy.js",
+                "source": "./snippets/mob-motion/scrollTriggerDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

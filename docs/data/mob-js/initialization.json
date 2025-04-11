@@ -49,7 +49,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/index.js",
+                "source": "./snippets/mob-js/index.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -79,7 +79,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/initialization.js",
+                "source": "./snippets/mob-js/initialization.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -132,7 +132,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/wrapper.js",
+                "source": "./snippets/mob-js/wrapper.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -191,7 +191,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/defaults.js",
+                "source": "./snippets/mob-js/defaults.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

@@ -189,7 +189,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/repeat-type.d.ts",
+                "source": "./snippets/mob-js/repeat-type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -212,7 +212,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/repeat-no-key.js",
+                "source": "./snippets/mob-js/repeat-no-key.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -235,7 +235,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/repeat-with-key.js",
+                "source": "./snippets/mob-js/repeat-with-key.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -258,7 +258,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/repeat-native-dom.js",
+                "source": "./snippets/mob-js/repeat-native-dom.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -281,7 +281,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/repeat-useSync.js",
+                "source": "./snippets/mob-js/repeat-useSync.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -304,7 +304,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/repeat-multiple-element.js",
+                "source": "./snippets/mob-js/repeat-multiple-element.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

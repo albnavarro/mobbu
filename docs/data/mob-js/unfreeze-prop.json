@@ -37,7 +37,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/unFreezeProp.js",
+                "source": "./snippets/mob-js/unFreezeProp.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

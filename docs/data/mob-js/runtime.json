@@ -58,7 +58,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/runtime.js",
+                "source": "./snippets/mob-js/runtime.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

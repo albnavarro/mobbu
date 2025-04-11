@@ -69,7 +69,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/refs.js",
+                "source": "./snippets/mob-js/refs.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -106,7 +106,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/refsInvalidate.js",
+                "source": "./snippets/mob-js/refsInvalidate.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

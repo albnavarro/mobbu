@@ -58,7 +58,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/computed.js",
+                "source": "./snippets/mob-js/computed.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -82,7 +82,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/computedAuto.js",
+                "source": "./snippets/mob-js/computedAuto.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

@@ -37,7 +37,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/emit.js",
+                "source": "./snippets/mob-js/emit.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

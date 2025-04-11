@@ -85,7 +85,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/bindStore.js",
+                "source": "./snippets/mob-js/bindStore.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

@@ -120,7 +120,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/invalidate-type.d.ts",
+                "source": "./snippets/mob-js/invalidate-type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -136,7 +136,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/invalidate.js",
+                "source": "./snippets/mob-js/invalidate.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

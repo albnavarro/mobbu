@@ -50,7 +50,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/staticProps.js",
+                "source": "./snippets/mob-js/staticProps.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

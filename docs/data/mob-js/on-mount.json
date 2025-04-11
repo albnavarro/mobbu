@@ -114,7 +114,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/onmount.js",
+                "source": "./snippets/mob-js/onmount.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -144,7 +144,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/onmountAsync.js",
+                "source": "./snippets/mob-js/onmountAsync.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -175,7 +175,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/onmountTips.js",
+                "source": "./snippets/mob-js/onmountTips.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

@@ -64,7 +64,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/bindEvents.js",
+                "source": "./snippets/mob-js/bindEvents.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -101,7 +101,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/bindEventsExtra.js",
+                "source": "./snippets/mob-js/bindEventsExtra.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

@@ -37,7 +37,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/tick.js",
+                "source": "./snippets/mob-js/tick.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

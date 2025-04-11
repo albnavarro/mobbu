@@ -37,7 +37,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/methods.js",
+                "source": "./snippets/mob-js/methods.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

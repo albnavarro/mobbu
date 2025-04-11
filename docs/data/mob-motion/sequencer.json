@@ -107,7 +107,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/sequencerType.d.ts",
+                "source": "./snippets/mob-motion/sequencerType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -137,7 +137,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/sequencer.js",
+                "source": "./snippets/mob-motion/sequencer.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -200,7 +200,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/sequencerGoTo.js",
+                "source": "./snippets/mob-motion/sequencerGoTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -232,7 +232,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/sequencerGoFrom.js",
+                "source": "./snippets/mob-motion/sequencerGoFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -264,7 +264,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/sequencerGoFromTo.js",
+                "source": "./snippets/mob-motion/sequencerGoFromTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -333,7 +333,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/sequencerAdd.js",
+                "source": "./snippets/mob-motion/sequencerAdd.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -365,7 +365,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/sequencerLabel.js",
+                "source": "./snippets/mob-motion/sequencerLabel.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -397,7 +397,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/sequencerSubscribe.js",
+                "source": "./snippets/mob-motion/sequencerSubscribe.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -436,7 +436,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/sequencerSubscribeCache.js",
+                "source": "./snippets/mob-motion/sequencerSubscribeCache.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -468,7 +468,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/onStop.js",
+                "source": "./snippets/mob-motion/onStop.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -500,7 +500,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobMotion/masterSequencer.js",
+                "source": "./snippets/mob-motion/masterSequencer.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

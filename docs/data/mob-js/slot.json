@@ -48,7 +48,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/slotUnamed.js",
+                "source": "./snippets/mob-js/slotUnamed.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -73,7 +73,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/slotNamed.js",
+                "source": "./snippets/mob-js/slotNamed.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -105,7 +105,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/slotProps.js",
+                "source": "./snippets/mob-js/slotProps.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

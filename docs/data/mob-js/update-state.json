@@ -37,7 +37,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/updateState.js",
+                "source": "./snippets/mob-js/updateState.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

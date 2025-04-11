@@ -33,7 +33,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/utils-use-method-array-by-name.js",
+                "source": "./snippets/mob-js/utils-use-method-array-by-name.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

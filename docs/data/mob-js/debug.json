@@ -64,7 +64,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/debug.js",
+                "source": "./snippets/mob-js/debug.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
