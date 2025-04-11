@@ -54,7 +54,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelineSchema.d.ts",
+                "source": "./snippets/mob-motion/sync-timeline-schema.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -70,7 +70,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimeline.js",
+                "source": "./snippets/mob-motion/sync-timeline.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -161,7 +161,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelineExample.js",
+                "source": "./snippets/mob-motion/sync-timeline-example.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -200,7 +200,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimeAdd.js",
+                "source": "./snippets/mob-motion/sync-time-add.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -276,7 +276,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelinePlay.js",
+                "source": "./snippets/mob-motion/sync-timeline-play.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -308,7 +308,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelinePlayFrom.js",
+                "source": "./snippets/mob-motion/sync-timeline-play-from.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -340,7 +340,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelineReverse.js",
+                "source": "./snippets/mob-motion/sync-timeline-reverse.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -372,7 +372,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelinePause.js",
+                "source": "./snippets/mob-motion/sync-timeline-pause.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -421,7 +421,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelineLoop.js",
+                "source": "./snippets/mob-motion/sync-timeline-loop.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -453,7 +453,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelinecomplete.js",
+                "source": "./snippets/mob-motion/sync-timeline-complete.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -502,7 +502,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelineUpdate.js",
+                "source": "./snippets/mob-motion/sync-timeline-update.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -534,7 +534,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelineDestroy.js",
+                "source": "./snippets/mob-motion/sync-timeline-destroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -566,7 +566,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/syncTimelineUtils.js",
+                "source": "./snippets/mob-motion/sync-timeline-utils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

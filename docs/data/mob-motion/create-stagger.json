@@ -95,7 +95,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/staggerInterfaceType.js",
+                "source": "./snippets/mob-motion/stagger-interface-type.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -124,7 +124,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/createStagger.js",
+                "source": "./snippets/mob-motion/create-stagger.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

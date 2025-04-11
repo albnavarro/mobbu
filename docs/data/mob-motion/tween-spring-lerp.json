@@ -205,7 +205,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/tweenType.d.ts",
+                "source": "./snippets/mob-motion/tween-type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -319,7 +319,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/springType.d.ts",
+                "source": "./snippets/mob-motion/spring-type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -426,7 +426,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/lerpType.d.ts",
+                "source": "./snippets/mob-motion/lerp-type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -525,7 +525,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/goTo.js",
+                "source": "./snippets/mob-motion/go-to.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -571,7 +571,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/goFrom.js",
+                "source": "./snippets/mob-motion/go-from.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -617,7 +617,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/goFromTo.js",
+                "source": "./snippets/mob-motion/go-from-to.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -759,7 +759,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/subscribeCache.js",
+                "source": "./snippets/mob-motion/subscribe-cache.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -791,7 +791,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/onComplete.js",
+                "source": "./snippets/mob-motion/on-complete.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

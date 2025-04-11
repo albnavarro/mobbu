@@ -73,7 +73,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/staggerInterface.js",
+                "source": "./snippets/mob-motion/stagger-interface.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -151,7 +151,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/waitComplete.js",
+                "source": "./snippets/mob-motion/wait-complete.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

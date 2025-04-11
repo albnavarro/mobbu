@@ -33,7 +33,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxInit.js",
+                "source": "./snippets/mob-motion/parallax-init.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -56,7 +56,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxType.d.ts",
+                "source": "./snippets/mob-motion/parallax-type.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -304,7 +304,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxPropierties.js",
+                "source": "./snippets/mob-motion/parallax-propierties.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -362,7 +362,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxRange.js",
+                "source": "./snippets/mob-motion/parallax-range.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -422,7 +422,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxOpacity.js",
+                "source": "./snippets/mob-motion/parallax-opacity.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -536,7 +536,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxTween.js",
+                "source": "./snippets/mob-motion/parallax-tween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -686,7 +686,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxAlign.js",
+                "source": "./snippets/mob-motion/parallax-align.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -725,7 +725,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxOnSwitch.js",
+                "source": "./snippets/mob-motion/parallax-on-switch.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -825,7 +825,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxEasing.js",
+                "source": "./snippets/mob-motion/parallax-easing.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -912,7 +912,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxUtils.js",
+                "source": "./snippets/mob-motion/parallax-utils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -957,7 +957,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxInit.js",
+                "source": "./snippets/mob-motion/parallax-init.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -995,7 +995,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxRefresh.js",
+                "source": "./snippets/mob-motion/parallax-refresh.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -1027,7 +1027,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/parallaxDestroy.js",
+                "source": "./snippets/mob-motion/parallax-destroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

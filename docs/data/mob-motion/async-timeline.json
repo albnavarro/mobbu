@@ -40,7 +40,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineSchema.d.ts",
+                "source": "./snippets/mob-motion/async-timeline-schema.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -56,7 +56,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimeline.js",
+                "source": "./snippets/mob-motion/async-timeline.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -167,7 +167,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineExample.js",
+                "source": "./snippets/mob-motion/async-timeline-example.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -205,7 +205,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncOverride.js",
+                "source": "./snippets/mob-motion/async-override.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -237,7 +237,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineSet.js",
+                "source": "./snippets/mob-motion/async-timeline-set.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -262,7 +262,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineGoTo.js",
+                "source": "./snippets/mob-motion/async-timeline-go-to.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -287,7 +287,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineGoFrom.js",
+                "source": "./snippets/mob-motion/async-timeline-go-from.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -312,7 +312,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineGoFromTo.js",
+                "source": "./snippets/mob-motion/async-timeline-go-from-to.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -368,7 +368,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineAdd.js",
+                "source": "./snippets/mob-motion/async-timeline-add.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -400,7 +400,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineSync.js",
+                "source": "./snippets/mob-motion/async-timeline-sync.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -449,7 +449,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineGroup.js",
+                "source": "./snippets/mob-motion/async-timeline-group.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -481,7 +481,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineSuspend.js",
+                "source": "./snippets/mob-motion/async-timeline-suspend.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -513,7 +513,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineLabel.js",
+                "source": "./snippets/mob-motion/async-timeline-label.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -545,7 +545,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineSetTween.js",
+                "source": "./snippets/mob-motion/async-timeline-set-tween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -584,7 +584,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelinePlay.js",
+                "source": "./snippets/mob-motion/async-timeline-play.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -616,7 +616,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelinePlayFrom.js",
+                "source": "./snippets/mob-motion/async-timeline-play-from.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -648,7 +648,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelinePause.js",
+                "source": "./snippets/mob-motion/async-timeline-pause.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -680,7 +680,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineNext.js",
+                "source": "./snippets/mob-motion/async-timeline-next.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -748,7 +748,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineEvents.js",
+                "source": "./snippets/mob-motion/async-timeline-events.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -780,7 +780,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineDestroy.js",
+                "source": "./snippets/mob-motion/async-timeline-destroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -819,7 +819,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-motion/asyncTimelineUtils.js",
+                "source": "./snippets/mob-motion/async-timeline-utils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
