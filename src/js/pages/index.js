@@ -724,7 +724,7 @@ export const routes = [
         name: 'mobMotion-scrolltrigger',
         layout: layoutSidebarAnchor,
         props: {
-            source: './data/mob-motion/scrollTrigger.json',
+            source: './data/mob-motion/scroll-trigger.json',
             title: 'ScrollTrigger',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
@@ -733,7 +733,7 @@ export const routes = [
         name: 'mobMotion-sync-timeline',
         layout: layoutSidebarAnchor,
         props: {
-            source: './data/mob-motion/syncTimeline.json',
+            source: './data/mob-motion/sync-timeline.json',
             title: 'Sync timeline',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
@@ -742,7 +742,7 @@ export const routes = [
         name: 'mobMotion-create-stagger',
         layout: layoutSidebarAnchor,
         props: {
-            source: './data/mob-motion/createStagger.json',
+            source: './data/mob-motion/create-stagger.json',
             title: 'CreateStagger',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
@@ -751,7 +751,7 @@ export const routes = [
         name: 'mobMotion-async-timeline',
         layout: layoutSidebarAnchor,
         props: {
-            source: './data/mob-motion/asyncTimeline.json',
+            source: './data/mob-motion/async-timeline.json',
             title: 'Async timeline',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
@@ -760,7 +760,7 @@ export const routes = [
         name: 'mobMotion-tween-spring-lerp',
         layout: layoutSidebarAnchor,
         props: {
-            source: './data/mob-motion/tweenSpringLerp.json',
+            source: './data/mob-motion/tween-spring-lerp.json',
             title: 'Tween Spring Lerp',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
         },
