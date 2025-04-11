@@ -3,8 +3,6 @@
 ### eslint:
 
 - Valutare: `unicorn/no-array-for-each': 'off'` `--fix` sembra funzionare in maniera corretta.
-- Valutare https://github.com/gajus/eslint-plugin-jsdoc
-- Valutare https://github.com/hosseinmd/prettier-plugin-jsdoc / `prettier . --write`
 - Valutare per ora solo a livello di store https://github.com/eslint-functional/eslint-plugin-functional
 
 ### DOCS
@@ -17,6 +15,35 @@
 - ( stringhe non referenze ).
 
 # MobJs
+
+## BindProps:
+- Valutare await `applyBindProps` in `parse-function.js`
+```js
+initializeBindPropsWatcher: async () => {
+    await applyBindProps({
+        componentId: id,
+        repeatPropBind,
+        inizilizeWatcher: true,
+    });
+},
+```
+
+```js
+for (const item of functionToFireAtTheEnd.reverse()) {
+    const {
+        onMount,
+        initializeBindPropsWatcher,
+        fireInvalidateFunction,
+        fireRepeatFunction,
+    } = item;
+
+    await onMount();
+    fireRepeatFunction();
+    fireInvalidateFunction();
+    await initializeBindPropsWatcher();
+}
+```
+
 
 ## Props
 
