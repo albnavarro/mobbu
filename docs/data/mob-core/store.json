@@ -75,7 +75,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/basicUse.js",
+                "source": "./snippets/mob-core/basic-use.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -102,7 +102,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/advancedUse.js",
+                "source": "./snippets/mob-core/advanced-use.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -343,7 +343,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/setParams.js",
+                "source": "./snippets/mob-core/set-params.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -409,7 +409,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/updateParams.js",
+                "source": "./snippets/mob-core/update-params.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -473,7 +473,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/getProp.js",
+                "source": "./snippets/mob-core/get-prop.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -542,7 +542,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/getProxi.js",
+                "source": "./snippets/mob-core/get-proxi.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -608,7 +608,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/watchProps.js",
+                "source": "./snippets/mob-core/watch-props.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -672,7 +672,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/emitAsync.js",
+                "source": "./snippets/mob-core/emit-async.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -768,7 +768,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/computedAuto.js",
+                "source": "./snippets/mob-core/computed-auto.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -791,7 +791,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/computedMulti.js",
+                "source": "./snippets/mob-core/computed-multi.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -851,7 +851,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/bindStore.js",
+                "source": "./snippets/mob-core/bind-store.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

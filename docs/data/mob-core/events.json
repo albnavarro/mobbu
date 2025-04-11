@@ -76,7 +76,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useFrame.js",
+                "source": "./snippets/mob-core/use-frame.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -108,7 +108,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useNextTick.js",
+                "source": "./snippets/mob-core/use-next-tick.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -146,7 +146,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useNextFrame.js",
+                "source": "./snippets/mob-core/use-next-frame.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -184,7 +184,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useFrameIndex.js",
+                "source": "./snippets/mob-core/use-frame-index.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -222,7 +222,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useLoad.js",
+                "source": "./snippets/mob-core/use-load.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -273,7 +273,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useResize.js",
+                "source": "./snippets/mob-core/use-resize.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -319,7 +319,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useVisibilityChange.js",
+                "source": "./snippets/mob-core/use-visibility-change.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -382,7 +382,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useMouseClick.js",
+                "source": "./snippets/mob-core/use-mouse-click.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -430,7 +430,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useMouseWheel.js",
+                "source": "./snippets/mob-core/use-mouse-wheel.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -481,7 +481,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/usePointerEvent.js",
+                "source": "./snippets/mob-core/use-pointer-event.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -528,7 +528,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useScroll.js",
+                "source": "./snippets/mob-core/use-scroll.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -575,7 +575,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useScrollImmediate.js",
+                "source": "./snippets/mob-core/use-scroll-immediate.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -622,7 +622,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useScrollThrottle.js",
+                "source": "./snippets/mob-core/use-scroll-throttle.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -666,7 +666,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/useScrollStart.js",
+                "source": "./snippets/mob-core/use-scroll-start.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -721,7 +721,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/checkType.js",
+                "source": "./snippets/mob-core/check-type.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
