@@ -32993,7 +32993,7 @@ Loading snippet ...</pre
       name: "mobJs-web-component",
       layout: layoutSidebarAnchor,
       props: {
-        source: "./data/mob-js/webComponent.json",
+        source: "./data/mob-js/web-component.json",
         title: "webComponent",
         breadCrumbs: mobJsOverviewBreadCrumbs
       }
@@ -33012,7 +33012,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/useMethodByName.json",
+        source: "./data/mob-js/use-method-by-name.json",
         title: "useMethodByName",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33022,7 +33022,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/useMethodArrayByName.json",
+        source: "./data/mob-js/use-method-array-by-name.json",
         title: "useMethodArrayByName",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33032,7 +33032,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/setStateByName.json",
+        source: "./data/mob-js/set-state-by-name.json",
         title: "setStateByName",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33042,7 +33042,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/updateStateByName.json",
+        source: "./data/mob-js/update-state-by-name.json",
         title: "updateStateByName",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33130,7 +33130,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/onMount.json",
+        source: "./data/mob-js/on-mount.json",
         title: "onMount",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33140,7 +33140,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/getState.json",
+        source: "./data/mob-js/get-state.json",
         title: "getState",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33150,7 +33150,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/setState.json",
+        source: "./data/mob-js/set-state.json",
         title: "setState",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33160,7 +33160,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/updateState.json",
+        source: "./data/mob-js/update-state.json",
         title: "updateState",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33170,7 +33170,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/getProxi.json",
+        source: "./data/mob-js/get-proxi.json",
         title: "getProxi",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33190,7 +33190,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/staticProps.json",
+        source: "./data/mob-js/static-props.json",
         title: "staticProps",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33200,7 +33200,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/bindProps.json",
+        source: "./data/mob-js/bind-props.json",
         title: "bindProps",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33210,7 +33210,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/bindEvents.json",
+        source: "./data/mob-js/bind-events.json",
         title: "bindEvents",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33220,7 +33220,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/delegateEvents.json",
+        source: "./data/mob-js/delegate-events.json",
         title: "delegateEvents",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33230,7 +33230,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/bindStore.json",
+        source: "./data/mob-js/bind-store.json",
         title: "bindStore",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33240,7 +33240,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/bindText.json",
+        source: "./data/mob-js/bind-text.json",
         title: "bindText",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33250,7 +33250,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/bindObject.json",
+        source: "./data/mob-js/bind-object.json",
         title: "bindObject",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33260,7 +33260,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/bindEffect.json",
+        source: "./data/mob-js/bind-effect.json",
         title: "bindEffect",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33330,7 +33330,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/unBind.json",
+        source: "./data/mob-js/unbind.json",
         title: "unBind",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33350,7 +33350,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/emitAsync.json",
+        source: "./data/mob-js/emit-async.json",
         title: "emitAsync",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33370,7 +33370,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/renderDom.json",
+        source: "./data/mob-js/render-dom.json",
         title: "renderDom",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33380,7 +33380,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/removeDom.json",
+        source: "./data/mob-js/remove-dom.json",
         title: "removeDom",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33400,7 +33400,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/getChildren.json",
+        source: "./data/mob-js/get-children.json",
         title: "getChildren",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33410,7 +33410,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/freezeProp.json",
+        source: "./data/mob-js/freeze-prop.json",
         title: "freezeProp",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33420,7 +33420,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/unFreezeProp.json",
+        source: "./data/mob-js/unfreeze-prop.json",
         title: "unFreezeProp",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33430,7 +33430,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/getParentId.json",
+        source: "./data/mob-js/get-parent-id.json",
         title: "getParentId",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33440,7 +33440,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/watchParent.json",
+        source: "./data/mob-js/watch-parent.json",
         title: "watchParent",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33450,7 +33450,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/instanceName.json",
+        source: "./data/mob-js/instance-name.json",
         title: "instanceName",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
@@ -33460,7 +33460,7 @@ Loading snippet ...</pre
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       props: {
-        source: "./data/mob-js/classList.json",
+        source: "./data/mob-js/class-list.json",
         title: "classList",
         breadCrumbs: mobJsComponentBreadCrumbs
       }
