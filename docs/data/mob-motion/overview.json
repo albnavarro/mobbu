@@ -34,26 +34,6 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "dependency:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "<a href='./#mobCore-overview'>mobCore</a>:<br/> The mobMotion and mobCore folders must be at the same level."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
             "content": "Philosophy:"
         },
         {
@@ -70,7 +50,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "big"
             }
         },
         {
@@ -291,7 +271,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "small",
                 "id": "defaults",
                 "label": "Defaults"
             }
