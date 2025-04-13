@@ -33,8 +33,17 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "big"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "index": "01",
+                "isSection": true
+            },
+            "content": "Creation"
         },
         {
             "component": "mob-title",
@@ -157,7 +166,7 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "index": "01",
+                "index": "02",
                 "isSection": true
             },
             "content": "Params"
@@ -305,7 +314,7 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "index": "02",
+                "index": "03",
                 "isSection": true
             },
             "content": "Methods:"
