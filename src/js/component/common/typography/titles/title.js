@@ -12,11 +12,12 @@ const shouldUseTrinagle = (tag) => {
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Title>} */
 export const TitleFn = ({ getState }) => {
-    const { tag, color, isBold } = getState();
+    const { tag, color, isBold, isSection } = getState();
     const colorClass = color === 'inherit' ? '' : `is-${color}`;
     const boldClass = isBold ? `is-bold` : '';
+    const isSectionClass = isSection ? `is-section` : '';
 
-    return html`<${tag} class="mob-title ${colorClass} ${boldClass}">
+    return html`<${tag} class="mob-title ${colorClass} ${boldClass} ${isSectionClass}">
         <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
         <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
             <mobjs-slot></mobjs-slot>

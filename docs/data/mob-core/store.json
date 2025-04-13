@@ -149,7 +149,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Params:"
         },
@@ -289,7 +290,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Methods:"
         },

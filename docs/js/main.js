@@ -23179,10 +23179,11 @@
     return tag === `h1` ? getTrinangle() : "";
   };
   var TitleFn = ({ getState }) => {
-    const { tag, color, isBold } = getState();
+    const { tag, color, isBold, isSection } = getState();
     const colorClass = color === "inherit" ? "" : `is-${color}`;
     const boldClass = isBold ? `is-bold` : "";
-    return renderHtml`<${tag} class="mob-title ${colorClass} ${boldClass}">
+    const isSectionClass = isSection ? `is-section` : "";
+    return renderHtml`<${tag} class="mob-title ${colorClass} ${boldClass} ${isSectionClass}">
         <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
         <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
             <mobjs-slot></mobjs-slot>
@@ -23195,7 +23196,7 @@
     {
       name: "mob-title",
       component: TitleFn,
-      exportState: ["tag", "color", "isBold"],
+      exportState: ["isSection", "tag", "color", "isBold"],
       state: {
         tag: () => ({
           value: "h1",
@@ -23209,6 +23210,10 @@
               val2
             );
           }
+        }),
+        isSection: () => ({
+          value: false,
+          type: Boolean
         }),
         isBold: () => ({
           value: false,

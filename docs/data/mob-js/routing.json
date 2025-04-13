@@ -312,9 +312,16 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Events"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-paragraph",

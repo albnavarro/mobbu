@@ -3115,6 +3115,18 @@ code * {
   height: 6.6666666667rem;
   z-index: -1;
 }
+.html-content h2.is-section {
+  background: #2e3440;
+  color: #fff;
+  padding: 1.3333333333rem 1.3333333333rem 1.3333333333rem 2.6666666667rem;
+  margin-left: calc(2.6666666667rem * -1);
+  margin-right: calc(2.6666666667rem * -1);
+}
+@media (min-width: 100em) {
+  .html-content h2.is-section {
+    margin-right: calc(8.875rem * -1);
+  }
+}
 .html-content h3 {
   border-bottom: 1px black solid;
   padding-bottom: 1.3333333333rem;

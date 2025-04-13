@@ -50,28 +50,22 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "medium"
             }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h2"
-            },
-            "content": "Async vs Sync"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "boxed": true
+                "boxed": true,
+                "note": true
             },
-            "content": "The modules under the async section are based entirely on the concept of promise, while the sync modules are based entirely on the concept of time. The modules are divided as follows to try to make the most of their strong points, and at the same time keep the code more updatable."
+            "content": "The modules under the <strong>async</strong> section are based entirely on the concept of promise, while the <strong>sync</strong> modules are based entirely on the concept of time. The modules are divided as follows to try to make the most of their strong points, and at the same time keep the code more updatable."
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
+                "style": "medium",
                 "id": "async",
                 "label": "Async"
             }
@@ -79,7 +73,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Async:"
         },
@@ -152,7 +147,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Sync:"
         },
@@ -237,7 +233,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Common:"
         },

@@ -24,9 +24,10 @@
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "boxed": true
+                "boxed": true,
+                "note": true
             },
-            "content": "The <span class='quote'>bindEffect</span> module allows you to apply reactive <span class='quote'>classes</span> and <span class='quote'>styles</span> and <span class='quote'>attributes</span> to any type of html tags (component and non-component). The module is divided into <span class='quote'>independent groups</span> to which it is possible to specify the status(es) to be monitored.<br/>The function will then be able to return an <span class='quote'>object</span> or an <span class='quote'>array</span> of objects."
+            "content": "The <strong>bindEffect</strong> module allows you to apply reactive <strong>classes</strong> and <strong>styles</strong> and <strong>attributes</strong> to any type of html tags (component and non-component). The module is divided into <strong>independent groups</strong> to which it is possible to specify the status(es) to be monitored.<r/>The function will then be able to return an <strong>object</strong> or an <span >array</span> of objects."
         },
         {
             "component": "mob-spacer",
