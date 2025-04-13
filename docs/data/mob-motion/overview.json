@@ -63,6 +63,12 @@
             "content": "The modules under the <strong>async</strong> section are based entirely on the concept of promise, while the <strong>sync</strong> modules are based entirely on the concept of time. The modules are divided as follows to try to make the most of their strong points, and at the same time keep the code more updatable."
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "html-content",
             "props": {
                 "useTriangle": false,
