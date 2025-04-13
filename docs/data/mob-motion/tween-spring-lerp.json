@@ -20,7 +20,8 @@
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "boxed": true
+                "boxed": true,
+                "note": true
             },
             "content": "Tweens can be thought of as stores that simply interpolate numbers and launch callbacks."
         },

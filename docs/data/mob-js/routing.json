@@ -68,6 +68,12 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "html-content",
             "props": {
                 "useTriangle": false,
@@ -320,7 +326,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "big"
                         }
                     }
                 ]

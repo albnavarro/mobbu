@@ -168,9 +168,15 @@
                         "content": "Difference from default stagger object:"
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "type:"
                     },
@@ -190,7 +196,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h6"
                         },
                         "content": "equal:"
                     },
@@ -210,7 +216,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h6"
                         },
                         "content": "start:"
                     },
@@ -230,7 +236,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h6"
                         },
                         "content": "end:"
                     },
@@ -250,7 +256,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h6"
                         },
                         "content": "center:"
                     },
@@ -272,7 +278,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "each"
                     },
@@ -300,7 +306,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "waitComplete"
                     },
@@ -328,7 +334,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "from"
                     },
@@ -356,7 +362,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "grid"
                     },
