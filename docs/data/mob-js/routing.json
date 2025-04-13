@@ -42,7 +42,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "It is necessary to load the dependencies before initializing the application through the utility useComponent(). it is not possible to use reactive props in the route as this module is not a component."
+            "content": "It is necessary to load the dependencies before initializing the application through the utility <strong>useComponent()</strong>. <strong>it is not possible to use reactive props</strong> in the route as this <strong>module is not a component</strong>."
         },
         {
             "component": "mob-spacer",

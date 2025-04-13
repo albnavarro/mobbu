@@ -18,9 +18,10 @@
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "boxed": true
+                "boxed": true,
+                "note": true
             },
-            "content": "To use web components it is necessary that in the html function in which the dom is defined, the first node has the same tag used in the <a href='./#mobJs-component'>definition</a> of the component and used to recall it:"
+            "content": "To use web components it is necessary that in the html function in which the dom is defined, the first node has the same tag used in the <strong><a href='./#mobJs-component'>definition</a></strong> of the component and used to recall it:"
         },
         {
             "component": "mob-spacer",

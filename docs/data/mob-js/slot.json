@@ -26,7 +26,8 @@
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "boxed": true
+                "boxed": true,
+                "note": true
             },
             "content": "The slots are identified by the mobjs-slot tag, they can be unnamed or named as in the following examples:"
         },
