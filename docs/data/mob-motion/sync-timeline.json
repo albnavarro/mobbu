@@ -155,9 +155,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
-                            "id": "code_example",
-                            "label": "code&nbsp;example"
+                            "style": "medium"
                         }
                     },
                     {
@@ -186,14 +184,6 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
-                            "id": "add",
-                            "label": "add"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
                             "style": "medium"
                         }
                     }
@@ -206,6 +196,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "add",
+                            "label": "add"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -243,7 +241,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "play",
                             "label": "play/playReverse/stop"
                         }
@@ -319,7 +317,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "playFrom",
                             "label": "playFrom/playFromReverse"
                         }
@@ -351,7 +349,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "reverse",
                             "label": "reverse"
                         }
@@ -383,7 +381,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "pause/resume",
                             "label": "pause/resume"
                         }
@@ -415,7 +413,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "onLoopEnd",
                             "label": "onLoopEnd"
                         }
@@ -464,7 +462,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "onComplete",
                             "label": "onComplete"
                         }
@@ -496,7 +494,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "onUpdate",
                             "label": "onUpdate"
                         }
@@ -545,7 +543,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "destroy",
                             "label": "destroy"
                         }
@@ -577,7 +575,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "utils",
                             "label": "Utils"
                         }

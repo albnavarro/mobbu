@@ -93,7 +93,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "target",
                             "label": "DOM&nbsp;Element"
                         }
@@ -208,7 +208,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "breakpoint",
                             "label": "breakpoint"
                         }
@@ -263,7 +263,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "propierties",
                             "label": "propierties"
                         }
@@ -335,7 +335,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "range",
                             "label": "range"
                         }
@@ -393,7 +393,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "opacity",
                             "label": "opacity&nbspspecial&nbspprops."
                         }
@@ -453,7 +453,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "scrollerTween",
                             "label": "scrollerTween"
                         }
@@ -572,7 +572,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "align",
                             "label": "align"
                         }
@@ -722,7 +722,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "onSwitch",
                             "label": "onSwitch"
                         }
@@ -766,7 +766,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "ease",
                             "label": "ease"
                         }
@@ -866,7 +866,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "utils",
                             "label": "utils&nbsp;parameters"
                         }
@@ -955,14 +955,6 @@
                         "props": {
                             "style": "small"
                         }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
-                            "id": "init",
-                            "label": "init"
-                        }
                     }
                 ]
             }
@@ -973,6 +965,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "init",
+                            "label": "init"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -1016,7 +1016,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "refresh",
                             "label": "refresh"
                         }
@@ -1054,7 +1054,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "destroy",
                             "label": "destroy"
                         }

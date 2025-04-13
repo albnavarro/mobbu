@@ -170,14 +170,6 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
-                            "id": "goto",
-                            "label": "Goto"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
                             "style": "medium"
                         }
                     }
@@ -190,6 +182,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "goto",
+                            "label": "Goto"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -251,7 +251,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "goFrom",
                             "label": "goFrom"
                         }
@@ -283,7 +283,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "goFromTo",
                             "label": "goFromTo"
                         }
@@ -315,7 +315,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "add",
                             "label": "add"
                         }
@@ -384,7 +384,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "label",
                             "label": "label"
                         }
@@ -416,7 +416,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "subscribe",
                             "label": "subscribe"
                         }
@@ -448,7 +448,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "subscribeCache",
                             "label": "subscribeCache"
                         }
@@ -487,7 +487,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "onstop",
                             "label": "onStop"
                         }
@@ -519,7 +519,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "masterSequencer",
                             "label": "masterSequencer"
                         }
@@ -551,7 +551,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "createStagger",
                             "label": "createStagger"
                         }

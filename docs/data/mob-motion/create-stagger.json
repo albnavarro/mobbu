@@ -150,6 +150,14 @@
                 "usePadding": false,
                 "data": [
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "type",
+                            "label": "type"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -158,14 +166,6 @@
                             "useSticky": true
                         },
                         "content": "Difference from default stagger object:"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small",
-                            "id": "type",
-                            "label": "type"
-                        }
                     },
                     {
                         "component": "mob-title",
@@ -264,7 +264,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "each",
                             "label": "each"
                         }
@@ -292,7 +292,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "waitComplete",
                             "label": "waitComplete"
                         }
@@ -320,7 +320,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "from",
                             "label": "from"
                         }
@@ -348,7 +348,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "grid",
                             "label": "grid"
                         }
