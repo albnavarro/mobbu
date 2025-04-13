@@ -17,7 +17,9 @@
 # MobJs
 
 ## BindProps:
+
 - Valutare await `applyBindProps` in `parse-function.js`
+
 ```js
 initializeBindPropsWatcher: async () => {
     await applyBindProps({
@@ -43,7 +45,6 @@ for (const item of functionToFireAtTheEnd.reverse()) {
     await initializeBindPropsWatcher();
 }
 ```
-
 
 ## Props
 

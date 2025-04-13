@@ -95,9 +95,8 @@ function createSequencer(data) {
 }
 
 /**
- * Support class for grouping multiple sequencers.
- *       Very useful when generating sequencers dynamically, such as through the use of a createStagger.
- *       The following example uses a timeline but the same can be done using a scrollTrigger.
+ * Support class for grouping multiple sequencers. Very useful when generating sequencers dynamically, such as through
+ * the use of a createStagger. The following example uses a timeline but the same can be done using a scrollTrigger.
  *
  * @example
  *     ```javascript

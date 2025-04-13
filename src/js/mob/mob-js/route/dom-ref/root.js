@@ -9,7 +9,7 @@ let root = document.createElement('div');
  * Set root app.
  *
  * @param {object} obj
- * @param {HTMLElement} obj.element returns void
+ * @param {HTMLElement} obj.element Returns void
  */
 export const setRoot = ({ element }) => {
     root = element;

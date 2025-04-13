@@ -67,9 +67,11 @@ export const BenchMarkInvalidateFn = ({
                                             index,
                                         })}
                                         ${bindProps(
-                                            /** @returns {ReturnBindProps<
-    import('../fake-component/type').BenchMarkFakeComponent
->} */
+                                            /**
+                                             * @returns {ReturnBindProps<
+                                             *     import('../fake-component/type').BenchMarkFakeComponent
+                                             * >}
+                                             */
                                             () => ({
                                                 counter: proxi.counter,
                                             })

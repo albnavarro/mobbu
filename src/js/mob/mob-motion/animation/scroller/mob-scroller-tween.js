@@ -264,11 +264,11 @@ export default class MobScrollerTween {
     }
 
     /**
-     * @type {import('./type.js').MobScrollerTweenGoTo}
+     * Transform some properties of your choice from the `current value` to the `entered value`. The target value can be
+     * a number or a function that returns a number, when using a function the target value will become dynamic and will
+     * change in real time as the result of the function changes
      *
-     *       @description
-     *       Transform some properties of your choice from the `current value` to the `entered value`.
-     *       The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
+     * @type {import('./type.js').MobScrollerTweenGoTo}
      */
     goTo(obj) {
         const data = goToUtils(obj);

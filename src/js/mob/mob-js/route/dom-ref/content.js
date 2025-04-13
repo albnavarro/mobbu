@@ -10,7 +10,7 @@ let DOMContentElement;
  * Set root app.
  *
  * @param {object} obj
- * @param {string} obj.contentId returns void
+ * @param {string} obj.contentId Returns void
  */
 export const setContentId = ({ contentId = '' }) => {
     contentAttributeId = contentId;

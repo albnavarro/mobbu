@@ -802,10 +802,11 @@ export default class MobLerp {
     }
 
     /**
-     * @type {import('./type.js').lerpSubscribe}
+     * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although
+     * it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is
+     * advisable to use the subscribeCache method .
      *
-     *       @description
-     *       Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
+     * @type {import('./type.js').lerpSubscribe}
      */
     subscribe(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(

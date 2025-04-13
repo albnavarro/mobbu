@@ -796,8 +796,7 @@ export default class MobAsyncTimeline {
             })
             .finally(() => {
                 /**
-                 * Primise was completed
-                 *             AddAsync is resolved
+                 * Primise was completed AddAsync is resolved
                  */
                 this.#addAsyncIsActive = false;
             });

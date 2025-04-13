@@ -39,6 +39,7 @@ import {
  * MobStore initialization. The store accepts single properties or objects Each individual property can be initialized
  * with a simple value or via a more complex setup. A complex set-up is created through a function that must return an
  * object with the property `value` and at least one of the following properties: `type` || `validation` || `skipEqual`
+ *
  * || `strict`
  *
  * `value`: Initial value.

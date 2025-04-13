@@ -252,7 +252,7 @@ export default class MobSpring {
         this.#fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
 
         /**
-         * @private Set initial store data if defined in constructor props If not use setData methods
+         * @private Set Initial store data if defined in constructor props If not use setData methods
          */
         const props = data?.data;
         if (props) this.setData(props);
@@ -885,10 +885,11 @@ export default class MobSpring {
     }
 
     /**
-     * @type {import('./type.js').SpringSubscribe}
+     * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although
+     * it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is
+     * advisable to use the subscribeCache method .
      *
-     *       @description
-     *       Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
+     * @type {import('./type.js').SpringSubscribe}
      */
     subscribe(cb) {
         const { arrayOfCallbackUpdated, unsubscribeCb } = updateSubScribers(
