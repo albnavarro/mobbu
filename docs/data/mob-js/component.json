@@ -547,7 +547,7 @@
                             "index": "Component / 04",
                             "useSticky": true
                         },
-                        "content": "Fundamental params:"
+                        "content": "Component function params:"
                     },
                     {
                         "component": "mob-spacer",
