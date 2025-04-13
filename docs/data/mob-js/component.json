@@ -111,14 +111,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
-                "id": "component-definition",
-                "label": "Component definition"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "style": "small"
             }
         },
@@ -128,6 +120,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "component-definition",
+                            "label": "Component definition"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -283,6 +283,12 @@
                             "hasBorder": true,
                             "numLines": 59
                         }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     }
                 ]
             }
@@ -296,15 +302,9 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "small",
                             "id": "function",
                             "label": "Function component"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
                         }
                     },
                     {
@@ -348,13 +348,6 @@
                         }
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "id": "function-params",
-                            "label": "Example"
-                        }
-                    },
-                    {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium",
@@ -395,6 +388,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "big",
                             "id": "async",
                             "label": "Async"
                         }
@@ -422,6 +416,12 @@
                             "hasBorder": true,
                             "numLines": 23
                         }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     }
                 ]
             }
@@ -435,15 +435,9 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "small",
                             "id": "type",
                             "label": "Typescript"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
                         }
                     },
                     {
@@ -519,14 +513,6 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
-                            "id": "parameters",
-                            "label": "Component function params"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
                             "style": "small"
                         }
                     }
@@ -539,6 +525,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "parameters",
+                            "label": "Component function params"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
