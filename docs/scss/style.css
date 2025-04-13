@@ -3160,7 +3160,7 @@ code * {
   position: absolute;
   left: calc(6.6666666667rem * -1);
   top: 0;
-  background: #9cc;
+  background: #000;
   width: 13.3333333333rem;
   height: 13.3333333333rem;
   transform: rotate(45deg);
@@ -3170,7 +3170,7 @@ code * {
   position: absolute;
   right: calc(6.6666666667rem * -1);
   top: 4rem;
-  background: #9cc;
+  background: #000;
   width: 13.3333333333rem;
   height: 13.3333333333rem;
   transform: rotate(50deg);

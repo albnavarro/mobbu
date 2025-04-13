@@ -124,7 +124,7 @@
                 position: absolute;
                 left: calc(#{rem(100)} * -1);
                 top: 0;
-                background: $nord-fg;
+                background: $black;
                 width: rem(200);
                 height: rem(200);
                 transform: rotate(45deg);
@@ -135,7 +135,7 @@
                 position: absolute;
                 right: calc(#{rem(100)} * -1);
                 top: rem(60);
-                background: $nord-fg;
+                background: $black;
                 width: rem(200);
                 height: rem(200);
                 transform: rotate(50deg);
