@@ -114,6 +114,7 @@
             margin-right: calc(#{rem(40)} * -1);
             position: relative;
             overflow: hidden;
+            margin-bottom: 0;
 
             @include mq('xlarge') {
                 margin-right: calc(#{rem(142, xlarge)} * -1);

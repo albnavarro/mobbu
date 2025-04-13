@@ -231,7 +231,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "big"
                         }
                     }
                 ]
@@ -246,7 +246,6 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
                             "id": "set",
                             "label": "Set"
                         }
@@ -260,6 +259,12 @@
                             "useSticky": true
                         },
                         "content": "Methods"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",

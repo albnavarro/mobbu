@@ -77,7 +77,6 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
                             "id": "async",
                             "label": "Async"
                         }
@@ -91,6 +90,12 @@
                             "useSticky": true
                         },
                         "content": "Async:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -168,7 +173,6 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
                             "id": "sync",
                             "label": "Sync"
                         }
@@ -182,6 +186,12 @@
                             "useSticky": true
                         },
                         "content": "Sync:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -271,7 +281,6 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
                             "id": "stagger",
                             "label": "Stagger"
                         }
@@ -285,6 +294,12 @@
                             "useSticky": true
                         },
                         "content": "Common:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
