@@ -77,7 +77,7 @@ h6 {
 
 a {
     text-decoration: none;
-    color: $black;
+    color: inherit;
 }
 
 p {
@@ -102,27 +102,29 @@ p {
     }
 
     &--note {
+        background: $color-contrast;
         position: relative;
         padding-top: rem(60);
+        color: $white;
 
         &::after {
             content: '!';
             position: absolute;
             top: rem(20);
-            right: rem(40);
+            left: rem(33);
             font-weight: 700;
-            color: $color-contrast;
+            color: $white;
         }
 
         &::before {
             content: '';
             position: absolute;
             top: rem(20);
-            right: rem(31);
+            left: rem(24);
             width: rem(22);
             height: rem(22);
             border-radius: 100%;
-            border: 2px $color-contrast solid;
+            border: 2px $white solid;
         }
     }
 }

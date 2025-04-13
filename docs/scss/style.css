@@ -621,7 +621,7 @@ h6 {
 }
 a {
   text-decoration: none;
-  color: #000;
+  color: inherit;
 }
 p {
   padding: 0;
@@ -640,26 +640,28 @@ p a {
   border-radius: 1.3333333333rem;
 }
 .p--note {
+  background: #a86464;
   position: relative;
   padding-top: 4rem;
+  color: #fff;
 }
 .p--note::after {
   content: "!";
   position: absolute;
   top: 1.3333333333rem;
-  right: 2.6666666667rem;
+  left: 2.2rem;
   font-weight: 700;
-  color: #a86464;
+  color: #fff;
 }
 .p--note::before {
   content: "";
   position: absolute;
   top: 1.3333333333rem;
-  right: 2.0666666667rem;
+  left: 1.6rem;
   width: 1.4666666667rem;
   height: 1.4666666667rem;
   border-radius: 100%;
-  border: 2px #a86464 solid;
+  border: 2px #fff solid;
 }
 .p--small,
 .ul--small {
