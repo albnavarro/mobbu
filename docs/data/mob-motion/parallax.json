@@ -43,6 +43,12 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "big"
             }
         },
@@ -50,7 +56,8 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "01"
             },
             "content": "Params:"
         },
@@ -929,6 +936,12 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "big",
                 "id": "init",
                 "label": "init"
@@ -938,7 +951,8 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "02"
             },
             "content": "Methods"
         },

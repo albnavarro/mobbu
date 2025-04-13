@@ -27,14 +27,15 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "big"
             }
         },
         {
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "01"
             },
             "content": "Animation type:"
         },
@@ -96,7 +97,8 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "03"
             },
             "content": "Common params:"
         },
@@ -154,7 +156,8 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "04"
             },
             "content": "Time tween:"
         },
@@ -262,7 +265,8 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "05"
             },
             "content": "Spring"
         },
@@ -377,7 +381,8 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "06"
             },
             "content": "Lerp"
         },
@@ -471,7 +476,8 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "07"
             },
             "content": "Common methods"
         },

@@ -49,9 +49,10 @@
                 "tag": "h3",
                 "items": [
                     "Optional Dynamic type check",
-                    "Optional Transformation function",
+                    "Optional Transform function",
                     "Optional Validation function",
-                    "Optional Equal check"
+                    "Optional Equal check",
+                    "Proxi support"
                 ]
             }
         },
@@ -143,6 +144,12 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "big"
             }
         },
@@ -150,9 +157,10 @@
             "component": "mob-title",
             "props": {
                 "tag": "h2",
+                "index": "01",
                 "isSection": true
             },
-            "content": "Params:"
+            "content": "Params"
         },
         {
             "component": "mob-title",
@@ -288,9 +296,16 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h2",
+                "index": "02",
                 "isSection": true
             },
             "content": "Methods:"

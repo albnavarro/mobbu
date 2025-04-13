@@ -116,10 +116,17 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "01"
             },
             "content": "Component definition"
         },
@@ -275,10 +282,17 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "02"
             },
             "content": "Component function"
         },
@@ -397,10 +411,17 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "03"
             },
             "content": "Typescript"
         },
@@ -471,10 +492,17 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h2",
-                "isSection": true
+                "isSection": true,
+                "index": "03"
             },
             "content": "Component function params:"
         },

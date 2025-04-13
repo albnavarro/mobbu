@@ -4,5 +4,6 @@ export interface Title {
         color: 'inherit' | 'white' | 'hightlight' | 'black';
         isSection: boolean;
         isBold: boolean;
+        index: string;
     };
 }

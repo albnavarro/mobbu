@@ -23178,12 +23178,16 @@
   var shouldUseTrinagle = (tag) => {
     return tag === `h1` ? getTrinangle() : "";
   };
+  var getIndex2 = (index) => {
+    return index.length > 0 ? renderHtml`<span class="title-index">${index}</span>` : ``;
+  };
   var TitleFn = ({ getState }) => {
-    const { tag, color, isBold, isSection } = getState();
+    const { tag, color, isBold, isSection, index } = getState();
     const colorClass = color === "inherit" ? "" : `is-${color}`;
     const boldClass = isBold ? `is-bold` : "";
     const isSectionClass = isSection ? `is-section` : "";
     return renderHtml`<${tag} class="mob-title ${colorClass} ${boldClass} ${isSectionClass}">
+        ${getIndex2(index)}
         <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
         <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
             <mobjs-slot></mobjs-slot>
@@ -23196,7 +23200,7 @@
     {
       name: "mob-title",
       component: TitleFn,
-      exportState: ["isSection", "tag", "color", "isBold"],
+      exportState: ["index", "isSection", "tag", "color", "isBold"],
       state: {
         tag: () => ({
           value: "h1",
@@ -23218,6 +23222,10 @@
         isBold: () => ({
           value: false,
           type: Boolean
+        }),
+        index: () => ({
+          value: "",
+          type: String
         })
       }
     }

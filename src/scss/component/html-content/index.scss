@@ -80,10 +80,19 @@
             padding: rem(20) rem(20) rem(20) rem(40);
             margin-left: calc(#{rem(40)} * -1);
             margin-right: calc(#{rem(40)} * -1);
+            position: relative;
 
             @include mq('xlarge') {
                 margin-right: calc(#{rem(142, xlarge)} * -1);
             }
+        }
+
+        .title-index {
+            display: block;
+            font-size: rem(14);
+            position: absolute;
+            bottom: 100%;
+            color: $nord-bg;
         }
     }
 
