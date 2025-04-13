@@ -68,19 +68,19 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "basicfunction",
-                "label": "Basic&nbsp;route"
-            }
-        },
-        {
             "component": "html-content",
             "props": {
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "basicfunction",
+                            "label": "Basic&nbsp;route"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -90,14 +90,6 @@
                             "useSticky": true
                         },
                         "content": "Definition"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "basicfunction",
-                            "label": "Basic&nbsp;route"
-                        }
                     },
                     {
                         "component": "mob-title",
@@ -119,7 +111,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "asyncfunction",
                             "label": "async&nbsp;route"
                         }
@@ -144,7 +136,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "Export routes",
                             "label": "Export routes"
                         }
@@ -188,7 +180,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "link navigate",
                             "label": "Link&nbsp;navigate"
                         }
@@ -213,7 +205,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "javascript navigate",
                             "label": "Javascript&nbsp;navigate"
                         }
@@ -238,7 +230,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "page-transition",
                             "label": "Page&nbsp;transition"
                         }
@@ -328,15 +320,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
-                            "id": "events",
-                            "label": "Events"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -348,6 +332,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "events",
+                            "label": "Events"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -374,7 +366,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "big",
                             "id": "beforeRouteChange",
                             "label": "beforeRouteChange"
                         }
@@ -406,7 +398,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "beforeRouteChange",
                             "label": "beforeRouteLeave"
                         }
@@ -438,7 +430,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "afterRouteChange",
                             "label": "afterRouteChange"
                         }
@@ -470,7 +462,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "activeRoute",
                             "label": "activeRoute"
                         }
@@ -502,7 +494,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "params",
                             "label": "activeParams"
                         }
