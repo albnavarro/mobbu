@@ -18,6 +18,11 @@
         fill: $white;
     }
 
+    .title-content {
+        position: relative;
+        z-index: 1;
+    }
+
     ul {
         padding: 0;
         list-style-type: none;
@@ -106,9 +111,32 @@
             margin-left: calc(#{rem(40)} * -1);
             margin-right: calc(#{rem(40)} * -1);
             position: relative;
+            overflow: hidden;
 
             @include mq('xlarge') {
                 margin-right: calc(#{rem(142, xlarge)} * -1);
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: calc(#{rem(100)} * -1);
+                top: 0;
+                background: $nord-fg;
+                width: rem(200);
+                height: rem(200);
+                transform: rotate(45deg);
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                right: calc(#{rem(100)} * -1);
+                top: rem(60);
+                background: $nord-fg;
+                width: rem(200);
+                height: rem(200);
+                transform: rotate(50deg);
             }
         }
 
@@ -116,8 +144,10 @@
             display: block;
             font-size: rem(14);
             position: absolute;
-            bottom: 100%;
-            color: $nord-bg;
+            top: rem(5);
+            right: rem(20);
+            color: $white;
+            z-index: 1;
         }
     }
 

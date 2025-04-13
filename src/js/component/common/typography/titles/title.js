@@ -28,10 +28,12 @@ export const TitleFn = ({ getState }) => {
     const boldClass = isBold ? `is-bold` : '';
     const isSectionClass = isSection ? `is-section` : '';
 
-    return html`<${tag} class="mob-title ${colorClass} ${boldClass} ${isSectionClass}">
+    return html`<${tag} class="${colorClass} ${boldClass} ${isSectionClass}">
         ${getIndex(index)}
         <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
         <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
+        <span class="title-content">
             <mobjs-slot></mobjs-slot>
+        </span>
         </${tag}>`;
 };

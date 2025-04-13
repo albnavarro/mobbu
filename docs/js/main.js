@@ -23186,11 +23186,13 @@
     const colorClass = color === "inherit" ? "" : `is-${color}`;
     const boldClass = isBold ? `is-bold` : "";
     const isSectionClass = isSection ? `is-section` : "";
-    return renderHtml`<${tag} class="mob-title ${colorClass} ${boldClass} ${isSectionClass}">
+    return renderHtml`<${tag} class="${colorClass} ${boldClass} ${isSectionClass}">
         ${getIndex2(index)}
         <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
         <span class="triangle-right">${shouldUseTrinagle(tag)}</span>
+        <span class="title-content">
             <mobjs-slot></mobjs-slot>
+        </span>
         </${tag}>`;
   };
 
