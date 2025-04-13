@@ -3,6 +3,6 @@ export interface Paragraph {
         style: 'small' | 'medium' | 'big';
         boxed: boolean;
         note: boolean;
-        color: 'white' | 'grey' | 'highlight' | 'black';
+        color: 'inherit' | 'white' | 'hightlight' | 'black';
     };
 }

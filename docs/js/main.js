@@ -24503,11 +24503,11 @@ Loading snippet ...</pre
   // src/js/component/common/typography/paragraph/paragraph.js
   var ParagraphFn = ({ getState }) => {
     const { style, color, boxed, note } = getState();
-    const colorClass = `is-${color}`;
-    const boxedClass = boxed ? `boxed` : "";
-    const noteClass = note ? `note` : "";
+    const colorClass = color === "inherit" ? "" : `is-${color}`;
+    const boxedClass = boxed ? `p--boxed` : "";
+    const noteClass = note ? `p--note` : "";
     return renderHtml`<p
-        class="p p--${style} p--${boxedClass} p--${noteClass} ${colorClass}"
+        class="p p--${style} ${boxedClass} ${noteClass} ${colorClass}"
     >
         <mobjs-slot></mobjs-slot>
     </p>`;
@@ -24528,10 +24528,10 @@ Loading snippet ...</pre
           strict: true
         }),
         color: () => ({
-          value: "black",
+          value: "inherit",
           type: String,
           validate: (val2) => {
-            return ["white", "grey", "black", "highlight"].includes(
+            return ["inherit", "white", "hightlight", "black"].includes(
               val2
             );
           }

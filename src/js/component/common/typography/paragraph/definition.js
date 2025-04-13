@@ -21,10 +21,10 @@ export const Paragraph = MobJs.createComponent(
                 strict: true,
             }),
             color: () => ({
-                value: 'black',
+                value: 'inherit',
                 type: String,
                 validate: (val) => {
-                    return ['white', 'grey', 'black', 'highlight'].includes(
+                    return ['inherit', 'white', 'hightlight', 'black'].includes(
                         val
                     );
                 },
