@@ -140,7 +140,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Difference from default stagger object:"
         },

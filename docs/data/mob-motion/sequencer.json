@@ -20,7 +20,8 @@
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "boxed": true
+                "boxed": true,
+                "note": true
             },
             "content": "The sequencer is a different type of tween, it is not tied to time or to a precision value. We can imagine it as a store which, given a value, returns a series of interprolated data. The sequencer has a draw(value) function that takes care of interpolating the data, in fact it is the API that the sequencer exposes to be controlled. <a href='./#mobMotion-sync-timeline'>syncTimeline</a> and <a href='./#mobMotion-scrolltrigger'>scrolTrigger</a> can use the sequencer by passing partial values to it."
         },
@@ -43,6 +44,20 @@
                     }
                 ]
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Params:"
         },
         {
             "component": "mob-spacer",
@@ -155,7 +170,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Methods"
         },

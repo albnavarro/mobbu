@@ -43,15 +43,22 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "big"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Params:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-snippet",
@@ -1275,7 +1282,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Methods"
         },
