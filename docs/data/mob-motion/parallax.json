@@ -63,7 +63,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "01",
+                            "index": "Parallax / 01",
                             "useSticky": true
                         },
                         "content": "Params:"
@@ -978,7 +978,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "02",
+                            "index": "Parallax / 02",
                             "useSticky": true
                         },
                         "content": "Methods"

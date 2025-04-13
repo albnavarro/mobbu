@@ -162,7 +162,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "01",
+                            "index": "CreateStagger / 01",
                             "useSticky": true
                         },
                         "content": "Difference from default stagger object:"

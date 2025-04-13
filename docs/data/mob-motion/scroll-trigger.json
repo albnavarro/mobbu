@@ -63,7 +63,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "01",
+                            "index": "ScrollTrigger / 01",
                             "useSticky": true
                         },
                         "content": "Params:"
@@ -1318,7 +1318,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "02",
+                            "index": "ScrollTrigger / 02",
                             "useSticky": true
                         },
                         "content": "Methods"

@@ -42,7 +42,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "01",
+                            "index": "Tween Spring Lerp / 01",
                             "useSticky": true
                         },
                         "content": "Animation type:"
@@ -115,7 +115,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "03",
+                            "index": "Tween Spring Lerp / 02",
                             "useSticky": true
                         },
                         "content": "Common params:"
@@ -190,7 +190,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "04",
+                            "index": "Tween Spring Lerp / 03",
                             "useSticky": true
                         },
                         "content": "Time tween:"
@@ -309,7 +309,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "05",
+                            "index": "Tween Spring Lerp / 04",
                             "useSticky": true
                         },
                         "content": "Spring"
@@ -441,7 +441,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "06",
+                            "index": "Tween Spring Lerp / 05",
                             "useSticky": true
                         },
                         "content": "Lerp"
@@ -546,7 +546,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "07",
+                            "index": "Tween Spring Lerp / 06",
                             "useSticky": true
                         },
                         "content": "Common methods"

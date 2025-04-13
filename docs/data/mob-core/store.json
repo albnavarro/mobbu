@@ -46,7 +46,7 @@
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
-                            "index": "01",
+                            "index": "Store / 01",
                             "isSection": true,
                             "useSticky": true
                         },
@@ -182,7 +182,7 @@
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
-                            "index": "02",
+                            "index": "Store / 02",
                             "isSection": true,
                             "useSticky": true
                         },
@@ -340,7 +340,7 @@
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
-                            "index": "03",
+                            "index": "Store / 03",
                             "isSection": true,
                             "useSticky": true
                         },
