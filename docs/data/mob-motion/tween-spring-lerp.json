@@ -31,790 +31,856 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "html-content",
             "props": {
-                "tag": "h2",
-                "isSection": true,
-                "index": "01"
-            },
-            "content": "Animation type:"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Time-based:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": ["TimeTween"]
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "01",
+                            "useSticky": true
+                        },
+                        "content": "Animation type:"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Time-based:"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "items": ["TimeTween"]
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "It cannot be used interactively with a mouse etc... it simply processes the data over a given period of time."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Based on a precision value:"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "items": ["Lerp", "Spring"]
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Suitable for interactive use such as mouse trail etc..."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big"
+                        }
+                    }
+                ]
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "html-content",
             "props": {
-                "style": "medium"
-            },
-            "content": "It cannot be used interactively with a mouse etc... it simply processes the data over a given period of time."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "03",
+                            "useSticky": true
+                        },
+                        "content": "Common params:"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "data:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Data object."
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "relative:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "If true the values will always be relative to the previous value reached by the tween."
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "stagger:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "To manage staggers refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "tween",
+                            "label": "Tween"
+                        }
+                    }
+                ]
             }
         },
         {
-            "component": "mob-title",
+            "component": "html-content",
             "props": {
-                "tag": "h5"
-            },
-            "content": "Based on a precision value:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": ["Lerp", "Spring"]
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "04",
+                            "useSticky": true
+                        },
+                        "content": "Time tween:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Additional params:"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "duration:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The duration of the tween in milliseconds"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "ease:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The animation curve"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "All Params:"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/tween-type.d.ts",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 55
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/tween.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 9
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "Spring",
+                            "label": "Spring"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    }
+                ]
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "html-content",
             "props": {
-                "style": "medium"
-            },
-            "content": "Suitable for interactive use such as mouse trail etc..."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "big"
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "05",
+                            "useSticky": true
+                        },
+                        "content": "Spring"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Additional params:"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "config:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "preset configuration (The configurations were taken from react-spring)"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "items": [
+                                "default",
+                                "gentle",
+                                "wobbly",
+                                "bounce",
+                                "scroller"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "configProps"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Here it is possible to alter the individual values of the chosen configuration."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "All Params:"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/spring-type.d.ts",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 30
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/spring.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 11
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "lerp",
+                            "label": "Lerp"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    }
+                ]
             }
         },
         {
-            "component": "mob-title",
+            "component": "html-content",
             "props": {
-                "tag": "h2",
-                "isSection": true,
-                "index": "03"
-            },
-            "content": "Common params:"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "data:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Data object."
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "relative:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "If true the values will always be relative to the previous value reached by the tween."
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "stagger:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "To manage staggers refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "big",
-                "id": "tween",
-                "label": "Tween"
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "06",
+                            "useSticky": true
+                        },
+                        "content": "Lerp"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Additional params:"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "velocity:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Determines the speed of the lerp, it must be a value between 0.01 and 0.1. The default value is 0.06"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "precision:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Indicates the difference between the current value and the target value for which the animation can be considered finished. The default value is 0.01"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "All Params:"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/lerp-type.d.ts",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 24
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/lerp.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 9
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big"
+                        }
+                    }
+                ]
             }
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h2",
-                "isSection": true,
-                "index": "04"
-            },
-            "content": "Time tween:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "Additional params:"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "duration:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The duration of the tween in milliseconds"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "ease:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The animation curve"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "All Params:"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/tween-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 55
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/tween.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 9
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "Spring",
-                "label": "Spring"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h2",
-                "isSection": true,
-                "index": "05"
-            },
-            "content": "Spring"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "Additional params:"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "config:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "preset configuration (The configurations were taken from react-spring)"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": ["default", "gentle", "wobbly", "bounce", "scroller"]
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "configProps"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Here it is possible to alter the individual values of the chosen configuration."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "All Params:"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/spring-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 30
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/spring.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 11
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "lerp",
-                "label": "Lerp"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h2",
-                "isSection": true,
-                "index": "06"
-            },
-            "content": "Lerp"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "Additional params:"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "velocity:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Determines the speed of the lerp, it must be a value between 0.01 and 0.1. The default value is 0.06"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "precision:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Indicates the difference between the current value and the target value for which the animation can be considered finished. The default value is 0.01"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "All Params:"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/lerp-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 24
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/lerp.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 9
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "big"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h2",
-                "isSection": true,
-                "index": "07"
-            },
-            "content": "Common methods"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Set"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The set() method instantly applies the applied value, even if the value is not applied it returns a promise,"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/set.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 3
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "goto",
-                "label": "GoTo"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "goTo"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The goTo method takes the values from the current state to the state indicated in the first parameter."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/go-to.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 11
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "gofrom",
-                "label": "GoFrom"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "goFrom"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The goFrom method brings the values from the state indicated in the first parameter to the current state."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/go-from.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 9
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "gofromto",
-                "label": "GoFromTo"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "goFromTo"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The goFromTo method takes the values from the state indicated in the first parameter to the state indicated in the second parameter. The two parameters must have the same keys."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "In the third parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/go-from-to.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 6
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "stop",
-                "label": "Stop"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "stop"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/stop.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 1
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "pause",
-                "label": "Pause/Resume"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "pause/resume"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Pauses and unpauses a tween/Spring/Lerp. "
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/pause.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 9
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "subscribe",
-                "label": "Subscribe"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Subscribe"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The subscribe method will allow us to apply the values in real time to our target."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The subscribe() method always returns an unsubscribe() function"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/subscribe.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 23
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "subscribeCache",
-                "label": "SubscribeCache"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "SubscribeCache"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of stagger by optimizing memory consumption."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/subscribe-cache.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 8
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "onComplete",
-                "label": "OnComplete"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "onComplete"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The onComplete method is launched when the animation is finished, it can be used for example to inhibit the use of the GPU unnecessarily:"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/on-complete.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 12
+            "component": "html-content",
+            "props": {
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "07",
+                            "useSticky": true
+                        },
+                        "content": "Common methods"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Set"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The set() method instantly applies the applied value, even if the value is not applied it returns a promise,"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/set.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 3
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "goto",
+                            "label": "GoTo"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "goTo"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The goTo method takes the values from the current state to the state indicated in the first parameter."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/go-to.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 11
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "gofrom",
+                            "label": "GoFrom"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "goFrom"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The goFrom method brings the values from the state indicated in the first parameter to the current state."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/go-from.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 9
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "gofromto",
+                            "label": "GoFromTo"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "goFromTo"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The goFromTo method takes the values from the state indicated in the first parameter to the state indicated in the second parameter. The two parameters must have the same keys."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "In the third parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/go-from-to.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 6
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "stop",
+                            "label": "Stop"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "stop"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/stop.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 1
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "pause",
+                            "label": "Pause/Resume"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "pause/resume"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Pauses and unpauses a tween/Spring/Lerp. "
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/pause.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 9
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "subscribe",
+                            "label": "Subscribe"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Subscribe"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The subscribe method will allow us to apply the values in real time to our target."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The subscribe() method always returns an unsubscribe() function"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/subscribe.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 23
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "subscribeCache",
+                            "label": "SubscribeCache"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "SubscribeCache"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of stagger by optimizing memory consumption."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/subscribe-cache.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 8
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "onComplete",
+                            "label": "OnComplete"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "onComplete"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The onComplete method is launched when the animation is finished, it can be used for example to inhibit the use of the GPU unnecessarily:"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/on-complete.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 12
+                        }
+                    }
+                ]
             }
         }
     ]

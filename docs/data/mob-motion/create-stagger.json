@@ -144,226 +144,236 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "html-content",
             "props": {
-                "tag": "h2",
-                "isSection": true,
-                "index": "01"
-            },
-            "content": "Difference from default stagger object:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small",
-                "id": "type",
-                "label": "type"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "type:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Type is a special property of createStagger:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "equal:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "All the instances will have the same duration.<br/> The value 0 has no effect.<br/> The value 1 will ensure that all the instances will start in sequence, the end of the previous one corresponds to the beginning of the next.</br> Above the value 1 the instances will begin to overlap while always maintaining the same duration.<br/> "
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "start:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "All staggers will have a different duration. They will start at the same time and will reach the maximum value at different times."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "end:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "All staggers will have a different duration. They will start at different times and will reach the maximum value at the same time."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "center:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "All staggers will have a different duration. They will start at different times and will reach the maximum value at different times, the first will start first and will be the slowest, the last will start at the end and will be the fastest."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "each",
-                "label": "each"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "each"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The each parameter behaves differently from the default stagger:<br/>The higher the value of each, the smaller the difference in duration will be."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "waitComplete",
-                "label": "waitComplete"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "waitComplete"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "from",
-                "label": "from"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "from"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "grid",
-                "label": "grid"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "grid"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "01",
+                            "useSticky": true
+                        },
+                        "content": "Difference from default stagger object:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "type",
+                            "label": "type"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "type:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Type is a special property of createStagger:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "equal:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "All the instances will have the same duration.<br/> The value 0 has no effect.<br/> The value 1 will ensure that all the instances will start in sequence, the end of the previous one corresponds to the beginning of the next.</br> Above the value 1 the instances will begin to overlap while always maintaining the same duration.<br/> "
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "start:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "All staggers will have a different duration. They will start at the same time and will reach the maximum value at different times."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "end:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "All staggers will have a different duration. They will start at different times and will reach the maximum value at the same time."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "center:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "All staggers will have a different duration. They will start at different times and will reach the maximum value at different times, the first will start first and will be the slowest, the last will start at the end and will be the fastest."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "each",
+                            "label": "each"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "each"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The each parameter behaves differently from the default stagger:<br/>The higher the value of each, the smaller the difference in duration will be."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "waitComplete",
+                            "label": "waitComplete"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "waitComplete"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "from",
+                            "label": "from"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "from"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "grid",
+                            "label": "grid"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "grid"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    }
+                ]
             }
         }
     ]

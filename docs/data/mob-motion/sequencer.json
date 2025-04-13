@@ -52,511 +52,531 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "html-content",
             "props": {
-                "tag": "h2",
-                "isSection": true,
-                "index": "01"
-            },
-            "content": "Params:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "duration"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "We can see the duration property as its main property. It is not a time value, but rather a numerical range, which by default is 10."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Within this range we can define how each property varies, its greatest value is the possibility of managing each individual property independently as we will see later.<br/> Based on our needs we can readjust this value to a more specific one that can help us in managing the individual values."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "In fact we can think of a musical sequencer where we are free to move the beginning and end of each track. If our track lasts 2.30 minutes we can set this value and manage the attack and end of each individual instrument within our track."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "If we decide to use a timeline to manage the sequencer ( <a href='./#mobMotion-sync-timeline'>syncTimeline</a> ) the duration of the timeline will be the real duration while the duration parameter of the sequencer will be managed through a simple proportion. The same thing will happen with <a href='./#mobMotion-scrolltrigger'>scrollTrigger</a>"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "All Params:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/sequencer-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 54
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Initialization"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The initialization code is almost identical (only the relative option is missing) to <a href='./#mobMotion-tween-spring-lerp'>tween</a>:"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/sequencer.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 8
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "big",
-                "id": "goto",
-                "label": "Goto"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h2",
-                "isSection": true,
-                "index": "02"
-            },
-            "content": "Methods"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "goTo"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The goTo method takes the values from the current state to the state indicated in the first parameter."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "In the second parameter we define the start and end value in the range defined by us, we can also apply a specific easing."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": [
-                    "If the start value is not used it will be 0,",
-                    "If the end value is not used it will be equal to the value defined in the duration parameter."
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "01",
+                            "useSticky": true
+                        },
+                        "content": "Params:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "duration"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "We can see the duration property as its main property. It is not a time value, but rather a numerical range, which by default is 10."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Within this range we can define how each property varies, its greatest value is the possibility of managing each individual property independently as we will see later.<br/> Based on our needs we can readjust this value to a more specific one that can help us in managing the individual values."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "In fact we can think of a musical sequencer where we are free to move the beginning and end of each track. If our track lasts 2.30 minutes we can set this value and manage the attack and end of each individual instrument within our track."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "If we decide to use a timeline to manage the sequencer ( <a href='./#mobMotion-sync-timeline'>syncTimeline</a> ) the duration of the timeline will be the real duration while the duration parameter of the sequencer will be managed through a simple proportion. The same thing will happen with <a href='./#mobMotion-scrolltrigger'>scrollTrigger</a>"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "All Params:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/sequencer-type.d.ts",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 54
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Initialization"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The initialization code is almost identical (only the relative option is missing) to <a href='./#mobMotion-tween-spring-lerp'>tween</a>:"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/sequencer.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 8
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "goto",
+                            "label": "Goto"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    }
                 ]
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "html-content",
             "props": {
-                "style": "medium"
-            },
-            "content": "The value can be numeric or the result of a function, in this case it will be possible to vary the value while running"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/sequencer-go-to.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 46
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "goFrom",
-                "label": "goFrom"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "goFrom"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Like goTo but the value of the first parameter will be the starting value and the arrival value will be the current one."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/sequencer-go-from.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 10
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "goFromTo",
-                "label": "goFromTo"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "goFromTo"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Like goTo but the value of the first parameter will be the starting value and the second parameter will be the arrival value."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/sequencer-go-from-to.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 10
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "add",
-                "label": "add"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "add"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "It is possible to execute a custom function at a certain point of the duration value. The callback will be launched as soon as the indicated value is exceeded, sequencer and syncTimeline are not based on promsie therefore it is necessary to intercept the first available moment in which to execute the function."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The add method has two parameters, the callBack and a numeric value indicating when to execute the callBack."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "Callback Params:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": [
-                    "<strong>value</strong>: The exact value at which the function is launched. As above, if we indicate 2 the function can start at the value 2.05",
-                    "<strong>isForced</strong>: The value will be true if the sequencer is started beyond the indicated value, in this case we can decide whether to launch the function or not, as in reality the value has never been exceeded.",
-                    "<strong>direction</strong>: 'backward' | 'forward' | 'none'"
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "02",
+                            "useSticky": true
+                        },
+                        "content": "Methods"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "goTo"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The goTo method takes the values from the current state to the state indicated in the first parameter."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "In the second parameter we define the start and end value in the range defined by us, we can also apply a specific easing."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "items": [
+                                "If the start value is not used it will be 0,",
+                                "If the end value is not used it will be equal to the value defined in the duration parameter."
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The value can be numeric or the result of a function, in this case it will be possible to vary the value while running"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/sequencer-go-to.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 46
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "goFrom",
+                            "label": "goFrom"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "goFrom"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Like goTo but the value of the first parameter will be the starting value and the arrival value will be the current one."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/sequencer-go-from.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 10
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "goFromTo",
+                            "label": "goFromTo"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "goFromTo"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Like goTo but the value of the first parameter will be the starting value and the second parameter will be the arrival value."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/sequencer-go-from-to.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 10
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "add",
+                            "label": "add"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "add"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "It is possible to execute a custom function at a certain point of the duration value. The callback will be launched as soon as the indicated value is exceeded, sequencer and syncTimeline are not based on promsie therefore it is necessary to intercept the first available moment in which to execute the function."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The add method has two parameters, the callBack and a numeric value indicating when to execute the callBack."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Callback Params:"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "items": [
+                                "<strong>value</strong>: The exact value at which the function is launched. As above, if we indicate 2 the function can start at the value 2.05",
+                                "<strong>isForced</strong>: The value will be true if the sequencer is started beyond the indicated value, in this case we can decide whether to launch the function or not, as in reality the value has never been exceeded.",
+                                "<strong>direction</strong>: 'backward' | 'forward' | 'none'"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/sequencer-add.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 17
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "label",
+                            "label": "label"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "label"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "It is possible to define labels to use as a reference from our <a href='./#mobMotion-sync-timeline'>syncTimeline</a>"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/sequencer-label.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 37
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "subscribe",
+                            "label": "subscribe"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "subscribe"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The subscribe method will allow us to apply the values in real time to our target. The subscribe() method always returns an unsubscribe() function"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/sequencer-subscribe.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 23
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "subscribeCache",
+                            "label": "subscribeCache"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "subscribeCache"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of stagger by optimizing memory consumption."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/sequencer-subscribe-cache.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 8
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "onstop",
+                            "label": "onStop"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "onStop"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The onStop method is launched when the animation/scrollTrigger is stopped, it can be used for example to inhibit the use of the GPU unnecessarily:"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/on-stop.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 12
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "masterSequencer",
+                            "label": "masterSequencer"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "masterSequencer"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The masterSequencer allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='./#mobMotion-create-stagger'>createStagger</a>"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/master-sequencer.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 21
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "createStagger",
+                            "label": "createStagger"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "createStagger"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Sequencers can use the <a href='./#mobMotion-create-stagger'>createStagger</a> utility to synchronize multiple instances using stagger parameters."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    }
                 ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/sequencer-add.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 17
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "label",
-                "label": "label"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "label"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "It is possible to define labels to use as a reference from our <a href='./#mobMotion-sync-timeline'>syncTimeline</a>"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/sequencer-label.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 37
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "subscribe",
-                "label": "subscribe"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "subscribe"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The subscribe method will allow us to apply the values in real time to our target. The subscribe() method always returns an unsubscribe() function"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/sequencer-subscribe.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 23
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "subscribeCache",
-                "label": "subscribeCache"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "subscribeCache"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of stagger by optimizing memory consumption."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/sequencer-subscribe-cache.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 8
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "onstop",
-                "label": "onStop"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "onStop"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The onStop method is launched when the animation/scrollTrigger is stopped, it can be used for example to inhibit the use of the GPU unnecessarily:"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/on-stop.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 12
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "masterSequencer",
-                "label": "masterSequencer"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "masterSequencer"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The masterSequencer allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='./#mobMotion-create-stagger'>createStagger</a>"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-motion/master-sequencer.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 21
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "createStagger",
-                "label": "createStagger"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "createStagger"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Sequencers can use the <a href='./#mobMotion-create-stagger'>createStagger</a> utility to synchronize multiple instances using stagger parameters."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
             }
         }
     ]
