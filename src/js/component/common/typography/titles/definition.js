@@ -19,10 +19,12 @@ export const Title = MobJs.createComponent(
                 type: String,
             }),
             color: () => ({
-                value: 'black',
+                value: 'inherit',
                 type: String,
                 validate: (val) => {
-                    return ['white', 'hightlight', 'black'].includes(val);
+                    return ['inherit', 'white', 'hightlight', 'black'].includes(
+                        val
+                    );
                 },
             }),
             isBold: () => ({
