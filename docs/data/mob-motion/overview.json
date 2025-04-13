@@ -71,7 +71,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "small",
                             "id": "async",
                             "label": "Async"
                         }
@@ -147,9 +147,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
-                            "id": "sync",
-                            "label": "Sync"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -161,6 +159,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "sync",
+                            "label": "Sync"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -244,9 +250,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
-                            "id": "stagger",
-                            "label": "Stagger"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -258,6 +262,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "stagger",
+                            "label": "Stagger"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {

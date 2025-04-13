@@ -164,9 +164,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
-                            "id": "tween",
-                            "label": "Tween"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -178,6 +176,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "tween",
+                            "label": "Tween"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -277,15 +283,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
-                            "id": "Spring",
-                            "label": "Spring"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -297,6 +295,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "Spring",
+                            "label": "Spring"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -409,15 +415,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
-                            "id": "lerp",
-                            "label": "Lerp"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -429,6 +427,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "lerp",
+                            "label": "Lerp"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -571,7 +577,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "goto",
                             "label": "GoTo"
                         }
@@ -617,7 +623,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "gofrom",
                             "label": "GoFrom"
                         }
@@ -663,7 +669,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "gofromto",
                             "label": "GoFromTo"
                         }
@@ -709,7 +715,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "stop",
                             "label": "Stop"
                         }
@@ -741,7 +747,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "pause",
                             "label": "Pause/Resume"
                         }
@@ -773,7 +779,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "subscribe",
                             "label": "Subscribe"
                         }
@@ -812,7 +818,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "subscribeCache",
                             "label": "SubscribeCache"
                         }
@@ -851,7 +857,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "onComplete",
                             "label": "OnComplete"
                         }
