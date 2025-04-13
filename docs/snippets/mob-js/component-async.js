@@ -9,7 +9,7 @@ function myAsyncFunction() {
 }
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponentAsync<import('./type').MyComponent>}
  */
 export const MyComponent = async () => {
     await myAsyncFunction();
