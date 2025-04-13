@@ -7,21 +7,25 @@
 
     &__content {
         flex: auto;
-        background:
-            radial-gradient(
-                farthest-side at bottom left,
-                rgba($white, 1),
-                transparent
-            ),
-            radial-gradient(
-                farthest-corner at bottom right,
-                rgba($white, 1),
-                transparent 400px
-            );
-        background-attachment: fixed;
-        transition: background 0.2s;
         max-width: var(--doc-width);
         position: relative;
+
+        &::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(
+                    farthest-side at bottom left,
+                    rgba($white, 1),
+                    transparent
+                ),
+                radial-gradient(
+                    farthest-corner at bottom right,
+                    rgba($white, 1),
+                    transparent 400px
+                );
+        }
 
         &::after {
             content: '';
