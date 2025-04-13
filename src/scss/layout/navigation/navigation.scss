@@ -63,7 +63,7 @@
             position: absolute;
             right: 0;
             top: 0;
-            bottom: 0;
+            bottom: 1px;
             width: rem(20);
             background: $black;
             transform: scaleX(0);
@@ -123,7 +123,7 @@
 
         &__item {
             position: relative;
-            border-bottom: 1px $white solid;
+            border-top: 1px $white solid;
 
             &:last-child {
                 border-bottom: 0;
