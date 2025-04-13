@@ -1,10 +1,13 @@
 import { html } from '@mobJs';
 
 /**
- * @param {string} className
+ * @param {string} [className]
+ * @param {boolean} [useTriangle]
  * @returns {string}
  */
-export const getTrinangle = (className = '') => {
+export const getTrinangle = (className = '', useTriangle = true) => {
+    if (!useTriangle) return '';
+
     return html`
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
         <svg

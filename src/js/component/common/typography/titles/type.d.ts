@@ -5,5 +5,6 @@ export interface Title {
         isSection: boolean;
         isBold: boolean;
         index: string;
+        useSticky: boolean;
     };
 }

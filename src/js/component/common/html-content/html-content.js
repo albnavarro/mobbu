@@ -78,9 +78,8 @@ export const HtmlContentFn = async ({
     const { source, data } = getState();
     const currentData = await getData({ source, data });
 
-    const { useMinHeight, useMaxWidth, awaitLoadSnippet } = getState();
-    const useMinHeightClass = useMinHeight ? 'is-min-100' : '';
-    const useMaxWidthClass = useMaxWidth ? 'is-max-width' : '';
+    const { awaitLoadSnippet, useTriangle, usePadding } = getState();
+    const usePaddingClass = usePadding ? 'use-padding' : '';
 
     onMount(async () => {
         setState('contentIsLoaded', true);
@@ -89,8 +88,8 @@ export const HtmlContentFn = async ({
     });
 
     return html`
-        <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
-            <div>${getTrinangle('html-content__triangle')}</div>
+        <section class="html-content ${usePaddingClass}">
+            <div>${getTrinangle('html-content__triangle', useTriangle)}</div>
             ${getLoader({ data, bindProps })}
             ${getComponents({
                 data: currentData,

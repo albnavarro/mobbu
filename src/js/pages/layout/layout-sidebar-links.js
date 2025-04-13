@@ -18,7 +18,7 @@ export const layoutSidebarLinks = async ({ props }) => {
             <html-content
                 slot="docs"
                 ${MobJs.staticProps(
-                    /** @type {import('@commonComponent/html-content/type').HtmlContent['state']} */
+                    /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['state']>} */
                     ({
                         data: data.data,
                         useMaxWidth: true,

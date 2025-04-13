@@ -12,7 +12,14 @@ export const Title = MobJs.createComponent(
     ({
         name: 'mob-title',
         component: TitleFn,
-        exportState: ['index', 'isSection', 'tag', 'color', 'isBold'],
+        exportState: [
+            'useSticky',
+            'index',
+            'isSection',
+            'tag',
+            'color',
+            'isBold',
+        ],
         state: {
             tag: () => ({
                 value: 'h1',
@@ -38,6 +45,10 @@ export const Title = MobJs.createComponent(
             index: () => ({
                 value: '',
                 type: String,
+            }),
+            useSticky: () => ({
+                value: false,
+                type: Boolean,
             }),
         },
     })

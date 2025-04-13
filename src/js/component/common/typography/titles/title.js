@@ -23,12 +23,13 @@ const getIndex = (index) => {
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Title>} */
 export const TitleFn = ({ getState }) => {
-    const { tag, color, isBold, isSection, index } = getState();
+    const { tag, color, isBold, isSection, index, useSticky } = getState();
     const colorClass = color === 'inherit' ? '' : `is-${color}`;
     const boldClass = isBold ? `is-bold` : '';
     const isSectionClass = isSection ? `is-section` : '';
+    const useStickyClass = useSticky ? `use-sticky` : '';
 
-    return html`<${tag} class="${colorClass} ${boldClass} ${isSectionClass}">
+    return html`<${tag} class="${colorClass} ${boldClass} ${isSectionClass} ${useStickyClass}">
         ${getIndex(index)}
         <span class="triangle-left">${shouldUseTrinagle(tag)}</span>
         <span class="triangle-right">${shouldUseTrinagle(tag)}</span>

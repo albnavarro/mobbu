@@ -1,9 +1,11 @@
 @use '../../abstract' as *;
 
 .html-content {
-    color: $black;
-    padding: rem(40) rem(40) rem(200);
     position: relative;
+
+    &.use-padding {
+        padding: rem(40) rem(40) rem(200);
+    }
 
     &.is-min-100 {
         min-height: calc(100vh - var(--header-height) - #{rem(80)});
@@ -138,6 +140,12 @@
                 height: rem(200);
                 transform: rotate(50deg);
             }
+        }
+
+        &.use-sticky {
+            position: sticky;
+            top: var(--header-height);
+            z-index: 2;
         }
 
         .title-index {

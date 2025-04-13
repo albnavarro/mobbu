@@ -20,9 +20,9 @@ export const HtmlContent = MobJs.createComponent(
         name: 'html-content',
         component: HtmlContentFn,
         exportState: [
+            'usePadding',
+            'useTriangle',
             'source',
-            'useMinHeight',
-            'useMaxWidth',
             'data',
             'awaitLoadSnippet',
         ],
@@ -39,16 +39,16 @@ export const HtmlContent = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
-            useMinHeight: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            useMaxWidth: () => ({
-                value: false,
-                type: Boolean,
-            }),
             awaitLoadSnippet: () => ({
                 value: false,
+                type: Boolean,
+            }),
+            useTriangle: () => ({
+                value: true,
+                type: Boolean,
+            }),
+            usePadding: () => ({
+                value: true,
                 type: Boolean,
             }),
         },
