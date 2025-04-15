@@ -1,6 +1,4 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
-import { checkType } from '../../../mob-core/store/store-type';
-import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 
 /** @type {Map<string, import('./type').BindObject[]>} */
@@ -201,14 +199,8 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
     /** @type {WeakRef<HTMLElement>} */
     let ref;
 
-    /**
-     * ProxiIndex issue. Get states to check if there is an array Will check that array has always a length > 0
-     */
-    const states = getStateById(id);
-
     const unsubScribeFunction = keys.map((state) => {
-        const isArray = checkType(Array, states?.[state]);
-        return watchById(id, state, (value) => {
+        return watchById(id, state, () => {
             /**
              * Wait for all all props is settled.
              */
@@ -237,13 +229,7 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                         }
                     }
 
-                    /**
-                     * Repeat ProxiIndex issue. Array che be destroyed before element will removed.
-                     * proxi.data[proxiIndex.value].prop can fail when array is empty.
-                     */
-                    const shouldRender = !isArray || value.length > 0;
-
-                    if (ref && ref?.deref() && shouldRender) {
+                    if (ref && ref?.deref()) {
                         // @ts-ignore
                         ref.deref().textContent = '';
                         // @ts-ignore

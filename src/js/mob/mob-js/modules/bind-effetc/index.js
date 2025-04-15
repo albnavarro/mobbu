@@ -1,6 +1,4 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
-import { checkType } from '../../../mob-core/store/store-type';
-import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 import { ATTR_BIND_EFFECT } from '../../constant';
 
@@ -176,25 +174,11 @@ const watchBindEffect = ({ data, element }) => {
              */
             let watchIsRunning = false;
 
-            /**
-             * ProxiIndex issue. Get states to check if there is an array Will check that array has always a length > 0
-             */
-            const states = getStateById(id);
-
             return bind.map((state) => {
-                const initialStateValue = states?.[state];
-                const isArray = checkType(Array, initialStateValue);
-
-                /**
-                 * Repeat ProxiIndex issue. Array che be destroyed before element will removed.
-                 * proxi.data[proxiIndex.value].prop can fail when array is empty.
-                 */
-                const shouldRender = !isArray || initialStateValue.length > 0;
-
                 /**
                  * Initial class render
                  */
-                if (toggleClass && shouldRender) {
+                if (toggleClass) {
                     MobCore.useFrame(() => {
                         applyClass({ ref, data: toggleClass });
                     });
@@ -203,7 +187,7 @@ const watchBindEffect = ({ data, element }) => {
                 /**
                  * Initial style render
                  */
-                if (toggleStyle && shouldRender) {
+                if (toggleStyle) {
                     MobCore.useFrame(() => {
                         applyStyle({ ref, data: toggleStyle });
                     });
@@ -212,13 +196,13 @@ const watchBindEffect = ({ data, element }) => {
                 /**
                  * Initial attribute render
                  */
-                if (toggleAttribute && shouldRender) {
+                if (toggleAttribute) {
                     MobCore.useFrame(() => {
                         applyAttribute({ ref, data: toggleAttribute });
                     });
                 }
 
-                return watchById(id, state, (value) => {
+                return watchById(id, state, () => {
                     /**
                      * Check if element is garbage collected.
                      */
@@ -242,25 +226,15 @@ const watchBindEffect = ({ data, element }) => {
 
                     MobCore.useNextLoop(() => {
                         MobCore.useFrame(() => {
-                            /**
-                             * Repeat ProxiIndex issue. Array che be destroyed before element will removed.
-                             * proxi.data[proxiIndex.value].prop can fail when array is empty.
-                             */
-                            const shouldRender = !isArray || value.length > 0;
-
-                            if (toggleClass && shouldRender && ref.deref()) {
+                            if (toggleClass && ref.deref()) {
                                 applyClass({ ref, data: toggleClass });
                             }
 
-                            if (toggleStyle && shouldRender && ref.deref()) {
+                            if (toggleStyle && ref.deref()) {
                                 applyStyle({ ref, data: toggleStyle });
                             }
 
-                            if (
-                                toggleAttribute &&
-                                shouldRender &&
-                                ref.deref()
-                            ) {
+                            if (toggleAttribute && ref.deref()) {
                                 applyAttribute({ ref, data: toggleAttribute });
                             }
 
