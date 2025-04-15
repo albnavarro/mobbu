@@ -670,7 +670,7 @@ export interface ComponentParsed<T> {
     }) => void;
     attributeToObserve?: string[];
     style?: string;
-    state?: MobStoreParams<ExtractState<T>>;
+    state?: Partial<MobStoreParams<ExtractState<T>>>;
     child?: CreateComponentReturnType[];
 }
 
