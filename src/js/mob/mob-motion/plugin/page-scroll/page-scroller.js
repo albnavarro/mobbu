@@ -95,10 +95,13 @@ const MobPageScroller = ({ velocity, rootElement }) => {
     /**
      * Update lerp value on change screen dimension
      */
-    const resizeObserver = new ResizeObserver(() => {
-        lerp.stop();
-        lerp.setImmediate({ scrollValue: window.scrollY });
-    });
+    const resizeObserver = new ResizeObserver(
+        MobCore.useDebounce(() => {
+            lerp.stop();
+            lerp.setImmediate({ scrollValue: window.scrollY });
+            smoothIsActive = false;
+        })
+    );
 
     resizeObserver.observe(rootElement);
 
@@ -132,6 +135,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
         },
         stop: () => {
             lerp.stop();
+            smoothIsActive = false;
         },
         update: () => {
             lerp.setImmediate({ scrollValue: window.scrollY });
