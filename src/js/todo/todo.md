@@ -1,16 +1,18 @@
 # MobCore
 
 ### eslint:
-
 - Valutare: `unicorn/no-array-for-each': 'off'` `--fix` sembra funzionare in maniera corretta.
 - Valutare per ora solo a livello di store https://github.com/eslint-functional/eslint-plugin-functional
 
-### DOCS
+### Store - deepEquality:
+- Agiungere `deepEquality`, basta un `JSON.stringigfy(current) === JSON.stringigfy(current)`.
+- Utile per `array/object`.
+- Rivedere un controllo piu permissivo e veloce per gli `oggetti`?
 
+### Docs
 - Aggiungere i tipi allo store.
 
 ### set/update
-
 - Sostuire le strighe rimaste in tutto il progetto `fireCallback ` con `emit` per pulizia.
 - ( stringhe non referenze ).
 
