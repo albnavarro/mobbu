@@ -9,7 +9,7 @@ let isActive = false;
 let lastScrollValue = window.scrollY;
 
 /** @type {boolean} */
-let smoothIsActive = false;
+let lerpIsActive = false;
 
 /** @type {boolean} */
 let isFreezed = false;
@@ -25,6 +25,12 @@ let update = () => {};
 
 /** @type {HTMLElement | undefined} */
 let rootElementToObserve;
+
+const setValuesOnLerpInactive = () => {
+    lastScrollValue = window.scrollY;
+    lerpIsActive = false;
+    isFreezed = false;
+};
 
 /** @type {import('./type').MobPageScroller} */
 const MobPageScroller = ({ velocity, rootElement }) => {
@@ -42,7 +48,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
     });
 
     lerp.onComplete(() => {
-        smoothIsActive = false;
+        setValuesOnLerpInactive();
     });
 
     /**
@@ -52,7 +58,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
         if (isFreezed) return;
 
         event.preventDefault();
-        smoothIsActive = true;
+        lerpIsActive = true;
         const currentValue = MobMotionCore.clamp(
             // @ts-ignore
             event.spinY * velocity + lastScrollValue,
@@ -68,7 +74,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
      * Update lerp value on native scroll event.
      */
     const unsubscribeScroll = MobCore.useScroll(() => {
-        if (smoothIsActive || isFreezed) {
+        if (lerpIsActive || isFreezed) {
             return;
         }
 
@@ -88,27 +94,25 @@ const MobPageScroller = ({ velocity, rootElement }) => {
 
         if (event.page.x > window.innerWidth - scrollBarWidth) {
             lerp.stop();
-            smoothIsActive = false;
+            setValuesOnLerpInactive();
         }
     });
 
     /**
      * Update lerp value on change screen dimension
      */
-    const resizeObserver = new ResizeObserver(
-        MobCore.useDebounce(() => {
-            lerp.stop();
-            lerp.setImmediate({ scrollValue: window.scrollY });
-            smoothIsActive = false;
-        })
-    );
+    const resizeObserver = new ResizeObserver(() => {
+        lerp.stop();
+        lerp.setImmediate({ scrollValue: window.scrollY });
+        setValuesOnLerpInactive();
+    });
 
     resizeObserver.observe(rootElement);
 
     return {
         destroy: () => {
             lastScrollValue = 0;
-            smoothIsActive = false;
+            lerpIsActive = false;
             isFreezed = true;
 
             // Disconnect resizeObserver.
@@ -135,7 +139,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
         },
         stop: () => {
             lerp.stop();
-            smoothIsActive = false;
+            setValuesOnLerpInactive();
         },
         update: () => {
             lerp.setImmediate({ scrollValue: window.scrollY });
@@ -150,9 +154,7 @@ export const InitMobPageScroll = ({
 } = {}) => {
     if (isActive) return;
 
-    lastScrollValue = window.scrollY;
-    smoothIsActive = false;
-    isFreezed = false;
+    setValuesOnLerpInactive();
     isActive = true;
 
     ({ destroy, stop, update } = MobPageScroller({
@@ -166,7 +168,7 @@ export const FreezeMobPageScroll = () => {
     if (!isActive || isFreezed) return;
 
     stop();
-    smoothIsActive = false;
+    lerpIsActive = false;
     isFreezed = true;
 };
 
@@ -182,9 +184,7 @@ export const UnFreezeAndUPdateMobPageScroll = () => {
     if (!isActive) return;
 
     update();
-    lastScrollValue = window.scrollY;
-    smoothIsActive = false;
-    isFreezed = false;
+    setValuesOnLerpInactive();
 };
 
 /** @type{() => void} */
