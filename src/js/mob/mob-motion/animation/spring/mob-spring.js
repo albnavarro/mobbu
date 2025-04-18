@@ -81,7 +81,7 @@ export default class MobSpring {
     /**
      * @type {boolean}
      */
-    #isActive;
+    #isRunning;
 
     /**
      * @type{((value:any) => void)|undefined }
@@ -96,7 +96,7 @@ export default class MobSpring {
     /**
      * @type {Promise<void> | undefined}
      */
-    #promise;
+    #currentPromise;
 
     /**
      * @type {import('./type.js').SpringValues[] | []}
@@ -227,10 +227,10 @@ export default class MobSpring {
         this.#configProps = springConfigIsValidAndGetNew(data?.config);
         this.updateConfigProp(data?.configProps ?? {});
         this.#uniqueId = MobCore.getUnivoqueId();
-        this.#isActive = false;
+        this.#isRunning = false;
         this.#currentResolve = undefined;
         this.#currentReject = undefined;
-        this.#promise = undefined;
+        this.#currentPromise = undefined;
         this.#values = [];
         this.#initialData = [];
         this.#callback = [];
@@ -261,15 +261,14 @@ export default class MobSpring {
     /**
      * @param {number} _time
      * @param {number} fps
-     * @param {Function} res
      * @param {number} tension
      * @param {number} friction
      * @param {number} mass
      * @param {number} precision
      * @returns {void}
      */
-    #draw(_time, fps, res = () => {}, tension, friction, mass, precision) {
-        this.#isActive = true;
+    #draw(_time, fps, tension, friction, mass, precision) {
+        this.#isRunning = true;
 
         this.#values = springGetValuesOndraw({
             values: this.#values,
@@ -300,7 +299,7 @@ export default class MobSpring {
 
         if (allSettled) {
             const onComplete = () => {
-                this.#isActive = false;
+                this.#isRunning = false;
 
                 /**
                  * End of animation Set fromValue with ended value At the next call fromValue become the start value
@@ -315,13 +314,13 @@ export default class MobSpring {
                 /**
                  * On complete
                  */
-                if (!this.#pauseStatus) {
-                    res();
+                if (!this.#pauseStatus && this.#currentResolve) {
+                    this.#currentResolve(true);
 
                     /**
                      * Set promise reference to null once resolved
                      */
-                    this.#promise = undefined;
+                    this.#currentPromise = undefined;
                     this.#currentReject = undefined;
                     this.#currentResolve = undefined;
                 }
@@ -349,16 +348,8 @@ export default class MobSpring {
 
         MobCore.useFrame(() => {
             MobCore.useNextTick(({ time, fps }) => {
-                if (this.#isActive)
-                    this.#draw(
-                        time,
-                        fps,
-                        res,
-                        tension,
-                        friction,
-                        mass,
-                        precision
-                    );
+                if (this.#isRunning)
+                    this.#draw(time, fps, tension, friction, mass, precision);
             });
         });
     }
@@ -366,9 +357,8 @@ export default class MobSpring {
     /**
      * @param {number} time Current global time
      * @param {number} fps Current FPS
-     * @param {Function} res Current promise resolve
      */
-    #onReuqestAnim(time, fps, res) {
+    #onReuqestAnim(time, fps) {
         this.#values = [...this.#values].map((item) => {
             return {
                 ...item,
@@ -384,7 +374,7 @@ export default class MobSpring {
         const mass = Math.max(1, this.#configProps.mass);
         const precision = this.#configProps.precision;
 
-        this.#draw(time, fps, res, tension, friction, mass, precision);
+        this.#draw(time, fps, tension, friction, mass, precision);
     }
 
     /**
@@ -451,13 +441,13 @@ export default class MobSpring {
     }
 
     /**
-     * @param {(value: any) => void} res
+     * @param {(value: any) => void} resolve
      * @param {(value: any) => void} reject
      * @returns {Promise<any>}
      */
-    async #startRaf(res, reject) {
+    async #startRaf(resolve, reject) {
         if (this.#fpsInLoading) return;
-        this.#currentResolve = res;
+        this.#currentResolve = resolve;
         this.#currentReject = reject;
 
         if (this.#firstRun) {
@@ -468,9 +458,8 @@ export default class MobSpring {
 
         initRaf(
             this.#callbackStartInPause,
-            this.#onReuqestAnim.bind(this),
-            this.pause.bind(this),
-            res
+            (time, fps) => this.#onReuqestAnim(time, fps),
+            () => this.pause()
         );
     }
 
@@ -485,18 +474,18 @@ export default class MobSpring {
          * If isRunning clear all funture stagger. If tween is ended and the lst stagger is running, let it reach end
          * position.
          */
-        if (this.#isActive && clearCache)
+        if (this.#isRunning && clearCache)
             this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
 
         // Reject promise
         if (this.#currentReject) {
             this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#promise = undefined;
+            this.#currentPromise = undefined;
             this.#currentReject = undefined;
             this.#currentResolve = undefined;
         }
 
-        this.#isActive = false;
+        this.#isRunning = false;
     }
 
     /**
@@ -505,7 +494,7 @@ export default class MobSpring {
     pause() {
         if (this.#pauseStatus) return;
         this.#pauseStatus = true;
-        if (this.#isActive) this.#isActive = false;
+        if (this.#isRunning) this.#isRunning = false;
         this.#values = setFromByCurrent(this.#values);
     }
 
@@ -516,7 +505,7 @@ export default class MobSpring {
         if (!this.#pauseStatus) return;
         this.#pauseStatus = false;
 
-        if (!this.#isActive && this.#currentResolve) {
+        if (!this.#isRunning && this.#currentResolve) {
             resume(this.#onReuqestAnim.bind(this), this.#currentResolve);
         }
     }
@@ -686,7 +675,7 @@ export default class MobSpring {
         this.#values = setRelative(this.#values, this.#relative);
         this.#values = setFromCurrentByTo(this.#values);
 
-        this.#isActive = false;
+        this.#isRunning = false;
         return;
     }
 
@@ -703,21 +692,30 @@ export default class MobSpring {
         this.#values = setRelative(this.#values, this.#relative);
 
         if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
-            this.#isActive = false;
+            this.#isRunning = false;
             this.#values = setFromCurrentByTo(this.#values);
             return Promise.resolve();
         }
 
-        if (!this.#isActive && !this.#promise) {
-            this.#promise = new Promise((res, reject) => {
-                this.#startRaf(res, reject);
+        /**
+         * Condition to create promise. Promise is created first time. If is calling when isRunning reject, so only one
+         * promise is resolved. this.#currentPromise is necessary to avoid wrong fps calculation ( async stagger
+         * function ).
+         */
+        const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
+
+        /**
+         * Avery time is called while is running return the previous promise.
+         */
+        if (shouldInitializeRAF) {
+            this.#currentPromise = new Promise((resolve, reject) => {
+                this.#startRaf(resolve, reject);
             });
         }
 
-        if (this.#promise) return this.#promise;
-
-        // fallback
-        return Promise.resolve();
+        return shouldInitializeRAF && this.#currentPromise
+            ? this.#currentPromise
+            : Promise.reject(MobCore.ANIMATION_STOP_REJECT);
     }
 
     /**
@@ -959,13 +957,13 @@ export default class MobSpring {
      * Destroy tween
      */
     destroy() {
-        if (this.#promise) this.stop();
+        if (this.#currentPromise) this.stop();
         this.#callbackOnComplete = [];
         this.#callbackStartInPause = [];
         this.#callback = [];
         this.#callbackCache = [];
         this.#values = [];
-        this.#promise = undefined;
+        this.#currentPromise = undefined;
         this.#unsubscribeCache.forEach((unsubscribe) => unsubscribe());
         this.#unsubscribeCache = [];
     }

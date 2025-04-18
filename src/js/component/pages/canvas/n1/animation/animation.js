@@ -254,18 +254,20 @@ export const caterpillarN1Animation = ({
         const winHeight = window.innerHeight;
         const xCenter = x - canvas.width / 2 - left;
         const yCenter = y - canvas.height / 2 - top;
-        centerTween.goTo({
-            x: MobMotionCore.clamp(
-                xCenter,
-                -winWidth / 2 + 400 + left,
-                winWidth / 2 - 400 - left
-            ),
-            y: MobMotionCore.clamp(
-                yCenter,
-                -winHeight / 2 + 200 + top,
-                winHeight / 2 - 200 - top
-            ),
-        });
+        centerTween
+            .goTo({
+                x: MobMotionCore.clamp(
+                    xCenter,
+                    -winWidth / 2 + 400 + left,
+                    winWidth / 2 - 400 - left
+                ),
+                y: MobMotionCore.clamp(
+                    yCenter,
+                    -winHeight / 2 + 200 + top,
+                    winHeight / 2 - 200 - top
+                ),
+            })
+            .catch(() => {});
     };
 
     const unsubscribeMouseMove = MobCore.useMouseMove(({ client }) => {

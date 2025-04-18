@@ -32,7 +32,7 @@ export const RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
         });
 
         const unsubScribeAfterRouteChange = MobJs.afterRouteChange(async () => {
-            await tweenOut.goTo({ opacity: 0, scale: 0.9 });
+            await tweenOut.goTo({ opacity: 0, scale: 0.9 }).catch(() => {});
 
             proxi.isDisable = true;
         });

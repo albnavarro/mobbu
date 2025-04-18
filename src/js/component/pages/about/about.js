@@ -263,7 +263,7 @@ export const AboutComponentFn = ({
             }
 
             const valueParsed = -Math.abs(value / 30);
-            await svgSpring.goTo({ x: valueParsed });
+            await svgSpring.goTo({ x: valueParsed }).catch(() => {});
         };
 
         /**

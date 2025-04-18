@@ -55,7 +55,7 @@ export const verticalScroller = ({ screen, scroller, scrollbar }) => {
         move: (val) => {
             if (!instance) return;
 
-            instance.move(val);
+            instance.move(val).catch(() => {});
         },
         goToTop: () => {
             instance?.set(0);

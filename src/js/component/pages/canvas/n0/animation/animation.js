@@ -296,9 +296,11 @@ export const caterpillarN0Animation = ({
      */
     const move = ({ x }) => {
         const xCenter = x - canvas.width / 2 - left;
-        mainTween.goTo({
-            rotate: xCenter / mouseMoveRatio,
-        });
+        mainTween
+            .goTo({
+                rotate: xCenter / mouseMoveRatio,
+            })
+            .catch(() => {});
     };
 
     /**

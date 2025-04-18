@@ -257,7 +257,7 @@ export const animatedPatternN1Animation = ({
      * @returns {void}
      */
     const move = ({ x, y }) => {
-        centerTween.goTo({ mouseX: x - left, mouseY: y - top });
+        centerTween.goTo({ mouseX: x - left, mouseY: y - top }).catch(() => {});
     };
 
     const unsubscribeMouseMove = MobCore.useMouseMove(({ client }) => {

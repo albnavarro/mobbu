@@ -94,7 +94,7 @@ export const aboutAnimation = ({
 
     return {
         goTo: (value) => {
-            aboutScroller.move(value);
+            aboutScroller.move(value).catch(() => {});
         },
         destroy: () => {
             aboutScroller.destroy();

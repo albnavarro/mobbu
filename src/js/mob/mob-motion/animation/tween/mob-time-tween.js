@@ -80,7 +80,12 @@ export default class MobTimeTween {
     /**
      * @type {boolean}
      */
-    #isActive;
+    #isRunning;
+
+    /**
+     * @type{((value:any) => void)|undefined }
+     */
+    #currentResolve;
 
     /**
      * @type{((value:any) => void)|undefined }
@@ -90,7 +95,7 @@ export default class MobTimeTween {
     /**
      * @type {Promise<void> | undefined}
      */
-    #promise;
+    #currentPromise;
 
     /**
      * @type {import('./type.js').TimeTweenStoreData[]}
@@ -141,11 +146,6 @@ export default class MobTimeTween {
      * @type {number}
      */
     #startTime;
-
-    /**
-     * @type {boolean}
-     */
-    #isRunning;
 
     /**
      * @type {number}
@@ -239,9 +239,10 @@ export default class MobTimeTween {
         this.#relative = relativeIsValid(data?.relative, 'tween');
         this.#stagger = getStaggerFromProps(data ?? {});
         this.#uniqueId = MobCore.getUnivoqueId();
-        this.#isActive = false;
+        this.#isRunning = false;
+        this.#currentResolve = undefined;
         this.#currentReject = undefined;
-        this.#promise = undefined;
+        this.#currentPromise = undefined;
         this.#values = [];
         this.#initialData = [];
         this.#callback = [];
@@ -252,7 +253,6 @@ export default class MobTimeTween {
         this.#pauseStatus = false;
         this.#comeFromResume = false;
         this.#startTime = 0;
-        this.#isRunning = false;
         this.#timeElapsed = 0;
         this.#pauseTime = 0;
         this.#firstRun = true;
@@ -274,21 +274,17 @@ export default class MobTimeTween {
 
     /**
      * @param {number} time
-     * @param {Function} res
      * @returns {void}
      */
-    #draw(time, res = () => {}) {
-        this.#isActive = true;
+    #draw(time) {
+        this.#isRunning = true;
 
         if (this.#pauseStatus) {
             this.#pauseTime = time - this.#startTime - this.#timeElapsed;
         }
         this.#timeElapsed = time - this.#startTime - this.#pauseTime;
 
-        if (
-            this.#isRunning &&
-            Math.round(this.#timeElapsed) >= this.#duration
-        ) {
+        if (Math.round(this.#timeElapsed) >= this.#duration) {
             this.#timeElapsed = this.#duration;
         }
 
@@ -312,11 +308,9 @@ export default class MobTimeTween {
             useStagger: this.#useStagger,
         });
 
-        this.#isRunning = true;
-
         if (isSettled) {
             const onComplete = () => {
-                this.#isActive = false;
+                this.#isRunning = false;
                 this.#isRunning = false;
                 this.#pauseTime = 0;
 
@@ -334,12 +328,13 @@ export default class MobTimeTween {
                 });
 
                 // On complete
-                if (!this.#pauseStatus) {
-                    res();
+                if (!this.#pauseStatus && this.#currentResolve) {
+                    this.#currentResolve(true);
 
                     // Set promise reference to null once resolved
-                    this.#promise = undefined;
+                    this.#currentPromise = undefined;
                     this.#currentReject = undefined;
+                    this.#currentResolve = undefined;
                 }
             };
 
@@ -360,20 +355,18 @@ export default class MobTimeTween {
 
         MobCore.useFrame(() => {
             MobCore.useNextTick(({ time }) => {
-                if (this.#isActive) this.#draw(time, res);
+                if (this.#isRunning) this.#draw(time);
             });
         });
     }
 
     /**
      * @param {number} time Current global time
-     * @param {number} fps Current FPS
-     * @param {Function} res Current promise resolve
      * @returns {void}
      */
-    #onReuqestAnim(time, fps, res) {
+    #onReuqestAnim(time) {
         this.#startTime = time;
-        this.#draw(time, res);
+        this.#draw(time);
     }
 
     /**
@@ -440,12 +433,13 @@ export default class MobTimeTween {
     }
 
     /**
-     * @param {(value: any) => void} res
+     * @param {(value: any) => void} resolve
      * @param {(value: any) => void} reject
      * @returns {Promise<any>}
      */
-    async #startRaf(res, reject) {
+    async #startRaf(resolve, reject) {
         if (this.#fpsInLoading) return;
+        this.#currentResolve = resolve;
         this.#currentReject = reject;
 
         if (this.#firstRun) {
@@ -456,9 +450,8 @@ export default class MobTimeTween {
 
         initRaf(
             this.#callbackStartInPause,
-            this.#onReuqestAnim.bind(this),
-            this.pause.bind(this),
-            res
+            (time) => this.#onReuqestAnim(time),
+            () => this.pause()
         );
     }
 
@@ -475,17 +468,18 @@ export default class MobTimeTween {
          * If isRunning clear all funture stagger. If tween is ended and the lst stagger is running, let it reach end
          * position.
          */
-        if (this.#isActive && clearCache)
+        if (this.#isRunning && clearCache)
             this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
 
         // Abort promise
         if (this.#currentReject) {
             this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#promise = undefined;
+            this.#currentPromise = undefined;
             this.#currentReject = undefined;
+            this.#currentResolve = undefined;
         }
 
-        this.#isActive = false;
+        this.#isRunning = false;
     }
 
     /**
@@ -556,12 +550,12 @@ export default class MobTimeTween {
      * @returns {void}
      */
     #updateDataWhileRunning() {
-        this.#isActive = false;
+        this.#isRunning = false;
 
         // Reject promise
         if (this.#currentReject) {
             this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#promise = undefined;
+            this.#currentPromise = undefined;
         }
 
         this.#values = [...this.#values].map((item) => {
@@ -648,7 +642,7 @@ export default class MobTimeTween {
         const propsParsed = props ? { ...props, duration: 1 } : { duration: 1 };
         this.#values = mergeArrayTween(data, this.#values);
 
-        if (this.#isActive) this.#updateDataWhileRunning();
+        if (this.#isRunning) this.#updateDataWhileRunning();
 
         const { reverse } = this.#mergeProps(propsParsed);
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
@@ -657,7 +651,7 @@ export default class MobTimeTween {
         this.#values = setRelativeTween(this.#values, this.#relative);
         this.#values = setFromCurrentByTo(this.#values);
 
-        this.#isActive = false;
+        this.#isRunning = false;
         return;
     }
 
@@ -666,7 +660,7 @@ export default class MobTimeTween {
      */
     #doAction(data, props = {}, obj) {
         this.#values = mergeArrayTween(data, this.#values);
-        if (this.#isActive) this.#updateDataWhileRunning();
+        if (this.#isRunning) this.#updateDataWhileRunning();
 
         const { reverse, immediate } = this.#mergeProps(props);
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
@@ -675,21 +669,30 @@ export default class MobTimeTween {
         this.#values = setRelativeTween(this.#values, this.#relative);
 
         if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
-            this.#isActive = false;
+            this.#isRunning = false;
             this.#values = setFromCurrentByTo(this.#values);
             return Promise.resolve();
         }
 
-        if (!this.#isActive) {
-            this.#promise = new Promise((res, reject) => {
-                this.#startRaf(res, reject);
+        /**
+         * Condition to create promise. Promise is created first time. If is calling when isRunning reject, so only one
+         * promise is resolved. this.#currentPromise is necessary to avoid wrong fps calculation ( async stagger
+         * function ).
+         */
+        const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
+
+        /**
+         * Avery time is called while is running return the previous promise.
+         */
+        if (shouldInitializeRAF) {
+            this.#currentPromise = new Promise((resolve, reject) => {
+                this.#startRaf(resolve, reject);
             });
         }
 
-        if (this.#promise) return this.#promise;
-
-        // fallback
-        return Promise.resolve();
+        return shouldInitializeRAF && this.#currentPromise
+            ? this.#currentPromise
+            : Promise.reject(MobCore.ANIMATION_STOP_REJECT);
     }
 
     /**
@@ -909,13 +912,13 @@ export default class MobTimeTween {
      * @returns {void}
      */
     destroy() {
-        if (this.#promise) this.stop();
+        if (this.#currentPromise) this.stop();
         this.#callbackOnComplete = [];
         this.#callbackStartInPause = [];
         this.#callback = [];
         this.#callbackCache = [];
         this.#values = [];
-        this.#promise = undefined;
+        this.#currentPromise = undefined;
         this.#unsubscribeCache.forEach((unsubscribe) => unsubscribe());
         this.#unsubscribeCache = [];
     }

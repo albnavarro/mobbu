@@ -63,7 +63,7 @@ export const initNavigationScoller = ({ root }) => {
 
         const maxValue = percent;
 
-        navScroller.move(maxValue);
+        navScroller.move(maxValue).catch(() => {});
     });
 
     /**
@@ -81,7 +81,7 @@ export const initNavigationScoller = ({ root }) => {
     return {
         scrollNativationToTop: () => {
             setTimeout(() => {
-                navScroller.move(0);
+                navScroller.move(0).catch(() => {});
 
                 /**
                  * Reset active section to scroll.

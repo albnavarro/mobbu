@@ -651,7 +651,7 @@ export class MobSmoothScroller {
 
             this.#onSwipeCallback({
                 direction: directionParsed,
-                move: (value) => this.move(value),
+                move: (value) => this.move(value).catch(() => {}),
             });
 
             setTimeout(() => {
@@ -981,7 +981,7 @@ export class MobSmoothScroller {
          */
 
         // @ts-ignore
-        this.#motion.goTo({ val: this.#endValue });
+        this.#motion.goTo({ val: this.#endValue }).catch(() => {});
 
         /**
          * Fire on update callback
