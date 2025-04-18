@@ -6,6 +6,8 @@ import {
     UnFreezeAndUPdateMobPageScroll,
 } from '@mobMotionPlugin';
 
+let usePrevent = false;
+
 export const usePageScroll = () => {
     const rootElement = /** @type {HTMLElement} */ (
         document.querySelector('#root')
@@ -14,16 +16,20 @@ export const usePageScroll = () => {
     if (!rootElement) return;
     InitMobPageScroll({ rootElement });
 
-    MobJs.mainStore.watch('beforeRouteChange', () => {
-        FreezeMobPageScroll();
-    });
+    MobJs.mainStore.watch('routeIsLoading', (isLoading) => {
+        if (isLoading) {
+            usePrevent = true;
+            FreezeMobPageScroll();
+            return;
+        }
 
-    MobJs.mainStore.watch('afterRouteChange', () => {
-        /**
-         * With 3 frame. last animation frame will fired one frame after stop
-         */
         MobCore.useFrameIndex(() => {
             UnFreezeAndUPdateMobPageScroll();
+            usePrevent = true;
         }, 3);
+    });
+
+    MobCore.useMouseWheel(({ preventDefault }) => {
+        if (usePrevent) preventDefault();
     });
 };
