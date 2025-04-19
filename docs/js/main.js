@@ -15326,7 +15326,6 @@
       const data = setUtils(obj);
       const propsParsed = props ? { ...props, duration: 1 } : { duration: 1 };
       this.#values = mergeArrayTween(data, this.#values);
-      if (this.#isRunning) this.#updateDataWhileRunning();
       const { reverse } = this.#mergeProps(propsParsed);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
         this.#values = setReverseValues(obj, this.#values);
