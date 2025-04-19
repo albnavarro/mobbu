@@ -9,7 +9,6 @@ export type VerticalScroller = (arg0: {
     updateScroller: () => void;
     move: (val: number) => void;
     goToTop: () => void;
-    hideScrolBar: () => void;
 };
 
 export type SimpleIntroAnimation = (arg0: { refs: HTMLElement[] }) => {

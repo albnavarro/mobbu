@@ -15,6 +15,14 @@ import {
 } from '../../../pages';
 
 /**
+ * This component is a singleton so use module scope.
+ */
+let init = () => {};
+let destroy = () => {};
+let move = () => {};
+let updateScroller = () => {};
+
+/**
  * @param {object} param
  * @param {StaticProps} param.staticProps
  * @param {BindProps<LinksMobJs, LinksMobJsButton>} param.bindProps
@@ -67,17 +75,6 @@ export const LinksMobJsFn = ({
     onMount(() => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let init = () => {};
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let destroy = () => {};
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let move = () => {};
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let updateScroller = () => {};
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let hideScrolBar = () => {};
-
         let isActive = false;
 
         scrollbar.addEventListener('input', () => {
@@ -110,7 +107,6 @@ export const LinksMobJsFn = ({
                      */
                     if (isActive) {
                         updateScroller();
-                        hideScrolBar();
                         return;
                     }
 
@@ -118,19 +114,19 @@ export const LinksMobJsFn = ({
                      * Create scroller
                      */
                     // @ts-ignore
-                    ({ init, destroy, move, updateScroller, hideScrolBar } =
-                        verticalScroller({
+                    ({ init, destroy, move, updateScroller } = verticalScroller(
+                        {
                             screen: screenEl,
                             scroller: scrollerEl,
                             scrollbar,
-                        }));
+                        }
+                    ));
 
                     isActive = true;
                     init();
                     updateScroller();
                     // @ts-ignore
                     move(0);
-                    hideScrolBar();
                 }
 
                 if (currentData.length === 0) {
