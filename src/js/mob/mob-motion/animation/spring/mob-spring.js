@@ -24,10 +24,10 @@ import {
     updateSubscribersCache,
 } from '../utils/callbacks/set-callback.js';
 import {
-    goToUtils,
-    goFromUtils,
-    goFromToUtils,
-    setUtils,
+    parseGoToObject,
+    parseGoFromObject,
+    parseGoFromToObject,
+    parseSetObject,
 } from '../utils/tween-action/actions.js';
 import { initRaf } from '../utils/init-raf.js';
 import {
@@ -494,7 +494,7 @@ export default class MobSpring {
     pause() {
         if (this.#pauseStatus) return;
         this.#pauseStatus = true;
-        if (this.#isRunning) this.#isRunning = false;
+        this.#isRunning = false;
         this.#values = setFromByCurrent(this.#values);
     }
 
@@ -612,67 +612,68 @@ export default class MobSpring {
     /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').SpringActions>} obj To Values
      */
-    goTo(obj, props = {}) {
+    goTo(toObject, specialProps = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
 
         this.#useStagger = true;
-        const data = goToUtils(obj);
-        return this.#doAction(data, props, obj);
+        const toObjectParsed = parseGoToObject(toObject);
+        return this.#doAction(toObjectParsed, toObject, specialProps);
     }
 
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').SpringActions>} obj To Values
      */
-    goFrom(obj, props = {}) {
+    goFrom(fromObject, spacialProps = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
 
         this.#useStagger = true;
-        const data = goFromUtils(obj);
-        return this.#doAction(data, props, obj);
+        const fromObjectParsed = parseGoFromObject(fromObject);
+        return this.#doAction(fromObjectParsed, fromObject, spacialProps);
     }
 
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').SpringActions>} obj To Values
      */
-    goFromTo(fromObj, toObj, props = {}) {
+    goFromTo(fromObject, toObject, specialProps = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
-
         this.#useStagger = true;
-        if (!compareKeys(fromObj, toObj)) {
-            compareKeysWarning('spring goFromTo:', fromObj, toObj);
+
+        // Check if fromObj has the same keys of toObj
+        if (!compareKeys(fromObject, toObject)) {
+            compareKeysWarning('spring goFromTo:', fromObject, toObject);
             return new Promise((resolve) => resolve);
         }
 
-        const data = goFromToUtils(fromObj, toObj);
-        return this.#doAction(data, props, fromObj);
+        const objectParsed = parseGoFromToObject(fromObject, toObject);
+        return this.#doAction(objectParsed, fromObject, specialProps);
     }
 
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').SpringActions>} obj To Values
      */
-    set(obj, props = {}) {
+    set(setObject, specialProps = {}) {
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
 
         this.#useStagger = false;
-        const data = setUtils(obj);
-        return this.#doAction(data, props, obj);
+        const setObjectParsed = parseSetObject(setObject);
+        return this.#doAction(setObjectParsed, setObject, specialProps);
     }
 
     /**
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').SpringActions>} obj To Values
      */
-    setImmediate(obj, props = {}) {
+    setImmediate(setObject, specialProps = {}) {
         // this.#value is updated below
         if (this.#isRunning) this.stop({ updateValues: false });
         if (this.#pauseStatus) return;
 
         this.#useStagger = false;
-        const data = setUtils(obj);
-        this.#values = mergeArray(data, this.#values);
+        const setObjectParsed = parseSetObject(setObject);
+        this.#values = mergeArray(setObjectParsed, this.#values);
 
-        const { reverse } = this.#mergeProps(props ?? {});
+        const { reverse } = this.#mergeProps(specialProps ?? {});
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
-            this.#values = setReverseValues(obj, this.#values);
+            this.#values = setReverseValues(setObject, this.#values);
 
         this.#values = setRelative(this.#values, this.#relative);
         this.#values = setFromCurrentByTo(this.#values);
@@ -682,12 +683,12 @@ export default class MobSpring {
     /**
      * @type {import('../../utils/type.js').DoAction<import('./type.js').SpringActions>} obj To Values
      */
-    #doAction(data, props = {}, obj) {
-        this.#values = mergeArray(data, this.#values);
-        const { reverse, immediate } = this.#mergeProps(props);
+    #doAction(newObjectParsed, newObjectRaw, spacialProps = {}) {
+        this.#values = mergeArray(newObjectParsed, this.#values);
 
+        const { reverse, immediate } = this.#mergeProps(spacialProps);
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
-            this.#values = setReverseValues(obj, this.#values);
+            this.#values = setReverseValues(newObjectRaw, this.#values);
 
         this.#values = setRelative(this.#values, this.#relative);
 
