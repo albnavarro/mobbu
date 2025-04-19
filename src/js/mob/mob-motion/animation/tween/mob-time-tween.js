@@ -311,7 +311,6 @@ export default class MobTimeTween {
         if (isSettled) {
             const onComplete = () => {
                 this.#isRunning = false;
-                this.#isRunning = false;
                 this.#pauseTime = 0;
 
                 /**
@@ -458,11 +457,11 @@ export default class MobTimeTween {
     /**
      * @type {import('./type.js').TimeTweenStop}
      */
-    stop({ clearCache = true } = {}) {
+    stop({ clearCache = true, updateValues = true } = {}) {
         this.#pauseTime = 0;
         this.#pauseStatus = false;
         this.#comeFromResume = false;
-        this.#values = setFromToByCurrent(this.#values);
+        if (updateValues) this.#values = setFromToByCurrent(this.#values);
 
         /**
          * If isRunning clear all funture stagger. If tween is ended and the lst stagger is running, let it reach end
@@ -550,14 +549,6 @@ export default class MobTimeTween {
      * @returns {void}
      */
     #updateDataWhileRunning() {
-        this.#isRunning = false;
-
-        // Reject promise
-        if (this.#currentReject) {
-            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#currentPromise = undefined;
-        }
-
         this.#values = [...this.#values].map((item) => {
             if (!item.shouldUpdate) return item;
 
@@ -635,7 +626,8 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').TimeTweenAction>} obj To Values
      */
     setImmediate(obj, props = {}) {
-        if (this.#isRunning) this.stop();
+        // this.#value is updated below
+        if (this.#isRunning) this.stop({ updateValues: false });
         if (this.#pauseStatus) return;
 
         this.#useStagger = false;
@@ -659,7 +651,14 @@ export default class MobTimeTween {
      */
     #doAction(data, props = {}, obj) {
         this.#values = mergeArrayTween(data, this.#values);
-        if (this.#isRunning) this.#updateDataWhileRunning();
+
+        if (this.#isRunning) {
+            /**
+             * Time tween need restart if called while running. this.#value is updated below
+             */
+            this.stop({ updateValues: false });
+            this.#updateDataWhileRunning();
+        }
 
         const { reverse, immediate } = this.#mergeProps(props);
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
@@ -668,7 +667,7 @@ export default class MobTimeTween {
         this.#values = setRelativeTween(this.#values, this.#relative);
 
         if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
-            this.#isRunning = false;
+            if (this.#isRunning) this.stop({ updateValues: false });
             this.#values = setFromCurrentByTo(this.#values);
             return Promise.resolve();
         }

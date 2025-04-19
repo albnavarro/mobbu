@@ -466,9 +466,9 @@ export default class MobSpring {
     /**
      * @type {import('./type.js').SpringStop}
      */
-    stop({ clearCache = true } = {}) {
+    stop({ clearCache = true, updateValues = true } = {}) {
         if (this.#pauseStatus) this.#pauseStatus = false;
-        this.#values = setFromToByCurrent(this.#values);
+        if (updateValues) this.#values = setFromToByCurrent(this.#values);
 
         /**
          * If isRunning clear all funture stagger. If tween is ended and the lst stagger is running, let it reach end
@@ -506,7 +506,7 @@ export default class MobSpring {
         this.#pauseStatus = false;
 
         if (!this.#isRunning && this.#currentResolve) {
-            resume(this.#onReuqestAnim.bind(this), this.#currentResolve);
+            resume((time, fps) => this.#onReuqestAnim(time, fps));
         }
     }
 
@@ -662,7 +662,8 @@ export default class MobSpring {
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').SpringActions>} obj To Values
      */
     setImmediate(obj, props = {}) {
-        if (this.#isRunning) this.stop();
+        // this.#value is updated below
+        if (this.#isRunning) this.stop({ updateValues: false });
         if (this.#pauseStatus) return;
 
         this.#useStagger = false;
@@ -691,7 +692,7 @@ export default class MobSpring {
         this.#values = setRelative(this.#values, this.#relative);
 
         if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
-            this.#isRunning = false;
+            if (this.#isRunning) this.stop({ updateValues: false });
             this.#values = setFromCurrentByTo(this.#values);
             return Promise.resolve();
         }
