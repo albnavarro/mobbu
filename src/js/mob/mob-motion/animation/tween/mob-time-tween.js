@@ -654,7 +654,7 @@ export default class MobTimeTween {
             /**
              * Time tween need restart if called while running. this.#value is updated below
              */
-            this.stop({ updateValues: false });
+            this.stop({ clearCache: false, updateValues: false });
             this.#updateDataWhileRunning();
         }
 
