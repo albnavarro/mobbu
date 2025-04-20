@@ -276,11 +276,25 @@
                         "content": "propierties"
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-paragraph",
                         "props": {
-                            "style": "medium"
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
                         },
-                        "content": "built-in propierties:"
+                        "content": "<strong>Built-in</strong> properties can be used exclusively as <strong>single properties</strong>, to modify multiple properties or for more complex situations in general use one of <strong>scrollerTween/sequencer</strong>"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-list",
@@ -296,22 +310,7 @@
                                 "opacity",
                                 "scale",
                                 "scaleX",
-                                "scaleY"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "custom scrollerTween/sequencer:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "items": [
+                                "scaleY",
                                 "tween: use external scrollerTween/sequencer for complex animation"
                             ]
                         }
