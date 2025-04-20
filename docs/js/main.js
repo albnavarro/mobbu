@@ -23121,7 +23121,7 @@
         FreezeMobPageScroll();
         return;
       }
-      const currentRoute = modules_exports2.mainStore.getProp("afterRouteChange")?.route;
+      const currentRoute = modules_exports2.getActiveRoute()?.route;
       const shouldDestroyPageScroll = routeShoulNotUsePageScroll.has(currentRoute);
       if (shouldInit && !shouldDestroyPageScroll) {
         InitMobPageScroll({ rootElement });

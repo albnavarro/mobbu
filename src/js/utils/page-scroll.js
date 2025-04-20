@@ -27,7 +27,7 @@ export const usePageScroll = () => {
             return;
         }
 
-        const currentRoute = MobJs.mainStore.getProp('afterRouteChange')?.route;
+        const currentRoute = MobJs.getActiveRoute()?.route;
         const shouldDestroyPageScroll =
             routeShoulNotUsePageScroll.has(currentRoute);
 
