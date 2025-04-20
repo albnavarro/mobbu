@@ -549,6 +549,29 @@
                         "content": "Common methods"
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "When a method ( <strong>set</strong>, <strong>goTo</strong>, <strong>goFrom</strong>, <strong>goFromTo</strong> ) is called while the tween is running it will return a <strong>Promise.reject()</strong> so that only the first generated Promise is resolved. In this case the reject function is intercepted via the <strong>unhandledrejection</strong> event, Firefox still has a bug where the console displays the error related to the promise failure, in these cases it can be useful to always use a <strong>catch(() => {})</strong> to avoid logging the error."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "set",
+                            "label": "Set"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h5"
@@ -569,7 +592,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 3
+                            "numLines": 8
                         }
                     },
                     {
@@ -615,7 +638,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 11
+                            "numLines": 14
                         }
                     },
                     {
@@ -661,7 +684,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 9
+                            "numLines": 14
                         }
                     },
                     {
@@ -707,7 +730,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 6
+                            "numLines": 9
                         }
                     },
                     {

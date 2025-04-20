@@ -8,4 +8,7 @@ mySpring
     .goTo({ x: 10, rotate: (val) => val }, { config: 'wobbly' })
     .then(() => {
         //
+    })
+    .catch(() => {
+        //
     });

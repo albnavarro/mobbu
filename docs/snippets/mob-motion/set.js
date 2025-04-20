@@ -1,3 +1,8 @@
-myTween.set({ x: 10, y: 20 }).then(() => {
-    //
-});
+myTween
+    .set({ x: 10, y: 20 })
+    .then(() => {
+        //
+    })
+    .catch(() => {
+        //
+    });
