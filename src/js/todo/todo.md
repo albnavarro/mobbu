@@ -1,11 +1,4 @@
 # App:
-### Componente doc-svg:
-- Componente per caricare svg: `<doc-svg></doc-svg>`.
-- Primo utilizzo: `start/end` scroll-trigger.
-
-- Props: `svg`: string, `className`: string.
-- Load async dell'svg con un `invalidate`.
-- Le dimensioni iniziali dell' svg saranno gestite da css.
 
 ### Main section.
 - Lettering :`MobJs`, `MobMotion`, `MobCore`, al posto dei `triangles`.
