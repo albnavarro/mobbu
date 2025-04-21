@@ -24,8 +24,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.1519446"
-     inkscape:cx="475.28328"
-     inkscape:cy="212.68384"
+     inkscape:cx="358.09014"
+     inkscape:cy="186.64092"
      inkscape:window-width="1920"
      inkscape:window-height="1027"
      inkscape:window-x="0"
@@ -209,8 +209,9 @@
        id="rect2912"
        width="28.655451"
        height="28.655451"
-       x="87.128769"
-       y="12.449707" />
+       x="79.924202"
+       y="-63.556946"
+       transform="rotate(45)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
