@@ -1,3 +1,11 @@
+#App:
+### Componente doc-svg:
+- Componente per caricare svg: `<doc-svg></doc-svg>`.
+- Primo utilizzo: `start/end` scroll-trigger.
+
+### Main section.
+- Lettering :`MobJs`, `MobMotion`, `MobCore`, al posto dei `triangles`.
+
 # MobCore
 
 ### eslint:
