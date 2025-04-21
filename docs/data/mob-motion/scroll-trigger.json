@@ -252,7 +252,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "determines whether the scrollTriger should be active from breakpoint up or up to the breakpoint."
+                        "content": "Determines whether the scrollTriger should be active from breakpoint up or up to the breakpoint."
                     },
                     {
                         "component": "mob-spacer",
@@ -697,6 +697,12 @@
                         "content": "You can add the item <span class='quote'>height/width value or half</span> of one of them to the final value.<br/>Useful for centering the element."
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium",
@@ -718,7 +724,35 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 28
+                            "numLines": 27
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "Starting from the <strong>bottom</strong> the <strong>reference is the top edge of the object</strong>.<br/> To make the animation <strong>end</strong> when the <strong>bottom edge</strong> of the element is <strong>40px below the top edge</strong> of the window just <strong>subtract its height</strong>."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big"
+                        }
+                    },
+                    {
+                        "component": "doc-svg",
+                        "props": {
+                            "className": "start-end-svg",
+                            "url": "./asset/svg/start-end.svg"
                         }
                     },
                     {

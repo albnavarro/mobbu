@@ -9,6 +9,7 @@ import { Paragraph } from '@commonComponent/typography/paragraph/definition';
 import { Title } from '@commonComponent/typography/titles/definition';
 import { MobJs } from '@mobJs';
 import { HtmlContentFn } from './html-content';
+import { DocSvg } from '@commonComponent/doc-svg/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -60,6 +61,7 @@ export const HtmlContent = MobJs.createComponent(
             Snippet,
             SpacerAnchor,
             AnchorButton,
+            DocSvg,
         ],
     })
 );

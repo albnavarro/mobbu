@@ -11,15 +11,14 @@ const myScrollTrigger = MobScroll.createScrollTrigger({
     range: '45deg ',
 
     /**
-     * Start when top side of item reach half screen height minus 1/2
-     * of it's height from bottom.
+     * Start when top side of item reach 40px above the bottom side of the screen
      */
-    start: 'bottom +50vh -halfHeight',
+    start: 'bottom +40vh',
 
     /**
-     * End when top side of item reach the top side of screen.
+     * End when bottom side reach 40px under the screen.
      */
-    end: 'top',
+    end: 'top +40px -height',
 });
 
 /**

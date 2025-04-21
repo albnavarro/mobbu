@@ -1,0 +1,21 @@
+@use '../../abstract' as *;
+
+.c-doc-svg {
+    position: relative;
+    overflow: hidden;
+
+    &.start-end-svg {
+        aspect-ratio: 915/460;
+    }
+
+    &__loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    svg {
+        width: 100%;
+    }
+}
