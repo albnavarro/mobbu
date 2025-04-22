@@ -1,7 +1,7 @@
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponentFn = ({ onMount, getState, setRef, getRef }) => {
     /**
@@ -11,9 +11,8 @@ export const MyComponentFn = ({ onMount, getState, setRef, getRef }) => {
 
     /**
      * Function fired at the end of all component parse.
-     * Here all components is attached to the DOM (if scoped params is disabled).
-     * element: root DOM element.
-     * refs: Object with all refs.
+     * Here all components is attached to the DOM ( if scoped params
+     * is disabled ). Element: root DOM element.
      */
     onMount(({ element }) => {
         const { labelRef } = getRef();
