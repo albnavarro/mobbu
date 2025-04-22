@@ -36,11 +36,12 @@
                 content: '';
                 position: absolute;
                 left: calc(#{rem(15)} * -1);
-                top: rem(8);
+                top: rem(10);
                 width: 5px;
                 height: 5px;
                 background: $black;
                 display: inline-block;
+                border-radius: 100%;
             }
         }
 

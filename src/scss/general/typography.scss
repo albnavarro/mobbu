@@ -99,8 +99,7 @@ p {
 
 .p {
     &--boxed {
-        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2O8e/fufwYGBgZBQUEQxcCIIfDu3Tuwivfv30NUoAsAALHpFMMLqZlPAAAAAElFTkSuQmCC')
-            repeat;
+        background: $dot-bg;
         padding: rem(20);
         border-radius: rem(10);
         border: 2px $white solid;
