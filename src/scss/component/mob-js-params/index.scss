@@ -53,6 +53,7 @@
         position: relative;
         font-size: rem(13);
         line-height: 1.6;
+        text-transform: capitalize;
 
         &::after {
             content: '';

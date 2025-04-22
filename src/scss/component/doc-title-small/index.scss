@@ -6,7 +6,7 @@
     color: $black;
     margin-bottom: rem(20);
     font-size: rem(14);
-    font-weight: 500;
+    font-weight: 400;
     position: relative;
 
     span {
@@ -16,6 +16,8 @@
         background: rgba($white, 0.4);
         padding: em(2) em(10);
         border-radius: em(20);
+        text-transform: capitalize;
+        display: inline-block;
     }
 }
 
@@ -30,6 +32,8 @@
         padding: em(2) em(10);
         border-radius: em(20);
         margin-right: rem(5);
+        text-transform: capitalize;
+        display: inline-block;
 
         &:hover {
             background: $black;

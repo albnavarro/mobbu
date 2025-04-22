@@ -174,14 +174,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If the property is true the callbacks relating to the nextTick event will be executed after the request animation frame as soon as possible, otherwise they will be executed a moment before.<br/>Inside nextTick, reading operations from the DOM are performed but never writing."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The mechanism is enabled by default to ensure that you have performed all rendering operations before taking data from the DOM.<br/>This brings greater security but creates a one frame offset in the rendering, which is absolutely negligible."
+            "content": "If the property is true the callbacks relating to the nextTick event will be executed after the request animation frame as soon as possible, otherwise they will be executed a moment before. Inside nextTick, reading operations from the DOM are performed but never writing. The mechanism is enabled by default to ensure that you have performed all rendering operations before taking data from the DOM. This brings greater security but creates a one frame offset in the rendering, which is absolutely negligible."
         },
         {
             "component": "mob-paragraph",
@@ -271,14 +264,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can add or edit values in the breakpoint list."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "It is possible to specify the default values that the modules that require them will use, it will always be possible to overwrite this value in the appropriate module.<br/>Modules that use these values are scrollTrigger and parallax."
+            "content": "You can add or edit values in the breakpoint list. It is possible to specify the default values that the modules that require them will use, it will always be possible to overwrite this value in the appropriate module. Modules that use these values are scrollTrigger and parallax."
         },
         {
             "component": "mob-snippet",

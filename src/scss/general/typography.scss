@@ -10,7 +10,9 @@ html {
     height: 100%;
 
     // font-family: Cormorant Garamond, sans-serif;
-    font-family: Nunito, sans-serif;
+    font-family: 'Fira Sans', sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
 }
 
 h1,
@@ -22,6 +24,7 @@ h6,
 label {
     margin: 0 0 0.5em;
     font-weight: 700;
+    font-family: 'Playfair Display', serif;
 }
 
 body {
@@ -96,21 +99,22 @@ p {
 
 .p {
     &--boxed {
-        background: rgba($white, 0.5);
+        background: rgba($white, 0.3);
         padding: rem(20);
-        border-radius: rem(20);
+        border-radius: rem(10);
+        border: 2px $white solid;
     }
 
     &--note {
-        background: $color-contrast;
         position: relative;
         padding-top: rem(60);
+        background: $color-contrast;
         color: $white;
 
         &::after {
             content: '!';
             position: absolute;
-            top: rem(20);
+            top: rem(18);
             left: rem(33);
             font-weight: 700;
             color: $white;
@@ -160,8 +164,10 @@ ul {
 
 pre,
 code {
-    font-size: rem(16);
     user-select: text;
+    font-family: 'Fira Code', monospace;
+    font-optical-sizing: auto;
+    font-size: rem(14);
 
     * {
         user-select: text;

@@ -611,14 +611,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "play, play reverse and stop of the timeline. The play() and playReverse() methods will return a promise when the timeline is completed."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+                        "content": "<strong>play</strong>, <strong>play reverse </strong> and <strong>stop</strong> of the timeline. The play() and playReverse() methods will return a promise when the timeline is completed. The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
                     },
                     {
                         "component": "mob-snippet",
@@ -746,14 +739,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "There are two methods, onLoopEnd and onComplete."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Both events will return an unsubscribe function."
+                        "content": "There are two methods, onLoopEnd and onComplete. Both events will return an unsubscribe function."
                     },
                     {
                         "component": "mob-spacer",
@@ -814,7 +800,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Destroy function.<br/>The destroy function will also destroy all the tweens that have been used, and it is advisable to also cancel the references to the individual tweens."
+                        "content": "The destroy function will also destroy all the tweens that have been used, and it is advisable to also cancel the references to the individual tweens."
                     },
                     {
                         "component": "mob-snippet",

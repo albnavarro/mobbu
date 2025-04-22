@@ -6,10 +6,10 @@
         position: relative;
         width: auto;
         min-width: rem(600);
-        background-color: $nord-bg;
-        border: 1px rgba($white, 0.05) solid;
+        background: rgba($white, 0.3);
+        border: 2px $white solid;
         padding: rem(30);
-        border-radius: rem(20);
+        border-radius: rem(10);
 
         &.is-full {
             @include mq('desktop') {
@@ -21,7 +21,6 @@
 
     pre {
         overflow: auto;
-        font-size: rem(12);
         line-height: line-height(15, 22);
         background: transparent;
         padding: rem(30);

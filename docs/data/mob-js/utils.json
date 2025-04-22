@@ -126,14 +126,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Utility used within the wrapper/pages. This is an array with the definitions of the components used within it. It is necessary to load dependencies before initializing the application."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "In individual components this work is carried out by the child parameter of the createComponent() function"
+            "content": "Utility used within the wrapper/pages. This is an array with the definitions of the components used within it. It is necessary to load dependencies before initializing the application. In individual components this work is carried out by the child parameter of the createComponent() function"
         },
         {
             "component": "mob-spacer",

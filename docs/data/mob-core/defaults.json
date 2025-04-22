@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "It is possible to modify some default values.<br/>Some of the values are for internal use, others may be useful for customizing window events.<br/>The values are stored in a store."
+            "content": "It is possible to modify some default values. Some of the values are for internal use, others may be useful for customizing window events. The values are stored in a store."
         },
         {
             "component": "mob-spacer",
@@ -88,14 +88,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If the property is true the callbacks relating to the nextTick event ( useNextTick ) will be executed after the request animation frame as soon as possible, otherwise they will be executed a moment before."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The mechanism is enabled by default to ensure that you have performed all rendering operations before taking data from the DOM.<br/>This brings greater security but creates a one frame offset in the rendering, which is absolutely negligible."
+            "content": "If the property is true the callbacks relating to the nextTick event ( useNextTick ) will be executed after the request animation frame as soon as possible, otherwise they will be executed a moment before. The mechanism is enabled by default to ensure that you have performed all rendering operations before taking data from the DOM. This brings greater security but creates a one frame offset in the rendering, which is absolutely negligible."
         },
         {
             "component": "mob-spacer",

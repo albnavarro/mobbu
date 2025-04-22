@@ -197,6 +197,12 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -217,6 +223,12 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 41
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {
@@ -243,6 +255,12 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -266,6 +284,12 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -286,6 +310,12 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 43
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {

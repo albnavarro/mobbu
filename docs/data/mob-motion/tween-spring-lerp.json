@@ -242,13 +242,6 @@
                         }
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "All Params:"
-                    },
-                    {
                         "component": "mob-snippet",
                         "props": {
                             "source": "./snippets/mob-motion/tween-type.d.ts",
@@ -373,13 +366,6 @@
                         }
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "All Params:"
-                    },
-                    {
                         "component": "mob-snippet",
                         "props": {
                             "source": "./snippets/mob-motion/spring-type.d.ts",
@@ -489,13 +475,6 @@
                         "props": {
                             "style": "small"
                         }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "All Params:"
                     },
                     {
                         "component": "mob-snippet",
@@ -615,21 +594,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The goTo method takes the values from the current state to the state indicated in the first parameter."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
+                        "content": "The goTo method takes the values from the current state to the state indicated in the first parameter. In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property. The value can be numeric or the result of a function, The function value will be recalculated at each play()"
                     },
                     {
                         "component": "mob-snippet",
@@ -661,21 +626,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The goFrom method brings the values from the state indicated in the first parameter to the current state."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
+                        "content": "The goFrom method brings the values from the state indicated in the first parameter to the current state. In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property. The value can be numeric or the result of a function, The function value will be recalculated at each play()"
                     },
                     {
                         "component": "mob-snippet",
@@ -707,21 +658,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The goFromTo method takes the values from the state indicated in the first parameter to the state indicated in the second parameter. The two parameters must have the same keys."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "In the third parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
+                        "content": "The goFromTo method takes the values from the state indicated in the first parameter to the state indicated in the second parameter. The two parameters must have the same keys. In the third parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property. The value can be numeric or the result of a function, The function value will be recalculated at each play()"
                     },
                     {
                         "component": "mob-snippet",
@@ -817,14 +754,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The subscribe method will allow us to apply the values in real time to our target."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The subscribe() method always returns an unsubscribe() function"
+                        "content": "The subscribe method will allow us to apply the values in real time to our target. The subscribe() method always returns an unsubscribe() function"
                     },
                     {
                         "component": "mob-snippet",
@@ -856,14 +786,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of stagger by optimizing memory consumption."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
+                        "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function. This method is specific for the use of stagger by optimizing memory consumption. Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
                     },
                     {
                         "component": "mob-snippet",

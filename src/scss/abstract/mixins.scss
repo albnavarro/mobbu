@@ -228,7 +228,7 @@
     margin-right: rem(10);
     display: inline-block;
     text-decoration: none;
-    min-width: rem(200);
+    min-width: rem(250);
     color: $black;
     text-align: center;
     transition: background 0.35s;
@@ -236,7 +236,7 @@
     background: $white;
     border: 0;
     position: relative;
-    border-radius: rem(20);
+    border-radius: rem(10);
 
     &:hover {
         background: $black;

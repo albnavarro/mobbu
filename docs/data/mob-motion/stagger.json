@@ -132,21 +132,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines whether the tween is considered completed when the sagger for the first subscriber is launched ( waitComplete: false ) or for the last subscriber ( waitComplete: true )."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The animated pattern modules are based on this mechanism"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Using waitComplete: false the loops of the tweens synchronized by a asyncTimeline will repeat without taking into account the duration of the staggers which will have an 'own life'. Thus, an affect of continuous movement can be created by concatenating several tweens."
+            "content": "Determines whether the tween is considered completed when the sagger for the first subscriber is launched ( waitComplete: false ) or for the last subscriber ( waitComplete: true ). The animated pattern modules are based on this mechanism. Using waitComplete: false the loops of the tweens synchronized by a asyncTimeline will repeat without taking into account the duration of the staggers which will have an 'own life'. Thus, an affect of continuous movement can be created by concatenating several tweens."
         },
         {
             "component": "mob-snippet",
@@ -181,16 +167,11 @@
             "content": "Determines where in the subscriber array the first stagger starts."
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "note:"
-        },
-        {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
             "content": "The { x: number, y: number } object will only take effect with a value of the grid: { direction: 'radial' } parameter"
         },
@@ -227,16 +208,11 @@
             "content": "If you use a two-dimensional column/row model, you need to specify the number of columns and the number of rows. We could then specify whether to group subscribers by row / column or as a single element radial"
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "note:"
-        },
-        {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
             "content": "It is possible to play with grids with 'wrong' numbers to create nice offset games."
         },

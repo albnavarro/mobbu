@@ -588,7 +588,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Defines when the current value reaches 0 ( neutral position ).<br/> It is possible to use a preset value or a number from 0 to 100 which corresponds to a value calculated from the bottom of the viewport.<br/>The default value is center."
+                        "content": "Defines when the current value reaches 0 ( neutral position ). It is possible to use a preset value or a number from 0 to 100 which corresponds to a value calculated from the bottom of the viewport. The default value is center."
                     },
                     {
                         "component": "mob-title",
@@ -738,7 +738,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Defines the behavior of the parallax once it reaches point 0 ( neutral position ).<br/> It can continue, stop or go back.<br/>If it is not set the value from positive will become negative."
+                        "content": "Defines the behavior of the parallax once it reaches point 0 ( neutral position ). It can continue, stop or go back. If it is not set the value from positive will become negative."
                     },
                     {
                         "component": "mob-list",

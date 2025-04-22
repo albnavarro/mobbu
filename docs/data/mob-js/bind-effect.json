@@ -69,6 +69,12 @@
             "content": "Explicit dependencies"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-effect-explicit.js",
@@ -90,6 +96,12 @@
                 "tag": "h5"
             },
             "content": "With proxi ( auto detect dependencies )"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",

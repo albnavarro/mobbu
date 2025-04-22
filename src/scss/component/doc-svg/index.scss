@@ -4,9 +4,11 @@
     position: relative;
     overflow: hidden;
 
-    &.start-end-svg {
-        aspect-ratio: 915/476;
-    }
+    // &.start-end-svg {
+    //     aspect-ratio: 915/476;
+    //     width: rem(713);
+    //     height: rem(476);
+    // }
 
     &__loading {
         position: absolute;

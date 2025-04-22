@@ -69,13 +69,22 @@
         }
     }
 
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-transform: capitalize;
+    }
+
     h1 {
         padding: rem(20);
         border: 2px $white solid;
         margin-bottom: rem(50);
         position: relative;
         overflow: hidden;
-        border-radius: rem(20);
+        border-radius: rem(10);
         background: rgba($black, 0.05);
 
         .triangle-left {
@@ -116,9 +125,9 @@
             overflow: hidden;
             margin-bottom: 0;
 
-            @include mq('xlarge') {
-                margin-right: calc(#{rem(142, xlarge)} * -1);
-            }
+            // @include mq('xlarge') {
+            //     margin-right: calc(#{rem(142, xlarge)} * -1);
+            // }
 
             &::before {
                 content: '';
@@ -183,6 +192,7 @@
         margin-bottom: rem(30);
         margin-top: rem(40);
         position: relative;
+        font-size: rem(22);
 
         &::after {
             content: '';
@@ -204,6 +214,8 @@
     padding-right: rem(40);
     text-align: left;
     position: relative;
+    min-width: rem(250);
+    text-transform: capitalize;
 
     $self: &;
 

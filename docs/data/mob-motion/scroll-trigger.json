@@ -342,7 +342,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Property that defines the calculation of the distance value.<br/>Valid only if you use simple built-in propierties<br/>Must be a string"
+                        "content": "Property that defines the calculation of the distance value. Valid only if you use simple built-in propierties must be a string"
                     },
                     {
                         "component": "mob-spacer",
@@ -505,7 +505,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Alternative to the range property.<br/>Valid only if you use simple built-in transformations"
+                        "content": "Alternative to the range property. Valid only if you use simple built-in transformations"
                     },
                     {
                         "component": "mob-list",
@@ -709,12 +709,12 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "The values 2 & 3 will always be added from the chosen position towards the center of the screen, whether the position corresponds to top|bottom left|right"
+                        "content": "The values 2 & 3 will always be added from the chosen position towards the center of the screen, whether the position corresponds to top|bottom left|right<br/>Starting from the <strong>bottom</strong> the <strong>reference is the top edge of the object</strong>.<br/> To make the animation <strong>end</strong> when the <strong>bottom edge</strong> of the element is <strong>40px below the top edge</strong> of the window just <strong>subtract its height</strong>."
                     },
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "small"
                         }
                     },
                     {
@@ -730,29 +730,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true,
-                            "note": true
-                        },
-                        "content": "Starting from the <strong>bottom</strong> the <strong>reference is the top edge of the object</strong>.<br/> To make the animation <strong>end</strong> when the <strong>bottom edge</strong> of the element is <strong>40px below the top edge</strong> of the window just <strong>subtract its height</strong>."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big"
-                        }
-                    },
-                    {
-                        "component": "doc-svg",
-                        "props": {
-                            "className": "start-end-svg",
-                            "url": "./asset/svg/start-end.svg"
+                            "style": "small"
                         }
                     },
                     {
@@ -824,6 +802,12 @@
                         "content": "A function that returns a number. Each function is recomputed after the resize event."
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium",
@@ -836,12 +820,6 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
                         }
                     },
                     {
@@ -896,7 +874,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Displays the start and end indicators of the animation.<br/> A marker will be applied to the edge of our element, and two fixed markers corresponding to the start and end values.<br/> The marker property accepts a string as a parameter, the assigned value will be displayed next to the marker"
+                        "content": "Displays the start and end indicators of the animation. A marker will be applied to the edge of our element, and two fixed markers corresponding to the start and end values. The marker property accepts a string as a parameter, the assigned value will be displayed next to the marker"
                     },
                     {
                         "component": "mob-snippet",
@@ -1019,7 +997,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Spring has no effect with the sequencer module, it can instead be used with the scrollerTween modules.<br/>This is because the sequencer module uses a clamp on the maximum value thus preventing it from being exceeded."
+                        "content": "Spring has no effect with the sequencer module, it can instead be used with the scrollerTween modules. This is because the sequencer module uses a clamp on the maximum value thus preventing it from being exceeded."
                     },
                     {
                         "component": "mob-spacer",
@@ -1221,8 +1199,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "value: The scroll position of the parent. If no value is provided, the instance will calculate it autonomously.",
-                                "parentIsMoving: Internal parameter use this parameter to connect two scrollTriggers as in the following point ( move() )."
+                                "<strong>value</strong>: The scroll position of the parent. If no value is provided, the instance will calculate it autonomously.",
+                                "<strong>parentIsMoving</strong>: Internal parameter use this parameter to connect two scrollTriggers as in the following point ( move() )."
                             ]
                         }
                     },

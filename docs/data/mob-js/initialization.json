@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as components and routes, before initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as components and routes, before initializing the app. The following snippets outline the simplest way to initialize your app with dependencies."
         },
         {
             "component": "mob-spacer",
@@ -106,21 +106,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The general wrapper that will host the pages.<br/>Here the node in which to load the individual pages/routes is defined."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "It is already possible to use components by passing them static props, it is not possible to use reactive props in the wrapper as this module is not a component."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "It is necessary to load the dependencies before initializing the application through the utility useComponent()"
+            "content": "The general wrapper that will host the pages. Here the node in which to load the individual pages/routes is defined. It is already possible to use components by passing them static props, it is not possible to use reactive props in the wrapper as this module is not a component. It is necessary to load the dependencies before initializing the application through the utility useComponent()."
         },
         {
             "component": "mob-paragraph",

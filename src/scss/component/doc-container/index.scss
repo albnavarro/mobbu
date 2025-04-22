@@ -9,6 +9,7 @@
         flex: auto;
         max-width: var(--doc-width);
         position: relative;
+        background: rgba($white, 0.3);
 
         &::before {
             content: '';
@@ -41,9 +42,9 @@
             width: auto;
         }
 
-        @include mq('xlarge') {
-            padding-right: rem(100, xlarge);
-        }
+        // @include mq('xlarge') {
+        //     padding-right: rem(100, xlarge);
+        // }
 
         @include when-inside('.fake-content') {
             background: radial-gradient(

@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Collection of commonly used events.<br/> Each event is built with the pub/sub model.<br/> The listener remains active as long as there are subscribers, after which it is automatically disconnected.<br/> Each subscription will be provided with an unsubscribe function when necessary."
+            "content": "Collection of commonly used events. Each event is built with the pub/sub model. The listener remains active as long as there are subscribers, after which it is automatically disconnected. Each subscription will be provided with an unsubscribe function when necessary."
         },
         {
             "component": "mob-spacer",

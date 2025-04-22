@@ -101,7 +101,9 @@
                     },
                     {
                         "component": "mob-spacer",
-                        "props": {}
+                        "props": {
+                            "style": "medium"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -219,17 +221,17 @@
                         "component": "mob-list",
                         "props": {
                             "items": [
-                                "<span class='quote'>Function | 'Function'</span>",
-                                "<span class='quote'>String | 'String'</span>",
-                                "<span class='quote'>Number | 'Number'</span>",
-                                "<span class='quote'>Boolean | 'Boolean'</span>",
-                                "<span class='quote'>Array | 'Array'</span>",
-                                "<span class='quote'>Element | 'Element'</span>",
-                                "<span class='quote'>HTMLElement | HTMLElement</span>",
-                                "<span class='quote'>NodeList | 'NodeList'</span>",
-                                "<span class='quote'>Set | 'Set'</span>",
-                                "<span class='quote'>Map | 'Map'</span>",
-                                "<span class='quote'>'Any'</span>"
+                                "Function | 'Function'",
+                                "String | 'String'",
+                                "Number | 'Number'",
+                                "Boolean | 'Boolean'",
+                                "Array | 'Array'",
+                                "Element | 'Element'",
+                                "HTMLElement | HTMLElement",
+                                "NodeList | 'NodeList'",
+                                "Set | 'Set'",
+                                "Map | 'Map'",
+                                "Any"
                             ]
                         }
                     },
@@ -757,26 +759,12 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Update properties value if some dependency ( store props) change.<br/> Computed functions are resolved on the javascript loop.<br/> If multiple dependencies change at the same time, the computed will be resolved only once."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The initial value of computed will be calculated after initialization based on the current dependencies values."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "When a computed function is created the state that is changed can no longer be explicitly changed"
+                        "content": "Update properties value if some dependency ( store props) change. Computed functions are resolved on the javascript loop. If multiple dependencies change at the same time, the computed will be resolved only once. The initial value of computed will be calculated after initialization based on the current dependencies values. When a computed function is created the state that is changed can no longer be explicitly changed"
                     },
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "small"
                         }
                     },
                     {
@@ -876,14 +864,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "It is possible to hook one or more stores and access their properties and consequently their reactivity. This utility can be particularly useful in the context of <span class='quote'>mobJs components</span>. Speaking of stand-alone stores, it can be useful if you want a computed to be updated based on the state of different stores."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Once added, you will be able to use the new store's statuses in the following cases:"
+                        "content": "It is possible to hook one or more stores and access their properties and consequently their reactivity. This utility can be particularly useful in the context of <span class='quote'>mobJs components</span>. Speaking of stand-alone stores, it can be useful if you want a computed to be updated based on the state of different stores. Once added, you will be able to use the new store's statuses in the following cases:"
                     },
                     {
                         "component": "mob-list",

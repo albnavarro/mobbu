@@ -29,6 +29,12 @@
             "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The watch() function is equivalent to myStore.watch()."
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"

@@ -110,7 +110,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Determines the number of loops to run.</br>Number -1 means that the timeline will run in an infinite loop.<br/>During the loop a time equal to 1/2 of the current fps will be subtracted from the last frame. This allows you to eliminate the repetition of the same frame between the end and the beginning.<br/><a href='./#caterpillarN2'>here</a> you can see how the start and end time of the loop is not perceptible."
+                        "content": "Determines the number of loops to run. Number -1 means that the timeline will run in an infinite loop. During the loop a time equal to 1/2 of the current fps will be subtracted from the last frame. This allows you to eliminate the repetition of the same frame between the end and the beginning. <a href='./#caterpillarN2'>here</a> you can see how the start and end time of the loop is not perceptible."
                     },
                     {
                         "component": "mob-spacer",
@@ -269,14 +269,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "play, play reverse and stop of the timeline. The play() and playReverse() methods will return a promise when the timeline is completed."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The play/playReverse methods have as their parameter the possibility to apply the action based on the current direction of the timeline.<br/>"
+                        "content": "<strong>play</strong>, <strong>play reverse </strong> and <strong>stop</strong> of the timeline. The play() and playReverse() methods will return a promise when the timeline is completed. The play/playReverse methods have as their parameter the possibility to apply the action based on the current direction of the timeline.<br/>"
                     },
                     {
                         "component": "mob-list",
@@ -339,7 +332,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "play or play reverse from a specific label, both methods will return a promise which will be resolved when the timeline is completed.<br/> The label is defined within the individual sequencer."
+                        "content": "play or play reverse from a specific label, both methods will return a promise which will be resolved when the timeline is completed. The label is defined within the individual sequencer."
                     },
                     {
                         "component": "mob-snippet",
@@ -565,7 +558,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Destroy function.<br/>The destroy function will also destroy all the sequencers that have been used, and it is advisable to also cancel the references to the individual sequencer."
+                        "content": "The destroy function will also destroy all the sequencers that have been used, and it is advisable to also cancel the references to the individual sequencer."
                     },
                     {
                         "component": "mob-snippet",
@@ -588,7 +581,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "Utils"
                     },
