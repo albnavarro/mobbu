@@ -99,7 +99,8 @@ p {
 
 .p {
     &--boxed {
-        background: rgba($white, 0.3);
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2O8e/fufwYGBgZBQUEQxcCIIfDu3Tuwivfv30NUoAsAALHpFMMLqZlPAAAAAElFTkSuQmCC')
+            repeat;
         padding: rem(20);
         border-radius: rem(10);
         border: 2px $white solid;
@@ -108,8 +109,6 @@ p {
     &--note {
         position: relative;
         padding-top: rem(60);
-        background: $color-contrast;
-        color: $white;
 
         &::after {
             content: '!';
@@ -117,7 +116,7 @@ p {
             top: rem(18);
             left: rem(33);
             font-weight: 700;
-            color: $white;
+            color: $color-contrast;
         }
 
         &::before {
@@ -128,7 +127,7 @@ p {
             width: rem(22);
             height: rem(22);
             border-radius: 100%;
-            border: 2px $white solid;
+            border: 2px $color-contrast solid;
         }
     }
 }
