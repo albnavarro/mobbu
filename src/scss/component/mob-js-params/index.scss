@@ -80,7 +80,7 @@
     }
 
     .current {
-        font-weight: 500;
+        font-weight: 600;
 
         &::after {
             opacity: 1;
@@ -88,9 +88,10 @@
     }
 
     &__label {
-        font-size: rem(14);
+        font-size: rem(16);
         line-height: 1.2;
         margin-top: rem(20);
+        font-weight: 600;
     }
 
     &__scrollbar {

@@ -9,7 +9,7 @@ const ctx = await esbuild.context({
     bundle: true,
     sourcemap: true,
     outdir: 'docs',
-    loader: { '.svg': 'text' },
+    loader: { '.svg': 'text', '.woff2': 'copy', '.woff': 'copy' },
     plugins: [
         sassPlugin({
             // sass-mq warning, temp disable

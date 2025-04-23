@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
         "development": "node development.config.js",
-        "developmentExperimental": "node devExperiemental.config.js",
+        "developmentExperimental": "node dev-experiemental.config.js",
         "serve": "npm run developmentExperimental",
         "dev": "npm run development",
         "build": "node build.config.js"

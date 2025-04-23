@@ -1,0 +1,57 @@
+$fira-code-path: 'docs/asset/fonts/fira-code';
+$fira-sans-path: 'docs/asset/fonts/fira-sans';
+$playfair-display-path: 'docs/asset/fonts/playfair-display';
+
+@font-face {
+    font-family: 'Fira Code';
+    font-style: normal;
+    font-weight: 400;
+    src:
+        url('#{$fira-code-path}/FiraCode-Regular.woff2') format('woff2'),
+        url('#{$fira-code-path}/FiraCode-Regular.woff') format('woff');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-style: light;
+    font-weight: 300;
+    src:
+        url('#{$fira-sans-path}/FiraSans-Light.woff2') format('woff2'),
+        url('#{$fira-sans-path}/FiraSans-Light.woff') format('woff');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-style: semibold;
+    font-weight: 600;
+    src:
+        url('#{$fira-sans-path}/FiraSans-SemiBold.woff2') format('woff2'),
+        url('#{$fira-sans-path}/FiraSans-SemiBold.woff') format('woff');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 400;
+    src:
+        url('#{$playfair-display-path}/PlayfairDisplay-Regular.woff2')
+            format('woff2'),
+        url('#{$playfair-display-path}/PlayfairDisplay-Regular.woff')
+            format('woff');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Playfair Display';
+    font-style: bold;
+    font-weight: 900;
+    src:
+        url('#{$playfair-display-path}/PlayfairDisplay-Bold.woff2')
+            format('woff2'),
+        url('#{$playfair-display-path}/PlayfairDisplay-Bold.woff')
+            format('woff');
+    font-display: swap;
+}

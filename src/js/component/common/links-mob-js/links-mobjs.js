@@ -34,7 +34,7 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
             const { label, url, isLabel } = item;
 
             return isLabel
-                ? html`<h3 class="c-params-mobjs__label">${label}</h3>`
+                ? html`<p class="c-params-mobjs__label">${label}</p>`
                 : html`<li>
                       <links-mobjs-button
                           ${staticProps({

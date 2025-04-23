@@ -123,6 +123,7 @@
             top: rem(15);
             left: rem(15);
             font-size: rem(11);
+            font-weight: 600;
         }
 
         &__link {
@@ -148,7 +149,6 @@
             h6 {
                 pointer-events: none;
                 margin: 0;
-                font-weight: 400;
             }
         }
     }

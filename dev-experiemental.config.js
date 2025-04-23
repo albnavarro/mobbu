@@ -15,7 +15,7 @@ const ctx = await esbuild.context({
     banner: {
         js: reload,
     },
-    loader: { '.svg': 'text' },
+    loader: { '.svg': 'text', '.woff2': 'copy', '.woff': 'copy' },
     plugins: [
         sassPlugin({
             // sass-mq warning, temp disable
