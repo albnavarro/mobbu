@@ -333,6 +333,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "small",
                             "id": "store-set",
                             "label": "Set"
                         }

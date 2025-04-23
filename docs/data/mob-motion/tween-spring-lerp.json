@@ -180,6 +180,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "small",
                             "id": "tween",
                             "label": "Tween"
                         }
@@ -291,6 +292,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "small",
                             "id": "Spring",
                             "label": "Spring"
                         }
@@ -415,6 +417,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "small",
                             "id": "lerp",
                             "label": "Lerp"
                         }

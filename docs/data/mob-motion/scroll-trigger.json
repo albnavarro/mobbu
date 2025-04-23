@@ -1319,6 +1319,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "small",
                             "id": "init",
                             "label": "init"
                         }

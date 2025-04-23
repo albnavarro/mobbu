@@ -246,6 +246,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "small",
                             "id": "set",
                             "label": "Set"
                         }

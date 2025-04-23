@@ -164,6 +164,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "small",
                             "id": "goto",
                             "label": "Goto"
                         }

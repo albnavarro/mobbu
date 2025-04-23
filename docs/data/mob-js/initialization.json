@@ -59,6 +59,7 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small",
                 "id": "main",
                 "label": "Entry&nbsp;point"
             }
