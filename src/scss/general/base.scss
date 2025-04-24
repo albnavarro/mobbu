@@ -94,6 +94,7 @@ body {
     );
     background-attachment: fixed;
     overflow-x: hidden;
+
     @include user-select-none;
 
     * {

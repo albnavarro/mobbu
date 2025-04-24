@@ -247,17 +247,25 @@
 @mixin user-select-none {
     user-select: none;
     -webkit-touch-callout: none; /* iOS Safari */
+    /* stylelint-disable-next-line  property-no-vendor-prefix */
     -webkit-user-select: none; /* Safari, Chrome, Opera, Samsung */
+    /* stylelint-disable-next-line  property-no-vendor-prefix */
     -khtml-user-select: none; /* Konqueror HTML */
+    /* stylelint-disable-next-line  property-no-vendor-prefix */
     -moz-user-select: none; /* Firefox */
+    /* stylelint-disable-next-line  property-no-vendor-prefix */
     -ms-user-select: none; /* Edge, IE */
 }
 
 @mixin user-select-text {
     user-select: text;
     -webkit-touch-callout: text; /* iOS Safari */
+    /* stylelint-disable-next-line  property-no-vendor-prefix */
     -webkit-user-select: text; /* Safari, Chrome, Opera, Samsung */
+    /* stylelint-disable-next-line  property-no-vendor-prefix */
     -khtml-user-select: text; /* Konqueror HTML */
+    /* stylelint-disable-next-line  property-no-vendor-prefix */
     -moz-user-select: text; /* Firefox */
+    /* stylelint-disable-next-line  property-no-vendor-prefix */
     -ms-user-select: text; /* Edge, IE */
 }

@@ -3045,7 +3045,7 @@ code * {
   border-radius: 0.6666666667rem;
   background: rgba(0, 0, 0, 0.2);
 }
-.html-content h1:after {
+.html-content h1::after {
   content: "";
   position: absolute;
   top: 0;

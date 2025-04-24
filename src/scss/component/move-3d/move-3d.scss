@@ -18,12 +18,14 @@
     &__scene {
         position: relative;
         transform-style: preserve-3d;
+
         @include user-select-none;
     }
 
     &__container {
         transform-style: preserve-3d;
         backface-visibility: hidden;
+
         @include user-select-none;
     }
 }

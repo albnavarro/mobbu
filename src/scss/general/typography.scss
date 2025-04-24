@@ -8,7 +8,6 @@ html {
     line-height: 1.7em;
     color: $black;
     height: 100%;
-
     font-family: 'Fira Sans', sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -164,6 +163,7 @@ code {
     font-family: 'Fira Code', monospace;
     font-optical-sizing: auto;
     font-size: rem(14);
+
     @include user-select-text;
 
     * {

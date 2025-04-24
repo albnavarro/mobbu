@@ -63,7 +63,6 @@
         top: var(--header-height);
         align-self: start;
         height: calc(100vh - var(--header-height) - var(--footer-height));
-        // flex: 0 0 auto;
         overflow: hidden;
         min-width: rem(250);
         grid-column: 2 / span 1;

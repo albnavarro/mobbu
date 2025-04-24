@@ -83,7 +83,7 @@
         border-radius: rem(10);
         background: rgba($black, 0.2);
 
-        &:after {
+        &::after {
             content: '';
             position: absolute;
             top: 0;
