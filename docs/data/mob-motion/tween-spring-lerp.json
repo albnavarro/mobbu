@@ -38,6 +38,12 @@
                 "usePadding": false,
                 "data": [
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -111,6 +117,12 @@
                 "usePadding": false,
                 "data": [
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -180,7 +192,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "tween",
                             "label": "Tween"
                         }
@@ -292,7 +304,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "Spring",
                             "label": "Spring"
                         }
@@ -417,7 +429,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "lerp",
                             "label": "Lerp"
                         }
@@ -520,6 +532,12 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {

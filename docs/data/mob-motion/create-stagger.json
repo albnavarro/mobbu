@@ -152,7 +152,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "type",
                             "label": "type"
                         }

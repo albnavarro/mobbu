@@ -71,7 +71,7 @@ h6 {
 }
 
 .title-biggest {
-    font-size: rem(120);
+    font-size: min(calc((120 * 100) / 1920 * 1vw), rem(120));
     line-height: 1;
     text-transform: uppercase;
     margin: 0;
@@ -161,12 +161,12 @@ ul {
 
 pre,
 code {
-    user-select: text;
     font-family: 'Fira Code', monospace;
     font-optical-sizing: auto;
     font-size: rem(14);
+    @include user-select-text;
 
     * {
-        user-select: text;
+        @include user-select-text;
     }
 }

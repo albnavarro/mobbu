@@ -64,12 +64,12 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span class='quote'>style</span>",
-                    "<span class='quote'>connectedCallback</span>",
-                    "<span class='quote'>adoptedCallback</span>",
-                    "<span class='quote'>disconnectedCallback</span>",
-                    "<span class='quote'>attributeChangedCallback</span>",
-                    "<span class='quote'>attributeToObserve</span>"
+                    "style",
+                    "connectedCallback",
+                    "adoptedCallback",
+                    "disconnectedCallback",
+                    "attributeChangedCallback",
+                    "attributeToObserve"
                 ]
             }
         },
@@ -146,9 +146,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span class='quote'>name</span>: name of the changed attribute",
-                    "<span class='quote'>oldValue</span>: old value",
-                    "<span class='quote'>newValue</span>: new value"
+                    "<strong>name</strong>: name of the changed attribute",
+                    "<strong>oldValue</strong>: old value",
+                    "<strong>newValue</strong>: new value"
                 ]
             }
         },

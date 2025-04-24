@@ -3,6 +3,10 @@
 .spacer {
     position: relative;
 
+    &--x-small {
+        height: 0;
+    }
+
     &--small {
         height: rem(20);
     }

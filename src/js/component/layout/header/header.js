@@ -5,6 +5,7 @@
  */
 
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
+import { outerHeight } from '@mobCoreUtils';
 import { html, MobJs } from '@mobJs';
 
 function titleHandler() {
@@ -21,10 +22,20 @@ function titleHandler() {
 }
 
 /** @type {MobComponent<import('./type').Header>} */
-export const HeaderFn = ({ delegateEvents, bindEffect, getProxi, onMount }) => {
+export const HeaderFn = ({
+    delegateEvents,
+    bindEffect,
+    getProxi,
+    onMount,
+    addMethod,
+}) => {
     const proxi = getProxi();
 
-    onMount(() => {
+    onMount(({ element }) => {
+        addMethod('getHeaderHeight', () => {
+            return outerHeight(element);
+        });
+
         setTimeout(() => {
             proxi.isMounted = true;
         }, 500);

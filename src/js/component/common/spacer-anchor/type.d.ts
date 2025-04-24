@@ -1,6 +1,6 @@
 export interface SpacerAnchor {
     state: {
-        style: '' | 'small' | 'medium' | 'big';
+        style: 'x-small' | 'small' | 'medium' | 'big';
         line: boolean;
         id: string;
         label: string;

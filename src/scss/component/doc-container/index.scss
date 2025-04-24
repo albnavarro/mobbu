@@ -2,14 +2,19 @@
 
 .c-doc-container {
     padding-bottom: var(--footer-height);
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
     position: relative;
 
+    @include mq('large') {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     &__content {
-        flex: auto;
-        max-width: var(--doc-width);
+        min-width: var(--doc-width);
         position: relative;
         background: rgba($white, 0.3);
+        grid-column: 1 / span 1;
 
         &::before {
             content: '';
@@ -42,10 +47,6 @@
             width: auto;
         }
 
-        // @include mq('xlarge') {
-        //     padding-right: rem(100, xlarge);
-        // }
-
         @include when-inside('.fake-content') {
             background: radial-gradient(
                 circle at bottom center,
@@ -62,9 +63,10 @@
         top: var(--header-height);
         align-self: start;
         height: calc(100vh - var(--header-height) - var(--footer-height));
-        flex: 0 0 auto;
+        // flex: 0 0 auto;
         overflow: hidden;
         min-width: rem(250);
+        grid-column: 2 / span 1;
 
         @include mq('large') {
             display: block;

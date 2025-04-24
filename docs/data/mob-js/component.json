@@ -123,7 +123,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "component-definition",
                             "label": "Component definition"
                         }
@@ -295,7 +295,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "function",
                             "label": "Function component"
                         }
@@ -434,7 +434,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "type",
                             "label": "Typescript"
                         }
@@ -527,7 +527,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "parameters",
                             "label": "Fundamental params"
                         }

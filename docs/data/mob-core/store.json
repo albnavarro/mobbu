@@ -43,6 +43,12 @@
                 "usePadding": false,
                 "data": [
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -125,7 +131,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 26
+                            "numLines": 32
                         }
                     },
                     {
@@ -180,6 +186,12 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small"
+                        }
+                    },
                     {
                         "component": "mob-title",
                         "props": {
@@ -330,6 +342,12 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small"
+                        }
+                    },
                     {
                         "component": "mob-spacer",
                         "props": {

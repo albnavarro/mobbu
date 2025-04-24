@@ -34,7 +34,7 @@ export const wrapper = async () => {
         ${useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : ''}
         <only-desktop></only-desktop>
         <debug-overlay name="debugOverlay"></debug-overlay>
-        <mob-header></mob-header>
+        <mob-header name="header"></mob-header>
         <mob-navigation-container
             name="navigation-container"
         ></mob-navigation-container>

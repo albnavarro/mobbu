@@ -82,7 +82,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "basicfunction",
                             "label": "Basic&nbsp;route"
                         }
@@ -341,7 +341,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "events",
                             "label": "Events"
                         }

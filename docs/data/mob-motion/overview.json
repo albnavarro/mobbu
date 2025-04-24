@@ -77,7 +77,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "async",
                             "label": "Async"
                         }
@@ -174,7 +174,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "sync",
                             "label": "Sync"
                         }
@@ -283,7 +283,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small",
+                            "style": "x-small",
                             "id": "stagger",
                             "label": "Stagger"
                         }
