@@ -28,8 +28,8 @@ export const CaterpillarN1 = MobJs.createComponent(
         state: {
             isMounted: false,
             numItems: 20,
-            width: 40,
-            height: 40,
+            width: window.innerHeight / 30,
+            height: window.innerHeight / 30,
             fill: [14],
             opacity: 0.05,
             radius: 0,

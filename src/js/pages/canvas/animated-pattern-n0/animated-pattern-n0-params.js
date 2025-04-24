@@ -17,8 +17,8 @@ export const animatedPatternN0Params = [
             gutter: 1,
             numberOfColumn: 20,
             numberOfRow: 10,
-            cellWidth: 50,
-            cellHeight: 50,
+            cellWidth: window.innerHeight / 18,
+            cellHeight: window.innerHeight / 18,
             stagger: {
                 each: 2,
                 from: 'random',
@@ -41,8 +41,6 @@ export const animatedPatternN0Params = [
             gutter: 1,
             numberOfColumn: 10,
             numberOfRow: 10,
-            cellWidth: 50,
-            cellHeight: 50,
             stagger: {
                 each: 10,
                 from: 'edges',
@@ -63,8 +61,8 @@ export const animatedPatternN0Params = [
             gutter: 1,
             numberOfColumn: 12,
             numberOfRow: 13,
-            cellWidth: 50,
-            cellHeight: 50,
+            cellWidth: window.innerHeight / 22,
+            cellHeight: window.innerHeight / 22,
             stagger: {
                 each: 20,
                 from: { x: 6, y: 6 },

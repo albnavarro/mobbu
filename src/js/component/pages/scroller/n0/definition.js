@@ -35,11 +35,11 @@ export const ScrollerN0 = MobJs.createComponent(
                 type: Number,
             }),
             cellWidth: () => ({
-                value: 65,
+                value: window.innerHeight / 16,
                 type: Number,
             }),
             cellHeight: () => ({
-                value: 65,
+                value: window.innerHeight / 16,
                 type: Number,
             }),
             gutter: () => ({

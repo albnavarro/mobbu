@@ -21,7 +21,7 @@
         opacity: 0;
         transition: opacity 0.55s;
         overflow: hidden;
-        height: calc(100vh - var(--header-height) - var(--header-height));
+        height: calc(100vh - var(--header-height) - var(--footer-height));
 
         &.active {
             opacity: 1;

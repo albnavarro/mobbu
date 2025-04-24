@@ -26,9 +26,9 @@ export const AnimatedPatternN1 = MobJs.createComponent(
             isMounted: false,
             numberOfRow: 7,
             numberOfColumn: 15,
-            cellWidth: 70,
-            cellHeight: 70,
-            gutter: 10,
+            cellWidth: window.innerHeight / 13,
+            cellHeight: window.innerHeight / 13,
+            gutter: window.innerHeight / 150,
             fill: [
                 2, 18, 10, 27, 21, 22, 23, 24, 25, 25, 26, 37, 42, 53, 58, 69,
                 74, 85, 86, 87, 88, 89, 90, 44, 60, 65, 66,
