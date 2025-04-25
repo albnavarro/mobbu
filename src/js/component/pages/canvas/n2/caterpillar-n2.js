@@ -93,7 +93,7 @@ export const CaterpillarN2Fn = ({
         <div>
             <div class="c-canvas">
                 <div
-                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    class="c-canvas__wrap"
                     ${bindEffect({
                         toggleClass: { active: () => proxi.isMounted },
                     })}

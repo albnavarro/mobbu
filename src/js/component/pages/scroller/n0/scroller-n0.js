@@ -64,7 +64,7 @@ export const ScrollerN0Fn = ({
         <div>
             <div class="c-canvas c-canvas--fixed ">
                 <div
-                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    class="c-canvas__wrap"
                     ${bindEffect({
                         toggleClass: { active: () => proxi.isMounted },
                     })}
