@@ -102,7 +102,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=T,D=I),M===void 0&&(
                                             <span class="l-links__list__counter"
                                                 >${bE(a)}</span
                                             >
-                                            <h6>${i.title}</h6>
+                                            <span>${i.title}</span>
                                         </a>
                                     </li>
                                 `).join("")}

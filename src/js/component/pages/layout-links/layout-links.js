@@ -83,7 +83,7 @@ export const LayoutLinksFn = ({
                                             <span class="l-links__list__counter"
                                                 >${getCounter(index)}</span
                                             >
-                                            <h6>${item.title}</h6>
+                                            <span>${item.title}</span>
                                         </a>
                                     </li>
                                 `;
