@@ -45,12 +45,13 @@
     }
 
     &__button {
-        height: rem(50);
-        width: rem(50);
+        height: rem(40);
+        width: rem(40);
         background: $black;
         position: relative;
         border: 0;
         cursor: pointer;
+        border-top-left-radius: rem(10);
 
         &::after {
             content: '';

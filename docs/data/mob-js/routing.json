@@ -180,7 +180,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 36
+                            "numLines": 42
                         }
                     },
                     {
@@ -290,7 +290,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 23
+                            "numLines": 25
                         }
                     },
                     {
@@ -359,7 +359,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small"
+                            "style": "medium"
                         }
                     },
                     {
@@ -494,7 +494,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 3
+                            "numLines": 4
                         }
                     },
                     {
@@ -526,7 +526,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 3
+                            "numLines": 4
                         }
                     }
                 ]
