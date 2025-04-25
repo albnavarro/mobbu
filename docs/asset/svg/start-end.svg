@@ -2,37 +2,43 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg width="713.55" height="467.71" version="1.1" viewBox="0 0 188.79 123.75" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <marker id="Arrow1Lstart" overflow="visible" orient="auto">
-   <path transform="matrix(.8 0 0 .8 10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="context-stroke" fill-rule="evenodd" stroke="context-stroke" stroke-width="1pt"/>
+  <marker id="marker4" overflow="visible" markerHeight="1" markerWidth="1" orient="auto-start-reverse" preserveAspectRatio="xMidYMid" viewBox="0 0 1 1">
+   <path d="m1 0-3 3h-2l3-3-3-3h2z" fill="context-stroke" fill-rule="evenodd"/>
   </marker>
-  <marker id="Arrow1Lend-5" overflow="visible" orient="auto">
-   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="context-stroke" fill-rule="evenodd" stroke="context-stroke" stroke-width="1pt"/>
+  <marker id="marker2" overflow="visible" markerHeight="1" markerWidth="1" orient="auto-start-reverse" preserveAspectRatio="xMidYMid" viewBox="0 0 1 1">
+   <path d="m1 0-3 3h-2l3-3-3-3h2z" fill="context-stroke" fill-rule="evenodd"/>
   </marker>
-  <marker id="Arrow1Lstart-7-4" overflow="visible" orient="auto">
-   <path transform="matrix(.8 0 0 .8 10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="context-stroke" fill-rule="evenodd" stroke="context-stroke" stroke-width="1pt"/>
+  <marker id="ArrowWideHeavy" overflow="visible" markerHeight="1" markerWidth="1" orient="auto-start-reverse" preserveAspectRatio="xMidYMid" viewBox="0 0 1 1">
+   <path d="m1 0-3 3h-2l3-3-3-3h2z" fill="context-stroke" fill-rule="evenodd"/>
   </marker>
  </defs>
+ <g display="none">
+  <rect x="-2.6585" y="-.88617" width="192.52" height="126.28" fill="#c7c7c7" stroke="#000" stroke-width=".26458"/>
+ </g>
  <g transform="translate(-4.0197 -6.515)">
-  <path x="29.842051" y="29.352493" width="139.29848" height="84.95739" d="m35.134 29.352h128.72a5.2917 5.2917 45 0 1 5.2917 5.2917v74.374a5.2917 5.2917 135 0 1-5.2917 5.2917h-128.72a5.2917 5.2917 45 0 1-5.2917-5.2917v-74.374a5.2917 5.2917 135 0 1 5.2917-5.2917z" fill="none" stroke="#000" stroke-width=".265"/>
   <g>
-   <path d="m19.87 11.616 171.43 0.33259h1.2352" stop-color="#000000" stroke="#f00" stroke-dasharray="0.764474, 0.764474" stroke-width=".76447" style="font-variation-settings:normal"/>
-   <path d="m19.87 100.63 171.43 0.33259h1.2352" stop-color="#000000" stroke="#f00" stroke-dasharray="0.764474, 0.764474" stroke-width=".76447" style="font-variation-settings:normal"/>
-   <rect x="87.129" y="101.61" width="28.655" height="28.655"/>
-   <rect transform="rotate(45)" x="76.347" y="-67.134" width="28.655" height="28.655"/>
+   <path x="29.842051" y="29.352493" width="139.29848" height="84.95739" d="m32.488 29.352h134.01a2.6458 2.6458 45 0 1 2.6458 2.6458v79.666a2.6458 2.6458 135 0 1-2.6458 2.6458h-134.01a2.6458 2.6458 45 0 1-2.6458-2.6458v-79.666a2.6458 2.6458 135 0 1 2.6458-2.6458z" fill-opacity=".21516"/>
+   <path d="m19.87 11.887 171.43 0.33259h1.2352" stop-color="#000000" stroke="#f00" stroke-dasharray="0.79374996,0.79374996" stroke-dashoffset=".52917" stroke-width=".26458" style="font-variation-settings:normal"/>
+   <path d="m19.87 100.63 171.43 0.33259h1.2352" stop-color="#000000" stroke="#f00" stroke-dasharray="0.79374996,0.79374996" stroke-width=".26458" style="font-variation-settings:normal"/>
   </g>
   <g>
-   <text x="3.713737" y="102.0586" fill="#000000" font-family="sans-serif" font-size="10.583px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="3.713737" y="102.0586" font-family="sans-serif" font-size="5.6444px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">start</tspan></text>
-   <text x="3.806695" y="13.894406" fill="#000000" font-family="sans-serif" font-size="10.583px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="3.806695" y="13.894406" font-family="sans-serif" font-size="5.6444px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">end</tspan></text>
-   <path d="m170.81 102.38v11.845" marker-start="url(#Arrow1Lstart)" stop-color="#000000" stroke="#000" stroke-width=".15242" style="font-variation-settings:normal"/>
-   <text x="172.95381" y="109.57013" fill="#000000" font-family="sans-serif" font-size="10.583px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="172.95381" y="109.57013" font-family="sans-serif" font-size="5.6444px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">+40px</tspan></text>
-   <path d="m172.02 29.423v11.845" marker-end="url(#Arrow1Lend-5)" stop-color="#000000" stroke="#000" stroke-width=".15242" style="font-variation-settings:normal"/>
-   <path d="m125.61 13.234v27.424" marker-start="url(#Arrow1Lstart-7-4)" stop-color="#000000" stroke="#000" stroke-width=".23192" style="font-variation-settings:normal"/>
+   <path transform="translate(0 -.52917)" x="87.128769" y="101.6087" width="28.655451" height="28.655451" d="m93.743 101.61h15.426a6.6146 6.6146 45 0 1 6.6146 6.6146v15.426a6.6146 6.6146 135 0 1-6.6146 6.6146h-15.426a6.6146 6.6146 45 0 1-6.6146-6.6146v-15.426a6.6146 6.6146 135 0 1 6.6146-6.6146z" fill="#fff"/>
+   <path transform="rotate(45)" x="76.347351" y="-67.133804" width="28.655451" height="28.655451" d="m82.962-67.134h15.426a6.6146 6.6146 45 0 1 6.6146 6.6146v15.426a6.6146 6.6146 135 0 1-6.6146 6.6146h-15.426a6.6146 6.6146 45 0 1-6.6146-6.6146v-15.426a6.6146 6.6146 135 0 1 6.6146-6.6146z" fill="#fff"/>
+   <g stroke-width=".26458">
+    <text x="7.7867322" y="101.90195" fill="#000000" font-family="sans-serif" font-size="3.5278px" style="line-height:1.25" xml:space="preserve"><tspan x="7.7867322" y="101.90195" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Start</tspan></text>
+    <text x="7.783287" y="13.267792" fill="#000000" font-family="sans-serif" font-size="3.5278px" style="line-height:1.25" xml:space="preserve"><tspan x="7.783287" y="13.267792" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">End</tspan></text>
+    <path d="m174.52 102.38v11.845" marker-start="url(#ArrowWideHeavy)" stop-color="#000000" stroke="#000" stroke-dasharray="0.79375, 0.79375" style="font-variation-settings:normal"/>
+    <text x="176.65793" y="109.57013" fill="#000000" font-family="sans-serif" font-size="3.5278px" style="line-height:1.25" xml:space="preserve"><tspan x="176.65793" y="109.57013" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">+40px</tspan></text>
+    <path d="m174.52 29.423v11.845" marker-end="url(#marker2)" stop-color="#000000" stroke="#000" stroke-dasharray="0.79375, 0.79375" style="font-variation-settings:normal"/>
+   </g>
+   <path d="m125.61 13.234v27.424" marker-start="url(#marker4)" stop-color="#000000" stroke="#000" stroke-dasharray="0.79375002,0.79375002" stroke-width=".26458" style="font-variation-settings:normal"/>
+   <text x="177.86703" y="36.362625" fill="#000000" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="177.86703" y="36.362625" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">+40px</tspan></text>
+   <text x="128.01622" y="26.17708" fill="#000000" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="128.01622" y="26.17708" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">- Height</tspan></text>
   </g>
-  <g fill="#000000" font-family="sans-serif" font-size="10.583px" stroke-width=".26458">
-   <text x="174.16292" y="37.145893" style="line-height:1.25" xml:space="preserve"><tspan x="174.16292" y="37.145893" font-family="sans-serif" font-size="5.6444px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">+40px</tspan></text>
-   <text x="128.01622" y="26.17708" style="line-height:1.25" xml:space="preserve"><tspan x="128.01622" y="26.17708" font-family="sans-serif" font-size="5.6444px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">-height</tspan></text>
-   <text x="92.559357" y="26.826038" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="92.559357" y="26.826038" fill="#ffffff" font-family="sans-serif" font-size="5.6444px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">45deg</tspan></text>
+  <g>
+   <path d="m19.87 41.765 171.43 0.33259h1.2352" stop-color="#000000" stroke="#969696" stroke-dasharray="0.79374996,0.79374996" stroke-width=".26458" style="font-variation-settings:normal"/>
+   <rect x="92.911" y="100.27" width="17.036" height=".78327"/>
+   <rect transform="rotate(45)" x="82.341" y="-67.882" width="17.036" height=".78327"/>
   </g>
-  <path d="m19.87 41.765 171.43 0.33259h1.2352" stop-color="#000000" stroke="#969696" stroke-dasharray="0.764474, 0.764474" stroke-width=".76447" style="font-variation-settings:normal"/>
  </g>
 </svg>
