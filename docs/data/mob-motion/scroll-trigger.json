@@ -736,6 +736,19 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "doc-svg",
+                        "props": {
+                            "className": "start-end-svg",
+                            "url": "./asset/svg/start-end.svg"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "small"
                         }
                     },
