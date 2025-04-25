@@ -35,7 +35,7 @@
             transform: translateY(-50%);
             left: calc(#{rem(20)} * -1);
             height: em(15);
-            width: 4px;
+            width: rem(4);
             background: $black;
             position: absolute;
             opacity: 0;

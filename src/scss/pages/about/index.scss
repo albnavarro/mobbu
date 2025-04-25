@@ -83,8 +83,8 @@
             left: 50%;
             width: 25%;
             height: 25%;
-            border-top: 5px $black solid;
-            border-right: 5px $black solid;
+            border-top: rem(5) $black solid;
+            border-right: rem(5) $black solid;
             display: block;
         }
     }

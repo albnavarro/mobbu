@@ -38,9 +38,9 @@
         --doc-width: #{rem(1100, xlarge)};
     }
 
-    @include mq(xxlarge) {
-        --doc-width: #{rem(1440, xxlarge)};
-    }
+    // @include mq(xxlarge) {
+    //     --doc-width: #{rem(1440, xxlarge)};
+    // }
 }
 
 html {

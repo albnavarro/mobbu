@@ -80,7 +80,7 @@
 
             &:hover {
                 button {
-                    border-bottom: 5px $white solid;
+                    border-bottom: rem(5) $white solid;
                 }
             }
         }
@@ -92,14 +92,14 @@
             font-size: rem(16);
             background: transparent;
             border: 0;
-            border-top: 5px transparent solid;
+            border-top: rem(5) transparent solid;
             transition:
                 background 0.55s,
                 border-top 0.55s;
             position: relative;
 
             &.active {
-                border-bottom: 5px $white solid;
+                border-bottom: rem(5) $white solid;
             }
         }
     }
@@ -109,7 +109,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border: 10px rgba($white, 0.15) solid;
+        border: rem(10px) rgba($white, 0.15) solid;
         width: rem(200);
         text-align: center;
 

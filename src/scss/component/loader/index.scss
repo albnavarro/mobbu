@@ -35,8 +35,8 @@
         position: absolute;
         left: 0;
         top: 0;
-        width: 48px;
-        height: 48px;
+        width: rem(48);
+        height: rem(48);
         border-radius: 50%;
         border-left: 4px solid $color-contrast;
         border-bottom: 4px solid transparent;

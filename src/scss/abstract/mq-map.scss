@@ -10,7 +10,6 @@ $breakpoints: (
     'large': 1200px,
     'xlarge': 1600px,
     'xxlarge': 1980px,
-    'xxxlarge': 2140px,
 );
 
 /* 
@@ -27,6 +26,5 @@ Apply custom breakpoints to sass-mq.
     //     large,
     //     xlarge,
     //     xxlarge,
-    //     xxxlarge,
      // )
 );
