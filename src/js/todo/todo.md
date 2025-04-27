@@ -23,6 +23,20 @@
 
 # MobJs
 
+## Web component:
+- `DOCS`: aggiungere snippet per box-sizing:
+```css
+/**
+ * Esplcit box-sizing ( no inherit ).
+ * Solve web component box-sizing problem.
+ */
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+```
+
 ## BindProps:
 
 - Valutare await `applyBindProps` in `parse-function.js`
