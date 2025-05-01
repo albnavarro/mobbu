@@ -24,14 +24,14 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="1.4253648"
-     inkscape:cx="876.61771"
-     inkscape:cy="265.19527"
+     inkscape:cx="757.34998"
+     inkscape:cy="247.6559"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer13"
+     inkscape:current-layer="layer5"
      showgrid="false" />
   <defs
      id="defs1">
@@ -838,11 +838,10 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="O"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <path
        id="path16"
-       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#bc5a45;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
        d="m 110.20384,33.552257 c -1.98607,-2.544566 -19.680561,10.427732 -21.179204,11.778548 -1.498643,1.350816 -5.439641,7.719305 -3.903593,11.453606 1.536049,3.734302 15.570577,21.904289 17.019877,22.933762 1.44931,1.029473 8.366,-3.565935 8.84763,-6.233431 0.48163,-2.667495 1.20137,-37.387918 -0.78471,-39.932485 z M 99.422039,47.486255 c 1.018751,1.312539 1.420201,16.705112 1.206171,18.123191 -0.21404,1.418079 -3.31099,3.50444 -4.400827,2.761307 -1.089837,-0.743132 -6.818118,-8.369617 -7.514271,-10.096158 -0.696153,-1.726541 0.50265,-5.275073 1.581882,-6.359842 1.079233,-1.084769 8.10829,-5.741037 9.127045,-4.428498 z"
        sodipodi:nodetypes="ssssssssssss"
        inkscape:path-effect="#path-effect18"
