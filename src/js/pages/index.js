@@ -18,7 +18,7 @@ import { matrioska_page } from './matrioska';
 import { horizontalScroller } from './plugin/horizontal-scroller';
 import { move3DRoute } from './plugin/move-3d';
 import { move3DrouteProps } from './plugin/move-3d/props';
-import { lettering01 } from './svg/lettering-01';
+import { letteringMob } from './svg/lettering-mob';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
 export const PAGE_TEMPLATE_TRAVERSAL_MOBJS = 'templateMobJsTraversal';
@@ -793,8 +793,8 @@ export const routes = [
         },
     },
     {
-        name: 'lettering01',
-        layout: lettering01,
+        name: 'mob_01',
+        layout: letteringMob,
         props: {},
     },
 ];
