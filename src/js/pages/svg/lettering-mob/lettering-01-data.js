@@ -27,7 +27,7 @@ export const getLettering_mob = ({
             children: [
                 {
                     props: {
-                        id: 0,
+                        id: 1,
                         depth: 0,
                         offsetX: 0,
                         offsetY: 0,
@@ -49,7 +49,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 2,
                         depth: 20,
                         initialDepth: 0,
                         anchorPoint: 'center',
@@ -70,7 +70,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 3,
                         depth: 150,
                         anchorPoint: 'center',
                         classList: '',
@@ -91,7 +91,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 4,
                         depth: 180,
                         anchorPoint: 'center',
                         classList: '',
@@ -112,7 +112,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 5,
                         depth: 100,
                         anchorPoint: 'center',
                         classList: '',
@@ -133,7 +133,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 6,
                         depth: 130,
                         anchorPoint: 'center',
                         classList: '',
@@ -154,7 +154,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 6,
                         depth: 50,
                         anchorPoint: 'center',
                         classList: '',
@@ -175,7 +175,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 7,
                         depth: 100,
                         anchorPoint: 'center',
                         classList: '',
@@ -196,7 +196,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 8,
                         depth: 100,
                         anchorPoint: 'center',
                         classList: '',
@@ -217,7 +217,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 10,
                         depth: 150,
                         anchorPoint: 'center',
                         classList: '',
@@ -238,7 +238,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 11,
                         depth: 100,
                         anchorPoint: 'center',
                         classList: '',
@@ -259,7 +259,7 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
-                        id: 0,
+                        id: 12,
                         depth: 100,
                         anchorPoint: 'center',
                         classList: '',
