@@ -1,6 +1,6 @@
 @use '../../abstract' as *;
 
-$lettering-mob-max-height: calc(((1600 * 571) / 1098) * 1px);
+$lettering-mob-max-height: calc(((1400 * 571) / 1098) * 1px);
 
 .l-lettering-mob {
     margin-left: calc(var(--header-height) / 2 * -1);
@@ -8,10 +8,10 @@ $lettering-mob-max-height: calc(((1600 * 571) / 1098) * 1px);
 
     &__block {
         svg {
-            width: min(1920px, calc(((1098 * 100) / 1600) * 1vw));
+            width: min(1920px, calc(((1098 * 100) / 1400) * 1vw));
             height: min(
                 $lettering-mob-max-height,
-                calc(((466 * 100) / 1600) * 1vw)
+                calc(((466 * 100) / 1400) * 1vw)
             );
         }
     }

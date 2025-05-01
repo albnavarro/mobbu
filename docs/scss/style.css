@@ -1715,8 +1715,8 @@ code * {
   transform: translateY(calc(var(--footer-height) / 2 * -1));
 }
 .l-lettering-mob__block svg {
-  width: min(1920px, 68.625vw);
-  height: min(832.058287796px, 29.125vw);
+  width: min(1920px, 78.4285714286vw);
+  height: min(728.0510018215px, 33.2857142857vw);
 }
 .c-dynamic-list {
   border: 0;
