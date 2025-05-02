@@ -32948,6 +32948,7 @@ Loading snippet ...</pre
               id: 6,
               depth: 50,
               anchorPoint: "center",
+              initialDepth: 1,
               classList: "",
               animate: true,
               width: 0,
@@ -33028,6 +33029,7 @@ Loading snippet ...</pre
               id: 11,
               depth: 100,
               anchorPoint: "center",
+              initialDepth: 1,
               classList: "",
               animate: true,
               width: 0,
@@ -33046,7 +33048,8 @@ Loading snippet ...</pre
           {
             props: {
               id: 12,
-              depth: 100,
+              initialDepth: 2,
+              depth: 102,
               anchorPoint: "center",
               classList: "",
               animate: true,
