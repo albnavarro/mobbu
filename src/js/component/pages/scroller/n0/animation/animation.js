@@ -245,7 +245,7 @@ export const scrollerN0Animation = ({
             position: 'bottom',
             value: () => outerHeight(canvasScroller),
         },
-        fromTo: true,
+        reverse: true,
         ease: true,
         easeType: 'lerp',
     });

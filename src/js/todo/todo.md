@@ -109,10 +109,6 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 
 # Mobmotion
 
-### MobScroller
-
-- Usare `reverse` al posto di `fromTo`
-
 ### AsyncTimeline
 
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.

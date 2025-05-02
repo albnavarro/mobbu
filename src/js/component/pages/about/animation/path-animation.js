@@ -281,7 +281,7 @@ export const createPathAnimation = ({
                 return -outerWidth(scrollerElement) + window.innerWidth;
             },
         },
-        fromTo: true,
+        reverse: true,
         propierties: 'tween',
         ease: false,
         tween: pathSequencer,

@@ -772,6 +772,28 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "big",
+                            "id": "reverse",
+                            "label": "reverse"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "reverse"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Reverse animation"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
                             "id": "ease",
                             "label": "ease"
                         }

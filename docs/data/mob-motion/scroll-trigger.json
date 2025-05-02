@@ -855,8 +855,8 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "big",
-                            "id": "fromto",
-                            "label": "fromTo"
+                            "id": "reverse",
+                            "label": "reverse"
                         }
                     },
                     {
@@ -864,14 +864,14 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "fromTo"
+                        "content": "reverse"
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If this property is true the values will be applied starting from the final value leaving the start/end values unchanged."
+                        "content": "Reverse animation"
                     },
                     {
                         "component": "mob-spacer",
