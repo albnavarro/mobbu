@@ -28,7 +28,7 @@ export const getLettering_mob = ({
                 {
                     props: {
                         id: 1,
-                        depth: 0,
+                        depth: -50,
                         offsetX: 0,
                         offsetY: 0,
                         anchorPoint: 'center',
@@ -91,8 +91,31 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
+                        id: 6,
+                        depth: 155,
+                        initialDepth: 1,
+                        anchorPoint: 'center',
+                        classList: '',
+                        animate: true,
+                        width: 0,
+                        height: 0,
+                        rotate: 'y',
+                        component: {
+                            tagName: 'any-component',
+                            className:
+                                'u-any-center-svg l-lettering-mob__block',
+                            props: {
+                                content: m4,
+                            },
+                        },
+                    },
+                    children: [],
+                },
+                {
+                    props: {
                         id: 4,
                         depth: 180,
+                        initialDepth: 1,
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
@@ -134,27 +157,6 @@ export const getLettering_mob = ({
                 {
                     props: {
                         id: 6,
-                        depth: 130,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        width: 0,
-                        height: 0,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className:
-                                'u-any-center-svg l-lettering-mob__block',
-                            props: {
-                                content: m4,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 6,
                         depth: 50,
                         anchorPoint: 'center',
                         classList: '',
@@ -176,7 +178,7 @@ export const getLettering_mob = ({
                 {
                     props: {
                         id: 7,
-                        depth: 100,
+                        depth: 120,
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
