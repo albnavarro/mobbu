@@ -25,7 +25,7 @@ export const Recursive3Dshape = ({ data, root, childrenId, debug }) => {
             >
                 ${getDebug({ debug, id: props.id })}
                 ${Recursive3Dshape({
-                    data: children,
+                    data: children ?? [],
                     root: false,
                     childrenId,
                     debug,
