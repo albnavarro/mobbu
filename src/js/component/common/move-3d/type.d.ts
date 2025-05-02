@@ -1,4 +1,4 @@
-import { Move3DItem } from '../Move3D/move-3d-item/type';
+import { Move3DItem } from './move-3d-item/type';
 
 export interface Move3D {
     state: {
