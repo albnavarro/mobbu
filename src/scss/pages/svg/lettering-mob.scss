@@ -4,12 +4,13 @@ $lettering-mob-max-height: calc(((1400 * 571) / 1098) * 1px);
 
 .l-lettering-mob {
     margin-left: calc(var(--header-height) / 2 * -1);
-    transform: translate(
-        calc(#{rem(50)} * -1),
-        calc(var(--footer-height) / 2 * -1)
-    );
 
     &__block {
+        transform: translate(
+            calc(#{rem(50)} * -1),
+            calc(var(--footer-height) / 2 * -1)
+        );
+
         svg {
             width: min(1920px, calc(((1098 * 100) / 1400) * 1vw));
             height: min(

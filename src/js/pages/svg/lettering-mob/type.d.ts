@@ -1,6 +1,7 @@
 import { Move3DChildren } from '@commonComponent/move-3d/type';
 
 export type GetLetteringMob = (arg0: {
+    u0: string;
     u1: string;
     o: string;
     m1: string;

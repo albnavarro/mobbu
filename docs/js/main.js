@@ -32795,6 +32795,7 @@ Loading snippet ...</pre
 
   // src/js/pages/svg/lettering-mob/lettering-01-data.js
   var getLettering_mob = ({
+    u0,
     u1,
     o,
     m1,
@@ -32820,6 +32821,27 @@ Loading snippet ...</pre
           height: 0
         },
         children: [
+          {
+            props: {
+              id: 1,
+              depth: -500,
+              offsetX: 0,
+              offsetY: 0,
+              anchorPoint: "center",
+              classList: "",
+              animate: true,
+              width: 0,
+              height: 0,
+              component: {
+                tagName: "any-component",
+                className: "u-any-center-svg l-lettering-mob__block",
+                props: {
+                  content: u0
+                }
+              }
+            },
+            children: []
+          },
           {
             props: {
               id: 1,
@@ -32969,6 +32991,7 @@ Loading snippet ...</pre
               id: 7,
               depth: 120,
               anchorPoint: "center",
+              initialDepth: 2,
               classList: "",
               animate: true,
               width: 0,
@@ -33009,6 +33032,7 @@ Loading snippet ...</pre
               id: 10,
               depth: 150,
               anchorPoint: "center",
+              initialDepth: 2,
               classList: "",
               animate: true,
               width: 0,
@@ -33077,7 +33101,8 @@ Loading snippet ...</pre
     const { data: letteringMob2 } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=0.1"
     });
-    const [u1, o, m1, m2, m3, m4, b1, b2, b3, b4, b5, g1] = [
+    const [u0, u1, o, m1, m2, m3, m4, b1, b2, b3, b4, b5, g1] = [
+      "U0_block",
       "U1_block",
       "O_block",
       "M1_block",
@@ -33109,6 +33134,7 @@ Loading snippet ...</pre
       /** @type {import('@commonComponent/move-3d/type').Move3D['state']} */
       {
         shape: getLettering_mob({
+          u0,
           u1,
           o,
           m1,

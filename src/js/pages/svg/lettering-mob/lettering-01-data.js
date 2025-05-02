@@ -1,5 +1,6 @@
 /** @type {import('./type.js').GetLetteringMob} */
 export const getLettering_mob = ({
+    u0,
     u1,
     o,
     m1,
@@ -25,6 +26,28 @@ export const getLettering_mob = ({
                 height: 0,
             },
             children: [
+                {
+                    props: {
+                        id: 1,
+                        depth: -500,
+                        offsetX: 0,
+                        offsetY: 0,
+                        anchorPoint: 'center',
+                        classList: '',
+                        animate: true,
+                        width: 0,
+                        height: 0,
+                        component: {
+                            tagName: 'any-component',
+                            className:
+                                'u-any-center-svg l-lettering-mob__block',
+                            props: {
+                                content: u0,
+                            },
+                        },
+                    },
+                    children: [],
+                },
                 {
                     props: {
                         id: 1,
@@ -181,6 +204,7 @@ export const getLettering_mob = ({
                         id: 7,
                         depth: 120,
                         anchorPoint: 'center',
+                        initialDepth: 2,
                         classList: '',
                         animate: true,
                         width: 0,
@@ -223,6 +247,7 @@ export const getLettering_mob = ({
                         id: 10,
                         depth: 150,
                         anchorPoint: 'center',
+                        initialDepth: 2,
                         classList: '',
                         animate: true,
                         width: 0,

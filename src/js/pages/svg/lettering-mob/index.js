@@ -13,7 +13,8 @@ export const letteringMob = async () => {
         source: './asset/svg/lettering-mob.svg?v=0.1',
     });
 
-    const [u1, o, m1, m2, m3, m4, b1, b2, b3, b4, b5, g1] = [
+    const [u0, u1, o, m1, m2, m3, m4, b1, b2, b3, b4, b5, g1] = [
+        'U0_block',
         'U1_block',
         'O_block',
         'M1_block',
@@ -47,6 +48,7 @@ export const letteringMob = async () => {
             ${MobJs.staticProps(
                 /** @type {import('@commonComponent/move-3d/type').Move3D['state']} */ ({
                     shape: getLettering_mob({
+                        u0,
                         u1,
                         o,
                         m1,

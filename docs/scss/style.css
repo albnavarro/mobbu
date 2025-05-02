@@ -1712,6 +1712,8 @@ code * {
 }
 .l-lettering-mob {
   margin-left: calc(var(--header-height) / 2 * -1);
+}
+.l-lettering-mob__block {
   transform: translate(calc(3.3333333333rem * -1), calc(var(--footer-height) / 2 * -1));
 }
 .l-lettering-mob__block svg {
