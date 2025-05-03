@@ -39,11 +39,6 @@
                 "label": "MobMotion",
                 "url": "mobMotion-overview",
                 "section": "mobMotion"
-            },
-            {
-                "label": "Plugin",
-                "url": "plugin-overview",
-                "section": "plugin"
             }
         ]
     },
@@ -827,7 +822,7 @@
             "sectioName": "plugin"
         },
         {
-            "label": "pverview",
+            "label": "overview",
             "scrollToSection": "plugin",
             "url": "plugin-overview"
         },
