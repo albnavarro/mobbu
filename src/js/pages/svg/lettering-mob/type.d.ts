@@ -14,4 +14,5 @@ export type GetLetteringMob = (arg0: {
     b4: string;
     b5: string;
     g1: string;
+    sign: string;
 }) => Move3DChildren[];

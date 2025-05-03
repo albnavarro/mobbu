@@ -13,6 +13,7 @@ export const getLettering_mob = ({
     b4,
     b5,
     g1,
+    sign,
 }) => {
     return [
         {
@@ -151,6 +152,28 @@ export const getLettering_mob = ({
                                 'u-any-center-svg l-lettering-mob__block',
                             props: {
                                 content: m2,
+                            },
+                        },
+                    },
+                    children: [],
+                },
+                {
+                    props: {
+                        id: 4,
+                        depth: 180,
+                        initialDepth: 1,
+                        anchorPoint: 'center',
+                        classList: '',
+                        animate: true,
+                        width: 0,
+                        height: 0,
+                        rotate: 'y',
+                        component: {
+                            tagName: 'any-component',
+                            className:
+                                'u-any-center-svg l-lettering-mob__block',
+                            props: {
+                                content: sign,
                             },
                         },
                     },
