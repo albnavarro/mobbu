@@ -24,7 +24,8 @@
 # MobJs
 
 ## Web component:
-- `DOCS`: aggiungere snippet per box-sizing:
+#### DOCS/css
+- Aggiungere snippet per box-sizing:
 ```css
 /**
  * Esplcit box-sizing ( no inherit ).
@@ -36,6 +37,10 @@
     box-sizing: border-box;
 }
 ```
+
+#### attributeChangedCallback
+- In riferimento agli `stati esportabili`, `attributeChangedCallback` puo intereccettare se l'atributo é uno stato e automaticamante eseguire un `this.#params.setState(state, <val>)`.
+- Bisognerá fare un lavoro sui tipi, arriveranno tutte `string` ma prima del set venno convertite nel giusto tipo, per fare questo lavoro bisogna accedere all' oggetto `type` delle store.
 
 ## BindProps:
 
