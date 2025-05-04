@@ -137,6 +137,9 @@ function printDefault() {
 }
 
 /**
+ * Returns a boolean value if the action value is equal to 'min' or 'max', returns a numeric value if it is equal to
+ * 'get'
+ *
  * @example
  *     ```javascript
  *       Property schema:
@@ -152,8 +155,7 @@ function printDefault() {
  *
  * @param {import('./utils/type.js').MqActionMethods} action
  * @param {import('./utils/type.js').MqValues} breakpoint
- * @returns {boolean | number} Returns a boolean value if the action value is equal to 'min' or 'max', returns a numeric
- *   value if it is equal to 'get'
+ * @returns {boolean | number}
  */
 function mq(action, breakpoint) {
     switch (action) {

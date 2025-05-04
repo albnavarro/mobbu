@@ -23,46 +23,6 @@
 
 # MobJs
 
-### Route/Redirect:
-- Prevedere una funzione in `MobJs.inizializeApp` per eseguire dei redirect.
-- Eseguirla prima di ongi altra cosa ? per evitare che i dati infuliscano nel meccanismo di hystory.
-- default:
-
-```js
-(route: string) => route;
-```
-
-```js
-MobJs.inizializeApp({
-    rootId: '#root',
-    contentId: '#content',
-    wrapper,
-    routes,
-    index: 'home',
-    pageNotFound: 'pageNotFound',
-    beforePageTransition,
-    pageTransition,
-    redirect: (route) => {
-        return window.innerWidth < 1024 ? '#only-desktop' : route
-    },
-    afterInit: async () => {
-        await loaderTween.goTo({ opacity: 0, scale: 0.9 });
-        jsMainLoader?.remove();
-        jsMainLoaderBackground?.remove();
-        // @ts-ignore
-        loaderTween = null;
-        getScrollbarWith();
-    },
-    restoreScroll: true,
-});
-```
-- Al momento si puó usare cmq.
-    - Creare rotta `only-desktop`.
-    - Eliminare il componente `only-deskop`.
-    - Dirottare tutte le rotte quando `window.innerWidth < 1024`
-
-- In futuro: verra usata solo per le sezioni non `DOCS`.
-
 ### Route/load
 - Espandere le opzioni di loadUrl,
 - Params al posto di split.

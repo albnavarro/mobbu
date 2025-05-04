@@ -1,21 +1,20 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { MobMotionCore } from '@mobMotion';
-import { OnlyDesktopFn } from './only-desktop';
+import { OnlyDesktopFnCta } from './only-desktop-cta';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
  */
 
-export const OnlyDesktop = MobJs.createComponent(
+export const OnlyDesktopCta = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').OnlyDesktop>} */
     ({
-        name: 'only-desktop',
-        component: OnlyDesktopFn,
+        name: 'only-desktop-cta',
+        component: OnlyDesktopFnCta,
         state: {
             active: () => ({
-                value: MobMotionCore.mq('min', 'desktop'),
+                value: false,
                 type: Boolean,
             }),
         },

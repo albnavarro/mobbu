@@ -9,6 +9,7 @@ import { MobJs, html } from '@mobJs';
  */
 MobJs.useComponent([MyComponent]);
 
+/** @type {import('@mobJsType').Page} */
 export const my_route = ({ params, props }) => {
     const { param1, param2 } = params;
     const { myProps } = props;

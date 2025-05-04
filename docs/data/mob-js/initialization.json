@@ -84,7 +84,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 64
+                "numLines": 71
             }
         },
         {
@@ -157,8 +157,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "params",
-                "label": "Params"
+                "id": "component-params",
+                "label": "Component default params"
             }
         },
         {
@@ -166,7 +166,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Params"
+            "content": "Component default params"
         },
         {
             "component": "mob-paragraph",

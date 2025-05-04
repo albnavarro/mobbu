@@ -2,7 +2,6 @@
 
 import { DebugOverlay } from '@commonComponent/debug/debug-overlay/definition';
 import { LinksMobJs } from '@commonComponent/links-mob-js/definition';
-import { OnlyDesktop } from '@commonComponent/only-desktop/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';
 import { RouteLoader } from '@commonComponent/route-loader/definition';
 import { ScrollDownLabel } from '@commonComponent/scroll-down-label/definition';
@@ -22,7 +21,6 @@ MobJs.useComponent([
     ScrollDownLabel,
     ScrollToTop,
     LinksMobJs,
-    OnlyDesktop,
     DebugOverlay,
     TestScssGrid,
 ]);
@@ -32,7 +30,6 @@ export const wrapper = async () => {
 
     return html`
         ${useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : ''}
-        <only-desktop></only-desktop>
         <debug-overlay name="debugOverlay"></debug-overlay>
         <mob-header name="header"></mob-header>
         <mob-navigation-container

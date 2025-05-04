@@ -14,6 +14,7 @@ import {
     setPageTransition,
 } from '../route/page-transition';
 import { setRestoreScroll } from '../route/scroll';
+import { setRedirectFunction } from '../route/redirect';
 
 /**
  * Inizializa default route.
@@ -26,6 +27,7 @@ export const inizializeApp = async ({
     contentId,
     routes = [],
     afterInit = () => {},
+    redirect = ({ route = '' }) => route,
     index = 'home',
     pageNotFound = 'pageNotFound',
     beforePageTransition,
@@ -37,6 +39,11 @@ export const inizializeApp = async ({
      */
     const rootEl = /** @type {HTMLElement} */ document.querySelector(rootId);
     const wrapperDOM = await wrapper();
+
+    /**
+     * Set redirect function
+     */
+    setRedirectFunction(redirect);
 
     /**
      * Validate initial data. Else skip.

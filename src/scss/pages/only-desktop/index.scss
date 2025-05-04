@@ -1,0 +1,45 @@
+@use '../../abstract' as *;
+
+$svg-max-height: calc(((1400 * 571) / 1098) * 1px);
+
+.l-only-desktop {
+    padding: rem(30);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: $grey;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+
+    &__content {
+        text-align: center;
+    }
+
+    &__title {
+        margin-bottom: rem(40);
+    }
+
+    &__link {
+        @include button;
+
+        display: none;
+        max-width: rem(200);
+        margin-bottom: rem(40);
+
+        &.active {
+            display: inline-block;
+        }
+    }
+
+    &__svg {
+        svg {
+            width: min(1920px, calc(((1098 * 100) / 1400) * 1vw));
+            height: min($svg-max-height, calc(((466 * 100) / 1400) * 1vw));
+        }
+    }
+}

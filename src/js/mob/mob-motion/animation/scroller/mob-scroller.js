@@ -2077,7 +2077,7 @@ export default class MobScroller {
      */
     #resetTweenStyle(item) {
         // @ts-ignore
-        if (this.#tween) item.style = '';
+        if (this.#tween && item) item.style = '';
     }
 
     /**

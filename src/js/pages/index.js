@@ -19,6 +19,7 @@ import { horizontalScroller } from './plugin/horizontal-scroller';
 import { move3DRoute } from './plugin/move-3d';
 import { move3DrouteProps } from './plugin/move-3d/props';
 import { letteringMob } from './svg/lettering-mob';
+import { onlyDesktop } from './onlyDesktop';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
 export const PAGE_TEMPLATE_TRAVERSAL_MOBJS = 'templateMobJsTraversal';
@@ -62,6 +63,11 @@ export const routes = [
     {
         name: 'pageNotFound',
         layout: pageNotFound,
+        props: {},
+    },
+    {
+        name: 'onlyDesktop',
+        layout: onlyDesktop,
         props: {},
     },
     {

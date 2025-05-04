@@ -58,6 +58,13 @@ MobJs.inizializeApp({
     },
 
     /**
+     * Redirect helper
+     */
+    redirect: ({ route }) => {
+        return route;
+    },
+
+    /**
      * Restore scroll position on history navigate.
      */
     restoreScroll: true,

@@ -766,15 +766,20 @@ export type Page<T = Record<string, any>, P = Record<string, any>> = (arg0: {
 }) => string;
 
 /**
+ * Redirect function
+ */
+export type RedirectFunction = (arg0: { route: string }) => string;
+
+/**
  * App
  */
-
 export interface InizializeApp {
     rootId: string;
     wrapper: () => Promise<any>;
     contentId: string;
     routes: Route[];
-    afterInit: () => void;
+    afterInit?: () => void;
+    redirect?: RedirectFunction;
     index: string;
     pageNotFound: string;
     beforePageTransition?: BeforePageTransition;

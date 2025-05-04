@@ -13,6 +13,76 @@ import { wrapper } from './wrapper';
 // import { storeTest } from './test/store-test';
 
 /**
+ * Temp: Redirect every page to `onlyDesktop` route in tablet/mobile TODO: should be removed.
+ */
+const redirectOnResize = () => {
+    MobCore.useResize(() => {
+        const shouldRedirect = /** @type {boolean} */ (
+            MobMotionCore.mq('max', 'desktop')
+        );
+
+        if (!shouldRedirect) return;
+
+        MobJs.loadUrl({ url: 'onlyDesktop' });
+    });
+};
+
+const jsMainLoader = document.body.querySelector('.js-main-loader');
+const jsMainLoaderBackground = document.body.querySelector(
+    '.js-main-loader-background'
+);
+
+let loaderTween = MobTween.createTimeTween({
+    data: { opacity: 1, scale: 1 },
+    duration: 1000,
+});
+
+if (jsMainLoader && jsMainLoaderBackground) {
+    [jsMainLoader, jsMainLoaderBackground].forEach((item) => {
+        loaderTween?.subscribe(({ opacity, scale }) => {
+            // @ts-ignore
+            item.style.opacity = opacity;
+            // @ts-ignore
+            item.style.transform = `scale(${scale})`;
+        });
+    });
+}
+
+const initApp = async () => {
+    await loadData();
+
+    MobJs.setDefaultComponent({
+        scoped: false,
+        maxParseIteration: 10_000,
+        debug: false,
+    });
+
+    MobJs.inizializeApp({
+        rootId: '#root',
+        contentId: '#content',
+        wrapper,
+        routes,
+        index: 'home',
+        pageNotFound: 'pageNotFound',
+        beforePageTransition,
+        pageTransition,
+        afterInit: async () => {
+            await loaderTween.goTo({ opacity: 0, scale: 0.9 });
+            jsMainLoader?.remove();
+            jsMainLoaderBackground?.remove();
+            // @ts-ignore
+            loaderTween = null;
+            getScrollbarWith();
+            redirectOnResize();
+        },
+        redirect: ({ route }) => {
+            return window.innerWidth < 1024 ? 'onlyDesktop' : route;
+        },
+        restoreScroll: true,
+    });
+};
+
+/**
  * Set default
  */
 MobCore.useLoad(() => {
@@ -25,59 +95,7 @@ MobCore.useLoad(() => {
 
     MobMotionCore.printDefault();
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    const init = async () => {
-        const jsMainLoader = document.body.querySelector('.js-main-loader');
-        const jsMainLoaderBackground = document.body.querySelector(
-            '.js-main-loader-background'
-        );
-
-        let loaderTween = MobTween.createTimeTween({
-            data: { opacity: 1, scale: 1 },
-            duration: 1000,
-        });
-
-        if (jsMainLoader && jsMainLoaderBackground) {
-            [jsMainLoader, jsMainLoaderBackground].forEach((item) => {
-                loaderTween?.subscribe(({ opacity, scale }) => {
-                    // @ts-ignore
-                    item.style.opacity = opacity;
-                    // @ts-ignore
-                    item.style.transform = `scale(${scale})`;
-                });
-            });
-        }
-
-        await loadData();
-
-        MobJs.setDefaultComponent({
-            scoped: false,
-            maxParseIteration: 10_000,
-            debug: false,
-        });
-
-        MobJs.inizializeApp({
-            rootId: '#root',
-            contentId: '#content',
-            wrapper,
-            routes,
-            index: 'home',
-            pageNotFound: 'pageNotFound',
-            beforePageTransition,
-            pageTransition,
-            afterInit: async () => {
-                await loaderTween.goTo({ opacity: 0, scale: 0.9 });
-                jsMainLoader?.remove();
-                jsMainLoaderBackground?.remove();
-                // @ts-ignore
-                loaderTween = null;
-                getScrollbarWith();
-            },
-            restoreScroll: true,
-        });
-    };
-
-    init();
+    initApp();
     usePageScroll();
     // storeTest();
 });

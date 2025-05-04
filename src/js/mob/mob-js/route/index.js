@@ -12,6 +12,7 @@ import {
     setHistoryNext,
 } from './history';
 import { loadRoute } from './load-route';
+import { tryRedirect } from './redirect';
 import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
 
 /** @type {string} */
@@ -71,6 +72,7 @@ const getParams = (value) => {
  */
 const hashHandler = async () => {
     const historyObejct = { time: MobCore.getTime(), scrollY: window.scrollY };
+    const originalHash = globalThis.location.hash.slice(1);
 
     /**
      * Prevent multiple routes start at same time.
@@ -88,8 +90,21 @@ const hashHandler = async () => {
         return;
     }
 
-    const hashOriginal = globalThis.location.hash.slice(1);
-    const parts = hashOriginal.split('?');
+    /**
+     * Get route after redirect.
+     */
+    const { route: currentRoute, isRedirect } = tryRedirect({
+        route: originalHash,
+    });
+
+    /**
+     * If redirect update hash url.
+     */
+    if (isRedirect) {
+        history.replaceState({ nextId: historyObejct }, '', `#${currentRoute}`);
+    }
+
+    const parts = currentRoute.split('?');
     const search = sanitizeParams(parts?.[1] ?? '');
 
     /**
