@@ -664,16 +664,16 @@ export class MobSmoothScroller {
      * @type {() => void}
      */
     #setScrolerStyle() {
-        if (this.#scroller) {
-            // @ts-ignore
-            this.#scroller.style['user-select'] = 'none';
-        }
+        if (!this.#scroller) return;
 
-        const activeElement = /** @type {HTMLElement} */ (
+        // @ts-ignore
+        this.#scroller.style['user-select'] = 'none';
+
+        const activeElements = /** @type {HTMLElement} */ (
             this.#scroller
         ).querySelectorAll('a, button');
 
-        [...activeElement].forEach((item) => {
+        [...activeElements].forEach((item) => {
             item.setAttribute('draggable', 'false');
             // @ts-ignore
             item.style['user-select'] = 'none';
