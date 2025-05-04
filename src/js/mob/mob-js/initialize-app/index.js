@@ -13,7 +13,7 @@ import {
     setBeforePageTransition,
     setPageTransition,
 } from '../route/page-transition';
-import { setRestoreScroll } from '../route/scroll/restore-scroll';
+import { setRestoreScroll } from '../route/scroll';
 
 /**
  * Inizializa default route.

@@ -10,7 +10,7 @@ import {
     resetNext,
     setHistoryBack,
     setHistoryNext,
-} from './scroll';
+} from './history';
 import { loadRoute } from './load-route';
 import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
 

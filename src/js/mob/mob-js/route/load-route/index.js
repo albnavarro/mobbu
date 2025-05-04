@@ -15,7 +15,7 @@ import { getContentElement } from '../dom-ref/content';
 import { mainStore } from '../../main-store/main-store';
 import { getBeforePageTransition, getPageTransition } from '../page-transition';
 import { parseComponents } from '../../parse';
-import { getRestoreScroll } from '../scroll/restore-scroll';
+import { getRestoreScroll } from '../scroll';
 import { tick } from '../../queque/tick';
 
 /**
