@@ -1,7 +1,5 @@
 # App:
 
-### Main section.
-- Lettering :`MobJs`, `MobMotion`, `MobCore`, al posto dei `triangles`.
 
 # MobCore
 

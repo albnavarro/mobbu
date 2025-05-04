@@ -1,20 +1,12 @@
-import { Title } from '@commonComponent/typography/titles/definition';
-import { html, MobJs } from '@mobJs';
-
-MobJs.useComponent([Title]);
+import { html } from '@mobJs';
 
 export const pageNotFound = () => {
     return html`
-        <div class="page-not-found">
-            <mob-title
-                ${MobJs.staticProps(
-                    /** @type {import('@commonComponent/typography/titles/type').Title['state']} */
-                    ({ tag: 'h3', color: 'hightlight' })
-                )}
-            >
-                Page not found
-            </mob-title>
-            <a href="./#home">back to home</a>
+        <div class="error-page">
+            <div class="error-page__content">
+                <h1 class="error-page__title title-big">Page not found</h1>
+                <a class="error-page__link" href="./#home">back to home</a>
+            </div>
         </div>
     `;
 };
