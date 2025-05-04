@@ -27,7 +27,7 @@ export const inizializeApp = async ({
     contentId,
     routes = [],
     afterInit = () => {},
-    redirect = ({ route = '' }) => route,
+    redirect = ({ route }) => route,
     index = 'home',
     pageNotFound = 'pageNotFound',
     beforePageTransition,
