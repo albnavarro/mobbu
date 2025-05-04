@@ -36743,13 +36743,15 @@ Loading snippet ...</pre
   };
 
   // src/js/main.js
+  var shouldRedirect = () => {
+    return (
+      /** @type {boolean} */
+      core_exports.mq("max", "desktop")
+    );
+  };
   var redirectOnResize = () => {
     modules_exports.useResize(() => {
-      const shouldRedirect = (
-        /** @type {boolean} */
-        core_exports.mq("max", "desktop")
-      );
-      if (!shouldRedirect) return;
+      if (!shouldRedirect()) return;
       modules_exports2.loadUrl({ url: "onlyDesktop" });
     });
   };
@@ -36794,7 +36796,7 @@ Loading snippet ...</pre
         redirectOnResize();
       },
       redirect: ({ route }) => {
-        return window.innerWidth < 1024 ? "onlyDesktop" : route;
+        return shouldRedirect() ? "onlyDesktop" : route;
       },
       restoreScroll: true
     });

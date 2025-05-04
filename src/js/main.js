@@ -12,16 +12,16 @@ import { getScrollbarWith } from './utils/scrollbar-with';
 import { wrapper } from './wrapper';
 // import { storeTest } from './test/store-test';
 
+const shouldRedirect = () => {
+    return /** @type {boolean} */ (MobMotionCore.mq('max', 'desktop'));
+};
+
 /**
  * Temp: Redirect every page to `onlyDesktop` route in tablet/mobile TODO: should be removed.
  */
 const redirectOnResize = () => {
     MobCore.useResize(() => {
-        const shouldRedirect = /** @type {boolean} */ (
-            MobMotionCore.mq('max', 'desktop')
-        );
-
-        if (!shouldRedirect) return;
+        if (!shouldRedirect()) return;
 
         MobJs.loadUrl({ url: 'onlyDesktop' });
     });
@@ -76,7 +76,7 @@ const initApp = async () => {
             redirectOnResize();
         },
         redirect: ({ route }) => {
-            return window.innerWidth < 1024 ? 'onlyDesktop' : route;
+            return shouldRedirect() ? 'onlyDesktop' : route;
         },
         restoreScroll: true,
     });
