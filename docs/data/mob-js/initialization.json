@@ -90,341 +90,396 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
-                "id": "rootid",
-                "label": "Root id"
+                "style": "big"
             }
         },
         {
-            "component": "mob-title",
+            "component": "html-content",
             "props": {
-                "tag": "h5"
-            },
-            "content": "Root id"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Html node inside which the app will be initialized."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "wrapper",
-                "label": "Wrapper"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Wrapper"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The general wrapper that will host the pages. Here the node in which to load the individual pages/routes is defined. It is already possible to use components by passing them static props, it is not possible to use reactive props in the wrapper as this module is not a component. It is necessary to load the dependencies before initializing the application through the utility useComponent()."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The wrapper function can be async"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/wrapper.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 47
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "contentid",
-                "label": "Content id"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Content id"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Node inside the wrapper where the routes will be loaded"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "routes",
-                "label": "routes"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Routes"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": false,
-                "links": true,
-                "items": [
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
                     {
-                        "label": "Create and export routes",
-                        "url": "./#mobJs-routing"
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "id": "rootid",
+                            "label": "Root id"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "Initialization / 01",
+                            "useSticky": true
+                        },
+                        "content": "Initialization params"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Root id"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Html node inside which the app will be initialized."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "wrapper",
+                            "label": "Wrapper"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Wrapper"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The general wrapper that will host the pages. Here the node in which to load the individual pages/routes is defined. It is already possible to use components by passing them static props, it is not possible to use reactive props in the wrapper as this module is not a component. It is necessary to load the dependencies before initializing the application through the utility useComponent()."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The wrapper function can be async"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/wrapper.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 47
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "contentid",
+                            "label": "Content id"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Content id"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Node inside the wrapper where the routes will be loaded"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "routes",
+                            "label": "routes"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Routes"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "Create and export routes",
+                                    "url": "./#mobJs-routing"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "index",
+                            "label": "index"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Index"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Route used as index"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "pagenotfound",
+                            "label": "Page not found"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Page not found"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "404 route."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "beforePageTransition",
+                            "label": "beforePageTransition"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "beforePageTransition"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Function (optional) launched before the new route is loaded. ( after node clone, before append cloned node )"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "Page transition",
+                                    "url": "./#mobJs-routing"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "pageTransition",
+                            "label": "pageTransition"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "pageTransition"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Function (optional) where you can animate the previous node and the new one"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "Page transition",
+                                    "url": "./#mobJs-routing"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "afterInit",
+                            "label": "afterInit"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "afterInit"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Custom callback fired after initialization"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "redirect",
+                            "label": "redirect"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "redirect"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Function (optional) where you can return a specific route based on the incoming route"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "Redirect",
+                                    "url": "./#mobJs-routing"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium",
+                            "id": "restoreScroll",
+                            "label": "restoreScroll"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "restoreScroll"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "You can specify whether to store the scroll position when using the browser's History API."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big"
+                        }
                     }
                 ]
             }
         },
         {
-            "component": "mob-spacer",
+            "component": "html-content",
             "props": {
-                "style": "medium",
-                "id": "index",
-                "label": "index"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Index"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Route used as index"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "pagenotfound",
-                "label": "Page not found"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Page not found"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "404 route."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "beforePageTransition",
-                "label": "beforePageTransition"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "beforePageTransition"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Function (optional) launched before the new route is loaded. ( after node clone, before append cloned node )"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": false,
-                "links": true,
-                "items": [
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
                     {
-                        "label": "Page transition",
-                        "url": "./#mobJs-routing"
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "id": "component-params",
+                            "label": "Component default params"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "Initialization / 01",
+                            "useSticky": true
+                        },
+                        "content": "Component default params"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The default parameters with which the components will be created (optional)."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/defaults.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 24
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big"
+                        }
                     }
                 ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "pageTransition",
-                "label": "pageTransition"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "pageTransition"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Function (optional) where you can animate the previous node and the new one"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": false,
-                "links": true,
-                "items": [
-                    {
-                        "label": "Page transition",
-                        "url": "./#mobJs-routing"
-                    }
-                ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "afterInit",
-                "label": "afterInit"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "afterInit"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Custom callback fired after initialization"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "redirect",
-                "label": "redirect"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "redirect"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Function (optional) where you can return a specific route based on the incoming route"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": false,
-                "links": true,
-                "items": [
-                    {
-                        "label": "Redirect",
-                        "url": "./#mobJs-routing"
-                    }
-                ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "restoreScroll",
-                "label": "restoreScroll"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "restoreScroll"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "You can specify whether to store the scroll position when using the browser's History API."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "component-params",
-                "label": "Component default params"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Component default params"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The default parameters with which the components will be created (optional)."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/defaults.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 24
             }
         }
     ]
