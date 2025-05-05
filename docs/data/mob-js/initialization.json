@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as components and routes, before initializing the app. The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "Steps to initialize a mobJs instance."
         },
         {
             "component": "mob-spacer",
