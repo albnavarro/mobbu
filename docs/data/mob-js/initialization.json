@@ -134,7 +134,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "wrapper",
                             "label": "Wrapper"
                         }
@@ -173,7 +173,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "contentid",
                             "label": "Content id"
                         }
@@ -195,7 +195,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "routes",
                             "label": "routes"
                         }
@@ -224,7 +224,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "index",
                             "label": "index"
                         }
@@ -246,7 +246,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "pagenotfound",
                             "label": "Page not found"
                         }
@@ -268,7 +268,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "beforePageTransition",
                             "label": "beforePageTransition"
                         }
@@ -304,7 +304,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "pageTransition",
                             "label": "pageTransition"
                         }
@@ -340,7 +340,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "afterInit",
                             "label": "afterInit"
                         }
@@ -362,7 +362,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "redirect",
                             "label": "redirect"
                         }
@@ -398,7 +398,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "big",
                             "id": "restoreScroll",
                             "label": "restoreScroll"
                         }
