@@ -445,7 +445,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "Initialization / 01",
+                            "index": "Component default params / 02",
                             "useSticky": true
                         },
                         "content": "Component default params"
