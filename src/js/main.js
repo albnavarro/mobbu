@@ -27,16 +27,25 @@ const redirectOnResize = () => {
     });
 };
 
+/**
+ * Query main loader && background inside index.html outside app.
+ */
 const jsMainLoader = document.body.querySelector('.js-main-loader');
 const jsMainLoaderBackground = document.body.querySelector(
     '.js-main-loader-background'
 );
 
+/**
+ * Creare tween for loader/background
+ */
 let loaderTween = MobTween.createTimeTween({
     data: { opacity: 1, scale: 1 },
     duration: 1000,
 });
 
+/**
+ * Subscribe loader/background
+ */
 if (jsMainLoader && jsMainLoaderBackground) {
     [jsMainLoader, jsMainLoaderBackground].forEach((item) => {
         loaderTween?.subscribe(({ opacity, scale }) => {
@@ -48,6 +57,9 @@ if (jsMainLoader && jsMainLoaderBackground) {
     });
 }
 
+/**
+ * Initialize app
+ */
 const initApp = async () => {
     await loadData();
 
