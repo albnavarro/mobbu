@@ -19,4 +19,9 @@ MobJs.inizializeApp({
         return route;
     },
     restoreScroll: true,
+    componentDefaultProps: {
+        scoped: false,
+        maxParseIteration: 10_000,
+        debug: false,
+    },
 });

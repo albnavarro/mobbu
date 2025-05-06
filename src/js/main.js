@@ -51,12 +51,6 @@ if (jsMainLoader && jsMainLoaderBackground) {
 const initApp = async () => {
     await loadData();
 
-    MobJs.setDefaultComponent({
-        scoped: false,
-        maxParseIteration: 10_000,
-        debug: false,
-    });
-
     MobJs.inizializeApp({
         rootId: '#root',
         contentId: '#content',
@@ -79,6 +73,11 @@ const initApp = async () => {
             return shouldRedirect() ? 'onlyDesktop' : route;
         },
         restoreScroll: true,
+        componentDefaultProps: {
+            scoped: false,
+            maxParseIteration: 10_000,
+            debug: false,
+        },
     });
 };
 

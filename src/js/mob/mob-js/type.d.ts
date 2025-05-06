@@ -785,4 +785,9 @@ export interface InizializeApp {
     beforePageTransition?: BeforePageTransition;
     pageTransition?: PageTransition;
     restoreScroll?: boolean;
+    componentDefaultProps?: {
+        scoped?: boolean;
+        maxParseIteration?: number;
+        debug?: boolean;
+    };
 }

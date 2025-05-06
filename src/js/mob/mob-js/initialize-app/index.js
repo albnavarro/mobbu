@@ -15,6 +15,7 @@ import {
 } from '../route/page-transition';
 import { setRestoreScroll } from '../route/scroll';
 import { setRedirectFunction } from '../route/redirect';
+import { setDefaultComponent } from '../component/create-component';
 
 /**
  * Inizializa default route.
@@ -33,7 +34,14 @@ export const inizializeApp = async ({
     beforePageTransition,
     pageTransition,
     restoreScroll = true,
+    componentDefaultProps = {
+        scoped: false,
+        maxParseIteration: 10_000,
+        debug: false,
+    },
 }) => {
+    setDefaultComponent(componentDefaultProps);
+
     /**
      * @type {HTMLElement | null}
      */

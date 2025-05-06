@@ -27,11 +27,7 @@ export { setStateByName } from './component/action/state/set-state-by-name';
 export { updateStateByName } from './component/action/state/update-state-by-name';
 export { watchById } from './component/action/watch';
 export { useComponent } from './component/component-list';
-export {
-    createComponent,
-    getDebugMode,
-    setDefaultComponent,
-} from './component/create-component';
+export { createComponent, getDebugMode } from './component/create-component';
 export { componentMap } from './component/store';
 export { inizializeApp } from './initialize-app';
 export { mainStore } from './main-store/main-store';

@@ -84,7 +84,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 22
+                "numLines": 27
             }
         },
         {
@@ -420,35 +420,17 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "component": "html-content",
-            "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "component-params",
-                            "label": "Component default params"
+                            "style": "big",
+                            "id": "componentDefaultProps",
+                            "label": "componentDefaultProps"
                         }
                     },
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Component default params / 02",
-                            "useSticky": true
+                            "tag": "h5"
                         },
-                        "content": "Component default params"
+                        "content": "componentDefaultProps"
                     },
                     {
                         "component": "mob-spacer",
@@ -470,7 +452,13 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 24
+                            "numLines": 30
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big"
                         }
                     },
                     {
