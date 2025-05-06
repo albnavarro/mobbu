@@ -435,7 +435,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "small"
                         }
                     },
                     {
