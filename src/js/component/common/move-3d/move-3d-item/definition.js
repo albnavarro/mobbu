@@ -46,20 +46,20 @@ export const Move3DItem = MobJs.createComponent(
                 type: String,
             }),
             width: () => ({
-                value: 10,
-                type: Number,
+                value: '0px',
+                type: String,
             }),
             height: () => ({
-                value: 10,
-                type: Number,
+                value: '0px',
+                type: String,
             }),
             offsetX: () => ({
-                value: 0,
-                type: Number,
+                value: '0px',
+                type: String,
             }),
             offsetY: () => ({
-                value: 0,
-                type: Number,
+                value: '0px',
+                type: String,
             }),
             range: () => ({
                 value: 20,

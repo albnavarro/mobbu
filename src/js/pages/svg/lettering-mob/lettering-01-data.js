@@ -23,21 +23,15 @@ export const getLettering_mob = ({
                 anchorPoint: 'center',
                 classList: '',
                 animate: true,
-                width: 0,
-                height: 0,
             },
             children: [
                 {
                     props: {
                         id: 1,
                         depth: -500,
-                        offsetX: 0,
-                        offsetY: 0,
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         component: {
                             tagName: 'any-component',
                             className:
@@ -53,13 +47,9 @@ export const getLettering_mob = ({
                     props: {
                         id: 1,
                         depth: -50,
-                        offsetX: 0,
-                        offsetY: 0,
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         component: {
                             tagName: 'any-component',
                             className:
@@ -79,8 +69,6 @@ export const getLettering_mob = ({
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         component: {
                             tagName: 'any-component',
                             className:
@@ -99,8 +87,6 @@ export const getLettering_mob = ({
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -121,8 +107,6 @@ export const getLettering_mob = ({
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -143,8 +127,6 @@ export const getLettering_mob = ({
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -165,8 +147,6 @@ export const getLettering_mob = ({
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -186,8 +166,6 @@ export const getLettering_mob = ({
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -208,8 +186,6 @@ export const getLettering_mob = ({
                         initialDepth: 1,
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -230,8 +206,6 @@ export const getLettering_mob = ({
                         initialDepth: 2,
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -251,8 +225,6 @@ export const getLettering_mob = ({
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -273,8 +245,6 @@ export const getLettering_mob = ({
                         initialDepth: 2,
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -295,8 +265,6 @@ export const getLettering_mob = ({
                         initialDepth: 1,
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
@@ -317,8 +285,6 @@ export const getLettering_mob = ({
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
-                        width: 0,
-                        height: 0,
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',

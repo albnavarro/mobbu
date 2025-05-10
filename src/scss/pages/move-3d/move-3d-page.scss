@@ -84,8 +84,8 @@
 }
 
 .move3d-square {
-    width: calc(var(--item-width) * 1rem);
-    height: calc(var(--item-height) * 1rem);
+    width: var(--item-width);
+    height: var(--item-height);
     background: $black;
     border-radius: 100%;
 
@@ -94,8 +94,8 @@
     }
 
     &.is-small {
-        width: calc(var(--item-width) * 0.5rem);
-        height: calc(var(--item-height) * 0.5rem);
+        width: calc(var(--item-width) * 0.5);
+        height: calc(var(--item-height) * 0.5);
     }
 
     &.has-star {

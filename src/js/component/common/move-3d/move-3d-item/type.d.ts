@@ -20,10 +20,10 @@ export interface Move3DItem {
         range: number;
         anchorPoint: AnchorPoint;
         animate: boolean;
-        width: number;
-        height: number;
-        offsetX: number;
-        offsetY: number;
+        width: string;
+        height: string;
+        offsetX: string;
+        offsetY: string;
         initialRotate: number;
         initialDepth: number;
         classList: string;

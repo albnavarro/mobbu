@@ -3,8 +3,8 @@
 .c-move3d-item {
     position: relative;
     transform-style: preserve-3d;
-    width: calc(var(--item-width) * 1rem);
-    height: calc(var(--item-height) * 1rem);
+    width: var(--item-width);
+    height: var(--item-height);
 
     > * {
         outline: 1px solid transparent;
@@ -23,56 +23,56 @@
 
         &.anchor-left {
             transform-origin: left;
-            bottom: calc(var(--offset-y) * 1rem);
-            left: calc(100% + (var(--offset-x) * 1rem));
+            bottom: var(--offset-y);
+            left: calc(100% + var(--offset-x));
         }
 
         &.anchor-right {
             transform-origin: right;
-            bottom: calc(var(--offset-y) * 1rem);
-            right: calc(100% + (var(--offset-x) * 1rem));
+            bottom: var(--offset-y);
+            right: calc(100% + var(--offset-x));
         }
 
         &.anchor-bottom {
             transform-origin: bottom;
-            bottom: calc(100% + (var(--offset-y) * 1rem));
-            left: calc(var(--offset-x) * 1rem);
+            bottom: calc(100% + var(--offset-y));
+            left: var(--offset-x);
         }
 
         &.anchor-top {
             transform-origin: top;
-            top: calc(100% + (var(--offset-y) * 1rem));
-            left: calc(var(--offset-x) * 1rem);
+            top: calc(100% + var(--offset-y));
+            left: var(--offset-x);
         }
 
         &.anchor-bottom-left {
             transform-origin: bottom left;
-            bottom: calc(100% + (var(--offset-y) * 1rem));
-            left: calc(100% + (var(--offset-x) * 1rem));
+            bottom: calc(100% + var(--offset-y));
+            left: calc(100% + var(--offset-x));
         }
 
         &.anchor-bottom-right {
             transform-origin: bottom right;
-            bottom: calc(100% + (var(--offset-y) * 1rem));
-            right: calc(100% + (var(--offset-x) * 1rem));
+            bottom: calc(100% + var(--offset-y));
+            right: calc(100% + var(--offset-x));
         }
 
         &.anchor-top-left {
             transform-origin: top left;
-            top: calc(100% + (var(--offset-y) * 1rem));
-            left: calc(100% + (var(--offset-x) * 1rem));
+            top: calc(100% + var(--offset-y));
+            left: calc(100% + var(--offset-x));
         }
 
         &.anchor-top-right {
             transform-origin: top right;
-            top: calc(100% + (var(--offset-y) * 1rem));
-            right: calc(100% + (var(--offset-x) * 1rem));
+            top: calc(100% + var(--offset-y));
+            right: calc(100% + var(--offset-x));
         }
 
         &.anchor-center {
             transform-origin: center center;
-            top: calc(var(--offset-y) * 1rem);
-            left: calc(var(--offset-x) * 1rem);
+            top: var(--offset-y);
+            left: var(--offset-x);
         }
     }
 

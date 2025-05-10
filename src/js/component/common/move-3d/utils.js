@@ -34,3 +34,16 @@ export const getChildrenMethod = ({ childrenId }) => {
             method?.move?.(props);
     });
 };
+
+/**
+ * @param {object} params
+ * @param {number} params.ratio
+ * @returns {{ get3dItemUnit: (value: number) => string }}
+ */
+export const createUnit3D = ({ ratio }) => {
+    return {
+        get3dItemUnit: (value) => {
+            return `min(${value}px, calc((((100vw) * ${value}) / ${ratio} )))`;
+        },
+    };
+};
