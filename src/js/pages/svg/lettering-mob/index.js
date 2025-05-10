@@ -10,7 +10,7 @@ MobJs.useComponent([Move3D, AnyComponent]);
 
 export const letteringMob = async () => {
     const { data: letteringMob } = await loadTextContent({
-        source: './asset/svg/lettering-mob.svg?v=0.6',
+        source: './asset/svg/lettering-mob.svg?v=0.7',
     });
 
     const [
