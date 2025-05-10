@@ -127,7 +127,7 @@ export const getLettering_mob = ({
                 {
                     props: {
                         id: 3,
-                        depth: 151,
+                        depth: 150,
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
@@ -166,7 +166,7 @@ export const getLettering_mob = ({
                 {
                     props: {
                         id: 6,
-                        depth: 156,
+                        depth: 155,
                         initialDepth: 1,
                         anchorPoint: 'center',
                         classList: '',
@@ -206,7 +206,7 @@ export const getLettering_mob = ({
                 {
                     props: {
                         id: 4,
-                        depth: 181,
+                        depth: 180,
                         initialDepth: 1,
                         anchorPoint: 'center',
                         classList: '',
@@ -265,7 +265,7 @@ export const getLettering_mob = ({
                 {
                     props: {
                         id: 5,
-                        depth: 101,
+                        depth: 100,
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
@@ -326,7 +326,7 @@ export const getLettering_mob = ({
                         id: 7,
                         depth: 120,
                         anchorPoint: 'center',
-                        initialDepth: 2,
+                        initialDepth: 10,
                         classList: '',
                         animate: true,
                         rotate: 'y',
@@ -365,7 +365,7 @@ export const getLettering_mob = ({
                         id: 10,
                         depth: 150,
                         anchorPoint: 'center',
-                        initialDepth: 2,
+                        initialDepth: 10,
                         classList: '',
                         animate: true,
                         rotate: 'y',
