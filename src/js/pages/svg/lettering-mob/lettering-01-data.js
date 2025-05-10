@@ -3,17 +3,23 @@ export const getLettering_mob = ({
     u0,
     u1,
     o,
+    o_b,
     m1,
     m2,
     m3,
     m4,
     b1,
+    b1_b,
     b2,
     b3,
     b4,
     b5,
     g1,
     sign,
+    m1_b,
+    m2_b,
+    m3_b,
+    m4_b,
 }) => {
     return [
         {
@@ -82,6 +88,25 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
+                        id: 2,
+                        depth: 21,
+                        initialDepth: 0,
+                        anchorPoint: 'center',
+                        classList: '',
+                        animate: true,
+                        component: {
+                            tagName: 'any-component',
+                            className:
+                                'u-any-center-svg l-lettering-mob__block',
+                            props: {
+                                content: o_b,
+                            },
+                        },
+                    },
+                    children: [],
+                },
+                {
+                    props: {
                         id: 3,
                         depth: 150,
                         anchorPoint: 'center',
@@ -94,6 +119,25 @@ export const getLettering_mob = ({
                                 'u-any-center-svg l-lettering-mob__block',
                             props: {
                                 content: m1,
+                            },
+                        },
+                    },
+                    children: [],
+                },
+                {
+                    props: {
+                        id: 3,
+                        depth: 151,
+                        anchorPoint: 'center',
+                        classList: '',
+                        animate: true,
+                        rotate: 'y',
+                        component: {
+                            tagName: 'any-component',
+                            className:
+                                'u-any-center-svg l-lettering-mob__block',
+                            props: {
+                                content: m1_b,
                             },
                         },
                     },
@@ -121,6 +165,26 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
+                        id: 6,
+                        depth: 156,
+                        initialDepth: 1,
+                        anchorPoint: 'center',
+                        classList: '',
+                        animate: true,
+                        rotate: 'y',
+                        component: {
+                            tagName: 'any-component',
+                            className:
+                                'u-any-center-svg l-lettering-mob__block',
+                            props: {
+                                content: m4_b,
+                            },
+                        },
+                    },
+                    children: [],
+                },
+                {
+                    props: {
                         id: 4,
                         depth: 180,
                         initialDepth: 1,
@@ -134,6 +198,26 @@ export const getLettering_mob = ({
                                 'u-any-center-svg l-lettering-mob__block',
                             props: {
                                 content: m2,
+                            },
+                        },
+                    },
+                    children: [],
+                },
+                {
+                    props: {
+                        id: 4,
+                        depth: 181,
+                        initialDepth: 1,
+                        anchorPoint: 'center',
+                        classList: '',
+                        animate: true,
+                        rotate: 'y',
+                        component: {
+                            tagName: 'any-component',
+                            className:
+                                'u-any-center-svg l-lettering-mob__block',
+                            props: {
+                                content: m2_b,
                             },
                         },
                     },
@@ -180,6 +264,25 @@ export const getLettering_mob = ({
                 },
                 {
                     props: {
+                        id: 5,
+                        depth: 101,
+                        anchorPoint: 'center',
+                        classList: '',
+                        animate: true,
+                        rotate: 'y',
+                        component: {
+                            tagName: 'any-component',
+                            className:
+                                'u-any-center-svg l-lettering-mob__block',
+                            props: {
+                                content: m3_b,
+                            },
+                        },
+                    },
+                    children: [],
+                },
+                {
+                    props: {
                         id: 6,
                         depth: 50,
                         anchorPoint: 'center',
@@ -193,6 +296,26 @@ export const getLettering_mob = ({
                                 'u-any-center-svg l-lettering-mob__block',
                             props: {
                                 content: b1,
+                            },
+                        },
+                    },
+                    children: [],
+                },
+                {
+                    props: {
+                        id: 6,
+                        depth: 51,
+                        anchorPoint: 'center',
+                        initialDepth: 1,
+                        classList: '',
+                        animate: true,
+                        rotate: 'y',
+                        component: {
+                            tagName: 'any-component',
+                            className:
+                                'u-any-center-svg l-lettering-mob__block',
+                            props: {
+                                content: b1_b,
                             },
                         },
                     },
