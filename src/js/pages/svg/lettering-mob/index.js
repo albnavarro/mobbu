@@ -10,7 +10,7 @@ MobJs.useComponent([Move3D, AnyComponent]);
 
 export const letteringMob = async () => {
     const { data: letteringMob } = await loadTextContent({
-        source: './asset/svg/lettering-mob.svg?v=0.7',
+        source: './asset/svg/lettering-mob.svg?v=0.8',
     });
 
     const [
@@ -34,6 +34,9 @@ export const letteringMob = async () => {
         b5,
         g1,
         sign,
+        b1_stone,
+        m1_stone,
+        m2_stone,
     ] = [
         'U0_block',
         'U1_block',
@@ -55,6 +58,9 @@ export const letteringMob = async () => {
         'B5_block',
         'G1_block',
         'sign',
+        'Bstone_1_block',
+        'Mstone_1_block',
+        'Mstone_2_block',
     ].map((id) => {
         return parseSvg({
             svg: letteringMob,
@@ -96,6 +102,9 @@ export const letteringMob = async () => {
                         m2_b,
                         m3_b,
                         m4_b,
+                        b1_stone,
+                        m1_stone,
+                        m2_stone,
                     }),
                     xDepth: 100,
                     yDepth: 30,

@@ -13,12 +13,15 @@ export type GetLetteringMob = (arg0: {
     m4_b: string;
     m2: string;
     m2_b: string;
+    m1_stone: string;
+    m2_stone: string;
     b1: string;
     b1_b: string;
     b3: string;
     b2: string;
     b4: string;
     b5: string;
+    b1_stone: string;
     g1: string;
     sign: string;
 }) => Move3DChildren[];
