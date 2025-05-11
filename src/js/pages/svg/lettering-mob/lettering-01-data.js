@@ -308,6 +308,7 @@ export const getLettering_mob = ({
                     props: {
                         id: 5,
                         depth: 100,
+                        initialDepth: 5,
                         anchorPoint: 'center',
                         classList: '',
                         animate: true,
