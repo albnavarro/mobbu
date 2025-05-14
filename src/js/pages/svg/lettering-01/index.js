@@ -4,11 +4,11 @@ import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
-import { getLettering_mob } from './lettering-01-data';
+import { getLettering_01 } from './lettering-01-data';
 
 MobJs.useComponent([Move3D, AnyComponent]);
 
-export const letteringMob = async () => {
+export const lettering01 = async () => {
     const { data: letteringMob } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=0.9',
     });
@@ -77,11 +77,11 @@ export const letteringMob = async () => {
         color: 'black',
     });
 
-    return html`<div class="l-lettering-mob">
+    return html`<div class="l-lettering-01">
         <move-3d
             ${MobJs.staticProps(
                 /** @type {import('@commonComponent/move-3d/type').Move3D['state']} */ ({
-                    shape: getLettering_mob({
+                    shape: getLettering_01({
                         u0,
                         u1,
                         o,
