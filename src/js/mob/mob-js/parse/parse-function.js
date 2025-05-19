@@ -40,10 +40,10 @@ import { getComponentList } from '../component/component-list';
  * @param {HTMLElement} obj.element
  * @param {boolean} [obj.persistent]
  * @param {{
- *     onMount: Function;
- *     initializeBindPropsWatcher: function;
- *     fireInvalidateFunction: function;
- *     fireRepeatFunction: function;
+ *     onMount: () => Promise<void>;
+ *     initializeBindPropsWatcher: () => void;
+ *     fireInvalidateFunction: () => void;
+ *     fireRepeatFunction: () => void;
  * }[]} [obj.functionToFireAtTheEnd]
  * @param {import('../web-component/type').UserComponent[]} [obj.currentSelectors]
  * @param {string} [obj.parentIdForced]
