@@ -1,5 +1,3 @@
-// @ts-check
-
 import { getComponentRepeaterState } from '../../modules/repeater/repeater-value';
 import { getPropsFromParent } from '../../modules/static-props';
 import { filterExportableStateFromObject } from '../../component/action/state/export-state';

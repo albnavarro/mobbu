@@ -1,5 +1,3 @@
-//@ts-check
-
 import { offset } from '@mobCoreUtils';
 import { html } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';

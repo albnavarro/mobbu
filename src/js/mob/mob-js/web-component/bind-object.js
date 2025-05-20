@@ -1,5 +1,3 @@
-//@ts-check
-
 import { ATTR_BIND_OBJECT_ID, ATTR_COMPONENT_ID } from '../constant';
 import { addBindObjectPlaceHolderMap } from '../modules/bind-object';
 

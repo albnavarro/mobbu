@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { HeaderFn } from './header';
 import { HeadernavFn } from './header-nav';

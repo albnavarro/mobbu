@@ -1,5 +1,3 @@
-// @ts-check
-
 import { MobCore } from '../../mob-core';
 import {
     MAIN_STORE_ACTIVE_PARAMS,

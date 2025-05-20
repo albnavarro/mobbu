@@ -1,5 +1,3 @@
-// @ts-check
-
 import { DebugOverlay } from '@commonComponent/debug/debug-overlay/definition';
 import { LinksMobJs } from '@commonComponent/links-mob-js/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';

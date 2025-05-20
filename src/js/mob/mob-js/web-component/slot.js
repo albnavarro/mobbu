@@ -1,5 +1,3 @@
-//@ts-check
-
 import { ATTR_COMPONENT_NAME, ATTR_BIND_PROPS, ATTR_PROPS } from '../constant';
 import { useSlotQuery } from '../parse/use-query';
 import { addSlotPlaceholder } from '../modules/slot';

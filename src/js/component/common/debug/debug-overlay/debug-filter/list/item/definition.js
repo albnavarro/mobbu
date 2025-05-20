@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { DebugFilterListItemFn } from './debug-filter-list-item';
 

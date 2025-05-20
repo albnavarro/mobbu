@@ -1,5 +1,3 @@
-// @ts-check
-
 import { walkPreOrder } from './query-all-future-component';
 
 /**

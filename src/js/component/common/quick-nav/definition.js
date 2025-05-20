@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { QuickNavFn } from './next-page';
 

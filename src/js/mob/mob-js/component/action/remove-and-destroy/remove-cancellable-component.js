@@ -1,5 +1,3 @@
-// @ts-check
-
 import { componentMap } from '../../store';
 import { removeAndDestroyById } from './remove-and-destroy-by-id';
 

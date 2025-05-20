@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {BindProps, MobComponent, StaticProps} from '@mobJsType';
  * @import {LinksMobJs, LinksMobJsButton} from './type';

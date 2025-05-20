@@ -1,5 +1,3 @@
-//@ts-check
-
 import { html } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 

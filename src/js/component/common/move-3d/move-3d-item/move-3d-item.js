@@ -1,5 +1,3 @@
-//@ts-check
-
 import { html, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';

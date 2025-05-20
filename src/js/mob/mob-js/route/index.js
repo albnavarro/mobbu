@@ -1,5 +1,3 @@
-// @ts-check
-
 import { MobCore } from '../../mob-core';
 import { mainStore } from '../main-store/main-store';
 import { HISTORY_BACK, HISTORY_NEXT } from './constant';

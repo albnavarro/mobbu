@@ -1,5 +1,3 @@
-//@ts-check
-
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';

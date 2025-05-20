@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { Move3DItemfn } from './move-3d-item';
 

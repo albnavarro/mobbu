@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {MobComponent, ReturnBindProps, StaticProps, BindProps} from '@mobJsType';
  * @import {Navigation, NavigationSubmenu} from './type';

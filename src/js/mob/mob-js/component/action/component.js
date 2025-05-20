@@ -1,5 +1,3 @@
-// @ts-check
-
 import { getContentElement } from '../../route/dom-ref/content';
 import { componentMap } from '../store';
 

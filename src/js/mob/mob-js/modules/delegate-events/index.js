@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobCore } from '../../../mob-core';
 import { checkType } from '../../../mob-core/store/store-type';
 import { getRepeaterStateById } from '../../component/action/repeater';

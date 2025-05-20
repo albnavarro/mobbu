@@ -1,4 +1,3 @@
-// @ts-check
 import { pageNotFound } from './404';
 import { layoutLinksPage } from './layout/layout-links';
 import { layoutSidebarAnchor } from './layout/layout-sidebar-anchor';

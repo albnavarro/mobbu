@@ -1,5 +1,3 @@
-// @ts-check
-
 import {
     ATTR_BIND_REFS_ID,
     ATTR_BIND_REFS_NAME,

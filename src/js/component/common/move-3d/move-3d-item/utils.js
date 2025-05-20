@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @param {object} params
  * @param {number} params.startRotation

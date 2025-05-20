@@ -1,4 +1,3 @@
-// @ts-check
 // https://stackfull.dev/applying-tree-traversal-algorithms-to-dom
 
 /**

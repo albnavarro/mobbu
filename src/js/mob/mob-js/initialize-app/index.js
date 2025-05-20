@@ -1,5 +1,3 @@
-// @ts-check
-
 import { MobCore } from '../../mob-core';
 import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../component/component-list';

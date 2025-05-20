@@ -1,5 +1,3 @@
-//@ts-check
-
 import { Loader } from '@commonComponent/loader/definition';
 import { Snippet } from '@commonComponent/snippet/definition';
 import { SpacerAnchor } from '@commonComponent/spacer-anchor/definition';

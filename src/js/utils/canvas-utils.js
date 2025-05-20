@@ -1,5 +1,3 @@
-// @ts-check
-
 export const canvasBackground = '#e8e8e8';
 
 /**

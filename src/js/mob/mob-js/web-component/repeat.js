@@ -1,5 +1,3 @@
-//@ts-check
-
 import { setParentRepeater } from '../modules/repeater/action/set-parent-repeater';
 import { ATTR_MOBJS_REPEAT } from '../constant';
 import { getSkipAddUserComponent } from '../modules/user-component';

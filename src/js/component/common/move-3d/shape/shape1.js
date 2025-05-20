@@ -1,5 +1,3 @@
-//@ts-check
-
 import { createUnit3D } from '../utils';
 
 const { get3dItemUnit } = createUnit3D({ ratio: 1980 });

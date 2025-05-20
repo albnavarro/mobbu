@@ -1,5 +1,3 @@
-// @ts-check
-
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import { MobMotionCore, MobTween } from '@mobMotion';

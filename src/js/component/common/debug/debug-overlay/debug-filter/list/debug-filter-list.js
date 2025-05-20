@@ -1,5 +1,3 @@
-// @ts-check
-
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';

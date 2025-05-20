@@ -1,5 +1,3 @@
-// @ts-check
-
 import { MobCore } from '../../mob-core';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { getFreezePropStatus } from './action/freeze';

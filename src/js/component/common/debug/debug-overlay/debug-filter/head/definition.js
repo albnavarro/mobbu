@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { DebugFilterHeadFn } from './debug-filter-head';
 

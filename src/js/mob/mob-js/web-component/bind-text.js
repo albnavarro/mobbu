@@ -1,5 +1,3 @@
-//@ts-check
-
 import { ATTR_BIND_TEXT_ID, ATTR_COMPONENT_ID } from '../constant';
 import { addBindTextPlaceHolderMap } from '../modules/bind-text';
 

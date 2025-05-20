@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';

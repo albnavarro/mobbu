@@ -1,5 +1,3 @@
-// @ts-check
-
 import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,

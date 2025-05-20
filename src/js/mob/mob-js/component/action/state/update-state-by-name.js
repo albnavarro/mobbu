@@ -1,5 +1,3 @@
-// @ts-check
-
 import { getIdByInstanceName } from '../component';
 import { updateStateById } from './update-state-by-id';
 

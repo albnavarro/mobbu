@@ -1,5 +1,3 @@
-// @ts-check
-
 import { removeOrphanTempIds } from '../../component/action/remove-and-destroy/remove-orphan-temp-ids';
 import { removeCancellableComponent } from '../../component/action/remove-and-destroy/remove-cancellable-component';
 import { getRouteByName } from '../route-list';

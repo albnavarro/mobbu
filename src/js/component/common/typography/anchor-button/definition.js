@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { AnchorButtonFn } from './anchor-button';
 

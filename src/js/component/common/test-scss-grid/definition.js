@@ -1,4 +1,3 @@
-//@ts-check
 import { MobJs } from '@mobJs';
 import { TestScssGridFn } from './test-scss-grid';
 

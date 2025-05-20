@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { OnlyDesktopFnCta } from './only-desktop-cta';
 

@@ -1,5 +1,3 @@
-// @ts-check
-
 import { useComponent } from '../component-list';
 
 let defaultComponent = {

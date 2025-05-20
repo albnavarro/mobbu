@@ -1,5 +1,3 @@
-// @ts-check
-
 import { componentMap } from '../store.js';
 
 /**

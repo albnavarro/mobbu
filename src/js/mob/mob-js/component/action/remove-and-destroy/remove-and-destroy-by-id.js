@@ -1,5 +1,3 @@
-// @ts-check
-
 import { removeCurrentIdToBindProps } from '../../../modules/bind-props/remove-current-id-to-bind-props';
 import { removeBindObjectParentById } from '../../../modules/bind-object';
 import { removeBindTextParentById } from '../../../modules/bind-text';

@@ -1,5 +1,3 @@
-// @ts-check
-
 import { getIndex, getPageNotFound, getRouteByName } from './route-list';
 
 /**

@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { ScrollToButton } from './button/definition';
 import { ScrollToFn } from './scroll-to';

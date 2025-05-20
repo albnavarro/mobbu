@@ -1,5 +1,3 @@
-// @ts-check
-
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { getParentIdById } from '../../component/action/parent';

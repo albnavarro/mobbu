@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {DelegateEvents, MobComponent, StaticProps} from '@mobJsType';
  */

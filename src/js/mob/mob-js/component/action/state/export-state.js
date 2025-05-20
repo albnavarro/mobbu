@@ -1,5 +1,3 @@
-// @ts-check
-
 import { getComponentList } from '../../component-list';
 
 /**

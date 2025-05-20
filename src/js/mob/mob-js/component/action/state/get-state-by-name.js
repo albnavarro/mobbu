@@ -1,5 +1,3 @@
-// @ts-check
-
 import { getIdByInstanceName } from '../component';
 import { getStateById } from './get-state-by-id';
 

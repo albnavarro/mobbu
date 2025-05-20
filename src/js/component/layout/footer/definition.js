@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { FooterFn } from './footer';
 import { FooterNav } from './footer-nav/definition';

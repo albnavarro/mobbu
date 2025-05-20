@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {MobComponent} from '@mobJsType';
  * @import {Snippet} from './type';

@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { NavigationContainerFn } from './nav-container';
 import { NavigationFn } from './navigation';

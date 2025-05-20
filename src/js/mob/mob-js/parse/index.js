@@ -1,5 +1,3 @@
-// @ts-check
-
 import { MAIN_STORE_ASYNC_PARSER } from '../main-store/constant';
 import { mainStore } from '../main-store/main-store';
 import { parseComponentsRecursive } from './parse-function';

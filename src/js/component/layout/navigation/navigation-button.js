@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {MobComponent} from '@mobJsType';
  * @import {NavigationButton} from './type';

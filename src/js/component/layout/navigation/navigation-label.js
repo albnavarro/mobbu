@@ -1,5 +1,3 @@
-//@ts-check
-
 import { html } from '@mobJs';
 import { navigationStore } from './store/nav-store';
 

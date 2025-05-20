@@ -1,5 +1,3 @@
-// @ts-check
-
 import { defineRepeatComponent } from '../web-component/repeat';
 import { defineInvalidateComponent } from '../web-component/invalidate';
 import { defineSlotComponent } from '../web-component/slot';

@@ -1,5 +1,3 @@
-// @ts-check
-
 import { updateAll, updateStateByKey, updateStateByProp } from './uilts';
 
 export const stateTest = () => {

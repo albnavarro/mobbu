@@ -1,5 +1,3 @@
-// @ts-check
-
 import { setElementById } from '../component/action/element';
 import { convertToRealElement } from './steps/convert-to-real-element';
 import { getDefaultComponent } from '../component/create-component';

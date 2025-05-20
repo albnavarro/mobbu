@@ -1,5 +1,3 @@
-//@ts-check
-
 import { getTrinangle } from '@componentLibs/utils/get-triangle';
 import { html, MobJs } from '@mobJs';
 import { sectionPinAnimation } from './animation/pin-animation';

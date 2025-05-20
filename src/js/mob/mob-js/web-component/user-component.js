@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobCore } from '../../mob-core';
 import {
     ATTR_BIND_EVENTS,

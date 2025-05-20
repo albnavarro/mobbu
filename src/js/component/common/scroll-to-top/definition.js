@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { ScrollToTopFn } from './scroll-to-top';
 

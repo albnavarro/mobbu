@@ -1,5 +1,3 @@
-// @ts-check
-
 import MobLerp from '../../animation/lerp/mob-lerp.js';
 import MobSpring from '../../animation/spring/mob-spring.js';
 import { clamp } from '../../animation/utils/animation-utils.js';

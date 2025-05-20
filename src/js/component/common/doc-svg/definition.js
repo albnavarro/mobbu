@@ -1,5 +1,3 @@
-//@ts-check
-
 import { html, MobJs } from '@mobJs';
 import { DocSvgFn } from './doc-svg';
 

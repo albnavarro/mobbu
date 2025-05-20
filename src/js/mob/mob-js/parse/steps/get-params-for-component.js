@@ -1,5 +1,3 @@
-// @ts-check
-
 import { MobCore } from '../../../mob-core';
 import { getChildrenIdByName } from '../../component/action/children';
 import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';

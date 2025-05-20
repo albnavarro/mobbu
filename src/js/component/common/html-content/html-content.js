@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {BindProps, MobComponentAsync, StaticProps} from '@mobJsType';
  * @import {HtmlContent} from './type';

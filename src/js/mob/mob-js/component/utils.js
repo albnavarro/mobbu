@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * Support getChildrenIdByName action. Update child obj id, insert new child id in the array of same component family.
  *

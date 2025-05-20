@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
 import { LinksMobJsFn } from './links-mobjs';
 import { LinksMobJsButtonFn } from './links-mobjs-button';

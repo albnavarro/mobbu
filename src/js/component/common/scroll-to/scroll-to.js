@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {MobComponent, ReturnBindProps, DelegateEvents, BindProps} from '@mobJsType';
  * @import {ScrollTo} from './type'

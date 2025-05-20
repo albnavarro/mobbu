@@ -1,5 +1,3 @@
-// @ts-check
-
 import { componentMap } from '../../store';
 import { getFreezePropStatus } from '../freeze';
 import { checkIfStateIsExportable } from './check-if-state-is-exportable';

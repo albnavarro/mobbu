@@ -1,5 +1,3 @@
-//@ts-check
-
 /** @type {import('@commonComponent/move-3d/type').Move3D['state']['afterInit']} */
 export const afterInit = (element) => {
     console.log(element);

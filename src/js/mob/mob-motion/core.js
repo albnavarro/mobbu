@@ -1,5 +1,3 @@
-// @ts-check
-
 import { mq as _mq } from './utils/media-manager.js';
 import { handleSetUp } from './setup.js';
 

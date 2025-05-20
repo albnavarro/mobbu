@@ -1,5 +1,3 @@
-// @ts-check
-
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { componentMap } from '../store';
 import { getElementById } from './element';
