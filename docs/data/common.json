@@ -699,17 +699,6 @@
             ]
         },
         {
-            "label": "Real world example",
-            "url": "#",
-            "children": [
-                {
-                    "label": "debug component",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-debug-component"
-                }
-            ]
-        },
-        {
             "label": "Performance",
             "url": "#",
             "children": [
