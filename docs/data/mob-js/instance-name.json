@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "It is possible to associate a unique name with a single instance of a component"
+            "content": "It is possible to associate a unique name with a single instance of a component. It is recommended to associate the instance name with a variable to take advantage of LSP reference lookup."
         },
         {
             "component": "mob-spacer",
@@ -41,7 +41,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 10
+                "numLines": 17
             }
         },
         {

@@ -1,13 +1,18 @@
 import { html, MobJs } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * Use variable for lsp reference.
+ */
+import { otherComponentName } from '';
+
+/**
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount }) => {
     /**
      * @type {import('@mobJsType').UpdateStateByName<import('./other/type').OtherComponent>}
      */
-    const setOtherComponentState = MobJs.updateStateByName('otherComponent');
+    const setOtherComponentState = MobJs.updateStateByName(otherComponentName);
 
     onMount(() => {
         setOtherComponentState('myState', (value) => (value += 1));
