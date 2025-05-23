@@ -6,8 +6,8 @@ import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { outerHeight } from '@mobCoreUtils';
 import { html, MobJs } from '@mobJs';
 import {
-    mainNavigationContainerName,
-    mainNavigationName,
+    mobNavigationContainerName,
+    mobNavigationName,
 } from '../../instance-name';
 
 function titleHandler() {
@@ -15,12 +15,12 @@ function titleHandler() {
     navigationStore.set('navigationIsOpen', false);
 
     /** @type {UseMethodByName<import('../navigation/type').Navigation>} */
-    const mainNavigationMethods = MobJs.useMethodByName(mainNavigationName);
+    const mainNavigationMethods = MobJs.useMethodByName(mobNavigationName);
     mainNavigationMethods?.closeAllAccordion();
 
     /** @type {UseMethodByName<import('../navigation/type').NavigationContainer>} */
     const navContainerMethods = MobJs.useMethodByName(
-        mainNavigationContainerName
+        mobNavigationContainerName
     );
     navContainerMethods?.scrollTop();
 }

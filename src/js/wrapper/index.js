@@ -12,7 +12,7 @@ import { html, MobJs } from '@mobJs';
 import {
     debugOverlayName,
     headerName,
-    mainNavigationContainerName,
+    mobNavigationContainerName,
     quickNavName,
     scrollDownLabelName,
     scrollToTopName,
@@ -39,7 +39,7 @@ export const wrapper = async () => {
         <debug-overlay name="${debugOverlayName}"></debug-overlay>
         <mob-header name="${headerName}"></mob-header>
         <mob-navigation-container
-            name="${mainNavigationContainerName}"
+            name="${mobNavigationContainerName}"
         ></mob-navigation-container>
         <main class="main">
             <div class="container">

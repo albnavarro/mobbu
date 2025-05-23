@@ -23497,8 +23497,8 @@
   var scrollToTopName = "scroll_to_top";
   var scrollToName = "scroll_to";
   var headerName = "header";
-  var mainNavigationName = "main_navigation";
-  var mainNavigationContainerName = "navigation_container";
+  var mobNavigationName = "mob_navigation";
+  var mobNavigationContainerName = "mob_navigation_container";
 
   // src/js/component/common/doc-container/doc-container.js
   var DocContainerFn = ({ onMount }) => {
@@ -36217,10 +36217,10 @@ Loading snippet ...</pre
   function titleHandler() {
     modules_exports2.loadUrl({ url: "#home" });
     navigationStore.set("navigationIsOpen", false);
-    const mainNavigationMethods = modules_exports2.useMethodByName(mainNavigationName);
+    const mainNavigationMethods = modules_exports2.useMethodByName(mobNavigationName);
     mainNavigationMethods?.closeAllAccordion();
     const navContainerMethods = modules_exports2.useMethodByName(
-      mainNavigationContainerName
+      mobNavigationContainerName
     );
     navContainerMethods?.scrollTop();
   }
@@ -36488,7 +36488,7 @@ Loading snippet ...</pre
     });
   }
   function openNavigation({ main, setState }) {
-    const methods = modules_exports2.useMethodByName(mainNavigationContainerName);
+    const methods = modules_exports2.useMethodByName(mobNavigationContainerName);
     methods?.refresh();
     setState("isOpen", true);
     modules_exports.useFrame(() => {
@@ -36503,10 +36503,10 @@ Loading snippet ...</pre
   }
   var toTopBtnHandler = () => {
     const navContainerMethods = modules_exports2.useMethodByName(
-      mainNavigationContainerName
+      mobNavigationContainerName
     );
     navContainerMethods?.scrollTop();
-    const mainNavigationMethods = modules_exports2.useMethodByName(mainNavigationName);
+    const mainNavigationMethods = modules_exports2.useMethodByName(mobNavigationName);
     mainNavigationMethods?.closeAllAccordion();
     const { navigationIsOpen } = navigationStore.get();
     if (!navigationIsOpen) MobBodyScroll.to(0);
@@ -36562,7 +36562,7 @@ Loading snippet ...</pre
             <div class="l-navcontainer__wrap">
                 <div class="l-navcontainer__scroll">
                     <mob-navigation
-                        name="${mainNavigationName}"
+                        name="${mobNavigationName}"
                     ></mob-navigation>
                 </div>
             </div>
@@ -36764,11 +36764,11 @@ Loading snippet ...</pre
           const action2 = isOpen ? "down" : "up";
           await MobSlide[action2](content);
           const navContainerMethods = modules_exports2.useMethodByName(
-            mainNavigationContainerName
+            mobNavigationContainerName
           );
           navContainerMethods?.refresh();
           if (isOpen) return;
-          const mainNavigationMethods = modules_exports2.useMethodByName(mainNavigationName);
+          const mainNavigationMethods = modules_exports2.useMethodByName(mobNavigationName);
           mainNavigationMethods?.closeAllAccordion({
             fireCallback: false
           });
@@ -36965,7 +36965,7 @@ Loading snippet ...</pre
         <debug-overlay name="${debugOverlayName}"></debug-overlay>
         <mob-header name="${headerName}"></mob-header>
         <mob-navigation-container
-            name="${mainNavigationContainerName}"
+            name="${mobNavigationContainerName}"
         ></mob-navigation-container>
         <main class="main">
             <div class="container">

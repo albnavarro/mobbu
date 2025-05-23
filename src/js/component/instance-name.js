@@ -8,5 +8,5 @@ export const scrollDownLabelName = 'scroll_down_label';
 export const scrollToTopName = 'scroll_to_top';
 export const scrollToName = 'scroll_to';
 export const headerName = 'header';
-export const mainNavigationName = 'main_navigation';
-export const mainNavigationContainerName = 'navigation_container';
+export const mobNavigationName = 'mob_navigation';
+export const mobNavigationContainerName = 'mob_navigation_container';

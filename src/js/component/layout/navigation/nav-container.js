@@ -4,8 +4,8 @@ import { MobBodyScroll } from '@mobMotionPlugin';
 import { initNavigationScoller } from './animation/nav-scroller';
 import { navigationStore } from './store/nav-store';
 import {
-    mainNavigationContainerName,
-    mainNavigationName,
+    mobNavigationContainerName,
+    mobNavigationName,
 } from '../../instance-name';
 
 /**
@@ -35,7 +35,7 @@ function closeNavigation({ main, setState }) {
  */
 function openNavigation({ main, setState }) {
     /** @type {UseMethodByName<import('./type').NavigationContainer>} */
-    const methods = MobJs.useMethodByName(mainNavigationContainerName);
+    const methods = MobJs.useMethodByName(mobNavigationContainerName);
     methods?.refresh();
     setState('isOpen', true);
 
@@ -59,12 +59,12 @@ function addMainHandler({ main }) {
 const toTopBtnHandler = () => {
     /** @type {UseMethodByName<import('./type').NavigationContainer>} */
     const navContainerMethods = MobJs.useMethodByName(
-        mainNavigationContainerName
+        mobNavigationContainerName
     );
     navContainerMethods?.scrollTop();
 
     /** @type {UseMethodByName<import('./type').Navigation>} */
-    const mainNavigationMethods = MobJs.useMethodByName(mainNavigationName);
+    const mainNavigationMethods = MobJs.useMethodByName(mobNavigationName);
     mainNavigationMethods?.closeAllAccordion();
 
     const { navigationIsOpen } = navigationStore.get();
@@ -133,7 +133,7 @@ export const NavigationContainerFn = ({
             <div class="l-navcontainer__wrap">
                 <div class="l-navcontainer__scroll">
                     <mob-navigation
-                        name="${mainNavigationName}"
+                        name="${mobNavigationName}"
                     ></mob-navigation>
                 </div>
             </div>
