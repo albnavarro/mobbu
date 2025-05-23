@@ -1,15 +1,18 @@
 import { html, MobJs } from '@mobjs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ */
+
+/**
+ * @type {MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount }) => {
     onMount(() => {
-        /**
-         * It is a good idea to use the Optional chaining to ensure that the
-         * component is mounted and the methods is available.
-         */
-        MobJs.useMethodByName('myComponentName')?.myMethod?.();
+        /** @type {UseMethodByName<MyComponentState>} */
+        const myComponentMethods = MobJs.useMethodByName('myComponentName');
+        myComponentMethods?.myMethod?.();
+
         return () => {};
     });
 
