@@ -1,6 +1,6 @@
 import { NavigationStore } from '@layoutComponent/navigation/store/type';
 
-interface State extends NavigationStore {
+interface State extends Readonly<NavigationStore> {
     active: boolean;
 }
 

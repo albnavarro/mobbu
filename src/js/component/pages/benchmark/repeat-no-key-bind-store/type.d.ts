@@ -6,7 +6,7 @@ export interface ExternalStore {
 }
 
 export interface BenchMarkExternal {
-    state: ExternalStore;
+    state: Readonly<ExternalStore>;
     ref: {
         loading: HTMLElement;
         input: HTMLInputElement;

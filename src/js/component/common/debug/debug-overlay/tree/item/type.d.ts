@@ -1,6 +1,6 @@
 import { DebugActiveComponentStore } from '../../store/type';
 
-interface State extends DebugActiveComponentStore {
+interface State extends Readonly<DebugActiveComponentStore> {
     id: string;
     componentName: string;
     instanceName: string;

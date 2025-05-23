@@ -15,7 +15,7 @@ export interface NavigationButton {
     };
 }
 
-interface NavigationLabelState extends NavigationStore {
+interface NavigationLabelState extends Readonly<NavigationStore> {
     label: string;
     sectioName: string;
 }
