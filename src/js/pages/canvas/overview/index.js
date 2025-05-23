@@ -5,6 +5,7 @@ import { HtmlContent } from '@commonComponent/html-content/definition';
 import { ScrollTo } from '@commonComponent/scroll-to/definition';
 import { html, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
+import { scrollToName } from 'src/js/component/instance-name';
 
 MobJs.useComponent([
     DocContainer,
@@ -31,7 +32,7 @@ export const canvas_overview = async () => {
             )}
         ></html-content>
         <doc-title-small slot="section-title-small">Canvas </doc-title-small>
-        <scroll-to name="scrollTo" slot="section-links"></scroll-to>
+        <scroll-to name="${scrollToName}" slot="section-links"></scroll-to>
         <doc-title slot="section-title">Canvas</doc-title>
     </doc-container>`;
 };

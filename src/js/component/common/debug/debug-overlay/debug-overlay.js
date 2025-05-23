@@ -3,6 +3,11 @@
 import { html, MobJs } from '@mobJs';
 import { consoleLogDebug } from '../console-log';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
+import {
+    debugComponentName,
+    debugFilterListName,
+    debugTreeName,
+} from 'src/js/component/instance-name';
 
 /**
  * @import {MobComponent, ReturnBindProps} from '@mobJsType';
@@ -165,7 +170,9 @@ export const DebugOverlayFn = ({
                                 proxi.active
                             )
                                 return html`
-                                    <debug-tree name="debug_tree"></debug-tree>
+                                    <debug-tree
+                                        name="${debugTreeName}"
+                                    ></debug-tree>
                                 `;
 
                             if (
@@ -174,7 +181,7 @@ export const DebugOverlayFn = ({
                             )
                                 return html`
                                     <debug-filter-list
-                                        name="debug_filter_list"
+                                        name="${debugFilterListName}"
                                     ></debug-filter-list>
                                 `;
 
@@ -184,7 +191,7 @@ export const DebugOverlayFn = ({
                 </div>
             </div>
             <div class="c-debug-overlay__component">
-                <debug-component name="debug_component"></debug-component>
+                <debug-component name="${debugComponentName}"></debug-component>
             </div>
         </div>
     </div>`;

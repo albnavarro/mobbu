@@ -1,6 +1,7 @@
 import { outerHeight } from '@mobCoreUtils';
 import { MobJs } from '@mobJs';
 import { MobScroll } from '@mobMotion';
+import { headerName } from 'src/js/component/instance-name';
 
 /**
  * @type {import('../type').SectionPinAnimation}
@@ -11,7 +12,7 @@ export const sectionPinAnimation = ({ element }) => {
     );
 
     /** @type {import('@mobJsType').UseMethodByName<import('@layoutComponent/header/type').Header>} */
-    const headerMethods = MobJs.useMethodByName('header');
+    const headerMethods = MobJs.useMethodByName(headerName);
 
     let scroller = MobScroll.createScrollTrigger({
         item: element,

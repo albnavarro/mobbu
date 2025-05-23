@@ -1,4 +1,5 @@
 import { MobJs } from '@mobJs';
+import { quickNavName } from '../../instance-name';
 
 /**
  * @import {SetStateByName} from '@mobJsType';
@@ -15,7 +16,7 @@ export const updateQuickNavState = ({
     color = 'white',
 }) => {
     /** @type {SetStateByName<import('./type').QuickNav>} */
-    const setQuickNavState = MobJs.setStateByName('quick_nav');
+    const setQuickNavState = MobJs.setStateByName(quickNavName);
     setQuickNavState('active', active);
     setQuickNavState('nextRoute', nextRoute);
     setQuickNavState('prevRoute', prevRoute);

@@ -6,6 +6,10 @@ import { html, MobJs } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
 import { debugActiveComponentStore } from '../../store/debug-active-component';
 import { generateTreeComponents } from '../recursive-tree';
+import {
+    debugComponentName,
+    debugTreeName,
+} from 'src/js/component/instance-name';
 
 /**
  * @param {number} value
@@ -78,7 +82,7 @@ export const DebugTreeItemFn = ({
             await MobSlide[action](content);
 
             /** @type {UseMethodByName<import('../type').DebugTree>} */
-            const methods = MobJs.useMethodByName('debug_tree');
+            const methods = MobJs.useMethodByName(debugTreeName);
             methods?.refresh();
         });
 
@@ -122,7 +126,7 @@ export const DebugTreeItemFn = ({
                     click: () => {
                         /** @type {UseMethodByName<import('../../debug-component/type').DebugComponent>} */
                         const methods =
-                            MobJs.useMethodByName('debug_component');
+                            MobJs.useMethodByName(debugComponentName);
                         methods?.updateId(proxi.id);
                     },
                 })}

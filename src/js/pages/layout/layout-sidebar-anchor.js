@@ -6,6 +6,7 @@ import { ScrollTo } from '@commonComponent/scroll-to/definition';
 import { html, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
+import { scrollToName } from 'src/js/component/instance-name';
 
 MobJs.useComponent([
     DocContainer,
@@ -39,7 +40,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
                     })}<span>${title}</span>
                 </div></doc-title-small
             >
-            <scroll-to name="scrollTo" slot="section-links"></scroll-to>
+            <scroll-to name="${scrollToName}" slot="section-links"></scroll-to>
             <doc-title slot="section-title">${title}</doc-title>
         </div>
     </doc-container>`;

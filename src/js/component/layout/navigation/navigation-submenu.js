@@ -5,6 +5,10 @@
 
 import { html, MobJs } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
+import {
+    mainNavigationContainerName,
+    mainNavigationName,
+} from '../../instance-name';
 
 /**
  * @param {object} params
@@ -67,7 +71,7 @@ export const NavigationSubmenuFn = ({
 
                 /** @type {UseMethodByName<NavigationContainer>} */
                 const navContainerMethods = MobJs.useMethodByName(
-                    'navigation-container'
+                    mainNavigationContainerName
                 );
                 navContainerMethods?.refresh();
 
@@ -79,7 +83,8 @@ export const NavigationSubmenuFn = ({
 
                 /** @type {UseMethodByName<Navigation>} */
                 const mainNavigationMethods =
-                    MobJs.useMethodByName('main_navigation');
+                    MobJs.useMethodByName(mainNavigationName);
+
                 mainNavigationMethods?.closeAllAccordion({
                     fireCallback: false,
                 });

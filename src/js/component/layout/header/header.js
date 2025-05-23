@@ -5,17 +5,23 @@
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { outerHeight } from '@mobCoreUtils';
 import { html, MobJs } from '@mobJs';
+import {
+    mainNavigationContainerName,
+    mainNavigationName,
+} from '../../instance-name';
 
 function titleHandler() {
     MobJs.loadUrl({ url: '#home' });
     navigationStore.set('navigationIsOpen', false);
 
     /** @type {UseMethodByName<import('../navigation/type').Navigation>} */
-    const mainNavigationMethods = MobJs.useMethodByName('main_navigation');
+    const mainNavigationMethods = MobJs.useMethodByName(mainNavigationName);
     mainNavigationMethods?.closeAllAccordion();
 
     /** @type {UseMethodByName<import('../navigation/type').NavigationContainer>} */
-    const navContainerMethods = MobJs.useMethodByName('navigation-container');
+    const navContainerMethods = MobJs.useMethodByName(
+        mainNavigationContainerName
+    );
     navContainerMethods?.scrollTop();
 }
 

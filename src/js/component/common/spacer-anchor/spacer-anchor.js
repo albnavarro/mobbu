@@ -6,6 +6,7 @@
 import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 import { isVisibleInViewport } from '@mobCoreUtils';
+import { scrollToName } from '../../instance-name';
 
 /**
  * @param {object} params
@@ -28,7 +29,7 @@ const addItemToScrollComponent = async ({ id, label, element }) => {
     await MobJs.tick();
 
     /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
-    const methods = MobJs.useMethodByName('scrollTo');
+    const methods = MobJs.useMethodByName(scrollToName);
     methods?.addItem?.({ id, label, element });
 
     if (isVisibleInViewport(element)) {
@@ -50,7 +51,7 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
         const unsubScribeScroll = MobCore.useScrollThrottle(() => {
             if (isVisibleInViewport(element)) {
                 /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
-                const methods = MobJs.useMethodByName('scrollTo');
+                const methods = MobJs.useMethodByName(scrollToName);
                 methods?.setActiveLabel?.(label);
             }
         });

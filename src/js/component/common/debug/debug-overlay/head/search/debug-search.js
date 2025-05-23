@@ -4,10 +4,11 @@
 
 import { html, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../../constant';
+import { debugComponentName } from 'src/js/component/instance-name';
 
 const updateId = (id = '') => {
     /** @type {UseMethodByName<import('../../debug-component/type').DebugComponent>} */
-    const methods = MobJs.useMethodByName('debug_component');
+    const methods = MobJs.useMethodByName(debugComponentName);
     methods?.updateId(id ?? '');
 };
 
@@ -119,7 +120,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                         click: () => {
                             /** @type {UseMethodByName<import('../../debug-component/type').DebugComponent>} */
                             const methods =
-                                MobJs.useMethodByName('debug_component');
+                                MobJs.useMethodByName(debugComponentName);
                             methods?.refreshId();
                         },
                     })}

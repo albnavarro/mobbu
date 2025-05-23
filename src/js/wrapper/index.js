@@ -9,6 +9,14 @@ import { Footer } from '@layoutComponent/footer/definition';
 import { Header } from '@layoutComponent/header/definition';
 import { NavigationContainer } from '@layoutComponent/navigation/definition';
 import { html, MobJs } from '@mobJs';
+import {
+    debugOverlayName,
+    headerName,
+    mainNavigationContainerName,
+    quickNavName,
+    scrollDownLabelName,
+    scrollToTopName,
+} from '../component/instance-name';
 
 MobJs.useComponent([
     Header,
@@ -28,10 +36,10 @@ export const wrapper = async () => {
 
     return html`
         ${useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : ''}
-        <debug-overlay name="debugOverlay"></debug-overlay>
-        <mob-header name="header"></mob-header>
+        <debug-overlay name="${debugOverlayName}"></debug-overlay>
+        <mob-header name="${headerName}"></mob-header>
         <mob-navigation-container
-            name="navigation-container"
+            name="${mainNavigationContainerName}"
         ></mob-navigation-container>
         <main class="main">
             <div class="container">
@@ -41,10 +49,10 @@ export const wrapper = async () => {
             </div>
         </main>
         <mob-footer> </mob-footer>
-        <quick-nav name="quick_nav"></quick-nav>
+        <quick-nav name="${quickNavName}"></quick-nav>
         <route-loader></route-loader>
-        <scroll-down-label name="scroll_down_label"></scroll-down-label>
-        <scroll-to-top name="scroll-to-top"></scroll-to-top>
+        <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
+        <scroll-to-top name="${scrollToTopName}"></scroll-to-top>
         <links-mobjs></links-mobjs>
     `;
 };
