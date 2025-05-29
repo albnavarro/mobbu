@@ -50,6 +50,10 @@ MobJs.loadUrl({ url: '/#my-route', params:{ param1: '' }, useTransition: false }
 
 #### attributeChangedCallback
 - In riferimento agli `stati esportabili`, `attributeChangedCallback` puo intereccettare se l'atributo é uno stato e automaticamante eseguire un `this.#params.setState(state, <val>)`.
+- Detect della props:
+    - i `word-word` dovranno essere convertiti in `wordWord` per combaciare con lo stato. es, `isLoading` sará scritto come `is-loading` attributo nel `dom`.
+    - Fare un controllo `ignore-case`. la prop `isLoading` sará usata come attributo `isloading`.
+
 - Bisognerá fare un lavoro sui tipi, arriveranno tutte `string` ma prima del set venno convertite nel giusto tipo, per fare questo lavoro bisogna accedere all' oggetto `type` delle store.
 
 ## BindProps:
