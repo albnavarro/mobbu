@@ -290,7 +290,7 @@ button,
 html input[type="button"], /* 1 */
 input[type="reset"],
 input[type="submit"] {
-    appearance: button; /* 2 */
+    appearance: auto; /* 2 */
     cursor: pointer; /* 3 */
 }
 
