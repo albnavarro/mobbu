@@ -21,7 +21,7 @@
 - Sostuire le strighe rimaste in tutto il progetto `fireCallback ` con `emit` per pulizia.
 - ( stringhe non referenze ).
 
-### Computed/watch
+### Computed/watch/invalidate/repeat
 - La chiave puó essere presa come per le dipendenze di `computed` sfruttando i proxi senza usare stringhe.
 
 ```js
