@@ -21,6 +21,50 @@
 - Sostuire le strighe rimaste in tutto il progetto `fireCallback ` con `emit` per pulizia.
 - ( stringhe non referenze ).
 
+### Computed/watch
+- La chiave puó essere presa come per le dipendenze di `computed` sfruttando i proxi senza usare stringhe.
+
+```js
+storeTest.computed('myComputed2', () => {
+    return proxi.myComputed + 1;
+});
+```
+
+```js
+storeTest.computed(proxi.myComputed2, () => {
+    return proxi.myComputed + 1;
+});
+```
+
+```js
+// src/js/mob/mob-core/store/index.js
+computed: (prop, callback, keys = []) => {
+    // Estrarre questa funzione da usare anche per watch.
+    const propParsed = checkType(String, prop)
+        ? prop
+        : (() => {
+              initializeCurrentProp(); // new
+              let fake = prop;
+              fake = null;
+              return getCurrentProp(); // nes
+          })();
+
+    storeComputedEntryPoint({
+        instanceId,
+        prop: propParsed,
+        keys,
+        callback,
+    });
+
+    useNextLoop(() => {
+        storeEmitEntryPoint({ instanceId, prop: propParsed });
+    });
+},
+```
+
+
+
+
 # MobJs
 
 ### Route/load
