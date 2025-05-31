@@ -39,14 +39,14 @@ storeTest.computed(proxi.myComputed2, () => {
 ```js
 // src/js/mob/mob-core/store/index.js
 computed: (prop, callback, keys = []) => {
-    // Estrarre questa funzione da usare anche per watch.
+    // Estrarre questa funzione da usare anche per watc/invalidate/repeat.
     const propParsed = checkType(String, prop)
         ? prop
         : (() => {
-              initializeCurrentProp(); // new
+              initializeCurrentDependencies();
               let fake = prop;
               fake = null;
-              return getCurrentProp(); // nes
+              return getCurrentDependencies()[0];
           })();
 
     storeComputedEntryPoint({
