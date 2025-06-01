@@ -21,8 +21,10 @@
 - Sostuire le strighe rimaste in tutto il progetto `fireCallback ` con `emit` per pulizia.
 - ( stringhe non referenze ).
 
-### Computed/watch/invalidate/repeat
+### Computed/watch/invalidate/repeat/emit/emitAsync
 - La chiave puó essere presa come per le dipendenze di `computed` sfruttando i proxi senza usare stringhe.
+- Puó essere usata la stessa funzione usata per computed dipendencies con `{useFirst: true}`
+- Computed pops va been cosi come é senza estrarla.
 
 ```js
 storeTest.computed('myComputed2', () => {
@@ -46,7 +48,7 @@ computed: (prop, callback, keys = []) => {
               initializeCurrentDependencies();
               let fake = prop;
               fake = null;
-              return getCurrentDependencies()[0];
+              return getCurrentDependencies({useFirst: true});
           })();
 
     storeComputedEntryPoint({
