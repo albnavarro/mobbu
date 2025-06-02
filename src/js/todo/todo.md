@@ -64,6 +64,29 @@ computed: (prop, callback, keys = []) => {
 },
 ```
 
+### type
+
+- usando proxi:
+
+```js
+export type MobStoreComputed<T> = <K>(
+    prop: K,
+    callback: (arg0: T) => K,
+    keys?: Extract<keyof T, string>[]
+) => void;
+```
+
+- originale:
+
+```js
+export type MobStoreComputed<T> = <K extends keyof T>(
+    prop: Extract<K, string>,
+    callback: (arg0: T) => T[K],
+    keys?: Extract<keyof T, string>[]
+) => void;
+```
+
+- Come farli convivere ?
 
 
 
