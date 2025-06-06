@@ -127,59 +127,6 @@
                     }
                 ]
             }
-        },
-        {
-            "component": "html-content",
-            "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small",
-                            "id": "real-world",
-                            "label": "Real world example"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "MobJs / 02",
-                            "useSticky": true
-                        },
-                        "content": "Real world example"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "tag": "h3",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "Debug overlay",
-                                    "url": "./#mobJs-debug-component"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    }
-                ]
-            }
         }
     ]
 }
