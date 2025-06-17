@@ -69,9 +69,9 @@ computed: (prop, callback, keys = []) => {
 - usando proxi:
 
 ```js
-export type MobStoreComputed<T> = <K>(
+type MobStoreComputed<T> = <K extends T[keyof T]>(
     prop: K,
-    callback: (arg0: T) => K,
+    callback: (arg0: T) => NoInfer<K>, // Blocca l'inferenza da callback
     keys?: Extract<keyof T, string>[]
 ) => void;
 ```
@@ -86,7 +86,23 @@ export type MobStoreComputed<T> = <K extends keyof T>(
 ) => void;
 ```
 
-- Come farli convivere ?
+- Cosi dovrebbero convivere:.
+
+
+```js
+interface MobStoreComputed<T> {
+    <K extends keyof T>(
+        prop: K,
+        callback: (arg0: T) => T[K],
+        keys?: Extract<keyof T, string>[]
+    ): void;
+    <K extends T[keyof T]>(
+        prop: K,
+        callback: (arg0: T) => NoInfer<K>,
+        keys?: Extract<keyof T, string>[]
+    ): void;
+}
+```
 
 
 
