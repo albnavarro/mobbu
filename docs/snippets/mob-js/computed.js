@@ -1,9 +1,16 @@
 /**
-export type Compunted<T> = <K extends keyof T>(
-    prop: K,
-    keys: Array<NotValue<keyof T, K>>,
-    callback: (arg0: T) => T[K]
-) => void;
+interface Computed<T> {
+    <K extends keyof T>(
+        prop: K,
+        callback: (arg0: T) => T[K],
+        keys?: Extract<keyof T, string>[]
+    ): void;
+    <K extends T[keyof T]>(
+        prop: () => K,
+        callback: (arg0: T) => NoInfer<K>,
+        keys?: Extract<keyof T, string>[]
+    ): void;
+}
 **/
 
 import { html } from '@mobJs';

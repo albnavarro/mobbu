@@ -56,6 +56,30 @@
                 "hasBorder": true,
                 "numLines": 28
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "isBold": true
+            },
+            "content": "With proxi"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/watch-proxi.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 35
+            }
         }
     ]
 }

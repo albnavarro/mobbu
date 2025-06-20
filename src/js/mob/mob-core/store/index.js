@@ -22,6 +22,7 @@ import { bindStoreEntryPoint } from './bind-store';
 import { destroyStoreEntryPoint } from './destroy';
 import { checkIfPropIsComputed } from './store-utils';
 import { useNextLoop } from '../utils/next-tick';
+import { getCurrentProp } from './current-key';
 
 /**
  * @param {import('./type').MobStoreParams} data
@@ -98,32 +99,44 @@ export const mobStore = (data = {}) => {
 
             storeQuickSetEntrypoint({ instanceId, prop, value });
         },
-        watch: (prop, callback, { wait = false, immediate = false } = {}) => {
+        watch: (
+            /** @type{string|(() => any)} */ prop,
+            /** @type {(current: any, previous: any, validation: import('./type').MobStoreValidateState) => void} */ callback,
+            { wait = false, immediate = false } = {}
+        ) => {
+            const propParsed = getCurrentProp(prop);
+
             const unwatch = watchEntryPoint({
                 instanceId,
-                prop,
+                prop: propParsed,
                 callback,
                 wait,
             });
 
             if (immediate) {
                 useNextLoop(() => {
-                    storeEmitEntryPoint({ instanceId, prop });
+                    storeEmitEntryPoint({ instanceId, prop: propParsed });
                 });
             }
 
             return unwatch;
         },
-        computed: (prop, callback, keys = []) => {
+        computed: (
+            /** @type{string|(() => any)} */ prop,
+            /** @type{(arg0: Record<string, any>) => any} */ callback,
+            /** @type {string[]} */ keys = []
+        ) => {
+            const propParsed = getCurrentProp(prop);
+
             storeComputedEntryPoint({
                 instanceId,
-                prop,
+                prop: propParsed,
                 keys,
                 callback,
             });
 
             useNextLoop(() => {
-                storeEmitEntryPoint({ instanceId, prop });
+                storeEmitEntryPoint({ instanceId, prop: propParsed });
             });
         },
         emit: (prop) => {

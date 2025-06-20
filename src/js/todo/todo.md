@@ -22,89 +22,13 @@
 - ( stringhe non referenze ).
 
 ### Computed/watch/invalidate/repeat/emit/emitAsync
-- La chiave puó essere presa come per le dipendenze di `computed` sfruttando i proxi senza usare stringhe.
-- Puó essere usata la stessa funzione usata per computed dipendencies con `{useFirst: true}`
-- Computed pops va been cosi come é senza estrarla.
 
-```js
-storeTest.computed('myComputed2', () => {
-    return proxi.myComputed + 1;
-});
-```
-
-```js
-storeTest.computed(proxi.myComputed2, () => {
-    return proxi.myComputed + 1;
-});
-```
-
-```js
-// src/js/mob/mob-core/store/index.js
-computed: (prop, callback, keys = []) => {
-    // Estrarre questa funzione da usare anche per watc/invalidate/repeat.
-    const propParsed = checkType(String, prop)
-        ? prop
-        : (() => {
-              initializeCurrentDependencies();
-              let fake = prop;
-              fake = null;
-              return getCurrentDependencies({useFirst: true});
-          })();
-
-    storeComputedEntryPoint({
-        instanceId,
-        prop: propParsed,
-        keys,
-        callback,
-    });
-
-    useNextLoop(() => {
-        storeEmitEntryPoint({ instanceId, prop: propParsed });
-    });
-},
-```
-
-### type
-
-- usando proxi:
-
-```js
-type MobStoreComputed<T> = <K extends T[keyof T]>(
-    prop: K,
-    callback: (arg0: T) => NoInfer<K>, // Blocca l'inferenza da callback
-    keys?: Extract<keyof T, string>[]
-) => void;
-```
-
-- originale:
-
-```js
-export type MobStoreComputed<T> = <K extends keyof T>(
-    prop: Extract<K, string>,
-    callback: (arg0: T) => T[K],
-    keys?: Extract<keyof T, string>[]
-) => void;
-```
-
-- Cosi dovrebbero convivere:.
-
-
-```js
-interface MobStoreComputed<T> {
-    <K extends keyof T>(
-        prop: K,
-        callback: (arg0: T) => T[K],
-        keys?: Extract<keyof T, string>[]
-    ): void;
-    <K extends T[keyof T]>(
-        prop: K,
-        callback: (arg0: T) => NoInfer<K>,
-        keys?: Extract<keyof T, string>[]
-    ): void;
-}
-```
-
-
+- Computed: OK
+- watch: OK
+- invalidate: TODO
+- repeat: TODO
+- emit: TODO
+- emitAsync: TODO
 
 # MobJs
 

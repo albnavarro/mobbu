@@ -91,7 +91,10 @@ export const ScrollToFn = ({
         /**
          * SpacerAnchor add label in different time during render. Use computed to get last array of label completed.
          */
-        computed('anchorItems', () => proxi.anchorItemsToBeComputed);
+        computed(
+            () => proxi.anchorItems,
+            () => proxi.anchorItemsToBeComputed
+        );
     });
 
     return html`

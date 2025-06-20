@@ -1,4 +1,7 @@
-import { MobStoreReturnType } from '../../mob-core/store/type';
+import {
+    MobStoreReturnType,
+    MobStoreValidateState,
+} from '../../mob-core/store/type';
 import { BindEffectObject } from '../modules/bind-effetc/type';
 import { BindEventsObject } from '../modules/bind-events/type';
 import { DelegateEventObject } from '../modules/delegate-events/type';
@@ -131,27 +134,45 @@ export type PartialEmitAsync<T> = (
 /**
  * Computed
  */
-export type PartialCompunted<T> = <K extends keyof ExtractState<T>>(
-    prop: K,
-    callback: (arg0: ExtractState<T>) => ExtractState<T>[K],
-    keys?: NotValue<keyof ExtractState<T>, K>[]
-) => void;
+export interface PartialCompunted<T> {
+    <K extends keyof ExtractState<T>>(
+        prop: K,
+        callback: (arg0: ExtractState<T>) => ExtractState<T>[K],
+        keys?: NotValue<keyof ExtractState<T>, K>[]
+    ): void;
+    <K extends T[keyof ExtractState<T>]>(
+        prop: () => K,
+        callback: (arg0: ExtractState<T>) => NoInfer<K>,
+        keys?: NotValue<keyof ExtractState<T>, K>[]
+    ): void;
+}
 
 /**
  * Watch
  */
-export type PartialWatch<T> = <K extends keyof ExtractState<T>>(
-    prop: K,
-    callback: (
-        current: ExtractState<T>[K],
-        previous: ExtractState<T>[K],
-        validate: boolean
-    ) => void,
-    options?: {
-        wait?: boolean;
-        immediate?: boolean;
-    }
-) => () => void;
+export interface PartialWatch<T> {
+    <K extends keyof ExtractState<T>>(
+        prop: K,
+        callback: (
+            current: ExtractState<T>[K],
+            previous: ExtractState<T>[K],
+            validate: boolean
+        ) => void,
+        options?: {
+            wait?: boolean;
+            immediate?: boolean;
+        }
+    ): () => void;
+    <K extends T[keyof ExtractState<T>]>(
+        prop: () => K,
+        callback: (
+            current: K,
+            previous: K,
+            validate: MobStoreValidateState
+        ) => void,
+        options?: { wait?: boolean; immediate?: boolean }
+    ): () => void;
+}
 
 /**
  * BindStore

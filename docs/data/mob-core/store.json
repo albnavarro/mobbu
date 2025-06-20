@@ -697,6 +697,36 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "With proxi"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Using proxy instead object key"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/watch-proxi.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 12
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "big",
                             "id": "store-emit",
                             "label": "Emit"
@@ -837,7 +867,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 13
+                            "numLines": 12
                         }
                     },
                     {
@@ -860,7 +890,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 21
+                            "numLines": 27
                         }
                     },
                     {

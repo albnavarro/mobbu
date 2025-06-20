@@ -111,9 +111,12 @@ export const DebugFilterListFn = ({
     /**
      * Show/hide no-result label
      */
-    computed('noResult', () => {
-        return proxi.data.length === 0 && !proxi.isLoading;
-    });
+    computed(
+        () => proxi.noResult,
+        () => {
+            return proxi.data.length === 0 && !proxi.isLoading;
+        }
+    );
 
     /**
      * List data is controlled by DebugFilterHead component.

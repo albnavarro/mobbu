@@ -64,7 +64,7 @@ export const NavigationSubmenuFn = ({
         MobSlide.reset(content);
 
         watch(
-            'isOpen',
+            () => proxi.isOpen,
             async (isOpen) => {
                 const action = isOpen ? 'down' : 'up';
                 await MobSlide[action](content);

@@ -14,9 +14,3 @@ export interface HeaderLinks {
         internal: boolean;
     }[];
 }
-
-export interface HeaderToggle {
-    state: {
-        isOpen: boolean;
-    };
-}

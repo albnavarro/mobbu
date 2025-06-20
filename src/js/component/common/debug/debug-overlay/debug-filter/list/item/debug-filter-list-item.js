@@ -18,7 +18,10 @@ export const DebugFilterListItemFn = ({
     bindStore(debugActiveComponentStore);
     const proxi = getProxi();
 
-    computed('active', () => proxi.id === proxi.currentId);
+    computed(
+        () => proxi.active,
+        () => proxi.id === proxi.currentId
+    );
 
     return html`
         <div class="c-debug-filter-list-item">

@@ -5,13 +5,15 @@
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html } from '@mobJs';
 
-/** @type {MobComponent<import('./type').HeaderToggle>} */
-export const HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {
+/** @type {MobComponent} */
+export const HeaderToggleFn = ({
+    delegateEvents,
+    bindEffect,
+    bindStore,
+    getProxi,
+}) => {
+    bindStore([navigationStore]);
     const proxi = getProxi();
-
-    navigationStore.watch('navigationIsOpen', (value) => {
-        proxi.isOpen = value;
-    });
 
     return html`
         <button
@@ -27,7 +29,7 @@ export const HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {
             })}
             ${bindEffect({
                 toggleClass: {
-                    'is-open': () => proxi.isOpen,
+                    'is-open': () => proxi.navigationIsOpen,
                 },
             })}
         >

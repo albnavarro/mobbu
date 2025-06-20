@@ -16,16 +16,10 @@ export const HeaderNav = MobJs.createComponent(
 );
 
 export const HeaderToggle = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
+    /** @type {CreateComponentParams<{}>} */
     ({
         name: 'mob-header-toggle',
         component: HeaderToggleFn,
-        state: {
-            isOpen: () => ({
-                value: false,
-                type: Boolean,
-            }),
-        },
     })
 );
 

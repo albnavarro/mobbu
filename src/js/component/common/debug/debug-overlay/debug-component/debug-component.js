@@ -182,20 +182,23 @@ const initScroller = ({ getRef }) => {
 export const DebugComponentFn = ({
     onMount,
     addMethod,
-    setState,
     updateState,
     getState,
     invalidate,
     setRef,
     getRef,
     watch,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     addMethod('updateId', (id) => {
-        setState('id', id);
+        proxi.id = id;
         debugActiveComponentStore.set('currentId', id);
     });
 
     addMethod('refreshId', () => {
+        // Force invalidate.
         updateState('id', (id) => id);
     });
 
@@ -215,14 +218,17 @@ export const DebugComponentFn = ({
         // update slide move reference
         move = moveUpdated;
 
-        watch('id', async () => {
-            // update scroller after app is updated.
-            await MobJs.tick();
+        watch(
+            () => proxi.id,
+            async () => {
+                // update scroller after app is updated.
+                await MobJs.tick();
 
-            refresh();
-            updateScroller();
-            move(0);
-        });
+                refresh();
+                updateScroller();
+                move(0);
+            }
+        );
 
         return () => {
             destroy?.();

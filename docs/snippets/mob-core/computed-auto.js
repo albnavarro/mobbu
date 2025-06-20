@@ -1,13 +1,12 @@
-import { MobCore } from '@mobCore';
-
-const myStore = MobCore.createStore({
-    prop: 0,
-    dependency1: 1,
-    dependency2: 2,
-});
-
-const proxi = myStore.getProxi();
-
+// use proxi as dependencies
 myStore.computed('prop', () => {
     return proxi.dependency1 + proxi.dependency2;
 });
+
+// use proxi as propierites and dependencies
+myStore.computed(
+    () => proxi.prop,
+    () => {
+        return proxi.dependency1 + proxi.dependency2;
+    }
+);

@@ -116,42 +116,46 @@ export const HorizontalScrollerFn = ({
          */
         window.scrollTo(0, 0);
 
-        watch('currentId', (id) => {
-            if (id === -1) return;
+        watch(
+            () => proxi.currentId,
+            (id) => {
+                if (id === -1) return;
 
-            /**
-             * Hre the nav is open so on route landing the offset is wrong So, refresh scroller and the scroll to item.
-             */
-
-            /**
-             * Get item shadow element.
-             */
-            const shadowCenter = element.querySelector(
-                `.shadowClass--section-${id} .shadowClass--in-center`
-            );
-
-            /**
-             * Get scroll value.
-             */
-            // @ts-ignore
-            const { top } = offset(shadowCenter);
-            // @ts-ignore
-            const height = outerHeight(shadowCenter);
-            const scrollValue =
                 /**
-                 * Need previous and current value difference > 0 so add 1px. active: currentId || currentIdFromScroll (
-                 * onLeaveBack issue )
+                 * Hre the nav is open so on route landing the offset is wrong So, refresh scroller and the scroll to
+                 * item.
+                 */
+
+                /**
+                 * Get item shadow element.
+                 */
+                const shadowCenter = element.querySelector(
+                    `.shadowClass--section-${id} .shadowClass--in-center`
+                );
+
+                /**
+                 * Get scroll value.
                  */
                 // @ts-ignore
-                Number.parseInt(id) === 0
-                    ? window.innerHeight + 1
-                    : top + height - window.innerHeight;
+                const { top } = offset(shadowCenter);
+                // @ts-ignore
+                const height = outerHeight(shadowCenter);
+                const scrollValue =
+                    /**
+                     * Need previous and current value difference > 0 so add 1px. active: currentId ||
+                     * currentIdFromScroll ( onLeaveBack issue )
+                     */
+                    // @ts-ignore
+                    Number.parseInt(id) === 0
+                        ? window.innerHeight + 1
+                        : top + height - window.innerHeight;
 
-            /**
-             * Scroll
-             */
-            MobBodyScroll.to(scrollValue, { duration: 2000 });
-        });
+                /**
+                 * Scroll
+                 */
+                MobBodyScroll.to(scrollValue, { duration: 2000 });
+            }
+        );
 
         return () => {
             destroy();

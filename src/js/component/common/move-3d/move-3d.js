@@ -29,7 +29,7 @@ export const Move3Dfn = ({
     /**
      * State
      */
-    const proxiState = getProxi();
+    const proxi = getProxi();
 
     /**
      * Mutable scoped reference
@@ -68,7 +68,7 @@ export const Move3Dfn = ({
     /** @type{() => void } */
     const onMove = () => {
         const { vw, vh } =
-            proxiState.centerToViewoport || proxiState.drag
+            proxi.centerToViewoport || proxi.drag
                 ? {
                       vw: window.innerWidth,
                       vh: window.innerHeight,
@@ -118,40 +118,28 @@ export const Move3Dfn = ({
          * ay = grado di rotazione sull'asse Y
          */
         const { ax, ay } =
-            proxiState.centerToViewoport || proxiState.drag
+            proxi.centerToViewoport || proxi.drag
                 ? {
-                      ax: -(vw / 2 - xInMotion) / proxiState.xDepth,
-                      ay: (vh / 2 - yInMotion) / proxiState.yDepth,
+                      ax: -(vw / 2 - xInMotion) / proxi.xDepth,
+                      ay: (vh / 2 - yInMotion) / proxi.yDepth,
                   }
                 : {
-                      ax:
-                          -(vw / 2 - (xInMotion - offSetLeft)) /
-                          proxiState.xDepth,
-                      ay:
-                          (vh / 2 - (yInMotion - offSetTop)) /
-                          proxiState.yDepth,
+                      ax: -(vw / 2 - (xInMotion - offSetLeft)) / proxi.xDepth,
+                      ay: (vh / 2 - (yInMotion - offSetTop)) / proxi.yDepth,
                   };
 
         lastX = x;
         lastY = y;
 
-        const xLimitReached = ax > proxiState.xLimit || ax < -proxiState.xLimit;
-        const yLimitReached = ay > proxiState.yLimit || ay < -proxiState.yLimit;
+        const xLimitReached = ax > proxi.xLimit || ax < -proxi.xLimit;
+        const yLimitReached = ay > proxi.yLimit || ay < -proxi.yLimit;
 
         if (xLimitReached) dragX -= xgap;
         if (yLimitReached) dragY -= ygap;
 
-        const axClamped = MobMotionCore.clamp(
-            ax,
-            -proxiState.xLimit,
-            proxiState.xLimit
-        );
+        const axClamped = MobMotionCore.clamp(ax, -proxi.xLimit, proxi.xLimit);
 
-        const ayClamped = MobMotionCore.clamp(
-            ay,
-            -proxiState.yLimit,
-            proxiState.yLimit
-        );
+        const ayClamped = MobMotionCore.clamp(ay, -proxi.yLimit, proxi.yLimit);
 
         /*
          * Calcolo il valore da passare ai componenti figli per animarre l'asse Z.
@@ -167,7 +155,7 @@ export const Move3Dfn = ({
          * Move children
          */
         childrenMethods.forEach((moveChild) => {
-            moveChild({ delta, factor: proxiState.factor });
+            moveChild({ delta, factor: proxi.factor });
         });
     };
 
@@ -204,7 +192,7 @@ export const Move3Dfn = ({
     const addScrollListener = () => {
         unsubscribeScroll();
 
-        unsubscribeScroll = proxiState.useScroll
+        unsubscribeScroll = proxi.useScroll
             ? MobCore.useScroll(({ scrollY }) => {
                   onScroll(scrollY);
               })
@@ -213,7 +201,7 @@ export const Move3Dfn = ({
 
     onMount(({ element }) => {
         const { container } = getRef();
-        proxiState.afterInit(element);
+        proxi.afterInit(element);
 
         /**
          * Handler
@@ -222,7 +210,7 @@ export const Move3Dfn = ({
             container.style.transform = `translate3D(0,0,0) rotateY(${ax}deg) rotateX(${ay}deg)`;
 
             // Callback
-            proxiState.onUpdate({ delta, deltaX: ax, deltaY: ay });
+            proxi.onUpdate({ delta, deltaX: ax, deltaY: ay });
         });
 
         const unsubscribeOnComplete = spring.onComplete(({ ax, ay }) => {
@@ -244,7 +232,7 @@ export const Move3Dfn = ({
         });
 
         watch(
-            'drag',
+            () => proxi.drag,
             (value) => {
                 unsubscribeTouchMove();
                 unsubscribeTouchUp();
@@ -288,18 +276,24 @@ export const Move3Dfn = ({
         /**
          * Set useScroll
          */
-        watch('useScroll', (value, prevValue) => {
-            if (value) {
-                addScrollListener();
-                return;
+        watch(
+            () => proxi.useScroll,
+            (value, prevValue) => {
+                if (value) {
+                    addScrollListener();
+                    return;
+                }
+
+                if (value !== prevValue) unsubscribeScroll();
             }
+        );
 
-            if (value !== prevValue) unsubscribeScroll();
-        });
-
-        computed('useScroll', () => {
-            return !proxiState.drag && !proxiState.centerToViewoport;
-        });
+        computed(
+            () => proxi.useScroll,
+            () => {
+                return !proxi.drag && !proxi.centerToViewoport;
+            }
+        );
 
         MobCore.useNextLoop(() => {
             ({ height, width, offSetTop, offSetLeft } = getMove3DDimension({
@@ -356,14 +350,14 @@ export const Move3Dfn = ({
     return html`<div
         class="c-move-3d"
         ${bindEffect({
-            toggleClass: { 'move3D--drag': () => proxiState.drag },
+            toggleClass: { 'move3D--drag': () => proxi.drag },
         })}
     >
         <div
             class="c-move-3d__scene"
             ${bindEffect({
                 toggleStyle: {
-                    perspective: () => `${proxiState.perspective}px`,
+                    perspective: () => `${proxi.perspective}px`,
                 },
             })}
         >
@@ -380,10 +374,10 @@ export const Move3Dfn = ({
                     },
                     render: () => {
                         return Recursive3Dshape({
-                            data: proxiState.shape,
+                            data: proxi.shape,
                             root: true,
                             childrenId,
-                            debug: proxiState.debug,
+                            debug: proxi.debug,
                         });
                     },
                 })}

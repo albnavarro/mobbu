@@ -1,3 +1,5 @@
+//@ts-check
+
 import { MobCore } from '../mob/mob-core';
 import { MobJs } from '../mob/mob-js';
 
@@ -38,37 +40,61 @@ export const storeTest = () => {
 
     proxiBind.proxiProp = 1;
 
-    storeTest.watch('prop', (value) => {
-        console.log('prop', value);
-    });
+    storeTest.watch(
+        () => proxi.prop,
+        (value) => {
+            console.log('prop', value);
+        }
+    );
 
-    storeTest.watch('afterRouteChange', (value) => {
-        console.log('mainStore', value.route);
-    });
+    storeTest.watch(
+        () => proxi.afterRouteChange,
+        (value) => {
+            console.log('mainStore', value.route);
+        }
+    );
 
-    storeTest.watch('myComputed', (value) => {
-        console.log('myComputed', value);
-    });
+    storeTest.watch(
+        () => proxi.myComputed,
+        (value) => {
+            console.log('myComputed', value);
+        }
+    );
 
-    storeTest.watch('myComputed2', (value) => {
-        console.log('myComputed2', value);
-    });
+    storeTest.watch(
+        () => proxi.myComputed2,
+        (value) => {
+            console.log('myComputed2', value);
+        }
+    );
 
-    storeTest.watch('myComputed3', (value) => {
-        console.log('myComputed3', value);
-    });
+    storeTest.watch(
+        () => proxi.myComputed3,
+        (value) => {
+            console.log('myComputed3', value);
+        }
+    );
 
-    storeTest.computed('myComputed', () => {
-        return proxi.prop + proxi.proxiProp;
-    });
+    storeTest.computed(
+        () => proxi.myComputed,
+        () => {
+            return proxi.prop + proxi.proxiProp;
+        }
+    );
 
-    storeTest.computed('myComputed2', () => {
-        return proxi.myComputed + 1;
-    });
+    storeTest.computed(
+        () => proxi.myComputed2,
+        () => {
+            return proxi.myComputed + 1;
+        }
+    );
 
-    storeTest.computed('myComputed3', () => {
-        return proxi.myComputed2 + 1;
-    });
+    storeTest.computed(
+        () => proxi.myComputed3,
+        () => {
+            return proxi.myComputed2 + 1;
+        }
+    );
 
     /**
      * Initial value

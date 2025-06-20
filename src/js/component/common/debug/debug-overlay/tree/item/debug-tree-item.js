@@ -56,16 +56,21 @@ export const DebugTreeItemFn = ({
     /**
      * Active state.
      */
-    computed('isActive', () => proxi.id === proxi.currentId);
+    computed(
+        () => proxi.isActive,
+        () => proxi.id === proxi.currentId
+    );
 
     /**
      * Highlight children if there is an active eitem inside accordion.
      */
-    computed('hasActiveChildren', () =>
-        activeItemChildren({
-            id: proxi.id,
-            value: proxi.currentId,
-        })
+    computed(
+        () => proxi.hasActiveChildren,
+        () =>
+            activeItemChildren({
+                id: proxi.id,
+                value: proxi.currentId,
+            })
     );
 
     onMount(() => {
@@ -77,14 +82,17 @@ export const DebugTreeItemFn = ({
         /**
          * Open/Close accordion.
          */
-        watch('isOpen', async (isOpen) => {
-            const action = isOpen ? 'down' : 'up';
-            await MobSlide[action](content);
+        watch(
+            () => proxi.isOpen,
+            async (isOpen) => {
+                const action = isOpen ? 'down' : 'up';
+                await MobSlide[action](content);
 
-            /** @type {UseMethodByName<import('../type').DebugTree>} */
-            const methods = MobJs.useMethodByName(debugTreeName);
-            methods?.refresh();
-        });
+                /** @type {UseMethodByName<import('../type').DebugTree>} */
+                const methods = MobJs.useMethodByName(debugTreeName);
+                methods?.refresh();
+            }
+        );
 
         return () => {
             unsubscribeSlide();
