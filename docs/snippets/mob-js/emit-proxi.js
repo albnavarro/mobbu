@@ -7,9 +7,11 @@ import { html } from '@mobJs';
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ onMount, emit }) => {
+export const MyComponent = ({ onMount, emit, getProxi }) => {
+    const proxi = getProxi();
+
     onMount(() => {
-        emit('myState');
+        emit(() => proxi.myState);
     });
     /**
      * DOM component structure.

@@ -1,9 +1,28 @@
 /**
-export type Watch<T> = <K extends keyof T>(
-    prop: K,
-    callback: (current: T[K], previous: T[K], validate: boolean) => void
-) => () => void;
-**/
+export interface Watch<T> {
+   <K extends keyof ExtractState<T>>(
+       prop: K,
+       callback: (
+           current: ExtractState<T>[K],
+           previous: ExtractState<T>[K],
+           validate: boolean
+       ) => void,
+       options?: {
+           wait?: boolean;
+           immediate?: boolean;
+       }
+   ): () => void;
+   <K extends T[keyof ExtractState<T>]>(
+       prop: () => K,
+       callback: (
+           current: K,
+           previous: K,
+           validate: MobStoreValidateState
+       ) => void,
+       options?: { wait?: boolean; immediate?: boolean }
+   ): () => void;
+}
+ */
 
 import { html } from '@mobJs';
 
