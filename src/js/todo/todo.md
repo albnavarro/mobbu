@@ -28,6 +28,8 @@
 - watch: OK
 - emit: OK
 - emitAsync: OK
+- set TODO
+- update TODO
 
 ### MobJs
 - invalidate: TODO

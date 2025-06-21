@@ -352,8 +352,8 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "small",
-                            "id": "store-set",
-                            "label": "Set"
+                            "id": "store-get-proxi",
+                            "label": "GetProxi"
                         }
                     },
                     {
@@ -367,9 +367,72 @@
                         "content": "Methods:"
                     },
                     {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "GetProxi"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Returns a proxy of the original object."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "items": [
+                                "<span class='quote'>get</span>: The object will always remain updated to the current state of values",
+                                "<span class='quote'>set</span>: Behind the scenes, a <span class='quote'>myStore.set('prop', value)</span> will be executed when setting the object."
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Deep watch"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The proxy for performance reasons does not implement <span class='quote'>deep watch</span>.<br/> In case you want to modify the content of a nested object, it is necessary to reassign the entire property"
+                    },
+                    {
                         "component": "mob-spacer",
                         "props": {
                             "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/get-proxi.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 35
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "store-set",
+                            "label": "Set"
                         }
                     },
                     {
@@ -563,75 +626,6 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "big",
-                            "id": "store-get-proxi",
-                            "label": "GetProxi"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h5"
-                        },
-                        "content": "GetProxi"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Returns a proxy of the original object."
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "items": [
-                                "<span class='quote'>get</span>: The object will always remain updated to the current state of values",
-                                "<span class='quote'>set</span>: Behind the scenes, a <span class='quote'>myStore.set('prop', value)</span> will be executed when setting the object."
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "Deep watch"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The proxy for performance reasons does not implement <span class='quote'>deep watch</span>.<br/> In case you want to modify the content of a nested object, it is necessary to reassign the entire property"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-core/get-proxi.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 35
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
                             "id": "store-watch",
                             "label": "Watch"
                         }
@@ -759,6 +753,36 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "With proxi"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Using proxy instead object key"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/emit-proxi.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 12
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "big",
                             "id": "store-emit-async",
                             "label": "Emit-async"
@@ -786,6 +810,36 @@
                             "hasOverflow": false,
                             "hasBorder": true,
                             "numLines": 24
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "With proxi"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Using proxy instead object key"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/emit-async-proxi.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 1
                         }
                     },
                     {

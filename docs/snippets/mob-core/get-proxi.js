@@ -11,7 +11,7 @@ const myStore = MobCore.createStore({
     }),
 });
 
-const proxiState = myStore.getProxi();
+const proxi = myStore.getProxi();
 
 myStore.watch('myProp', (value) => {
     console.log(value);
@@ -20,16 +20,16 @@ myStore.watch('myProp', (value) => {
 /**
  * Simple propierties
  */
-proxiState.myProp = 'test value';
-proxiState.myProp = 'test value 2';
-proxiState.myProp = 'test value 3';
+proxi.myProp = 'test value';
+proxi.myProp = 'test value 2';
+proxi.myProp = 'test value 3';
 
 /**
  * For nested object is recommended use set/update
  * Since the proxy does not implement deep watch, it is necessary
  * to reassign the object
  */
-proxiState.myObj = { prop: 3 };
-proxiState.myObj = { ...proxiState.myObj, prop: 4 };
+proxi.myObj = { prop: 3 };
+proxi.myObj = { ...proxi.myObj, prop: 4 };
 
-console.log(proxiState.myObj.prop);
+console.log(proxi.myObj.prop);
