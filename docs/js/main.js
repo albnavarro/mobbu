@@ -3214,10 +3214,12 @@
         });
       },
       emit: (prop) => {
-        storeEmitEntryPoint({ instanceId, prop });
+        const propParsed = getCurrentProp(prop);
+        storeEmitEntryPoint({ instanceId, prop: propParsed });
       },
       emitAsync: async (prop) => {
-        return storeEmitAsyncEntryPoint({ instanceId, prop });
+        const propParsed = getCurrentProp(prop);
+        return storeEmitAsyncEntryPoint({ instanceId, prop: propParsed });
       },
       getValidation: () => {
         return storeGetValidationEntryPoint({ instanceId });

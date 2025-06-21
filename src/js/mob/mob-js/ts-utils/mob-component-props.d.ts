@@ -122,14 +122,20 @@ export type PartialUpdateStateByName<T> = <K extends keyof ExtractState<T>>(
 /**
  * Emit
  */
-export type PartialEmit<T> = (prop: keyof ExtractState<T>) => void;
+interface PartialEmit<T> {
+    <K extends keyof ExtractState<T>>(prop: K): void;
+    <K extends ExtractState<T>[keyof ExtractState<T>]>(prop: () => K): void;
+}
 
 /**
  * EmitAsync
  */
-export type PartialEmitAsync<T> = (
-    prop: keyof ExtractState<T>
-) => Promise<{ success: boolean }>;
+interface PartialEmitAsync<T> {
+    <K extends keyof ExtractState<T>>(prop: K): Promise<{ success: boolean }>;
+    <K extends ExtractState<T>[keyof ExtractState<T>]>(
+        prop: () => K
+    ): Promise<{ success: boolean }>;
+}
 
 /**
  * Computed

@@ -139,11 +139,15 @@ export const mobStore = (data = {}) => {
                 storeEmitEntryPoint({ instanceId, prop: propParsed });
             });
         },
-        emit: (prop) => {
-            storeEmitEntryPoint({ instanceId, prop });
+        emit: (/** @type{string|(() => any)} */ prop) => {
+            const propParsed = getCurrentProp(prop);
+
+            storeEmitEntryPoint({ instanceId, prop: propParsed });
         },
-        emitAsync: async (prop) => {
-            return storeEmitAsyncEntryPoint({ instanceId, prop });
+        emitAsync: async (/** @type{string|(() => any)} */ prop) => {
+            const propParsed = getCurrentProp(prop);
+
+            return storeEmitAsyncEntryPoint({ instanceId, prop: propParsed });
         },
         getValidation: () => {
             return storeGetValidationEntryPoint({ instanceId });

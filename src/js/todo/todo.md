@@ -23,12 +23,15 @@
 
 ### Computed/watch/invalidate/repeat/emit/emitAsync
 
+### MobCore
 - Computed: OK
 - watch: OK
+- emit: OK
+- emitAsync: OK
+
+### MobJs
 - invalidate: TODO
 - repeat: TODO
-- emit: TODO
-- emitAsync: TODO
 
 # MobJs
 

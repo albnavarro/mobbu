@@ -136,11 +136,17 @@ interface MobStoreComputed<T> {
     ): void;
 }
 
-export type MobStoreEmit<T> = (props: Extract<keyof T, string>) => void;
+interface MobStoreEmit<T> {
+    <K extends keyof T>(props: Extract<K, string>): void;
+    <K extends T[keyof T]>(props: () => K): void;
+}
 
-export type MobStoreEmitAsync<T> = (
-    props: Extract<keyof T, string>
-) => Promise<{ success: boolean }>;
+interface MobStoreEmitAsync<T> {
+    <K extends keyof T>(
+        props: Extract<K, string>
+    ): Promise<{ success: boolean }>;
+    <K extends T[keyof T]>(props: () => K): Promise<{ success: boolean }>;
+}
 
 export type MobStoreStoreProxi<T> = () => T;
 
