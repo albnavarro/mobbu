@@ -567,6 +567,10 @@
                                     "url": "./#mobJs-onMount"
                                 },
                                 {
+                                    "label": "GetProxi",
+                                    "url": "./#mobJs-getProxi"
+                                },
+                                {
                                     "label": "GetState",
                                     "url": "./#mobJs-getState"
                                 },
@@ -577,10 +581,6 @@
                                 {
                                     "label": "UpdateState",
                                     "url": "./#mobJs-updateState"
-                                },
-                                {
-                                    "label": "GetProxi",
-                                    "url": "./#mobJs-getProxi"
                                 },
                                 {
                                     "label": "Computed",

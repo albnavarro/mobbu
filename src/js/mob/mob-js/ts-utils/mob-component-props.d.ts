@@ -65,25 +65,44 @@ export type PartialGetState<T> = () => ExtractState<T>;
 /**
  * SetState
  */
-export type PartialSetState<T> = <K extends keyof ExtractState<T>>(
-    prop: K,
-    value: ExtractState<T>[K],
-    options?: {
-        emit?: boolean;
-    }
-) => void;
+interface PartialSetState<T> {
+    <K extends keyof ExtractState<T>>(
+        prop: K,
+        value: ExtractState<T>[K],
+        options?: {
+            emit?: boolean;
+        }
+    ): void;
+    <K extends ExtractState<T>[keyof ExtractState<T>]>(
+        prop: () => K,
+        value: NoInfer<K>,
+        options?: {
+            emit?: boolean;
+        }
+    ): void;
+}
 
 /**
- * AfterState
+ * UpdateState
  */
-export type PartialUpdateState<T> = <K extends keyof ExtractState<T>>(
-    prop: K,
-    value: (arg0: ExtractState<T>[K]) => Partial<ExtractState<T>[K]>,
-    options?: {
-        emit?: boolean;
-        clone?: boolean;
-    }
-) => void;
+interface PartialUpdateState<T> {
+    <K extends keyof ExtractState<T>>(
+        prop: K,
+        value: (arg0: ExtractState<T>[K]) => Partial<ExtractState<T>[K]>,
+        options?: {
+            emit?: boolean;
+            clone?: boolean;
+        }
+    ): void;
+    <K extends ExtractState<T>[keyof ExtractState<T>]>(
+        prop: () => K,
+        value: (arg0: K) => NoInfer<K>,
+        options?: {
+            emit?: boolean;
+            clone?: boolean;
+        }
+    ): void;
+}
 
 /**
  * Get proxi function

@@ -3155,11 +3155,15 @@
         return storeGetPropEntryPoint({ instanceId, prop });
       },
       set: (prop, value, { emit = true } = {}) => {
-        const isComputed = checkIfPropIsComputed({ instanceId, prop });
+        const propParsed = getCurrentProp(prop);
+        const isComputed = checkIfPropIsComputed({
+          instanceId,
+          prop: propParsed
+        });
         if (isComputed) return;
         storeSetEntryPoint({
           instanceId,
-          prop,
+          prop: propParsed,
           value,
           fireCallback: emit ?? true,
           clone: false,
@@ -3167,11 +3171,15 @@
         });
       },
       update: (prop, value, { emit = true, clone = false } = {}) => {
-        const isComputed = checkIfPropIsComputed({ instanceId, prop });
+        const propParsed = getCurrentProp(prop);
+        const isComputed = checkIfPropIsComputed({
+          instanceId,
+          prop: propParsed
+        });
         if (isComputed) return;
         storeSetEntryPoint({
           instanceId,
-          prop,
+          prop: propParsed,
           value,
           fireCallback: emit ?? true,
           clone,
@@ -34498,13 +34506,13 @@ Loading snippet ...</pre
   var DebugComponentFn = ({
     onMount,
     addMethod,
-    updateState,
     getState,
     invalidate,
     setRef,
     getRef,
     watch,
-    getProxi
+    getProxi,
+    emit
   }) => {
     const proxi = getProxi();
     addMethod("updateId", (id) => {
@@ -34512,7 +34520,7 @@ Loading snippet ...</pre
       debugActiveComponentStore.set("currentId", id);
     });
     addMethod("refreshId", () => {
-      updateState("id", (id) => id);
+      emit(() => proxi.id);
     });
     let move3;
     onMount(() => {

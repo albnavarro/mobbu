@@ -182,13 +182,13 @@ const initScroller = ({ getRef }) => {
 export const DebugComponentFn = ({
     onMount,
     addMethod,
-    updateState,
     getState,
     invalidate,
     setRef,
     getRef,
     watch,
     getProxi,
+    emit,
 }) => {
     const proxi = getProxi();
 
@@ -199,7 +199,7 @@ export const DebugComponentFn = ({
 
     addMethod('refreshId', () => {
         // Force invalidate.
-        updateState('id', (id) => id);
+        emit(() => proxi.id);
     });
 
     /** @type{(val:number) => void} */

@@ -64,26 +64,44 @@ export const mobStore = (data = {}) => {
         getProp: (prop) => {
             return storeGetPropEntryPoint({ instanceId, prop });
         },
-        set: (prop, value, { emit = true } = {}) => {
-            const isComputed = checkIfPropIsComputed({ instanceId, prop });
+        set: (
+            /** @type{string|(() => any)} */ prop,
+            /** @type {any} */ value,
+            { emit = true } = {}
+        ) => {
+            const propParsed = getCurrentProp(prop);
+            const isComputed = checkIfPropIsComputed({
+                instanceId,
+                prop: propParsed,
+            });
+
             if (isComputed) return;
 
             storeSetEntryPoint({
                 instanceId,
-                prop,
+                prop: propParsed,
                 value,
                 fireCallback: emit ?? true,
                 clone: false,
                 action: STORE_SET,
             });
         },
-        update: (prop, value, { emit = true, clone = false } = {}) => {
-            const isComputed = checkIfPropIsComputed({ instanceId, prop });
+        update: (
+            /** @type{string|(() => any)} */ prop,
+            /** @type {any} */ value,
+            { emit = true, clone = false } = {}
+        ) => {
+            const propParsed = getCurrentProp(prop);
+            const isComputed = checkIfPropIsComputed({
+                instanceId,
+                prop: propParsed,
+            });
+
             if (isComputed) return;
 
             storeSetEntryPoint({
                 instanceId,
-                prop,
+                prop: propParsed,
                 value,
                 fireCallback: emit ?? true,
                 clone,

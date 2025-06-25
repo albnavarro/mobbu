@@ -55,6 +55,11 @@
                 "isLabel": false
             },
             {
+                "label": "getProxi",
+                "url": "mobJs-getProxi",
+                "isLabel": false
+            },
+            {
                 "label": "getState",
                 "url": "mobJs-getState",
                 "isLabel": false
@@ -67,11 +72,6 @@
             {
                 "label": "updateState",
                 "url": "mobJs-updateState",
-                "isLabel": false
-            },
-            {
-                "label": "getProxi",
-                "url": "mobJs-getProxi",
                 "isLabel": false
             },
             {

@@ -1,32 +1,39 @@
 /**
-interface SetState<T> {
+interface UpdateState<T> {
     <K extends keyof ExtractState<T>>(
         prop: K,
-        value: ExtractState<T>[K],
+        value: (arg0: ExtractState<T>[K]) => Partial<ExtractState<T>[K]>,
         options?: {
             emit?: boolean;
+            clone?: boolean;
         }
     ): void;
     <K extends ExtractState<T>[keyof ExtractState<T>]>(
         prop: () => K,
-        value: NoInfer<K>,
+        value: (arg0: K) => NoInfer<K>,
         options?: {
             emit?: boolean;
+            clone?: boolean;
         }
     ): void;
 }
-*/
+**/
 
 import { html } from '@mobJs';
 
 /**
  * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ setState }) => {
+export const MyComponent = ({ updateState, getProxi }) => {
+    const proxi = getProxi();
+
     /**
-     * Mutate label state.
+     * Mutate counter state.
      */
-    setState('label', 'my label');
+    updateState(
+        () => proxi.counter,
+        (value) => (value += 1)
+    );
 
     /**
      * DOM component structure.

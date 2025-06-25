@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Set component state by instance name"
+            "content": "Set component state by instance name.<br/>Unlike <strong>setState</strong> it is not possible to use the proxy which is designed to live only within the scope of the component."
         },
         {
             "component": "mob-spacer",

@@ -20,13 +20,15 @@ interface SetState<T> {
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ setState }) => {
+export const MyComponent = ({ setState, getProxi }) => {
+    const proxi = getProxi();
+
     /**
      * Mutate label state.
      */
-    setState('label', 'my label');
+    setState(() => proxi.label, 'my label');
 
     /**
      * DOM component structure.

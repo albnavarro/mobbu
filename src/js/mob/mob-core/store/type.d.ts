@@ -80,22 +80,41 @@ export type MobStoregetProp<T> = <K extends keyof T>(
     arg0: Extract<K, string>
 ) => T[K];
 
-export type MobStoreSet<T> = <K extends keyof T>(
-    prop: Extract<K, string>,
-    value: T[K],
-    options?: {
-        emit?: boolean;
-    }
-) => void;
+interface MobStoreSet<T> {
+    <K extends keyof T>(
+        prop: Extract<K, string>,
+        value: T[K],
+        options?: {
+            emit?: boolean;
+        }
+    ): void;
+    <K extends T[keyof T]>(
+        prop: () => K,
+        value: NoInfer<K>,
+        options?: {
+            emit?: boolean;
+        }
+    ): void;
+}
 
-export type MobStoreUpdate<T> = <K extends keyof T>(
-    prop: Extract<K, string>,
-    value: (arg0: T[K]) => T[K],
-    options?: {
-        emit?: boolean;
-        clone?: boolean;
-    }
-) => void;
+interface MobStoreUpdate<T> {
+    <K extends keyof T>(
+        prop: Extract<K, string>,
+        value: (arg0: T[K]) => T[K],
+        options?: {
+            emit?: boolean;
+            clone?: boolean;
+        }
+    ): void;
+    <K extends T[keyof T]>(
+        prop: () => K,
+        value: (arg0: K) => NoInfer<K>,
+        options?: {
+            emit?: boolean;
+            clone?: boolean;
+        }
+    ): void;
+}
 
 export type MobStorequickSetProp<T> = <K extends keyof T>(
     prop: Extract<K, string>,
