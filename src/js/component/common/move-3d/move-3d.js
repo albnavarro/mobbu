@@ -363,7 +363,7 @@ export const Move3Dfn = ({
         >
             <div class="c-move-3d__container" ${setRef('container')}>
                 ${invalidate({
-                    bind: ['shape', 'debug'],
+                    bind: [() => proxi.shape, () => proxi.debug],
                     afterUpdate: () => {
                         /**
                          * Update children's methods

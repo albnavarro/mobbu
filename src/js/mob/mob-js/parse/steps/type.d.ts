@@ -21,3 +21,21 @@ export interface GetParamsForComponent extends ComponentStoreReturn {
     key: string;
     bindEventsId: string | undefined;
 }
+
+interface RepeatInternal {
+    bind: string | (() => any);
+    clean?: boolean;
+    beforeUpdate?: () => Promise<void> | void;
+    afterUpdate?: () => void;
+    key?: string;
+    render: (arg0: {
+        sync: () => string;
+        initialIndex: number;
+        initialValue: astring;
+        current: {
+            index: number;
+            value: any;
+        };
+    }) => string;
+    useSync?: boolean;
+}

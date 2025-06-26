@@ -17,24 +17,6 @@
 ### Docs
 - Aggiungere i tipi allo store.
 
-### set/update
-- Sostuire le strighe rimaste in tutto il progetto `fireCallback ` con `emit` per pulizia.
-- ( stringhe non referenze ).
-
-### Computed/watch/invalidate/repeat/emit/emitAsync
-
-### MobCore
-- Computed: OK
-- watch: OK
-- emit: OK
-- emitAsync: OK
-- set OK
-- update OK
-
-### MobJs
-- invalidate: TODO
-- repeat: TODO
-
 # MobJs
 
 ### Route/load

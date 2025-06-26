@@ -53,7 +53,7 @@ export const BenchMarkRepeatNoKyFn = ({
         </div>
         <div class="benchmark__list">
             ${repeat({
-                bind: 'data',
+                bind: () => proxi.data,
                 useSync: true,
                 render: ({ sync, current }) => {
                     return html`

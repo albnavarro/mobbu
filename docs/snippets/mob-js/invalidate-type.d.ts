@@ -1,11 +1,18 @@
-export type PartialInvalidateComponent<T> = (arg0: {
-    bind?: OnlyStringKey<GetState<T>>[] | OnlyStringKey<GetState<T>>;
-    beforeUpdate?(): Promise<void>;
-    afterUpdate?(): void;
-    render: (arg0: {
-        html: (
-            template: { raw: readonly string[] | ArrayLike<string> },
-            ...substitutions: any[]
-        ) => string;
-    }) => string;
-}) => string;
+interface Invalidate<T> {
+    (arg0: {
+        bind?:
+            | OnlyStringKey<ExtractState<T>>[]
+            | OnlyStringKey<ExtractState<T>>;
+        beforeUpdate?(): Promise<void>;
+        afterUpdate?(): void;
+        render: () => string;
+    }): string;
+    (arg0: {
+        bind?:
+            | (() => ExtractState<T>[keyof ExtractState<T>])[]
+            | (() => ExtractState<T>[keyof ExtractState<T>]);
+        beforeUpdate?(): Promise<void>;
+        afterUpdate?(): void;
+        render: () => string;
+    }): string;
+}

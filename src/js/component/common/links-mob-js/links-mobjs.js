@@ -168,7 +168,7 @@ export const LinksMobJsFn = ({
         />
         <ul ${setRef('scrollerEl')}>
             ${invalidate({
-                bind: ['data'],
+                bind: () => proxi.data,
                 render: () => {
                     return getItems({
                         staticProps,

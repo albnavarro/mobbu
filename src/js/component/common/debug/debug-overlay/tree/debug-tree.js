@@ -116,7 +116,7 @@ export const DebugTreeFn = ({
                 >
                 <div class="c-debug-tree__scroller" ${setRef('scroller')}>
                     ${invalidate({
-                        bind: 'data',
+                        bind: () => proxi.data,
                         render: () => {
                             return generateTreeComponents({
                                 data: proxi.data,

@@ -143,7 +143,7 @@ const getSecondLevel = ({
     return html`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
-                bind: 'level2',
+                bind: () => proxi.level2,
                 render: ({ current }) => {
                     return html`
                         <div
@@ -198,7 +198,7 @@ const getThirdLevel = ({
     return html`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
-                bind: 'level3',
+                bind: () => proxi.level3,
                 render: ({ current }) => {
                     const name = MobCore.getUnivoqueId();
                     const name2 = MobCore.getUnivoqueId();
@@ -306,7 +306,7 @@ export const MatrioskaFn = ({
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
-                    bind: 'level1',
+                    bind: () => proxi.level1,
                     render: ({ current }) => {
                         return html`
                             <div

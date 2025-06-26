@@ -239,10 +239,14 @@ export type PartialGetParentId = () => string | undefined;
 /**
  * Current repeat proxi value
  */
-
 export interface PartialCurrent<T, K> {
     index: number;
     value: ArrayElement<ExtractState<T>[K]>;
+}
+
+export interface PartialCurrentProxi<K> {
+    index: number;
+    value: ArrayElement<K>;
 }
 
 /**
@@ -270,82 +274,156 @@ export type PartialOnMount = (
 /**
  * Repeat
  */
-export type PartialRepeat<T> = <
-    K extends keyof ExtractState<T> & string,
->(arg0: {
-    /**
-     * Clean previous item.
-     */
-    clean?: boolean;
+interface PartialRepeat<T> {
+    <K extends keyof ExtractState<T> & string>(arg0: {
+        /**
+         * Clean previous item.
+         */
+        clean?: boolean;
 
-    /**
-     * Array of object used to create list
-     */
-    bind: K;
+        /**
+         * Array of object used to create list
+         */
+        bind: K;
 
-    /**
-     * Unique key used to track the mutation of each individual component.
-     */
-    key?: string | undefined;
+        /**
+         * Unique key used to track the mutation of each individual component.
+         */
+        key?: string | undefined;
 
-    /**
-     * Add manually sync attributes to repeater child.
-     */
-    useSync?: boolean;
+        /**
+         * Add manually sync attributes to repeater child.
+         */
+        useSync?: boolean;
 
-    /**
-     * Function fired before update
-     *
-     * @example
-     *     ${repeat({
-     *     beforeUpdate: () => {
-     *     ....
-     *     },
-     *     })}
-     */
-    beforeUpdate?(): Promise<void> | void;
+        /**
+         * Function fired before update
+         *
+         * @example
+         *     ${repeat({
+         *     beforeUpdate: () => {
+         *     ....
+         *     },
+         *     })}
+         */
+        beforeUpdate?(): Promise<void> | void;
 
-    /**
-     * Function fired after update
-     *
-     * @example
-     *     ${repeat({
-     *     afterUpdate: () => {
-     *     ....
-     *     },
-     *     })}
-     */
-    afterUpdate?(): void;
+        /**
+         * Function fired after update
+         *
+         * @example
+         *     ${repeat({
+         *     afterUpdate: () => {
+         *     ....
+         *     },
+         *     })}
+         */
+        afterUpdate?(): void;
 
-    /**
-     * Render child component.
-     *
-     * - Sync props is necessary (obbligatorie) for tracking key and store current and index value. this props can be used
-     *   "ONCE".
-     *
-     * @example
-     *     ```javascript
-     *
-     *     <div>
-     *     ${repeat({
-     *     ...
-     *     render: ({ current }) => {
-     *     return html`
-     *     <my-component></my-component>
-     *     `
-     *     }
-     *     })}
-     *     </div>
-     *
-     *     ```
-     */
-    render: (arg0: {
-        sync: () => string;
-        initialIndex: number;
-        initialValue: ArrayElement<ExtractState<T>[K]>;
-        current: PartialCurrent<T, K>;
-    }) => string;
-}) => string;
+        /**
+         * Render child component.
+         *
+         * - Sync props is necessary (obbligatorie) for tracking key and store current and index value. this props can be
+         *   used "ONCE".
+         *
+         * @example
+         *     ```javascript
+         *
+         *     <div>
+         *     ${repeat({
+         *     ...
+         *     render: ({ current }) => {
+         *     return html`
+         *     <my-component></my-component>
+         *     `
+         *     }
+         *     })}
+         *     </div>
+         *
+         *     ```
+         */
+        render: (arg0: {
+            sync: () => string;
+            initialIndex: number;
+            initialValue: ArrayElement<ExtractState<T>[K]>;
+            current: PartialCurrent<T, K>;
+        }) => string;
+    }): string;
+    <K extends ExtractState<T>[keyof ExtractState<T>]>(arg0: {
+        /**
+         * Clean previous item.
+         */
+        clean?: boolean;
+
+        /**
+         * Array of object used to create list
+         */
+        bind: () => K;
+
+        /**
+         * Unique key used to track the mutation of each individual component.
+         */
+        key?: string | undefined;
+
+        /**
+         * Add manually sync attributes to repeater child.
+         */
+        useSync?: boolean;
+
+        /**
+         * Function fired before update
+         *
+         * @example
+         *     ${repeat({
+         *     beforeUpdate: () => {
+         *     ....
+         *     },
+         *     })}
+         */
+        beforeUpdate?(): Promise<void> | void;
+
+        /**
+         * Function fired after update
+         *
+         * @example
+         *     ${repeat({
+         *     afterUpdate: () => {
+         *     ....
+         *     },
+         *     })}
+         */
+        afterUpdate?(): void;
+
+        /**
+         * Render child component.
+         *
+         * - Sync props is necessary (obbligatorie) for tracking key and store current and index value. this props can be
+         *   used "ONCE".
+         *
+         * @example
+         *     ```javascript
+         *
+         *     <div>
+         *     ${repeat({
+         *     ...
+         *     render: ({ current }) => {
+         *     return html`
+         *     <my-component></my-component>
+         *     `
+         *     }
+         *     })}
+         *     </div>
+         *
+         *     ```
+         */
+        render: (arg0: {
+            sync: () => string;
+            initialIndex: number;
+            initialValue: ArrayElement<K>;
+            current: PartialCurrentProxi<K>;
+        }) => string;
+    }): string;
+}
 
 /**
  * RemoveDom
@@ -360,12 +438,24 @@ export type PartialRenderComponent = (arg0: {
 /**
  * Invalidate component
  */
-export type PartialInvalidateComponent<T> = (arg0: {
-    bind?: OnlyStringKey<ExtractState<T>>[] | OnlyStringKey<ExtractState<T>>;
-    beforeUpdate?(): Promise<void>;
-    afterUpdate?(): void;
-    render: () => string;
-}) => string;
+interface PartialInvalidateComponent<T> {
+    (arg0: {
+        bind?:
+            | OnlyStringKey<ExtractState<T>>[]
+            | OnlyStringKey<ExtractState<T>>;
+        beforeUpdate?(): Promise<void>;
+        afterUpdate?(): void;
+        render: () => string;
+    }): string;
+    (arg0: {
+        bind?:
+            | (() => ExtractState<T>[keyof ExtractState<T>])[]
+            | (() => ExtractState<T>[keyof ExtractState<T>]);
+        beforeUpdate?(): Promise<void>;
+        afterUpdate?(): void;
+        render: () => string;
+    }): string;
+}
 
 /**
  * StaticProps

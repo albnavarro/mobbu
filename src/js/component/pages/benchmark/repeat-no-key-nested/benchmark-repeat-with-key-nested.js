@@ -55,7 +55,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
         </div>
         <div class="benchmark__list">
             ${repeat({
-                bind: 'data',
+                bind: () => proxi.data,
                 useSync: true,
                 render: ({ current }) => {
                     return html`<div class="benchmark__static-item">
@@ -64,7 +64,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
                         </div>
                         <div>
                             ${repeat({
-                                bind: 'data',
+                                bind: () => proxi.data,
                                 useSync: true,
                                 render: ({ sync, current }) => {
                                     return html`

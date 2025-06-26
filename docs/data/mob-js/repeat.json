@@ -193,7 +193,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 17
+                "numLines": 30
             }
         },
         {
@@ -252,6 +252,36 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 42
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "With proxi"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Using proxy instead object key"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/repeat-proxi.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 38
             }
         },
         {

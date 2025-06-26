@@ -53,7 +53,7 @@ export const BenchMarkInvalidateFn = ({
         </div>
         <div class="benchmark__list">
             ${invalidate({
-                bind: 'data',
+                bind: () => proxi.data,
                 render: () => {
                     const { data } = getState();
 

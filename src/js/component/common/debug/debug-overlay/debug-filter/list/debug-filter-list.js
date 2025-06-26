@@ -206,7 +206,7 @@ export const DebugFilterListFn = ({
                     ${setRef('scroller')}
                 >
                     ${repeat({
-                        bind: 'data',
+                        bind: () => proxi.data,
                         key: 'id',
                         useSync: true,
                         render: ({ sync, current }) => {

@@ -98,7 +98,7 @@ export const DebugOverlayFn = ({
                 <div class="c-debug-overlay__list__header">
                     <div>
                         ${invalidate({
-                            bind: ['listType', 'active'],
+                            bind: [() => proxi.listType, () => proxi.active],
                             render: () => {
                                 if (
                                     proxi.listType === DEBUG_USE_TREE &&
@@ -163,7 +163,7 @@ export const DebugOverlayFn = ({
                 </div>
                 <div>
                     ${invalidate({
-                        bind: ['listType', 'active'],
+                        bind: [() => proxi.listType, () => proxi.active],
                         render: () => {
                             if (
                                 proxi.listType === DEBUG_USE_TREE &&
