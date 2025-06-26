@@ -1,4 +1,4 @@
-import { MobCore, MobDetectBindKey } from '../../../mob-core';
+import { MobCore } from '../../../mob-core';
 import { getChildrenIdByName } from '../../component/action/children';
 import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';
 import { setRepeaterPlaceholderMapScopeId } from '../../modules/repeater/action/set-repeater-placeholder-map-scope-id';
@@ -55,6 +55,8 @@ import {
 import { setRepeaterChild } from '../../modules/repeater/action/set-repeat-child';
 import { setBindEffect } from '../../modules/bind-effetc';
 import { componentIsPersistent } from '../../component/action/component';
+import { parseBindInvalidate } from '../../modules/invalidate/action/parse-bindprop-invalidate';
+import { parseBindRepeat } from '../../modules/repeater/action/parse-bindprop-repeat';
 
 /**
  * Create component Reuturn all prosps/method for user function.
@@ -218,23 +220,7 @@ export const getParamsForComponentFunction = ({
             /**
              * Check if bind prop is a string or a proxi object and convert in Array
              */
-            const bindParsed = (() => {
-                // Get array if is not.
-                const bindArray = MobCore.checkType(Array, bind)
-                    ? bind
-                    : [bind];
-
-                // @ts-expect-error bindArray is forced to be an array.
-                return bindArray.map((item) => {
-                    const isString = MobCore.checkType(String, item);
-                    if (isString) return /** @type {string} */ (item);
-
-                    MobDetectBindKey.initializeCurrentDependencies();
-                    /** @type {() => any} */ (item)();
-                    return MobDetectBindKey.getFirstCurrentDependencies();
-                });
-            })();
-
+            const bindParsed = parseBindInvalidate(bind);
             const invalidateId = MobCore.getUnivoqueId();
             const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
             const invalidateRender = () => render();
@@ -290,15 +276,7 @@ export const getParamsForComponentFunction = ({
             /**
              * Check if bind prop is a string or a proxi object
              */
-            const bindParsed = (() => {
-                const isString = MobCore.checkType(String, bind);
-                if (isString) return /** @type {string} */ (bind);
-
-                MobDetectBindKey.initializeCurrentDependencies();
-                /** @type {() => any} */ (bind)();
-                return MobDetectBindKey.getFirstCurrentDependencies();
-            })();
-
+            const bindParsed = parseBindRepeat(bind);
             const repeatId = MobCore.getUnivoqueId();
             const hasKey = key !== '';
 
