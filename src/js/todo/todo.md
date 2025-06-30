@@ -19,16 +19,6 @@
 
 # MobJs
 
-### Route/load
-- Espandere le opzioni di loadUrl,
-- Params al posto di split.
-- Override pageTransition
-
-```js
-MobJs.loadUrl({ url: '/#my-route', params:{ param1: '' }, useTransition: false });
-```
-
-
 ## Web component:
 #### DOCS/css
 - Aggiungere snippet per box-sizing:
@@ -100,7 +90,20 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 ## Props ( export props ), da valutare ??
 
 - Prevedere che gli stati esportati all' interno del componente siano usati `readOnly`
-- Tenere conto del proxi.
+- In generale basta agire in `src/js/mob/mob-js/component/index.js` e aggungere `checkIfStateIsExportable(...)`, `setStateById()` agisce direttmante sull' istanza store perció questo controllo non ha effetto su `bindProps()`
+- Tenere conto del proxi: getProxi puó avere una propietá `{excludeSet = []}` che puó essere valorizzata da `src/js/mob/mob-js/component/index.js`,
+- Raccogliere tutti gli stati esportabili e passargli a `excludeSet`
+
+```js
+
+// stati esportabili
+const exportableState = getExportableState({ componentName });
+
+...
+getProxi({ excludeSet: exportableState })
+```
+
+
 
 ## Repeat
 

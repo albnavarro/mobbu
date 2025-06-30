@@ -20,7 +20,10 @@ let previousHash = '';
 let previousParamsToPush = '';
 
 /** @type {string | undefined} */
-let currentSearch;
+let currentStringParams;
+
+/** @type {boolean | undefined} */
+let currentSkipTransition;
 
 /** @type {string} */
 let historyDirection = 'back';
@@ -63,6 +66,20 @@ const getParams = (value) => {
 
         return key && key.length > 0 ? { ...previous, [key]: value } : previous;
     }, {});
+};
+
+/**
+ * @param {Record<string, any> | undefined} params
+ * @returns {string | undefined}
+ */
+const convertObjectParamsToString = (params) => {
+    return (
+        params &&
+        Object.entries(params).reduce((previous, [key, value], index) => {
+            const currentJoin = index === 0 ? '' : '&';
+            return `${previous}${currentJoin}${key}=${value}`;
+        }, '')
+    );
 };
 
 /**
@@ -109,14 +126,14 @@ const hashHandler = async () => {
      * Get final hash/params value.
      */
     const hash = sanitizeHash(parts?.[0] ?? '');
-    const params = getParams(currentSearch ?? search);
+    const params = getParams(currentStringParams ?? search);
 
     /**
      * Update browser history.
      */
     const paramsToPush =
-        currentSearch || Object.keys(search).length > 0
-            ? `?${currentSearch ?? search}`
+        currentStringParams || Object.keys(search).length > 0
+            ? `?${currentStringParams ?? search}`
             : '';
 
     /**
@@ -132,7 +149,7 @@ const hashHandler = async () => {
     /**
      * Reset last search value ( id come form loadUrl function ).
      */
-    currentSearch = undefined;
+    currentStringParams = undefined;
 
     /**
      * Store previous hash.
@@ -171,8 +188,14 @@ const hashHandler = async () => {
         scrollY: currentHistory
             ? (getLastHistory(historyDirection)?.scrollY ?? 0)
             : 0,
-        comeFromHistory: currentHistory ? true : false,
+        skipTransition:
+            (currentHistory ?? currentSkipTransition) ? true : false,
     });
+
+    /**
+     * Reset current skip transition value.
+     */
+    currentSkipTransition = undefined;
 };
 
 /**
@@ -236,8 +259,18 @@ export const router = () => {
 
 /**
  * Set hash in current browser url.
+ *
+ * @param {object} params
+ * @param {string} [params.url]
+ * @param {Record<string, any>} [params.params]
+ * @param {boolean} [params.skipTransition]
+ * @returns Void
  */
-export const loadUrl = ({ url = '' }) => {
+export const loadUrl = ({ url, params, skipTransition }) => {
+    if (!url) return;
+
+    currentSkipTransition = skipTransition;
+
     const parts = url.split('?');
 
     /**
@@ -246,10 +279,16 @@ export const loadUrl = ({ url = '' }) => {
     const hash = sanitizeHash(parts?.[0] ?? '');
 
     /**
+     * Convert object params in string. Params will be stored as strign for history navigation
+     */
+    const objectParams = convertObjectParamsToString(params);
+    const stringParams = sanitizeParams(parts?.[1] ?? '');
+
+    /**
      * Extract current params, to use later ( in getHash function ).
      */
-    const search = sanitizeParams(parts?.[1] ?? '');
-    if (search.length > 0) currentSearch = search;
+    const urlsParams = objectParams ?? stringParams;
+    if (urlsParams.length > 0) currentStringParams = urlsParams;
 
     /**
      * Update hash without params.

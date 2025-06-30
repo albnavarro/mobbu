@@ -24,7 +24,7 @@ import { tick } from '../../queque/tick';
  * @param {string} param.templateName
  * @param {boolean} param.restoreScroll
  * @param {{ [key: string]: any }} param.params
- * @param {boolean} param.comeFromHistory
+ * @param {boolean | undefined} param.skipTransition
  * @param {number} param.scrollY
  */
 export const loadRoute = async ({
@@ -33,7 +33,7 @@ export const loadRoute = async ({
     restoreScroll = true,
     params = {},
     scrollY,
-    comeFromHistory = false,
+    skipTransition,
 }) => {
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
 
@@ -45,7 +45,7 @@ export const loadRoute = async ({
     const contentElement = getContentElement();
     if (!contentElement || !(contentElement instanceof HTMLElement)) return;
 
-    if (comeFromHistory) contentElement.style.visibility = 'hidden';
+    if (!skipTransition) contentElement.style.visibility = 'hidden';
 
     /**
      * Set before Route leave.
@@ -110,7 +110,7 @@ export const loadRoute = async ({
      */
     let clone = contentElement.cloneNode(true);
 
-    if (beforePageTransition && clone && !comeFromHistory) {
+    if (beforePageTransition && clone && !skipTransition) {
         await beforePageTransition({
             // @ts-ignore
             oldNode: clone,
@@ -132,7 +132,7 @@ export const loadRoute = async ({
      * Wait for all render.
      */
     await parseComponents({ element: contentElement });
-    if (comeFromHistory) contentElement.style.visibility = '';
+    if (!skipTransition) contentElement.style.visibility = '';
 
     /**
      * SKit after route change if another route is called.
@@ -149,7 +149,7 @@ export const loadRoute = async ({
      * Animate pgae teansition. Remove old route.
      */
     const pageTransition = getPageTransition();
-    if (pageTransition && !comeFromHistory) {
+    if (pageTransition && !skipTransition) {
         await pageTransition({
             oldNode: clone,
             newNode: contentElement,

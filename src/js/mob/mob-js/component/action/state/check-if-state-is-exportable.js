@@ -14,3 +14,14 @@ export const checkIfStateIsExportable = ({ componentName, propName }) => {
 
     return exportableState.includes(propName);
 };
+
+/**
+ * @param {object} obj
+ * @param {string} obj.componentName
+ * @returns {string[]}
+ */
+export const getExportableState = ({ componentName }) => {
+    const componentList = getComponentList();
+
+    return componentList?.[componentName]?.componentParams?.exportState ?? [];
+};
