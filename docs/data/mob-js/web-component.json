@@ -161,6 +161,36 @@
                 "hasBorder": true,
                 "numLines": 53
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Box sizing:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Solve web component box-sizing problem."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/box-sizing.scss",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 5
+            }
         }
     ]
 }

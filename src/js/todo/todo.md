@@ -14,25 +14,9 @@
 - Utile per `array/object`.
 - Rivedere un controllo piu permissivo e veloce per gli `oggetti`?
 
-### Docs
-- Aggiungere i tipi allo store.
-
 # MobJs
 
 ## Web component:
-#### DOCS/css
-- Aggiungere snippet per box-sizing:
-```css
-/**
- * Esplcit box-sizing ( no inherit ).
- * Solve web component box-sizing problem.
- */
-*,
-*::after,
-*::before {
-    box-sizing: border-box;
-}
-```
 
 #### attributeChangedCallback
 - In riferimento agli `stati esportabili`, `attributeChangedCallback` puo intereccettare se l'atributo é uno stato e automaticamante eseguire un `this.#params.setState(state, <val>)`.
