@@ -95,7 +95,7 @@
                             "index": "Routing / 01",
                             "useSticky": true
                         },
-                        "content": "Definition"
+                        "content": "Route definition"
                     },
                     {
                         "component": "mob-title",
@@ -172,6 +172,15 @@
                                 "<span class='quote'>props</span> the props (object) to pass to the layout function "
                             ]
                         }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "The array containing all the routes will be loaded as described in the <strong><a href='#mobJs-initialization'>initialization section</a></strong> "
                     },
                     {
                         "component": "mob-snippet",
@@ -262,6 +271,15 @@
                             "dots": true,
                             "items": ["beforePageTransition", "pageTransition"]
                         }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "The <strong>beforePageTransition</strong> and <strong>pageTransition</strong> functions will be loaded as described in the <strong><a href='#mobJs-initialization'>initialization section</a></strong> "
                     },
                     {
                         "component": "mob-spacer",
