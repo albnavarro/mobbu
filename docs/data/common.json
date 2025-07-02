@@ -85,6 +85,11 @@
                 "isLabel": false
             },
             {
+                "label": "dataAttribute",
+                "url": "mobJs-dataAttribute",
+                "isLabel": false
+            },
+            {
                 "label": "staticProps",
                 "url": "mobJs-staticProps",
                 "isLabel": false
@@ -516,6 +521,11 @@
                     "label": "watch",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-watch"
+                },
+                {
+                    "label": "dataAttribute",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-dataAttribute"
                 },
                 {
                     "label": "staticProps",

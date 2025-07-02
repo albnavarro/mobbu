@@ -164,9 +164,9 @@ code {
     font-optical-sizing: auto;
     font-size: rem(14);
 
-    @include user-select-text;
+    // @include user-select-text;
 
-    * {
-        @include user-select-text;
-    }
+    // * {
+    //     @include user-select-text;
+    // }
 }

@@ -16,6 +16,26 @@
 
 # MobJs
 
+## BindStore
+
+### Step 1)
+- Aggiungere un esempio di `extend readOnly<storeState>` nella docs.
+
+### Step 2)
+- Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:
+```js
+// da:
+proxi.state
+
+// a:
+proxi.otherStore.state
+```
+
+
+
+## Search
+- Implementare search.
+
 ## Web component:
 
 #### attributeChangedCallback
@@ -55,10 +75,6 @@ for (const item of functionToFireAtTheEnd.reverse()) {
     await initializeBindPropsWatcher();
 }
 ```
-
-## Props
-
-- Aggiungere doc per passare i valori come `data-prop`.
 
 ## bind
 

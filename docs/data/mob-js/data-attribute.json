@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "staticProps"
+            "content": "dataAttribute"
         },
         {
             "component": "mob-spacer",
@@ -26,7 +26,16 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The <strong>staticProps</strong> function allows you to pass <span class='quote'>static values</span> to the state of a component without triggering any reactivity. It is useful when you know that the value will not have to be reactive, clearer to read, lighter for the entire app."
+            "content": "You can use <strong>data attributes</strong> to pass static values to a component's state without triggering any reactivity. This is useful when you know the value will not be reactive, it is clearer to read and lighter for the entire app."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "The values can only be <strong>strings</strong>, to pass different types (numbers, objects, etc..) use the <strong><a href='#mobJs-staticProps'>staticProps</a></strong> function"
         },
         {
             "component": "mob-spacer",
@@ -37,11 +46,11 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/static-props.js",
+                "source": "./snippets/mob-js/data-attribute.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 23
+                "numLines": 17
             }
         }
     ]

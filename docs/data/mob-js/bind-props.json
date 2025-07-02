@@ -187,7 +187,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Indicates the current value and position of the component inside a repeater."
+            "content": "Indicates the current value and position of the component inside a <strong><a href='#mobJs-repeat'>repeater</a></strong>."
         },
         {
             "component": "mob-snippet",

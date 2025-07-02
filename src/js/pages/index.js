@@ -401,6 +401,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-dataAttribute',
+        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mob-js/data-attribute.json',
+            title: 'dataAttribute',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-bindProps',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,

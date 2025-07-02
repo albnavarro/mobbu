@@ -591,6 +591,10 @@
                                     "url": "./#mobJs-watch"
                                 },
                                 {
+                                    "label": "DataAttribute",
+                                    "url": "./#mobJs-dataAttribute"
+                                },
+                                {
                                     "label": "StaticProps",
                                     "url": "./#mobJs-staticProps"
                                 },

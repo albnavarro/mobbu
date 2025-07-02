@@ -95,11 +95,11 @@ body {
     background-attachment: fixed;
     overflow-x: hidden;
 
-    @include user-select-none;
+    // @include user-select-none;
 
-    * {
-        @include user-select-none;
-    }
+    // * {
+    //     @include user-select-none;
+    // }
 }
 
 #content {
