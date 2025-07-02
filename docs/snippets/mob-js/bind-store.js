@@ -1,7 +1,7 @@
 import { html, MobJs } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({
     getProxi,
@@ -23,7 +23,7 @@ export const MyComponent = ({
         </div>
         <div>
             ${invalidate({
-                bind: 'beforeRouteChange',
+                bind: () => proxi.beforeRouteChange,
                 render: () => {
                     return proxiState.beforeRouteChange.route === 'home'
                         ? html`<h2>home</h2>`

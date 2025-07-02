@@ -14,6 +14,7 @@ export interface MyComponent {
         myRef: HTMLElement;
         myRef2: HTMLElement;
     }
+}
 **/
 
 import { html } from '@mobJs';

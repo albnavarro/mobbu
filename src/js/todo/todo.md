@@ -17,12 +17,9 @@
 # MobJs
 
 ## BindStore
-
-### Step 1)
-- Aggiungere un esempio di `extend readOnly<storeState>` nella docs.
-
-### Step 2)
 - Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:
+- **Problema:** se non si usa il proxi il discorso non funziona piú `otherStore.proxi` in formato stringa non puó funzionare.
+
 ```js
 // da:
 proxi.state
