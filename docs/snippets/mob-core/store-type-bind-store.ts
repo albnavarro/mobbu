@@ -1,8 +1,8 @@
-interface OtherStore {
-    prop1: number;
-    sum: number;
+interface Store2 {
+    prop2: number;
 }
 
-interface MyStore extends Readonly<OtherStore> {
-    prop2: number;
+interface StoreOne extends Readonly<Store2> {
+    prop1: number;
+    sum: number;
 }
