@@ -8,7 +8,7 @@ import { DocContainerFn } from './doc-container';
 export const DocContainer = MobJs.createComponent(
     /** @type {CreateComponentParams<any>} */
     ({
-        name: 'doc-container',
+        tag: 'doc-container',
         component: DocContainerFn,
     })
 );

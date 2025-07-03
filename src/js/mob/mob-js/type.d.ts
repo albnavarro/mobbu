@@ -675,7 +675,7 @@ export interface ComponentParsed<T> {
 }
 
 export interface CreateComponentParams<T> extends ComponentParsed<T> {
-    name: string;
+    tag: string;
     component: ComponentFunction;
 }
 
@@ -687,7 +687,7 @@ export type CreateComponentReturnType = Record<
     }
 >;
 
-export type CreateComponent<T> = (
+export type CreateComponent = <T>(
     arg0: CreateComponentParams<T>
 ) => CreateComponentReturnType;
 

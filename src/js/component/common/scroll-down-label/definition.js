@@ -8,7 +8,7 @@ import { ScrollDownLabelFn } from './scroll-down-label';
 export const ScrollDownLabel = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').ScrollDownLabel>} */
     ({
-        name: 'scroll-down-label',
+        tag: 'scroll-down-label',
         component: ScrollDownLabelFn,
         exportState: ['active'],
         state: {

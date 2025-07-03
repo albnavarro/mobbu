@@ -8,7 +8,7 @@ import { StarSvgFn } from './star-svg';
 export const StarSvg = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').StarSvg>} */
     ({
-        name: 'svg-star',
+        tag: 'svg-star',
         component: StarSvgFn,
         exportState: ['fill'],
         state: {

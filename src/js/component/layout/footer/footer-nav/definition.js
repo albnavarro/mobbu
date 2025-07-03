@@ -9,7 +9,7 @@ import { FooterNavFn } from './footer-nav';
 export const FooterNavButton = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').FooterNavButton>} */
     ({
-        name: 'footer-nav-button',
+        tag: 'footer-nav-button',
         component: FooterNavButtonFn,
         exportState: ['label', 'section'],
         state: {
@@ -30,7 +30,7 @@ export const FooterNavButton = MobJs.createComponent(
 );
 
 export const FooterNav = MobJs.createComponent({
-    name: 'footer-nav',
+    tag: 'footer-nav',
     component: FooterNavFn,
     child: [FooterNavButton],
 });

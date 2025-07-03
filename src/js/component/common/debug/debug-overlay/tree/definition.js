@@ -9,7 +9,7 @@ import { DebugTreeItem } from './item/definition';
 export const DebugTree = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DebugTree>} */
     ({
-        name: 'debug-tree',
+        tag: 'debug-tree',
         component: DebugTreeFn,
         state: {
             data: () => ({

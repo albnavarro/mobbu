@@ -11,7 +11,7 @@ import { AboutComponentFn } from './about';
 export const AboutComponent = MobJs.createComponent(
     /** @type{CreateComponentParams<import ('./type').About>} */
     ({
-        name: 'about-component',
+        tag: 'about-component',
         component: AboutComponentFn,
         exportState: ['block_1', 'block_2', 'block_3', 'block_4', 'aboutSvg'],
         state: {

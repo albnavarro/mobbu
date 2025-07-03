@@ -27,10 +27,10 @@ export const getDebugMode = () => {
 /**
  * Format component definition in object key: value. name, function, props, state
  *
- * @type {import('../../type').CreateComponent<any>}
+ * @type {import('../../type').CreateComponent}
  */
 export const createComponent = ({
-    name = '',
+    tag = '',
     component = () => '',
     state = {},
     exportState = [],
@@ -49,7 +49,7 @@ export const createComponent = ({
     useComponent(child);
 
     return {
-        [name]: {
+        [tag]: {
             componentFunction: component,
             componentParams: {
                 exportState,

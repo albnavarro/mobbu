@@ -11,7 +11,7 @@ import { AnimatedPatternN0Fn } from './animated-pattern-n0';
 export const AnimatedPatternN0 = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').AnimatedPatternN0>} */
     ({
-        name: 'animatedpattern-n0',
+        tag: 'animatedpattern-n0',
         component: AnimatedPatternN0Fn,
         exportState: [
             'numberOfRow',

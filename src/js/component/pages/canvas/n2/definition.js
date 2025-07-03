@@ -56,7 +56,7 @@ const buttons = {
 export const CaterpillarN2 = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').CaterpillarN2>} */
     ({
-        name: 'caterpillar-n2',
+        tag: 'caterpillar-n2',
         component: CaterpillarN2Fn,
         exportState: [
             'numItems',

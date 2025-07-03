@@ -11,7 +11,7 @@ import { ScrollerN0Fn } from './scroller-n0';
 export const ScrollerN0 = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').ScrollerN0>} */
     ({
-        name: 'scroller-n0',
+        tag: 'scroller-n0',
         component: ScrollerN0Fn,
         exportState: [
             'numberOfRow',

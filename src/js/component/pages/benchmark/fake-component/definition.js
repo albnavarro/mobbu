@@ -10,7 +10,7 @@ import { BenchMarkFakeComponentFn } from './benchmark-fake-component';
 export const BenchMarkFakeComponent = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').BenchMarkFakeComponent>} */
     ({
-        name: 'benchmark-fake-component',
+        tag: 'benchmark-fake-component',
         component: BenchMarkFakeComponentFn,
         exportState: ['index', 'counter', 'label'],
         state: {

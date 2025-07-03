@@ -8,7 +8,7 @@ import { DebugFilterHeadFn } from './debug-filter-head';
 export const DebugFilterHead = MobJs.createComponent(
     /** @type {CreateComponentParams<any>} */
     ({
-        name: 'debug-filter-head',
+        tag: 'debug-filter-head',
         component: DebugFilterHeadFn,
     })
 );

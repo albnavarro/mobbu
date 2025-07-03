@@ -8,7 +8,7 @@ import { DocSvgFn } from './doc-svg';
 export const DocSvg = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DocSvg>} */
     ({
-        name: 'doc-svg',
+        tag: 'doc-svg',
         component: DocSvgFn,
         exportState: ['url', 'className'],
         state: {

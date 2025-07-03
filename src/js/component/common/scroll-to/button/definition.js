@@ -8,7 +8,7 @@ import { ScrollToButtonFn } from './scroll-to-button';
 export const ScrollToButton = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').ScrollToButton>} */
     ({
-        name: 'scroll-to-button',
+        tag: 'scroll-to-button',
         component: ScrollToButtonFn,
         exportState: ['label', 'active'],
         state: {

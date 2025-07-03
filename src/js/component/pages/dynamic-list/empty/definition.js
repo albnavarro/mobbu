@@ -10,7 +10,7 @@ import { DynamicListEmptyFn } from './dynamic-list-empty';
 export const DynamicListEmpty = MobJs.createComponent(
     /** @type {CreateComponentParams<any>} */
     ({
-        name: 'dynamic-list-empty',
+        tag: 'dynamic-list-empty',
         component: DynamicListEmptyFn,
     })
 );

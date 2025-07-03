@@ -10,7 +10,7 @@ import { SvgChildFn } from './child';
 export const svgChild = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').SvgChild>} */
     ({
-        name: 'svg-child',
+        tag: 'svg-child',
         component: SvgChildFn,
         exportState: ['svg', 'star'],
         state: {

@@ -8,7 +8,7 @@ import { LoaderFn } from './loader';
 export const Loader = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Loader>} */
     ({
-        name: 'mob-loader',
+        tag: 'mob-loader',
         component: LoaderFn,
         exportState: ['position', 'shouldRemove'],
         state: {

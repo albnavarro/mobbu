@@ -9,7 +9,7 @@ import { DebugSearch } from './search/definition';
 export const DebugHead = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DebugHead>} */
     ({
-        name: 'debug-head',
+        tag: 'debug-head',
         component: DebugHeadFn,
         exportState: ['active'],
         state: {

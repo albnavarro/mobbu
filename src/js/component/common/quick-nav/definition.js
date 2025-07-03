@@ -8,7 +8,7 @@ import { QuickNavFn } from './next-page';
 export const QuickNav = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').QuickNav>} */
     ({
-        name: 'quick-nav',
+        tag: 'quick-nav',
         component: QuickNavFn,
         exportState: ['color', 'active', 'prevRoute', 'nextRoute', 'backRoute'],
         state: {

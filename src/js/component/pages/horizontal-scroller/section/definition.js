@@ -10,7 +10,7 @@ import { HorizontalScrollerSectionFn } from './horizontal-scroller-section';
 export const HorizontalScrollerSection = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').HorizontalScrollerSection>} */
     ({
-        name: 'horizontal-scroller-section',
+        tag: 'horizontal-scroller-section',
         component: HorizontalScrollerSectionFn,
         exportState: ['id', 'pinClass'],
         state: {

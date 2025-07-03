@@ -10,7 +10,7 @@ import { DebugButton } from '@commonComponent/debug/definition';
 export const Footer = MobJs.createComponent(
     /** @type {CreateComponentParams<any>} */
     ({
-        name: 'mob-footer',
+        tag: 'mob-footer',
         component: FooterFn,
         child: [FooterNav, DebugButton],
     })

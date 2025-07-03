@@ -13,7 +13,7 @@ export const MyComponent = MobJs.createComponent(
         /**
          * Necessary
          */
-        name: 'my-component',
+        tag: 'my-component',
         component: MyComponentFn,
 
         /**

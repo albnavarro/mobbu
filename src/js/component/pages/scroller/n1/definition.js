@@ -11,7 +11,7 @@ import { ScrollerN1Fn } from './scroller-n1';
 export const ScrollerN1 = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').ScrollerN1>} */
     ({
-        name: 'scroller-n1',
+        tag: 'scroller-n1',
         component: ScrollerN1Fn,
         exportState: [
             'amountOfPath',

@@ -10,7 +10,7 @@ import { MatrioskaItemFn } from './matrioska-item';
 export const MatrioskaItem = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').MatrioskaItem>} */
     ({
-        name: 'matrioska-item',
+        tag: 'matrioska-item',
         component: MatrioskaItemFn,
         exportState: ['level', 'key', 'value', 'active', 'counter', 'index'],
         state: {

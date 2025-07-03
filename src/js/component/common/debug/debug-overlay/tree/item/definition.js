@@ -8,7 +8,7 @@ import { DebugTreeItemFn } from './debug-tree-item';
 export const DebugTreeItem = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DebugTreeItem>} */
     ({
-        name: 'debug-tree-item',
+        tag: 'debug-tree-item',
         component: DebugTreeItemFn,
         exportState: ['id', 'componentName', 'instanceName', 'children'],
         state: {

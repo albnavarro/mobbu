@@ -8,7 +8,7 @@ import { DocTitleFn } from './doc-side';
 export const DocTitle = MobJs.createComponent(
     /** @type {CreateComponentParams<any>} */
     ({
-        name: 'doc-title',
+        tag: 'doc-title',
         component: DocTitleFn,
         state: {},
     })

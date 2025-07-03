@@ -11,7 +11,7 @@ import { BenchMarkRepeatNoKyBindStoreFn } from './benchmark-repeat-no-key-bind-s
 export const BenchMarkRepeatNoKeyBindStore = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').BenchMarkExternal>} */
     ({
-        name: 'benchmark-repeat-no-key-bind-store',
+        tag: 'benchmark-repeat-no-key-bind-store',
         component: BenchMarkRepeatNoKyBindStoreFn,
         state: {},
         child: [BenchMarkFakeComponent],

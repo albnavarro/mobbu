@@ -11,7 +11,7 @@ import { Move3D } from '@commonComponent/move-3d/definition';
 export const Move3DPage = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Move3DPage>} */
     ({
-        name: 'move-3d-page',
+        tag: 'move-3d-page',
         component: Move3DPagefn,
         exportState: ['data', 'prevRoute', 'nextRoute'],
         state: {

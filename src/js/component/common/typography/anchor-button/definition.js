@@ -8,7 +8,7 @@ import { AnchorButtonFn } from './anchor-button';
 export const AnchorButton = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').AnchorBUtton>} */
     ({
-        name: 'anchor-button',
+        tag: 'anchor-button',
         component: AnchorButtonFn,
         exportState: ['anchor', 'content'],
         state: {

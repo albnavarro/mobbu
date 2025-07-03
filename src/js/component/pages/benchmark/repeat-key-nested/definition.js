@@ -11,7 +11,7 @@ import { BenchMarkRepeatWithKyFnNested } from './benchmark-repeat-with-key-neste
 export const BenchMarkRepeatWithKeyNested = MobJs.createComponent(
     /** @type {CreateComponentParams<import('../type').BenchMark>} */
     ({
-        name: 'benchmark-repeat-key-nested',
+        tag: 'benchmark-repeat-key-nested',
         component: BenchMarkRepeatWithKyFnNested,
         ...benchMarkDefinitionPartial(31),
     })

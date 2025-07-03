@@ -9,7 +9,7 @@ import { ScrollToFn } from './scroll-to';
 export const ScrollTo = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').ScrollTo>} */
     ({
-        name: 'scroll-to',
+        tag: 'scroll-to',
         component: ScrollToFn,
         state: {
             activeLabel: () => ({

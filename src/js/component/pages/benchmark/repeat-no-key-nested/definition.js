@@ -11,7 +11,7 @@ import { BenchMarkRepeatWithNoKeyFnNested } from './benchmark-repeat-with-key-ne
 export const BenchMarkRepeatWithNoKeyNested = MobJs.createComponent(
     /** @type {CreateComponentParams<import('../type').BenchMark>} */
     ({
-        name: 'benchmark-repeat-key-no-nested',
+        tag: 'benchmark-repeat-key-no-nested',
         component: BenchMarkRepeatWithNoKeyFnNested,
         ...benchMarkDefinitionPartial(31),
     })

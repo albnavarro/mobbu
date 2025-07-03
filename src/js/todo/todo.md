@@ -16,6 +16,9 @@
 
 # MobJs
 
+## Search
+- Implementare search.
+
 ## BindStore
 - Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:
 - **Problema:** se non si usa il proxi il discorso non funziona piú `otherStore.proxi` in formato stringa non puó funzionare.
@@ -27,12 +30,6 @@ proxi.state
 // a:
 proxi.otherStore.state
 ```
-
-
-
-## Search
-- Implementare search.
-
 ## Web component:
 
 #### attributeChangedCallback

@@ -8,7 +8,7 @@ import { DocTitleSmallFn } from './doc-title-small';
 export const DocsTitleSmall = MobJs.createComponent(
     /** @type {CreateComponentParams<any>} */
     ({
-        name: 'doc-title-small',
+        tag: 'doc-title-small',
         component: DocTitleSmallFn,
         state: {},
     })

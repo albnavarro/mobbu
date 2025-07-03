@@ -11,7 +11,7 @@ import { DebugComponentFn } from './debug-component';
 export const DebugComponent = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DebugComponent>} */
     ({
-        name: 'debug-component',
+        tag: 'debug-component',
         component: DebugComponentFn,
         state: {
             id: () => ({

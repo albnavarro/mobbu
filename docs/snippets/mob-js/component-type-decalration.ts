@@ -1,7 +1,4 @@
-/**
-type.d.ts
-
-export interface MyComponent {
+interface MyComponent {
     state: {
         prop1?: boolean;
         prop2: number;
@@ -13,15 +10,5 @@ export interface MyComponent {
     ref: {
         myRef: HTMLElement;
         myRef2: HTMLElement;
-    }
+    };
 }
-**/
-
-import { html } from '@mobJs';
-
-/**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
- */
-export const MyComponent = () => {
-    return html` <div></div> `;
-};

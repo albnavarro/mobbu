@@ -10,7 +10,7 @@ import { HomeComponentFn } from './home';
 export const HomeComponent = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').HomeComponent>} */
     ({
-        name: 'home-component',
+        tag: 'home-component',
         component: HomeComponentFn,
         exportState: ['svg'],
         state: {

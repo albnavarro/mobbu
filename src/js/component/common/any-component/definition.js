@@ -8,7 +8,7 @@ import { AnyComponentFn } from './any-component';
 export const AnyComponent = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').AnyComponent>} */
     ({
-        name: 'any-component',
+        tag: 'any-component',
         component: AnyComponentFn,
         exportState: ['content'],
         state: {

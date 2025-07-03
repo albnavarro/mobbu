@@ -15,7 +15,7 @@ import { DynamicListCardInner } from './innerCard/definition';
 export const DynamicListCard = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DynamicListCard>} */
     ({
-        name: 'dynamic-list-card',
+        tag: 'dynamic-list-card',
         component: DynamicListCardFn,
         exportState: ['isFull', 'label', 'index', 'counter', 'parentListId'],
         state: {

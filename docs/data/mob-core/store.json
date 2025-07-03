@@ -381,6 +381,15 @@
                         "content": "Each tore can be associated with an interface that describes its individual states. In this example we use jsDoc."
                     },
                     {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "The <strong>type</strong> parameter ( dynamic type check ) will not be validated by typescript."
+                    },
+                    {
                         "component": "mob-spacer",
                         "props": {
                             "style": "medium"

@@ -9,7 +9,7 @@ import { LinksMobJsButtonFn } from './links-mobjs-button';
 export const LinksMobJsButton = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').LinksMobJsButton>} */
     ({
-        name: 'links-mobjs-button',
+        tag: 'links-mobjs-button',
         component: LinksMobJsButtonFn,
         exportState: ['label', 'url', 'active'],
         state: {
@@ -32,7 +32,7 @@ export const LinksMobJsButton = MobJs.createComponent(
 export const LinksMobJs = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').LinksMobJs>} */
     ({
-        name: 'links-mobjs',
+        tag: 'links-mobjs',
         component: LinksMobJsFn,
         child: [LinksMobJsButton],
         state: {

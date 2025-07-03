@@ -12,7 +12,7 @@ import { NavigationSubmenuFn } from './navigation-submenu';
 export const NavigationButton = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').NavigationButton>} */
     ({
-        name: 'mob-navigation-button',
+        tag: 'mob-navigation-button',
         component: NavigationButtonFn,
         exportState: [
             'label',
@@ -73,7 +73,7 @@ export const NavigationButton = MobJs.createComponent(
 export const NavigationLabel = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').NavigationLabel>} */
     ({
-        name: 'mob-navigation-label',
+        tag: 'mob-navigation-label',
         component: NavigationLabelFn,
         exportState: ['label', 'sectioName'],
         state: {
@@ -92,7 +92,7 @@ export const NavigationLabel = MobJs.createComponent(
 export const NavigationSubmenu = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').NavigationSubmenu>} */
     ({
-        name: 'mob-navigation-submenu',
+        tag: 'mob-navigation-submenu',
         component: NavigationSubmenuFn,
         exportState: ['children', 'headerButton', 'isOpen', 'callback'],
         state: {
@@ -120,7 +120,7 @@ export const NavigationSubmenu = MobJs.createComponent(
 export const Navigation = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Navigation>} */
     ({
-        name: 'mob-navigation',
+        tag: 'mob-navigation',
         component: NavigationFn,
         exportState: ['currentAccordionId'],
         state: {
@@ -137,7 +137,7 @@ export const Navigation = MobJs.createComponent(
 export const NavigationContainer = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').NavigationContainer>} */
     ({
-        name: 'mob-navigation-container',
+        tag: 'mob-navigation-container',
         component: NavigationContainerFn,
         child: [Navigation],
         state: {

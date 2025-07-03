@@ -12,7 +12,7 @@ import { DynamicListRepeaterFn } from './dynamic-list-repeater';
 export const DynamicListRepeater = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DynamicListRepeater>} */
     ({
-        name: 'dynamic-list-repeater',
+        tag: 'dynamic-list-repeater',
         component: DynamicListRepeaterFn,
         exportState: [
             'label',

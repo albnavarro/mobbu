@@ -8,7 +8,7 @@ import { ParagraphFn } from './paragraph';
 export const Paragraph = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Paragraph>} */
     ({
-        name: 'mob-paragraph',
+        tag: 'mob-paragraph',
         component: ParagraphFn,
         exportState: ['style', 'color', 'boxed', 'note'],
         state: {

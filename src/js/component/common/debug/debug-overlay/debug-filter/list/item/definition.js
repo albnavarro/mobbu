@@ -8,7 +8,7 @@ import { DebugFilterListItemFn } from './debug-filter-list-item';
 export const DebugFilterListItem = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DebugFilterListItem>} */
     ({
-        name: 'debug-filter-list-item',
+        tag: 'debug-filter-list-item',
         component: DebugFilterListItemFn,
         exportState: ['id', 'tag', 'name'],
         state: {

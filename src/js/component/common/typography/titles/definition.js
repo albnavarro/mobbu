@@ -8,7 +8,7 @@ import { TitleFn } from './title';
 export const Title = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Title>} */
     ({
-        name: 'mob-title',
+        tag: 'mob-title',
         component: TitleFn,
         exportState: [
             'useSticky',

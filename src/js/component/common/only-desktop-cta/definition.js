@@ -8,7 +8,7 @@ import { OnlyDesktopFnCta } from './only-desktop-cta';
 export const OnlyDesktopCta = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').OnlyDesktop>} */
     ({
-        name: 'only-desktop-cta',
+        tag: 'only-desktop-cta',
         component: OnlyDesktopFnCta,
         state: {
             active: () => ({

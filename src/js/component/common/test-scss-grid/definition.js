@@ -8,7 +8,7 @@ import { TestScssGridFn } from './test-scss-grid';
 export const TestScssGrid = MobJs.createComponent(
     /** @type {CreateComponentParams<any>} */
     ({
-        name: 'test-scss-grid',
+        tag: 'test-scss-grid',
         component: TestScssGridFn,
     })
 );

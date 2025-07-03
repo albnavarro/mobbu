@@ -11,7 +11,7 @@ import { BenchMarkRepeatNoKyFn } from './benchmark-repeat-no-key';
 export const BenchMarkRepeatNoKey = MobJs.createComponent(
     /** @type {CreateComponentParams<import('../type').BenchMark>} */
     ({
-        name: 'benchmark-repeat-no-key',
+        tag: 'benchmark-repeat-no-key',
         component: BenchMarkRepeatNoKyFn,
         ...benchMarkDefinitionPartial(),
     })

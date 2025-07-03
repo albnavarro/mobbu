@@ -8,7 +8,7 @@ import { SnippetFn } from './snippet';
 export const Snippet = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Snippet>} */
     ({
-        name: 'mob-snippet',
+        tag: 'mob-snippet',
         component: SnippetFn,
         exportState: [
             'source',

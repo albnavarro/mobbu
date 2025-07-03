@@ -8,7 +8,7 @@ import { DebugButtonFn } from './debug-button';
 export const DebugButton = MobJs.createComponent(
     /** @type {CreateComponentParams<any>} */
     ({
-        name: 'debug-button',
+        tag: 'debug-button',
         component: DebugButtonFn,
     })
 );

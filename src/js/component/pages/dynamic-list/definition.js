@@ -14,7 +14,7 @@ import { DynamicListRepeater } from './repeaters/definition';
 export const DynamicList = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DynamicList>} */
     ({
-        name: 'dynamic-list',
+        tag: 'dynamic-list',
         component: DynamicListFn,
         state: {
             counter: () => ({

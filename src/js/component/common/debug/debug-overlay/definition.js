@@ -16,7 +16,7 @@ import { DebugTree } from './tree/definition';
 export const DebugOverlay = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DebugOverlay>} */
     ({
-        name: 'debug-overlay',
+        tag: 'debug-overlay',
         component: DebugOverlayFn,
         state: {
             active: () => ({

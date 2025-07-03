@@ -11,7 +11,7 @@ import { CaterpillarN1Fn } from './caterpillar-n1';
 export const CaterpillarN1 = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').CaterpillarN1>} */
     ({
-        name: 'caterpillar-n1',
+        tag: 'caterpillar-n1',
         component: CaterpillarN1Fn,
         exportState: [
             'numItems',

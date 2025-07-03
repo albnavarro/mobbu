@@ -25,7 +25,7 @@ const shuffle = (array) => {
 export const Matrioska = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Matrioska>} */
     ({
-        name: 'page-matrioska',
+        tag: 'page-matrioska',
         component: MatrioskaFn,
         exportState: [],
         state: {

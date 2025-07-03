@@ -8,7 +8,7 @@ import { ScrollToTopFn } from './scroll-to-top';
 export const ScrollToTop = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').ScrollToTop>} */
     ({
-        name: 'scroll-to-top',
+        tag: 'scroll-to-top',
         component: ScrollToTopFn,
         exportState: ['active'],
         state: {

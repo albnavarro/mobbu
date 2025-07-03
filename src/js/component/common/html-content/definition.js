@@ -16,7 +16,7 @@ import { DocSvg } from '@commonComponent/doc-svg/definition';
 export const HtmlContent = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').HtmlContent>} */
     ({
-        name: 'html-content',
+        tag: 'html-content',
         component: HtmlContentFn,
         exportState: [
             'usePadding',

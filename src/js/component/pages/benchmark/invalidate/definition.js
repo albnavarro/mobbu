@@ -11,7 +11,7 @@ import { BenchMarkInvalidateFn } from './benchmark-invalidate';
 export const BenchMarkInvalidate = MobJs.createComponent(
     /** @type {CreateComponentParams<import('../type').BenchMark>} */
     ({
-        name: 'benchmark-invalidate',
+        tag: 'benchmark-invalidate',
         component: BenchMarkInvalidateFn,
         ...benchMarkDefinitionPartial(),
     })

@@ -10,7 +10,7 @@ import { LayoutLinksFn } from './layout-links';
 export const LayoutLinks = MobJs.createComponent(
     /** @type{CreateComponentParams<import ('./type').LayoutLinks>} */
     ({
-        name: 'layout-links',
+        tag: 'layout-links',
         component: LayoutLinksFn,
         exportState: ['title', 'items'],
         state: {

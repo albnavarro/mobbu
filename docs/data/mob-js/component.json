@@ -41,6 +41,13 @@
         {
             "component": "anchor-button",
             "props": {
+                "anchor": "#type",
+                "content": "Typescript"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
                 "anchor": "#component-definition",
                 "content": "Component definition"
             }
@@ -50,13 +57,6 @@
             "props": {
                 "anchor": "#function",
                 "content": "Function component"
-            }
-        },
-        {
-            "component": "anchor-button",
-            "props": {
-                "anchor": "#type",
-                "content": "Typescript"
             }
         },
         {
@@ -124,6 +124,214 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "x-small",
+                            "id": "type",
+                            "label": "Typescript support"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isSection": true,
+                            "index": "Component / 03",
+                            "useSticky": true
+                        },
+                        "content": "Typescript"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "Each component can be associated with an <strong>interface</strong> to specify the types related to <strong>method</strong> <strong>states</strong> and <strong>refs</strong>.All the functions available in the component will be correctly configured without any further intervention.<br/><strong>getRef</strong> and <strong>getRefs</strong> will return e.g. <strong>HTMLElement</strong> or <strong>HTMLElement[]</strong> automatically."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "The state <strong>type</strong> parameter ( dynamic type check ) will not be validated by typescript."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/component-type-decalration.ts",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 14
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Add type to definition:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "<strong>jsDoc:</strong>"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/definition-type-js-doc.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 25
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "<strong>typescript:</strong>"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/definition-type-ts.ts",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 18
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Add type to function:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "<strong>jsDoc:</strong>"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/component-type-js-doc.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 8
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "<strong>typescript:</strong>"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/component-type-ts.ts",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 3
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Specific types available, useful if you want to split the component into specific functions."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/single-type.d.ts",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 36
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "component": "html-content",
+            "props": {
+                "useTriangle": false,
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
                             "id": "component-definition",
                             "label": "Component definition"
                         }
@@ -158,7 +366,7 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "tag name:"
+                        "content": "tag:"
                     },
                     {
                         "component": "mob-paragraph",
@@ -414,99 +622,6 @@
                             "hasOverflow": false,
                             "hasBorder": true,
                             "numLines": 25
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "component": "html-content",
-            "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "type",
-                            "label": "Typescript"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Component / 03",
-                            "useSticky": true
-                        },
-                        "content": "Typescript"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true,
-                            "note": true
-                        },
-                        "content": "Each component can be associated with an <strong>interface</strong> to specify the types related to <strong>method</strong> <strong>states</strong> and <strong>refs</strong>.All the functions available in the component will be correctly configured without any further intervention.<br/><strong>getRef</strong> and <strong>getRefs</strong> will return e.g. <strong>HTMLElement</strong> or <strong>HTMLElement[]</strong> automatically."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/component-type.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 26
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Specific types available, useful if you want to split the component into specific functions."
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/single-type.d.ts",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 36
                         }
                     },
                     {

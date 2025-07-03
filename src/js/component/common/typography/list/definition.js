@@ -8,7 +8,7 @@ import { ListFn } from './list';
 export const List = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').List>} */
     ({
-        name: 'mob-list',
+        tag: 'mob-list',
         component: ListFn,
         exportState: ['style', 'color', 'items', 'dots', 'block', 'links'],
         state: {
