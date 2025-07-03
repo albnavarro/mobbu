@@ -937,7 +937,7 @@
                         "component": "mob-spacer",
                         "props": {
                             "id": "list",
-                            "style": "medium",
+                            "style": "big",
                             "label": "Render blocks params"
                         }
                     },
