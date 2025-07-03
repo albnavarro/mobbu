@@ -666,9 +666,29 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "Fundamental params:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Main functions for component management:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Life cycle"
                     },
                     {
                         "component": "mob-list",
@@ -680,7 +700,30 @@
                                 {
                                     "label": "OnMount/Destroy",
                                     "url": "./#mobJs-onMount"
-                                },
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "State management"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
                                 {
                                     "label": "GetProxi",
                                     "url": "./#mobJs-getProxi"
@@ -700,64 +743,8 @@
                                 {
                                     "label": "Computed",
                                     "url": "./#mobJs-computed"
-                                },
-                                {
-                                    "label": "Watch",
-                                    "url": "./#mobJs-watch"
-                                },
-                                {
-                                    "label": "DataAttribute",
-                                    "url": "./#mobJs-dataAttribute"
-                                },
-                                {
-                                    "label": "StaticProps",
-                                    "url": "./#mobJs-staticProps"
-                                },
-                                {
-                                    "label": "BindProps",
-                                    "url": "./#mobJs-bindProps"
-                                },
-                                {
-                                    "label": "BindEvents",
-                                    "url": "./#mobJs-bindEvents"
-                                },
-                                {
-                                    "label": "DelegateEvents",
-                                    "url": "./#mobJs-delegateEvents"
-                                },
-                                {
-                                    "label": "BindStore",
-                                    "url": "./#mobJs-bindStore"
-                                },
-                                {
-                                    "label": "BindText",
-                                    "url": "./#mobJs-bindtext"
-                                },
-                                {
-                                    "label": "BindObject",
-                                    "url": "./#mobJs-bindObject"
-                                },
-                                {
-                                    "label": "bindEffect",
-                                    "url": "./#mobJs-bind-effect"
-                                },
-                                {
-                                    "label": "bindMethods",
-                                    "url": "./#mobJs-methods"
-                                },
-                                {
-                                    "label": "Refs",
-                                    "url": "<a href='./#mobJs-refs'>Refs</a>"
                                 }
                             ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "id": "list",
-                            "style": "big",
-                            "label": "Render blocks params"
                         }
                     },
                     {
@@ -771,7 +758,208 @@
                         "props": {
                             "tag": "h6"
                         },
+                        "content": "Side effect"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "Watch",
+                                    "url": "./#mobJs-watch"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Communication with child components"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "DataAttribute",
+                                    "url": "./#mobJs-dataAttribute"
+                                },
+                                {
+                                    "label": "StaticProps",
+                                    "url": "./#mobJs-staticProps"
+                                },
+                                {
+                                    "label": "BindProps",
+                                    "url": "./#mobJs-bindProps"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "DOM manipulation"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "BindText",
+                                    "url": "./#mobJs-bindtext"
+                                },
+                                {
+                                    "label": "BindObject",
+                                    "url": "./#mobJs-bindObject"
+                                },
+                                {
+                                    "label": "bindEffect",
+                                    "url": "./#mobJs-bind-effect"
+                                },
+                                {
+                                    "label": "Refs",
+                                    "url": "<a href='./#mobJs-refs'>Refs</a>"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Events"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "BindEvents",
+                                    "url": "./#mobJs-bindEvents"
+                                },
+                                {
+                                    "label": "DelegateEvents",
+                                    "url": "./#mobJs-delegateEvents"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Integration of external stores"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "BindStore",
+                                    "url": "./#mobJs-bindStore"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "Methods definition"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "addMethods",
+                                    "url": "./#mobJs-methods"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "list",
+                            "style": "medium",
+                            "label": "Render blocks params"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
                         "content": "Render Blocks"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Main functions to manage Array Lists or to modify/invalidate/insert new DOM blocks"
                     },
                     {
                         "component": "mob-list",
@@ -816,9 +1004,16 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "Static params:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Managing slots, classes applied to children, and instance names"
                     },
                     {
                         "component": "mob-list",
@@ -859,9 +1054,16 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "Utils params:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "General utility functions"
                     },
                     {
                         "component": "mob-list",
@@ -924,9 +1126,16 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "Traversal operation"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Cross-component communication"
                     },
                     {
                         "component": "mob-list",
