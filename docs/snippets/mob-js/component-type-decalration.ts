@@ -1,8 +1,7 @@
 interface MyComponentType {
     state: {
-        prop1?: boolean;
-        prop2: number;
-        prop3: number;
+        color: 'white' | 'black';
+        active: number;
     };
     methods: {
         myMethod: (arg0: { prop1: number; prop2: number }) => void;
