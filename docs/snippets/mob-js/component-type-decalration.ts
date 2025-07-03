@@ -1,4 +1,4 @@
-interface MyComponent {
+interface MyComponentType {
     state: {
         prop1?: boolean;
         prop2: number;

@@ -3,7 +3,7 @@
  */
 
 export const MyComponent = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').QuickNav>} */
+    /** @type {CreateComponentParams<import('./type').MyComponentType>} */
     ({
         tag: 'my-component',
         component: MyComponentFn,

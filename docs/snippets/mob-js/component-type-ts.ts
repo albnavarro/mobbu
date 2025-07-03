@@ -1,3 +1,3 @@
-export const MyComponentFn: MobComponent<MyComponent> = () => {
+export const MyComponentFn: MobComponent<MyComponentType> = () => {
     return html` <div></div> `;
 };

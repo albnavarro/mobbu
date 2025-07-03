@@ -1,4 +1,4 @@
-export const MyComponent = MobJs.createComponent<MyComponent>({
+export const MyComponent = MobJs.createComponent<MyComponentType>({
     tag: 'my-component',
     component: MayComponentFn,
     exportState: ['color', 'active'],
