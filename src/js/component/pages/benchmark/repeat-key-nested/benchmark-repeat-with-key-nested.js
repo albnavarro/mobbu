@@ -37,7 +37,8 @@ export const BenchMarkRepeatWithKyFnNested = ({
             </h3>
             <p class="benchmark__head__title">
                 Repater without component with the same repeater with component
-                inside.
+                inside<br />
+                ( max value <strong>10</strong> ).
             </p>
             ${benchMarkListPartial({
                 setRef,

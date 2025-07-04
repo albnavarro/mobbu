@@ -430,10 +430,10 @@ Loading snippet ...</pre
         </div>
     </div> `};var Ba=m.createComponent({tag:"benchmark-fake-component",component:Nv,exportState:["index","counter","label"],state:{counter:()=>({value:0,type:Number}),label:()=>({value:"",type:String}),index:()=>({value:0,type:Number}),isSelected:()=>({value:!1,type:Boolean})}});var Jt=(e=2001)=>({exportState:["svg"],state:{counter:()=>({value:0,type:Number}),data:()=>({value:[],type:Array,validate:t=>t.length<e,strict:!0,skipEqual:!1}),time:()=>({value:0,type:Number,transform:t=>Math.round(t),skipEqual:!1}),isLoading:()=>({value:!1,type:Boolean})},child:[Ba]});var On=()=>g`
         <p>
-            Generation of up to 2000 basic components with a reactive prop<br />
             Generating a large number of components repeatedly can increase
             memory consumption until they are deleted and the garbage collector
-            empties the memory
+            empties the memory.<br />
+            ( max value <strong>2000</strong> ).
         </p>
     `;var ou=e=>{for(let t=e.length-1;t>0;t--){let r=Math.floor(Math.random()*(t+1));[e[t],e[r]]=[e[r],e[t]]}return e},$s=e=>{let t=u.checkType(Number,e)?e:0;return[...Array.from({length:t}).keys()].map(r=>({label:`comp-${r+1}`}))},ru=async({setState:e,value:t,useShuffle:r=!1})=>{e("isLoading",!0),await m.tick(),u.useFrame(()=>{u.useNextTick(async()=>{let o=performance.now();e("data",r?ou($s(t)):$s(t)),await m.tick();let s=performance.now()-o;e("time",s),e("isLoading",!1)})})},Yt=({delegateEvents:e,setRef:t,getRef:r,updateState:o,getState:n,setState:s,bindEffect:i})=>g`
         <div
@@ -525,7 +525,8 @@ Loading snippet ...</pre
             </h3>
             <p class="benchmark__head__title">
                 Repater without component with the same repeater with component
-                inside.
+                inside<br />
+                ( max value <strong>10</strong> ).
             </p>
             ${Yt({setRef:o,getRef:n,setState:i,updateState:a,delegateEvents:t,getState:s,bindEffect:h})}
 
@@ -614,7 +615,8 @@ Loading snippet ...</pre
                 Repeat bind external store ( without key ):
             </h3>
             <p class="benchmark__head__title">
-                Use extrernal store as state ( bindStore module ).
+                Use extrernal store as state ( bindStore module ).<br />
+                ( max value <strong>2000</strong> ).
             </p>
             ${Wv({setRef:o,getRef:n,delegateEvents:t,getState:s,bindEffect:l})}
 
@@ -638,7 +640,8 @@ Loading snippet ...</pre
             </h3>
             <p class="benchmark__head__title">
                 Repater without component with the same repeater with component
-                inside.
+                inside<br />
+                ( max value <strong>10</strong> ).
             </p>
             ${Yt({setRef:o,getRef:n,setState:i,updateState:a,delegateEvents:t,getState:s,bindEffect:h})}
 
