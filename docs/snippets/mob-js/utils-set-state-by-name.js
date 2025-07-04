@@ -10,7 +10,7 @@ import { otherComponentName } from '';
  */
 export const MyComponent = ({ onMount }) => {
     /**
-     * @type {import('@mobJsType').SetStateByName<import('./otherComponent/type').OtherComponent>}
+     * @type {import('@mobJsType').SetStateByName<import('./otherComponent/type').MyOtherComponent>}
      */
     const setOtherComponentState = MobJs.setStateByName(otherComponentName);
 

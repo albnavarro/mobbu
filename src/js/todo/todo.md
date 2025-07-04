@@ -16,6 +16,9 @@
 
 # MobJs
 
+## StaticProps:
+- Fare eun giro di tutti i componenti e aggiungere il tipo come da docs
+
 ## Search
 - Implementare search.
 
@@ -112,12 +115,6 @@ getProxi({ excludeSet: exportableState })
 ## Debug
 
 - Add `debug` ( params in componentFunction ) in DOCS.
-
-## Docs
-
-- In ognisezione corrispondente aggiungere glie sempi tipi.
-    - `ReturnBindProps`.
-    - `UseMethodByName` && `useMethodArrayByName`
 
 # Mobmotion
 

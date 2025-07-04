@@ -7,14 +7,14 @@ import { html, MobJs } from '@mobjs';
 /**
  * Use variable for lsp reference.
  */
-import { otherComponentName } from '';
+import { otherComponentName } from '..';
 
 /**
  * @type {MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount }) => {
     onMount(() => {
-        /** @type {UseMethodByName<MyComponentState>} */
+        /** @type {UseMethodByName<import('./otherComponent/type').MyOtherComponent>} */
         const myComponentMethods = MobJs.useMethodByName(otherComponentName);
         myComponentMethods?.myMethod?.();
 

@@ -15,9 +15,38 @@
             "content": "bindProps"
         },
         {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#explicit",
+                "content": "Explicit dependency"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#proxi",
+                "content": "With proxi"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#force",
+                "content": "Force parent"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#typescript",
+                "content": "Typescript"
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium",
+                "id": "explicit"
             }
         },
         {
@@ -100,7 +129,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "big",
+                "id": "proxi"
             }
         },
         {
@@ -136,7 +166,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "force"
             }
         },
         {
@@ -193,6 +224,60 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-props-extra.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 11
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "typescript"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Typescript"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "<strong>jsDoc</strong>"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/bind-props-jsdoc.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 12
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "<strong>ts</strong>"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/bind-props-ts.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
