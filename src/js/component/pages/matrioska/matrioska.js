@@ -151,9 +151,11 @@ const getSecondLevel = ({
                         >
                             <matrioska-item
                                 class="matrioska-item--2"
-                                ${staticProps({
-                                    level: 'level 2',
-                                })}
+                                ${staticProps(
+                                    /** @type {MatrioskaItem['state']} */ ({
+                                        level: 'level 2',
+                                    })
+                                )}
                                 ${bindProps(
                                     /** @returns {ReturnBindProps<MatrioskaItem>} */
                                     () => ({
@@ -213,9 +215,11 @@ const getThirdLevel = ({
                             <matrioska-item
                                 class="matrioska-item--3"
                                 name="${name}"
-                                ${staticProps({
-                                    level: 'level 3',
-                                })}
+                                ${staticProps(
+                                    /** @type {MatrioskaItem['state']} */ ({
+                                        level: 'level 3',
+                                    })
+                                )}
                                 ${bindProps(
                                     /** @returns {ReturnBindProps<MatrioskaItem>} */
                                     () => ({
@@ -242,9 +246,11 @@ const getThirdLevel = ({
                             <matrioska-item
                                 class="matrioska-item--3"
                                 name="${name2}"
-                                ${staticProps({
-                                    level: 'level 3',
-                                })}
+                                ${staticProps(
+                                    /** @type {MatrioskaItem['state']} */ ({
+                                        level: 'level 3',
+                                    })
+                                )}
                                 ${bindProps({
                                     props: () => {
                                         return {
@@ -314,7 +320,11 @@ export const MatrioskaFn = ({
                             >
                                 <matrioska-item
                                     class="matrioska-item--1"
-                                    ${staticProps({ level: 'level 1' })}
+                                    ${staticProps(
+                                        /** @type {MatrioskaItem['state']} */ ({
+                                            level: 'level 1',
+                                        })
+                                    )}
                                     ${bindProps(
                                         /** @returns {ReturnBindProps<MatrioskaItem>} */
                                         () => ({

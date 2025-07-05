@@ -63,7 +63,11 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
             return html`
                 <dynamic-list-button
                     class="c-dynamic-list__top__button"
-                    ${staticProps({ label: buttonLabel })}
+                    ${staticProps(
+                        /** @type {DynamicListButton['state']} */ ({
+                            label: buttonLabel,
+                        })
+                    )}
                     ${delegateEvents({
                         click: async () => {
                             proxi.data = data;
@@ -97,12 +101,14 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
 
             return html`
                 <dynamic-list-repeater
-                    ${staticProps({
-                        listId: index,
-                        key,
-                        clean,
-                        label,
-                    })}
+                    ${staticProps(
+                        /** @type {DynamicListRepeater['state']} */ ({
+                            listId: index,
+                            key,
+                            clean,
+                            label,
+                        })
+                    )}
                     ${bindProps(
                         /** @returns {ReturnBindProps<DynamicListRepeater>} */
                         () => ({
@@ -140,7 +146,11 @@ export const DynamicListFn = ({
                     })}
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
-                        ${staticProps({ label: '+ counter ( max: 10 )' })}
+                        ${staticProps(
+                            /** @type {DynamicListButton['state']} */ ({
+                                label: '+ counter ( max: 10 )',
+                            })
+                        )}
                         ${delegateEvents({
                             click: async () => {
                                 updateState('counter', (prev) => {
@@ -151,7 +161,11 @@ export const DynamicListFn = ({
                     ></dynamic-list-button>
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
-                        ${staticProps({ label: '- counter: ( min 0 )' })}
+                        ${staticProps(
+                            /** @type {DynamicListButton['state']} */ ({
+                                label: '- counter: ( min 0 )',
+                            })
+                        )}
                         ${delegateEvents({
                             click: async () => {
                                 updateState('counter', (prev) => {

@@ -14,12 +14,14 @@ export const generateTreeComponents = ({ data, staticProps }) => {
     return data
         .map(({ id, componentName, instanceName, children }) => {
             return html`<debug-tree-item
-                ${staticProps({
-                    id,
-                    componentName,
-                    instanceName,
-                    children,
-                })}
+                ${staticProps(
+                    /** @type {import('./item/type').DebugTreeItem['state']} */ ({
+                        id,
+                        componentName,
+                        instanceName,
+                        children,
+                    })
+                )}
             ></debug-tree-item>`;
         })
         .join('');

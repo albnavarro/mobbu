@@ -35,10 +35,12 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
                 ? html`<p class="c-params-mobjs__label">${label}</p>`
                 : html`<li>
                       <links-mobjs-button
-                          ${staticProps({
-                              label,
-                              url,
-                          })}
+                          ${staticProps(
+                              /** @type {LinksMobJsButton['state']} */ ({
+                                  label,
+                                  url,
+                              })
+                          )}
                           ${bindProps(() => ({
                               active: proxi.activeSection === url,
                           }))}

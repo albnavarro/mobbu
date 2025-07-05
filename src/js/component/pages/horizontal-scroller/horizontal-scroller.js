@@ -26,10 +26,12 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
         .map((_col, i) => {
             return html`
                 <horizontal-scroller-section
-                    ${staticProps({
-                        id: i,
-                        pinClass,
-                    })}
+                    ${staticProps(
+                        /** @type {import('./section/type').HorizontalScrollerSection['state']} */ ({
+                            id: i,
+                            pinClass,
+                        })
+                    )}
                 ></horizontal-scroller-section>
             `;
         })
@@ -57,9 +59,11 @@ const getNav = ({
         .map((_col, i) => {
             return html`
                 <horizontal-scroller-button
-                    ${staticProps({
-                        id: i,
-                    })}
+                    ${staticProps(
+                        /** @type {HorizontalScrollerButton['state']} */ ({
+                            id: i,
+                        })
+                    )}
                     ${delegateEvents({
                         click: () => setState('currentId', i),
                     })}

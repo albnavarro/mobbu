@@ -27,9 +27,11 @@ function getRepeaterCard({
     return html`
         <div class="c-dynamic-list-repeater__item">
             <dynamic-list-card
-                ${staticProps({
-                    parentListId: proxi.listId,
-                })}
+                ${staticProps(
+                    /** @type {DynamicListCard['state']} */ ({
+                        parentListId: proxi.listId,
+                    })
+                )}
                 ${bindProps(
                     /** @returns {ReturnBindProps<DynamicListCard>} */
                     () => ({

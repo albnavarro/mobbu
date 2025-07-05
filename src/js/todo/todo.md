@@ -16,9 +16,6 @@
 
 # MobJs
 
-## StaticProps:
-- Fare eun giro di tutti i componenti e aggiungere il tipo come da docs
-
 ## Search
 - Implementare search.
 

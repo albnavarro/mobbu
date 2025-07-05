@@ -24,10 +24,12 @@ const getItems = ({ delegateEvents, staticProps }) => {
                             navigationStore.set('navigationIsOpen', false);
                         },
                     })}
-                    ${staticProps({
-                        label,
-                        section,
-                    })}
+                    ${staticProps(
+                        /** @type {import('./type').FooterNavButton['state']} */ ({
+                            label,
+                            section,
+                        })
+                    )}
                 ></footer-nav-button>
             </li> `;
         })

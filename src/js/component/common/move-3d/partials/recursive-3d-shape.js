@@ -16,10 +16,12 @@ export const Recursive3Dshape = ({ data, root, childrenId, debug }) => {
         .map(({ children, props }) => {
             return html`<move-3d-item
                 name="${childrenId}"
-                ${MobJs.staticProps({
-                    root,
-                    ...props,
-                })}
+                ${MobJs.staticProps(
+                    /** @type {import('../move-3d-item/type').Move3DItem['state']} */ ({
+                        root,
+                        ...props,
+                    })
+                )}
             >
                 ${getDebug({ debug, id: props.id })}
                 ${Recursive3Dshape({

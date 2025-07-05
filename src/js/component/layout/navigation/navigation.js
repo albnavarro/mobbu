@@ -1,6 +1,6 @@
 /**
  * @import {MobComponent, ReturnBindProps, StaticProps, BindProps} from '@mobJsType';
- * @import {Navigation, NavigationSubmenu} from './type';
+ * @import {Navigation, NavigationButton, NavigationLabel, NavigationSubmenu} from './type';
  */
 
 import { html } from '@mobJs';
@@ -31,7 +31,12 @@ function getItems({ data, staticProps, bindProps, proxi }) {
             if (section) {
                 return html`
                     <mob-navigation-label
-                        ${staticProps({ label, sectioName })}
+                        ${staticProps(
+                            /** @type {NavigationLabel['state']} */ ({
+                                label,
+                                sectioName,
+                            })
+                        )}
                     ></mob-navigation-label>
                 `;
             }
@@ -39,15 +44,17 @@ function getItems({ data, staticProps, bindProps, proxi }) {
             return children
                 ? html`
                       <mob-navigation-submenu
-                          ${staticProps({
-                              headerButton: {
-                                  label,
-                                  url,
-                              },
-                              children,
-                              callback: () =>
-                                  (proxi.currentAccordionId = index),
-                          })}
+                          ${staticProps(
+                              /** @type {NavigationSubmenu['state']} */ {
+                                  headerButton: {
+                                      label,
+                                      url,
+                                  },
+                                  children,
+                                  callback: () =>
+                                      (proxi.currentAccordionId = index),
+                              }
+                          )}
                           ${bindProps(
                               /** @returns {ReturnBindProps<NavigationSubmenu>} */
                               () => ({
@@ -60,13 +67,15 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                 : html`
                       <li class="l-navigation__item">
                           <mob-navigation-button
-                              ${staticProps({
-                                  label,
-                                  url,
-                                  scrollToSection:
-                                      scrollToSection ?? 'no-scroll',
-                                  activeId: activeId ?? -1,
-                              })}
+                              ${staticProps(
+                                  /** @type {NavigationButton['state']} */ ({
+                                      label,
+                                      url,
+                                      scrollToSection:
+                                          scrollToSection ?? 'no-scroll',
+                                      activeId: activeId ?? -1,
+                                  })
+                              )}
                           ></mob-navigation-button>
                       </li>
                   `;

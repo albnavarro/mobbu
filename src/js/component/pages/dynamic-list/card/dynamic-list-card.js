@@ -29,9 +29,11 @@ const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
                 return html`
                     <div class="validate-test-wrapper">
                         <dynamic-list-card-inner
-                            ${staticProps({
-                                key: `${item}`,
-                            })}
+                            ${staticProps(
+                                /** @type {DynamicListCardInner['state']} */ ({
+                                    key: `${item}`,
+                                })
+                            )}
                             ${delegateEvents({
                                 click: () => {
                                     console.log(
@@ -114,9 +116,11 @@ export const DynamicListCardFn = ({
                 <dynamic-list-empty>
                     <dynamic-list-counter
                         slot="empty-slot"
-                        ${staticProps({
-                            parentListId: proxi.parentListId,
-                        })}
+                        ${staticProps(
+                            /** @type {DynamicCounter['state']} */ ({
+                                parentListId: proxi.parentListId,
+                            })
+                        )}
                         ${bindProps(
                             /** @returns {ReturnBindProps<DynamicCounter>} */
                             () => ({

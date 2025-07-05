@@ -24,14 +24,16 @@ function getSubmenu({ proxi, staticProps }) {
             return html`
                 <li class="l-navigation__submenu__item">
                     <mob-navigation-button
-                        ${staticProps({
-                            callback: proxi.callback,
-                            label,
-                            url,
-                            subMenuClass: 'l-navigation__link--submenu',
-                            scrollToSection,
-                            activeId: activeId ?? -1,
-                        })}
+                        ${staticProps(
+                            /** @type {NavigationButton['state']} */ ({
+                                callback: proxi.callback,
+                                label,
+                                url,
+                                subMenuClass: 'l-navigation__link--submenu',
+                                scrollToSection,
+                                activeId: activeId ?? -1,
+                            })
+                        )}
                     ></mob-navigation-button>
                 </li>
             `;
@@ -98,17 +100,19 @@ export const NavigationSubmenuFn = ({
     return html`
         <li class="l-navigation__item has-child">
             <mob-navigation-button
-                ${staticProps({
-                    label,
-                    url,
-                    arrowClass: 'l-navigation__link--arrow',
-                    fireRoute: false,
-                    activeId: activeId ?? -1,
-                    callback: () => {
-                        proxi.isOpen = !proxi.isOpen;
-                        if (proxi.isOpen) proxi.callback();
-                    },
-                })}
+                ${staticProps(
+                    /** @type {NavigationButton['state']} */ ({
+                        label,
+                        url,
+                        arrowClass: 'l-navigation__link--arrow',
+                        fireRoute: false,
+                        activeId: activeId ?? -1,
+                        callback: () => {
+                            proxi.isOpen = !proxi.isOpen;
+                            if (proxi.isOpen) proxi.callback();
+                        },
+                    })
+                )}
                 ${bindProps(
                     /** @returns {ReturnBindProps<NavigationButton>} */
                     () => ({
