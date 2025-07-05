@@ -16,6 +16,9 @@
 
 # MobJs
 
+## ParserHTML
+- Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
+
 ## Search
 - Implementare search.
 
