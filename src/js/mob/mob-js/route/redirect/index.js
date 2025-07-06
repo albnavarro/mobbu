@@ -1,10 +1,10 @@
 /**
- * @type {import('@mobJsType').RedirectFunction} params.route
+ * @type {import('../../type').RedirectFunction} params.route
  */
 let redirectFunction = ({ route }) => route;
 
 /**
- * @param {import('@mobJsType').RedirectFunction} fn
+ * @param {import('../../type').RedirectFunction} fn
  * @returns {void}
  */
 export const setRedirectFunction = (fn) => {

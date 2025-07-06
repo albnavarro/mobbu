@@ -1,4 +1,4 @@
-import { MobCore, MobDetectBindKey } from '@mobCore';
+import { MobCore, MobDetectBindKey } from '../../../../mob-core';
 
 /**
  * @param {string | string[] | (() => any)[] | (() => any) | undefined} bindProp
