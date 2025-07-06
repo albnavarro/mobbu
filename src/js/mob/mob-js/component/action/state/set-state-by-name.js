@@ -2,16 +2,16 @@ import { getIdByInstanceName } from '../component';
 import { setStateById } from './set-state-by-id';
 
 /**
- * Set state
+ * Set state by name
  *
+ * @template T
  * @param {string} name
- * @returns {(prop: string, value: any, options?: { emit?: boolean }) => void}
+ * @returns {import('../../../type').SetStateByName<T>}
  */
-
 export const setStateByName = (name = '') => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
 
     return (prop, value, { emit = true } = {}) =>
-        setStateById(id, prop, value, { emit });
+        setStateById(id, /** @type {string} */ (prop), value, { emit });
 };

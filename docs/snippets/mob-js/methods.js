@@ -1,7 +1,9 @@
 /**
-export type PartialMethods = (
-    name: string,
-    fn: (...args: any[]) => void
+export type PartialMethods<T> = <
+    K extends keyof Record<string & keyof ExtractMethods<T>, function>,
+>(
+    name: K,
+    fn: ExtractMethods<T>[K]
 ) => void;
 **/
 

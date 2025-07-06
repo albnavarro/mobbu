@@ -7,7 +7,7 @@ import { checkIfStateIsExportable } from './check-if-state-is-exportable';
  *
  * @param {string} id
  * @param {string} prop
- * @param {() => {}} value
+ * @param {() => any} value
  * @param {{ emit?: boolean; clone?: boolean }} [options]
  * @returns {void}
  */

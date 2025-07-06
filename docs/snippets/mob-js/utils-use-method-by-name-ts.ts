@@ -1,5 +1,4 @@
 import { MobJs } from '@mobJs';
-import { UseMethodByName } from '@mobJsType';
 import { MyOtherComponent } from '../otherComponent/type';
 
 /**
@@ -7,7 +6,6 @@ import { MyOtherComponent } from '../otherComponent/type';
  */
 import { otherComponentName } from '..';
 
-const methods: UseMethodByName<MyOtherComponent> =
-    MobJs.useMethodByName(otherComponentName);
+const methods = MobJs.useMethodByName<MyOtherComponent>(otherComponentName);
 
 methods?.myMethod('my_label');

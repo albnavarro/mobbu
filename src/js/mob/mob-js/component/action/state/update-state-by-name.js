@@ -2,10 +2,11 @@ import { getIdByInstanceName } from '../component';
 import { updateStateById } from './update-state-by-id';
 
 /**
- * Set state
+ * Update state by name
  *
+ * @template T
  * @param {string} name
- * @returns {(prop: string, value: any, options?: { emit?: boolean; clone?: boolean }) => void}
+ * @returns {import('../../../type').UpdateStateByName<T>}
  */
 
 export const updateStateByName = (name = '') => {
@@ -13,5 +14,13 @@ export const updateStateByName = (name = '') => {
     if (!id) console.warn(`component ${name}, not found`);
 
     return (prop, value, { emit = true, clone = false } = {}) =>
-        updateStateById(id, prop, value, { emit, clone });
+        updateStateById(
+            id,
+            /** @type {string} */ (prop),
+            /** @type {() => any} */ (value),
+            {
+                emit,
+                clone,
+            }
+        );
 };
