@@ -37266,7 +37266,6 @@ Loading snippet ...</pre
     { word: "mobMotion" },
     // MobJS
     { word: "component" },
-    { word: "component" },
     { word: "Initialization" },
     { word: "Root" },
     { word: "Web component" },
@@ -37318,7 +37317,6 @@ Loading snippet ...</pre
     { word: "params" },
     { word: "instanceName" },
     { word: "classList" },
-    { word: "slot" },
     { word: "utils" },
     { word: "unbind" },
     { word: "emit" },

@@ -26,6 +26,8 @@
 
 ## Search
 - Implementare search.
+- `src/js/component/common/search/search-overlay/header/suggestion-list.js`:
+    - caricarla nel data generale
 
 ## BindStore
 - Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:
