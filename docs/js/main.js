@@ -37515,6 +37515,10 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/search/search-overlay/header/suggestion/suggestion.js
+  var sendWord = (word) => {
+    const headerMethods = useMethodByName(searchOverlayHeader);
+    headerMethods?.forceInputValue(word);
+  };
   var SearchOverlaySuggestionFn = ({
     getProxi,
     repeat,
@@ -37536,21 +37540,11 @@ Loading snippet ...</pre
                                     class="search-overlay-suggestion__button"
                                     ${delegateEvents({
           click: () => {
-            const headerMethods = useMethodByName(
-              searchOverlayHeader
-            );
-            headerMethods?.forceInputValue(
-              current.value.word
-            );
+            sendWord(current.value.word);
           },
           keypress: (event) => {
             if (event.code.toLowerCase() === "enter") {
-              const headerMethods = useMethodByName(
-                searchOverlayHeader
-              );
-              headerMethods?.forceInputValue(
-                current.value.word
-              );
+              sendWord(current.value.word);
             }
           }
         })}

@@ -6,6 +6,18 @@ import { html } from '@mobJs';
 import { searchOverlayHeader } from 'src/js/component/instance-name';
 import { useMethodByName } from 'src/js/mob/mob-js/modules';
 
+/**
+ * @param {string} word
+ * @returns {void}
+ */
+const sendWord = (word) => {
+    /**
+     * @type {UseMethodByName<import('../type').SearchOverlayHeader>}
+     */
+    const headerMethods = useMethodByName(searchOverlayHeader);
+    headerMethods?.forceInputValue(word);
+};
+
 /** @type {MobComponent<import('./type').SearchOverlaySuggestion>} */
 export const SearchOverlaySuggestionFn = ({
     getProxi,
@@ -29,18 +41,7 @@ export const SearchOverlaySuggestionFn = ({
                                     class="search-overlay-suggestion__button"
                                     ${delegateEvents({
                                         click: () => {
-                                            /**
-                                             * @type {UseMethodByName<import('../type').SearchOverlayHeader>}
-                                             */
-                                            const headerMethods =
-                                                useMethodByName(
-                                                    searchOverlayHeader
-                                                );
-
-                                            // Send value to input
-                                            headerMethods?.forceInputValue(
-                                                current.value.word
-                                            );
+                                            sendWord(current.value.word);
                                         },
                                         keypress: (
                                             /** @type {KeyboardEvent} */ event
@@ -49,18 +50,7 @@ export const SearchOverlaySuggestionFn = ({
                                                 event.code.toLowerCase() ===
                                                 'enter'
                                             ) {
-                                                /**
-                                                 * @type {UseMethodByName<import('../type').SearchOverlayHeader>}
-                                                 */
-                                                const headerMethods =
-                                                    useMethodByName(
-                                                        searchOverlayHeader
-                                                    );
-
-                                                // Send value to input
-                                                headerMethods?.forceInputValue(
-                                                    current.value.word
-                                                );
+                                                sendWord(current.value.word);
                                             }
                                         },
                                     })}
