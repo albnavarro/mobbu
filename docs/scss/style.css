@@ -4279,6 +4279,21 @@ h2 .title-index {
   display: block;
   width: 100%;
   text-align: left;
+  position: relative;
+  padding-left: 0.6666666667rem;
+}
+.search-overlay-suggestion__button:focus {
+  outline: none;
+}
+.search-overlay-suggestion__button:focus::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 50%;
+  height: 1rem;
+  width: 2px;
+  background: #fff;
+  transform: translateY(-50%);
 }
 .test-grid {
   margin-top: 6.6666666667rem;

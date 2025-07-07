@@ -15,5 +15,22 @@
         display: block;
         width: 100%;
         text-align: left;
+        position: relative;
+        padding-left: rem(10);
+
+        &:focus {
+            outline: none;
+
+            &::after {
+                position: absolute;
+                content: '';
+                left: 0;
+                top: 50%;
+                height: rem(15);
+                width: 2px;
+                background: $white;
+                transform: translateY(-50%);
+            }
+        }
     }
 }

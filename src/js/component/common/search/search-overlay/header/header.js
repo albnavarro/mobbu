@@ -67,7 +67,7 @@ const sendReset = ({ getRef, proxi }) => {
  */
 const filterSuggestion = ({ currentSearch, proxi }) => {
     proxi.suggestionListData =
-        currentSearch.length < 2
+        currentSearch.length === 0
             ? []
             : searchSuggestionKey.filter(({ word }) => {
                   return word

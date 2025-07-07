@@ -37327,7 +37327,7 @@ Loading snippet ...</pre
     proxi.suggestionListData = [];
   };
   var filterSuggestion = ({ currentSearch, proxi }) => {
-    proxi.suggestionListData = currentSearch.length < 2 ? [] : searchSuggestionKey.filter(({ word }) => {
+    proxi.suggestionListData = currentSearch.length === 0 ? [] : searchSuggestionKey.filter(({ word }) => {
       return word.toLowerCase().includes(currentSearch.toLowerCase());
     });
     proxi.suggestionListActive = true;
