@@ -10,3 +10,6 @@ export const scrollToName = 'scroll_to';
 export const headerName = 'header';
 export const mobNavigationName = 'mob_navigation';
 export const mobNavigationContainerName = 'mob_navigation_container';
+export const searchOverlay = 'search_overlay';
+export const searchOverlayList = 'search_overlay_list';
+export const searchOverlayHeader = 'search_overlay_header';

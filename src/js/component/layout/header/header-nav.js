@@ -76,6 +76,9 @@ function additems({ delegateEvents }) {
 export const HeadernavFn = ({ delegateEvents }) => {
     return html`
         <ul class="l-header__sidenav">
+            <li class="l-header__sidenav__item">
+                <search-cta></search-cta>
+            </li>
             ${additems({ delegateEvents })}
         </ul>
     `;

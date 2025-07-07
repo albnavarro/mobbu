@@ -2,6 +2,7 @@ import { MobJs } from '@mobJs';
 import { HeaderFn } from './header';
 import { HeadernavFn } from './header-nav';
 import { HeaderToggleFn } from './header-toggle';
+import { Search } from '@commonComponent/search/cta-search/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -12,6 +13,7 @@ export const HeaderNav = MobJs.createComponent(
     ({
         tag: 'mob-header-nav',
         component: HeadernavFn,
+        child: [Search],
     })
 );
 

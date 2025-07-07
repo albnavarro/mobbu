@@ -16,7 +16,9 @@ import {
     quickNavName,
     scrollDownLabelName,
     scrollToTopName,
+    searchOverlay,
 } from '../component/instance-name';
+import { SearchOverlay } from '@commonComponent/search/search-overlay/definition';
 
 MobJs.useComponent([
     Header,
@@ -29,6 +31,7 @@ MobJs.useComponent([
     LinksMobJs,
     DebugOverlay,
     TestScssGrid,
+    SearchOverlay,
 ]);
 
 export const wrapper = async () => {
@@ -54,5 +57,6 @@ export const wrapper = async () => {
         <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
         <scroll-to-top name="${scrollToTopName}"></scroll-to-top>
         <links-mobjs></links-mobjs>
+        <search-overlay name="${searchOverlay}"></search-overlay>
     `;
 };

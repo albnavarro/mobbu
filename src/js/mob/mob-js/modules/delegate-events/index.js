@@ -134,6 +134,7 @@ async function handleAction(eventKey, event) {
      * Replace target with new target ( parent of original target if event.tatget is inside )
      */
     Object.defineProperty(event, 'target', { value: targetParsed });
+    Object.defineProperty(event, 'currentTarget', { value: target });
 
     /**
      * Fire callback.

@@ -12,6 +12,7 @@
         width: rem(150);
         background: transparent;
         border: 1px $white solid;
+        min-height: rem(22);
     }
 
     &__button {

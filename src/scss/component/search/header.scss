@@ -1,0 +1,59 @@
+@use '../../abstract' as *;
+
+.search-overlay-header {
+    &__input {
+        width: rem(400);
+        background: transparent;
+        border: 1px $white solid;
+        min-height: rem(36);
+        padding-left: rem(10);
+    }
+
+    &__button {
+        background: transparent;
+        border: 1px $white solid;
+        padding-inline: rem(20);
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 0;
+        display: inline-block;
+        min-height: rem(36);
+        line-height: 1.7;
+        transition:
+            background 0.35s,
+            color 0.35s;
+
+        @include on-event {
+            background: $white;
+            color: $black;
+        }
+    }
+
+    &__input-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    &__suggestion-container {
+        position: absolute;
+        z-index: 23;
+        top: rem(42);
+        left: 0;
+        right: 0;
+        border: 1px $white solid;
+        margin-left: 0;
+        background: rgba($black, 0.8);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            opacity 0.35s,
+            visibility 0.35s;
+
+        &.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+    }
+}
