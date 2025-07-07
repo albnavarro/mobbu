@@ -12,5 +12,6 @@ export interface SearchOverlayHeader {
     methods: {
         forceInputValue: (value: string) => void;
         closeSuggestion: (element: HTMLElement) => void;
+        setInputFocus: () => void;
     };
 }

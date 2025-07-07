@@ -36585,6 +36585,8 @@ Loading snippet ...</pre
       click: () => {
         const overlayMethods = useMethodByName(searchOverlay);
         overlayMethods?.toggle();
+        const headerMethods = useMethodByName(searchOverlayHeader);
+        headerMethods?.setInputFocus();
       }
     })}
     >
@@ -37353,6 +37355,11 @@ Loading snippet ...</pre
       addMethod("closeSuggestion", (element) => {
         if (suggestionElement !== element && !suggestionElement.contains(element))
           proxi.suggestionListActive = false;
+      });
+      addMethod("setInputFocus", async () => {
+        setTimeout(() => {
+          search_input.focus();
+        }, 300);
       });
     });
     return renderHtml`<div class="search-overlay-header">

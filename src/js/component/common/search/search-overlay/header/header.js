@@ -113,6 +113,15 @@ export const SearchOverlayHeaderFn = ({
             )
                 proxi.suggestionListActive = false;
         });
+
+        addMethod('setInputFocus', async () => {
+            /**
+             * Wait animation completed before set focus to input
+             */
+            setTimeout(() => {
+                search_input.focus();
+            }, 300);
+        });
     });
 
     return html`<div class="search-overlay-header">

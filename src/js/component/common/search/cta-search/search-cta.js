@@ -8,7 +8,10 @@ import searchSvg from '../../../../../svg/search.svg';
  */
 
 import { html } from '@mobJs';
-import { searchOverlay } from 'src/js/component/instance-name';
+import {
+    searchOverlay,
+    searchOverlayHeader,
+} from 'src/js/component/instance-name';
 
 /** @type {MobComponent} */
 export const SearchCtaFn = ({ delegateEvents }) => {
@@ -22,6 +25,12 @@ export const SearchCtaFn = ({ delegateEvents }) => {
                  */
                 const overlayMethods = useMethodByName(searchOverlay);
                 overlayMethods?.toggle();
+
+                /**
+                 * @type {UseMethodByName<import('../search-overlay/header/type').SearchOverlayHeader>}
+                 */
+                const headerMethods = useMethodByName(searchOverlayHeader);
+                headerMethods?.setInputFocus();
             },
         })}
     >
