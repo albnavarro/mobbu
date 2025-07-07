@@ -7425,6 +7425,14 @@
     index
   }) => {
     const inistalState = getStateById(id);
+    const keyIsDuplicated = hasKey ? inistalState?.[bind]?.filter(
+      (item) => item[key] === keyValue
+    )?.length > 1 : false;
+    if (keyIsDuplicated) {
+      console.warn(
+        ` ${keyValue} is keyIsDuplicated, repeater ( { current } ) proxi can fail `
+      );
+    }
     const startValue = hasKey ? inistalState?.[bind]?.find(
       (item) => item[key] === keyValue
     ) : inistalState?.[bind]?.[index];
@@ -37344,7 +37352,6 @@ Loading snippet ...</pre
     { word: "useMouseUp" },
     { word: "useTouchMove" },
     { word: "useTouchStart" },
-    { word: "useTouchMove" },
     { word: "useTouchEnd" },
     { word: "useMouseWheel" },
     { word: "usePointerEvent" },

@@ -92,7 +92,6 @@ export const searchSuggestionKey = [
     { word: 'useMouseUp' },
     { word: 'useTouchMove' },
     { word: 'useTouchStart' },
-    { word: 'useTouchMove' },
     { word: 'useTouchEnd' },
     { word: 'useMouseWheel' },
     { word: 'usePointerEvent' },

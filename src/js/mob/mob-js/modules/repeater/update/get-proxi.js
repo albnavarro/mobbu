@@ -29,6 +29,20 @@ export const getRepeatProxi = ({
      * Initial value.
      */
     const inistalState = getStateById(id);
+
+    const keyIsDuplicated = hasKey
+        ? inistalState?.[bind]?.filter(
+              (/** @type {{ [x: string]: any }} */ item) =>
+                  item[key] === keyValue
+          )?.length > 1
+        : false;
+
+    if (keyIsDuplicated) {
+        console.warn(
+            ` ${keyValue} is keyIsDuplicated, repeater ( { current } ) proxi can fail `
+        );
+    }
+
     const startValue = hasKey
         ? inistalState?.[bind]?.find(
               (/** @type {{ [x: string]: any }} */ item) =>
