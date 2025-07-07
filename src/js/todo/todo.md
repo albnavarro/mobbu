@@ -26,8 +26,8 @@
 
 ## Search
 - Implementare search.
-- `src/js/component/common/search/search-overlay/header/suggestion-list.js`:
-    - caricarla nel data generale
+- `src/js/component/common/search/search-overlay/header/suggestion-list.js`: caricarla nel data generale
+- usare una logica tipo `getDataFiltered` in `src/js/component/common/debug/debug-overlay/debug-filter/list/debug-filter-list.js` nella ricerca delle parole nella `suggestion list`
 
 ## BindStore
 - Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:
