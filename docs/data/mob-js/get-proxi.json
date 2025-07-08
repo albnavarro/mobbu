@@ -26,7 +26,16 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and <span class='quote'>inherits</span> all its functionality. The getProxi() function is equivalent to myStore.getProxi(). Component states are declared in the component's definition."
+            "content": "the state of the component is based on the <strong><a href='#mobCore-store'>store</a></strong> defined in <strong>mobCore</strong> and <span class='quote'>inherits</span> all its functionality. The <strong>getProxi()</strong> function is equivalent to <strong>myStore.getProxi()</strong>. Component states are declared in the component's definition."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "The use of proxies helps to <strong>avoid</strong> having to <strong>explicitly declare the dependencies</strong> of the various support functions of the component. Each function will still maintain the possibility of an explicit declaration of all its parameters and dependencies.<br/>By using <strong>proxies</strong> it is possible to <strong>read</strong> and <strong>modify</strong> a state value in the simplest way."
         },
         {
             "component": "mob-spacer",

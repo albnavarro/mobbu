@@ -29,6 +29,15 @@
             "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The updateState() function is equivalent to myStore.update(). Component states are declared in the component's definition"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "<strong>updateState</strong> is an alternative to using <strong>proxies</strong> to update the current state value.<br/>Using this feature has <strong>more options</strong> than proxy. Options are available in the <strong><a href='#mobCore-store'>store</a></strong> guide"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"

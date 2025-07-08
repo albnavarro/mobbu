@@ -29,6 +29,15 @@
             "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and <span class='quote'>inherits</span> all its functionality. The setState() function is equivalent to myStore.set(). Component states are declared in the <span class='quote'>component's definition</span>"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "<strong>setState</strong> is an alternative to using <strong>proxies</strong> to update the current state value.<br/>Using this feature has <strong>more options</strong> than proxy. Options are available in the <strong><a href='#mobCore-store'>store</a></strong> guide"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"

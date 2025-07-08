@@ -517,6 +517,15 @@
                         }
                     },
                     {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "By using <strong>proxies</strong> it is possible to <strong>read</strong> and <strong>modify</strong> a state value in the simplest way."
+                    },
+                    {
                         "component": "mob-spacer",
                         "props": {
                             "style": "medium"
@@ -573,6 +582,15 @@
                             "style": "medium"
                         },
                         "content": "Set store value:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "<strong>set</strong> is an alternative to using <strong>proxies</strong> to update the current state value.<br/>Using this feature has <strong>more options</strong> than proxy"
                     },
                     {
                         "component": "mob-snippet",
@@ -668,6 +686,15 @@
                             "style": "medium"
                         },
                         "content": "Update store value:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "<strong>update</strong> is an alternative to using <strong>proxies</strong> to update the current state value.<br/>Using this feature has <strong>more options</strong> than proxy"
                     },
                     {
                         "component": "mob-snippet",
@@ -766,6 +793,15 @@
                         "content": "This method will return the complete store, use object destructuring to retrieve the desired property."
                     },
                     {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "<strong>get</strong> is an alternative to using <strong>proxies</strong> to read the current state value"
+                    },
+                    {
                         "component": "mob-snippet",
                         "props": {
                             "source": "./snippets/mob-core/get.js",
@@ -796,6 +832,15 @@
                             "style": "medium"
                         },
                         "content": "This method will return a specific prop from store."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "<strong>getProp</strong> is an alternative to using <strong>proxies</strong> to read the current state value"
                     },
                     {
                         "component": "mob-snippet",
