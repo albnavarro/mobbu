@@ -4073,6 +4073,7 @@ h2 .title-index {
 .search-cta {
   background: transparent;
   border: 0;
+  display: none;
 }
 .search-overlay {
   position: fixed;
