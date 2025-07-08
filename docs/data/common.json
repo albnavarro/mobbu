@@ -937,6 +937,8 @@
         { "word": "useScrollStart" },
         { "word": "checkType" },
 
+        { "word": "ScrollTrigger" },
+        { "word": "Parallax" },
         { "word": "stagger" },
         { "word": "Tween" },
         { "word": "Spring" },
