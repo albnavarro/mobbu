@@ -91,6 +91,15 @@
             "content": "<strong>no key used:</strong> If no key is specified or, only new items will be added, but persistent items will not be affected. Each recycled component will be updated through the bindProps function."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "If a <strong>key</strong> is used, make sure that the <strong>array</strong> of items always has a <strong>unique</strong> key, otherwise the <strong>proxy</strong> tied to the single item may fail."
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"

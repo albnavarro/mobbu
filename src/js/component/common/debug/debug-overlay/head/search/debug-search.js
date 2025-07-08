@@ -24,7 +24,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                 type="text"
                 ${setRef('id_input')}
                 ${delegateEvents({
-                    keypress: (/** @type {KeyboardEvent} */ event) => {
+                    keydown: (/** @type {KeyboardEvent} */ event) => {
                         if (event.code.toLowerCase() === 'enter') {
                             event.preventDefault();
 
@@ -62,7 +62,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                 type="text"
                 ${setRef('instance_input')}
                 ${delegateEvents({
-                    keypress: (/** @type {KeyboardEvent} */ event) => {
+                    keydown: (/** @type {KeyboardEvent} */ event) => {
                         if (event.code.toLowerCase() === 'enter') {
                             event.preventDefault();
 

@@ -628,7 +628,7 @@ code {
 .match-string {
   position: relative;
   display: inline;
-  opacity: 0.5;
+  background: #2e3440;
 }
 .u-any-center-svg {
   position: relative;
@@ -4167,6 +4167,12 @@ h2 .title-index {
   margin-bottom: 1.3333333333rem;
   padding-bottom: 1.3333333333rem;
   border-bottom: 1px rgba(255, 255, 255, 0.4) solid;
+}
+.search-overlay-list__button {
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  border: 0;
 }
 .search-overlay-list__scrollbar {
   position: absolute;

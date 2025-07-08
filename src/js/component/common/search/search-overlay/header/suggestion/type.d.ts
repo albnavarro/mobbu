@@ -1,5 +1,6 @@
 export interface SuggestionItem {
     word: string;
+    wordHiglight: string;
 }
 
 export interface SearchOverlaySuggestion {

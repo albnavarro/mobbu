@@ -1,9 +1,25 @@
 /**
- * @import {GetRef, MobComponent} from '@mobJsType';
+ * @import {GetRef, MobComponent, UseMethodByName} from '@mobJsType';
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { html, MobJs } from '@mobJs';
+import { searchOverlay } from 'src/js/component/instance-name';
+import { useMethodByName } from 'src/js/mob/mob-js/modules';
+
+/**
+ * @param {object} params
+ * @param {string} params.uri
+ */
+const loadPage = ({ uri }) => {
+    MobJs.loadUrl({ url: uri });
+
+    /**
+     * @type {UseMethodByName<import('../type').SearchOverlay>}
+     */
+    const searchMethods = useMethodByName(searchOverlay);
+    searchMethods?.toggle();
+};
 
 /**
  * @param {object} params
@@ -50,13 +66,22 @@ export const SearchOverlayListFn = ({
     onMount,
     watch,
     addMethod,
+    delegateEvents,
 }) => {
     const proxi = getProxi();
 
-    addMethod('update', (data) => {
-        // proxi.list = [...data];
-
-        proxi.list = [...proxi.list, ...data];
+    /**
+     * TODO: fetch result and update proxi.list
+     */
+    addMethod('update', (currentSearch) => {
+        proxi.list = [
+            ...proxi.list,
+            {
+                section: currentSearch,
+                title: currentSearch,
+                uri: `#${currentSearch}`,
+            },
+        ];
     });
 
     addMethod('reset', () => {
@@ -114,15 +139,25 @@ export const SearchOverlayListFn = ({
                 render: ({ current }) => {
                     return html`
                         <li class="search-overlay-list__item">
-                            <div class="search-overlay-list__section">
-                                ${bindObject`section: ${() => current.value.section}`}
-                            </div>
-                            <div class="search-overlay-list__title">
-                                ${bindObject`title: ${() => current.value.title}`}
-                            </div>
-                            <div class="search-overlay-list__uri">
-                                ${bindObject`uri: ${() => current.value.uri}`}
-                            </div>
+                            <button
+                                type="button"
+                                class="search-overlay-list__button"
+                                ${delegateEvents({
+                                    click: () => {
+                                        loadPage({ uri: current.value.uri });
+                                    },
+                                })}
+                            >
+                                <div class="search-overlay-list__section">
+                                    ${bindObject`section: ${() => current.value.section}`}
+                                </div>
+                                <div class="search-overlay-list__title">
+                                    ${bindObject`title: ${() => current.value.title}`}
+                                </div>
+                                <div class="search-overlay-list__uri">
+                                    ${bindObject`uri: ${() => current.value.uri}`}
+                                </div>
+                            </button>
                         </li>
                     `;
                 },

@@ -18,6 +18,32 @@ const sendWord = (word) => {
     headerMethods?.forceInputValue(word);
 };
 
+const onEsc = () => {
+    /**
+     * @type {UseMethodByName<import('../type').SearchOverlayHeader>}
+     */
+    const headerMethods = useMethodByName(searchOverlayHeader);
+    headerMethods?.closeSuggestion();
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.code
+ * @param {string} params.word
+ * @returns {void}
+ */
+const onKeyDown = ({ code, word }) => {
+    if (code.toLowerCase() === 'enter') {
+        sendWord(word);
+        return;
+    }
+
+    if (code.toLowerCase() === 'escape') {
+        onEsc();
+        return;
+    }
+};
+
 /** @type {MobComponent<import('./type').SearchOverlaySuggestion>} */
 export const SearchOverlaySuggestionFn = ({
     getProxi,
@@ -43,19 +69,19 @@ export const SearchOverlaySuggestionFn = ({
                                         click: () => {
                                             sendWord(current.value.word);
                                         },
-                                        keypress: (
+                                        keydown: (
                                             /** @type {KeyboardEvent} */ event
                                         ) => {
-                                            if (
-                                                event.code.toLowerCase() ===
-                                                'enter'
-                                            ) {
-                                                sendWord(current.value.word);
-                                            }
+                                            event.preventDefault();
+
+                                            onKeyDown({
+                                                code: event.code,
+                                                word: current.value.word,
+                                            });
                                         },
                                     })}
                                 >
-                                    ${bindObject`${() => current.value.word}`}
+                                    ${bindObject`${() => current.value.wordHiglight}`}
                                 </button>
                             </li>
                         `;

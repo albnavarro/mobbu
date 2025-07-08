@@ -25,9 +25,22 @@
 - Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
 
 ## Search
-- Implementare search.
-- `src/js/component/common/search/search-overlay/header/suggestion-list.js`: caricarla nel data generale
-- usare una logica tipo `getDataFiltered` in `src/js/component/common/debug/debug-overlay/debug-filter/list/debug-filter-list.js` nella ricerca delle parole nella `suggestion list`
+- fetch:
+    - il `fetch` va fatto in `src/js/component/common/search/search-overlay/list/list.js`
+    - Nella definizione del metodo `update` arriva la parola chiave da cercare.
+    - Fare eun update dello stato `proxi.list`
+
+- cache:
+    - `https://medium.com/@ignatovich.dm/javascript-symbols-and-weakmaps-designing-truly-private-and-unique-properties-236ef0dbb7db`
+    - `https://www.linkedin.com/posts/sumitanalyzen_node-javascript-codingisfun-activity-7257672141037293568-c-6a`
+
+- Usare `routes` array da `src/js/pages/index.js` per recuperare gli end point per i `fetch`.
+    - usare gli item con `props.source` && `props.title`
+    - il `name` sará la rotta.
+
+## Repeat
+Documentare **Current type** es: `src/js/component/pages/dynamic-list/repeaters/dynamic-list-repeater.js`
+
 
 ## BindStore
 - Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:

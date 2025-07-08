@@ -63,9 +63,19 @@ export const DynamicListCardFn = ({
     bindText,
     bindEffect,
     getProxi,
+    computed,
 }) => {
     const proxi = getProxi();
     let repeaterIndex = 0;
+
+    computed(
+        () => proxi.innerDataUnivoque,
+        () =>
+            proxi.innerData.filter(
+                (value, index, self) =>
+                    self.map(({ key }) => key).indexOf(value.key) === index
+            )
+    );
 
     onMount(async () => {
         (async () => {
@@ -153,7 +163,7 @@ export const DynamicListCardFn = ({
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
-                            bind: () => proxi.innerData,
+                            bind: () => proxi.innerDataUnivoque,
                             key: 'key',
                             render: ({ current }) => {
                                 return html`<dynamic-list-card-inner

@@ -79,7 +79,7 @@ export const benchMarkListExternalPartial = ({
                 placeholder="Number of component"
                 ${setRef('input')}
                 ${delegateEvents({
-                    keypress: (/** @type {KeyboardEvent} */ event) => {
+                    keydown: (/** @type {KeyboardEvent} */ event) => {
                         if (event.code.toLowerCase() === 'enter') {
                             event.preventDefault();
 

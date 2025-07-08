@@ -18,6 +18,13 @@
         border-bottom: 1px rgba($white, 0.4) solid;
     }
 
+    &__button {
+        background: transparent;
+        width: 100%;
+        text-align: left;
+        border: 0;
+    }
+
     &__scrollbar {
         position: absolute;
         top: 1vh;

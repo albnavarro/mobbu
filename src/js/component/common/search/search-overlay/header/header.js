@@ -2,24 +2,23 @@
  * @import {GetRef, MobComponent, ReturnBindProps, UseMethodByName} from '@mobJsType';
  */
 
+import { getCommonData } from '@data/index';
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
 import { searchOverlayList } from 'src/js/component/instance-name';
 import { useMethodByName } from 'src/js/mob/mob-js/modules';
-import { searchSuggestionKey } from './suggestion-list';
 
 /**
  * @param {object} params
  * @param {GetRef<import('./type').SearchOverlayHeader>} params.getRef
  * @param {import('./type').SearchOverlayHeader['state']} params.proxi
  */
-const sendToList = ({ getRef, proxi }) => {
+const sendToList = ({ getRef }) => {
     const { search_input } = getRef();
     const currentSearch = /** @type {HTMLInputElement} */ (search_input).value;
 
     // send on click submit
     sendSearch({ currentSearch });
-    proxi.suggestionListActive = false;
 };
 
 /**
@@ -33,13 +32,7 @@ const sendSearch = ({ currentSearch }) => {
      * @type {UseMethodByName<import('../list/type').SearchOverlayList>}
      */
     const listMethods = useMethodByName(searchOverlayList);
-    listMethods?.update([
-        {
-            section: 'test section',
-            title: 'test title',
-            uri: '#test_uri',
-        },
-    ]);
+    listMethods?.update(currentSearch);
 };
 
 /**
@@ -56,9 +49,11 @@ const sendReset = ({ getRef, proxi }) => {
 
     const { search_input } = getRef();
     search_input.value = '';
-    proxi.suggestionListActive = false;
     proxi.suggestionListData = [];
 };
+
+// number should fail system.
+const getFakeReplacement = (/** @type {number} */ index) => `~${index}`;
 
 /**
  * @param {object} params
@@ -66,16 +61,63 @@ const sendReset = ({ getRef, proxi }) => {
  * @param {import('./type').SearchOverlayHeader['state']} params.proxi
  */
 const filterSuggestion = ({ currentSearch, proxi }) => {
-    proxi.suggestionListData =
-        currentSearch.length === 0
-            ? []
-            : searchSuggestionKey.filter(({ word }) => {
-                  return word
-                      .toLowerCase()
-                      .includes(currentSearch.toLowerCase());
-              });
+    const mainData = getCommonData();
+    const searchSuggestionKey = mainData.suggestion;
 
-    proxi.suggestionListActive = true;
+    if (currentSearch.length === 0) proxi.suggestionListData = [];
+
+    /**
+     * `~` char is not allowed ( is getFakeReplacement )
+     */
+    const stringParsed =
+        currentSearch
+            .replaceAll('~', '')
+            .split(' ')
+            .filter((block) => block !== '') ?? '';
+
+    proxi.suggestionListData = (
+        searchSuggestionKey.filter(({ word }) => {
+            return stringParsed.every((piece) =>
+                word.toLowerCase().includes(piece.toLowerCase())
+            );
+        }) ?? []
+    ).map(({ word }) => {
+        return {
+            word,
+            wordHiglight: (() => {
+                /**
+                 * Avoid to replce string in <span> tag added. Repelce placeholder, and trask order
+                 */
+                const stringParseWithPlaceholder = stringParsed.reduce(
+                    (previous, current, index) => {
+                        /**
+                         * Exclude string after ~ from substitution ( previuos replace )
+                         */
+                        return previous
+                            .toLowerCase()
+                            .replaceAll(
+                                new RegExp(
+                                    `(?<!~)${current.toLowerCase()}`,
+                                    'g'
+                                ),
+                                `${getFakeReplacement(index)}`
+                            );
+                    },
+                    word
+                );
+
+                /**
+                 * Replace placeholder with real occurrence in original order.
+                 */
+                return stringParsed.reduce((previous, current, index) => {
+                    return previous.replaceAll(
+                        `${getFakeReplacement(index)}`,
+                        `<span class="match-string">${current}</span>`
+                    );
+                }, stringParseWithPlaceholder);
+            })(),
+        };
+    });
 };
 
 /** @type {MobComponent<import('./type').SearchOverlayHeader>} */
@@ -84,12 +126,19 @@ export const SearchOverlayHeaderFn = ({
     getRef,
     setRef,
     getProxi,
-    bindEffect,
     bindProps,
     addMethod,
     onMount,
+    computed,
+    bindEffect,
 }) => {
     const proxi = getProxi();
+
+    // Close suggestion pop-up when no occorrence found
+    computed(
+        () => proxi.suggestionListActive,
+        () => proxi.suggestionListData.length > 0
+    );
 
     onMount(() => {
         const { search_input, suggestionElement } = getRef();
@@ -99,25 +148,32 @@ export const SearchOverlayHeaderFn = ({
          */
         addMethod('forceInputValue', (value) => {
             search_input.value = value;
+            proxi.suggestionListData = [];
             sendSearch({ currentSearch: value });
-            proxi.suggestionListActive = false;
         });
 
         /**
          * Close suggestion from outside ( main component click )
          */
-        addMethod('closeSuggestion', (element) => {
+        addMethod('shouldCloseSuggestion', (element) => {
             if (
                 suggestionElement !== element &&
                 !suggestionElement.contains(element)
             )
-                proxi.suggestionListActive = false;
+                proxi.suggestionListData = [];
         });
 
+        /**
+         * Close suggestion from outside ( main component click )
+         */
+        addMethod('closeSuggestion', () => {
+            proxi.suggestionListData = [];
+        });
+
+        /**
+         * Wait animation completed before set focus to input
+         */
         addMethod('setInputFocus', async () => {
-            /**
-             * Wait animation completed before set focus to input
-             */
             setTimeout(() => {
                 search_input.focus();
             }, 300);
@@ -131,9 +187,6 @@ export const SearchOverlayHeaderFn = ({
                 class="search-overlay-header__input"
                 ${setRef('search_input')}
                 ${delegateEvents({
-                    click: () => {
-                        proxi.suggestionListActive = true;
-                    },
                     keyup: MobCore.useDebounce(
                         (/** @type {KeyboardEvent} */ event) => {
                             // send on enter press
@@ -146,7 +199,7 @@ export const SearchOverlayHeaderFn = ({
 
                             if (event.code.toLowerCase() === 'escape') {
                                 event.preventDefault();
-                                proxi.suggestionListActive = false;
+                                proxi.suggestionListData = [];
                                 return;
                             }
 
@@ -188,7 +241,7 @@ export const SearchOverlayHeaderFn = ({
                 click: () => {
                     sendToList({ getRef, proxi });
                 },
-                keypress: (/** @type {KeyboardEvent} */ event) => {
+                keydown: (/** @type {KeyboardEvent} */ event) => {
                     if (event.code.toLowerCase() === 'enter') {
                         sendToList({ getRef, proxi });
                     }
@@ -206,7 +259,7 @@ export const SearchOverlayHeaderFn = ({
                 click: () => {
                     sendReset({ getRef, proxi });
                 },
-                keypress: (/** @type {KeyboardEvent} */ event) => {
+                keydown: (/** @type {KeyboardEvent} */ event) => {
                     if (event.code.toLowerCase() === 'enter') {
                         sendReset({ getRef, proxi });
                     }

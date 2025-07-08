@@ -43,6 +43,10 @@ export const DynamicListCard = MobJs.createComponent(
                 value: innerData[0],
                 type: Array,
             }),
+            innerDataUnivoque: () => ({
+                value: innerData[0],
+                type: Array,
+            }),
             isSelected: () => ({
                 value: false,
                 type: Boolean,

@@ -36,9 +36,8 @@ const initScroller = async ({ getRef }) => {
     };
 };
 
-const randomString = MobCore.getUnivoqueId();
-const getFakeReplacement = (/** @type {number} */ index) =>
-    `{{${randomString}${index}}}`;
+// number should fail system.
+const getFakeReplacement = (/** @type {number} */ index) => `~${index}`;
 
 /**
  * @param {object} params
@@ -46,8 +45,14 @@ const getFakeReplacement = (/** @type {number} */ index) =>
  * @returns {Omit<DebugFilterListItem['state'], 'currentId'>[]} Params
  */
 const getDataFiltered = ({ testString }) => {
+    /**
+     * `~` char is not allowed ( is getFakeReplacement )
+     */
     const stringParsed =
-        testString.split(' ').filter((block) => block !== '') ?? '';
+        testString
+            .replaceAll('~', '')
+            .split(' ')
+            .filter((block) => block !== '') ?? '';
 
     return (
         [...MobJs.componentMap.values()].filter(({ componentName }) => {
@@ -58,12 +63,12 @@ const getDataFiltered = ({ testString }) => {
         active: false,
         tag: (() => {
             /**
-             * Avoid to replce string in <span> tag added. Repelce placeholder, and trask order
+             * Exclude string after ~ from substitution ( previuos replace )
              */
             const stringParseWithPlaceholder = stringParsed.reduce(
                 (previous, current, index) => {
                     return previous.replaceAll(
-                        current,
+                        new RegExp(`(?<!~)${current.toLowerCase()}`, 'g'),
                         `${getFakeReplacement(index)}`
                     );
                 },

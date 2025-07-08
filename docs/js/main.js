@@ -26394,7 +26394,7 @@ Loading snippet ...</pre
                 placeholder="Number of component"
                 ${setRef("input")}
                 ${delegateEvents({
-      keypress: (event) => {
+      keydown: (event) => {
         if (event.keyCode === 13) {
           event.preventDefault();
           const value = Number(
@@ -26874,7 +26874,7 @@ Loading snippet ...</pre
                 placeholder="Number of component"
                 ${setRef("input")}
                 ${delegateEvents({
-      keypress: (event) => {
+      keydown: (event) => {
         if (event.code.toLowerCase() === "enter") {
           event.preventDefault();
           const value = Number(
@@ -30239,10 +30239,17 @@ Loading snippet ...</pre
     repeat,
     bindText,
     bindEffect,
-    getProxi
+    getProxi,
+    computed
   }) => {
     const proxi = getProxi();
     let repeaterIndex = 0;
+    computed(
+      () => proxi.innerDataUnivoque,
+      () => proxi.innerData.filter(
+        (value, index, self) => self.map(({ key: key2 }) => key2).indexOf(value.key) === index
+      )
+    );
     onMount(async () => {
       (async () => {
         await modules_exports2.tick();
@@ -30324,7 +30331,7 @@ Loading snippet ...</pre
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
-      bind: () => proxi.innerData,
+      bind: () => proxi.innerDataUnivoque,
       key: "key",
       render: ({ current }) => {
         return renderHtml`<dynamic-list-card-inner
@@ -30412,6 +30419,10 @@ Loading snippet ...</pre
           type: Number
         }),
         innerData: () => ({
+          value: innerData[0],
+          type: Array
+        }),
+        innerDataUnivoque: () => ({
           value: innerData[0],
           type: Array
         }),
@@ -30506,16 +30517,23 @@ Loading snippet ...</pre
     bindProps,
     delegateEvents,
     repeat,
-    getProxi
+    getProxi,
+    computed
   }) => {
     const proxi = getProxi();
     const keyParsed = proxi.key.length > 0 ? proxi.key : void 0;
+    computed(
+      () => proxi.dataUnique,
+      () => proxi.data.filter(
+        (value, index, self) => self.map(({ key }) => key).indexOf(value.key) === index
+      )
+    );
     return renderHtml`
         <div class="c-dynamic-list-repeater">
             <h4 class="c-dynamic-list-repeater__title">${proxi.label}</h4>
             <div class="c-dynamic-list-repeater__list">
                 ${repeat({
-      bind: () => proxi.data,
+      bind: () => keyParsed ? proxi.dataUnique : proxi.data,
       clean: proxi.clean,
       key: keyParsed,
       afterUpdate: () => {
@@ -30553,6 +30571,10 @@ Loading snippet ...</pre
       ],
       state: {
         data: () => ({
+          value: [],
+          type: Array
+        }),
+        dataUnique: () => ({
           value: [],
           type: Array
         }),
@@ -34745,7 +34767,7 @@ Loading snippet ...</pre
             value=""
             ${setRef("input")}
             ${delegateEvents({
-      keypress: (event) => {
+      keydown: (event) => {
         if (event.code.toLowerCase() === "enter") {
           event.preventDefault();
           const testString = (
@@ -34806,10 +34828,9 @@ Loading snippet ...</pre
       updateScroller: updateScroller2
     };
   };
-  var randomString = modules_exports.getUnivoqueId();
-  var getFakeReplacement = (index) => `{{${randomString}${index}}}`;
+  var getFakeReplacement = (index) => `~${index}`;
   var getDataFiltered = ({ testString }) => {
-    const stringParsed = testString.split(" ").filter((block) => block !== "") ?? "";
+    const stringParsed = testString.replaceAll("~", "").split(" ").filter((block) => block !== "") ?? "";
     return ([...modules_exports2.componentMap.values()].filter(({ componentName }) => {
       return stringParsed.every((piece) => componentName.includes(piece));
     }) ?? []).map(({ id, componentName, instanceName }) => ({
@@ -34819,7 +34840,7 @@ Loading snippet ...</pre
         const stringParseWithPlaceholder = stringParsed.reduce(
           (previous, current, index) => {
             return previous.replaceAll(
-              current,
+              new RegExp(`(?<!~)${current.toLowerCase()}`, "g"),
               `${getFakeReplacement(index)}`
             );
           },
@@ -35118,7 +35139,7 @@ Loading snippet ...</pre
                 type="text"
                 ${setRef("id_input")}
                 ${delegateEvents({
-      keypress: (event) => {
+      keydown: (event) => {
         if (event.code.toLowerCase() === "enter") {
           event.preventDefault();
           const id = (
@@ -35156,7 +35177,7 @@ Loading snippet ...</pre
                 type="text"
                 ${setRef("instance_input")}
                 ${delegateEvents({
-      keypress: (event) => {
+      keydown: (event) => {
         if (event.code.toLowerCase() === "enter") {
           event.preventDefault();
           const instanceName = (
@@ -36585,16 +36606,19 @@ Loading snippet ...</pre
   var search_default = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<svg\n   viewBox="0 0 60.020653 60.002285"\n   x="0px"\n   y="0px"\n   version="1.1"\n   width="60.020653"\n   height="60.002285"\n   xmlns="http://www.w3.org/2000/svg"\n   xmlns:svg="http://www.w3.org/2000/svg">\n  <path d="m 25.488429,6.1344291e-5 a 25.5,25.5 0 1 0 15,46.129999655709 l 12.7,12.7 a 4.0022244,4.0022244 0 0 0 5.66,-5.66 l -12.7,-12.7 A 25.48,25.48 0 0 0 25.488429,6.1344291e-5 Z m 0,42.999999655709 a 17.5,17.5 0 1 1 17.5,-17.5 17.52,17.52 0 0 1 -17.5,17.5 z" />\n</svg>\n';
 
   // src/js/component/common/search/cta-search/search-cta.js
+  var onClick2 = () => {
+    const overlayMethods = useMethodByName(searchOverlay);
+    overlayMethods?.toggle();
+    const headerMethods = useMethodByName(searchOverlayHeader);
+    headerMethods?.setInputFocus();
+  };
   var SearchCtaFn = ({ delegateEvents }) => {
     return renderHtml`<button
         type="button"
         class="search-cta"
         ${delegateEvents({
       click: () => {
-        const overlayMethods = useMethodByName(searchOverlay);
-        overlayMethods?.toggle();
-        const headerMethods = useMethodByName(searchOverlayHeader);
-        headerMethods?.setInputFocus();
+        onClick2();
       }
     })}
     >
@@ -37195,6 +37219,16 @@ Loading snippet ...</pre
   );
 
   // src/js/component/common/search/search-overlay/search-overlay.js
+  var closeOverlay = ({ proxi }) => {
+    proxi.active = false;
+    const headerMethods = useMethodByName(searchOverlayHeader);
+    headerMethods?.closeSuggestion();
+  };
+  var shouldCloseSuggestion = ({ currentTarget }) => {
+    if (!currentTarget) return;
+    const headerMethods = useMethodByName(searchOverlayHeader);
+    headerMethods?.shouldCloseSuggestion(currentTarget);
+  };
   var SearchOverlayFn = ({
     getProxi,
     delegateEvents,
@@ -37218,7 +37252,7 @@ Loading snippet ...</pre
             type="button"
             ${delegateEvents({
       click: () => {
-        proxi.active = false;
+        closeOverlay({ proxi });
       }
     })}
         ></button>
@@ -37227,7 +37261,7 @@ Loading snippet ...</pre
             class="search-overlay__close"
             ${delegateEvents({
       click: () => {
-        proxi.active = false;
+        closeOverlay({ proxi });
       }
     })}
         ></button>
@@ -37235,13 +37269,12 @@ Loading snippet ...</pre
             class="search-overlay__grid"
             ${delegateEvents({
       click: (event) => {
-        const currentTarget = (
-          /** @type {HTMLElement} */
-          event.currentTarget
-        );
-        if (!currentTarget) return;
-        const headerMethods = useMethodByName(searchOverlayHeader);
-        headerMethods?.closeSuggestion(currentTarget);
+        shouldCloseSuggestion({
+          currentTarget: (
+            /** @type {HTMLElement} */
+            event.currentTarget
+          )
+        });
       }
     })}
         >
@@ -37259,164 +37292,92 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/search/search-overlay/header/suggestion-list.js
-  var searchSuggestionKey = [
-    { word: "mobJs" },
-    { word: "mobCore" },
-    { word: "mobMotion" },
-    // MobJS
-    { word: "component" },
-    { word: "Initialization" },
-    { word: "Root" },
-    { word: "Web component" },
-    { word: "customComponent" },
-    { word: "routing" },
-    { word: "slot" },
-    { word: "tick" },
-    { word: "debug" },
-    { word: "async" },
-    { word: "traversal" },
-    { word: "definition" },
-    { word: "function" },
-    { word: "typescript" },
-    { word: "link" },
-    { word: "page transition" },
-    { word: "redirect" },
-    { word: "beforeRouteChange" },
-    { word: "beforeRouteLeave" },
-    { word: "afterRouteChange" },
-    { word: "activeRoute" },
-    { word: "activeParams" },
-    { word: "loadUrl" },
-    { word: "html" },
-    { word: "useComponent" },
-    { word: "events" },
-    { word: "onMount" },
-    { word: "getProxi" },
-    { word: "getState" },
-    { word: "setState" },
-    { word: "updateState" },
-    { word: "computed" },
-    { word: "watch" },
-    { word: "dataAttribute" },
-    { word: "staticProps" },
-    { word: "bindProps" },
-    { word: "bindEvents" },
-    { word: "delegateEvents" },
-    { word: "bindStore" },
-    { word: "bindText" },
-    { word: "bindObject" },
-    { word: "bindEffect" },
-    { word: "methods" },
-    { word: "refs" },
-    { word: "render" },
-    { word: "renderComponent" },
-    { word: "invalidate" },
-    { word: "repeat" },
-    { word: "static" },
-    { word: "params" },
-    { word: "instanceName" },
-    { word: "classList" },
-    { word: "utils" },
-    { word: "unbind" },
-    { word: "emit" },
-    { word: "emitAsync" },
-    { word: "removeDom" },
-    { word: "remove" },
-    { word: "getChildren" },
-    { word: "freezeProp" },
-    { word: "unFreezeProp" },
-    { word: "getParentId" },
-    { word: "watchParent" },
-    { word: "setStateByName" },
-    { word: "updateStateByName" },
-    { word: "useMethodByName" },
-    { word: "useMethodArrayByName" },
-    //MobCore
-    { word: "store" },
-    { word: "defaults" },
-    { word: "set" },
-    { word: "get" },
-    { word: "getProps" },
-    { word: "destroy" },
-    { word: "useFrame" },
-    { word: "useNextTick" },
-    { word: "useNextFrame" },
-    { word: "useFrameIndex" },
-    { word: "useLoad" },
-    { word: "useResize" },
-    { word: "useVisibilityChange" },
-    { word: "useMouseClick" },
-    { word: "useMouseDown" },
-    { word: "useMouseUp" },
-    { word: "useTouchMove" },
-    { word: "useTouchStart" },
-    { word: "useTouchEnd" },
-    { word: "useMouseWheel" },
-    { word: "usePointerEvent" },
-    { word: "useScroll" },
-    { word: "useScrollImmediate" },
-    { word: "useScrollThrottle" },
-    { word: "useScrollStart" },
-    { word: "checkType" }
-  ];
-
   // src/js/component/common/search/search-overlay/header/header.js
-  var sendToList = ({ getRef, proxi }) => {
+  var sendToList = ({ getRef }) => {
     const { search_input } = getRef();
     const currentSearch = (
       /** @type {HTMLInputElement} */
       search_input.value
     );
     sendSearch({ currentSearch });
-    proxi.suggestionListActive = false;
   };
   var sendSearch = ({ currentSearch }) => {
     console.log("send", currentSearch);
     const listMethods = useMethodByName(searchOverlayList);
-    listMethods?.update([
-      {
-        section: "test section",
-        title: "test title",
-        uri: "#test_uri"
-      }
-    ]);
+    listMethods?.update(currentSearch);
   };
   var sendReset = ({ getRef, proxi }) => {
     const listMethods = useMethodByName(searchOverlayList);
     listMethods?.reset();
     const { search_input } = getRef();
     search_input.value = "";
-    proxi.suggestionListActive = false;
     proxi.suggestionListData = [];
   };
+  var getFakeReplacement2 = (index) => `~${index}`;
   var filterSuggestion = ({ currentSearch, proxi }) => {
-    proxi.suggestionListData = currentSearch.length === 0 ? [] : searchSuggestionKey.filter(({ word }) => {
-      return word.toLowerCase().includes(currentSearch.toLowerCase());
+    const mainData = getCommonData();
+    const searchSuggestionKey = mainData.suggestion;
+    if (currentSearch.length === 0) proxi.suggestionListData = [];
+    const stringParsed = currentSearch.replaceAll("~", "").split(" ").filter((block) => block !== "") ?? "";
+    proxi.suggestionListData = (searchSuggestionKey.filter(({ word }) => {
+      return stringParsed.every(
+        (piece) => word.toLowerCase().includes(piece.toLowerCase())
+      );
+    }) ?? []).map(({ word }) => {
+      return {
+        word,
+        wordHiglight: (() => {
+          const stringParseWithPlaceholder = stringParsed.reduce(
+            (previous, current, index) => {
+              return previous.toLowerCase().replaceAll(
+                new RegExp(
+                  `(?<!~)${current.toLowerCase()}`,
+                  "g"
+                ),
+                `${getFakeReplacement2(index)}`
+              );
+            },
+            word
+          );
+          return stringParsed.reduce((previous, current, index) => {
+            return previous.replaceAll(
+              `${getFakeReplacement2(index)}`,
+              `<span class="match-string">${current}</span>`
+            );
+          }, stringParseWithPlaceholder);
+        })()
+      };
     });
-    proxi.suggestionListActive = true;
   };
   var SearchOverlayHeaderFn = ({
     delegateEvents,
     getRef,
     setRef,
     getProxi,
-    bindEffect,
     bindProps,
     addMethod,
-    onMount
+    onMount,
+    computed,
+    bindEffect
   }) => {
     const proxi = getProxi();
+    computed(
+      () => proxi.suggestionListActive,
+      () => proxi.suggestionListData.length > 0
+    );
     onMount(() => {
       const { search_input, suggestionElement } = getRef();
       addMethod("forceInputValue", (value) => {
         search_input.value = value;
+        proxi.suggestionListData = [];
         sendSearch({ currentSearch: value });
-        proxi.suggestionListActive = false;
       });
-      addMethod("closeSuggestion", (element) => {
+      addMethod("shouldCloseSuggestion", (element) => {
         if (suggestionElement !== element && !suggestionElement.contains(element))
-          proxi.suggestionListActive = false;
+          proxi.suggestionListData = [];
+      });
+      addMethod("closeSuggestion", () => {
+        proxi.suggestionListData = [];
       });
       addMethod("setInputFocus", async () => {
         setTimeout(() => {
@@ -37431,9 +37392,6 @@ Loading snippet ...</pre
                 class="search-overlay-header__input"
                 ${setRef("search_input")}
                 ${delegateEvents({
-      click: () => {
-        proxi.suggestionListActive = true;
-      },
       keyup: modules_exports.useDebounce(
         (event) => {
           if (event.code.toLowerCase() === "enter") {
@@ -37443,7 +37401,7 @@ Loading snippet ...</pre
           }
           if (event.code.toLowerCase() === "escape") {
             event.preventDefault();
-            proxi.suggestionListActive = false;
+            proxi.suggestionListData = [];
             return;
           }
           const currentSearch = (
@@ -37484,7 +37442,7 @@ Loading snippet ...</pre
       click: () => {
         sendToList({ getRef, proxi });
       },
-      keypress: (event) => {
+      keydown: (event) => {
         if (event.code.toLowerCase() === "enter") {
           sendToList({ getRef, proxi });
         }
@@ -37502,7 +37460,7 @@ Loading snippet ...</pre
       click: () => {
         sendReset({ getRef, proxi });
       },
-      keypress: (event) => {
+      keydown: (event) => {
         if (event.code.toLowerCase() === "enter") {
           sendReset({ getRef, proxi });
         }
@@ -37518,6 +37476,20 @@ Loading snippet ...</pre
   var sendWord = (word) => {
     const headerMethods = useMethodByName(searchOverlayHeader);
     headerMethods?.forceInputValue(word);
+  };
+  var onEsc = () => {
+    const headerMethods = useMethodByName(searchOverlayHeader);
+    headerMethods?.closeSuggestion();
+  };
+  var onKeyDown = ({ code, word }) => {
+    if (code.toLowerCase() === "enter") {
+      sendWord(word);
+      return;
+    }
+    if (code.toLowerCase() === "escape") {
+      onEsc();
+      return;
+    }
   };
   var SearchOverlaySuggestionFn = ({
     getProxi,
@@ -37542,14 +37514,16 @@ Loading snippet ...</pre
           click: () => {
             sendWord(current.value.word);
           },
-          keypress: (event) => {
-            if (event.code.toLowerCase() === "enter") {
-              sendWord(current.value.word);
-            }
+          keydown: (event) => {
+            event.preventDefault();
+            onKeyDown({
+              code: event.code,
+              word: current.value.word
+            });
           }
         })}
                                 >
-                                    ${bindObject`${() => current.value.word}`}
+                                    ${bindObject`${() => current.value.wordHiglight}`}
                                 </button>
                             </li>
                         `;
@@ -37598,6 +37572,11 @@ Loading snippet ...</pre
   );
 
   // src/js/component/common/search/search-overlay/list/list.js
+  var loadPage = ({ uri }) => {
+    modules_exports2.loadUrl({ url: uri });
+    const searchMethods = useMethodByName(searchOverlay);
+    searchMethods?.toggle();
+  };
   var initScroller4 = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();
     scrollbar.addEventListener("input", () => {
@@ -37631,11 +37610,19 @@ Loading snippet ...</pre
     getRef,
     onMount,
     watch,
-    addMethod
+    addMethod,
+    delegateEvents
   }) => {
     const proxi = getProxi();
-    addMethod("update", (data) => {
-      proxi.list = [...proxi.list, ...data];
+    addMethod("update", (currentSearch) => {
+      proxi.list = [
+        ...proxi.list,
+        {
+          section: currentSearch,
+          title: currentSearch,
+          uri: `#${currentSearch}`
+        }
+      ];
     });
     addMethod("reset", () => {
       proxi.list = [];
@@ -37682,15 +37669,25 @@ Loading snippet ...</pre
       render: ({ current }) => {
         return renderHtml`
                         <li class="search-overlay-list__item">
-                            <div class="search-overlay-list__section">
-                                ${bindObject`section: ${() => current.value.section}`}
-                            </div>
-                            <div class="search-overlay-list__title">
-                                ${bindObject`title: ${() => current.value.title}`}
-                            </div>
-                            <div class="search-overlay-list__uri">
-                                ${bindObject`uri: ${() => current.value.uri}`}
-                            </div>
+                            <button
+                                type="button"
+                                class="search-overlay-list__button"
+                                ${delegateEvents({
+          click: () => {
+            loadPage({ uri: current.value.uri });
+          }
+        })}
+                            >
+                                <div class="search-overlay-list__section">
+                                    ${bindObject`section: ${() => current.value.section}`}
+                                </div>
+                                <div class="search-overlay-list__title">
+                                    ${bindObject`title: ${() => current.value.title}`}
+                                </div>
+                                <div class="search-overlay-list__uri">
+                                    ${bindObject`uri: ${() => current.value.uri}`}
+                                </div>
+                            </button>
                         </li>
                     `;
       }

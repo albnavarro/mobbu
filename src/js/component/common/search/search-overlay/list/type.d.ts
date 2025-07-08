@@ -9,7 +9,7 @@ export interface SearchOverlayList {
         list: SearchListItem[];
     };
     methods: {
-        update: (data: SearchListItem[]) => void;
+        update: (data: string) => void;
         reset: () => void;
     };
     ref: {

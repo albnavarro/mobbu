@@ -13,6 +13,20 @@ import {
     searchOverlayHeader,
 } from 'src/js/component/instance-name';
 
+const onClick = () => {
+    /**
+     * @type {UseMethodByName<import('../search-overlay/type').SearchOverlay>}
+     */
+    const overlayMethods = useMethodByName(searchOverlay);
+    overlayMethods?.toggle();
+
+    /**
+     * @type {UseMethodByName<import('../search-overlay/header/type').SearchOverlayHeader>}
+     */
+    const headerMethods = useMethodByName(searchOverlayHeader);
+    headerMethods?.setInputFocus();
+};
+
 /** @type {MobComponent} */
 export const SearchCtaFn = ({ delegateEvents }) => {
     return html`<button
@@ -20,17 +34,7 @@ export const SearchCtaFn = ({ delegateEvents }) => {
         class="search-cta"
         ${delegateEvents({
             click: () => {
-                /**
-                 * @type {UseMethodByName<import('../search-overlay/type').SearchOverlay>}
-                 */
-                const overlayMethods = useMethodByName(searchOverlay);
-                overlayMethods?.toggle();
-
-                /**
-                 * @type {UseMethodByName<import('../search-overlay/header/type').SearchOverlayHeader>}
-                 */
-                const headerMethods = useMethodByName(searchOverlayHeader);
-                headerMethods?.setInputFocus();
+                onClick();
             },
         })}
     >

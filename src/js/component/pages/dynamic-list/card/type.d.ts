@@ -6,6 +6,7 @@ export interface DynamicListCard {
         index: number;
         counter: number;
         innerData: { key: number }[];
+        innerDataUnivoque: { key: number }[];
         isSelected: boolean;
         isMounted: boolean;
     };
