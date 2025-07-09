@@ -123,7 +123,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The default subject to apply transformations to. If you use the pin property it will be applied to this element."
+                        "content": "The default subject to apply transformations to."
                     },
                     {
                         "component": "mob-spacer",
