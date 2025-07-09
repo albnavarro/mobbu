@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "refs"
+            "content": "invalidate vs repeater"
         },
         {
             "component": "mob-spacer",

@@ -552,7 +552,7 @@ export const routes = [
         layout: layoutSidebarLinks,
         props: {
             source: './data/mob-js/invalidate.json',
-            title: 'repeat',
+            title: 'invalidate',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
         },
@@ -563,7 +563,7 @@ export const routes = [
         layout: layoutSidebarLinks,
         props: {
             source: './data/mob-js/invalidate-vs-repeater.json',
-            title: 'repeat',
+            title: 'invalidate vs repeater',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
         },
