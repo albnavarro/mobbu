@@ -186,11 +186,10 @@ export const SearchOverlayListFn = ({
                             >
                                 <div class="search-overlay-list__section">
                                     <p>
-                                        ${bindObject`<strong>${() => current.value.section}</strong> (${() => current.value.count})`}
+                                        ${bindObject`<strong>${() => current.value.breadCrumbs}</strong> (${() => current.value.count})`}
                                     </p>
                                 </div>
                                 <div class="search-overlay-list__title">
-                                    <h5>Page:</h5>
                                     <h6>
                                         ${bindObject`${() => current.value.title}`}
                                     </h6>

@@ -2,6 +2,7 @@ export interface SearchListItem {
     title: string;
     uri: string;
     section: string;
+    breadCrumbs: string;
     count: number;
 }
 

@@ -8,7 +8,13 @@ import { routes } from 'src/js/pages';
  * @param {string} params.title
  * @returns {Promise<{ success: boolean; data: any; uri: string; title: string }>}
  */
-export const executeFetch = async ({ source, uri, title, section }) => {
+export const executeFetch = async ({
+    source,
+    uri,
+    title,
+    section,
+    breadCrumbs,
+}) => {
     const response = await fetch(source);
     if (!response.ok) {
         console.warn(`${source} not found`);
@@ -18,6 +24,7 @@ export const executeFetch = async ({ source, uri, title, section }) => {
             uri,
             title,
             section,
+            breadCrumbs,
         };
     }
 
@@ -29,6 +36,7 @@ export const executeFetch = async ({ source, uri, title, section }) => {
         uri,
         title,
         section,
+        breadCrumbs,
     };
 };
 
@@ -52,6 +60,7 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
                     uri: name ?? 'uri not forud',
                     title: props.title ?? 'title not found',
                     section: props.section ?? 'title not found',
+                    breadCrumbs: props.breadCrumbs ?? [],
                 }),
             };
         });
@@ -60,7 +69,7 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
 
     const resultParsed = result
         .filter(({ success }) => success)
-        .map(({ data, uri, title, section }) => {
+        .map(({ data, uri, title, section, breadCrumbs }) => {
             /**
              * Extract HTMl-content
              */
@@ -118,6 +127,7 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
                 uri,
                 title,
                 section,
+                breadCrumbs,
                 data: filterDataByContent,
             };
         });
@@ -140,7 +150,7 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
 
             return 1;
         })
-        .map(({ title, uri, section, data }) => {
+        .map(({ title, uri, section, breadCrumbs, data }) => {
             /**
              * Number of occurrence in copies
              */
@@ -149,7 +159,21 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
                 .toLowerCase()
                 .split(currentSearch.toLowerCase());
 
-            return { title, uri, section, count: count?.length ?? 0 };
+            const breadCrumbsParsed =
+                breadCrumbs.length > 0
+                    ? breadCrumbs.reduce((previous, current, index) => {
+                          const slash = index > 0 ? '/' : '';
+                          return `${previous}${slash}${current.title}`;
+                      }, '')
+                    : title;
+
+            return {
+                title,
+                uri,
+                section,
+                breadCrumbs: breadCrumbsParsed,
+                count: count?.length ?? 0,
+            };
         });
 
     return searchResult;
