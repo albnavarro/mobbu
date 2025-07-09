@@ -89,6 +89,7 @@ export const SearchOverlayListFn = ({
     });
 
     addMethod('reset', () => {
+        proxi.updatePrentSearchKey('');
         proxi.list = [];
     });
 

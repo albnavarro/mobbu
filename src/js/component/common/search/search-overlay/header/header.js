@@ -172,6 +172,8 @@ export const SearchOverlayHeaderFn = ({
          * Wait animation completed before set focus to input
          */
         addMethod('setInputFocus', async () => {
+            search_input.value = '';
+
             setTimeout(() => {
                 search_input.focus();
             }, 300);

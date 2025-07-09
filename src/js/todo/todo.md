@@ -21,6 +21,9 @@
 - Esempi `proxi` prima degli altri
 - `delegateEvent` additional props aggiungere note come per `bindProps`
 
+## Repeater
+- DOCS: aggiungere che le propietá innestate in un oggetto non possono essere usate.
+
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
  `src/js/mob/mob-js/modules/repeater/update/get-proxi.js`
