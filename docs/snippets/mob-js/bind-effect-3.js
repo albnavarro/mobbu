@@ -1,7 +1,7 @@
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
@@ -16,6 +16,7 @@ export const MyComponent = ({ bindEffect, getProxi }) => {
                 toggleStyle: {
                     paddingTop: () => (proxi.active ? '30px' : ''),
                 },
+                toggleAttribute: { href: () => proxi.href },
             })}
         </div>
     `;

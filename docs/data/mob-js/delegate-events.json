@@ -126,6 +126,15 @@
             "content": "Indicates the current value and position of the component inside a repeater."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Although <strong>bindProps</strong> can return the <strong>current</strong> and <strong>updated</strong> value inside a <strong>repeater</strong> it is advisable to use the current <strong>proxy</strong> provided by the <strong>repeater</strong> itself, which is more convenient and integrated into the <strong>typescript</strong> environment."
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/delegate-events-extra.js",

@@ -38,6 +38,13 @@
         {
             "component": "anchor-button",
             "props": {
+                "anchor": "#additional",
+                "content": "Additional props"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
                 "anchor": "#typescript",
                 "content": "Typescript"
             }
@@ -60,13 +67,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "big",
+                "style": "medium",
                 "id": "proxi"
             }
         },
@@ -226,7 +227,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "additional"
             }
         },
         {

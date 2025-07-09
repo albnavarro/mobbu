@@ -9,6 +9,10 @@ import { html } from '@mobJs';
  */
 export const MyComponent = ({ onMount, emit }) => {
     onMount(() => {
+        // Use Proxi
+        emit(() => proxi.myState);
+
+        // Use String
         emit('myState');
     });
     /**

@@ -41,31 +41,13 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 23
+                "numLines": 22
             }
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5",
-                "isBold": true
-            },
-            "content": "With proxi"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/emit-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 35
             }
         }
     ]

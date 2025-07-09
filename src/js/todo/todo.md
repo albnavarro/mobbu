@@ -17,13 +17,6 @@
 
 # MobJs
 
-## DOCS:
-- Esempi `proxi` prima degli altri
-- `delegateEvent` additional props aggiungere note come per `bindProps`
-
-## Repeater
-- DOCS: aggiungere che le propietá innestate in un oggetto non possono essere usate.
-
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
  `src/js/mob/mob-js/modules/repeater/update/get-proxi.js`
@@ -39,11 +32,6 @@
     - `https://www.linkedin.com/posts/sumitanalyzen_node-javascript-codingisfun-activity-7257672141037293568-c-6a`
 
 - Splittare `currentSearch` per spazi ?
-
-## Repeat
-- Documentare **Current type** es: `src/js/component/pages/dynamic-list/repeaters/dynamic-list-repeater.js`
-- mobJs.tick() non e usabile all'interno di `beforeUpdate` documentare
-
 
 ## BindStore
 - Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:

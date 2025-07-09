@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The state of the component is actually managed by an instance of the <a href='./#mobCore-store'>store class</a>. The emitAsync() function is equivalent to myStore.emitAsync(). The emit function executes all the callbacks linked to a given state without needing to modify it. Component states are declared in the component's <a href='./#mobJs-component'>definition</a>"
+            "content": "The state of the component is actually managed by an instance of the <a href='./#mobCore-store'><strong>store class</strong></a>. The emitAsync() function is equivalent to myStore.emitAsync(). The emit function executes all the callbacks linked to a given state without needing to modify it. Component states are declared in the component's <a href='./#mobJs-component'><strong>definition</strong></a>"
         },
         {
             "component": "mob-spacer",
@@ -41,31 +41,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 16
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5",
-                "isBold": true
-            },
-            "content": "With proxi"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/emit-async-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 35
+                "numLines": 24
             }
         }
     ]

@@ -15,6 +15,34 @@
             "content": "bindEffect"
         },
         {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#proxi",
+                "content": "WIth proxi"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#explicit",
+                "content": "Explicit dependency"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#single",
+                "content": "Single object"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#array",
+                "content": "Array of object"
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -27,12 +55,12 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The <strong>bindEffect</strong> module allows you to apply reactive <strong>classes</strong> and <strong>styles</strong> and <strong>attributes</strong> to any type of html tags (component and non-component). The module is divided into <strong>independent groups</strong> to which it is possible to specify the status(es) to be monitored.<r/>The function will then be able to return an <strong>object</strong> or an <span >array</span> of objects."
+            "content": "The <strong>bindEffect</strong> module allows you to apply reactive <strong>classes</strong> and <strong>styles</strong> and <strong>attributes</strong> to any type of html tags (component and non-component). The module is divided into <strong>independent groups</strong> to which it is possible to specify the status(es) to be monitored.<r/>The function will then be able to return an <strong>object</strong> or <strong>array of objects</strong>."
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
@@ -48,7 +76,7 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>bind</span>: a state or array of states.",
+                    "<span class='quote'>bind ( optional )</span>: a state or array of states.",
                     "<span class='quote'>toggleClass</span>: An object where the key is the class to apply and the value is a function that will return a boolean value.",
                     "<span class='quote'>toggleStyle</span>: an object where the key is the style to be changed and the value is a function that will return a string.",
                     "<span class='quote'>toggleAttribute</span>: an object where the key is the attribute to be changed and the value is a function that will return a string.<br/> If the value is equal to null the attribute will be deleted"
@@ -58,7 +86,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "proxi"
             }
         },
         {
@@ -67,6 +96,19 @@
                 "tag": "h5"
             },
             "content": "With proxi ( auto detect dependencies )"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "When using <strong>proxies</strong> the bind property is not necessary"
         },
         {
             "component": "mob-spacer",
@@ -87,7 +129,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "explicit"
             }
         },
         {
@@ -96,6 +139,19 @@
                 "tag": "h5"
             },
             "content": "Explicit dependencies"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<strong>Reacts</strong> when a mutation occurs in one of the indicated states"
         },
         {
             "component": "mob-spacer",
@@ -116,15 +172,66 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "single"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6"
+                "tag": "h5"
             },
-            "content": "Classes, styles and attributes dependent on different states"
+            "content": "Single object"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Each property will be recalculated when at least one of them changes."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/bind-effect-3.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 23
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "array"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Array of object"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The content of a specific object will be recalculated when at least one parameter of the same object changes."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",
@@ -134,52 +241,6 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 27
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "Multiple states"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/bind-effect-2.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 19
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "Styles and classes related to the same state"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/bind-effect-3.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 22
             }
         }
     ]
