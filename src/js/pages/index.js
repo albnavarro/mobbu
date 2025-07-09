@@ -530,7 +530,7 @@ export const routes = [
         layout: layoutSidebarLinks,
         props: {
             source: './data/mob-js/runtime.json',
-            title: 'runtime',
+            title: 'renderComponent',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
         },
@@ -608,17 +608,6 @@ export const routes = [
         props: {
             source: './data/mob-js/computed.json',
             title: 'computed',
-            breadCrumbs: mobJsComponentBreadCrumbs,
-            section: 'mobJs',
-        },
-    },
-    {
-        name: 'mobJs-renderComponent',
-        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
-        layout: layoutSidebarLinks,
-        props: {
-            source: './data/mob-js/render-dom.json',
-            title: 'renderDom',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
         },
