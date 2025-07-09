@@ -10,6 +10,18 @@ import { useMethodByName } from 'src/js/mob/mob-js/modules';
 
 /**
  * @param {object} params
+ * @param {string} params.currentSearch
+ */
+const sendSearch = async ({ currentSearch }) => {
+    /**
+     * @type {UseMethodByName<import('../list/type').SearchOverlayList>}
+     */
+    const listMethods = useMethodByName(searchOverlayList);
+    listMethods?.update(currentSearch);
+};
+
+/**
+ * @param {object} params
  * @param {GetRef<import('./type').SearchOverlayHeader>} params.getRef
  * @param {import('./type').SearchOverlayHeader['state']} params.proxi
  */
@@ -19,20 +31,6 @@ const sendToList = ({ getRef }) => {
 
     // send on click submit
     sendSearch({ currentSearch });
-};
-
-/**
- * @param {object} params
- * @param {string} params.currentSearch
- */
-const sendSearch = ({ currentSearch }) => {
-    console.log('send', currentSearch);
-
-    /**
-     * @type {UseMethodByName<import('../list/type').SearchOverlayList>}
-     */
-    const listMethods = useMethodByName(searchOverlayList);
-    listMethods?.update(currentSearch);
 };
 
 /**
@@ -194,6 +192,7 @@ export const SearchOverlayHeaderFn = ({
                             if (event.code.toLowerCase() === 'enter') {
                                 event.preventDefault();
                                 sendToList({ getRef, proxi });
+                                proxi.suggestionListData = [];
                                 return;
                             }
 
@@ -209,7 +208,7 @@ export const SearchOverlayHeaderFn = ({
                                     .value;
                             filterSuggestion({ currentSearch, proxi });
                         },
-                        200
+                        60
                     ),
                 })}
             />

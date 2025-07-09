@@ -466,7 +466,7 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "create/closeGroup"
+                        "content": "createGroup/closeGroup"
                     },
                     {
                         "component": "mob-paragraph",

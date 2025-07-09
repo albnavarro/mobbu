@@ -33776,7 +33776,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-core/overview.json",
         title: "mobCore",
-        breadCrumbs: []
+        breadCrumbs: [],
+        section: "mobCore"
       }
     },
     {
@@ -33785,7 +33786,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-core/defaults.json",
         title: "Defaults",
-        breadCrumbs: mobCoreOverviewBreadCrumbs
+        breadCrumbs: mobCoreOverviewBreadCrumbs,
+        section: "mobCore"
       }
     },
     {
@@ -33794,7 +33796,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-core/events.json",
         title: "Events",
-        breadCrumbs: mobCoreOverviewBreadCrumbs
+        breadCrumbs: mobCoreOverviewBreadCrumbs,
+        section: "mobCore"
       }
     },
     {
@@ -33803,7 +33806,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-core/store.json",
         title: "Store",
-        breadCrumbs: mobCoreOverviewBreadCrumbs
+        breadCrumbs: mobCoreOverviewBreadCrumbs,
+        section: "mobCore"
       }
     },
     {
@@ -33812,7 +33816,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/overview.json",
         title: "mobJs",
-        breadCrumbs: []
+        breadCrumbs: [],
+        section: "mobJs"
       }
     },
     {
@@ -33821,7 +33826,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/initialization.json",
         title: "initialization",
-        breadCrumbs: mobJsOverviewBreadCrumbs
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33830,7 +33836,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/component.json",
         title: "component",
-        breadCrumbs: mobJsOverviewBreadCrumbs
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33839,7 +33846,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/web-component.json",
         title: "webComponent",
-        breadCrumbs: mobJsOverviewBreadCrumbs
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33848,7 +33856,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/routing.json",
         title: "routing",
-        breadCrumbs: mobJsOverviewBreadCrumbs
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33858,7 +33867,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/use-method-by-name.json",
         title: "useMethodByName",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33868,7 +33878,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/use-method-array-by-name.json",
         title: "useMethodArrayByName",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33878,7 +33889,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/set-state-by-name.json",
         title: "setStateByName",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33888,16 +33900,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/update-state-by-name.json",
         title: "updateStateByName",
-        breadCrumbs: mobJsComponentBreadCrumbs
-      }
-    },
-    {
-      name: "mobJs-debug-component",
-      layout: layoutSidebarAnchor,
-      props: {
-        source: "./data/real-world/debug-component.json",
-        title: "Debug component",
-        breadCrumbs: mobJsOverviewBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33948,7 +33952,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/tick.json",
         title: "tick",
-        breadCrumbs: mobJsOverviewBreadCrumbs
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33957,7 +33962,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/utils.json",
         title: "utils",
-        breadCrumbs: mobJsOverviewBreadCrumbs
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33966,7 +33972,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/debug.json",
         title: "debug",
-        breadCrumbs: mobJsOverviewBreadCrumbs
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33976,7 +33983,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/on-mount.json",
         title: "onMount",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33986,7 +33994,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/get-state.json",
         title: "getState",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -33996,7 +34005,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/set-state.json",
         title: "setState",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34006,7 +34016,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/update-state.json",
         title: "updateState",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34016,7 +34027,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/get-proxi.json",
         title: "getProxi",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34026,7 +34038,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/watch.json",
         title: "watch",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34036,7 +34049,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/static-props.json",
         title: "staticProps",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34046,7 +34060,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/data-attribute.json",
         title: "dataAttribute",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34056,7 +34071,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/bind-props.json",
         title: "bindProps",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34066,7 +34082,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/bind-events.json",
         title: "bindEvents",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34076,7 +34093,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/delegate-events.json",
         title: "delegateEvents",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34086,7 +34104,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/bind-store.json",
         title: "bindStore",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34096,7 +34115,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/bind-text.json",
         title: "bindText",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34106,7 +34126,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/bind-object.json",
         title: "bindObject",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34116,7 +34137,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/bind-effect.json",
         title: "bindEffect",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34126,7 +34148,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/methods.json",
         title: "methods",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34136,7 +34159,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/refs.json",
         title: "refs",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34146,7 +34170,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/runtime.json",
         title: "runtime",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34156,7 +34181,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/repeat.json",
         title: "repeat",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34166,7 +34192,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/invalidate.json",
         title: "repeat",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34176,7 +34203,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/invalidate-vs-repeater.json",
         title: "repeat",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34186,7 +34214,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/unbind.json",
         title: "unBind",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34196,7 +34225,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/emit.json",
         title: "emit",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34206,7 +34236,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/emit-async.json",
         title: "emitAsync",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34216,7 +34247,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/computed.json",
         title: "computed",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34226,7 +34258,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/render-dom.json",
         title: "renderDom",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34236,7 +34269,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/remove-dom.json",
         title: "removeDom",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34246,7 +34280,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/remove.json",
         title: "remove",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34256,7 +34291,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/get-children.json",
         title: "getChildren",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34266,7 +34302,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/freeze-prop.json",
         title: "freezeProp",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34276,7 +34313,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/unfreeze-prop.json",
         title: "unFreezeProp",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34286,7 +34324,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/get-parent-id.json",
         title: "getParentId",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34296,7 +34335,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/watch-parent.json",
         title: "watchParent",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34306,7 +34346,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/instance-name.json",
         title: "instanceName",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34316,7 +34357,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/class-list.json",
         title: "classList",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34326,7 +34368,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/slot.json",
         title: "slot",
-        breadCrumbs: mobJsComponentBreadCrumbs
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
       }
     },
     {
@@ -34335,7 +34378,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/stagger.json",
         title: "Stagger",
-        breadCrumbs: mobMotionOverviewBreadCrumbs
+        breadCrumbs: mobMotionOverviewBreadCrumbs,
+        section: "mobMotion"
       }
     },
     {
@@ -34344,7 +34388,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/defaults.json",
         title: "Defaults",
-        breadCrumbs: mobMotionOverviewBreadCrumbs
+        breadCrumbs: mobMotionOverviewBreadCrumbs,
+        section: "mobMotion"
       }
     },
     {
@@ -34353,7 +34398,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/overview.json",
         title: "mobMotion",
-        breadCrumbs: []
+        breadCrumbs: [],
+        section: "mobMotion"
       }
     },
     {
@@ -34362,7 +34408,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/parallax.json",
         title: "Parallax",
-        breadCrumbs: mobMotionOverviewBreadCrumbs
+        breadCrumbs: mobMotionOverviewBreadCrumbs,
+        section: "mobMotion"
       }
     },
     {
@@ -34371,7 +34418,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/sequencer.json",
         title: "Sequencer",
-        breadCrumbs: mobMotionOverviewBreadCrumbs
+        breadCrumbs: mobMotionOverviewBreadCrumbs,
+        section: "mobMotion"
       }
     },
     {
@@ -34380,7 +34428,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/scroll-trigger.json",
         title: "ScrollTrigger",
-        breadCrumbs: mobMotionOverviewBreadCrumbs
+        breadCrumbs: mobMotionOverviewBreadCrumbs,
+        section: "mobMotion"
       }
     },
     {
@@ -34389,7 +34438,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/sync-timeline.json",
         title: "Sync timeline",
-        breadCrumbs: mobMotionOverviewBreadCrumbs
+        breadCrumbs: mobMotionOverviewBreadCrumbs,
+        section: "mobMotion"
       }
     },
     {
@@ -34398,7 +34448,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/create-stagger.json",
         title: "CreateStagger",
-        breadCrumbs: mobMotionOverviewBreadCrumbs
+        breadCrumbs: mobMotionOverviewBreadCrumbs,
+        section: "mobMotion"
       }
     },
     {
@@ -34407,7 +34458,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/async-timeline.json",
         title: "Async timeline",
-        breadCrumbs: mobMotionOverviewBreadCrumbs
+        breadCrumbs: mobMotionOverviewBreadCrumbs,
+        section: "mobMotion"
       }
     },
     {
@@ -34416,7 +34468,8 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-motion/tween-spring-lerp.json",
         title: "Tween Spring Lerp",
-        breadCrumbs: mobMotionOverviewBreadCrumbs
+        breadCrumbs: mobMotionOverviewBreadCrumbs,
+        section: "mobMotion"
       }
     },
     {
@@ -37233,7 +37286,9 @@ Loading snippet ...</pre
     getProxi,
     delegateEvents,
     bindEffect,
-    addMethod
+    addMethod,
+    bindObject,
+    staticProps: staticProps2
   }) => {
     const proxi = getProxi();
     addMethod("toggle", () => {
@@ -37283,8 +37338,21 @@ Loading snippet ...</pre
                     name="${searchOverlayHeader}"
                 ></search-overlay-header>
             </div>
+            <div class="search-overlay__current-search">
+                <p>
+                    ${bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`}
+                </p>
+            </div>
             <div class="search-overlay__list">
                 <search-overlay-list
+                    ${staticProps2(
+      /** @type {import('./list/type').SearchOverlayList['state']} */
+      {
+        updatePrentSearchKey: (value) => {
+          proxi.currentSearch = value;
+        }
+      }
+    )}
                     name="${searchOverlayList}"
                 ></search-overlay-list>
             </div>
@@ -37293,6 +37361,10 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/search/search-overlay/header/header.js
+  var sendSearch = async ({ currentSearch }) => {
+    const listMethods = useMethodByName(searchOverlayList);
+    listMethods?.update(currentSearch);
+  };
   var sendToList = ({ getRef }) => {
     const { search_input } = getRef();
     const currentSearch = (
@@ -37300,11 +37372,6 @@ Loading snippet ...</pre
       search_input.value
     );
     sendSearch({ currentSearch });
-  };
-  var sendSearch = ({ currentSearch }) => {
-    console.log("send", currentSearch);
-    const listMethods = useMethodByName(searchOverlayList);
-    listMethods?.update(currentSearch);
   };
   var sendReset = ({ getRef, proxi }) => {
     const listMethods = useMethodByName(searchOverlayList);
@@ -37397,6 +37464,7 @@ Loading snippet ...</pre
           if (event.code.toLowerCase() === "enter") {
             event.preventDefault();
             sendToList({ getRef, proxi });
+            proxi.suggestionListData = [];
             return;
           }
           if (event.code.toLowerCase() === "escape") {
@@ -37410,7 +37478,7 @@ Loading snippet ...</pre
           );
           filterSuggestion({ currentSearch, proxi });
         },
-        200
+        60
       )
     })}
             />
@@ -37571,6 +37639,94 @@ Loading snippet ...</pre
     }
   );
 
+  // src/js/component/common/search/search-overlay/list/fetch-data.js
+  var executeFetch = async ({ source, uri, title, section }) => {
+    const response = await fetch(source);
+    if (!response.ok) {
+      console.warn(`${source} not found`);
+      return {
+        success: false,
+        data: "",
+        uri,
+        title,
+        section
+      };
+    }
+    const data = await response.json();
+    return {
+      success: true,
+      data: data.data,
+      uri,
+      title,
+      section
+    };
+  };
+  var validComponent = /* @__PURE__ */ new Set(["mob-title", "mob-paragraph", "mob-list"]);
+  var componentWithContent = /* @__PURE__ */ new Set(["mob-title", "mob-paragraph"]);
+  var listComponent = /* @__PURE__ */ new Set(["mob-list"]);
+  var fetchSearchResult = async ({ currentSearch = "" }) => {
+    const pageList = routes.filter(({ props }) => {
+      return props?.source && props?.title;
+    }).map(({ name, props }) => {
+      return {
+        fn: executeFetch({
+          source: props.source ?? "",
+          uri: name ?? "uri not forud",
+          title: props.title ?? "title not found",
+          section: props.section ?? "title not found"
+        })
+      };
+    });
+    const result = await Promise.all(pageList.map(({ fn }) => fn));
+    const resultParsed = result.filter(({ success }) => success).map(({ data, uri, title, section }) => {
+      const dataParsed = data.reduce((previous, current) => {
+        const { component } = current;
+        if (!component) return previous;
+        const isHTMLContent = current.component === "html-content";
+        if (!isHTMLContent) {
+          return [...previous, current];
+        }
+        return [...previous, current.props.data];
+      }, []);
+      const filterDataByComponent = dataParsed.flat().filter(({ component }) => {
+        return validComponent.has(component);
+      });
+      const filterDataByContent = filterDataByComponent.flatMap(
+        (item) => {
+          if (componentWithContent.has(item?.component)) {
+            return item.content;
+          }
+          if (listComponent.has(item?.component)) {
+            if (item?.props?.links) {
+              return item.props.items.map(({ label }) => label);
+            }
+            return item.props.items;
+          }
+          return item;
+        }
+      );
+      return {
+        uri,
+        title,
+        section,
+        data: filterDataByContent
+      };
+    });
+    const searchResult = resultParsed.filter((item) => {
+      return item.data.some((row) => {
+        return row.toLowerCase().includes(currentSearch.toLowerCase());
+      });
+    }).toSorted((first) => {
+      if (first.title.toLowerCase().includes(currentSearch.toLowerCase()))
+        return -1;
+      return 1;
+    }).map(({ title, uri, section, data }) => {
+      const count = data.join("").toLowerCase().split(currentSearch.toLowerCase());
+      return { title, uri, section, count: count?.length ?? 0 };
+    });
+    return searchResult;
+  };
+
   // src/js/component/common/search/search-overlay/list/list.js
   var loadPage = ({ uri }) => {
     modules_exports2.loadUrl({ url: uri });
@@ -37611,18 +37767,20 @@ Loading snippet ...</pre
     onMount,
     watch,
     addMethod,
-    delegateEvents
+    delegateEvents,
+    bindEffect,
+    invalidate
   }) => {
     const proxi = getProxi();
-    addMethod("update", (currentSearch) => {
-      proxi.list = [
-        ...proxi.list,
-        {
-          section: currentSearch,
-          title: currentSearch,
-          uri: `#${currentSearch}`
-        }
-      ];
+    addMethod("update", async (currentSearch) => {
+      if (proxi.loading) return;
+      proxi.list = [];
+      proxi.loading = true;
+      proxi.noResult = false;
+      proxi.list = await fetchSearchResult({ currentSearch });
+      proxi.loading = false;
+      proxi.noResult = proxi.list.length === 0;
+      proxi.updatePrentSearchKey(currentSearch);
     });
     addMethod("reset", () => {
       proxi.list = [];
@@ -37652,6 +37810,15 @@ Loading snippet ...</pre
       };
     });
     return renderHtml`<div class="search-overlay-list" ${setRef("screen")}>
+        <span
+            class="search-overlay-list__loading"
+            ${bindEffect({
+      toggleClass: {
+        active: () => proxi.loading
+      }
+    })}
+            >fetch data</span
+        >
         <input
             type="range"
             id="test"
@@ -37663,6 +37830,26 @@ Loading snippet ...</pre
             ${setRef("scrollbar")}
             class="search-overlay-list__scrollbar"
         />
+
+        <!-- no result -->
+        <div>
+            ${invalidate({
+      bind: () => proxi.noResult,
+      render: () => {
+        return proxi.noResult ? renderHtml`
+                              <ul class="search-overlay-list__ul">
+                                  <li class="search-overlay-list__item">
+                                      <div class="search-overlay-list__section">
+                                          <p><strong>no result</strong></p>
+                                      </div>
+                                  </li>
+                              </ul>
+                          ` : "";
+      }
+    })}
+        </div>
+
+        <!-- result list -->
         <ul class="search-overlay-list__ul" ${setRef("scroller")}>
             ${repeat({
       bind: () => proxi.list,
@@ -37679,13 +37866,15 @@ Loading snippet ...</pre
         })}
                             >
                                 <div class="search-overlay-list__section">
-                                    ${bindObject`section: ${() => current.value.section}`}
+                                    <p>
+                                        ${bindObject`<strong>${() => current.value.section}</strong> (${() => current.value.count})`}
+                                    </p>
                                 </div>
                                 <div class="search-overlay-list__title">
-                                    ${bindObject`title: ${() => current.value.title}`}
-                                </div>
-                                <div class="search-overlay-list__uri">
-                                    ${bindObject`uri: ${() => current.value.uri}`}
+                                    <h5>Page:</h5>
+                                    <h6>
+                                        ${bindObject`${() => current.value.title}`}
+                                    </h6>
                                 </div>
                             </button>
                         </li>
@@ -37702,11 +37891,24 @@ Loading snippet ...</pre
     {
       tag: "search-overlay-list",
       component: SearchOverlayListFn,
-      exportState: [],
+      exportState: ["updatePrentSearchKey"],
       state: {
         list: () => ({
           value: [],
           type: Array
+        }),
+        loading: () => ({
+          value: false,
+          type: Boolean
+        }),
+        noResult: () => ({
+          value: false,
+          type: Boolean
+        }),
+        updatePrentSearchKey: () => ({
+          value: () => {
+          },
+          type: Function
         })
       }
     }
@@ -37723,6 +37925,10 @@ Loading snippet ...</pre
         active: () => ({
           value: false,
           type: Boolean
+        }),
+        currentSearch: () => ({
+          value: "",
+          type: String
         })
       },
       child: [SearchOverlayHeader, SearchOverlayList]

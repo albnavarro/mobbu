@@ -96,29 +96,6 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Explicit dependencies"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/bind-object.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 24
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
             "content": "With proxi ( auto detect dependencies )"
         },
         {
@@ -138,17 +115,40 @@
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-title",
             "props": {
-                "style": "medium"
+                "tag": "h5"
             },
-            "content": "For more <span class='quote'>complex situations</span> it is always possible to use the <a href='#mobJs-invalidate'>invalidate</a> function to handle complex situations in a cleaner way."
+            "content": "Explicit dependencies"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/bind-object.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 24
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
             }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "For more <span class='quote'>complex situations</span> it is always possible to use the <a href='#mobJs-invalidate'>invalidate</a> function to handle complex situations in a cleaner way."
         }
     ]
 }

@@ -1,6 +1,7 @@
 # App:
 
 - Aggiungere pagine `500` speculare alla paginwa `400`.
+- DOCS: `tween` manca del metodo `destroy`.
 
 
 # MobCore
@@ -16,6 +17,10 @@
 
 # MobJs
 
+## DOCS:
+- Esempi `proxi` prima degli altri
+- `delegateEvent` additional props aggiungere note come per `bindProps`
+
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
  `src/js/mob/mob-js/modules/repeater/update/get-proxi.js`
@@ -25,21 +30,16 @@
 - Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
 
 ## Search
-- fetch:
-    - il `fetch` va fatto in `src/js/component/common/search/search-overlay/list/list.js`
-    - Nella definizione del metodo `update` arriva la parola chiave da cercare.
-    - Fare eun update dello stato `proxi.list`
-
-- cache:
+- Tipizzare
+- Cache:
     - `https://medium.com/@ignatovich.dm/javascript-symbols-and-weakmaps-designing-truly-private-and-unique-properties-236ef0dbb7db`
     - `https://www.linkedin.com/posts/sumitanalyzen_node-javascript-codingisfun-activity-7257672141037293568-c-6a`
 
-- Usare `routes` array da `src/js/pages/index.js` per recuperare gli end point per i `fetch`.
-    - usare gli item con `props.source` && `props.title`
-    - il `name` sará la rotta.
+- Splittare `currentSearch` per spazi ?
 
 ## Repeat
-Documentare **Current type** es: `src/js/component/pages/dynamic-list/repeaters/dynamic-list-repeater.js`
+- Documentare **Current type** es: `src/js/component/pages/dynamic-list/repeaters/dynamic-list-repeater.js`
+- mobJs.tick() non e usabile all'interno di `beforeUpdate` documentare
 
 
 ## BindStore

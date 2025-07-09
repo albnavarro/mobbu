@@ -846,7 +846,6 @@
         { "word": "Initialization" },
         { "word": "Root" },
         { "word": "Web component" },
-        { "word": "customComponent" },
         { "word": "routing" },
         { "word": "slot" },
         { "word": "tick" },
@@ -909,6 +908,7 @@
         { "word": "updateStateByName" },
         { "word": "useMethodByName" },
         { "word": "useMethodArrayByName" },
+        { "word": "callback" },
 
         { "word": "store" },
         { "word": "defaults" },
@@ -947,7 +947,6 @@
         { "word": "GoTo" },
         { "word": "GoFrom" },
         { "word": "GoFromTo" },
-        { "word": "Stop" },
         { "word": "Pause" },
         { "word": "Resume" },
         { "word": "Subscribe" },
@@ -996,6 +995,7 @@
         { "word": "refresh" },
         { "word": "opacity" },
         { "word": "align" },
-        { "word": "onSwitch" }
+        { "word": "onSwitch" },
+        { "word": "deferredNextTick" }
     ]
 }

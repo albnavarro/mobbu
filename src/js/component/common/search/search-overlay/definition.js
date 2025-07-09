@@ -18,6 +18,10 @@ export const SearchOverlay = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
+            currentSearch: () => ({
+                value: '',
+                type: String,
+            }),
         },
         child: [SearchOverlayHeader, SearchOverlayList],
     })

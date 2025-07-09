@@ -6,6 +6,7 @@ import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { html, MobJs } from '@mobJs';
 import { searchOverlay } from 'src/js/component/instance-name';
 import { useMethodByName } from 'src/js/mob/mob-js/modules';
+import { fetchSearchResult } from './fetch-data';
 
 /**
  * @param {object} params
@@ -67,21 +68,24 @@ export const SearchOverlayListFn = ({
     watch,
     addMethod,
     delegateEvents,
+    bindEffect,
+    invalidate,
 }) => {
     const proxi = getProxi();
 
     /**
      * TODO: fetch result and update proxi.list
      */
-    addMethod('update', (currentSearch) => {
-        proxi.list = [
-            ...proxi.list,
-            {
-                section: currentSearch,
-                title: currentSearch,
-                uri: `#${currentSearch}`,
-            },
-        ];
+    addMethod('update', async (currentSearch) => {
+        if (proxi.loading) return;
+
+        proxi.list = [];
+        proxi.loading = true;
+        proxi.noResult = false;
+        proxi.list = await fetchSearchResult({ currentSearch });
+        proxi.loading = false;
+        proxi.noResult = proxi.list.length === 0;
+        proxi.updatePrentSearchKey(currentSearch);
     });
 
     addMethod('reset', () => {
@@ -122,6 +126,15 @@ export const SearchOverlayListFn = ({
     });
 
     return html`<div class="search-overlay-list" ${setRef('screen')}>
+        <span
+            class="search-overlay-list__loading"
+            ${bindEffect({
+                toggleClass: {
+                    active: () => proxi.loading,
+                },
+            })}
+            >fetch data</span
+        >
         <input
             type="range"
             id="test"
@@ -133,6 +146,28 @@ export const SearchOverlayListFn = ({
             ${setRef('scrollbar')}
             class="search-overlay-list__scrollbar"
         />
+
+        <!-- no result -->
+        <div>
+            ${invalidate({
+                bind: () => proxi.noResult,
+                render: () => {
+                    return proxi.noResult
+                        ? html`
+                              <ul class="search-overlay-list__ul">
+                                  <li class="search-overlay-list__item">
+                                      <div class="search-overlay-list__section">
+                                          <p><strong>no result</strong></p>
+                                      </div>
+                                  </li>
+                              </ul>
+                          `
+                        : '';
+                },
+            })}
+        </div>
+
+        <!-- result list -->
         <ul class="search-overlay-list__ul" ${setRef('scroller')}>
             ${repeat({
                 bind: () => proxi.list,
@@ -149,13 +184,15 @@ export const SearchOverlayListFn = ({
                                 })}
                             >
                                 <div class="search-overlay-list__section">
-                                    ${bindObject`section: ${() => current.value.section}`}
+                                    <p>
+                                        ${bindObject`<strong>${() => current.value.section}</strong> (${() => current.value.count})`}
+                                    </p>
                                 </div>
                                 <div class="search-overlay-list__title">
-                                    ${bindObject`title: ${() => current.value.title}`}
-                                </div>
-                                <div class="search-overlay-list__uri">
-                                    ${bindObject`uri: ${() => current.value.uri}`}
+                                    <h5>Page:</h5>
+                                    <h6>
+                                        ${bindObject`${() => current.value.title}`}
+                                    </h6>
                                 </div>
                             </button>
                         </li>

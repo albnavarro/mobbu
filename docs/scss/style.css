@@ -4134,8 +4134,8 @@ h2 .title-index {
 }
 .search-overlay__grid {
   display: grid;
-  grid-template-areas: "head" "list";
-  grid-template-rows: 6.6666666667rem 50vh;
+  grid-template-areas: "head" "current" "list";
+  grid-template-rows: 6.6666666667rem 3.3333333333rem 50vh;
   width: 100%;
   max-width: 80%;
   border: 1px #fff solid;
@@ -4147,9 +4147,19 @@ h2 .title-index {
   padding-left: 2.6666666667rem;
   align-content: center;
 }
+.search-overlay__current-search {
+  grid-area: current;
+  border-bottom: 1px #fff solid;
+  padding-left: 3rem;
+  align-content: center;
+  background: #fff;
+  color: #000;
+}
+.search-overlay__current-search p {
+  margin-bottom: 0;
+}
 .search-overlay__list {
   grid-area: list;
-  padding: 2.6666666667rem;
   position: relative;
 }
 .search-overlay-list {
@@ -4158,21 +4168,48 @@ h2 .title-index {
   inset: 0;
   overflow: hidden;
 }
+.search-overlay-list__loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 1.3333333333rem 2.6666666667rem;
+  border: 1px rgba(255, 255, 255, 0.5) solid;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  pointer-events: none;
+}
+.search-overlay-list__loading.active {
+  display: block;
+}
 .search-overlay-list__ul {
-  padding-left: 0;
+  padding: 2.6666666667rem;
   padding-right: 4rem;
   min-height: 100%;
+  margin: 0;
 }
 .search-overlay-list__item {
   margin-bottom: 1.3333333333rem;
   padding-bottom: 1.3333333333rem;
   border-bottom: 1px rgba(255, 255, 255, 0.4) solid;
+  transition: opacity 0.35s;
+}
+.search-overlay-list__item:hover {
+  opacity: 0.5;
 }
 .search-overlay-list__button {
   background: transparent;
   width: 100%;
   text-align: left;
   border: 0;
+}
+.search-overlay-list__section p {
+  margin-bottom: 0;
+}
+.search-overlay-list__title h5,
+.search-overlay-list__title h6 {
+  display: inline-block;
 }
 .search-overlay-list__scrollbar {
   position: absolute;
@@ -4260,7 +4297,7 @@ h2 .title-index {
   right: 0;
   border: 1px #fff solid;
   margin-left: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: #000;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -4278,6 +4315,7 @@ h2 .title-index {
   margin: 0;
   min-height: 100%;
   padding: 1.3333333333rem;
+  list-style-type: none;
 }
 .search-overlay-suggestion__button {
   background: transparent;

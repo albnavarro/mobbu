@@ -39,6 +39,8 @@ export const SearchOverlayFn = ({
     delegateEvents,
     bindEffect,
     addMethod,
+    bindObject,
+    staticProps,
 }) => {
     const proxi = getProxi();
 
@@ -89,8 +91,21 @@ export const SearchOverlayFn = ({
                     name="${searchOverlayHeader}"
                 ></search-overlay-header>
             </div>
+            <div class="search-overlay__current-search">
+                <p>
+                    ${bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`}
+                </p>
+            </div>
             <div class="search-overlay__list">
                 <search-overlay-list
+                    ${staticProps(
+                        /** @type {import('./list/type').SearchOverlayList['state']} */
+                        ({
+                            updatePrentSearchKey: (value) => {
+                                proxi.currentSearch = value;
+                            },
+                        })
+                    )}
                     name="${searchOverlayList}"
                 ></search-overlay-list>
             </div>

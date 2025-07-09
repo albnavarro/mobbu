@@ -70,8 +70,9 @@
         display: grid;
         grid-template-areas:
             'head'
+            'current'
             'list';
-        grid-template-rows: rem(100) 50vh;
+        grid-template-rows: rem(100) rem(50) 50vh;
         width: 100%;
         max-width: 80%;
         border: 1px $white solid;
@@ -85,9 +86,21 @@
         align-content: center;
     }
 
+    &__current-search {
+        grid-area: current;
+        border-bottom: 1px $white solid;
+        padding-left: rem(45);
+        align-content: center;
+        background: $white;
+        color: $black;
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+
     &__list {
         grid-area: list;
-        padding: rem(40);
         position: relative;
     }
 }

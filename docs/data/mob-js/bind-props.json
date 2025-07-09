@@ -17,15 +17,15 @@
         {
             "component": "anchor-button",
             "props": {
-                "anchor": "#explicit",
-                "content": "Explicit dependency"
+                "anchor": "#proxi",
+                "content": "With proxi"
             }
         },
         {
             "component": "anchor-button",
             "props": {
-                "anchor": "#proxi",
-                "content": "With proxi"
+                "anchor": "#explicit",
+                "content": "Explicit dependency"
             }
         },
         {
@@ -40,6 +40,73 @@
             "props": {
                 "anchor": "#typescript",
                 "content": "Typescript"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "To pass <strong>callbacks</strong> use <a href='#mobJs-staticProps'><strong>staticProps</strong>,</a> callbacks do not react to the component's state but can be used by child components to change the state."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big",
+                "id": "proxi"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "With proxi ( auto detect dependencies )"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Using a proxy you do not need to define dependencies. You can define dependencies for more granular control."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "bindProps in its <strong>simplest form</strong> with <strong>function</strong> combined with the use of the <strong>proxy</strong> is the most <strong>convenient</strong> and <strong>recommended</strong> form"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/bind-props-proxi.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 42
             }
         },
         {
@@ -124,52 +191,6 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 57
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "big",
-                "id": "proxi"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "With proxi ( auto detect dependencies )"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Using a proxy you do not need to define dependencies. You can define dependencies for more granular control."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "bindProps in its <strong>simplest form</strong> with <strong>function</strong> combined with the use of the <strong>proxy</strong> is the most <strong>convenient</strong> and <strong>recommended</strong> form"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/bind-props-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 42
             }
         },
         {

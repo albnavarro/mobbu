@@ -36,9 +36,17 @@ export const MyComponent = ({ onMount, getState, watch, setRef, getRef }) => {
         const { labelRef } = getRef();
 
         /**
-         * React to the state mutation.
-         * unwatch is optional.
-         * use to detach watcher before component is destroyed
+         * With proxie
+         */
+        const unwatch = watch(
+            () => proxi.myState,
+            (value) => {
+                labelRef.classList.toggle('myClass', value);
+            }
+        );
+
+        /**
+         * Use string
          */
         const unwatch = watch('myState', (value) => {
             labelRef.classList.toggle('myClass', value);
