@@ -1,7 +1,6 @@
 # App:
 
 - Aggiungere pagine `500` speculare alla paginwa `400`.
-- DOCS: `tween` manca del metodo `destroy`.
 
 
 # MobCore

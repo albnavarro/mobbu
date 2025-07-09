@@ -1,0 +1,2 @@
+myTween.destroy();
+myTween = null;

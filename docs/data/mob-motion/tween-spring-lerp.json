@@ -850,6 +850,38 @@
                             "hasBorder": true,
                             "numLines": 12
                         }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "destroy",
+                            "label": "Destroy"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Destroy"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Destroy tween instance"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-motion/destroy.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 2
+                        }
                     }
                 ]
             }
