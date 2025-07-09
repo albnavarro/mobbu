@@ -66,6 +66,16 @@
         }
     }
 
+    &__title {
+        color: $white;
+        position: absolute;
+        bottom: calc(100% - #{rem(3)});
+        line-height: 1;
+        left: rem(40);
+        margin-bottom: 0;
+        font-size: rem(40);
+    }
+
     &__grid {
         display: grid;
         grid-template-areas:

@@ -37320,6 +37320,8 @@ Loading snippet ...</pre
       }
     })}
         ></button>
+
+        <!-- Main content -->
         <div
             class="search-overlay__grid"
             ${delegateEvents({
@@ -37333,6 +37335,10 @@ Loading snippet ...</pre
       }
     })}
         >
+            <!-- Title -->
+            <h2 class="search-overlay__title">Search</h2>
+
+            <!-- Header -->
             <div class="search-overlay__header">
                 <search-overlay-header
                     name="${searchOverlayHeader}"
@@ -37343,6 +37349,8 @@ Loading snippet ...</pre
                     ${bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`}
                 </p>
             </div>
+
+            <!-- List -->
             <div class="search-overlay__list">
                 <search-overlay-list
                     ${staticProps2(

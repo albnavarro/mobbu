@@ -4132,6 +4132,15 @@ h2 .title-index {
 .search-overlay__close::after {
   transform: translate(-50%, -50%) rotate(135deg);
 }
+.search-overlay__title {
+  color: #fff;
+  position: absolute;
+  bottom: calc(100% - 0.2rem);
+  line-height: 1;
+  left: 2.6666666667rem;
+  margin-bottom: 0;
+  font-size: 2.6666666667rem;
+}
 .search-overlay__grid {
   display: grid;
   grid-template-areas: "head" "current" "list";

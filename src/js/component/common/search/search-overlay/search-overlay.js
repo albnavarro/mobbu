@@ -74,6 +74,8 @@ export const SearchOverlayFn = ({
                 },
             })}
         ></button>
+
+        <!-- Main content -->
         <div
             class="search-overlay__grid"
             ${delegateEvents({
@@ -86,6 +88,10 @@ export const SearchOverlayFn = ({
                 },
             })}
         >
+            <!-- Title -->
+            <h2 class="search-overlay__title">Search</h2>
+
+            <!-- Header -->
             <div class="search-overlay__header">
                 <search-overlay-header
                     name="${searchOverlayHeader}"
@@ -96,6 +102,8 @@ export const SearchOverlayFn = ({
                     ${bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`}
                 </p>
             </div>
+
+            <!-- List -->
             <div class="search-overlay__list">
                 <search-overlay-list
                     ${staticProps(
