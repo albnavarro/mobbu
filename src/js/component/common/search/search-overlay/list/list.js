@@ -79,7 +79,6 @@ export const SearchOverlayListFn = ({
     addMethod('update', async (currentSearch) => {
         if (proxi.loading) return;
 
-        proxi.list = [];
         proxi.loading = true;
         proxi.noResult = false;
         proxi.list = await fetchSearchResult({ currentSearch });
