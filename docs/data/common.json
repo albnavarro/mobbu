@@ -953,6 +953,7 @@
         { "word": "SubscribeCache" },
         { "word": "OnComplete" },
         { "word": "asyncTimeline" },
+        { "word": "syncTimeline" },
         { "word": "add" },
         { "word": "createGroup" },
         { "word": "closeGroup" },

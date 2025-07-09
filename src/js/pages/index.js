@@ -798,7 +798,7 @@ export const routes = [
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mob-motion/sync-timeline.json',
-            title: 'Sync timeline',
+            title: 'Synctimeline',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
         },
@@ -818,7 +818,7 @@ export const routes = [
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mob-motion/async-timeline.json',
-            title: 'Async timeline',
+            title: 'Asynctimeline',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
         },
