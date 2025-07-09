@@ -36,7 +36,7 @@ export const MyComponent = ({ onMount, getState, watch, setRef, getRef }) => {
         const { labelRef } = getRef();
 
         /**
-         * With proxie
+         * With proxi
          */
         const unwatch = watch(
             () => proxi.myState,

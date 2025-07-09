@@ -44,30 +44,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5",
-                "isBold": true
-            },
-            "content": "Explicit dependencies"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/computed.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 31
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "style": "medium"
             }
         },
@@ -87,6 +63,30 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 38
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "isBold": true
+            },
+            "content": "Explicit dependencies"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/computed.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 31
             }
         }
     ]
