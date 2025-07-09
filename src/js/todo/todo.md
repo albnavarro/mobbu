@@ -16,6 +16,9 @@
 
 # MobJs
 
+## Proxi auto-detect
+- Aggiungerle a `Freeze` && `unFreeze`.
+
 ## Export routes
 - `#mobJs-routing`
 - Documentare bene le opzioni, in particolare `templateName`, classe sul body etc.., parametro in:
