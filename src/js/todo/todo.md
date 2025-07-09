@@ -16,6 +16,29 @@
 
 # MobJs
 
+## Export routes
+- `#mobJs-routing`
+- Documentare bene le opzioni, in particolare `templateName`, classe sul body etc.., parametro in:
+
+```js
+activeRoute: { route: string; templateName: string };
+beforeRouteLeave: { route: string; templateName: string };
+beforeRouteChange: { route: string; templateName: string };
+afterRouteChange: { route: string; templateName: string };
+```
+
+```js
+export const routes = [
+    {
+        name: 'pageNotFound',
+        templateName: 'myTemplate',
+        layout: pageNotFound,
+        props: {},
+    }
+]
+```
+
+
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
  `src/js/mob/mob-js/modules/repeater/update/get-proxi.js`
