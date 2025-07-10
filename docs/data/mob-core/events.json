@@ -692,7 +692,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Check type"
+            "content": "Checktype"
         },
         {
             "component": "mob-paragraph",
