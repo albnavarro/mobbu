@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { routes } from 'src/js/pages';
 
 /**
@@ -6,7 +5,16 @@ import { routes } from 'src/js/pages';
  * @param {string} params.source
  * @param {string} params.uri
  * @param {string} params.title
- * @returns {Promise<{ success: boolean; data: any; uri: string; title: string }>}
+ * @param {string} params.section
+ * @param {{ title: string; url: string }[]} params.breadCrumbs
+ * @returns {Promise<{
+ *     success: boolean;
+ *     data: import('./type').FetchData[];
+ *     uri: string;
+ *     title: string;
+ *     section: string;
+ *     breadCrumbs: { title: string; url: string }[];
+ * }>}
  */
 export const executeFetch = async ({
     source,
@@ -20,11 +28,11 @@ export const executeFetch = async ({
         console.warn(`${source} not found`);
         return {
             success: false,
-            data: '',
+            data: [{ component: '', props: {} }],
             uri,
             title,
             section,
-            breadCrumbs,
+            breadCrumbs: [],
         };
     }
 
@@ -67,6 +75,11 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
 
     const result = await Promise.all(pageList.map(({ fn }) => fn));
 
+    /**
+     * @type import('./type').FetchData[]}
+     */
+    const initialState = [];
+
     const resultParsed = result
         .filter(({ success }) => success)
         .map(({ data, uri, title, section, breadCrumbs }) => {
@@ -74,6 +87,8 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
              * Extract HTMl-content
              */
             const dataParsed = data.reduce((previous, current) => {
+                if (!current) return previous;
+
                 const { component } = current;
                 if (!component) return previous;
 
@@ -83,8 +98,13 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
                     return [...previous, current];
                 }
 
+                if (!current?.props?.data) return previous;
+
+                /**
+                 * HTMLContent
+                 */
                 return [...previous, current.props.data];
-            }, []);
+            }, initialState);
 
             /**
              * Filter valid component
@@ -113,6 +133,7 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
                     if (listComponent.has(item?.component)) {
                         // liks
                         if (item?.props?.links) {
+                            // @ts-ignore
                             return item.props.items.map(({ label }) => label);
                         }
 

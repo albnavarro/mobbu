@@ -166,10 +166,11 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>name</span> route name.",
-                                "<span class='quote'>layout</span> function to use",
-                                "<span class='quote'>restoreScroll</span> override <span class='quote'>restoreScroll</span> global value",
-                                "<span class='quote'>props</span> the props (object) to pass to the layout function "
+                                "<span class='quote'>name</span> <strong>route name</strong>.",
+                                "<span class='quote'>templateName</span> name ( identifier ) of the template unlike the name ( route ), this parameter <strong>is not unique</strong>.",
+                                "<span class='quote'>layout</span> <strong>page function</strong> to use",
+                                "<span class='quote'>restoreScroll</span> <strong>override</strong> <strong>restoreScroll</strong> global value",
+                                "<span class='quote'>props</span> the <strong>props (object)</strong> to pass to the layout function "
                             ]
                         }
                     },

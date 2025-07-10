@@ -1,3 +1,8 @@
+import { HtmlContent } from '@commonComponent/html-content/type';
+import { List } from '@commonComponent/typography/list/type';
+import { Paragraph } from '@commonComponent/typography/paragraph/type';
+import { Title } from '@commonComponent/typography/titles/type';
+
 export interface SearchListItem {
     title: string;
     uri: string;
@@ -22,4 +27,30 @@ export interface SearchOverlayList {
         scrollbar: HTMLInputElement;
         scroller: HTMLElement;
     };
+}
+
+type PropsTitle = Title['state'];
+type PropsParagraph = Paragraph['state'];
+type PropsList = List['state'];
+type PropsHtmlContent = HtmlContent['state'];
+
+interface Data
+    extends PropsTitle,
+        PropsParagraph,
+        PropsHtmlContent,
+        PropsList {}
+
+/**
+ * If HtmlContet is used all structure is repeat inside data props.
+ */
+interface DataMerged {
+    data?: Data & FetchData;
+}
+
+export interface FetchData {
+    component: string;
+    content?: string;
+
+    // List is parsed PropsList can be added one level up.
+    props: DataMerged & Partial<PropsList>;
 }
