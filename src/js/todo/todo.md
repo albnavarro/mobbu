@@ -16,6 +16,14 @@
 
 # MobJs
 
+## Weak logic / detect ghost element reference.
+- `mainStore` / `MAIN_STORE_ASYNC_PARSER`
+    - `src/js/mob/mob-js/parse/index.js`, reset store element prop OK.
+
+- Indagare il caso dei tre bottoni in `benachMark`.
+- Aggiungere nella DOCS un capitolo `Weak reference`, dove spiegare l'utilitá di `ref` & `refs` per permettere alle logiche weak di lavorare bene.
+
+
 ## Proxi auto-detect
 - Aggiungerle a `Freeze` && `unFreeze`.
 - Fare riferimento a `src/js/mob/mob-js/modules/repeater/action/parse-bindprop-repeat.js`, parseBindRepeat.

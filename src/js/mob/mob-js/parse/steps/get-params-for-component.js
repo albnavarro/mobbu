@@ -31,7 +31,10 @@ import {
     ATTR_WEAK_BIND_EVENTS,
 } from '../../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../../main-store/constant';
-import { mainStore } from '../../main-store/main-store';
+import {
+    mainStore,
+    resetMainStoreAsyncParser,
+} from '../../main-store/main-store';
 import { setBindEvents } from '../../modules/bind-events';
 import { setBindProps } from '../../modules/bind-props';
 import { addOnMoutCallback } from '../../modules/on-mount';
@@ -135,7 +138,11 @@ export const getParamsForComponentFunction = ({
                 },
                 { emit: false }
             );
-            return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+
+            await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+            resetMainStoreAsyncParser();
+
+            return;
         },
         getChildren: (/** @type {string} */ componentName) => {
             return getChildrenIdByName({ id, componentName });

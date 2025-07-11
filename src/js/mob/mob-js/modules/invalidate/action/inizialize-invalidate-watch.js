@@ -9,7 +9,10 @@ import { getFallBackParentByElement } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import { QUEQUE_TYPE_INVALIDATE } from '../../../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../../../main-store/constant';
-import { mainStore } from '../../../main-store/main-store';
+import {
+    mainStore,
+    resetMainStoreAsyncParser,
+} from '../../../main-store/main-store';
 import { incrementTickQueuque } from '../../../queque/tick';
 import { incrementInvalidateTickQueuque } from '../../../queque/tick-invalidate';
 import { destroyNestedRepeat } from '../../repeater/action/destroy-nested-repeat';
@@ -137,6 +140,7 @@ export const inizializeInvalidateWatch = async ({
                 );
 
                 await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+                resetMainStoreAsyncParser();
 
                 watchIsRunning = false;
                 descrementQueue();

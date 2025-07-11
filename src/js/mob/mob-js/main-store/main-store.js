@@ -64,3 +64,20 @@ export const mainStore = MobCore.createStore(
         },
     })
 );
+
+/**
+ * Remove DOM element from store. WeakMap/WaekRef need no DOM element reference around app.
+ *
+ * @returns Void
+ */
+export const resetMainStoreAsyncParser = () => {
+    mainStore.set(
+        MAIN_STORE_ASYNC_PARSER,
+        {
+            element: document.createElement('div'),
+            parentId: '',
+            persistent: false,
+        },
+        { emit: false }
+    );
+};

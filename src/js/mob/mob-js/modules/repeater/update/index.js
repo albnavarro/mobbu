@@ -1,7 +1,10 @@
 // @ts-check
 
 import { MAIN_STORE_ASYNC_PARSER } from '../../../main-store/constant';
-import { mainStore } from '../../../main-store/main-store';
+import {
+    mainStore,
+    resetMainStoreAsyncParser,
+} from '../../../main-store/main-store';
 import { addWithKey } from './add-with-key';
 import { addWithoutKey } from './add-without-key';
 import { listKeyExist } from '../utils';
@@ -75,6 +78,7 @@ export const updateRepeater = async ({
         { emit: false }
     );
     await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+    resetMainStoreAsyncParser();
 
     /**
      * Return update current without duplicate fi needed by addWithkey.
