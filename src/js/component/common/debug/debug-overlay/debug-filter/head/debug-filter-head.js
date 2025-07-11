@@ -25,6 +25,11 @@ export const DebugFilterHeadFn = ({
          * Update filter list on mount. No filter is applied here.
          */
         refreshList();
+
+        return () => {
+            // Chorme leak memory with input, maintain reference.
+            getRef()?.input.remove();
+        };
     });
 
     return html`<div class="c-debug-filter-head">

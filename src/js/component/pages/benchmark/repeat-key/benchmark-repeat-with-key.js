@@ -27,7 +27,10 @@ export const BenchMarkRepeatWithKyFn = ({
     const proxi = getProxi();
 
     onMount(() => {
-        return () => {};
+        return () => {
+            // Chorme leak memory with input, maintain reference.
+            getRef()?.input.remove();
+        };
     });
 
     return html`<div class="benchmark">

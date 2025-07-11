@@ -34,6 +34,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
 
     onMount(() => {
         return () => {
+            getRef()?.input.remove();
             destroyExternalStore();
         };
     });
