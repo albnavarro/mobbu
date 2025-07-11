@@ -688,9 +688,14 @@
             "url": "mobJs-slot"
         },
         {
-            "label": "tick",
+            "label": "Tick",
             "scrollToSection": "mobJs",
             "url": "mobJs-tick"
+        },
+        {
+            "label": "Memory management",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-memory-management"
         },
         {
             "label": "Utils",
@@ -903,6 +908,7 @@
         { "word": "useMethodByName" },
         { "word": "useMethodArrayByName" },
         { "word": "callback" },
+        { "word": "memory" },
 
         { "word": "store" },
         { "word": "defaults" },

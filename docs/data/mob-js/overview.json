@@ -114,6 +114,10 @@
                                 },
                                 { "label": "slot", "url": "./#mobJs-slot" },
                                 { "label": "tick", "url": "./#mobJs-tick" },
+                                {
+                                    "label": "memory management",
+                                    "url": "./#mobJs-memory-management"
+                                },
                                 { "label": "utils", "url": "./#mobJs-utils" },
                                 { "label": "debug", "url": "./#mobJs-debug" }
                             ]

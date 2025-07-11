@@ -33982,6 +33982,16 @@ Loading snippet ...</pre
       }
     },
     {
+      name: "mobJs-memory-management",
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mob-js/memory-management.json",
+        title: "memory management",
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        section: "mobJs"
+      }
+    },
+    {
       name: "mobJs-debug",
       layout: layoutSidebarAnchor,
       props: {

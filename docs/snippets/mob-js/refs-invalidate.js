@@ -13,7 +13,7 @@ const getInvalidateRender = ({
             .map((item) => {
                 return html`
                     <div class="wrapper">
-                        <dynamic-list-card-inner
+                        <my-card
                             ${setRef('card_ref')}
                             ${staticProps({
                                 key: `${item}`,
@@ -25,7 +25,7 @@ const getInvalidateRender = ({
                                     );
                                 },
                             })}
-                        ></dynamic-list-card-inner>
+                        ></my-card>
                     </div>
                 `;
             })
@@ -48,7 +48,9 @@ export const MyComponent = ({
     getRefs,
 }) => {
     onMount(() => {
-        watch('items', () => {
+        watch('items', async () => {
+            await MobJs.tick();
+
             getRefs()?.card_refs.forEach((element) => {
                 console.log(element);
             });

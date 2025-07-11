@@ -1,0 +1,66 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "memory management"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true
+            },
+            "content": "The library uses <strong>weak references</strong> to handle reactivity on nodes for the following functions:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-delegateEvents'><strong>delegateEvents</strong></a>",
+                    "<a href='./#mobJs-bindtext'><strong>bindText</strong></a>",
+                    "<a href='./#mobJs-bindObject'><strong>bindObject</strong></a>",
+                    "<a href='./#mobJs-bind-effect'><strong>bindEffect</strong></a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Using <strong>weak references</strong> allows you to easily track even <strong>non-component nodes</strong> that the library doesn't manage.<br/> For this reason, it's <strong>highly recommended</strong> to use the <a href='#mobJs-refs'><strong>ref</strong></a> and <a href='#mobJs-refs'><strong>refs</strong></a> utilities to access <strong>DOM nodes</strong>.<br/>References to these nodes will be automatically <strong>cleaned up</strong> when the component is <strong>unmounted</strong>, without hindering the <strong>garbage collector</strong>."
+        }
+    ]
+}
