@@ -21,7 +21,7 @@
     - `src/js/mob/mob-js/parse/index.js`, reset store element prop OK.
 
 - Indagare il caso dei tre bottoni in `benachMark`.
-- Aggiungere nella DOCS un capitolo `Weak reference`, dove spiegare l'utilitá di `ref` & `refs` per permettere alle logiche weak di lavorare bene.
+- Aggiungere nella DOCS un capitolo `memory management`, dove spiegare l'utilitá di `ref` & `refs` per permettere alle logiche weak di lavorare bene.
 
 
 ## Proxi auto-detect
