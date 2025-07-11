@@ -433,55 +433,24 @@
             "sectioName": "mobJs"
         },
         {
-            "label": "Main features:",
-            "url": "#",
-            "children": [
-                {
-                    "label": "Overview",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-overview"
-                },
-                {
-                    "label": "Initialization",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-initialization"
-                },
-                {
-                    "label": "Component",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-component"
-                },
-                {
-                    "label": "Web component",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-web-component"
-                },
-                {
-                    "label": "Routing",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-routing"
-                },
-                {
-                    "label": "Slot",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-slot"
-                },
-                {
-                    "label": "tick",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-tick"
-                },
-                {
-                    "label": "Utils",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-utils"
-                },
-                {
-                    "label": "Debug",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-debug"
-                }
-            ]
+            "label": "Overview",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-overview"
+        },
+        {
+            "label": "Initialization",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-initialization"
+        },
+        {
+            "label": "Component",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-component"
+        },
+        {
+            "label": "Web component",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-web-component"
         },
         {
             "label": "Component fundamental params",
@@ -576,32 +545,6 @@
                     "label": "refs",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-refs"
-                }
-            ]
-        },
-        {
-            "label": "Render Blocks",
-            "url": "#",
-            "children": [
-                {
-                    "label": "renderComponent",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-runtime"
-                },
-                {
-                    "label": "invalidate",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-invalidate"
-                },
-                {
-                    "label": "repeat ( array.map )",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-repeat"
-                },
-                {
-                    "label": "invalidate vs repeater",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-invalidate-vs-repeater"
                 }
             ]
         },
@@ -707,6 +650,57 @@
                     "url": "mobJs-useMethodArrayByName"
                 }
             ]
+        },
+        {
+            "label": "Render Blocks",
+            "url": "#",
+            "children": [
+                {
+                    "label": "renderComponent",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-runtime"
+                },
+                {
+                    "label": "invalidate",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-invalidate"
+                },
+                {
+                    "label": "repeat ( array.map )",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-repeat"
+                },
+                {
+                    "label": "invalidate vs repeater",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-invalidate-vs-repeater"
+                }
+            ]
+        },
+        {
+            "label": "Routing",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-routing"
+        },
+        {
+            "label": "Slot",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-slot"
+        },
+        {
+            "label": "tick",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-tick"
+        },
+        {
+            "label": "Utils",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-utils"
+        },
+        {
+            "label": "Debug",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-debug"
         },
         {
             "label": "Performance",
