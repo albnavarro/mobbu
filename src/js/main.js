@@ -28,8 +28,8 @@ const redirectOnResize = () => {
 /**
  * Query main loader && background inside index.html outside app.
  */
-const jsMainLoader = document.body.querySelector('.js-main-loader');
-const jsMainLoaderBackground = document.body.querySelector(
+let jsMainLoader = document.body.querySelector('.js-main-loader');
+let jsMainLoaderBackground = document.body.querySelector(
     '.js-main-loader-background'
 );
 
@@ -72,10 +72,19 @@ const initApp = async () => {
         pageTransition,
         afterInit: async () => {
             await loaderTween.goTo({ opacity: 0, scale: 0.9 });
-            jsMainLoader?.remove();
-            jsMainLoaderBackground?.remove();
+            loaderTween.destroy();
+
             // @ts-ignore
             loaderTween = null;
+
+            jsMainLoader?.remove();
+            jsMainLoaderBackground?.remove();
+
+            // @ts-ignore
+            jsMainLoader = null;
+            // @ts-ignore
+            jsMainLoaderBackground = null;
+
             getScrollbarWith();
             redirectOnResize();
         },

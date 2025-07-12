@@ -38080,9 +38080,12 @@ Loading snippet ...</pre
       pageTransition: pageTransition2,
       afterInit: async () => {
         await loaderTween.goTo({ opacity: 0, scale: 0.9 });
+        loaderTween.destroy();
+        loaderTween = null;
         jsMainLoader?.remove();
         jsMainLoaderBackground?.remove();
-        loaderTween = null;
+        jsMainLoader = null;
+        jsMainLoaderBackground = null;
         getScrollbarWith();
         redirectOnResize();
       },
