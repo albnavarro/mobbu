@@ -2,6 +2,9 @@
 
 - Aggiungere pagine `500` speculare alla paginwa `400`.
 
+## About
+- `path-animation` `src/js/component/pages/about/animation/path-animation.js`, l'utilizzo delle `weakRef` é anomalo, non dovrebbe essere necessario, indagare.
+
 
 # MobCore
 
