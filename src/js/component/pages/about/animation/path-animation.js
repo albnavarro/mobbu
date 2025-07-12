@@ -7,15 +7,15 @@ import { randomIntFromInterval } from '@utils/utils';
 
 /** @type {import('../type').CreatePathAnimation} */
 export const createPathAnimation = ({
-    pathElement,
-    scrollerElement,
+    weakPathElement,
+    weakScrollerElement,
     wrapElement,
     setActiveItem,
 }) => {
     /**
      * Data
      */
-    const sequencerData = pathElement.map(() => {
+    const sequencerData = weakPathElement.map(() => {
         return {
             ax: 53,
             ay: 70,
@@ -221,8 +221,6 @@ export const createPathAnimation = ({
         if (!shouldLoop) return;
 
         sequencerData.forEach((item, index) => {
-            const currentPath = pathElement[index];
-
             const a = {
                 x: item.ax + timelineData.ax,
                 y: item.ay + timelineData.ay,
@@ -258,7 +256,10 @@ export const createPathAnimation = ({
                 y: item.gy + timelineData.gy,
             };
 
-            currentPath.style.clipPath = `polygon(${a.x}% ${a.y}%, ${b.x}% ${b.y}%, ${c.x}% ${c.y}%, ${d.x}% ${d.y}%,${e.x}% ${e.y}%,${f.x}% ${f.y}%,${g.x}% ${g.y}%)`;
+            if (!weakPathElement[index].deref()) return;
+
+            weakPathElement[index].deref().style.clipPath =
+                `polygon(${a.x}% ${a.y}%, ${b.x}% ${b.y}%, ${c.x}% ${c.y}%, ${d.x}% ${d.y}%,${e.x}% ${e.y}%,${f.x}% ${f.y}%,${g.x}% ${g.y}%)`;
         });
 
         MobCore.useNextFrame(() => loop());
@@ -278,7 +279,12 @@ export const createPathAnimation = ({
         dynamicEnd: {
             position: 'right',
             value: () => {
-                return -outerWidth(scrollerElement) + window.innerWidth;
+                return (
+                    -outerWidth(
+                        weakScrollerElement?.deref() ??
+                            document.createElement('div')
+                    ) + window.innerWidth
+                );
             },
         },
         reverse: true,

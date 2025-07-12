@@ -23,10 +23,19 @@ export const aboutAnimation = ({
     onMove,
     onSwipe,
 }) => {
+    /**
+     * Garbage collector utils for path svg Prevent path loop inside to not collected
+     */
+    const weakScrollerElement = new WeakRef(scrollerElement);
+
+    const weakPathElement = pathElement.map((element) => {
+        return new WeakRef(element);
+    });
+
     const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
         createPathAnimation({
-            pathElement,
-            scrollerElement,
+            weakPathElement,
+            weakScrollerElement,
             wrapElement,
             setActiveItem,
         });
@@ -56,7 +65,7 @@ export const aboutAnimation = ({
             section4_title,
         });
 
-    const aboutScroller = new MobSmoothScroller({
+    let aboutScroller = new MobSmoothScroller({
         screen: screenElement,
         scroller: scrollerElement,
         direction: 'horizontal',
@@ -94,10 +103,12 @@ export const aboutAnimation = ({
 
     return {
         goTo: (value) => {
-            aboutScroller.move(value).catch(() => {});
+            aboutScroller?.move?.(value).catch(() => {});
         },
         destroy: () => {
             aboutScroller.destroy();
+            // @ts-ignore
+            aboutScroller = null;
             pathSequencer.destroy();
             pathScroller.destroy();
             pathTimeline.destroy();

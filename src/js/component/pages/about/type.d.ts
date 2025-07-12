@@ -70,8 +70,8 @@ export type AboutScroller = (arg0: {
 };
 
 export type CreatePathAnimation = (ar0: {
-    scrollerElement: HTMLElement;
-    pathElement: HTMLSpanElement[];
+    weakScrollerElement: WaekRef<HTMLElement>;
+    weakPathElement: WaekRef<HTMLSpanElement>[];
     wrapElement: HTMLElement;
     setActiveItem: (value: number) => void;
 }) => {
