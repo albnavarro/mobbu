@@ -2,10 +2,6 @@
 
 - Aggiungere pagine `500` speculare alla paginwa `400`.
 
-## About
-- `path-animation` `src/js/component/pages/about/animation/path-animation.js`, l'utilizzo delle `weakRef` é anomalo, non dovrebbe essere necessario, indagare.
-
-
 # MobCore
 
 ### eslint:
@@ -19,13 +15,8 @@
 
 # MobJs
 
-## Weak logic / detect ghost element reference.
-- `mainStore` / `MAIN_STORE_ASYNC_PARSER`
-    - `src/js/mob/mob-js/parse/index.js`, reset store element prop OK.
-
-- Indagare il caso dei tre bottoni in `benachMark`.
-- Aggiungere nella DOCS un capitolo `memory management`, dove spiegare l'utilitá di `ref` & `refs` per permettere alle logiche weak di lavorare bene.
-
+## Css
+- Eliminare la dipenza di `mq` e creare un mixin apposito.
 
 ## Proxi auto-detect
 - Aggiungerle a `Freeze` && `unFreeze`.
@@ -37,7 +28,11 @@
 - E' possibile correggere la situazione a monte ?
 
 ## ParserHTML
+#### Sanitize
 - Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
+
+#### Render return object.
+- Funizione utility che converte un `oggetto` in `html`.
 
 ## Search
 - Splittare `currentSearch` per spazi ?
