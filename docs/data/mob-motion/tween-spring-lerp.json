@@ -778,6 +778,15 @@
                         "content": "The subscribe method will allow us to apply the values in real time to our target. The subscribe() method always returns an unsubscribe() function"
                     },
                     {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "Consider using <strong>weakRef</strong> when the animation is handled in a <strong>nested function</strong>, especially when using <strong>closures</strong>, to prevent <strong>memory leaks</strong>."
+                    },
+                    {
                         "component": "mob-snippet",
                         "props": {
                             "source": "./snippets/mob-motion/subscribe.js",
@@ -808,6 +817,15 @@
                             "style": "medium"
                         },
                         "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function. This method is specific for the use of stagger by optimizing memory consumption. Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "Consider using <strong>weakRef</strong> when the animation is handled in a <strong>nested function</strong>, especially when using <strong>closures</strong>, to prevent <strong>memory leaks</strong>."
                     },
                     {
                         "component": "mob-snippet",
