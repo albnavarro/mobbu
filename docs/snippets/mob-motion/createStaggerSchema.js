@@ -1,5 +1,5 @@
 const staggers = MobTween.createStaggers({
-    items: Array.<Element|Object>,
+    items: Array<HTMLElement|WeakRef|Object>,
     stagger?: {
         type?: String,
         from?: Number|String|{x:number,y:number},

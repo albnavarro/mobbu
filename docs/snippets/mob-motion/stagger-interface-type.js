@@ -5,7 +5,7 @@
     /**
      * Target Array.
      */
-    items: Array<HTMLElement | Object>;
+    items: Array<HTMLElement | WeakRef<HTMLElement> | Object>;
 
     /**
      * Sequencer duration, default is 10 like normal sequencer.
@@ -39,7 +39,7 @@
  * Array resulting from the createStagger function.
  */
 interface staggerArray {
-    item: HTMLElement | object;
+    item: HTMLElement | WeakRef<HTMLElement> | object;
     start: number;
     end: number;
     index: number;
