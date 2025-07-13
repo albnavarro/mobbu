@@ -27,7 +27,15 @@ export const aboutAnimation = ({
      * Garbage collector utils for path svg Prevent path loop inside to not collected
      */
     const weakScrollerElement = new WeakRef(scrollerElement);
+    const weakSectio2Title = new WeakRef(section2_title);
+    const weakSectio2Copy = new WeakRef(section2_copy);
+    const weakSectio3Title = new WeakRef(section3_title);
+    const weakSectio3Copy = new WeakRef(section3_copy);
+    const weakSectio4Title = new WeakRef(section4_title);
     const weakPathElement = pathElement.map((element) => {
+        return new WeakRef(element);
+    });
+    const weakInspirationitem = inspirationItem.map((element) => {
         return new WeakRef(element);
     });
 
@@ -52,8 +60,8 @@ export const aboutAnimation = ({
         sectionContentScroller: sectionContentScroller_1,
         sectionContentSequencer: section2TitleSequencer_1,
     } = sectionContentAnimation({
-        title: section2_title,
-        copy: section2_copy,
+        title: weakSectio2Title,
+        copy: weakSectio2Copy,
     });
 
     const {
@@ -61,8 +69,8 @@ export const aboutAnimation = ({
         sectionContentSequencer: section2TitleSequencer_2,
         destroy: destroyContentAnimation,
     } = sectionContentAnimation({
-        title: section3_title,
-        copy: section3_copy,
+        title: weakSectio3Title,
+        copy: weakSectio3Copy,
     });
 
     const {
@@ -71,8 +79,8 @@ export const aboutAnimation = ({
         titleSequencer,
         destroy: destroyInspirationAnimation,
     } = inspirationAnimation({
-        inspirationItem,
-        section4_title,
+        weakInspirationitem,
+        weakSectio4Title,
     });
 
     let aboutScroller = new MobSmoothScroller({

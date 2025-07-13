@@ -19,24 +19,36 @@ export const sectionContentAnimation = ({ title, copy }) => {
 
     sectionContentSequencer.subscribe(
         ({ yTitle, xTitle, yCopy, opacityTitle, opacityCopy }) => {
-            title.style.transform = `translate3d(0,0,0) translate(${xTitle}px, ${yTitle}%)`;
-            copy.style.transform = `translate3d(0,0,0) translateY(${yCopy}%)`;
-            title.style.opacity = opacityTitle;
-            copy.style.opacity = opacityCopy;
+            if (!title.deref() || !copy.deref()) return;
+
+            // @ts-ignore
+            title.deref().style.transform = `translate3d(0,0,0) translate(${xTitle}px, ${yTitle}%)`;
+            // @ts-ignore
+            copy.deref().style.transform = `translate3d(0,0,0) translateY(${yCopy}%)`;
+            // @ts-ignore
+            title.deref().style.opacity = opacityTitle;
+            // @ts-ignore
+            copy.deref().style.opacity = opacityCopy;
         }
     );
 
     sectionContentSequencer.onStop(
         ({ yTitle, xTitle, yCopy, opacityTitle, opacityCopy }) => {
-            title.style.transform = `translate(${xTitle}px, ${yTitle}%)`;
-            copy.style.transform = `translateY(${yCopy}%)`;
-            title.style.opacity = opacityTitle;
-            copy.style.opacity = opacityCopy;
+            if (!title.deref() || !copy.deref()) return;
+
+            // @ts-ignore
+            title.deref().style.transform = `translate(${xTitle}px, ${yTitle}%)`;
+            // @ts-ignore
+            copy.deref().style.transform = `translateY(${yCopy}%)`;
+            // @ts-ignore
+            title.deref().style.opacity = opacityTitle;
+            // @ts-ignore
+            copy.deref().style.opacity = opacityCopy;
         }
     );
 
     let sectionContentScroller = MobScroll.createScrollTrigger({
-        item: title,
+        item: title.deref(),
         dynamicStart: {
             position: 'right',
             value: () => 0,

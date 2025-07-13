@@ -94,8 +94,8 @@ export type AboutSection1 = (arg0: {
 };
 
 export type AboutSection2 = (arg0: {
-    title: HTMLElement;
-    copy: HTMLElement;
+    title: WeakRef<HTMLElement>;
+    copy: WeakRef<HTMLElement>;
 }) => {
     sectionContentScroller: MobScroller;
     sectionContentSequencer: MobSequencer;
@@ -103,8 +103,8 @@ export type AboutSection2 = (arg0: {
 };
 
 export type InspirationAnimation = (ar0: {
-    inspirationItem: HTMLElement[];
-    section4_title: HTMLElement;
+    weakInspirationitem: WaekRef<HTMLElement>[];
+    weakSectio4Title: WeakRef<HTMLElement>;
 }) => {
     inspirationScroller: MobScroller;
     masterSequencer: MobMasterSequencer;
