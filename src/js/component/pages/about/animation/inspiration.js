@@ -2,10 +2,10 @@ import { MobScroll, MobTween } from '@mobMotion';
 
 /** @type {import('../type').InspirationAnimation} */
 export const inspirationAnimation = ({ inspirationItem, section4_title }) => {
-    const masterSequencer = MobTween.createMasterSequencer();
+    let masterSequencer = MobTween.createMasterSequencer();
 
     // Title animation
-    const titleSequencer = MobTween.createSequencer({
+    let titleSequencer = MobTween.createSequencer({
         data: {
             xTitle: 400,
         },
@@ -49,7 +49,7 @@ export const inspirationAnimation = ({ inspirationItem, section4_title }) => {
         masterSequencer.add(sequencer);
     });
 
-    const inspirationScroller = MobScroll.createScrollTrigger({
+    let inspirationScroller = MobScroll.createScrollTrigger({
         item: inspirationItem[0],
         propierties: 'tween',
         tween: masterSequencer,
@@ -68,5 +68,16 @@ export const inspirationAnimation = ({ inspirationItem, section4_title }) => {
         inspirationScroller,
         titleSequencer,
         masterSequencer,
+        destroy: () => {
+            inspirationScroller.destroy();
+            // @ts-ignore
+            inspirationScroller = null;
+            titleSequencer.destroy();
+            // @ts-ignore
+            titleSequencer = null;
+            masterSequencer.destroy();
+            // @ts-ignore
+            masterSequencer = null;
+        },
     };
 };

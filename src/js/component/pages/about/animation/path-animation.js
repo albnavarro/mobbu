@@ -54,7 +54,7 @@ export const createPathAnimation = ({
     /**
      * Sequencer Scroll shape mutation
      */
-    const pathSequencer = MobTween.createSequencer({
+    let pathSequencer = MobTween.createSequencer({
         data: { ...sequencerData[0] },
         stagger: {
             each: 40,
@@ -161,7 +161,7 @@ export const createPathAnimation = ({
     /**
      * Tween Perpetual movement
      */
-    const pathTween = MobTween.createTimeTween({
+    let pathTween = MobTween.createTimeTween({
         data: { ...timelineData },
     });
 
@@ -187,7 +187,7 @@ export const createPathAnimation = ({
     /**
      * Timeline Loop pathTween
      */
-    const pathTimeline = MobTimeline.createAsyncTimeline({
+    let pathTimeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         yoyo: true,
     }).goTo(
@@ -270,7 +270,7 @@ export const createPathAnimation = ({
     /**
      * ScrollTrigger
      */
-    const pathScroller = MobScroll.createScrollTrigger({
+    let pathScroller = MobScroll.createScrollTrigger({
         item: wrapElement,
         dynamicStart: {
             position: 'left',
@@ -300,6 +300,20 @@ export const createPathAnimation = ({
         pathTimeline,
         stopLoop: () => {
             shouldLoop = false;
+        },
+        destroy: () => {
+            pathScroller.destroy();
+            // @ts-ignore
+            pathScroller = null;
+            pathSequencer.destroy();
+            // @ts-ignore
+            pathSequencer = null;
+            pathTween.destroy();
+            // @ts-ignore
+            pathTween = null;
+            pathTimeline.destroy();
+            // @ts-ignore
+            pathTimeline = null;
         },
     };
 };

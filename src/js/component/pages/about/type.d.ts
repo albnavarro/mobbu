@@ -80,6 +80,7 @@ export type CreatePathAnimation = (ar0: {
     pathTween: MobTimeTween;
     pathTimeline: MobAsyncTimeline;
     stopLoop: () => void;
+    destroy: () => void;
 };
 
 export type AboutSection1 = (arg0: {
@@ -98,6 +99,7 @@ export type AboutSection2 = (arg0: {
 }) => {
     sectionContentScroller: MobScroller;
     sectionContentSequencer: MobSequencer;
+    destroy: () => void;
 };
 
 export type InspirationAnimation = (ar0: {
@@ -107,6 +109,7 @@ export type InspirationAnimation = (ar0: {
     inspirationScroller: MobScroller;
     masterSequencer: MobMasterSequencer;
     titleSequencer: MobSequencer;
+    destroy: () => void;
 };
 
 export type AboutSvgAnimation = (arg0: { elements: HTMLElement[] }) => {

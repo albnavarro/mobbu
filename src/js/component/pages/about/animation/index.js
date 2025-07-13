@@ -27,18 +27,23 @@ export const aboutAnimation = ({
      * Garbage collector utils for path svg Prevent path loop inside to not collected
      */
     const weakScrollerElement = new WeakRef(scrollerElement);
-
     const weakPathElement = pathElement.map((element) => {
         return new WeakRef(element);
     });
 
-    const { pathScroller, pathSequencer, pathTimeline, pathTween, stopLoop } =
-        createPathAnimation({
-            weakPathElement,
-            weakScrollerElement,
-            wrapElement,
-            setActiveItem,
-        });
+    const {
+        pathScroller,
+        pathSequencer,
+        pathTimeline,
+        pathTween,
+        stopLoop,
+        destroy: destroypathAnimation,
+    } = createPathAnimation({
+        weakPathElement,
+        weakScrollerElement,
+        wrapElement,
+        setActiveItem,
+    });
 
     const { title1parallax, title2parallax, title1tween, title2tween } =
         aboutSection1({ title_1, title_2 });
@@ -54,16 +59,21 @@ export const aboutAnimation = ({
     const {
         sectionContentScroller: sectionContentScroller_2,
         sectionContentSequencer: section2TitleSequencer_2,
+        destroy: destroyContentAnimation,
     } = sectionContentAnimation({
         title: section3_title,
         copy: section3_copy,
     });
 
-    const { inspirationScroller, masterSequencer, titleSequencer } =
-        inspirationAnimation({
-            inspirationItem,
-            section4_title,
-        });
+    const {
+        inspirationScroller,
+        masterSequencer,
+        titleSequencer,
+        destroy: destroyInspirationAnimation,
+    } = inspirationAnimation({
+        inspirationItem,
+        section4_title,
+    });
 
     let aboutScroller = new MobSmoothScroller({
         screen: screenElement,
@@ -125,6 +135,9 @@ export const aboutAnimation = ({
             masterSequencer.destroy();
             titleSequencer.destroy();
             stopLoop();
+            destroypathAnimation();
+            destroyContentAnimation();
+            destroyInspirationAnimation();
         },
     };
 };

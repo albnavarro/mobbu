@@ -2,7 +2,7 @@ import { MobScroll, MobTween } from '@mobMotion';
 
 /** @type {import('../type').AboutSection2} */
 export const sectionContentAnimation = ({ title, copy }) => {
-    const sectionContentSequencer = MobTween.createSequencer({
+    let sectionContentSequencer = MobTween.createSequencer({
         data: {
             yTitle: 100,
             xTitle: -300,
@@ -35,7 +35,7 @@ export const sectionContentAnimation = ({ title, copy }) => {
         }
     );
 
-    const sectionContentScroller = MobScroll.createScrollTrigger({
+    let sectionContentScroller = MobScroll.createScrollTrigger({
         item: title,
         dynamicStart: {
             position: 'right',
@@ -53,5 +53,13 @@ export const sectionContentAnimation = ({ title, copy }) => {
     return {
         sectionContentScroller,
         sectionContentSequencer,
+        destroy: () => {
+            sectionContentScroller.destroy();
+            // @ts-ignore
+            sectionContentScroller = null;
+            sectionContentSequencer.destroy();
+            // @ts-ignore
+            sectionContentSequencer = null;
+        },
     };
 };
