@@ -15,9 +15,6 @@
 
 # MobJs
 
-## Css
-- Eliminare la dipenza di `mq` e creare un mixin apposito.
-
 ## Proxi auto-detect
 - Aggiungerle a `Freeze` && `unFreeze`.
 - Fare riferimento a `src/js/mob/mob-js/modules/repeater/action/parse-bindprop-repeat.js`, parseBindRepeat.

@@ -19,7 +19,7 @@ const ctx = await esbuild.context({
     plugins: [
         sassPlugin({
             // sass-mq warning, temp disable
-            quietDeps: true,
+            // quietDeps: true,
             // type: 'css-text',
         }),
     ],

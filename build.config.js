@@ -11,7 +11,7 @@ esbuild.build({
     plugins: [
         sassPlugin({
             // sass-mq warning, temp disable
-            quietDeps: true,
+            // quietDeps: false,
             // type: 'css-text',
         }),
     ],
