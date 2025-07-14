@@ -16,8 +16,11 @@
 # MobJs
 
 ## Proxi auto-detect
-- Aggiungerle a `Freeze` && `unFreeze`.
+- Aggiungerle a `Freeze` && `unFreeze`, `computed ( dipendenze )`.
 - Fare riferimento a `src/js/mob/mob-js/modules/repeater/action/parse-bindprop-repeat.js`, parseBindRepeat.
+
+## Computed:
+- Specificare che definite le dipendenze i parametri della callback saranno solo dipendenze. Specificare una dipendenza come trigger ma usare il proxi con altri parametri al suo interno.
 
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>

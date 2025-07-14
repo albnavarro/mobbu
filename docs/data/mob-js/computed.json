@@ -80,6 +80,19 @@
             "content": "Explicit dependencies"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If you explicitly define dependencies, the <strong>callback</strong> will only receive the properties defined in the <strong>dependencies</strong>. Alternatively, you can use <strong>proxies</strong> within the callback.<br/> This allows you to react to changes in a specific state (such as an external state used with <strong>bindStore</strong>) and return a value based on other states."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/computed.js",

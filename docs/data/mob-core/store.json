@@ -1088,11 +1088,32 @@
                         "content": "Computed"
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Update properties value if some dependency ( store props) change. Computed functions are resolved on the javascript loop. If multiple dependencies change at the same time, the computed will be resolved only once. The initial value of computed will be calculated after initialization based on the current dependencies values. When a computed function is created the state that is changed can no longer be explicitly changed"
+                        "content": "<strong>Update properties</strong> value if some <strong>dependency</strong> ( store props) change. Computed functions are resolved on the <strong>javascript loop</strong>. If multiple dependencies change at the same time, the computed will be resolved only once. The <strong>initial value</strong> of computed will be calculated after <strong>initialization</strong> based on the current dependencies values."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "Once the function is defined, the target state can no longer be changed manually."
                     },
                     {
                         "component": "mob-spacer",
@@ -1112,7 +1133,14 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If you adopt a logical and functional approach you can define explicit dependencies and use the current values of the dependencies as parameters of the callback, in this way you will not use state values defined outside the context of the callback."
+                        "content": "If you adopt a logical and functional approach you can define <strong>explicit dependencies</strong> and use the current values of the dependencies as parameters of the callback, in this way you will not use state values defined <strong>outside the context of the callback</strong>."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "If you explicitly define dependencies, the <strong>callback</strong> will only receive the properties defined in the <strong>dependencies</strong>. Alternatively, you can use <strong>proxies</strong> within the callback.<br/> This allows you to react to changes in a specific state (such as an external state used with <strong>bindStore</strong>) and return a value based on other states."
                     },
                     {
                         "component": "mob-snippet",
