@@ -19,8 +19,30 @@
 - Aggiungerle a `Freeze` && `unFreeze`, `computed ( dipendenze )`.
 - Fare riferimento a `src/js/mob/mob-js/modules/repeater/action/parse-bindprop-repeat.js`, parseBindRepeat.
 
-## Computed:
-- Specificare che definite le dipendenze i parametri della callback saranno solo dipendenze. Specificare una dipendenza come trigger ma usare il proxi con altri parametri al suo interno.
+
+- `computed`, come per `propParsed` fare `keyParsed` in `index.js`
+```js
+computed: (
+    /** @type{string|(() => any)} */ prop,
+    /** @type{(arg0: Record<string, any>) => any} */ callback,
+    /** @type{string[]|(() => any)[]} */ keys = []
+) => {
+    const propParsed = getCurrentProp(prop);
+    const keyParsed = getCurrentKeys(keys);
+
+    storeComputedEntryPoint({
+        instanceId,
+        prop: propParsed,
+        keys: keyParsed,
+        callback,
+    });
+
+    useNextLoop(() => {
+        storeEmitEntryPoint({ instanceId, prop: propParsed });
+    });
+},
+```
+
 
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
