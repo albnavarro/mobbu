@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The computed() function is equivalent to myStore.computed()."
+            "content": "the state of the component is based on the <a href='#mobCore-store'><strong>store</strong></a> defined in <strong>mobCore</strong> and inherits all its functionality. The computed() function is equivalent to <strong>myStore.computed(...)</strong>."
         },
         {
             "component": "mob-spacer",
@@ -39,7 +39,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Update properties value if some state change. Computed functions are resolved on the javascript loop. If multiple state change at the same time, the computed will be resolved only once. Component states are declared in the component's <a href='./#mobJs-component'>definition</a>"
+            "content": "Update properties value if some state change.<br/> Computed functions are resolved on the javascript loop. If multiple state change at the same time, the computed will be resolved only once. Component states are declared in the component's <a href='./#mobJs-component'><strong>definition</strong></a>"
         },
         {
             "component": "mob-spacer",
@@ -62,7 +62,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 38
+                "numLines": 44
             }
         },
         {
@@ -99,7 +99,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 47
+                "numLines": 32
             }
         }
     ]
