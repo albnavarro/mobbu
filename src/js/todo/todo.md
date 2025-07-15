@@ -16,48 +16,8 @@
 # MobJs
 
 ## Proxi auto-detect
-- Aggiungerle a `Freeze` && `unFreeze`, `computed ( dipendenze )`.
+- Aggiungerle a `Freeze` && `unFreeze`.
 - Fare riferimento a `src/js/mob/mob-js/modules/repeater/action/parse-bindprop-repeat.js`, parseBindRepeat.
-
-
-- `computed`, come per `propParsed` fare `keyParsed` in `index.js`
-```js
-computed: (
-    /** @type{string|(() => any)} */ prop,
-    /** @type{(arg0: Record<string, any>) => any} */ callback,
-    /** @type{string[]|(() => any)[]} */ keys = []
-) => {
-    const propParsed = getCurrentProp(prop);
-    const keyParsed = getCurrentKeys(keys);
-
-    storeComputedEntryPoint({
-        instanceId,
-        prop: propParsed,
-        keys: keyParsed,
-        callback,
-    });
-
-    useNextLoop(() => {
-        storeEmitEntryPoint({ instanceId, prop: propParsed });
-    });
-},
-```
-
-```js
-interface MobStoreComputed<T> {
-    <K extends keyof T>(
-        prop: K,
-        callback: (arg0: T) => T[K],
-        keys?: (Extract<keyof T, string> | (() => T[keyof T]))[]
-    ): void;
-    <K extends T[keyof T]>(
-        prop: () => K,
-        callback: (arg0: T) => NoInfer<K>,
-        keys?: (Extract<keyof T, string> | (() => T[keyof T]))[]
-    ): void;
-}
-```
-
 
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>

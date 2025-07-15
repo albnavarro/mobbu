@@ -79,7 +79,9 @@ export const storeTest = () => {
         () => proxi.myComputed,
         () => {
             return proxi.prop + proxi.proxiProp;
-        }
+        },
+        // ['prop', 'proxiProp']
+        [() => proxi.prop, () => proxi.proxiProp]
     );
 
     storeTest.computed(

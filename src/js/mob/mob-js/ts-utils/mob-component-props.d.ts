@@ -163,12 +163,18 @@ export interface PartialCompunted<T> {
     <K extends keyof ExtractState<T>>(
         prop: K,
         callback: (arg0: ExtractState<T>) => ExtractState<T>[K],
-        keys?: NotValue<keyof ExtractState<T>, K>[]
+        keys?: (
+            | NotValue<keyof ExtractState<T>, K>
+            | (() => T[keyof ExtractState<T>])
+        )[]
     ): void;
     <K extends T[keyof ExtractState<T>]>(
         prop: () => K,
         callback: (arg0: ExtractState<T>) => NoInfer<K>,
-        keys?: NotValue<keyof ExtractState<T>, K>[]
+        keys?: (
+            | NotValue<keyof ExtractState<T>, K>
+            | (() => T[keyof ExtractState<T>])
+        )[]
     ): void;
 }
 
