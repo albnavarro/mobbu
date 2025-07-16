@@ -163,7 +163,7 @@ export const watchRepeat = ({
             /**
              * Start main update list function
              */
-            const currentUnivoque = await updateRepeater({
+            const currentUpdated = await updateRepeater({
                 state,
                 persistent,
                 repeaterParentElement:
@@ -239,7 +239,7 @@ export const watchRepeat = ({
              */
             chunkChildrenOrdered.forEach((childArray, index) => {
                 childArray.forEach((id) => {
-                    const currentValue = currentUnivoque?.[index];
+                    const currentValue = currentUpdated?.[index];
                     if (!currentValue) return;
 
                     /**
@@ -249,7 +249,7 @@ export const watchRepeat = ({
                         ? current.findIndex((value) => {
                               return (
                                   `${value?.[key]}` ===
-                                  `${currentUnivoque?.[index]?.[key]}`
+                                  `${currentUpdated?.[index]?.[key]}`
                               );
                           })
                         : index;

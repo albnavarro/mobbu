@@ -156,10 +156,10 @@ export const addWithoutKey = ({
          * Fall back for repeater without component inside. If there is no component in repeater fallback to element in
          * repeater map.
          */
-        if (childrenChunkedByWrapper.length > 0) return [];
+        if (childrenChunkedByWrapper.length > 0) return current;
 
         const childrenFromRepeater = getRepeaterChild({ repeatId });
-        if (!childrenFromRepeater) return [];
+        if (!childrenFromRepeater) return current;
 
         const childrenFromRepeaterToRemove = childrenFromRepeater.filter(
             ({ index }) => {
