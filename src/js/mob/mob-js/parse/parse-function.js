@@ -288,7 +288,9 @@ export const parseComponentsRecursive = async ({
     /**
      * Copy all classes in new component.
      */
-    newElement?.classList.add(...classList);
+    if (classList.length > 0) {
+        newElement?.classList.add(...classList);
+    }
 
     /**
      * Set parentId to component inside current. Add self id to future component. If id is assigned to component nested
