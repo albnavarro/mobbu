@@ -319,7 +319,7 @@ export const getRenderWithoutSync = ({
                 index,
             });
 
-            let fragment = range.createContextualFragment(
+            const fragment = range.createContextualFragment(
                 render({
                     initialIndex: index,
                     initialValue: item,
@@ -344,8 +344,6 @@ export const getRenderWithoutSync = ({
             /**
              * Remove fragment as soon as possible from GC. TODO Is really necessary ?
              */
-            // @ts-ignore
-            fragment = null;
             return serializedRender;
         })
         .join('');

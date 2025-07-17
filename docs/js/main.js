@@ -7683,7 +7683,7 @@
         keyValue: hasKey ? item?.[key] : "",
         index
       });
-      let fragment = range.createContextualFragment(
+      const fragment = range.createContextualFragment(
         render2({
           initialIndex: index,
           initialValue: item,
@@ -7701,7 +7701,6 @@
         key: hasKey ? item?.[key] : ""
       });
       const serializedRender = serializeFragment(fragment);
-      fragment = null;
       return serializedRender;
     }).join("");
     setSkipAddUserComponent(false);
