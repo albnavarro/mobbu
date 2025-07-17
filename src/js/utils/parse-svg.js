@@ -7,7 +7,7 @@ import { serializeFragment } from '../mob/mob-js/parse/steps/utils';
  * @returns String
  */
 export const parseSvg = ({ svg, id }) => {
-    let fragment = document.createRange().createContextualFragment(svg);
+    const fragment = document.createRange().createContextualFragment(svg);
     const layers = fragment.querySelectorAll('[type="layer"]');
     const layerToRemove = fragment.querySelectorAll('[type="delete"]');
 
@@ -21,8 +21,6 @@ export const parseSvg = ({ svg, id }) => {
     });
 
     const serialized = serializeFragment(fragment);
-    // @ts-ignore
-    fragment = null;
 
     return serialized;
 };

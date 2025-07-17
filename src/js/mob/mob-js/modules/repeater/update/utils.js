@@ -58,7 +58,7 @@ export const updateRepeaterWitoutKey = ({
                 sync: () => '',
             });
 
-            let fragment = range.createContextualFragment(rawRender);
+            const fragment = range.createContextualFragment(rawRender);
             const components = queryAllFutureComponent(fragment, false);
 
             setRepeatAttribute({
@@ -75,8 +75,6 @@ export const updateRepeaterWitoutKey = ({
             /**
              * Remove fragment as soon as possible from GC. TODO Is really necessary ?
              */
-            // @ts-ignore
-            fragment = null;
             return serializedRender;
         })
         .join('');
@@ -187,7 +185,7 @@ export const updateRepeaterWithtKey = ({
         index,
     });
 
-    let fragment = document.createRange().createContextualFragment(
+    const fragment = document.createRange().createContextualFragment(
         render({
             initialIndex: index,
             initialValue: currentValue,
@@ -213,8 +211,6 @@ export const updateRepeaterWithtKey = ({
     /**
      * Remove fragment as soon as possible from GC. TODO Is really necessary ?
      */
-    // @ts-ignore
-    fragment = null;
     return serializedRender;
 };
 

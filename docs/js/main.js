@@ -7522,7 +7522,7 @@
         current: proxiObject,
         sync: () => ""
       });
-      let fragment = range.createContextualFragment(rawRender);
+      const fragment = range.createContextualFragment(rawRender);
       const components = queryAllFutureComponent(fragment, false);
       setRepeatAttribute({
         components,
@@ -7533,7 +7533,6 @@
         key: void 0
       });
       const serializedRender = serializeFragment(fragment);
-      fragment = null;
       return serializedRender;
     }).join("");
     setSkipAddUserComponent(false);
@@ -7599,7 +7598,7 @@
       keyValue,
       index
     });
-    let fragment = document.createRange().createContextualFragment(
+    const fragment = document.createRange().createContextualFragment(
       render2({
         initialIndex: index,
         initialValue: currentValue,
@@ -7618,7 +7617,6 @@
     });
     setSkipAddUserComponent(false);
     const serializedRender = serializeFragment(fragment);
-    fragment = null;
     return serializedRender;
   };
   var getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
@@ -33118,7 +33116,7 @@ Loading snippet ...</pre
 
   // src/js/utils/parse-svg.js
   var parseSvg = ({ svg, id }) => {
-    let fragment = document.createRange().createContextualFragment(svg);
+    const fragment = document.createRange().createContextualFragment(svg);
     const layers = fragment.querySelectorAll('[type="layer"]');
     const layerToRemove = fragment.querySelectorAll('[type="delete"]');
     [...layers].forEach((layer) => {
@@ -33129,7 +33127,6 @@ Loading snippet ...</pre
       layer.remove();
     });
     const serialized = serializeFragment(fragment);
-    fragment = null;
     return serialized;
   };
 
