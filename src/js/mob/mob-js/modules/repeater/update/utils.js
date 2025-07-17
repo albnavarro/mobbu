@@ -34,6 +34,7 @@ export const updateRepeaterWitoutKey = ({
     repeatId,
 }) => {
     setSkipAddUserComponent(true);
+    const range = document.createRange();
 
     /**
      * Create palcehodler component
@@ -57,10 +58,7 @@ export const updateRepeaterWitoutKey = ({
                 sync: () => '',
             });
 
-            let fragment = document
-                .createRange()
-                .createContextualFragment(rawRender);
-
+            let fragment = range.createContextualFragment(rawRender);
             const components = queryAllFutureComponent(fragment, false);
 
             setRepeatAttribute({
@@ -309,6 +307,7 @@ export const getRenderWithoutSync = ({
     hasKey,
 }) => {
     setSkipAddUserComponent(true);
+    const range = document.createRange();
 
     /**
      * Render immediately first DOM
@@ -324,7 +323,7 @@ export const getRenderWithoutSync = ({
                 index,
             });
 
-            let fragment = document.createRange().createContextualFragment(
+            let fragment = range.createContextualFragment(
                 render({
                     initialIndex: index,
                     initialValue: item,
