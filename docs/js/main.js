@@ -6708,11 +6708,8 @@
     });
   };
   var serializeFragment = (fragment) => {
-    const serializer = new XMLSerializer();
-    const xmlnAttribute = ' xmlns="http://www.w3.org/1999/xhtml"';
-    const rawString = serializer.serializeToString(fragment);
-    const regEx = new RegExp(xmlnAttribute, "g");
-    return rawString.replaceAll(regEx, "");
+    const rawString = new XMLSerializer().serializeToString(fragment);
+    return rawString.replaceAll(' xmlns="http://www.w3.org/1999/xhtml"', "");
   };
 
   // src/js/mob/mob-js/parse/steps/convert-to-real-element.js
@@ -7509,6 +7506,7 @@
     repeatId
   }) => {
     setSkipAddUserComponent(true);
+    const range = document.createRange();
     const serializedFragment = [...Array.from({ length: diff }).keys()].map((_item, index) => {
       const initialValue = current?.[index + previousLenght];
       const initialIndex = index + previousLenght;
@@ -7524,7 +7522,7 @@
         current: proxiObject,
         sync: () => ""
       });
-      let fragment = document.createRange().createContextualFragment(rawRender);
+      let fragment = range.createContextualFragment(rawRender);
       const components = queryAllFutureComponent(fragment, false);
       setRepeatAttribute({
         components,
@@ -7677,6 +7675,7 @@
     hasKey
   }) => {
     setSkipAddUserComponent(true);
+    const range = document.createRange();
     const rawRender = currentUnique.map((item, index) => {
       const proxiObject = getRepeatProxi({
         id,
@@ -7686,7 +7685,7 @@
         keyValue: hasKey ? item?.[key] : "",
         index
       });
-      let fragment = document.createRange().createContextualFragment(
+      let fragment = range.createContextualFragment(
         render2({
           initialIndex: index,
           initialValue: item,
