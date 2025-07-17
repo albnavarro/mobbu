@@ -2,6 +2,13 @@
 
 - Aggiungere pagine `500` speculare alla paginwa `400`.
 
+- `Sharia coding` section.
+    - Taliban style.
+    - Indo-kush vibe.
+    - Inspiration from Nhuland `funck eu` -> `funck ia`.
+    - Taglialre le mani style.
+    - Mullah Omar code style rappresent.
+
 # MobCore
 
 ### eslint:
