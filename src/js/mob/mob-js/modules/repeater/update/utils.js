@@ -90,6 +90,22 @@ export const updateRepeaterWitoutKey = ({
 
 /**
  * @param {object} params
+ * @param {number} params.initialIndex
+ * @param {any} params.initialValue
+ * @param {string} params.state
+ * @param {string} params.repeatId
+ * @returns {string}
+ */
+const getSyncWithoutKey = ({ initialIndex, initialValue, state, repeatId }) => {
+    return /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
+        current: initialValue,
+        index: initialIndex,
+    })}"
+    ${ATTR_REPEATER_PROP_BIND}="${state}" ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+};
+
+/**
+ * @param {object} params
  * @param {string} params.id
  * @param {number} params.diff
  * @param {any} params.current
@@ -110,18 +126,12 @@ export const updateRepeaterWithoutKeyUseSync = ({
 }) => {
     return [...Array.from({ length: diff }).keys()]
         .map((_item, index) => {
-            const initialValue = current?.[index + previousLenght];
             const initialIndex = index + previousLenght;
 
-            const sync =
-                /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-                    {
-                        current: initialValue,
-                        index: initialIndex,
-                    }
-                )}"
-            ${ATTR_REPEATER_PROP_BIND}="${state}"
-            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+            // use a copy to avoid problem in closure below.
+            const initialValue = current?.[initialIndex]
+                ? { ...current?.[initialIndex] }
+                : {};
 
             const proxiObject = getRepeatProxi({
                 id,
@@ -131,7 +141,13 @@ export const updateRepeaterWithoutKeyUseSync = ({
             });
 
             return render({
-                sync,
+                sync: () =>
+                    getSyncWithoutKey({
+                        initialIndex,
+                        initialValue,
+                        repeatId,
+                        state,
+                    }),
                 initialIndex,
                 initialValue,
                 current: proxiObject,
@@ -206,6 +222,25 @@ export const updateRepeaterWithtKey = ({
 
 /**
  * @param {object} params
+ * @param {string} params.keyValue
+ * @param {number} params.index
+ * @param {any} params.currentValue
+ * @param {string} params.state
+ * @param {string} params.repeatId
+ * @returns {string}
+ */
+const getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
+    return /* HTML */ ` ${ATTR_KEY}="${keyValue}"
+    ${ATTR_REPEATER_PROP_BIND}="${state}"
+    ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
+        current: currentValue,
+        index,
+    })}"
+    ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+};
+
+/**
+ * @param {object} params
  * @param {string} params.id
  * @param {Record<string, any>} params.currentValue
  * @param {number} params.index
@@ -226,6 +261,9 @@ export const updateRepeaterWithtKeyUseSync = ({
     keyValue,
     render,
 }) => {
+    // use a copy to avoid problem in closure below.
+    const currentValueCopy = { ...currentValue };
+
     const proxiObject = getRepeatProxi({
         id,
         bind: state,
@@ -235,20 +273,18 @@ export const updateRepeaterWithtKeyUseSync = ({
         index,
     });
 
-    const sync = () =>
-        /* HTML */ ` ${ATTR_KEY}="${keyValue}"
-        ${ATTR_REPEATER_PROP_BIND}="${state}"
-        ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
-            current: currentValue,
-            index,
-        })}"
-        ${ATTR_CHILD_REPEATID}="${repeatId}"`;
-
     return render({
         initialIndex: index,
-        initialValue: currentValue,
+        initialValue: currentValueCopy,
         current: proxiObject,
-        sync,
+        sync: () =>
+            getSyncWithKey({
+                currentValue: currentValueCopy,
+                index,
+                keyValue,
+                repeatId,
+                state,
+            }),
     });
 };
 
