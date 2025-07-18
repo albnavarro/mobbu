@@ -166,37 +166,6 @@ export const defineUserComponent = (componentList) => {
                     const skip = getSkipAddUserComponent();
                     if (skip) return;
 
-                    /** Get all attribute */
-                    [
-                        this.#name,
-                        this.#staticPropsId,
-                        this.#dynamicPropsId,
-                        this.#currentKey,
-                        this.#bindEventsId,
-                        this.#currentRepeatValueId,
-                        this.#slotPosition,
-                        this.#parentId,
-                        this.#componentRepeatId,
-                        this.#delegateEventId,
-                        this.#repeatPropBind,
-                        this.#bindRefId,
-                        this.#bindRefName,
-                    ] = [
-                        ATTR_INSTANCENAME,
-                        ATTR_PROPS,
-                        ATTR_BIND_PROPS,
-                        ATTR_KEY,
-                        ATTR_BIND_EVENTS,
-                        ATTR_CURRENT_LIST_VALUE,
-                        ATTR_SLOT,
-                        ATTR_PARENT_ID,
-                        ATTR_CHILD_REPEATID,
-                        ATTR_WEAK_BIND_EVENTS,
-                        ATTR_REPEATER_PROP_BIND,
-                        ATTR_BIND_REFS_ID,
-                        ATTR_BIND_REFS_NAME,
-                    ].map((attribute) => host.getAttribute(attribute) ?? '');
-
                     /**
                      * Placeholder element that will move to slot. Add visibility hidden to avoid visiual jump before
                      * and after the sobstituition.
@@ -371,6 +340,42 @@ export const defineUserComponent = (componentList) => {
 
                     if (this.#isPlaceholder) {
                         const host = this.shadowRoot?.host;
+
+                        if (host) {
+                            /** Get all attribute */
+                            [
+                                this.#name,
+                                this.#staticPropsId,
+                                this.#dynamicPropsId,
+                                this.#currentKey,
+                                this.#bindEventsId,
+                                this.#currentRepeatValueId,
+                                this.#slotPosition,
+                                this.#parentId,
+                                this.#componentRepeatId,
+                                this.#delegateEventId,
+                                this.#repeatPropBind,
+                                this.#bindRefId,
+                                this.#bindRefName,
+                            ] = [
+                                ATTR_INSTANCENAME,
+                                ATTR_PROPS,
+                                ATTR_BIND_PROPS,
+                                ATTR_KEY,
+                                ATTR_BIND_EVENTS,
+                                ATTR_CURRENT_LIST_VALUE,
+                                ATTR_SLOT,
+                                ATTR_PARENT_ID,
+                                ATTR_CHILD_REPEATID,
+                                ATTR_WEAK_BIND_EVENTS,
+                                ATTR_REPEATER_PROP_BIND,
+                                ATTR_BIND_REFS_ID,
+                                ATTR_BIND_REFS_NAME,
+                            ].map(
+                                (attribute) =>
+                                    host.getAttribute(attribute) ?? ''
+                            );
+                        }
 
                         // @ts-ignore
                         if (!useQuery) addUserPlaceholder(host);
