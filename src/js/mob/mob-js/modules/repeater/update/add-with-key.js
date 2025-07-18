@@ -268,10 +268,18 @@ export const addWithKey = ({
                       render,
                   });
 
-            repeaterParentElement.insertAdjacentHTML(
-                'beforeend',
-                currentRender
-            );
+            if (useSync) {
+                repeaterParentElement.insertAdjacentHTML(
+                    'beforeend',
+                    /** @type {string} */ (currentRender)
+                );
+            }
+
+            if (!useSync && currentRender) {
+                repeaterParentElement.append(
+                    /** @type {Element} */ (currentRender)
+                );
+            }
         }
     );
 

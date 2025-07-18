@@ -132,7 +132,7 @@ export const insertElementOrText = ({
  * function ( deepest ). So the other override attributes. Add attributes only if there is no correspondences.
  *
  * @param {object} params
- * @param {import('../../web-component/type').UserComponent[]} params.components
+ * @param {WeakRef<import('../../web-component/type').UserComponent>[]} params.components
  * @param {Record<string, any>} params.current
  * @param {number} params.index
  * @param {string} params.bind
@@ -149,8 +149,8 @@ export const setRepeatAttribute = ({
     key,
 }) => {
     components.forEach((component) => {
-        if (!component.hasAttribute(ATTR_CURRENT_LIST_VALUE)) {
-            component.setAttribute(
+        if (!component.deref()?.hasAttribute(ATTR_CURRENT_LIST_VALUE)) {
+            component.deref()?.setAttribute(
                 ATTR_CURRENT_LIST_VALUE,
                 setComponentRepeaterState({
                     current,
@@ -159,16 +159,16 @@ export const setRepeatAttribute = ({
             );
         }
 
-        if (!component.hasAttribute(ATTR_KEY)) {
-            component.setAttribute(ATTR_KEY, `${key}`);
+        if (!component.deref()?.hasAttribute(ATTR_KEY)) {
+            component.deref()?.setAttribute(ATTR_KEY, `${key}`);
         }
 
-        if (!component.hasAttribute(ATTR_REPEATER_PROP_BIND)) {
-            component.setAttribute(ATTR_REPEATER_PROP_BIND, `${bind}`);
+        if (!component.deref()?.hasAttribute(ATTR_REPEATER_PROP_BIND)) {
+            component.deref()?.setAttribute(ATTR_REPEATER_PROP_BIND, `${bind}`);
         }
 
-        if (!component.hasAttribute(ATTR_CHILD_REPEATID)) {
-            component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
+        if (!component.deref()?.hasAttribute(ATTR_CHILD_REPEATID)) {
+            component.deref()?.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
         }
     });
 };

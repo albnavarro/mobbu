@@ -22,7 +22,7 @@ import { getRepeatProxi } from './get-proxi';
  * @param {string} params.state
  * @param {string} params.repeatId
  * @param {import('../type').RepeaterRender} params.render
- * @returns {string}
+ * @returns {Element[]}
  */
 export const updateRepeaterWitoutKey = ({
     id,
@@ -39,8 +39,8 @@ export const updateRepeaterWitoutKey = ({
     /**
      * Create palcehodler component
      */
-    const serializedFragment = [...Array.from({ length: diff }).keys()]
-        .map((_item, index) => {
+    const serializedFragment = [...Array.from({ length: diff }).keys()].map(
+        (_item, index) => {
             const initialValue = current?.[index + previousLenght];
             const initialIndex = index + previousLenght;
 
@@ -59,7 +59,12 @@ export const updateRepeaterWitoutKey = ({
             });
 
             const fragment = range.createContextualFragment(rawRender);
-            const components = queryAllFutureComponent(fragment, false);
+
+            const components = queryAllFutureComponent(fragment, false).map(
+                (element) => {
+                    return new WeakRef(element);
+                }
+            );
 
             setRepeatAttribute({
                 components,
@@ -70,18 +75,16 @@ export const updateRepeaterWitoutKey = ({
                 key: undefined,
             });
 
-            const serializedRender = serializeFragment(fragment);
-
             /**
              * Remove fragment as soon as possible from GC. TODO Is really necessary ?
              */
-            return serializedRender;
-        })
-        .join('');
+            return fragment.firstElementChild;
+        }
+    );
 
     setSkipAddUserComponent(false);
 
-    return serializedFragment;
+    return serializedFragment.filter((element) => element !== null);
 };
 
 /**
@@ -162,7 +165,7 @@ export const updateRepeaterWithoutKeyUseSync = ({
  * @param {any} params.keyValue
  * @param {string | undefined} params.key
  * @param {import('../type').RepeaterRender} params.render
- * @returns {string}
+ * @returns {Element | null}
  */
 export const updateRepeaterWithtKey = ({
     id,
@@ -193,7 +196,12 @@ export const updateRepeaterWithtKey = ({
             sync: () => '',
         })
     );
-    const components = queryAllFutureComponent(fragment, false);
+
+    const components = queryAllFutureComponent(fragment, false).map(
+        (element) => {
+            return new WeakRef(element);
+        }
+    );
 
     setRepeatAttribute({
         components,
@@ -206,12 +214,10 @@ export const updateRepeaterWithtKey = ({
 
     setSkipAddUserComponent(false);
 
-    const serializedRender = serializeFragment(fragment);
-
     /**
      * Remove fragment as soon as possible from GC. TODO Is really necessary ?
      */
-    return serializedRender;
+    return fragment.firstElementChild;
 };
 
 /**
@@ -328,7 +334,11 @@ export const getRenderWithoutSync = ({
                 })
             );
 
-            const components = queryAllFutureComponent(fragment, false);
+            const components = queryAllFutureComponent(fragment, false).map(
+                (element) => {
+                    return new WeakRef(element);
+                }
+            );
 
             setRepeatAttribute({
                 components,
