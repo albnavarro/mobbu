@@ -1,11 +1,11 @@
 /**
-export type ProxiState<T> = () => GetState<T>;
-**/
+ * Export type ProxiState<T> = () => GetState<T>;
+ */
 
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({
     getProxi,
@@ -17,14 +17,17 @@ export const MyComponent = ({
     /**
      * Label state initial value.
      */
-    const proxiState = getProxi();
+    const proxi = getProxi();
 
     /**
      * Watch counter mutation
      */
-    watch('counter', (value) => {
-        console.log(value);
-    });
+    watch(
+        () => proxi.counter,
+        (value) => {
+            console.log(value);
+        }
+    );
 
     /**
      * DOM component structure.
@@ -34,7 +37,7 @@ export const MyComponent = ({
             <button
                 ${delegateEvents({
                     click: () => {
-                        proxiState.counter++;
+                        proxi.counter++;
                     },
                 })}
             >
@@ -43,9 +46,9 @@ export const MyComponent = ({
             <div>${bindText`counter value is ${'counter'}`}</div>
             <child-component
                 ${bindProps(
-                    /** @returns{ReturnBindProps<MyChildState>} */
+                    /** @returns {ReturnBindProps<MyChildState>} */
                     () => ({
-                        counter: proxiState.counter,
+                        counter: proxi.counter,
                     })
                 )}
             ></child-component>
