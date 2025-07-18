@@ -230,12 +230,18 @@ export type PartialGetChildren = (componentName: string) => string[];
 /**
  * FreezeProp
  */
-export type PartialFreezeProp<T> = (prop: keyof ExtractState<T>) => void;
+interface PartialFreezeProp<T> {
+    <K extends keyof ExtractState<T>>(prop: K): void;
+    <K extends ExtractState<T>[keyof ExtractState<T>]>(prop: () => K): void;
+}
 
 /**
  * UnFreezeProp
  */
-export type PartialUnFreezeProp<T> = (prop: keyof ExtractState<T>) => void;
+interface PartialUnFreezeProp<T> {
+    <K extends keyof ExtractState<T>>(prop: K): void;
+    <K extends ExtractState<T>[keyof ExtractState<T>]>(prop: () => K): void;
+}
 
 /**
  * GetParentId

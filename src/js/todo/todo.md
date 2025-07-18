@@ -1,6 +1,12 @@
 # App:
 
-- Aggiungere pagine `500` speculare alla paginwa `400`.
+- Aggiungere pagine `500` speculare alla pagina `400`.
+
+- `Sharia coding`:
+    - Lettegin semplice: `Sharia coding`.
+    - Puppet: Victoria Nhulan `fuck eu` => `fuck ia`.
+    - Puppet: Mullah Omar, affetta mano che cerca di raggiungere chat GPT.
+    - Slogan: `indo-kush vibe`, `taliban low`.
 
 - `Sharia coding` section.
     - Taliban style.
@@ -12,7 +18,6 @@
 # MobCore
 
 ### eslint:
-- Valutare: `unicorn/no-array-for-each': 'off'` `--fix` sembra funzionare in maniera corretta.
 - Valutare per ora solo a livello di store https://github.com/eslint-functional/eslint-plugin-functional
 
 ### Store - deepEquality:
@@ -21,10 +26,6 @@
 - Rivedere un controllo piu permissivo e veloce per gli `oggetti`?
 
 # MobJs
-
-## Proxi auto-detect
-- Aggiungerle a `Freeze` && `unFreeze`.
-- Fare riferimento a `src/js/mob/mob-js/modules/repeater/action/parse-bindprop-repeat.js`, parseBindRepeat.
 
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>

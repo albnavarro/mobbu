@@ -1,14 +1,20 @@
 /**
-export type UnFreezeProp<T> = (prop: keyof T) => void;
-**/
+ * Export type UnFreezeProp<T> = (prop: keyof T) => void;
+ */
 
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ onMount, unFreezeProp }) => {
+export const MyComponent = ({ onMount, unFreezeProp, getProxi }) => {
+    const proxi = getProxi();
+
     onMount(() => {
+        // Use Proxi
+        unFreezeProp(() => proxi.myState);
+
+        // Use String
         unFreezeProp('myState');
     });
     /**

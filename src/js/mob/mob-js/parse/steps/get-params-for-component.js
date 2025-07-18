@@ -1,16 +1,11 @@
 import { MobCore } from '../../../mob-core';
 import { getChildrenIdByName } from '../../component/action/children';
-import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';
-import { setRepeaterPlaceholderMapScopeId } from '../../modules/repeater/action/set-repeater-placeholder-map-scope-id';
-import { setRepeaterPlaceholderMapInitialized } from '../../modules/repeater/action/set-repeater-placeholder-map-initialized';
+import { componentIsPersistent } from '../../component/action/component';
 import {
     freezePropById,
     unFreezePropById,
 } from '../../component/action/freeze';
-import { inizializeInvalidateWatch } from '../../modules/invalidate/action/inizialize-invalidate-watch';
-import { setInvalidateFunction } from '../../modules/invalidate/action/set-invalidate-function';
-import { setInvalidatePlaceholderMapInitialized } from '../../modules/invalidate/action/set-invalidate-placeholder-map-initialized';
-import { setInvalidatePlaceholderMapScopedId } from '../../modules/invalidate/action/set-invalidate-placeholder-map-scoped-id';
+import { addMethodById } from '../../component/action/methods';
 import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch, unBind } from '../../component/action/props';
 import { destroyComponentInsideNodeById } from '../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
@@ -20,11 +15,11 @@ import {
     ATTR_BIND_EFFECT,
     ATTR_BIND_EVENTS,
     ATTR_BIND_OBJECT_ID,
+    ATTR_BIND_PROPS,
     ATTR_BIND_REFS_ID,
     ATTR_BIND_REFS_NAME,
     ATTR_BIND_TEXT_ID,
     ATTR_COMPONENT_ID,
-    ATTR_BIND_PROPS,
     ATTR_INVALIDATE,
     ATTR_MOBJS_REPEAT,
     ATTR_PROPS,
@@ -35,31 +30,36 @@ import {
     mainStore,
     resetMainStoreAsyncParser,
 } from '../../main-store/main-store';
+import { setBindEffect } from '../../modules/bind-effetc';
 import { setBindEvents } from '../../modules/bind-events';
-import { setBindProps } from '../../modules/bind-props';
-import { addOnMoutCallback } from '../../modules/on-mount';
-import { setStaticProps } from '../../modules/static-props';
-import { setDelegateBindEvent } from '../../modules/delegate-events';
-import { getUnivoqueByKey } from '../../modules/repeater/utils';
-import { addMethodById } from '../../component/action/methods';
-import { getBindRefById, getBindRefsById } from '../../modules/bind-refs';
-import { createBindTextWatcher, renderBindText } from '../../modules/bind-text';
-import { inizializeRepeatWatch } from '../../modules/repeater/action/inizialize-repeat-watch';
 import {
     createBindObjectWatcher,
     getBindObjectKeys,
     renderBindObject,
 } from '../../modules/bind-object';
-import { setSkipAddUserComponent } from '../../modules/user-component';
+import { setBindProps } from '../../modules/bind-props';
+import { getBindRefById, getBindRefsById } from '../../modules/bind-refs';
+import { createBindTextWatcher, renderBindText } from '../../modules/bind-text';
+import { setDelegateBindEvent } from '../../modules/delegate-events';
+import { inizializeInvalidateWatch } from '../../modules/invalidate/action/inizialize-invalidate-watch';
+import { parseBindInvalidate } from '../../modules/invalidate/action/parse-bindprop-invalidate';
+import { setInvalidateFunction } from '../../modules/invalidate/action/set-invalidate-function';
+import { setInvalidatePlaceholderMapInitialized } from '../../modules/invalidate/action/set-invalidate-placeholder-map-initialized';
+import { setInvalidatePlaceholderMapScopedId } from '../../modules/invalidate/action/set-invalidate-placeholder-map-scoped-id';
+import { addOnMoutCallback } from '../../modules/on-mount';
+import { inizializeRepeatWatch } from '../../modules/repeater/action/inizialize-repeat-watch';
+import { setRepeaterChild } from '../../modules/repeater/action/set-repeat-child';
+import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';
+import { setRepeaterPlaceholderMapInitialized } from '../../modules/repeater/action/set-repeater-placeholder-map-initialized';
+import { setRepeaterPlaceholderMapScopeId } from '../../modules/repeater/action/set-repeater-placeholder-map-scope-id';
 import {
     getRenderWithoutSync,
     getRenderWithSync,
 } from '../../modules/repeater/update/utils';
-import { setRepeaterChild } from '../../modules/repeater/action/set-repeat-child';
-import { setBindEffect } from '../../modules/bind-effetc';
-import { componentIsPersistent } from '../../component/action/component';
-import { parseBindInvalidate } from '../../modules/invalidate/action/parse-bindprop-invalidate';
-import { parseBindRepeat } from '../../modules/repeater/action/parse-bindprop-repeat';
+import { getUnivoqueByKey } from '../../modules/repeater/utils';
+import { setStaticProps } from '../../modules/static-props';
+import { setSkipAddUserComponent } from '../../modules/user-component';
+import { detectProp } from '../../utils';
 
 /**
  * Create component Reuturn all prosps/method for user function.
@@ -150,8 +150,14 @@ export const getParamsForComponentFunction = ({
         /**
          * Ts issue, prop coem as string\number\symbol, convert in string.
          */
-        freezeProp: (prop) => freezePropById({ id, prop: prop.toString() }),
-        unFreezeProp: (prop) => unFreezePropById({ id, prop: prop.toString() }),
+        freezeProp: (/** @type{string | (() => any)} */ prop) => {
+            const bindParsed = detectProp(prop);
+            return freezePropById({ id, prop: bindParsed.toString() });
+        },
+        unFreezeProp: (/** @type{string | (() => any)} */ prop) => {
+            const bindParsed = detectProp(prop);
+            return unFreezePropById({ id, prop: bindParsed.toString() });
+        },
         unBind: () => unBind({ id }),
         bindProps: (data) => {
             /**
@@ -283,7 +289,7 @@ export const getParamsForComponentFunction = ({
             /**
              * Check if bind prop is a string or a proxi object
              */
-            const bindParsed = parseBindRepeat(bind);
+            const bindParsed = detectProp(bind);
             const repeatId = MobCore.getUnivoqueId();
             const hasKey = key !== '';
 
