@@ -3,18 +3,16 @@
 - Aggiungere pagine `500` speculare alla pagina `400`.
 
 - `Sharia coding`:
+    - Prevedere link in home.
     - Lettegin semplice: `Sharia coding`.
-    - Puppet: Victoria Nhulan `fuck eu` => `fuck ia`.
-    - Puppet: Mullah Omar, affetta mano che cerca di raggiungere chat GPT.
-    - Taliban style.
-    - Indo-kush vibe.
-    - Taglialre le mani style.
-    - Mullah Omar code style rappresent.
-    - Slogan: `indo-kush vibe`, `taliban low`.
-    - rules:
-        - use linters.
-        - update you project static analyzer
-        - no alcol, no herbs, use mushroom to expand allucination not ai.
+    - `Taliban style` `Indo-kush vibe`.
+    - `Left`: `mullha Omar` con coltelli e mano che cerca `ai`
+    - `Right`: lista di regole
+        - Rules:
+            - Use and update  you project static analyzer instead AI.
+            - No alcol, no herbs, use mushroom to expand allucination not AI.
+            - Rationalize Chaos use `Melt Banana` power
+
 
 # MobCore
 
