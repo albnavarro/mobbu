@@ -6,14 +6,15 @@
     - Lettegin semplice: `Sharia coding`.
     - Puppet: Victoria Nhulan `fuck eu` => `fuck ia`.
     - Puppet: Mullah Omar, affetta mano che cerca di raggiungere chat GPT.
-    - Slogan: `indo-kush vibe`, `taliban low`.
-
-- `Sharia coding` section.
     - Taliban style.
     - Indo-kush vibe.
-    - Inspiration from Nhuland `funck eu` -> `funck ia`.
     - Taglialre le mani style.
     - Mullah Omar code style rappresent.
+    - Slogan: `indo-kush vibe`, `taliban low`.
+    - rules:
+        - use linters.
+        - update you project static analyzer
+        - no alcol, no herbs, use mushroom to expand allucination not ai.
 
 # MobCore
 
