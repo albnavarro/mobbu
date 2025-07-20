@@ -6,12 +6,23 @@
     - Prevedere link in home.
     - Lettegin semplice: `Sharia coding`.
     - `Taliban style` `Indo-kush vibe`.
-    - `Left`: `mullha Omar` con coltelli e mano che cerca `ai`
+    - `Left`: `mullha Omar` con coltelli e mano che cerca `ai`, faccia grossa, corpo piccolo con coltello.
     - `Right`: lista di regole
         - Rules:
             - Use and update  you project static analyzer instead AI.
             - No alcol, no herbs, use mushroom to expand allucination not AI.
             - Rationalize Chaos use `Melt Banana` power
+
+- `Shiva coding`
+    - Prevedere link in home.
+    - Lettegin semplice: `Shiva coding`.
+    - Concept: `no pendencies`, `no sovrastutture` focus sulla tua logica, testa con pochi pensieri e ditrazioni.
+    - `Left`: `Shiva` ...
+    - `Right`: lista di regole
+        - Rules:
+            - Use and update  you project static analyzer instead AI.
+            - No alcol, si herbs, si mushoroom.
+
 
 
 # MobCore
