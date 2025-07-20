@@ -46,7 +46,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
             </h3>
             <p class="benchmark__head__title">
                 Use extrernal store as state ( bindStore module ).<br />
-                ( max value <strong>2000</strong> ).
+                ( max value <strong>1000</strong> ).
             </p>
             ${benchMarkListExternalPartial({
                 setRef,

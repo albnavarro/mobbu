@@ -3,10 +3,9 @@ import { html } from '@mobJs';
 export const benchMarkGarbagePartial = () => {
     return html`
         <p>
-            Generating a large number of components repeatedly can increase
-            memory consumption until they are deleted and the garbage collector
-            empties the memory.<br />
-            ( max value <strong>2000</strong> ).
+            Generates and updates a large list of components with 5 reactive
+            elements inside.<br />
+            ( max component <strong>1000</strong> ).
         </p>
     `;
 };

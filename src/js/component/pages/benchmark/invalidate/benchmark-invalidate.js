@@ -1,7 +1,6 @@
 //@ts-check
 
 import { html } from '@mobJs';
-import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 
 /**
@@ -39,7 +38,11 @@ export const BenchMarkInvalidateFn = ({
             <h2 class="benchmark__head__title">
                 Generate components performance
             </h2>
-            ${benchMarkGarbagePartial()}
+            <p>
+                Invalidate a large list of components with 5 reactive elements
+                inside.<br />
+                ( max component <strong>1000</strong> ).
+            </p>
             ${benchMarkListPartial({
                 setRef,
                 getRef,

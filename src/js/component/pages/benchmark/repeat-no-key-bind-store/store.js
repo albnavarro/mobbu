@@ -16,7 +16,7 @@ export const createExternalStore = () => {
             data: () => ({
                 value: [],
                 type: Array,
-                validate: (value) => value.length < 2000,
+                validate: (value) => value.length < 1001,
                 strict: true,
                 skipEqual: false,
             }),
