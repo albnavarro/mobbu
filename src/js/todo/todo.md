@@ -37,6 +37,12 @@
 
 # MobJs
 
+## Repeater:
+- Rimane un utilizzo di `serializeFragment`, quando il primo nodo di un repeater senza `sync()` viene creato.
+- Salvare il DOM nell mappa `repeatIdPlaceHolderMap`.
+- Quando il web-component `<mobjs-repeat>` viene appeso al DOM in `connectedCallback` dentro `setParentRepeater()` appendere il dom salvato e rimuoverlo dalla mappa.
+- L' unico possibile inconventiente e che la nella lista dei componenti da renderizzare rischia di trovarsi in una posizione sbagliata come index, ma potrebbe essere del tutto ininfluente.
+
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
  `src/js/mob/mob-js/modules/repeater/update/get-proxi.js`
