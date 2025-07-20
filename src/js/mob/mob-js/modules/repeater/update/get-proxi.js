@@ -5,6 +5,29 @@ import { clamp } from '../../../utils';
 const REPEAT_PROXI_INDEX = 'index';
 
 /**
+ * @param {object} params
+ * @param {any} params.state
+ * @param {string} params.prop
+ * @param {string} params.key
+ * @param {string} params.keyValue
+ * @param {boolean} params.hasKey
+ */
+const showDuplicatedWaring = ({ state, prop, key, keyValue, hasKey }) => {
+    const keyIsDuplicated = hasKey
+        ? state?.[prop]?.filter(
+              (/** @type {{ [x: string]: any }} */ item) =>
+                  item[key] === keyValue
+          )?.length > 1
+        : false;
+
+    if (keyIsDuplicated) {
+        console.warn(
+            ` ${keyValue} Key is duplicated, repeater with key proxi can fail `
+        );
+    }
+};
+
+/**
  * Reactive state for repeat. Note: bindObject can run after 'item' is destroyed ( wekRef issue ). So clamp index value
  * with current array length. The item is not visible but can fire error.
  *
@@ -30,18 +53,13 @@ export const getRepeatProxi = ({
      */
     const inistalState = getStateById(id);
 
-    const keyIsDuplicated = hasKey
-        ? inistalState?.[bind]?.filter(
-              (/** @type {{ [x: string]: any }} */ item) =>
-                  item[key] === keyValue
-          )?.length > 1
-        : false;
-
-    if (keyIsDuplicated) {
-        console.warn(
-            ` ${keyValue} is keyIsDuplicated, repeater ( { current } ) proxi can fail `
-        );
-    }
+    showDuplicatedWaring({
+        state: inistalState,
+        prop: bind,
+        key,
+        keyValue,
+        hasKey,
+    });
 
     const startValue = hasKey
         ? inistalState?.[bind]?.find(
@@ -66,6 +84,15 @@ export const getRepeatProxi = ({
                  * Use last updated state Proxi target should be not last value.
                  */
                 const state = getStateById(id);
+
+                showDuplicatedWaring({
+                    state,
+                    prop: bind,
+                    key,
+                    keyValue,
+                    hasKey,
+                });
+
                 const maxValue = Math.max(state?.[bind].length - 1, 0);
 
                 /**
