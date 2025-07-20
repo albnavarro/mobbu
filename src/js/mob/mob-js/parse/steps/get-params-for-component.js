@@ -301,6 +301,9 @@ export const getParamsForComponentFunction = ({
 
             setSkipAddUserComponent(true);
 
+            /**
+             * If sync as used by user, add the initial string directly
+             */
             const initialStringRender = useSync
                 ? getRenderWithSync({
                       id,
@@ -313,6 +316,10 @@ export const getParamsForComponentFunction = ({
                   })
                 : '';
 
+            /**
+             * If no sync as used by user, save the DOM created with attributes added to inner component than add the
+             * DOM when repeat web-component is added to DOM
+             */
             const initialDOMRender = useSync
                 ? []
                 : getRenderWithoutSync({
