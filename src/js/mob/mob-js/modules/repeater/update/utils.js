@@ -4,10 +4,7 @@ import {
     ATTR_KEY,
     ATTR_REPEATER_PROP_BIND,
 } from '../../../constant';
-import {
-    serializeFragment,
-    setRepeatAttribute,
-} from '../../../parse/steps/utils';
+import { setRepeatAttribute } from '../../../parse/steps/utils';
 import { queryAllFutureComponent } from '../../../query/query-all-future-component';
 import { setSkipAddUserComponent } from '../../user-component';
 import { setComponentRepeaterState } from '../repeater-value';
@@ -39,7 +36,7 @@ export const updateRepeaterWitoutKey = ({
     /**
      * Create palcehodler component
      */
-    const serializedFragment = [...Array.from({ length: diff }).keys()].map(
+    const renderedDOM = [...Array.from({ length: diff }).keys()].map(
         (_item, index) => {
             const initialValue = current?.[index + previousLenght];
             const initialIndex = index + previousLenght;
@@ -84,7 +81,7 @@ export const updateRepeaterWitoutKey = ({
 
     setSkipAddUserComponent(false);
 
-    return serializedFragment.filter((element) => element !== null);
+    return renderedDOM.filter((element) => element !== null);
 };
 
 /**
@@ -297,7 +294,7 @@ export const updateRepeaterWithtKeyUseSync = ({
  * @param {string} params.repeatId
  * @param {string | undefined} params.key
  * @param {boolean} params.hasKey
- * @returns {string}
+ * @returns {Element[]}
  */
 export const getRenderWithoutSync = ({
     id,
@@ -314,53 +311,49 @@ export const getRenderWithoutSync = ({
     /**
      * Render immediately first DOM
      */
-    const rawRender = currentUnique
-        .map((item, index) => {
-            const proxiObject = getRepeatProxi({
-                id,
-                bind,
-                hasKey,
-                key,
-                keyValue: hasKey ? item?.[key] : '',
-                index,
-            });
+    const renderedDOM = currentUnique.map((item, index) => {
+        const proxiObject = getRepeatProxi({
+            id,
+            bind,
+            hasKey,
+            key,
+            keyValue: hasKey ? item?.[key] : '',
+            index,
+        });
 
-            const fragment = range.createContextualFragment(
-                render({
-                    initialIndex: index,
-                    initialValue: item,
-                    current: proxiObject,
-                    sync: () => '',
-                })
-            );
+        const fragment = range.createContextualFragment(
+            render({
+                initialIndex: index,
+                initialValue: item,
+                current: proxiObject,
+                sync: () => '',
+            })
+        );
 
-            const components = queryAllFutureComponent(fragment, false).map(
-                (element) => {
-                    return new WeakRef(element);
-                }
-            );
+        const components = queryAllFutureComponent(fragment, false).map(
+            (element) => {
+                return new WeakRef(element);
+            }
+        );
 
-            setRepeatAttribute({
-                components,
-                current: item,
-                index,
-                bind,
-                repeatId,
-                key: hasKey ? item?.[key] : '',
-            });
+        setRepeatAttribute({
+            components,
+            current: item,
+            index,
+            bind,
+            repeatId,
+            key: hasKey ? item?.[key] : '',
+        });
 
-            const serializedRender = serializeFragment(fragment);
-
-            /**
-             * Remove fragment as soon as possible from GC. TODO Is really necessary ?
-             */
-            return serializedRender;
-        })
-        .join('');
+        /**
+         * Remove fragment as soon as possible from GC. TODO Is really necessary ?
+         */
+        return fragment.firstElementChild;
+    });
 
     setSkipAddUserComponent(false);
 
-    return rawRender;
+    return renderedDOM.filter((element) => element !== null);
 };
 
 /**

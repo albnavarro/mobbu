@@ -16,9 +16,18 @@ export const setParentRepeater = ({ repeatId, host }) => {
     if (!item) return;
 
     const parent = /** @type {HTMLElement} */ (host.parentNode);
+
+    /**
+     * Add all DOM of repeater if no sync() utils is used
+     */
+    item.initialRenderWithoutSync.forEach((element) => {
+        parent.append(element);
+    });
+
     repeatIdPlaceHolderMap.set(repeatId, {
         ...item,
         element: parent,
+        initialRenderWithoutSync: [],
     });
 
     repeatIdHostMap.set(repeatId, host);

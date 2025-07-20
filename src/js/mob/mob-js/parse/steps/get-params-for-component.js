@@ -301,7 +301,7 @@ export const getParamsForComponentFunction = ({
 
             setSkipAddUserComponent(true);
 
-            const initialRender = useSync
+            const initialStringRender = useSync
                 ? getRenderWithSync({
                       id,
                       currentUnique,
@@ -311,6 +311,10 @@ export const getParamsForComponentFunction = ({
                       hasKey,
                       render,
                   })
+                : '';
+
+            const initialDOMRender = useSync
+                ? []
                 : getRenderWithoutSync({
                       id,
                       currentUnique,
@@ -331,6 +335,7 @@ export const getParamsForComponentFunction = ({
             setRepeaterPlaceholderMapScopeId({
                 repeatId,
                 scopeId: id,
+                initialDOMRender,
             });
 
             setRepeatFunction({
@@ -368,7 +373,7 @@ export const getParamsForComponentFunction = ({
                 },
             });
 
-            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialRender}`;
+            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialStringRender}`;
         },
     };
 };

@@ -9,17 +9,23 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  * initialize: we will wait fire function.
  *
  * @param {object} params
- * @param {string} params.repeatId - RepeatId
- * @param {string} params.scopeId - ScopedId
+ * @param {string} params.repeatId
+ * @param {string} params.scopeId
+ * @param {Element[]} params.initialDOMRender
  * @returns {void}
  */
 
-export const setRepeaterPlaceholderMapScopeId = ({ repeatId, scopeId }) => {
+export const setRepeaterPlaceholderMapScopeId = ({
+    repeatId,
+    scopeId,
+    initialDOMRender,
+}) => {
     repeatIdPlaceHolderMap.set(repeatId, {
         element: undefined,
         initialized: false,
         scopeId,
         key: '',
         children: [],
+        initialRenderWithoutSync: initialDOMRender,
     });
 };

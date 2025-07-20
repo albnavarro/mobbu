@@ -57,5 +57,6 @@ export type RepeatIdPlaceHolderMap = Map<
             value: any;
             element: HTMLElement;
         }[];
+        initialRenderWithoutSync: Element[];
     }
 >;
