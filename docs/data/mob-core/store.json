@@ -125,6 +125,15 @@
                         }
                     },
                     {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "For more advanced use it is necessary to return a <strong>function that returns an object</strong> with at least one of the following properties: <strong>validate</strong>, <strong>type</strong>, <strong>skipEqual</strong>. It is possible to insert up to a maximum of <strong>two levels</strong> (both base and advanced use) per property as in <strong>nested object</strong> example."
+                    },
+                    {
                         "component": "mob-snippet",
                         "props": {
                             "source": "./snippets/mob-core/advanced-use.js",
@@ -141,19 +150,20 @@
                         }
                     },
                     {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Nosted object"
+                    },
+                    {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium",
                             "boxed": true,
                             "note": true
                         },
-                        "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: validate, type, skipEqual. It is possible to insert up to a maximum of two levels (both base and advanced use) per property as in the example above.<br/>To use a object with infinite insertions use the any type. In this case it will not be possible to define specific properties for nested properties."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
+                        "content": "To use a object with <strong>infinite insertions</strong> use the <strong>any type</strong>. In this case it will not be possible to define specific properties for nested properties."
                     },
                     {
                         "component": "mob-snippet",
