@@ -94,3 +94,12 @@ export const loadJsonContent = async ({ source }) => {
 export function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+/**
+ * @param {DocumentFragment} fragment
+ * @returns {string}
+ */
+export const serializeFragment = (fragment) => {
+    const rawString = new XMLSerializer().serializeToString(fragment);
+    return rawString.replaceAll(' xmlns="http://www.w3.org/1999/xhtml"', '');
+};

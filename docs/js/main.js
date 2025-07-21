@@ -6715,10 +6715,6 @@
       }
     });
   };
-  var serializeFragment = (fragment) => {
-    const rawString = new XMLSerializer().serializeToString(fragment);
-    return rawString.replaceAll(' xmlns="http://www.w3.org/1999/xhtml"', "");
-  };
 
   // src/js/mob/mob-js/parse/steps/convert-to-real-element.js
   var getNewElement2 = ({ element, content }) => {
@@ -23455,6 +23451,10 @@
   function randomIntFromInterval(min2, max2) {
     return Math.floor(Math.random() * (max2 - min2 + 1) + min2);
   }
+  var serializeFragment = (fragment) => {
+    const rawString = new XMLSerializer().serializeToString(fragment);
+    return rawString.replaceAll(' xmlns="http://www.w3.org/1999/xhtml"', "");
+  };
 
   // src/js/data/index.js
   var commonData;
