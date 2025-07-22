@@ -21086,6 +21086,11 @@
       lerp2.goTo({ scrollValue: currentValue }).catch(() => {
       });
     });
+    const unsubsribeScrollEnd = modules_exports.useScrollEnd(() => {
+      const value = window.scrollY;
+      lastScrollValue = value;
+      lerp2.setImmediate({ scrollValue: value });
+    });
     const unsubscribeScroll = modules_exports.useScroll(() => {
       if (!useNativeScroll) {
         return;
@@ -21125,6 +21130,7 @@
         rootElementToObserve = null;
         unsubscribe3();
         unsubscribeScroll();
+        unsubsribeScrollEnd();
         unsubscribeMouseWheel();
         unsubscribeMouseDown();
         destroy = () => {

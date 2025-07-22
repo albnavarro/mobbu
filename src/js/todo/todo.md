@@ -109,13 +109,6 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 }
 ```
 
-## bind
-
-- La chiave 'bind', puó entrare in conflitto con `bind` function nativa.
-- In `bindObject` é stato fatto un controllo che bind sia una `stringa` e non una `funzione` ( myfunction.bind() )
-- Sarebbe da cambiare un' altra key piú idonea.
-- Quensto si riflette su `repeat` `invalidate` etc..
-
 ## Page transition.
 
 - Possibilitá di sovrascrivere le due funzioni per rotta.
