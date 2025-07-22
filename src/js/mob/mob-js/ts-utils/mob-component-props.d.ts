@@ -288,7 +288,7 @@ export type PartialOnMount = (
 /**
  * Repeat
  */
-interface PartialRepeat<T> {
+export interface PartialRepeat<T> {
     <K extends keyof ExtractState<T> & string>(arg0: {
         /**
          * Clean previous item.
