@@ -7,7 +7,6 @@ import { watchRepeat } from '../watch';
  * @param {import('../type').WatchList} param
  * @returns {void}
  */
-
 export const inizializeRepeatWatch = ({
     repeatId,
     persistent,

@@ -11,7 +11,7 @@ export const DynamicListButtonFn = ({ getProxi, bindEffect }) => {
             type="button"
             class="c-dynamic-list-button"
             ${bindEffect({
-                bind: 'active',
+                observe: 'active',
                 toggleClass: { active: () => proxi.active },
             })}
         >

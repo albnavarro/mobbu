@@ -54,7 +54,7 @@ const getLoader = ({ data, bindProps }) => {
     return html`
         <mob-loader
             ${bindProps({
-                bind: ['contentIsLoaded'],
+                observe: ['contentIsLoaded'],
                 props: ({ contentIsLoaded }) => {
                     return { shouldRemove: contentIsLoaded };
                 },

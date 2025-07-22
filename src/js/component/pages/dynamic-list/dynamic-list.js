@@ -185,7 +185,7 @@ export const DynamicListFn = ({
                 </h4>
                 <div class="c-dynamic-list__invalidate__wrap">
                     ${invalidate({
-                        bind: () => proxi.counter,
+                        observe: () => proxi.counter,
                         render: () => {
                             return html`<div class="validate-test-wrapper">
                                 <dynamic-list-card-inner

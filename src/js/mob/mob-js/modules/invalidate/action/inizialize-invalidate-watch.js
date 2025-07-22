@@ -24,7 +24,7 @@ import { inizializeNestedInvalidate } from './inizialize-nested-invalidate';
 
 /**
  * @param {object} params
- * @param {string[]} params.bind
+ * @param {string[]} params.observe
  * @param {() => Promise<any>} params.beforeUpdate
  * @param {() => void} params.afterUpdate
  * @param {import('../../../type').Watch<any>} params.watch
@@ -34,9 +34,8 @@ import { inizializeNestedInvalidate } from './inizialize-nested-invalidate';
  * @param {() => string} params.renderFunction
  * @returns {Promise<any>}
  */
-
 export const inizializeInvalidateWatch = async ({
-    bind = [],
+    observe = [],
     beforeUpdate = () => Promise.resolve(),
     afterUpdate = () => {},
     watch,
@@ -66,7 +65,7 @@ export const inizializeInvalidateWatch = async ({
     /**
      * Update component
      */
-    const unsubScribeArray = bind.map((state) => {
+    const unsubScribeArray = observe.map((state) => {
         const unsubscribe = watch(state, async () => {
             if (watchIsRunning) return;
 

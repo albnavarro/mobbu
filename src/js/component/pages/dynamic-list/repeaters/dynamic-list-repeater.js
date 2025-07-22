@@ -87,7 +87,7 @@ export const DynamicListRepeaterFn = ({
             <h4 class="c-dynamic-list-repeater__title">${proxi.label}</h4>
             <div class="c-dynamic-list-repeater__list">
                 ${repeat({
-                    bind: () => (keyParsed ? proxi.dataUnique : proxi.data),
+                    observe: () => (keyParsed ? proxi.dataUnique : proxi.data),
                     clean: proxi.clean,
                     key: keyParsed,
                     afterUpdate: () => {

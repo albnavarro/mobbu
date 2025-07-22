@@ -317,7 +317,7 @@ export const watchRepeat = ({
                  * has no component inside.
                  */
                 if (chunkChildrenOrdered.length === 0) {
-                    setRepeaterChild({ repeatId, id, bind: state });
+                    setRepeaterChild({ repeatId, id, observe: state });
                 }
             });
         }

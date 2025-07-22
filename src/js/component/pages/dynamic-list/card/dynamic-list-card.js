@@ -163,7 +163,7 @@ export const DynamicListCardFn = ({
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
-                            bind: () => proxi.innerDataUnivoque,
+                            observe: () => proxi.innerDataUnivoque,
                             key: 'key',
                             render: ({ current }) => {
                                 return html`<dynamic-list-card-inner
@@ -181,7 +181,7 @@ export const DynamicListCardFn = ({
                     <!-- repeater no key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
-                            bind: () => proxi.innerData,
+                            observe: () => proxi.innerData,
                             render: ({ current }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps(
@@ -206,7 +206,7 @@ export const DynamicListCardFn = ({
                     </p>
                     <div class="c-dynamic-card__invalidate__wrap">
                         ${invalidate({
-                            bind: () => proxi.counter,
+                            observe: () => proxi.counter,
                             render: () => {
                                 return getInvalidateRender({
                                     delegateEvents,

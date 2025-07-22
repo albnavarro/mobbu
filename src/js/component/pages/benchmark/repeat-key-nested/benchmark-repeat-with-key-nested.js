@@ -59,7 +59,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
         </div>
         <div class="benchmark__list">
             ${repeat({
-                bind: () => proxi.data,
+                observe: () => proxi.data,
                 key: 'label',
                 useSync: true,
                 render: ({ current }) => {
@@ -69,7 +69,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
                         </div>
                         <div>
                             ${repeat({
-                                bind: () => proxi.data,
+                                observe: () => proxi.data,
                                 useSync: true,
                                 key: 'label',
                                 render: ({ sync, current }) => {

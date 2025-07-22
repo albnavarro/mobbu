@@ -94,9 +94,10 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                     >
                     <div class="matrioska__head__counter">
                         ${invalidate({
-                            bind: /** @type {'level1' | 'level2' | 'level3'} */ (
-                                button.state
-                            ),
+                            observe:
+                                /** @type {'level1' | 'level2' | 'level3'} */ (
+                                    button.state
+                                ),
                             render: () => {
                                 // @ts-ignore
                                 const data = getState()?.[button.state];
@@ -143,7 +144,7 @@ const getSecondLevel = ({
     return html`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
-                bind: () => proxi.level2,
+                observe: () => proxi.level2,
                 render: ({ current }) => {
                     return html`
                         <div
@@ -200,7 +201,7 @@ const getThirdLevel = ({
     return html`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
-                bind: () => proxi.level3,
+                observe: () => proxi.level3,
                 render: ({ current }) => {
                     const name = MobCore.getUnivoqueId();
                     const name2 = MobCore.getUnivoqueId();
@@ -312,7 +313,7 @@ export const MatrioskaFn = ({
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
-                    bind: () => proxi.level1,
+                    observe: () => proxi.level1,
                     render: ({ current }) => {
                         return html`
                             <div

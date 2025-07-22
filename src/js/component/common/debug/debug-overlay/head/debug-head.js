@@ -13,7 +13,7 @@ export const DebugHeadFn = ({ invalidate, getProxi }) => {
     return html`<div class="c-debug-head">
         <div class="c-debug-head__general">
             ${invalidate({
-                bind: () => proxi.active,
+                observe: () => proxi.active,
                 render: () => {
                     if (!proxi.active) return '';
 

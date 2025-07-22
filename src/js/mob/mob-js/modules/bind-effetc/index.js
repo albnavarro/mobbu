@@ -6,12 +6,12 @@ import { ATTR_BIND_EFFECT } from '../../constant';
 const bindEffectMap = new Map();
 
 /**
- * @param {string | string[]} bind
+ * @param {string | string[]} observe
  * @returns {string[]}
  */
-const getExplicitBind = (bind) => {
+const getExplicitBind = (observe) => {
     return /** @type {string[]} */ (
-        MobCore.checkType(Array, bind) ? bind : [bind]
+        MobCore.checkType(Array, observe) ? observe : [observe]
     );
 };
 
@@ -40,12 +40,12 @@ export const setBindEffect = ({ data, id }) => {
     const dataToArray = MobCore.checkType(Array, data) ? data : [data];
 
     const dataBindToArray = dataToArray.map(
-        ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
+        ({ observe, toggleClass, toggleStyle, toggleAttribute }) => {
             /**
              * Detect explicit or auto dependencies.
              */
-            const bindParsed = bind
-                ? getExplicitBind(bind)
+            const observeParsed = observe
+                ? getExplicitBind(observe)
                 : getAutoBind({
                       toggleStyle: toggleStyle ?? { fake: () => '' },
                       toggleClass: toggleClass ?? { fake: () => {} },
@@ -53,7 +53,7 @@ export const setBindEffect = ({ data, id }) => {
                   });
 
             return {
-                bind: bindParsed,
+                observe: observeParsed,
                 toggleClass: toggleClass ?? {},
                 toggleStyle: toggleStyle ?? {},
                 toggleAttribute: toggleAttribute ?? {},
@@ -168,13 +168,13 @@ const watchBindEffect = ({ data, element }) => {
     const { items } = data;
 
     const unsubScribeFunction = items.flatMap(
-        ({ bind, toggleClass, toggleStyle, toggleAttribute }) => {
+        ({ observe, toggleClass, toggleStyle, toggleAttribute }) => {
             /**
              * Watch props on change
              */
             let watchIsRunning = false;
 
-            return bind.map((state) => {
+            return observe.map((state) => {
                 /**
                  * Initial class render
                  */

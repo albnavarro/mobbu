@@ -249,7 +249,7 @@ export const DebugComponentFn = ({
         />
         <div class="c-debug-component__container" ${setRef('scroller')}>
             ${invalidate({
-                bind: () => proxi.id,
+                observe: () => proxi.id,
                 render: () => {
                     return getContent({ getState });
                 },

@@ -150,7 +150,7 @@ export const SearchOverlayListFn = ({
         <!-- no result -->
         <div>
             ${invalidate({
-                bind: () => proxi.noResult,
+                observe: () => proxi.noResult,
                 render: () => {
                     return proxi.noResult
                         ? html`
@@ -170,7 +170,7 @@ export const SearchOverlayListFn = ({
         <!-- result list -->
         <ul class="search-overlay-list__ul" ${setRef('scroller')}>
             ${repeat({
-                bind: () => proxi.list,
+                observe: () => proxi.list,
                 render: ({ current }) => {
                     return html`
                         <li class="search-overlay-list__item">

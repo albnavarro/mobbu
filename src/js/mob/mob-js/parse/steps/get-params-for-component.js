@@ -42,7 +42,7 @@ import { getBindRefById, getBindRefsById } from '../../modules/bind-refs';
 import { createBindTextWatcher, renderBindText } from '../../modules/bind-text';
 import { setDelegateBindEvent } from '../../modules/delegate-events';
 import { inizializeInvalidateWatch } from '../../modules/invalidate/action/inizialize-invalidate-watch';
-import { parseBindInvalidate } from '../../modules/invalidate/action/parse-bindprop-invalidate';
+import { parseObserveInvalidate } from '../../modules/invalidate/action/parse-bindprop-invalidate';
 import { setInvalidateFunction } from '../../modules/invalidate/action/set-invalidate-function';
 import { setInvalidatePlaceholderMapInitialized } from '../../modules/invalidate/action/set-invalidate-placeholder-map-initialized';
 import { setInvalidatePlaceholderMapScopedId } from '../../modules/invalidate/action/set-invalidate-placeholder-map-scoped-id';
@@ -225,15 +225,15 @@ export const getParamsForComponentFunction = ({
             return `<mobjs-bind-object ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_OBJECT_ID}="${bindObjectId}"></mobjs-bind-object>${render()}`;
         },
         invalidate: ({
-            bind,
+            observe,
             render,
             beforeUpdate = () => Promise.resolve(),
             afterUpdate = () => {},
         }) => {
             /**
-             * Check if bind prop is a string or a proxi object and convert in Array
+             * Check if observe prop is a string or a proxi object and convert in Array
              */
-            const bindParsed = parseBindInvalidate(bind);
+            const observeParsed = parseObserveInvalidate(observe);
             const invalidateId = MobCore.getUnivoqueId();
             const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
             const invalidateRender = () => render();
@@ -255,7 +255,7 @@ export const getParamsForComponentFunction = ({
                      * Fire invalidate id after component parse
                      */
                     inizializeInvalidateWatch({
-                        bind: /** @type {string[]} */ (bindParsed),
+                        observe: /** @type {string[]} */ (observeParsed),
                         watch,
                         beforeUpdate,
                         afterUpdate,
@@ -277,7 +277,7 @@ export const getParamsForComponentFunction = ({
         },
         repeat: (
             /** @type {import('./type').RepeatInternal} */ {
-                bind,
+                observe,
                 clean = false,
                 beforeUpdate = () => Promise.resolve(),
                 afterUpdate = () => {},
@@ -287,14 +287,14 @@ export const getParamsForComponentFunction = ({
             }
         ) => {
             /**
-             * Check if bind prop is a string or a proxi object
+             * Check if observe prop is a string or a proxi object
              */
-            const bindParsed = detectProp(bind);
+            const observeParsed = detectProp(observe);
             const repeatId = MobCore.getUnivoqueId();
             const hasKey = key !== '';
 
             /** Type @type{Record<string, any>[]} */
-            const initialState = getState()?.[bindParsed];
+            const initialState = getState()?.[observeParsed];
             const currentUnique = hasKey
                 ? getUnivoqueByKey({ data: initialState, key })
                 : initialState;
@@ -309,7 +309,7 @@ export const getParamsForComponentFunction = ({
                       id,
                       currentUnique,
                       key,
-                      bind: bindParsed,
+                      observe: observeParsed,
                       repeatId,
                       hasKey,
                       render,
@@ -326,7 +326,7 @@ export const getParamsForComponentFunction = ({
                       id,
                       currentUnique,
                       render,
-                      bind: bindParsed,
+                      observe: observeParsed,
                       repeatId,
                       key,
                       hasKey,
@@ -357,7 +357,7 @@ export const getParamsForComponentFunction = ({
                     inizializeRepeatWatch({
                         repeatId,
                         persistent: componentIsPersistent(id),
-                        state: bindParsed,
+                        state: observeParsed,
                         setState,
                         emit,
                         watch,
@@ -376,7 +376,7 @@ export const getParamsForComponentFunction = ({
                         repeatId,
                     });
 
-                    setRepeaterChild({ repeatId, id, bind: bindParsed });
+                    setRepeaterChild({ repeatId, id, observe: observeParsed });
                 },
             });
 

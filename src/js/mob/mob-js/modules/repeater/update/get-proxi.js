@@ -33,7 +33,7 @@ const showDuplicatedWaring = ({ state, prop, key, keyValue, hasKey }) => {
  *
  * @param {object} params
  * @param {string} params.id
- * @param {string} params.bind
+ * @param {string} params.observe
  * @param {boolean} params.hasKey
  * @param {string} [params.key]
  * @param {any} [params.keyValue]
@@ -42,7 +42,7 @@ const showDuplicatedWaring = ({ state, prop, key, keyValue, hasKey }) => {
  */
 export const getRepeatProxi = ({
     id,
-    bind,
+    observe,
     hasKey,
     key = '',
     keyValue = '',
@@ -55,18 +55,18 @@ export const getRepeatProxi = ({
 
     showDuplicatedWaring({
         state: inistalState,
-        prop: bind,
+        prop: observe,
         key,
         keyValue,
         hasKey,
     });
 
     const startValue = hasKey
-        ? inistalState?.[bind]?.find(
+        ? inistalState?.[observe]?.find(
               (/** @type {{ [x: string]: any }} */ item) =>
                   item[key] === keyValue
           )
-        : inistalState?.[bind]?.[index];
+        : inistalState?.[observe]?.[index];
 
     let currentValue = startValue;
     let lastValue = startValue;
@@ -78,7 +78,7 @@ export const getRepeatProxi = ({
                 /**
                  * Autodetect dependencies
                  */
-                MobDetectBindKey.setCurrentDependencies(bind);
+                MobDetectBindKey.setCurrentDependencies(observe);
 
                 /**
                  * Use last updated state Proxi target should be not last value.
@@ -87,13 +87,13 @@ export const getRepeatProxi = ({
 
                 showDuplicatedWaring({
                     state,
-                    prop: bind,
+                    prop: observe,
                     key,
                     keyValue,
                     hasKey,
                 });
 
-                const maxValue = Math.max(state?.[bind].length - 1, 0);
+                const maxValue = Math.max(state?.[observe].length - 1, 0);
 
                 /**
                  * Return current.index
@@ -103,7 +103,7 @@ export const getRepeatProxi = ({
                      * Return index by key.
                      */
                     if (hasKey) {
-                        const indexByKey = state?.[bind]?.findIndex(
+                        const indexByKey = state?.[observe]?.findIndex(
                             (/** @type {{ [x: string]: any }} */ item) =>
                                 item[key] === keyValue
                         );
@@ -122,7 +122,7 @@ export const getRepeatProxi = ({
                  */
                 if (hasKey) {
                     lastValue = currentValue ?? lastValue;
-                    currentValue = state?.[bind]?.find(
+                    currentValue = state?.[observe]?.find(
                         (/** @type {{ [x: string]: any }} */ item) =>
                             item[key] === keyValue
                     );
@@ -134,7 +134,7 @@ export const getRepeatProxi = ({
                  * Return value without key. Prevent undefined, return last value fallback
                  */
                 lastValue = currentValue ?? lastValue;
-                currentValue = state?.[bind]?.[clamp(index, 0, maxValue)];
+                currentValue = state?.[observe]?.[clamp(index, 0, maxValue)];
                 return currentValue ?? lastValue;
             },
             set() {

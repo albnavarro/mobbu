@@ -43,7 +43,7 @@ export const updateRepeaterWitoutKey = ({
 
             const proxiObject = getRepeatProxi({
                 id,
-                bind: state,
+                observe: state,
                 hasKey: false,
                 index: initialIndex,
             });
@@ -67,7 +67,7 @@ export const updateRepeaterWitoutKey = ({
                 components,
                 current: initialValue,
                 index: initialIndex,
-                bind: state,
+                observe: state,
                 repeatId,
                 key: undefined,
             });
@@ -131,7 +131,7 @@ export const updateRepeaterWithoutKeyUseSync = ({
 
             const proxiObject = getRepeatProxi({
                 id,
-                bind: state,
+                observe: state,
                 hasKey: false,
                 index: initialIndex,
             });
@@ -178,7 +178,7 @@ export const updateRepeaterWithtKey = ({
 
     const proxiObject = getRepeatProxi({
         id,
-        bind: state,
+        observe: state,
         hasKey: true,
         key,
         keyValue,
@@ -204,7 +204,7 @@ export const updateRepeaterWithtKey = ({
         components,
         current: currentValue,
         index,
-        bind: state,
+        observe: state,
         repeatId,
         key: keyValue,
     });
@@ -263,7 +263,7 @@ export const updateRepeaterWithtKeyUseSync = ({
 
     const proxiObject = getRepeatProxi({
         id,
-        bind: state,
+        observe: state,
         hasKey: true,
         key,
         keyValue,
@@ -290,7 +290,7 @@ export const updateRepeaterWithtKeyUseSync = ({
  * @param {string} params.id
  * @param {Record<string, any>[]} params.currentUnique
  * @param {import('../type').RepeaterRender} params.render
- * @param {string} params.bind
+ * @param {string} params.observe
  * @param {string} params.repeatId
  * @param {string | undefined} params.key
  * @param {boolean} params.hasKey
@@ -300,7 +300,7 @@ export const getRenderWithoutSync = ({
     id,
     currentUnique,
     render,
-    bind,
+    observe,
     repeatId,
     key = '',
     hasKey,
@@ -314,7 +314,7 @@ export const getRenderWithoutSync = ({
     const renderedDOM = currentUnique.map((item, index) => {
         const proxiObject = getRepeatProxi({
             id,
-            bind,
+            observe,
             hasKey,
             key,
             keyValue: hasKey ? item?.[key] : '',
@@ -340,7 +340,7 @@ export const getRenderWithoutSync = ({
             components,
             current: item,
             index,
-            bind,
+            observe,
             repeatId,
             key: hasKey ? item?.[key] : '',
         });
@@ -361,7 +361,7 @@ export const getRenderWithoutSync = ({
  * @param {string} params.id
  * @param {Record<string, any>[]} params.currentUnique
  * @param {import('../type').RepeaterRender} params.render
- * @param {string} params.bind
+ * @param {string} params.observe
  * @param {string} params.repeatId
  * @param {string} params.key
  * @param {boolean} params.hasKey
@@ -371,7 +371,7 @@ export const getRenderWithSync = ({
     id,
     currentUnique,
     key = '',
-    bind,
+    observe,
     repeatId,
     hasKey,
     render,
@@ -387,12 +387,12 @@ export const getRenderWithSync = ({
                         }
                     )}"
                             ${ATTR_KEY}="${hasKey ? item?.[key] : ''}"
-                            ${ATTR_REPEATER_PROP_BIND}="${bind}"
+                            ${ATTR_REPEATER_PROP_BIND}="${observe}"
                             ${ATTR_CHILD_REPEATID}="${repeatId}"`;
 
                 const proxiObject = getRepeatProxi({
                     id,
-                    bind,
+                    observe,
                     hasKey,
                     key,
                     keyValue: hasKey ? item?.[key] : '',

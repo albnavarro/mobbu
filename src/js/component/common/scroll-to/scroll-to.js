@@ -101,7 +101,7 @@ export const ScrollToFn = ({
         <div class="c-scroll-to">
             <ul>
                 ${invalidate({
-                    bind: () => proxi.anchorItems,
+                    observe: () => proxi.anchorItems,
                     render: () => {
                         return getButtons({
                             delegateEvents,

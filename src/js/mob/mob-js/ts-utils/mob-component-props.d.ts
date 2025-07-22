@@ -15,7 +15,9 @@ export type ExtractRef<T> = T['ref'];
  * BindProps explicit mode.
  */
 interface BindPropsObject<T, R> {
-    bind?: OnlyStringKey<ExtractState<T>>[];
+    observe?:
+        | OnlyStringKey<ExtractState<T>>[]
+        | (() => ExtractState<T>[keyof ExtractState<T>])[];
     forceParent?: boolean;
     props: (
         arg0: ExtractState<T>,
@@ -296,7 +298,7 @@ interface PartialRepeat<T> {
         /**
          * Array of object used to create list
          */
-        bind: K;
+        observe: K;
 
         /**
          * Unique key used to track the mutation of each individual component.
@@ -370,7 +372,7 @@ interface PartialRepeat<T> {
         /**
          * Array of object used to create list
          */
-        bind: () => K;
+        observe: () => K;
 
         /**
          * Unique key used to track the mutation of each individual component.
@@ -452,7 +454,7 @@ export type PartialRenderComponent = (arg0: {
  */
 interface PartialInvalidateComponent<T> {
     (arg0: {
-        bind?:
+        observe?:
             | OnlyStringKey<ExtractState<T>>[]
             | OnlyStringKey<ExtractState<T>>;
         beforeUpdate?(): Promise<void>;
@@ -460,7 +462,7 @@ interface PartialInvalidateComponent<T> {
         render: () => string;
     }): string;
     (arg0: {
-        bind?:
+        observe?:
             | (() => ExtractState<T>[keyof ExtractState<T>])[]
             | (() => ExtractState<T>[keyof ExtractState<T>]);
         beforeUpdate?(): Promise<void>;

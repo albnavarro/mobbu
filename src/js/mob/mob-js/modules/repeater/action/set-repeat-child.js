@@ -5,10 +5,10 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  * @param {object} params
  * @param {string} params.repeatId
  * @param {string} params.id
- * @param {string} params.bind
+ * @param {string} params.observe
  * @returns {void}
  */
-export const setRepeaterChild = ({ repeatId, id, bind }) => {
+export const setRepeaterChild = ({ repeatId, id, observe }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
 
@@ -20,11 +20,11 @@ export const setRepeaterChild = ({ repeatId, id, bind }) => {
      */
     const children = /** @type {HTMLElement[]} */ ([...element.children]);
     const state = getStateById(id);
-    const stateByProp = state[bind];
+    const stateByProp = state[observe];
 
     repeatIdPlaceHolderMap.set(repeatId, {
         ...item,
-        key: bind,
+        key: observe,
         children: children.map((child, index) => {
             return { index, value: stateByProp[index], element: child };
         }),

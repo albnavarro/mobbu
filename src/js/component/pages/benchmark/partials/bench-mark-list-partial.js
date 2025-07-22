@@ -87,7 +87,7 @@ export const benchMarkListPartial = ({
         <div
             class="benchmark__loading"
             ${bindEffect({
-                bind: 'isLoading',
+                observe: 'isLoading',
                 toggleClass: { active: () => getState().isLoading },
             })}
         >

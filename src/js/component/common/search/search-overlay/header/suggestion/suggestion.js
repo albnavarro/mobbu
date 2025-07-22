@@ -57,7 +57,7 @@ export const SearchOverlaySuggestionFn = ({
         <div class="search-overlay-suggestion">
             <ul class="search-overlay-suggestion__list">
                 ${repeat({
-                    bind: () => proxi.list,
+                    observe: () => proxi.list,
                     key: 'word',
                     render: ({ current }) => {
                         return html`

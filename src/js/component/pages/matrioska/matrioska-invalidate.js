@@ -90,9 +90,10 @@ const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
                     >
                     <div class="matrioska__head__counter">
                         ${invalidate({
-                            bind: /** @type {'level1' | 'level2' | 'level3'} */ (
-                                button.state
-                            ),
+                            observe:
+                                /** @type {'level1' | 'level2' | 'level3'} */ (
+                                    button.state
+                                ),
                             render: () => {
                                 // @ts-ignore
                                 const data = getState()?.[button.state];
@@ -139,7 +140,7 @@ const getSecondLevel = ({
     return html`
         <div class="matrioska__level matrioska__level--2">
             ${invalidate({
-                bind: 'level2',
+                observe: 'level2',
                 render: () => {
                     const { level2 } = getState();
 
@@ -157,7 +158,7 @@ const getSecondLevel = ({
                                             })
                                         )}
                                         ${bindProps({
-                                            bind: ['counter'],
+                                            observe: ['counter'],
                                             props: ({ counter }) => {
                                                 return {
                                                     key: `${item.key}`,
@@ -202,7 +203,7 @@ const getThirdLevel = ({
 }) => {
     return html` <div class="matrioska__level matrioska__level--3">
         ${invalidate({
-            bind: 'level3',
+            observe: 'level3',
             render: () => {
                 const { level3 } = getState();
 
@@ -226,7 +227,7 @@ const getThirdLevel = ({
                                         })
                                     )}
                                     ${bindProps({
-                                        bind: ['counter'],
+                                        observe: ['counter'],
                                         props: ({ counter }) => {
                                             return {
                                                 counter,
@@ -258,7 +259,7 @@ const getThirdLevel = ({
                                         })
                                     )}
                                     ${bindProps({
-                                        bind: ['counter'],
+                                        observe: ['counter'],
                                         props: ({ counter }) => {
                                             return {
                                                 counter,
@@ -314,7 +315,7 @@ export const MatrioskaInvalidateFn = ({
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${invalidate({
-                    bind: 'level1',
+                    observe: 'level1',
                     render: () => {
                         const { level1 } = getState();
 
@@ -332,7 +333,7 @@ export const MatrioskaInvalidateFn = ({
                                                 })
                                             )}
                                             ${bindProps({
-                                                bind: ['counter'],
+                                                observe: ['counter'],
                                                 /** @returns {ReturnBindProps<MatrioskaItem>} */
                                                 props: ({ counter }) => {
                                                     return {

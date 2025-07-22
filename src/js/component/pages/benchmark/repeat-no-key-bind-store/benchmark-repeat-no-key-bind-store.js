@@ -62,7 +62,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
         </div>
         <div class="benchmark__list">
             ${repeat({
-                bind: () => proxi.data,
+                observe: () => proxi.data,
                 useSync: true,
                 afterUpdate: () => {
                     // externalStore.debug();

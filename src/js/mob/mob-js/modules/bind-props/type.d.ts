@@ -1,7 +1,7 @@
 export type BindPropsMap = Map<
     string,
     {
-        bind: string[];
+        observe: string[];
         parentId: string | undefined;
         componentId: string;
         propsId: string;
@@ -14,7 +14,7 @@ export type BindPropsMap = Map<
 >;
 
 export type SetBindProps = (arg0: {
-    bind?: string[];
+    observe?: string[] | (() => any)[];
     parentId: string | undefined;
     props: (
         arg0: object,

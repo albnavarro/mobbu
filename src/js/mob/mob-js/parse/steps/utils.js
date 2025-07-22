@@ -12,26 +12,6 @@ import {
     ELEMENT_TYPE_TEXT,
 } from './constant';
 
-/**
- * Remove watch state from bind.
- *
- * @param {object} obj
- * @param {{ bind: string[]; props: Function } | undefined} obj.dynamicProps
- * @param {string | undefined} obj.stateToWatch
- * @returns {{ bind: string[]; props: function } | undefined}
- */
-export const removeWatchFromDynamicProps = ({ dynamicProps, stateToWatch }) => {
-    if (!dynamicProps || !('bind' in dynamicProps) || !stateToWatch)
-        return dynamicProps;
-
-    const { bind } = dynamicProps;
-    const newBind = bind.filter(
-        (/** @type {string} */ state) => state !== stateToWatch
-    );
-
-    return { ...dynamicProps, bind: newBind };
-};
-
 export const renderHtml = String.raw;
 
 /**
@@ -135,7 +115,7 @@ export const insertElementOrText = ({
  * @param {WeakRef<import('../../web-component/type').UserComponent>[]} params.components
  * @param {Record<string, any>} params.current
  * @param {number} params.index
- * @param {string} params.bind
+ * @param {string} params.observe
  * @param {string} params.repeatId
  * @param {string | undefined} params.key
  * @returns {void}
@@ -144,7 +124,7 @@ export const setRepeatAttribute = ({
     components,
     current,
     index,
-    bind,
+    observe,
     repeatId,
     key,
 }) => {
@@ -164,7 +144,9 @@ export const setRepeatAttribute = ({
         }
 
         if (!component.deref()?.hasAttribute(ATTR_REPEATER_PROP_BIND)) {
-            component.deref()?.setAttribute(ATTR_REPEATER_PROP_BIND, `${bind}`);
+            component
+                .deref()
+                ?.setAttribute(ATTR_REPEATER_PROP_BIND, `${observe}`);
         }
 
         if (!component.deref()?.hasAttribute(ATTR_CHILD_REPEATID)) {

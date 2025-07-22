@@ -23,7 +23,7 @@ export interface GetParamsForComponent extends ComponentStoreReturn {
 }
 
 interface RepeatInternal {
-    bind: string | (() => any);
+    observe: string | (() => any);
     clean?: boolean;
     beforeUpdate?: () => Promise<void> | void;
     afterUpdate?: () => void;

@@ -23,21 +23,6 @@ import { bindPropsMap } from './bind-props-map';
 /**
  * Store props and return a unique identifier
  *
- * @example
- *     ```javascript
- *       <MyComponent
- *           data-bindprops="${bindProps({
- *               bind: ['state1', 'state1'],
- *               props: ({ state1, state2 }) => {
- *                   return {
- *                       childState1: state1,
- *                       childState2: state2,
- *                   };
- *               },
- *           })}"
- *       ></MyComponent>
- *     ```;
- *
  * @type {import('./type').SetBindProps} data
  */
 export const setBindProps = (data) => {
@@ -51,24 +36,23 @@ export const setBindProps = (data) => {
     /**
      * Get explicit dependencies or get from `proxi.get()`
      */
-    const bindDetected =
-        data?.bind && MobCore.checkType(Array, data.bind)
-            ? data.bind
-            : (() => {
-                  MobDetectBindKey.initializeCurrentDependencies();
-                  // Run props only if is typeOf Function
-                  if (MobCore.checkType(Function, data.props)) {
-                      data.props({}, {}, 0);
-                  }
-                  return MobDetectBindKey.getCurrentDependencies();
-              })();
+    const stateToWatch =
+        /** @type {string[] | undefined} */ (data?.observe) ??
+        (() => {
+            MobDetectBindKey.initializeCurrentDependencies();
+            // Run props only if is typeOf Function
+            if (MobCore.checkType(Function, data.props)) {
+                data.props({}, {}, 0);
+            }
+            return MobDetectBindKey.getCurrentDependencies();
+        })();
 
-    if (bindDetected.length === 0) {
+    if (stateToWatch.length === 0) {
         console.warn(`bindProps not valid, no dependencies found`);
         return;
     }
 
-    const dataUpdated = { ...data, bind: bindDetected };
+    const dataUpdated = { ...data, observe: stateToWatch };
 
     /**
      * @type {string}
@@ -88,7 +72,7 @@ export const setBindProps = (data) => {
  *
  * @param {object} obj
  * @param {string} obj.componentId
- * @param {string[]} obj.bind
+ * @param {string[]} obj.observe
  * @param {(arg0: Record<string, any>, value: Record<string, any>, index: number) => object} obj.props
  * @param {string} obj.currentParentId
  * @param {boolean} obj.fireCallback
@@ -96,7 +80,7 @@ export const setBindProps = (data) => {
  */
 const updateBindProp = ({
     componentId,
-    bind,
+    observe,
     props,
     currentParentId,
     fireCallback,
@@ -110,13 +94,13 @@ const updateBindProp = ({
     if (!parentState) return;
 
     const parentStateKeys = Object.keys(parentState);
-    const bindArrayIsValid = bind.every((state) =>
+    const bindArrayIsValid = observe.every((state) =>
         parentStateKeys.includes(state)
     );
 
     if (!bindArrayIsValid) {
         console.warn(
-            `bind props error: Some prop ${JSON.stringify(bind)} doesn't exist`
+            `bind props error: Some prop ${JSON.stringify(observe)} doesn't exist`
         );
     }
 
@@ -124,7 +108,7 @@ const updateBindProp = ({
      * Use this to filter parent props that match with nind array Use instead parentState in newProps initialize. It is
      * more useful pass all parent state instead prop definited in bind array
      *
-     *     const values = bind
+     *     const values = watch
      *         .map((currentState) => {
      *             return {
      *                 [currentState]: parentState[currentState],
@@ -245,17 +229,17 @@ export const applyBindProps = async ({
      * Cycle dynamicProps from component or from slot.
      */
     for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
-        const { bind, props, parentId } = dynamicpropsfiltered;
+        const { observe, props, parentId } = dynamicpropsfiltered;
 
         /**
          * Merge watch state inside a repeater with bind array.
          */
-        const bindUpdated =
+        const observeParsed =
             repeatPropBind &&
             repeatPropBind?.length > 0 &&
-            !bind.includes(repeatPropBind)
-                ? [...bind, repeatPropBind]
-                : [...bind];
+            !observe.includes(repeatPropBind)
+                ? [...observe, repeatPropBind]
+                : [...observe];
 
         /**
          * Force parent id or get the natually parent id.
@@ -272,7 +256,7 @@ export const applyBindProps = async ({
         if (!inizilizeWatcher) {
             updateBindProp({
                 componentId,
-                bind: bindUpdated,
+                observe: observeParsed,
                 props,
                 currentParentId: currentParentId ?? '',
                 fireCallback: false,
@@ -293,7 +277,7 @@ export const applyBindProps = async ({
              */
             updateBindProp({
                 componentId,
-                bind: bindUpdated,
+                observe: observeParsed,
                 props,
                 currentParentId: currentParentId ?? '',
                 fireCallback: true,
@@ -314,7 +298,7 @@ export const applyBindProps = async ({
              */
             updateBindProp({
                 componentId,
-                bind: bindUpdated,
+                observe: observeParsed,
                 props,
                 currentParentId: currentParentId ?? '',
                 fireCallback: true,
@@ -328,50 +312,52 @@ export const applyBindProps = async ({
          */
         let watchIsRunning = false;
 
-        const unWatchArray = bindUpdated.map((/** @type {string} */ state) => {
-            return watchById(currentParentId, state, async () => {
-                /**
-                 * Fire bindProps after repeater.
-                 */
-                await repeaterTick();
-                await invalidateTick();
-
-                /**
-                 * Wait for all all props is settled.
-                 */
-                if (watchIsRunning) return;
-
-                /**
-                 * Add watcher to active queuqe operation.
-                 */
-                const decrementQueue = incrementTickQueuque({
-                    state,
-                    id: componentId,
-                    type: QUEQUE_TYPE_BINDPROPS,
-                });
-
-                /**
-                 * Fire watch only once if multiple props change. Wait the end of current block.
-                 */
-                watchIsRunning = true;
-                MobCore.useNextLoop(() => {
-                    updateBindProp({
-                        componentId,
-                        bind: bindUpdated,
-                        props,
-                        currentParentId: currentParentId ?? '',
-                        fireCallback: true,
-                    });
-
-                    watchIsRunning = false;
+        const unWatchArray = observeParsed.map(
+            (/** @type {string} */ state) => {
+                return watchById(currentParentId, state, async () => {
+                    /**
+                     * Fire bindProps after repeater.
+                     */
+                    await repeaterTick();
+                    await invalidateTick();
 
                     /**
-                     * Remove watcher to active queuqe operation.
+                     * Wait for all all props is settled.
                      */
-                    decrementQueue();
+                    if (watchIsRunning) return;
+
+                    /**
+                     * Add watcher to active queuqe operation.
+                     */
+                    const decrementQueue = incrementTickQueuque({
+                        state,
+                        id: componentId,
+                        type: QUEQUE_TYPE_BINDPROPS,
+                    });
+
+                    /**
+                     * Fire watch only once if multiple props change. Wait the end of current block.
+                     */
+                    watchIsRunning = true;
+                    MobCore.useNextLoop(() => {
+                        updateBindProp({
+                            componentId,
+                            observe: observeParsed,
+                            props,
+                            currentParentId: currentParentId ?? '',
+                            fireCallback: true,
+                        });
+
+                        watchIsRunning = false;
+
+                        /**
+                         * Remove watcher to active queuqe operation.
+                         */
+                        decrementQueue();
+                    });
                 });
-            });
-        });
+            }
+        );
 
         /**
          * Add unwatch function to store. So we lounch them on destroy.
