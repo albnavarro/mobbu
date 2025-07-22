@@ -1,7 +1,7 @@
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ bindObject, repeat }) => {
     return html`
@@ -12,7 +12,7 @@ export const MyComponent = ({ bindObject, repeat }) => {
                     return html`<div class="item">
                         <div class="item__inner">
                             ${bindObject`value: ${{
-                                bind: 'data',
+                                observe: 'data',
                                 value: () => current.value.label,
                             }}.`}
                         </div>

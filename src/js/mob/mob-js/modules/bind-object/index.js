@@ -32,13 +32,13 @@ export const addBindObjectPlaceHolderMap = ({
 export const getBindObjectKeys = (values) => {
     return values.map(
         (
-            /** @type {{ bind?: string; value: () => void } | (() => void)} */ item
+            /** @type {{ observe?: string; value: () => void } | (() => void)} */ item
         ) => {
             /**
-             * Get explicit keys or auto ( with proxies ). Bind should be a string not native bind methods of function
+             * Get explicit keys or auto ( with proxies ).
              */
-            return 'bind' in item && MobCore.checkType(String, item.bind)
-                ? item.bind
+            return 'observe' in item
+                ? item.observe
                 : (() => {
                       MobDetectBindKey.initializeCurrentDependencies();
                       if ('value' in item) {

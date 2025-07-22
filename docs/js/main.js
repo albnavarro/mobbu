@@ -5050,7 +5050,7 @@
   var getBindObjectKeys = (values) => {
     return values.map(
       (item) => {
-        return "bind" in item && modules_exports.checkType(String, item.bind) ? item.bind : (() => {
+        return "observe" in item ? item.observe : (() => {
           current_key_exports.initializeCurrentDependencies();
           if ("value" in item) {
             item?.value();
