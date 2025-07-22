@@ -11,7 +11,7 @@ export const MyLayout = ({ staticProps, bindProps }) => {
                     staticFromSlot: `static prop from layout`,
                 })}
                 ${bindProps({
-                    bind: ['mylayoutState'],
+                    observe: ['mylayoutState'],
                     props: ({ mylayoutState }) => {
                         return {
                             propFromLayout: mylayoutState,
@@ -33,7 +33,7 @@ export const MyComponent = ({ bindProps }) => {
         <my-layout>
             <my-child
                 ${bindProps({
-                    bind: ['myState'],
+                    observe: ['myState'],
                     props: ({ myState }) => {
                         return {
                             childState: myState,

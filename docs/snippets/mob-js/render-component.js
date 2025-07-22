@@ -27,7 +27,7 @@ export const MyComponent = ({
          */
         const runTimeComponent = /* HTML */ `<runtime-component
             ${bindProps({
-                bind: ['myState'],
+                observe: ['myState'],
                 props: ({ myState }) => {
                     return {
                         childState: myState,

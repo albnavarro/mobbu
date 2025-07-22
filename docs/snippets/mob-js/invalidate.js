@@ -39,7 +39,7 @@ export const MyComponent = ({
     return html`
         <div class="invalidate-container">
             ${invalidate({
-                bind: ['myState', 'myState2'],
+                observe: ['myState', 'myState2'],
                 beforeUpdate: () => {
                     //
                 },

@@ -1,7 +1,7 @@
 interface Repeat<T> {
     <K extends keyof ExtractState<T> & string>(arg0: {
         clean?: boolean;
-        bind: K;
+        observe: K;
         key?: string | undefined;
         useSync?: boolean;
         beforeUpdate?(): Promise<void> | void;
@@ -15,7 +15,7 @@ interface Repeat<T> {
     }): string;
     <K extends ExtractState<T>[keyof ExtractState<T>]>(arg0: {
         clean?: boolean;
-        bind: () => K;
+        observe: () => K;
         key?: string | undefined;
         useSync?: boolean;
         beforeUpdate?(): Promise<void> | void;

@@ -1,6 +1,6 @@
 /**
 export type BindProps<T, R> = (arg0: {
-    bind?: Array<OnlyStringKey<T>>;
+    observe?: Array<OnlyStringKey<T>>;
     forceParent?: boolean;
     props: (arg0: T, index: number) => Partial<R>;
 }) => string;
@@ -43,7 +43,7 @@ export const MyComponent = ({
         <div>
             <my-child-component
                 ${bindProps({
-                    bind: ['label', 'counter'],
+                    observe: ['label', 'counter'],
                     props: ({ label, counter }) => {
                         return {
                             childProp3: label,

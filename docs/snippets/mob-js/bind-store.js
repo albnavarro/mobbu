@@ -23,7 +23,7 @@ export const MyComponent = ({
         </div>
         <div>
             ${invalidate({
-                bind: () => proxi.beforeRouteChange,
+                observe: () => proxi.beforeRouteChange,
                 render: () => {
                     return proxiState.beforeRouteChange.route === 'home'
                         ? html`<h2>home</h2>`

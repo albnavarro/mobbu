@@ -129,14 +129,14 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "bind ( optional )"
+            "content": "observe ( optional )"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The bind property is an array in which the states to monitor are listed, bindProps will fire when one or all of the listed states change. If the states change in the same eventLoop there will be only one reaction. The parameter is optional since within a repeater the monitored state will trigger the reaction by default, if you want to monitor only that state you can omit the bind parameter."
+            "content": "The observe property is an array in which the states to monitor are listed, bindProps will fire when one or all of the listed states change. If the states change in the same eventLoop there will be only one reaction. The parameter is optional since within a repeater the monitored state will trigger the reaction by default, if you want to monitor only that state you can omit the observe parameter."
         },
         {
             "component": "mob-spacer",

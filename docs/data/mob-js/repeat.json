@@ -39,7 +39,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "bind:"
+            "content": "observe:"
         },
         {
             "component": "mob-paragraph",

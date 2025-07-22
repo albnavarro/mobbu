@@ -7,7 +7,7 @@ export const MyComponent = ({ bindObject, repeat }) => {
     return html`
         <div>
             ${repeat({
-                bind: 'data',
+                observe: 'data',
                 render: ({ current }) => {
                     return html`<div class="item">
                         <div class="item__inner">

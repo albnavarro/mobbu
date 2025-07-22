@@ -1,6 +1,6 @@
 <my-child-component
     ${bindProps({
-        bind: ['counter'],
+        observe: ['counter'],
         props: ({ counter, dataArray }, value, index) => {
             return {
                 childProp3: dataArray[index].myProp,

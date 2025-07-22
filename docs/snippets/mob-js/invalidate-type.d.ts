@@ -1,6 +1,6 @@
 interface Invalidate<T> {
     (arg0: {
-        bind?:
+        observe?:
             | OnlyStringKey<ExtractState<T>>[]
             | OnlyStringKey<ExtractState<T>>;
         beforeUpdate?(): Promise<void>;
@@ -8,7 +8,7 @@ interface Invalidate<T> {
         render: () => string;
     }): string;
     (arg0: {
-        bind?:
+        observe?:
             | (() => ExtractState<T>[keyof ExtractState<T>])[]
             | (() => ExtractState<T>[keyof ExtractState<T>]);
         beforeUpdate?(): Promise<void>;

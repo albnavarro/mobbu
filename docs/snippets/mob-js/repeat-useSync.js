@@ -14,7 +14,7 @@ export const MyComponent = ({
     return html`
         <div class="repeater-container">
             ${repeat({
-                bind: 'myStateArray',
+                observe: 'myStateArray',
                 useSync: true,
                 render: ({ sync, current }) => {
                     return html`

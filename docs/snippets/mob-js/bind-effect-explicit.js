@@ -7,7 +7,7 @@ export const MyComponent = ({ bindEffect, getState }) => {
     return html`
         <div>
             ${bindEffect({
-                bind: ['active', 'color'],
+                observe: ['active', 'color'],
                 toggleClass: {
                     active: () => getState().active,
                     white: () => getState().color === 'white',

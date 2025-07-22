@@ -76,7 +76,7 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>bind ( optional )</span>: a state or array of states.",
+                    "<span class='quote'>observe ( optional )</span>: a state or array of states.",
                     "<span class='quote'>toggleClass</span>: An object where the key is the class to apply and the value is a function that will return a boolean value.",
                     "<span class='quote'>toggleStyle</span>: an object where the key is the style to be changed and the value is a function that will return a string.",
                     "<span class='quote'>toggleAttribute</span>: an object where the key is the attribute to be changed and the value is a function that will return a string.<br/> If the value is equal to null the attribute will be deleted"
@@ -108,7 +108,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "When using <strong>proxies</strong> the bind property is not necessary"
+            "content": "When using <strong>proxies</strong> the observe property is not necessary"
         },
         {
             "component": "mob-spacer",

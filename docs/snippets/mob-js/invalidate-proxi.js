@@ -10,7 +10,7 @@ export const MyComponent = ({
     return html`
         <div class="invalidate-container">
             ${invalidate({
-                bind: [() => proxi.myState, () => proxi.myState2],
+                observe: [() => proxi.myState, () => proxi.myState2],
                 beforeUpdate: () => {
                     //
                 },

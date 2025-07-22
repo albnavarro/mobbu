@@ -7,7 +7,7 @@ export const MyComponent = ({ repeat }) => {
     return html`
         <div class="repeater-container">
             ${repeat({
-                bind: 'myStateArray',
+                observe: 'myStateArray',
                 render: () => {
                     return html` <div class="item-container">
                         <my-child-component> </my-child-component>

@@ -16,7 +16,7 @@ export const MyComponent = ({ bindEvents, bindProps, setState }) => {
                     },
                 })}
                 ${bindProps({
-                    bind: ['counter'],
+                    observe: ['counter'],
                     props: ({ counter }) => {
                         return {
                             childProp: counter,

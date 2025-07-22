@@ -70,7 +70,7 @@ export const MyComponent = ({
         </button>
         <div class="invalidate-container">
             ${invalidate({
-                bind: ['items'],
+                observe: ['items'],
                 render: () => {
                     return getInvalidateRender({
                         getState,
