@@ -1,3 +1,5 @@
+import { NavigationStore } from '@layoutComponent/navigation/store/type';
+
 export interface Header {
     state: {
         isMounted: boolean;
@@ -13,4 +15,8 @@ export interface HeaderLinks {
         url: string;
         internal: boolean;
     }[];
+}
+
+export interface HeaderToggle {
+    state: Readonly<NavigationStore>;
 }

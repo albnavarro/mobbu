@@ -5,7 +5,7 @@
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html } from '@mobJs';
 
-/** @type {MobComponent} */
+/** @type {MobComponent<import('./type').HeaderToggle>} */
 export const HeaderToggleFn = ({
     delegateEvents,
     bindEffect,

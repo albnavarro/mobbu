@@ -18,7 +18,7 @@ export const HeaderNav = MobJs.createComponent(
 );
 
 export const HeaderToggle = MobJs.createComponent(
-    /** @type {CreateComponentParams<{}>} */
+    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
     ({
         tag: 'mob-header-toggle',
         component: HeaderToggleFn,

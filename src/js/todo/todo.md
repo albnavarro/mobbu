@@ -35,6 +35,15 @@ observe: [() => proxi.counter],
 
 ### bindObject
 - Abilitare proxi se si usa observe.
+```js
+observe: [() => proxi.counter],
+```
+
+### bindEffect
+- Abilitare proxi se si usa observe.
+```js
+observe: [() => proxi.counter],
+```
 
 
 ### eslint:
