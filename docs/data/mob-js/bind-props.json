@@ -107,7 +107,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 42
+                "numLines": 27
             }
         },
         {
@@ -209,6 +209,13 @@
             "content": "forceParent:"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "forceParent only works with explicit dependencies."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -221,7 +228,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 25
+                "numLines": 24
             }
         },
         {

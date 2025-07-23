@@ -27,6 +27,16 @@
 
 # MobCore
 
+### bindProps
+- explicit dependencies abilitare proxi:
+```js
+observe: [() => proxi.counter],
+```
+
+### bindObject
+- Abilitare proxi se si usa observe.
+
+
 ### eslint:
 - Valutare per ora solo a livello di store https://github.com/eslint-functional/eslint-plugin-functional
 

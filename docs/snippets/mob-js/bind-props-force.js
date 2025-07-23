@@ -8,18 +8,17 @@ return html`
             },
         })}
     >
-        <my-component-inner
-            slot="my-slot"
+        <my-child-component
             ${bindProps({
-                // here we bind <my-component> counter state, with forceParent.
+                observe: ['label', 'counter'],
                 forceParent: true,
-                props: () => {
+                props: ({ label, counter }) => {
                     return {
-                        counter: proxi.counter,
+                        childProp3: label,
+                        childProp4: counter,
                     };
                 },
             })}
-        >
-        </my-component>
+        ></my-child-component>
     </my-component-inner>
 `;
