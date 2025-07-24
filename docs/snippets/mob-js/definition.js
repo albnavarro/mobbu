@@ -54,6 +54,9 @@ export const MyComponent = MobJs.createComponent(
             }),
         },
 
-        scoped: true,
+        /**
+         * Optional
+         */
+        scoped: false,
     })
 );

@@ -467,7 +467,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Fire onMount callback immediately, normally onMount is fired after all components have been created. This means that if <span class='quote'>scoped:true</span> e.g. every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component. <span class='quote'>default = false</span>"
+                        "content": "By default, <strong>onMount</strong> functions are launched at the end of the rendering of the <strong>current block</strong> of <strong>html</strong>, normally a page or the updates of invalidate and repeat, using <strong>scoped = true</strong> the <strong>onMount</strong> function will be launched just <strong>after</strong> the rendering of the single component and <strong>before</strong> the rendering of the next one."
                     },
                     {
                         "component": "mob-spacer",
