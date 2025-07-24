@@ -27,6 +27,9 @@
 
 # MobCore
 
+### New Observe props.
+- `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
+
 ### bindProps
 - explicit dependencies abilitare proxi:
 ```js
