@@ -142,7 +142,7 @@ Loading snippet ...</pre
                                   <span class="list-links__arrow__end"></span>
                               </span>
                           </a>
-                      </li>`).join(""):e.map(r=>g` <li>${r}</li> `).join(""),fv=({getState:e})=>{let{style:t,color:r,items:o,links:n}=e(),s=`is-${r}`;return g`<ul class="ul ul--${t} ${s} ${n?"use-links":""}">
+                      </li>`).join(""):e.map(r=>g` <li>${r}</li> `).join(""),fv=({getState:e})=>{let{style:t,color:r,items:o,links:n}=e(),s=`is-${r}`;return g`<ul class="ul ul--${t} ${s} ${n?"use-links":"use-default"}">
         ${pC({items:o,links:n})}
     </ul>`};var gv=m.createComponent({tag:"mob-list",component:fv,exportState:["style","color","items","dots","block","links"],state:{style:()=>({value:"medium",type:String,validate:e=>["small","medium","big"].includes(e),strict:!0}),dots:()=>({value:!0,type:Boolean}),links:()=>({value:!1,type:Boolean}),color:()=>({value:"black",type:String,validate:e=>["white","black","grey","hightlight"].includes(e)}),items:()=>({value:[],type:Array})}});var bv=({getState:e})=>{let{style:t,color:r,boxed:o,note:n}=e(),s=r==="inherit"?"":`is-${r}`;return g`<p
         class="p p--${t} ${o?"p--boxed":""} ${n?"p--note":""} ${s}"

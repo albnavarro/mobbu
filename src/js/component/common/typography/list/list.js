@@ -35,7 +35,7 @@ export const ListFn = ({ getState }) => {
     const { style, color, items, links } = getState();
 
     const colorClass = `is-${color}`;
-    const linksClass = links ? 'use-links' : '';
+    const linksClass = links ? 'use-links' : 'use-default';
 
     return html`<ul class="ul ul--${style} ${colorClass} ${linksClass}">
         ${getList({ items, links })}
