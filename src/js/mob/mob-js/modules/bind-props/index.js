@@ -19,6 +19,7 @@ import {
 import { getElementById } from '../../component/action/element';
 import { removeAndDestroyById } from '../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import { bindPropsMap } from './bind-props-map';
+import { detectProp } from '../../utils';
 
 /**
  * Store props and return a unique identifier
@@ -36,16 +37,21 @@ export const setBindProps = (data) => {
     /**
      * Get explicit dependencies or get from `proxi.get()`
      */
-    const stateToWatch =
-        /** @type {string[] | undefined} */ (data?.observe) ??
-        (() => {
-            MobDetectBindKey.initializeCurrentDependencies();
-            // Run props only if is typeOf Function
-            if (MobCore.checkType(Function, data.props)) {
-                data.props({}, {}, 0);
-            }
-            return MobDetectBindKey.getCurrentDependencies();
-        })();
+    const stateToWatch = /** @type {string[] | undefined} */ (data?.observe)
+        ? (() => {
+              return /** @type{( string|( () => void ) )[]} */ (
+                  data.observe
+              ).map((item) => {
+                  return detectProp(item);
+              });
+          })()
+        : (() => {
+              MobDetectBindKey.initializeCurrentDependencies();
+              if (MobCore.checkType(Function, data.props)) {
+                  data.props({}, {}, 0);
+              }
+              return MobDetectBindKey.getCurrentDependencies();
+          })();
 
     if (stateToWatch.length === 0) {
         console.warn(`bindProps not valid, no dependencies found`);

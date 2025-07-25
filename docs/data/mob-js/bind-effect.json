@@ -151,7 +151,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Reacts</strong> when a mutation occurs in one of the indicated states"
+            "content": "It is possible to <strong>explicitly declare</strong> which state change the module should update to."
         },
         {
             "component": "mob-spacer",
@@ -166,7 +166,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 18
+                "numLines": 33
             }
         },
         {
@@ -188,7 +188,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Each property will be recalculated when at least one of them changes."
+            "content": "All property will be recalculated when at least one of them changes."
         },
         {
             "component": "mob-spacer",

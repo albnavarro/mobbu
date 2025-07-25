@@ -1,15 +1,12 @@
 /**
-export type BindProps<T, R> = (arg0: {
-    observe?: Array<OnlyStringKey<T>>;
-    forceParent?: boolean;
-    props: (arg0: T, index: number) => Partial<R>;
-}) => string;
-**/
+ * Export type BindProps<T, R> = (arg0: { observe?: Array<OnlyStringKey<T>>; forceParent?: boolean; props: (arg0: T,
+ * index: number) => Partial<R>; }) => string;
+ */
 
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({
     onMount,
@@ -17,7 +14,10 @@ export const MyComponent = ({
     setState,
     updateState,
     bindProps,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     onMount(() => {
         /**
          * Update counter state every 500 ms.
@@ -41,9 +41,23 @@ export const MyComponent = ({
 
     return html`
         <div>
+            // Use string array as observer.
             <my-child-component
                 ${bindProps({
                     observe: ['label', 'counter'],
+                    props: ({ label, counter }) => {
+                        return {
+                            childProp3: label,
+                            childProp4: counter,
+                        };
+                    },
+                })}
+            ></my-child-component>
+
+            // Use proxi array as observer.
+            <my-child-component
+                ${bindProps({
+                    observe: [() => proxi.label, () => proxi.counter],
                     props: ({ label, counter }) => {
                         return {
                             childProp3: label,

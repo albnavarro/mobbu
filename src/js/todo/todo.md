@@ -30,24 +30,6 @@
 ### New Observe props.
 - `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
 
-### bindProps
-- explicit dependencies abilitare proxi:
-```js
-observe: [() => proxi.counter],
-```
-
-### bindObject
-- Abilitare proxi se si usa observe.
-```js
-observe: [() => proxi.counter],
-```
-
-### bindEffect
-- Abilitare proxi se si usa observe.
-```js
-observe: [() => proxi.counter],
-```
-
 
 ### eslint:
 - Valutare per ora solo a livello di store https://github.com/eslint-functional/eslint-plugin-functional

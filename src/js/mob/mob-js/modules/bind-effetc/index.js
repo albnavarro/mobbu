@@ -1,18 +1,24 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
 import { ATTR_BIND_EFFECT } from '../../constant';
+import { detectProp } from '../../utils';
 
 /** @type {import('./type').BindEffectMap} */
 const bindEffectMap = new Map();
 
 /**
- * @param {string | string[]} observe
+ * @param {string | string[] | (() => void) | (() => void)[]} observe
  * @returns {string[]}
  */
 const getExplicitBind = (observe) => {
-    return /** @type {string[]} */ (
-        MobCore.checkType(Array, observe) ? observe : [observe]
-    );
+    const observeArray = MobCore.checkType(Array, observe)
+        ? observe
+        : [observe];
+
+    // @ts-expect-error bindArray is forced to be an array.
+    return observeArray.map((item) => {
+        return detectProp(item);
+    });
 };
 
 /**
