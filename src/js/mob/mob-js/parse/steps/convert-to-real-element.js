@@ -35,13 +35,17 @@ const getNewElement = ({ element, content }) => {
     if (element.parentNode) {
         // element.insertAdjacentHTML('afterend', content);
 
-        // const template = document.createElement('template');
-        // template.innerHTML = content;
-        // const node = template.content.firstElementChild;
+        // const node = document
+        //     .createRange()
+        //     .createContextualFragment(content).firstElementChild;
 
-        const node = document
-            .createRange()
-            .createContextualFragment(content).firstElementChild;
+        // const parser = new DOMParser();
+        // const doc = parser.parseFromString(content, 'text/html');
+        // const node = doc.body.firstElementChild;
+
+        const template = document.createElement('template');
+        template.innerHTML = content;
+        const node = template.content.firstElementChild;
 
         /**
          * Disable placeholder before add to DOM Avoid add component to userPlaceholder map.
