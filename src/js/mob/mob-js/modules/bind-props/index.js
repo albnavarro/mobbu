@@ -133,25 +133,31 @@ const updateBindProp = ({
         id: componentId,
     });
 
-    let newProps;
+    // let newProps;
 
     /**
      * TODOL should be removed, use only for debug.
      */
-    try {
-        newProps = props?.(
-            parentState,
-            currentRepeaterState.current,
-            currentRepeaterState?.index
-        );
-    } catch {
-        console.log('bindProps error:', componentId);
-        const element = getElementById({ id: componentId });
-        if (!element) return;
+    // try {
+    //     newProps = props?.(
+    //         parentState,
+    //         currentRepeaterState.current,
+    //         currentRepeaterState?.index
+    //     );
+    // } catch {
+    //     console.log('bindProps error:', componentId);
+    //     const element = getElementById({ id: componentId });
+    //     if (!element) return;
+    //
+    //     if (!document.body.contains(element))
+    //         removeAndDestroyById({ id: componentId });
+    // }
 
-        if (!document.body.contains(element))
-            removeAndDestroyById({ id: componentId });
-    }
+    const newProps = props?.(
+        parentState,
+        currentRepeaterState.current,
+        currentRepeaterState?.index
+    );
 
     if (!newProps) return;
 
