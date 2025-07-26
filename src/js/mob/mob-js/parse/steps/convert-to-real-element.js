@@ -43,6 +43,13 @@ const getNewElement = ({ element, content }) => {
             .createRange()
             .createContextualFragment(content).firstElementChild;
 
+        /**
+         * Disable placeholder before add to DOM Avoid add component to userPlaceholder map.
+         */
+
+        // @ts-expect-error node can be a user web component.
+        node?.disablePlaceHolderState?.();
+
         if (node) element.after(node);
 
         /**
@@ -54,7 +61,7 @@ const getNewElement = ({ element, content }) => {
                 `<!--  ${element.tagName.toLowerCase()} --> `
             );
 
-        return /** @type {HTMLElement} */ (element.nextElementSibling);
+        return /** @type {HTMLElement} */ (node);
     }
 
     return;

@@ -338,9 +338,9 @@ export const parseComponentsRecursive = async ({
         });
     }
 
-    /**
-     * Initialize custom component.
-     */
+    // Initialize custom component.
+    // #this.#isPlaceholder is disables in convert-to-real-element.js
+
     // @ts-ignore
     newElement?.inizializeCustomComponent?.(objectFromComponentFunction);
 

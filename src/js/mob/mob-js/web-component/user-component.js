@@ -311,6 +311,17 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
+                 * Disable placeholder state before add to DOM
+                 *
+                 * @returns Void
+                 */
+                disablePlaceHolderState() {
+                    this.#isPlaceholder = false;
+                }
+
+                /**
+                 * Add params after web component ( not placeholder ) is added to DOM.
+                 *
                  * @param {import('../type').ComponentPropsType<
                  *     import('../type').MobComponentMap,
                  *     import('../type').MobComponentMap
