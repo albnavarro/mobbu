@@ -16,8 +16,8 @@ import {
     invalidateQuequeIsEmpty,
     invalidateTick,
 } from '../../queque/tick-invalidate';
-import { getElementById } from '../../component/action/element';
-import { removeAndDestroyById } from '../../component/action/remove-and-destroy/remove-and-destroy-by-id';
+// import { getElementById } from '../../component/action/element';
+// import { removeAndDestroyById } from '../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import { bindPropsMap } from './bind-props-map';
 import { detectProp } from '../../utils';
 
