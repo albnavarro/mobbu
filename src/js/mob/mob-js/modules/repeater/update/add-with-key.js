@@ -67,7 +67,7 @@ export const addWithKey = ({
         })
         .filter(Boolean);
 
-    const elementToRemoveByComponent = elementToRemoveByKey.length > 0;
+    const shouldRemoveElementByKey = elementToRemoveByKey.length > 0;
 
     /**
      * Component inside repeater. Remove at the end old element to avoid viual jump
@@ -107,7 +107,7 @@ export const addWithKey = ({
     /**
      * No Component inside repeater. Remove at the end old element to avoid viual jump
      */
-    if (!elementToRemoveByComponent) {
+    if (!shouldRemoveElementByKey) {
         const childrenFromRepeater = getRepeaterChild({ repeatId });
         const itemToRemove = childrenFromRepeater.filter((item) => {
             return keyToRemove
@@ -213,7 +213,7 @@ export const addWithKey = ({
                 if (
                     debug &&
                     !persistentDOMwrapper &&
-                    elementToRemoveByComponent
+                    shouldRemoveElementByKey
                 ) {
                     const componentName =
                         getComponentNameByElement(persistentElement);
