@@ -8,7 +8,6 @@ import {
 import { destroyNestedInvalidate } from '../../invalidate/action/destroy-nested-invalidate';
 import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
-import { getParentIdById } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import {
@@ -112,23 +111,23 @@ export const addWithoutKey = ({
          * For singling component inside same repeater item. Group all childrn by wrapper ( or undefined if there is no
          * wrapper ) So destroy all right element by index
          */
-        const childrenChunkedByWrapper = chunkIdsByCurrentValue({
+        const childrenComponentChunkedByWrapper = chunkIdsByCurrentValue({
             children: idsByRepeatId,
         });
 
         /**
          * Element to remove
          */
-        const elementToRemoveByKey = childrenChunkedByWrapper.filter(
+        const componentToRemoveByKey = childrenComponentChunkedByWrapper.filter(
             (_child, i) => {
                 return i >= current.length;
             }
         );
 
         /**
-         * Destroy
+         * Destroy component.
          */
-        elementToRemoveByKey.forEach((childArray) => {
+        componentToRemoveByKey.forEach((childArray) => {
             childArray.forEach((childId) => {
                 const element = getElementById({ id: childId });
 
@@ -144,22 +143,14 @@ export const addWithoutKey = ({
                     elementWrapper ?? element
                 );
 
+                /**
+                 * First destroy all repeater/invalidate inside
+                 */
                 destroyNestedInvalidate({ id, invalidateParent: nestedParent });
                 destroyNestedRepeat({ id, repeatParent: nestedParent });
+                removeAndDestroyById({ id: childId });
 
-                if (elementWrapper) {
-                    /**
-                     * First destroy all repeater/invalidate inside
-                     */
-                    destroyComponentInsideNodeById({
-                        id: getParentIdById(childId) ?? '',
-                        container: elementWrapper,
-                    });
-
-                    elementWrapper.remove();
-                } else {
-                    removeAndDestroyById({ id: childId });
-                }
+                if (elementWrapper) elementWrapper.remove();
             });
         });
 
@@ -167,7 +158,7 @@ export const addWithoutKey = ({
          * Fall back for repeater without component inside. If there is no component in repeater fallback to element in
          * repeater map.
          */
-        if (childrenChunkedByWrapper.length > 0) return current;
+        if (childrenComponentChunkedByWrapper.length > 0) return current;
 
         const childrenFromRepeater = getRepeaterChild({ repeatId });
         if (!childrenFromRepeater) return current;
@@ -182,18 +173,21 @@ export const addWithoutKey = ({
             const { element: currentElement } = item;
 
             /**
-             * First destroy all repeater/invalidate inside
+             * First destroy all repeater/invalidate inside TODO: should be removed if there is no component ?
              */
             destroyNestedInvalidate({ id, invalidateParent: currentElement });
             destroyNestedRepeat({ id, repeatParent: currentElement });
 
             /**
-             * Destroy inner component child.
+             * Destroy inner component child. item with no component but with repeater/invalidate inside. TODO:
+             * Matrioska se secondoLevel non ha componenti dovrebbe andare in maniera ricorsiva nei figli di id. Lo
+             * stesso in with-key.
              */
             destroyComponentInsideNodeById({
                 id,
                 container: currentElement,
             });
+
             currentElement.remove();
         });
     }

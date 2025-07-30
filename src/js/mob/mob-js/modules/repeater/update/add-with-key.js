@@ -1,22 +1,16 @@
 // @ts-check
 
 import {
-    getNewElement,
+    getItemToRemoveByKey,
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
 } from '../utils';
-import {
-    getElementByKeyAndRepeatId,
-    getIdByElement,
-} from '../../../component/action/element';
+import { getElementsByKeyAndRepeatId } from '../../../component/action/element';
 import { removeAndDestroyById } from '../../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import { destroyNestedInvalidate } from '../../invalidate/action/destroy-nested-invalidate';
 import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
-import { getDefaultComponent } from '../../../component/create-component';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
-import { getParentIdById } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
-import { getComponentNameByElement } from '../../../component/action/component';
 import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
 import { getRepeaterChild } from '../action/set-repeat-child';
 
@@ -52,38 +46,58 @@ export const addWithKey = ({
     const currentUnique = getUnivoqueByKey({ data: current, key });
 
     /**
-     * ## REMOVE
-     *
-     * Get element to delete from DOM and from componentMap
+     * # REMOVE
      */
-    const keyToRemove = getNewElement(previous, currentUnique, key);
-    const elementToRemoveByKey = keyToRemove
+
+    /**
+     * Extract from current item to remove comparer key.
+     */
+    const currentItemToRemoveByKey = getItemToRemoveByKey(
+        previous,
+        currentUnique,
+        key
+    );
+
+    /**
+     * Get first element to remove/delete by key ( currentItemToRemoveByKey ). Then if element is single child remove
+     * it. If there is more element inside a wrapper remove all component inside wrapper SO we need only first
+     * occurrence.
+     *
+     * TODO ( maybe ). return all component ( find to filter ). Then in forEach above destroy single component without
+     * use `destroyComponentInsideNodeById`, cycle item and destroy component, the result should be a multidimensional
+     * array.
+     */
+    const componentsToRemoveByKey = currentItemToRemoveByKey
         .map((item) => {
             const keyValue = item?.[key];
-            return getElementByKeyAndRepeatId({
+            return getElementsByKeyAndRepeatId({
                 keyValue,
                 repeatId,
             });
         })
-        .filter(Boolean);
-
-    const shouldRemoveElementByKey = elementToRemoveByKey.length > 0;
+        .filter((item) => item.length > 0);
 
     /**
-     * Component inside repeater. Remove at the end old element to avoid viual jump
+     * Create a boolean value to check if there is some component to remove.
      */
-    elementToRemoveByKey.forEach((element) => {
-        const currentId = getIdByElement({ element: element });
-        if (!currentId) return;
+    const shouldRemoveComponent = componentsToRemoveByKey.length > 0;
+
+    /**
+     * Remove component.
+     */
+    componentsToRemoveByKey.forEach((item) => {
+        const firstOccurrence = item[0].element;
+        const firstCurrentId = item[0].id;
+        if (!firstCurrentId) return;
 
         /**
          * Then destroy component Destroy all component in repeater item wrapper child of scope component Or destroy
          * single component if there is no wrapper.
          */
-        const elementWrapper = getRepeaterInnerWrap({ id: currentId });
+        const elementWrapper = getRepeaterInnerWrap({ id: firstCurrentId });
 
         const nestedParent = /** @type {HTMLElement} */ (
-            elementWrapper ?? element
+            elementWrapper ?? firstOccurrence
         );
 
         /**
@@ -92,25 +106,22 @@ export const addWithKey = ({
         destroyNestedInvalidate({ id, invalidateParent: nestedParent });
         destroyNestedRepeat({ id, repeatParent: nestedParent });
 
-        if (elementWrapper) {
-            destroyComponentInsideNodeById({
-                id: getParentIdById(currentId) ?? '',
-                container: elementWrapper,
-            });
+        item.forEach(({ id }) => {
+            removeAndDestroyById({ id });
+        });
 
+        if (elementWrapper) {
             elementWrapper.remove();
-        } else {
-            removeAndDestroyById({ id: currentId });
         }
     });
 
     /**
      * No Component inside repeater. Remove at the end old element to avoid viual jump
      */
-    if (!shouldRemoveElementByKey) {
+    if (!shouldRemoveComponent) {
         const childrenFromRepeater = getRepeaterChild({ repeatId });
         const itemToRemove = childrenFromRepeater.filter((item) => {
-            return keyToRemove
+            return currentItemToRemoveByKey
                 .map((item) => item?.[key])
                 .includes(item.value?.[key]);
         });
@@ -151,12 +162,10 @@ export const addWithKey = ({
          * Get persistent element. Use find function to get first occurrence. If use a wrapper use first wrapper
          * occurrence that contain other component If we don't use a wrapper we have only one component.
          */
-        const element = getElementByKeyAndRepeatId({
+        const element = getElementsByKeyAndRepeatId({
             keyValue,
             repeatId,
         });
-
-        const id = element ? getIdByElement({ element }) : undefined;
 
         /**
          * UseComponent: If persistent Element use a wrapper save it ( or undefined ). Than this element will added to
@@ -165,8 +174,8 @@ export const addWithKey = ({
          * Do not useComponent Get item by key && keyValue from repeater map. Use wrapper filed to save persistent
          * item/element.
          */
-        const wrapperParsed = element
-            ? getRepeaterInnerWrap({ id })
+        const wrapperParsed = element[0]?.element
+            ? getRepeaterInnerWrap({ id: element[0]?.id ?? '' })
             : (() => {
                   const childrenFromRepeater = getRepeaterChild({ repeatId });
                   return childrenFromRepeater.find(
@@ -209,20 +218,20 @@ export const addWithKey = ({
                  * If there is no wrapper when cut and paster component we loose debug information. Update debug
                  * information.
                  */
-                const { debug } = getDefaultComponent();
-                if (
-                    debug &&
-                    !persistentDOMwrapper &&
-                    shouldRemoveElementByKey
-                ) {
-                    const componentName =
-                        getComponentNameByElement(persistentElement);
-
-                    repeaterParentElement.insertAdjacentHTML(
-                        'beforeend',
-                        `<!-- ${componentName} --> `
-                    );
-                }
+                // const { debug } = getDefaultComponent();
+                // if (
+                //     debug &&
+                //     !persistentDOMwrapper &&
+                //     elementToRemoveByComponent
+                // ) {
+                //     const componentName =
+                //         getComponentNameByElement(persistentElement);
+                //
+                //     repeaterParentElement.insertAdjacentHTML(
+                //         'beforeend',
+                //         `<!-- ${componentName} --> `
+                //     );
+                // }
 
                 /**
                  * Wrapper
@@ -232,10 +241,10 @@ export const addWithKey = ({
                 }
 
                 /**
-                 * No wrapper
+                 * No wrapper If there is no wrapper assuming we have only one component child
                  */
-                if (!persistentDOMwrapper && persistentElement) {
-                    repeaterParentElement.append(persistentElement);
+                if (!persistentDOMwrapper && persistentElement?.[0]?.element) {
+                    repeaterParentElement.append(persistentElement[0].element);
                 }
 
                 /**

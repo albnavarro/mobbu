@@ -11,7 +11,7 @@ import { getRepeaterStateById } from '../../component/action/repeater';
  * @param {string} key
  * @returns {any[]}
  */
-export const getNewElement = (current = [], previous = [], key = '') => {
+export const getItemToRemoveByKey = (current = [], previous = [], key = '') => {
     return current.filter((el) => {
         const value = el?.[key];
         return !previous.some((a) => a?.[key] === value);
