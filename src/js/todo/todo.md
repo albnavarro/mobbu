@@ -53,9 +53,10 @@
 ## Repeater with key update:
 #### Step 1:
 - Mappa dei repeater:
-    - `children` => rinominare in `noComponentChild` `!`. `nota`: nel caso di `children` l'array viene aggiornato sempre nella funzione `watch` del `repeater`.
+    - `children` => rinominare in `onlyDOMChild` `!`. `nota`: nel caso di `children/onlyDOMChild` l'array viene aggiornato sempre nella funzione `watch` del `repeater`.
     - `componentChild` => array di id dei componenti figli aggiunti alla creazione del componente stesso, e rimosso al destroy del componente.
-    - Puó sostituire le funzioni ( src/js/mob/mob-js/component/action/element.js ) evitando cicli su `[...componentMap.values()]`.
+    - Puó integrare le funzioni ( src/js/mob/mob-js/component/action/element.js ) evitando un ciclo troppo grosso su `[...componentMap.values()]`.
+        - Genera prima un `array` sfruttando `componentMap.get(id)`, dopo di che si puó `filtrare/mappare` un set piú ristretto, evita `item.componentRepeatId === repeatId` e tutto quello che ne segue su tutta la mappa.
         - `getElementsByKeyAndRepeatId()`
         - `getIdsByByRepeatId()`
 
