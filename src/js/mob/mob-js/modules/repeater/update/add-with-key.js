@@ -13,6 +13,18 @@ import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
 import { getRepeaterChild } from '../action/set-repeat-child';
+import { getComponentNameByElement } from '../../../component/action/component';
+import { getDefaultComponent } from '../../../component/create-component';
+
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.container
+ * @param {HTMLElement} params.element
+ */
+const addDebugToComponent = ({ element, container }) => {
+    const componentName = getComponentNameByElement(element);
+    container.insertAdjacentHTML('beforeend', `<!-- ${componentName} --> `);
+};
 
 /**
  * Add new children by key.
@@ -214,24 +226,7 @@ export const addWithKey = ({
             persistentDOMwrapper,
         }) => {
             if (!isNewElement) {
-                /**
-                 * If there is no wrapper when cut and paster component we loose debug information. Update debug
-                 * information.
-                 */
-                // const { debug } = getDefaultComponent();
-                // if (
-                //     debug &&
-                //     !persistentDOMwrapper &&
-                //     elementToRemoveByComponent
-                // ) {
-                //     const componentName =
-                //         getComponentNameByElement(persistentElement);
-                //
-                //     repeaterParentElement.insertAdjacentHTML(
-                //         'beforeend',
-                //         `<!-- ${componentName} --> `
-                //     );
-                // }
+                const { debug } = getDefaultComponent();
 
                 /**
                  * Wrapper
@@ -245,6 +240,13 @@ export const addWithKey = ({
                  */
                 if (!persistentDOMwrapper && persistentElement?.[0]?.element) {
                     repeaterParentElement.append(persistentElement[0].element);
+
+                    if (debug) {
+                        addDebugToComponent({
+                            element: persistentElement[0]?.element,
+                            container: repeaterParentElement,
+                        });
+                    }
                 }
 
                 /**

@@ -41,11 +41,29 @@
 
 # MobJs
 
-## Repeater:
-- Rimane un utilizzo di `serializeFragment`, quando il primo nodo di un repeater senza `sync()` viene creato.
-- Salvare il DOM nell mappa `repeatIdPlaceHolderMap`.
-- Quando il web-component `<mobjs-repeat>` viene appeso al DOM in `connectedCallback` dentro `setParentRepeater()` appendere il dom salvato e rimuoverlo dalla mappa.
-- L' unico possibile inconventiente e che la nella lista dei componenti da renderizzare rischia di trovarsi in una posizione sbagliata come index, ma potrebbe essere del tutto ininfluente.
+## DOCS:
+- Spiegare i meccanismi base `html-element`, consumo memoria etc.., fare sezione apposta.
+
+## src/js/mob/mob-js/doc/ ?
+- Aggiungere:
+    - Parent id logic.
+    - Repeat `element` vs `innerWrapper` vs `repeatIdPlaceHolderMap` ( use external map children propierties, es: `getRepeaterChild()` ).
+    - Nel caso integrare con il punto seguente.
+
+## Repeater with key update:
+#### Step 1:
+- Mappa dei repeater:
+    - `children` => rinominare in `noComponentChild` `!`. `nota`: nel caso di `children` l'array viene aggiornato sempre nella funzione `watch` del `repeater`.
+    - `componentChild` => array di id dei componenti figli aggiunti alla creazione del componente stesso, e rimosso al destroy del componente.
+    - Puó sostituire le funzioni ( src/js/mob/mob-js/component/action/element.js ) evitando cicli su `[...componentMap.values()]`.
+        - `getElementsByKeyAndRepeatId()`
+        - `getIdsByByRepeatId()`
+
+    - Inoltre si uniforma la struttura della mappa del repeater, con le referenze su node e componenti chiare e slegate.
+
+#### Step 2:
+- Eliminare la necessitá di usare forme come: `[...componentMap.values()]` per controllare element.
+    - Creare una `weakMap` element => id quando si ha l'element e bisogna recuperare l'id.
 
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>

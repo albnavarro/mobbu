@@ -52,14 +52,27 @@
             "props": {
                 "style": "medium"
             },
-            "content": "In the mainStore map there are all the instances of our components in which it is possible to analyze all the specifications from the console."
+            "content": "In the <strong>mainStore map</strong> there are all the instances of our components in which it is possible to analyze all the specifications from the console."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Each component is identified by an id in string format, by enabling the debug property each component will display its own id in the data-mobjs attribute so as to be searchable in the mainStore."
+            "content": "Each component is identified by an <strong>id</strong> in string format, by enabling the <strong>debug property</strong> each component will display its own id in the <strong>data-mobjs</strong> attribute so as to be searchable in the <strong>mainStore</strong>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <strong>debug</strong> parameter will add a <strong>comment</strong> for each component with the component <strong>tag</strong> defined in the <strong>MobJs.createComponent()</strong> function. The component map is public: <strong>MobJs.componentMap</strong>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",

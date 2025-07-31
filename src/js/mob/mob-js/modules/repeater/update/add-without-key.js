@@ -15,6 +15,26 @@ import {
     updateRepeaterWithoutKeyUseSync,
 } from './utils';
 import { getRepeaterChild } from '../action/set-repeat-child';
+import { getDefaultComponent } from '../../../component/create-component';
+
+/**
+ * @param {HTMLElement} container
+ */
+const removeMissedDebugComment = (container) => {
+    const lastElementChild = container.lastElementChild;
+    if (!lastElementChild) return;
+
+    let node = lastElementChild.nextSibling;
+
+    while (node) {
+        const nextNode = node.nextSibling;
+        if (node.nodeType === Node.COMMENT_NODE) {
+            node.remove();
+        }
+
+        node = nextNode;
+    }
+};
 
 /**
  * Add new children. This method a component with a unique list of the same component
@@ -153,6 +173,9 @@ export const addWithoutKey = ({
                 if (elementWrapper) elementWrapper.remove();
             });
         });
+
+        const { debug } = getDefaultComponent();
+        if (debug) removeMissedDebugComment(repeaterParentElement);
 
         /**
          * Fall back for repeater without component inside. If there is no component in repeater fallback to element in
