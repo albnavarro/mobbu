@@ -7,7 +7,7 @@ https://albnavarro.github.io/mobbu/
 - `mobMotion`: animation library.
 
 ### Goal:
-- `Distraction-free` and `library-free` development.
+- `Distraction-free` and `zero-dependecies` development.
 - Ability to `focus` exclusively on my code.
 
 
