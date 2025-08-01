@@ -8,7 +8,7 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  * @param {string} params.observe
  * @returns {void}
  */
-export const setRepeaterChild = ({ repeatId, id, observe }) => {
+export const setRepeaterNativeDOMChildren = ({ repeatId, id, observe }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
 
@@ -36,7 +36,7 @@ export const setRepeaterChild = ({ repeatId, id, observe }) => {
  * @param {string} params.repeatId
  * @returns {{ index: number; value: any; element: HTMLElement }[]}
  */
-export const getRepeaterChild = ({ repeatId }) => {
+export const getRepeaterNativeDOMChildren = ({ repeatId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return [];
 

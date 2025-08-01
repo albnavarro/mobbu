@@ -48,7 +48,7 @@ import { setInvalidatePlaceholderMapInitialized } from '../../modules/invalidate
 import { setInvalidatePlaceholderMapScopedId } from '../../modules/invalidate/action/set-invalidate-placeholder-map-scoped-id';
 import { addOnMoutCallback } from '../../modules/on-mount';
 import { inizializeRepeatWatch } from '../../modules/repeater/action/inizialize-repeat-watch';
-import { setRepeaterChild } from '../../modules/repeater/action/set-repeat-native-dom-children';
+import { setRepeaterNativeDOMChildren } from '../../modules/repeater/action/set-repeat-native-dom-children';
 import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';
 import { setRepeaterPlaceholderMapInitialized } from '../../modules/repeater/action/set-repeater-placeholder-map-initialized';
 import { setRepeaterPlaceholderMapScopeId } from '../../modules/repeater/action/set-repeater-placeholder-map-scope-id';
@@ -376,7 +376,11 @@ export const getParamsForComponentFunction = ({
                         repeatId,
                     });
 
-                    setRepeaterChild({ repeatId, id, observe: observeParsed });
+                    setRepeaterNativeDOMChildren({
+                        repeatId,
+                        id,
+                        observe: observeParsed,
+                    });
                 },
             });
 

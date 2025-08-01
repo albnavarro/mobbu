@@ -26,7 +26,7 @@ import { getFallBackParentByElement } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
 import { getRepeatParent } from '../action/get-repeater-parent';
 import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
-import { setRepeaterChild } from '../action/set-repeat-native-dom-children';
+import { setRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 
 /**
  * @param {import('../type').WatchList} param
@@ -317,7 +317,11 @@ export const watchRepeat = ({
                  * has no component inside.
                  */
                 if (chunkChildrenOrdered.length === 0) {
-                    setRepeaterChild({ repeatId, id, observe: state });
+                    setRepeaterNativeDOMChildren({
+                        repeatId,
+                        id,
+                        observe: state,
+                    });
                 }
             });
         }

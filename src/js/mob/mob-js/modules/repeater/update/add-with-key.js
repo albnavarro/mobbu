@@ -12,7 +12,7 @@ import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
-import { getRepeaterChild } from '../action/set-repeat-native-dom-children';
+import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
 
@@ -131,7 +131,7 @@ export const addWithKey = ({
      * No Component inside repeater. Remove at the end old element to avoid viual jump
      */
     if (!shouldRemoveComponent) {
-        const childrenFromRepeater = getRepeaterChild({ repeatId });
+        const childrenFromRepeater = getRepeaterNativeDOMChildren({ repeatId });
         const itemToRemove = childrenFromRepeater.filter((item) => {
             return currentItemToRemoveByKey
                 .map((item) => item?.[key])
@@ -189,7 +189,9 @@ export const addWithKey = ({
         const wrapperParsed = element[0]?.element
             ? getRepeaterInnerWrap({ id: element[0]?.id ?? '' })
             : (() => {
-                  const childrenFromRepeater = getRepeaterChild({ repeatId });
+                  const childrenFromRepeater = getRepeaterNativeDOMChildren({
+                      repeatId,
+                  });
                   return childrenFromRepeater.find(
                       (item) => item.value?.[key] === keyValue
                   )?.element;

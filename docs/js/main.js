@@ -7930,7 +7930,7 @@
   };
 
   // src/js/mob/mob-js/modules/repeater/action/set-repeat-native-dom-children.js
-  var setRepeaterChild = ({ repeatId, id, observe }) => {
+  var setRepeaterNativeDOMChildren = ({ repeatId, id, observe }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
     const { element } = item;
@@ -7949,7 +7949,7 @@
       })
     });
   };
-  var getRepeaterChild = ({ repeatId }) => {
+  var getRepeaterNativeDOMChildren = ({ repeatId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return [];
     const { nativeDOMChildren } = item;
@@ -8005,7 +8005,7 @@
       }
     });
     if (!shouldRemoveComponent) {
-      const childrenFromRepeater = getRepeaterChild({ repeatId });
+      const childrenFromRepeater = getRepeaterNativeDOMChildren({ repeatId });
       const itemToRemove = childrenFromRepeater.filter((item) => {
         return currentItemToRemoveByKey.map((item2) => item2?.[key]).includes(item.value?.[key]);
       });
@@ -8031,7 +8031,9 @@
         repeatId
       });
       const wrapperParsed = element[0]?.element ? getRepeaterInnerWrap({ id: element[0]?.id ?? "" }) : (() => {
-        const childrenFromRepeater = getRepeaterChild({ repeatId });
+        const childrenFromRepeater = getRepeaterNativeDOMChildren({
+          repeatId
+        });
         return childrenFromRepeater.find(
           (item) => item.value?.[key] === keyValue
         )?.element;
@@ -8196,7 +8198,7 @@
       const { debug } = getDefaultComponent();
       if (debug) removeMissedDebugComment(repeaterParentElement);
       if (childrenComponentChunkedByWrapper.length > 0) return current;
-      const childrenFromRepeater = getRepeaterChild({ repeatId });
+      const childrenFromRepeater = getRepeaterNativeDOMChildren({ repeatId });
       if (!childrenFromRepeater) return current;
       const childrenFromRepeaterToRemove = childrenFromRepeater.filter(
         ({ index }) => {
@@ -8395,7 +8397,11 @@
             id
           });
           if (chunkChildrenOrdered.length === 0) {
-            setRepeaterChild({ repeatId, id, observe: state });
+            setRepeaterNativeDOMChildren({
+              repeatId,
+              id,
+              observe: state
+            });
           }
         });
       }
@@ -8711,7 +8717,11 @@
             setRepeaterPlaceholderMapInitialized({
               repeatId
             });
-            setRepeaterChild({ repeatId, id, observe: observeParsed });
+            setRepeaterNativeDOMChildren({
+              repeatId,
+              id,
+              observe: observeParsed
+            });
           }
         });
         return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialStringRender}`;

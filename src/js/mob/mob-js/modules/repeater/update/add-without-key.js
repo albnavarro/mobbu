@@ -14,7 +14,7 @@ import {
     updateRepeaterWitoutKey,
     updateRepeaterWithoutKeyUseSync,
 } from './utils';
-import { getRepeaterChild } from '../action/set-repeat-native-dom-children';
+import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getDefaultComponent } from '../../../component/create-component';
 
 /**
@@ -183,7 +183,7 @@ export const addWithoutKey = ({
          */
         if (childrenComponentChunkedByWrapper.length > 0) return current;
 
-        const childrenFromRepeater = getRepeaterChild({ repeatId });
+        const childrenFromRepeater = getRepeaterNativeDOMChildren({ repeatId });
         if (!childrenFromRepeater) return current;
 
         const childrenFromRepeaterToRemove = childrenFromRepeater.filter(
