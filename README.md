@@ -2,9 +2,13 @@
 https://albnavarro.github.io/mobbu/
 
 ### Development environment for:
-- mobJs: js component library.
-- mobCore: store & window event utils.
-- mobMotion: animation library.
+- `mobCore`: store & generic utils.
+- `mobJs`: component library.
+- `mobMotion`: animation library.
+
+### Goal:
+- `Distraction-free` and `library-free` development.
+- Ability to `focus` exclusively on your code.
 
 
 ## Node version:
