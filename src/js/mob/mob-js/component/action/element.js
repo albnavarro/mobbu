@@ -1,5 +1,9 @@
 import { getRepeaterComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
-import { componentMap } from '../store';
+import { componentMap } from '../component-map';
+import {
+    addElementToWeakElementMap,
+    getIdFromWeakElementMap,
+} from '../weak-element-map';
 
 /**
  * Update element root from generic to real after conversion.
@@ -18,7 +22,15 @@ export const setElementById = ({
     const item = componentMap.get(id);
     if (!item) return;
 
+    /**
+     * Add element to main Map
+     */
     componentMap.set(id, { ...item, element: newElement });
+
+    /**
+     * Add element to weakMap
+     */
+    addElementToWeakElementMap({ element: newElement, id });
 };
 
 /**
@@ -43,12 +55,9 @@ export const getElementById = ({ id = '' }) => {
  * @returns {string | undefined}
  */
 export const getIdByElement = ({ element }) => {
-    const item = [...componentMap.values()].find((item) => {
-        const currentElement = item?.element;
-        return currentElement === element;
-    });
+    if (!element) return '';
 
-    return item?.id ?? '';
+    return getIdFromWeakElementMap({ element });
 };
 
 /**

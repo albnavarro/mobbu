@@ -1,4 +1,4 @@
-import { componentMap } from '../../store';
+import { componentMap } from '../../component-map';
 import { removeAndDestroyById } from './remove-and-destroy-by-id';
 
 /**

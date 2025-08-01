@@ -3,7 +3,7 @@ import { removeBindObjectParentById } from '../../../modules/bind-object';
 import { removeBindTextParentById } from '../../../modules/bind-text';
 import { removeInvalidateId } from '../../../modules/invalidate/action/remove-invalidate-id';
 import { removeRepeaterId } from '../../../modules/repeater/action/remove-repeater-id';
-import { componentMap } from '../../store';
+import { componentMap } from '../../component-map';
 import { removeItselfFromParent } from './remove-itself-from-parent';
 import { removeRepeaterComponentChildren } from '../../../modules/repeater/action/set-repeat-component-children';
 

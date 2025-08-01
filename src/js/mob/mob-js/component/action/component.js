@@ -1,5 +1,6 @@
 import { getContentElement } from '../../route/dom-ref/content';
-import { componentMap } from '../store';
+import { componentMap } from '../component-map';
+import { getIdFromWeakElementMap } from '../weak-element-map';
 
 /**
  * Get component name By id
@@ -26,17 +27,13 @@ export const getComponentNameById = (id = '') => {
  * @param {HTMLElement | undefined} element
  */
 export const getComponentNameByElement = (element) => {
-    if (!element) return;
+    if (!element) return 'name-not-found';
 
-    const componentName = [...componentMap.values()].find(
-        ({ element: currentElement }) => {
-            return currentElement === element;
-        }
-    );
+    const id = getIdFromWeakElementMap({ element }) ?? '';
+    const item = componentMap.get(id);
+    if (!item) return 'name-not-found';
 
-    if (!componentName) return '';
-
-    return componentName?.componentName;
+    return item.componentName;
 };
 
 /**

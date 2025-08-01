@@ -1,4 +1,4 @@
-import { componentMap } from '../store.js';
+import { componentMap } from '../component-map.js';
 
 /**
  * Update element root from generic to real after conversion.

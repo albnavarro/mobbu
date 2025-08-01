@@ -26,7 +26,7 @@ export { updateStateByName } from './component/action/state/update-state-by-name
 export { watchById } from './component/action/watch';
 export { useComponent } from './component/component-list';
 export { createComponent, getDebugMode } from './component/create-component';
-export { componentMap } from './component/store';
+export { componentMap } from './component/component-map';
 export { inizializeApp } from './initialize-app';
 export { mainStore } from './main-store/main-store';
 export {

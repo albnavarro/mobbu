@@ -1,6 +1,6 @@
 //@ts-check
 
-import { componentMap } from '../../component/store';
+import { componentMap } from '../../component/component-map';
 import { ATTR_BIND_REFS_ID, ATTR_BIND_REFS_NAME } from '../../constant';
 
 /**

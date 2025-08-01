@@ -6,7 +6,7 @@ import { setStateById } from '../../component/action/state/set-state-by-id';
 import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 import { incrementTickQueuque } from '../../queque/tick';
-import { componentMap } from '../../component/store';
+import { componentMap } from '../../component/component-map';
 import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
 import {
     repeaterQuequeIsEmpty,

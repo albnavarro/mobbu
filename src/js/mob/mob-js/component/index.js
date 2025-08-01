@@ -2,7 +2,7 @@ import { MobCore } from '../../mob-core';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { setRepeaterComponentChildren } from '../modules/repeater/action/set-repeat-component-children';
 import { getFreezePropStatus } from './action/freeze';
-import { componentMap } from './store';
+import { componentMap } from './component-map';
 import { addPropsToState } from './utils';
 
 /**

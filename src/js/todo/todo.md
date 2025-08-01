@@ -51,10 +51,10 @@
     - Nel caso integrare con il punto seguente.
 
 
-## ComponentMap utils:
-- Eliminare la necessitá di usare forme come: `[...componentMap.values()]` per controllare element.
-    - Creare una `weakMap` element => id quando si ha l'element e bisogna recuperare l'id.
-    - Gli elementi critici sembrano essere `element` & `instancename`.
+## ComponentMap utils avoid [...componentMap.values()]
+- weakElementMap OK
+- `getFallBackParentByElement` sarebbe da sistemare anche lui.
+    - Viene usato da repeat && invalidate ma solo una volta prima di creare il `watch` perció puó essere considerato di secondaria importanza.
 
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>

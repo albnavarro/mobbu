@@ -1,6 +1,6 @@
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant.js';
 import { getRepeatParent } from '../../modules/repeater/action/get-repeater-parent.js';
-import { componentMap } from '../store.js';
+import { componentMap } from '../component-map.js';
 
 /**
  * Update element root from generic to real after conversion.

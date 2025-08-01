@@ -1,4 +1,4 @@
-import { componentMap } from '../../store';
+import { componentMap } from '../../component-map';
 import { getFreezePropStatus } from '../freeze';
 import { checkIfStateIsExportable } from './check-if-state-is-exportable';
 

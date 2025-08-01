@@ -1,4 +1,4 @@
-import { componentMap } from '../../store';
+import { componentMap } from '../../component-map';
 
 /**
  * Get state

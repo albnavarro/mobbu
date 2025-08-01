@@ -1,5 +1,5 @@
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
-import { componentMap } from '../store';
+import { componentMap } from '../component-map';
 import { getElementById } from './element';
 import { getRepeaterStateById } from './repeater';
 
