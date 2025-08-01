@@ -1,5 +1,6 @@
 import { MobCore } from '../../mob-core';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
+import { setRepeaterComponentChildren } from '../modules/repeater/action/set-repeat-component-children';
 import { getFreezePropStatus } from './action/freeze';
 import { componentMap } from './store';
 import { addPropsToState } from './utils';
@@ -33,6 +34,16 @@ export const addComponentToStore = ({
 }) => {
     const store = MobCore.createStore(state);
     addPropsToState({ props, store });
+
+    /**
+     * Save component id in repeater map, if is inside repeater. fast find component in repeater.
+     */
+    if (componentRepeatId && componentRepeatId.length > 0) {
+        setRepeaterComponentChildren({
+            componentId: id,
+            repeatId: componentRepeatId,
+        });
+    }
 
     componentMap.set(id, {
         element,

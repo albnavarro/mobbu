@@ -60,6 +60,7 @@ import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { setStaticProps } from '../../modules/static-props';
 import { setSkipAddUserComponent } from '../../modules/user-component';
 import { detectProp } from '../../utils';
+import { repeaterhasComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
 
 /**
  * Create component Reuturn all prosps/method for user function.
@@ -376,11 +377,13 @@ export const getParamsForComponentFunction = ({
                         repeatId,
                     });
 
-                    setRepeaterNativeDOMChildren({
-                        repeatId,
-                        id,
-                        observe: observeParsed,
-                    });
+                    if (!repeaterhasComponentChildren({ repeatId })) {
+                        setRepeaterNativeDOMChildren({
+                            repeatId,
+                            id,
+                            observe: observeParsed,
+                        });
+                    }
                 },
             });
 

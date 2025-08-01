@@ -5,6 +5,7 @@ import { removeInvalidateId } from '../../../modules/invalidate/action/remove-in
 import { removeRepeaterId } from '../../../modules/repeater/action/remove-repeater-id';
 import { componentMap } from '../../store';
 import { removeItselfFromParent } from './remove-itself-from-parent';
+import { removeRepeaterComponentChildren } from '../../../modules/repeater/action/set-repeat-component-children';
 
 /**
  * Remove component to store and destroy it.
@@ -27,6 +28,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
         state,
         destroy,
         parentPropsWatcher,
+        componentRepeatId,
     } = instanceValue;
 
     /**
@@ -61,6 +63,16 @@ export const removeAndDestroyById = ({ id = '' }) => {
     removeRepeaterId({ id });
     removeBindTextParentById({ id });
     removeBindObjectParentById({ id });
+
+    /**
+     * Remove id component from repeaterPlaceholderMap
+     */
+    if (componentRepeatId && componentRepeatId.length > 0) {
+        removeRepeaterComponentChildren({
+            componentId: id,
+            repeatId: componentRepeatId,
+        });
+    }
 
     /**
      * Secure check: remove orphas reference from mainStore

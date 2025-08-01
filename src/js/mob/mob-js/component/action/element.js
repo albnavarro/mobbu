@@ -1,3 +1,4 @@
+import { getRepeaterComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
 import { componentMap } from '../store';
 
 /**
@@ -64,13 +65,15 @@ export const getElementsByKeyAndRepeatId = ({
 }) => {
     if (keyValue?.length === 0) return [];
 
-    const values = [...componentMap.values()];
-    return values
-        .filter(
-            (item) =>
-                `${item.key}` === `${keyValue}` &&
-                item.componentRepeatId === repeatId
-        )
+    const repeaterChildrenId = getRepeaterComponentChildren({ repeatId });
+    const occurrence = repeaterChildrenId
+        .map((id) => {
+            return componentMap.get(id);
+        })
+        .filter((item) => item !== undefined);
+
+    return occurrence
+        .filter((item) => `${item.key}` === `${keyValue}`)
         .map(({ element, id }) => ({
             element,
             id,
@@ -83,17 +86,24 @@ export const getElementsByKeyAndRepeatId = ({
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.repeatId
- * @param {boolean} [obj.filterById]
+ * @param {boolean} [obj.useIdAsParentId]
  * @returns {string[]}
  */
-export const getIdsByByRepeatId = ({ id, repeatId, filterById = false }) => {
+export const getIdsByByRepeatId = ({
+    id,
+    repeatId,
+    useIdAsParentId: filterById = false,
+}) => {
     if (!id || id === '') return [];
 
-    const values = [...componentMap.values()];
-    return values
-        .filter((item) => {
-            return item?.componentRepeatId === repeatId;
+    const repeaterChildrenId = getRepeaterComponentChildren({ repeatId });
+    const occurrence = repeaterChildrenId
+        .map((id) => {
+            return componentMap.get(id);
         })
+        .filter((item) => item !== undefined);
+
+    return occurrence
         .filter((item) => {
             if (filterById) return item?.parentId === id;
             return item;

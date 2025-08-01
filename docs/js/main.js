@@ -4642,6 +4642,38 @@
     );
   };
 
+  // src/js/mob/mob-js/modules/repeater/action/set-repeat-component-children.js
+  var setRepeaterComponentChildren = ({ componentId, repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    const { componentChildren } = item;
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      componentChildren: [...componentChildren, componentId]
+    });
+  };
+  var removeRepeaterComponentChildren = ({ componentId, repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    const { componentChildren } = item;
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      componentChildren: componentChildren.filter((id) => id !== componentId)
+    });
+  };
+  var getRepeaterComponentChildren = ({ repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return [];
+    const { componentChildren } = item;
+    return componentChildren;
+  };
+  var repeaterhasComponentChildren = ({ repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return false;
+    const { componentChildren } = item;
+    return componentChildren.length > 0;
+  };
+
   // src/js/mob/mob-js/component/action/element.js
   var setElementById = ({
     id = "",
@@ -4669,20 +4701,26 @@
     repeatId = ""
   }) => {
     if (keyValue?.length === 0) return [];
-    const values = [...componentMap.values()];
-    return values.filter(
-      (item) => `${item.key}` === `${keyValue}` && item.componentRepeatId === repeatId
-    ).map(({ element, id }) => ({
+    const repeaterChildrenId = getRepeaterComponentChildren({ repeatId });
+    const occurrence = repeaterChildrenId.map((id) => {
+      return componentMap.get(id);
+    }).filter((item) => item !== void 0);
+    return occurrence.filter((item) => `${item.key}` === `${keyValue}`).map(({ element, id }) => ({
       element,
       id
     }));
   };
-  var getIdsByByRepeatId = ({ id, repeatId, filterById = false }) => {
+  var getIdsByByRepeatId = ({
+    id,
+    repeatId,
+    useIdAsParentId: filterById = false
+  }) => {
     if (!id || id === "") return [];
-    const values = [...componentMap.values()];
-    return values.filter((item) => {
-      return item?.componentRepeatId === repeatId;
-    }).filter((item) => {
+    const repeaterChildrenId = getRepeaterComponentChildren({ repeatId });
+    const occurrence = repeaterChildrenId.map((id2) => {
+      return componentMap.get(id2);
+    }).filter((item) => item !== void 0);
+    return occurrence.filter((item) => {
       if (filterById) return item?.parentId === id;
       return item;
     }).map((item) => {
@@ -5425,7 +5463,8 @@
       element,
       state,
       destroy: destroy3,
-      parentPropsWatcher
+      parentPropsWatcher,
+      componentRepeatId
     } = instanceValue;
     Object.values(child ?? {}).flat().forEach((childId) => {
       removeAndDestroyById({ id: childId });
@@ -5438,6 +5477,12 @@
     removeRepeaterId({ id });
     removeBindTextParentById({ id });
     removeBindObjectParentById({ id });
+    if (componentRepeatId && componentRepeatId.length > 0) {
+      removeRepeaterComponentChildren({
+        componentId: id,
+        repeatId: componentRepeatId
+      });
+    }
     removeCurrentIdToBindProps({ componentId: id });
     element?.removeCustomComponent?.();
     element?.remove();
@@ -8717,11 +8762,13 @@
             setRepeaterPlaceholderMapInitialized({
               repeatId
             });
-            setRepeaterNativeDOMChildren({
-              repeatId,
-              id,
-              observe: observeParsed
-            });
+            if (!repeaterhasComponentChildren({ repeatId })) {
+              setRepeaterNativeDOMChildren({
+                repeatId,
+                id,
+                observe: observeParsed
+              });
+            }
           }
         });
         return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialStringRender}`;
@@ -8824,6 +8871,12 @@
   }) => {
     const store2 = modules_exports.createStore(state);
     addPropsToState({ props, store: store2 });
+    if (componentRepeatId && componentRepeatId.length > 0) {
+      setRepeaterComponentChildren({
+        componentId: id,
+        repeatId: componentRepeatId
+      });
+    }
     componentMap.set(id, {
       element,
       componentName,
