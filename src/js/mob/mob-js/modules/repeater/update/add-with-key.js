@@ -12,7 +12,7 @@ import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
-import { getRepeaterChild } from '../action/set-repeat-child';
+import { getRepeaterChild } from '../action/set-repeat-native-dom-children';
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
 

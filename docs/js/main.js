@@ -7929,7 +7929,7 @@
     return rawRender();
   };
 
-  // src/js/mob/mob-js/modules/repeater/action/set-repeat-child.js
+  // src/js/mob/mob-js/modules/repeater/action/set-repeat-native-dom-children.js
   var setRepeaterChild = ({ repeatId, id, observe }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return;
@@ -8473,6 +8473,7 @@
       scopeId,
       key: "",
       nativeDOMChildren: [],
+      componentChildren: [],
       initialRenderWithoutSync: initialDOMRender
     });
   };

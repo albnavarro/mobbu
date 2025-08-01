@@ -14,7 +14,7 @@ import {
     updateRepeaterWitoutKey,
     updateRepeaterWithoutKeyUseSync,
 } from './utils';
-import { getRepeaterChild } from '../action/set-repeat-child';
+import { getRepeaterChild } from '../action/set-repeat-native-dom-children';
 import { getDefaultComponent } from '../../../component/create-component';
 
 /**

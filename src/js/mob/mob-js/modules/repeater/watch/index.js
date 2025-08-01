@@ -26,7 +26,7 @@ import { getFallBackParentByElement } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
 import { getRepeatParent } from '../action/get-repeater-parent';
 import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
-import { setRepeaterChild } from '../action/set-repeat-child';
+import { setRepeaterChild } from '../action/set-repeat-native-dom-children';
 
 /**
  * @param {import('../type').WatchList} param
