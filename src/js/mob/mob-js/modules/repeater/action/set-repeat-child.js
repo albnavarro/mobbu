@@ -25,7 +25,7 @@ export const setRepeaterChild = ({ repeatId, id, observe }) => {
     repeatIdPlaceHolderMap.set(repeatId, {
         ...item,
         key: observe,
-        children: children.map((child, index) => {
+        nativeDOMChildren: children.map((child, index) => {
             return { index, value: stateByProp[index], element: child };
         }),
     });
@@ -40,6 +40,6 @@ export const getRepeaterChild = ({ repeatId }) => {
     const item = repeatIdPlaceHolderMap.get(repeatId);
     if (!item) return [];
 
-    const { children } = item;
-    return children;
+    const { nativeDOMChildren } = item;
+    return nativeDOMChildren;
 };

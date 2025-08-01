@@ -25,7 +25,7 @@ export const setRepeaterPlaceholderMapScopeId = ({
         initialized: false,
         scopeId,
         key: '',
-        children: [],
+        nativeDOMChildren: [],
         initialRenderWithoutSync: initialDOMRender,
     });
 };

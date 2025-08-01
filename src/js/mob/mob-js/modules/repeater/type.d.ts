@@ -52,7 +52,7 @@ export type RepeatIdPlaceHolderMap = Map<
         initialized: boolean;
         scopeId: string | undefined;
         key: string;
-        children: {
+        nativeDOMChildren: {
             index: number;
             value: any;
             element: HTMLElement;
