@@ -50,22 +50,11 @@
     - Repeat `element` vs `innerWrapper` vs `repeatIdPlaceHolderMap` ( use external map children propierties, es: `getRepeaterChild()` ).
     - Nel caso integrare con il punto seguente.
 
-## Repeater with key update:
-#### Step 1:
-- Mappa dei repeater:
-    - `children` => rinominare in `nativeDOMChild` `!`. `nota`: nel caso di `children/nativeDOMChild` l'array viene aggiornato sempre nella funzione `watch` del `repeater`.
-    - `componentChild` => array di id dei componenti figli aggiunti alla creazione del componente stesso, e rimosso al destroy del componente.
-    - Puó integrare le funzioni ( src/js/mob/mob-js/component/action/element.js ) evitando un ciclo troppo grosso su `[...componentMap.values()]`.
-        - Genera prima un `array` sfruttando `componentMap.get(id)`, dopo di che si puó `filtrare/mappare` un set piú ristretto, evita `item.componentRepeatId === repeatId` e tutto quello che ne segue su tutta la mappa.
-        - `getElementsByKeyAndRepeatId()`
-        - `getIdsByByRepeatId()`
-    - ? valutare se necessario: Fare due funzioni speculari che usando la repat-mappa e lasciare inalterate queste, in seguito nel caso elmininarle.
 
-    - Inoltre si uniforma la struttura della mappa del repeater, con le referenze su node e componenti chiare e slegate.
-
-#### Step 2:
+## ComponentMap utils:
 - Eliminare la necessitá di usare forme come: `[...componentMap.values()]` per controllare element.
     - Creare una `weakMap` element => id quando si ha l'element e bisogna recuperare l'id.
+    - Gli elementi critici sembrano essere `element` & `instancename`.
 
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
