@@ -8,7 +8,7 @@ https://albnavarro.github.io/mobbu/
 
 ### Goal:
 - `Distraction-free` and `library-free` development.
-- Ability to `focus` exclusively on your code.
+- Ability to `focus` exclusively on my code.
 
 
 ## Node version:
