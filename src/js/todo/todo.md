@@ -44,6 +44,9 @@
 ## parent.js
 - `getParentIdFromWeakElementMap()` && `getFallBackParentByElement()`, al momento sono praticamante uguali.
 
+## src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
+- parent id ternario innestato, semplificare.
+
 ## DOCS:
 - Spiegare i meccanismi base `html-element`, consumo memoria etc.., fare sezione apposta.
 
