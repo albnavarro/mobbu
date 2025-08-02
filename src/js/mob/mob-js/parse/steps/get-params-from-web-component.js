@@ -1,6 +1,8 @@
 import { getComponentRepeaterState } from '../../modules/repeater/repeater-value';
 import { getPropsFromParent } from '../../modules/static-props';
 import { filterExportableStateFromObject } from '../../component/action/state/export-state';
+import { getParentIdFromWeakElementMap } from '../../component/action/parent';
+import { autoDetectParentId } from '../strategy';
 
 /**
  * Create base DOM component from component tag.
@@ -24,10 +26,11 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
      *
      * So after first level of node tree parentIdFromWebComponent always win.
      */
-    const parentId =
-        parentIdFromWebComponent && parentIdFromWebComponent.length > 0
-            ? parentIdFromWebComponent
-            : parentIdForced;
+    const parentId = autoDetectParentId
+        ? getParentIdFromWeakElementMap({ element })
+        : parentIdFromWebComponent && parentIdFromWebComponent.length > 0
+          ? parentIdFromWebComponent
+          : parentIdForced;
 
     const propsId = element.getStaticPropsId();
     const dynamicPropsId = element.getDynamicPropsid();

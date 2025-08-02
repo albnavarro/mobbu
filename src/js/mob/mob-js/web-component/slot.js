@@ -1,5 +1,5 @@
 import { ATTR_COMPONENT_NAME, ATTR_BIND_PROPS, ATTR_PROPS } from '../constant';
-import { useSlotQuery } from '../parse/use-query';
+import { useSlotQuery } from '../parse/strategy';
 import { addSlotPlaceholder } from '../modules/slot';
 
 export const defineSlotComponent = () => {

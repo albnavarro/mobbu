@@ -11,7 +11,7 @@ import { querySecificSlot } from '../../query/query-specific-slot';
 import { queryUnNamedSlot } from '../../query/query-unnamed-slot';
 import { removeCurrentToBindPropsByPropsId } from '../../modules/bind-props';
 import { removeCurrentToPropsByPropsId } from '../../modules/static-props';
-import { forceComponentChildQuery, useSlotQuery, useQuery } from '../use-query';
+import { forceComponentChildQuery, useSlotQuery, useQuery } from '../strategy';
 import { getAllUserComponentUseNamedSlot } from '../../modules/user-component';
 import {
     getAllSlot,

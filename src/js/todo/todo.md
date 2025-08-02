@@ -41,11 +41,8 @@
 
 # MobJs
 
-## ParentId.
-- Ora che abbiamo la `weakElementMap` possiamo in `user-component` usare un while su `nodeParent` per trovare il primo nodo element e recuperare il suo id.
-- In `connectedCallback`
-- Stessa cosa usata in `getFallBackParentByElement()`, `src/js/mob/mob-js/component/action/parent.js`
-- Dovrebbe ( potrebbe ) essere piú performante di partire dal parent e spammare l'id sui figli.
+## parent.js
+- `getParentIdFromWeakElementMap()` && `getFallBackParentByElement()`, al momento sono praticamante uguali.
 
 ## DOCS:
 - Spiegare i meccanismi base `html-element`, consumo memoria etc.., fare sezione apposta.

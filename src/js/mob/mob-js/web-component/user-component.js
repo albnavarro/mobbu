@@ -14,7 +14,7 @@ import {
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
-import { useQuery } from '../parse/use-query';
+import { useQuery } from '../parse/strategy';
 import {
     addUserPlaceholder,
     getSkipAddUserComponent,

@@ -1,6 +1,6 @@
 import { queryAllFutureComponent } from '../query/query-all-future-component';
 import { getFirstUserChildPlaceHolder } from '../modules/user-component';
-import { useQuery } from './use-query';
+import { useQuery } from './strategy';
 
 /**
  * @type {number}

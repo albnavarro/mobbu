@@ -1,4 +1,4 @@
-import { forceComponentChildQuery, useQuery } from '../../parse/use-query';
+import { forceComponentChildQuery, useQuery } from '../../parse/strategy';
 import { queryAllFutureComponent } from '../../query/query-all-future-component';
 import { getAllUserChildPlaceholder } from '../../modules/user-component';
 import { componentMap } from '../component-map';
@@ -83,6 +83,34 @@ export const addParentIdToFutureComponent = ({ element, id }) => {
     childrenComponent.forEach((component) => {
         component.setParentId(id);
     });
+};
+
+/**
+ * Add self id to future component. If id is assigned to component nested in next cycle will be override.
+ *
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @returns {string | undefined}
+ */
+export const getParentIdFromWeakElementMap = ({ element }) => {
+    let parentNode = element.parentNode;
+
+    /**
+     * @type {string | undefined}
+     */
+    let id;
+
+    while (parentNode && !id) {
+        id = getIdFromWeakElementMap({
+            element: /** @type {HTMLElement} */ (parentNode),
+        });
+
+        if (!id) {
+            parentNode = parentNode.parentNode;
+        }
+    }
+
+    return id ?? '';
 };
 
 /**

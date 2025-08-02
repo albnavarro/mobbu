@@ -25,7 +25,7 @@ import { getInvalidateFunctions } from '../modules/invalidate/action/get-invalid
 import { getRepeatFunctions } from '../modules/repeater/action/get-repeat-functions';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bind-refs';
 import { clearSlotPlaceHolder } from '../modules/slot';
-import { useSlotQuery } from './use-query';
+import { autoDetectParentId, useSlotQuery } from './strategy';
 import { switchBindTextMap } from '../modules/bind-text';
 import { switchBindObjectMap } from '../modules/bind-object';
 import { applyBindEffect } from '../modules/bind-effetc';
@@ -296,7 +296,8 @@ export const parseComponentsRecursive = async ({
      * Set parentId to component inside current. Add self id to future component. If id is assigned to component nested
      * in next cycle will be override by current component.
      */
-    addParentIdToFutureComponent({ element: newElement, id });
+    if (!autoDetectParentId)
+        addParentIdToFutureComponent({ element: newElement, id });
 
     /**
      * If element wad destroyed during parse es: repat function fired with async component to fast return without render
