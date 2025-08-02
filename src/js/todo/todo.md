@@ -41,6 +41,12 @@
 
 # MobJs
 
+## ParentId.
+- Ora che abbiamo la `weakElementMap` possiamo in `user-component` usare un while su `nodeParent` per trovare il primo nodo element e recuperare il suo id.
+- In `connectedCallback`
+- Stessa cosa usata in `getFallBackParentByElement()`, `src/js/mob/mob-js/component/action/parent.js`
+- Dovrebbe ( potrebbe ) essere piú performante di partire dal parent e spammare l'id sui figli.
+
 ## DOCS:
 - Spiegare i meccanismi base `html-element`, consumo memoria etc.., fare sezione apposta.
 
@@ -49,12 +55,6 @@
     - Parent id logic.
     - Repeat `element` vs `innerWrapper` vs `repeatIdPlaceHolderMap` ( use external map children propierties, es: `getRepeaterChild()` ).
     - Nel caso integrare con il punto seguente.
-
-
-## ComponentMap utils avoid [...componentMap.values()]
-- weakElementMap OK
-- `getFallBackParentByElement` sarebbe da sistemare anche lui.
-    - Viene usato da repeat && invalidate ma solo una volta prima di creare il `watch` perció puó essere considerato di secondaria importanza.
 
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
