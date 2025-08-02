@@ -3,6 +3,7 @@ import { queryAllFutureComponent } from '../../query/query-all-future-component'
 import { getAllUserChildPlaceholder } from '../../modules/user-component';
 import { componentMap } from '../component-map';
 import { updateChildrenArray } from '../utils';
+import { getIdFromWeakElementMap } from '../weak-element-map';
 
 /**
  * Get parent id By id
@@ -85,7 +86,8 @@ export const addParentIdToFutureComponent = ({ element, id }) => {
 };
 
 /**
- * Get first element that contains repaterParent start from last map element.
+ * Get repeaterparent id for nested repeat/invalidate. Soltion1 ( slow ): Get first element that contains repaterParent
+ * start from last map element. Solution 2 ( fast ): Get first parentNode that is a component based on weakElementMap.
  *
  * @param {object} params
  * @param {HTMLElement | undefined} params.element
@@ -94,9 +96,30 @@ export const addParentIdToFutureComponent = ({ element, id }) => {
 export const getFallBackParentByElement = ({ element }) => {
     if (!element) return;
 
-    return [...componentMap.values()].findLast((item) => {
-        return item.element.contains(element) && item.element !== element;
-    })?.id;
+    // Solution 1 using componentMap ( slow ).
+    // return [...componentMap.values()].findLast((item) => {
+    //     return item.element.contains(element) && item.element !== element;
+    // })?.id;
+
+    // Soltion2 using weakElementMap ( fast and moore secure way )
+    let parentNode = element.parentNode;
+
+    /**
+     * @type {string | undefined}
+     */
+    let id;
+
+    while (parentNode && !id) {
+        id = getIdFromWeakElementMap({
+            element: /** @type {HTMLElement} */ (parentNode),
+        });
+
+        if (!id) {
+            parentNode = parentNode.parentNode;
+        }
+    }
+
+    return id;
 };
 
 /**
