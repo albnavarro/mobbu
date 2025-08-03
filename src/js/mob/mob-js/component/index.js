@@ -3,6 +3,7 @@ import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { setRepeaterComponentChildren } from '../modules/repeater/action/set-repeat-component-children';
 import { getFreezePropStatus } from './action/freeze';
 import { componentMap } from './component-map';
+import { addIdToInstanceMap } from './instance-map';
 import { addPropsToState } from './utils';
 
 /**
@@ -43,6 +44,10 @@ export const addComponentToStore = ({
             componentId: id,
             repeatId: componentRepeatId,
         });
+    }
+
+    if (instanceName && instanceName.length > 0) {
+        addIdToInstanceMap({ instanceName, id });
     }
 
     componentMap.set(id, {

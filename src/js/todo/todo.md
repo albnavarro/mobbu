@@ -41,6 +41,10 @@
 
 # MobJs
 
+## removeCancellableComponent
+- Usare un evento apposito in `mainStore` che viene scatenato al momento di cancellare i componenti.
+- `src/js/mob/mob-js/component/index.js` lanciare `removeAndDestroyById()` e `unsubscribe` all' evento.
+
 ## src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
 - parent id ternario innestato, semplificare.
 

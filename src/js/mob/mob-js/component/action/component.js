@@ -1,5 +1,6 @@
 import { getContentElement } from '../../route/dom-ref/content';
 import { componentMap } from '../component-map';
+import { getIdsFromInstanceMap } from '../instance-map';
 import { getIdFromWeakElementMap } from '../weak-element-map';
 
 /**
@@ -45,14 +46,8 @@ export const getComponentNameByElement = (element) => {
 export const getIdByInstanceName = (name = '') => {
     if (!name) return;
 
-    const instance = [...componentMap.values()].find(({ instanceName }) => {
-        return instanceName === name;
-    });
-
-    const id = instance?.id;
-    if (!id) return;
-
-    return id;
+    const idCollection = getIdsFromInstanceMap({ instanceName: name });
+    return idCollection?.[0];
 };
 
 /**
@@ -63,10 +58,7 @@ export const getIdByInstanceName = (name = '') => {
  */
 export const getIdArrayByInstanceName = (name = '') => {
     if (!name) return [];
-
-    return [...componentMap.values()]
-        .filter(({ instanceName }) => instanceName === name)
-        .map(({ id }) => id);
+    return getIdsFromInstanceMap({ instanceName: name }) ?? [];
 };
 
 /**

@@ -6,6 +6,7 @@ import { removeRepeaterId } from '../../../modules/repeater/action/remove-repeat
 import { componentMap } from '../../component-map';
 import { removeItselfFromParent } from './remove-itself-from-parent';
 import { removeRepeaterComponentChildren } from '../../../modules/repeater/action/set-repeat-component-children';
+import { removeIdFromInstanceMap } from '../../instance-map';
 
 /**
  * Remove component to store and destroy it.
@@ -29,6 +30,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
         destroy,
         parentPropsWatcher,
         componentRepeatId,
+        instanceName,
     } = instanceValue;
 
     /**
@@ -65,13 +67,20 @@ export const removeAndDestroyById = ({ id = '' }) => {
     removeBindObjectParentById({ id });
 
     /**
-     * Remove id component from repeaterPlaceholderMap
+     * Remove id component from repeaterPlaceholderMap.
      */
     if (componentRepeatId && componentRepeatId.length > 0) {
         removeRepeaterComponentChildren({
             componentId: id,
             repeatId: componentRepeatId,
         });
+    }
+
+    /**
+     * Remove id component from instanceMap.
+     */
+    if (instanceName && instanceName.length > 0) {
+        removeIdFromInstanceMap({ instanceName, id });
     }
 
     /**

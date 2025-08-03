@@ -16,6 +16,7 @@ import { invalidateIdHostMap } from '../../../mob/mob-js/modules/invalidate/inva
 import { invalidateFunctionMap } from '../../../mob/mob-js/modules/invalidate/invalidate-function-map';
 import { bindPropsMap } from '../../../mob/mob-js/modules/bind-props/bind-props-map';
 import { MobJs } from '@mobJs';
+import { instanceMap } from 'src/js/mob/mob-js/component/instance-map';
 
 export const consoleLogDebug = () => {
     MobJs.mainStore.debugStore();
@@ -38,4 +39,5 @@ export const consoleLogDebug = () => {
     console.log('slotPlaceholderSize', getSlotPlaceholderSize());
     console.log('bindTextMapSize', getBindTextParentSize());
     console.log('bindTextPlaceholderMapSize', getBindTextPlaceholderSize());
+    console.log('instanceMap', instanceMap);
 };
