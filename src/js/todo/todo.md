@@ -41,9 +41,6 @@
 
 # MobJs
 
-## parent.js
-- `getParentIdFromWeakElementMap()` && `getFallBackParentByElement()`, al momento sono praticamante uguali.
-
 ## src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
 - parent id ternario innestato, semplificare.
 
