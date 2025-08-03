@@ -22,7 +22,7 @@ import {
 } from '../active-repeater';
 import { updateRepeater } from '../update';
 import { inizializeNestedInvalidate } from '../../invalidate/action/inizialize-nested-invalidate';
-import { getFallBackParentByElement } from '../../../component/action/parent';
+import { getParentIdFromWeakElementMap } from '../../../component/action/parent';
 import { chunkIdsByCurrentValue } from '../utils';
 import { getRepeatParent } from '../action/get-repeater-parent';
 import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
@@ -54,7 +54,7 @@ export const watchRepeat = ({
      */
     const parentByElement = getRepeatParent({ id: repeatId });
     const fallBackParentId = parentByElement
-        ? (getFallBackParentByElement({ element: parentByElement }) ?? '')
+        ? (getParentIdFromWeakElementMap({ element: parentByElement }) ?? '')
         : '';
 
     /**

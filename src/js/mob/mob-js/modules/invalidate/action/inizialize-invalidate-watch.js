@@ -5,7 +5,7 @@ import {
     freezePropById,
     unFreezePropById,
 } from '../../../component/action/freeze';
-import { getFallBackParentByElement } from '../../../component/action/parent';
+import { getParentIdFromWeakElementMap } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import { QUEQUE_TYPE_INVALIDATE } from '../../../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../../../main-store/constant';
@@ -53,7 +53,7 @@ export const inizializeInvalidateWatch = async ({
      * When invalidateId is created nested Main component is not parsed. So addSelfIdToParentComponent doesn't work. Get
      * first element that contains invalidateParent start from last map element.
      */
-    const fallBackParentId = getFallBackParentByElement({
+    const fallBackParentId = getParentIdFromWeakElementMap({
         element: getInvalidateParent({ id: invalidateId }),
     });
 

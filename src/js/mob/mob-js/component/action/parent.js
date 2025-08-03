@@ -86,13 +86,14 @@ export const addParentIdToFutureComponent = ({ element, id }) => {
 };
 
 /**
- * Add self id to future component. If id is assigned to component nested in next cycle will be override.
+ * Find first component parent node.
  *
  * @param {object} params
- * @param {HTMLElement} params.element
+ * @param {HTMLElement | undefined} params.element
  * @returns {string | undefined}
  */
 export const getParentIdFromWeakElementMap = ({ element }) => {
+    if (!element) return;
     let parentNode = element.parentNode;
 
     /**
@@ -111,43 +112,6 @@ export const getParentIdFromWeakElementMap = ({ element }) => {
     }
 
     return id ?? '';
-};
-
-/**
- * Get repeaterparent id for nested repeat/invalidate. Soltion1 ( slow ): Get first element that contains repaterParent
- * start from last map element. Solution 2 ( fast ): Get first parentNode that is a component based on weakElementMap.
- *
- * @param {object} params
- * @param {HTMLElement | undefined} params.element
- * @returns {string | undefined}
- */
-export const getFallBackParentByElement = ({ element }) => {
-    if (!element) return;
-
-    // Solution 1 using componentMap ( slow ).
-    // return [...componentMap.values()].findLast((item) => {
-    //     return item.element.contains(element) && item.element !== element;
-    // })?.id;
-
-    // Soltion2 using weakElementMap ( fast and moore secure way )
-    let parentNode = element.parentNode;
-
-    /**
-     * @type {string | undefined}
-     */
-    let id;
-
-    while (parentNode && !id) {
-        id = getIdFromWeakElementMap({
-            element: /** @type {HTMLElement} */ (parentNode),
-        });
-
-        if (!id) {
-            parentNode = parentNode.parentNode;
-        }
-    }
-
-    return id;
 };
 
 /**
