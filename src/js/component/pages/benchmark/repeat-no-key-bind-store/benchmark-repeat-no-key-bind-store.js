@@ -2,7 +2,6 @@
 
 import { html } from '@mobJs';
 import { benchMarkListExternalPartial } from './bench-mark-list-external-partial';
-import { destroyExternalStore } from './store';
 
 /**
  * @import {MobComponent, ReturnBindProps} from '@mobJsType';
@@ -27,7 +26,6 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
     onMount(() => {
         return () => {
             getRef()?.input.remove();
-            destroyExternalStore();
         };
     });
 

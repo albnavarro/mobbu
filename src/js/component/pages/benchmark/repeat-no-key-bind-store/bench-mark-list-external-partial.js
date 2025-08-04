@@ -6,7 +6,7 @@ import {
     createBenchMarkArray,
     shuffle,
 } from '../partials/bench-mark-list-partial';
-import { getExternalStore } from './store';
+import { externalBenchmarkStore } from './store';
 
 /**
  * @import {DelegateEvents, SetRef, GetRef, GetState, BindEffect} from '@mobJsType';
@@ -18,8 +18,7 @@ import { getExternalStore } from './store';
  * @param {boolean} [params.useShuffle]
  */
 const setData = async ({ value, useShuffle = false }) => {
-    const externalStore = getExternalStore();
-    const { set } = externalStore;
+    const { set } = externalBenchmarkStore;
 
     set('isLoading', true);
     await MobJs.tick();
@@ -59,8 +58,7 @@ export const benchMarkListExternalPartial = ({
     getState,
     bindEffect,
 }) => {
-    const externalStore = getExternalStore();
-    const { update } = externalStore;
+    const { update } = externalBenchmarkStore;
 
     return html`
         <div
