@@ -12,7 +12,7 @@ export interface SearchListItem {
     count: number;
 }
 
-interface SearchOverlayListState extends MobJsStore {
+interface SearchOverlayListState extends Readonly<MobJsStore> {
     list: SearchListItem[];
     loading: boolean;
     noResult: boolean;
