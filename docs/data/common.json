@@ -443,7 +443,7 @@
             "url": "mobJs-component"
         },
         {
-            "label": "bindStore",
+            "label": "BindStore",
             "url": "mobJs-bindStore",
             "isLabel": false
         },

@@ -910,27 +910,6 @@
                         }
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "Integration of external stores"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "BindStore",
-                                    "url": "./#mobJs-bindStore"
-                                }
-                            ]
-                        }
-                    },
-                    {
                         "component": "mob-spacer",
                         "props": {
                             "style": "small"

@@ -9,7 +9,6 @@ import {
     MobStoreWatch,
     MobStoreReturnType,
     MobStoreStoreProxi,
-    BindStore,
     BindStoreValueType,
 } from '../../mob-core/store/type';
 import { UserComponent } from '../web-component/type';
