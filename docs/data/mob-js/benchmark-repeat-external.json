@@ -1,0 +1,12 @@
+{
+    "data": [
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": ["repeat", "benchmark", "performance", "bindStore"]
+            }
+        }
+    ]
+}

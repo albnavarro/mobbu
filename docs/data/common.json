@@ -997,6 +997,8 @@
         { "word": "opacity" },
         { "word": "align" },
         { "word": "onSwitch" },
-        { "word": "deferredNextTick" }
+        { "word": "deferredNextTick" },
+        { "word": "benchmark" },
+        { "word": "performance" }
     ]
 }
