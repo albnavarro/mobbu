@@ -10,7 +10,7 @@ export interface SearchOverlayHeader {
         suggestionElement: HTMLDivElement;
     };
     methods: {
-        forceInputValue: (value: string) => void;
+        updateCurrentSearchFromSuggestion: (value: string) => void;
         shouldCloseSuggestion: (element: HTMLElement) => void;
         closeSuggestion: () => void;
         setInputFocus: () => void;

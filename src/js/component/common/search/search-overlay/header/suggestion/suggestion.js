@@ -15,7 +15,7 @@ const sendWord = (word) => {
      * @type {UseMethodByName<import('../type').SearchOverlayHeader>}
      */
     const headerMethods = useMethodByName(searchOverlayHeader);
-    headerMethods?.forceInputValue(word);
+    headerMethods?.updateCurrentSearchFromSuggestion(word);
 };
 
 const onEsc = () => {

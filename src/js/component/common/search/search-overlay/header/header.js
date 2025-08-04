@@ -65,17 +65,26 @@ const filterSuggestion = ({ currentSearch, proxi }) => {
     if (currentSearch.length === 0) proxi.suggestionListData = [];
 
     /**
-     * `~` char is not allowed ( is getFakeReplacement )
+     * Use last word of input search for filter suggestion.
+     */
+    const inputSearchLastWord = currentSearch.split(' ').slice(-1).join('');
+
+    /**
+     * `~` char is not allowed ( is getFakeReplacement ). Remove `~` character. stringParsed is an array in case we want
+     * to process more than one word. Current logic use only last word so is unnecessary.
      */
     const stringParsed =
-        currentSearch
+        inputSearchLastWord
             .replaceAll('~', '')
             .split(' ')
             .filter((block) => block !== '') ?? '';
 
+    /**
+     * Update suggestion list based on last input search word.
+     */
     proxi.suggestionListData = (
         searchSuggestionKey.filter(({ word }) => {
-            return stringParsed.every((piece) =>
+            return stringParsed.some((piece) =>
                 word.toLowerCase().includes(piece.toLowerCase())
             );
         }) ?? []
@@ -144,10 +153,25 @@ export const SearchOverlayHeaderFn = ({
         /**
          * Update innput value from outside ( suggestion component ) and send
          */
-        addMethod('forceInputValue', (value) => {
-            search_input.value = value;
+        addMethod('updateCurrentSearchFromSuggestion', (value) => {
+            const currentValue = search_input.value;
+
+            /**
+             * Replace last word with suggestion value.
+             */
+            const currentValueSplitted = currentValue.split(' ');
+            const newSearchValue =
+                currentValueSplitted.length === 0
+                    ? value
+                    : (() => {
+                          const currentValueLessLast = currentValueSplitted
+                              .slice(0, -1)
+                              .join(' ');
+                          return `${currentValueLessLast} ${value}`;
+                      })();
+            search_input.value = newSearchValue;
             proxi.suggestionListData = [];
-            sendSearch({ currentSearch: value });
+            search_input.focus();
         });
 
         /**
@@ -172,7 +196,8 @@ export const SearchOverlayHeaderFn = ({
          * Wait animation completed before set focus to input
          */
         addMethod('setInputFocus', async () => {
-            search_input.value = '';
+            // reset input value
+            // search_input.value = '';
 
             setTimeout(() => {
                 search_input.focus();
