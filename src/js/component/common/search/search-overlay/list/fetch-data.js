@@ -153,13 +153,16 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
             };
         });
 
+    const currentSearchSplitted = currentSearch.split(' ');
+
     /**
      * Get filtered result
      */
     const searchResult = resultParsed
         .filter((item) => {
-            return item.data.some((row) => {
-                return row.toLowerCase().includes(currentSearch.toLowerCase());
+            const dataJoined = item.data.join(' ');
+            return currentSearchSplitted.every((word) => {
+                return dataJoined.toLowerCase().includes(word.toLowerCase());
             });
         })
         .toSorted((first) => {

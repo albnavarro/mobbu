@@ -121,6 +121,7 @@ export const routes = [
         layout: dynamic_list,
         props: {
             source: './data/mob-js/general-repeat-test.json',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
             title: '( test ) repeat & invalidate',
             section: 'mobJs',
         },
@@ -130,6 +131,7 @@ export const routes = [
         layout: matrioska_page,
         props: {
             source: './data/mob-js/matrioska.json',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
             title: '( test ) matrioska',
             section: 'mobJs',
         },
@@ -278,6 +280,7 @@ export const routes = [
         layout: benchMark,
         props: {
             rootComponent: 'benchmark-invalidate',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
             source: './data/mob-js/benchmark-invalidate.json',
             title: '( test ) benchmark invalidate',
             section: 'mobJs',
@@ -288,6 +291,7 @@ export const routes = [
         layout: benchMark,
         props: {
             rootComponent: 'benchmark-repeat-no-key',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
             source: './data/mob-js/benchmark-repeat-without-key.json',
             title: '( test ) benchmark repeat without key',
             section: 'mobJs',
@@ -298,6 +302,7 @@ export const routes = [
         layout: benchMark,
         props: {
             rootComponent: 'benchmark-repeat-key',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
             source: './data/mob-js/benchmark-repeat-key.json',
             title: '( test ) benchmark repeat key',
             section: 'mobJs',
@@ -308,6 +313,7 @@ export const routes = [
         layout: benchMark,
         props: {
             rootComponent: 'benchmark-repeat-key-no-nested',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
             source: './data/mob-js/benchmark-repeat-without-key-nested.json',
             title: '( test ) benchmark repeat nested without key',
             section: 'mobJs',
@@ -318,6 +324,7 @@ export const routes = [
         layout: benchMark,
         props: {
             rootComponent: 'benchmark-repeat-key-nested',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
             source: './data/mob-js/benchmark-repeat-key-nested.json',
             title: '( test ) benchmark repeat nested with key',
             section: 'mobJs',
@@ -328,6 +335,7 @@ export const routes = [
         layout: benchMark,
         props: {
             rootComponent: 'benchmark-repeat-no-key-bind-store',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
             source: './data/mob-js/benchmark-repeat-external.json',
             title: '( test ) benchmark repeat bindStore',
             section: 'mobJs',
