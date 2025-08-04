@@ -2,6 +2,7 @@ import { HtmlContent } from '@commonComponent/html-content/type';
 import { List } from '@commonComponent/typography/list/type';
 import { Paragraph } from '@commonComponent/typography/paragraph/type';
 import { Title } from '@commonComponent/typography/titles/type';
+import { MobJsStore } from '@mobJsType';
 
 export interface SearchListItem {
     title: string;
@@ -11,13 +12,15 @@ export interface SearchListItem {
     count: number;
 }
 
+interface SearchOverlayListState extends MobJsStore {
+    list: SearchListItem[];
+    loading: boolean;
+    noResult: boolean;
+    updatePrentSearchKey: (value: string) => void;
+}
+
 export interface SearchOverlayList {
-    state: {
-        list: SearchListItem[];
-        loading: boolean;
-        noResult: boolean;
-        updatePrentSearchKey: (value: string) => void;
-    };
+    state: SearchOverlayListState;
     methods: {
         update: (data: string) => Promise<void>;
         reset: () => void;

@@ -1,7 +1,7 @@
 // https://stackoverflow.com/questions/65668969/event-maps-and-type-guards#answer-65890181
 
 import { MobStoreParams } from '../mob-core/store/type';
-import { ComponentFunction } from './main-store/type';
+import { ComponentFunction, MainStore } from './main-store/type';
 import {
     ExtractState,
     PartialBindEffect,
@@ -44,6 +44,7 @@ import {
 } from './ts-utils/mob-component-props';
 import { OnlyStringKey } from './ts-utils/utils';
 
+export type MobJsStore = MainStore;
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
 export type DelegateEvents = PartialDelegateEvents;
 export type BindEffect<T> = PartialBindEffect<T>;

@@ -70,7 +70,9 @@ export const SearchOverlayListFn = ({
     delegateEvents,
     bindEffect,
     invalidate,
+    bindStore,
 }) => {
+    bindStore(MobJs.mainStore);
     const proxi = getProxi();
 
     /**
@@ -173,7 +175,16 @@ export const SearchOverlayListFn = ({
                 observe: () => proxi.list,
                 render: ({ current }) => {
                     return html`
-                        <li class="search-overlay-list__item">
+                        <li
+                            class="search-overlay-list__item"
+                            ${bindEffect({
+                                toggleClass: {
+                                    current: () =>
+                                        proxi.activeRoute.route ===
+                                        current.value.uri,
+                                },
+                            })}
+                        >
                             <button
                                 type="button"
                                 class="search-overlay-list__button"

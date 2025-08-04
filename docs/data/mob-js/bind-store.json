@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "To add multiple stores pass an <span class='quote'>array</span> as an argument.<br/>The bindStore function must be <span class='quote'>called first</span> before receiving the <span class='quote'>proxy</span> object, or using the <span class='quote'>watch</span> function."
+            "content": "To add multiple stores pass an <strong>array</strong> as an argument.<br/>The bindStore function must be <strong>called first</strong> before receiving the <strong>proxy</strong> object, or using the <strong>watch</strong> function."
         },
         {
             "component": "mob-spacer",
