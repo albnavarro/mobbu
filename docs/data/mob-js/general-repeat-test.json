@@ -6,11 +6,14 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
+                    "invalidate",
                     "repeat",
-                    "benchmark",
-                    "performance",
-                    "bindStore",
-                    "test"
+                    "clean",
+                    "without",
+                    "key",
+                    "test",
+                    "dynamic",
+                    "list"
                 ]
             }
         }

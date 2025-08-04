@@ -119,12 +119,20 @@ export const routes = [
     {
         name: 'dynamic-list',
         layout: dynamic_list,
-        props: {},
+        props: {
+            source: './data/mob-js/general-repeat-test.json',
+            title: '( test ) repeat & invalidate',
+            section: 'mobJs',
+        },
     },
     {
         name: 'matrioska',
         layout: matrioska_page,
-        props: {},
+        props: {
+            source: './data/mob-js/matrioska.json',
+            title: '( test ) matrioska',
+            section: 'mobJs',
+        },
     },
     {
         name: 'home',
@@ -271,7 +279,7 @@ export const routes = [
         props: {
             rootComponent: 'benchmark-invalidate',
             source: './data/mob-js/benchmark-invalidate.json',
-            title: 'benchmark invalidate',
+            title: '( test ) benchmark invalidate',
             section: 'mobJs',
         },
     },
@@ -281,7 +289,7 @@ export const routes = [
         props: {
             rootComponent: 'benchmark-repeat-no-key',
             source: './data/mob-js/benchmark-repeat-without-key.json',
-            title: 'benchmark repeat without key',
+            title: '( test ) benchmark repeat without key',
             section: 'mobJs',
         },
     },
@@ -291,7 +299,7 @@ export const routes = [
         props: {
             rootComponent: 'benchmark-repeat-key',
             source: './data/mob-js/benchmark-repeat-key.json',
-            title: 'benchmark repeat key',
+            title: '( test ) benchmark repeat key',
             section: 'mobJs',
         },
     },
@@ -301,7 +309,7 @@ export const routes = [
         props: {
             rootComponent: 'benchmark-repeat-key-no-nested',
             source: './data/mob-js/benchmark-repeat-without-key-nested.json',
-            title: 'benchmark repeat nested without key',
+            title: '( test ) benchmark repeat nested without key',
             section: 'mobJs',
         },
     },
@@ -311,7 +319,7 @@ export const routes = [
         props: {
             rootComponent: 'benchmark-repeat-key-nested',
             source: './data/mob-js/benchmark-repeat-key-nested.json',
-            title: 'benchmark repeat nested with key',
+            title: '( test ) benchmark repeat nested with key',
             section: 'mobJs',
         },
     },
@@ -321,7 +329,7 @@ export const routes = [
         props: {
             rootComponent: 'benchmark-repeat-no-key-bind-store',
             source: './data/mob-js/benchmark-repeat-external.json',
-            title: 'benchmark repeat bindStore',
+            title: '( test ) benchmark repeat bindStore',
             section: 'mobJs',
         },
     },

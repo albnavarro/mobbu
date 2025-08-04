@@ -5,7 +5,7 @@
             "props": {
                 "style": "medium",
                 "dots": true,
-                "items": ["invalidate", "benchmark", "performance", "test"]
+                "items": ["repeat", "matrioska", "test"]
             }
         }
     ]

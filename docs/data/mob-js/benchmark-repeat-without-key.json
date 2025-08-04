@@ -10,7 +10,8 @@
                     "benchmark",
                     "performance",
                     "without",
-                    "key"
+                    "key",
+                    "test"
                 ]
             }
         }
