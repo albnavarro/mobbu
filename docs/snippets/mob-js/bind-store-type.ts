@@ -1,4 +1,4 @@
-interface State extends Readonly<MainStore> {
+interface State extends Readonly<MobJsStore> {
     label: string;
     section: string;
     active: boolean;

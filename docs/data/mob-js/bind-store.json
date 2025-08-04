@@ -77,6 +77,21 @@
             }
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "There is a special store ( <strong>MobJs.mainStore</strong> ) that handles all <strong>mobJs events</strong> as in the following example:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"

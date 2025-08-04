@@ -394,7 +394,7 @@
                         "props": {
                             "style": "x-small",
                             "id": "events",
-                            "label": "Events"
+                            "label": "Events/mainStore"
                         }
                     },
                     {
@@ -405,7 +405,7 @@
                             "index": "Routing / 02",
                             "useSticky": true
                         },
-                        "content": "Events"
+                        "content": "Events/mainStore"
                     },
                     {
                         "component": "mob-spacer",
@@ -419,6 +419,21 @@
                             "style": "medium"
                         },
                         "content": "A series of events are available to intercept and react to the change of route, to do this a special store called mainStore is available. Being a store, all the methods listed in the store apply"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "As an alternative to events, a special store ( <strong>MobIs.mainStore</strong> ) is available that manages all <strong>mobJs events</strong> and can be interfaced with the <strong><a href='#mobJs-bindStore'>bindStore</a></strong> utility; an example is available in the dedicated section."
                     },
                     {
                         "component": "mob-spacer",
