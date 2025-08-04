@@ -110,11 +110,6 @@
                 "isLabel": false
             },
             {
-                "label": "bindStore",
-                "url": "mobJs-bindStore",
-                "isLabel": false
-            },
-            {
                 "label": "bindText",
                 "url": "mobJs-bindtext",
                 "isLabel": false
@@ -448,6 +443,11 @@
             "url": "mobJs-component"
         },
         {
+            "label": "bindStore",
+            "url": "mobJs-bindStore",
+            "isLabel": false
+        },
+        {
             "label": "Web component",
             "scrollToSection": "mobJs",
             "url": "mobJs-web-component"
@@ -515,11 +515,6 @@
                     "label": "delegateEvents",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-delegateEvents"
-                },
-                {
-                    "label": "bindStore",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-bindStore"
                 },
                 {
                     "label": "bindText",

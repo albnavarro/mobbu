@@ -26,21 +26,12 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "bindStore allows you to couple the component state to another store ( <a href='#mobCore-store'>mobStore</a> ) taking advantage of its reactivity."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "To add multiple stores pass an <strong>array</strong> as an argument.<br/>The bindStore function must be <strong>called first</strong> before receiving the <strong>proxy</strong> object, or using the <strong>watch</strong> function."
+            "content": "<strong>bindStore</strong> allows you to couple the component state to <strong>another store</strong> ( <a href='#mobCore-store'>mobStore</a> ) taking advantage of its <strong>reactivity</strong>.<br/>To add multiple stores pass an <strong>array</strong> as an argument."
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
@@ -48,7 +39,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Once added, you will be able to use the new store's statuses in the following cases:"
+            "content": "Connected stores can only be used in <strong>reading mode</strong>:"
         },
         {
             "component": "mob-list",
@@ -92,6 +83,43 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Add store in component definition"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "External stores must be linked in the component <strong><a href='#mobJs-component'>definition</a></strong>"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/definition-bind-store.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 14
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Use within the component"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -104,7 +132,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 35
+                "numLines": 22
             }
         },
         {
@@ -114,13 +142,20 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Type tips:"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
                 "boxed": true,
                 "note": true
             },
-            "content": "When using the bindStore utility you need to extend the type ( use readOnlyts utils )."
+            "content": "When using the bindStore utility you need to extend the type ( use <strong>readOnlyts</strong> utils )."
         },
         {
             "component": "mob-snippet",

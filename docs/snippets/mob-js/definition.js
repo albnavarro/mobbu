@@ -27,6 +27,7 @@ export const MyComponent = MobJs.createComponent(
          * Optional
          */
         exportState: ['label'],
+        bindStore: MobJs.mainStore,
         state: {
             label: () => ({
                 value: '',

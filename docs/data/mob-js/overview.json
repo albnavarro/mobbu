@@ -105,6 +105,10 @@
                                     "url": "./#mobJs-component"
                                 },
                                 {
+                                    "label": "bindStore",
+                                    "url": "./#mobJs-bindStore"
+                                },
+                                {
                                     "label": "web component",
                                     "url": "./#mobJs-web-component"
                                 },

@@ -212,6 +212,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-bindStore',
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mob-js/bind-store.json',
+            title: 'bindStore',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
+            section: 'mobJs',
+        },
+    },
+    {
         name: 'mobJs-web-component',
         layout: layoutSidebarAnchor,
         props: {
@@ -498,17 +508,6 @@ export const routes = [
         props: {
             source: './data/mob-js/delegate-events.json',
             title: 'delegateEvents',
-            breadCrumbs: mobJsComponentBreadCrumbs,
-            section: 'mobJs',
-        },
-    },
-    {
-        name: 'mobJs-bindStore',
-        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
-        layout: layoutSidebarLinks,
-        props: {
-            source: './data/mob-js/bind-store.json',
-            title: 'bindStore',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
         },
