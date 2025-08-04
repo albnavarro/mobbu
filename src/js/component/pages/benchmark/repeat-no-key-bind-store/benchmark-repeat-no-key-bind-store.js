@@ -2,11 +2,7 @@
 
 import { html } from '@mobJs';
 import { benchMarkListExternalPartial } from './bench-mark-list-external-partial';
-import {
-    createExternalStore,
-    destroyExternalStore,
-    getExternalStore,
-} from './store';
+import { destroyExternalStore } from './store';
 
 /**
  * @import {MobComponent, ReturnBindProps} from '@mobJsType';
@@ -23,13 +19,9 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
     getState,
     bindProps,
     repeat,
-    bindStore,
     bindEffect,
     getProxi,
 }) => {
-    createExternalStore();
-    const externalStore = getExternalStore();
-    bindStore(externalStore);
     const proxi = getProxi();
 
     onMount(() => {

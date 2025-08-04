@@ -17,6 +17,7 @@ export const addComponentToStore = ({
     instanceName = '',
     props = {},
     state = {},
+    bindStore,
     methods = {},
     key = '',
     currentRepeaterState = DEFAULT_CURRENT_REPEATER_STATE,
@@ -35,6 +36,10 @@ export const addComponentToStore = ({
 }) => {
     const store = MobCore.createStore(state);
     addPropsToState({ props, store });
+
+    if (bindStore) {
+        store.bindStore(bindStore);
+    }
 
     /**
      * Save component id in repeater map, if is inside repeater. fast find component in repeater.
@@ -109,9 +114,6 @@ export const addComponentToStore = ({
                 wait: wait ?? false,
                 immediate: immediate ?? false,
             }),
-        bindStore: (value) => {
-            store.bindStore(value);
-        },
         debug: () => store.debug(),
     };
 };

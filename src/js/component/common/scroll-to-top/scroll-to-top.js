@@ -1,4 +1,3 @@
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';
 import { Triangles } from './triangles';
@@ -9,13 +8,7 @@ import { Triangles } from './triangles';
  */
 
 /** @type {MobComponent<ScrollToTop>} */
-export const ScrollToTopFn = ({
-    delegateEvents,
-    bindEffect,
-    bindStore,
-    getProxi,
-}) => {
-    bindStore(navigationStore);
+export const ScrollToTopFn = ({ delegateEvents, bindEffect, getProxi }) => {
     const proxi = getProxi();
 
     return html`

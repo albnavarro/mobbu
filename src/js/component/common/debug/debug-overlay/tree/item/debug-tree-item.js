@@ -4,7 +4,6 @@
 
 import { html, MobJs } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
-import { debugActiveComponentStore } from '../../store/debug-active-component';
 import { generateTreeComponents } from '../recursive-tree';
 import {
     debugComponentName,
@@ -46,10 +45,8 @@ export const DebugTreeItemFn = ({
     watch,
     bindEffect,
     getProxi,
-    bindStore,
     computed,
 }) => {
-    bindStore(debugActiveComponentStore);
     const proxi = getProxi();
     const hasChildrenClass = proxi.children.length > 0 ? 'has-children' : '';
 

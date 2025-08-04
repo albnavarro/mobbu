@@ -3,6 +3,7 @@ import { HeaderFn } from './header';
 import { HeadernavFn } from './header-nav';
 import { HeaderToggleFn } from './header-toggle';
 import { Search } from '@commonComponent/search/cta-search/definition';
+import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -22,6 +23,7 @@ export const HeaderToggle = MobJs.createComponent(
     ({
         tag: 'mob-header-toggle',
         component: HeaderToggleFn,
+        bindStore: navigationStore,
     })
 );
 

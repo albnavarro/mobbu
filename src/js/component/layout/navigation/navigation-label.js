@@ -1,9 +1,7 @@
 import { html } from '@mobJs';
-import { navigationStore } from './store/nav-store';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').NavigationLabel>} */
-export const NavigationLabelFn = ({ bindStore, bindEffect, getProxi }) => {
-    bindStore(navigationStore);
+export const NavigationLabelFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
 
     return html`

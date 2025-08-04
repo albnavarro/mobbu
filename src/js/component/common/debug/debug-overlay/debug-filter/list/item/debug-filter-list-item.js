@@ -2,7 +2,6 @@
  * @import {MobComponent, UseMethodByName} from '@mobJsType';
  */
 
-import { debugActiveComponentStore } from '@commonComponent/debug/debug-overlay/store/debug-active-component';
 import { html, MobJs } from '@mobJs';
 import { debugComponentName } from 'src/js/component/instance-name';
 
@@ -12,10 +11,8 @@ export const DebugFilterListItemFn = ({
     bindText,
     bindEffect,
     getProxi,
-    bindStore,
     computed,
 }) => {
-    bindStore(debugActiveComponentStore);
     const proxi = getProxi();
 
     computed(

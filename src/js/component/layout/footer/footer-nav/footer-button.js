@@ -3,17 +3,10 @@
  * @import {FooterNavButton} from './type';
  */
 
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html } from '@mobJs';
 
 /** @type {MobComponent<FooterNavButton>} */
-export const FooterNavButtonFn = ({
-    getProxi,
-    bindEffect,
-    bindStore,
-    computed,
-}) => {
-    bindStore(navigationStore);
+export const FooterNavButtonFn = ({ getProxi, bindEffect, computed }) => {
     const proxi = getProxi();
 
     computed(

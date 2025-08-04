@@ -1,7 +1,6 @@
 import { getTrinangle } from '@componentLibs/utils/get-triangle';
 import { html, MobJs } from '@mobJs';
 import { sectionPinAnimation } from './animation/pin-animation';
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 
 /**
  * @param {string} tag
@@ -28,8 +27,7 @@ MobJs.beforeRouteChange(() => {
 });
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Title>} */
-export const TitleFn = ({ onMount, bindStore, bindEffect, getProxi }) => {
-    bindStore([navigationStore]);
+export const TitleFn = ({ onMount, bindEffect, getProxi }) => {
     const proxi = getProxi();
 
     // eslint-disable-next-line unicorn/consistent-function-scoping

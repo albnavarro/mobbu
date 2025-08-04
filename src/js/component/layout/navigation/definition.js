@@ -4,6 +4,7 @@ import { NavigationFn } from './navigation';
 import { NavigationButtonFn } from './navigation-button';
 import { NavigationLabelFn } from './navigation-label';
 import { NavigationSubmenuFn } from './navigation-submenu';
+import { navigationStore } from './store/nav-store';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -76,6 +77,7 @@ export const NavigationLabel = MobJs.createComponent(
         tag: 'mob-navigation-label',
         component: NavigationLabelFn,
         exportState: ['label', 'sectioName'],
+        bindStore: navigationStore,
         state: {
             label: () => ({
                 value: '',

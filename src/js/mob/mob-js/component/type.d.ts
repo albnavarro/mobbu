@@ -10,6 +10,7 @@ import {
     MobStoreReturnType,
     MobStoreStoreProxi,
     BindStore,
+    BindStoreValueType,
 } from '../../mob-core/store/type';
 import { UserComponent } from '../web-component/type';
 
@@ -46,6 +47,7 @@ export interface ComponentStoreInput extends ComponentCommon {
     element: HTMLElement | UserComponent;
     instanceName: string;
     state: MobStoreParams;
+    bindStore?: BindStoreValueType;
     props: object;
     refs?: Record<string, HTMLElement[]>;
     methods?: Record<string, (...args: any[]) => void> | object;
@@ -60,6 +62,5 @@ export interface ComponentStoreReturn {
     emitAsync: MobStoreEmitAsync;
     computed: MobStoreComputed;
     watch: MobStoreWatch;
-    bindStore: BindStore;
     debug: () => void;
 }

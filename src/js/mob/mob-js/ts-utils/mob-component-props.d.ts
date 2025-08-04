@@ -1,7 +1,4 @@
-import {
-    MobStoreReturnType,
-    MobStoreValidateState,
-} from '../../mob-core/store/type';
+import { MobStoreValidateState } from '../../mob-core/store/type';
 import { BindEffectObject } from '../modules/bind-effetc/type';
 import { BindEventsObject } from '../modules/bind-events/type';
 import { DelegateEventObject } from '../modules/delegate-events/type';
@@ -206,13 +203,6 @@ export interface PartialWatch<T> {
         options?: { wait?: boolean; immediate?: boolean }
     ): () => void;
 }
-
-/**
- * BindStore
- */
-export type PartialBindStore = (
-    value: MobStoreReturnType<any> | MobStoreReturnType<any>[]
-) => void;
 
 /**
  * RemoveDom

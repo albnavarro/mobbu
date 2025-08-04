@@ -70,9 +70,7 @@ export const SearchOverlayListFn = ({
     delegateEvents,
     bindEffect,
     invalidate,
-    bindStore,
 }) => {
-    bindStore(MobJs.mainStore);
     const proxi = getProxi();
 
     /**

@@ -134,7 +134,7 @@ export const parseComponentsRecursive = async ({
         componentList?.[componentToParseName]?.componentFunction;
     const componentParams =
         componentList?.[componentToParseName]?.componentParams;
-    const { scoped } = componentParams;
+    const { scoped, bindStore } = componentParams;
 
     /**
      * If componentToParse is not in list remove div component
@@ -193,7 +193,6 @@ export const parseComponentsRecursive = async ({
         computed,
         watch,
         debug,
-        bindStore,
     } = addComponentToStore({
         element: componentToParse,
         props,
@@ -206,6 +205,7 @@ export const parseComponentsRecursive = async ({
         persistent,
         parentId,
         componentRepeatId,
+        bindStore,
     });
 
     /**
@@ -258,7 +258,6 @@ export const parseComponentsRecursive = async ({
         key,
         bindEventsId,
         debug,
-        bindStore,
     });
 
     /**

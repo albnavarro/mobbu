@@ -1,5 +1,6 @@
 import { MobJs } from '@mobJs';
 import { TitleFn } from './title';
+import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -18,6 +19,7 @@ export const Title = MobJs.createComponent(
             'color',
             'isBold',
         ],
+        bindStore: navigationStore,
         state: {
             tag: () => ({
                 value: 'h1',

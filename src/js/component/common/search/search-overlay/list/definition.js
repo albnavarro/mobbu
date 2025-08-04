@@ -11,6 +11,7 @@ export const SearchOverlayList = MobJs.createComponent(
         tag: 'search-overlay-list',
         component: SearchOverlayListFn,
         exportState: ['updatePrentSearchKey'],
+        bindStore: MobJs.mainStore,
         state: {
             list: () => ({
                 value: [],

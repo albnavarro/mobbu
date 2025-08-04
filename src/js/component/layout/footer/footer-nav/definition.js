@@ -1,6 +1,7 @@
 import { MobJs } from '@mobJs';
 import { FooterNavButtonFn } from './footer-button';
 import { FooterNavFn } from './footer-nav';
+import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -12,6 +13,7 @@ export const FooterNavButton = MobJs.createComponent(
         tag: 'footer-nav-button',
         component: FooterNavButtonFn,
         exportState: ['label', 'section'],
+        bindStore: navigationStore,
         state: {
             label: () => ({
                 value: '',

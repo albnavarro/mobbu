@@ -6,13 +6,7 @@ import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html } from '@mobJs';
 
 /** @type {MobComponent<import('./type').HeaderToggle>} */
-export const HeaderToggleFn = ({
-    delegateEvents,
-    bindEffect,
-    bindStore,
-    getProxi,
-}) => {
-    bindStore([navigationStore]);
+export const HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {
     const proxi = getProxi();
 
     return html`

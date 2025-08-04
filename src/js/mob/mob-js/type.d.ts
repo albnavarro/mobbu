@@ -1,13 +1,12 @@
 // https://stackoverflow.com/questions/65668969/event-maps-and-type-guards#answer-65890181
 
-import { MobStoreParams } from '../mob-core/store/type';
+import { BindStoreValueType, MobStoreParams } from '../mob-core/store/type';
 import { ComponentFunction, MainStore } from './main-store/type';
 import {
     ExtractState,
     PartialBindEffect,
     PartialBindEvents,
     PartialBindProps,
-    PartialBindStore,
     PartialBindText,
     PartialCompunted,
     PartialCurrent,
@@ -58,7 +57,6 @@ export type Emit<T> = PartialEmit<T>;
 export type EmitAsync<T> = PartialEmitAsync<T>;
 export type Computed<T> = PartialCompunted<T>;
 export type Watch<T> = PartialWatch<T>;
-export type BindStore = PartialBindStore;
 export type RemoveDom = PartialRemoveDOM;
 export type Remove = PartialRemove;
 export type GetChildren = PartialGetChildren;
@@ -115,7 +113,6 @@ export interface ComponentPropsType<T, R> {
     emitAsync: EmitAsync<T>;
     computed: Computed<T>;
     watch: Watch<T>;
-    bindStore: PartialBindStore;
     removeDOM: RemoveDom;
     remove: Remove;
     getChildren: GetChildren;
@@ -179,6 +176,7 @@ export interface ComponentParsed<T> {
     attributeToObserve?: string[];
     style?: string;
     state?: Partial<MobStoreParams<ExtractState<T>>>;
+    bindStore?: BindStoreValueType;
     child?: CreateComponentReturnType[];
 }
 
