@@ -25,14 +25,14 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "setDefaultComponent"
+            "content": "Enable debug"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Enable the debug property through the setDefaultComponent function."
+            "content": "In the <strong><a href='#mobJs-initialization'>initialization</a></strong> function, you can enable the <strong>debug</strong> property <strong>componentDefaultProps.debug</strong>"
         },
         {
             "component": "mob-spacer",
@@ -41,32 +41,54 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/component-map.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 13
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
             },
-            "content": "mainStore"
+            "content": "componentMap"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "In the <strong>mainStore map</strong> there are all the instances of our components in which it is possible to analyze all the specifications from the console."
+            "content": "In the <strong>MobJs.componentMap</strong> there are all the instances of our components in which it is possible to analyze all the specifications from the console."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Each component is identified by an <strong>id</strong> in string format, by enabling the <strong>debug property</strong> each component will display its own id in the <strong>data-mobjs</strong> attribute so as to be searchable in the <strong>mainStore</strong>."
+            "content": "Each component is identified by an <strong>id</strong> in string format, by enabling the <strong>debug property</strong> each component will display its own id in the <strong>data-mobjs</strong> attribute so as to be searchable in the <strong>MobJs.componentMap</strong>."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The <strong>debug</strong> parameter will add a <strong>comment</strong> for each component with the component <strong>tag</strong> defined in the <strong>MobJs.createComponent()</strong> function. The component map is public: <strong>MobJs.componentMap</strong>."
+            "content": "The <strong>debug</strong> parameter will add a <strong>comment</strong> for each component with the component <strong>tag</strong> defined in the <strong>MobJs.createComponent()</strong> function."
         },
         {
             "component": "mob-spacer",
@@ -81,7 +103,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 13
+                "numLines": 6
             }
         }
     ]
