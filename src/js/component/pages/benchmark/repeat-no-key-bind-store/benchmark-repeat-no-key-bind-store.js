@@ -28,6 +28,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
         return () => {
             getRef()?.input.remove();
             externalBenchmarkStore.set('data', []);
+            externalBenchmarkStore.set('time', 0);
         };
     });
 

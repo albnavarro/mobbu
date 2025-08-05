@@ -27351,6 +27351,7 @@ Loading snippet ...</pre
       return () => {
         getRef()?.input.remove();
         externalBenchmarkStore.set("data", []);
+        externalBenchmarkStore.set("time", 0);
       };
     });
     return renderHtml`<div class="benchmark">
