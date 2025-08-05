@@ -1,12 +1,20 @@
+import { getInMemorySet } from '../../../component/in-memory-element-set';
 import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_KEY,
     ATTR_REPEATER_PROP_BIND,
 } from '../../../constant';
-import { setRepeatAttribute } from '../../../parse/steps/utils';
+import {
+    setRepeatAttribute,
+    setRepeatAttributeFromInMemory,
+} from '../../../parse/steps/utils';
+import { useRepeatWithoutSyncQuery } from '../../../parse/strategy';
 import { queryAllFutureComponent } from '../../../query/query-all-future-component';
-import { setSkipAddUserComponent } from '../../user-component';
+import {
+    getSkipAddUserComponent,
+    setSkipAddUserComponent,
+} from '../../user-component';
 import { setComponentRepeaterState } from '../repeater-value';
 import { getRepeatProxi } from './get-proxi';
 
@@ -30,7 +38,6 @@ export const updateRepeaterWitoutKey = ({
     state,
     repeatId,
 }) => {
-    setSkipAddUserComponent(true);
     const range = document.createRange();
 
     /**
@@ -55,22 +62,44 @@ export const updateRepeaterWitoutKey = ({
                 sync: () => '',
             });
 
+            const lastSkipUserValue = getSkipAddUserComponent();
+            setSkipAddUserComponent(true);
+
             const fragment = range.createContextualFragment(rawRender);
 
-            const components = queryAllFutureComponent(fragment, false).map(
-                (element) => {
-                    return new WeakRef(element);
-                }
-            );
+            /**
+             * GetParamsForComponentFunction repeat first render can reset skip value. If shoulf be true set true and
+             * not false.
+             */
+            setSkipAddUserComponent(lastSkipUserValue);
 
-            setRepeatAttribute({
-                components,
-                current: initialValue,
-                index: initialIndex,
-                observe: state,
-                repeatId,
-                key: undefined,
-            });
+            if (useRepeatWithoutSyncQuery) {
+                const components = queryAllFutureComponent(fragment, false).map(
+                    (element) => {
+                        return new WeakRef(element);
+                    }
+                );
+
+                setRepeatAttribute({
+                    components,
+                    current: initialValue,
+                    index: initialIndex,
+                    observe: state,
+                    repeatId,
+                    key: undefined,
+                });
+            }
+
+            if (!useRepeatWithoutSyncQuery) {
+                setRepeatAttributeFromInMemory({
+                    components: getInMemorySet(),
+                    current: initialValue,
+                    index: initialIndex,
+                    observe: state,
+                    repeatId,
+                    key: undefined,
+                });
+            }
 
             /**
              * Remove fragment as soon as possible from GC. TODO Is really necessary ?
@@ -78,8 +107,6 @@ export const updateRepeaterWitoutKey = ({
             return fragment.firstElementChild;
         }
     );
-
-    setSkipAddUserComponent(false);
 
     return renderedDOM.filter((element) => element !== null);
 };
@@ -174,8 +201,6 @@ export const updateRepeaterWithtKey = ({
     keyValue,
     render,
 }) => {
-    setSkipAddUserComponent(true);
-
     const proxiObject = getRepeatProxi({
         id,
         observe: state,
@@ -184,6 +209,9 @@ export const updateRepeaterWithtKey = ({
         keyValue,
         index,
     });
+
+    const lastSkipUserValue = getSkipAddUserComponent();
+    setSkipAddUserComponent(true);
 
     const fragment = document.createRange().createContextualFragment(
         render({
@@ -194,22 +222,38 @@ export const updateRepeaterWithtKey = ({
         })
     );
 
-    const components = queryAllFutureComponent(fragment, false).map(
-        (element) => {
-            return new WeakRef(element);
-        }
-    );
+    /**
+     * GetParamsForComponentFunction repeat first render can reset skip value. If shoulf be true set true and not false.
+     */
+    setSkipAddUserComponent(lastSkipUserValue);
 
-    setRepeatAttribute({
-        components,
-        current: currentValue,
-        index,
-        observe: state,
-        repeatId,
-        key: keyValue,
-    });
+    if (useRepeatWithoutSyncQuery) {
+        const components = queryAllFutureComponent(fragment, false).map(
+            (element) => {
+                return new WeakRef(element);
+            }
+        );
 
-    setSkipAddUserComponent(false);
+        setRepeatAttribute({
+            components,
+            current: currentValue,
+            index,
+            observe: state,
+            repeatId,
+            key: keyValue,
+        });
+    }
+
+    if (!useRepeatWithoutSyncQuery) {
+        setRepeatAttributeFromInMemory({
+            components: getInMemorySet(),
+            current: currentValue,
+            index,
+            observe: state,
+            repeatId,
+            key: keyValue,
+        });
+    }
 
     /**
      * Remove fragment as soon as possible from GC. TODO Is really necessary ?
@@ -305,7 +349,6 @@ export const getRenderWithoutSync = ({
     key = '',
     hasKey,
 }) => {
-    setSkipAddUserComponent(true);
     const range = document.createRange();
 
     /**
@@ -321,6 +364,9 @@ export const getRenderWithoutSync = ({
             index,
         });
 
+        const lastSkipUserValue = getSkipAddUserComponent();
+        setSkipAddUserComponent(true);
+
         const fragment = range.createContextualFragment(
             render({
                 initialIndex: index,
@@ -330,28 +376,45 @@ export const getRenderWithoutSync = ({
             })
         );
 
-        const components = queryAllFutureComponent(fragment, false).map(
-            (element) => {
-                return new WeakRef(element);
-            }
-        );
+        /**
+         * GetParamsForComponentFunction repeat first render can reset skip value. If shoulf be true set true and not
+         * false.
+         */
+        setSkipAddUserComponent(lastSkipUserValue);
 
-        setRepeatAttribute({
-            components,
-            current: item,
-            index,
-            observe,
-            repeatId,
-            key: hasKey ? item?.[key] : '',
-        });
+        if (useRepeatWithoutSyncQuery) {
+            const components = queryAllFutureComponent(fragment, false).map(
+                (element) => {
+                    return new WeakRef(element);
+                }
+            );
+
+            setRepeatAttribute({
+                components,
+                current: item,
+                index,
+                observe,
+                repeatId,
+                key: hasKey ? item?.[key] : '',
+            });
+        }
+
+        if (!useRepeatWithoutSyncQuery) {
+            setRepeatAttributeFromInMemory({
+                components: getInMemorySet(),
+                current: item,
+                index,
+                observe,
+                repeatId,
+                key: hasKey ? item?.[key] : '',
+            });
+        }
 
         /**
          * Remove fragment as soon as possible from GC. TODO Is really necessary ?
          */
         return fragment.firstElementChild;
     });
-
-    setSkipAddUserComponent(false);
 
     return renderedDOM.filter((element) => element !== null);
 };

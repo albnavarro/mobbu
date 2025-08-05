@@ -1,3 +1,4 @@
+import { cleanInMemorySet } from '../../component/in-memory-element-set';
 import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
@@ -152,5 +153,45 @@ export const setRepeatAttribute = ({
         if (!component.deref()?.hasAttribute(ATTR_CHILD_REPEATID)) {
             component.deref()?.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
         }
+    });
+};
+
+/**
+ * With more repeat in same scope, we have multiple render() function nested. The first render() fired is the inneer
+ * function ( deepest ). So the other override attributes. Add attributes only if there is no correspondences.
+ *
+ * @param {object} params
+ * @param {import('../../web-component/type').UserComponent[]} params.components
+ * @param {Record<string, any>} params.current
+ * @param {number} params.index
+ * @param {string} params.observe
+ * @param {string} params.repeatId
+ * @param {string | undefined} params.key
+ * @returns {void}
+ */
+export const setRepeatAttributeFromInMemory = ({
+    components,
+    current,
+    index,
+    observe,
+    repeatId,
+    key,
+}) => {
+    components.forEach((component) => {
+        if (component.hasAttribute(ATTR_CHILD_REPEATID)) {
+            cleanInMemorySet(component);
+            return;
+        }
+
+        component.setAttribute(
+            ATTR_CURRENT_LIST_VALUE,
+            setComponentRepeaterState({
+                current,
+                index,
+            })
+        );
+        component.setAttribute(ATTR_KEY, `${key}`);
+        component.setAttribute(ATTR_REPEATER_PROP_BIND, `${observe}`);
+        component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
     });
 };

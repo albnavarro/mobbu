@@ -58,7 +58,6 @@ import {
 } from '../../modules/repeater/update/utils';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { setStaticProps } from '../../modules/static-props';
-import { setSkipAddUserComponent } from '../../modules/user-component';
 import { detectProp } from '../../utils';
 import { repeaterhasComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
 
@@ -298,8 +297,6 @@ export const getParamsForComponentFunction = ({
                 ? getUnivoqueByKey({ data: initialState, key })
                 : initialState;
 
-            setSkipAddUserComponent(true);
-
             /**
              * If sync as used by user, add the initial string directly
              */
@@ -330,8 +327,6 @@ export const getParamsForComponentFunction = ({
                       key,
                       hasKey,
                   });
-
-            setSkipAddUserComponent(false);
 
             /**
              * When repeater is inizilized runtime, all neseted repater is initialized. Fire each repeater once.

@@ -14,12 +14,16 @@ import {
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
-import { useQuery } from '../parse/strategy';
+import { useQuery, useRepeatWithoutSyncQuery } from '../parse/strategy';
 import {
     addUserPlaceholder,
     getSkipAddUserComponent,
     removeUserPlaceholder,
 } from '../modules/user-component';
+import {
+    addElementToInMemorySet,
+    cleanInMemorySet,
+} from '../component/in-memory-element-set';
 
 /**
  * @param {{ [key: string]: import('../main-store/type').ComponentListMap }} componentList
@@ -164,7 +168,16 @@ export const defineUserComponent = (componentList) => {
                      * When fragment to repeater item is created to add attribute skip
                      */
                     const skip = getSkipAddUserComponent();
-                    if (skip) return;
+
+                    if (skip && !useRepeatWithoutSyncQuery) {
+                        addElementToInMemorySet(
+                            /** @type {import('./type').UserComponent} */ (host)
+                        );
+                    }
+
+                    if (skip) {
+                        return;
+                    }
 
                     /**
                      * Placeholder element that will move to slot. Add visibility hidden to avoid visiual jump before
@@ -396,11 +409,18 @@ export const defineUserComponent = (componentList) => {
 
                 disconnectedCallback() {
                     if (!this.shadowRoot) return;
+                    const host = this.shadowRoot?.host;
 
                     if (!useQuery) {
-                        const host = this.shadowRoot?.host;
-                        // @ts-ignore
-                        removeUserPlaceholder(host);
+                        removeUserPlaceholder(
+                            /** @type {import('./type').UserComponent} */ (host)
+                        );
+                    }
+
+                    if (!useRepeatWithoutSyncQuery) {
+                        cleanInMemorySet(
+                            /** @type {import('./type').UserComponent} */ (host)
+                        );
                     }
 
                     if (!this.active) return;

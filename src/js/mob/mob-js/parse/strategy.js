@@ -33,3 +33,10 @@ export const autoDetectParentId = true;
  * @type {boolean}
  */
 export const forceComponentChildQuery = true;
+
+/**
+ * Use query for add attribute to repeat child component. IF false use inmemory Map.
+ *
+ * @type {boolean}
+ */
+export const useRepeatWithoutSyncQuery = false;
