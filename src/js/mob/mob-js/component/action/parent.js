@@ -1,4 +1,4 @@
-import { useParentIdQuery, useQuery } from '../../parse/strategy';
+import { useParentIdQuery } from '../../parse/strategy';
 import { queryAllFutureComponent } from '../../query/query-all-future-component';
 import { getAllUserChildPlaceholder } from '../../modules/user-component';
 import { componentMap } from '../component-map';
