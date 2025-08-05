@@ -6,11 +6,18 @@
 export const useQuery = false;
 
 /**
- * Global behaviour for use query/placeholder webComponent to find slot.
+ * Global behaviour for get slot with query or from slotPlaceholder.
  *
  * @type {boolean}
  */
 export const useSlotQuery = false;
+
+/**
+ * Global behaviour for detect if component has slot with query or filtering userPlaceholder getSlotPosition method.
+ *
+ * @type {boolean}
+ */
+export const useComponentHasNamedSlotQuery = true;
 
 /**
  * ParentId group
@@ -32,7 +39,7 @@ export const autoDetectParentId = true;
  *
  * @type {boolean}
  */
-export const forceComponentChildQuery = true;
+export const useParentIdQuery = true;
 
 /**
  * Use query for add attribute to repeat child component. IF false use inmemory Map.

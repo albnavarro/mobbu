@@ -1,4 +1,4 @@
-import { forceComponentChildQuery, useQuery } from '../../parse/strategy';
+import { useParentIdQuery, useQuery } from '../../parse/strategy';
 import { queryAllFutureComponent } from '../../query/query-all-future-component';
 import { getAllUserChildPlaceholder } from '../../modules/user-component';
 import { componentMap } from '../component-map';
@@ -70,7 +70,7 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
 export const addParentIdToFutureComponent = ({ element, id }) => {
     if (!element) return;
 
-    if (useQuery || forceComponentChildQuery) {
+    if (useParentIdQuery) {
         const children = queryAllFutureComponent(element, false);
         children.forEach((child) => {
             child.setParentId(id);

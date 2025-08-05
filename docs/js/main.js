@@ -4919,8 +4919,9 @@
   // src/js/mob/mob-js/parse/strategy.js
   var useQuery = false;
   var useSlotQuery = false;
+  var useComponentHasNamedSlotQuery = true;
   var autoDetectParentId = true;
-  var forceComponentChildQuery = true;
+  var useParentIdQuery = true;
   var useRepeatWithoutSyncQuery = false;
 
   // src/js/mob/mob-js/query/query-all-future-component.js
@@ -5048,7 +5049,7 @@
   };
   var addParentIdToFutureComponent = ({ element, id }) => {
     if (!element) return;
-    if (useQuery || forceComponentChildQuery) {
+    if (useParentIdQuery) {
       const children = queryAllFutureComponent(element, false);
       children.forEach((child) => {
         child.setParentId(id);
@@ -6930,7 +6931,7 @@
     });
   };
   var addToNamedSlot = ({ element }) => {
-    const componentWithSlot = useQuery || forceComponentChildQuery ? queryComponentUseSlot(element) : getAllUserComponentUseNamedSlot({ element });
+    const componentWithSlot = useComponentHasNamedSlotQuery ? queryComponentUseSlot(element) : getAllUserComponentUseNamedSlot({ element });
     if (componentWithSlot.length === 0) return;
     const slots = [...componentWithSlot].map((component) => {
       const slotName = component?.getSlotPosition();

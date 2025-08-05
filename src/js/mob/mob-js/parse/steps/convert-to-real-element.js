@@ -11,7 +11,7 @@ import { querySecificSlot } from '../../query/query-specific-slot';
 import { queryUnNamedSlot } from '../../query/query-unnamed-slot';
 import { removeCurrentToBindPropsByPropsId } from '../../modules/bind-props';
 import { removeCurrentToPropsByPropsId } from '../../modules/static-props';
-import { forceComponentChildQuery, useSlotQuery, useQuery } from '../strategy';
+import { useSlotQuery, useComponentHasNamedSlotQuery } from '../strategy';
 import { getAllUserComponentUseNamedSlot } from '../../modules/user-component';
 import {
     getAllSlot,
@@ -111,10 +111,9 @@ const removeOrphanSlot = ({ element }) => {
  * @returns {void}
  */
 const addToNamedSlot = ({ element }) => {
-    const componentWithSlot =
-        useQuery || forceComponentChildQuery
-            ? queryComponentUseSlot(element)
-            : getAllUserComponentUseNamedSlot({ element });
+    const componentWithSlot = useComponentHasNamedSlotQuery
+        ? queryComponentUseSlot(element)
+        : getAllUserComponentUseNamedSlot({ element });
 
     if (componentWithSlot.length === 0) return;
 
