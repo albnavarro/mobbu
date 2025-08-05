@@ -6811,6 +6811,7 @@
     position: position2 = "afterend"
   }) => {
     const { item, type } = itemObject;
+    if (type === ELEMENT_TYPE_NOT_VALID) return;
     if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
       parent.insertAdjacentHTML(
         position2,
