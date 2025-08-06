@@ -2,7 +2,7 @@ import { MobCore } from '../../mob-core';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { setRepeaterComponentChildren } from '../modules/repeater/action/set-repeat-component-children';
 import { getFreezePropStatus } from './action/freeze';
-import { addNonPersisitentComponent } from './action/remove-and-destroy/cancellableComponent/add-persisitent-component';
+import { addNonPersisitentComponent } from './action/remove-and-destroy/cancellable-component/add-persisitent-component';
 import { componentMap } from './component-map';
 import { addIdToInstanceMap } from './instance-map';
 import { addPropsToState } from './utils';

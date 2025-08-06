@@ -7,7 +7,7 @@ import { componentMap } from '../../component-map';
 import { removeItselfFromParent } from './remove-itself-from-parent';
 import { removeRepeaterComponentChildren } from '../../../modules/repeater/action/set-repeat-component-children';
 import { removeIdFromInstanceMap } from '../../instance-map';
-import { removeNonPersisitentComponent } from './cancellableComponent/remove-persisitent-component';
+import { removeNonPersisitentComponent } from './cancellable-component/remove-persisitent-component';
 
 /**
  * Remove component to store and destroy it.
