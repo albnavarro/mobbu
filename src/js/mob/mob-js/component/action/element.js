@@ -95,28 +95,17 @@ export const getElementsByKeyAndRepeatId = ({
  * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.repeatId
- * @param {boolean} [obj.useIdAsParentId]
  * @returns {string[]}
  */
-export const getIdsByByRepeatId = ({
-    id,
-    repeatId,
-    useIdAsParentId: filterById = false,
-}) => {
+export const getIdsByByRepeatId = ({ id, repeatId }) => {
     if (!id || id === '') return [];
 
     const repeaterChildrenId = getRepeaterComponentChildren({ repeatId });
-    const occurrence = repeaterChildrenId
+    return repeaterChildrenId
         .map((id) => {
             return componentMap.get(id);
         })
-        .filter((item) => item !== undefined);
-
-    return occurrence
-        .filter((item) => {
-            if (filterById) return item?.parentId === id;
-            return item;
-        })
+        .filter((item) => item !== undefined)
         .map((item) => {
             return item.id;
         });
