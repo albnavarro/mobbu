@@ -111,7 +111,7 @@ MobCore.useLoad(() => {
         usePassive: false,
     });
 
-    MobMotionCore.printDefault();
+    // MobMotionCore.printDefault();
 
     initApp();
     usePageScroll();
