@@ -1,30 +1,3 @@
-# App:
-
-- Aggiungere pagine `500` speculare alla pagina `400`.
-
-- `Sharia coding`:
-    - Prevedere link in home.
-    - Lettegin semplice: `Sharia coding`.
-    - `Taliban style` `Indo-kush vibe`.
-    - `Left`: `mullha Omar` con coltelli e mano che cerca `ai`, faccia grossa, corpo piccolo con coltello.
-    - `Right`: lista di regole
-        - Rules:
-            - Use and update  you project static analyzer instead AI.
-            - No alcol, no herbs, use mushroom to expand allucination not AI.
-            - Rationalize Chaos use `Melt Banana` power
-
-- `Shiva coding`
-    - Prevedere link in home.
-    - Lettegin semplice: `Shiva coding`.
-    - Concept: `no pendencies`, `no sovrastutture` focus sulla tua logica, testa con pochi pensieri e ditrazioni.
-    - `Left`: `Shiva` ...
-    - `Right`: lista di regole
-        - Rules:
-            - Use and update  you project static analyzer instead AI.
-            - No alcol, si herbs, si mushoroom.
-
-
-
 # MobCore
 
 ### New Observe props.
@@ -42,12 +15,13 @@
 # MobJs
 
 ## removeCancellableComponent
-- Usare un evento apposito in `mainStore` che viene scatenato al momento di cancellare i componenti.
-- `src/js/mob/mob-js/component/index.js` lanciare `removeAndDestroyById()` e `unsubscribe` all' evento.
-- usare `mainStore` all' interno della funzione che restituisce il component potrebbe portare problemi di GC, in sospeso.
+- Creare `nonPersisitentComponentSet` `<id>`.
+    - Creazione componente `add`.
+    - Destroy del componente `remove`.
 
 ## src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
-- parent id ternario innestato, semplificare.
+- Parent id ternario innestato, semplificare.
+- Idealmante con `weakElementMap` si puó usare solo una strategia.
 
 ## DOCS:
 - Spiegare i meccanismi base `html-element`, consumo memoria etc.., fare sezione apposta.
@@ -56,7 +30,6 @@
 - Aggiungere:
     - Parent id logic.
     - Repeat `element` vs `innerWrapper` vs `repeatIdPlaceHolderMap` ( use external map children propierties, es: `getRepeaterChild()` ).
-    - Nel caso integrare con il punto seguente.
 
 ## Repeater Proxi
 - Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
@@ -69,9 +42,6 @@
 
 #### Render return object.
 - Funizione utility che converte un `oggetto` in `html`.
-
-## Search
-- Splittare `currentSearch` per spazi ?
 
 ## BindStore
 - Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:
