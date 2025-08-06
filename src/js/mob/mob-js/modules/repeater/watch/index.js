@@ -133,12 +133,7 @@ export const watchRepeat = ({
              * If clean of first time remove DOM from repeater container.
              */
             if (clean) {
-                const currentChildern = getIdsByByRepeatId({
-                    id,
-                    repeatId,
-                });
-
-                currentChildern.forEach((id) => {
+                childrenBeforeUdateByRepeatId.forEach((id) => {
                     removeAndDestroyById({ id });
                 });
 
@@ -176,6 +171,7 @@ export const watchRepeat = ({
                 render,
                 repeatId,
                 useSync,
+                currentChildren: clean ? [] : childrenBeforeUdateByRepeatId,
             });
 
             /**

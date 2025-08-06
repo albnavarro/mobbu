@@ -1,10 +1,7 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../../../component/action/remove-and-destroy/remove-and-destroy-by-id';
-import {
-    getElementById,
-    getIdsByByRepeatId,
-} from '../../../component/action/element';
+import { getElementById } from '../../../component/action/element';
 import { destroyNestedInvalidate } from '../../invalidate/action/destroy-nested-invalidate';
 import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
@@ -49,6 +46,7 @@ const removeMissedDebugComment = (container) => {
  * @param {string} obj.id
  * @param {string} obj.repeatId
  * @param {boolean} obj.useSync
+ * @param {string[]} obj.currentChildren
  * @returns {any[]}
  */
 export const addWithoutKey = ({
@@ -60,6 +58,7 @@ export const addWithoutKey = ({
     repeatId,
     id,
     useSync,
+    currentChildren,
 }) => {
     /**
      * @type {number}
@@ -120,19 +119,11 @@ export const addWithoutKey = ({
 
     if (diff < 0) {
         /**
-         * Filter children inside repeaterParentElement
-         */
-        const idsByRepeatId = getIdsByByRepeatId({
-            id,
-            repeatId,
-        });
-
-        /**
          * For singling component inside same repeater item. Group all childrn by wrapper ( or undefined if there is no
          * wrapper ) So destroy all right element by index
          */
         const childrenComponentChunkedByWrapper = chunkIdsByCurrentValue({
-            children: idsByRepeatId,
+            children: currentChildren,
         });
 
         /**

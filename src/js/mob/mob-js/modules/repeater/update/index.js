@@ -24,6 +24,7 @@ import { listKeyExist } from '../utils';
  * @param {string} obj.repeatId
  * @param {import('../type').RepeaterRender} obj.render
  * @param {boolean} obj.useSync
+ * @param {string[]} obj.currentChildren
  * @returns {Promise<any[]>}
  */
 export const updateRepeater = async ({
@@ -38,6 +39,7 @@ export const updateRepeater = async ({
     render,
     repeatId,
     useSync,
+    currentChildren = [],
 }) => {
     /**
      * Check if thereis a key
@@ -62,6 +64,7 @@ export const updateRepeater = async ({
         render,
         repeatId,
         useSync,
+        currentChildren,
     });
 
     /**
