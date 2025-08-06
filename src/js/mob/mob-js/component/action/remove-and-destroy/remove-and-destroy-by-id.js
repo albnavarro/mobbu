@@ -7,6 +7,7 @@ import { componentMap } from '../../component-map';
 import { removeItselfFromParent } from './remove-itself-from-parent';
 import { removeRepeaterComponentChildren } from '../../../modules/repeater/action/set-repeat-component-children';
 import { removeIdFromInstanceMap } from '../../instance-map';
+import { removeNonPersisitentComponent } from './cancellableComponent/remove-persisitent-component';
 
 /**
  * Remove component to store and destroy it.
@@ -31,6 +32,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
         parentPropsWatcher,
         componentRepeatId,
         instanceName,
+        persistent,
     } = instanceValue;
 
     /**
@@ -81,6 +83,13 @@ export const removeAndDestroyById = ({ id = '' }) => {
      */
     if (instanceName && instanceName.length > 0) {
         removeIdFromInstanceMap({ instanceName, id });
+    }
+
+    /**
+     * Remove id from nonPersisitentComponentSet
+     */
+    if (!persistent) {
+        removeNonPersisitentComponent(id);
     }
 
     /**

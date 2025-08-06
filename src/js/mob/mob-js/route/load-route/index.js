@@ -1,5 +1,4 @@
 import { removeOrphanTempIds } from '../../component/action/remove-and-destroy/remove-orphan-temp-ids';
-import { removeCancellableComponent } from '../../component/action/remove-and-destroy/remove-cancellable-component';
 import { getRouteByName } from '../route-list';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
@@ -15,6 +14,7 @@ import { getBeforePageTransition, getPageTransition } from '../page-transition';
 import { parseComponents } from '../../parse';
 import { getRestoreScroll } from '../scroll';
 import { tick } from '../../queque/tick';
+import { removeCancellableComponent } from '../../component/action/remove-and-destroy/cancellableComponent/destroy-all-non-persisitent-component';
 
 /**
  * Load new route.
