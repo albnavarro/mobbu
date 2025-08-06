@@ -1,5 +1,112 @@
 # MobCore
 
+## Store/MobJs:
+### Map & Set
+- Scenario 1: Clonando il Map/Set avró il `precendente` é il `successivo` diversi.
+
+```js
+// definition
+myMap: () => ({
+    value: new Map(),
+    type: Map,
+}),
+
+// component
+watch(
+    () => proxi.myMap,
+    (current, previous) => {
+        console.log(current, previous);
+        console.log(current.get(counter));
+    }
+);
+
+updateState(
+    'myMap',
+    (value) => {
+        return value.set(counter, counter * 10);
+    },
+    { clone: true }
+);
+
+
+//log:
+Map(2) {1 => 10, 2 => 20} // current
+Map(1) {1 => 10} // previous
+20 // current.get(counter)
+```
+
+- Scenario 2: usando il `proxi/Set` e `skipEqual = false` avró una modifica diretta sul `precendete` ma il `Map` verrá cmq. sovrascritto.
+
+```js
+myMap: () => ({
+    value: new Map(),
+    type: Map,
+
+    // la modifica diretta senza clone modificherá il previous.
+    // il previous sará uguale al corrente, vá sempre mantenuto false.
+    skipEqual: false,
+}),
+
+// component
+watch(
+    () => proxi.myMap,
+    (current, previous) => {
+        console.log(current, previous);
+        console.log(current.get(counter));
+    }
+);
+
+// proxi
+proxi.myMap = proxi.myMap.set(counter, counter * 10);
+
+// set
+setState(() => proxi.myMap, proxi.myMap.set(counter, counter * 10));
+
+//log:
+Map(2) {1 => 10, 2 => 20}
+Map(2) {1 => 10, 2 => 20}
+20 // current.get(counter)
+```
+
+#### Proposta:
+- Aggiungere `skipUpdate` in modo che nello scenario 2 il `Map/Set` non venga aggirnato, che per un `Map/Set` ha senso essendo una primitiva di per sé mutabile.
+- Inoltre senza clonare il `Map/Set` e settando `skipEqual = false` il dato viene cmq. aggiornato nello store ( il `previous` ).
+
+```js
+myMap: () => ({
+    value: new Map(),
+    type: Map,
+
+    // la modifica diretta senza clone modificherá il previous.
+    // il previous sará uguale al corrente, vá sempre mantenuto false.
+    skipEqual: false,
+
+    // non si sovrascrive mai la mappa sfruttando la mutabilitá.
+    skipUpdate: true
+}),
+```
+- Questo puó valere anche per `Array.push()`.
+- Opzione 1) aggiungere il controllo dopo `isEqual`.
+- Opzione 2) aggiungere il controllo prima di `isEqual` e se `skipUpdate === true` `skipEqual` viene bypassato ( cosi basta mettere `skipUpdate` ).
+- Sarebbe meglio estendere il comportamanto anche a `setObj` oltre che ha `setProp`.
+
+
+```js
+// src/js/mob/mob-core/store/store-set.js
+/**
+ * Check if last value is equal new value. if true and skipEqual is true for this prop return.
+ */
+const isEqual = skipEqual[prop]
+    ? checkEquality(type[prop], oldVal, valueTransformed)
+    : false;
+if (isEqual) return;
+
+/**
+ * Finally set new value
+ */
+store[prop] = valueTransformed;
+```
+
 ### New Observe props.
 - `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
 
@@ -12,12 +119,8 @@
 - Utile per `array/object`.
 - Rivedere un controllo piu permissivo e veloce per gli `oggetti`?
 
-# MobJs
 
-## removeCancellableComponent
-- Creare `nonPersisitentComponentSet` `<id>`.
-    - Creazione componente `add`.
-    - Destroy del componente `remove`.
+# MobJs
 
 ## src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
 - Parent id ternario innestato, semplificare.
