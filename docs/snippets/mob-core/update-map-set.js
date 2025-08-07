@@ -1,20 +1,19 @@
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myArray: () => ({
-        value: [],
-        type: Array,
+    myMap: () => ({
+        value: new Map(),
+        type: Map,
     }),
 });
 
 /**
  * Clone a array and return new array with one item added with classic push methods.
  */
-myStore.updateState(
-    'myArray',
+myStore.update(
+    'myMap',
     (value) => {
-        value.push(10);
-        return value;
+        return value.set('myKey', 10);
     },
-    { clone: true, emit: true }
+    { clone: true }
 );

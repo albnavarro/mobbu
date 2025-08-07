@@ -1336,6 +1336,115 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "big",
+                            "id": "store-map-set",
+                            "label": "Built-in objects Map/Set"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Built-in objects Map/Set"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The concept of <strong>store</strong> is based on <strong>value reassignment</strong>. Primitives like <strong>Map</strong> and <strong>Set</strong> need to be reassigned to trigger reactivity:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "with update:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "By <strong>cloning</strong> the current value it will be possible to return the <strong>new updated value</strong>, in this way using the <strong>watch utility</strong> the <strong>previous</strong> and <strong>current</strong> values will be correct."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/update-map-set.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 19
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h6"
+                        },
+                        "content": "with set/proxi:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Unlike update, the value in this case <strong>cannot be cloned</strong>, which means that the update operation will <strong>directly modify the source data</strong>. By using the <strong>skipEqual: false</strong> specification, it will be possible to avoid that the previous value being equal to the current one blocks the update process.<br/>In this case using the watch utility the values <strong>the previous value will be equal to the current one</strong>."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/set-proxi-map-set.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 17
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "I'm evaluating the <strong>possibility</strong> of inserting a new parameter in the state definition called <strong>skipUpdate</strong> to fully exploit the potential of states based on direct <strong>mutation</strong> such as <strong>map</strong> and <strong>set</strong>. For now, you will always have a copy of the previous state or you will update the state remotely by creating a copy anyway. It could be interesting to be able to modify the state remotely without creating a new copy."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
                             "id": "store-destroy",
                             "label": "Destroy"
                         }
