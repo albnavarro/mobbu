@@ -145,7 +145,9 @@ export const getOrderedChunkByCurrentRepeatValue = ({
         : getUnivoqueByKey({ data: current, key });
 
     /**
-     * Current children after parse.
+     * Associate index && key value ( currentValue?.[key] ) to every group of component ( id of component ).
+     *
+     * GetRepeaterStateById() return current component repeater data value by id.
      */
     const childrenParsed = children.map((items) => {
         const { index: indexValue, current: currentValue } =
@@ -160,13 +162,19 @@ export const getOrderedChunkByCurrentRepeatValue = ({
         };
     });
 
+    /**
+     * Remap currentUnivoque with index && key value ( item?.[key] ).
+     */
     const currentParsed = currentUnivoque.map((item, index) => ({
         index,
         key: item?.[key],
     }));
 
     /**
-     * Order children by compare currentUnivoque key.
+     * Start from original data array parsed ( univique ).
+     *
+     * Find from children array the group with same key ( or index ) and return it. The return array is the component
+     * array ordered by data array ( currentUnivoque ).
      */
     const orderdChildren = currentParsed
         .map((currentItem) => {
