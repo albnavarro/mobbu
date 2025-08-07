@@ -81,7 +81,7 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
 };
 
 /**
- * Group all childrn by wrapper ( or undefined if there is no wrapper )
+ * Group component inside single repeat node
  *
  * @param {object} obj
  * @param {string[]} obj.children
@@ -95,7 +95,7 @@ export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
     return previousChildren.length === 0
         ? Object.values(
               /**
-               * Chunk children by currentValue clean.
+               * Chunk children by currentValue ( index ) from a previous empty array.
                */
               children.reduce((previous, current) => {
                   const { index } = getRepeaterStateById({ id: current });
@@ -112,8 +112,12 @@ export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
           )
         : Object.values(
               /**
-               * New element has the same index of persistent element. Current value of persistent element is not
-               * updated. Mark new index element with `_` char
+               * New elements has the same index of persistent element.
+               *
+               * The currentValue values of each component at this point have not yet been updated, so new index values
+               * collide with previous ones (persistent elements).
+               *
+               * Mark new index element with `_` char so we have a new group of component for new repeat node.
                */
               children.reduce((previous, current) => {
                   const { index } = getRepeaterStateById({ id: current });

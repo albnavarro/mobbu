@@ -120,17 +120,23 @@ export const watchRepeat = ({
                 return;
             }
 
+            /**
+             * Get current component inside repeater.
+             */
             const childrenBeforeUdateByRepeatId = getIdsByByRepeatId({
                 id,
                 repeatId,
             });
 
+            /**
+             * Run function before update.
+             */
             if (mainComponent) {
                 await beforeUpdate();
             }
 
             /**
-             * If clean of first time remove DOM from repeater container.
+             * If clean destroy component inside repeater and clean refuse inside.
              */
             if (clean) {
                 childrenBeforeUdateByRepeatId.forEach((id) => {
@@ -156,7 +162,7 @@ export const watchRepeat = ({
                 });
 
             /**
-             * Start main update list function
+             * Run add-with-key or add-without-key.
              */
             const currentUpdated = await updateRepeater({
                 state,
@@ -175,9 +181,8 @@ export const watchRepeat = ({
             });
 
             /**
-             * Filter children inside repeaterParentElement
+             * Get new children after update.
              */
-
             const childrenFilteredByRepeatId = getIdsByByRepeatId({
                 id,
                 repeatId,
@@ -189,8 +194,9 @@ export const watchRepeat = ({
             const hasKey = key && key !== '';
 
             /**
-             * For singling component inside same repeater item. Group all children by wrapper ( or undefined if there
-             * is no wrapper ) So the index and current value is fine.
+             * After update, group component inside single repeat node in a chunked array.
+             *
+             * At this time the components are still in no particular order.
              */
             const childrenChunkedByWrapper = chunkIdsByCurrentValue({
                 children: childrenFilteredByRepeatId,
@@ -198,15 +204,14 @@ export const watchRepeat = ({
             });
 
             /**
-             * Ik key is used and element change position Order children by DOM position. Withiut key element is
-             * rendered in traversal order. Compare first item of chunk
+             * Ik key is used and element change position we have to order childrenChunkedByWrapper by currentUnivoque
+             * position. Starting from currentUnivoque, use key to remap currentUnivoque with an array of component with
+             * the the specific key.
              *
-             * If no key is used, children only update it's state. Element are add to componentMap in tree traversal
-             * order. So is natuarally ordered.
+             * TODO: pass currentUpdated to getOrderedChunkByCurrentRepeatValue(), internally the value is recalculated.
              *
-             * In case is necessary (in case of ?): It is possible use `getOrderedChunkByCurrentRepeatValue` with
-             * useIndex The key is undefined here. Only component added has new index, the index is added on creation.
-             * So the index of new element here is the right index.
+             * If no key is used, component children only update it's state. Element are add to componentMap in tree
+             * traversal order. So is natuarally ordered.
              */
             const chunkChildrenOrdered = hasKey
                 ? [
@@ -218,20 +223,8 @@ export const watchRepeat = ({
                   ]
                 : childrenChunkedByWrapper;
 
-            // const chunkChildrenOrdered = hasKey
-            //     ? [
-            //           ...gerOrderedChunkByDOMPosition({
-            //               children: childrenChunkedByWrapper,
-            //           }),
-            //       ]
-            //     : childrenChunkedByWrapper;
-
             /**
-             * Update children current value ( for "immutable" children ).
-             *
-             * - Repeater without key: item persistence.
-             * - Repeater with key: item moved. Update storeComponent currentRepeaterState propierties so bindPros get
-             *   last current/index value when watch.
+             * Update persistent component current value.
              */
             chunkChildrenOrdered.forEach((childArray, index) => {
                 childArray.forEach((id) => {
@@ -239,7 +232,7 @@ export const watchRepeat = ({
                     if (!currentValue) return;
 
                     /**
-                     * Find real index in original array ( current )
+                     * Find real index in original array ( currentUpdated )
                      */
                     const realIndex = hasKey
                         ? current.findIndex((value) => {
