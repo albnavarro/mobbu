@@ -1,72 +1,41 @@
 import { MobDetectBindKey } from '../../../../mob-core';
-import { getStateById } from '../../../component/action/state/get-state-by-id';
 import { clamp } from '../../../utils';
+import { getRepeaterPlaceholderCurrentData } from '../action/get-repeat-placeholder-map-current-data';
 
 const REPEAT_PROXI_INDEX = 'index';
-
-/**
- * @param {object} params
- * @param {any} params.state
- * @param {string} params.prop
- * @param {string} params.key
- * @param {string} params.keyValue
- * @param {boolean} params.hasKey
- */
-const showDuplicatedWaring = ({ state, prop, key, keyValue, hasKey }) => {
-    const keyIsDuplicated = hasKey
-        ? state?.[prop]?.filter(
-              (/** @type {{ [x: string]: any }} */ item) =>
-                  item[key] === keyValue
-          )?.length > 1
-        : false;
-
-    if (keyIsDuplicated) {
-        console.warn(
-            ` ${keyValue} Key is duplicated, repeater with key proxi can fail `
-        );
-    }
-};
 
 /**
  * Reactive state for repeat. Note: bindObject can run after 'item' is destroyed ( wekRef issue ). So clamp index value
  * with current array length. The item is not visible but can fire error.
  *
  * @param {object} params
- * @param {string} params.id
  * @param {string} params.observe
  * @param {boolean} params.hasKey
  * @param {string} [params.key]
  * @param {any} [params.keyValue]
  * @param {number} params.index
+ * @param {string} params.repeatId
  * @returns {Record<string, any>}
  */
 export const getRepeatProxi = ({
-    id,
     observe,
     hasKey,
     key = '',
     keyValue = '',
     index,
+    repeatId,
 }) => {
     /**
      * Initial value.
      */
-    const inistalState = getStateById(id);
-
-    showDuplicatedWaring({
-        state: inistalState,
-        prop: observe,
-        key,
-        keyValue,
-        hasKey,
-    });
+    const inistalState = getRepeaterPlaceholderCurrentData({ repeatId });
 
     const startValue = hasKey
-        ? inistalState?.[observe]?.find(
+        ? inistalState?.find(
               (/** @type {{ [x: string]: any }} */ item) =>
                   item[key] === keyValue
           )
-        : inistalState?.[observe]?.[index];
+        : inistalState?.[index];
 
     let currentValue = startValue;
     let lastValue = startValue;
@@ -83,17 +52,9 @@ export const getRepeatProxi = ({
                 /**
                  * Use last updated state Proxi target should be not last value.
                  */
-                const state = getStateById(id);
+                const state = getRepeaterPlaceholderCurrentData({ repeatId });
 
-                showDuplicatedWaring({
-                    state,
-                    prop: observe,
-                    key,
-                    keyValue,
-                    hasKey,
-                });
-
-                const maxValue = Math.max(state?.[observe].length - 1, 0);
+                const maxValue = Math.max(state?.length - 1, 0);
 
                 /**
                  * Return current.index
@@ -103,7 +64,7 @@ export const getRepeatProxi = ({
                      * Return index by key.
                      */
                     if (hasKey) {
-                        const indexByKey = state?.[observe]?.findIndex(
+                        const indexByKey = state?.findIndex(
                             (/** @type {{ [x: string]: any }} */ item) =>
                                 item[key] === keyValue
                         );
@@ -122,7 +83,7 @@ export const getRepeatProxi = ({
                  */
                 if (hasKey) {
                     lastValue = currentValue ?? lastValue;
-                    currentValue = state?.[observe]?.find(
+                    currentValue = state?.find(
                         (/** @type {{ [x: string]: any }} */ item) =>
                             item[key] === keyValue
                     );
@@ -134,7 +95,7 @@ export const getRepeatProxi = ({
                  * Return value without key. Prevent undefined, return last value fallback
                  */
                 lastValue = currentValue ?? lastValue;
-                currentValue = state?.[observe]?.[clamp(index, 0, maxValue)];
+                currentValue = state?.[clamp(index, 0, maxValue)];
                 return currentValue ?? lastValue;
             },
             set() {

@@ -15,6 +15,7 @@ import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
 import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
+import { setRepeaterPlaceholderCurrentData } from '../action/set-repeat-placeholder-map-current-data';
 
 /**
  * @param {object} params
@@ -56,6 +57,14 @@ export const addWithKey = ({
      * Get unique data array by key
      */
     const currentUnique = getUnivoqueByKey({ data: current, key });
+
+    /**
+     * Update current data value in repeatPlaceholderMap before create proxi.
+     */
+    setRepeaterPlaceholderCurrentData({
+        repeatId,
+        currentData: currentUnique,
+    });
 
     /**
      * # REMOVE
@@ -261,7 +270,6 @@ export const addWithKey = ({
 
             const currentRender = useSync
                 ? updateRepeaterWithtKeyUseSync({
-                      id,
                       currentValue,
                       index,
                       state,
@@ -271,7 +279,6 @@ export const addWithKey = ({
                       render,
                   })
                 : updateRepeaterWithtKey({
-                      id,
                       currentValue,
                       index,
                       state,

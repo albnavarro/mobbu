@@ -7742,37 +7742,27 @@
     );
   };
 
+  // src/js/mob/mob-js/modules/repeater/action/get-repeat-placeholder-map-current-data.js
+  var getRepeaterPlaceholderCurrentData = ({ repeatId }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return [];
+    return item.currentData;
+  };
+
   // src/js/mob/mob-js/modules/repeater/update/get-proxi.js
   var REPEAT_PROXI_INDEX = "index";
-  var showDuplicatedWaring = ({ state, prop, key, keyValue, hasKey }) => {
-    const keyIsDuplicated = hasKey ? state?.[prop]?.filter(
-      (item) => item[key] === keyValue
-    )?.length > 1 : false;
-    if (keyIsDuplicated) {
-      console.warn(
-        ` ${keyValue} Key is duplicated, repeater with key proxi can fail `
-      );
-    }
-  };
   var getRepeatProxi = ({
-    id,
     observe,
     hasKey,
     key = "",
     keyValue = "",
-    index
+    index,
+    repeatId
   }) => {
-    const inistalState = getStateById(id);
-    showDuplicatedWaring({
-      state: inistalState,
-      prop: observe,
-      key,
-      keyValue,
-      hasKey
-    });
-    const startValue = hasKey ? inistalState?.[observe]?.find(
+    const inistalState = getRepeaterPlaceholderCurrentData({ repeatId });
+    const startValue = hasKey ? inistalState?.find(
       (item) => item[key] === keyValue
-    ) : inistalState?.[observe]?.[index];
+    ) : inistalState?.[index];
     let currentValue = startValue;
     let lastValue = startValue;
     return new Proxy(
@@ -7780,18 +7770,11 @@
       {
         get(_, prop) {
           current_key_exports.setCurrentDependencies(observe);
-          const state = getStateById(id);
-          showDuplicatedWaring({
-            state,
-            prop: observe,
-            key,
-            keyValue,
-            hasKey
-          });
-          const maxValue = Math.max(state?.[observe].length - 1, 0);
+          const state = getRepeaterPlaceholderCurrentData({ repeatId });
+          const maxValue = Math.max(state?.length - 1, 0);
           if (prop === REPEAT_PROXI_INDEX) {
             if (hasKey) {
-              const indexByKey = state?.[observe]?.findIndex(
+              const indexByKey = state?.findIndex(
                 (item) => item[key] === keyValue
               );
               return clamp2(indexByKey, 0, maxValue);
@@ -7800,13 +7783,13 @@
           }
           if (hasKey) {
             lastValue = currentValue ?? lastValue;
-            currentValue = state?.[observe]?.find(
+            currentValue = state?.find(
               (item) => item[key] === keyValue
             );
             return currentValue ?? lastValue;
           }
           lastValue = currentValue ?? lastValue;
-          currentValue = state?.[observe]?.[clamp2(index, 0, maxValue)];
+          currentValue = state?.[clamp2(index, 0, maxValue)];
           return currentValue ?? lastValue;
         },
         set() {
@@ -7818,7 +7801,6 @@
 
   // src/js/mob/mob-js/modules/repeater/update/utils.js
   var updateRepeaterWitoutKey = ({
-    id,
     diff,
     current,
     previousLenght,
@@ -7832,10 +7814,10 @@
         const initialValue = current?.[index + previousLenght];
         const initialIndex = index + previousLenght;
         const proxiObject = getRepeatProxi({
-          id,
           observe: state,
           hasKey: false,
-          index: initialIndex
+          index: initialIndex,
+          repeatId
         });
         const rawRender = render2({
           initialIndex,
@@ -7888,7 +7870,6 @@
     );
   };
   var updateRepeaterWithoutKeyUseSync = ({
-    id,
     diff,
     previousLenght,
     current,
@@ -7900,10 +7881,10 @@
       const initialIndex = index + previousLenght;
       const initialValue = current?.[initialIndex] ? { ...current?.[initialIndex] } : {};
       const proxiObject = getRepeatProxi({
-        id,
         observe: state,
         hasKey: false,
-        index: initialIndex
+        index: initialIndex,
+        repeatId
       });
       return render2({
         sync: () => getSyncWithoutKey({
@@ -7919,7 +7900,6 @@
     }).join("");
   };
   var updateRepeaterWithtKey = ({
-    id,
     currentValue,
     index,
     state,
@@ -7929,12 +7909,12 @@
     render: render2
   }) => {
     const proxiObject = getRepeatProxi({
-      id,
       observe: state,
       hasKey: true,
       key,
       keyValue,
-      index
+      index,
+      repeatId
     });
     const lastSkipUserValue = getSkipAddUserComponent();
     setSkipAddUserComponent(true);
@@ -7987,7 +7967,6 @@
     );
   };
   var updateRepeaterWithtKeyUseSync = ({
-    id,
     currentValue,
     index,
     state,
@@ -7998,12 +7977,12 @@
   }) => {
     const currentValueCopy = { ...currentValue };
     const proxiObject = getRepeatProxi({
-      id,
       observe: state,
       hasKey: true,
       key,
       keyValue,
-      index
+      index,
+      repeatId
     });
     return render2({
       initialIndex: index,
@@ -8019,7 +7998,6 @@
     });
   };
   var getRenderWithoutSync = ({
-    id,
     currentUnique,
     render: render2,
     observe,
@@ -8030,12 +8008,12 @@
     const range = document.createRange();
     const renderedDOM = currentUnique.map((item, index) => {
       const proxiObject = getRepeatProxi({
-        id,
         observe,
         hasKey,
         key,
         keyValue: hasKey ? item?.[key] : "",
-        index
+        index,
+        repeatId
       });
       const lastSkipUserValue = getSkipAddUserComponent();
       setSkipAddUserComponent(true);
@@ -8078,7 +8056,6 @@
     return renderedDOM.filter((element) => element !== null);
   };
   var getRenderWithSync = ({
-    id,
     currentUnique,
     key = "",
     observe,
@@ -8101,12 +8078,12 @@
                             ${ATTR_CHILD_REPEATID}="${repeatId}"`
         );
         const proxiObject = getRepeatProxi({
-          id,
           observe,
           hasKey,
           key,
           keyValue: hasKey ? item?.[key] : "",
-          index
+          index,
+          repeatId
         });
         return render2({
           sync,
@@ -8146,6 +8123,19 @@
     return nativeDOMChildren;
   };
 
+  // src/js/mob/mob-js/modules/repeater/action/set-repeat-placeholder-map-current-data.js
+  var setRepeaterPlaceholderCurrentData = ({
+    repeatId,
+    currentData
+  }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      currentData
+    });
+  };
+
   // src/js/mob/mob-js/modules/repeater/update/add-with-key.js
   var addDebugToComponent = ({ element, container }) => {
     const componentName = getComponentNameByElement(element);
@@ -8163,6 +8153,10 @@
     useSync
   }) => {
     const currentUnique = getUnivoqueByKey({ data: current, key });
+    setRepeaterPlaceholderCurrentData({
+      repeatId,
+      currentData: currentUnique
+    });
     const currentItemToRemoveByKey = getItemToRemoveByKey(
       previous,
       currentUnique,
@@ -8263,7 +8257,6 @@
         }
         const currentValue = currentUnique?.[index];
         const currentRender = useSync ? updateRepeaterWithtKeyUseSync({
-          id,
           currentValue,
           index,
           state,
@@ -8272,7 +8265,6 @@
           keyValue,
           render: render2
         }) : updateRepeaterWithtKey({
-          id,
           currentValue,
           index,
           state,
@@ -8323,12 +8315,15 @@
     useSync,
     currentChildren
   }) => {
+    setRepeaterPlaceholderCurrentData({
+      repeatId,
+      currentData: current
+    });
     const currentLenght = current.length;
     const previousLenght = previous.length;
     const diff = currentLenght - previousLenght;
     if (diff > 0) {
       const currentRender = useSync ? updateRepeaterWithoutKeyUseSync({
-        id,
         diff,
         previousLenght,
         current,
@@ -8336,7 +8331,6 @@
         repeatId,
         render: render2
       }) : updateRepeaterWitoutKey({
-        id,
         diff,
         current,
         previousLenght,
@@ -8654,12 +8648,21 @@
     });
   };
 
-  // src/js/mob/mob-js/modules/repeater/action/set-repeater-placeholder-map-scope-id.js
-  var setRepeaterPlaceholderMapScopeId = ({
+  // src/js/mob/mob-js/modules/repeater/action/set-repeater-placeholder-map-initial-render.js
+  var setRepeaterPlaceholderDOMRender = ({
     repeatId,
-    scopeId,
     initialDOMRender
   }) => {
+    const item = repeatIdPlaceHolderMap.get(repeatId);
+    if (!item) return;
+    repeatIdPlaceHolderMap.set(repeatId, {
+      ...item,
+      initialRenderWithoutSync: initialDOMRender
+    });
+  };
+
+  // src/js/mob/mob-js/modules/repeater/action/initialize-repeater-placeholder-map.js
+  var initializeRepeaterPlaceholderMap = ({ repeatId, scopeId }) => {
     repeatIdPlaceHolderMap.set(repeatId, {
       element: void 0,
       initialized: false,
@@ -8667,7 +8670,8 @@
       key: "",
       nativeDOMChildren: [],
       componentChildren: [],
-      initialRenderWithoutSync: initialDOMRender
+      currentData: [],
+      initialRenderWithoutSync: []
     });
   };
 
@@ -8850,10 +8854,17 @@
         const observeParsed = detectProp(observe);
         const repeatId = modules_exports.getUnivoqueId();
         const hasKey = key2 !== "";
+        initializeRepeaterPlaceholderMap({
+          repeatId,
+          scopeId: id
+        });
         const initialState = getState()?.[observeParsed];
         const currentUnique = hasKey ? getUnivoqueByKey({ data: initialState, key: key2 }) : initialState;
+        setRepeaterPlaceholderCurrentData({
+          repeatId,
+          currentData: currentUnique
+        });
         const initialStringRender = useSync ? getRenderWithSync({
-          id,
           currentUnique,
           key: key2,
           observe: observeParsed,
@@ -8862,7 +8873,6 @@
           render: render2
         }) : "";
         const initialDOMRender = useSync ? [] : getRenderWithoutSync({
-          id,
           currentUnique,
           render: render2,
           observe: observeParsed,
@@ -8871,9 +8881,8 @@
           hasKey
         });
         let isInizialized = false;
-        setRepeaterPlaceholderMapScopeId({
+        setRepeaterPlaceholderDOMRender({
           repeatId,
-          scopeId: id,
           initialDOMRender
         });
         setRepeatFunction({
@@ -30257,6 +30266,10 @@ Loading snippet ...</pre
       label: "C"
     },
     {
+      key: "b",
+      label: "B"
+    },
+    {
       key: "a",
       label: "A"
     },
@@ -30935,23 +30948,16 @@ Loading snippet ...</pre
     bindProps,
     delegateEvents,
     repeat,
-    getProxi,
-    computed
+    getProxi
   }) => {
     const proxi = getProxi();
     const keyParsed = proxi.key.length > 0 ? proxi.key : void 0;
-    computed(
-      () => proxi.dataUnique,
-      () => proxi.data.filter(
-        (value, index, self) => self.map(({ key }) => key).indexOf(value.key) === index
-      )
-    );
     return renderHtml`
         <div class="c-dynamic-list-repeater">
             <h4 class="c-dynamic-list-repeater__title">${proxi.label}</h4>
             <div class="c-dynamic-list-repeater__list">
                 ${repeat({
-      observe: () => keyParsed ? proxi.dataUnique : proxi.data,
+      observe: () => proxi.data,
       clean: proxi.clean,
       key: keyParsed,
       afterUpdate: () => {
@@ -30989,10 +30995,6 @@ Loading snippet ...</pre
       ],
       state: {
         data: () => ({
-          value: [],
-          type: Array
-        }),
-        dataUnique: () => ({
           value: [],
           type: Array
         }),

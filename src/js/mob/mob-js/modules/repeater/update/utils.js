@@ -20,7 +20,6 @@ import { getRepeatProxi } from './get-proxi';
 
 /**
  * @param {object} params
- * @param {string} params.id
  * @param {number} params.diff
  * @param {any} params.current
  * @param {number} params.previousLenght
@@ -30,7 +29,6 @@ import { getRepeatProxi } from './get-proxi';
  * @returns {Element[]}
  */
 export const updateRepeaterWitoutKey = ({
-    id,
     diff,
     current,
     previousLenght,
@@ -49,10 +47,10 @@ export const updateRepeaterWitoutKey = ({
             const initialIndex = index + previousLenght;
 
             const proxiObject = getRepeatProxi({
-                id,
                 observe: state,
                 hasKey: false,
                 index: initialIndex,
+                repeatId,
             });
 
             const rawRender = render({
@@ -129,7 +127,6 @@ const getSyncWithoutKey = ({ initialIndex, initialValue, state, repeatId }) => {
 
 /**
  * @param {object} params
- * @param {string} params.id
  * @param {number} params.diff
  * @param {any} params.current
  * @param {number} params.previousLenght
@@ -139,7 +136,6 @@ const getSyncWithoutKey = ({ initialIndex, initialValue, state, repeatId }) => {
  * @returns {string}
  */
 export const updateRepeaterWithoutKeyUseSync = ({
-    id,
     diff,
     previousLenght,
     current,
@@ -157,10 +153,10 @@ export const updateRepeaterWithoutKeyUseSync = ({
                 : {};
 
             const proxiObject = getRepeatProxi({
-                id,
                 observe: state,
                 hasKey: false,
                 index: initialIndex,
+                repeatId,
             });
 
             return render({
@@ -181,7 +177,6 @@ export const updateRepeaterWithoutKeyUseSync = ({
 
 /**
  * @param {object} params
- * @param {string} params.id
  * @param {Record<string, any>} params.currentValue
  * @param {number} params.index
  * @param {string} params.state
@@ -192,7 +187,6 @@ export const updateRepeaterWithoutKeyUseSync = ({
  * @returns {Element | null}
  */
 export const updateRepeaterWithtKey = ({
-    id,
     currentValue,
     index,
     state,
@@ -202,12 +196,12 @@ export const updateRepeaterWithtKey = ({
     render,
 }) => {
     const proxiObject = getRepeatProxi({
-        id,
         observe: state,
         hasKey: true,
         key,
         keyValue,
         index,
+        repeatId,
     });
 
     const lastSkipUserValue = getSkipAddUserComponent();
@@ -282,7 +276,6 @@ const getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
 
 /**
  * @param {object} params
- * @param {string} params.id
  * @param {Record<string, any>} params.currentValue
  * @param {number} params.index
  * @param {string} params.state
@@ -293,7 +286,6 @@ const getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
  * @returns {string}
  */
 export const updateRepeaterWithtKeyUseSync = ({
-    id,
     currentValue,
     index,
     state,
@@ -306,12 +298,12 @@ export const updateRepeaterWithtKeyUseSync = ({
     const currentValueCopy = { ...currentValue };
 
     const proxiObject = getRepeatProxi({
-        id,
         observe: state,
         hasKey: true,
         key,
         keyValue,
         index,
+        repeatId,
     });
 
     return render({
@@ -331,7 +323,6 @@ export const updateRepeaterWithtKeyUseSync = ({
 
 /**
  * @param {object} params
- * @param {string} params.id
  * @param {Record<string, any>[]} params.currentUnique
  * @param {import('../type').RepeaterRender} params.render
  * @param {string} params.observe
@@ -341,7 +332,6 @@ export const updateRepeaterWithtKeyUseSync = ({
  * @returns {Element[]}
  */
 export const getRenderWithoutSync = ({
-    id,
     currentUnique,
     render,
     observe,
@@ -356,12 +346,12 @@ export const getRenderWithoutSync = ({
      */
     const renderedDOM = currentUnique.map((item, index) => {
         const proxiObject = getRepeatProxi({
-            id,
             observe,
             hasKey,
             key,
             keyValue: hasKey ? item?.[key] : '',
             index,
+            repeatId,
         });
 
         const lastSkipUserValue = getSkipAddUserComponent();
@@ -421,7 +411,6 @@ export const getRenderWithoutSync = ({
 
 /**
  * @param {object} params
- * @param {string} params.id
  * @param {Record<string, any>[]} params.currentUnique
  * @param {import('../type').RepeaterRender} params.render
  * @param {string} params.observe
@@ -431,7 +420,6 @@ export const getRenderWithoutSync = ({
  * @returns {string}
  */
 export const getRenderWithSync = ({
-    id,
     currentUnique,
     key = '',
     observe,
@@ -454,12 +442,12 @@ export const getRenderWithSync = ({
                             ${ATTR_CHILD_REPEATID}="${repeatId}"`;
 
                 const proxiObject = getRepeatProxi({
-                    id,
                     observe,
                     hasKey,
                     key,
                     keyValue: hasKey ? item?.[key] : '',
                     index,
+                    repeatId,
                 });
 
                 return render({

@@ -51,7 +51,7 @@ import { inizializeRepeatWatch } from '../../modules/repeater/action/inizialize-
 import { setRepeaterNativeDOMChildren } from '../../modules/repeater/action/set-repeat-native-dom-children';
 import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';
 import { setRepeaterPlaceholderMapInitialized } from '../../modules/repeater/action/set-repeater-placeholder-map-initialized';
-import { setRepeaterPlaceholderMapScopeId } from '../../modules/repeater/action/set-repeater-placeholder-map-scope-id';
+import { setRepeaterPlaceholderDOMRender } from '../../modules/repeater/action/set-repeater-placeholder-map-initial-render';
 import {
     getRenderWithoutSync,
     getRenderWithSync,
@@ -60,6 +60,8 @@ import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { setStaticProps } from '../../modules/static-props';
 import { detectProp } from '../../utils';
 import { repeaterhasComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
+import { initializeRepeaterPlaceholderMap } from '../../modules/repeater/action/initialize-repeater-placeholder-map';
+import { setRepeaterPlaceholderCurrentData } from '../../modules/repeater/action/set-repeat-placeholder-map-current-data';
 
 /**
  * Create component Reuturn all prosps/method for user function.
@@ -291,6 +293,11 @@ export const getParamsForComponentFunction = ({
             const repeatId = MobCore.getUnivoqueId();
             const hasKey = key !== '';
 
+            initializeRepeaterPlaceholderMap({
+                repeatId,
+                scopeId: id,
+            });
+
             /** Type @type{Record<string, any>[]} */
             const initialState = getState()?.[observeParsed];
             const currentUnique = hasKey
@@ -298,11 +305,18 @@ export const getParamsForComponentFunction = ({
                 : initialState;
 
             /**
+             * Add first dataset related to sitem, with key is filtered by univique key.
+             */
+            setRepeaterPlaceholderCurrentData({
+                repeatId,
+                currentData: currentUnique,
+            });
+
+            /**
              * If sync as used by user, add the initial string directly
              */
             const initialStringRender = useSync
                 ? getRenderWithSync({
-                      id,
                       currentUnique,
                       key,
                       observe: observeParsed,
@@ -319,7 +333,6 @@ export const getParamsForComponentFunction = ({
             const initialDOMRender = useSync
                 ? []
                 : getRenderWithoutSync({
-                      id,
                       currentUnique,
                       render,
                       observe: observeParsed,
@@ -333,9 +346,8 @@ export const getParamsForComponentFunction = ({
              */
             let isInizialized = false;
 
-            setRepeaterPlaceholderMapScopeId({
+            setRepeaterPlaceholderDOMRender({
                 repeatId,
-                scopeId: id,
                 initialDOMRender,
             });
 

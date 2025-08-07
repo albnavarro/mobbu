@@ -37,6 +37,10 @@ export const state1 = [
         label: 'C',
     },
     {
+        key: 'b',
+        label: 'B',
+    },
+    {
         key: 'a',
         label: 'A',
     },

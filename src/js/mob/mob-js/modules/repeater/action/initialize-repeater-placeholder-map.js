@@ -11,15 +11,10 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  * @param {object} params
  * @param {string} params.repeatId
  * @param {string} params.scopeId
- * @param {Element[]} params.initialDOMRender
  * @returns {void}
  */
 
-export const setRepeaterPlaceholderMapScopeId = ({
-    repeatId,
-    scopeId,
-    initialDOMRender,
-}) => {
+export const initializeRepeaterPlaceholderMap = ({ repeatId, scopeId }) => {
     repeatIdPlaceHolderMap.set(repeatId, {
         element: undefined,
         initialized: false,
@@ -27,6 +22,7 @@ export const setRepeaterPlaceholderMapScopeId = ({
         key: '',
         nativeDOMChildren: [],
         componentChildren: [],
-        initialRenderWithoutSync: initialDOMRender,
+        currentData: [],
+        initialRenderWithoutSync: [],
     });
 };

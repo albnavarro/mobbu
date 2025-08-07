@@ -68,26 +68,16 @@ export const DynamicListRepeaterFn = ({
     delegateEvents,
     repeat,
     getProxi,
-    computed,
 }) => {
     const proxi = getProxi();
     const keyParsed = proxi.key.length > 0 ? proxi.key : undefined;
-
-    computed(
-        () => proxi.dataUnique,
-        () =>
-            proxi.data.filter(
-                (value, index, self) =>
-                    self.map(({ key }) => key).indexOf(value.key) === index
-            )
-    );
 
     return html`
         <div class="c-dynamic-list-repeater">
             <h4 class="c-dynamic-list-repeater__title">${proxi.label}</h4>
             <div class="c-dynamic-list-repeater__list">
                 ${repeat({
-                    observe: () => (keyParsed ? proxi.dataUnique : proxi.data),
+                    observe: () => proxi.data,
                     clean: proxi.clean,
                     key: keyParsed,
                     afterUpdate: () => {

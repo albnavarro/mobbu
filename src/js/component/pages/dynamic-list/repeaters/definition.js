@@ -28,10 +28,6 @@ export const DynamicListRepeater = MobJs.createComponent(
                 value: [],
                 type: Array,
             }),
-            dataUnique: () => ({
-                value: [],
-                type: Array,
-            }),
             key: () => ({
                 value: '',
                 type: String,

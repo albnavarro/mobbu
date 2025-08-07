@@ -13,6 +13,7 @@ import {
 } from './utils';
 import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getDefaultComponent } from '../../../component/create-component';
+import { setRepeaterPlaceholderCurrentData } from '../action/set-repeat-placeholder-map-current-data';
 
 /**
  * @param {HTMLElement} container
@@ -61,6 +62,14 @@ export const addWithoutKey = ({
     currentChildren,
 }) => {
     /**
+     * Update current data value in repeatPlaceholderMap before create proxi.
+     */
+    setRepeaterPlaceholderCurrentData({
+        repeatId,
+        currentData: current,
+    });
+
+    /**
      * @type {number}
      */
     const currentLenght = current.length;
@@ -81,7 +90,6 @@ export const addWithoutKey = ({
     if (diff > 0) {
         const currentRender = useSync
             ? updateRepeaterWithoutKeyUseSync({
-                  id,
                   diff,
                   previousLenght,
                   current,
@@ -90,7 +98,6 @@ export const addWithoutKey = ({
                   render,
               })
             : updateRepeaterWitoutKey({
-                  id,
                   diff,
                   current,
                   previousLenght,

@@ -134,11 +134,6 @@ store[prop] = valueTransformed;
     - Parent id logic.
     - Repeat `element` vs `innerWrapper` vs `repeatIdPlaceHolderMap` ( use external map children propierties, es: `getRepeaterChild()` ).
 
-## Repeater Proxi
-- Aggiunto `warning` quando ci sono le chiavi duplicate in:<br/>
- `src/js/mob/mob-js/modules/repeater/update/get-proxi.js`
-- E' possibile correggere la situazione a monte ?
-
 ## ParserHTML
 #### Sanitize
 - Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.

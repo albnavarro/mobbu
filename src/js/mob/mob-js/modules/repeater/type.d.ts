@@ -53,6 +53,7 @@ export type RepeatIdPlaceHolderMap = Map<
         scopeId: string | undefined;
         key: string;
         componentChildren: string[];
+        currentData: any[];
         nativeDOMChildren: {
             index: number;
             value: any;
