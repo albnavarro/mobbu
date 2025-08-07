@@ -219,6 +219,7 @@ export const watchRepeat = ({
                           children: childrenChunkedByWrapper,
                           key,
                           current,
+                          currentUnivoque: currentUpdated,
                       }),
                   ]
                 : childrenChunkedByWrapper;

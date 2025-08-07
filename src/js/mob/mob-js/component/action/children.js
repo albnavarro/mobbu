@@ -1,4 +1,3 @@
-import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { componentMap } from '../component-map';
 import { getElementById } from './element';
 import { getRepeaterStateById } from './repeater';
@@ -131,6 +130,7 @@ export const gerOrderedChunkByDOMPosition = ({ children }) => {
  * @param {string[][]} obj.children
  * @param {string} obj.key
  * @param {Record<string, any>[]} obj.current
+ * @param {Record<string, any>[]} obj.currentUnivoque
  * @param {boolean} [obj.useIndex]
  * @returns {string[][]}
  */
@@ -138,18 +138,17 @@ export const getOrderedChunkByCurrentRepeatValue = ({
     children,
     key,
     current,
+    currentUnivoque,
     useIndex = false,
 }) => {
-    const currentUnivoque = useIndex
-        ? current
-        : getUnivoqueByKey({ data: current, key });
+    const currentParsed = useIndex ? current : currentUnivoque;
 
     /**
      * Associate index && key value ( currentValue?.[key] ) to every group of component ( id of component ).
      *
      * GetRepeaterStateById() return current component repeater data value by id.
      */
-    const childrenParsed = children.map((items) => {
+    const childrenRemapped = children.map((items) => {
         const { index: indexValue, current: currentValue } =
             getRepeaterStateById({
                 id: items?.[0],
@@ -165,7 +164,7 @@ export const getOrderedChunkByCurrentRepeatValue = ({
     /**
      * Remap currentUnivoque with index && key value ( item?.[key] ).
      */
-    const currentParsed = currentUnivoque.map((item, index) => ({
+    const currentRemapped = currentParsed.map((item, index) => ({
         index,
         key: item?.[key],
     }));
@@ -176,11 +175,11 @@ export const getOrderedChunkByCurrentRepeatValue = ({
      * Find from children array the group with same key ( or index ) and return it. The return array is the component
      * array ordered by data array ( currentUnivoque ).
      */
-    const orderdChildren = currentParsed
+    const orderdChildren = currentRemapped
         .map((currentItem) => {
             const prop = useIndex ? 'index' : 'key';
 
-            return childrenParsed.find(
+            return childrenRemapped.find(
                 (childrenItem) => childrenItem[prop] === currentItem[prop]
             );
         })
