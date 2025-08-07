@@ -117,7 +117,10 @@ export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
                * The currentValue values of each component at this point have not yet been updated, so new index values
                * collide with previous ones (persistent elements).
                *
-               * Mark new index element with `_` char so we have a new group of component for new repeat node.
+               * Mark new index element with `_<index>` char so we have a new group of component for new repeat node.
+               *
+               * `_<index>` has only internal use state, the function return string[][], the scope of `_<index>` is only
+               * create a new group.
                */
               children.reduce((previous, current) => {
                   const { index } = getRepeaterStateById({ id: current });
