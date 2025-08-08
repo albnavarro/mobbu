@@ -9,8 +9,6 @@ import { queryComponentUseSlot } from '../../query/query-component-use-slot';
 import { queryGenericSlot } from '../../query/query-generic-slot';
 import { querySecificSlot } from '../../query/query-specific-slot';
 import { queryUnNamedSlot } from '../../query/query-unnamed-slot';
-import { removeCurrentToBindPropsByPropsId } from '../../modules/bind-props';
-import { removeCurrentToPropsByPropsId } from '../../modules/static-props';
 import { useSlotQuery, useComponentHasNamedSlotQuery } from '../strategy';
 import { getAllUserComponentUseNamedSlot } from '../../modules/user-component';
 import {

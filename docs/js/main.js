@@ -6352,318 +6352,6 @@
     return null;
   };
 
-  // src/js/mob/mob-js/component/action/props.js
-  var setDynamicPropsWatch = ({ id = "", unWatchArray = [] }) => {
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { parentPropsWatcher } = item;
-    if (!parentPropsWatcher) return;
-    componentMap.set(id, {
-      ...item,
-      parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray]
-    });
-  };
-  var unBind = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentPropsWatcher = item?.parentPropsWatcher ?? [];
-    parentPropsWatcher.forEach((unwatch) => {
-      unwatch();
-    });
-  };
-
-  // src/js/mob/mob-js/queque/utils.js
-  function awaitNextLoop() {
-    return new Promise((resolve) => modules_exports.useNextLoop(() => resolve()));
-  }
-
-  // src/js/mob/mob-js/queque/tick.js
-  var queque = /* @__PURE__ */ new Map();
-  var maxQueuqueSize = 1e5;
-  var incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
-      return () => {
-      };
-    }
-    const id = modules_exports.getUnivoqueId();
-    queque.set(id, props);
-    return () => queque.delete(id);
-  };
-  var queueIsResolved = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize;
-  };
-  var tick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      queque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved()) {
-        resolve();
-        return;
-      }
-      tick({ debug, previousResolve: previousResolve ?? resolve });
-    });
-  };
-
-  // src/js/mob/mob-js/queque/tick-repeater.js
-  var repeaterQueque = /* @__PURE__ */ new Map();
-  var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
-  var maxQueuqueSize2 = 1e3;
-  var incrementRepeaterTickQueuque = (props) => {
-    if (repeaterQueque.size >= maxQueuqueSize2) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize2})`);
-      return () => {
-      };
-    }
-    const id = modules_exports.getUnivoqueId();
-    repeaterQueque.set(id, props);
-    return () => repeaterQueque.delete(id);
-  };
-  var queueIsResolved2 = () => {
-    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize2;
-  };
-  var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      repeaterQueque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved2() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved2()) {
-        resolve();
-        return;
-      }
-      repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
-    });
-  };
-
-  // src/js/mob/mob-js/queque/tick-invalidate.js
-  var invalidateQueque = /* @__PURE__ */ new Map();
-  var invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
-  var maxQueuqueSize3 = 1e3;
-  var incrementInvalidateTickQueuque = (props) => {
-    if (invalidateQueque.size >= maxQueuqueSize3) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
-      return () => {
-      };
-    }
-    const id = modules_exports.getUnivoqueId();
-    invalidateQueque.set(id, props);
-    return () => invalidateQueque.delete(id);
-  };
-  var queueIsResolved3 = () => {
-    return invalidateQueque.size === 0 || invalidateQueque.size >= maxQueuqueSize3;
-  };
-  var invalidateTick = async ({
-    debug = false,
-    previousResolve
-  } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      invalidateQueque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved3() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved3()) {
-        resolve();
-        return;
-      }
-      invalidateTick({
-        debug,
-        previousResolve: previousResolve ?? resolve
-      });
-    });
-  };
-
-  // src/js/mob/mob-js/modules/bind-props/index.js
-  var setBindProps = (data) => {
-    const hasProps = "props" in data;
-    if (!hasProps) {
-      console.warn(`bindProps not valid`);
-      return;
-    }
-    const stateToWatch = (
-      /** @type {string[] | undefined} */
-      data?.observe ? (() => {
-        return (
-          /** @type{( string|( () => void ) )[]} */
-          data.observe.map((item) => {
-            return detectProp(item);
-          })
-        );
-      })() : (() => {
-        current_key_exports.initializeCurrentDependencies();
-        if (modules_exports.checkType(Function, data.props)) {
-          data.props({}, {}, 0);
-        }
-        return current_key_exports.getCurrentDependencies();
-      })()
-    );
-    if (stateToWatch.length === 0) {
-      console.warn(`bindProps not valid, no dependencies found`);
-      return;
-    }
-    const dataUpdated = { ...data, observe: stateToWatch };
-    const id = modules_exports.getUnivoqueId();
-    bindPropsMap.set(id, {
-      ...dataUpdated,
-      componentId: "",
-      propsId: id
-    });
-    return id;
-  };
-  var updateBindProp = ({
-    componentId,
-    observe,
-    props,
-    currentParentId,
-    fireCallback
-  }) => {
-    if (!currentParentId) return;
-    const parentState = getStateById(currentParentId);
-    if (!parentState) return;
-    const parentStateKeys = Object.keys(parentState);
-    const bindArrayIsValid = observe.every(
-      (state) => parentStateKeys.includes(state)
-    );
-    if (!bindArrayIsValid) {
-      console.warn(
-        `bind props error: Some prop ${JSON.stringify(observe)} doesn't exist`
-      );
-    }
-    const componentExist = componentMap.has(componentId);
-    if (!componentExist) return;
-    const currentRepeaterState = getRepeaterStateById({
-      id: componentId
-    });
-    const newProps = props?.(
-      parentState,
-      currentRepeaterState.current,
-      currentRepeaterState?.index
-    );
-    if (!newProps) return;
-    Object.entries(newProps).forEach(([key, value]) => {
-      setStateById(componentId, key, value, { emit: fireCallback });
-    });
-  };
-  var addCurrentIdToBindProps = ({
-    propsId,
-    repeatPropBind,
-    componentId
-  }) => {
-    if (!propsId) return;
-    const value = bindPropsMap.get(propsId);
-    if (!value) return;
-    bindPropsMap.set(propsId, { ...value, componentId });
-    bindComponentTobindId.set(componentId, propsId);
-    applyBindProps({
-      componentId,
-      repeatPropBind,
-      inizilizeWatcher: false
-    });
-  };
-  var applyBindProps = async ({
-    componentId,
-    repeatPropBind,
-    inizilizeWatcher
-  }) => {
-    const moduleId = bindComponentTobindId.get(componentId);
-    if (!moduleId) return;
-    if (inizilizeWatcher) bindComponentTobindId.delete(componentId);
-    const dynamicProps = bindPropsMap.get(moduleId);
-    if (!dynamicProps) return;
-    const { observe, props, parentId } = dynamicProps;
-    const observeParsed = repeatPropBind && repeatPropBind?.length > 0 && !observe.includes(repeatPropBind) ? [...observe, repeatPropBind] : [...observe];
-    const currentParentId = parentId ?? getParentIdById(componentId);
-    if (!inizilizeWatcher) {
-      updateBindProp({
-        componentId,
-        observe: observeParsed,
-        props,
-        currentParentId: currentParentId ?? "",
-        fireCallback: false
-      });
-    }
-    if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
-      await repeaterTick();
-      updateBindProp({
-        componentId,
-        observe: observeParsed,
-        props,
-        currentParentId: currentParentId ?? "",
-        fireCallback: true
-      });
-    }
-    if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
-      await invalidateTick();
-      updateBindProp({
-        componentId,
-        observe: observeParsed,
-        props,
-        currentParentId: currentParentId ?? "",
-        fireCallback: true
-      });
-    }
-    if (!inizilizeWatcher) return;
-    let watchIsRunning = false;
-    const unWatchArray = observeParsed.map((state) => {
-      return watchById(currentParentId, state, async () => {
-        await repeaterTick();
-        await invalidateTick();
-        if (watchIsRunning) return;
-        const decrementQueue = incrementTickQueuque({
-          state,
-          id: componentId,
-          type: QUEQUE_TYPE_BINDPROPS
-        });
-        watchIsRunning = true;
-        modules_exports.useNextLoop(() => {
-          updateBindProp({
-            componentId,
-            observe: observeParsed,
-            props,
-            currentParentId: currentParentId ?? "",
-            fireCallback: true
-          });
-          watchIsRunning = false;
-          decrementQueue();
-        });
-      });
-    });
-    setDynamicPropsWatch({
-      id: componentId,
-      unWatchArray: unWatchArray.filter((item) => item !== void 0)
-    });
-    if (!inizilizeWatcher) return;
-    for (const [key, value] of bindPropsMap) {
-      const { componentId: currentComponentId } = value;
-      if (currentComponentId === componentId) {
-        bindPropsMap.delete(key);
-      }
-    }
-  };
-  var removeOrphansBindProps = () => {
-    bindPropsMap.clear();
-  };
-
   // src/js/mob/mob-js/modules/repeater/repeater-value/index.js
   var currentRepeaterValueMap = /* @__PURE__ */ new Map();
   var setComponentRepeaterState = (current) => {
@@ -6938,6 +6626,47 @@
     onMountCallbackMap.delete(id);
   };
 
+  // src/js/mob/mob-js/queque/utils.js
+  function awaitNextLoop() {
+    return new Promise((resolve) => modules_exports.useNextLoop(() => resolve()));
+  }
+
+  // src/js/mob/mob-js/queque/tick.js
+  var queque = /* @__PURE__ */ new Map();
+  var maxQueuqueSize = 1e5;
+  var incrementTickQueuque = (props) => {
+    if (queque.size >= maxQueuqueSize) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+      return () => {
+      };
+    }
+    const id = modules_exports.getUnivoqueId();
+    queque.set(id, props);
+    return () => queque.delete(id);
+  };
+  var queueIsResolved = () => {
+    return queque.size === 0 || queque.size >= maxQueuqueSize;
+  };
+  var tick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      queque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved()) {
+        resolve();
+        return;
+      }
+      tick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
+
   // src/js/mob/mob-js/modules/common-event.js
   var shouldFireEvent = true;
   var allowFireEvent = () => {
@@ -6982,6 +6711,277 @@
   };
   var removeOrphansBindEvent = () => {
     bindEventMap.clear();
+  };
+
+  // src/js/mob/mob-js/component/action/props.js
+  var setDynamicPropsWatch = ({ id = "", unWatchArray = [] }) => {
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { parentPropsWatcher } = item;
+    if (!parentPropsWatcher) return;
+    componentMap.set(id, {
+      ...item,
+      parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray]
+    });
+  };
+  var unBind = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentPropsWatcher = item?.parentPropsWatcher ?? [];
+    parentPropsWatcher.forEach((unwatch) => {
+      unwatch();
+    });
+  };
+
+  // src/js/mob/mob-js/queque/tick-repeater.js
+  var repeaterQueque = /* @__PURE__ */ new Map();
+  var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
+  var maxQueuqueSize2 = 1e3;
+  var incrementRepeaterTickQueuque = (props) => {
+    if (repeaterQueque.size >= maxQueuqueSize2) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize2})`);
+      return () => {
+      };
+    }
+    const id = modules_exports.getUnivoqueId();
+    repeaterQueque.set(id, props);
+    return () => repeaterQueque.delete(id);
+  };
+  var queueIsResolved2 = () => {
+    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize2;
+  };
+  var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      repeaterQueque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved2() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved2()) {
+        resolve();
+        return;
+      }
+      repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
+
+  // src/js/mob/mob-js/queque/tick-invalidate.js
+  var invalidateQueque = /* @__PURE__ */ new Map();
+  var invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
+  var maxQueuqueSize3 = 1e3;
+  var incrementInvalidateTickQueuque = (props) => {
+    if (invalidateQueque.size >= maxQueuqueSize3) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
+      return () => {
+      };
+    }
+    const id = modules_exports.getUnivoqueId();
+    invalidateQueque.set(id, props);
+    return () => invalidateQueque.delete(id);
+  };
+  var queueIsResolved3 = () => {
+    return invalidateQueque.size === 0 || invalidateQueque.size >= maxQueuqueSize3;
+  };
+  var invalidateTick = async ({
+    debug = false,
+    previousResolve
+  } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      invalidateQueque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved3() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved3()) {
+        resolve();
+        return;
+      }
+      invalidateTick({
+        debug,
+        previousResolve: previousResolve ?? resolve
+      });
+    });
+  };
+
+  // src/js/mob/mob-js/modules/bind-props/index.js
+  var setBindProps = (data) => {
+    const hasProps = "props" in data;
+    if (!hasProps) {
+      console.warn(`bindProps not valid`);
+      return;
+    }
+    const stateToWatch = (
+      /** @type {string[] | undefined} */
+      data?.observe ? (() => {
+        return (
+          /** @type{( string|( () => void ) )[]} */
+          data.observe.map((item) => {
+            return detectProp(item);
+          })
+        );
+      })() : (() => {
+        current_key_exports.initializeCurrentDependencies();
+        if (modules_exports.checkType(Function, data.props)) {
+          data.props({}, {}, 0);
+        }
+        return current_key_exports.getCurrentDependencies();
+      })()
+    );
+    if (stateToWatch.length === 0) {
+      console.warn(`bindProps not valid, no dependencies found`);
+      return;
+    }
+    const dataUpdated = { ...data, observe: stateToWatch };
+    const id = modules_exports.getUnivoqueId();
+    bindPropsMap.set(id, {
+      ...dataUpdated,
+      componentId: "",
+      propsId: id
+    });
+    return id;
+  };
+  var updateBindProp = ({
+    componentId,
+    observe,
+    props,
+    currentParentId,
+    fireCallback
+  }) => {
+    if (!currentParentId) return;
+    const parentState = getStateById(currentParentId);
+    if (!parentState) return;
+    const parentStateKeys = Object.keys(parentState);
+    const bindArrayIsValid = observe.every(
+      (state) => parentStateKeys.includes(state)
+    );
+    if (!bindArrayIsValid) {
+      console.warn(
+        `bind props error: Some prop ${JSON.stringify(observe)} doesn't exist`
+      );
+    }
+    const componentExist = componentMap.has(componentId);
+    if (!componentExist) return;
+    const currentRepeaterState = getRepeaterStateById({
+      id: componentId
+    });
+    const newProps = props?.(
+      parentState,
+      currentRepeaterState.current,
+      currentRepeaterState?.index
+    );
+    if (!newProps) return;
+    Object.entries(newProps).forEach(([key, value]) => {
+      setStateById(componentId, key, value, { emit: fireCallback });
+    });
+  };
+  var addCurrentIdToBindProps = ({
+    propsId,
+    repeatPropBind,
+    componentId
+  }) => {
+    if (!propsId) return;
+    const value = bindPropsMap.get(propsId);
+    if (!value) return;
+    bindPropsMap.set(propsId, { ...value, componentId });
+    bindComponentTobindId.set(componentId, propsId);
+    applyBindProps({
+      componentId,
+      repeatPropBind,
+      inizilizeWatcher: false
+    });
+  };
+  var applyBindProps = async ({
+    componentId,
+    repeatPropBind,
+    inizilizeWatcher
+  }) => {
+    const moduleId = bindComponentTobindId.get(componentId);
+    if (!moduleId) return;
+    if (inizilizeWatcher) bindComponentTobindId.delete(componentId);
+    const dynamicProps = bindPropsMap.get(moduleId);
+    if (!dynamicProps) return;
+    const { observe, props, parentId } = dynamicProps;
+    const observeParsed = repeatPropBind && repeatPropBind?.length > 0 && !observe.includes(repeatPropBind) ? [...observe, repeatPropBind] : [...observe];
+    const currentParentId = parentId ?? getParentIdById(componentId);
+    if (!inizilizeWatcher) {
+      updateBindProp({
+        componentId,
+        observe: observeParsed,
+        props,
+        currentParentId: currentParentId ?? "",
+        fireCallback: false
+      });
+    }
+    if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
+      await repeaterTick();
+      updateBindProp({
+        componentId,
+        observe: observeParsed,
+        props,
+        currentParentId: currentParentId ?? "",
+        fireCallback: true
+      });
+    }
+    if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
+      await invalidateTick();
+      updateBindProp({
+        componentId,
+        observe: observeParsed,
+        props,
+        currentParentId: currentParentId ?? "",
+        fireCallback: true
+      });
+    }
+    if (!inizilizeWatcher) return;
+    let watchIsRunning = false;
+    const unWatchArray = observeParsed.map((state) => {
+      return watchById(currentParentId, state, async () => {
+        await repeaterTick();
+        await invalidateTick();
+        if (watchIsRunning) return;
+        const decrementQueue = incrementTickQueuque({
+          state,
+          id: componentId,
+          type: QUEQUE_TYPE_BINDPROPS
+        });
+        watchIsRunning = true;
+        modules_exports.useNextLoop(() => {
+          updateBindProp({
+            componentId,
+            observe: observeParsed,
+            props,
+            currentParentId: currentParentId ?? "",
+            fireCallback: true
+          });
+          watchIsRunning = false;
+          decrementQueue();
+        });
+      });
+    });
+    setDynamicPropsWatch({
+      id: componentId,
+      unWatchArray: unWatchArray.filter((item) => item !== void 0)
+    });
+    if (!inizilizeWatcher) return;
+    for (const [key, value] of bindPropsMap) {
+      const { componentId: currentComponentId } = value;
+      if (currentComponentId === componentId) {
+        bindPropsMap.delete(key);
+      }
+    }
+  };
+  var removeOrphansBindProps = () => {
+    bindPropsMap.clear();
   };
 
   // src/js/mob/mob-js/component/action/remove-and-destroy/destroy-component-inside-node-by-id.js
