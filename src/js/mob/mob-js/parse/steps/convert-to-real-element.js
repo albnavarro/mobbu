@@ -117,7 +117,7 @@ const addToNamedSlot = ({ element }) => {
 
     if (componentWithSlot.length === 0) return;
 
-    const slots = [...componentWithSlot].map((component) => {
+    [...componentWithSlot].forEach((component) => {
         // @ts-ignore
         const slotName = component?.getSlotPosition();
 
@@ -137,34 +137,6 @@ const addToNamedSlot = ({ element }) => {
          * Add component/element before slot.
          */
         slot.parentNode?.insertBefore(component, slot);
-        const elementMoved = /** @type {HTMLElement} */ (slot.previousSibling);
-
-        return { slot, elementMoved };
-    });
-
-    /**
-     * Delete slot.
-     */
-    slots.forEach(({ slot, elementMoved }) => {
-        if (!slot) return;
-
-        /**
-         * Set props id from slot to component.
-         *
-         * @type {string | undefined}
-         */
-        // @ts-ignore
-        const propsIdFromSlot = slot.getStaticProps();
-        if (propsIdFromSlot)
-            // @ts-ignore
-            elementMoved?.setPropsFromSlotId?.(propsIdFromSlot);
-
-        // @ts-ignore
-        const bindPropsIdFromSlot = slot.getDynamicProps();
-        if (bindPropsIdFromSlot)
-            // @ts-ignore
-            elementMoved?.setDynamicPropsFromSlotId?.(bindPropsIdFromSlot);
-
         slot?.removeCustomComponent();
         slot?.remove();
     });

@@ -1,5 +1,5 @@
 /** @type {import('./type').BindPropsMap} */
 export const bindPropsMap = new Map();
 
-/** @type{Map<string, string[]>} */
+/** @type{Map<string, string>} */
 export const bindComponentTobindId = new Map();

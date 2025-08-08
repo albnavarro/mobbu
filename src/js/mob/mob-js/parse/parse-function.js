@@ -164,7 +164,6 @@ export const parseComponentsRecursive = async ({
         instanceName,
         key,
         dynamicPropsId,
-        dynamicPropsIdFromSlot,
         currentRepeatValue,
         bindEventsId,
         parentId,
@@ -234,11 +233,6 @@ export const parseComponentsRecursive = async ({
     addCurrentIdToBindProps({
         propsId: dynamicPropsId,
         repeatPropBind,
-        componentId: id,
-    });
-
-    addCurrentIdToBindProps({
-        propsId: dynamicPropsIdFromSlot,
         componentId: id,
     });
 

@@ -35,16 +35,12 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const propsId = element.getStaticPropsId();
     const dynamicPropsId = element.getDynamicPropsid();
     const bindEventsId = element.getBindEventsId();
-    const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
-    const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
     const componentRepeatId = element.getComponentRepeatId();
     const key = element.getCurrentKey() ?? '';
     const componentName = element.getComponentName();
     const cleanProsId = propsId?.split(' ').join('');
-    const cleanProsFromSlot = propsSlot?.split(' ').join('');
     const propsFromParent = getPropsFromParent(cleanProsId);
-    const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
     const repeatPropBind = element.getRepeaterPropBind();
     const currentRepeatValue = getComponentRepeaterState(
@@ -62,17 +58,12 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
                 componentName,
                 currentProps: propsFromParent,
             }),
-            ...filterExportableStateFromObject({
-                componentName,
-                currentProps: propsFromSlot,
-            }),
         },
         id,
         componentName,
         instanceName,
         key,
         dynamicPropsId,
-        dynamicPropsIdFromSlot,
         repeatPropBind,
         bindEventsId,
         currentRepeatValue,

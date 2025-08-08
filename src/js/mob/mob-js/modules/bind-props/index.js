@@ -193,8 +193,7 @@ export const addCurrentIdToBindProps = ({
     /**
      * Create a link for get propsId from component quickly in applyBindProps, n0 logic.
      */
-    const previousPropsId = bindComponentTobindId.get(componentId) ?? [];
-    bindComponentTobindId.set(componentId, [...previousPropsId, propsId]);
+    bindComponentTobindId.set(componentId, propsId);
 
     applyBindProps({
         componentId,
@@ -231,8 +230,8 @@ export const applyBindProps = async ({
     inizilizeWatcher,
 }) => {
     // Se inizilizeWatcher delete bindComponentTobindId
-    const moduleIds = bindComponentTobindId.get(componentId);
-    if (!moduleIds) return;
+    const moduleId = bindComponentTobindId.get(componentId);
+    if (!moduleId) return;
 
     /**
      * Last applyBindProps call delete support map
@@ -242,163 +241,155 @@ export const applyBindProps = async ({
     /**
      * Get all dynamic prop by component id.
      */
-    const dynamicPropsFilteredArray = moduleIds
-        .map((id) => {
-            return bindPropsMap.get(id);
-        })
-        .filter((item) => item !== undefined);
+    const dynamicProps = bindPropsMap.get(moduleId);
 
     /**
      * If not return.
      */
-    if (!dynamicPropsFilteredArray) return;
+    if (!dynamicProps) return;
 
     /**
      * Cycle dynamicProps from component or from slot.
      */
-    for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
-        const { observe, props, parentId } = dynamicpropsfiltered;
+    const { observe, props, parentId } = dynamicProps;
+
+    /**
+     * Merge watch state inside a repeater with bind array.
+     */
+    const observeParsed =
+        repeatPropBind &&
+        repeatPropBind?.length > 0 &&
+        !observe.includes(repeatPropBind)
+            ? [...observe, repeatPropBind]
+            : [...observe];
+
+    /**
+     * Force parent id or get the natually parent id.
+     */
+    const currentParentId = parentId ?? getParentIdById(componentId);
+
+    /**
+     * Normally props is initialized after repeater So on created we doesn't have the props ready Fire setDynamicProp
+     * once before repeater tick to add value in store and use it onCreated
+     *
+     * The values calculated here can refer to the previous state of the store, in the next step after the repeaters
+     * have been executed it will be updated with the latest state of the store.
+     */
+    if (!inizilizeWatcher) {
+        updateBindProp({
+            componentId,
+            observe: observeParsed,
+            props,
+            currentParentId: currentParentId ?? '',
+            fireCallback: false,
+        });
+    }
+
+    /**
+     * If repeater is running, update
+     */
+    if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
+        /**
+         * Initialize props after repater So we have the last value of currentValue && index
+         */
+        await repeaterTick();
 
         /**
-         * Merge watch state inside a repeater with bind array.
+         * Refresh state after repater created
          */
-        const observeParsed =
-            repeatPropBind &&
-            repeatPropBind?.length > 0 &&
-            !observe.includes(repeatPropBind)
-                ? [...observe, repeatPropBind]
-                : [...observe];
+        updateBindProp({
+            componentId,
+            observe: observeParsed,
+            props,
+            currentParentId: currentParentId ?? '',
+            fireCallback: true,
+        });
+    }
+
+    /**
+     * If invalidate is running, update
+     */
+    if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
+        /**
+         * Initialize props after repater So we have the last value of currentValue && index
+         */
+        await invalidateTick();
 
         /**
-         * Force parent id or get the natually parent id.
+         * Refresh state after repater created
          */
-        const currentParentId = parentId ?? getParentIdById(componentId);
+        updateBindProp({
+            componentId,
+            observe: observeParsed,
+            props,
+            currentParentId: currentParentId ?? '',
+            fireCallback: true,
+        });
+    }
 
-        /**
-         * Normally props is initialized after repeater So on created we doesn't have the props ready Fire
-         * setDynamicProp once before repeater tick to add value in store and use it onCreated
-         *
-         * The values calculated here can refer to the previous state of the store, in the next step after the repeaters
-         * have been executed it will be updated with the latest state of the store.
-         */
-        if (!inizilizeWatcher) {
-            updateBindProp({
-                componentId,
-                observe: observeParsed,
-                props,
-                currentParentId: currentParentId ?? '',
-                fireCallback: false,
-            });
-        }
+    if (!inizilizeWatcher) return;
 
-        /**
-         * If repeater is running, update
-         */
-        if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
+    /**
+     * Watch props on change
+     */
+    let watchIsRunning = false;
+
+    const unWatchArray = observeParsed.map((/** @type {string} */ state) => {
+        return watchById(currentParentId, state, async () => {
             /**
-             * Initialize props after repater So we have the last value of currentValue && index
+             * Fire bindProps after repeater.
              */
             await repeaterTick();
-
-            /**
-             * Refresh state after repater created
-             */
-            updateBindProp({
-                componentId,
-                observe: observeParsed,
-                props,
-                currentParentId: currentParentId ?? '',
-                fireCallback: true,
-            });
-        }
-
-        /**
-         * If invalidate is running, update
-         */
-        if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
-            /**
-             * Initialize props after repater So we have the last value of currentValue && index
-             */
             await invalidateTick();
 
             /**
-             * Refresh state after repater created
+             * Wait for all all props is settled.
              */
-            updateBindProp({
-                componentId,
-                observe: observeParsed,
-                props,
-                currentParentId: currentParentId ?? '',
-                fireCallback: true,
+            if (watchIsRunning) return;
+
+            /**
+             * Add watcher to active queuqe operation.
+             */
+            const decrementQueue = incrementTickQueuque({
+                state,
+                id: componentId,
+                type: QUEQUE_TYPE_BINDPROPS,
             });
-        }
 
-        if (!inizilizeWatcher) return;
-
-        /**
-         * Watch props on change
-         */
-        let watchIsRunning = false;
-
-        const unWatchArray = observeParsed.map(
-            (/** @type {string} */ state) => {
-                return watchById(currentParentId, state, async () => {
-                    /**
-                     * Fire bindProps after repeater.
-                     */
-                    await repeaterTick();
-                    await invalidateTick();
-
-                    /**
-                     * Wait for all all props is settled.
-                     */
-                    if (watchIsRunning) return;
-
-                    /**
-                     * Add watcher to active queuqe operation.
-                     */
-                    const decrementQueue = incrementTickQueuque({
-                        state,
-                        id: componentId,
-                        type: QUEQUE_TYPE_BINDPROPS,
-                    });
-
-                    /**
-                     * Fire watch only once if multiple props change. Wait the end of current block.
-                     */
-                    watchIsRunning = true;
-                    MobCore.useNextLoop(() => {
-                        updateBindProp({
-                            componentId,
-                            observe: observeParsed,
-                            props,
-                            currentParentId: currentParentId ?? '',
-                            fireCallback: true,
-                        });
-
-                        watchIsRunning = false;
-
-                        /**
-                         * Remove watcher to active queuqe operation.
-                         */
-                        decrementQueue();
-                    });
+            /**
+             * Fire watch only once if multiple props change. Wait the end of current block.
+             */
+            watchIsRunning = true;
+            MobCore.useNextLoop(() => {
+                updateBindProp({
+                    componentId,
+                    observe: observeParsed,
+                    props,
+                    currentParentId: currentParentId ?? '',
+                    fireCallback: true,
                 });
-            }
-        );
 
-        /**
-         * Add unwatch function to store. So we lounch them on destroy.
-         */
-        setDynamicPropsWatch({
-            id: componentId,
-            unWatchArray: unWatchArray.filter((item) => item !== undefined),
+                watchIsRunning = false;
+
+                /**
+                 * Remove watcher to active queuqe operation.
+                 */
+                decrementQueue();
+            });
         });
+    });
 
-        /**
-         * Remove current dynamic prop from store.
-         */
-    }
+    /**
+     * Add unwatch function to store. So we lounch them on destroy.
+     */
+    setDynamicPropsWatch({
+        id: componentId,
+        unWatchArray: unWatchArray.filter((item) => item !== undefined),
+    });
+
+    /**
+     * Remove current dynamic prop from store.
+     */
 
     /**
      * If all watcher ( from component or from slot ) is initialized deleter all reference from store

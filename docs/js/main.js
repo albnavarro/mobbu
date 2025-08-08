@@ -5648,14 +5648,6 @@
          * @type {string | undefined | null}
          */
         #slotName;
-        /**
-         * @type {string | undefined | null}
-         */
-        #staticProps;
-        /**
-         * @type {string | undefined | null}
-         */
-        #dynamicProps;
         constructor() {
           super();
           this.attachShadow({ mode: "open" });
@@ -5664,8 +5656,6 @@
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
             this.#slotName = this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
-            this.#staticProps = this.shadowRoot?.host.getAttribute(ATTR_PROPS);
-            this.#dynamicProps = this.shadowRoot?.host.getAttribute(ATTR_BIND_PROPS);
           }
         }
         connectedCallback() {
@@ -5679,12 +5669,6 @@
         }
         getSlotName() {
           return this.#slotName;
-        }
-        getStaticProps() {
-          return this.#staticProps;
-        }
-        getDynamicProps() {
-          return this.#dynamicProps;
         }
       }
     );
@@ -6593,8 +6577,7 @@
     const value = bindPropsMap.get(propsId);
     if (!value) return;
     bindPropsMap.set(propsId, { ...value, componentId });
-    const previousPropsId = bindComponentTobindId.get(componentId) ?? [];
-    bindComponentTobindId.set(componentId, [...previousPropsId, propsId]);
+    bindComponentTobindId.set(componentId, propsId);
     applyBindProps({
       componentId,
       repeatPropBind,
@@ -6610,79 +6593,73 @@
     repeatPropBind,
     inizilizeWatcher
   }) => {
-    const moduleIds = bindComponentTobindId.get(componentId);
-    if (!moduleIds) return;
+    const moduleId = bindComponentTobindId.get(componentId);
+    if (!moduleId) return;
     if (inizilizeWatcher) bindComponentTobindId.delete(componentId);
-    const dynamicPropsFilteredArray = moduleIds.map((id) => {
-      return bindPropsMap.get(id);
-    }).filter((item) => item !== void 0);
-    if (!dynamicPropsFilteredArray) return;
-    for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
-      const { observe, props, parentId } = dynamicpropsfiltered;
-      const observeParsed = repeatPropBind && repeatPropBind?.length > 0 && !observe.includes(repeatPropBind) ? [...observe, repeatPropBind] : [...observe];
-      const currentParentId = parentId ?? getParentIdById(componentId);
-      if (!inizilizeWatcher) {
-        updateBindProp({
-          componentId,
-          observe: observeParsed,
-          props,
-          currentParentId: currentParentId ?? "",
-          fireCallback: false
-        });
-      }
-      if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
-        await repeaterTick();
-        updateBindProp({
-          componentId,
-          observe: observeParsed,
-          props,
-          currentParentId: currentParentId ?? "",
-          fireCallback: true
-        });
-      }
-      if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
-        await invalidateTick();
-        updateBindProp({
-          componentId,
-          observe: observeParsed,
-          props,
-          currentParentId: currentParentId ?? "",
-          fireCallback: true
-        });
-      }
-      if (!inizilizeWatcher) return;
-      let watchIsRunning = false;
-      const unWatchArray = observeParsed.map(
-        (state) => {
-          return watchById(currentParentId, state, async () => {
-            await repeaterTick();
-            await invalidateTick();
-            if (watchIsRunning) return;
-            const decrementQueue = incrementTickQueuque({
-              state,
-              id: componentId,
-              type: QUEQUE_TYPE_BINDPROPS
-            });
-            watchIsRunning = true;
-            modules_exports.useNextLoop(() => {
-              updateBindProp({
-                componentId,
-                observe: observeParsed,
-                props,
-                currentParentId: currentParentId ?? "",
-                fireCallback: true
-              });
-              watchIsRunning = false;
-              decrementQueue();
-            });
-          });
-        }
-      );
-      setDynamicPropsWatch({
-        id: componentId,
-        unWatchArray: unWatchArray.filter((item) => item !== void 0)
+    const dynamicProps = bindPropsMap.get(moduleId);
+    if (!dynamicProps) return;
+    const { observe, props, parentId } = dynamicProps;
+    const observeParsed = repeatPropBind && repeatPropBind?.length > 0 && !observe.includes(repeatPropBind) ? [...observe, repeatPropBind] : [...observe];
+    const currentParentId = parentId ?? getParentIdById(componentId);
+    if (!inizilizeWatcher) {
+      updateBindProp({
+        componentId,
+        observe: observeParsed,
+        props,
+        currentParentId: currentParentId ?? "",
+        fireCallback: false
       });
     }
+    if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
+      await repeaterTick();
+      updateBindProp({
+        componentId,
+        observe: observeParsed,
+        props,
+        currentParentId: currentParentId ?? "",
+        fireCallback: true
+      });
+    }
+    if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
+      await invalidateTick();
+      updateBindProp({
+        componentId,
+        observe: observeParsed,
+        props,
+        currentParentId: currentParentId ?? "",
+        fireCallback: true
+      });
+    }
+    if (!inizilizeWatcher) return;
+    let watchIsRunning = false;
+    const unWatchArray = observeParsed.map((state) => {
+      return watchById(currentParentId, state, async () => {
+        await repeaterTick();
+        await invalidateTick();
+        if (watchIsRunning) return;
+        const decrementQueue = incrementTickQueuque({
+          state,
+          id: componentId,
+          type: QUEQUE_TYPE_BINDPROPS
+        });
+        watchIsRunning = true;
+        modules_exports.useNextLoop(() => {
+          updateBindProp({
+            componentId,
+            observe: observeParsed,
+            props,
+            currentParentId: currentParentId ?? "",
+            fireCallback: true
+          });
+          watchIsRunning = false;
+          decrementQueue();
+        });
+      });
+    });
+    setDynamicPropsWatch({
+      id: componentId,
+      unWatchArray: unWatchArray.filter((item) => item !== void 0)
+    });
     if (!inizilizeWatcher) return;
     for (const [key, value] of bindPropsMap) {
       const { componentId: currentComponentId } = value;
@@ -6877,25 +6854,11 @@
   var addToNamedSlot = ({ element }) => {
     const componentWithSlot = useComponentHasNamedSlotQuery ? queryComponentUseSlot(element) : getAllUserComponentUseNamedSlot({ element });
     if (componentWithSlot.length === 0) return;
-    const slots = [...componentWithSlot].map((component) => {
+    [...componentWithSlot].forEach((component) => {
       const slotName = component?.getSlotPosition();
       const slot = useSlotQuery ? querySecificSlot(element, slotName) : getSlotByName({ name: slotName, element });
       if (!slot) return { slot: null, elementMoved: null };
       slot.parentNode?.insertBefore(component, slot);
-      const elementMoved = (
-        /** @type {HTMLElement} */
-        slot.previousSibling
-      );
-      return { slot, elementMoved };
-    });
-    slots.forEach(({ slot, elementMoved }) => {
-      if (!slot) return;
-      const propsIdFromSlot = slot.getStaticProps();
-      if (propsIdFromSlot)
-        elementMoved?.setPropsFromSlotId?.(propsIdFromSlot);
-      const bindPropsIdFromSlot = slot.getDynamicProps();
-      if (bindPropsIdFromSlot)
-        elementMoved?.setDynamicPropsFromSlotId?.(bindPropsIdFromSlot);
       slot?.removeCustomComponent();
       slot?.remove();
     });
@@ -8948,16 +8911,12 @@
     const propsId = element.getStaticPropsId();
     const dynamicPropsId = element.getDynamicPropsid();
     const bindEventsId = element.getBindEventsId();
-    const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
-    const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
     const componentRepeatId = element.getComponentRepeatId();
     const key = element.getCurrentKey() ?? "";
     const componentName = element.getComponentName();
     const cleanProsId = propsId?.split(" ").join("");
-    const cleanProsFromSlot = propsSlot?.split(" ").join("");
     const propsFromParent = getPropsFromParent(cleanProsId);
-    const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
     const repeatPropBind = element.getRepeaterPropBind();
     const currentRepeatValue = getComponentRepeaterState(
@@ -8973,10 +8932,6 @@
         ...filterExportableStateFromObject({
           componentName,
           currentProps: propsFromParent
-        }),
-        ...filterExportableStateFromObject({
-          componentName,
-          currentProps: propsFromSlot
         })
       },
       id,
@@ -8984,7 +8939,6 @@
       instanceName,
       key,
       dynamicPropsId,
-      dynamicPropsIdFromSlot,
       repeatPropBind,
       bindEventsId,
       currentRepeatValue,
@@ -9166,7 +9120,6 @@
       instanceName,
       key,
       dynamicPropsId,
-      dynamicPropsIdFromSlot,
       currentRepeatValue,
       bindEventsId,
       parentId,
@@ -9213,10 +9166,6 @@
     addCurrentIdToBindProps({
       propsId: dynamicPropsId,
       repeatPropBind,
-      componentId: id
-    });
-    addCurrentIdToBindProps({
-      propsId: dynamicPropsIdFromSlot,
       componentId: id
     });
     const objectFromComponentFunction = getParamsForComponentFunction({

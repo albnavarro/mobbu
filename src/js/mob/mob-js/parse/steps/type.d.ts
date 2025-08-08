@@ -8,7 +8,6 @@ export interface ComponentData {
     instanceName: string;
     key: string;
     dynamicPropsId: string | undefined;
-    dynamicPropsIdFromSlot: string | undefined;
     bindEventsId: string | undefined;
     parentId: string | undefined;
     currentRepeatValue: any;

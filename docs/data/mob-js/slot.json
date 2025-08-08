@@ -88,30 +88,6 @@
                 "id": "props",
                 "label": "Props"
             }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "props"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Slots can use both staticProps and bindProps as all components. The component that will use the slot will inherit the props that will be added to its own."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/slot-props.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 46
-            }
         }
     ]
 }

@@ -1,4 +1,4 @@
-import { ATTR_COMPONENT_NAME, ATTR_BIND_PROPS, ATTR_PROPS } from '../constant';
+import { ATTR_COMPONENT_NAME } from '../constant';
 import { useSlotQuery } from '../parse/strategy';
 import { addSlotPlaceholder } from '../modules/slot';
 
@@ -10,16 +10,6 @@ export const defineSlotComponent = () => {
              * @type {string | undefined | null}
              */
             #slotName;
-
-            /**
-             * @type {string | undefined | null}
-             */
-            #staticProps;
-
-            /**
-             * @type {string | undefined | null}
-             */
-            #dynamicProps;
 
             constructor() {
                 super();
@@ -33,10 +23,6 @@ export const defineSlotComponent = () => {
                 if (dataset) {
                     this.#slotName =
                         this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
-                    this.#staticProps =
-                        this.shadowRoot?.host.getAttribute(ATTR_PROPS);
-                    this.#dynamicProps =
-                        this.shadowRoot?.host.getAttribute(ATTR_BIND_PROPS);
                 }
             }
 
@@ -57,14 +43,6 @@ export const defineSlotComponent = () => {
 
             getSlotName() {
                 return this.#slotName;
-            }
-
-            getStaticProps() {
-                return this.#staticProps;
-            }
-
-            getDynamicProps() {
-                return this.#dynamicProps;
             }
         }
     );
