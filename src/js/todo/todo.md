@@ -122,6 +122,23 @@ store[prop] = valueTransformed;
 
 # MobJs
 
+## BindProps
+- Simplify, Rimuovere `forceParent`.
+
+## BindProps
+- Metodo 1) Preferibile.
+    - Il `watch` che aspetta il `nextLoop` potrá semplicemente memorizzare gli stati che sono cambiati nel frattempo.
+    - passerá la lista degli stati a `updateBindProp` e  fará un `setStateById` solo se lo stato é presente nell' array di raccolta.
+    - La prima volta naturalmente lo fara di tutti, percio il nuovo parametro sará opzionale.
+
+- Metodo 2) Seconda scelta.
+    - `MobStore`: add `object` simile a fnValidate dove segnare l' ultim azione `set` / `get`
+    - `set` lo segnará `setProp/setObj`.
+    - `get` lo segnara un nuovo metodo dello store controllato da `bindProps`.
+    - `bindProps` potra cosi usare lo stato solo se é stato modificato dall' ultima volta che lo ha chiamato nella funzione `updateBindProp`.
+    - In questo modo si fará un set sul `children` solo per gli effettivi stati modificati.
+
+
 ## src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
 - Parent id ternario innestato, semplificare.
 - Idealmante con `weakElementMap` si puó usare solo una strategia.
