@@ -18,7 +18,7 @@ import {
 } from '../../queque/tick-invalidate';
 // import { getElementById } from '../../component/action/element';
 // import { removeAndDestroyById } from '../../component/action/remove-and-destroy/remove-and-destroy-by-id';
-import { bindPropsMap } from './bind-props-map';
+import { bindComponentTobindId, bindPropsMap } from './bind-props-map';
 import { detectProp } from '../../utils';
 
 /**
@@ -182,11 +182,19 @@ export const addCurrentIdToBindProps = ({
 }) => {
     if (!propsId) return;
 
-    for (const [key, value] of bindPropsMap) {
-        if (key === propsId) {
-            bindPropsMap.set(key, { ...value, componentId });
-        }
-    }
+    /**
+     * Value is added in setBindProps() function. here we just add componentId
+     */
+    const value = bindPropsMap.get(propsId);
+    if (!value) return;
+
+    bindPropsMap.set(propsId, { ...value, componentId });
+
+    /**
+     * Create a link for get propsId from component quickly in applyBindProps, n0 logic.
+     */
+    const previousPropsId = bindComponentTobindId.get(componentId) ?? [];
+    bindComponentTobindId.set(componentId, [...previousPropsId, propsId]);
 
     applyBindProps({
         componentId,
@@ -222,15 +230,23 @@ export const applyBindProps = async ({
     repeatPropBind,
     inizilizeWatcher,
 }) => {
+    // Se inizilizeWatcher delete bindComponentTobindId
+    const moduleIds = bindComponentTobindId.get(componentId);
+    if (!moduleIds) return;
+
     /**
-     * Get dynamic prop by component. Dynamic props can arrive from component || slot.
+     * Last applyBindProps call delete support map
      */
-    const dynamicPropsFilteredArray = [...bindPropsMap.values()].filter(
-        (item) => {
-            const currentComponentId = item?.componentId;
-            return currentComponentId === componentId;
-        }
-    );
+    if (inizilizeWatcher) bindComponentTobindId.delete(componentId);
+
+    /**
+     * Get all dynamic prop by component id.
+     */
+    const dynamicPropsFilteredArray = moduleIds
+        .map((id) => {
+            return bindPropsMap.get(id);
+        })
+        .filter((item) => item !== undefined);
 
     /**
      * If not return.
