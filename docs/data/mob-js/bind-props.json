@@ -31,13 +31,6 @@
         {
             "component": "anchor-button",
             "props": {
-                "anchor": "#force",
-                "content": "Force parent"
-            }
-        },
-        {
-            "component": "anchor-button",
-            "props": {
                 "anchor": "#additional",
                 "content": "Additional props"
             }
@@ -149,26 +142,6 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "forceParent ( optional )"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "By default the states defined in the watch parameter are related to the general component. When inserting multiple components into the same return (for example, we are using a <a href='./#mobJs-slot'>slot</a> or a nested component inside a repeater) you can decide to point to the states of the first component that hosts it and not of the general function component."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
             "content": "props"
         },
         {
@@ -192,43 +165,6 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 71
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "force"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "forceParent:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "forceParent only works with explicit dependencies."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/bind-props-force.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 24
             }
         },
         {

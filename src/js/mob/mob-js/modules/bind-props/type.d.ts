@@ -21,5 +21,4 @@ export type SetBindProps = (arg0: {
         value: Record<string, any>,
         index: number
     ) => Partial<any>;
-    forceParent?: boolean;
 }) => string | undefined;

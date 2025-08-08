@@ -167,7 +167,7 @@ export const getParamsForComponentFunction = ({
 
             return `${ATTR_BIND_PROPS}="${setBindProps({
                 ...dataNormalized,
-                parentId: dataNormalized?.forceParent ? undefined : id,
+                parentId: id,
             })}" `;
         },
         staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,

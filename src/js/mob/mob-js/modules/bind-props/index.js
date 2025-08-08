@@ -1,6 +1,5 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { getRepeaterStateById } from '../../component/action/repeater';
-import { getParentIdById } from '../../component/action/parent';
 import { setDynamicPropsWatch } from '../../component/action/props';
 import { setStateById } from '../../component/action/state/set-state-by-id';
 import { getStateById } from '../../component/action/state/get-state-by-id';
@@ -264,11 +263,6 @@ export const applyBindProps = async ({
             : [...observe];
 
     /**
-     * Force parent id or get the natually parent id.
-     */
-    const currentParentId = parentId ?? getParentIdById(componentId);
-
-    /**
      * Normally props is initialized after repeater So on created we doesn't have the props ready Fire setDynamicProp
      * once before repeater tick to add value in store and use it onCreated
      *
@@ -280,7 +274,7 @@ export const applyBindProps = async ({
             componentId,
             observe: observeParsed,
             props,
-            currentParentId: currentParentId ?? '',
+            currentParentId: parentId ?? '',
             fireCallback: false,
         });
     }
@@ -301,7 +295,7 @@ export const applyBindProps = async ({
             componentId,
             observe: observeParsed,
             props,
-            currentParentId: currentParentId ?? '',
+            currentParentId: parentId ?? '',
             fireCallback: true,
         });
     }
@@ -322,7 +316,7 @@ export const applyBindProps = async ({
             componentId,
             observe: observeParsed,
             props,
-            currentParentId: currentParentId ?? '',
+            currentParentId: parentId ?? '',
             fireCallback: true,
         });
     }
@@ -335,7 +329,7 @@ export const applyBindProps = async ({
     let watchIsRunning = false;
 
     const unWatchArray = observeParsed.map((/** @type {string} */ state) => {
-        return watchById(currentParentId, state, async () => {
+        return watchById(parentId, state, async () => {
             /**
              * Fire bindProps after repeater.
              */
@@ -365,7 +359,7 @@ export const applyBindProps = async ({
                     componentId,
                     observe: observeParsed,
                     props,
-                    currentParentId: currentParentId ?? '',
+                    currentParentId: parentId ?? '',
                     fireCallback: true,
                 });
 

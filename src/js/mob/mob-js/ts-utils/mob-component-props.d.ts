@@ -15,7 +15,6 @@ interface BindPropsObject<T, R> {
     observe?:
         | OnlyStringKey<ExtractState<T>>[]
         | (() => ExtractState<T>[keyof ExtractState<T>])[];
-    forceParent?: boolean;
     props: (
         arg0: ExtractState<T>,
         value: Record<string, any>,

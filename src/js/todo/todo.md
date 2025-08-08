@@ -123,9 +123,6 @@ store[prop] = valueTransformed;
 # MobJs
 
 ## BindProps
-- Simplify, Rimuovere `forceParent`.
-
-## BindProps
 - Metodo 1) Preferibile.
     - Il `watch` che aspetta il `nextLoop` potrá semplicemente memorizzare gli stati che sono cambiati nel frattempo.
     - passerá la lista degli stati a `updateBindProp` e  fará un `setStateById` solo se lo stato é presente nell' array di raccolta.
