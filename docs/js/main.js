@@ -5052,10 +5052,6 @@
     staticPropsMap.delete(id);
     return props ?? {};
   };
-  var removeCurrentToPropsByPropsId = ({ propsId }) => {
-    if (!propsId) return;
-    staticPropsMap.delete(propsId);
-  };
   var removeOrphansPropsFromParent = () => {
     staticPropsMap.clear();
   };
@@ -6584,10 +6580,6 @@
       inizilizeWatcher: false
     });
   };
-  var removeCurrentToBindPropsByPropsId = ({ propsId }) => {
-    if (!propsId) return;
-    bindPropsMap.delete(propsId);
-  };
   var applyBindProps = async ({
     componentId,
     repeatPropBind,
@@ -6837,16 +6829,6 @@
   var removeOrphanSlot = ({ element }) => {
     const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
     slots.forEach((slot) => {
-      const dynamicPropsIdFromSlot = slot.getDynamicProps();
-      if (dynamicPropsIdFromSlot && dynamicPropsIdFromSlot !== "") {
-        removeCurrentToBindPropsByPropsId({
-          propsId: dynamicPropsIdFromSlot
-        });
-      }
-      const staticPropsIdFromSlot = slot.getStaticProps();
-      if (staticPropsIdFromSlot && staticPropsIdFromSlot !== "") {
-        removeCurrentToPropsByPropsId({ propsId: staticPropsIdFromSlot });
-      }
       slot?.removeCustomComponent();
       slot?.remove();
     });

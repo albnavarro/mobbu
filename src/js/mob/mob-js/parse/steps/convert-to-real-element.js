@@ -83,21 +83,6 @@ const removeOrphanSlot = ({ element }) => {
     const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
 
     slots.forEach((slot) => {
-        const dynamicPropsIdFromSlot = slot.getDynamicProps();
-        if (dynamicPropsIdFromSlot && dynamicPropsIdFromSlot !== '') {
-            removeCurrentToBindPropsByPropsId({
-                propsId: dynamicPropsIdFromSlot,
-            });
-        }
-
-        /**
-         * If slot is not used remove id reference orphans from store.
-         */
-        const staticPropsIdFromSlot = slot.getStaticProps();
-        if (staticPropsIdFromSlot && staticPropsIdFromSlot !== '') {
-            removeCurrentToPropsByPropsId({ propsId: staticPropsIdFromSlot });
-        }
-
         slot?.removeCustomComponent();
         slot?.remove();
     });
