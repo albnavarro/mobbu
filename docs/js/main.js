@@ -6982,6 +6982,7 @@
   };
   var removeOrphansBindProps = () => {
     bindPropsMap.clear();
+    bindComponentTobindId.clear();
   };
 
   // src/js/mob/mob-js/component/action/remove-and-destroy/destroy-component-inside-node-by-id.js

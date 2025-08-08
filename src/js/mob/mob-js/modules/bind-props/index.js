@@ -412,4 +412,5 @@ export const applyBindProps = async ({
  */
 export const removeOrphansBindProps = () => {
     bindPropsMap.clear();
+    bindComponentTobindId.clear();
 };
