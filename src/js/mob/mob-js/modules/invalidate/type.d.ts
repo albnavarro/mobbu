@@ -1,3 +1,8 @@
+/**
+ * Invalidate as a different unsubscribe type respect repeat.
+ *
+ * Since the observe property receives an array of states and not just one, it needs an array of unsubscribes.
+ */
 export type InvalidateFunctionMap = Map<
     string,
     { invalidateId: string; fn: () => void; unsubscribe: (() => void)[] }[]
