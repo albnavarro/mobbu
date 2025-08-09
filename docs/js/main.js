@@ -9049,7 +9049,7 @@
       currentSelectors: []
     });
     let currentSelectors = result.parseSourceArray;
-    let componentToParse = result.componentToParse;
+    let componentToParse = result?.componentToParse;
     while (componentToParse) {
       const componentToParseName = componentToParse.getComponentName();
       const userFunctionComponent = componentList?.[componentToParseName]?.componentFunction;

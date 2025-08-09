@@ -62,8 +62,11 @@ export const parseComponentsWhile = async ({
         currentSelectors: [],
     });
 
+    /** Used only with useQuery stragy = true */
     let currentSelectors = result.parseSourceArray;
-    let componentToParse = result.componentToParse;
+
+    /** Current component to parse */
+    let componentToParse = result?.componentToParse;
 
     /**
      * Loop
