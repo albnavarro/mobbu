@@ -122,7 +122,25 @@ store[prop] = valueTransformed;
 
 # MobJs
 
+### getRepeatOrInvalidateInsideElement
+- Al posto di ciclare pe rintero `repeatIdPlaceHolderMap/invalidateIdPlaceHolderMap`
+- Es: `repeatFunctionMap` dato lo `scopeId` si possono recuperare i singoli `id` di `repeatIdPlaceHolderMap`.
+- Capire se questa strada, anche se poco influente in termini prestazionali puó avere senso.
+- La seguente riga di codice fá pensar eil contrario:
+
+```js
+if (
+    componentId &&
+    !compareIdOrParentIdRecursive({
+        id: scopeId ?? '',
+        compareValue: componentId,
+    })
+)
+    return;
+```
+
 ## BindProps
+##### Nota: puó essere un falso problema, per le massime performance i methodi possono avere un accesso diretto al componente senza intermediazione, nel caso specificarlo.
 - `MobStore`: add `object` simile a fnValidate dove segnare l' ultima azione `set` / `get`
 - `set` lo segnará `setProp/setObj`.
 - `get` lo segnara con un nuovo metodo dello store controllato da `bindProps`.
