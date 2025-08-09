@@ -27,48 +27,97 @@ export const getRepeatOrInvalidateInsideElement = ({
 }) => {
     const entries =
         module === MODULE_REPEATER
-            ? [...repeatIdPlaceHolderMap.entries()]
-            : [...invalidateIdPlaceHolderMap.entries()];
+            ? repeatIdPlaceHolderMap.entries()
+            : invalidateIdPlaceHolderMap.entries();
 
-    return entries
-        .filter(
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            ([_id, { element: currentElement, initialized, scopeId }]) => {
-                /**
-                 * When destroy nested repat compare the the scope id is the same or a parent id Check only repeate
-                 * descendants by scopeId
-                 */
-                if (
-                    componentId &&
-                    !compareIdOrParentIdRecursive({
-                        id: scopeId ?? '',
-                        compareValue: componentId,
-                    })
-                )
-                    return;
+    const result = [];
 
-                /**
-                 * Only not initialized. Use on create nested modules
-                 */
-                if (skipInitialized && initialized) return false;
+    /**
+     * Prefer cycle on map instead create a copy for performance. Better for memory.
+     */
+    for (const item of entries) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const [_id, { element: currentElement, initialized, scopeId }] = item;
 
-                /**
-                 * Only initialized. Use on destroy nested modules
-                 */
-                if (onlyInitialized && !initialized) return false;
-
-                /**
-                 * Last DOM check
-                 */
-                return (
-                    currentElement &&
-                    element?.contains(currentElement) &&
-                    element !== currentElement
-                );
-            }
+        /**
+         * Skip 1
+         *
+         * When destroy nested repat compare the the scope id is the same or a parent id Check only repeate descendants
+         * by scopeId
+         */
+        if (
+            componentId &&
+            !compareIdOrParentIdRecursive({
+                id: scopeId ?? '',
+                compareValue: componentId,
+            })
         )
-        .map(([id, parent]) => ({
-            id,
-            parent: parent?.element,
-        }));
+            continue;
+
+        /**
+         * Skip 2
+         *
+         * Only not initialized. Use on create nested modules
+         */
+        if (skipInitialized && initialized) continue;
+
+        /**
+         * Only initialized. Use on destroy nested modules
+         */
+        if (onlyInitialized && !initialized) continue;
+
+        const condition =
+            currentElement &&
+            element?.contains(currentElement) &&
+            element !== currentElement;
+
+        if (condition) result.push(item);
+    }
+
+    return result.map(([id, parent]) => ({
+        id,
+        parent: parent?.element,
+    }));
+
+    // return entries
+    //     .filter(
+    //         // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //         ([_id, { element: currentElement, initialized, scopeId }]) => {
+    //             /**
+    //              * When destroy nested repat compare the the scope id is the same or a parent id Check only repeate
+    //              * descendants by scopeId
+    //              */
+    //             if (
+    //                 componentId &&
+    //                 !compareIdOrParentIdRecursive({
+    //                     id: scopeId ?? '',
+    //                     compareValue: componentId,
+    //                 })
+    //             )
+    //                 return;
+    //
+    //             /**
+    //              * Only not initialized. Use on create nested modules
+    //              */
+    //             if (skipInitialized && initialized) return false;
+    //
+    //             /**
+    //              * Only initialized. Use on destroy nested modules
+    //              */
+    //             if (onlyInitialized && !initialized) return false;
+    //
+    //             /**
+    //              * Last DOM check
+    //              */
+    //             return (
+    //                 currentElement &&
+    //                 element?.contains(currentElement) &&
+    //                 element !== currentElement
+    //             );
+    //         }
+    //     )
+    //     .map(([id, parent]) => ({
+    //         id,
+    //         parent: parent?.element,
+    //     }));
 };

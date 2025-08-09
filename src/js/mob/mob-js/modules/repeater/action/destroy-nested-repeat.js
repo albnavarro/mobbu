@@ -28,20 +28,36 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
         module: MODULE_REPEATER,
     });
 
-    const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]
-        .flat()
-        .filter((item) => {
-            return repeatChildToDelete.some((current) => {
-                return current.id === item.repeatId;
+    /**
+     * Prefer cycle componentMap instead create a copy for performance. Better for memory.
+     */
+    for (const value of repeatFunctionMap.values()) {
+        value.forEach(({ repeatId, unsubscribe }) => {
+            const condition = repeatChildToDelete.some((current) => {
+                return current.id === repeatId;
             });
-        });
 
-    repeatChildToDeleteParsed.forEach((item) => {
-        item.unsubscribe();
-
-        removeRepeatByRepeatId({
-            id,
-            repeatId: item.repeatId,
+            if (condition) {
+                unsubscribe();
+                removeRepeatByRepeatId({ id, repeatId });
+            }
         });
-    });
+    }
+
+    // const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]
+    //     .flat()
+    //     .filter((item) => {
+    //         return repeatChildToDelete.some((current) => {
+    //             return current.id === item.repeatId;
+    //         });
+    //     });
+    //
+    // repeatChildToDeleteParsed.forEach((item) => {
+    //     item.unsubscribe();
+    //
+    //     removeRepeatByRepeatId({
+    //         id,
+    //         repeatId: item.repeatId,
+    //     });
+    // });
 };

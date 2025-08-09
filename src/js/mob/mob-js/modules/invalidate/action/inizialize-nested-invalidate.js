@@ -27,15 +27,28 @@ export const inizializeNestedInvalidate = ({ invalidateParent, id }) => {
         module: MODULE_INVALIDATE,
     });
 
-    const invalidateChildToInizialize = [...invalidateFunctionMap.values()]
-        .flat()
-        .filter(({ invalidateId }) => {
-            return newInvalidateChild.some((current) => {
+    /**
+     * Prefer cycle on map instead create a copy for performance. Better for memory.
+     */
+    for (const value of invalidateFunctionMap.values()) {
+        value.forEach(({ invalidateId, fn }) => {
+            const condition = newInvalidateChild.some((current) => {
                 return current.id === invalidateId;
             });
-        });
 
-    invalidateChildToInizialize.forEach(({ fn }) => {
-        fn();
-    });
+            if (condition) fn();
+        });
+    }
+
+    // const invalidateChildToInizialize = [...invalidateFunctionMap.values()]
+    //     .flat()
+    //     .filter(({ invalidateId }) => {
+    //         return newInvalidateChild.some((current) => {
+    //             return current.id === invalidateId;
+    //         });
+    //     });
+    //
+    // invalidateChildToInizialize.forEach(({ fn }) => {
+    //     fn();
+    // });
 };

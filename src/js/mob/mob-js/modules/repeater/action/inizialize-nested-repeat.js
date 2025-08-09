@@ -24,15 +24,28 @@ export const inizializeNestedRepeat = ({ repeatParent, id }) => {
         module: MODULE_REPEATER,
     });
 
-    const repeatChildToInizialize = [...repeatFunctionMap.values()]
-        .flat()
-        .filter(({ repeatId }) => {
-            return newRepeatChild.some((current) => {
+    /**
+     * Prefer cycle on map instead create a copy for performance. Better for memory.
+     */
+    for (const value of repeatFunctionMap.values()) {
+        value.forEach(({ repeatId, fn }) => {
+            const condition = newRepeatChild.some((current) => {
                 return current.id === repeatId;
             });
-        });
 
-    repeatChildToInizialize.forEach(({ fn }) => {
-        fn();
-    });
+            if (condition) fn();
+        });
+    }
+
+    // const repeatChildToInizialize = [...repeatFunctionMap.values()]
+    //     .flat()
+    //     .filter(({ repeatId }) => {
+    //         return newRepeatChild.some((current) => {
+    //             return current.id === repeatId;
+    //         });
+    //     });
+    //
+    // repeatChildToInizialize.forEach(({ fn }) => {
+    //     fn();
+    // });
 };

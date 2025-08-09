@@ -25,22 +25,41 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
         module: MODULE_INVALIDATE,
     });
 
-    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
-        .flat()
-        .filter((item) => {
-            return invalidatechildToDelete.some((current) => {
-                return current.id === item.invalidateId;
+    /**
+     * Prefer cycle componentMap instead create a copy for performance. Better for memory.
+     */
+    for (const value of invalidateFunctionMap.values()) {
+        value.forEach(({ invalidateId, unsubscribe }) => {
+            const condition = invalidatechildToDelete.some((current) => {
+                return current.id === invalidateId;
             });
-        });
 
-    invalidateChildToDeleteParsed.forEach((item) => {
-        item.unsubscribe.forEach((fn) => {
-            fn();
-        });
+            if (condition) {
+                unsubscribe.forEach((fn) => {
+                    fn();
+                });
 
-        removeInvalidateByInvalidateId({
-            id,
-            invalidateId: item.invalidateId,
+                removeInvalidateByInvalidateId({ id, invalidateId });
+            }
         });
-    });
+    }
+
+    // const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
+    //     .flat()
+    //     .filter((item) => {
+    //         return invalidatechildToDelete.some((current) => {
+    //             return current.id === item.invalidateId;
+    //         });
+    //     });
+    //
+    // invalidateChildToDeleteParsed.forEach((item) => {
+    //     item.unsubscribe.forEach((fn) => {
+    //         fn();
+    //     });
+    //
+    //     removeInvalidateByInvalidateId({
+    //         id,
+    //         invalidateId: item.invalidateId,
+    //     });
+    // });
 };
