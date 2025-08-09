@@ -15,9 +15,19 @@ const getTreeRecursive = ({ chunk }) => {
          * Create an array of children
          */
         const childrenId = new Set(Object.values(child ?? {}).flat());
-        const childrenChunk = [...componentMap.entries()].filter(([key]) =>
-            childrenId.has(key)
-        );
+
+        /**
+         * Prefer cycle componentMap instead create a copy for performance. Better for memory.
+         */
+        const childrenChunk = [];
+        for (const item of componentMap.entries()) {
+            const [key] = item;
+            if (childrenId.has(key)) childrenChunk.push(item);
+        }
+
+        // const childrenChunk = [...componentMap.entries()].filter(([key]) =>
+        //     childrenId.has(key)
+        // );
 
         return [
             ...previous,

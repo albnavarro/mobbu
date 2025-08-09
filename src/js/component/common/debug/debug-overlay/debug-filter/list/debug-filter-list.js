@@ -54,11 +54,27 @@ const getDataFiltered = ({ testString }) => {
             .split(' ')
             .filter((block) => block !== '') ?? '';
 
-    return (
-        [...MobJs.componentMap.values()].filter(({ componentName }) => {
-            return stringParsed.every((piece) => componentName.includes(piece));
-        }) ?? []
-    ).map(({ id, componentName, instanceName }) => ({
+    return (() => {
+        /**
+         * Prefer cycle componentMap instead create a copy for performance. Better for memory.
+         */
+        const result = [];
+        for (const item of MobJs.componentMap.values()) {
+            const condition = stringParsed.every((piece) =>
+                item.componentName.includes(piece)
+            );
+
+            if (condition) result.push(item);
+        }
+
+        return result;
+
+        // [...MobJs.componentMap.values()].filter(({ componentName }) => {
+        //     return stringParsed.every((piece) =>
+        //         componentName.includes(piece)
+        //     );
+        // }) ?? []
+    })().map(({ id, componentName, instanceName }) => ({
         id,
         active: false,
         tag: (() => {
