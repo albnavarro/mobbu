@@ -122,6 +122,12 @@ store[prop] = valueTransformed;
 
 # MobJs
 
+## DOCS:
+- `BindStore` `Web-component` `slot` `tick`
+    - Fare una sottosezione apposita sotto `component` similare a `Static Params` & `Utils Params`.
+    - Idealmante `utils` e il corrente `utils params` -> `secondary params`.
+- Spiegare i meccanismi base `html-element`, consumo memoria etc.., fare sezione apposta, tipo un `README` in root a `mobJs`
+
 ### getRepeatOrInvalidateInsideElement
 - Al posto di ciclare pe rintero `repeatIdPlaceHolderMap/invalidateIdPlaceHolderMap`
 - Es: `repeatFunctionMap` dato lo `scopeId` si possono recuperare i singoli `id` di `repeatIdPlaceHolderMap`.
@@ -151,9 +157,6 @@ if (
 ## src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
 - Parent id ternario innestato, semplificare.
 - Idealmante con `weakElementMap` si puó usare solo una strategia.
-
-## DOCS:
-- Spiegare i meccanismi base `html-element`, consumo memoria etc.., fare sezione apposta.
 
 ## src/js/mob/mob-js/doc/ ?
 - Aggiungere:
