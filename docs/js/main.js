@@ -9055,13 +9055,6 @@
       const userFunctionComponent = componentList?.[componentToParseName]?.componentFunction;
       const componentParams = componentList?.[componentToParseName]?.componentParams;
       const { scoped, bindStore } = componentParams;
-      if (!userFunctionComponent) {
-        console.warn(
-          `${componentToParseName} component is not registered.`
-        );
-        componentToParse.remove();
-        return;
-      }
       const {
         props,
         id,

@@ -80,18 +80,6 @@ export const parseComponentsWhile = async ({
         const { scoped, bindStore } = componentParams;
 
         /**
-         * If componentToParse is not in list remove div component
-         */
-        if (!userFunctionComponent) {
-            console.warn(
-                `${componentToParseName} component is not registered.`
-            );
-
-            componentToParse.remove();
-            return;
-        }
-
-        /**
          * Get all data from placeholder
          */
         const {
