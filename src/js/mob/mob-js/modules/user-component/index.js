@@ -35,9 +35,18 @@ export const removeUserPlaceholder = (element) => {
  * @returns {import('../../web-component/type').UserComponent[]}
  */
 export const getFirstUserChildPlaceHolder = (element) => {
-    const userComponent = [...userPlaceholder].find((item) => {
-        return element?.contains(item) && item.getIsPlaceholder();
-    });
+    // const userComponent = [...userPlaceholder].find((item) => {
+    //     return element?.contains(item) && item.getIsPlaceholder();
+    // });
+
+    let userComponent;
+
+    for (const item of userPlaceholder) {
+        if (element?.contains(item) && item.getIsPlaceholder()) {
+            userComponent = item;
+            break;
+        }
+    }
 
     if (!userComponent) return [];
 
