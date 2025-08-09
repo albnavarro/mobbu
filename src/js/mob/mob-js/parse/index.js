@@ -1,6 +1,6 @@
 import { MAIN_STORE_ASYNC_PARSER } from '../main-store/constant';
 import { mainStore } from '../main-store/main-store';
-import { parseComponentsRecursive } from './parse-function';
+import { parseComponentsWhile } from './parse-function-while';
 import { resetCurrentIterationCounter } from './utils';
 
 /**
@@ -15,7 +15,7 @@ export const parseComponents = async ({
     persistent = false,
     parentIdForced = '',
 }) => {
-    await parseComponentsRecursive({
+    await parseComponentsWhile({
         element,
         persistent,
         parentIdForced,

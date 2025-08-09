@@ -45,7 +45,6 @@ import { getComponentList } from '../component/component-list';
  * }[]} [obj.functionToFireAtTheEnd]
  * @param {import('../web-component/type').UserComponent[]} [obj.currentSelectors]
  * @param {string} [obj.parentIdForced]
- * @param {boolean} [obj.checkBindRef]
  * @returns {Promise<void>}
  */
 export const parseComponentsRecursive = async ({
