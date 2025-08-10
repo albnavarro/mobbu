@@ -34,9 +34,9 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "Invalidate takes care of deleting the old DOM and returning a fresh new DOM.",
-                    "Inside an invalidate there are <span class='quote'>no limits</span> on the formatting of the code, and it is possible to use the standard javascript <span class='quote'>map()</span> function to create lists of elements in case we don't need reactivity.",
-                    "Invalidate can also be used to generate DOM blocks depending on specific <span class='quote'>conditions</span>. Returning a function you can use getState() inside it and create more or less complex specific conditions."
+                    "<p>The <strong>invalidate</strong> function handles the complete DOM refresh cycle - it automatically <strong>clears out</strong> the old DOM structure and delivers a <strong>brand new</strong> DOM in return.</p>",
+                    "<p>Inside an <strong>invalidate</strong>, you have <strong>complete freedom</strong> in code structure - including using standard JavaScript <strong>map()</strong> to generate element lists when reactivity isn't required.</p>",
+                    "<p>The <strong>invalidate</strong> function shines for conditional DOM generation - simply return a function containing your logic, where you can leverage <strong>getState()</strong> to build anything from basic to complex rendering <strong>conditions</strong>.</p>"
                 ]
             }
         },
@@ -60,9 +60,9 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "The repeater module should be thought of as a reactive <span class='quote'>array.map()</span>.",
-                    "Repeater keeps track of the components by reusing them or maintaining their order.",
-                    "The <span class='quote'>repeat</span> function, unlike <span class='quote'>invalidate</span>, must return a unique node as its first element."
+                    "<p>Think of the <strong>repeater</strong> module as the reactive version of JavaScript's <strong>array.map()</strong> - it automatically keeps your DOM in sync with underlying data changes.</p>",
+                    "<p>The <strong>repeater</strong> either <strong>recycles component state</strong> or <strong>maintains source data order</strong> - ensuring optimal performance while preserving your intended structure.</p>",
+                    "<p>Unlike <strong>invalidate</strong>, the <strong>repeat</strong> function has one key requirement - it must return a <strong>single root node</strong> as its first element, no matter what DOM structure follows.</p>"
                 ]
             }
         },
@@ -86,9 +86,9 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "Both functions must be contained in a unique div",
-                    "A repeater with the <span class='quote'>clean=true</span> option is in all respects the mirror image of an <span class='quote'>invalidate</span>.",
-                    "One of the goals of this library is to separate all <span class='quote'>static</span> content from <span class='quote'>dynamic</span> content, a correct use of invalidate/repeater will bring more clarity inside the component, just like a correct use of staticProps/bindProps."
+                    "<p>Both <strong>repeat</strong> and <strong>invalidate</strong> functions need to be wrapped in their own <strong>dedicated div</strong> - this container requirement applies equally to either function.</p>",
+                    "<p>A repeater using the <strong>clean=true</strong> option essentially becomes the <strong>polar opposite</strong> of an <strong>invalidate</strong> - they're mirror images in behavior and DOM handling.</p>",
+                    "<p>This library fundamentally separates <strong>static</strong> and <strong>dynamic</strong> content - proper use of invalidate/repeater brings component clarity, mirroring how staticProps/bindProps organize property management.</p>"
                 ]
             }
         },
@@ -112,8 +112,8 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "Performance at creation time is very similar, invalidate may be slightly faster and repeat with key slightly slower.",
-                    "During the update repeater without key will be the fastest, if there is no need to preserve the internal state of the component it is recommended."
+                    "<p>At creation time, performance is <strong>comparable</strong> - though <strong>invalidate</strong> typically runs a tad faster, while <strong>repeat-with-key</strong> carries a slight overhead due to its tracking mechanisms.</p>",
+                    "<p>For updates, the <strong>repeater without key</strong> delivers <strong>peak performance</strong> - when component state preservation isn't required, this lightweight approach comes strongly recommended.</p>"
                 ]
             }
         },

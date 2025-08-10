@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Use methods by <span class='quote'>instance name</span>.</br>The instance can be called from <span class='quote'>anywhere</span> in the app. The function is designed to be used when you have <span class='quote'>multiple instances</span> with the same name, it actually returns an array of objects."
+            "content": "<ul> <li><strong>Availability</strong>: <ul> <li>Accessible from <strong>anywhere</strong> in the app</li> </ul> </li> <li><strong>Multi-Instance Handling</strong>: <ul> <li>Designed for <strong>multiple instances</strong> with identical names</li> <li>Returns an array of objects</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "It is possible to define <span class='quote'>methods</span> for each single instance of a component to be used across the application<br>It will then be possible to use the defined methods via the <span class='quote'>useMethodByName</span> utility. It is advisable to define the methods in the component <span class='quote'>creation</span> phase so that they are available in the <span class='quote'>onMount</span> phase of the components that will use them."
+            "content": " <ul> <li><strong>Definition</strong>: <ul> <li>Declare methods per component instance</li> <li>Globally accessible across the app</li> </ul> </li> <li><strong>Usage</strong>: <ul> <li>Access via <strong>useMethodByName</strong> utility</li> <li>Access via <strong>useMethodArrayByName</strong> utility</li> </ul> </li> <li><strong>Best Practice</strong>: <ul> <li>Define during component <strong>creation</strong></li> <li>Ensures availability in <span class='quote'>onMount</span> phase</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

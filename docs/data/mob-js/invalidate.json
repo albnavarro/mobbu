@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The invalidate function performs a new rendering when one or more states change"
+            "content": "<strong>Invalidate Function</strong>: Triggers re-rendering when associated states change."
         },
         {
             "component": "mob-spacer",
@@ -46,7 +46,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A state or an array of states that will invalidate rendering"
+            "content": "<strong>Invalidation Trigger</strong>: A single state or array of states that force component re-rendering when modified."
         },
         {
             "component": "mob-title",
@@ -60,7 +60,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event triggered before list update. The function will be active only after the first rendering"
+            "content": "<strong>Pre-update Hook</strong>: Event triggered before list updates (activates after initial render)."
         },
         {
             "component": "mob-title",
@@ -74,7 +74,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event triggered after list update."
+            "content": "<strong>Post-update Event</strong>: Triggered after list modifications complete."
         },
         {
             "component": "mob-title",
@@ -88,7 +88,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The render function. Unlike a <span class='quote'>repeater</span> the render function can return any type of DOM without restrictions."
+            "content": "<strong>Render Output</strong>: Returns the HTML to be rendered.<br/> <ul> <li><strong>Key Difference from Repeater</strong>: <ul> <li>Returns <strong>any DOM type</strong> without restrictions</li> </ul> </li> <li><strong>Flexibility</strong>: <ul> <li>No output constraints</li> <li>Unlimited return value possibilities</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -103,7 +103,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Container</strong>: The invalidate function must be contained in a unique DOM element.<br/><strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same component/scope"
+            "content": "<ul> <li><strong>Container Requirement</strong>: <ul> <li>Invalidate function must be contained within a <strong>unique DOM element</strong></li> </ul> </li> <li><strong>Nesting Rules</strong>: <ul> <li>Supports nested invalidate/repeater structures</li> <li>Multiple nestings allowed within same component/scope</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "It is possible to associate a unique name with a single instance of a component. It is recommended to associate the instance name with a variable to take advantage of LSP reference lookup."
+            "content": "<ul> <li><strong>Unique Identification</strong>: <ul> <li>Assign distinct names to component instances</li> </ul> </li> <li><strong>Recommended Practice</strong>: <ul> <li>Bind names to variables for: <ul> <li>LSP reference lookup</li> <li>Better code navigation</li> <li>Improved maintainability</li> </ul> </li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

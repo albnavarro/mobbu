@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Use methods by <span class='quote'>instance name</span>.</br>The instance can be called from <span class='quote'>anywhere</span> in the app. If there are <span class='quote'>multiple instances</span> with the same name, the <span class='quote'>first match</span> will be used"
+            "content": " <ul> <li><strong>Key Requirement</strong>: <ul> <li>Component must have unique <strong>instance name</strong></li> </ul> </li> <li><strong>Global Availability</strong>: <ul> <li>Callable from <strong>anywhere</strong> in application</li> </ul> </li> <li><strong>Name Collision Handling</strong>: <ul> <li>With <strong>multiple instances</strong> of same name</li> <li>Uses <strong>first match</strong> found</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

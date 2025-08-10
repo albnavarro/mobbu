@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Repat represents the reactive counterpart of array.map(). Work on either native DOM elements or components."
+            "content": " <ul> <li><strong>Reactive Equivalent</strong>: <ul> <li>Functions as the reactive version of <strong>Array.map()</strong></li> </ul> </li> <li><strong>Compatibility</strong>: <ul> <li>Works with both: <ul> <li>Native DOM elements</li> <li>Library components</li> </ul> </li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -46,7 +46,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Reactive state ( must be an array ) to watch.<br/> Arrays nested in state cannot be used"
+            "content": "<ul> <li><strong>Must be</strong> a direct array (not nested within other state objects)</li> <li><strong>Incompatible with</strong>: <ul> <li>Nested array structures</li>  </ul> </li> </ul> </li> "
         },
         {
             "component": "mob-title",
@@ -60,7 +60,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Cleans the entire list by deleting previous components before updating it."
+            "content": "Completely <strong>removes</strong> all existing components in the list"
         },
         {
             "component": "mob-title",
@@ -74,30 +74,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Optional key, if you are using an array of objects you can use an object key to maintain the order of the results. If multiple elements share the same key, duplicates will be eliminated."
+            "content": "<ul> <li><strong>Key Specified</strong>: <ul> <li><strong>Behavior</strong>: <ul> <li>Elements maintain their <strong>position</strong> and <strong>state</strong> based on key</li> <li>Strict <strong>duplicate prevention</strong>: <ul> <li>Only first occurrence kept for identical keys</li> <li>Subsequent duplicates <strong>removed</strong></li> </ul> </li> </ul> </li> <li><strong>State Preservation</strong>: <ul> <li>Component instances persist when keys match</li> <li>Internal state remains unchanged across updates</li> </ul> </li> </ul> </li> </ul>"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>key used:</strong> If a key is used the only <span class='quote'>persistent</span> components will be those that store the key. The components will not be recycled but if they are new they will be recreated from scratch."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "<strong>no key used:</strong> If no key is specified or, only new items will be added, but persistent items will not be affected. Each recycled component will be updated through the bindProps function."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "If a <strong>key</strong> is used, make sure that the <strong>array</strong> of items always has a <strong>unique</strong> key, otherwise the <strong>proxy</strong> tied to the single item may fail."
+            "content": "<ul> <li><strong>No Key Specified</strong>: <ul> <li><strong>Behavior</strong>: <ul> <li>New items will be added to the list</li> </ul> </li> <li><strong>Component Recycling</strong>: <ul> <li>All persistent components are updated via <strong>bindProps</strong> function</li> </ul> </li> </ul> </li> </ul>"
         },
         {
             "component": "mob-title",
@@ -111,7 +95,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span class='quote'>rendering</span> of components always starts from a webComponent, and as such it works by attributes.<br/> In the case of a component inserted inside a repeat, additional attributes are needed, these attributes are added automatically when redenring the components, but this process when we have <span class='quote'>large lists</span> of components to update can lead to performance drops. Enabling this attribute allows the app to not have to perform additional operations and directly add the attributes it needs. The attributes will be returned by the <span class='quote'>sync()</span> function."
+            "content": "<p><strong>Component Rendering Basics</strong>: Rendering always begins from a <strong>webComponent</strong> and operates via attributes. For components within repeats:</p> <ul> <li><strong>In Repeat Context</strong>: <ul> <li>Additional attributes are auto-added during rendering</li> <li>Minimal performance impact (noticeable only in extreme cases)</li> </ul> </li> <li><strong>Manual Optimization</strong>: <ul> <li>Using <strong>sync()</strong> bypasses automatic processing: <ul> <li>System skips attribute injection</li> <li>Developer manually provides required attributes</li> <li>Marginal gains for most use cases</li> </ul> </li> </ul> </li> </ul> <p>Choose between automatic handling or manual control based on specific needs.</p>"
         },
         {
             "component": "mob-title",
@@ -125,7 +109,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event triggered before list update. The function will be active only after the first rendering."
+            "content": "<ul> <li><strong>Pre-Update Event</strong>: <ul> <li>Triggers <strong>before</strong> list modifications occur</li> <li><strong>Activation Timing</strong>: <ul> <li>Becomes active <strong>after</strong> initial render completes</li> <li>Inactive during first mount/render cycle</li> </ul> </li> </ul> </li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -134,7 +118,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The <strong>MobJs.tick()</strong> utility cannot be used within this function. The application's internal tick will only be resolved when the repeater is finished, in which case the repeater would remain suspended."
+            "content": "<ul> <li><strong>Important Restriction</strong>: The <strong>MobJs.tick()</strong> utility <strong>won't work</strong> inside this function</li> <li><strong>Execution Timing</strong>: The app's internal tick only resolves <strong>after</strong> the repeater completes its work</li> <li><strong>Consequence</strong>: Attempting to use it would leave the repeater in a <strong>suspended state</strong></li> </ul>"
         },
         {
             "component": "mob-title",
@@ -148,7 +132,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event triggered after list update."
+            "content": "<ul> <li><strong>Post-Update Event</strong>: <ul> <li>Triggers immediately after list modifications complete</li> <li>Fires only when all DOM updates are finalized</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-title",
@@ -162,17 +146,17 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The render function. The function has as parameter an object composed as follows:"
+            "content": "Accepts a single parameter object containing:"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<strong>current</strong>: A <span class='quote'>proxy</span> object that contains two properties <span class='quote'>index</span> and <span class='quote'>value</span> that are always <span class='quote'>updated</span> when the observed array changes.",
-                    "<strong>sync ( optional )</strong>: <span class='quote'>sync function</span> is necessary for tracking key and and the current value of the state observed if <span class='quote'>useSync</span> is settled.",
-                    "<strong>initialValue ( optional )</strong>: The value of the single array element taken when the component was created (static value).",
-                    "<strong>initialIndex ( optional )</strong>: The index of the array taken when the component was created (static value)."
+                    "<p>The <strong>current</strong> object is a <strong>proxy</strong> that always stays in sync - it automatically updates its <strong>index</strong> and <strong>value</strong> properties whenever the observed array changes.</p>",
+                    "<p>The <strong>sync</strong> function (optional) should be used only when enabling the <strong>useSync</strong> feature.</p>",
+                    "<p>The <strong>initialValue</strong> (optional) represents the static value of an array element <strong>at component creation time</strong> - it remains fixed regardless of subsequent updates.</p>",
+                    "<p>The <strong>initialIndex</strong> (optional) captures the array position <strong>frozen in time</strong> when the component was first created - this index value won't change even if the array later shifts or updates.</p>"
                 ]
             }
         },
@@ -189,7 +173,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Container</strong>: Each repeater must be initialized inside a <strong>dedicated HTML node</strong>.<br/><br/> <strong>DOM structure:</strong>: The function must return a DOM where the <strong>first node</strong> must be a <strong>single node</strong> regardless of whether it is a generic <span class='quote'>DOM element</span> or a <span class='quote'>component</span>.<br/><br/> <strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same <span class='quote'>component/scope</span>.<br/>Each repeater must still reference the main state of the component and does not have ownership of the repeater's current state. For a more complex situation where a nested repeater depends on a current state, create a new component."
+            "content": "<ul> <li><strong>Container Requirement</strong>: <ul> <li>Each repeater requires initialization within a <strong>dedicated HTML node</strong></li> </ul> </li> <li><strong>DOM Structure Rules</strong>: <ul> <li>Returned DOM must have a <strong>single root node</strong> as first element</li> <li>Root can be either: <ul> <li>Generic <strong>DOM element</strong></li> <li>Library <strong>component</strong></li> </ul> </li> </ul> </li> <li><strong>Nested Element Handling</strong>: <ul> <li>Supports nested invalidate/repeaters within same <strong>component/scope</strong></li> <li>Nested repeaters reference parent component's main state</li> <li>For complex nested states: create new components instead</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-title",
