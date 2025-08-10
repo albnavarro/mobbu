@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Collection of commonly used events. Each event is built with the pub/sub model. The listener remains active as long as there are subscribers, after which it is automatically disconnected. Each subscription will be provided with an unsubscribe function when necessary."
+            "content": "<strong>Event Collection</strong> (Pub/Sub Model): <ul> <li><strong>Standardized</strong> event system for common interactions</li> <li><strong>Automatic cleanup</strong> when subscribers reach zero</li> <li>Returns <strong>unsubscribe</strong> function with every subscription ( when needed )</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -56,7 +56,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Use the first available RequestAnimationFrame"
+            "content": "<strong>Behavior:</strong> Utilizes the first available <code>requestAnimationFrame</code> callback."
         },
         {
             "component": "mob-list",
@@ -103,7 +103,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched just after the first available request animation frame"
+            "content": "<strong>Post-Render Pre-Frame Event:</strong> Fires after the current <code>requestAnimationFrame</code> rendering completes, but before the next frame's callbacks execute."
         },
         {
             "component": "mob-snippet",
@@ -141,7 +141,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched to the next available frame allowing the creation of a request animation frame loop"
+            "content": "<strong>Frame-Loop Event:</strong> Dispatches during the next available <code>requestAnimationFrame</code> cycle, enabling RAF-based animation loops."
         },
         {
             "component": "mob-snippet",
@@ -179,7 +179,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched to a specific frame."
+            "content": "<strong>Frame-Targeted Event:</strong> Precisely schedules execution during a specific <code>requestAnimationFrame</code> cycle."
         },
         {
             "component": "mob-snippet",
@@ -217,7 +217,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched on page load"
+            "content": "<strong>Page Load Event:</strong> Triggers immediately when the DOM finishes loading."
         },
         {
             "component": "mob-snippet",
@@ -255,7 +255,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched at every resize using a debounce"
+            "content": "<strong>Debounced Resize Event:</strong> Triggers on each window resize with built-in debounce to prevent performance issues."
         },
         {
             "component": "mob-list",
@@ -306,7 +306,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on tab change."
+            "content": "<strong>Tab Visibility Callback:</strong> Listens for browser tab focus changes using the Page Visibility API."
         },
         {
             "component": "mob-list",
@@ -365,7 +365,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on mouse/touch event"
+            "content": "Handles both mouse and touch interactions through a unified interface."
         },
         {
             "component": "mob-list",
@@ -409,7 +409,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on mouse wheel."
+            "content": "<strong>Wheel Event Callback:</strong> Handles mouse wheel/pad scroll interactions"
         },
         {
             "component": "mob-list",
@@ -470,7 +470,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on pointer event"
+            "content": "<strong>Pointer Event Callback:</strong> Handles unified input from mouse, touch, and pen/stylus devices."
         },
         {
             "component": "mob-list",
@@ -514,7 +514,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Perform a callback to the first nextTick available after scrolling"
+            "content": "<strong>Post-Scroll Tick Callback:</strong> Schedules execution on the first available <code>nextTick</code> after scrolling completes."
         },
         {
             "component": "mob-list",
@@ -561,7 +561,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Execute a callback immediately on scroll"
+            "content": "<strong>Immediate Scroll Callback:</strong> Executes synchronously during each scroll event dispatch."
         },
         {
             "component": "mob-list",
@@ -608,7 +608,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Performs a scroll callback using a throttle function"
+            "content": "<strong>Throttled Scroll Callback:</strong> Executes at controlled intervals during scrolling to optimize performance.  "
         },
         {
             "component": "mob-list",
@@ -639,8 +639,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "useScrollStart/End",
-                "label": "useScrollStart"
+                "id": "useScrollStart",
+                "label": "useScrollStart/End"
             }
         },
         {
@@ -655,7 +655,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Execute a callback at the beginning/end of the scroll"
+            "content": "<ul> <li><strong>Scroll Start:</strong> Triggers when scrolling is first detected</li> <li><strong>Scroll End:</strong> Executes after scrolling stops</li> </ul>"
         },
         {
             "component": "mob-list",
@@ -699,7 +699,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Compares the type of a variable, returns a boolean value:"
+            "content": "<strong>Type Validator:</strong> Checks if variable matches specified type (String/Number/etc.), returning boolean."
         },
         {
             "component": "mob-list",
