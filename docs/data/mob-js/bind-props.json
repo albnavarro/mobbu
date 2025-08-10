@@ -58,6 +58,15 @@
             "content": "To pass <strong>callbacks</strong> use <a href='#mobJs-staticProps'><strong>staticProps</strong>,</a> callbacks do not react to the component's state but can be used by child components to change the state."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Remember that props are only usable if the component receiving them has <strong>exposed</strong> them in the <strong>exportState</strong> property within the component's <strong><a href='#mobJs-component'>definition</a></strong> function."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",

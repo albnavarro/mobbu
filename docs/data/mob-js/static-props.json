@@ -38,6 +38,15 @@
             "content": "<strong>staticProps</strong> is ideal for passing <strong>callbacks</strong> to a child component"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Remember that props are only usable if the component receiving them has <strong>exposed</strong> them in the <strong>exportState</strong> property within the component's <strong><a href='#mobJs-component'>definition</a></strong> function."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
