@@ -1123,6 +1123,52 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "big",
+                            "id": "special",
+                            "label": "Special component"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Special component"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Specialized components, slot patterns, and web component support"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "web component",
+                                    "url": "./#mobJs-web-component"
+                                },
+                                {
+                                    "label": "slot",
+                                    "url": "./#mobJs-slot"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "id": "static",
                             "style": "big",
                             "label": "Static params"

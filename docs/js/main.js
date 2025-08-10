@@ -34216,16 +34216,6 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs-web-component",
-      layout: layoutSidebarAnchor,
-      props: {
-        source: "./data/mob-js/web-component.json",
-        title: "webComponent",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
-        section: "mobJs"
-      }
-    },
-    {
       name: "mobJs-routing",
       layout: layoutSidebarAnchor,
       props: {
@@ -34606,6 +34596,28 @@ Loading snippet ...</pre
       }
     },
     {
+      name: "mobJs-web-component",
+      templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mob-js/web-component.json",
+        title: "webComponent",
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
+      }
+    },
+    {
+      name: "mobJs-slot",
+      templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mob-js/slot.json",
+        title: "slot",
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
+      }
+    },
+    {
       name: "mobJs-unBind",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
@@ -34755,17 +34767,6 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/class-list.json",
         title: "classList",
-        breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
-      }
-    },
-    {
-      name: "mobJs-slot",
-      templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
-      layout: layoutSidebarLinks,
-      props: {
-        source: "./data/mob-js/slot.json",
-        title: "slot",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs"
       }

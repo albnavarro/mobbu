@@ -219,6 +219,21 @@
                 "isLabel": false
             },
             {
+                "label": "Special component",
+                "url": "",
+                "isLabel": true
+            },
+            {
+                "label": "Web component",
+                "url": "mobJs-web-component",
+                "isLabel": false
+            },
+            {
+                "label": "Slot",
+                "url": "mobJs-slot",
+                "isLabel": false
+            },
+            {
                 "label": "Static params",
                 "url": "",
                 "isLabel": true

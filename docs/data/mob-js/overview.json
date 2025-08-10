@@ -105,14 +105,9 @@
                                     "url": "./#mobJs-component"
                                 },
                                 {
-                                    "label": "web component",
-                                    "url": "./#mobJs-web-component"
-                                },
-                                {
                                     "label": "routing",
                                     "url": "./#mobJs-routing"
                                 },
-                                { "label": "slot", "url": "./#mobJs-slot" },
                                 { "label": "tick", "url": "./#mobJs-tick" },
                                 {
                                     "label": "memory management",
