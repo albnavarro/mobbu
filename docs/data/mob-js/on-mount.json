@@ -46,7 +46,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Early onMount Trigger:</strong> Execute between: <ul> <li>Component DOM attachment</li> <li>Child component creation</li> </ul> <em>Enable via <strong>scoped</strong> parameter in <a href='./#mobJs-component'><strong>component definition</strong></a></em>"
+            "content": "<strong>Early onMount Trigger:</strong> Execute between: <ul> <li>Child component creation</li> </ul> <em>Enable via <strong>scoped</strong> parameter in <a href='./#mobJs-component'><strong>component definition</strong></a></em>"
         },
         {
             "component": "mob-spacer",
