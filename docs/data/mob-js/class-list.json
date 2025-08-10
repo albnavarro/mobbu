@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "It is possible to use the class attribute on a component."
+            "content": "<p>You can absolutely apply <strong>class attributes</strong> directly to components, just like regular DOM elements - the styling gets passed through to the rendered output.</p>"
         },
         {
             "component": "mob-spacer",

@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The freezeProp() function momentarily freezes a state, inhibiting any mutation made by setState().<br/>Use <a href='./#mobJs-unFreezeProp'>unFreezeProp()</a> to clear the freeze."
+            "content": "<p>The <strong>freezeProp()</strong> function acts like a <strong>pause button</strong> for state changes - temporarily blocking all modifications attempted. When ready to resume, simply call <strong><a href='./#mobJs-unFreezeProp'>unFreezeProp()</a></strong> to lift the restriction.</p>"
         },
         {
             "component": "mob-spacer",

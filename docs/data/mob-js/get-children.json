@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The getChildren function will return an array of ids (strings) based on the specified component. With them it will then be possible to carry out some operations, for example changing their state: In the <a href='./#mobJs-utils'>utils</a> sections it is possible to consult the utilities to manage the components starting from their id and more."
+            "content": "The <strong>getChildren</strong> function delivers an array of component IDs (as strings)"
         },
         {
             "component": "mob-spacer",

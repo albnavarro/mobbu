@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "the unFreezeProp() function eliminates the state lock applied by <a href='./#mobJs-freezeProp'>freezeProp()</a>"
+            "content": "<p>The <strong>unFreezeProp()</strong> function releases the state lock previously applied by <strong><a href='./#mobJs-freezeProp'>freezeProp()</a></strong>, restoring full mutability to the property.</p>"
         },
         {
             "component": "mob-spacer",

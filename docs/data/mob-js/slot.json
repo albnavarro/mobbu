@@ -29,7 +29,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The slots are identified by the mobjs-slot tag, they can be unnamed or named as in the following examples:"
+            "content": "<p>Slots are marked with <strong>mobjs-slot</strong> tags, working flexibly as either <strong>unnamed</strong> defaults or <strong>named</strong> variants - like these examples demonstrate:</p>"
         },
         {
             "component": "mob-spacer",

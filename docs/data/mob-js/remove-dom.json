@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Remove and destroy specific HTMLElement ( not component ).<br/> Every time the dom is removed, any reference to any components present within it such as watchers etc... will be removed from the map."
+            "content": "<ul> <li><strong>HTMLElement Removal</strong> (non-component): <ul> <li>Completely <strong>destroys</strong> the specified DOM element</li> <li><strong>Cleanup Includes</strong>: <ul> <li>All <strong>component references</strong> within the element</li> <li>Associated <strong>watchers/subscriptions</strong></li> <li>State b<strong>indings</strong> and event listeners</li> </ul> </li> <li>Automatically <strong>purges</strong> from the internal tracking map</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

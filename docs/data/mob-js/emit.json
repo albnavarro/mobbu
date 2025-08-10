@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The state of the component is actually managed by an instance of the <a href='./#mobCore-store'>store class</a>. The emit() function is equivalent to myStore.emit(). The emit function executes all the callbacks linked to a given state without needing to modify it. Component states are declared in the component's <a href='./#mobJs-component'>definition</a>"
+            "content": "<strong>Component State System:</strong> <ul> <li>Powered by <strong><a href='#mobCore-store'>mobCore store</a></strong></li> <li>Inherits full store capabilities (reactivity, methods, etc.)</li> <li>Access via <strong>emit()</strong> (identical to <strong>myStore.emit()</strong>)</li> <li>Declaration: Defined in component configuration</li> </ul>"
         },
         {
             "component": "mob-spacer",

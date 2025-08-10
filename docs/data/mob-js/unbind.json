@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The unBind function detach the states that have been given a reactivity via bindProps, once the function is launched the states will no longer be responsive."
+            "content": "<p>The <strong>unBind</strong> function severs all reactive connections created by <strong>bindProps</strong> - once triggered, these states become completely <span class='quote'>static</span> and won't update to changes anymore.</p>"
         },
         {
             "component": "mob-spacer",

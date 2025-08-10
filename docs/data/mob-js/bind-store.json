@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>bindStore Functionality:</strong> <ul> <li>Creates reactive binding between component state and <strong><a href='#mobCore-store'>mobStore</a></strong></li> <li>Inherits full <strong>reactivity</strong> system from linked store</li> <li>Multi-store support: Pass an <strong>array</strong> of stores</li> </ul>"
+            "content": "<strong>bindStore Functionality:</strong> <ul> <li>Creates <strong>reactive binding</strong> between component state and <strong><a href='#mobCore-store'>mobStore</a></strong></li> <li>Inherits full <strong>reactivity</strong> system from linked store</li> <li>Multi-store support: Pass an <strong>array</strong> of stores</li> </ul>"
         },
         {
             "component": "mob-spacer",

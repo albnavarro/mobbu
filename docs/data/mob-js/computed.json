@@ -41,7 +41,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Reactive Property Updates:</strong> <ul> <li>Automatic value propagation when <strong>state changes</strong></li> <li>Computed properties: <ul> <li>Processed in the JavaScript event loop</li> <li>Single execution per update cycle</li> </ul> </li> <li>Declaration: Defined in component <a href='./#mobJs-component'><strong>definition</strong></a></li> </ul>"
+            "content": "<strong>Reactive Property Updates:</strong> <ul> <li>Computed properties: <ul> <li>Processed in the JavaScript event loop</li> <li>Single execution per update cycle</li> </ul> </li>  </ul>"
         },
         {
             "component": "mob-spacer",

@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Destroys the component and all its children, removing any references."
+            "content": "<p>The <strong>destruction process</strong> wipes out the <strong>component</strong> and its <strong>entire subtree</strong> - <span class='quote'>all references</span>, child components, and associated bindings get <span class='quote'>permanently cleaned up</span> from memory.</p>"
         },
         {
             "component": "mob-spacer",

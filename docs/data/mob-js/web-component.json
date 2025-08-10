@@ -21,7 +21,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "To use web components it is necessary that in the html function in which the dom is defined, the first node has the same tag used in the <strong><a href='./#mobJs-component'>definition</a></strong> of the component and used to recall it:"
+            "content": "<p>When working with web components, your HTML function's <strong>first node</strong> must use the exact same tag name as both the component's <strong><a href='./#mobJs-component'>definition</a></strong> and its subsequent instantiation calls.</p>"
         },
         {
             "component": "mob-spacer",
@@ -57,7 +57,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "In the <a href='./#mobJs-component'>createComponent</a> function it will be possible to define the functions that interact with the life cycle of the component:"
+            "content": "<p>The <strong><a href='./#mobJs-component'>createComponent</a></strong> function serves as your control center - here you'll define all lifecycle hooks that manage how your component behaves from birth to removal.</p>"
         },
         {
             "component": "mob-list",
@@ -91,7 +91,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Each param has the context as an argument, and optionally as in the example below an object with all the utilities of our function"
+            "content": "<p>Each parameter automatically receives the <strong>web component context</strong> (the custom element's instance), and optionally - as shown in the example below - can accept a utility object containing all our function's helper methods.</p>"
         },
         {
             "component": "mob-title",
@@ -139,7 +139,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "attributeChangedCallback will have additional parameters that allow you to communicate with the native webComponent observer such as:"
+            "content": "<p>The <strong>attributeChangedCallback</strong> comes supercharged with extra parameters that bridge directly to the native webComponent observer - giving you hooks into:</p>"
         },
         {
             "component": "mob-list",
