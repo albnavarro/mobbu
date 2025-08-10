@@ -88,10 +88,15 @@
     }
 
     &__label {
-        font-size: rem(16);
         line-height: 1.2;
         margin-top: rem(20);
+        margin-bottom: rem(5);
         font-weight: 600;
+        font-size: rem(13);
+
+        @media screen and (height >= 200px) and (height <= 750px) {
+            font-size: rem(11);
+        }
     }
 
     &__scrollbar {

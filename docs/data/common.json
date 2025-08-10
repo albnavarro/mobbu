@@ -45,7 +45,7 @@
     "sideBarLinks": {
         "mobJsComponentParams": [
             {
-                "label": "Fundamental params",
+                "label": "Life Cycle",
                 "url": "",
                 "isLabel": true
             },
@@ -53,6 +53,11 @@
                 "label": "onMount",
                 "url": "mobJs-onMount",
                 "isLabel": false
+            },
+            {
+                "label": "State management",
+                "url": "",
+                "isLabel": true
             },
             {
                 "label": "getProxi",
@@ -80,14 +85,23 @@
                 "isLabel": false
             },
             {
+                "label": "Side effect",
+                "url": "",
+                "isLabel": true
+            },
+            {
                 "label": "watch",
                 "url": "mobJs-watch",
                 "isLabel": false
             },
             {
+                "label": "Props",
+                "url": "",
+                "isLabel": true
+            },
+            {
                 "label": "dataAttribute",
-                "url": "mobJs-dataAttribute",
-                "isLabel": false
+                "url": "mobJs-dataAttribute"
             },
             {
                 "label": "staticProps",
@@ -100,14 +114,9 @@
                 "isLabel": false
             },
             {
-                "label": "bindEvents",
-                "url": "mobJs-bindEvents",
-                "isLabel": false
-            },
-            {
-                "label": "delegateEvents",
-                "url": "mobJs-delegateEvents",
-                "isLabel": false
+                "label": "DOM Manipulation",
+                "url": "",
+                "isLabel": true
             },
             {
                 "label": "bindText",
@@ -125,17 +134,62 @@
                 "isLabel": false
             },
             {
-                "label": "methods",
-                "url": "mobJs-methods",
-                "isLabel": false
-            },
-            {
                 "label": "refs",
                 "url": "mobJs-refs",
                 "isLabel": false
             },
             {
-                "label": "Render Blocks",
+                "label": "Events",
+                "url": "",
+                "isLabel": true
+            },
+            {
+                "label": "bindEvents",
+                "url": "mobJs-bindEvents",
+                "isLabel": false
+            },
+            {
+                "label": "delegateEvents",
+                "url": "mobJs-delegateEvents",
+                "isLabel": false
+            },
+            {
+                "label": "Methods",
+                "url": "",
+                "isLabel": true
+            },
+            {
+                "label": "InstanceName",
+                "url": "mobJs-instanceName",
+                "isLabel": false
+            },
+            {
+                "label": "Add methods",
+                "url": "mobJs-methods",
+                "isLabel": false
+            },
+            {
+                "label": "setStateByName",
+                "url": "./#mobJs-setStateByName",
+                "isLabel": false
+            },
+            {
+                "label": "updateStateByName",
+                "url": "./#mobJs-updateStateByName",
+                "isLabel": false
+            },
+            {
+                "label": "useMethodByName",
+                "url": "./#mobJs-useMethodByName",
+                "isLabel": false
+            },
+            {
+                "label": "useMethodarrayByName",
+                "url": "./#mobJs-useMethodArrayByName",
+                "isLabel": false
+            },
+            {
+                "label": "Blocks & cycle",
                 "url": "",
                 "isLabel": true
             },
@@ -165,18 +219,8 @@
                 "isLabel": true
             },
             {
-                "label": "InstanceName",
-                "url": "mobJs-instanceName",
-                "isLabel": false
-            },
-            {
                 "label": "ClassList",
                 "url": "mobJs-class-list",
-                "isLabel": false
-            },
-            {
-                "label": "Slot",
-                "url": "mobJs-slot",
                 "isLabel": false
             },
             {
