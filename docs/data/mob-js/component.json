@@ -1058,7 +1058,7 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "Methods definition"
+                        "content": "External Component API"
                     },
                     {
                         "component": "mob-paragraph",

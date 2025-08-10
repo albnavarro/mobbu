@@ -209,12 +209,12 @@
                 "isLabel": false
             },
             {
-                "label": "repeat ( array.map )",
+                "label": "repeat",
                 "url": "mobJs-repeat",
                 "isLabel": false
             },
             {
-                "label": "invalidate vs repeater",
+                "label": "invalidate vs repeat",
                 "url": "mobJs-invalidate-vs-repeater",
                 "isLabel": false
             },
