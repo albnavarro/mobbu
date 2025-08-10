@@ -12,6 +12,7 @@ export interface NavigationButton {
         callback: () => void;
         isOpen: boolean;
         isCurrent: boolean;
+        forceChildren: string[];
     };
 }
 

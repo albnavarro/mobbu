@@ -26,6 +26,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                 section,
                 sectioName,
                 scrollToSection,
+                forceChildren,
             } = item;
 
             if (section) {
@@ -74,6 +75,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                                       scrollToSection:
                                           scrollToSection ?? 'no-scroll',
                                       activeId: activeId ?? -1,
+                                      forceChildren: forceChildren ?? [],
                                   })
                               )}
                           ></mob-navigation-button>

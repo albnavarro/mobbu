@@ -26,6 +26,7 @@ export const NavigationButtonFn = ({
         callback,
         scrollToSection,
         activeId,
+        forceChildren,
     } = getState();
 
     MobJs.afterRouteChange(({ route }) => {
@@ -46,7 +47,13 @@ export const NavigationButtonFn = ({
                 activeId === -1 || activeParams?.['activeId'] === `${activeId}`;
 
             const isActiveRoute = route === hash && paramsMatch;
-            setState('isCurrent', isActiveRoute);
+
+            /**
+             * Match virtual children, with no submenu. Virtual children is defined in forceChildren props
+             */
+            const forceChildrenMatch = forceChildren.includes(route);
+
+            setState('isCurrent', isActiveRoute || forceChildrenMatch);
 
             /**
              * Set current accordion menu open state. On load route, or if route is loaded outside menu.

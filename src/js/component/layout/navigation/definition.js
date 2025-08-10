@@ -25,6 +25,7 @@ export const NavigationButton = MobJs.createComponent(
             'isOpen',
             'scrollToSection',
             'activeId',
+            'forceChildren',
         ],
         state: {
             label: () => ({
@@ -66,6 +67,10 @@ export const NavigationButton = MobJs.createComponent(
             isCurrent: () => ({
                 value: false,
                 type: Boolean,
+            }),
+            forceChildren: () => ({
+                value: [],
+                type: Array,
             }),
         },
     })

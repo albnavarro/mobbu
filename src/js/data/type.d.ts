@@ -33,6 +33,7 @@ export interface CommonData {
         sectioName?: string;
         scrollToSection?: string;
         children: NavigationChildren[];
+        forceChildren?: string[];
     }[];
     suggestion: {
         word: string;
