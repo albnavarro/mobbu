@@ -112,7 +112,7 @@
             "component": "anchor-button",
             "props": {
                 "anchor": "#methods",
-                "content": "Methods"
+                "content": "External Component API"
             }
         },
         {
@@ -1044,7 +1044,7 @@
                         "props": {
                             "style": "big",
                             "id": "methods",
-                            "label": "Methods"
+                            "label": "External Component API"
                         }
                     },
                     {

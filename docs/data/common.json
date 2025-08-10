@@ -159,7 +159,7 @@
                 "isLabel": false
             },
             {
-                "label": "Methods",
+                "label": "External Component API",
                 "url": "",
                 "isLabel": true
             },
@@ -174,16 +174,6 @@
                 "isLabel": false
             },
             {
-                "label": "setStateByName",
-                "url": "mobJs-setStateByName",
-                "isLabel": false
-            },
-            {
-                "label": "updateStateByName",
-                "url": "mobJs-updateStateByName",
-                "isLabel": false
-            },
-            {
                 "label": "useMethodByName",
                 "url": "mobJs-useMethodByName",
                 "isLabel": false
@@ -191,6 +181,16 @@
             {
                 "label": "useMethodArrayByName",
                 "url": "mobJs-useMethodArrayByName",
+                "isLabel": false
+            },
+            {
+                "label": "setStateByName",
+                "url": "mobJs-setStateByName",
+                "isLabel": false
+            },
+            {
+                "label": "updateStateByName",
+                "url": "mobJs-updateStateByName",
                 "isLabel": false
             },
             {
