@@ -59,6 +59,14 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "x-small",
+                "label": "Entry point",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "small",
                 "id": "main",
                 "label": "Initialization"
@@ -99,6 +107,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "Parameters",
+                            "isSection": true
+                        }
+                    },
                     {
                         "component": "mob-spacer",
                         "props": {
