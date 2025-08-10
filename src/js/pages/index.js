@@ -486,7 +486,7 @@ export const routes = [
         layout: layoutSidebarLinks,
         props: {
             source: './data/mob-js/methods.json',
-            title: 'methods',
+            title: 'add methods',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
         },
