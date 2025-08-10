@@ -352,7 +352,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Function (optional) where you can animate the previous node and the new one"
+                        "content": "<strong>Route Transition Hook:</strong> Optional function for animating both: <ul> <li>The outgoing (previous) route node</li> <li>The incoming (new) route node</li> </ul>"
                     },
                     {
                         "component": "mob-list",
@@ -388,7 +388,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Custom callback fired after initialization"
+                        "content": "<strong>Post-Initialization Hook:</strong> Custom callback executed after the app completes startup."
                     },
                     {
                         "component": "mob-spacer",
@@ -410,7 +410,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Function (optional) where you can return a specific route based on the incoming route"
+                        "content": "<strong>Route Interceptor:</strong> Optional function that transforms incoming routes"
                     },
                     {
                         "component": "mob-list",
@@ -446,7 +446,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "You can specify whether to store the scroll position when using the browser's History API."
+                        "content": "<strong>Scroll Position Persistence:</strong> Configurable option for storing/restoring scroll coordinates during History API navigation."
                     },
                     {
                         "component": "mob-spacer",
@@ -474,7 +474,13 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The default parameters with which the components will be created (optional)."
+                        "content": "<strong>Default Component Parameters:</strong> Optional configuration defining initial props for all component instances."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-snippet",
