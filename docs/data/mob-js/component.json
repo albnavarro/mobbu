@@ -621,7 +621,7 @@
                         "props": {
                             "style": "big",
                             "id": "async",
-                            "label": "Async"
+                            "label": "Async Function Component"
                         }
                     },
                     {
@@ -797,6 +797,11 @@
                                 {
                                     "label": "Computed",
                                     "url": "./#mobJs-computed"
+                                },
+                                {
+                                    "label": "BindStore",
+                                    "url": "./#mobJs-bindStore",
+                                    "isLabel": false
                                 }
                             ]
                         }

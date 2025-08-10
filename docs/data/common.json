@@ -85,6 +85,11 @@
                 "isLabel": false
             },
             {
+                "label": "BindStore",
+                "url": "mobJs-bindStore",
+                "isLabel": false
+            },
+            {
                 "label": "Side effect",
                 "url": "",
                 "isLabel": true
