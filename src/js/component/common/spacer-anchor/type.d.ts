@@ -5,5 +5,6 @@ export interface SpacerAnchor {
         id: string;
         label: string;
         isSection: boolean;
+        isNote: boolean;
     };
 }

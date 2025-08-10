@@ -24,28 +24,31 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
             /**
              * Skip click if is section title
              */
-            const delegateEventsFn = item.isSection
-                ? ''
-                : delegateEvents({
-                      click: async () => {
-                          const { id: scroll, label, element } = item;
+            const delegateEventsFn =
+                item.isSection || item.isNote
+                    ? ''
+                    : delegateEvents({
+                          click: async () => {
+                              const { id: scroll, label, element } = item;
 
-                          const offsetTop =
-                              scroll === 'start' ? 0 : offset(element).top - 50;
+                              const offsetTop =
+                                  scroll === 'start'
+                                      ? 0
+                                      : offset(element).top - 50;
 
-                          /**
-                           * Disable spacerAnchor observer effect during scroll.
-                           */
-                          disableObservereffect = true;
-                          proxi.activeLabel = label;
-                          await MobBodyScroll.to(offsetTop);
+                              /**
+                               * Disable spacerAnchor observer effect during scroll.
+                               */
+                              disableObservereffect = true;
+                              proxi.activeLabel = label;
+                              await MobBodyScroll.to(offsetTop);
 
-                          /**
-                           * Back to enable spacerAnchor observer.
-                           */
-                          disableObservereffect = false;
-                      },
-                  });
+                              /**
+                               * Back to enable spacerAnchor observer.
+                               */
+                              disableObservereffect = false;
+                          },
+                      });
 
             return html`
                 <li>
@@ -57,6 +60,7 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                                 active: proxi.activeLabel === item.label,
                                 label: item.label,
                                 isSection: item.isSection ?? false,
+                                isNote: item.isNote ?? false,
                             })
                         )}
                     >
@@ -80,9 +84,9 @@ export const ScrollToFn = ({
 }) => {
     const proxi = getProxi();
 
-    addMethod('addItem', ({ id, label, element, isSection }) => {
+    addMethod('addItem', ({ id, label, element, isSection, isNote }) => {
         updateState('anchorItemsToBeComputed', (val) => {
-            return [...val, { id, label, element, isSection }];
+            return [...val, { id, label, element, isSection, isNote }];
         });
     });
 

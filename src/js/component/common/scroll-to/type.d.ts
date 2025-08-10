@@ -6,12 +6,14 @@ export interface ScrollTo {
             id: string;
             label: string;
             isSection?: boolean;
+            isNote?: boolean;
         }[];
         anchorItems: {
             element: HTMLElement;
             id: string;
             label: string;
             isSection?: boolean;
+            isNote?: boolean;
         }[];
     };
     methods: {
@@ -20,6 +22,7 @@ export interface ScrollTo {
             label: string;
             element: HTMLElement;
             isSection?: boolean;
+            isNote?: boolean;
         }) => void;
         setActiveLabel: (arg0: string) => void;
     };

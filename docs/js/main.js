@@ -24825,21 +24825,27 @@ Loading snippet ...</pre
   function hasAnchor({ label }) {
     return label?.length > 0;
   }
-  var addItemToScrollComponent = async ({ id, label, element, isSection }) => {
+  var addItemToScrollComponent = async ({
+    id,
+    label,
+    element,
+    isSection,
+    isNote
+  }) => {
     await modules_exports2.tick();
     const methods = modules_exports2.useMethodByName(scrollToName);
-    methods?.addItem?.({ id, label, element, isSection });
+    methods?.addItem?.({ id, label, element, isSection, isNote });
     if (isVisibleInViewport(element) && !isSection) {
       methods?.setActiveLabel?.(label);
     }
   };
   var SpacerAnchorFn = ({ getState, onMount }) => {
-    const { style, line, id, label, isSection } = getState();
+    const { style, line, id, label, isSection, isNote } = getState();
     const lineClass = line ? "spacer--line" : "";
     onMount(({ element }) => {
       const shouldAddToAnchor = hasAnchor({ label });
       if (!shouldAddToAnchor) return;
-      addItemToScrollComponent({ id, label, element, isSection });
+      addItemToScrollComponent({ id, label, element, isSection, isNote });
       const unsubScribeScroll = modules_exports.useScrollThrottle(() => {
         if (isVisibleInViewport(element) && !isSection) {
           const methods = modules_exports2.useMethodByName(scrollToName);
@@ -24861,7 +24867,7 @@ Loading snippet ...</pre
     {
       tag: "mob-spacer",
       component: SpacerAnchorFn,
-      exportState: ["style", "line", "id", "label", "isSection"],
+      exportState: ["style", "line", "id", "label", "isSection", "isNote"],
       state: {
         style: () => ({
           value: "x-small",
@@ -24882,6 +24888,10 @@ Loading snippet ...</pre
           type: String
         }),
         isSection: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isNote: () => ({
           value: false,
           type: Boolean
         })
@@ -25386,10 +25396,11 @@ Loading snippet ...</pre
   var ScrollToButtonFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
     const isSectionClass = proxi.isSection ? "is-section" : "";
+    const isNoteClass = proxi.isNote ? "is-note" : "";
     return renderHtml`
         <button
             type="button"
-            class="${isSectionClass}"
+            class="${isSectionClass} ${isNoteClass}"
             ${bindEffect({
       toggleClass: { active: () => proxi.active }
     })}
@@ -25405,7 +25416,7 @@ Loading snippet ...</pre
     {
       tag: "scroll-to-button",
       component: ScrollToButtonFn,
-      exportState: ["label", "active", "isSection"],
+      exportState: ["label", "active", "isSection", "isNote"],
       state: {
         label: () => ({
           value: "",
@@ -25418,6 +25429,10 @@ Loading snippet ...</pre
         isSection: () => ({
           value: false,
           type: Boolean
+        }),
+        isNote: () => ({
+          value: false,
+          type: Boolean
         })
       }
     }
@@ -25427,7 +25442,7 @@ Loading snippet ...</pre
   var disableObservereffect = false;
   function getButtons({ delegateEvents, bindProps, proxi }) {
     return proxi.anchorItems.map((item) => {
-      const delegateEventsFn = item.isSection ? "" : delegateEvents({
+      const delegateEventsFn = item.isSection || item.isNote ? "" : delegateEvents({
         click: async () => {
           const { id: scroll, label, element } = item;
           const offsetTop = scroll === "start" ? 0 : offset(element).top - 50;
@@ -25446,7 +25461,8 @@ Loading snippet ...</pre
         () => ({
           active: proxi.activeLabel === item.label,
           label: item.label,
-          isSection: item.isSection ?? false
+          isSection: item.isSection ?? false,
+          isNote: item.isNote ?? false
         })
       )}
                     >
@@ -25466,9 +25482,9 @@ Loading snippet ...</pre
     getProxi
   }) => {
     const proxi = getProxi();
-    addMethod("addItem", ({ id, label, element, isSection }) => {
+    addMethod("addItem", ({ id, label, element, isSection, isNote }) => {
       updateState("anchorItemsToBeComputed", (val2) => {
-        return [...val2, { id, label, element, isSection }];
+        return [...val2, { id, label, element, isSection, isNote }];
       });
     });
     addMethod("setActiveLabel", (label) => {

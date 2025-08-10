@@ -4,11 +4,12 @@ import { html } from '@mobJs';
 export const ScrollToButtonFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
     const isSectionClass = proxi.isSection ? 'is-section' : '';
+    const isNoteClass = proxi.isNote ? 'is-note' : '';
 
     return html`
         <button
             type="button"
-            class="${isSectionClass}"
+            class="${isSectionClass} ${isNoteClass}"
             ${bindEffect({
                 toggleClass: { active: () => proxi.active },
             })}

@@ -3,5 +3,6 @@ export interface ScrollToButton {
         label: string;
         active: boolean;
         isSection: boolean;
+        isNote: boolean;
     };
 }

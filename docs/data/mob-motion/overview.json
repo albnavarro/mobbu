@@ -9,6 +9,14 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "&nbsp",
+                "isNote": true
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -80,6 +88,46 @@
                             "style": "x-small",
                             "id": "async",
                             "label": "Async"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "- tween",
+                            "isNote": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "- spring",
+                            "isNote": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "- lerp",
+                            "isNote": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "- Async timeline",
+                            "isNote": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "&nbsp",
+                            "isNote": true
                         }
                     },
                     {
@@ -177,6 +225,54 @@
                             "style": "x-small",
                             "id": "sync",
                             "label": "Sync"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "- Sequencer",
+                            "isNote": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "- Create stagger",
+                            "isNote": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "- Sync timeline",
+                            "isNote": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "- ScrollTrigger",
+                            "isNote": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "- Parallax",
+                            "isNote": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "&nbsp",
+                            "isNote": true
                         }
                     },
                     {

@@ -63,16 +63,24 @@
             font-weight: 600;
         }
 
-        &.is-section {
-            font-weight: 600;
-            margin-top: rem(10);
-
+        &.is-section,
+        &.is-note {
             &:hover,
             &.active {
                 &::after {
                     content: none;
                 }
             }
+        }
+
+        &.is-section {
+            font-weight: 600;
+            margin-top: rem(10);
+        }
+
+        &.is-note {
+            font-size: rem(12);
+            cursor: auto;
         }
     }
 }

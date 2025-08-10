@@ -23,15 +23,22 @@ function hasAnchor({ label }) {
  * @param {string} params.label
  * @param {HTMLElement} params.element
  * @param {boolean} params.isSection
+ * @param {boolean} params.isNote
  * @returns {Promise<void>}
  */
-const addItemToScrollComponent = async ({ id, label, element, isSection }) => {
+const addItemToScrollComponent = async ({
+    id,
+    label,
+    element,
+    isSection,
+    isNote,
+}) => {
     // Wait that all components is mounted.
     await MobJs.tick();
 
     /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
     const methods = MobJs.useMethodByName(scrollToName);
-    methods?.addItem?.({ id, label, element, isSection });
+    methods?.addItem?.({ id, label, element, isSection, isNote });
 
     if (isVisibleInViewport(element) && !isSection) {
         methods?.setActiveLabel?.(label);
@@ -40,14 +47,14 @@ const addItemToScrollComponent = async ({ id, label, element, isSection }) => {
 
 /** @type {MobComponent<SpacerAnchor>} */
 export const SpacerAnchorFn = ({ getState, onMount }) => {
-    const { style, line, id, label, isSection } = getState();
+    const { style, line, id, label, isSection, isNote } = getState();
     const lineClass = line ? 'spacer--line' : '';
 
     onMount(({ element }) => {
         const shouldAddToAnchor = hasAnchor({ label });
         if (!shouldAddToAnchor) return;
 
-        addItemToScrollComponent({ id, label, element, isSection });
+        addItemToScrollComponent({ id, label, element, isSection, isNote });
 
         const unsubScribeScroll = MobCore.useScrollThrottle(() => {
             if (isVisibleInViewport(element) && !isSection) {

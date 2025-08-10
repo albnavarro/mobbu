@@ -3495,13 +3495,19 @@ h2 .title-index {
 .c-scroll-to button.active {
   font-weight: 600;
 }
+.c-scroll-to button.is-section:hover::after,
+.c-scroll-to button.is-section.active::after,
+.c-scroll-to button.is-note:hover::after,
+.c-scroll-to button.is-note.active::after {
+  content: none;
+}
 .c-scroll-to button.is-section {
   font-weight: 600;
   margin-top: 0.6666666667rem;
 }
-.c-scroll-to button.is-section:hover::after,
-.c-scroll-to button.is-section.active::after {
-  content: none;
+.c-scroll-to button.is-note {
+  font-size: 0.8rem;
+  cursor: auto;
 }
 .c-params-mobjs {
   --links-height: 54vh;
