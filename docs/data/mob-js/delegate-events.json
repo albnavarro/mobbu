@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The delegateEvents function collects all events associated with individual elements into a single listener associated with the app root. The event target will then be redirected to the right node. This works and you can use it on simple components or nodes. During the execution of each event, further calls made before the entire app has updated will be inhibited. Due to the <span class='quote'>asynchronous</span> nature of the event, delegateEvents is not suitable for animations, use the native <span class='quote'>addEventListener</span> for this."
+            "content": " <ul> <li><strong>Event Delegation</strong>: <ul> <li>Consolidates listeners at <strong>root level</strong></li> <li>Automatically routes events to targets</li> </ul> </li> <li><strong>Compatibility</strong>: <ul> <li>Works on both <strong>components</strong> and <strong>DOM nodes</strong></li> <li><strong>Not recommended</strong> for animations</li> </ul> </li> <li><strong>Execution Control</strong>: <ul> <li>Blocks duplicate calls during app updates</li> <li>Leverages <strong>asynchronous</strong> processing</li> </ul> </li> <li><strong>Animation Alternative</strong>: Native <strong>addEventListener</strong></li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -123,7 +123,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Indicates the current value and position of the component inside a <a href='#mobJs-repeat'><strong>repeater</strong></a>."
+            "content": " <ul> <li><strong>Current value</strong> of the repeated item</li> <li><strong>Index position</strong> in the collection</li> <li>Automatically available within <a href='#mobJs-repeat'><strong>repeater</strong></a> components</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -132,7 +132,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Although <strong>delegateEvent</strong> can return the <strong>current</strong> and <strong>updated</strong> value inside a <strong>repeater</strong> it is advisable to use the current <strong>proxy</strong> provided by the <strong>repeater</strong> itself, which is more convenient and integrated into the <strong>typescript</strong> environment."
+            "content": " <ul> <li><strong>Recommended Practice</strong>: <ul> <li>Use the repeater's built-in <strong>proxy</strong></li> <li>Benefits: <ul> <li>Seamless <strong>TypeScript</strong> integration</li> <li>Automatic value synchronization</li> <li>Cleaner syntax</li> </ul> </li> </ul> </li> </ul>"
         },
         {
             "component": "mob-snippet",

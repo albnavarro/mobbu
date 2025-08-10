@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "You can use <strong>data attributes</strong> to pass static values to a component's state without triggering any reactivity. This is useful when you know the value will not be reactive, it is clearer to read and lighter for the entire app."
+            "content": "<strong>Static Data Attributes</strong>: <ul> <li><strong>Non-reactive</strong> value passing</li> <li>Ideal for: <ul> <li>Constant configuration</li> <li>Performance-critical cases</li> </ul> </li> <li>Benefits: <ul> <li><strong>Improved readability</strong></li> <li><strong>Reduced overhead</strong> vs reactive properties</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The values can only be <strong>strings</strong>, to pass different types (numbers, objects, etc..) use the <strong><a href='#mobJs-staticProps'>staticProps</a></strong> function"
+            "content": "<strong>Data Attribute Limitations</strong>: <ul> <li>Value type restriction: Only <strong>strings</strong> supported</li> <li>For complex data types: <ul> <li>Use <strong><a href='#mobJs-staticProps'>staticProps</a></strong> function</li> <li>Supports: numbers, objects, arrays, etc.</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -44,7 +44,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Remember that props are only usable if the component receiving them has <strong>exposed</strong> them in the <strong>exportState</strong> property within the component's <strong><a href='#mobJs-component'>definition</a></strong> function."
+            "content": "<strong>Prop Visibility Rule</strong>: <ul> <li>Required setup: Expose props in <strong>exportState</strong></li> <li>Location: Component's <strong><a href='#mobJs-component'>definition</a></strong> function</li> <li>Access control: <ul> <li>Exposed props → <strong>public</strong></li> <li>Others → <strong>private</strong></li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

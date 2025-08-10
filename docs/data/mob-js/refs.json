@@ -41,7 +41,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Refs can be applied both to <strong>html nodes</strong> and <strong>components node</strong>.<br/> A <strong>ref</strong> applied to the component will return the <strong>first node</strong> of the component itself.<br/>Refs are also important for <a href='#mobJs-memory-management'><strong>memory management</strong></a>."
+            "content": "<ul> <li><strong>Universal targeting</strong>: <ul> <li>Works on <strong>HTML nodes</strong></li> <li>Works on <strong>component nodes</strong></li> </ul> </li> <li><strong>Component behavior</strong>: <ul> <li>Returns component's <strong>first node</strong></li> </ul> </li> <li><strong>Critical role</strong> in <a href='#mobJs-memory-management'><strong>memory management</strong></a></li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -55,8 +55,8 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>getRefs()</span>: Always returns an array with all matches",
-                    "<span class='quote'>getRef()</span>: The first match found always returns"
+                    "<strong>getRefs()</strong>: Always returns an array with all matches",
+                    "<strong>getRef()</strong>: The first match found always returns"
                 ]
             }
         },
@@ -95,7 +95,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "When using <strong>refs</strong> inside a dynamic block, it is necessary to run the getRef/getRef function every time you use it to always have updated elements. The elements returned by the function will always be <span class='quote'>sorted</span> in traversal order."
+            "content": "<ul> <li><strong>Usage Requirement</strong>: <ul> <li>Call <strong>getRef</strong>/<strong>getRefs</strong> on each access</li> <li>Ensures reference freshness</li> </ul> </li> <li><strong>DOM Order Guarantee</strong>: <ul> <li>Elements <strong>sorted</strong> in traversal order</li> <li>Consistent across updates</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

@@ -55,7 +55,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The <strong>bindEffect</strong> module allows you to apply reactive <strong>classes</strong> and <strong>styles</strong> and <strong>attributes</strong> to any type of html tags (component and non-component). The module is divided into <strong>independent groups</strong> to which it is possible to specify the status(es) to be monitored.<r/>The function will then be able to return an <strong>object</strong> or <strong>array of objects</strong>."
+            "content": "<ul> <li><strong>Universal DOM control</strong>: <ul> <li>Works on both <strong>component</strong> and <strong>regular HTML elements</strong></li> <li>Manages: <ul> <li><strong>Classes</strong></li> <li><strong>Styles</strong></li> <li><strong>Attributes</strong></li> </ul> </li> </ul> </li> <li><strong>Modular architecture</strong>: <ul> <li>Independent monitoring groups</li> <li>Flexible returns (<strong>object</strong> or <strong>array</strong>)</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

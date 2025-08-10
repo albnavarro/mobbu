@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "bindText allows you to update the contents of a node when one or more application states change. While <span class='quote'>bindObject</span> uses an object to update itself <span class='quote'>bindtText</span> has the key corresponding to the state as a string."
+            "content": "<strong>bindText vs bindObject</strong>: <ul> <li><strong>bindText</strong>: <ul> <li>Updates node content on state changes</li> <li>Direct state reference via <strong>string key</strong></li> </ul> </li> <li><strong>bindObject</strong>: <ul> <li>Updates node content on state changes</li> <li>Updates using <strong>proxi</strong></li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -47,10 +47,9 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "based on <span class='quote'>String.raw</span>",
-                    "requires a <span class='quote'>unique parent node</span>, each update will delete the previous contents of the node.",
-                    "States must be specified as <span class='quote'>strings</span> in order to be identified as keys to the component's state object.",
-                    "Can be used as content of a <span class='quote'>slotted component</span>."
+                    "based on <strong>String.raw</strong>",
+                    "requires a <strong>unique parent node</strong>, each update will delete the previous contents of the node.",
+                    "States must be specified as <strong>strings</strong> in order to be identified as keys to the component's state object."
                 ]
             }
         },
@@ -85,9 +84,11 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
-            "content": "For more <span class='quote'>complex situations</span> it is always possible to use the <a href='#mobJs-invalidate'>invalidate</a> function to handle complex situations in a cleaner way, invalidate can in fact also return a simple text."
+            "content": "<strong>Advanced State Management</strong>: <ul> <li>For <strong>complex situations</strong>: <ul> <li>Use the <a href='#mobJs-invalidate'><strong>invalidate</strong></a> function</li> <li>Cleaner handling of intricate logic</li> </ul> </li> <li>Flexible returns: <ul> <li>Can output processed <strong>text</strong></li> <li>Or complex data structures</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

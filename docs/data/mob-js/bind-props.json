@@ -55,7 +55,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "To pass <strong>callbacks</strong> use <a href='#mobJs-staticProps'><strong>staticProps</strong>,</a> callbacks do not react to the component's state but can be used by child components to change the state."
+            "content": "<strong>Callback Passing Pattern</strong>: <ul> <li>Recommended method: <a href='#mobJs-staticProps'><strong>staticProps</strong></a></li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -64,7 +64,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Remember that props are only usable if the component receiving them has <strong>exposed</strong> them in the <strong>exportState</strong> property within the component's <strong><a href='#mobJs-component'>definition</a></strong> function."
+            "content": "<strong>Prop Visibility Rule</strong>: <ul> <li>Required setup: Expose props in <strong>exportState</strong></li> <li>Location: Component's <strong><a href='#mobJs-component'>definition</a></strong> function</li> <li>Access control: <ul> <li>Exposed props → <strong>public</strong></li> <li>Others → <strong>private</strong></li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -85,7 +85,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Using a proxy you do not need to define dependencies. You can define dependencies for more granular control."
+            "content": "<strong>Dependency Management Options</strong>: <ul> <li><strong>Proxy Mode</strong>: <ul> <li>Automatic dependency tracking</li> <li>No manual declarations needed</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -94,7 +94,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "bindProps in its <strong>simplest form</strong> with <strong>function</strong> combined with the use of the <strong>proxy</strong> is the most <strong>convenient</strong> and <strong>recommended</strong> form"
+            "content": "<strong>Optimal bindProps Usage</strong>: <ul> <li><strong>Simplest implementation</strong>: <ul> <li>Basic <strong>function</strong> binding</li> <li>With <strong>proxy</strong> integration</li> </ul> </li> <li>Benefits: <ul> <li><strong>Maximum convenience</strong></li> <li><strong>Recommended</strong> for most use cases</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -138,7 +138,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The observe property is an array in which the states to monitor are listed, bindProps will fire when one or all of the listed states change. If the states change in the same eventLoop there will be only one reaction. The parameter is optional since within a repeater the monitored state will trigger the reaction by default, if you want to monitor only that state you can omit the observe parameter."
+            "content": " <ul> <li>Triggers <strong>bindProps</strong> on state changes</li> <li>Batch processes changes within same <strong>eventLoop</strong></li> <li><strong>Optional</strong> in repeaters (auto-monitors internal state)</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -158,7 +158,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The props property is a function that takes as input an object with all state values of the parent component (not just the monitored states).<br/> This function will return an object with the values to assign to the state of the child component."
+            "content": " <ul> <li><strong>Input</strong>: Full parent state object (all values)</li> <li><strong>Output</strong>: Object for child component state</li> <li><strong>Key Features</strong>: <ul> <li>Access to <strong>unmonitored states</strong></li> <li>Explicit state transformation</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -202,7 +202,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Indicates the current value and position of the component inside a <strong><a href='#mobJs-repeat'>repeater</a></strong>."
+            "content": " <ul> <li>Provides: <ul> <li>Current <strong>value</strong> of the repeated item</li> <li>Iteration <strong>position</strong> (index)</li> </ul> </li> <li>Accessible within <strong><a href='#mobJs-repeat'>repeater</a></strong> components</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -211,7 +211,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Although <strong>bindProps</strong> can return the <strong>current</strong> and <strong>updated</strong> value inside a <strong>repeater</strong> it is advisable to use the current <strong>proxy</strong> provided by the <strong>repeater</strong> itself, which is more convenient and integrated into the <strong>typescript</strong> environment."
+            "content": "<strong>Repeater Value Access</strong>: <ul> <li><strong>bindProps</strong> capability: <ul> <li>Returns <strong>current</strong> value</li> <li>Tracks <strong>updated</strong> values</li> </ul> </li> <li><strong>Recommended approach</strong>: <ul> <li>Use the repeater's built-in <strong>proxy</strong></li> <li>Benefits: <ul> <li>Tighter <strong>TypeScript</strong> integration</li> <li>More idiomatic implementation</li> </ul> </li> </ul> </li> </ul>"
         },
         {
             "component": "mob-snippet",

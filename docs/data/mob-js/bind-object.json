@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "bindObject is actually a simplified version of invalidate that allows you to print a value when a specified property is mutated. Inside String.raw each dynamic value will have to be written as a object with the following parameters:"
+            "content": "<strong>bindObject Characteristics</strong>: <ul> <li><strong>Simplified alternative</strong> to <a href='#mobJs-invalidate'><strong>invalidate</strong></a></li> <li>Built on <strong>String.raw</strong> templating</li> <li>Usage contexts: <ul> <li>Component <strong>proxy</strong></li> <li><strong>repeat</strong> module proxy</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -146,9 +146,17 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
-            "content": "For more <span class='quote'>complex situations</span> it is always possible to use the <a href='#mobJs-invalidate'>invalidate</a> function to handle complex situations in a cleaner way."
+            "content": "<strong>Advanced State Management</strong>: <ul> <li>For <strong>complex situations</strong>: <ul> <li>Use the <a href='#mobJs-invalidate'><strong>invalidate</strong></a> function</li> <li>Cleaner handling of intricate logic</li> </ul> </li> <li>Flexible returns: <ul> <li>Can output processed <strong>text</strong></li> <li>Or complex data structures</li> </ul> </li> </ul>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         }
     ]
 }

@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The <strong>staticProps</strong> function allows you to pass <span class='quote'>static values</span> to the state of a component without triggering any reactivity. It is useful when you know that the value will not have to be reactive, clearer to read, lighter for the entire app."
+            "content": "<strong>staticProps Utility</strong>: <ul> <li>Purpose: Pass static values to component state</li> <li>Key characteristics: <ul> <li><strong>Non-reactive</strong> by design</li> <li><strong>Performance-optimized</strong> solution</li> </ul> </li> <li>Benefits: <ul> <li><strong>Improved readability</strong></li> <li><strong>Reduced overhead</strong> vs reactive alternatives</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>staticProps</strong> is ideal for passing <strong>callbacks</strong> to a child component"
+            "content": "<strong>Callback Passing Solution</strong>: <ul> <li><strong>staticProps</strong> is the recommended method for: <ul> <li>Parent-to-child <strong>callback functions</strong></li>  </ul> </li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -44,7 +44,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Remember that props are only usable if the component receiving them has <strong>exposed</strong> them in the <strong>exportState</strong> property within the component's <strong><a href='#mobJs-component'>definition</a></strong> function."
+            "content": "<strong>Prop Visibility Rule</strong>: <ul> <li>Required setup: Expose props in <strong>exportState</strong></li> <li>Location: Component's <strong><a href='#mobJs-component'>definition</a></strong> function</li> <li>Access control: <ul> <li>Exposed props → <strong>public</strong></li> <li>Others → <strong>private</strong></li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
