@@ -44,7 +44,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <strong>root id</strong> will be the DOM element where the <strong>app will be initialized</strong>."
+            "content": "The <strong>root ID</strong> identifies the DOM container where the <strong>application initializes</strong>."
         },
         {
             "component": "mob-snippet",
@@ -145,7 +145,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Html node</strong> inside which the app will be <strong>initialized</strong>."
+                        "content": "The <strong>HTML node</strong> serves as the container for <strong>application initialization</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -167,7 +167,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The general wrapper that will host the pages. Here the node in which to <strong>load</strong> the individual <strong>routes</strong> is defined. It is already possible to use <strong>components</strong> by passing them <strong><a href='#mobJs-staticProps'>static props</a></strong>, it is not possible to use reactive props in the wrapper as <strong>this module is not a component</strong>."
+                        "content": "<strong>Wrapper Overview:</strong> <ul> <li>Primary container for all routed pages</li> <li>Defines the node where individual <strong>routes</strong> load</li> <li>Supports <strong>components</strong> with <strong><a href='#mobJs-staticProps'>static props</a></strong></li> </ul> <strong>Limitations:</strong> <ul> <li>No reactive props (non-component module)</li> </ul>"
                     },
                     {
                         "component": "mob-paragraph",
@@ -176,7 +176,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "It is necessary to load the dependencies before initializing the application through the utility <strong><a href='#mobJs-utils'>useComponent()</a></strong>."
+                        "content": "<strong>Initialization Requirement:</strong> All dependencies must be loaded prior to app initialization via the <strong><a href='#mobJs-utils'>useComponent()</a></strong> utility."
                     },
                     {
                         "component": "mob-spacer",
@@ -189,7 +189,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The wrapper function can be async"
+                        "content": "<strong>Async Wrapper Support:</strong> The wrapper function supports <code>async</code>/<code>await</code> for asynchronous operations."
                     },
                     {
                         "component": "mob-snippet",
@@ -221,7 +221,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Node</strong> inside the wrapper where the <strong>routes will be loaded</strong>"
+                        "content": "<strong>Route Container:</strong> The designated <strong>node</strong> within the wrapper where all <strong>routes render</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -316,7 +316,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Function (optional) launched before the new route is loaded. ( after node clone, before append cloned node )"
+                        "content": "<strong>Pre-Route Hook:</strong> Optional function executed during route transitions: <ol> <li>After cloning the route node</li> <li>Before appending the cloned node to the DOM</li> </ol>"
                     },
                     {
                         "component": "mob-list",
