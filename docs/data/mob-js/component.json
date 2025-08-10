@@ -672,14 +672,6 @@
                         }
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "parameters",
-                            "label": "Fundamental params"
-                        }
-                    },
-                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -712,15 +704,30 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "big",
+                            "id": "lifecycle",
+                            "label": "Life cycle"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "small"
                         }
                     },
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "Life cycle"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Component lifecycle control"
                     },
                     {
                         "component": "mob-list",
@@ -739,15 +746,30 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "big",
+                            "id": "state_managment",
+                            "label": "State management"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "small"
                         }
                     },
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "State management"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Component state managemen"
                     },
                     {
                         "component": "mob-list",
@@ -782,15 +804,30 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "big",
+                            "id": "side-effect",
+                            "label": "Side effect"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "small"
                         }
                     },
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "Side effect"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Side effect management"
                     },
                     {
                         "component": "mob-list",
@@ -809,15 +846,30 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "big",
+                            "id": "props",
+                            "label": "props"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "small"
                         }
                     },
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
-                        "content": "Communication with child components"
+                        "content": "Props"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Parent-child state synchronization"
                     },
                     {
                         "component": "mob-list",
@@ -844,15 +896,30 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "big",
+                            "id": "state_managment",
+                            "label": "DOM manipulation"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "small"
                         }
                     },
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "DOM manipulation"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Reactive management of classes, styles, text, and DOM refs"
                     },
                     {
                         "component": "mob-list",
@@ -883,15 +950,30 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "big",
+                            "id": "events",
+                            "label": "Events"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "small"
                         }
                     },
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h5"
                         },
                         "content": "Events"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Event handling for components and shared DOM nodes"
                     },
                     {
                         "component": "mob-list",
@@ -920,36 +1002,9 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "Methods definition"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "addMethods",
-                                    "url": "./#mobJs-methods"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "id": "list",
                             "style": "big",
-                            "label": "Render blocks params"
+                            "id": "methods",
+                            "label": "Methods"
                         }
                     },
                     {
@@ -963,14 +1018,76 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "Render Blocks"
+                        "content": "Methods definition"
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Main functions to manage Array Lists or to modify/invalidate/insert new DOM blocks"
+                        "content": "Managing a component instance and its methods"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "InstanceName",
+                                    "url": "./#mobJs-instanceName"
+                                },
+                                {
+                                    "label": "addMethods",
+                                    "url": "./#mobJs-methods"
+                                },
+                                {
+                                    "label": "setStateByName",
+                                    "url": "./#mobJs-setStateByName"
+                                },
+                                {
+                                    "label": "updateStateByName",
+                                    "url": "./#mobJs-updateStateByName"
+                                },
+                                {
+                                    "label": "useMethodByName",
+                                    "url": "./#mobJs-useMethodByName"
+                                },
+                                {
+                                    "label": "useMethodarrayByName",
+                                    "url": "./#mobJs-useMethodArrayByName"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "blocks",
+                            "label": "Blocks & cycle"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Blocks & cycle"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Managing DOM node updates, reactive collections, and on-the-fly component generation"
                     },
                     {
                         "component": "mob-list",
@@ -1024,7 +1141,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Managing slots, classes applied to children, and instance names"
+                        "content": "Managing classes directly on component instances ( non reactive )"
                     },
                     {
                         "component": "mob-list",
@@ -1034,16 +1151,8 @@
                             "links": true,
                             "items": [
                                 {
-                                    "label": "InstanceName",
-                                    "url": "./#mobJs-instanceName"
-                                },
-                                {
                                     "label": "ClassList",
                                     "url": "./#mobJs-class-list"
-                                },
-                                {
-                                    "label": "Slot",
-                                    "url": "./#mobJs-slot"
                                 }
                             ]
                         }
@@ -1124,60 +1233,6 @@
                                     "url": "./#mobJs-watchParent"
                                 }
                             ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "traversal",
-                            "label": "Traversal operation"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h5"
-                        },
-                        "content": "Traversal operation"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Cross-component communication"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "setStateByName",
-                                    "url": "./#mobJs-setStateByName"
-                                },
-                                {
-                                    "label": "updateStateByName",
-                                    "url": "./#mobJs-updateStateByName"
-                                },
-                                {
-                                    "label": "useMethodByName",
-                                    "url": "./#mobJs-useMethodByName"
-                                },
-                                {
-                                    "label": "useMethodarrayByName",
-                                    "url": "./#mobJs-useMethodArrayByName"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
                         }
                     }
                 ]
