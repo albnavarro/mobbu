@@ -69,15 +69,64 @@
         {
             "component": "anchor-button",
             "props": {
-                "anchor": "#parameters",
-                "content": "Fundamental params"
+                "anchor": "#lifecycle",
+                "content": "Life cycle"
             }
         },
         {
             "component": "anchor-button",
             "props": {
-                "anchor": "#list",
-                "content": "Render Blocks"
+                "anchor": "#state_managment",
+                "content": "State management"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#side-effect",
+                "content": "Side effect"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#props",
+                "content": "Props"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#dom_manipulation",
+                "content": "DOM manipulation"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#events",
+                "content": "Events"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#methods",
+                "content": "Methods"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#blocks",
+                "content": "Blocks & cycle"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#special",
+                "content": "Special component"
             }
         },
         {
@@ -90,22 +139,8 @@
         {
             "component": "anchor-button",
             "props": {
-                "anchor": "#secondary",
+                "anchor": "#utils",
                 "content": "Utils params"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Traversal operation"
-        },
-        {
-            "component": "anchor-button",
-            "props": {
-                "anchor": "#traversal",
-                "content": "Traversal operation"
             }
         },
         {
@@ -902,7 +937,7 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "big",
-                            "id": "state_managment",
+                            "id": "dom_manipulation",
                             "label": "DOM manipulation"
                         }
                     },
@@ -1211,7 +1246,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "id": "secondary",
+                            "id": "utils",
                             "style": "big",
                             "label": "Utils params"
                         }
