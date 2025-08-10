@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The library uses <strong>weak references</strong> to handle reactivity on nodes for the following functions:"
+            "content": "The library uses <strong>weak references</strong> for node reactivity in these functions:"
         },
         {
             "component": "mob-spacer",
@@ -60,7 +60,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Using <strong>weak references</strong> allows you to easily track even <strong>non-component nodes</strong> that the library doesn't manage.<br/> For this reason, it's <strong>highly recommended</strong> to use the <a href='#mobJs-refs'><strong>ref</strong></a> and <a href='#mobJs-refs'><strong>refs</strong></a> utilities to access <strong>DOM nodes</strong>.<br/>References to these nodes will be automatically <strong>cleaned up</strong> when the component is <strong>unmounted</strong>, without hindering the <strong>garbage collector</strong>."
+            "content": "<strong>Weak Reference Benefits:</strong> <ul> <li>Tracks both <strong>component-managed</strong> and <strong>non-component nodes</strong></li> <li><strong>Recommended:</strong> Always access nodes via: <ul> <li><a href='#mobJs-refs'><strong>ref</strong></a> (single elements)</li> <li><a href='#mobJs-refs'><strong>refs</strong></a> (collections)</li> </ul> </li> <li>Automatic cleanup during <strong>unmounting</strong></li> <li>Zero interference with <strong>garbage collector</strong></li> </ul>"
         }
     ]
 }

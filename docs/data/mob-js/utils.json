@@ -50,7 +50,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Standalone static props usable inside route"
+            "content": "<strong>staticProps Utility:</strong> Works in both: <ul> <li><strong>Page</strong> components</li> <li><strong>Wrapper</strong> components</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -126,7 +126,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Utility used within the wrapper/pages. This is an array with the definitions of the components used within it. It is necessary to load dependencies before initializing the application. In individual components this work is carried out by the child parameter of the createComponent() function"
+            "content": "<strong>Component Configuration Utility:</strong> <ul> <li>Declared in <strong>wrappers</strong> and <strong>pages</strong></li> <li><strong>Array</strong> of child component definitions</li> <li><strong>Dependencies must load</strong> before initialization</li> <li>Component Equivalent: Handled via <code>createComponent()</code>'s <strong>child</strong> parameter</li> </ul>"
         },
         {
             "component": "mob-spacer",

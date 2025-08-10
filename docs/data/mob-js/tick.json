@@ -27,7 +27,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Asynchronous function that waits until all <strong>bindProps</strong>, <strong>repeaters</strong>, <strong>invalidate</strong>,  and <strong>runtime component</strong> of the entire app have been computed."
+            "content": "<strong>App-Wide Ready Hook:</strong> Async function that awaits full computation of: <ul> <li><strong>bindProps</strong> </li> <li><strong>repeaters</strong> </li> <li><strong>invalidate</strong> </li> <li><strong>runtime components</strong> </li> </ul>"
         },
         {
             "component": "mob-spacer",
