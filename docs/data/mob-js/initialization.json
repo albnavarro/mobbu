@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Steps to initialize a mobJs instance."
+            "content": "Steps to <strong>initialize</strong> a mobJs instance."
         },
         {
             "component": "mob-spacer",
@@ -44,7 +44,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The 'root' id will be the DOM element where the app will be initialized."
+            "content": "The <strong>root id</strong> will be the DOM element where the <strong>app will be initialized</strong>."
         },
         {
             "component": "mob-snippet",
@@ -129,7 +129,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Html node inside which the app will be initialized."
+                        "content": "<strong>Html node</strong> inside which the app will be <strong>initialized</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -151,7 +151,22 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The general wrapper that will host the pages. Here the node in which to load the individual pages/routes is defined. It is already possible to use components by passing them static props, it is not possible to use reactive props in the wrapper as this module is not a component. It is necessary to load the dependencies before initializing the application through the utility useComponent()."
+                        "content": "The general wrapper that will host the pages. Here the node in which to <strong>load</strong> the individual <strong>routes</strong> is defined. It is already possible to use <strong>components</strong> by passing them <strong><a href='#mobJs-staticProps'>static props</a></strong>, it is not possible to use reactive props in the wrapper as <strong>this module is not a component</strong>."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "It is necessary to load the dependencies before initializing the application through the utility <strong><a href='#mobJs-utils'>useComponent()</a></strong>."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
                     },
                     {
                         "component": "mob-paragraph",
@@ -190,7 +205,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Node inside the wrapper where the routes will be loaded"
+                        "content": "<strong>Node</strong> inside the wrapper where the <strong>routes will be loaded</strong>"
                     },
                     {
                         "component": "mob-spacer",
