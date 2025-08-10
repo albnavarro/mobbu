@@ -3499,6 +3499,10 @@ h2 .title-index {
   font-weight: 600;
   margin-top: 0.6666666667rem;
 }
+.c-scroll-to button.is-section:hover::after,
+.c-scroll-to button.is-section.active::after {
+  content: none;
+}
 .c-params-mobjs {
   --links-height: 54vh;
   height: var(--links-height);
@@ -3580,7 +3584,7 @@ h2 .title-index {
 }
 .c-params-mobjs__label {
   line-height: 1.2;
-  margin-top: 1.3333333333rem;
+  margin-top: 0.6666666667rem;
   margin-bottom: 0.3333333333rem;
   font-weight: 600;
   font-size: 0.8666666667rem;

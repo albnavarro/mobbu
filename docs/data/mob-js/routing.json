@@ -204,6 +204,22 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/route-import.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 10
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "x-small",
                             "label": "Navigate",
                             "isSection": true

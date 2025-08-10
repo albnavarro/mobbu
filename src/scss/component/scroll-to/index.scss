@@ -66,6 +66,13 @@
         &.is-section {
             font-weight: 600;
             margin-top: rem(10);
+
+            &:hover,
+            &.active {
+                &::after {
+                    content: none;
+                }
+            }
         }
     }
 }
