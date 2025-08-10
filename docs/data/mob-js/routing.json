@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To define a route just create a function that returns the DOM of the route. The route functions can be asynchronous, this is to allow the fetching of any data. The function is executed before deleting the old route, only when the data has been recovered and the data is ready will the new route be rendered."
+            "content": "<strong>Route Definition:</strong> <ul> <li>Implement as a function returning route DOM</li> <li>Supports <code>async</code> operations (data fetching, etc.)</li> <li>Execution flow: <ul> <li>Runs <em>before</em> removing previous route</li> <li>Waits for all async operations</li> <li>Renders new route only with resolved data</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -42,7 +42,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "It is necessary to load the dependencies before initializing the application through the utility <strong><a href='#mobJs-utils'>useComponent()</a></strong>. <strong>it is not possible to use reactive props</strong> in the route as this <strong>module is not a component</strong>."
+            "content": "<strong>Initialization Requirements:</strong> <ul> <li>All dependencies must load <em>before</em> app startup via <strong><a href='#mobJs-utils'>useComponent()</a></strong></li> <li>Route limitations: <ul> <li><strong>No reactive props</strong> supported</li> <li>Non-component architecture</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -296,21 +296,24 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "Page transition"
+                        "content": "Using page transitions"
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Two functions are available to animate the change of course:"
+                        "content": "To use page transitions use the following functions:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "dots": true,
-                            "items": ["beforePageTransition", "pageTransition"]
+                            "items": [
+                                "beforePageTransition()",
+                                "pageTransition()"
+                            ]
                         }
                     },
                     {
@@ -340,7 +343,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Asynchronous function launched as soon as the old node has been cloned and before it is added to the DOM, here it is possible to manipulate the style of the old DOM before it is hung."
+                        "content": "<strong>Pre-Mount Transition Hook:</strong> <ul> <li>Async function executes between: <ul> <li>Old node cloning</li> <li>DOM insertion</li> </ul> </li> <li>Primary use: Modify cloned node's <strong>style</strong> pre-attachment</li> </ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -370,7 +373,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Asynchronous function launched as soon as the new route node has been rendered."
+                        "content": "<strong>Post-Render Hook:</strong> Executes immediately after new route node completes rendering."
                     },
                     {
                         "component": "mob-snippet",
@@ -474,7 +477,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "A series of events are available to intercept and react to the change of route, to do this a special store called mainStore is available. Being a store, all the methods listed in the store apply"
+                        "content": "<strong>Route Transition Events:</strong> Full lifecycle hooks for navigation changes:"
                     },
                     {
                         "component": "mob-spacer",
@@ -489,7 +492,39 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "As an alternative to events, a special store ( <strong>MobIs.mainStore</strong> ) is available that manages all <strong>mobJs events</strong> and can be interfaced with the <strong><a href='#mobJs-bindStore'>bindStore</a></strong> utility; an example is available in the dedicated section."
+                        "content": "<strong>Centralized Event Management:</strong> <ul> <li>Alternative to individual events: <strong>MobIs.mainStore</strong></li> <li>Consolidates all <strong>mobJs events</strong></li> <li>Integrates with <strong><a href='#mobJs-bindStore'>bindStore</a></strong> utility</li> </ul> <strong>Implementation Guide:</strong> See dedicated section for usage examples."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "beforeRouteLeave",
+                            "label": "beforeRouteLeave"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "beforeRouteLeave"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "<strong>Route Leave Event:</strong> <ul> <li>Fires before route change begins</li> <li>Provides: <ul> <li><code>route</code>: Current route</li> <li><code>templateName</code>: Active view template</li> </ul> </li> </ul>"
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/before-route-leave.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 7
+                        }
                     },
                     {
                         "component": "mob-spacer",
@@ -511,44 +546,12 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Event launched before the change of route, as parameter we would have the name of the next route and templateName."
+                        "content": "<strong>Pre-Route Change Event:</strong> <ul> <li>Triggers before navigation completes</li> <li>Parameters: <ul> <li><code>route</code>: next route</li> <li><code>templateName</code>: View template reference</li> </ul> </li> </ul>"
                     },
                     {
                         "component": "mob-snippet",
                         "props": {
                             "source": "./snippets/mob-js/before-route-change.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 7
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
-                            "id": "beforeRouteChange",
-                            "label": "beforeRouteLeave"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h5"
-                        },
-                        "content": "beforeRouteLeave"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Event launched before the change of route, as parameter we would have the name of the previous route and templateName."
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/before-route-leave.js",
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
@@ -575,7 +578,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Event launched after the change of route, as parameter we would have the name of the current route and templateName."
+                        "content": "<strong>Post-Route Change Event:</strong> <ul> <li>Triggers after successful navigation</li> <li>Parameters: <ul> <li><code>route</code>: New route</li> <li><code>templateName</code>: Mounted view template</li> </ul> </li> </ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -607,7 +610,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The value of the current route and templateName will be returned."
+                        "content": "<strong>Route Data Access:</strong> Returns: <ul> <li><code>route</code>: Active path value</li> <li><code>templateName</code>: Currently rendered template identifier</li> </ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -639,7 +642,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The value of the current params will be returned."
+                        "content": "<strong>Route Parameters:</strong> Returns the current route's parameter values as a key-value object."
                     },
                     {
                         "component": "mob-snippet",
