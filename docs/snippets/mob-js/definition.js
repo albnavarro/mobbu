@@ -6,7 +6,6 @@ import { MyComponentFn } from '../myComponent';
 /**
  * @import { CreateComponentParams } from "@mobJsType";
  **/
-
 export const MyComponent = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').MyComponent>} */
     ({
