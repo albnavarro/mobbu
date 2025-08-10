@@ -22,34 +22,35 @@ function hasAnchor({ label }) {
  * @param {string} params.id
  * @param {string} params.label
  * @param {HTMLElement} params.element
+ * @param {boolean} params.isSection
  * @returns {Promise<void>}
  */
-const addItemToScrollComponent = async ({ id, label, element }) => {
+const addItemToScrollComponent = async ({ id, label, element, isSection }) => {
     // Wait that all components is mounted.
     await MobJs.tick();
 
     /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
     const methods = MobJs.useMethodByName(scrollToName);
-    methods?.addItem?.({ id, label, element });
+    methods?.addItem?.({ id, label, element, isSection });
 
-    if (isVisibleInViewport(element)) {
+    if (isVisibleInViewport(element) && !isSection) {
         methods?.setActiveLabel?.(label);
     }
 };
 
 /** @type {MobComponent<SpacerAnchor>} */
 export const SpacerAnchorFn = ({ getState, onMount }) => {
-    const { style, line, id, label } = getState();
+    const { style, line, id, label, isSection } = getState();
     const lineClass = line ? 'spacer--line' : '';
 
     onMount(({ element }) => {
         const shouldAddToAnchor = hasAnchor({ label });
         if (!shouldAddToAnchor) return;
 
-        addItemToScrollComponent({ id, label, element });
+        addItemToScrollComponent({ id, label, element, isSection });
 
         const unsubScribeScroll = MobCore.useScrollThrottle(() => {
-            if (isVisibleInViewport(element)) {
+            if (isVisibleInViewport(element) && !isSection) {
                 /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
                 const methods = MobJs.useMethodByName(scrollToName);
                 methods?.setActiveLabel?.(label);

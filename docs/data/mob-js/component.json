@@ -667,6 +667,14 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "x-small",
+                            "label": "Component params:",
+                            "isSection": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
                             "id": "parameters",
                             "label": "Fundamental params"
                         }

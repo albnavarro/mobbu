@@ -21,36 +21,42 @@ let disableObservereffect = false;
 function getButtons({ delegateEvents, bindProps, proxi }) {
     return proxi.anchorItems
         .map((item) => {
+            /**
+             * Skip click if is section title
+             */
+            const delegateEventsFn = item.isSection
+                ? ''
+                : delegateEvents({
+                      click: async () => {
+                          const { id: scroll, label, element } = item;
+
+                          const offsetTop =
+                              scroll === 'start' ? 0 : offset(element).top - 50;
+
+                          /**
+                           * Disable spacerAnchor observer effect during scroll.
+                           */
+                          disableObservereffect = true;
+                          proxi.activeLabel = label;
+                          await MobBodyScroll.to(offsetTop);
+
+                          /**
+                           * Back to enable spacerAnchor observer.
+                           */
+                          disableObservereffect = false;
+                      },
+                  });
+
             return html`
                 <li>
                     <scroll-to-button
-                        ${delegateEvents({
-                            click: async () => {
-                                const { id: scroll, label, element } = item;
-
-                                const offsetTop =
-                                    scroll === 'start'
-                                        ? 0
-                                        : offset(element).top - 50;
-
-                                /**
-                                 * Disable spacerAnchor observer effect during scroll.
-                                 */
-                                disableObservereffect = true;
-                                proxi.activeLabel = label;
-                                await MobBodyScroll.to(offsetTop);
-
-                                /**
-                                 * Back to enable spacerAnchor observer.
-                                 */
-                                disableObservereffect = false;
-                            },
-                        })}
+                        ${delegateEventsFn}
                         ${bindProps(
                             /** @returns {ReturnBindProps<ScrollToButton>} */
                             () => ({
                                 active: proxi.activeLabel === item.label,
                                 label: item.label,
+                                isSection: item.isSection ?? false,
                             })
                         )}
                     >
@@ -74,9 +80,9 @@ export const ScrollToFn = ({
 }) => {
     const proxi = getProxi();
 
-    addMethod('addItem', ({ id, label, element }) => {
+    addMethod('addItem', ({ id, label, element, isSection }) => {
         updateState('anchorItemsToBeComputed', (val) => {
-            return [...val, { id, label, element }];
+            return [...val, { id, label, element, isSection }];
         });
     });
 

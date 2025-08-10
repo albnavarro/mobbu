@@ -10,13 +10,17 @@ export const ScrollToButton = MobJs.createComponent(
     ({
         tag: 'scroll-to-button',
         component: ScrollToButtonFn,
-        exportState: ['label', 'active'],
+        exportState: ['label', 'active', 'isSection'],
         state: {
             label: () => ({
                 value: '',
                 type: String,
             }),
             active: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            isSection: () => ({
                 value: false,
                 type: Boolean,
             }),

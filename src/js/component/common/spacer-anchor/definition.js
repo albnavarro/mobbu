@@ -10,7 +10,7 @@ export const SpacerAnchor = MobJs.createComponent(
     ({
         tag: 'mob-spacer',
         component: SpacerAnchorFn,
-        exportState: ['style', 'line', 'id', 'label'],
+        exportState: ['style', 'line', 'id', 'label', 'isSection'],
         state: {
             style: () => ({
                 value: 'x-small',
@@ -30,6 +30,10 @@ export const SpacerAnchor = MobJs.createComponent(
             label: () => ({
                 value: '',
                 type: String,
+            }),
+            isSection: () => ({
+                value: false,
+                type: Boolean,
             }),
         },
     })
