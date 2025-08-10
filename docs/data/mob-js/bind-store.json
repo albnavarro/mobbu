@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>bindStore</strong> allows you to couple the component state to <strong>another store</strong> ( <a href='#mobCore-store'>mobStore</a> ) taking advantage of its <strong>reactivity</strong>.<br/>To add multiple stores pass an <strong>array</strong> as an argument."
+            "content": "<strong>bindStore Functionality:</strong> <ul> <li>Creates reactive binding between component state and <strong><a href='#mobCore-store'>mobStore</a></strong></li> <li>Inherits full <strong>reactivity</strong> system from linked store</li> <li>Multi-store support: Pass an <strong>array</strong> of stores</li> </ul>"
         },
         {
             "component": "mob-spacer",

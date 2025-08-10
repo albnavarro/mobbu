@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Route Definition:</strong> <ul> <li>Implement as a function returning route DOM</li> <li>Supports <code>async</code> operations (data fetching, etc.)</li> <li>Execution flow: <ul> <li>Runs <em>before</em> removing previous route</li> <li>Waits for all async operations</li> <li>Renders new route only with resolved data</li> </ul> </li> </ul>"
+            "content": "<strong>Route Definition:</strong> <ul> <li>Implement as a function returning route DOM</li> <li>Supports <strong>async</strong> operations (data fetching, etc.)</li> <li>Execution flow: <ul> <li>Runs <em>before</em> removing previous route</li> <li>Waits for all async operations</li> <li>Renders new route only with resolved data</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -514,7 +514,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Route Leave Event:</strong> <ul> <li>Fires before route change begins</li> <li>Provides: <ul> <li><code>route</code>: Current route</li> <li><code>templateName</code>: Active view template</li> </ul> </li> </ul>"
+                        "content": "<strong>Route Leave Event:</strong> <ul> <li>Fires before route change begins</li> <li>Provides: <ul> <li><strong>route</strong>: Current route</li> <li><strong>templateName</strong>: Active view template</li> </ul> </li> </ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -546,7 +546,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Pre-Route Change Event:</strong> <ul> <li>Triggers before navigation completes</li> <li>Parameters: <ul> <li><code>route</code>: next route</li> <li><code>templateName</code>: View template reference</li> </ul> </li> </ul>"
+                        "content": "<strong>Pre-Route Change Event:</strong> <ul> <li>Triggers before navigation completes</li> <li>Parameters: <ul> <li><strong>route</strong>: next route</li> <li><strong>templateName</strong>: View template reference</li> </ul> </li> </ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -578,7 +578,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Post-Route Change Event:</strong> <ul> <li>Triggers after successful navigation</li> <li>Parameters: <ul> <li><code>route</code>: New route</li> <li><code>templateName</code>: Mounted view template</li> </ul> </li> </ul>"
+                        "content": "<strong>Post-Route Change Event:</strong> <ul> <li>Triggers after successful navigation</li> <li>Parameters: <ul> <li><strong>route</strong>: New route</li> <li><strong>templateName</strong>: Mounted view template</li> </ul> </li> </ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -610,7 +610,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Route Data Access:</strong> Returns: <ul> <li><code>route</code>: Active path value</li> <li><code>templateName</code>: Currently rendered template identifier</li> </ul>"
+                        "content": "<strong>Route Data Access:</strong> Returns: <ul> <li><strong>route</strong>: Active path value</li> <li><strong>templateName</strong>: Currently rendered template identifier</li> </ul>"
                     },
                     {
                         "component": "mob-snippet",

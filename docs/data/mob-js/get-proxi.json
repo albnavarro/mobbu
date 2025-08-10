@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "the state of the component is based on the <strong><a href='#mobCore-store'>store</a></strong> defined in <strong>mobCore</strong> and <span class='quote'>inherits</span> all its functionality. The <strong>getProxi()</strong> function is equivalent to <strong>myStore.getProxi()</strong>. Component states are declared in the component's definition."
+            "content": "<strong>Component State System:</strong> <ul> <li>Powered by <strong><a href='#mobCore-store'>mobCore store</a></strong></li> <li><span class='quote'>Inherits</span> full store capabilities (reactivity, methods, etc.)</li> <li>Access via <strong>getProxi()</strong> (identical to <strong>myStore.getProxi()</strong>)</li> <li>Declaration: Defined in component configuration</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The use of proxies helps to <strong>avoid</strong> having to <strong>explicitly declare the dependencies</strong> of the various support functions of the component. Each function will still maintain the possibility of an explicit declaration of all its parameters and dependencies.<br/>By using <strong>proxies</strong> it is possible to <strong>read</strong> and <strong>modify</strong> a state value in the simplest way."
+            "content": "<strong>Proxy Advantages:</strong> <ul> <li><strong>Automatic dependency tracking</strong> (no manual declarations)</li> <li>Optional explicit parameter definition remains available</li> <li>Simplified state management: <ul> <li>Direct <strong>read</strong> access</li> <li>Seamless <strong>modify</strong> operations</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

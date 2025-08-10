@@ -56,7 +56,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Behavior:</strong> Utilizes the first available <code>requestAnimationFrame</code> callback."
+            "content": "<strong>Behavior:</strong> Utilizes the first available <strong>requestAnimationFrame</strong> callback."
         },
         {
             "component": "mob-list",
@@ -103,7 +103,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Post-Render Pre-Frame Event:</strong> Fires after the current <code>requestAnimationFrame</code> rendering completes, but before the next frame's callbacks execute."
+            "content": "<strong>Post-Render Pre-Frame Event:</strong> Fires after the current <strong>requestAnimationFrame</strong> rendering completes, but before the next frame's callbacks execute."
         },
         {
             "component": "mob-snippet",
@@ -141,7 +141,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Frame-Loop Event:</strong> Dispatches during the next available <code>requestAnimationFrame</code> cycle, enabling RAF-based animation loops."
+            "content": "<strong>Frame-Loop Event:</strong> Dispatches during the next available <strong>requestAnimationFrame</strong> cycle, enabling RAF-based animation loops."
         },
         {
             "component": "mob-snippet",
@@ -179,7 +179,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Frame-Targeted Event:</strong> Precisely schedules execution during a specific <code>requestAnimationFrame</code> cycle."
+            "content": "<strong>Frame-Targeted Event:</strong> Precisely schedules execution during a specific <strong>requestAnimationFrame</strong> cycle."
         },
         {
             "component": "mob-snippet",
@@ -514,7 +514,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Post-Scroll Tick Callback:</strong> Schedules execution on the first available <code>nextTick</code> after scrolling completes."
+            "content": "<strong>Post-Scroll Tick Callback:</strong> Schedules execution on the first available <strong>nextTick</strong> after scrolling completes."
         },
         {
             "component": "mob-list",

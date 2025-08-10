@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and inherits all its functionality. The getState() function is equivalent to myStore.get(). By destructuring the object it is possible to access a particular state. Component states are declared in the <span class='quote'>component's definition</span>"
+            "content": "<strong>Component State System:</strong> <ul> <li>Powered by <strong><a href='#mobCore-store'>mobCore store</a></strong></li> <li><span class='quote'>Inherits</span> full store capabilities (reactivity, methods, etc.)</li> <li>Access via <strong>getState()</strong> (identical to <strong>myStore.get()</strong>)</li> <li>Declaration: Defined in component configuration</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<string>getState</string> is an alternative to using <strong>proxies</strong> to read the current state value"
+            "content": "<strong>State Access Methods:</strong> <ul> <li><strong>getState</strong>: Explicit state reader</li> <li><strong>proxies</strong>: Automatic reactive access</li> </ul>"
         },
         {
             "component": "mob-spacer",

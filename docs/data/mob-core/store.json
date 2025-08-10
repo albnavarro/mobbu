@@ -295,7 +295,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Validation function that analyzes values. It receives both the <strong>current value</strong> and <strong>previous value</strong> as parameters, returning a boolean result. Each property's validation status appears as watch function parameters and can be retrieved via the <code>getValidation()</code> method."
+                        "content": "Validation function that analyzes values. It receives both the <strong>current value</strong> and <strong>previous value</strong> as parameters, returning a boolean result. Each property's validation status appears as watch function parameters and can be retrieved via the <strong>getValidation()</strong> method."
                     },
                     {
                         "component": "mob-spacer",
@@ -315,7 +315,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If the value equals the previous one, the property won't update.<br /> This prevents watch execution and makes the property irrelevant to its related computed values. Default: <code>true</code>."
+                        "content": "If the value equals the previous one, the property won't update.<br /> This prevents watch execution and makes the property irrelevant to its related computed values. Default: <strong>true</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -335,7 +335,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When <code>true</code>, the validation function acts as a blocker - the property updates <strong>only</strong> if validation succeeds.<br /><strong>Default</strong>: <code>false</code>."
+                        "content": "When <strong>true</strong>, the validation function acts as a blocker - the property updates <strong>only</strong> if validation succeeds.<br /><strong>Default</strong>: <strong>false</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -388,7 +388,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Every store can implement an interface describing its state structure.<br />This example demonstrates the pattern using <code>jsDoc</code>."
+                        "content": "Every store can implement an interface describing its state structure.<br />This example demonstrates the pattern using <strong>jsDoc</strong>."
                     },
                     {
                         "component": "mob-paragraph",
@@ -444,7 +444,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "In <code>.ts</code> files, you can pass the interface as a generic parameter."
+                        "content": "In <strong>.ts</strong> files, you can pass the interface as a generic parameter."
                     },
                     {
                         "component": "mob-spacer",
@@ -913,7 +913,7 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<span class='quote'>wait: </span>&nbsp;Defers callback execution until the current <strong>JavaScript event loop</strong> completes, using the latest value.<br />Only effective when <code>emit-async</code> is not used.<br/> Default: <strong>false</strong>.",
+                                "<span class='quote'>wait: </span>&nbsp;Defers callback execution until the current <strong>JavaScript event loop</strong> completes, using the latest value.<br />Only effective when <strong>emit-async</strong> is not used.<br/> Default: <strong>false</strong>.",
                                 "<span class='quote'>immediate: </span>&nbsp;Triggers the initial callback immediately on subscription.<br />Default: <strong>false</strong>."
                             ]
                         }
@@ -1327,7 +1327,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "When using <code>bindStore</code>, you must extend the type (using <code>Readonly</code> TypeScript utils)."
+                        "content": "When using <strong>bindStore</strong>, you must extend the type (using <strong>Readonly</strong> TypeScript utils)."
                     },
                     {
                         "component": "mob-snippet",
@@ -1415,7 +1415,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Unlike <code>update</code>, this operation: <ul> <li><strong>Cannot clone</strong> values (modifies source data directly)</li> <li>Requires <code>skipEqual: false</code> to force updates when values match</li> </ul> <strong>Watch utility behavior:</strong> Previous and current values will report as equal during these direct modifications."
+                        "content": "Unlike <strong>update</strong>, this operation: <ul> <li><strong>Cannot clone</strong> values (modifies source data directly)</li> <li>Requires <strong>skipEqual: false</strong> to force updates when values match</li> </ul> <strong>Watch utility behavior:</strong> Previous and current values will report as equal during these direct modifications."
                     },
                     {
                         "component": "mob-snippet",

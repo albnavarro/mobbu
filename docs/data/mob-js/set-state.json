@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "the state of the component is based on the <a href='#mobCore-store'>store</a> defined in mobCore and <span class='quote'>inherits</span> all its functionality. The setState() function is equivalent to myStore.set(). Component states are declared in the <span class='quote'>component's definition</span>"
+            "content": "<strong>Component State System:</strong> <ul> <li>Powered by <strong><a href='#mobCore-store'>mobCore store</a></strong></li> <li><span class='quote'>Inherits</span> full store capabilities (reactivity, methods, etc.)</li> <li>Access via <strong>setState()</strong> (identical to <strong>myStore.set()</strong>)</li> <li>Declaration: Defined in component configuration</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>setState</strong> is an alternative to using <strong>proxies</strong> to update the current state value.<br/>Using this feature has <strong>more options</strong> than proxy. Options are available in the <strong><a href='#mobCore-store'>store</a></strong> guide"
+            "content": "<strong>State Update Methods:</strong> <ul> <li><strong>setState</strong>: <ul> <li>Explicit state updates</li> <li>Extended configuration options</li> </ul> </li> <li><strong>proxies</strong>: <ul> <li>Direct assignment syntax</li> <li>Automatic reactivity</li> </ul> </li> </ul> <strong>Advanced Options:</strong> Detailed in the <strong><a href='#mobCore-store'>store documentation</a></strong>."
         },
         {
             "component": "mob-spacer",

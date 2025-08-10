@@ -189,7 +189,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Async Wrapper Support:</strong> The wrapper function supports <code>async</code>/<code>await</code> for asynchronous operations."
+                        "content": "<strong>Async Wrapper Support:</strong> The wrapper function supports <strong>async</strong>/<strong>await</strong> for asynchronous operations."
                     },
                     {
                         "component": "mob-snippet",

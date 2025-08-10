@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "the state of the component is based on the <a href='#mobCore-store'><strong>store</strong></a> defined in <strong>mobCore</strong> and inherits all its functionality. The computed() function is equivalent to <strong>myStore.computed(...)</strong>."
+            "content": "<strong>Component State System:</strong> <ul> <li>Powered by <strong><a href='#mobCore-store'>mobCore store</a></strong></li> <li><span class='quote'>Inherits</span> full store capabilities (reactivity, methods, etc.)</li> <li>Access via <strong>computed()</strong> (identical to <strong>myStore.computed()</strong>)</li> <li>Declaration: Defined in component configuration</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -37,9 +37,11 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true,
+                "note": true
             },
-            "content": "Update properties value if some state change.<br/> Computed functions are resolved on the javascript loop. If multiple state change at the same time, the computed will be resolved only once. Component states are declared in the component's <a href='./#mobJs-component'><strong>definition</strong></a>"
+            "content": "<strong>Reactive Property Updates:</strong> <ul> <li>Automatic value propagation when <strong>state changes</strong></li> <li>Computed properties: <ul> <li>Processed in the JavaScript event loop</li> <li>Single execution per update cycle</li> </ul> </li> <li>Declaration: Defined in component <a href='./#mobJs-component'><strong>definition</strong></a></li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -84,7 +86,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you explicitly define dependencies, the <strong>callback</strong> will only receive the properties defined in the <strong>dependencies</strong>. Alternatively, you can use <strong>proxies</strong> within the callback."
+            "content": "<strong>Granular Dependency Control:</strong> <ul> <li>With explicit dependencies you can: <ul> <li>Define custom <strong>trigger conditions</strong></li> <li>Optimize <strong>performance</strong> by skipping unnecessary executions</li> </ul> </li> <li>Alternative mode: Use <strong>proxies</strong> for automatic detection</li> </ul>"
         },
         {
             "component": "mob-spacer",

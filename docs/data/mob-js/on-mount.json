@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The onMount function will be executed when all components of the current loop have been created and attached to the DOM.<br/> onMount functions will be executed starting from the deepest level up. The route will be considered loaded (and consequently the specific <a href='./#mobJs-routing'>events</a> will be launched) when all onMount functions are executed."
+            "content": "<strong>onMount Execution Flow:</strong> <ul> <li>Triggers after: <ul> <li>All current-loop components are DOM-ready</li> <li>Child components complete their <strong>onMount</strong></li> </ul> </li> <li>Order: Deepest-first hierarchical processing</li> <li>Route readiness: All <strong>onMount</strong> completions trigger <a href='./#mobJs-routing'><strong>route-loaded events</strong></a></li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -46,7 +46,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can execute the onMount function exactly after the component has been attached to the DOM and before child components are created by using the scoped parameter in the <a href='./#mobJs-component'>component definition</a>."
+            "content": "<strong>Early onMount Trigger:</strong> Execute between: <ul> <li>Component DOM attachment</li> <li>Child component creation</li> </ul> <em>Enable via <strong>scoped</strong> parameter in <a href='./#mobJs-component'><strong>component definition</strong></a></em>"
         },
         {
             "component": "mob-spacer",
@@ -66,24 +66,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The onMount function will have as its parameter an object containing the main node of the component and all the refs."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": [
-                    "<span class='quote'>element</span>: main node.",
-                    "<span class='quote'>refs</span>: nested node"
-                ]
-            }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Most of the operations in the component will take place in this function having all the nodes of the component available."
+            "content": "<strong>onMount Parameters:</strong> Receives an object containing: <ul> <li><strong>element</strong>: The component's root DOM element</li> <li><strong>refs</strong>: All registered references (via <strong>ref</strong>/<strong>refs</strong>)</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -103,7 +86,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The onMount function ( optional ) will return the destroy function which will be executed when the component is dismounted."
+            "content": "<strong>onMount Cleanup:</strong> <ul> <li>Optional return: <strong>destroy()</strong> function</li> <li>Execution timing: During component unmount</li> <li>Typical uses: <ul> <li>Event listener removal</li> <li>Animation cancellation</li> <li>Subscription cleanup</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -139,7 +122,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The onMount function can be asynchronous. If the asynchronous function is used, it will affect the execution times of the onMount functions of all parent components (they will be executed after the current function)."
+            "content": "<strong>Async onMount Behavior:</strong> <ul> <li>Supports <strong>async</strong>/<strong>await</strong> operations</li> <li>Execution impact: <ul> <li>Parent component <strong>onMount</strong> functions await completion</li> <li>Entire mount chain becomes sequential</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-snippet",
@@ -164,7 +147,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "It is important to know whether it is necessary to make the onMount function 'blocking' or to delegate the asynchronous behavior to an external function, for example:<br/>If upstream of our component we need to know the exact measurements of the same, and the same depend from a calculation carried out in the onMount function (for example a data fetch) we should solve the onMount function when our asynchronous function is solved, otherwise we can solve our onMount function immediately."
+            "content": "<strong>onMount Strategy Guide:</strong> <ul> <li><strong>Blocking mode</strong> required when: <ul> <li>Parent components need precise measurements</li> <li>Downstream logic depends on async operations (e.g., data fetching)</li> </ul> </li> <li><strong>Non-blocking</strong> recommended for: <ul> <li>Independent operations</li> <li>Non-critical measurements</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
