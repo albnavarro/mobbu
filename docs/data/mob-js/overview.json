@@ -69,8 +69,8 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "small",
-                            "id": "main-features",
-                            "label": "Main features"
+                            "id": "initialization",
+                            "label": "Initialization"
                         }
                     },
                     {
@@ -90,6 +90,20 @@
                         }
                     },
                     {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Initialization"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Library initialization"
+                    },
+                    {
                         "component": "mob-list",
                         "props": {
                             "tag": "h3",
@@ -99,16 +113,144 @@
                                 {
                                     "label": "initialization",
                                     "url": "./#mobJs-initialization"
-                                },
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "component",
+                            "label": "Component"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Components"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Component management"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "tag": "h3",
+                            "dots": false,
+                            "links": true,
+                            "items": [
                                 {
                                     "label": "component",
                                     "url": "./#mobJs-component"
-                                },
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "routing",
+                            "label": "Routing"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Routing"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Route management"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "tag": "h3",
+                            "dots": false,
+                            "links": true,
+                            "items": [
                                 {
                                     "label": "routing",
                                     "url": "./#mobJs-routing"
-                                },
-                                { "label": "tick", "url": "./#mobJs-tick" },
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "tick",
+                            "label": "Tick"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Tick"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Internal Application Clock (Tick)"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "tag": "h3",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                { "label": "tick", "url": "./#mobJs-tick" }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "memory",
+                            "label": "Memory management"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "memory management"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Memory Management"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "tag": "h3",
+                            "dots": false,
+                            "links": true,
+                            "items": [
                                 {
                                     "label": "memory management",
                                     "url": "./#mobJs-memory-management"
@@ -116,6 +258,78 @@
                                 { "label": "utils", "url": "./#mobJs-utils" },
                                 { "label": "debug", "url": "./#mobJs-debug" }
                             ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "utils",
+                            "label": "Utils"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Utils"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Utils function"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "tag": "h3",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                { "label": "utils", "url": "./#mobJs-utils" }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "big",
+                            "id": "debug",
+                            "label": "Debug"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "Debug"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Enable application debug mode"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "tag": "h3",
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                { "label": "debug", "url": "./#mobJs-debug" }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
                         }
                     },
                     {
