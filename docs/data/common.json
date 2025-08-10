@@ -170,22 +170,22 @@
             },
             {
                 "label": "setStateByName",
-                "url": "./#mobJs-setStateByName",
+                "url": "mobJs-setStateByName",
                 "isLabel": false
             },
             {
                 "label": "updateStateByName",
-                "url": "./#mobJs-updateStateByName",
+                "url": "mobJs-updateStateByName",
                 "isLabel": false
             },
             {
                 "label": "useMethodByName",
-                "url": "./#mobJs-useMethodByName",
+                "url": "mobJs-useMethodByName",
                 "isLabel": false
             },
             {
-                "label": "useMethodarrayByName",
-                "url": "./#mobJs-useMethodArrayByName",
+                "label": "useMethodArrayByName",
+                "url": "mobJs-useMethodArrayByName",
                 "isLabel": false
             },
             {
@@ -275,33 +275,6 @@
             {
                 "label": "watchParent",
                 "url": "mobJs-watchParent"
-            }
-        ],
-        "mobJsTraversal": [
-            {
-                "label": "Traversal Operation",
-                "url": "",
-                "isLabel": true
-            },
-            {
-                "label": "setStateByName",
-                "url": "mobJs-setStateByName",
-                "isLabel": false
-            },
-            {
-                "label": "updateStateByName",
-                "url": "mobJs-updateStateByName",
-                "isLabel": false
-            },
-            {
-                "label": "useMethodByName",
-                "url": "mobJs-useMethodByName",
-                "isLabel": false
-            },
-            {
-                "label": "useMethodArrayByName",
-                "url": "mobJs-useMethodArrayByName",
-                "isLabel": false
             }
         ]
     },

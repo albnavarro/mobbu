@@ -21,7 +21,6 @@ import { lettering01 } from './svg/lettering-01';
 import { onlyDesktop } from './onlyDesktop';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
-export const PAGE_TEMPLATE_TRAVERSAL_MOBJS = 'templateMobJsTraversal';
 
 const mobJsComponentBreadCrumbs = [
     {
@@ -238,50 +237,6 @@ export const routes = [
             source: './data/mob-js/routing.json',
             title: 'routing',
             breadCrumbs: mobJsOverviewBreadCrumbs,
-            section: 'mobJs',
-        },
-    },
-    {
-        name: 'mobJs-useMethodByName',
-        templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
-        layout: layoutSidebarLinks,
-        props: {
-            source: './data/mob-js/use-method-by-name.json',
-            title: 'useMethodByName',
-            breadCrumbs: mobJsComponentBreadCrumbs,
-            section: 'mobJs',
-        },
-    },
-    {
-        name: 'mobJs-useMethodArrayByName',
-        templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
-        layout: layoutSidebarLinks,
-        props: {
-            source: './data/mob-js/use-method-array-by-name.json',
-            title: 'useMethodArrayByName',
-            breadCrumbs: mobJsComponentBreadCrumbs,
-            section: 'mobJs',
-        },
-    },
-    {
-        name: 'mobJs-setStateByName',
-        templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
-        layout: layoutSidebarLinks,
-        props: {
-            source: './data/mob-js/set-state-by-name.json',
-            title: 'setStateByName',
-            breadCrumbs: mobJsComponentBreadCrumbs,
-            section: 'mobJs',
-        },
-    },
-    {
-        name: 'mobJs-updateStateByName',
-        templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
-        layout: layoutSidebarLinks,
-        props: {
-            source: './data/mob-js/update-state-by-name.json',
-            title: 'updateStateByName',
-            breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
         },
     },
@@ -552,6 +507,50 @@ export const routes = [
         props: {
             source: './data/mob-js/methods.json',
             title: 'methods',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+            section: 'mobJs',
+        },
+    },
+    {
+        name: 'mobJs-useMethodByName',
+        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mob-js/use-method-by-name.json',
+            title: 'useMethodByName',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+            section: 'mobJs',
+        },
+    },
+    {
+        name: 'mobJs-useMethodArrayByName',
+        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mob-js/use-method-array-by-name.json',
+            title: 'useMethodArrayByName',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+            section: 'mobJs',
+        },
+    },
+    {
+        name: 'mobJs-setStateByName',
+        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mob-js/set-state-by-name.json',
+            title: 'setStateByName',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+            section: 'mobJs',
+        },
+    },
+    {
+        name: 'mobJs-updateStateByName',
+        templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mob-js/update-state-by-name.json',
+            title: 'updateStateByName',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
         },

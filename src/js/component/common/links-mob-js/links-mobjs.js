@@ -7,10 +7,7 @@ import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { getCommonData } from '@data/index';
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html, MobJs } from '@mobJs';
-import {
-    PAGE_TEMPLATE_COMPONENT_MOBJS,
-    PAGE_TEMPLATE_TRAVERSAL_MOBJS,
-} from '../../../pages';
+import { PAGE_TEMPLATE_COMPONENT_MOBJS } from '../../../pages';
 
 /**
  * This component is a singleton so use module scope.
@@ -69,7 +66,6 @@ export const LinksMobJsFn = ({
     const templateData = {
         [PAGE_TEMPLATE_COMPONENT_MOBJS]:
             mainData.sideBarLinks.mobJsComponentParams,
-        [PAGE_TEMPLATE_TRAVERSAL_MOBJS]: mainData.sideBarLinks.mobJsTraversal,
     };
 
     onMount(() => {

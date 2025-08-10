@@ -34034,7 +34034,6 @@ Loading snippet ...</pre
 
   // src/js/pages/index.js
   var PAGE_TEMPLATE_COMPONENT_MOBJS = "templateMobJsComponent";
-  var PAGE_TEMPLATE_TRAVERSAL_MOBJS = "templateMobJsTraversal";
   var mobJsComponentBreadCrumbs = [
     {
       url: "./#mobJs-overview",
@@ -34243,50 +34242,6 @@ Loading snippet ...</pre
         source: "./data/mob-js/routing.json",
         title: "routing",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        section: "mobJs"
-      }
-    },
-    {
-      name: "mobJs-useMethodByName",
-      templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
-      layout: layoutSidebarLinks,
-      props: {
-        source: "./data/mob-js/use-method-by-name.json",
-        title: "useMethodByName",
-        breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
-      }
-    },
-    {
-      name: "mobJs-useMethodArrayByName",
-      templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
-      layout: layoutSidebarLinks,
-      props: {
-        source: "./data/mob-js/use-method-array-by-name.json",
-        title: "useMethodArrayByName",
-        breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
-      }
-    },
-    {
-      name: "mobJs-setStateByName",
-      templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
-      layout: layoutSidebarLinks,
-      props: {
-        source: "./data/mob-js/set-state-by-name.json",
-        title: "setStateByName",
-        breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
-      }
-    },
-    {
-      name: "mobJs-updateStateByName",
-      templateName: PAGE_TEMPLATE_TRAVERSAL_MOBJS,
-      layout: layoutSidebarLinks,
-      props: {
-        source: "./data/mob-js/update-state-by-name.json",
-        title: "updateStateByName",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs"
       }
     },
@@ -34557,6 +34512,50 @@ Loading snippet ...</pre
       props: {
         source: "./data/mob-js/methods.json",
         title: "methods",
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
+      }
+    },
+    {
+      name: "mobJs-useMethodByName",
+      templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mob-js/use-method-by-name.json",
+        title: "useMethodByName",
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
+      }
+    },
+    {
+      name: "mobJs-useMethodArrayByName",
+      templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mob-js/use-method-array-by-name.json",
+        title: "useMethodArrayByName",
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
+      }
+    },
+    {
+      name: "mobJs-setStateByName",
+      templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mob-js/set-state-by-name.json",
+        title: "setStateByName",
+        breadCrumbs: mobJsComponentBreadCrumbs,
+        section: "mobJs"
+      }
+    },
+    {
+      name: "mobJs-updateStateByName",
+      templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mob-js/update-state-by-name.json",
+        title: "updateStateByName",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs"
       }
@@ -36278,8 +36277,7 @@ Loading snippet ...</pre
     const mainData = getCommonData();
     const proxi = getProxi();
     const templateData = {
-      [PAGE_TEMPLATE_COMPONENT_MOBJS]: mainData.sideBarLinks.mobJsComponentParams,
-      [PAGE_TEMPLATE_TRAVERSAL_MOBJS]: mainData.sideBarLinks.mobJsTraversal
+      [PAGE_TEMPLATE_COMPONENT_MOBJS]: mainData.sideBarLinks.mobJsComponentParams
     };
     onMount(() => {
       const { screenEl, scrollerEl, scrollbar } = getRef();
