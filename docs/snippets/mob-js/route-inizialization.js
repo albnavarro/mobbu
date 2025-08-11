@@ -1,13 +1,3 @@
-/**
-interface routeType {
-    name: string;
-    layout:
-        | ((arg0: { params: any; props: any }) => Promise<string>)
-        | ((arg0: { params: any; props: any }) => string);
-    props: any;
-}
-**/
-
 // ./routes/index'
 
 import { pageNotFound } from './404';
