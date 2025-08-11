@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>createStagger</strong> is a specialized utility for coordinating multiple sequencers. Unlike the standard <a href='./#mobMotion-stagger'>stagger</a> which operates on single animations, createStagger synchronizes groups of sequencers using stagger patterns. It returns an array of precomputed start/end values for precise sequencing control."
+            "content": "<strong>createStagger</strong> is a specialized utility for coordinating multiple sequencers. Unlike the standard <strong><a href='./#mobMotion-stagger'>stagger</a></strong> which operates on single animations, createStagger synchronizes <strong>groups of sequencers</strong> using stagger patterns. It returns an array of precomputed start/end values for precise sequencing control."
         },
         {
             "component": "mob-spacer",
@@ -170,7 +170,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small"
+                            "style": "medium"
                         }
                     },
                     {
@@ -276,6 +276,12 @@
                         }
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h3"
@@ -304,6 +310,12 @@
                         }
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h3"
@@ -315,7 +327,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "See <a href='./#mobMotion-stagger'>stagger documentation</a> for details."
+                        "content": "See <strong><a href='./#mobMotion-stagger'>stagger documentation</a></strong> for details."
                     },
                     {
                         "component": "mob-spacer",
@@ -343,7 +355,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "See <a href='./#mobMotion-stagger'>stagger documentation</a> for details."
+                        "content": "See <strong><a href='./#mobMotion-stagger'>stagger documentation</a></strong> for details."
                     },
                     {
                         "component": "mob-spacer",
@@ -371,7 +383,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "See <a href='./#mobMotion-stagger'>stagger documentation</a> for details."
+                        "content": "See <strong><a href='./#mobMotion-stagger'>stagger documentation</a></strong> for details."
                     },
                     {
                         "component": "mob-spacer",
