@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Async timeline is a promise manager., it allows you to coordinate tween, lerp and spring, it can manage single tweens or groups of tweens. Manages loops and allows you to use custom functions between different tweens."
+            "content": "<strong>Async timeline</strong> is a promise-based animation coordinator that manages <strong>tweens</strong>, <strong>lerps</strong>, and <strong>springs</strong>. It handles single animations or groups, supports looping, and allows custom functions between animations."
         },
         {
             "component": "mob-spacer",
@@ -103,7 +103,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Determines the number of loops to run.</br>Number -1 means that the timeline will run in an infinite loop."
+                        "content": "Sets the number of animation loops.<br/><strong>-1</strong> creates an infinite loop."
                     },
                     {
                         "component": "mob-spacer",
@@ -123,7 +123,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Reverse the direction each time the timeline ends.<br/>The current/arrival/destination values of each tween will be reversed according to the timeline."
+                        "content": "When enabled, reverses animation direction after each loop.<br/>All tween values flip between start and end points."
                     },
                     {
                         "component": "mob-spacer",
@@ -143,7 +143,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": " By default when a play or a playReverse is performed a `set method` is executed on each tween using the `initial values` (play) or the `final values` (playReverse) to make each tween start from a 'neutral' position regardless of its value current. Sets are not saved in the timeline but are `temporary`. If the `freeMode` property is set to `true` a sets are not executed so that multiple timelines can control the same tweens always starting from the current value of each tween.<br/> `The default is false`. "
+                        "content": "By default, <strong>play()</strong> and <strong>playReverse()</strong> reset tweens to initial/final values. <strong>freeMode: true</strong> disables this behavior, allowing multiple timelines to control the same tweens from their current values.<br/><em>Default: false</em>"
                     },
                     {
                         "component": "mob-spacer",
@@ -163,7 +163,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If `autoSet` is set to true for each tween a `set method` corresponding to the `beginning` and `end` of the same timeline will be created. The newly created methods will be `permanently` added to the start and ends of the timeline. As these sets are permanent unlike the default behavior (with freeMode = false) during a repeat the timeline will always restart from the initial (or final) value. "
+                        "content": "When <strong>true</strong>, permanently adds reset commands at the timeline's start/end points. Ensures consistent restart positions during loops."
                     },
                     {
                         "component": "mob-spacer",
@@ -216,7 +216,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The parameters relating to each instance will be used, if necessary, according to the following scheme, in addition there is the delay parameter expressed in milliseconds."
+                        "content": "Each tween instance uses its own parameters by default. The following schema shows override options, including the <strong>delay</strong> parameter (in milliseconds)."
                     },
                     {
                         "component": "mob-spacer",
@@ -385,7 +385,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "It is possible to use both synchronous and asynchronous custom functions within the timeline. Both functions will be executed only when the promise has been resolved ( tween ). This allows you to execute functions exactly after the previous one or before the next one without any risk of even minimal overlap."
+                        "content": "Execute synchronous or asynchronous functions within the timeline. Both types execute <strong>only after</strong> the previous animation completes, ensuring perfect sequencing."
                     },
                     {
                         "component": "mob-spacer",
@@ -405,9 +405,9 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>resolve</span>: the resolve function",
-                                "<span class='quote'>loop</span>: current loop counter",
-                                "<span class='quote'>direction</span>: current direction 'forward | backward'"
+                                "<strong>resolve</strong>: Promise resolution function",
+                                "<strong>loop</strong>: Current iteration count",
+                                "<strong>direction</strong>: Timeline direction ('forward' or 'backward')"
                             ]
                         }
                     },
@@ -441,7 +441,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Synchronize the current values of one tween with another. Cannot be used within a group."
+                        "content": "Synchronizes values between tweens. <em>Not usable within groups.</em>"
                     },
                     {
                         "component": "mob-snippet",
@@ -473,15 +473,15 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Manages multiple instances in parallel.<br/> The waitComplete parameter allows you to decide whether the group is resolved when the last tween is resolved ( promiseAll) or when the first is resolved ( promiseRace )."
+                        "content": "Manages parallel animation groups.<br/><strong>waitComplete</strong> determines resolution timing:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>true</span>: promiseAll",
-                                "<span class='quote'>false</span>: promiseRace"
+                                "<strong>true</strong>: Waits for all tweens (Promise.all)",
+                                "<strong>false</strong>: Proceeds after first tween completes (Promise.race)"
                             ]
                         }
                     },
@@ -490,7 +490,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Within a group each instance will still be able to use the delay property."
+                        "content": "Individual tweens within groups still respect their <strong>delay</strong> properties."
                     },
                     {
                         "component": "mob-snippet",
@@ -522,7 +522,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Put the timeline on hold, through the resume() method, the timeline will restart. As with add/addAsync remove will only be executed when the previous tween is completely finished."
+                        "content": "Pauses timeline execution. Use <strong>resume()</strong> to continue. Suspension occurs only after completing the current animation."
                     },
                     {
                         "component": "mob-snippet",
@@ -554,7 +554,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Adds a label at a specific point in the timeline, the label will then be used by the playFrom(label) or playFromReverse(label) method"
+                        "content": "Marks timeline positions for <strong>playFrom(label)</strong> or <strong>playFromReverse(label)</strong> navigation."
                     },
                     {
                         "component": "mob-snippet",
@@ -586,7 +586,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Since asyncTimeline does not reason with time, it may happen that using the playFrom(label) method some tweens with a delay applied are not immediately aligned to the starting point specified by the label. To overcome this (but it can also be useful in other cases) the setTween method allows you to align the desired tweens to a label after which we can, for example, start from the same label:"
+                        "content": "Ensures tweens with delays align properly when jumping to labels. Essential for precise timeline navigation."
                     },
                     {
                         "component": "mob-snippet",
@@ -618,7 +618,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>play</strong>, <strong>play reverse </strong> and <strong>stop</strong> of the timeline. The play() and playReverse() methods will return a promise when the timeline is completed. The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+                        "content": "<strong>play()</strong> and <strong>playReverse()</strong> return Promises upon completion. <strong>stop()</strong> clears stagger caches by default (configurable)."
                     },
                     {
                         "component": "mob-snippet",
@@ -650,7 +650,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Like the play() / playReverse() method but a label will be used as the starting point."
+                        "content": "Version of play() that starts from specific <strong>labels</strong>."
                     },
                     {
                         "component": "mob-snippet",
@@ -682,7 +682,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Pauses and unpauses a timeline. the resume() method is also used for a timeline that has been put into pause status via the suspend method."
+                        "content": "<strong>pause()</strong> freezes execution. <strong>resume()</strong> continues from paused/suspended states."
                     },
                     {
                         "component": "mob-snippet",
@@ -714,7 +714,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Reverses the timeline as soon as the current promise/tween is finished."
+                        "content": "Reverses timeline direction after completing current animation."
                     },
                     {
                         "component": "mob-snippet",
@@ -746,7 +746,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "There are two methods, onLoopEnd and onComplete. Both events will return an unsubscribe function."
+                        "content": "Event handlers returning unsubscribe functions:"
                     },
                     {
                         "component": "mob-spacer",
@@ -766,8 +766,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>loop</span>: current loop counter",
-                                "<span class='quote'>direction</span>: current direction 'forward | backward'"
+                                "<strong>loop</strong>: Current loop count",
+                                "<strong>direction</strong>: Active direction ('forward'|'backward')"
                             ]
                         }
                     },
@@ -807,7 +807,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The destroy function will also destroy all the tweens that have been used, and it is advisable to also cancel the references to the individual tweens."
+                        "content": "Terminates timeline and all child tweens. <em>Remember to clear external references.</em>"
                     },
                     {
                         "component": "mob-snippet",
@@ -839,14 +839,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "isPaused/isSuspended/getDirection"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Utilities to check the status of the timeline:"
+                        "content": "<strong>isPaused()</strong>/<strong>isSuspended()</strong>/<strong>getDirection()</strong> - Timeline status checkers:"
                     },
                     {
                         "component": "mob-snippet",

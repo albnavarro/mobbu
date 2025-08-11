@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The stagger's task is to calculate the number of delay frames for each subscriber of the tween. The stagger does not generate new instances of our tween it simply manages their rendering over time in specific request animation frames. This mechanism is not to be confused with a setTimeout(), the stagger does not think in this way but rather counts the frames, in fact the use of the stagger does not affect the perception of the animation in any way. This count varies based on the frame rate identified at the start. The stagger can no longer be modified once calculated."
+            "content": "The <strong>stagger's</strong> task is to calculate the number of delay frames for each subscriber of the tween. The stagger does not generate new instances of our tween - it simply manages their rendering over time in specific <strong>requestAnimationFrame</strong> calls. This mechanism is not to be confused with <strong>setTimeout()</strong>; the stagger thinks in terms of frame counts rather than milliseconds. In fact, using the stagger doesn't affect the perception of the animation. This count varies based on the frame rate identified at the start. The stagger can no longer be modified once calculated."
         },
         {
             "component": "mob-spacer",
@@ -42,14 +42,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If we had 2 subscribers, in the simplest case, with a value of each equal to 2 we could have a situation like:"
+            "content": "If we had 2 subscribers, in the simplest case, with a stagger value of 2 frames each, we could have a situation like:"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The first subscriber will use the frames: 0,1,2,3,4,...<br/> The second subscriber will use the frames: 2,3,4,5,6,...<br/> Naturally the offset value will vary based on the frame rate."
+            "content": "The first subscriber will use the frames: <strong>0,1,2,3,4,...</strong><br/>The second subscriber will use the frames: <strong>2,3,4,5,6,...</strong><br/>Naturally, the offset value will vary based on the frame rate."
         },
         {
             "component": "mob-spacer",
@@ -100,7 +100,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines the offset of the renderings:"
+            "content": "Determines the <strong>offset</strong> between renderings:"
         },
         {
             "component": "mob-snippet",
@@ -132,7 +132,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines whether the tween is considered completed when the sagger for the first subscriber is launched ( waitComplete: false ) or for the last subscriber ( waitComplete: true ). The animated pattern modules are based on this mechanism. Using waitComplete: false the loops of the tweens synchronized by a asyncTimeline will repeat without taking into account the duration of the staggers which will have an 'own life'. Thus, an affect of continuous movement can be created by concatenating several tweens."
+            "content": "Determines whether the tween is considered completed when the stagger for the <strong>first</strong> subscriber begins (<strong>waitComplete: false</strong>) or when the <strong>last</strong> subscriber finishes (<strong>waitComplete: true</strong>). The animated pattern modules rely on this mechanism. Using <strong>waitComplete: false</strong>, loops of tweens synchronized by an <strong>asyncTimeline</strong> will repeat without considering the stagger durations, creating independent animations. This can create a continuous movement effect by concatenating multiple tweens."
         },
         {
             "component": "mob-snippet",
@@ -164,7 +164,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines where in the subscriber array the first stagger starts."
+            "content": "Determines where in the subscriber array the first stagger begins."
         },
         {
             "component": "mob-paragraph",
@@ -173,7 +173,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The { x: number, y: number } object will only take effect with a value of the grid: { direction: 'radial' } parameter"
+            "content": "The <strong>{ x: number, y: number }</strong> object will only take effect with a <strong>grid: { direction: 'radial' }</strong> parameter."
         },
         {
             "component": "mob-snippet",
@@ -205,7 +205,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you use a two-dimensional column/row model, you need to specify the number of columns and the number of rows. We could then specify whether to group subscribers by row / column or as a single element radial"
+            "content": "When using a two-dimensional column/row model, you need to specify the number of <strong>columns</strong> and <strong>rows</strong>. You can then specify whether to group subscribers by <strong>row/column</strong> or as a single <strong>radial</strong> element."
         },
         {
             "component": "mob-paragraph",
@@ -214,7 +214,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "It is possible to play with grids with 'wrong' numbers to create nice offset games."
+            "content": "You can experiment with 'incorrect' grid numbers to create interesting offset patterns."
         },
         {
             "component": "mob-snippet",

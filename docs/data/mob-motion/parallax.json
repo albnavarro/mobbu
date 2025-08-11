@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "To be activated, the init method must be executed. Unlike scrollTrigger which performs precise calculations, parallax allows you to move elements around a neutral point (value === 0) reasoning by speed/multipliers rather than absolute numbers. The only property that is calculated absolutely is the opacity, where there are two special parameters opacityStart and opacityEnd."
+            "content": "To activate, the <strong>init</strong> method must be executed. Unlike <strong>scrollTrigger</strong> which uses precise calculations, <strong>parallax</strong> moves elements around a neutral point (value = 0) using speed/multipliers rather than absolute values. The only absolute property is <strong>opacity</strong>, controlled by <strong>opacityStart</strong> and <strong>opacityEnd</strong> parameters."
         },
         {
             "component": "mob-spacer",
@@ -123,7 +123,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The default subject to apply transformations to."
+                        "content": "The default element to apply transformations to."
                     },
                     {
                         "component": "mob-spacer",
@@ -143,7 +143,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "A DOM node other than item to be used as a reference for position, height, and width calculations."
+                        "content": "Alternative DOM node for position, height, and width calculations."
                     },
                     {
                         "component": "mob-spacer",
@@ -163,7 +163,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "A DOM node other than item to apply transformations to."
+                        "content": "Alternative DOM node to receive transformations."
                     },
                     {
                         "component": "mob-spacer",
@@ -183,7 +183,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The scrollable node in which the target is contained.<br/> The default is window."
+                        "content": "Scrollable container node (default: <strong>window</strong>)."
                     },
                     {
                         "component": "mob-spacer",
@@ -203,7 +203,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "A node that contains the scrollable element.<br/> The default is window."
+                        "content": "Node containing the scrollable element (default: <strong>window</strong>)."
                     },
                     {
                         "component": "mob-spacer",
@@ -238,7 +238,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Reference breakpoint, it will be possible to add custom values in <a href='./#mobMotion-defaults'>Default utils</a>"
+                        "content": "Reference breakpoint for responsive behavior. Custom values can be added in <a href='./#mobMotion-defaults'><strong>Default utils</strong></a>."
                     },
                     {
                         "component": "mob-spacer",
@@ -258,7 +258,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "determines whether the scrollTriger should be active from breakpoint up or up to the breakpoint."
+                        "content": "Determines if parallax activates <strong>from breakpoint up</strong> or <strong>up to breakpoint</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -294,7 +294,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>Built-in</strong> properties can be used exclusively as <strong>single properties</strong>, to modify multiple properties or for more complex situations in general use one of <strong>scrollerTween</strong>"
+                        "content": "<strong>Built-in</strong> properties work as <strong>single properties</strong>. For complex animations, use <strong>scrollerTween</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -307,17 +307,17 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "y",
-                                "x",
-                                "rotate",
-                                "rotateY",
-                                "rotateX",
-                                "rotateZ",
-                                "opacity",
-                                "scale",
-                                "scaleX",
-                                "scaleY",
-                                "tween: use external scrollerTween for complex animation"
+                                "<strong>y</strong>: Vertical movement",
+                                "<strong>x</strong>: Horizontal movement",
+                                "<strong>rotate</strong>: Rotation",
+                                "<strong>rotateY</strong>: Y-axis rotation",
+                                "<strong>rotateX</strong>: X-axis rotation",
+                                "<strong>rotateZ</strong>: Z-axis rotation",
+                                "<strong>opacity</strong>: Transparency (uses absolute values)",
+                                "<strong>scale</strong>: Uniform scaling",
+                                "<strong>scaleX</strong>: X-axis scaling",
+                                "<strong>scaleY</strong>: Y-axis scaling",
+                                "<strong>tween</strong>: Use <strong>scrollerTween</strong> for complex animations"
                             ]
                         }
                     },
@@ -357,27 +357,21 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean|string value"
+                        "content": "<strong>Boolean|string</strong> value controlling movement speed ratio."
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Value indicating the movement ratio.<br/>The closer the value is to 10 the faster the element will move.<br/>To manage the opacity use the two specific properties opacityStart and opacityEnd."
+                        "content": "Higher values (closer to 10) create faster movement.<br/>For opacity control, use <strong>opacityStart</strong> and <strong>opacityEnd</strong> instead."
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "This property is valid only for built-in properties."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
+                        "content": "Only applies to <strong>built-in properties</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -415,7 +409,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "To manage the opacity use the two specific properties:"
+                        "content": "Control opacity with these absolute-value properties:"
                     },
                     {
                         "component": "mob-title",
@@ -429,7 +423,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Defines the start value of the opacity animation from the tp of the viewport.<br/> 100 corresponds to 100vh.</br> The default value is 100."
+                        "content": "Starting opacity value from viewport top.<br/><strong>100</strong> = 100vh (default: <strong>100</strong>)."
                     },
                     {
                         "component": "mob-title",
@@ -443,7 +437,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Defines the end value of the opacity animation from the top of the viewport.<br/> 100 corresponds to 100vh.<br/> The default value is 0"
+                        "content": "Ending opacity value from viewport top.<br/><strong>100</strong> = 100vh (default: <strong>0</strong>)."
                     },
                     {
                         "component": "mob-snippet",
@@ -475,31 +469,31 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "To manage multiple parameters at the same time it is possible to use the appropriate scrollerTween module."
+                        "content": "For multi-property animations, use the <strong>scrollerTween</strong> module."
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "To use the opacity property use the built-in parameters ( opacityStart | opacityEnd ) or scrollTrigger. The opacity property by its nature works with precise values from 1 to 0, it does not adapt to a multiplier logic."
+                        "content": "<strong>Note:</strong> For opacity, use <strong>built-in parameters</strong> (opacityStart/opacityEnd) or scrollTrigger - opacity requires absolute values (1-0) rather than multipliers."
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "scrollerTween shares some methods with other tweens such as:"
+                        "content": "scrollerTween shares these methods with other tweens:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "subscribe",
-                                "subscribeCache",
-                                "onStop",
-                                "destroy"
+                                "<strong>subscribe</strong>: Add animation callbacks",
+                                "<strong>subscribeCache</strong>: Cache animations",
+                                "<strong>onStop</strong>: Stop event handler",
+                                "<strong>destroy</strong>: Clean up resources"
                             ]
                         }
                     },
@@ -521,7 +515,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "These values will be used in place of the range property"
+                        "content": "Replaces the <strong>range</strong> property:"
                     },
                     {
                         "component": "mob-title",
@@ -535,7 +529,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "This value will be the exact value applied to the element in its neutral position, the neutral position depends directly on the align property"
+                        "content": "Exact value at neutral position (determined by <strong>align</strong> property)."
                     },
                     {
                         "component": "mob-title",
@@ -549,14 +543,14 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "This value is to be understood as a multiplier. using the different properties they will be able to have different multipliers."
+                        "content": "Multiplier value. Different properties can have different multipliers."
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The 'to' properties can be lower or higher than the value defined in the 'from' property.<br/> If the 'from' and 'to' values 'coincide' there will be no movement.<br/>The greater the difference between the two values, the greater the movement."
+                        "content": "Greater difference between <strong>from</strong> and <strong>to</strong> values creates more movement.<br/>Identical values produce no movement."
                     },
                     {
                         "component": "mob-spacer",
@@ -594,7 +588,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Defines when the current value reaches 0 ( neutral position ). It is possible to use a preset value or a number from 0 to 100 which corresponds to a value calculated from the bottom of the viewport. The default value is center."
+                        "content": "Defines when value reaches <strong>0</strong> (neutral position). Use presets or values <strong>0-100</strong> (percentage from viewport bottom). Default: <strong>center</strong>."
                     },
                     {
                         "component": "mob-title",
@@ -608,7 +602,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The scroller ( default is the document ) is located at scrolltop === 0;"
+                        "content": "When scroller is at <strong>scrollTop = 0</strong>"
                     },
                     {
                         "component": "mob-title",
@@ -622,7 +616,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the top edge of the screen ( default is the the window )."
+                        "content": "The element matches the <strong>top edge</strong> of the screen ( default is the the window )."
                     },
                     {
                         "component": "mob-title",
@@ -636,7 +630,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the right edge of the screen ( default is the the window )."
+                        "content": "The element matches the <strong>right edge</strong> of the screen ( default is the the window )."
                     },
                     {
                         "component": "mob-title",
@@ -650,7 +644,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the center of the screen ( default is the the window )."
+                        "content": "The element matches the <strong>center</strong> of the screen ( default is the the window )."
                     },
                     {
                         "component": "mob-title",
@@ -664,7 +658,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the bottom edge of the screen ( default is the the window )."
+                        "content": "The element matches the <strong>bottom edge</strong> of the screen ( default is the the window )."
                     },
                     {
                         "component": "mob-title",
@@ -678,7 +672,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the left edge of the screen ( default is the the window )."
+                        "content": "The element matches the <strong>left edge</strong> of the screen ( default is the the window )."
                     },
                     {
                         "component": "mob-title",
@@ -692,7 +686,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the end of the scroller ( default is the the document ).."
+                        "content": "The element matches the <strong>end</strong> of the scroller ( default is the the document ).."
                     },
                     {
                         "component": "mob-title",
@@ -706,7 +700,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "number from 0 to 100 which corresponds to a value calculated from the bottom of the viewport"
+                        "content": "number from 0 to 100 which corresponds to a value calculated from the bottom of the screen"
                     },
                     {
                         "component": "mob-spacer",
@@ -744,17 +738,17 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Defines the behavior of the parallax once it reaches point 0 ( neutral position ). It can continue, stop or go back. If it is not set the value from positive will become negative."
+                        "content": "Controls behavior when reaching <strong>neutral position (0)</strong>. If unset, positive values become negative."
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "in-stop",
-                                "in-back",
-                                "out-stop",
-                                "out-back"
+                                "<strong>in-stop</strong>: Stop at neutral point",
+                                "<strong>in-back</strong>: Reverse at neutral point",
+                                "<strong>out-stop</strong>: Stop after passing neutral point",
+                                "<strong>out-back</strong>: Reverse after passing neutral point"
                             ]
                         }
                     },
@@ -788,7 +782,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Reverse animation"
+                        "content": "Reverses animation direction"
                     },
                     {
                         "component": "mob-spacer",
@@ -810,7 +804,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If you decide to use the easing parameter, an instance of <a href='./#mobMotion-tween-spring-lerp'>Lerp or Spring</a> will be used to update the values."
+                        "content": "Uses <a href='./#mobMotion-tween-spring-lerp'><strong>Lerp</strong> or <strong>Spring</strong></a> for smoothed value updates."
                     },
                     {
                         "component": "mob-spacer",
@@ -830,7 +824,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean value indicating whether to use easing."
+                        "content": "Boolean: Toggle easing (default: <strong>false</strong>)"
                     },
                     {
                         "component": "mob-title",
@@ -844,7 +838,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The type of easing used: spring | lerp."
+                        "content": "Type: <strong>spring</strong> or <strong>lerp</strong>"
                     },
                     {
                         "component": "mob-title",
@@ -858,7 +852,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The velocity value of the lerp function. It must be a value between 0.01 and 0.1. The default value is 0.06"
+                        "content": "Lerp velocity (0.01-0.1). Default: <strong>0.06</strong>"
                     },
                     {
                         "component": "mob-title",
@@ -872,7 +866,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The Spring configuration. can be a preset between default | gentle | wobbly | bounce | scroller"
+                        "content": "Spring presets: <strong>default | gentle | wobbly | bounce | scroller</strong>"
                     },
                     {
                         "component": "mob-spacer",
@@ -923,7 +917,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean value.<br/>Disable the transform: translate3d(0,0,0) rule applied by the built-in property during animation to activate the GPU."
+                        "content": "Boolean: Disables GPU-accelerated <strong>transform: translate3d(0,0,0)</strong>"
                     },
                     {
                         "component": "mob-title",
@@ -937,7 +931,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean value.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion-defaults'>Default utils</a>."
+                        "content": "Boolean: Throttles scroll events (configurable in <a href='./#mobMotion-defaults'>Default utils</a>)"
                     },
                     {
                         "component": "mob-title",
@@ -951,7 +945,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean value.<br/>Apply the css rule perspective: {value}px; transform-style: preserve-3d; to the parent HTMLElement."
+                        "content": "Boolean: Applies <strong>3D perspective</strong> to parent elements"
                     },
                     {
                         "component": "mob-title",
@@ -965,7 +959,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean value.<br/>When there is a large drop in fps, the will-change property is activated for a limited period of time. It is intended as a last resort to deal with a temporary problem. The default value is true."
+                        "content": "Boolean: Temporarily activates <strong>will-change</strong> during FPS drops (default: <strong>true</strong>)"
                     },
                     {
                         "component": "mob-snippet",
@@ -1028,7 +1022,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Initialize instance"
+                        "content": "Initializes the Parallax instance"
                     },
                     {
                         "component": "mob-spacer",
@@ -1066,7 +1060,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Recalculate all position/measurement values and update rendering. This operation is carried out automatically after each resize."
+                        "content": "Recalculates positions/measurements and updates rendering (auto-triggered on resize)"
                     },
                     {
                         "component": "mob-spacer",
@@ -1104,7 +1098,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Destroy instance"
+                        "content": "Destroys the Parallax instance"
                     },
                     {
                         "component": "mob-snippet",

@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "syncTimeline is a large timer that can handle one or more <a href='./#mobMotion-sequencer'>sequencer</a>. It regulates its duration and manages all the play, stop, pause and more options."
+            "content": "<strong>syncTimeline</strong> is a powerful timing controller that manages one or more <a href='./#mobMotion-sequencer'>sequencers</a>. It handles playback control (play, stop, pause) while regulating animation duration and sequencing."
         },
         {
             "component": "mob-list",
@@ -32,7 +32,7 @@
                 "links": true,
                 "items": [
                     {
-                        "label": "example:",
+                        "label": "View implementation example",
                         "url": "./#caterpillarN2"
                     }
                 ]
@@ -116,7 +116,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Determines the number of loops to run. Number -1 means that the timeline will run in an infinite loop. During the loop a time equal to 1/2 of the current fps will be subtracted from the last frame. This allows you to eliminate the repetition of the same frame between the end and the beginning. <a href='./#caterpillarN2'>here</a> you can see how the start and end time of the loop is not perceptible."
+                        "content": "Sets the number of animation loops (<strong>-1</strong> for infinite). The system automatically adjusts the last frame timing by <strong>1/2 of the current fps</strong> to eliminate visible repetition between loops. <a href='./#caterpillarN2'>See example</a> for seamless loop transitions."
                     },
                     {
                         "component": "mob-spacer",
@@ -136,7 +136,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Reverse the direction each time the timeline ends."
+                        "content": "When enabled, automatically reverses animation direction after each loop completion."
                     },
                     {
                         "component": "mob-spacer",
@@ -156,7 +156,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The duration of the animation in milliseconds"
+                        "content": "Total animation duration in <strong>milliseconds</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -238,7 +238,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The add method allows you to add one or more sequencers/masterSequencers to the timeline."
+                        "content": "Registers one or more <strong>sequencers</strong> or <strong>masterSequencers</strong> to the timeline."
                     },
                     {
                         "component": "mob-snippet",
@@ -276,16 +276,16 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>play</strong>, <strong>play reverse </strong> and <strong>stop</strong> of the timeline. The play() and playReverse() methods will return a promise when the timeline is completed. The play/playReverse methods have as their parameter the possibility to apply the action based on the current direction of the timeline.<br/>"
+                        "content": "Control playback direction with these Promise-based methods:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>useCurrent</span>: <span class='quote'>false</span> The timeline will always start from the start/end regardless of the current position.<br/>",
-                                "<span class='quote'>useCurrent</span>: <span class='quote'>true</span> The timeline will reverse its direction (it will perform a reverse action) only if it is going in the opposite direction, otherwise it will continue on its path.",
-                                "The default value of useCurrent is false."
+                                "<strong>useCurrent: false</strong> - Always starts from beginning/end",
+                                "<strong>useCurrent: true</strong> - Reverses only if moving opposite to command",
+                                "<em>Default:</em> useCurrent = false"
                             ]
                         }
                     },
@@ -307,7 +307,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+                        "content": "Halts playback. By default clears stagger caches (configurable). When disabled, staggers complete naturally by aligning with the first element."
                     },
                     {
                         "component": "mob-snippet",
@@ -332,14 +332,14 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "playFrom/playReverse"
+                        "content": "playFrom/playFromReverse"
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "play or play reverse from a specific label, both methods will return a promise which will be resolved when the timeline is completed. The label is defined within the individual sequencer."
+                        "content": "Starts playback from specific <strong>labels</strong> (defined in sequencers). Both methods return Promises that resolve upon timeline completion."
                     },
                     {
                         "component": "mob-snippet",
@@ -371,7 +371,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Reverses immediately the direction of travel"
+                        "content": "Immediately reverses playback direction."
                     },
                     {
                         "component": "mob-snippet",
@@ -403,7 +403,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Pause/Resume the timeline."
+                        "content": "Temporarily halts or continues timeline execution."
                     },
                     {
                         "component": "mob-snippet",
@@ -435,22 +435,22 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Event launched every end of cycle."
+                        "content": "Triggers after each loop cycle."
                     },
                     {
                         "component": "mob-title",
                         "props": {
                             "tag": "h6"
                         },
-                        "content": "params:"
+                        "content": "Parameters:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>loop</span>: current loop counter",
-                                "<span class='quote'>direction</span>: current direction 'forward | backward'"
+                                "<strong>loop</strong>: Current iteration count",
+                                "<strong>direction</strong>: Playback direction ('forward'|'backward')"
                             ]
                         }
                     },
@@ -484,7 +484,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Event launched at the end of the timeline."
+                        "content": "Triggers when timeline finishes all iterations."
                     },
                     {
                         "component": "mob-snippet",
@@ -516,22 +516,22 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Event launched at every frame of the timeline."
+                        "content": "Triggers every animation frame."
                     },
                     {
                         "component": "mob-title",
                         "props": {
                             "tag": "h6"
                         },
-                        "content": "params:"
+                        "content": "Parameters:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>time</span>: current time",
-                                "<span class='quote'>direction</span>: current direction 'forward | backward'"
+                                "<strong>time</strong>: Current timeline position",
+                                "<strong>direction</strong>: Current playback direction"
                             ]
                         }
                     },
@@ -565,7 +565,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The destroy function will also destroy all the sequencers that have been used, and it is advisable to also cancel the references to the individual sequencer."
+                        "content": "Terminates timeline and all child sequencers. <em>Remember to clear external references.</em>"
                     },
                     {
                         "component": "mob-snippet",
@@ -597,7 +597,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>isActive/isSuspended/getDirection/getTime</strong>. Utilities to check the status of the timeline:"
+                        "content": "Status checkers: <strong>isActive()</strong>, <strong>isSuspended()</strong>, <strong>getDirection()</strong>, <strong>getTime()</strong>"
                     },
                     {
                         "component": "mob-snippet",

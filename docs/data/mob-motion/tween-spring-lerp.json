@@ -23,7 +23,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Tweens can be thought of as stores that simply interpolate numbers and launch callbacks."
+            "content": "<strong>Tweens</strong> can be thought of as stores that interpolate numeric values and trigger callbacks during animations."
         },
         {
             "component": "mob-spacer",
@@ -64,7 +64,7 @@
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
-                            "items": ["TimeTween"]
+                            "items": ["TimeTween (duration-based animation)"]
                         }
                     },
                     {
@@ -72,7 +72,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "It cannot be used interactively with a mouse etc... it simply processes the data over a given period of time."
+                        "content": "This type processes data over a specified duration and <strong>cannot</strong> be used interactively (e.g., with mouse events)."
                     },
                     {
                         "component": "mob-spacer",
@@ -91,7 +91,10 @@
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
-                            "items": ["Lerp", "Spring"]
+                            "items": [
+                                "Lerp (linear interpolation)",
+                                "Spring (physics-based animation)"
+                            ]
                         }
                     },
                     {
@@ -99,7 +102,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Suitable for interactive use such as mouse trail etc..."
+                        "content": "Ideal for <strong>interactive</strong> animations like mouse trails or dynamic UI elements."
                     },
                     {
                         "component": "mob-spacer",
@@ -144,7 +147,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Data object."
+                        "content": "An object containing the animation values to interpolate."
                     },
                     {
                         "component": "mob-title",
@@ -158,7 +161,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If true the values will always be relative to the previous value reached by the tween."
+                        "content": "When <strong>true</strong>, values are calculated relative to the tween's current state."
                     },
                     {
                         "component": "mob-title",
@@ -172,7 +175,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "To manage staggers refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
+                        "content": "For stagger effects, refer to the <a href='./#mobMotion-stagger'><strong>stagger</strong></a> section."
                     },
                     {
                         "component": "mob-spacer",
@@ -232,7 +235,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The duration of the tween in milliseconds"
+                        "content": "The animation duration in <strong>milliseconds</strong>."
                     },
                     {
                         "component": "mob-title",
@@ -246,7 +249,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The animation curve"
+                        "content": "The easing function that defines the animation's <strong>acceleration curve</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -344,7 +347,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "preset configuration (The configurations were taken from react-spring)"
+                        "content": "Preset configuration (based on <strong>react-spring</strong> defaults)."
                     },
                     {
                         "component": "mob-list",
@@ -371,7 +374,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Here it is possible to alter the individual values of the chosen configuration."
+                        "content": "Override individual values of the selected preset configuration."
                     },
                     {
                         "component": "mob-spacer",
@@ -469,7 +472,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Determines the speed of the lerp, it must be a value between 0.01 and 0.1. The default value is 0.06"
+                        "content": "Controls the interpolation speed (range: <strong>0.01–0.1</strong>; default: <strong>0.06</strong>)."
                     },
                     {
                         "component": "mob-title",
@@ -483,7 +486,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Indicates the difference between the current value and the target value for which the animation can be considered finished. The default value is 0.01"
+                        "content": "Threshold for considering the animation complete (default: <strong>0.01</strong>)."
                     },
                     {
                         "component": "mob-spacer",
@@ -561,7 +564,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "When a method ( <strong>set</strong>, <strong>goTo</strong>, <strong>goFrom</strong>, <strong>goFromTo</strong> ) is called while the tween is running it will return a <strong>Promise.reject()</strong> so that only the first generated Promise is resolved. In this case the reject function is intercepted via the <strong>unhandledrejection</strong> event, Firefox still has a bug where the console displays the error related to the promise failure, in these cases it can be useful to always use a <strong>catch(() => {})</strong> to avoid logging the error."
+                        "content": "When calling methods (<strong>set</strong>, <strong>goTo</strong>, <strong>goFrom</strong>, <strong>goFromTo</strong>) during an active tween, they return <strong>Promise.reject()</strong> to ensure only the initial Promise resolves. Use <strong>catch(() => {})</strong> to suppress Firefox's console errors about unhandled rejections."
                     },
                     {
                         "component": "mob-spacer",
@@ -583,7 +586,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The set() method instantly applies the applied value, even if the value is not applied it returns a promise,"
+                        "content": "The <strong>set()</strong> method immediately applies values and returns a Promise."
                     },
                     {
                         "component": "mob-snippet",
@@ -615,7 +618,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The goTo method takes the values from the current state to the state indicated in the first parameter. In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property. The value can be numeric or the result of a function, The function value will be recalculated at each play()"
+                        "content": "The <strong>goTo()</strong> method transitions from the current state to the target state specified in the first parameter. The second parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each <strong>play()</strong>)."
                     },
                     {
                         "component": "mob-snippet",
@@ -647,7 +650,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The goFrom method brings the values from the state indicated in the first parameter to the current state. In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property. The value can be numeric or the result of a function, The function value will be recalculated at each play()"
+                        "content": "The <strong>goFrom()</strong> method transitions from a specified initial state (first parameter) to the current state. The second parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each <strong>play()</strong>)."
                     },
                     {
                         "component": "mob-snippet",
@@ -679,7 +682,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The goFromTo method takes the values from the state indicated in the first parameter to the state indicated in the second parameter. The two parameters must have the same keys. In the third parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property. The value can be numeric or the result of a function, The function value will be recalculated at each play()"
+                        "content": "The <strong>goFromTo()</strong> method transitions between two specified states (parameters 1 and 2). Both states must share the same keys. The third parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each <strong>play()</strong>)."
                     },
                     {
                         "component": "mob-snippet",
@@ -711,7 +714,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+                        "content": "The <strong>stop()</strong> method accepts a parameter to clear the stagger cache (if <strong>subscribeCache</strong> was used). If disabled, staggers will complete their animation by syncing with the first element."
                     },
                     {
                         "component": "mob-snippet",
@@ -743,7 +746,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Pauses and unpauses a tween/Spring/Lerp. "
+                        "content": "Pauses or resumes a tween/spring/lerp animation."
                     },
                     {
                         "component": "mob-snippet",
@@ -775,7 +778,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The subscribe method will allow us to apply the values in real time to our target. The subscribe() method always returns an unsubscribe() function"
+                        "content": "The <strong>subscribe()</strong> method applies real-time values to a target and returns an <strong>unsubscribe()</strong> function."
                     },
                     {
                         "component": "mob-paragraph",
@@ -784,7 +787,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "Consider using <strong>weakRef</strong> when the animation is handled in a <strong>nested function</strong>, especially when using <strong>closures</strong>, to prevent <strong>memory leaks</strong>."
+                        "content": "Use <strong>weakRef</strong> for animations in <strong>nested functions</strong> or <strong>closures</strong> to prevent memory leaks."
                     },
                     {
                         "component": "mob-snippet",
@@ -816,7 +819,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function. This method is specific for the use of stagger by optimizing memory consumption. Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
+                        "content": "Unlike <strong>subscribe()</strong>, which stores the entire function for each target, <strong>subscribeCache()</strong> stores targets and callbacks once, optimizing memory for staggers. It requires two parameters: the target and the callback."
                     },
                     {
                         "component": "mob-paragraph",
@@ -825,7 +828,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "Consider using <strong>weakRef</strong> when the animation is handled in a <strong>nested function</strong>, especially when using <strong>closures</strong>, to prevent <strong>memory leaks</strong>."
+                        "content": "Use <strong>weakRef</strong> for animations in <strong>nested functions</strong> or <strong>closures</strong> to prevent memory leaks."
                     },
                     {
                         "component": "mob-snippet",
@@ -857,7 +860,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The onComplete method is launched when the animation is finished, it can be used for example to inhibit the use of the GPU unnecessarily:"
+                        "content": "The <strong>onComplete()</strong> method triggers when the animation finishes, useful for cleanup (e.g., disabling GPU usage)."
                     },
                     {
                         "component": "mob-snippet",
@@ -889,7 +892,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Destroy tween instance"
+                        "content": "Destroys the tween instance."
                     },
                     {
                         "component": "mob-snippet",

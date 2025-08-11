@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Createstagger is a specific utility for sequencers. Unlike <a href='./#mobMotion-stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to synchronize multiple senquencers using the stagger scheme. createStagger returns an array with precomputed start and end values."
+            "content": "<strong>createStagger</strong> is a specialized utility for coordinating multiple sequencers. Unlike the standard <a href='./#mobMotion-stagger'>stagger</a> which operates on single animations, createStagger synchronizes groups of sequencers using stagger patterns. It returns an array of precomputed start/end values for precise sequencing control."
         },
         {
             "component": "mob-spacer",
@@ -35,7 +35,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Examples: ( scrollTrigger based )"
+            "content": "Examples (scrollTrigger based):"
         },
         {
             "component": "mob-spacer",
@@ -185,7 +185,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Type is a special property of createStagger:"
+                        "content": "The <strong>type</strong> property defines the synchronization pattern for sequencer groups:"
                     },
                     {
                         "component": "mob-spacer",
@@ -205,7 +205,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "All the instances will have the same duration.<br/> The value 0 has no effect.<br/> The value 1 will ensure that all the instances will start in sequence, the end of the previous one corresponds to the beginning of the next.</br> Above the value 1 the instances will begin to overlap while always maintaining the same duration.<br/> "
+                        "content": "<strong>Uniform duration</strong> across all instances:<br/>- Value 0: No effect<br/>- Value 1: Sequential start (end-to-beginning)<br/>- Above 1: Increasing overlap while maintaining equal duration"
                     },
                     {
                         "component": "mob-spacer",
@@ -225,7 +225,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "All staggers will have a different duration. They will start at the same time and will reach the maximum value at different times."
+                        "content": "<strong>Simultaneous start</strong> with varying durations:<br/>All instances begin together but complete at different times."
                     },
                     {
                         "component": "mob-spacer",
@@ -245,7 +245,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "All staggers will have a different duration. They will start at different times and will reach the maximum value at the same time."
+                        "content": "<strong>Synchronized completion</strong>:<br/>Instances start at different times but all reach maximum value simultaneously."
                     },
                     {
                         "component": "mob-spacer",
@@ -265,7 +265,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "All staggers will have a different duration. They will start at different times and will reach the maximum value at different times, the first will start first and will be the slowest, the last will start at the end and will be the fastest."
+                        "content": "<strong>Gradual acceleration</strong>:<br/>First instance starts earliest (slowest), last starts latest (fastest), with proportional timing in between."
                     },
                     {
                         "component": "mob-spacer",
@@ -287,7 +287,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The each parameter behaves differently from the default stagger:<br/>The higher the value of each, the smaller the difference in duration will be."
+                        "content": "Controls duration variation between instances:<br/><strong>Higher values</strong> reduce duration differences (more uniform timing)."
                     },
                     {
                         "component": "mob-spacer",
@@ -315,7 +315,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
+                        "content": "See <a href='./#mobMotion-stagger'>stagger documentation</a> for details."
                     },
                     {
                         "component": "mob-spacer",
@@ -343,7 +343,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
+                        "content": "See <a href='./#mobMotion-stagger'>stagger documentation</a> for details."
                     },
                     {
                         "component": "mob-spacer",
@@ -371,7 +371,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
+                        "content": "See <a href='./#mobMotion-stagger'>stagger documentation</a> for details."
                     },
                     {
                         "component": "mob-spacer",
