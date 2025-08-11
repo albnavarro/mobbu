@@ -819,7 +819,17 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Unlike <strong>subscribe()</strong>, which stores the entire function for each target, <strong>subscribeCache()</strong> stores targets and callbacks once, optimizing memory for staggers. It requires two parameters: the target and the callback."
+                        "content": "Optimized version of <strong>subscribe</strong> for staggers"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "items": [
+                                "Stores targets/callbacks <strong>once</strong>",
+                                "It only accumulates an object with the <strong>actual updated values</strong>."
+                            ]
+                        }
                     },
                     {
                         "component": "mob-paragraph",
