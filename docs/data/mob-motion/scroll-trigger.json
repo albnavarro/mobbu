@@ -569,10 +569,10 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>subscribe</strong>: Add animation callbacks",
-                                "<strong>subscribeCache</strong>: Cache animations",
-                                "<strong>onStop</strong>: Stop event handler",
-                                "<strong>destroy</strong>: Clean up resources"
+                                "<strong>subscribe</strong>",
+                                "<strong>subscribeCache</strong>",
+                                "<strong>onStop</strong>",
+                                "<strong>destroy</strong>"
                             ]
                         }
                     },
