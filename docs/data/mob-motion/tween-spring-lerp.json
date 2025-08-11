@@ -64,7 +64,9 @@
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
-                            "items": ["TimeTween (duration-based animation)"]
+                            "items": [
+                                "<strong>TimeTween</strong> (duration-based animation)"
+                            ]
                         }
                     },
                     {
@@ -92,8 +94,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "Lerp (linear interpolation)",
-                                "Spring (physics-based animation)"
+                                "<strong>Lerp</strong> (linear interpolation)",
+                                "<strong>Spring</strong> (physics-based animation)"
                             ]
                         }
                     },
