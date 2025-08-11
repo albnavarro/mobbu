@@ -49,8 +49,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "It doesn't aim to write as little code as possible, but rather to provide utilities while leaving more freedom for personal customization.",
-                    "Maximum <strong>modularity</strong>, no big objects, but smaller interacting modules.",
+                    "It doesn't aim to write as little code as possible, but rather to provide utilities while leaving more <strong>freedom</strong> for personal customization.",
+                    "Maximum <strong>modularity</strong>, no big objects, but <strong>smaller interacting modules</strong>.",
                     "<strong>Typescript</strong> support"
                 ]
             }

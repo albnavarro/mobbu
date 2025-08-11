@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Async timeline</strong> is a promise-based animation coordinator that manages <strong>tweens</strong>, <strong>lerps</strong>, and <strong>springs</strong>. It handles single animations or groups, supports looping, and allows custom functions between animations."
+            "content": "<strong>Async timeline</strong> is a <strong>promise-based</strong> animation coordinator that manages <strong>tweens</strong>, <strong>lerps</strong>, and <strong>springs</strong>. It handles single animations or groups, supports looping, and allows custom functions between animations."
         },
         {
             "component": "mob-spacer",
@@ -103,7 +103,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Sets the number of animation loops.<br/><strong>-1</strong> creates an infinite loop."
+                        "content": "Sets the number of <strong>animation loops</strong>.<br/><strong>-1</strong> creates an infinite loop."
                     },
                     {
                         "component": "mob-spacer",
@@ -123,7 +123,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When enabled, reverses animation direction after each loop.<br/>All tween values flip between start and end points."
+                        "content": "When enabled, reverses animation direction after each loop.<br/>All tween values <strong>flip</strong> between start and end points."
                     },
                     {
                         "component": "mob-spacer",
@@ -216,7 +216,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Each tween instance uses its own parameters by default. The following schema shows override options, including the <strong>delay</strong> parameter (in milliseconds)."
+                        "content": "Each tween instance uses its own parameters by default. The following schema shows override options, including the <strong>delay</strong> parameter (in milliseconds), which is not a property of the tween itself but is controlled by the parent timeline instance."
                     },
                     {
                         "component": "mob-spacer",

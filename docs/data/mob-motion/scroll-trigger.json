@@ -238,7 +238,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Reference breakpoint, it will be possible to add custom values in <strong>Default utils</strong>"
+                        "content": "Reference breakpoint, it will be possible to add custom values in <strong><a href='#mobMotion-defaults'>Default utils</a></strong>"
                     },
                     {
                         "component": "mob-spacer",
@@ -258,7 +258,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Determines whether the <strong>scrollTrigger</strong> should be active from breakpoint up or up to the breakpoint."
+                        "content": "Determines whether the <strong>scrollTrigger</strong> should be active from <strong>breakpoint up</strong> or <strong>up to the breakpoint</strong>."
                     },
                     {
                         "component": "mob-spacer",

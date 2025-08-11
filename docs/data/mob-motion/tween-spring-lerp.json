@@ -347,7 +347,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Preset configuration (based on <strong>react-spring</strong> defaults)."
+                        "content": "Preset configuration."
                     },
                     {
                         "component": "mob-list",
@@ -374,7 +374,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Override individual values of the selected preset configuration."
+                        "content": "<strong>Override</strong> individual values of the selected preset configuration."
                     },
                     {
                         "component": "mob-spacer",
@@ -564,7 +564,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "When calling methods (<strong>set</strong>, <strong>goTo</strong>, <strong>goFrom</strong>, <strong>goFromTo</strong>) during an active tween, they return <strong>Promise.reject()</strong> to ensure only the initial Promise resolves. Use <strong>catch(() => {})</strong> to suppress Firefox's console errors about unhandled rejections."
+                        "content": "When calling methods (<strong>set</strong>, <strong>goTo</strong>, <strong>goFrom</strong>, <strong>goFromTo</strong>) during an active tween, they return <strong>Promise.reject()</strong> to ensure only the initial Promise resolves. Use <strong>catch(() => {})</strong> to suppress <strong>Firefox's</strong> console errors about unhandled rejections."
                     },
                     {
                         "component": "mob-spacer",
@@ -618,7 +618,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The <strong>goTo()</strong> method transitions from the current state to the target state specified in the first parameter. The second parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each <strong>play()</strong>)."
+                        "content": "The <strong>goTo()</strong> method transitions from the current state to the target state specified in the first parameter. The <strong>second parameter</strong> allows temporary <strong>override</strong> of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each <strong>play()</strong>)."
                     },
                     {
                         "component": "mob-snippet",
@@ -650,7 +650,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The <strong>goFrom()</strong> method transitions from a specified initial state (first parameter) to the current state. The second parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each <strong>play()</strong>)."
+                        "content": "The <strong>goFrom()</strong> method transitions from a specified initial state (first parameter) to the current state. The <strong>second parameter</strong> allows temporary <strong>override</strong> of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each <strong>play()</strong>)."
                     },
                     {
                         "component": "mob-snippet",
@@ -682,7 +682,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The <strong>goFromTo()</strong> method transitions between two specified states (parameters 1 and 2). Both states must share the same keys. The third parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each <strong>play()</strong>)."
+                        "content": "The <strong>goFromTo()</strong> method transitions between two specified states (<strong>parameters 1 and 2</strong>). Both states must share the same keys. The <strong>third parameter</strong> allows temporary <strong>override</strong> of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each <strong>play()</strong>)."
                     },
                     {
                         "component": "mob-snippet",
