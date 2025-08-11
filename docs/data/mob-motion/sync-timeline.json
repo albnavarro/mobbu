@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>syncTimeline</strong> is a powerful timing controller that manages one or more <a href='./#mobMotion-sequencer'>sequencers</a>. It handles playback control (play, stop, pause) while regulating animation duration and sequencing."
+            "content": "<strong>syncTimeline</strong> is a powerful timing controller that manages one or more <strong><a href='./#mobMotion-sequencer'>sequencers</a></strong>. It handles playback control (play, stop, pause) while regulating animation duration and sequencing."
         },
         {
             "component": "mob-list",
@@ -116,7 +116,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Sets the number of animation loops (<strong>-1</strong> for infinite). The system automatically adjusts the last frame timing by <strong>1/2 of the current fps</strong> to eliminate visible repetition between loops. <a href='./#caterpillarN2'>See example</a> for seamless loop transitions."
+                        "content": "Sets the number of animation loops (<strong>-1</strong> for infinite). The system automatically adjusts the last frame timing by <strong>1/2 of the current fps</strong> to eliminate visible repetition between loops. <strong><a href='./#caterpillarN2'>See example</a></strong> for seamless loop transitions."
                     },
                     {
                         "component": "mob-spacer",
@@ -307,7 +307,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Halts playback. By default clears stagger caches (configurable). When disabled, staggers complete naturally by aligning with the first element."
+                        "content": "Halts playback. <strong>By default clears stagger caches</strong> (configurable). When disabled, staggers complete naturally by aligning with the first element."
                     },
                     {
                         "component": "mob-snippet",
