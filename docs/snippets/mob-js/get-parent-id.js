@@ -1,7 +1,3 @@
-/**
-export type GetParentId = () => string | undefined;
-**/
-
 import { html } from '@mobJs';
 
 /**

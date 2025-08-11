@@ -176,29 +176,6 @@
             "content": "<ul> <li><strong>Container Requirement</strong>: <ul> <li>Each repeater requires initialization within a <strong>dedicated HTML node</strong></li> </ul> </li> <li><strong>DOM Structure Rules</strong>: <ul> <li>Returned DOM must have a <strong>single root node</strong> as first element</li> <li>Root can be either: <ul> <li>Generic <strong>DOM element</strong></li> <li>Library <strong>component</strong></li> </ul> </li> </ul> </li> <li><strong>Nested Element Handling</strong>: <ul> <li>Supports nested invalidate/repeaters within same <strong>component/scope</strong></li> <li>Nested repeaters reference parent component's main state</li> <li>For complex nested states: create new components instead</li> </ul> </li> </ul>"
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "Type:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/repeat-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 30
-            }
-        },
-        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"

@@ -1,7 +1,3 @@
-/**
-getChildren(componentName: string): Array<string>;
-**/
-
 import { html, MobJs } from '@mobJs';
 
 /**

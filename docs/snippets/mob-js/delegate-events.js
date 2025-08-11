@@ -1,9 +1,3 @@
-/**
- * Export interface delegateEventObject { [key: string]: (arg0: Event, index: number) => void; }
- *
- * Export type DelegateEvents = ( arg0: delegateEventObject | delegateEventObject[] ) => any;
- */
-
 import { html } from '@mobJs';
 
 /**

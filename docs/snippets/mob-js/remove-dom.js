@@ -1,7 +1,3 @@
-/**
-removeDOM(element: HTMLElement): void;
-**/
-
 import { html } from '@mobJs';
 
 /**

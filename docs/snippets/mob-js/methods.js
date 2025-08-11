@@ -1,12 +1,3 @@
-/**
-export type PartialMethods<T> = <
-    K extends keyof Record<string & keyof ExtractMethods<T>, function>,
->(
-    name: K,
-    fn: ExtractMethods<T>[K]
-) => void;
-**/
-
 import { html } from '@mobJs';
 
 /**

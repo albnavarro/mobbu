@@ -1,7 +1,3 @@
-/**
-export type BindText = (TemplateStringsArray, ...any) => string;
-**/
-
 import { html } from '@mobJs';
 
 /**

@@ -1,7 +1,3 @@
-/**
-watchParent(prop: string, callback: () => void): void;
-**/
-
 import { html } from '@mobJs';
 
 /**

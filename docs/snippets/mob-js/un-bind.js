@@ -1,7 +1,3 @@
-/**
-unBind: (arg0: { id: string }) => void;
-**/
-
 import { html } from '@mobJs';
 
 /**

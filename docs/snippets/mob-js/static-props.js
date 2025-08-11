@@ -1,7 +1,3 @@
-/**
- * StaticProps(arg0: { [key: string]: any }): string;
- */
-
 import { html } from '@mobJs';
 
 /**

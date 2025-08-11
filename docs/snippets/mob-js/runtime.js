@@ -1,12 +1,3 @@
-/**
-renderComponent: (arg0: {
-    attachTo: HTMLElement;
-    component: string;
-    position?: 'afterbegin' | 'beforeend';
-    clean?: boolean;
-}) => Promise<any>;
-**/
-
 import { html } from '@mobJs';
 
 /**

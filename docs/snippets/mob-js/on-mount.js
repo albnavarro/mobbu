@@ -1,12 +1,3 @@
-/**
-onMount(
-    arg0: (arg1: {
-        element: HTMLElement;
-        refs: { [key: string]: HTMLElement | HTMLElement[] };
-    }) => () => void
-): void;
-**/
-
 import { html } from '@mobJs';
 
 /**

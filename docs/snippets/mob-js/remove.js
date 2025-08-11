@@ -1,7 +1,3 @@
-/**
-remove(): void;
-**/
-
 import { html } from '@mobJs';
 
 /**

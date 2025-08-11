@@ -120,22 +120,6 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/invalidate-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 18
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
                 "source": "./snippets/mob-js/invalidate.js",
                 "isFull": true,
                 "hasOverflow": false,

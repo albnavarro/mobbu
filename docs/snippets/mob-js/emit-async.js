@@ -1,7 +1,3 @@
-/**
- * Export type EmitAsync<T> = (prop: keyof T) => void;
- */
-
 import { html } from '@mobJs';
 
 /**

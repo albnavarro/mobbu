@@ -1,7 +1,3 @@
-/**
- * Export type ProxiState<T> = () => GetState<T>;
- */
-
 import { html } from '@mobJs';
 
 /**

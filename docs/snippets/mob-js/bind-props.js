@@ -1,8 +1,3 @@
-/**
- * Export type BindProps<T, R> = (arg0: { observe?: Array<OnlyStringKey<T>>; forceParent?: boolean; props: (arg0: T,
- * index: number) => Partial<R>; }) => string;
- */
-
 import { html } from '@mobJs';
 
 /**

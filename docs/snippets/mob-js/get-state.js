@@ -1,7 +1,3 @@
-/**
-export type GetState<T> = () => T;
-**/
-
 import { html } from '@mobJs';
 
 /**
