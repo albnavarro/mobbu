@@ -3508,6 +3508,7 @@ h2 .title-index {
 .c-scroll-to button.is-note {
   font-size: 0.8rem;
   cursor: auto;
+  opacity: 0.5;
 }
 .c-params-mobjs {
   --links-height: 54vh;
