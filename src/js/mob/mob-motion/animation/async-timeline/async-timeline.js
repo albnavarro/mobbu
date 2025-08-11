@@ -375,7 +375,7 @@ export default class MobAsyncTimeline {
      */
     #run() {
         /**
-         * Store previous caction to prevent tiw add/addAsync consegutive
+         * Store previous action to prevent two add/addAsync consegutive
          */
         const currentTweelist = this.#tweenList[this.#currentIndex];
         const lastAction = this.#currentAction;
@@ -387,7 +387,10 @@ export default class MobAsyncTimeline {
         if (!currentTweelist) return;
 
         /**
-         * Update previous values for revert.
+         * Each is item is a group, so we need to loop over each tween in group. Update prevValueSettled value for
+         * current loop index.
+         *
+         * First immediate loop is necessary. Once every index is visited the if inside is always skipped.
          */
         this.#tweenList[this.#currentIndex] = currentTweelist.map((item) => {
             const { data } = item;
@@ -395,7 +398,12 @@ export default class MobAsyncTimeline {
 
             /*
              * Get current valueTo for to use in reverse methods
-             * Get the value only first immediate loop
+             * Get the value only first immediate loop, so if prevValueSettled is settled skip
+             *
+             * prevValueSettled is defined non only for tween but suspended etc..
+             * So check if is tween and as method getToNativeType.
+             *
+             * prevValueSettled is settled only once during the entire life of timeline.
              */
             if (tween && tween?.getToNativeType && !prevValueSettled) {
                 const values = tween.getToNativeType();
@@ -403,7 +411,7 @@ export default class MobAsyncTimeline {
                 /*
                  * Get only the active prop
                  * maybe unnecessary, if all prop ius used work fine
-                 * Only for a cliean code
+                 * Only for a clean code
                  */
                 const propsInUse = asyncReduceData(values, valuesTo);
 
@@ -420,6 +428,9 @@ export default class MobAsyncTimeline {
             return item;
         });
 
+        /**
+         * Each is item is a group, so we need to loop over each tween in group.
+         */
         const tweenPromises = currentTweelist.map((item) => {
             const { data } = item;
 
@@ -433,16 +444,26 @@ export default class MobAsyncTimeline {
                 id,
             } = data;
 
-            // Clone teen prop and clean from timeline props
+            /**
+             * Clone tween prop and remove from timeline props We need to manipulate props.
+             *
+             * Immediate = true if we walk timeline only for set prevValueTo. relative props reset ( not allowed )
+             */
             const newTweenProps = { ...tweenProps };
             delete newTweenProps.delay;
 
             /*
-             * activeate immediate prop if we walk thru tweens in test mode
+             * activate immediate prop if we walk thru tweens in test mode
              */
             const { active: labelIsActive, index: labelIndex } =
                 this.#labelState;
 
+            /*
+             * Loop immediate ( test mode ) if:
+             *
+             * labelIsActive is true;
+             * labelIndex is minus currentIndex
+             */
             const isImmediate = Number.isNaN(labelIndex)
                 ? false
                 : labelIsActive &&
@@ -450,11 +471,14 @@ export default class MobAsyncTimeline {
                   // @ts-ignore
                   this.#currentIndex < labelIndex;
 
+            /*
+             * set new immediate prop to true.
+             */
             if (isImmediate) newTweenProps.immediate = true;
 
             /*
              * If some tween use relative props the value is applied as relative
-             * only the in the rist loop
+             * only the in the this loop
              */
             if (tweenProps && 'relative' in tweenProps && tweenProps.relative) {
                 tweenProps.relative = false;
@@ -462,12 +486,13 @@ export default class MobAsyncTimeline {
             }
 
             /*
-             * Store current action
+             * Update current action.
+             * Use this to check if we execute the same cicly two time consegutive.
              */
             this.#currentAction.push({ id, action });
 
             /*
-             * Check if the previous block i running again
+             * Check if the previous block is running again
              */
             const prevActionIsCurrent = lastAction.find(
                 ({ id: prevId, action: prevAction }) => {
@@ -475,6 +500,9 @@ export default class MobAsyncTimeline {
                 }
             );
 
+            /*
+             * Current action data. Than we match key in object.
+             */
             const fn = {
                 set: () => {
                     return tween?.[action](valuesFrom, newTweenProps);
@@ -521,13 +549,19 @@ export default class MobAsyncTimeline {
                     });
                 },
                 addAsync: () => {
-                    // Activate addAsyncFlag
+                    /**
+                     * Activate addAsyncFlag
+                     *
+                     * SessionId change each play/playReverse and so on. Make sure that this step run only in current
+                     * session.
+                     */
                     this.#addAsyncIsActive = true;
                     const sessionId = this.#sessionId;
 
                     /*
                      * Prevent fire the same last addAsync
                      * Es reverseNext inside it cause an infinite loop
+                     * prevActionIsCurrent check if the same block run twice consegutive.
                      */
                     if (prevActionIsCurrent) {
                         return new Promise((res) => res({ resolve: true }));
@@ -568,6 +602,7 @@ export default class MobAsyncTimeline {
                     /*
                      * Prevent fire the same last add
                      * Es reverseNext inside it cause an infinite loop
+                     * prevActionIsCurrent check if the same block run twice consegutive.
                      */
                     if (prevActionIsCurrent) {
                         return new Promise((res) => res({ resolve: true }));
@@ -593,6 +628,9 @@ export default class MobAsyncTimeline {
                 const delay = isImmediate ? false : tweenProps?.delay;
                 const previousSessionId = this.#sessionId;
 
+                /**
+                 * Start specific delay item gropu
+                 */
                 if (delay) {
                     const start = MobCore.getTime();
                     this.#delayIsRunning = true;
@@ -801,12 +839,14 @@ export default class MobAsyncTimeline {
     }
 
     /**
+     * The method run only if tween has delay. Resole tween delay.
+     *
      * @param {Object} param0
      * @param {number} param0.start
      * @param {number} param0.deltaTimeOnpause
      * @param {number} param0.delay
-     * @param {(value: any) => void} param0.reject
-     * @param {(value: any) => void} param0.res
+     * @param {(value: any) => void} param0.reject - Timeline current group item promise
+     * @param {(value: any) => void} param0.res - Timeline current group item promise
      * @param {number} param0.previousSessionId
      * @param {any} param0.tween
      * @param {Record<string, () => void>} param0.fn
@@ -824,33 +864,57 @@ export default class MobAsyncTimeline {
         action,
     }) {
         const current = MobCore.getTime();
+
+        /**
+         * Time elapsed from the start of current timeline step.
+         */
         let delta = current - start;
 
         /*
-         * Update delata value on pause to compensate delta velue
+         * Time elapsed from pause() start.
          */
         if (this.#isInPause) deltaTimeOnpause = current - this.#timeOnPause;
 
         /*
-         * If play, resume, playFromLabel is fired with
-         * another tween in delay
-         * fire this tween immediately, so avoid problem
-         * with much delay in same group
+         * #actionAfterReject cache next action ( play/playReverse ) when user call new action when timeline is in pause.
+         * once reject current timeline fire the new sequence.
+         * is fired on main catch ( from reject ) timeline primise.
          *
-         * ! when stop the timeline manually ( es timeline.stop() )
-         * It will not activate
+         * this condition equalize delay && delta value so enter in the resolveTweenPromise function.
          */
         if (this.#actionAfterReject.active) {
             deltaTimeOnpause = 0;
             delta = delay;
         }
 
-        // Start after dealy or immediate in caso of stop or reverse Next
+        /**
+         * RESOLVE DELAY:
+         *
+         * Delta - deltaTimeOnpause: reconciliate time: total duration of current timeline step less time elapsed in
+         * pause. Loop #loopOnDelay until reconciliate time is minus delay time
+         *
+         * When reconciliate time is over delay value the tween should go ( delay is ended ). NOTE: dealy is timeline
+         * internal property not tween property. th if is the real delay check.
+         *
+         * If the time elapsed in current timeline step is over delay value need to resolve or reject timeline item
+         * group promsie. the same in case of stop new play, or reverse next
+         *
+         * If there is no problem run tween if there is problem reject promise of current timeline group item, so
+         * timeline con go in next step.
+         *
+         * OK: se resolve current timeline group promise. timeline group item promise is resolved by tweeen resolve.
+         *
+         * PROBLEM: reject current timeline group promise. if isStopped if play() if fired when pause status is active
+         * if sessionId change
+         */
         if (
             delta - deltaTimeOnpause >= delay ||
             this.#isStopped ||
             this.#isReverseNext
         ) {
+            /**
+             * Is settled to true on first loopOnDelay() execution.
+             */
             this.#delayIsRunning = false;
 
             resolveTweenPromise({
@@ -872,6 +936,9 @@ export default class MobAsyncTimeline {
             return;
         }
 
+        /**
+         * Continue delay loop.
+         */
         requestAnimationFrame(() => {
             this.#loopOnDelay({
                 start,
@@ -1539,6 +1606,9 @@ export default class MobAsyncTimeline {
                 this.#starterFunction.active = true;
 
                 /**
+                 * Every play() loop immediate all step to get prevValueSettled. ( first time timeline play is called
+                 * prevValueSettled is updated ).
+                 *
                  * First loop reverse at the end start function fired reverse set label.active at true so label.active
                  * && starterFunction.active is necessary to fire cb
                  */
