@@ -490,10 +490,10 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>subscribe</strong>: Add animation callbacks",
-                                "<strong>subscribeCache</strong>: Cache animations",
-                                "<strong>onStop</strong>: Stop event handler",
-                                "<strong>destroy</strong>: Clean up resources"
+                                "<strong>subscribe</strong>",
+                                "<strong>subscribeCache</strong>",
+                                "<strong>onStop</strong>",
+                                "<strong>destroy</strong>"
                             ]
                         }
                     },
@@ -588,7 +588,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Defines when value reaches <strong>0</strong> (neutral position). Use presets or values <strong>0-100</strong> (percentage from viewport bottom). Default: <strong>center</strong>."
+                        "content": "Defines when value reaches <strong>0</strong> (neutral position).<br/> <strong>Use presets or values 0-100</strong> (percentage from viewport bottom).<br/> Default: <strong>center</strong>."
                     },
                     {
                         "component": "mob-title",
@@ -700,7 +700,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "number from 0 to 100 which corresponds to a value calculated from the bottom of the screen"
+                        "content": "number from <strong>0</strong> to <strong>100</strong> which corresponds to a value calculated from the bottom of the screen"
                     },
                     {
                         "component": "mob-spacer",
@@ -745,10 +745,10 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>in-stop</strong>: Stop at neutral point",
-                                "<strong>in-back</strong>: Reverse at neutral point",
-                                "<strong>out-stop</strong>: Stop after passing neutral point",
-                                "<strong>out-back</strong>: Reverse after passing neutral point"
+                                "<strong>in-stop</strong>",
+                                "<strong>in-back</strong>",
+                                "<strong>out-stop</strong>",
+                                "<strong>out-back</strong>"
                             ]
                         }
                     },
@@ -931,7 +931,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Throttles scroll events (configurable in <a href='./#mobMotion-defaults'>Default utils</a>)"
+                        "content": "Boolean: Throttles scroll events (configurable in <strong><a href='./#mobMotion-defaults'>Default utils</a></strong>)"
                     },
                     {
                         "component": "mob-title",
@@ -1060,7 +1060,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Recalculates positions/measurements and updates rendering (auto-triggered on resize)"
+                        "content": "<strong>Recalculates</strong> positions/measurements and updates rendering (auto-triggered on resize)"
                     },
                     {
                         "component": "mob-spacer",
@@ -1098,7 +1098,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Destroys the Parallax instance"
+                        "content": "<strong>Destroys</strong> the Parallax instance"
                     },
                     {
                         "component": "mob-snippet",

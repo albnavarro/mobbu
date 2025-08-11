@@ -317,7 +317,7 @@
                                 "<strong>scale</strong>: Uniform scaling",
                                 "<strong>scaleX</strong>: X-axis scaling",
                                 "<strong>scaleY</strong>: Y-axis scaling",
-                                "<strong>tween</strong>: Use external scrollerTween/sequencer for complex animations"
+                                "<strong>tween</strong>: Use external <strong>scrollerTween/sequencer</strong> for complex animations"
                             ]
                         }
                     },
@@ -369,7 +369,7 @@
                             "style": "medium",
                             "items": [
                                 "<span class='quote'>+/-100px</span>: Move by ±100 pixels",
-                                "<span class='quote'>+/-100vw | +/-100vh</span>: Move by ±100% of viewport width/height",
+                                "<span class='quote'>+/-100vw | +/-100vh</span>: Move by ±100% of screen width/height",
                                 "<span class='quote'>+/-100w | +/-100h</span>: Move by ±100% of element's own width/height",
                                 "Properties are recalculated on each resize"
                             ]
@@ -639,7 +639,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "References the viewport side."
+                        "content": "References the screen side."
                     },
                     {
                         "component": "mob-paragraph",
@@ -715,7 +715,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "Values <strong>2 & 3</strong> are always added from the chosen position towards the screen center (regardless of top/bottom/left/right).<br/>When starting from <strong>bottom</strong>, the reference is the <strong>top edge</strong> of the object.<br/>To make the animation <strong>end</strong> when the <strong>bottom edge</strong> is <strong>40px below the viewport top</strong>, simply <strong>subtract the element's height</strong>."
+                        "content": "Values <strong>2 & 3</strong> are always added from the chosen position towards the screen center (regardless of top/bottom/left/right).<br/>When starting from <strong>bottom</strong>, the reference is the <strong>top edge</strong> of the object.<br/>To make the animation <strong>end</strong> when the <strong>bottom edge</strong> is <strong>40px below the screen top</strong>, simply <strong>subtract the element's height</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -893,7 +893,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Displays animation start/end indicators. Markers appear at the element's edge and fixed positions matching start/end values. Accepts a string parameter that displays beside the marker."
+                        "content": "Displays animation <strong>start/end indicators</strong>. Markers appear at the element's edge and <strong>fixed positions</strong> matching start/end values. Accepts a string parameter that displays beside the marker."
                     },
                     {
                         "component": "mob-snippet",
@@ -1472,7 +1472,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Recalculates all positions/measurements and updates rendering (automatically triggered on resize)"
+                        "content": "<strong>Recalculates</strong> all positions/measurements and updates rendering (automatically triggered on resize)"
                     },
                     {
                         "component": "mob-spacer",
@@ -1510,7 +1510,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Destroys the ScrollTrigger instance"
+                        "content": "<strong>Destroys</strong> the ScrollTrigger instance"
                     },
                     {
                         "component": "mob-snippet",
