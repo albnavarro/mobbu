@@ -869,10 +869,7 @@ export default class MobAsyncTimeline {
         if (this.#isInPause) deltaTimeOnpause = current - this.#timeOnPause;
 
         /*
-         * #actionAfterReject cache next action ( play/playReverse ) when user call new action when timeline is in pause.
-         * once reject current timeline fire the new sequence.
-         * is fired on main catch ( from reject ) timeline primise.
-         *
+         * #actionAfterReject cache next action ( play/playReverse ) when user call previous method and a tween is waitng delay end.
          * this condition equalize delay && delta value so enter in the resolveTweenPromise function.
          */
         if (this.#actionAfterReject.active) {
@@ -1560,9 +1557,8 @@ export default class MobAsyncTimeline {
                         return;
 
                     /**
-                     * If a tween is in delay reject main promise and fire the new pipe
-                     *
-                     * This.#actionAfterReject will be fired when reject main promise.
+                     * If a tween is in delay reject main promise and fire the new pipe This.#actionAfterReject will be
+                     * fired when reject main promise.
                      */
                     if (
                         this.#delayIsRunning &&
@@ -1611,7 +1607,7 @@ export default class MobAsyncTimeline {
                  * RUN
                  */
                 this.playReverse({
-                    forceYoYo: true,
+                    forceYoYo: false,
                     callback: () => {
                         /**
                          * Need to reset current data after reverse() of tween so use stop() this.#currentIndex is
@@ -1760,12 +1756,12 @@ export default class MobAsyncTimeline {
         resolve = null,
         reject = null,
     } = {}) {
-        return new Promise((resolveFromReverse, rejectFromReverse) => {
-            const resolveInUse = resolve || resolveFromReverse;
-            const rejectInUse = reject || rejectFromReverse;
-
+        return new Promise((thisResolve, thisReject) => {
             if (this.#fpsIsInLoading) return;
             this.#fpsIsInLoading = true;
+
+            const currentResolve = resolve ?? thisResolve;
+            const currentReject = reject ?? thisReject;
 
             /**
              * Always play after FPS is ready.
@@ -1774,7 +1770,8 @@ export default class MobAsyncTimeline {
                 this.#fpsIsInLoading = false;
 
                 if (this.#autoSet) this.#addSetBlocks();
-                const forceYoYonow = forceYoYo;
+                const forceYoYoNow = forceYoYo;
+                const callbackNow = callback;
 
                 /**
                  * Skip of there is nothing to run
@@ -1783,15 +1780,20 @@ export default class MobAsyncTimeline {
                     return;
 
                 /**
-                 * If all tween is in delay reject main promise and fire the new pipe
-                 *
-                 * This.#actionAfterReject will be fired when reject main promise.
+                 * If a tween is in delay reject main promise and fire the new pipe This.#actionAfterReject will be
+                 * fired when reject main promise.
                  */
                 if (this.#delayIsRunning && !this.#actionAfterReject.active) {
                     this.#startOnDelay = true;
 
                     this.#actionAfterReject = {
-                        fn: () => this.playReverse({ forceYoYo: forceYoYonow }),
+                        fn: () =>
+                            this.playReverse({
+                                forceYoYo: forceYoYoNow,
+                                callback: callbackNow,
+                                resolve: currentResolve,
+                                reject: currentReject,
+                            }),
                         active: true,
                     };
 
@@ -1813,7 +1815,7 @@ export default class MobAsyncTimeline {
                  * forceyoyo is used only if we play directly from end
                  * PlayFrom which use reverse() need to go in forward direction
                  */
-                if (forceYoYonow) this.#forceYoyo = true;
+                if (forceYoYoNow) this.#forceYoyo = true;
 
                 /*
                  * Lalbel state, this run is for get prevValueSettled.
@@ -1842,8 +1844,8 @@ export default class MobAsyncTimeline {
                  */
                 MobCore.useFrameIndex(() => {
                     // Set current promise action after stop so is not fired in stop method
-                    this.#currentResolve = resolveInUse;
-                    this.#currentReject = rejectInUse;
+                    this.#currentResolve = currentResolve;
+                    this.#currentReject = currentReject;
                     this.#run();
                 }, 1);
             });
