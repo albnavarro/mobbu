@@ -105,11 +105,7 @@ export interface AsyncTimelineLabelState {
     active: boolean;
     index: string | number | null;
     isReverse: boolean;
-}
-
-export interface AsyncTimelineStarterFunction {
-    fn: () => any;
-    active: boolean;
+    callback: (() => void) | undefined;
 }
 
 export interface AsyncTimelineAfterReject {

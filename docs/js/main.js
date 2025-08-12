@@ -16264,10 +16264,6 @@
      */
     #useLabel;
     /**
-     * @type {import('./type.js').AsyncTimelineStarterFunction}
-     */
-    #callbackAfterLabelFound;
-    /**
      * Group "name" star from 1 to avoid 0 = false
      *
      * @type {number}
@@ -16505,12 +16501,8 @@
       this.#useLabel = {
         active: false,
         index: -1,
-        isReverse: false
-      };
-      this.#callbackAfterLabelFound = {
-        fn: () => {
-        },
-        active: false
+        isReverse: false,
+        callback: void 0
       };
       this.#groupCounter = 1;
       this.#groupId = void 0;
@@ -16729,22 +16721,14 @@
         const {
           active: labelIsActive,
           index: labelIndex,
-          isReverse: labelIsReverse
+          isReverse: labelIsReverse,
+          callback: callbackLabel
         } = this.#useLabel;
-        const {
-          fn: callBackFunctionAfterLabel,
-          active: callbackAfterLabelIsActive
-        } = this.#callbackAfterLabelFound;
-        if (callbackAfterLabelIsActive && labelIsActive && // @ts-ignore
+        if (callbackLabel && labelIsActive && // @ts-ignore
         this.#currentIndex === labelIndex - 1) {
-          this.#callbackAfterLabelFound = {
-            active: false,
-            fn: () => {
-            }
-          };
-          this.#disableLabel();
+          this.#resetUseLabel();
           this.#loopCounter++;
-          callBackFunctionAfterLabel();
+          callbackLabel();
           return;
         }
         if (labelIsActive && labelIsReverse && // @ts-ignore
@@ -16754,7 +16738,7 @@
         if (this.#isReverseNext) {
           this.#isReverseNext = false;
           this.#currentIndex = this.#tweenList.length - this.#currentIndex - 1;
-          this.#disableLabel();
+          this.#resetUseLabel();
           this.#revertTween();
           this.#run();
           return;
@@ -16810,7 +16794,7 @@
       });
     }
     /**
-     * The method run only if tween has delay. Resole tween delay.
+     * The method run only if tween has delay. Resolve tween delay.
      *
      * @param {Object} param0
      * @param {number} param0.start
@@ -16875,6 +16859,8 @@
       });
     }
     /**
+     * Execute repeat.
+     *
      * @type {() => void}
      */
     #onRepeat() {
@@ -16889,7 +16875,7 @@
       }
       this.#loopCounter++;
       this.#currentIndex = 0;
-      this.#disableLabel();
+      this.#resetUseLabel();
       if (this.#yoyo || this.#forceYoyo) this.#revertTween();
       this.#forceYoyo = false;
       this.#run();
@@ -16914,6 +16900,9 @@
       };
     }
     /**
+     * Revert main tweenList array. When timeline run inverse, run from currentIndex equal 0 but with an array reverted
+     * and tween props reverted.
+     *
      * @type {() => void}
      */
     #revertTween() {
@@ -16983,6 +16972,8 @@
       this.#tweenList.push([{ group: this.#groupId, data: obj }]);
     }
     /**
+     * Register all tween used in timeline.
+     *
      * @type {import('./type.js').AsyncTimelineAddTweenToStore} tween
      */
     #addTweenToStore(tween2) {
@@ -16995,6 +16986,8 @@
       this.#tweenStore.push(obj);
     }
     /**
+     * Reset all tween used in timeline.
+     *
      * @type {() => void}
      */
     #resetAllTween() {
@@ -17225,7 +17218,7 @@
       return this;
     }
     /**
-     * Add a set 'tween' at start and end of timeline.
+     * AutoSet: Add a set 'tween' at start and end of timeline.
      *
      * @type {() => void}
      */
@@ -17269,6 +17262,8 @@
       });
     }
     /**
+     * Execute a set() method of specified tweens at specified label
+     *
      * @type {import('./type.js').AsyncTimelineSetTween}
      */
     setTween(label = "", items = []) {
@@ -17309,7 +17304,7 @@
       });
     }
     /**
-     * Private
+     * Reject promise without error in console ( Firefix do not ).
      */
     #rejectPromise() {
       if (this.#currentReject) {
@@ -17318,9 +17313,8 @@
       }
     }
     /**
-     * FLow: 2) execute test loop via this.playReverse() to set `prevValueSettled`.
-     *
-     * 3. Then when timeline reach the end callback will be fired, run from currentIndex 0, ( stop() is used )
+     * 1. Execute test loop via this.playReverse() to set `prevValueSettled`.
+     * 2. Then when timeline reach the end callback will be fired, run from currentIndex 0, ( stop() is used )
      *
      * @type {() => Promise<any>}
      */
@@ -17379,8 +17373,9 @@
       });
     }
     /**
-     * FLow: 2) execute test loop via this.playReverse() to set `prevValueSettled`.
+     * FLow:
      *
+     * 2. Execute test loop via this.playReverse() to set `prevValueSettled`.
      * 3. Then when timeline reach the end callback will be fired, so walk thru right label.
      *
      * @type {import('./type.js').AsyncTimelinePlayUpeDown}
@@ -17407,7 +17402,8 @@
                   const [firstItem] = item;
                   const labelCheck = firstItem.data.labelProps?.name;
                   return labelCheck === label;
-                }) : label
+                }) : label,
+                callback: void 0
               };
               if (modules_exports.checkType(String, label))
                 playLabelIsValid(this.#useLabel.index, label);
@@ -17471,14 +17467,9 @@
           this.#useLabel = {
             active: true,
             index: this.#tweenList.length,
-            isReverse: false
+            isReverse: false,
+            callback: callback2
           };
-          if (callback2) {
-            this.#callbackAfterLabelFound = {
-              fn: callback2,
-              active: true
-            };
-          }
           this.#loopCounter--;
           this.#sessionId++;
           modules_exports.useFrameIndex(() => {
@@ -17504,7 +17495,7 @@
       this.#loopCounter = 1;
       this.#rejectPromise();
       this.#isReverseNext = false;
-      this.#disableLabel();
+      this.#resetUseLabel();
       this.#forceYoyo = false;
       this.#isInPause = false;
       this.#isInSuspension = false;
@@ -17546,7 +17537,7 @@
         }
         if (this.#currentIndex === this.#tweenList.length - 1) {
           this.#currentIndex = this.#yoyo && !this.#isReverse ? 1 : 0;
-          this.#disableLabel();
+          this.#resetUseLabel();
           if (this.#yoyo) this.#revertTween();
           this.#loopCounter++;
           this.#run();
@@ -17556,11 +17547,12 @@
     /**
      * @type {() => void}
      */
-    #disableLabel() {
+    #resetUseLabel() {
       this.#useLabel = {
         active: false,
         index: -1,
-        isReverse: false
+        isReverse: false,
+        callback: void 0
       };
     }
     /**
