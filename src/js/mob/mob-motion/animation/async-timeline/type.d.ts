@@ -178,11 +178,17 @@ export type AsyncTimelinePlayFromLabel = (arg0: {
     label?: string;
 }) => void;
 
-export type AsyncTimelinePlayFrom = (label: string) => Promise<any>;
-export type AsyncTimelinePlayFromReverse = (label: string) => Promise<any>;
+export type AsyncTimelinePlayFrom = (
+    label: string
+) => ReturnType<AsyncTimelinePlayUpeDown>;
+export type AsyncTimelinePlayUpeDown = (
+    label: string,
+    isReverse: boolean
+) => Promise<any>;
 
 export type AsyncTimelinePlayReverse = (arg0: {
     forceYoYo?: boolean;
+    callback?: () => void;
     resolve?: (value: any) => void | null;
     reject?: (value: any) => void | null;
 }) => Promise<any>;

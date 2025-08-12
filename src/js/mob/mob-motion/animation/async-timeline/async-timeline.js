@@ -78,12 +78,12 @@ export default class MobAsyncTimeline {
      *
      * @type {import('./type.js').AsyncTimelineLabelState}
      */
-    #labelState;
+    #useLabel;
 
     /**
      * @type {import('./type.js').AsyncTimelineStarterFunction}
      */
-    #starterFunction;
+    #callbackAfterLabelFound;
 
     /**
      * Group "name" star from 1 to avoid 0 = false
@@ -330,12 +330,12 @@ export default class MobAsyncTimeline {
             },
             labelProps: {},
         };
-        this.#labelState = {
+        this.#useLabel = {
             active: false,
             index: -1,
             isReverse: false,
         };
-        this.#starterFunction = {
+        this.#callbackAfterLabelFound = {
             fn: () => {},
             active: false,
         };
@@ -455,8 +455,7 @@ export default class MobAsyncTimeline {
             /*
              * activate immediate prop if we walk thru tweens in test mode
              */
-            const { active: labelIsActive, index: labelIndex } =
-                this.#labelState;
+            const { active: labelIsActive, index: labelIndex } = this.#useLabel;
 
             /*
              * Loop immediate ( test mode ) if:
@@ -629,7 +628,7 @@ export default class MobAsyncTimeline {
                 const previousSessionId = this.#sessionId;
 
                 /**
-                 * Start specific delay item gropu
+                 * Start specific delay item group
                  */
                 if (delay) {
                     const start = MobCore.getTime();
@@ -682,53 +681,62 @@ export default class MobAsyncTimeline {
             .then(() => {
                 if (this.#isInSuspension || this.#isStopped) return;
 
+                /**
+                 * Current label state
+                 */
                 const {
                     active: labelIsActive,
                     index: labelIndex,
                     isReverse: labelIsReverse,
-                } = this.#labelState;
+                } = this.#useLabel;
 
-                const { fn: starterFunction, active: starterFunctionIsActive } =
-                    this.#starterFunction;
+                /**
+                 * Optional function to fire if label is reached.
+                 */
+                const {
+                    fn: callBackFunctionAfterLabel,
+                    active: callbackAfterLabelIsActive,
+                } = this.#callbackAfterLabelFound;
 
                 /*
-                 * End virtual loop ( first loop of playReverse) to get prevValueTo
-                 * We have reach the end of timeline and we we fire starterFunction
-                 * play ( !this.freeMode ) || playFrom || playFromReverse use this.starterFunction
+                 * this.#play() / this.#playFromLabel() / this.#playFromReverse() use this condition.
                  *
-                 * - playFromLabel (playFrom/playFromReverse call it) use playReverse first loop
-                 * - playReverse first loop is executed in forward direction.
-                 * This is useful to store prevValueTo value needed in backward direction ( revertTween ).
+                 * Walk immediate from 0 to end of Timeline ( this.playReverse() ), here we have reach the end, and callback will be fired to reach the right label ( this.#play() use 0 ).
                  *
-                 * At the end of playReverse first loop starterFunction is fired
-                 *
-                 * Inside  of playReverse first loop and starterFunction loop when
-                 * currentindex is minus labelIndex a immediate methods of tween is used.
-                 *
-                 * Because we doesn't reach the repeat condition down
-                 * we manually increment loopCounter
-                 * The loop counter is decrtement in virtual loop
+                 * is skipped by this.playReverse(): does not set callback
+                 * simply reach the and of timeline in immediate mode then go on natuarally ( use this.#forceYoYo = false ).
                  *
                  */
                 if (
-                    starterFunctionIsActive &&
+                    callbackAfterLabelIsActive &&
                     labelIsActive &&
                     // @ts-ignore
                     this.#currentIndex === labelIndex - 1
                 ) {
-                    this.#starterFunction.active = false;
+                    /**
+                     * Reset callback.
+                     */
+                    this.#callbackAfterLabelFound = {
+                        active: false,
+                        fn: () => {},
+                    };
+
                     this.#disableLabel();
                     this.#loopCounter++;
-                    starterFunction();
+                    callBackFunctionAfterLabel();
                     return;
                 }
 
                 /*
-                 * This is used after this.starterFunction is fired
-                 * ( starterFunction start from index = 0 )
-                 * and timeline running to right index in immediate
-                 * and labelState.isReverse is active
-                 * The timeline is reversed next step without increment currentIndex
+                 * this.#playFromReverse() only
+                 *
+                 * 1) Test loop ( previous condition ) o to end of timeline.
+                 *
+                 * 2) Walk until label ( index - 1 ) is reached
+                 *
+                 * 3) Reverse next step because is playFromReverse.
+                 *
+                 * The timeline is reversed next step without increment currentIndex ( the condition end with a return statement )
                  **/
                 if (
                     labelIsActive &&
@@ -753,7 +761,7 @@ export default class MobAsyncTimeline {
                 }
 
                 /**
-                 * Run next step default
+                 * Run next step default Update currentIndex
                  */
                 if (this.#currentIndex < this.#tweenList.length - 1) {
                     this.#currentIndex++;
@@ -1065,6 +1073,8 @@ export default class MobAsyncTimeline {
     }
 
     /**
+     * Common method, add all action to main array
+     *
      * @type {import('./type.js').AsyncTimelineAddToMainArray}
      */
     #addToMainArray(obj) {
@@ -1522,6 +1532,10 @@ export default class MobAsyncTimeline {
     }
 
     /**
+     * FLow: 2) execute test loop via this.playReverse() to set `prevValueSettled`.
+     *
+     * 3. Then when timeline reach the end callback will be fired, run from currentIndex 0, ( stop() is used )
+     *
      * @type {() => Promise<any>}
      */
     play() {
@@ -1529,11 +1543,20 @@ export default class MobAsyncTimeline {
             if (this.#fpsIsInLoading) return;
             this.#fpsIsInLoading = true;
 
+            /**
+             * Always play after FPS is ready.
+             */
             MobCore.useFps(() => {
                 this.#fpsIsInLoading = false;
 
+                /**
+                 * Add Tween at start/end if needed
+                 */
                 if (this.#autoSet) this.#addSetBlocks();
 
+                /**
+                 * In free mode stop current loop. than play normally without set tween to start value ( autoSet ).
+                 */
                 if (this.#freeMode) {
                     /*
                      * In freeMode every tween start form current value in use at the moment
@@ -1541,14 +1564,18 @@ export default class MobAsyncTimeline {
                     if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
                         return;
 
-                    // If all tween is in delay reject main promise and fire the new pipe
+                    /**
+                     * If a tween is in delay reject main promise and fire the new pipe
+                     */
                     if (
                         this.#delayIsRunning &&
                         !this.#actionAfterReject.active
                     ) {
                         this.#startOnDelay = true;
-                        this.#actionAfterReject.fn = () => this.play();
-                        this.#actionAfterReject.active = true;
+                        this.#actionAfterReject = {
+                            fn: () => this.play(),
+                            active: true,
+                        };
                         return;
                     }
 
@@ -1566,150 +1593,163 @@ export default class MobAsyncTimeline {
                         // Set current promise action after stop so is not fired in stop method
                         this.#currentReject = reject;
                         this.#currentResolve = resolve;
+
+                        /**
+                         * Clean run
+                         */
                         this.#run();
                     }, 1);
 
                     return;
                 }
 
-                this.#starterFunction.fn = () => {
-                    /**
-                     * Need to reset current data after reverse() of tween so use stop()
-                     */
-                    this.stop();
-                    this.#isStopped = false;
-
-                    /*
-                     * When start form play in default mode ( no freeMode )
-                     * an automatic set method is Executed with initial data
-                     */
-                    const tweenPromise = this.#tweenStore.map(({ tween }) => {
-                        const data = tween.getInitialData();
-
-                        return new Promise((resolve, reject) => {
-                            tween
-                                .set(data)
-                                .then(() => resolve({ resolve: true }))
-                                .catch(() => reject());
-                        });
-                    });
-                    Promise.all(tweenPromise)
-                        .then(() => {
-                            // Set current promise action after stop so is not fired in stop method
-                            this.#currentReject = reject;
-                            this.#currentResolve = resolve;
-                            this.#run();
-                        })
-                        .catch(() => {});
-                };
-
-                this.#starterFunction.active = true;
-
                 /**
-                 * Every play() loop immediate all step to get prevValueSettled. ( first time timeline play is called
-                 * prevValueSettled is updated ).
-                 *
-                 * First loop reverse at the end start function fired reverse set label.active at true so label.active
-                 * && starterFunction.active is necessary to fire cb
+                 * RUN
                  */
-                this.playReverse({ forceYoYo: true });
+                this.playReverse({
+                    forceYoYo: true,
+                    callback: () => {
+                        /**
+                         * Need to reset current data after reverse() of tween so use stop() this.#currentIndex is
+                         * updated in this.stop() function
+                         */
+                        this.stop();
+                        this.#isStopped = false;
+
+                        /*
+                         * When start form play in default mode ( no freeMode )
+                         * an automatic set method is Executed with initial data
+                         */
+                        const tweenPromise = this.#tweenStore.map(
+                            ({ tween }) => {
+                                const data = tween.getInitialData();
+
+                                return new Promise((resolve, reject) => {
+                                    tween
+                                        .set(data)
+                                        .then(() => resolve({ resolve: true }))
+                                        .catch(() => reject());
+                                });
+                            }
+                        );
+                        Promise.all(tweenPromise)
+                            .then(() => {
+                                // Set current promise action after stop so is not fired in stop method
+                                this.#currentReject = reject;
+                                this.#currentResolve = resolve;
+                                this.#run();
+                            })
+                            .catch(() => {});
+                    },
+                });
             });
         });
     }
 
     /**
-     * @private
-     * @type {import('./type.js').AsyncTimelinePlayFromLabel}
+     * FLow: 2) execute test loop via this.playReverse() to set `prevValueSettled`.
+     *
+     * 3. Then when timeline reach the end callback will be fired, so walk thru right label.
+     *
+     * @type {import('./type.js').AsyncTimelinePlayUpeDown}
      */
-    playFromLabel({ isReverse = false, label = null }) {
-        // Skip of there is nothing to run
-        if (this.#tweenList.length === 0 || this.#addAsyncIsActive) return;
-        if (this.#isReverse) this.#revertTween();
+    #playFromUpDown(label, isReverse) {
+        return new Promise((resolve, reject) => {
+            if (this.#fpsIsInLoading) return;
+            this.#fpsIsInLoading = true;
 
-        /*
-         * Set props
-         */
-        this.#currentIndex = 0;
-        this.#labelState.isReverse = isReverse;
-        this.#labelState.active = true;
-        this.#labelState.index = MobCore.checkType(String, label)
-            ? this.#tweenList.findIndex((item) => {
-                  const [firstItem] = item;
-                  const labelCheck = firstItem.data.labelProps?.name;
-                  return labelCheck === label;
-              })
-            : label;
+            /**
+             * Always play after FPS is ready.
+             */
+            MobCore.useFps(() => {
+                this.#fpsIsInLoading = false;
 
-        if (MobCore.checkType(String, label))
-            playLabelIsValid(this.#labelState.index, label);
+                /**
+                 * RUN
+                 *
+                 * Always do a test loop to get right prevValueSettled value
+                 *
+                 * This.#PlayFrom use isReverse = false
+                 *
+                 * This.#playFromReverse use isReverse = true
+                 */
+                this.playReverse({
+                    forceYoYo: false,
+                    resolve,
+                    reject,
+                    callback: () => {
+                        /**
+                         * Skip of there is nothing to run
+                         */
+                        if (
+                            this.#tweenList.length === 0 ||
+                            this.#addAsyncIsActive
+                        )
+                            return;
 
-        this.#run();
+                        if (this.#isReverse) this.#revertTween();
+
+                        /*
+                         * Reset currentIndex
+                         */
+                        this.#currentIndex = 0;
+
+                        /**
+                         * Define condition to go to right timeline index.
+                         */
+                        this.#useLabel = {
+                            isReverse,
+                            active: true,
+                            index: MobCore.checkType(String, label)
+                                ? this.#tweenList.findIndex((item) => {
+                                      const [firstItem] = item;
+                                      const labelCheck =
+                                          firstItem.data.labelProps?.name;
+                                      return labelCheck === label;
+                                  })
+                                : label,
+                        };
+
+                        if (MobCore.checkType(String, label))
+                            playLabelIsValid(this.#useLabel.index, label);
+
+                        this.#run();
+                    },
+                });
+            });
+        });
     }
 
     /**
      * @type {import('./type.js').AsyncTimelinePlayFrom}
      */
     playFrom(label) {
-        return new Promise((resolve, reject) => {
-            if (this.#fpsIsInLoading) return;
-            this.#fpsIsInLoading = true;
-
-            MobCore.useFps(() => {
-                this.#fpsIsInLoading = false;
-
-                this.#starterFunction.fn = () =>
-                    this.playFromLabel({
-                        isReverse: false,
-                        label,
-                    });
-                this.#starterFunction.active = true;
-
-                /**
-                 * In playReverse first run is executed in forward direction. This is useful to store the value needed
-                 * in backward direction ( revertTween ).
-                 *
-                 * After this 'test' loop starterFunction function is fired. playFromLabel method set the right
-                 * direction.
-                 *
-                 * PlayFromLabel set label.active at true So label.active && starterFunction.active is necessary to fire
-                 * starterFunction
-                 */
-                this.playReverse({ forceYoYo: false, resolve, reject });
-            });
-        });
+        return this.#playFromUpDown(label, false);
     }
 
     /**
-     * @type {import('./type.js').AsyncTimelinePlayFromReverse}
+     * @type {import('./type.js').AsyncTimelinePlayFrom}
      */
     playFromReverse(label) {
-        return new Promise((resolve, reject) => {
-            if (this.#fpsIsInLoading) return;
-            this.#fpsIsInLoading = true;
-
-            MobCore.useFps(() => {
-                this.#fpsIsInLoading = false;
-
-                this.#starterFunction.fn = () =>
-                    this.playFromLabel({
-                        isReverse: true,
-                        label,
-                    });
-                this.#starterFunction.active = true;
-
-                /**
-                 * First loop reverse at the end start function fired reverse set label.active at true so label.active
-                 * && starterFunction.active is necessary to fire cb
-                 */
-                this.playReverse({ forceYoYo: false, resolve, reject });
-            });
-        });
+        return this.#playFromUpDown(label, true);
     }
 
     /**
+     * 1. Run a test loop to update prevValueSettled
+     *
+     * 2a) callback is defined: When timeline reach the end fire this callback.
+     *
+     * 2b) no callback is defined ( this.playReverse clean ): this.#forceYoYo = true force timeline to fire
+     * this.#revertTween() and then go on naturally.
+     *
      * @type {import('./type.js').AsyncTimelinePlayReverse}
      */
-    playReverse({ forceYoYo = true, resolve = null, reject = null } = {}) {
+    playReverse({
+        forceYoYo = true,
+        callback,
+        resolve = null,
+        reject = null,
+    } = {}) {
         return new Promise((resolveFromReverse, rejectFromReverse) => {
             const resolveInUse = resolve || resolveFromReverse;
             const rejectInUse = reject || rejectFromReverse;
@@ -1717,6 +1757,9 @@ export default class MobAsyncTimeline {
             if (this.#fpsIsInLoading) return;
             this.#fpsIsInLoading = true;
 
+            /**
+             * Always play after FPS is ready.
+             */
             MobCore.useFps(() => {
                 this.#fpsIsInLoading = false;
 
@@ -1730,9 +1773,11 @@ export default class MobAsyncTimeline {
                 // If all tween is in delay reject main promise and fire the new pipe
                 if (this.#delayIsRunning && !this.#actionAfterReject.active) {
                     this.#startOnDelay = true;
-                    this.#actionAfterReject.fn = () =>
-                        this.playReverse({ forceYoYo: forceYoYonow });
-                    this.#actionAfterReject.active = true;
+
+                    this.#actionAfterReject = {
+                        fn: () => this.playReverse({ forceYoYo: forceYoYonow }),
+                        active: true,
+                    };
 
                     return;
                 }
@@ -1745,6 +1790,8 @@ export default class MobAsyncTimeline {
                 this.#isStopped = false;
 
                 /*
+                 * Default playReverse()
+                 *
                  * Walk thru timeline until the end,
                  * so we can run reverse next step with forceyoyo
                  * forceyoyo is used only if we play directly from end
@@ -1753,13 +1800,30 @@ export default class MobAsyncTimeline {
                 if (forceYoYonow) this.#forceYoyo = true;
 
                 /*
-                 * Lalbel state
+                 * Lalbel state, first run is for get prevValueSettled.
                  */
-                this.#labelState.active = true;
-                this.#labelState.index = this.#tweenList.length;
+                this.#useLabel = {
+                    active: true,
+                    index: this.#tweenList.length,
+                    isReverse: false,
+                };
 
                 /**
-                 * When play reverse first loop is virtual So increment the loop number by 1
+                 * Set callback to fire when timeline reach end in immediate mode ( useLabel ). In case
+                 * this.playReverse() is called by play/playFromLabel/playFrom, need to reach right index after
+                 * immediate loop.
+                 *
+                 * If no callback is used run from currentIndex 0.
+                 */
+                if (callback) {
+                    this.#callbackAfterLabelFound = {
+                        fn: callback,
+                        active: true,
+                    };
+                }
+
+                /**
+                 * When play reverse first loop is virtual So decrement the loop number by 1
                  */
                 this.#loopCounter--;
                 this.#sessionId++;
@@ -1801,11 +1865,6 @@ export default class MobAsyncTimeline {
         this.#isInSuspension = false;
         this.#addAsyncIsActive = false;
         this.#timeOnPause = 0;
-
-        /*
-         * Reset necessary label state
-         */
-        this.#labelState.isReverse = false;
 
         // Stop all Tween
         this.#tweenStore.forEach(({ tween }) => {
@@ -1852,7 +1911,10 @@ export default class MobAsyncTimeline {
             if (this.#currentIndex <= this.#tweenList.length - 2) {
                 this.#currentIndex++;
                 this.#run();
-            } else if (this.#currentIndex === this.#tweenList.length - 1) {
+                return;
+            }
+
+            if (this.#currentIndex === this.#tweenList.length - 1) {
                 // At the end suspend become item in pipe first ro skip it
                 this.#currentIndex = this.#yoyo && !this.#isReverse ? 1 : 0;
                 this.#disableLabel();
@@ -1867,8 +1929,11 @@ export default class MobAsyncTimeline {
      * @type {() => void}
      */
     #disableLabel() {
-        this.#labelState.active = false;
-        this.#labelState.index = -1;
+        this.#useLabel = {
+            active: false,
+            index: -1,
+            isReverse: false,
+        };
     }
 
     /**
