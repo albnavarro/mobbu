@@ -26,6 +26,11 @@ To stay as true as possible to the language in its purest form, I use typing via
 ### Closing Thoughts:
 This certainly took a lot of energy (we’re talking years of development), but at the same time, it allowed me to grow passionate and learn many pure abstractions that apply to a broader scope than just a single framework. Now that the system—though still improvable (potentially a perpetual work-in-progress)—has taken clear shape, the curve is descending, and I can reap all its benefits.
 
+### Links:
+- [MobCore](https://github.com/albnavarro/mobbu/tree/main/src/js/mob/mob-core)
+- [MobJs](https://github.com/albnavarro/mobbu/tree/main/src/js/mob/mob-js) with README
+- [MobMotion](https://github.com/albnavarro/mobbu/tree/main/src/js/mob/mob-motion)
+
 
 ### Node version:
 v23.5.0
