@@ -50,6 +50,10 @@ export const Title = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
+            hideBeforeRouteChange: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
     })
 );

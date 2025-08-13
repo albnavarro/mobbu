@@ -1,6 +1,7 @@
 import { getTrinangle } from '@componentLibs/utils/get-triangle';
 import { html, MobJs } from '@mobJs';
 import { sectionPinAnimation } from './animation/pin-animation';
+import { MobCore } from '@mobCore';
 
 /**
  * @param {string} tag
@@ -44,21 +45,30 @@ export const TitleFn = ({ onMount, bindEffect, getProxi }) => {
     if (proxi.isSection) currentZindex++;
 
     onMount(({ element }) => {
-        const unsubscribeRouteChange = MobJs.afterRouteChange(async () => {
-            await MobJs.tick();
+        if (proxi.isSection) {
+            const pinMethods = sectionPinAnimation({
+                element,
+            });
 
-            if (proxi.isSection) {
-                const pinMethods = sectionPinAnimation({
-                    element,
-                });
+            destroy = pinMethods.destroy;
+        }
 
-                destroy = pinMethods.destroy;
-            }
+        /**
+         * Move sticky title before route change
+         */
+        const unsubscribeBeforeRouteChange = MobJs.beforeRouteChange(() => {
+            proxi.hideBeforeRouteChange = true;
         });
 
         return () => {
-            unsubscribeRouteChange();
-            destroy();
+            /**
+             * Destroy after some frame. If title is pinned has time start animate out.
+             */
+            MobCore.useFrameIndex(() => {
+                unsubscribeBeforeRouteChange();
+                destroy();
+                destroy = () => {};
+            }, 20);
         };
     });
 
@@ -66,7 +76,9 @@ export const TitleFn = ({ onMount, bindEffect, getProxi }) => {
             style="z-index:${proxi.isSection ? currentZindex : 0};"
             ${bindEffect({
                 toggleClass: {
-                    hide: () => proxi.isSection && proxi.navigationIsOpen,
+                    hide: () =>
+                        (proxi.isSection && proxi.navigationIsOpen) ||
+                        proxi.hideBeforeRouteChange,
                 },
             })}
         >
