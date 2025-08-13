@@ -29,7 +29,7 @@ export const NavigationButtonFn = ({
         forceChildren,
     } = getState();
 
-    MobJs.afterRouteChange(({ route }) => {
+    MobJs.afterRouteChange(({ currentRoute }) => {
         MobCore.useFrame(() => {
             const urlParsed = url.split('?');
 
@@ -46,12 +46,12 @@ export const NavigationButtonFn = ({
             const paramsMatch =
                 activeId === -1 || activeParams?.['activeId'] === `${activeId}`;
 
-            const isActiveRoute = route === hash && paramsMatch;
+            const isActiveRoute = currentRoute === hash && paramsMatch;
 
             /**
              * Match virtual children, with no submenu. Virtual children is defined in forceChildren props
              */
-            const forceChildrenMatch = forceChildren.includes(route);
+            const forceChildrenMatch = forceChildren.includes(currentRoute);
 
             setState('isCurrent', isActiveRoute || forceChildrenMatch);
 

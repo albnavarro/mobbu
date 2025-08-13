@@ -5,7 +5,6 @@ import {
     MAIN_STORE_ACTIVE_ROUTE,
     MAIN_STORE_AFTER_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_CHANGE,
-    MAIN_STORE_BEFORE_ROUTE_LEAVES,
     MAIN_STORE_ROUTE_IS_LOADING,
 } from '../../main-store/constant';
 import { getContentElement } from '../dom-ref/content';
@@ -50,17 +49,17 @@ export const loadRoute = async ({
     /**
      * Set before Route leave.
      */
-    const { activeRoute } = mainStore.get();
-
-    mainStore.set(MAIN_STORE_BEFORE_ROUTE_LEAVES, {
-        route: activeRoute.route,
-        templateName: activeRoute.templateName,
-    });
+    const { activeRoute: fromRoute } = mainStore.get();
 
     /**
      * Set before Change props
      */
-    mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, { route, templateName });
+    mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, {
+        currentRoute: fromRoute.route,
+        currentTemplate: fromRoute.templateName,
+        nextRoute: route,
+        nextTemplate: templateName,
+    });
 
     /**
      * If another route change during loading current route ( async route with some delay or similar ) skip fire after
@@ -114,9 +113,9 @@ export const loadRoute = async ({
         await beforePageTransition({
             // @ts-ignore
             oldNode: clone,
-            oldRoute: activeRoute.route,
+            oldRoute: fromRoute.route,
             newRoute: route,
-            oldTemplateName: activeRoute.templateName,
+            oldTemplateName: fromRoute.templateName,
             newTemplateName: templateName,
         });
         contentElement?.parentNode?.insertBefore(clone, contentElement);
@@ -138,7 +137,12 @@ export const loadRoute = async ({
      * SKit after route change if another route is called.
      */
     if (!skip)
-        mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, { route, templateName });
+        mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, {
+            currentRoute: route,
+            currentTemplate: templateName,
+            previousRoute: fromRoute.route,
+            previousTemplate: fromRoute.templateName,
+        });
 
     /**
      * Scroll to 0 or if use history from history scrollY value
@@ -153,9 +157,9 @@ export const loadRoute = async ({
         await pageTransition({
             oldNode: clone,
             newNode: contentElement,
-            oldRoute: activeRoute.route,
+            oldRoute: fromRoute.route,
             newRoute: route,
-            oldTemplateName: activeRoute.templateName,
+            oldTemplateName: fromRoute.templateName,
             newTemplateName: templateName,
         });
         // @ts-ignore

@@ -113,3 +113,5 @@ export const inizializeApp = async ({
      */
     router();
 };
+
+// debugRoute();

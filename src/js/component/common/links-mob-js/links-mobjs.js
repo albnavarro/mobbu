@@ -85,15 +85,15 @@ export const LinksMobJsFn = ({
         });
 
         const unsubscribeRoute = MobJs.afterRouteChange(
-            async ({ templateName, route }) => {
-                const currentData = templateData?.[templateName] ?? [];
+            async ({ currentTemplate, currentRoute }) => {
+                const currentData = templateData?.[currentTemplate] ?? [];
                 setState('data', currentData);
 
                 /**
                  * Await list was created, then create scroller
                  */
                 await MobJs.tick();
-                setState('activeSection', route);
+                setState('activeSection', currentRoute);
 
                 if (currentData.length > 0) {
                     setState('hide', false);

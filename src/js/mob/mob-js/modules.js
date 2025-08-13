@@ -1,5 +1,4 @@
 export {
-    beforeRouteLeave,
     beforeRouteChange,
     afterRouteChange,
     onRouteLoading,

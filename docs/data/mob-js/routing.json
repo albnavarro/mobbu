@@ -498,38 +498,6 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "big",
-                            "id": "beforeRouteLeave",
-                            "label": "beforeRouteLeave"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h5"
-                        },
-                        "content": "beforeRouteLeave"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "<strong>Route Leave Event:</strong> <ul> <li>Fires before route change begins</li> <li>Provides: <ul> <li><strong>route</strong>: Current route</li> <li><strong>templateName</strong>: Active view template</li> </ul> </li> </ul>"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/before-route-leave.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 7
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
                             "id": "beforeRouteChange",
                             "label": "beforeRouteChange"
                         }
@@ -546,7 +514,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Pre-Route Change Event:</strong> <ul> <li>Triggers before navigation completes</li> <li>Parameters: <ul> <li><strong>route</strong>: next route</li> <li><strong>templateName</strong>: View template reference</li> </ul> </li> </ul>"
+                        "content": "<strong>Pre-Route Change Event:</strong> <ul> <li>Triggers before navigation completes</li></ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -555,7 +523,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 7
+                            "numLines": 9
                         }
                     },
                     {
@@ -578,7 +546,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Post-Route Change Event:</strong> <ul> <li>Triggers after successful navigation</li> <li>Parameters: <ul> <li><strong>route</strong>: New route</li> <li><strong>templateName</strong>: Mounted view template</li> </ul> </li> </ul>"
+                        "content": "<strong>Post-Route Change Event:</strong> <ul> <li>Triggers after successful navigation</li></ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -587,7 +555,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 7
+                            "numLines": 14
                         }
                     },
                     {

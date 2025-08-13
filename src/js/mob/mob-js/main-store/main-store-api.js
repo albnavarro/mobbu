@@ -1,37 +1,41 @@
 import {
     MAIN_STORE_AFTER_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_CHANGE,
-    MAIN_STORE_BEFORE_ROUTE_LEAVES,
     MAIN_STORE_ROUTE_IS_LOADING,
 } from './constant';
 import { mainStore } from './main-store';
 
-/** @type {import('./type').MainStoreWatch} */
+/** @type {import('./type').MainStoreWatchBefore} */
 export const beforeRouteChange = (callback) => {
     return mainStore.watch(
         MAIN_STORE_BEFORE_ROUTE_CHANGE,
-        ({ route, templateName }) => {
-            callback({ route, templateName });
+        ({ currentRoute, currentTemplate, nextRoute, nextTemplate }) => {
+            callback({
+                currentRoute,
+                currentTemplate,
+                nextRoute,
+                nextTemplate,
+            });
         }
     );
 };
 
-/** @type {import('./type').MainStoreWatch} */
-export const beforeRouteLeave = (callback) => {
-    return mainStore.watch(
-        MAIN_STORE_BEFORE_ROUTE_LEAVES,
-        ({ route, templateName }) => {
-            callback({ route, templateName });
-        }
-    );
-};
-
-/** @type {import('./type').MainStoreWatch} */
+/** @type {import('./type').MainStoreWatchAfter} */
 export const afterRouteChange = (callback) => {
     return mainStore.watch(
         MAIN_STORE_AFTER_ROUTE_CHANGE,
-        ({ route, templateName }) => {
-            callback({ route, templateName });
+        ({
+            currentRoute,
+            currentTemplate,
+            previousRoute,
+            previousTemplate,
+        }) => {
+            callback({
+                currentRoute,
+                currentTemplate,
+                previousRoute,
+                previousTemplate,
+            });
         }
     );
 };

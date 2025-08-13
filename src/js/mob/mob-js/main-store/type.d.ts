@@ -12,9 +12,18 @@ export interface ComponentListMap {
 export interface MainStore {
     activeRoute: { route: string; templateName: string };
     activeParams: Record<string, any>;
-    beforeRouteLeave: { route: string; templateName: string };
-    beforeRouteChange: { route: string; templateName: string };
-    afterRouteChange: { route: string; templateName: string };
+    beforeRouteChange: {
+        currentRoute: string;
+        currentTemplate: string;
+        nextRoute: string;
+        nextTemplate: string;
+    };
+    afterRouteChange: {
+        previousRoute: string;
+        previousTemplate: string;
+        currentRoute: string;
+        currentTemplate: string;
+    };
     routeIsLoading: boolean;
     repeaterParserAsync: {
         element: HTMLElement;
@@ -23,8 +32,22 @@ export interface MainStore {
     };
 }
 
-export type MainStoreWatch = (
-    callback: (arg0: { route: string; templateName: string }) => void
+export type MainStoreWatchBefore = (
+    callback: (arg0: {
+        currentRoute: string;
+        currentTemplate: string;
+        nextRoute: string;
+        nextTemplate: string;
+    }) => void
+) => () => void;
+
+export type MainStoreWatchAfter = (
+    callback: (arg0: {
+        previousRoute: string;
+        previousTemplate: string;
+        currentRoute: string;
+        currentTemplate: string;
+    }) => void
 ) => () => void;
 
 export type MainStoreLoading = (
