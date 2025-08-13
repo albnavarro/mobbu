@@ -45,13 +45,20 @@ export const TitleFn = ({ onMount, bindEffect, getProxi }) => {
     if (proxi.isSection) currentZindex++;
 
     onMount(({ element }) => {
-        if (proxi.isSection) {
-            const pinMethods = sectionPinAnimation({
-                element,
-            });
+        /**
+         * Added pin only when page is stable.
+         */
+        const unsubscribeAfterRouteChange = proxi.isSection
+            ? MobJs.afterRouteChange(async () => {
+                  await MobJs.tick();
 
-            destroy = pinMethods.destroy;
-        }
+                  const pinMethods = sectionPinAnimation({
+                      element,
+                  });
+
+                  destroy = pinMethods.destroy;
+              })
+            : () => {};
 
         /**
          * Move sticky title before route change
@@ -61,6 +68,8 @@ export const TitleFn = ({ onMount, bindEffect, getProxi }) => {
         });
 
         return () => {
+            unsubscribeAfterRouteChange();
+
             /**
              * Destroy after some frame. If title is pinned has time start animate out.
              */
