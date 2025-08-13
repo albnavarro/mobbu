@@ -67,7 +67,7 @@
         min-width: rem(250);
         grid-column: 2 / span 1;
 
-        @include mq('large') {
+        @include mq('desktop') {
             display: block;
         }
     }

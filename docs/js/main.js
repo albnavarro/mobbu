@@ -214,7 +214,7 @@ Loading snippet ...</pre
                     >
                     </scroll-to-button>
                 </li>
-            `}).join("")}var Gv=({onMount:e,delegateEvents:t,bindProps:r,invalidate:o,computed:n,addMethod:s,updateState:i,getProxi:a})=>{let c=a();return s("addItem",({id:l,label:p,element:h,isSection:m,isNote:f})=>{i("anchorItemsToBeComputed",v=>[...v,{id:l,label:p,element:h,isSection:m,isNote:f}])}),s("setActiveLabel",l=>{Su||(c.activeLabel=l)}),e(()=>{_e.mq("max","large")||n(()=>c.anchorItems,()=>c.anchorItemsToBeComputed)}),b`
+            `}).join("")}var Gv=({onMount:e,delegateEvents:t,bindProps:r,invalidate:o,computed:n,addMethod:s,updateState:i,getProxi:a})=>{let c=a();return s("addItem",({id:l,label:p,element:h,isSection:m,isNote:f})=>{i("anchorItemsToBeComputed",v=>[...v,{id:l,label:p,element:h,isSection:m,isNote:f}])}),s("setActiveLabel",l=>{Su||(c.activeLabel=l)}),e(()=>{_e.mq("max","desktop")||n(()=>c.anchorItems,()=>c.anchorItemsToBeComputed)}),b`
         <div class="c-scroll-to">
             <ul>
                 ${o({observe:()=>c.anchorItems,render:()=>DC({delegateEvents:t,bindProps:r,proxi:c})})}

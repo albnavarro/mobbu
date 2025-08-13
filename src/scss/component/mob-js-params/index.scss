@@ -20,8 +20,14 @@
     display: none;
     mask-image: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 100%) rem(40));
 
-    @include mq(large) {
+    @include mq(desktop) {
         display: block;
+        right: rem(24);
+    }
+
+    @include mq(large) {
+        left: calc(var(--doc-width) + #{rem(40)});
+        right: auto;
     }
 
     &.hide {
@@ -51,9 +57,13 @@
         transition: color 0.35s;
         display: block;
         position: relative;
-        font-size: rem(13);
+        font-size: rem(12);
         line-height: 1.6;
         text-transform: capitalize;
+
+        @include mq(large) {
+            font-size: rem(13);
+        }
 
         &::after {
             content: '';
