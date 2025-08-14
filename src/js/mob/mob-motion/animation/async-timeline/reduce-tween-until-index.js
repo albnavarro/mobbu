@@ -1,15 +1,16 @@
-import { asyncReduceData } from './async-reduce-data';
+import { filterActiveProps } from './fitler-active-props';
 
 /**
  * Get Obj data of tween in specific index Indlude check when multiple tween is synchronized index: get data until
  * specific index
  *
- * @param {import('./type').AsyncTimelineTweenItem[][]} tweenList
- * @param {import('./type').AsyncTimelineTween} tween
- * @param {number} index
+ * @param {object} params
+ * @param {import('./type').AsyncTimelineTweenItem[][]} params.timeline
+ * @param {import('./type').AsyncTimelineTween} params.tween
+ * @param {number} params.index
  * @returns {Record<string, number | (() => number)>}
  */
-export const asyncReduceTween = (tweenList, tween, index) => {
+export const reduceTweenUntilIndex = ({ timeline, tween, index }) => {
     let currentId = tween?.getId?.();
 
     /**
@@ -21,7 +22,7 @@ export const asyncReduceTween = (tweenList, tween, index) => {
      */
     const initialData = tween?.getInitialData?.() || {};
 
-    return tweenList.slice(0, index).reduce((previous, current) => {
+    return timeline.slice(0, index).reduce((previous, current) => {
         /*
          * Sync must be outside group so is at 0
          */
@@ -69,7 +70,10 @@ export const asyncReduceTween = (tweenList, tween, index) => {
          */
         const propsInUse =
             currentValueTo && currentTween
-                ? asyncReduceData(currentValueTo, currentTween.data.valuesTo)
+                ? filterActiveProps({
+                      data: currentValueTo,
+                      filterBy: currentTween.data.valuesTo,
+                  })
                 : {};
 
         return { ...previous, ...propsInUse };

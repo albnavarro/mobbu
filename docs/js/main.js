@@ -16163,22 +16163,22 @@
     Promise.resolve(input)
   );
 
-  // src/js/mob/mob-motion/animation/async-timeline/async-reduce-data.js
-  var asyncReduceData = (data, activeData) => {
+  // src/js/mob/mob-motion/animation/async-timeline/fitler-active-props.js
+  var filterActiveProps = ({ data, filterBy }) => {
     return Object.entries(data).map((item) => {
       const [prop, val2] = item;
-      const valueIsValid = prop in activeData;
+      const valueIsValid = prop in filterBy;
       return { data: { [prop]: val2 }, active: valueIsValid };
     }).filter(({ active: active2 }) => active2).map(({ data: data2 }) => data2).reduce((p, c) => {
       return { ...p, ...c };
     }, {});
   };
 
-  // src/js/mob/mob-motion/animation/async-timeline/async-reduce-tween.js
-  var asyncReduceTween = (tweenList, tween2, index) => {
+  // src/js/mob/mob-motion/animation/async-timeline/reduce-tween-until-index.js
+  var reduceTweenUntilIndex = ({ timeline, tween: tween2, index }) => {
     let currentId = tween2?.getId?.();
     const initialData = tween2?.getInitialData?.() || {};
-    return tweenList.slice(0, index).reduce((previous, current) => {
+    return timeline.slice(0, index).reduce((previous, current) => {
       const currentFirstData = current[0].data;
       const action2 = currentFirstData.action;
       if (action2 === "sync") {
@@ -16201,7 +16201,10 @@
       });
       currentTween?.data?.tween?.setImmediate?.(currentTween?.data?.valuesTo);
       const currentValueTo = currentTween?.data?.tween?.getToNativeType?.();
-      const propsInUse = currentValueTo && currentTween ? asyncReduceData(currentValueTo, currentTween.data.valuesTo) : {};
+      const propsInUse = currentValueTo && currentTween ? filterActiveProps({
+        data: currentValueTo,
+        filterBy: currentTween.data.valuesTo
+      }) : {};
       return { ...previous, ...propsInUse };
     }, initialData);
   };
@@ -16565,15 +16568,18 @@
       if (!currentTweelist) return;
       this.#tweenList[this.#currentIndex] = currentTweelist.map((item) => {
         const { data } = item;
-        const { tween: tween2, valuesTo, prevValueSettled } = data;
+        const { tween: tween2, valuesTo: currentValuesTo, prevValueSettled } = data;
         if (tween2 && tween2?.getToNativeType && !prevValueSettled) {
-          const values = tween2.getToNativeType();
-          const propsInUse = asyncReduceData(values, valuesTo);
+          const nativeValues = tween2.getToNativeType();
+          const prevValueTo = filterActiveProps({
+            data: nativeValues,
+            filterBy: currentValuesTo
+          });
           return {
             ...item,
             data: {
               ...data,
-              prevValueTo: propsInUse,
+              prevValueTo,
               prevValueSettled: true
             }
           };
@@ -16798,11 +16804,11 @@
           if (labelIsActive && labelIndex === this.#tweenList.length && !this.#freeMode) {
             const tweenPromise = this.#tweenStore.map(
               ({ tween: tween2 }) => {
-                const data = asyncReduceTween(
-                  this.#tweenList,
-                  tween2,
-                  this.#tweenList.length
-                );
+                const data = reduceTweenUntilIndex({
+                  timeline: this.#tweenList,
+                  tween: tween2,
+                  index: this.#tweenList.length
+                });
                 return new Promise((resolve, reject) => {
                   tween2.set(data).then(() => resolve({ resolve: true })).catch(() => reject());
                 });
@@ -17289,11 +17295,11 @@
         ];
       });
       this.#tweenStore.forEach(({ tween: tween2 }) => {
-        const setValueTo = asyncReduceTween(
-          this.#tweenList,
-          tween2,
-          this.#tweenList.length
-        );
+        const setValueTo = reduceTweenUntilIndex({
+          timeline: this.#tweenList,
+          tween: tween2,
+          index: this.#tweenList.length
+        });
         const obj = {
           id: this.#currentTweenCounter,
           tween: tween2,
@@ -17337,7 +17343,11 @@
       }
       return new Promise((resolve) => {
         const tweenPromise = tweens.map(({ tween: tween2 }) => {
-          const data = asyncReduceTween(this.#tweenList, tween2, index);
+          const data = reduceTweenUntilIndex({
+            timeline: this.#tweenList,
+            tween: tween2,
+            index
+          });
           return new Promise((resolveTween, rejectTween) => {
             tween2.set(data).then(() => resolveTween({ resolve: true })).catch(() => rejectTween());
           });

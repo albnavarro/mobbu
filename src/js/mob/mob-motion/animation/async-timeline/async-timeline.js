@@ -23,8 +23,8 @@ import {
     timelineSetTweenLabelNotFoundWarining,
     timelineSuspendWarning,
 } from '../utils/warning.js';
-import { asyncReduceData } from './async-reduce-data.js';
-import { asyncReduceTween } from './async-reduce-tween.js';
+import { filterActiveProps } from './fitler-active-props.js';
+import { reduceTweenUntilIndex } from './reduce-tween-until-index.js';
 import { resolveTweenPromise } from './loop-callback.js';
 
 export default class MobAsyncTimeline {
@@ -391,7 +391,7 @@ export default class MobAsyncTimeline {
          */
         this.#tweenList[this.#currentIndex] = currentTweelist.map((item) => {
             const { data } = item;
-            const { tween, valuesTo, prevValueSettled } = data;
+            const { tween, valuesTo: currentValuesTo, prevValueSettled } = data;
 
             /*
              * Get current valueTo for to use in reverse methods
@@ -403,20 +403,23 @@ export default class MobAsyncTimeline {
              * prevValueSettled is settled only once during the entire life of timeline.
              */
             if (tween && tween?.getToNativeType && !prevValueSettled) {
-                const values = tween.getToNativeType();
+                const nativeValues = tween.getToNativeType();
 
                 /*
                  * Get only the active prop
                  * maybe unnecessary, if all prop ius used work fine
                  * Only for a clean code
                  */
-                const propsInUse = asyncReduceData(values, valuesTo);
+                const prevValueTo = filterActiveProps({
+                    data: nativeValues,
+                    filterBy: currentValuesTo,
+                });
 
                 return {
                     ...item,
                     data: {
                         ...data,
-                        prevValueTo: propsInUse,
+                        prevValueTo,
                         prevValueSettled: true,
                     },
                 };
@@ -788,11 +791,11 @@ export default class MobAsyncTimeline {
                     ) {
                         const tweenPromise = this.#tweenStore.map(
                             ({ tween }) => {
-                                const data = asyncReduceTween(
-                                    this.#tweenList,
+                                const data = reduceTweenUntilIndex({
+                                    timeline: this.#tweenList,
                                     tween,
-                                    this.#tweenList.length
-                                );
+                                    index: this.#tweenList.length,
+                                });
 
                                 return new Promise((resolve, reject) => {
                                     tween
@@ -1449,11 +1452,11 @@ export default class MobAsyncTimeline {
          * Add set block at the end of timeline for every tween with last toValue
          */
         this.#tweenStore.forEach(({ tween }) => {
-            const setValueTo = asyncReduceTween(
-                this.#tweenList,
+            const setValueTo = reduceTweenUntilIndex({
+                timeline: this.#tweenList,
                 tween,
-                this.#tweenList.length
-            );
+                index: this.#tweenList.length,
+            });
 
             const obj = {
                 id: this.#currentTweenCounter,
@@ -1515,7 +1518,11 @@ export default class MobAsyncTimeline {
          */
         return new Promise((resolve) => {
             const tweenPromise = tweens.map(({ tween }) => {
-                const data = asyncReduceTween(this.#tweenList, tween, index);
+                const data = reduceTweenUntilIndex({
+                    timeline: this.#tweenList,
+                    tween,
+                    index,
+                });
 
                 return new Promise((resolveTween, rejectTween) => {
                     tween
