@@ -1,7 +1,7 @@
 import { GoFrom, GoFromTo, GoTo, Set, SetImmediate } from '../../utils/type';
 import { LerpActions } from '../lerp/type';
-import { SpringActions, SpringChoiceConfig, SpringProps } from '../spring/type';
-import { EaseTypes, TimeTweenAction } from '../tween/type';
+import { SpringActions } from '../spring/type';
+import { TimeTweenAction } from '../tween/type';
 import {
     DirectionTypeAsync,
     DirectionTypeObjectLoop,
@@ -37,17 +37,11 @@ export interface AsyncTimeline {
     autoSet?: boolean;
 }
 
-export interface AsyncTimelineTypeSpecialProps {
-    ease?: EaseTypes;
-    duration?: number;
-    config?: SpringChoiceConfig;
-    configProps?: SpringProps;
-    precision?: number;
-    velocity?: number;
-    reverse?: boolean;
-    relative?: boolean;
+export interface AsyncTimelineTypeSpecialProps
+    extends TimeTweenAction,
+        SpringActions,
+        LerpActions {
     delay?: number;
-    immediate?: boolean;
 }
 
 export interface AsyncTimelineTween {
