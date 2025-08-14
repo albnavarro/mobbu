@@ -286,6 +286,7 @@ export default class MobAsyncTimeline {
         this.#defaultObj = {
             id: -1,
             tween: undefined,
+            callback: () => {},
             action: '',
             valuesFrom: {},
             valuesTo: {},
@@ -297,7 +298,9 @@ export default class MobAsyncTimeline {
                 to: {
                     getId: () => '',
                     set: () => Promise.resolve(),
+                    setImmediate: () => {},
                     goTo: () => Promise.resolve(),
+                    goFrom: () => Promise.resolve(),
                     goFromTo: () => Promise.resolve(),
                     getToNativeType: () => {},
                     destroy: () => {},
@@ -311,7 +314,9 @@ export default class MobAsyncTimeline {
                 from: {
                     getId: () => '',
                     set: () => Promise.resolve(),
+                    setImmediate: () => {},
                     goTo: () => Promise.resolve(),
+                    goFrom: () => Promise.resolve(),
                     goFromTo: () => Promise.resolve(),
                     getToNativeType: () => {},
                     destroy: () => {},
@@ -428,6 +433,7 @@ export default class MobAsyncTimeline {
 
             const {
                 tween,
+                callback,
                 action,
                 valuesFrom,
                 valuesTo,
@@ -496,16 +502,29 @@ export default class MobAsyncTimeline {
              */
             const fn = {
                 set: () => {
-                    return tween?.[action](valuesFrom, newTweenProps);
+                    return tween?.[/** @type {'set'} */ (action)](
+                        valuesFrom,
+                        newTweenProps
+                    );
                 },
                 goTo: () => {
-                    return tween?.[action](valuesTo, newTweenProps);
+                    return tween?.[/** @type {'goTo'} */ (action)](
+                        valuesTo,
+                        newTweenProps
+                    );
                 },
                 goFrom: () => {
-                    return tween?.[action](valuesFrom, newTweenProps);
+                    return tween?.[/** @type {'goFrom'} */ (action)](
+                        valuesFrom,
+                        newTweenProps
+                    );
                 },
                 goFromTo: () => {
-                    return tween?.[action](valuesFrom, valuesTo, newTweenProps);
+                    return tween?.[/** @type {'goFromTo'} */ (action)](
+                        valuesFrom,
+                        valuesTo,
+                        newTweenProps
+                    );
                 },
                 sync: () => {
                     return new Promise((res) => {
@@ -532,7 +551,7 @@ export default class MobAsyncTimeline {
 
                         // Custom function
                         const direction = this.getDirection();
-                        tween({
+                        callback({
                             direction,
                             loop: this.#loopCounter,
                         });
@@ -566,7 +585,7 @@ export default class MobAsyncTimeline {
 
                         const direction = this.getDirection();
 
-                        tween({
+                        callback({
                             direction,
                             loop: this.#loopCounter,
                             resolve: () => {
@@ -602,9 +621,9 @@ export default class MobAsyncTimeline {
                     /*
                      * Check callback that return a bollean to fire supend
                      */
-                    const valueIsValid = MobCore.checkType(Boolean, tween());
-                    if (!valueIsValid) timelineSuspendWarning(tween);
-                    const sholudSuspend = valueIsValid ? tween() : true;
+                    const valueIsValid = MobCore.checkType(Boolean, callback());
+                    if (!valueIsValid) timelineSuspendWarning(callback);
+                    const sholudSuspend = valueIsValid ? callback() : true;
                     return new Promise((res) => {
                         if (!isImmediate && sholudSuspend) {
                             this.#isInSuspension = true;
@@ -1206,7 +1225,7 @@ export default class MobAsyncTimeline {
      * @type {import('./type.js').AsyncTimelineAdd}
      */
     add(fn = NOOP) {
-        const cb = functionIsValidAndReturnDefault(
+        const callback = functionIsValidAndReturnDefault(
             fn,
             () => {},
             'timeline add function'
@@ -1221,7 +1240,7 @@ export default class MobAsyncTimeline {
 
         const obj = {
             id: this.#currentTweenCounter,
-            tween: cb,
+            callback,
             action: 'add',
             groupProps: { waitComplete: this.#waitComplete },
         };
@@ -1236,7 +1255,7 @@ export default class MobAsyncTimeline {
      * @type {import('./type.js').AsyncTimelineAddAsync}
      */
     addAsync(fn) {
-        const cb = addAsyncFunctionIsValid(fn);
+        const callback = addAsyncFunctionIsValid(fn);
 
         /**
          * Can't add this interpolation inside a group. groupId props is not null when active.
@@ -1248,7 +1267,7 @@ export default class MobAsyncTimeline {
 
         const obj = {
             id: this.#currentTweenCounter,
-            tween: cb,
+            callback,
             action: 'addAsync',
             groupProps: { waitComplete: this.#waitComplete },
         };
@@ -1351,7 +1370,7 @@ export default class MobAsyncTimeline {
 
         const obj = {
             id: this.#currentTweenCounter,
-            tween: fn,
+            callback: fn,
             action: 'suspend',
             groupProps: { waitComplete: this.#waitComplete },
         };
