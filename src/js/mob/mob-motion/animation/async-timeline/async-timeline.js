@@ -1454,6 +1454,7 @@ export default class MobAsyncTimeline {
                 tween,
                 this.#tweenList.length
             );
+
             const obj = {
                 id: this.#currentTweenCounter,
                 tween,

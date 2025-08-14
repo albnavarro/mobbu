@@ -16477,8 +16477,7 @@
             goTo: () => Promise.resolve(),
             goFrom: () => Promise.resolve(),
             goFromTo: () => Promise.resolve(),
-            getToNativeType: () => {
-            },
+            getToNativeType: () => ({ a: 1 }),
             destroy: () => {
             },
             onStartInPause: () => {
@@ -16501,8 +16500,7 @@
             goTo: () => Promise.resolve(),
             goFrom: () => Promise.resolve(),
             goFromTo: () => Promise.resolve(),
-            getToNativeType: () => {
-            },
+            getToNativeType: () => ({ a: 1 }),
             destroy: () => {
             },
             onStartInPause: () => {
