@@ -1,5 +1,5 @@
 import { GoFrom, GoFromTo, GoTo, Set, SetImmediate } from '../../utils/type';
-import { lerpActions } from '../lerp/type';
+import { LerpActions } from '../lerp/type';
 import { SpringActions, SpringChoiceConfig, SpringProps } from '../spring/type';
 import { EaseTypes, TimeTweenAction } from '../tween/type';
 import {
@@ -52,11 +52,11 @@ export interface AsyncTimelineTypeSpecialProps {
 
 export interface AsyncTimelineTween {
     getId: () => string;
-    set: Set<lerpActions | SpringActions | TimeTweenAction>;
-    setImmediate: SetImmediate<lerpActions | SpringActions | TimeTweenAction>;
-    goTo: GoTo<lerpActions | SpringActions | TimeTweenAction>;
-    goFrom: GoFrom<lerpActions | SpringActions | TimeTweenAction>;
-    goFromTo: GoFromTo<lerpActions | SpringActions | TimeTweenAction>;
+    set: Set<LerpActions | SpringActions | TimeTweenAction>;
+    setImmediate: SetImmediate<LerpActions | SpringActions | TimeTweenAction>;
+    goTo: GoTo<LerpActions | SpringActions | TimeTweenAction>;
+    goFrom: GoFrom<LerpActions | SpringActions | TimeTweenAction>;
+    goFromTo: GoFromTo<LerpActions | SpringActions | TimeTweenAction>;
     getToNativeType: () => Record<string, number | (() => number)>;
     destroy: () => void;
     onStartInPause: (cb: () => boolean) => void;
