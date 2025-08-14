@@ -16485,8 +16485,7 @@
             },
             resetData: () => {
             },
-            getInitialData: () => {
-            },
+            getInitialData: () => ({ a: 1 }),
             stop: () => {
             },
             pause: () => {
@@ -16510,8 +16509,7 @@
             },
             resetData: () => {
             },
-            getInitialData: () => {
-            },
+            getInitialData: () => ({ a: 1 }),
             stop: () => {
             },
             pause: () => {

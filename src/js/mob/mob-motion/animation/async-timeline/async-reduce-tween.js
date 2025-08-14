@@ -11,6 +11,14 @@ import { asyncReduceData } from './async-reduce-data';
  */
 export const asyncReduceTween = (tweenList, tween, index) => {
     let currentId = tween?.getId?.();
+
+    /**
+     * TODO: resolve better.
+     *
+     * Reduce issue, initial data in only number but function return number | (() => number), so cast constant.
+     *
+     * @type{Record<string, number|(()=>number)>}
+     */
     const initialData = tween?.getInitialData?.() || {};
 
     return tweenList.slice(0, index).reduce((previous, current) => {
