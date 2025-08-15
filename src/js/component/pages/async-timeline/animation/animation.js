@@ -3,6 +3,7 @@
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
+import { MobTween } from '@mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -72,6 +73,153 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     });
 
     /**
+     * Start from 0,0
+     *
+     * @param {object} params
+     * @param {number} params.row
+     * @param {number} params.col
+     */
+    const getCoordinate = ({ row, col }) => {
+        const rowIndex = (numberOfColumn + 1) * row;
+        return gridData[rowIndex + col];
+    };
+
+    /**
+     * Create date for tweens
+     */
+    let tweenTarget = {
+        ...getCoordinate({ row: 0, col: 0 }),
+        scale: 1,
+        rotate: 0,
+    };
+
+    let tween2Target = {
+        ...getCoordinate({ row: 4, col: 5 }),
+        scale: 1,
+        rotate: 0,
+    };
+
+    /**
+     * Create tween
+     */
+    const gridTween = MobTween.createTimeTween({
+        data: tweenTarget,
+        duration: 1000,
+        ease: 'easeInOutBack',
+    });
+
+    const gridSpring = MobTween.createSpring({
+        data: tweenTarget,
+    });
+
+    const gridTweenRotate = MobTween.createTimeTween({
+        data: tween2Target,
+        duration: 1000,
+        ease: 'easeInOutBack',
+    });
+
+    /**
+     * Subscribe tweens
+     */
+    gridTween.subscribe((data) => {
+        tweenTarget = data;
+    });
+
+    gridSpring.subscribe((data) => {
+        tweenTarget = data;
+    });
+
+    gridTweenRotate.subscribe((data) => {
+        tween2Target = data;
+    });
+
+    /**
+     * Create timeline
+     */
+    // const timeline = MobTimeline.createAsyncTimeline({
+    //     repeat: -1,
+    //     yoyo: true,
+    // });
+
+    // timeline.goTo(gridTween, {});
+
+    /**
+     * @param {object} params
+     * @param {number} params.x
+     * @param {number} params.y
+     * @param {number} params.centerX
+     * @param {number} params.centerY
+     * @param {number} params.width
+     * @param {number} params.height
+     * @param {number} params.rotate
+     * @param {number} params.scale
+     * @param {number} params.offsetYCenter
+     * @param {number} params.offsetXCenter
+     * @param {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} params.context
+     * @param {string} params.fill
+     */
+    const drawItem = ({
+        x,
+        y,
+        centerX,
+        centerY,
+        width,
+        height,
+        rotate,
+        scale,
+        offsetXCenter,
+        offsetYCenter,
+        context,
+        fill,
+    }) => {
+        const rotation = (Math.PI / 180) * rotate;
+        const xx = Math.cos(rotation) * scale;
+        const xy = Math.sin(rotation) * scale;
+
+        /**
+         * Apply scale/rotation/scale all together.
+         */
+        context.setTransform(
+            xx,
+            xy,
+            -xy,
+            xx,
+            Math.round(centerX + offsetXCenter),
+            Math.round(centerY + offsetYCenter)
+        );
+
+        /**
+         * Draw.
+         */
+        if (useRadius) {
+            context.beginPath();
+            context.roundRect(
+                Math.round(-centerX + x),
+                Math.round(-centerY + y),
+                width,
+                height,
+                5
+            );
+        } else {
+            context.beginPath();
+            context.rect(
+                Math.round(-centerX + x),
+                Math.round(-centerY + y),
+                width,
+                height
+            );
+        }
+
+        context.fillStyle = fill;
+        context.fill();
+
+        /**
+         * Reset all transform instead save() restore().
+         */
+        context.setTransform(1, 0, 0, 1, 0, 0);
+    };
+
+    /**
      * Main draw function.
      */
     const draw = () => {
@@ -96,6 +244,9 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         context.fillStyle = canvasBackground;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
+        /**
+         * Grid
+         */
         data.forEach(
             ({
                 x,
@@ -109,53 +260,58 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
                 offsetXCenter,
                 offsetYCenter,
             }) => {
-                const rotation = (Math.PI / 180) * rotate;
-                const xx = Math.cos(rotation) * scale;
-                const xy = Math.sin(rotation) * scale;
-
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    xx,
-                    xy,
-                    -xy,
-                    xx,
-                    Math.round(centerX + offsetXCenter),
-                    Math.round(centerY + offsetYCenter)
-                );
-
-                /**
-                 * Draw.
-                 */
-                if (useRadius) {
-                    context.beginPath();
-                    context.roundRect(
-                        Math.round(-centerX + x),
-                        Math.round(-centerY + y),
-                        width,
-                        height,
-                        5
-                    );
-                } else {
-                    context.beginPath();
-                    context.rect(
-                        Math.round(-centerX + x),
-                        Math.round(-centerY + y),
-                        width,
-                        height
-                    );
-                }
-
-                context.fillStyle = '#fff';
-                context.fill();
-
-                /**
-                 * Reset all transform instead save() restore().
-                 */
-                context.setTransform(1, 0, 0, 1, 0, 0);
+                drawItem({
+                    x,
+                    y,
+                    centerX,
+                    centerY,
+                    width,
+                    height,
+                    rotate,
+                    scale,
+                    offsetXCenter,
+                    offsetYCenter,
+                    context,
+                    fill: '#ffffff',
+                });
             }
         );
+
+        /**
+         * Tween1
+         */
+        drawItem({
+            x: tweenTarget.x,
+            y: tweenTarget.y,
+            centerX: tweenTarget.centerX,
+            centerY: tweenTarget.centerY,
+            width: tweenTarget.width,
+            height: tweenTarget.height,
+            rotate: tweenTarget.rotate,
+            scale: tweenTarget.scale,
+            offsetXCenter: tweenTarget.offsetXCenter,
+            offsetYCenter: tweenTarget.offsetYCenter,
+            context,
+            fill: '#000000',
+        });
+
+        /**
+         * Fixed tween
+         */
+        drawItem({
+            x: tween2Target.x,
+            y: tween2Target.y,
+            centerX: tween2Target.centerX,
+            centerY: tween2Target.centerY,
+            width: tween2Target.width,
+            height: tween2Target.height,
+            rotate: tween2Target.rotate,
+            scale: tween2Target.scale,
+            offsetXCenter: tween2Target.offsetXCenter,
+            offsetYCenter: tween2Target.offsetYCenter,
+            context,
+            fill: '#000000',
+        });
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

@@ -34195,6 +34195,89 @@ Loading snippet ...</pre
         rotate: 0
       };
     });
+    const getCoordinate = ({ row, col }) => {
+      const rowIndex = (numberOfColumn + 1) * row;
+      return gridData[rowIndex + col];
+    };
+    let tweenTarget = {
+      ...getCoordinate({ row: 0, col: 0 }),
+      scale: 1,
+      rotate: 0
+    };
+    let tween2Target = {
+      ...getCoordinate({ row: 4, col: 5 }),
+      scale: 1,
+      rotate: 0
+    };
+    const gridTween = tween_exports.createTimeTween({
+      data: tweenTarget,
+      duration: 1e3,
+      ease: "easeInOutBack"
+    });
+    const gridSpring = tween_exports.createSpring({
+      data: tweenTarget
+    });
+    const gridTweenRotate = tween_exports.createTimeTween({
+      data: tween2Target,
+      duration: 1e3,
+      ease: "easeInOutBack"
+    });
+    gridTween.subscribe((data2) => {
+      tweenTarget = data2;
+    });
+    gridSpring.subscribe((data2) => {
+      tweenTarget = data2;
+    });
+    gridTweenRotate.subscribe((data2) => {
+      tween2Target = data2;
+    });
+    const drawItem = ({
+      x,
+      y,
+      centerX,
+      centerY,
+      width,
+      height,
+      rotate,
+      scale,
+      offsetXCenter,
+      offsetYCenter,
+      context: context2,
+      fill
+    }) => {
+      const rotation = Math.PI / 180 * rotate;
+      const xx = Math.cos(rotation) * scale;
+      const xy = Math.sin(rotation) * scale;
+      context2.setTransform(
+        xx,
+        xy,
+        -xy,
+        xx,
+        Math.round(centerX + offsetXCenter),
+        Math.round(centerY + offsetYCenter)
+      );
+      if (useRadius) {
+        context2.beginPath();
+        context2.roundRect(
+          Math.round(-centerX + x),
+          Math.round(-centerY + y),
+          width,
+          height,
+          5
+        );
+      } else {
+        context2.beginPath();
+        context2.rect(
+          Math.round(-centerX + x),
+          Math.round(-centerY + y),
+          width,
+          height
+        );
+      }
+      context2.fillStyle = fill;
+      context2.fill();
+      context2.setTransform(1, 0, 0, 1, 0, 0);
+    };
     const draw = () => {
       if (!ctx) return;
       if (useOffscreen && offscreen) {
@@ -34221,40 +34304,50 @@ Loading snippet ...</pre
           offsetXCenter,
           offsetYCenter
         }) => {
-          const rotation = Math.PI / 180 * rotate;
-          const xx = Math.cos(rotation) * scale;
-          const xy = Math.sin(rotation) * scale;
-          context2.setTransform(
-            xx,
-            xy,
-            -xy,
-            xx,
-            Math.round(centerX + offsetXCenter),
-            Math.round(centerY + offsetYCenter)
-          );
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(
-              Math.round(-centerX + x),
-              Math.round(-centerY + y),
-              width,
-              height,
-              5
-            );
-          } else {
-            context2.beginPath();
-            context2.rect(
-              Math.round(-centerX + x),
-              Math.round(-centerY + y),
-              width,
-              height
-            );
-          }
-          context2.fillStyle = "#fff";
-          context2.fill();
-          context2.setTransform(1, 0, 0, 1, 0, 0);
+          drawItem({
+            x,
+            y,
+            centerX,
+            centerY,
+            width,
+            height,
+            rotate,
+            scale,
+            offsetXCenter,
+            offsetYCenter,
+            context: context2,
+            fill: "#ffffff"
+          });
         }
       );
+      drawItem({
+        x: tweenTarget.x,
+        y: tweenTarget.y,
+        centerX: tweenTarget.centerX,
+        centerY: tweenTarget.centerY,
+        width: tweenTarget.width,
+        height: tweenTarget.height,
+        rotate: tweenTarget.rotate,
+        scale: tweenTarget.scale,
+        offsetXCenter: tweenTarget.offsetXCenter,
+        offsetYCenter: tweenTarget.offsetYCenter,
+        context: context2,
+        fill: "#000000"
+      });
+      drawItem({
+        x: tween2Target.x,
+        y: tween2Target.y,
+        centerX: tween2Target.centerX,
+        centerY: tween2Target.centerY,
+        width: tween2Target.width,
+        height: tween2Target.height,
+        rotate: tween2Target.rotate,
+        scale: tween2Target.scale,
+        offsetXCenter: tween2Target.offsetXCenter,
+        offsetYCenter: tween2Target.offsetYCenter,
+        context: context2,
+        fill: "#000000"
+      });
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     const loop = () => {
