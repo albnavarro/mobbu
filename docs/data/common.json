@@ -357,6 +357,12 @@
             "children": null
         },
         {
+            "label": "Async timeline",
+            "url": "async-timeline",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
             "label": "animated pattern n.0",
             "url": "#",
             "children": [

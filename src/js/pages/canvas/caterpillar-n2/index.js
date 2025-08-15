@@ -9,7 +9,7 @@ export const caterpillarN2 = () => {
     updateQuickNavState({
         active: true,
         prevRoute: '#caterpillarN1',
-        nextRoute: '#animatedPatternN0?version=0&activeId=0',
+        nextRoute: '#async-timeline',
         backRoute: '#canvas-overview',
         color: 'black',
     });

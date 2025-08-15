@@ -2,7 +2,7 @@ export const animatedPatternN0Params = [
     {
         animation: {},
         nav: {
-            prevRoute: '#caterpillarN2',
+            prevRoute: '#async-timeline',
             nextRoute: '#animatedPatternN0?version=1&activeId=1',
             backRoute: '#canvas-overview',
         },

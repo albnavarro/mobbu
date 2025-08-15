@@ -19,6 +19,7 @@ import { move3DRoute } from './plugin/move-3d';
 import { move3DrouteProps } from './plugin/move-3d/props';
 import { lettering01 } from './svg/lettering-01';
 import { onlyDesktop } from './onlyDesktop';
+import { asyncTimeline } from './canvas/async-timeline';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
 
@@ -96,6 +97,11 @@ export const routes = [
     {
         name: 'caterpillarN2',
         layout: caterpillarN2,
+        props: {},
+    },
+    {
+        name: 'async-timeline',
+        layout: asyncTimeline,
         props: {},
     },
     {
