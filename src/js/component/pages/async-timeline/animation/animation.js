@@ -81,23 +81,28 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
      */
     const getCoordinate = ({ row, col }) => {
         const rowIndex = (numberOfColumn + 1) * row;
-        return gridData[rowIndex + col];
+        return data[rowIndex + col];
     };
 
     /**
      * Create date for tweens
      */
-    let tweenTarget = {
+
+    const initialTweenData = {
         ...getCoordinate({ row: 1, col: 1 }),
         scale: 1,
         rotate: 0,
     };
 
-    let tween2Target = {
+    let tweenTarget = initialTweenData;
+
+    const initialTweenRotateData = {
         ...getCoordinate({ row: 4, col: 5 }),
         scale: 1,
         rotate: 0,
     };
+
+    let tweenRotateTarget = initialTweenRotateData;
 
     /**
      * Create tween
@@ -113,7 +118,7 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     });
 
     let gridTweenRotate = MobTween.createTimeTween({
-        data: tween2Target,
+        data: tweenRotateTarget,
         duration: 1000,
         ease: 'easeInOutBack',
     });
@@ -130,7 +135,7 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     });
 
     gridTweenRotate.subscribe((data) => {
-        tween2Target = data;
+        tweenRotateTarget = data;
     });
 
     /**
@@ -142,8 +147,8 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     });
 
     timeline
-        .goTo(gridTween, { x: getCoordinate({ row: 1, col: 8 }).x })
-        .goTo(gridTween, { y: getCoordinate({ row: 8, col: 8 }).y });
+        .goTo(gridTween, { x: () => getCoordinate({ row: 1, col: 8 }).x })
+        .goTo(gridTween, { y: () => getCoordinate({ row: 8, col: 8 }).y });
 
     /**
      * @param {object} params
@@ -301,16 +306,16 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
          * Fixed tween
          */
         drawItem({
-            x: tween2Target.x,
-            y: tween2Target.y,
-            centerX: tween2Target.centerX,
-            centerY: tween2Target.centerY,
-            width: tween2Target.width,
-            height: tween2Target.height,
-            rotate: tween2Target.rotate,
-            scale: tween2Target.scale,
-            offsetXCenter: tween2Target.offsetXCenter,
-            offsetYCenter: tween2Target.offsetYCenter,
+            x: tweenRotateTarget.x,
+            y: tweenRotateTarget.y,
+            centerX: tweenRotateTarget.centerX,
+            centerY: tweenRotateTarget.centerY,
+            width: tweenRotateTarget.width,
+            height: tweenRotateTarget.height,
+            rotate: tweenRotateTarget.rotate,
+            scale: tweenRotateTarget.scale,
+            offsetXCenter: tweenRotateTarget.offsetXCenter,
+            offsetYCenter: tweenRotateTarget.offsetYCenter,
             context,
             fill: '#000000',
         });
@@ -340,6 +345,8 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
 
+        timeline.stop();
+
         /**
          * Update offset position to center grid in canvas.
          */
@@ -360,6 +367,49 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
                 numberOfRow,
             });
         });
+
+        /**
+         * Update tween & lerp data
+         */
+        tweenTarget.offsetXCenter = getOffsetXCenter({
+            canvasWidth: canvas.width,
+            width: tweenTarget.width,
+            gutter: tweenTarget.gutter,
+            numberOfColumn,
+        });
+
+        tweenTarget.offsetYCenter = getOffsetYCenter({
+            canvasHeight: canvas.height,
+            height: tweenTarget.height,
+            gutter: tweenTarget.gutter,
+            numberOfRow,
+        });
+
+        initialTweenData.offsetXCenter = tweenTarget.offsetXCenter;
+        initialTweenData.offsetYCenter = tweenTarget.offsetYCenter;
+        gridTween.setData({ ...initialTweenData });
+        gridSpring.setData({ ...initialTweenData });
+
+        /**
+         * Update fixed tween
+         */
+        tweenRotateTarget.offsetXCenter = getOffsetXCenter({
+            canvasWidth: canvas.width,
+            width: tweenRotateTarget.width,
+            gutter: tweenRotateTarget.gutter,
+            numberOfColumn,
+        });
+
+        tweenRotateTarget.offsetYCenter = getOffsetYCenter({
+            canvasHeight: canvas.height,
+            height: tweenRotateTarget.height,
+            gutter: tweenRotateTarget.gutter,
+            numberOfRow,
+        });
+
+        initialTweenRotateData.offsetXCenter = tweenRotateTarget.offsetXCenter;
+        initialTweenRotateData.offsetYCenter = tweenRotateTarget.offsetYCenter;
+        gridTweenRotate.setData({ ...initialTweenRotateData });
 
         /**
          * Render.

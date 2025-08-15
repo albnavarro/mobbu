@@ -34197,18 +34197,20 @@ Loading snippet ...</pre
     });
     const getCoordinate = ({ row, col }) => {
       const rowIndex = (numberOfColumn + 1) * row;
-      return gridData[rowIndex + col];
+      return data[rowIndex + col];
     };
-    let tweenTarget = {
+    const initialTweenData = {
       ...getCoordinate({ row: 1, col: 1 }),
       scale: 1,
       rotate: 0
     };
-    let tween2Target = {
+    let tweenTarget = initialTweenData;
+    const initialTweenRotateData = {
       ...getCoordinate({ row: 4, col: 5 }),
       scale: 1,
       rotate: 0
     };
+    let tweenRotateTarget = initialTweenRotateData;
     let gridTween = tween_exports.createTimeTween({
       data: tweenTarget,
       duration: 1e3,
@@ -34218,7 +34220,7 @@ Loading snippet ...</pre
       data: tweenTarget
     });
     let gridTweenRotate = tween_exports.createTimeTween({
-      data: tween2Target,
+      data: tweenRotateTarget,
       duration: 1e3,
       ease: "easeInOutBack"
     });
@@ -34229,13 +34231,13 @@ Loading snippet ...</pre
       tweenTarget = data2;
     });
     gridTweenRotate.subscribe((data2) => {
-      tween2Target = data2;
+      tweenRotateTarget = data2;
     });
     let timeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
       yoyo: true
     });
-    timeline.goTo(gridTween, { x: getCoordinate({ row: 1, col: 8 }).x }).goTo(gridTween, { y: getCoordinate({ row: 8, col: 8 }).y });
+    timeline.goTo(gridTween, { x: () => getCoordinate({ row: 1, col: 8 }).x }).goTo(gridTween, { y: () => getCoordinate({ row: 8, col: 8 }).y });
     const drawItem = ({
       x,
       y,
@@ -34340,16 +34342,16 @@ Loading snippet ...</pre
         fill: "#000000"
       });
       drawItem({
-        x: tween2Target.x,
-        y: tween2Target.y,
-        centerX: tween2Target.centerX,
-        centerY: tween2Target.centerY,
-        width: tween2Target.width,
-        height: tween2Target.height,
-        rotate: tween2Target.rotate,
-        scale: tween2Target.scale,
-        offsetXCenter: tween2Target.offsetXCenter,
-        offsetYCenter: tween2Target.offsetYCenter,
+        x: tweenRotateTarget.x,
+        y: tweenRotateTarget.y,
+        centerX: tweenRotateTarget.centerX,
+        centerY: tweenRotateTarget.centerY,
+        width: tweenRotateTarget.width,
+        height: tweenRotateTarget.height,
+        rotate: tweenRotateTarget.rotate,
+        scale: tweenRotateTarget.scale,
+        offsetXCenter: tweenRotateTarget.offsetXCenter,
+        offsetYCenter: tweenRotateTarget.offsetYCenter,
         context: context2,
         fill: "#000000"
       });
@@ -34366,6 +34368,7 @@ Loading snippet ...</pre
     const unsubscribeResize = modules_exports.useResize(() => {
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
+      timeline.stop();
       data.forEach((item) => {
         const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
         item.offsetXCenter = getOffsetXCenter({
@@ -34381,6 +34384,37 @@ Loading snippet ...</pre
           numberOfRow
         });
       });
+      tweenTarget.offsetXCenter = getOffsetXCenter({
+        canvasWidth: canvas.width,
+        width: tweenTarget.width,
+        gutter: tweenTarget.gutter,
+        numberOfColumn
+      });
+      tweenTarget.offsetYCenter = getOffsetYCenter({
+        canvasHeight: canvas.height,
+        height: tweenTarget.height,
+        gutter: tweenTarget.gutter,
+        numberOfRow
+      });
+      initialTweenData.offsetXCenter = tweenTarget.offsetXCenter;
+      initialTweenData.offsetYCenter = tweenTarget.offsetYCenter;
+      gridTween.setData({ ...initialTweenData });
+      gridSpring.setData({ ...initialTweenData });
+      tweenRotateTarget.offsetXCenter = getOffsetXCenter({
+        canvasWidth: canvas.width,
+        width: tweenRotateTarget.width,
+        gutter: tweenRotateTarget.gutter,
+        numberOfColumn
+      });
+      tweenRotateTarget.offsetYCenter = getOffsetYCenter({
+        canvasHeight: canvas.height,
+        height: tweenRotateTarget.height,
+        gutter: tweenRotateTarget.gutter,
+        numberOfRow
+      });
+      initialTweenRotateData.offsetXCenter = tweenRotateTarget.offsetXCenter;
+      initialTweenRotateData.offsetYCenter = tweenRotateTarget.offsetYCenter;
+      gridTweenRotate.setData({ ...initialTweenRotateData });
       modules_exports.useFrame(() => draw());
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
