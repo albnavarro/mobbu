@@ -12834,7 +12834,12 @@
           prop: item.prop,
           toValue: item.toValue,
           fromValue: item.fromValue,
-          currentValue: item.currentValue
+          currentValue: item.currentValue,
+          fromFn: () => 0,
+          fromIsFn: false,
+          toFn: () => 0,
+          toIsFn: false,
+          settled: false
         };
       });
     }
@@ -14891,7 +14896,12 @@
           prop: item.prop,
           toValue: item.toValue,
           fromValue: item.fromValue,
-          currentValue: item.currentValue
+          currentValue: item.currentValue,
+          fromFn: () => 0,
+          fromIsFn: false,
+          toFn: () => 0,
+          toIsFn: false,
+          settled: false
         };
       });
     }
