@@ -34241,7 +34241,7 @@ Loading snippet ...</pre
     timeline.goTo(springGrid, {
       x: () => getCoordinate({ row: 1, col: 8 }).x,
       rotate: 360
-    }).goTo(springGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y }).sync({ from: springGrid, to: tweenGrid }).createGroup({ waitComplete: false }).goTo(tweenGrid, {
+    }).goTo(springGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y }).sync({ from: springGrid, to: tweenGrid }).label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenGrid, {
       x: () => getCoordinate({ row: 8, col: 1 }).x,
       rotate: 0
     }).goTo(
@@ -34461,10 +34461,18 @@ Loading snippet ...</pre
         timeline.playReverse();
       },
       playFromLabel: () => {
-        console.log("playFromLabel");
+        timeline.setTween("my-label", [tweenGrid, springGrid, tweenGridRotate]).then(() => {
+          timeline.playFrom("my-label").then(() => {
+            console.log("resolve promise playFrom");
+          });
+        });
       },
       playFromLabelReverse: () => {
-        console.log("playFromLabelReverse");
+        timeline.setTween("my-label", [tweenGrid, springGrid, tweenGridRotate]).then(() => {
+          timeline.playFromReverse("my-label").then(() => {
+            console.log("resolve promise playFrom");
+          });
+        });
       },
       revertNext: () => {
         timeline.reverseNext();

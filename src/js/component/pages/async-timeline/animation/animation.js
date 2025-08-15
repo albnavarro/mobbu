@@ -154,6 +154,7 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         })
         .goTo(springGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y })
         .sync({ from: springGrid, to: tweenGrid })
+        .label({ name: 'my-label' })
         .createGroup({ waitComplete: false })
         .goTo(tweenGrid, {
             x: () => getCoordinate({ row: 8, col: 1 }).x,
@@ -489,10 +490,22 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
             timeline.playReverse();
         },
         playFromLabel: () => {
-            console.log('playFromLabel');
+            timeline
+                .setTween('my-label', [tweenGrid, springGrid, tweenGridRotate])
+                .then(() => {
+                    timeline.playFrom('my-label').then(() => {
+                        console.log('resolve promise playFrom');
+                    });
+                });
         },
         playFromLabelReverse: () => {
-            console.log('playFromLabelReverse');
+            timeline
+                .setTween('my-label', [tweenGrid, springGrid, tweenGridRotate])
+                .then(() => {
+                    timeline.playFromReverse('my-label').then(() => {
+                        console.log('resolve promise playFrom');
+                    });
+                });
         },
         revertNext: () => {
             timeline.reverseNext();
