@@ -34211,38 +34211,52 @@ Loading snippet ...</pre
       rotate: 0
     };
     let tweenRotateTarget = initialTweenRotateData;
-    let gridTween = tween_exports.createTimeTween({
+    let tweenGrid = tween_exports.createTimeTween({
       data: tweenTarget,
       duration: 1e3,
       ease: "easeInOutBack"
     });
-    let gridSpring = tween_exports.createSpring({
-      data: tweenTarget
+    let springGrid = tween_exports.createSpring({
+      data: tweenTarget,
+      config: "wobbly"
     });
-    let gridTweenRotate = tween_exports.createTimeTween({
+    let tweenGridRotate = tween_exports.createTimeTween({
       data: tweenRotateTarget,
       duration: 1e3,
       ease: "easeInOutBack"
     });
-    gridTween.subscribe((data2) => {
+    tweenGrid.subscribe((data2) => {
       tweenTarget = data2;
     });
-    gridSpring.subscribe((data2) => {
+    springGrid.subscribe((data2) => {
       tweenTarget = data2;
     });
-    gridTweenRotate.subscribe((data2) => {
+    tweenGridRotate.subscribe((data2) => {
       tweenRotateTarget = data2;
     });
     let timeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
       yoyo: true
     });
-    timeline.goTo(gridTween, { x: () => getCoordinate({ row: 1, col: 8 }).x }).goTo(gridTween, { y: () => getCoordinate({ row: 8, col: 8 }).y });
+    timeline.goTo(springGrid, {
+      x: () => getCoordinate({ row: 1, col: 8 }).x,
+      rotate: 360
+    }).goTo(springGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y }).sync({ from: springGrid, to: tweenGrid }).createGroup({ waitComplete: false }).goTo(tweenGrid, {
+      x: () => getCoordinate({ row: 8, col: 1 }).x,
+      rotate: 0
+    }).goTo(
+      tweenGridRotate,
+      {
+        rotate: 360
+      },
+      { delay: 500 }
+    ).closeGroup().goTo(tweenGrid, {
+      y: () => getCoordinate({ row: 4, col: 1 }).y,
+      rotate: 0
+    });
     const drawItem = ({
       x,
       y,
-      centerX,
-      centerY,
       width,
       height,
       rotate,
@@ -34260,14 +34274,14 @@ Loading snippet ...</pre
         xy,
         -xy,
         xx,
-        Math.round(centerX + offsetXCenter),
-        Math.round(centerY + offsetYCenter)
+        offsetXCenter + x,
+        offsetYCenter + y
       );
       if (useRadius) {
         context2.beginPath();
         context2.roundRect(
-          Math.round(-centerX + x),
-          Math.round(-centerY + y),
+          Math.round(-width / 2),
+          Math.round(-height / 2),
           width,
           height,
           5
@@ -34275,8 +34289,8 @@ Loading snippet ...</pre
       } else {
         context2.beginPath();
         context2.rect(
-          Math.round(-centerX + x),
-          Math.round(-centerY + y),
+          Math.round(-width / 2),
+          Math.round(-height / 2),
           width,
           height
         );
@@ -34302,8 +34316,6 @@ Loading snippet ...</pre
         ({
           x,
           y,
-          centerX,
-          centerY,
           width,
           height,
           rotate,
@@ -34314,8 +34326,6 @@ Loading snippet ...</pre
           drawItem({
             x,
             y,
-            centerX,
-            centerY,
             width,
             height,
             rotate,
@@ -34330,8 +34340,6 @@ Loading snippet ...</pre
       drawItem({
         x: tweenTarget.x,
         y: tweenTarget.y,
-        centerX: tweenTarget.centerX,
-        centerY: tweenTarget.centerY,
         width: tweenTarget.width,
         height: tweenTarget.height,
         rotate: tweenTarget.rotate,
@@ -34344,8 +34352,6 @@ Loading snippet ...</pre
       drawItem({
         x: tweenRotateTarget.x,
         y: tweenRotateTarget.y,
-        centerX: tweenRotateTarget.centerX,
-        centerY: tweenRotateTarget.centerY,
         width: tweenRotateTarget.width,
         height: tweenRotateTarget.height,
         rotate: tweenRotateTarget.rotate,
@@ -34398,8 +34404,8 @@ Loading snippet ...</pre
       });
       initialTweenData.offsetXCenter = tweenTarget.offsetXCenter;
       initialTweenData.offsetYCenter = tweenTarget.offsetYCenter;
-      gridTween.setData({ ...initialTweenData });
-      gridSpring.setData({ ...initialTweenData });
+      tweenGrid.setData({ ...initialTweenData });
+      springGrid.setData({ ...initialTweenData });
       tweenRotateTarget.offsetXCenter = getOffsetXCenter({
         canvasWidth: canvas.width,
         width: tweenRotateTarget.width,
@@ -34414,7 +34420,7 @@ Loading snippet ...</pre
       });
       initialTweenRotateData.offsetXCenter = tweenRotateTarget.offsetXCenter;
       initialTweenRotateData.offsetYCenter = tweenRotateTarget.offsetYCenter;
-      gridTweenRotate.setData({ ...initialTweenRotateData });
+      tweenGridRotate.setData({ ...initialTweenRotateData });
       modules_exports.useFrame(() => draw());
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
@@ -34439,13 +34445,13 @@ Loading snippet ...</pre
         gridData = [];
         data = [];
         isActive2 = false;
-        gridTween.destroy();
-        gridSpring.destroy();
-        gridTweenRotate.destroy();
+        tweenGrid.destroy();
+        springGrid.destroy();
+        tweenGridRotate.destroy();
         timeline.destroy();
-        gridTween = null;
-        gridSpring = null;
-        gridTweenRotate = null;
+        tweenGrid = null;
+        springGrid = null;
+        tweenGridRotate = null;
         timeline = null;
       },
       play: () => {

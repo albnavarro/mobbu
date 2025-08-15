@@ -107,17 +107,18 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Create tween
      */
-    let gridTween = MobTween.createTimeTween({
+    let tweenGrid = MobTween.createTimeTween({
         data: tweenTarget,
         duration: 1000,
         ease: 'easeInOutBack',
     });
 
-    let gridSpring = MobTween.createSpring({
+    let springGrid = MobTween.createSpring({
         data: tweenTarget,
+        config: 'wobbly',
     });
 
-    let gridTweenRotate = MobTween.createTimeTween({
+    let tweenGridRotate = MobTween.createTimeTween({
         data: tweenRotateTarget,
         duration: 1000,
         ease: 'easeInOutBack',
@@ -126,15 +127,15 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Subscribe tweens
      */
-    gridTween.subscribe((data) => {
+    tweenGrid.subscribe((data) => {
         tweenTarget = data;
     });
 
-    gridSpring.subscribe((data) => {
+    springGrid.subscribe((data) => {
         tweenTarget = data;
     });
 
-    gridTweenRotate.subscribe((data) => {
+    tweenGridRotate.subscribe((data) => {
         tweenRotateTarget = data;
     });
 
@@ -147,15 +148,34 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     });
 
     timeline
-        .goTo(gridTween, { x: () => getCoordinate({ row: 1, col: 8 }).x })
-        .goTo(gridTween, { y: () => getCoordinate({ row: 8, col: 8 }).y });
+        .goTo(springGrid, {
+            x: () => getCoordinate({ row: 1, col: 8 }).x,
+            rotate: 360,
+        })
+        .goTo(springGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y })
+        .sync({ from: springGrid, to: tweenGrid })
+        .createGroup({ waitComplete: false })
+        .goTo(tweenGrid, {
+            x: () => getCoordinate({ row: 8, col: 1 }).x,
+            rotate: 0,
+        })
+        .goTo(
+            tweenGridRotate,
+            {
+                rotate: 360,
+            },
+            { delay: 500 }
+        )
+        .closeGroup()
+        .goTo(tweenGrid, {
+            y: () => getCoordinate({ row: 4, col: 1 }).y,
+            rotate: 0,
+        });
 
     /**
      * @param {object} params
      * @param {number} params.x
      * @param {number} params.y
-     * @param {number} params.centerX
-     * @param {number} params.centerY
      * @param {number} params.width
      * @param {number} params.height
      * @param {number} params.rotate
@@ -168,8 +188,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     const drawItem = ({
         x,
         y,
-        centerX,
-        centerY,
         width,
         height,
         rotate,
@@ -191,8 +209,8 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
             xy,
             -xy,
             xx,
-            Math.round(centerX + offsetXCenter),
-            Math.round(centerY + offsetYCenter)
+            offsetXCenter + x,
+            offsetYCenter + y
         );
 
         /**
@@ -201,8 +219,8 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         if (useRadius) {
             context.beginPath();
             context.roundRect(
-                Math.round(-centerX + x),
-                Math.round(-centerY + y),
+                Math.round(-width / 2),
+                Math.round(-height / 2),
                 width,
                 height,
                 5
@@ -210,8 +228,8 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         } else {
             context.beginPath();
             context.rect(
-                Math.round(-centerX + x),
-                Math.round(-centerY + y),
+                Math.round(-width / 2),
+                Math.round(-height / 2),
                 width,
                 height
             );
@@ -258,8 +276,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
             ({
                 x,
                 y,
-                centerX,
-                centerY,
                 width,
                 height,
                 rotate,
@@ -270,8 +286,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
                 drawItem({
                     x,
                     y,
-                    centerX,
-                    centerY,
                     width,
                     height,
                     rotate,
@@ -290,8 +304,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         drawItem({
             x: tweenTarget.x,
             y: tweenTarget.y,
-            centerX: tweenTarget.centerX,
-            centerY: tweenTarget.centerY,
             width: tweenTarget.width,
             height: tweenTarget.height,
             rotate: tweenTarget.rotate,
@@ -308,8 +320,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         drawItem({
             x: tweenRotateTarget.x,
             y: tweenRotateTarget.y,
-            centerX: tweenRotateTarget.centerX,
-            centerY: tweenRotateTarget.centerY,
             width: tweenRotateTarget.width,
             height: tweenRotateTarget.height,
             rotate: tweenRotateTarget.rotate,
@@ -387,8 +397,8 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
 
         initialTweenData.offsetXCenter = tweenTarget.offsetXCenter;
         initialTweenData.offsetYCenter = tweenTarget.offsetYCenter;
-        gridTween.setData({ ...initialTweenData });
-        gridSpring.setData({ ...initialTweenData });
+        tweenGrid.setData({ ...initialTweenData });
+        springGrid.setData({ ...initialTweenData });
 
         /**
          * Update fixed tween
@@ -409,7 +419,7 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
 
         initialTweenRotateData.offsetXCenter = tweenRotateTarget.offsetXCenter;
         initialTweenRotateData.offsetYCenter = tweenRotateTarget.offsetYCenter;
-        gridTweenRotate.setData({ ...initialTweenRotateData });
+        tweenGridRotate.setData({ ...initialTweenRotateData });
 
         /**
          * Render.
@@ -458,17 +468,17 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
             data = [];
             isActive = false;
 
-            gridTween.destroy();
-            gridSpring.destroy();
-            gridTweenRotate.destroy();
+            tweenGrid.destroy();
+            springGrid.destroy();
+            tweenGridRotate.destroy();
             timeline.destroy();
 
             // @ts-ignore
-            gridTween = null;
+            tweenGrid = null;
             // @ts-ignore
-            gridSpring = null;
+            springGrid = null;
             // @ts-ignore
-            gridTweenRotate = null;
+            tweenGridRotate = null;
             // @ts-ignore
             timeline = null;
         },
