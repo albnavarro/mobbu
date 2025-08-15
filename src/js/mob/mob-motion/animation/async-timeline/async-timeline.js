@@ -397,8 +397,7 @@ export default class MobAsyncTimeline {
              * Get current valueTo for to use in reverse methods
              * Get the value only first immediate loop, so if prevValueSettled is settled skip
              *
-             * prevValueSettled is defined non only for tween but suspended etc..
-             * So check if is tween and as method getToNativeType.
+             * Filter only real tween.
              *
              * prevValueSettled is settled only once during the entire life of timeline.
              */
@@ -407,8 +406,10 @@ export default class MobAsyncTimeline {
 
                 /*
                  * Get only the active prop
-                 * maybe unnecessary, if all prop ius used work fine
-                 * Only for a clean code
+                 * nativeValues -> current value before execute step.
+                 * currentValuesTo -> Step to execute
+                 *
+                 * nativeValues rappresent the previous set of value
                  */
                 const prevValueTo = filterActiveProps({
                     data: nativeValues,
