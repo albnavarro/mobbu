@@ -34200,7 +34200,7 @@ Loading snippet ...</pre
       return gridData[rowIndex + col];
     };
     let tweenTarget = {
-      ...getCoordinate({ row: 0, col: 0 }),
+      ...getCoordinate({ row: 1, col: 1 }),
       scale: 1,
       rotate: 0
     };
@@ -34209,15 +34209,15 @@ Loading snippet ...</pre
       scale: 1,
       rotate: 0
     };
-    const gridTween = tween_exports.createTimeTween({
+    let gridTween = tween_exports.createTimeTween({
       data: tweenTarget,
       duration: 1e3,
       ease: "easeInOutBack"
     });
-    const gridSpring = tween_exports.createSpring({
+    let gridSpring = tween_exports.createSpring({
       data: tweenTarget
     });
-    const gridTweenRotate = tween_exports.createTimeTween({
+    let gridTweenRotate = tween_exports.createTimeTween({
       data: tween2Target,
       duration: 1e3,
       ease: "easeInOutBack"
@@ -34231,6 +34231,11 @@ Loading snippet ...</pre
     gridTweenRotate.subscribe((data2) => {
       tween2Target = data2;
     });
+    let timeline = timeline_exports.createAsyncTimeline({
+      repeat: -1,
+      yoyo: true
+    });
+    timeline.goTo(gridTween, { x: getCoordinate({ row: 1, col: 8 }).x }).goTo(gridTween, { y: getCoordinate({ row: 8, col: 8 }).y });
     const drawItem = ({
       x,
       y,
@@ -34400,12 +34405,20 @@ Loading snippet ...</pre
         gridData = [];
         data = [];
         isActive2 = false;
+        gridTween.destroy();
+        gridSpring.destroy();
+        gridTweenRotate.destroy();
+        timeline.destroy();
+        gridTween = null;
+        gridSpring = null;
+        gridTweenRotate = null;
+        timeline = null;
       },
       play: () => {
-        console.log("play");
+        timeline.play();
       },
       playReverse: () => {
-        console.log("playReverse");
+        timeline.playReverse();
       },
       playFromLabel: () => {
         console.log("playFromLabel");
@@ -34414,16 +34427,16 @@ Loading snippet ...</pre
         console.log("playFromLabelReverse");
       },
       revertNext: () => {
-        console.log("revertNext");
+        timeline.reverseNext();
       },
       pause: () => {
-        console.log("pause");
+        timeline.pause();
       },
       resume: () => {
-        console.log("resume");
+        timeline.resume();
       },
       stop: () => {
-        console.log("stop");
+        timeline.stop();
       }
     };
   };

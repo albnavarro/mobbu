@@ -178,7 +178,7 @@ export type AsyncTimelinePlayUpeDown = (
     isReverse: boolean
 ) => Promise<any>;
 
-export type AsyncTimelinePlayReverse = (arg0: {
+export type AsyncTimelinePlayReverse = (arg0?: {
     forceYoYo?: boolean;
     callback?: () => void;
     resolve?: (value: any) => void | null;

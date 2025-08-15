@@ -3,7 +3,7 @@
 import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
-import { MobTween } from '@mobMotion';
+import { MobTimeline, MobTween } from '@mobMotion';
 import {
     canvasBackground,
     copyCanvasBitmap,
@@ -88,7 +88,7 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
      * Create date for tweens
      */
     let tweenTarget = {
-        ...getCoordinate({ row: 0, col: 0 }),
+        ...getCoordinate({ row: 1, col: 1 }),
         scale: 1,
         rotate: 0,
     };
@@ -102,17 +102,17 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Create tween
      */
-    const gridTween = MobTween.createTimeTween({
+    let gridTween = MobTween.createTimeTween({
         data: tweenTarget,
         duration: 1000,
         ease: 'easeInOutBack',
     });
 
-    const gridSpring = MobTween.createSpring({
+    let gridSpring = MobTween.createSpring({
         data: tweenTarget,
     });
 
-    const gridTweenRotate = MobTween.createTimeTween({
+    let gridTweenRotate = MobTween.createTimeTween({
         data: tween2Target,
         duration: 1000,
         ease: 'easeInOutBack',
@@ -136,12 +136,14 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Create timeline
      */
-    // const timeline = MobTimeline.createAsyncTimeline({
-    //     repeat: -1,
-    //     yoyo: true,
-    // });
+    let timeline = MobTimeline.createAsyncTimeline({
+        repeat: -1,
+        yoyo: true,
+    });
 
-    // timeline.goTo(gridTween, {});
+    timeline
+        .goTo(gridTween, { x: getCoordinate({ row: 1, col: 8 }).x })
+        .goTo(gridTween, { y: getCoordinate({ row: 8, col: 8 }).y });
 
     /**
      * @param {object} params
@@ -397,26 +399,34 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
      */
     return {
         destroy: () => {
-            // gridTween.destroy();
-            // gridTimeline.destroy();
             unsubscribeResize();
             unWatchPause();
-            // @ts-ignore
-            // gridTween = null;
-            // @ts-ignore
-            // gridTimeline = null;
             ctx = null;
             offscreen = null;
             offScreenCtx = null;
             gridData = [];
             data = [];
             isActive = false;
+
+            gridTween.destroy();
+            gridSpring.destroy();
+            gridTweenRotate.destroy();
+            timeline.destroy();
+
+            // @ts-ignore
+            gridTween = null;
+            // @ts-ignore
+            gridSpring = null;
+            // @ts-ignore
+            gridTweenRotate = null;
+            // @ts-ignore
+            timeline = null;
         },
         play: () => {
-            console.log('play');
+            timeline.play();
         },
         playReverse: () => {
-            console.log('playReverse');
+            timeline.playReverse();
         },
         playFromLabel: () => {
             console.log('playFromLabel');
@@ -425,16 +435,16 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
             console.log('playFromLabelReverse');
         },
         revertNext: () => {
-            console.log('revertNext');
+            timeline.reverseNext();
         },
         pause: () => {
-            console.log('pause');
+            timeline.pause();
         },
         resume: () => {
-            console.log('resume');
+            timeline.resume();
         },
         stop: () => {
-            console.log('stop');
+            timeline.stop();
         },
     };
 };
