@@ -204,6 +204,7 @@ export const caterpillarN1Animation = ({
     let rectTimeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         yoyo: false,
+        autoSet: false,
     });
 
     /**

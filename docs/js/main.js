@@ -25931,7 +25931,8 @@ Loading snippet ...</pre
     );
     let pathTimeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
-      yoyo: true
+      yoyo: true,
+      autoSet: false
     }).goTo(
       pathTween,
       {
@@ -27837,7 +27838,8 @@ Loading snippet ...</pre
     };
     let gridTimeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
-      yoyo: true
+      yoyo: true,
+      autoSet: false
     }).label({ name: "label1" }).goTo(gridTween, { scale: 1.5, rotate: 90 }, { duration: 1e3 }).goTo(gridTween, { scale: 0.5 }, { duration: 500 }).goTo(gridTween, { rotate: 180, scale: 1.2 }, { duration: 500 }).goTo(gridTween, { scale: 1.3 }, { duration: 500 }).goTo(gridTween, { scale: 1 }, { duration: 1200 });
     gridTimeline.onLoopEnd(({ direction: direction2, loop: loop2 }) => {
       console.log(`loop end: ${direction2}, ${loop2}`);
@@ -28294,7 +28296,8 @@ Loading snippet ...</pre
     };
     let gridTimeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
-      yoyo: true
+      yoyo: true,
+      autoSet: false
     }).goTo(gridTween, { scale: 0.3 }, { duration: 1e3 });
     gridTimeline.play();
     const move3 = ({ x, y }) => {
@@ -28909,7 +28912,8 @@ Loading snippet ...</pre
     };
     let rectTimeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
-      yoyo: false
+      yoyo: false,
+      autoSet: false
     });
     rectTimeline.goTo(
       rotationTween,
@@ -31122,16 +31126,17 @@ Loading snippet ...</pre
         item.style.scale = `${scale}`;
       });
     });
-    let introTl = timeline_exports.createAsyncTimeline({ repeat: 1 }).goTo(
-      introTween,
-      {
-        opacity: 1,
-        scale: 1
-      }
-    );
+    let introTl = timeline_exports.createAsyncTimeline({
+      repeat: 1,
+      autoSet: false
+    }).goTo(introTween, {
+      opacity: 1,
+      scale: 1
+    });
     let loopTimeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
-      yoyo: true
+      yoyo: true,
+      autoSet: false
     }).goTo(loopTween, {
       scale: 1.1
     });

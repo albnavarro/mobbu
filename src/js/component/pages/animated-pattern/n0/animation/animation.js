@@ -214,6 +214,7 @@ export const animatedPatternN0Animation = ({
     let gridTimeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         yoyo: true,
+        autoSet: false,
     })
         .label({ name: 'label1' })
         .goTo(gridTween, { scale: 1.5, rotate: 90 }, { duration: 1000 })

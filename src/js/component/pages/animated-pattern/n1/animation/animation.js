@@ -243,6 +243,7 @@ export const animatedPatternN1Animation = ({
     let gridTimeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         yoyo: true,
+        autoSet: false,
     }).goTo(gridTween, { scale: 0.3 }, { duration: 1000 });
 
     /**

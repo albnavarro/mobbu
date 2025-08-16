@@ -153,7 +153,7 @@ export const childAnimations = ({ groups, trails }) => {
         });
     });
 
-    let introTl = MobTimeline.createAsyncTimeline({ repeat: 1 })
+    let introTl = MobTimeline.createAsyncTimeline({ repeat: 1, autoSet: false })
         .createGroup()
         .goTo(introTween, {
             opacity: 1,

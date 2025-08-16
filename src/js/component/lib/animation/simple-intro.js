@@ -29,17 +29,18 @@ export const simpleIntroAnimation = ({ refs }) => {
         });
     });
 
-    let introTl = MobTimeline.createAsyncTimeline({ repeat: 1 }).goTo(
-        introTween,
-        {
-            opacity: 1,
-            scale: 1,
-        }
-    );
+    let introTl = MobTimeline.createAsyncTimeline({
+        repeat: 1,
+        autoSet: false,
+    }).goTo(introTween, {
+        opacity: 1,
+        scale: 1,
+    });
 
     let loopTimeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         yoyo: true,
+        autoSet: false,
     }).goTo(loopTween, {
         scale: 1.1,
     });

@@ -190,6 +190,7 @@ export const createPathAnimation = ({
     let pathTimeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         yoyo: true,
+        autoSet: false,
     }).goTo(
         pathTween,
         {
