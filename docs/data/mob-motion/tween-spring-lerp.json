@@ -792,13 +792,22 @@
                         "content": "Use <strong>weakRef</strong> for animations in <strong>nested functions</strong> or <strong>closures</strong> to prevent memory leaks."
                     },
                     {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "This method is not very suitable for staggers. If you're using staggers, the <strong>subscribeCache</strong> method is preferable.<br/> The stagger mechanism works by <strong>delegating callbacks</strong> to specific frames. This method is unable to clean up future renderings if the animation is stopped, which is something <strong>subscribeCache can do</strong> instead."
+                    },
+                    {
                         "component": "mob-snippet",
                         "props": {
                             "source": "./snippets/mob-motion/subscribe.js",
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 23
+                            "numLines": 21
                         }
                     },
                     {
@@ -873,6 +882,15 @@
                             "style": "medium"
                         },
                         "content": "The <strong>onComplete()</strong> method triggers when the animation finishes, useful for cleanup (e.g., disabling GPU usage)."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "This method may not be the most suitable when working with <strong>staggers</strong>. On the other hand, using <strong>subscribeCache</strong> (a dedicated method for staggers) allows you to cancel future renderings if they should not be executed. This method, however, <strong>cannot be removed from the rendering queue</strong>."
                     },
                     {
                         "component": "mob-snippet",

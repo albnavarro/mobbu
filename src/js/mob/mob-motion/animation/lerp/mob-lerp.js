@@ -451,10 +451,9 @@ export default class MobLerp {
         if (updateValues) this.#values = setFromToByCurrent(this.#values);
 
         /**
-         * If isRunning clear all funture stagger. If tween is ended and the lst stagger is running, let it reach end
-         * position.
+         * Clear stagger cache if needed.
          */
-        if (this.#isRunning && clearCache)
+        if (clearCache)
             this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
 
         // Reject promise

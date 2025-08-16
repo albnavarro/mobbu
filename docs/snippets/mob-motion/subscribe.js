@@ -1,6 +1,5 @@
 /**
- * One target.
- * subscribe
+ * One target. subscribe
  */
 const target = document.querySelector('target');
 const unsunscribe = myTween.subscribe(({ x, y }) => {
@@ -10,8 +9,7 @@ const unsunscribe = myTween.subscribe(({ x, y }) => {
 unsunscribe();
 
 /**
- * Multiple target.
- * subscribe
+ * Subscribe multiple target ( subscribeCache is preferible )
  */
 const targets = document.querySelectorAll('target');
 const unsunscribeAll = [...targets].map((item) => {

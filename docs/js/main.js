@@ -12795,7 +12795,7 @@
     stop({ clearCache = true, updateValues = true } = {}) {
       if (this.#pauseStatus) this.#pauseStatus = false;
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
-      if (this.#isRunning && clearCache)
+      if (clearCache)
         this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
       if (this.#currentReject) {
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
@@ -14873,7 +14873,7 @@
     stop({ clearCache = true, updateValues = true } = {}) {
       if (this.#pauseStatus) this.#pauseStatus = false;
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
-      if (this.#isRunning && clearCache)
+      if (clearCache)
         this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
       if (this.#currentReject) {
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
@@ -15668,7 +15668,7 @@
       this.#pauseStatus = false;
       this.#comeFromResume = false;
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
-      if (this.#isRunning && clearCache)
+      if (clearCache)
         this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
       if (this.#currentReject) {
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);

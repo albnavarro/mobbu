@@ -1,6 +1,5 @@
 /**
- * One target.
- * subscribe
+ * Subscribe one target
  */
 const target = document.querySelector('target');
 const unsunscribe = mySequencer.subscribe(({ x, y }) => {
@@ -10,8 +9,7 @@ const unsunscribe = mySequencer.subscribe(({ x, y }) => {
 unsunscribe();
 
 /**
- * Multiple target.
- * subscribe
+ * Subscribe multiple target ( subscribeCache is preferible )
  */
 const targets = document.querySelectorAll('target');
 const unsunscribeAll = [...targets].map((item) => {
