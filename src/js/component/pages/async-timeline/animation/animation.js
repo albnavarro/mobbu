@@ -136,18 +136,18 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
 
     timeline
         .goTo(tweenGrid, {
-            x: () => getCoordinate({ row: 1, col: 8 }).x,
+            x: getCoordinate({ row: 1, col: 8 }).x,
             rotate: 360,
             scale: 2,
         })
         .goTo(tweenGrid, {
-            y: () => getCoordinate({ row: 8, col: 8 }).y,
+            y: getCoordinate({ row: 8, col: 8 }).y,
             rotate: 180,
         })
         .label({ name: 'my-label' })
         .createGroup({ waitComplete: false })
         .goTo(tweenGrid, {
-            x: () => getCoordinate({ row: 8, col: 1 }).x,
+            x: getCoordinate({ row: 8, col: 1 }).x,
             rotate: 0,
             scale: 1,
         })
@@ -163,7 +163,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         .createGroup({ waitComplete: false })
         .goTo(
             tweenGrid,
-            { y: () => getCoordinate({ row: 1, col: 1 }).y, rotate: -180 },
+            { y: getCoordinate({ row: 1, col: 1 }).y, rotate: -180 },
             { duration: 1000 }
         )
         .goTo(
