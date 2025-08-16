@@ -13059,6 +13059,14 @@
       return this.#uniqueId;
     }
     /**
+     * Return active state.
+     *
+     * @returns {boolean}
+     */
+    isActive() {
+      return this.#isRunning;
+    }
+    /**
      * Update velocity value. `default value is 0.06`,the closer the value is to 1, the faster the transition will be.
      * The change will be persistent
      *
@@ -15135,6 +15143,14 @@
       return this.#uniqueId;
     }
     /**
+     * Return active state.
+     *
+     * @returns {boolean}
+     */
+    isActive() {
+      return this.#isRunning;
+    }
+    /**
      * Update config object, every || some properties The change will be persistent
      *
      * @example
@@ -15913,6 +15929,14 @@
       return this.#uniqueId;
     }
     /**
+     * Return active state.
+     *
+     * @returns {boolean}
+     */
+    isActive() {
+      return this.#isRunning;
+    }
+    /**
      * Update ease with new preset
      *
      * @type {import('./type.js').TimeTweenUpdateEase}
@@ -16626,6 +16650,7 @@
         );
         const fn = {
           set: () => {
+            if (tween2?.isActive?.()) tween2?.stop?.();
             return tween2?.[
               /** @type {'set'} */
               action2
@@ -16635,6 +16660,7 @@
             );
           },
           goTo: () => {
+            if (tween2?.isActive?.()) tween2?.stop?.();
             return tween2?.[
               /** @type {'goTo'} */
               action2
@@ -16644,6 +16670,7 @@
             );
           },
           goFrom: () => {
+            if (tween2?.isActive?.()) tween2?.stop?.();
             return tween2?.[
               /** @type {'goFrom'} */
               action2
@@ -16653,6 +16680,7 @@
             );
           },
           goFromTo: () => {
+            if (tween2?.isActive?.()) tween2?.stop?.();
             return tween2?.[
               /** @type {'goFromTo'} */
               action2

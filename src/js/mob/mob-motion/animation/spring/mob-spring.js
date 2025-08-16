@@ -851,6 +851,15 @@ export default class MobSpring {
     }
 
     /**
+     * Return active state.
+     *
+     * @returns {boolean}
+     */
+    isActive() {
+        return this.#isRunning;
+    }
+
+    /**
      * Update config object, every || some properties The change will be persistent
      *
      * @example

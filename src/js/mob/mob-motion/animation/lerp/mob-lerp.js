@@ -768,6 +768,15 @@ export default class MobLerp {
     }
 
     /**
+     * Return active state.
+     *
+     * @returns {boolean}
+     */
+    isActive() {
+        return this.#isRunning;
+    }
+
+    /**
      * Update velocity value. `default value is 0.06`,the closer the value is to 1, the faster the transition will be.
      * The change will be persistent
      *

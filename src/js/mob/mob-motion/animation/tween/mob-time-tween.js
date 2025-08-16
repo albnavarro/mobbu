@@ -825,6 +825,15 @@ export default class MobTimeTween {
     }
 
     /**
+     * Return active state.
+     *
+     * @returns {boolean}
+     */
+    isActive() {
+        return this.#isRunning;
+    }
+
+    /**
      * Update ease with new preset
      *
      * @type {import('./type.js').TimeTweenUpdateEase}

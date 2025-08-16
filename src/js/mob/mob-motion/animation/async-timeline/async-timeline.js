@@ -506,24 +506,44 @@ export default class MobAsyncTimeline {
              */
             const fn = {
                 set: () => {
+                    /**
+                     * With promise rece tween can be active and we lost promise ( use the previous )
+                     */
+                    if (tween?.isActive?.()) tween?.stop?.();
+
                     return tween?.[/** @type {'set'} */ (action)](
                         valuesFrom,
                         newTweenProps
                     );
                 },
                 goTo: () => {
+                    /**
+                     * With promise rece tween can be active and we lost promise ( use the previous )
+                     */
+                    if (tween?.isActive?.()) tween?.stop?.();
+
                     return tween?.[/** @type {'goTo'} */ (action)](
                         valuesTo,
                         newTweenProps
                     );
                 },
                 goFrom: () => {
+                    /**
+                     * With promise rece tween can be active and we lost promise ( use the previous )
+                     */
+                    if (tween?.isActive?.()) tween?.stop?.();
+
                     return tween?.[/** @type {'goFrom'} */ (action)](
                         valuesFrom,
                         newTweenProps
                     );
                 },
                 goFromTo: () => {
+                    /**
+                     * With promise rece tween can be active and we lost promise ( use the previous )
+                     */
+                    if (tween?.isActive?.()) tween?.stop?.();
+
                     return tween?.[/** @type {'goFromTo'} */ (action)](
                         valuesFrom,
                         valuesTo,

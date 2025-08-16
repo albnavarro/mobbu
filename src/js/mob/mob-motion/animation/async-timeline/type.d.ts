@@ -56,9 +56,10 @@ export interface AsyncTimelineTween {
     onStartInPause: (cb: () => boolean) => void;
     resetData: () => void;
     getInitialData: () => Record<string, number>;
-    stop: (arg0: { clearCache: boolean }) => any;
+    stop: (arg0?: { clearCache: boolean }) => any;
     pause?: () => void;
     resume?: () => void;
+    isActive?: () => boolean;
 }
 
 export interface AsyncTimelineRowData {
