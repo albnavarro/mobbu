@@ -34089,7 +34089,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/async-timeline/animation/animation.js
-  var animatedPatternN0Animation2 = ({ canvas, disableOffcanvas }) => {
+  var asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: false });
@@ -34290,57 +34290,6 @@ Loading snippet ...</pre
     modules_exports.useFrame(() => {
       loop();
     });
-    const unsubscribeResize = modules_exports.useResize(() => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      timeline.stop();
-      data.forEach((item) => {
-        const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
-        item.offsetXCenter = getOffsetXCenter({
-          canvasWidth: canvas.width,
-          width,
-          gutter: gutter2,
-          numberOfColumn: numberOfColumn2
-        });
-        item.offsetYCenter = getOffsetYCenter({
-          canvasHeight: canvas.height,
-          height,
-          gutter: gutter2,
-          numberOfRow
-        });
-      });
-      tweenTarget.offsetXCenter = getOffsetXCenter({
-        canvasWidth: canvas.width,
-        width: tweenTarget.width,
-        gutter: tweenTarget.gutter,
-        numberOfColumn
-      });
-      tweenTarget.offsetYCenter = getOffsetYCenter({
-        canvasHeight: canvas.height,
-        height: tweenTarget.height,
-        gutter: tweenTarget.gutter,
-        numberOfRow
-      });
-      initialTweenData.offsetXCenter = tweenTarget.offsetXCenter;
-      initialTweenData.offsetYCenter = tweenTarget.offsetYCenter;
-      tweenGrid.setData({ ...initialTweenData });
-      tweenRotateTarget.offsetXCenter = getOffsetXCenter({
-        canvasWidth: canvas.width,
-        width: tweenRotateTarget.width,
-        gutter: tweenRotateTarget.gutter,
-        numberOfColumn
-      });
-      tweenRotateTarget.offsetYCenter = getOffsetYCenter({
-        canvasHeight: canvas.height,
-        height: tweenRotateTarget.height,
-        gutter: tweenRotateTarget.gutter,
-        numberOfRow
-      });
-      initialTweenRotateData.offsetXCenter = tweenRotateTarget.offsetXCenter;
-      initialTweenRotateData.offsetYCenter = tweenRotateTarget.offsetYCenter;
-      tweenGridRotate.setData({ ...initialTweenRotateData });
-      modules_exports.useFrame(() => draw());
-    });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
         isActive2 = false;
@@ -34355,7 +34304,6 @@ Loading snippet ...</pre
     });
     return {
       destroy: () => {
-        unsubscribeResize();
         unWatchPause();
         ctx = null;
         offscreen = null;
@@ -34429,13 +34377,23 @@ Loading snippet ...</pre
   }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
+    let methods = {};
+    let destroy3 = () => {
+    };
     onMount(({ element }) => {
       const { canvas } = getRef();
-      const methods = animatedPatternN0Animation2({
+      methods = asyncTimelineanimation({
         canvas,
         ...getState()
       });
-      const destroy3 = methods.destroy;
+      destroy3 = methods.destroy;
+      const unsubscribeResize = modules_exports.useResize(() => {
+        methods = asyncTimelineanimation({
+          canvas,
+          ...getState()
+        });
+        destroy3 = methods.destroy;
+      });
       Object.entries(proxi.buttons).forEach(([className, value]) => {
         const { method } = value;
         const btn = element.querySelector(`.${className}`);
@@ -34445,6 +34403,7 @@ Loading snippet ...</pre
         proxi.isMounted = true;
       });
       return () => {
+        unsubscribeResize();
         destroy3();
         document.body.style.background = "";
       };

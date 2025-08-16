@@ -8,7 +8,7 @@
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
 import { canvasBackground } from '@utils/canvas-utils';
-import { animatedPatternN0Animation } from './animation/animation';
+import { asyncTimelineanimation } from './animation/animation';
 
 /**
  * @param {object} params
@@ -44,15 +44,30 @@ export const AsyncTimelineFn = ({
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
 
+    let methods = {};
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let destroy = () => {};
+
     onMount(({ element }) => {
         const { canvas } = getRef();
 
-        const methods = animatedPatternN0Animation({
+        methods = asyncTimelineanimation({
             canvas,
             ...getState(),
         });
 
-        const destroy = methods.destroy;
+        // @ts-ignore
+        destroy = methods.destroy;
+
+        const unsubscribeResize = MobCore.useResize(() => {
+            methods = asyncTimelineanimation({
+                canvas,
+                ...getState(),
+            });
+
+            // @ts-ignore
+            destroy = methods.destroy;
+        });
 
         /**
          * Inizalize controls handler.
@@ -69,6 +84,7 @@ export const AsyncTimelineFn = ({
         });
 
         return () => {
+            unsubscribeResize();
             destroy();
             document.body.style.background = '';
         };

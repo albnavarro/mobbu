@@ -10,13 +10,11 @@ import {
     createGrid,
     getCanvasContext,
     getOffsetCanvas,
-    getOffsetXCenter,
-    getOffsetYCenter,
     roundRectIsSupported,
 } from '@utils/canvas-utils';
 
 /** @type {import('../type').AsyncTimelineAnimation} */
-export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
+export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     /**
      * Check if offscrennCanvas can be used.
      */
@@ -338,81 +336,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         loop();
     });
 
-    const unsubscribeResize = MobCore.useResize(() => {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-
-        timeline.stop();
-
-        /**
-         * Update offset position to center grid in canvas.
-         */
-        data.forEach((item) => {
-            const { width, height, gutter, numberOfColumn } = item;
-
-            item.offsetXCenter = getOffsetXCenter({
-                canvasWidth: canvas.width,
-                width,
-                gutter,
-                numberOfColumn,
-            });
-
-            item.offsetYCenter = getOffsetYCenter({
-                canvasHeight: canvas.height,
-                height,
-                gutter,
-                numberOfRow,
-            });
-        });
-
-        /**
-         * Update tween & lerp data
-         */
-        tweenTarget.offsetXCenter = getOffsetXCenter({
-            canvasWidth: canvas.width,
-            width: tweenTarget.width,
-            gutter: tweenTarget.gutter,
-            numberOfColumn,
-        });
-
-        tweenTarget.offsetYCenter = getOffsetYCenter({
-            canvasHeight: canvas.height,
-            height: tweenTarget.height,
-            gutter: tweenTarget.gutter,
-            numberOfRow,
-        });
-
-        initialTweenData.offsetXCenter = tweenTarget.offsetXCenter;
-        initialTweenData.offsetYCenter = tweenTarget.offsetYCenter;
-        tweenGrid.setData({ ...initialTweenData });
-
-        /**
-         * Update fixed tween
-         */
-        tweenRotateTarget.offsetXCenter = getOffsetXCenter({
-            canvasWidth: canvas.width,
-            width: tweenRotateTarget.width,
-            gutter: tweenRotateTarget.gutter,
-            numberOfColumn,
-        });
-
-        tweenRotateTarget.offsetYCenter = getOffsetYCenter({
-            canvasHeight: canvas.height,
-            height: tweenRotateTarget.height,
-            gutter: tweenRotateTarget.gutter,
-            numberOfRow,
-        });
-
-        initialTweenRotateData.offsetXCenter = tweenRotateTarget.offsetXCenter;
-        initialTweenRotateData.offsetYCenter = tweenRotateTarget.offsetYCenter;
-        tweenGridRotate.setData({ ...initialTweenRotateData });
-
-        /**
-         * Render.
-         */
-        MobCore.useFrame(() => draw());
-    });
-
     /**
      * Pause/Resume animation on nav open.
      */
@@ -445,7 +368,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
      */
     return {
         destroy: () => {
-            unsubscribeResize();
             unWatchPause();
             ctx = null;
             offscreen = null;
