@@ -3,4 +3,5 @@ interface MobAsyncTimeline {
     repeat?: number;
     freeMode?: boolean;
     autoSet?: boolean;
+    inheritProps?: boolean;
 }

@@ -26,6 +26,7 @@ const myTimeline = MobTimeline.createAsyncTimeline({
     yoyo: true,
     freeMode: false,
     autoSet: true,
+    inheritProps: true,
 });
 
 /*
@@ -33,8 +34,7 @@ const myTimeline = MobTimeline.createAsyncTimeline({
  */
 myTimeline
     /**
-     * parallael playing.
-     * wait all tween is completed.
+     * Parallael playing. wait all tween is completed.
      */
     .createGroup({ waitComplete: true })
     .goTo(myTween, { x: 10, y: 10 }, { duration: 2000, delay: 500 })
@@ -48,8 +48,7 @@ myTimeline
     .goTo(mySpring, { x: 100, y: 200 }, { config: 'bounce' })
 
     /**
-     * Custom async function
-     * wait resolve().
+     * Custom async function wait resolve().
      */
     .addAsync(({ resolve }) => {
         setTimeout(() => {
@@ -58,8 +57,7 @@ myTimeline
     })
 
     /**
-     * parallael playing.
-     * wait first tween completed.
+     * Parallael playing. wait first tween completed.
      */
     .createGroup({ waitComplete: false })
     .goTo(myTween, { x: 300, y: 0 }, { duration: 1000 })

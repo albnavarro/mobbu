@@ -89,7 +89,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 6,
+                            "numLines": 7,
                             "useSticky": true
                         }
                     },
@@ -106,7 +106,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 8
+                            "numLines": 9
                         }
                     },
                     {
@@ -167,7 +167,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "By default, <strong>play()</strong> and <strong>playReverse()</strong> reset tweens to initial/final values ( <strong>not every loop</strong> like AutoSet ).<br/> <strong>freeMode: true</strong> disables this behavior, allowing multiple timelines to control the same tweens from their current values.<br/><em>Default: false</em>"
+                        "content": "By default, <strong>play()</strong> and <strong>playReverse()</strong> reset tweens to their initial/final values by performing <strong>set actions</strong>, but without adding them to the timeline (<strong>unlike AutoSet</strong>, which applies them every cycle). freeMode <strong>disables</strong> this behavior"
                     },
                     {
                         "component": "mob-spacer",
@@ -187,7 +187,33 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When <strong>true</strong>, permanently adds reset commands at the timeline's start/end points. Ensures consistent restart positions during loops."
+                        "content": "If set to <strong>true</strong>, it permanently adds <strong>set</strong> actions at the <strong>start/end</strong> points of the timeline, forcing the positions and preventing tweens from exceeding the timeline's length."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "inheritProps:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "When <strong>true</strong>, it allows <strong>inheriting unspecified properties</strong> for the current tween from <strong>previous steps</strong> and <strong>merges</strong> them with those defined by the user."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
                     },
                     {
                         "component": "mob-paragraph",
@@ -196,7 +222,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "AutoSet is a very <strong>important</strong> parameter. It is active by default and automatically adds one or more steps at the beginning and end of the timeline. Essentially, for each tween, a dedicated set will be added, allowing the <strong>values to align with the expected ones at every start/end of the loop</strong>. However, it may not always be necessary—for example, if the timeline ends with a group ( <strong>waitcomplete: false</strong> ) and you want longer tweens to continue even after the timeline has technically ended, AutoSet won’t be needed in that case."
+                        "content": "<strong>autoSet</strong> and <strong>inheritProps</strong> are set to <strong>true</strong> by default, ensuring greater <strong>safety</strong> in most cases. However, they also make the timeline <strong>more rigid</strong> and less capable of breaking out of conventional patterns. These settings can be adjusted deliberately—for example, to achieve continuous <a href='#animatedPatternN0?version=0&activeId=0'><strong>motion effects</strong></a> with staggers, you need to <strong>disable autoSet</strong>.<br/><strong>freeMode</strong> is unlikely to be changed from its default value ( <strong>false</strong> ), but it can still be manually controlled if needed."
                     },
                     {
                         "component": "mob-spacer",
@@ -224,7 +250,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 73
+                            "numLines": 71
                         }
                     },
                     {
