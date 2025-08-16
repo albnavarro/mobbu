@@ -295,22 +295,18 @@ export const caterpillarN2Animation = ({
             squareData = [];
         },
         play: () => {
-            syncTimeline.stop();
             syncTimeline.play();
         },
         playReverse: () => {
-            syncTimeline.stop();
             syncTimeline.playReverse();
         },
         playUseCurrent: () => syncTimeline.play({ useCurrent: true }),
         playReverseUseCurrent: () =>
             syncTimeline.playReverse({ useCurrent: true }),
         playFromLabel: () => {
-            syncTimeline.stop();
             syncTimeline.playFrom('mylabel');
         },
         plaFromLabelReverse: () => {
-            syncTimeline.stop();
             syncTimeline.playFromReverse('mylabel');
         },
         stop: () => syncTimeline.stop(),
