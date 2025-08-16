@@ -83,15 +83,15 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     };
 
     /**
-     * Create date for tweens
+     * Create data for single tweens
      */
-    const initialTweenData = {
+    const initialTweenAroundData = {
         ...getCoordinate({ row: 1, col: 1 }),
         scale: 1,
         rotate: 0,
     };
 
-    let tweenTarget = initialTweenData;
+    let tweenAroundTarget = initialTweenAroundData;
 
     const initialTweenRotateData = {
         ...getCoordinate({ row: 4, col: 5 }),
@@ -104,8 +104,18 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     /**
      * Create tween
      */
+
     let tweenGrid = MobTween.createTimeTween({
-        data: tweenTarget,
+        ease: 'easeInOutQuad',
+        stagger: {
+            each: 10,
+            from: 'random',
+        },
+        data: { scale: 1, rotate: 0 },
+    });
+
+    let tweenAround = MobTween.createTimeTween({
+        data: tweenAroundTarget,
         duration: 1000,
         ease: 'easeInOutBack',
     });
@@ -117,8 +127,15 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     /**
      * Subscribe tweens
      */
-    tweenGrid.subscribe((data) => {
-        tweenTarget = data;
+    data.forEach((item) => {
+        tweenGrid.subscribeCache(item, ({ scale, rotate }) => {
+            item.rotate = rotate;
+            item.scale = scale;
+        });
+    });
+
+    tweenAround.subscribe((data) => {
+        tweenAroundTarget = data;
     });
 
     tweenGridRotate.subscribe((data) => {
@@ -126,7 +143,21 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     });
 
     /**
-     * Create timeline
+     * Create grid timeline
+     */
+    let gridTimeline = MobTimeline.createAsyncTimeline({
+        repeat: -1,
+        autoSet: false,
+    });
+
+    gridTimeline
+        .goTo(tweenGrid, { scale: 0.2, rotate: 90 }, { duration: 1000 })
+        .goTo(tweenGrid, { rotate: 180, scale: 1.2 }, { duration: 500 })
+        .goTo(tweenGrid, { scale: 1.3 }, { duration: 500 })
+        .goTo(tweenGrid, { scale: 1 }, { duration: 1200 });
+
+    /**
+     * Create single item timeline
      */
     let timeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
@@ -135,18 +166,28 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     });
 
     timeline
-        .goTo(tweenGrid, {
+        .goTo(tweenAround, {
             x: getCoordinate({ row: 1, col: 8 }).x,
             rotate: 360,
             scale: 2,
         })
-        .goTo(tweenGrid, {
+        .createGroup({ waitComplete: false })
+        .goTo(tweenAround, {
             y: getCoordinate({ row: 8, col: 8 }).y,
             rotate: 180,
         })
+        .goTo(
+            tweenGridRotate,
+            {
+                scale: 4,
+                y: getCoordinate({ row: 0, col: 8 }).y,
+            },
+            { delay: 500 }
+        )
+        .closeGroup()
         .label({ name: 'my-label' })
         .createGroup({ waitComplete: false })
-        .goTo(tweenGrid, {
+        .goTo(tweenAround, {
             x: getCoordinate({ row: 8, col: 1 }).x,
             rotate: 0,
             scale: 1,
@@ -157,12 +198,12 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                 rotate: 360,
                 scale: 3,
             },
-            { delay: 500 }
+            { delay: 0 }
         )
         .closeGroup()
         .createGroup({ waitComplete: false })
         .goTo(
-            tweenGrid,
+            tweenAround,
             { y: getCoordinate({ row: 1, col: 1 }).y, rotate: -180 },
             { duration: 1000 }
         )
@@ -170,6 +211,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             tweenGridRotate,
             {
                 rotate: 0,
+                y: getCoordinate({ row: 8, col: 8 }).y,
                 scale: 1,
             },
             { delay: 200 }
@@ -306,14 +348,14 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
          * Tween1
          */
         drawItem({
-            x: tweenTarget.x,
-            y: tweenTarget.y,
-            width: tweenTarget.width,
-            height: tweenTarget.height,
-            rotate: tweenTarget.rotate,
-            scale: tweenTarget.scale,
-            offsetXCenter: tweenTarget.offsetXCenter,
-            offsetYCenter: tweenTarget.offsetYCenter,
+            x: tweenAroundTarget.x,
+            y: tweenAroundTarget.y,
+            width: tweenAroundTarget.width,
+            height: tweenAroundTarget.height,
+            rotate: tweenAroundTarget.rotate,
+            scale: tweenAroundTarget.scale,
+            offsetXCenter: tweenAroundTarget.offsetXCenter,
+            offsetYCenter: tweenAroundTarget.offsetYCenter,
             context,
             fill: '#000000',
         });
@@ -396,38 +438,49 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             isActive = false;
 
             tweenGrid.destroy();
+            tweenAround.destroy();
             tweenGridRotate.destroy();
             timeline.destroy();
+            gridTimeline.destroy();
 
             // @ts-ignore
             tweenGrid = null;
             // @ts-ignore
+            tweenAround = null;
+            // @ts-ignore
             tweenGridRotate = null;
             // @ts-ignore
             timeline = null;
+
+            // @ts-ignore
+            gridTimeline = null;
         },
         play: () => {
             timeline.play();
+            gridTimeline.play();
         },
         playReverse: () => {
             timeline.playReverse();
+            gridTimeline.play();
         },
         playFromLabel: () => {
             timeline
-                .setTween('my-label', [tweenGrid, tweenGridRotate])
+                .setTween('my-label', [tweenAround, tweenGridRotate])
                 .then(() => {
                     timeline.playFrom('my-label').then(() => {
                         console.log('resolve promise playFrom');
                     });
+                    gridTimeline.play();
                 });
         },
         playFromLabelReverse: () => {
             timeline
-                .setTween('my-label', [tweenGrid, tweenGridRotate])
+                .setTween('my-label', [tweenAround, tweenGridRotate])
                 .then(() => {
                     timeline.playFromReverse('my-label').then(() => {
                         console.log('resolve promise playFrom');
                     });
+                    gridTimeline.play();
                 });
         },
         revertNext: () => {
@@ -435,12 +488,15 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         },
         pause: () => {
             timeline.pause();
+            gridTimeline.pause();
         },
         resume: () => {
             timeline.resume();
+            gridTimeline.resume();
         },
         stop: () => {
             timeline.stop();
+            gridTimeline.stop();
         },
     };
 };

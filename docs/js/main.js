@@ -34172,12 +34172,12 @@ Loading snippet ...</pre
       const rowIndex = (numberOfColumn + 1) * row;
       return data[rowIndex + col];
     };
-    const initialTweenData = {
+    const initialTweenAroundData = {
       ...getCoordinate({ row: 1, col: 1 }),
       scale: 1,
       rotate: 0
     };
-    let tweenTarget = initialTweenData;
+    let tweenAroundTarget = initialTweenAroundData;
     const initialTweenRotateData = {
       ...getCoordinate({ row: 4, col: 5 }),
       scale: 1,
@@ -34185,32 +34185,58 @@ Loading snippet ...</pre
     };
     let tweenRotateTarget = initialTweenRotateData;
     let tweenGrid = tween_exports.createTimeTween({
-      data: tweenTarget,
+      ease: "easeInOutQuad",
+      stagger: {
+        each: 10,
+        from: "random"
+      },
+      data: { scale: 1, rotate: 0 }
+    });
+    let tweenAround = tween_exports.createTimeTween({
+      data: tweenAroundTarget,
       duration: 1e3,
       ease: "easeInOutBack"
     });
     let tweenGridRotate = tween_exports.createSpring({
       data: tweenRotateTarget
     });
-    tweenGrid.subscribe((data2) => {
-      tweenTarget = data2;
+    data.forEach((item) => {
+      tweenGrid.subscribeCache(item, ({ scale, rotate }) => {
+        item.rotate = rotate;
+        item.scale = scale;
+      });
+    });
+    tweenAround.subscribe((data2) => {
+      tweenAroundTarget = data2;
     });
     tweenGridRotate.subscribe((data2) => {
       tweenRotateTarget = data2;
     });
+    let gridTimeline = timeline_exports.createAsyncTimeline({
+      repeat: -1,
+      autoSet: false
+    });
+    gridTimeline.goTo(tweenGrid, { scale: 0.2, rotate: 90 }, { duration: 1e3 }).goTo(tweenGrid, { rotate: 180, scale: 1.2 }, { duration: 500 }).goTo(tweenGrid, { scale: 1.3 }, { duration: 500 }).goTo(tweenGrid, { scale: 1 }, { duration: 1200 });
     let timeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
       yoyo: true,
       autoSet: false
     });
-    timeline.goTo(tweenGrid, {
+    timeline.goTo(tweenAround, {
       x: getCoordinate({ row: 1, col: 8 }).x,
       rotate: 360,
       scale: 2
-    }).goTo(tweenGrid, {
+    }).createGroup({ waitComplete: false }).goTo(tweenAround, {
       y: getCoordinate({ row: 8, col: 8 }).y,
       rotate: 180
-    }).label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenGrid, {
+    }).goTo(
+      tweenGridRotate,
+      {
+        scale: 4,
+        y: getCoordinate({ row: 0, col: 8 }).y
+      },
+      { delay: 500 }
+    ).closeGroup().label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenAround, {
       x: getCoordinate({ row: 8, col: 1 }).x,
       rotate: 0,
       scale: 1
@@ -34220,15 +34246,16 @@ Loading snippet ...</pre
         rotate: 360,
         scale: 3
       },
-      { delay: 500 }
+      { delay: 0 }
     ).closeGroup().createGroup({ waitComplete: false }).goTo(
-      tweenGrid,
+      tweenAround,
       { y: getCoordinate({ row: 1, col: 1 }).y, rotate: -180 },
       { duration: 1e3 }
     ).goTo(
       tweenGridRotate,
       {
         rotate: 0,
+        y: getCoordinate({ row: 8, col: 8 }).y,
         scale: 1
       },
       { delay: 200 }
@@ -34317,14 +34344,14 @@ Loading snippet ...</pre
         }
       );
       drawItem({
-        x: tweenTarget.x,
-        y: tweenTarget.y,
-        width: tweenTarget.width,
-        height: tweenTarget.height,
-        rotate: tweenTarget.rotate,
-        scale: tweenTarget.scale,
-        offsetXCenter: tweenTarget.offsetXCenter,
-        offsetYCenter: tweenTarget.offsetYCenter,
+        x: tweenAroundTarget.x,
+        y: tweenAroundTarget.y,
+        width: tweenAroundTarget.width,
+        height: tweenAroundTarget.height,
+        rotate: tweenAroundTarget.rotate,
+        scale: tweenAroundTarget.scale,
+        offsetXCenter: tweenAroundTarget.offsetXCenter,
+        offsetYCenter: tweenAroundTarget.offsetYCenter,
         context: context2,
         fill: "#000000"
       });
@@ -34372,30 +34399,38 @@ Loading snippet ...</pre
         data = [];
         isActive2 = false;
         tweenGrid.destroy();
+        tweenAround.destroy();
         tweenGridRotate.destroy();
         timeline.destroy();
+        gridTimeline.destroy();
         tweenGrid = null;
+        tweenAround = null;
         tweenGridRotate = null;
         timeline = null;
+        gridTimeline = null;
       },
       play: () => {
         timeline.play();
+        gridTimeline.play();
       },
       playReverse: () => {
         timeline.playReverse();
+        gridTimeline.play();
       },
       playFromLabel: () => {
-        timeline.setTween("my-label", [tweenGrid, tweenGridRotate]).then(() => {
+        timeline.setTween("my-label", [tweenAround, tweenGridRotate]).then(() => {
           timeline.playFrom("my-label").then(() => {
             console.log("resolve promise playFrom");
           });
+          gridTimeline.play();
         });
       },
       playFromLabelReverse: () => {
-        timeline.setTween("my-label", [tweenGrid, tweenGridRotate]).then(() => {
+        timeline.setTween("my-label", [tweenAround, tweenGridRotate]).then(() => {
           timeline.playFromReverse("my-label").then(() => {
             console.log("resolve promise playFrom");
           });
+          gridTimeline.play();
         });
       },
       revertNext: () => {
@@ -34403,12 +34438,15 @@ Loading snippet ...</pre
       },
       pause: () => {
         timeline.pause();
+        gridTimeline.pause();
       },
       resume: () => {
         timeline.resume();
+        gridTimeline.resume();
       },
       stop: () => {
         timeline.stop();
+        gridTimeline.stop();
       }
     };
   };
@@ -34453,6 +34491,7 @@ Loading snippet ...</pre
           ...getState()
         });
         destroy3 = methods.destroy;
+        methods.play();
       });
       Object.entries(proxi.buttons).forEach(([className, value]) => {
         const { method } = value;
@@ -34462,6 +34501,7 @@ Loading snippet ...</pre
       modules_exports.useFrame(() => {
         proxi.isMounted = true;
       });
+      methods.play();
       return () => {
         unsubscribeResize();
         destroy3();

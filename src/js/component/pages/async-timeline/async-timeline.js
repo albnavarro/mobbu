@@ -67,6 +67,9 @@ export const AsyncTimelineFn = ({
 
             // @ts-ignore
             destroy = methods.destroy;
+
+            // @ts-ignore
+            methods.play();
         });
 
         /**
@@ -82,6 +85,9 @@ export const AsyncTimelineFn = ({
         MobCore.useFrame(() => {
             proxi.isMounted = true;
         });
+
+        // @ts-ignore
+        methods.play();
 
         return () => {
             unsubscribeResize();
