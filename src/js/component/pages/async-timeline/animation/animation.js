@@ -87,7 +87,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Create date for tweens
      */
-
     const initialTweenData = {
         ...getCoordinate({ row: 1, col: 1 }),
         scale: 1,
@@ -113,11 +112,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         ease: 'easeInOutBack',
     });
 
-    let springGrid = MobTween.createSpring({
-        data: tweenTarget,
-        config: 'wobbly',
-    });
-
     let tweenGridRotate = MobTween.createTimeTween({
         data: tweenRotateTarget,
         duration: 1000,
@@ -131,10 +125,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         tweenTarget = data;
     });
 
-    springGrid.subscribe((data) => {
-        tweenTarget = data;
-    });
-
     tweenGridRotate.subscribe((data) => {
         tweenRotateTarget = data;
     });
@@ -145,15 +135,15 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
     let timeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         yoyo: true,
+        autoSet: true,
     });
 
     timeline
-        .goTo(springGrid, {
+        .goTo(tweenGrid, {
             x: () => getCoordinate({ row: 1, col: 8 }).x,
             rotate: 360,
         })
-        .goTo(springGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y })
-        .sync({ from: springGrid, to: tweenGrid })
+        .goTo(tweenGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y })
         .label({ name: 'my-label' })
         .createGroup({ waitComplete: false })
         .goTo(tweenGrid, {
@@ -167,11 +157,7 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
             },
             { delay: 500 }
         )
-        .closeGroup()
-        .goTo(tweenGrid, {
-            y: () => getCoordinate({ row: 4, col: 1 }).y,
-            rotate: 0,
-        });
+        .closeGroup();
 
     /**
      * @param {object} params
@@ -399,7 +385,6 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         initialTweenData.offsetXCenter = tweenTarget.offsetXCenter;
         initialTweenData.offsetYCenter = tweenTarget.offsetYCenter;
         tweenGrid.setData({ ...initialTweenData });
-        springGrid.setData({ ...initialTweenData });
 
         /**
          * Update fixed tween
@@ -470,14 +455,11 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
             isActive = false;
 
             tweenGrid.destroy();
-            springGrid.destroy();
             tweenGridRotate.destroy();
             timeline.destroy();
 
             // @ts-ignore
             tweenGrid = null;
-            // @ts-ignore
-            springGrid = null;
             // @ts-ignore
             tweenGridRotate = null;
             // @ts-ignore
@@ -491,7 +473,7 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         },
         playFromLabel: () => {
             timeline
-                .setTween('my-label', [tweenGrid, springGrid, tweenGridRotate])
+                .setTween('my-label', [tweenGrid, tweenGridRotate])
                 .then(() => {
                     timeline.playFrom('my-label').then(() => {
                         console.log('resolve promise playFrom');
@@ -500,7 +482,7 @@ export const animatedPatternN0Animation = ({ canvas, disableOffcanvas }) => {
         },
         playFromLabelReverse: () => {
             timeline
-                .setTween('my-label', [tweenGrid, springGrid, tweenGridRotate])
+                .setTween('my-label', [tweenGrid, tweenGridRotate])
                 .then(() => {
                     timeline.playFromReverse('my-label').then(() => {
                         console.log('resolve promise playFrom');

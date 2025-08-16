@@ -277,7 +277,7 @@ export default class MobAsyncTimeline {
         this.#autoSet = valueIsBooleanAndReturnDefault(
             data?.autoSet,
             'asyncTimeline: autoSet',
-            false
+            true
         );
         this.#tweenList = [];
         this.#currentTween = [];
@@ -294,40 +294,6 @@ export default class MobAsyncTimeline {
             prevValueSettled: false,
             tweenProps: {},
             groupProps: {},
-            syncProp: {
-                to: {
-                    getId: () => '',
-                    set: () => Promise.resolve(),
-                    setImmediate: () => {},
-                    goTo: () => Promise.resolve(),
-                    goFrom: () => Promise.resolve(),
-                    goFromTo: () => Promise.resolve(),
-                    getToNativeType: () => ({ a: 1 }),
-                    destroy: () => {},
-                    onStartInPause: () => {},
-                    resetData: () => {},
-                    getInitialData: () => ({ a: 1 }),
-                    stop: () => {},
-                    pause: () => {},
-                    resume: () => {},
-                },
-                from: {
-                    getId: () => '',
-                    set: () => Promise.resolve(),
-                    setImmediate: () => {},
-                    goTo: () => Promise.resolve(),
-                    goFrom: () => Promise.resolve(),
-                    goFromTo: () => Promise.resolve(),
-                    getToNativeType: () => ({ a: 1 }),
-                    destroy: () => {},
-                    onStartInPause: () => {},
-                    resetData: () => {},
-                    getInitialData: () => ({ a: 1 }),
-                    stop: () => {},
-                    pause: () => {},
-                    resume: () => {},
-                },
-            },
             labelProps: {},
         };
         this.#useLabel = {
@@ -442,7 +408,6 @@ export default class MobAsyncTimeline {
                 valuesFrom,
                 valuesTo,
                 tweenProps,
-                syncProp,
                 id,
             } = data;
 
@@ -549,14 +514,6 @@ export default class MobAsyncTimeline {
                         valuesTo,
                         newTweenProps
                     );
-                },
-                sync: () => {
-                    return new Promise((res) => {
-                        const { from, to } = syncProp;
-                        to?.set(from?.getToNativeType(), {
-                            immediate: true,
-                        }).then(() => res({ resolve: true }));
-                    });
                 },
                 add: () => {
                     /*
@@ -1048,11 +1005,9 @@ export default class MobAsyncTimeline {
         this.#tweenList = this.#tweenList.reverse().map((group) => {
             return group.reverse().map((item) => {
                 const { data } = item;
-                const { action, valuesFrom, syncProp, prevValueTo, valuesTo } =
-                    data;
+                const { action, valuesFrom, prevValueTo, valuesTo } = data;
 
                 const currentValueTo = valuesTo;
-                const { from, to } = syncProp;
 
                 switch (action) {
                     case 'goTo': {
@@ -1073,20 +1028,6 @@ export default class MobAsyncTimeline {
                                 ...data,
                                 valuesFrom: valuesTo,
                                 valuesTo: valuesFrom,
-                            },
-                        };
-                    }
-
-                    case 'sync': {
-                        return {
-                            ...item,
-                            data: {
-                                ...data,
-                                syncProp: {
-                                    ...syncProp,
-                                    from: to,
-                                    to: from,
-                                },
                             },
                         };
                     }
@@ -1294,38 +1235,6 @@ export default class MobAsyncTimeline {
             callback,
             action: 'addAsync',
             groupProps: { waitComplete: this.#waitComplete },
-        };
-
-        this.#currentTweenCounter++;
-        const mergedObj = { ...this.#defaultObj, ...obj };
-        this.#addToMainArray(mergedObj);
-        return this;
-    }
-
-    /**
-     * @type {import('./type.js').AsyncTimelineSync}
-     */
-    sync(syncProp) {
-        /**
-         * Can't add this interpolation inside a group. groupId props is not null when active.
-         */
-        if (this.#groupId) {
-            asyncTimelineMetodsInsideGroupWarining('sync');
-            return this;
-        }
-
-        /*
-         * Check if from and to is a tween
-         */
-        const fromIsTween = asyncTimelineTweenIsValid(syncProp?.from);
-        const toIsTween = asyncTimelineTweenIsValid(syncProp?.to);
-        if (!toIsTween || !fromIsTween) return this;
-
-        const obj = {
-            id: this.#currentTweenCounter,
-            action: 'sync',
-            groupProps: { waitComplete: this.#waitComplete },
-            syncProp,
         };
 
         this.#currentTweenCounter++;

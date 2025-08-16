@@ -71,10 +71,6 @@ export interface AsyncTimelineRowData {
     labelProps: { name?: string };
     prevValueSettled: boolean;
     prevValueTo: Record<string, number | (() => number)>;
-    syncProp: {
-        from: AsyncTimelineTween;
-        to: AsyncTimelineTween;
-    };
     tween?: AsyncTimelineTween;
     callback: (arg0?: any) => any;
     tweenProps: AsyncTimelineTypeSpecialProps;
@@ -124,7 +120,7 @@ export type AsyncTimelineAddTweenToStore = (tween: AsyncTimelineTween) => void;
 export type AsyncTimelineSet = (
     tween: AsyncTimelineTween,
     valuesSet: Record<string, number>,
-    tweenProps: AsyncTimelineTypeSpecialProps
+    tweenProps?: AsyncTimelineTypeSpecialProps
 ) => MobAsyncTimeline;
 
 export type AsyncTimelineGoTo = (
@@ -136,22 +132,20 @@ export type AsyncTimelineGoTo = (
 export type AsyncTimelineGoFrom = (
     tween: AsyncTimelineTween,
     valuesFrom: Record<string, number | (() => number)>,
-    tweenProps: AsyncTimelineTypeSpecialProps
+    tweenProps?: AsyncTimelineTypeSpecialProps
 ) => MobAsyncTimeline;
 
 export type AsyncTimelineGoFromTo = (
     tween: AsyncTimelineTween,
     valuesFrom: Record<string, number | (() => number)>,
     valuesTo: Record<string, number | (() => number)>,
-    tweenProps: AsyncTimelineTypeSpecialProps
+    tweenProps?: AsyncTimelineTypeSpecialProps
 ) => MobAsyncTimeline;
 
 export type AsyncTimelineAdd = (arg0: () => void) => globalThis;
 export type AsyncTimelineAddAsync = (
     fn: (arg0: DirectionTypeAsync) => void
 ) => MobAsyncTimeline;
-
-export type AsyncTimelineSync = ({ from: any, to: any }) => MobAsyncTimeline;
 
 export type AsyncTimelineCreateGroup = (groupProps?: {
     waitComplete?: boolean;

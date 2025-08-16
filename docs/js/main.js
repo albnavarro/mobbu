@@ -16210,25 +16210,9 @@
 
   // src/js/mob/mob-motion/animation/async-timeline/reduce-tween-until-index.js
   var reduceTweenUntilIndex = ({ timeline, tween: tween2, index }) => {
-    let currentId = tween2?.getId?.();
+    const currentId = tween2?.getId?.();
     const initialData = tween2?.getInitialData?.() || {};
     return timeline.slice(0, index).reduce((previous, current) => {
-      const currentFirstData = current[0].data;
-      const action2 = currentFirstData.action;
-      if (action2 === "sync") {
-        const syncProp = currentFirstData?.syncProp;
-        const from = {
-          // tween: syncProp.from,
-          id: syncProp.from?.getId?.()
-        };
-        const to = {
-          tween: syncProp.to,
-          id: syncProp.to?.getId?.()
-        };
-        if (from.id === currentId) {
-          currentId = to.id;
-        }
-      }
       const currentTween = current.find(({ data }) => {
         const uniqueId = data?.tween?.getId?.();
         return uniqueId === currentId;
@@ -16487,7 +16471,7 @@
       this.#autoSet = valueIsBooleanAndReturnDefault(
         data?.autoSet,
         "asyncTimeline: autoSet",
-        false
+        true
       );
       this.#tweenList = [];
       this.#currentTween = [];
@@ -16505,54 +16489,6 @@
         prevValueSettled: false,
         tweenProps: {},
         groupProps: {},
-        syncProp: {
-          to: {
-            getId: () => "",
-            set: () => Promise.resolve(),
-            setImmediate: () => {
-            },
-            goTo: () => Promise.resolve(),
-            goFrom: () => Promise.resolve(),
-            goFromTo: () => Promise.resolve(),
-            getToNativeType: () => ({ a: 1 }),
-            destroy: () => {
-            },
-            onStartInPause: () => {
-            },
-            resetData: () => {
-            },
-            getInitialData: () => ({ a: 1 }),
-            stop: () => {
-            },
-            pause: () => {
-            },
-            resume: () => {
-            }
-          },
-          from: {
-            getId: () => "",
-            set: () => Promise.resolve(),
-            setImmediate: () => {
-            },
-            goTo: () => Promise.resolve(),
-            goFrom: () => Promise.resolve(),
-            goFromTo: () => Promise.resolve(),
-            getToNativeType: () => ({ a: 1 }),
-            destroy: () => {
-            },
-            onStartInPause: () => {
-            },
-            resetData: () => {
-            },
-            getInitialData: () => ({ a: 1 }),
-            stop: () => {
-            },
-            pause: () => {
-            },
-            resume: () => {
-            }
-          }
-        },
         labelProps: {}
       };
       this.#useLabel = {
@@ -16629,7 +16565,6 @@
           valuesFrom,
           valuesTo,
           tweenProps,
-          syncProp,
           id
         } = data;
         const newTweenProps = { ...tweenProps };
@@ -16689,14 +16624,6 @@
               valuesTo,
               newTweenProps
             );
-          },
-          sync: () => {
-            return new Promise((res) => {
-              const { from, to } = syncProp;
-              to?.set(from?.getToNativeType(), {
-                immediate: true
-              }).then(() => res({ resolve: true }));
-            });
           },
           add: () => {
             if (prevActionIsCurrent) {
@@ -17000,9 +16927,8 @@
       this.#tweenList = this.#tweenList.reverse().map((group) => {
         return group.reverse().map((item) => {
           const { data } = item;
-          const { action: action2, valuesFrom, syncProp, prevValueTo, valuesTo } = data;
+          const { action: action2, valuesFrom, prevValueTo, valuesTo } = data;
           const currentValueTo = valuesTo;
-          const { from, to } = syncProp;
           switch (action2) {
             case "goTo": {
               return {
@@ -17021,19 +16947,6 @@
                   ...data,
                   valuesFrom: valuesTo,
                   valuesTo: valuesFrom
-                }
-              };
-            }
-            case "sync": {
-              return {
-                ...item,
-                data: {
-                  ...data,
-                  syncProp: {
-                    ...syncProp,
-                    from: to,
-                    to: from
-                  }
                 }
               };
             }
@@ -17204,28 +17117,6 @@
         callback: callback2,
         action: "addAsync",
         groupProps: { waitComplete: this.#waitComplete }
-      };
-      this.#currentTweenCounter++;
-      const mergedObj = { ...this.#defaultObj, ...obj };
-      this.#addToMainArray(mergedObj);
-      return this;
-    }
-    /**
-     * @type {import('./type.js').AsyncTimelineSync}
-     */
-    sync(syncProp) {
-      if (this.#groupId) {
-        asyncTimelineMetodsInsideGroupWarining("sync");
-        return this;
-      }
-      const fromIsTween = asyncTimelineTweenIsValid(syncProp?.from);
-      const toIsTween = asyncTimelineTweenIsValid(syncProp?.to);
-      if (!toIsTween || !fromIsTween) return this;
-      const obj = {
-        id: this.#currentTweenCounter,
-        action: "sync",
-        groupProps: { waitComplete: this.#waitComplete },
-        syncProp
       };
       this.#currentTweenCounter++;
       const mergedObj = { ...this.#defaultObj, ...obj };
@@ -34254,10 +34145,6 @@ Loading snippet ...</pre
       duration: 1e3,
       ease: "easeInOutBack"
     });
-    let springGrid = tween_exports.createSpring({
-      data: tweenTarget,
-      config: "wobbly"
-    });
     let tweenGridRotate = tween_exports.createTimeTween({
       data: tweenRotateTarget,
       duration: 1e3,
@@ -34266,20 +34153,18 @@ Loading snippet ...</pre
     tweenGrid.subscribe((data2) => {
       tweenTarget = data2;
     });
-    springGrid.subscribe((data2) => {
-      tweenTarget = data2;
-    });
     tweenGridRotate.subscribe((data2) => {
       tweenRotateTarget = data2;
     });
     let timeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
-      yoyo: true
+      yoyo: true,
+      autoSet: true
     });
-    timeline.goTo(springGrid, {
+    timeline.goTo(tweenGrid, {
       x: () => getCoordinate({ row: 1, col: 8 }).x,
       rotate: 360
-    }).goTo(springGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y }).sync({ from: springGrid, to: tweenGrid }).label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenGrid, {
+    }).goTo(tweenGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y }).label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenGrid, {
       x: () => getCoordinate({ row: 8, col: 1 }).x,
       rotate: 0
     }).goTo(
@@ -34288,10 +34173,7 @@ Loading snippet ...</pre
         rotate: 360
       },
       { delay: 500 }
-    ).closeGroup().goTo(tweenGrid, {
-      y: () => getCoordinate({ row: 4, col: 1 }).y,
-      rotate: 0
-    });
+    ).closeGroup();
     const drawItem = ({
       x,
       y,
@@ -34443,7 +34325,6 @@ Loading snippet ...</pre
       initialTweenData.offsetXCenter = tweenTarget.offsetXCenter;
       initialTweenData.offsetYCenter = tweenTarget.offsetYCenter;
       tweenGrid.setData({ ...initialTweenData });
-      springGrid.setData({ ...initialTweenData });
       tweenRotateTarget.offsetXCenter = getOffsetXCenter({
         canvasWidth: canvas.width,
         width: tweenRotateTarget.width,
@@ -34484,11 +34365,9 @@ Loading snippet ...</pre
         data = [];
         isActive2 = false;
         tweenGrid.destroy();
-        springGrid.destroy();
         tweenGridRotate.destroy();
         timeline.destroy();
         tweenGrid = null;
-        springGrid = null;
         tweenGridRotate = null;
         timeline = null;
       },
@@ -34499,14 +34378,14 @@ Loading snippet ...</pre
         timeline.playReverse();
       },
       playFromLabel: () => {
-        timeline.setTween("my-label", [tweenGrid, springGrid, tweenGridRotate]).then(() => {
+        timeline.setTween("my-label", [tweenGrid, tweenGridRotate]).then(() => {
           timeline.playFrom("my-label").then(() => {
             console.log("resolve promise playFrom");
           });
         });
       },
       playFromLabelReverse: () => {
-        timeline.setTween("my-label", [tweenGrid, springGrid, tweenGridRotate]).then(() => {
+        timeline.setTween("my-label", [tweenGrid, tweenGridRotate]).then(() => {
           timeline.playFromReverse("my-label").then(() => {
             console.log("resolve promise playFrom");
           });

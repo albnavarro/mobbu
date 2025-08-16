@@ -425,38 +425,6 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "big",
-                            "id": "sync",
-                            "label": "sync"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h5"
-                        },
-                        "content": "sync"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Synchronizes values between tweens. <em>Not usable within groups.</em>"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-motion/async-timeline-sync.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 18
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
                             "id": "createGroup",
                             "label": "create/closeGroup"
                         }
