@@ -12703,7 +12703,7 @@
      */
     #onReuqestAnim(time2, fps2) {
       this.#values = [...this.#values].map((item) => {
-        return { ...item, currentValue: item.fromValue };
+        return { ...item };
       });
       this.#draw(time2, fps2);
     }
@@ -12772,6 +12772,22 @@
         (time2, fps2) => this.#onReuqestAnim(time2, fps2),
         () => this.pause()
       );
+    }
+    /**
+     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
+     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
+     * isRunning back to true
+     *
+     * @returns {void}
+     */
+    clearCurretPromise() {
+      if (this.#currentReject) {
+        this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
+        this.#currentPromise = void 0;
+        this.#currentReject = void 0;
+        this.#currentResolve = void 0;
+        this.#isRunning = false;
+      }
     }
     /**
      * @type {import('./type.js').LerpStop}
@@ -14836,6 +14852,22 @@
       );
     }
     /**
+     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
+     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
+     * isRunning back to true
+     *
+     * @returns {void}
+     */
+    clearCurretPromise() {
+      if (this.#currentReject) {
+        this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
+        this.#currentPromise = void 0;
+        this.#currentReject = void 0;
+        this.#currentResolve = void 0;
+        this.#isRunning = false;
+      }
+    }
+    /**
      * @type {import('./type.js').SpringStop}
      */
     stop({ clearCache = true, updateValues = true } = {}) {
@@ -15619,6 +15651,14 @@
         (time2) => this.#onReuqestAnim(time2),
         () => this.pause()
       );
+    }
+    /**
+     * TimeTween doasn/t need this method. It use always from/to value. Spring/lerp use only to value to be reactive,
+     * See that tween for reference.
+     *
+     * @returns {void}
+     */
+    clearCurretPromise() {
     }
     /**
      * @type {import('./type.js').TimeTweenStop}
@@ -16584,7 +16624,6 @@
         );
         const fn = {
           set: () => {
-            if (tween2?.isActive?.()) tween2?.stop?.();
             return tween2?.[
               /** @type {'set'} */
               action2
@@ -16594,7 +16633,6 @@
             );
           },
           goTo: () => {
-            if (tween2?.isActive?.()) tween2?.stop?.();
             return tween2?.[
               /** @type {'goTo'} */
               action2
@@ -16604,7 +16642,6 @@
             );
           },
           goFrom: () => {
-            if (tween2?.isActive?.()) tween2?.stop?.();
             return tween2?.[
               /** @type {'goFrom'} */
               action2
@@ -16614,7 +16651,6 @@
             );
           },
           goFromTo: () => {
-            if (tween2?.isActive?.()) tween2?.stop?.();
             return tween2?.[
               /** @type {'goFromTo'} */
               action2
@@ -16734,6 +16770,11 @@
       const promiseType = waitComplete ? "all" : "race";
       Promise[promiseType](tweenPromises).then(() => {
         if (this.#isInSuspension || this.#isStopped) return;
+        if (promiseType === "race") {
+          this.#tweenStore.forEach(({ tween: tween2 }) => {
+            tween2?.clearCurretPromise?.();
+          });
+        }
         const {
           active: labelIsActive,
           index: labelIndex,

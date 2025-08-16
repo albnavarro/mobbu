@@ -334,7 +334,7 @@ export default class MobLerp {
      */
     #onReuqestAnim(time, fps) {
         this.#values = [...this.#values].map((item) => {
-            return { ...item, currentValue: item.fromValue };
+            return { ...item };
         });
 
         this.#draw(time, fps);
@@ -424,6 +424,23 @@ export default class MobLerp {
             (time, fps) => this.#onReuqestAnim(time, fps),
             () => this.pause()
         );
+    }
+
+    /**
+     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
+     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
+     * isRunning back to true
+     *
+     * @returns {void}
+     */
+    clearCurretPromise() {
+        if (this.#currentReject) {
+            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
+            this.#currentPromise = undefined;
+            this.#currentReject = undefined;
+            this.#currentResolve = undefined;
+            this.#isRunning = false;
+        }
     }
 
     /**

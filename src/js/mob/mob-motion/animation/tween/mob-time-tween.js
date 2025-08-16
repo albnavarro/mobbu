@@ -453,6 +453,14 @@ export default class MobTimeTween {
     }
 
     /**
+     * TimeTween doasn/t need this method. It use always from/to value. Spring/lerp use only to value to be reactive,
+     * See that tween for reference.
+     *
+     * @returns {void}
+     */
+    clearCurretPromise() {}
+
+    /**
      * @type {import('./type.js').TimeTweenStop}
      */
     stop({ clearCache = true, updateValues = true } = {}) {

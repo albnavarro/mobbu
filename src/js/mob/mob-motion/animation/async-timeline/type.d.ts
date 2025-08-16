@@ -60,6 +60,7 @@ export interface AsyncTimelineTween {
     pause?: () => void;
     resume?: () => void;
     isActive?: () => boolean;
+    clearCurretPromise?: () => void;
 }
 
 export interface AsyncTimelineRowData {

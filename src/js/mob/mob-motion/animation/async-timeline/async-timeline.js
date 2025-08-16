@@ -470,44 +470,24 @@ export default class MobAsyncTimeline {
              */
             const fn = {
                 set: () => {
-                    /**
-                     * With promise rece tween can be active and we lost promise ( use the previous )
-                     */
-                    if (tween?.isActive?.()) tween?.stop?.();
-
                     return tween?.[/** @type {'set'} */ (action)](
                         valuesFrom,
                         newTweenProps
                     );
                 },
                 goTo: () => {
-                    /**
-                     * With promise rece tween can be active and we lost promise ( use the previous )
-                     */
-                    if (tween?.isActive?.()) tween?.stop?.();
-
                     return tween?.[/** @type {'goTo'} */ (action)](
                         valuesTo,
                         newTweenProps
                     );
                 },
                 goFrom: () => {
-                    /**
-                     * With promise rece tween can be active and we lost promise ( use the previous )
-                     */
-                    if (tween?.isActive?.()) tween?.stop?.();
-
                     return tween?.[/** @type {'goFrom'} */ (action)](
                         valuesFrom,
                         newTweenProps
                     );
                 },
                 goFromTo: () => {
-                    /**
-                     * With promise rece tween can be active and we lost promise ( use the previous )
-                     */
-                    if (tween?.isActive?.()) tween?.stop?.();
-
                     return tween?.[/** @type {'goFromTo'} */ (action)](
                         valuesFrom,
                         valuesTo,
@@ -674,6 +654,16 @@ export default class MobAsyncTimeline {
         Promise[promiseType](tweenPromises)
             .then(() => {
                 if (this.#isInSuspension || this.#isStopped) return;
+
+                /**
+                 * If a tween in a reace condition is running ( is not the tween that resolve this step ) Reject is
+                 * promise so next step we have the right promise to resolve.
+                 */
+                if (promiseType === 'race') {
+                    this.#tweenStore.forEach(({ tween }) => {
+                        tween?.clearCurretPromise?.();
+                    });
+                }
 
                 /**
                  * Current label state

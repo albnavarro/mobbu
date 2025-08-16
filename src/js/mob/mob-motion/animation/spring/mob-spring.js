@@ -462,6 +462,23 @@ export default class MobSpring {
     }
 
     /**
+     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
+     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
+     * isRunning back to true
+     *
+     * @returns {void}
+     */
+    clearCurretPromise() {
+        if (this.#currentReject) {
+            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
+            this.#currentPromise = undefined;
+            this.#currentReject = undefined;
+            this.#currentResolve = undefined;
+            this.#isRunning = false;
+        }
+    }
+
+    /**
      * @type {import('./type.js').SpringStop}
      */
     stop({ clearCache = true, updateValues = true } = {}) {
