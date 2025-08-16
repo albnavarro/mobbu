@@ -16624,6 +16624,7 @@
         );
         const fn = {
           set: () => {
+            tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'set'} */
               action2
@@ -16633,6 +16634,7 @@
             );
           },
           goTo: () => {
+            tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goTo'} */
               action2
@@ -16642,6 +16644,7 @@
             );
           },
           goFrom: () => {
+            tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goFrom'} */
               action2
@@ -16651,6 +16654,7 @@
             );
           },
           goFromTo: () => {
+            tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goFromTo'} */
               action2
@@ -16770,11 +16774,6 @@
       const promiseType = waitComplete ? "all" : "race";
       Promise[promiseType](tweenPromises).then(() => {
         if (this.#isInSuspension || this.#isStopped) return;
-        if (promiseType === "race") {
-          this.#tweenStore.forEach(({ tween: tween2 }) => {
-            tween2?.clearCurretPromise?.();
-          });
-        }
         const {
           active: labelIsActive,
           index: labelIndex,
@@ -34190,10 +34189,8 @@ Loading snippet ...</pre
       duration: 1e3,
       ease: "easeInOutBack"
     });
-    let tweenGridRotate = tween_exports.createTimeTween({
-      data: tweenRotateTarget,
-      duration: 1e3,
-      ease: "easeInOutBack"
+    let tweenGridRotate = tween_exports.createSpring({
+      data: tweenRotateTarget
     });
     tweenGrid.subscribe((data2) => {
       tweenTarget = data2;
@@ -34204,13 +34201,16 @@ Loading snippet ...</pre
     let timeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
       yoyo: true,
-      autoSet: true
+      autoSet: false
     });
     timeline.goTo(tweenGrid, {
       x: () => getCoordinate({ row: 1, col: 8 }).x,
       rotate: 360,
       scale: 2
-    }).goTo(tweenGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y }).label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenGrid, {
+    }).goTo(tweenGrid, {
+      y: () => getCoordinate({ row: 8, col: 8 }).y,
+      rotate: 180
+    }).label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenGrid, {
       x: () => getCoordinate({ row: 8, col: 1 }).x,
       rotate: 0,
       scale: 1
@@ -34221,7 +34221,18 @@ Loading snippet ...</pre
         scale: 3
       },
       { delay: 500 }
-    ).closeGroup().goTo(tweenGrid, { y: () => getCoordinate({ row: 1, col: 1 }).y });
+    ).closeGroup().createGroup({ waitComplete: false }).goTo(
+      tweenGrid,
+      { y: () => getCoordinate({ row: 1, col: 1 }).y, rotate: -180 },
+      { duration: 1e3 }
+    ).goTo(
+      tweenGridRotate,
+      {
+        rotate: 0,
+        scale: 1
+      },
+      { delay: 200 }
+    ).closeGroup();
     const drawItem = ({
       x,
       y,

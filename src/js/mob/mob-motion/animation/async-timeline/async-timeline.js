@@ -470,24 +470,44 @@ export default class MobAsyncTimeline {
              */
             const fn = {
                 set: () => {
+                    /**
+                     * Clear eventually previous primise from promise race condition
+                     */
+                    tween?.clearCurretPromise?.();
+
                     return tween?.[/** @type {'set'} */ (action)](
                         valuesFrom,
                         newTweenProps
                     );
                 },
                 goTo: () => {
+                    /**
+                     * Clear eventually previous primise from promise race condition
+                     */
+                    tween?.clearCurretPromise?.();
+
                     return tween?.[/** @type {'goTo'} */ (action)](
                         valuesTo,
                         newTweenProps
                     );
                 },
                 goFrom: () => {
+                    /**
+                     * Clear eventually previous primise from promise race condition
+                     */
+                    tween?.clearCurretPromise?.();
+
                     return tween?.[/** @type {'goFrom'} */ (action)](
                         valuesFrom,
                         newTweenProps
                     );
                 },
                 goFromTo: () => {
+                    /**
+                     * Clear eventually previous primise from promise race condition
+                     */
+                    tween?.clearCurretPromise?.();
+
                     return tween?.[/** @type {'goFromTo'} */ (action)](
                         valuesFrom,
                         valuesTo,
@@ -654,16 +674,6 @@ export default class MobAsyncTimeline {
         Promise[promiseType](tweenPromises)
             .then(() => {
                 if (this.#isInSuspension || this.#isStopped) return;
-
-                /**
-                 * If a tween in a reace condition is running ( is not the tween that resolve this step ) Reject is
-                 * promise so next step we have the right promise to resolve.
-                 */
-                if (promiseType === 'race') {
-                    this.#tweenStore.forEach(({ tween }) => {
-                        tween?.clearCurretPromise?.();
-                    });
-                }
 
                 /**
                  * Current label state

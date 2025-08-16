@@ -110,10 +110,8 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         ease: 'easeInOutBack',
     });
 
-    let tweenGridRotate = MobTween.createTimeTween({
+    let tweenGridRotate = MobTween.createSpring({
         data: tweenRotateTarget,
-        duration: 1000,
-        ease: 'easeInOutBack',
     });
 
     /**
@@ -133,7 +131,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     let timeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         yoyo: true,
-        autoSet: true,
+        autoSet: false,
     });
 
     timeline
@@ -142,7 +140,10 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             rotate: 360,
             scale: 2,
         })
-        .goTo(tweenGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y })
+        .goTo(tweenGrid, {
+            y: () => getCoordinate({ row: 8, col: 8 }).y,
+            rotate: 180,
+        })
         .label({ name: 'my-label' })
         .createGroup({ waitComplete: false })
         .goTo(tweenGrid, {
@@ -159,7 +160,21 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             { delay: 500 }
         )
         .closeGroup()
-        .goTo(tweenGrid, { y: () => getCoordinate({ row: 1, col: 1 }).y });
+        .createGroup({ waitComplete: false })
+        .goTo(
+            tweenGrid,
+            { y: () => getCoordinate({ row: 1, col: 1 }).y, rotate: -180 },
+            { duration: 1000 }
+        )
+        .goTo(
+            tweenGridRotate,
+            {
+                rotate: 0,
+                scale: 1,
+            },
+            { delay: 200 }
+        )
+        .closeGroup();
 
     /**
      * @param {object} params
