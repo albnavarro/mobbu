@@ -32,6 +32,14 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Tween type:",
+                "isSection": true
+            }
+        },
+        {
             "component": "html-content",
             "props": {
                 "useTriangle": false,
@@ -529,6 +537,14 @@
                         }
                     }
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Methods",
+                "isSection": true
             }
         },
         {

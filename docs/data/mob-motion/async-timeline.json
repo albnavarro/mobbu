@@ -25,9 +25,31 @@
             "content": "<strong>Async timeline</strong> is a <strong>promise-based</strong> animation coordinator that manages <strong>tweens</strong>, <strong>lerps</strong>, and <strong>springs</strong>. It handles single animations or groups, supports looping, and allows custom functions between animations."
         },
         {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "View implementation example",
+                        "url": "./#async-timeline"
+                    }
+                ]
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "big"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Initialization",
+                "isSection": true
             }
         },
         {
@@ -145,7 +167,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "By default, <strong>play()</strong> and <strong>playReverse()</strong> reset tweens to initial/final values. <strong>freeMode: true</strong> disables this behavior, allowing multiple timelines to control the same tweens from their current values.<br/><em>Default: false</em>"
+                        "content": "By default, <strong>play()</strong> and <strong>playReverse()</strong> reset tweens to initial/final values ( <strong>not every loop</strong> like AutoSet ).<br/> <strong>freeMode: true</strong> disables this behavior, allowing multiple timelines to control the same tweens from their current values.<br/><em>Default: false</em>"
                     },
                     {
                         "component": "mob-spacer",
@@ -168,11 +190,26 @@
                         "content": "When <strong>true</strong>, permanently adds reset commands at the timeline's start/end points. Ensures consistent restart positions during loops."
                     },
                     {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "AutoSet is a very <strong>important</strong> parameter. It is active by default and automatically adds one or more steps at the beginning and end of the timeline. Essentially, for each tween, a dedicated set will be added, allowing the <strong>values to align with the expected ones at every start/end of the loop</strong>. However, it may not always be necessary—for example, if the timeline ends with a group ( <strong>waitcomplete: false</strong> ) and you want longer tweens to continue even after the timeline has technically ended, AutoSet won’t be needed in that case."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "code example"
+                        "content": "Example"
                     },
                     {
                         "component": "mob-spacer",
@@ -235,6 +272,14 @@
                         }
                     }
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Methods",
+                "isSection": true
             }
         },
         {

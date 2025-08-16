@@ -45,6 +45,14 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Initialization",
+                "isSection": true
+            }
+        },
+        {
             "component": "html-content",
             "props": {
                 "useTriangle": false,
@@ -54,6 +62,14 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "x-small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "code_example",
+                            "label": "Params"
                         }
                     },
                     {
@@ -194,6 +210,14 @@
                         }
                     }
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Methods",
+                "isSection": true
             }
         },
         {
