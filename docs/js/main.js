@@ -34162,17 +34162,20 @@ Loading snippet ...</pre
     });
     timeline.goTo(tweenGrid, {
       x: () => getCoordinate({ row: 1, col: 8 }).x,
-      rotate: 360
+      rotate: 360,
+      scale: 2
     }).goTo(tweenGrid, { y: () => getCoordinate({ row: 8, col: 8 }).y }).label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenGrid, {
       x: () => getCoordinate({ row: 8, col: 1 }).x,
-      rotate: 0
+      rotate: 0,
+      scale: 1
     }).goTo(
       tweenGridRotate,
       {
-        rotate: 360
+        rotate: 360,
+        scale: 3
       },
       { delay: 500 }
-    ).closeGroup();
+    ).closeGroup().goTo(tweenGrid, { y: () => getCoordinate({ row: 1, col: 1 }).y });
     const drawItem = ({
       x,
       y,
