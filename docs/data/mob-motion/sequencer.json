@@ -440,6 +440,15 @@
                         "content": "<strong>Memory Tip:</strong> Use <strong>weakRef</strong> for animations in nested functions/closures to prevent leaks."
                     },
                     {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "This method is not very suitable for staggers. If you're using staggers, the <strong>subscribeCache</strong> method is preferable.<br/> The stagger mechanism works by <strong>delegating callbacks</strong> to specific frames. This method is unable to clean up future renderings if the animation is stopped, which is something <strong>subscribeCache can do</strong> instead."
+                    },
+                    {
                         "component": "mob-snippet",
                         "props": {
                             "source": "./snippets/mob-motion/sequencer-subscribe.js",
@@ -521,6 +530,15 @@
                             "style": "medium"
                         },
                         "content": "Triggered when animation/scrollTrigger stops. Useful for resource cleanup (e.g., GPU optimization)."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "This method may not be the most suitable when working with <strong>staggers</strong>. On the other hand, using <strong>subscribeCache</strong> (a dedicated method for staggers) allows you to cancel future renderings if they should not be executed. This method, however, <strong>cannot be removed from the rendering queue</strong>."
                     },
                     {
                         "component": "mob-snippet",
