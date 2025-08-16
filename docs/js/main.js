@@ -34398,11 +34398,11 @@ Loading snippet ...</pre
         gridData = [];
         data = [];
         isActive2 = false;
-        tweenGrid.destroy();
-        tweenAround.destroy();
-        tweenGridRotate.destroy();
-        timeline.destroy();
-        gridTimeline.destroy();
+        tweenGrid?.destroy?.();
+        tweenAround?.destroy?.();
+        tweenGridRotate?.destroy?.();
+        timeline?.destroy?.();
+        gridTimeline?.destroy?.();
         tweenGrid = null;
         tweenAround = null;
         tweenGridRotate = null;
@@ -34486,12 +34486,13 @@ Loading snippet ...</pre
       });
       destroy3 = methods.destroy;
       const unsubscribeResize = modules_exports.useResize(() => {
+        destroy3();
         methods = asyncTimelineanimation({
           canvas,
           ...getState()
         });
         destroy3 = methods.destroy;
-        methods.play();
+        methods?.play?.();
       });
       Object.entries(proxi.buttons).forEach(([className, value]) => {
         const { method } = value;
@@ -34501,7 +34502,7 @@ Loading snippet ...</pre
       modules_exports.useFrame(() => {
         proxi.isMounted = true;
       });
-      methods.play();
+      methods?.play?.();
       return () => {
         unsubscribeResize();
         destroy3();

@@ -60,6 +60,8 @@ export const AsyncTimelineFn = ({
         destroy = methods.destroy;
 
         const unsubscribeResize = MobCore.useResize(() => {
+            destroy();
+
             methods = asyncTimelineanimation({
                 canvas,
                 ...getState(),
@@ -69,7 +71,7 @@ export const AsyncTimelineFn = ({
             destroy = methods.destroy;
 
             // @ts-ignore
-            methods.play();
+            methods?.play?.();
         });
 
         /**
@@ -87,7 +89,7 @@ export const AsyncTimelineFn = ({
         });
 
         // @ts-ignore
-        methods.play();
+        methods?.play?.();
 
         return () => {
             unsubscribeResize();

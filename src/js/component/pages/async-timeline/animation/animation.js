@@ -437,11 +437,11 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             data = [];
             isActive = false;
 
-            tweenGrid.destroy();
-            tweenAround.destroy();
-            tweenGridRotate.destroy();
-            timeline.destroy();
-            gridTimeline.destroy();
+            tweenGrid?.destroy?.();
+            tweenAround?.destroy?.();
+            tweenGridRotate?.destroy?.();
+            timeline?.destroy?.();
+            gridTimeline?.destroy?.();
 
             // @ts-ignore
             tweenGrid = null;
