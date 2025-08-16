@@ -34231,10 +34231,7 @@ Loading snippet ...</pre
       rotate: 180
     }).goTo(
       tweenGridRotate,
-      {
-        scale: 4,
-        y: getCoordinate({ row: 0, col: 8 }).y
-      },
+      { y: getCoordinate({ row: 0, col: 8 }).y },
       { delay: 500 }
     ).closeGroup().label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenAround, {
       x: getCoordinate({ row: 8, col: 1 }).x,
@@ -34244,7 +34241,7 @@ Loading snippet ...</pre
       tweenGridRotate,
       {
         rotate: 360,
-        scale: 3
+        scale: 2
       },
       { delay: 0 }
     ).closeGroup().createGroup({ waitComplete: false }).goTo(
@@ -34303,7 +34300,6 @@ Loading snippet ...</pre
       }
       context2.fillStyle = fill;
       context2.fill();
-      context2.setTransform(1, 0, 0, 1, 0, 0);
     };
     const draw = () => {
       if (!ctx) return;
@@ -34367,6 +34363,7 @@ Loading snippet ...</pre
         context: context2,
         fill: "#000000"
       });
+      context2.setTransform(1, 0, 0, 1, 0, 0);
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     const loop = () => {

@@ -178,10 +178,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         })
         .goTo(
             tweenGridRotate,
-            {
-                scale: 4,
-                y: getCoordinate({ row: 0, col: 8 }).y,
-            },
+            { y: getCoordinate({ row: 0, col: 8 }).y },
             { delay: 500 }
         )
         .closeGroup()
@@ -196,7 +193,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             tweenGridRotate,
             {
                 rotate: 360,
-                scale: 3,
+                scale: 2,
             },
             { delay: 0 }
         )
@@ -287,7 +284,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         /**
          * Reset all transform instead save() restore().
          */
-        context.setTransform(1, 0, 0, 1, 0, 0);
+        // context.setTransform(1, 0, 0, 1, 0, 0);
     };
 
     /**
@@ -375,6 +372,11 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             context,
             fill: '#000000',
         });
+
+        /**
+         * Reset all transform instead save() restore().
+         */
+        context.setTransform(1, 0, 0, 1, 0, 0);
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
