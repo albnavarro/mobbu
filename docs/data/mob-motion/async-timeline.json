@@ -39,7 +39,9 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "x-small"
+                            "style": "small",
+                            "id": "code_example",
+                            "label": "Params"
                         }
                     },
                     {
@@ -164,14 +166,6 @@
                             "style": "medium"
                         },
                         "content": "When <strong>true</strong>, permanently adds reset commands at the timeline's start/end points. Ensures consistent restart positions during loops."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
-                            "id": "code_example",
-                            "label": "code&nbsp;example"
-                        }
                     },
                     {
                         "component": "mob-title",
