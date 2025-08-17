@@ -145,7 +145,7 @@ export type AsyncTimelineGoFromTo = (
     tweenProps?: AsyncTimelineTypeSpecialProps
 ) => MobAsyncTimeline;
 
-export type AsyncTimelineAdd = (arg0: () => void) => globalThis;
+export type AsyncTimelineAdd = (arg0: () => void) => MobAsyncTimeline;
 export type AsyncTimelineAddAsync = (
     fn: (arg0: DirectionTypeAsync) => void
 ) => MobAsyncTimeline;
