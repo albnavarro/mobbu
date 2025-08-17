@@ -28,6 +28,10 @@ const add = (el = {}, fn = () => {}) => {
         el,
         fn,
         data: new Map(),
+        freeze: {
+            active: false,
+            atFrame: 0,
+        },
     });
 
     return {
@@ -90,6 +94,72 @@ const remove = (id) => {
 };
 
 /**
+ * Freeze item.
+ *
+ * @memberof module:handleCache
+ * @param {string} id
+ * @returns {void}
+ */
+const freeze = (id) => {
+    const item = subscriberMap.get(id);
+    if (!item) return;
+
+    const { currentFrame } = eventStore.get();
+
+    item.freeze = {
+        active: true,
+        atFrame: currentFrame,
+    };
+};
+
+/**
+ * UnFreeze item.
+ *
+ * @memberof module:handleCache
+ * @param {string} id
+ * @returns {void}
+ */
+const unFreeze = (id) => {
+    const item = subscriberMap.get(id);
+    if (!item) return;
+
+    const { currentFrame } = eventStore.get();
+    const { atFrame } = item.freeze;
+
+    /**
+     * Temp map. Store new item updated here.
+     */
+    const newEntries = [];
+
+    /**
+     * Get item with updated frame, and clear old freezed.
+     */
+    for (const [frame, value] of item.data) {
+        const delta = frame + currentFrame - atFrame;
+        item.data.delete(frame);
+
+        newEntries.push({ frame: delta, value });
+    }
+
+    /**
+     * Add item updated.
+     */
+    newEntries.forEach(({ frame, value }) => {
+        item.data.set(frame, value);
+    });
+
+    /**
+     * Clear temp map
+     */
+    newEntries.length = 0;
+
+    item.freeze = {
+        active: false,
+        atFrame: 0,
+    };
+};
+
+/**
  * Reset item data
  *
  * @param {string} id
@@ -127,7 +197,9 @@ const get = (id) => {
  */
 const fire = (frameCounter) => {
     for (const value of subscriberMap.values()) {
-        const { data, fn, el } = value;
+        const { data, fn, el, freeze } = value;
+        if (freeze.active) return;
+
         const callBackObject = data.get(frameCounter);
 
         if (callBackObject) {
@@ -153,7 +225,9 @@ const fireObject = ({ id, obj = {} }) => {
     const item = subscriberMap.get(id);
     if (!item) return;
 
-    const { el, fn } = item;
+    const { el, fn, freeze } = item;
+    if (freeze.active) return;
+
     fn(obj, el);
 };
 
@@ -171,7 +245,7 @@ const getCacheCounter = () => cacheCoutner;
  */
 const updateFrameId = (maxFramecounter) => {
     for (const [key, value] of subscriberMap) {
-        const { data, fn, el } = value;
+        const { data, fn, el, freeze } = value;
 
         const newMap = new Map();
         for (const [frame, object] of data) {
@@ -179,7 +253,7 @@ const updateFrameId = (maxFramecounter) => {
             data.delete(frame);
         }
 
-        subscriberMap.set(key, { data: newMap, fn, el });
+        subscriberMap.set(key, { data: newMap, fn, el, freeze });
     }
 };
 
@@ -197,5 +271,7 @@ export const handleCache = (() => {
         fireObject,
         getCacheCounter,
         updateFrameId,
+        freeze,
+        unFreeze,
     };
 })();
