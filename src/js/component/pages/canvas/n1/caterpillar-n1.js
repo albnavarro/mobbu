@@ -3,6 +3,7 @@
 /**
  * @import {MobComponent} from '@mobJsType';
  * @import {CaterpillarN1} from './type';
+ * @import {AnimationTitle} from '@commonComponent/animation-title/type';
  */
 
 import { MobCore } from '@mobCore';
@@ -18,6 +19,7 @@ export const CaterpillarN1Fn = ({
     setRef,
     bindEffect,
     getProxi,
+    staticProps,
 }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
@@ -51,6 +53,14 @@ export const CaterpillarN1Fn = ({
                 >
                     <canvas ${setRef('canvas')}></canvas>
                 </div>
+                <animation-title
+                    ${staticProps(
+                        /** @type {AnimationTitle['state']} */ ({
+                            title: 'Canvas Mouse interaction 02',
+                            list: ['Spring', 'TimeTween', 'AsyncTimeline'],
+                        })
+                    )}
+                ></animation-title>
             </div>
         </div>
     `;

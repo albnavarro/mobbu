@@ -1,0 +1,22 @@
+@use '../../abstract' as *;
+
+.c-animation-title {
+    position: fixed;
+    bottom: calc(var(--footer-height) + #{rem(22)} * -1);
+    left: rem(60);
+
+    &__list {
+        list-style-type: none;
+        padding-left: 0;
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+
+    &__item {
+        h6 {
+            margin-bottom: 0;
+            font-size: rem(16);
+            opacity: 0.4;
+        }
+    }
+}

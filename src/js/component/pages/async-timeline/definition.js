@@ -3,6 +3,7 @@
 import { MobJs } from '@mobJs';
 import { detectFirefox, detectSafari } from '@utils/utils';
 import { AsyncTimelineFn } from './async-timeline';
+import { AnimationTitle } from '@commonComponent/animation-title/definition';
 
 const buttons = {
     'js-async-timeline-play': {
@@ -60,5 +61,6 @@ export const AsyncTimeline = MobJs.createComponent(
                 type: 'Any',
             }),
         },
+        child: [AnimationTitle],
     })
 );

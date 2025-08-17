@@ -3,6 +3,7 @@
 import { MobJs } from '@mobJs';
 import { detectFirefox, detectSafari } from '@utils/utils';
 import { CaterpillarN2Fn } from './caterpillar-n2';
+import { AnimationTitle } from '@commonComponent/animation-title/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -94,5 +95,6 @@ export const CaterpillarN2 = MobJs.createComponent(
                 type: 'Any',
             }),
         },
+        child: [AnimationTitle],
     })
 );

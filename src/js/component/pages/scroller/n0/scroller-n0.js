@@ -3,6 +3,7 @@
 /**
  * @import {MobComponent} from '@mobJsType';
  * @import {ScrollerN0} from './type';
+ * @import {AnimationTitle} from '@commonComponent/animation-title/type';
  */
 
 import { MobCore } from '@mobCore';
@@ -22,6 +23,7 @@ export const ScrollerN0Fn = ({
     getRef,
     bindEffect,
     getProxi,
+    staticProps,
 }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
@@ -71,6 +73,18 @@ export const ScrollerN0Fn = ({
                 >
                     <canvas ${setRef('canvas')}></canvas>
                 </div>
+                <animation-title
+                    ${staticProps(
+                        /** @type {AnimationTitle['state']} */ ({
+                            title: 'Scroll control',
+                            list: [
+                                'Sequencer',
+                                'CreateStagger',
+                                'ScrollTrigger',
+                            ],
+                        })
+                    )}
+                ></animation-title>
             </div>
             <div class="c-canvas-scroller" ${setRef('canvasScroller')}></div>
         </div>
