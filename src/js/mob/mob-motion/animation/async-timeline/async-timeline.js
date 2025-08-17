@@ -1566,6 +1566,10 @@ export default class MobAsyncTimeline {
      */
     async playFrom(label) {
         await this.#waitFps();
+
+        /**
+         * If this method is fired with pause active, we have to restore stagger cache
+         */
         this.#unFreezeAllTweenStagger();
         return this.#playFromUpDown(label, false);
     }
@@ -1575,6 +1579,10 @@ export default class MobAsyncTimeline {
      */
     async playFromReverse(label) {
         await this.#waitFps();
+
+        /**
+         * If this method is fired with pause active, we have to restore stagger cache
+         */
         this.#unFreezeAllTweenStagger();
         return this.#playFromUpDown(label, true);
     }
@@ -1654,6 +1662,10 @@ export default class MobAsyncTimeline {
      */
     async play() {
         await this.#waitFps();
+
+        /**
+         * If this method is fired with pause active, we have to restore stagger cache
+         */
         this.#unFreezeAllTweenStagger();
 
         return new Promise((resolve, reject) => {
@@ -1776,6 +1788,10 @@ export default class MobAsyncTimeline {
         reject = null,
     } = {}) {
         await this.#waitFps();
+
+        /**
+         * If this method is fired with pause active, we have to restore stagger cache
+         */
         this.#unFreezeAllTweenStagger();
 
         return new Promise((thisResolve, thisReject) => {
@@ -1923,6 +1939,10 @@ export default class MobAsyncTimeline {
             this.#timeOnPause = 0;
 
             this.#resumeAllTween();
+
+            /**
+             * If this method is fired with pause active, we have to restore stagger cache
+             */
             this.#unFreezeAllTweenStagger();
         }
 
