@@ -490,11 +490,11 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         },
         pause: () => {
             timeline.pause();
-            gridTimeline.pause();
+            gridTimeline.stop();
         },
         resume: () => {
             timeline.resume();
-            gridTimeline.resume();
+            gridTimeline.play();
         },
         stop: () => {
             timeline.stop();

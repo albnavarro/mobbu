@@ -257,14 +257,24 @@ getProxi({ excludeSet: exportableState })
 
 - Add `debug` ( params in componentFunction ) in DOCS.
 
+
+
+
 # Mobmotion
 
 ### AsyncTimeline
 
-- Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.
-- Possibilita di loppare tra label-start e label-end.
-- Vedi index animation.
-- Into animation poi il loop avviene solo sulla parte di timeline che scala.
+#### SetTween.
+- Se chiamato durante un add / addAsync puó generare un errore, ( da verificare che questa condizione sia giusta ).
+
+#### Pause
+- Pause, stagger ( subscribeCache ) non dovrebbero finire il loro stop ma fermarsi.
+- Riprendere la logica da stop(), capire come fare.
+```js
+if (clearCache)
+    this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
+```
+
 
 ### Sequencer
 
