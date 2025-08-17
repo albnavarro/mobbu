@@ -25,6 +25,20 @@
             "content": "To activate, the <strong>init</strong> method must be executed. Unlike <strong>scrollTrigger</strong> which uses precise calculations, <strong>parallax</strong> moves elements around a neutral point (value = 0) using speed/multipliers rather than absolute values. The only absolute property is <strong>opacity</strong>, controlled by <strong>opacityStart</strong> and <strong>opacityEnd</strong> parameters."
         },
         {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "View implementation example",
+                        "url": "./#horizontalScroller"
+                    }
+                ]
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"

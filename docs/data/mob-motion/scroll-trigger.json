@@ -25,6 +25,20 @@
             "content": "To be activated, the <strong>init</strong> method must be executed. Unlike parallax which reasons by speed/multipliers, <strong>scrollTrigger</strong> allows you to reason in absolute values from point A (<strong>start</strong>) to point B (<strong>end</strong>)."
         },
         {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "View implementation example",
+                        "url": "./#scrollerN1"
+                    }
+                ]
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"

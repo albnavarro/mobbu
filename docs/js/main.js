@@ -34104,7 +34104,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/svg/lettering-01/index.js
-  modules_exports2.useComponent([Move3D, AnyComponent]);
+  modules_exports2.useComponent([Move3D, AnyComponent, AnimationTitle]);
   var lettering01 = async () => {
     const { data: letteringMob } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=0.9"
@@ -34210,6 +34210,15 @@ Loading snippet ...</pre
       }
     )}
         ></move-3d>
+        <animation-title
+            ${modules_exports2.staticProps(
+      /** @type {import('@commonComponent/animation-title/type').AnimationTitle['state']} */
+      {
+        title: "Mob 01",
+        list: ["Svg", "Spring", "Lerp"]
+      }
+    )}
+        ></animation-title>
     </div>`;
   };
 
