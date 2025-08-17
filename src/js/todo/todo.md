@@ -262,18 +262,26 @@ getProxi({ excludeSet: exportableState })
 
 # Mobmotion
 
-### AsyncTimeline
-
-#### SetTween.
-- Se chiamato durante un add / addAsync puó generare un errore, ( da verificare che questa condizione sia giusta ).
-
-#### Pause
+## Pause
 - Pause, stagger ( subscribeCache ) non dovrebbero finire il loro stop ma fermarsi.
 - Riprendere la logica da stop(), capire come fare.
 ```js
 if (clearCache)
     this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
 ```
+
+- `handle-cache`.
+    - Aggiungere alla Map la propietá `freezed`, percio al posto di cancellarlo settiamo `freezed = true`.
+    - Puó essere necessario aggiungere un oggetto `freezed: { active: true, frame: ... }` per riallineare il frame se ce ne fosse bisogno.
+    - `pause()` aggiunge suspended
+    - `resume()` lo toglie.
+    - `handle-cache` filtrerá solo i non `freezed`
+
+### AsyncTimeline
+
+#### SetTween.
+- Se chiamato durante un add / addAsync puó generare un errore, ( da verificare che questa condizione sia giusta ) ???
+
 
 
 ### Sequencer

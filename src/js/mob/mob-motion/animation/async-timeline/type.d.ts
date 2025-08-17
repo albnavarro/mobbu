@@ -117,7 +117,7 @@ export interface AsyncTimelineCurrentAction {
 export type AsyncTimelineAddToActiveTween = (
     tween: AsyncTimelineTween
 ) => () => void;
-export type AsyncTimelineAddToMainArray = (obj: AsyncTimelineRowData) => void;
+export type AsyncTimelineAddAction = (obj: AsyncTimelineRowData) => void;
 export type AsyncTimelineAddTweenToStore = (tween: AsyncTimelineTween) => void;
 
 export type AsyncTimelineSet = (
