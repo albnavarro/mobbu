@@ -280,6 +280,7 @@ export default class MobTimeTween {
         if (this.#pauseStatus) {
             this.#pauseTime = time - this.#startTime - this.#timeElapsed;
         }
+
         this.#timeElapsed = time - this.#startTime - this.#pauseTime;
 
         if (Math.round(this.#timeElapsed) >= this.#duration) {
@@ -298,13 +299,15 @@ export default class MobTimeTween {
         // Prepare an obj to pass to the callback
         const callBackObject = getValueObj(this.#values, 'currentValue');
 
-        defaultCallback({
-            stagger: this.#stagger,
-            callback: this.#callback,
-            callbackCache: this.#callbackCache,
-            callBackObject: callBackObject,
-            useStagger: this.#useStagger,
-        });
+        if (!this.#pauseStatus) {
+            defaultCallback({
+                stagger: this.#stagger,
+                callback: this.#callback,
+                callbackCache: this.#callbackCache,
+                callBackObject: callBackObject,
+                useStagger: this.#useStagger,
+            });
+        }
 
         if (isSettled) {
             const onComplete = () => {
@@ -487,6 +490,24 @@ export default class MobTimeTween {
     }
 
     /**
+     * @returns {void}
+     */
+    freezeStagger() {
+        this.#callbackCache.forEach(({ cb }) => MobCore.useCache.freeze(cb));
+    }
+
+    /**
+     * @param {object} [params]
+     * @param {boolean} [params.updateFrame]
+     * @returns {void}
+     */
+    unFreezeStagger({ updateFrame = true } = {}) {
+        this.#callbackCache.forEach(({ cb }) =>
+            MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
+        );
+    }
+
+    /**
      * @type {import('./type.js').TimeTweenPause}
      */
     pause() {
@@ -582,7 +603,8 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').GoTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goTo(toObject, specialProps = {}) {
-        if (this.#pauseStatus || this.#comeFromResume) this.stop();
+        if (this.#pauseStatus || this.#comeFromResume)
+            this.stop({ clearCache: false });
 
         this.#useStagger = true;
         const toObjectparsed = parseGoToObject(toObject);
@@ -593,7 +615,8 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFrom(fromObject, specialProps = {}) {
-        if (this.#pauseStatus || this.#comeFromResume) this.stop();
+        if (this.#pauseStatus || this.#comeFromResume)
+            this.stop({ clearCache: false });
 
         this.#useStagger = true;
         const fromObjectParsed = parseGoFromObject(fromObject);
@@ -604,7 +627,8 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
-        if (this.#pauseStatus || this.#comeFromResume) this.stop();
+        if (this.#pauseStatus || this.#comeFromResume)
+            this.stop({ clearCache: false });
 
         this.#useStagger = true;
         if (!compareKeys(fromObject, toObject)) {
@@ -620,7 +644,8 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').Set<import('./type.js').TimeTweenAction>} obj To Values
      */
     set(setObject, specialProps = {}) {
-        if (this.#pauseStatus || this.#comeFromResume) this.stop();
+        if (this.#pauseStatus || this.#comeFromResume)
+            this.stop({ clearCache: false });
 
         this.#useStagger = false;
         const setObjectParsed = parseSetObject(setObject);
@@ -637,7 +662,8 @@ export default class MobTimeTween {
      */
     setImmediate(setObject, specialProps = {}) {
         // this.#value is updated below
-        if (this.#isRunning) this.stop({ updateValues: false });
+        if (this.#isRunning)
+            this.stop({ clearCache: false, updateValues: false });
         if (this.#pauseStatus) return;
 
         this.#useStagger = false;

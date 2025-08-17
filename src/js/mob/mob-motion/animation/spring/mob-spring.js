@@ -282,13 +282,15 @@ export default class MobSpring {
          */
         const callBackObject = getValueObj(this.#values, 'currentValue');
 
-        defaultCallback({
-            stagger: this.#stagger,
-            callback: this.#callback,
-            callbackCache: this.#callbackCache,
-            callBackObject: callBackObject,
-            useStagger: this.#useStagger,
-        });
+        if (!this.#pauseStatus) {
+            defaultCallback({
+                stagger: this.#stagger,
+                callback: this.#callback,
+                callbackCache: this.#callbackCache,
+                callBackObject: callBackObject,
+                useStagger: this.#useStagger,
+            });
+        }
 
         /**
          * Check if all values is completed
@@ -503,6 +505,24 @@ export default class MobSpring {
     }
 
     /**
+     * @returns {void}
+     */
+    freezeStagger() {
+        this.#callbackCache.forEach(({ cb }) => MobCore.useCache.freeze(cb));
+    }
+
+    /**
+     * @param {object} [params]
+     * @param {boolean} [params.updateFrame]
+     * @returns {void}
+     */
+    unFreezeStagger({ updateFrame = true } = {}) {
+        this.#callbackCache.forEach(({ cb }) =>
+            MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
+        );
+    }
+
+    /**
      * @type {import('./type.js').SpringPause}
      */
     pause() {
@@ -683,7 +703,8 @@ export default class MobSpring {
      */
     setImmediate(setObject, specialProps = {}) {
         // this.#value is updated below
-        if (this.#isRunning) this.stop({ updateValues: false });
+        if (this.#isRunning)
+            this.stop({ clearCache: false, updateValues: false });
         if (this.#pauseStatus) return;
 
         this.#useStagger = false;

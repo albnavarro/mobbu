@@ -63,6 +63,8 @@ export interface AsyncTimelineTween {
     resume?: () => void;
     isActive?: () => boolean;
     clearCurretPromise?: () => void;
+    freezeStagger?: () => void;
+    unFreezeStagger?: () => void;
 }
 
 export interface AsyncTimelineRowData {

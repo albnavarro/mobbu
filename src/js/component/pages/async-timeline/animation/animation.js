@@ -109,7 +109,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         ease: 'easeInOutQuad',
         stagger: {
             each: 10,
-            from: 'random',
+            from: 'start',
         },
         data: { scale: 1, rotate: 0 },
     });
@@ -148,13 +148,17 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     let gridTimeline = MobTimeline.createAsyncTimeline({
         repeat: -1,
         autoSet: false,
+        yoyo: true,
     });
 
-    gridTimeline
-        .goTo(tweenGrid, { scale: 0.2, rotate: 90 }, { duration: 1000 })
-        .goTo(tweenGrid, { rotate: 180, scale: 1.2 }, { duration: 500 })
-        .goTo(tweenGrid, { scale: 1.3 }, { duration: 500 })
-        .goTo(tweenGrid, { scale: 1 }, { duration: 1200 });
+    gridTimeline.goTo(
+        tweenGrid,
+        { scale: 0.2, rotate: 90 },
+        { duration: 1000 }
+    );
+    // .goTo(tweenGrid, { rotate: 180, scale: 1.2 }, { duration: 500 })
+    // .goTo(tweenGrid, { scale: 1.3 }, { duration: 500 })
+    // .goTo(tweenGrid, { scale: 1 }, { duration: 1200 });
 
     /**
      * Create single item timeline
@@ -404,19 +408,20 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
      */
     const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
         if (val) {
-            // gridTimeline?.stop();
-            isActive = false;
+            timeline.pause();
+            gridTimeline.pause();
             return;
         }
 
         setTimeout(async () => {
-            isActive = true;
-
             /**
              * If close nav but change route skip.
              */
             const currentRoute = MobJs.getActiveRoute();
             if (currentRoute.route !== activeRoute.route) return;
+
+            timeline.resume();
+            gridTimeline.resume();
 
             /**
              * Restart loop
@@ -490,11 +495,11 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         },
         pause: () => {
             timeline.pause();
-            gridTimeline.stop();
+            gridTimeline.pause();
         },
         resume: () => {
             timeline.resume();
-            gridTimeline.play();
+            gridTimeline.resume();
         },
         stop: () => {
             timeline.stop();

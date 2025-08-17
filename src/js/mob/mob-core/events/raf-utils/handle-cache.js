@@ -104,6 +104,8 @@ const freeze = (id) => {
     const item = subscriberMap.get(id);
     if (!item) return;
 
+    if (item.freeze.active) return;
+
     const { currentFrame } = eventStore.get();
 
     item.freeze = {
@@ -116,12 +118,24 @@ const freeze = (id) => {
  * UnFreeze item.
  *
  * @memberof module:handleCache
- * @param {string} id
+ * @param {object} params
+ * @param {string} params.id
+ * @param {boolean} [params.update]
  * @returns {void}
  */
-const unFreeze = (id) => {
+const unFreeze = ({ id, update = true }) => {
     const item = subscriberMap.get(id);
     if (!item) return;
+
+    if (!item.freeze.active) return;
+
+    if (!update) {
+        item.freeze = {
+            active: false,
+            atFrame: 0,
+        };
+        return;
+    }
 
     const { currentFrame } = eventStore.get();
     const { atFrame } = item.freeze;

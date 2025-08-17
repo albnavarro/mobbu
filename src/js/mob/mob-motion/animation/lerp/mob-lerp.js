@@ -270,13 +270,15 @@ export default class MobLerp {
         // Prepare an obj to pass to the callback.
         const callBackObject = getValueObj(this.#values, 'currentValue');
 
-        defaultCallback({
-            stagger: this.#stagger,
-            callback: this.#callback,
-            callbackCache: this.#callbackCache,
-            callBackObject: callBackObject,
-            useStagger: this.#useStagger,
-        });
+        if (!this.#pauseStatus) {
+            defaultCallback({
+                stagger: this.#stagger,
+                callback: this.#callback,
+                callbackCache: this.#callbackCache,
+                callBackObject: callBackObject,
+                useStagger: this.#useStagger,
+            });
+        }
 
         // Check if all values is completed.
         const allSettled = this.#values.every((item) => item.settled === true);
@@ -464,6 +466,24 @@ export default class MobLerp {
     }
 
     /**
+     * @returns {void}
+     */
+    freezeStagger() {
+        this.#callbackCache.forEach(({ cb }) => MobCore.useCache.freeze(cb));
+    }
+
+    /**
+     * @param {object} [params]
+     * @param {boolean} [params.updateFrame]
+     * @returns {void}
+     */
+    unFreezeStagger({ updateFrame = true } = {}) {
+        this.#callbackCache.forEach(({ cb }) =>
+            MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
+        );
+    }
+
+    /**
      * @type {import('./type.js').LerpPause}
      */
     pause() {
@@ -596,7 +616,8 @@ export default class MobLerp {
      */
     setImmediate(setObject, specialProps = {}) {
         // this.#value is updated below
-        if (this.#isRunning) this.stop({ updateValues: false });
+        if (this.#isRunning)
+            this.stop({ clearCache: true, updateValues: false });
         if (this.#pauseStatus) return;
 
         this.#useStagger = false;

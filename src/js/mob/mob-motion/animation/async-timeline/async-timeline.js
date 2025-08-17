@@ -1566,7 +1566,7 @@ export default class MobAsyncTimeline {
      */
     async playFrom(label) {
         await this.#waitFps();
-
+        this.#unFreezeAllTweenStagger();
         return this.#playFromUpDown(label, false);
     }
 
@@ -1575,7 +1575,7 @@ export default class MobAsyncTimeline {
      */
     async playFromReverse(label) {
         await this.#waitFps();
-
+        this.#unFreezeAllTweenStagger();
         return this.#playFromUpDown(label, true);
     }
 
@@ -1654,6 +1654,7 @@ export default class MobAsyncTimeline {
      */
     async play() {
         await this.#waitFps();
+        this.#unFreezeAllTweenStagger();
 
         return new Promise((resolve, reject) => {
             /**
@@ -1775,6 +1776,7 @@ export default class MobAsyncTimeline {
         reject = null,
     } = {}) {
         await this.#waitFps();
+        this.#unFreezeAllTweenStagger();
 
         return new Promise((thisResolve, thisReject) => {
             const currentResolve = resolve ?? thisResolve;
@@ -1909,9 +1911,7 @@ export default class MobAsyncTimeline {
     pause() {
         this.#isInPause = true;
         this.#timeOnPause = MobCore.getTime();
-        this.#currentTween.forEach(({ tween }) => {
-            tween?.pause?.();
-        });
+        this.#pauseAllTween();
     }
 
     /**
@@ -1921,7 +1921,9 @@ export default class MobAsyncTimeline {
         if (this.#isInPause) {
             this.#isInPause = false;
             this.#timeOnPause = 0;
-            this.#resumeEachTween();
+
+            this.#resumeAllTween();
+            this.#unFreezeAllTweenStagger();
         }
 
         if (this.#isInSuspension) {
@@ -1948,6 +1950,36 @@ export default class MobAsyncTimeline {
     }
 
     /**
+     * @returns {void}
+     */
+    #pauseAllTween() {
+        this.#currentTween.forEach(({ tween }) => {
+            tween?.pause?.();
+            tween?.freezeStagger?.();
+        });
+    }
+
+    /**
+     * @returns {void}
+     */
+    #resumeAllTween() {
+        this.#currentTween.forEach(({ tween }) => {
+            tween?.resume?.();
+        });
+    }
+
+    /**
+     * Unfreeze stagger used with subscribeCache. Use es: play after pause need restore stagger cache
+     *
+     * @returns {void}
+     */
+    #unFreezeAllTweenStagger() {
+        this.#currentTween.forEach(({ tween }) => {
+            tween?.unFreezeStagger?.();
+        });
+    }
+
+    /**
      * @type {() => void}
      */
     #resetUseLabel() {
@@ -1957,15 +1989,6 @@ export default class MobAsyncTimeline {
             isReverse: false,
             callback: undefined,
         };
-    }
-
-    /**
-     * @type {() => void}
-     */
-    #resumeEachTween() {
-        this.#currentTween.forEach(({ tween }) => {
-            tween?.resume?.();
-        });
     }
 
     /**

@@ -262,6 +262,14 @@ getProxi({ excludeSet: exportableState })
 
 # Mobmotion
 
+## TimeTween:
+- capire meglio l'uso di nelle azioni.
+
+```js
+if (this.#pauseStatus || this.#comeFromResume)
+    this.stop({ clearCache: false });
+```
+
 ## Pause
 - Pause, stagger ( subscribeCache ) non dovrebbero finire il loro stop ma fermarsi.
 - Riprendere la logica da stop(), capire come fare.

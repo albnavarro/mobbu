@@ -3554,15 +3554,24 @@
   var freeze = (id) => {
     const item = subscriberMap.get(id);
     if (!item) return;
+    if (item.freeze.active) return;
     const { currentFrame: currentFrame2 } = eventStore.get();
     item.freeze = {
       active: true,
       atFrame: currentFrame2
     };
   };
-  var unFreeze = (id) => {
+  var unFreeze = ({ id, update: update3 = true }) => {
     const item = subscriberMap.get(id);
     if (!item) return;
+    if (!item.freeze.active) return;
+    if (!update3) {
+      item.freeze = {
+        active: false,
+        atFrame: 0
+      };
+      return;
+    }
     const { currentFrame: currentFrame2 } = eventStore.get();
     const { atFrame } = item.freeze;
     const newEntries = [];
@@ -12693,13 +12702,15 @@
         precision: this.#precision
       });
       const callBackObject = getValueObj(this.#values, "currentValue");
-      defaultCallback({
-        stagger: this.#stagger,
-        callback: this.#callback,
-        callbackCache: this.#callbackCache,
-        callBackObject,
-        useStagger: this.#useStagger
-      });
+      if (!this.#pauseStatus) {
+        defaultCallback({
+          stagger: this.#stagger,
+          callback: this.#callback,
+          callbackCache: this.#callbackCache,
+          callBackObject,
+          useStagger: this.#useStagger
+        });
+      }
       const allSettled = this.#values.every((item) => item.settled === true);
       if (allSettled) {
         const onComplete2 = () => {
@@ -12840,6 +12851,22 @@
       this.#isRunning = false;
     }
     /**
+     * @returns {void}
+     */
+    freezeStagger() {
+      this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+    }
+    /**
+     * @param {object} [params]
+     * @param {boolean} [params.updateFrame]
+     * @returns {void}
+     */
+    unFreezeStagger({ updateFrame = true } = {}) {
+      this.#callbackCache.forEach(
+        ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: updateFrame })
+      );
+    }
+    /**
      * @type {import('./type.js').LerpPause}
      */
     pause() {
@@ -12954,7 +12981,8 @@
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').LerpActions>} obj To Values
      */
     setImmediate(setObject, specialProps = {}) {
-      if (this.#isRunning) this.stop({ updateValues: false });
+      if (this.#isRunning)
+        this.stop({ clearCache: true, updateValues: false });
       if (this.#pauseStatus) return;
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
@@ -14526,7 +14554,9 @@
      * ...
      */
     unFreezeCachedId() {
-      this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.unFreeze(cb));
+      this.#callbackCache.forEach(
+        ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: true })
+      );
     }
     /**
      * Disable stagger for one run
@@ -14785,13 +14815,15 @@
         fps: fps2
       });
       const callBackObject = getValueObj(this.#values, "currentValue");
-      defaultCallback({
-        stagger: this.#stagger,
-        callback: this.#callback,
-        callbackCache: this.#callbackCache,
-        callBackObject,
-        useStagger: this.#useStagger
-      });
+      if (!this.#pauseStatus) {
+        defaultCallback({
+          stagger: this.#stagger,
+          callback: this.#callback,
+          callbackCache: this.#callbackCache,
+          callBackObject,
+          useStagger: this.#useStagger
+        });
+      }
       const allSettled = this.#values.every((item) => item.settled === true);
       if (allSettled) {
         const onComplete2 = () => {
@@ -14946,6 +14978,22 @@
       this.#isRunning = false;
     }
     /**
+     * @returns {void}
+     */
+    freezeStagger() {
+      this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+    }
+    /**
+     * @param {object} [params]
+     * @param {boolean} [params.updateFrame]
+     * @returns {void}
+     */
+    unFreezeStagger({ updateFrame = true } = {}) {
+      this.#callbackCache.forEach(
+        ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: updateFrame })
+      );
+    }
+    /**
      * @type {import('./type.js').SpringPause}
      */
     pause() {
@@ -15082,7 +15130,8 @@
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').SpringActions>} obj To Values
      */
     setImmediate(setObject, specialProps = {}) {
-      if (this.#isRunning) this.stop({ updateValues: false });
+      if (this.#isRunning)
+        this.stop({ clearCache: false, updateValues: false });
       if (this.#pauseStatus) return;
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
@@ -15595,13 +15644,15 @@
       });
       const isSettled = Math.round(this.#timeElapsed) === this.#duration;
       const callBackObject = getValueObj(this.#values, "currentValue");
-      defaultCallback({
-        stagger: this.#stagger,
-        callback: this.#callback,
-        callbackCache: this.#callbackCache,
-        callBackObject,
-        useStagger: this.#useStagger
-      });
+      if (!this.#pauseStatus) {
+        defaultCallback({
+          stagger: this.#stagger,
+          callback: this.#callback,
+          callbackCache: this.#callbackCache,
+          callBackObject,
+          useStagger: this.#useStagger
+        });
+      }
       if (isSettled) {
         const onComplete2 = () => {
           this.#isRunning = false;
@@ -15741,6 +15792,22 @@
       this.#isRunning = false;
     }
     /**
+     * @returns {void}
+     */
+    freezeStagger() {
+      this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+    }
+    /**
+     * @param {object} [params]
+     * @param {boolean} [params.updateFrame]
+     * @returns {void}
+     */
+    unFreezeStagger({ updateFrame = true } = {}) {
+      this.#callbackCache.forEach(
+        ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: updateFrame })
+      );
+    }
+    /**
      * @type {import('./type.js').TimeTweenPause}
      */
     pause() {
@@ -15830,7 +15897,8 @@
      * @type {import('../../utils/type.js').GoTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goTo(toObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume) this.stop();
+      if (this.#pauseStatus || this.#comeFromResume)
+        this.stop({ clearCache: false });
       this.#useStagger = true;
       const toObjectparsed = parseGoToObject(toObject);
       return this.#doAction(toObjectparsed, toObject, specialProps);
@@ -15839,7 +15907,8 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFrom(fromObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume) this.stop();
+      if (this.#pauseStatus || this.#comeFromResume)
+        this.stop({ clearCache: false });
       this.#useStagger = true;
       const fromObjectParsed = parseGoFromObject(fromObject);
       return this.#doAction(fromObjectParsed, fromObject, specialProps);
@@ -15848,7 +15917,8 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume) this.stop();
+      if (this.#pauseStatus || this.#comeFromResume)
+        this.stop({ clearCache: false });
       this.#useStagger = true;
       if (!compareKeys(fromObject, toObject)) {
         compareKeysWarning("tween goFromTo:", fromObject, toObject);
@@ -15861,7 +15931,8 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').TimeTweenAction>} obj To Values
      */
     set(setObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume) this.stop();
+      if (this.#pauseStatus || this.#comeFromResume)
+        this.stop({ clearCache: false });
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
       const propsParsed = specialProps ? { ...specialProps, duration: 1 } : { duration: 1 };
@@ -15871,7 +15942,8 @@
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').TimeTweenAction>} obj To Values
      */
     setImmediate(setObject, specialProps = {}) {
-      if (this.#isRunning) this.stop({ updateValues: false });
+      if (this.#isRunning)
+        this.stop({ clearCache: false, updateValues: false });
       if (this.#pauseStatus) return;
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
@@ -17441,6 +17513,7 @@
      */
     async playFrom(label) {
       await this.#waitFps();
+      this.#unFreezeAllTweenStagger();
       return this.#playFromUpDown(label, false);
     }
     /**
@@ -17448,6 +17521,7 @@
      */
     async playFromReverse(label) {
       await this.#waitFps();
+      this.#unFreezeAllTweenStagger();
       return this.#playFromUpDown(label, true);
     }
     /**
@@ -17494,6 +17568,7 @@
      */
     async play() {
       await this.#waitFps();
+      this.#unFreezeAllTweenStagger();
       return new Promise((resolve, reject) => {
         if (this.#autoSet) this.#addSetBlocks();
         if (this.#freeMode) {
@@ -17559,6 +17634,7 @@
       reject = null
     } = {}) {
       await this.#waitFps();
+      this.#unFreezeAllTweenStagger();
       return new Promise((thisResolve, thisReject) => {
         const currentResolve = resolve ?? thisResolve;
         const currentReject = reject ?? thisReject;
@@ -17632,9 +17708,7 @@
     pause() {
       this.#isInPause = true;
       this.#timeOnPause = modules_exports.getTime();
-      this.#currentTween.forEach(({ tween: tween2 }) => {
-        tween2?.pause?.();
-      });
+      this.#pauseAllTween();
     }
     /**
      * @type {import('./type.js').AsyncTimelineResume}
@@ -17643,7 +17717,8 @@
       if (this.#isInPause) {
         this.#isInPause = false;
         this.#timeOnPause = 0;
-        this.#resumeEachTween();
+        this.#resumeAllTween();
+        this.#unFreezeAllTweenStagger();
       }
       if (this.#isInSuspension) {
         this.#isInSuspension = false;
@@ -17663,6 +17738,33 @@
       }
     }
     /**
+     * @returns {void}
+     */
+    #pauseAllTween() {
+      this.#currentTween.forEach(({ tween: tween2 }) => {
+        tween2?.pause?.();
+        tween2?.freezeStagger?.();
+      });
+    }
+    /**
+     * @returns {void}
+     */
+    #resumeAllTween() {
+      this.#currentTween.forEach(({ tween: tween2 }) => {
+        tween2?.resume?.();
+      });
+    }
+    /**
+     * Unfreeze stagger used with subscribeCache. Use es: play after pause need restore stagger cache
+     *
+     * @returns {void}
+     */
+    #unFreezeAllTweenStagger() {
+      this.#currentTween.forEach(({ tween: tween2 }) => {
+        tween2?.unFreezeStagger?.();
+      });
+    }
+    /**
      * @type {() => void}
      */
     #resetUseLabel() {
@@ -17672,14 +17774,6 @@
         isReverse: false,
         callback: void 0
       };
-    }
-    /**
-     * @type {() => void}
-     */
-    #resumeEachTween() {
-      this.#currentTween.forEach(({ tween: tween2 }) => {
-        tween2?.resume?.();
-      });
     }
     /**
      * Get an array of active instance.
@@ -34420,7 +34514,7 @@ Loading snippet ...</pre
       ease: "easeInOutQuad",
       stagger: {
         each: 10,
-        from: "random"
+        from: "start"
       },
       data: { scale: 1, rotate: 0 }
     });
@@ -34446,9 +34540,14 @@ Loading snippet ...</pre
     });
     let gridTimeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
-      autoSet: false
+      autoSet: false,
+      yoyo: true
     });
-    gridTimeline.goTo(tweenGrid, { scale: 0.2, rotate: 90 }, { duration: 1e3 }).goTo(tweenGrid, { rotate: 180, scale: 1.2 }, { duration: 500 }).goTo(tweenGrid, { scale: 1.3 }, { duration: 500 }).goTo(tweenGrid, { scale: 1 }, { duration: 1200 });
+    gridTimeline.goTo(
+      tweenGrid,
+      { scale: 0.2, rotate: 90 },
+      { duration: 1e3 }
+    );
     let timeline = timeline_exports.createAsyncTimeline({
       repeat: -1,
       yoyo: true,
@@ -34608,13 +34707,15 @@ Loading snippet ...</pre
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
-        isActive2 = false;
+        timeline.pause();
+        gridTimeline.pause();
         return;
       }
       setTimeout(async () => {
-        isActive2 = true;
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
+        timeline.resume();
+        gridTimeline.resume();
         modules_exports.useFrame(() => loop());
       }, 500);
     });
@@ -34667,11 +34768,11 @@ Loading snippet ...</pre
       },
       pause: () => {
         timeline.pause();
-        gridTimeline.stop();
+        gridTimeline.pause();
       },
       resume: () => {
         timeline.resume();
-        gridTimeline.play();
+        gridTimeline.resume();
       },
       stop: () => {
         timeline.stop();

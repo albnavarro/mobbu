@@ -822,7 +822,9 @@ export default class MobSequencer {
      * ...
      */
     unFreezeCachedId() {
-        this.#callbackCache.forEach(({ cb }) => MobCore.useCache.unFreeze(cb));
+        this.#callbackCache.forEach(({ cb }) =>
+            MobCore.useCache.unFreeze({ id: cb, update: true })
+        );
     }
 
     /**
