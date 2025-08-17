@@ -1939,10 +1939,6 @@ export default class MobAsyncTimeline {
             this.#timeOnPause = 0;
 
             this.#resumeAllTween();
-
-            /**
-             * If this method is fired with pause active, we have to restore stagger cache
-             */
             this.#unFreezeAllTweenStagger();
         }
 
