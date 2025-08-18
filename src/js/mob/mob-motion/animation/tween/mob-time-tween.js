@@ -311,9 +311,6 @@ export default class MobTimeTween {
 
         if (isSettled) {
             const onComplete = () => {
-                this.#isRunning = false;
-                this.#pauseTime = 0;
-
                 /**
                  * End of animation Set fromValue with ended value At the next call fromValue become the start value
                  */
@@ -327,15 +324,20 @@ export default class MobTimeTween {
                     };
                 });
 
-                // On complete
-                if (!this.#pauseStatus && this.#currentResolve) {
-                    this.#currentResolve(true);
+                /**
+                 * On complete
+                 */
+                this.#currentResolve?.(true);
+                this.#currentPromise = undefined;
+                this.#currentReject = undefined;
+                this.#currentResolve = undefined;
 
-                    // Set promise reference to null once resolved
-                    this.#currentPromise = undefined;
-                    this.#currentReject = undefined;
-                    this.#currentResolve = undefined;
-                }
+                /**
+                 * Can happen that with fat pause/resume settled is resolve in pause. In this case consider pause ended.
+                 */
+                this.#pauseTime = 0;
+                this.#pauseStatus = false;
+                this.#isRunning = false;
             };
 
             defaultCallbackOnComplete({
@@ -453,23 +455,6 @@ export default class MobTimeTween {
             (time) => this.#onReuqestAnim(time),
             () => this.pause()
         );
-    }
-
-    /**
-     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
-     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
-     * isRunning back to true
-     *
-     * @returns {void}
-     */
-    clearCurretPromise() {
-        if (this.#currentReject) {
-            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#currentPromise = undefined;
-            this.#currentReject = undefined;
-            this.#currentResolve = undefined;
-            this.#isRunning = false;
-        }
     }
 
     /**

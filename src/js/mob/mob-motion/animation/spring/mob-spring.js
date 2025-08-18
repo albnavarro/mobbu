@@ -305,8 +305,6 @@ export default class MobSpring {
 
         if (allSettled) {
             const onComplete = () => {
-                this.#isRunning = false;
-
                 /**
                  * End of animation Set fromValue with ended value At the next call fromValue become the start value
                  */
@@ -320,16 +318,13 @@ export default class MobSpring {
                 /**
                  * On complete
                  */
-                if (!this.#pauseStatus && this.#currentResolve) {
-                    this.#currentResolve(true);
+                this.#currentResolve?.(true);
+                this.#currentPromise = undefined;
+                this.#currentReject = undefined;
+                this.#currentResolve = undefined;
 
-                    /**
-                     * Set promise reference to null once resolved
-                     */
-                    this.#currentPromise = undefined;
-                    this.#currentReject = undefined;
-                    this.#currentResolve = undefined;
-                }
+                this.#pauseStatus = false;
+                this.#isRunning = false;
             };
 
             /**
@@ -467,23 +462,6 @@ export default class MobSpring {
             (time, fps) => this.#onReuqestAnim(time, fps),
             () => this.pause()
         );
-    }
-
-    /**
-     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
-     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
-     * isRunning back to true
-     *
-     * @returns {void}
-     */
-    clearCurretPromise() {
-        if (this.#currentReject) {
-            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#currentPromise = undefined;
-            this.#currentReject = undefined;
-            this.#currentResolve = undefined;
-            this.#isRunning = false;
-        }
     }
 
     /**

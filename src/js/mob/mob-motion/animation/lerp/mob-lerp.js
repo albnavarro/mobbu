@@ -300,15 +300,16 @@ export default class MobLerp {
                     return { ...item, fromValue: item.toValue };
                 });
 
-                // On complete
-                if (!this.#pauseStatus && this.#currentResolve) {
-                    this.#currentResolve(true);
+                /**
+                 * On complete
+                 */
+                this.#currentResolve?.(true);
+                this.#currentPromise = undefined;
+                this.#currentReject = undefined;
+                this.#currentResolve = undefined;
 
-                    // Set promise reference to null once resolved
-                    this.#currentPromise = undefined;
-                    this.#currentReject = undefined;
-                    this.#currentResolve = undefined;
-                }
+                this.#pauseStatus = false;
+                this.#isRunning = false;
             };
 
             // Prepare an obj to pass to the callback with rounded value ( end user value)
@@ -428,23 +429,6 @@ export default class MobLerp {
             (time, fps) => this.#onReuqestAnim(time, fps),
             () => this.pause()
         );
-    }
-
-    /**
-     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
-     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
-     * isRunning back to true
-     *
-     * @returns {void}
-     */
-    clearCurretPromise() {
-        if (this.#currentReject) {
-            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#currentPromise = undefined;
-            this.#currentReject = undefined;
-            this.#currentResolve = undefined;
-            this.#isRunning = false;
-        }
     }
 
     /**

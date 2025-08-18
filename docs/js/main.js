@@ -12723,12 +12723,12 @@
           this.#values = [...this.#values].map((item) => {
             return { ...item, fromValue: item.toValue };
           });
-          if (!this.#pauseStatus && this.#currentResolve) {
-            this.#currentResolve(true);
-            this.#currentPromise = void 0;
-            this.#currentReject = void 0;
-            this.#currentResolve = void 0;
-          }
+          this.#currentResolve?.(true);
+          this.#currentPromise = void 0;
+          this.#currentReject = void 0;
+          this.#currentResolve = void 0;
+          this.#pauseStatus = false;
+          this.#isRunning = false;
         };
         const cbObjectSettled = getValueObj(this.#values, "toValue");
         defaultCallbackOnComplete({
@@ -12822,22 +12822,6 @@
         (time2, fps2) => this.#onReuqestAnim(time2, fps2),
         () => this.pause()
       );
-    }
-    /**
-     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
-     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
-     * isRunning back to true
-     *
-     * @returns {void}
-     */
-    clearCurretPromise() {
-      if (this.#currentReject) {
-        this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
-        this.#currentPromise = void 0;
-        this.#currentReject = void 0;
-        this.#currentResolve = void 0;
-        this.#isRunning = false;
-      }
     }
     /**
      * @type {import('./type.js').LerpStop}
@@ -14848,19 +14832,18 @@
       const allSettled = this.#values.every((item) => item.settled === true);
       if (allSettled) {
         const onComplete2 = () => {
-          this.#isRunning = false;
           this.#values = [...this.#values].map((item) => {
             return {
               ...item,
               fromValue: item.toValue
             };
           });
-          if (!this.#pauseStatus && this.#currentResolve) {
-            this.#currentResolve(true);
-            this.#currentPromise = void 0;
-            this.#currentReject = void 0;
-            this.#currentResolve = void 0;
-          }
+          this.#currentResolve?.(true);
+          this.#currentPromise = void 0;
+          this.#currentReject = void 0;
+          this.#currentResolve = void 0;
+          this.#pauseStatus = false;
+          this.#isRunning = false;
         };
         const cbObjectSettled = getValueObj(this.#values, "toValue");
         defaultCallbackOnComplete({
@@ -14965,22 +14948,6 @@
         (time2, fps2) => this.#onReuqestAnim(time2, fps2),
         () => this.pause()
       );
-    }
-    /**
-     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
-     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
-     * isRunning back to true
-     *
-     * @returns {void}
-     */
-    clearCurretPromise() {
-      if (this.#currentReject) {
-        this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
-        this.#currentPromise = void 0;
-        this.#currentReject = void 0;
-        this.#currentResolve = void 0;
-        this.#isRunning = false;
-      }
     }
     /**
      * @type {import('./type.js').SpringStop}
@@ -15533,10 +15500,6 @@
      */
     #pauseStatus;
     /**
-     * @type {boolean}
-     */
-    #comeFromResume;
-    /**
      * @type {number}
      */
     #startTime;
@@ -15640,7 +15603,6 @@
       this.#callbackStartInPause = [];
       this.#unsubscribeCache = [];
       this.#pauseStatus = false;
-      this.#comeFromResume = false;
       this.#startTime = 0;
       this.#timeElapsed = 0;
       this.#pauseTime = 0;
@@ -15692,8 +15654,6 @@
       }
       if (isSettled) {
         const onComplete2 = () => {
-          this.#isRunning = false;
-          this.#pauseTime = 0;
           this.#values = [...this.#values].map((item) => {
             if (!item.shouldUpdate) return item;
             return {
@@ -15702,12 +15662,13 @@
               fromValue: item.currentValue
             };
           });
-          if (!this.#pauseStatus && this.#currentResolve) {
-            this.#currentResolve(true);
-            this.#currentPromise = void 0;
-            this.#currentReject = void 0;
-            this.#currentResolve = void 0;
-          }
+          this.#currentResolve?.(true);
+          this.#currentPromise = void 0;
+          this.#currentReject = void 0;
+          this.#currentResolve = void 0;
+          this.#pauseTime = 0;
+          this.#pauseStatus = false;
+          this.#isRunning = false;
         };
         defaultCallbackOnComplete({
           onComplete: onComplete2,
@@ -15803,20 +15764,11 @@
       );
     }
     /**
-     * TimeTween doasn/t need this method. It use always from/to value. Spring/lerp use only to value to be reactive,
-     * See that tween for reference.
-     *
-     * @returns {void}
-     */
-    clearCurretPromise() {
-    }
-    /**
      * @type {import('./type.js').TimeTweenStop}
      */
     stop({ clearCache = true, updateValues = true } = {}) {
       this.#pauseTime = 0;
       this.#pauseStatus = false;
-      this.#comeFromResume = false;
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
       this.unFreezeStagger();
       if (clearCache)
@@ -15863,7 +15815,6 @@
     resume() {
       if (!this.#pauseStatus) return;
       this.#pauseStatus = false;
-      this.#comeFromResume = true;
       this.unFreezeStagger();
     }
     /**
@@ -15941,8 +15892,8 @@
      * @type {import('../../utils/type.js').GoTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goTo(toObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume)
-        this.stop({ clearCache: false });
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
       const toObjectparsed = parseGoToObject(toObject);
       return this.#doAction(toObjectparsed, toObject, specialProps);
@@ -15951,8 +15902,8 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFrom(fromObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume)
-        this.stop({ clearCache: false });
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
       const fromObjectParsed = parseGoFromObject(fromObject);
       return this.#doAction(fromObjectParsed, fromObject, specialProps);
@@ -15961,8 +15912,8 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume)
-        this.stop({ clearCache: false });
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
       if (!compareKeys(fromObject, toObject)) {
         compareKeysWarning("tween goFromTo:", fromObject, toObject);
@@ -15975,8 +15926,8 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').TimeTweenAction>} obj To Values
      */
     set(setObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume)
-        this.stop({ clearCache: false });
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
       const propsParsed = specialProps ? { ...specialProps, duration: 1 } : { duration: 1 };
@@ -16005,15 +15956,15 @@
      */
     #doAction(newObjectParsed, newObjectRaw, specialProps = {}) {
       this.#values = mergeArrayTween(newObjectParsed, this.#values);
-      if (this.#isRunning) {
-        this.stop({ clearCache: false, updateValues: false });
-        this.#updateDataWhileRunning();
-      }
       const { reverse, immediate } = this.#mergeProps(specialProps);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
         this.#values = setReverseValues(newObjectRaw, this.#values);
       this.#values = setRelativeTween(this.#values, this.#relative);
       if (valueIsBooleanAndTrue(immediate, "immediate ")) {
+        if (this.#isRunning) {
+          this.stop({ clearCache: false, updateValues: false });
+          this.#updateDataWhileRunning();
+        }
         this.#values = setFromCurrentByTo(this.#values);
         return Promise.resolve();
       }
@@ -16811,7 +16762,6 @@
         );
         const fn = {
           set: () => {
-            tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'set'} */
               action2
@@ -16821,7 +16771,6 @@
             );
           },
           goTo: () => {
-            tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goTo'} */
               action2
@@ -16831,7 +16780,6 @@
             );
           },
           goFrom: () => {
-            tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goFrom'} */
               action2
@@ -16841,7 +16789,6 @@
             );
           },
           goFromTo: () => {
-            tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goFromTo'} */
               action2
