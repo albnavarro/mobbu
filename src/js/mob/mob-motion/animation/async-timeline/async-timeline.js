@@ -481,18 +481,33 @@ export default class MobAsyncTimeline {
              */
             const fn = {
                 set: () => {
+                    /**
+                     * Clear eventually previous primise from promise race condition
+                     */
+                    if (!this.#isInPause) tween?.clearCurretPromise?.();
+
                     return tween?.[/** @type {'set'} */ (action)](
                         valuesFrom,
                         newTweenProps
                     );
                 },
                 goTo: () => {
+                    /**
+                     * Clear eventually previous primise from promise race condition
+                     */
+                    if (!this.#isInPause) tween?.clearCurretPromise?.();
+
                     return tween?.[/** @type {'goTo'} */ (action)](
                         valuesTo,
                         newTweenProps
                     );
                 },
                 goFrom: () => {
+                    /**
+                     * Clear eventually previous primise from promise race condition
+                     */
+                    if (!this.#isInPause) tween?.clearCurretPromise?.();
+
                     return tween?.[/** @type {'goFrom'} */ (action)](
                         valuesFrom,
                         newTweenProps

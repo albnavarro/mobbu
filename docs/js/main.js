@@ -12824,6 +12824,22 @@
       );
     }
     /**
+     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
+     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
+     * isRunning back to true
+     *
+     * @returns {void}
+     */
+    clearCurretPromise() {
+      if (!this.#pauseStatus) {
+        this.#currentReject?.(modules_exports.ANIMATION_STOP_REJECT);
+        this.#currentPromise = void 0;
+        this.#currentReject = void 0;
+        this.#currentResolve = void 0;
+        this.#isRunning = false;
+      }
+    }
+    /**
      * @type {import('./type.js').LerpStop}
      */
     stop({ clearCache = true, updateValues = true } = {}) {
@@ -14950,6 +14966,22 @@
       );
     }
     /**
+     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
+     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
+     * isRunning back to true
+     *
+     * @returns {void}
+     */
+    clearCurretPromise() {
+      if (!this.#pauseStatus) {
+        this.#currentReject?.(modules_exports.ANIMATION_STOP_REJECT);
+        this.#currentPromise = void 0;
+        this.#currentReject = void 0;
+        this.#currentResolve = void 0;
+        this.#isRunning = false;
+      }
+    }
+    /**
      * @type {import('./type.js').SpringStop}
      */
     stop({ clearCache = true, updateValues = true } = {}) {
@@ -15762,6 +15794,22 @@
         (time2) => this.#onReuqestAnim(time2),
         () => this.pause()
       );
+    }
+    /**
+     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
+     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
+     * isRunning back to true
+     *
+     * @returns {void}
+     */
+    clearCurretPromise() {
+      if (!this.#pauseStatus) {
+        this.#currentReject?.(modules_exports.ANIMATION_STOP_REJECT);
+        this.#currentPromise = void 0;
+        this.#currentReject = void 0;
+        this.#currentResolve = void 0;
+        this.#isRunning = false;
+      }
     }
     /**
      * @type {import('./type.js').TimeTweenStop}
@@ -16762,6 +16810,7 @@
         );
         const fn = {
           set: () => {
+            if (!this.#isInPause) tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'set'} */
               action2
@@ -16771,6 +16820,7 @@
             );
           },
           goTo: () => {
+            if (!this.#isInPause) tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goTo'} */
               action2
@@ -16780,6 +16830,7 @@
             );
           },
           goFrom: () => {
+            if (!this.#isInPause) tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goFrom'} */
               action2
