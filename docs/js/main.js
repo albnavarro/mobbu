@@ -16757,6 +16757,7 @@
         const fn = {
           set: () => {
             tween2?.clearCurretPromise?.();
+            this.#unFreezeAllTweenStagger();
             return tween2?.[
               /** @type {'set'} */
               action2
@@ -16766,6 +16767,7 @@
             );
           },
           goTo: () => {
+            this.#unFreezeAllTweenStagger();
             tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goTo'} */
@@ -16777,6 +16779,7 @@
           },
           goFrom: () => {
             tween2?.clearCurretPromise?.();
+            this.#unFreezeAllTweenStagger();
             return tween2?.[
               /** @type {'goFrom'} */
               action2
@@ -16787,6 +16790,7 @@
           },
           goFromTo: () => {
             tween2?.clearCurretPromise?.();
+            this.#unFreezeAllTweenStagger();
             return tween2?.[
               /** @type {'goFromTo'} */
               action2
@@ -17501,7 +17505,6 @@
      */
     async playFrom(label) {
       await this.#waitFps();
-      this.#unFreezeAllTweenStagger();
       return this.#playFromUpDown(label, false);
     }
     /**
@@ -17509,7 +17512,6 @@
      */
     async playFromReverse(label) {
       await this.#waitFps();
-      this.#unFreezeAllTweenStagger();
       return this.#playFromUpDown(label, true);
     }
     /**
@@ -17622,7 +17624,6 @@
       reject = null
     } = {}) {
       await this.#waitFps();
-      this.#unFreezeAllTweenStagger();
       return new Promise((thisResolve, thisReject) => {
         const currentResolve = resolve ?? thisResolve;
         const currentReject = reject ?? thisReject;
