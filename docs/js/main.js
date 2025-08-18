@@ -15131,7 +15131,7 @@
      */
     setImmediate(setObject, specialProps = {}) {
       if (this.#isRunning)
-        this.stop({ clearCache: false, updateValues: false });
+        this.stop({ clearCache: true, updateValues: false });
       if (this.#pauseStatus) return;
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
@@ -15501,10 +15501,6 @@
      */
     #pauseStatus;
     /**
-     * @type {boolean}
-     */
-    #comeFromResume;
-    /**
      * @type {number}
      */
     #startTime;
@@ -15604,7 +15600,6 @@
       this.#callbackStartInPause = [];
       this.#unsubscribeCache = [];
       this.#pauseStatus = false;
-      this.#comeFromResume = false;
       this.#startTime = 0;
       this.#timeElapsed = 0;
       this.#pauseTime = 0;
@@ -15779,7 +15774,6 @@
     stop({ clearCache = true, updateValues = true } = {}) {
       this.#pauseTime = 0;
       this.#pauseStatus = false;
-      this.#comeFromResume = false;
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
       if (clearCache)
         this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
@@ -15820,7 +15814,6 @@
     resume() {
       if (!this.#pauseStatus) return;
       this.#pauseStatus = false;
-      this.#comeFromResume = true;
     }
     /**
      * @type {import('../../utils/type.js').SetData}
@@ -15897,8 +15890,7 @@
      * @type {import('../../utils/type.js').GoTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goTo(toObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume)
-        this.stop({ clearCache: false });
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = true;
       const toObjectparsed = parseGoToObject(toObject);
       return this.#doAction(toObjectparsed, toObject, specialProps);
@@ -15907,8 +15899,7 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFrom(fromObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume)
-        this.stop({ clearCache: false });
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = true;
       const fromObjectParsed = parseGoFromObject(fromObject);
       return this.#doAction(fromObjectParsed, fromObject, specialProps);
@@ -15917,8 +15908,7 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume)
-        this.stop({ clearCache: false });
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = true;
       if (!compareKeys(fromObject, toObject)) {
         compareKeysWarning("tween goFromTo:", fromObject, toObject);
@@ -15931,8 +15921,7 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').TimeTweenAction>} obj To Values
      */
     set(setObject, specialProps = {}) {
-      if (this.#pauseStatus || this.#comeFromResume)
-        this.stop({ clearCache: false });
+      if (this.#pauseStatus) return new Promise((resolve) => resolve);
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
       const propsParsed = specialProps ? { ...specialProps, duration: 1 } : { duration: 1 };
@@ -15943,7 +15932,7 @@
      */
     setImmediate(setObject, specialProps = {}) {
       if (this.#isRunning)
-        this.stop({ clearCache: false, updateValues: false });
+        this.stop({ clearCache: true, updateValues: false });
       if (this.#pauseStatus) return;
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
@@ -15970,7 +15959,6 @@
         this.#values = setReverseValues(newObjectRaw, this.#values);
       this.#values = setRelativeTween(this.#values, this.#relative);
       if (valueIsBooleanAndTrue(immediate, "immediate ")) {
-        if (this.#isRunning) this.stop({ updateValues: false });
         this.#values = setFromCurrentByTo(this.#values);
         return Promise.resolve();
       }

@@ -566,10 +566,24 @@ export default class MobLerp {
      * @type {import('../../utils/type.js').GoTo<import('./type.js').LerpActions>} obj To Values
      */
     goTo(toObject, spacialProps = {}) {
+        /**
+         * Skip if is in pause
+         */
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
 
+        /**
+         * Enable stagger.
+         */
         this.#useStagger = true;
+
+        /**
+         * Normalize data
+         */
         const toObjectparsed = parseGoToObject(toObject);
+
+        /**
+         * Fire action
+         */
         return this.#doAction(toObjectparsed, toObject, spacialProps);
     }
 
@@ -577,10 +591,24 @@ export default class MobLerp {
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').LerpActions>} obj To Values
      */
     goFrom(fromObject, specialProps = {}) {
+        /**
+         * Skip if is in pause
+         */
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
 
+        /**
+         * Enable stagger.
+         */
         this.#useStagger = true;
+
+        /**
+         * Normalize data
+         */
         const fromObjectParsed = parseGoFromObject(fromObject);
+
+        /**
+         * Fire action
+         */
         return this.#doAction(fromObjectParsed, fromObject, specialProps);
     }
 
@@ -588,16 +616,32 @@ export default class MobLerp {
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').LerpActions>} obj To Values
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
+        /**
+         * Skip if is in pause
+         */
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
+
+        /**
+         * Set does not need stagger.
+         */
         this.#useStagger = true;
 
-        // Check if fromObj has the same keys of toObj
+        /**
+         * Check if keys from/to is equal.
+         */
         if (!compareKeys(fromObject, toObject)) {
             compareKeysWarning('lerp goFromTo:', fromObject, toObject);
             return new Promise((resolve) => resolve);
         }
 
+        /**
+         * Normalize data
+         */
         const objectParsed = parseGoFromToObject(fromObject, toObject);
+
+        /**
+         * Fire action
+         */
         return this.#doAction(objectParsed, fromObject, specialProps);
     }
 
@@ -605,9 +649,24 @@ export default class MobLerp {
      * @type {import('../../utils/type.js').Set<import('./type.js').LerpActions>} obj To Values
      */
     set(setObject, specialProps = {}) {
+        /**
+         * Skip if is in pause
+         */
         if (this.#pauseStatus) return new Promise((resolve) => resolve);
+
+        /**
+         * Set does not need stagger.
+         */
         this.#useStagger = false;
+
+        /**
+         * Normalize data
+         */
         const setObjectParsed = parseSetObject(setObject);
+
+        /**
+         * Fire action
+         */
         return this.#doAction(setObjectParsed, setObject, specialProps);
     }
 
@@ -615,20 +674,47 @@ export default class MobLerp {
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').LerpActions>} obj To Values
      */
     setImmediate(setObject, specialProps = {}) {
-        // this.#value is updated below
+        /**
+         * Secure check, stop tween if is running, TODO:should remove ?
+         */
         if (this.#isRunning)
             this.stop({ clearCache: true, updateValues: false });
+
+        /**
+         * Skip if is in pause
+         */
         if (this.#pauseStatus) return;
 
+        /**
+         * Immediate does not need stagger.
+         */
         this.#useStagger = false;
+
+        /**
+         * Normalize data
+         */
         const setObjectParsed = parseSetObject(setObject);
+
+        /**
+         * Update values
+         */
         this.#values = mergeArray(setObjectParsed, this.#values);
 
+        /**
+         * Check and update reverse.
+         */
         const { reverse } = this.#mergeProps(specialProps ?? {});
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.#values = setReverseValues(setObject, this.#values);
 
+        /**
+         * Check and update relative.
+         */
         this.#values = setRelative(this.#values, this.#relative);
+
+        /**
+         * Finally update current value.
+         */
         this.#values = setFromCurrentByTo(this.#values);
         return;
     }
@@ -640,11 +726,21 @@ export default class MobLerp {
         this.#values = mergeArray(newObjectparsed, this.#values);
 
         const { reverse, immediate } = this.#mergeProps(spacialProps ?? {});
+
+        /**
+         * Check reverse.
+         */
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.#values = setReverseValues(newObjectRaw, this.#values);
 
+        /**
+         * Update relative.
+         */
         this.#values = setRelative(this.#values, this.#relative);
 
+        /**
+         * Execute immediate if settled and exit.
+         */
         if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
             if (this.#isRunning) this.stop({ updateValues: false });
             this.#values = setFromCurrentByTo(this.#values);

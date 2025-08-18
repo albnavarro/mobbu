@@ -136,11 +136,6 @@ export default class MobTimeTween {
     #pauseStatus;
 
     /**
-     * @type {boolean}
-     */
-    #comeFromResume;
-
-    /**
      * @type {number}
      */
     #startTime;
@@ -249,7 +244,6 @@ export default class MobTimeTween {
         this.#callbackStartInPause = [];
         this.#unsubscribeCache = [];
         this.#pauseStatus = false;
-        this.#comeFromResume = false;
         this.#startTime = 0;
         this.#timeElapsed = 0;
         this.#pauseTime = 0;
@@ -469,7 +463,6 @@ export default class MobTimeTween {
     stop({ clearCache = true, updateValues = true } = {}) {
         this.#pauseTime = 0;
         this.#pauseStatus = false;
-        this.#comeFromResume = false;
         if (updateValues) this.#values = setFromToByCurrent(this.#values);
 
         /**
@@ -521,7 +514,6 @@ export default class MobTimeTween {
     resume() {
         if (!this.#pauseStatus) return;
         this.#pauseStatus = false;
-        this.#comeFromResume = true;
     }
 
     /**
@@ -603,11 +595,24 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').GoTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goTo(toObject, specialProps = {}) {
-        if (this.#pauseStatus || this.#comeFromResume)
-            this.stop({ clearCache: false });
+        /**
+         * Skip if is in pause
+         */
+        if (this.#pauseStatus) return new Promise((resolve) => resolve);
 
+        /**
+         * Enable stagger.
+         */
         this.#useStagger = true;
+
+        /**
+         * Normalize data
+         */
         const toObjectparsed = parseGoToObject(toObject);
+
+        /**
+         * Fire action
+         */
         return this.#doAction(toObjectparsed, toObject, specialProps);
     }
 
@@ -615,11 +620,24 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFrom(fromObject, specialProps = {}) {
-        if (this.#pauseStatus || this.#comeFromResume)
-            this.stop({ clearCache: false });
+        /**
+         * Skip if is in pause
+         */
+        if (this.#pauseStatus) return new Promise((resolve) => resolve);
 
+        /**
+         * Enable stagger.
+         */
         this.#useStagger = true;
+
+        /**
+         * Normalize data
+         */
         const fromObjectParsed = parseGoFromObject(fromObject);
+
+        /**
+         * Fire action
+         */
         return this.#doAction(fromObjectParsed, fromObject, specialProps);
     }
 
@@ -627,16 +645,32 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
-        if (this.#pauseStatus || this.#comeFromResume)
-            this.stop({ clearCache: false });
+        /**
+         * Skip if is in pause
+         */
+        if (this.#pauseStatus) return new Promise((resolve) => resolve);
 
+        /**
+         * Set does not need stagger.
+         */
         this.#useStagger = true;
+
+        /**
+         * Check if keys from/to is equal.
+         */
         if (!compareKeys(fromObject, toObject)) {
             compareKeysWarning('tween goFromTo:', fromObject, toObject);
             return new Promise((resolve) => resolve);
         }
 
+        /**
+         * Normalize data
+         */
         const objectParsed = parseGoFromToObject(fromObject, toObject);
+
+        /**
+         * Fire action
+         */
         return this.#doAction(objectParsed, fromObject, specialProps);
     }
 
@@ -644,16 +678,31 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').Set<import('./type.js').TimeTweenAction>} obj To Values
      */
     set(setObject, specialProps = {}) {
-        if (this.#pauseStatus || this.#comeFromResume)
-            this.stop({ clearCache: false });
+        /**
+         * Skip if is in pause
+         */
+        if (this.#pauseStatus) return new Promise((resolve) => resolve);
 
+        /**
+         * Set does not need stagger.
+         */
         this.#useStagger = false;
+
+        /**
+         * Normalize data
+         */
         const setObjectParsed = parseSetObject(setObject);
 
-        // In set mode duration is small as possible
+        /**
+         * Immediate is very fast, 1 ms
+         */
         const propsParsed = specialProps
             ? { ...specialProps, duration: 1 }
             : { duration: 1 };
+
+        /**
+         * Fire action
+         */
         return this.#doAction(setObjectParsed, setObject, propsParsed);
     }
 
@@ -661,23 +710,54 @@ export default class MobTimeTween {
      * @type {import('../../utils/type.js').SetImmediate<import('./type.js').TimeTweenAction>} obj To Values
      */
     setImmediate(setObject, specialProps = {}) {
-        // this.#value is updated below
+        /**
+         * Secure check, stop tween if is running, TODO:should remove ?
+         */
         if (this.#isRunning)
-            this.stop({ clearCache: false, updateValues: false });
+            this.stop({ clearCache: true, updateValues: false });
+
+        /**
+         * Skip if is in pause
+         */
         if (this.#pauseStatus) return;
 
+        /**
+         * Immediate does not need stagger.
+         */
         this.#useStagger = false;
+
+        /**
+         * Normalize data
+         */
         const setObjectParsed = parseSetObject(setObject);
+
+        /**
+         * Immediate is very fast, 1 ms
+         */
         const propsParsed = specialProps
             ? { ...specialProps, duration: 1 }
             : { duration: 1 };
+
+        /**
+         * Update values
+         */
         this.#values = mergeArrayTween(setObjectParsed, this.#values);
 
+        /**
+         * Check and update reverse.
+         */
         const { reverse } = this.#mergeProps(propsParsed);
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.#values = setReverseValues(setObject, this.#values);
 
+        /**
+         * Check and update relative.
+         */
         this.#values = setRelativeTween(this.#values, this.#relative);
+
+        /**
+         * Finally update current value.
+         */
         this.#values = setFromCurrentByTo(this.#values);
         return;
     }
@@ -688,22 +768,32 @@ export default class MobTimeTween {
     #doAction(newObjectParsed, newObjectRaw, specialProps = {}) {
         this.#values = mergeArrayTween(newObjectParsed, this.#values);
 
+        /**
+         * Time tween need restart if called while running. this.#value is updated below At stop by default from/to
+         * value is updated, for next if only set/goTo is used without define from value.
+         */
         if (this.#isRunning) {
-            /**
-             * Time tween need restart if called while running. this.#value is updated below
-             */
             this.stop({ clearCache: false, updateValues: false });
             this.#updateDataWhileRunning();
         }
 
         const { reverse, immediate } = this.#mergeProps(specialProps);
+
+        /**
+         * Check reverse.
+         */
         if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.#values = setReverseValues(newObjectRaw, this.#values);
 
+        /**
+         * Update relative.
+         */
         this.#values = setRelativeTween(this.#values, this.#relative);
 
+        /**
+         * Execute immediate if settled and exit.
+         */
         if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
-            if (this.#isRunning) this.stop({ updateValues: false });
             this.#values = setFromCurrentByTo(this.#values);
             return Promise.resolve();
         }
