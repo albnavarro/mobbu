@@ -321,12 +321,16 @@ export const caterpillarN0Animation = ({
      */
     const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
         if (val) {
+            mainTween?.pause();
+            mainTween?.freezeStagger();
             isActive = false;
             return;
         }
 
         setTimeout(() => {
             isActive = true;
+            mainTween?.resume();
+            mainTween?.unFreezeStagger();
 
             /**
              * If close nav but change route skip.

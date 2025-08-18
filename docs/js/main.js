@@ -28082,7 +28082,7 @@ Loading snippet ...</pre
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
-        gridTimeline?.stop();
+        gridTimeline?.pause();
         isActive2 = false;
         return;
       }
@@ -28090,7 +28090,7 @@ Loading snippet ...</pre
         isActive2 = true;
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
-        gridTimeline?.play();
+        gridTimeline?.resume();
         modules_exports.useFrame(() => loop());
       }, 500);
     });
@@ -28924,11 +28924,15 @@ Loading snippet ...</pre
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
+        mainTween?.pause();
+        mainTween?.freezeStagger();
         isActive2 = false;
         return;
       }
       setTimeout(() => {
         isActive2 = true;
+        mainTween?.resume();
+        mainTween?.unFreezeStagger();
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
         modules_exports.useFrame(({ time: time2 }) => loop({ time: time2 }));

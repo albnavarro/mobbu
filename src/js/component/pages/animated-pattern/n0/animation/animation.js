@@ -285,7 +285,7 @@ export const animatedPatternN0Animation = ({
      */
     const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
         if (val) {
-            gridTimeline?.stop();
+            gridTimeline?.pause();
             isActive = false;
             return;
         }
@@ -302,7 +302,7 @@ export const animatedPatternN0Animation = ({
             /**
              * Restart loop
              */
-            gridTimeline?.play();
+            gridTimeline?.resume();
             MobCore.useFrame(() => loop());
         }, 500);
     });
