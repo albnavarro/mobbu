@@ -123,7 +123,7 @@ export default class MobTimeTween {
     /**
      * @type {{ cb: () => boolean }[]}
      */
-    #callbackStartInPause;
+    #externalValidations;
 
     /**
      * @type {(() => void)[]}
@@ -246,7 +246,7 @@ export default class MobTimeTween {
         this.#callback = [];
         this.#callbackCache = [];
         this.#callbackOnComplete = [];
-        this.#callbackStartInPause = [];
+        this.#externalValidations = [];
         this.#unsubscribeCache = [];
         this.#pauseStatus = false;
         this.#startTime = 0;
@@ -456,7 +456,7 @@ export default class MobTimeTween {
          *   accidentally.
          */
         initRaf({
-            validationFunction: this.#callbackStartInPause,
+            validationFunction: this.#externalValidations,
             successAction: (time) => this.#onReuqestAnim(time),
             failAction: (time) =>
                 this.#pauseStatus ? this.#onReuqestAnim(time) : this.pause(),
@@ -1049,11 +1049,11 @@ export default class MobTimeTween {
      * @param {() => boolean} cb Cal function
      * @returns {() => void} Unsubscribe callback
      */
-    onStartInPause(cb) {
-        const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
-        this.#callbackStartInPause = arrayOfCallbackUpdated;
+    validateInitialization(cb) {
+        const valuesUpdated = [...this.#externalValidations, { cb }];
+        this.#externalValidations = valuesUpdated;
 
-        return () => (this.#callbackStartInPause = []);
+        return () => (this.#externalValidations = []);
     }
 
     /**
@@ -1084,7 +1084,7 @@ export default class MobTimeTween {
     destroy() {
         if (this.#currentPromise) this.stop();
         this.#callbackOnComplete = [];
-        this.#callbackStartInPause = [];
+        this.#externalValidations = [];
         this.#callback = [];
         this.#callbackCache = [];
         this.#values = [];

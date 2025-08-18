@@ -55,7 +55,7 @@ export interface AsyncTimelineTween {
     goFromTo: GoFromTo<LerpActions | SpringActions | TimeTweenAction>;
     getToNativeType: () => Record<string, number | (() => number)>;
     destroy: () => void;
-    onStartInPause: (cb: () => boolean) => void;
+    validateInitialization: (cb: () => boolean) => void;
     resetData: () => void;
     getInitialData: () => Record<string, number>;
     stop: (arg0?: { clearCache: boolean }) => any;

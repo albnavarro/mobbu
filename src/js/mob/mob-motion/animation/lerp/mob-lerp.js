@@ -124,7 +124,7 @@ export default class MobLerp {
     /**
      * @type {{ cb: () => boolean }[]}
      */
-    #callbackStartInPause;
+    #externalValidations;
 
     /**
      * @type {(() => void)[]}
@@ -233,7 +233,7 @@ export default class MobLerp {
         this.#callback = [];
         this.#callbackCache = [];
         this.#callbackOnComplete = [];
-        this.#callbackStartInPause = [];
+        this.#externalValidations = [];
         this.#unsubscribeCache = [];
         this.#pauseStatus = false;
         this.#firstRun = true;
@@ -433,7 +433,7 @@ export default class MobLerp {
          *   accidentally.
          */
         initRaf({
-            validationFunction: this.#callbackStartInPause,
+            validationFunction: this.#externalValidations,
             successAction: (time, fps) => this.#onReuqestAnim(time, fps),
             failAction: (time, fps) =>
                 this.#pauseStatus
@@ -1025,11 +1025,11 @@ export default class MobLerp {
      * @param {() => boolean} cb Cal function
      * @returns {() => void} Unsubscribe callback
      */
-    onStartInPause(cb) {
-        const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
-        this.#callbackStartInPause = arrayOfCallbackUpdated;
+    validateInitialization(cb) {
+        const valuesUpdated = [...this.#externalValidations, { cb }];
+        this.#externalValidations = valuesUpdated;
 
-        return () => (this.#callbackStartInPause = []);
+        return () => (this.#externalValidations = []);
     }
 
     /**
@@ -1058,7 +1058,7 @@ export default class MobLerp {
     destroy() {
         if (this.#currentPromise) this.stop();
         this.#callbackOnComplete = [];
-        this.#callbackStartInPause = [];
+        this.#externalValidations = [];
         this.#callback = [];
         this.#callbackCache = [];
         this.#values = [];

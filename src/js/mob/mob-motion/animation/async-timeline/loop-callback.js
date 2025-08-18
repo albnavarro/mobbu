@@ -55,11 +55,11 @@ export const resolveTweenPromise = ({
 
     /*
      * Add tween to active stack, if timelienstatus is in pause
-     * onStartInPause methods trigger pause status inside tween.
+     * validateInitialization methods trigger pause status inside tween.
      */
     const unsubscribeTweenStartInPause =
-        tween && tween?.onStartInPause
-            ? tween.onStartInPause(() => {
+        tween && tween?.validateInitialization
+            ? tween.validateInitialization(() => {
                   return isInPause;
               })
             : NOOP;

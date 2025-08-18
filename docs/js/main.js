@@ -12578,7 +12578,7 @@
     /**
      * @type {{ cb: () => boolean }[]}
      */
-    #callbackStartInPause;
+    #externalValidations;
     /**
      * @type {(() => void)[]}
      */
@@ -12677,7 +12677,7 @@
       this.#callback = [];
       this.#callbackCache = [];
       this.#callbackOnComplete = [];
-      this.#callbackStartInPause = [];
+      this.#externalValidations = [];
       this.#unsubscribeCache = [];
       this.#pauseStatus = false;
       this.#firstRun = true;
@@ -12821,7 +12821,7 @@
         this.#fpsInLoading = false;
       }
       initRaf({
-        validationFunction: this.#callbackStartInPause,
+        validationFunction: this.#externalValidations,
         successAction: (time2, fps2) => this.#onReuqestAnim(time2, fps2),
         failAction: (time2, fps2) => this.#pauseStatus ? this.#onReuqestAnim(time2, fps2) : this.pause()
       });
@@ -13244,10 +13244,10 @@
      * @param {() => boolean} cb Cal function
      * @returns {() => void} Unsubscribe callback
      */
-    onStartInPause(cb) {
-      const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
-      this.#callbackStartInPause = arrayOfCallbackUpdated;
-      return () => this.#callbackStartInPause = [];
+    validateInitialization(cb) {
+      const valuesUpdated = [...this.#externalValidations, { cb }];
+      this.#externalValidations = valuesUpdated;
+      return () => this.#externalValidations = [];
     }
     /**
      * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the
@@ -13272,7 +13272,7 @@
     destroy() {
       if (this.#currentPromise) this.stop();
       this.#callbackOnComplete = [];
-      this.#callbackStartInPause = [];
+      this.#externalValidations = [];
       this.#callback = [];
       this.#callbackCache = [];
       this.#values = [];
@@ -14699,7 +14699,7 @@
     /**
      * @type {{ cb: () => boolean }[]}
      */
-    #callbackStartInPause;
+    #externalValidations;
     /**
      * @type {(() => void)[]}
      */
@@ -14804,7 +14804,7 @@
       this.#callback = [];
       this.#callbackCache = [];
       this.#callbackOnComplete = [];
-      this.#callbackStartInPause = [];
+      this.#externalValidations = [];
       this.#unsubscribeCache = [];
       this.#pauseStatus = false;
       this.#firstRun = true;
@@ -14966,7 +14966,7 @@
         this.#fpsInLoading = false;
       }
       initRaf({
-        validationFunction: this.#callbackStartInPause,
+        validationFunction: this.#externalValidations,
         successAction: (time2, fps2) => this.#onReuqestAnim(time2, fps2),
         failAction: (time2, fps2) => this.#pauseStatus ? this.#onReuqestAnim(time2, fps2) : this.pause()
       });
@@ -15405,10 +15405,10 @@
      * @param {() => boolean} cb Cal function
      * @returns {() => void} Unsubscribe callback
      */
-    onStartInPause(cb) {
-      const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
-      this.#callbackStartInPause = arrayOfCallbackUpdated;
-      return () => this.#callbackStartInPause = [];
+    validateInitialization(cb) {
+      const valuesUpdated = [...this.#externalValidations, { cb }];
+      this.#externalValidations = valuesUpdated;
+      return () => this.#externalValidations = [];
     }
     /**
      * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the
@@ -15433,7 +15433,7 @@
     destroy() {
       if (this.#currentPromise) this.stop();
       this.#callbackOnComplete = [];
-      this.#callbackStartInPause = [];
+      this.#externalValidations = [];
       this.#callback = [];
       this.#callbackCache = [];
       this.#values = [];
@@ -15531,7 +15531,7 @@
     /**
      * @type {{ cb: () => boolean }[]}
      */
-    #callbackStartInPause;
+    #externalValidations;
     /**
      * @type {(() => void)[]}
      */
@@ -15641,7 +15641,7 @@
       this.#callback = [];
       this.#callbackCache = [];
       this.#callbackOnComplete = [];
-      this.#callbackStartInPause = [];
+      this.#externalValidations = [];
       this.#unsubscribeCache = [];
       this.#pauseStatus = false;
       this.#startTime = 0;
@@ -15799,7 +15799,7 @@
         this.#fpsInLoading = false;
       }
       initRaf({
-        validationFunction: this.#callbackStartInPause,
+        validationFunction: this.#externalValidations,
         successAction: (time2) => this.#onReuqestAnim(time2),
         failAction: (time2) => this.#pauseStatus ? this.#onReuqestAnim(time2) : this.pause()
       });
@@ -16209,10 +16209,10 @@
      * @param {() => boolean} cb Cal function
      * @returns {() => void} Unsubscribe callback
      */
-    onStartInPause(cb) {
-      const arrayOfCallbackUpdated = [...this.#callbackStartInPause, { cb }];
-      this.#callbackStartInPause = arrayOfCallbackUpdated;
-      return () => this.#callbackStartInPause = [];
+    validateInitialization(cb) {
+      const valuesUpdated = [...this.#externalValidations, { cb }];
+      this.#externalValidations = valuesUpdated;
+      return () => this.#externalValidations = [];
     }
     /**
      * Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the
@@ -16239,7 +16239,7 @@
     destroy() {
       if (this.#currentPromise) this.stop();
       this.#callbackOnComplete = [];
-      this.#callbackStartInPause = [];
+      this.#externalValidations = [];
       this.#callback = [];
       this.#callbackCache = [];
       this.#values = [];
@@ -16469,7 +16469,7 @@
       return;
     }
     const unsubscribeActiveTween = addToActiveTween(tween2);
-    const unsubscribeTweenStartInPause = tween2 && tween2?.onStartInPause ? tween2.onStartInPause(() => {
+    const unsubscribeTweenStartInPause = tween2 && tween2?.validateInitialization ? tween2.validateInitialization(() => {
       return isInPause;
     }) : NOOP;
     fn[action2]().then(() => res({ resolve: true })).catch(() => {
