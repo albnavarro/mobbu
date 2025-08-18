@@ -12595,6 +12595,10 @@
     /**
      * @type {boolean}
      */
+    #staggerIsFreezed;
+    /**
+     * @type {boolean}
+     */
     #fpsInLoading;
     /**
      * This value is the base value merged with new value in custom prop passed form user in goTo etc..
@@ -12675,6 +12679,7 @@
       this.#pauseStatus = false;
       this.#firstRun = true;
       this.#useStagger = true;
+      this.#staggerIsFreezed = false;
       this.#fpsInLoading = false;
       this.#defaultProps = {
         reverse: false,
@@ -12840,6 +12845,7 @@
     stop({ clearCache = true, updateValues = true } = {}) {
       if (this.#pauseStatus) this.#pauseStatus = false;
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
+      this.unFreezeStagger();
       if (clearCache)
         this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
       if (this.#currentReject) {
@@ -12854,7 +12860,9 @@
      * @returns {void}
      */
     freezeStagger() {
+      if (this.#staggerIsFreezed) return;
       this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+      this.#staggerIsFreezed = true;
     }
     /**
      * @param {object} [params]
@@ -12862,9 +12870,11 @@
      * @returns {void}
      */
     unFreezeStagger({ updateFrame = true } = {}) {
+      if (!this.#staggerIsFreezed) return;
       this.#callbackCache.forEach(
         ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: updateFrame })
       );
+      this.#staggerIsFreezed = false;
     }
     /**
      * @type {import('./type.js').LerpPause}
@@ -12874,6 +12884,7 @@
       this.#pauseStatus = true;
       this.#isRunning = false;
       this.#values = setFromByCurrent(this.#values);
+      this.freezeStagger();
     }
     /**
      * @type {import('./type.js').LerpResume}
@@ -12881,6 +12892,7 @@
     resume() {
       if (!this.#pauseStatus) return;
       this.#pauseStatus = false;
+      this.unFreezeStagger();
       if (!this.#isRunning && this.#currentResolve) {
         resume((time2, fps2) => this.#onReuqestAnim(time2, fps2));
       }
@@ -12986,7 +12998,7 @@
      */
     setImmediate(setObject, specialProps = {}) {
       if (this.#isRunning)
-        this.stop({ clearCache: true, updateValues: false });
+        this.stop({ clearCache: false, updateValues: false });
       if (this.#pauseStatus) return;
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
@@ -14701,6 +14713,10 @@
     /**
      * @type {boolean}
      */
+    #staggerIsFreezed;
+    /**
+     * @type {boolean}
+     */
     #fpsInLoading;
     /**
      * This value is the base value merged with new value in custom prop passed form user in goTo etc..
@@ -14787,6 +14803,7 @@
       this.#pauseStatus = false;
       this.#firstRun = true;
       this.#useStagger = true;
+      this.#staggerIsFreezed = false;
       this.#fpsInLoading = false;
       this.#defaultProps = {
         reverse: false,
@@ -14971,6 +14988,7 @@
     stop({ clearCache = true, updateValues = true } = {}) {
       if (this.#pauseStatus) this.#pauseStatus = false;
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
+      this.unFreezeStagger();
       if (clearCache)
         this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
       if (this.#currentReject) {
@@ -14985,7 +15003,9 @@
      * @returns {void}
      */
     freezeStagger() {
+      if (this.#staggerIsFreezed) return;
       this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+      this.#staggerIsFreezed = true;
     }
     /**
      * @param {object} [params]
@@ -14993,9 +15013,11 @@
      * @returns {void}
      */
     unFreezeStagger({ updateFrame = true } = {}) {
+      if (!this.#staggerIsFreezed) return;
       this.#callbackCache.forEach(
         ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: updateFrame })
       );
+      this.#staggerIsFreezed = false;
     }
     /**
      * @type {import('./type.js').SpringPause}
@@ -15005,6 +15027,7 @@
       this.#pauseStatus = true;
       this.#isRunning = false;
       this.#values = setFromByCurrent(this.#values);
+      this.freezeStagger();
     }
     /**
      * @type {import('./type.js').SpringResume}
@@ -15012,6 +15035,7 @@
     resume() {
       if (!this.#pauseStatus) return;
       this.#pauseStatus = false;
+      this.unFreezeStagger();
       if (!this.#isRunning && this.#currentResolve) {
         resume((time2, fps2) => this.#onReuqestAnim(time2, fps2));
       }
@@ -15139,7 +15163,7 @@
      */
     setImmediate(setObject, specialProps = {}) {
       if (this.#isRunning)
-        this.stop({ clearCache: true, updateValues: false });
+        this.stop({ clearCache: false, updateValues: false });
       if (this.#pauseStatus) return;
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
@@ -15535,6 +15559,10 @@
     /**
      * @type {boolean}
      */
+    #staggerIsFreezed;
+    /**
+     * @type {boolean}
+     */
     #fpsInLoading;
     /**
      * This value is the base value merged with new value in custom prop passed form user in goTo etc..
@@ -15618,6 +15646,7 @@
       this.#pauseTime = 0;
       this.#firstRun = true;
       this.#useStagger = true;
+      this.#staggerIsFreezed = false;
       this.#fpsInLoading = false;
       this.#defaultProps = {
         duration: this.#duration,
@@ -15789,6 +15818,7 @@
       this.#pauseStatus = false;
       this.#comeFromResume = false;
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
+      this.unFreezeStagger();
       if (clearCache)
         this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
       if (this.#currentReject) {
@@ -15803,7 +15833,9 @@
      * @returns {void}
      */
     freezeStagger() {
+      if (this.#staggerIsFreezed) return;
       this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+      this.#staggerIsFreezed = true;
     }
     /**
      * @param {object} [params]
@@ -15811,9 +15843,11 @@
      * @returns {void}
      */
     unFreezeStagger({ updateFrame = true } = {}) {
+      if (!this.#staggerIsFreezed) return;
       this.#callbackCache.forEach(
         ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: updateFrame })
       );
+      this.#staggerIsFreezed = false;
     }
     /**
      * @type {import('./type.js').TimeTweenPause}
@@ -15821,6 +15855,7 @@
     pause() {
       if (this.#pauseStatus) return;
       this.#pauseStatus = true;
+      this.freezeStagger();
     }
     /**
      * @type {import('./type.js').TimeTweenResume}
@@ -15829,6 +15864,7 @@
       if (!this.#pauseStatus) return;
       this.#pauseStatus = false;
       this.#comeFromResume = true;
+      this.unFreezeStagger();
     }
     /**
      * @type {import('../../utils/type.js').SetData}
@@ -15951,7 +15987,7 @@
      */
     setImmediate(setObject, specialProps = {}) {
       if (this.#isRunning)
-        this.stop({ clearCache: true, updateValues: false });
+        this.stop({ clearCache: false, updateValues: false });
       if (this.#pauseStatus) return;
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
@@ -16776,7 +16812,6 @@
         const fn = {
           set: () => {
             tween2?.clearCurretPromise?.();
-            this.#unFreezeAllTweenStagger();
             return tween2?.[
               /** @type {'set'} */
               action2
@@ -16786,7 +16821,6 @@
             );
           },
           goTo: () => {
-            this.#unFreezeAllTweenStagger();
             tween2?.clearCurretPromise?.();
             return tween2?.[
               /** @type {'goTo'} */
@@ -16798,7 +16832,6 @@
           },
           goFrom: () => {
             tween2?.clearCurretPromise?.();
-            this.#unFreezeAllTweenStagger();
             return tween2?.[
               /** @type {'goFrom'} */
               action2
@@ -16809,7 +16842,6 @@
           },
           goFromTo: () => {
             tween2?.clearCurretPromise?.();
-            this.#unFreezeAllTweenStagger();
             return tween2?.[
               /** @type {'goFromTo'} */
               action2
@@ -17577,7 +17609,6 @@
      */
     async play() {
       await this.#waitFps();
-      this.#unFreezeAllTweenStagger();
       return new Promise((resolve, reject) => {
         if (this.#autoSet) this.#addSetBlocks();
         if (this.#freeMode) {
@@ -17714,6 +17745,7 @@
      * @type {import('./type.js').AsyncTimelinePause}
      */
     pause() {
+      if (this.#isInPause) return;
       this.#isInPause = true;
       this.#timeOnPause = modules_exports.getTime();
       this.#pauseAllTween();
@@ -17726,7 +17758,6 @@
         this.#isInPause = false;
         this.#timeOnPause = 0;
         this.#resumeAllTween();
-        this.#unFreezeAllTweenStagger();
       }
       if (this.#isInSuspension) {
         this.#isInSuspension = false;
@@ -17751,7 +17782,6 @@
     #pauseAllTween() {
       this.#currentTween.forEach(({ tween: tween2 }) => {
         tween2?.pause?.();
-        tween2?.freezeStagger?.();
       });
     }
     /**
@@ -17767,11 +17797,11 @@
      *
      * @returns {void}
      */
-    #unFreezeAllTweenStagger() {
-      this.#currentTween.forEach(({ tween: tween2 }) => {
-        tween2?.unFreezeStagger?.();
-      });
-    }
+    // #unFreezeAllTweenStagger() {
+    //     this.#currentTween.forEach(({ tween }) => {
+    //         tween?.unFreezeStagger?.();
+    //     });
+    // }
     /**
      * @type {() => void}
      */
@@ -28925,14 +28955,12 @@ Loading snippet ...</pre
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
         mainTween?.pause();
-        mainTween?.freezeStagger();
         isActive2 = false;
         return;
       }
       setTimeout(() => {
         isActive2 = true;
         mainTween?.resume();
-        mainTween?.unFreezeStagger();
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
         modules_exports.useFrame(({ time: time2 }) => loop({ time: time2 }));

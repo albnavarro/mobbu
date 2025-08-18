@@ -168,6 +168,11 @@ export default class MobTimeTween {
     /**
      * @type {boolean}
      */
+    #staggerIsFreezed;
+
+    /**
+     * @type {boolean}
+     */
     #fpsInLoading;
 
     /**
@@ -255,6 +260,7 @@ export default class MobTimeTween {
         this.#pauseTime = 0;
         this.#firstRun = true;
         this.#useStagger = true;
+        this.#staggerIsFreezed = false;
         this.#fpsInLoading = false;
         this.#defaultProps = {
             duration: this.#duration,
@@ -473,6 +479,8 @@ export default class MobTimeTween {
 
         if (updateValues) this.#values = setFromToByCurrent(this.#values);
 
+        this.unFreezeStagger();
+
         /**
          * Clear stagger cache if needed.
          */
@@ -494,7 +502,10 @@ export default class MobTimeTween {
      * @returns {void}
      */
     freezeStagger() {
+        if (this.#staggerIsFreezed) return;
+
         this.#callbackCache.forEach(({ cb }) => MobCore.useCache.freeze(cb));
+        this.#staggerIsFreezed = true;
     }
 
     /**
@@ -503,9 +514,13 @@ export default class MobTimeTween {
      * @returns {void}
      */
     unFreezeStagger({ updateFrame = true } = {}) {
+        if (!this.#staggerIsFreezed) return;
+
         this.#callbackCache.forEach(({ cb }) =>
             MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
         );
+
+        this.#staggerIsFreezed = false;
     }
 
     /**
@@ -514,6 +529,7 @@ export default class MobTimeTween {
     pause() {
         if (this.#pauseStatus) return;
         this.#pauseStatus = true;
+        this.freezeStagger();
     }
 
     /**
@@ -523,6 +539,7 @@ export default class MobTimeTween {
         if (!this.#pauseStatus) return;
         this.#pauseStatus = false;
         this.#comeFromResume = true;
+        this.unFreezeStagger();
     }
 
     /**
@@ -731,7 +748,7 @@ export default class MobTimeTween {
          * Secure check, stop tween if is running, TODO:should remove ? updateValues in below
          */
         if (this.#isRunning)
-            this.stop({ clearCache: true, updateValues: false });
+            this.stop({ clearCache: false, updateValues: false });
 
         /**
          * Skip if is in pause

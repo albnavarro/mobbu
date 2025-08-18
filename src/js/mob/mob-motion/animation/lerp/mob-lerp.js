@@ -149,6 +149,11 @@ export default class MobLerp {
     /**
      * @type {boolean}
      */
+    #staggerIsFreezed;
+
+    /**
+     * @type {boolean}
+     */
     #fpsInLoading;
 
     /**
@@ -233,6 +238,7 @@ export default class MobLerp {
         this.#pauseStatus = false;
         this.#firstRun = true;
         this.#useStagger = true;
+        this.#staggerIsFreezed = false;
         this.#fpsInLoading = false;
         this.#defaultProps = {
             reverse: false,
@@ -448,6 +454,8 @@ export default class MobLerp {
         if (this.#pauseStatus) this.#pauseStatus = false;
         if (updateValues) this.#values = setFromToByCurrent(this.#values);
 
+        this.unFreezeStagger();
+
         /**
          * Clear stagger cache if needed.
          */
@@ -469,7 +477,10 @@ export default class MobLerp {
      * @returns {void}
      */
     freezeStagger() {
+        if (this.#staggerIsFreezed) return;
+
         this.#callbackCache.forEach(({ cb }) => MobCore.useCache.freeze(cb));
+        this.#staggerIsFreezed = true;
     }
 
     /**
@@ -478,9 +489,13 @@ export default class MobLerp {
      * @returns {void}
      */
     unFreezeStagger({ updateFrame = true } = {}) {
+        if (!this.#staggerIsFreezed) return;
+
         this.#callbackCache.forEach(({ cb }) =>
             MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
         );
+
+        this.#staggerIsFreezed = false;
     }
 
     /**
@@ -491,6 +506,7 @@ export default class MobLerp {
         this.#pauseStatus = true;
         this.#isRunning = false;
         this.#values = setFromByCurrent(this.#values);
+        this.freezeStagger();
     }
 
     /**
@@ -499,6 +515,7 @@ export default class MobLerp {
     resume() {
         if (!this.#pauseStatus) return;
         this.#pauseStatus = false;
+        this.unFreezeStagger();
 
         if (!this.#isRunning && this.#currentResolve) {
             resume((time, fps) => this.#onReuqestAnim(time, fps));
@@ -682,7 +699,7 @@ export default class MobLerp {
          * Secure check, stop tween if is running, TODO:should remove ?
          */
         if (this.#isRunning)
-            this.stop({ clearCache: true, updateValues: false });
+            this.stop({ clearCache: false, updateValues: false });
 
         /**
          * Skip if is in pause

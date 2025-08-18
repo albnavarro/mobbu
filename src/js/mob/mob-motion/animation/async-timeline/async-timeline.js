@@ -486,22 +486,12 @@ export default class MobAsyncTimeline {
                      */
                     tween?.clearCurretPromise?.();
 
-                    /**
-                     * If this method is fired with pause active, we have to restore stagger cache
-                     */
-                    this.#unFreezeAllTweenStagger();
-
                     return tween?.[/** @type {'set'} */ (action)](
                         valuesFrom,
                         newTweenProps
                     );
                 },
                 goTo: () => {
-                    /**
-                     * If this method is fired with pause active, we have to restore stagger cache
-                     */
-                    this.#unFreezeAllTweenStagger();
-
                     /**
                      * Clear eventually previous primise from promise race condition
                      */
@@ -518,11 +508,6 @@ export default class MobAsyncTimeline {
                      */
                     tween?.clearCurretPromise?.();
 
-                    /**
-                     * If this method is fired with pause active, we have to restore stagger cache
-                     */
-                    this.#unFreezeAllTweenStagger();
-
                     return tween?.[/** @type {'goFrom'} */ (action)](
                         valuesFrom,
                         newTweenProps
@@ -533,11 +518,6 @@ export default class MobAsyncTimeline {
                      * Clear eventually previous primise from promise race condition
                      */
                     tween?.clearCurretPromise?.();
-
-                    /**
-                     * If this method is fired with pause active, we have to restore stagger cache
-                     */
-                    this.#unFreezeAllTweenStagger();
 
                     return tween?.[/** @type {'goFromTo'} */ (action)](
                         valuesFrom,
@@ -1673,11 +1653,6 @@ export default class MobAsyncTimeline {
     async play() {
         await this.#waitFps();
 
-        /**
-         * If this method is fired with pause active, we have to restore stagger cache
-         */
-        this.#unFreezeAllTweenStagger();
-
         return new Promise((resolve, reject) => {
             /**
              * Add Tween at start/end if needed
@@ -1930,6 +1905,8 @@ export default class MobAsyncTimeline {
      * @type {import('./type.js').AsyncTimelinePause}
      */
     pause() {
+        if (this.#isInPause) return;
+
         this.#isInPause = true;
         this.#timeOnPause = MobCore.getTime();
         this.#pauseAllTween();
@@ -1944,7 +1921,6 @@ export default class MobAsyncTimeline {
             this.#timeOnPause = 0;
 
             this.#resumeAllTween();
-            this.#unFreezeAllTweenStagger();
         }
 
         if (this.#isInSuspension) {
@@ -1976,7 +1952,6 @@ export default class MobAsyncTimeline {
     #pauseAllTween() {
         this.#currentTween.forEach(({ tween }) => {
             tween?.pause?.();
-            tween?.freezeStagger?.();
         });
     }
 
@@ -1994,11 +1969,11 @@ export default class MobAsyncTimeline {
      *
      * @returns {void}
      */
-    #unFreezeAllTweenStagger() {
-        this.#currentTween.forEach(({ tween }) => {
-            tween?.unFreezeStagger?.();
-        });
-    }
+    // #unFreezeAllTweenStagger() {
+    //     this.#currentTween.forEach(({ tween }) => {
+    //         tween?.unFreezeStagger?.();
+    //     });
+    // }
 
     /**
      * @type {() => void}
