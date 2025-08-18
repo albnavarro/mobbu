@@ -4,11 +4,11 @@ import { NOOP } from '../../utils/functions-utils';
  * @param {Object} param
  * @param {(reason?: any) => void} param.mainReject
  * @param {(reason?: any) => void} param.mainResolve
- * @param {boolean} param.isStopped
- * @param {boolean} param.isInPause
+ * @param {() => boolean} param.isStopped
+ * @param {() => boolean} param.isInPause
  * @param {(tween: any) => function} param.addToActiveTween
  * @param {number} param.previousSessionId
- * @param {number} param.currentSessionId
+ * @param {() => number} param.currentSessionId
  * @param {any} param.tween
  * @param {Record<string, any>} param.stepFunction
  * @param {string} param.action
@@ -29,7 +29,7 @@ export const resolveTweenPromise = ({
      * Promles section rejct timeline if:
      * - This check is utils when delay is active
      */
-    if (isStopped || previousSessionId !== currentSessionId) {
+    if (isStopped() || previousSessionId !== currentSessionId()) {
         mainReject();
         return;
     }
@@ -48,7 +48,7 @@ export const resolveTweenPromise = ({
     const unsubscribeValidation =
         tween && tween?.validateInitialization
             ? tween.validateInitialization(() => {
-                  return isInPause;
+                  return isInPause();
               })
             : NOOP;
 

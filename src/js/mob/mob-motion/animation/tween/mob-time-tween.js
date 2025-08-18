@@ -458,8 +458,7 @@ export default class MobTimeTween {
         initRaf({
             validationFunction: this.#externalValidations,
             successAction: (time) => this.#onReuqestAnim(time),
-            failAction: (time) =>
-                this.#pauseStatus ? this.#onReuqestAnim(time) : this.pause(),
+            failAction: () => this.pause(),
         });
     }
 

@@ -468,10 +468,7 @@ export default class MobSpring {
         initRaf({
             validationFunction: this.#externalValidations,
             successAction: (time, fps) => this.#onReuqestAnim(time, fps),
-            failAction: (time, fps) =>
-                this.#pauseStatus
-                    ? this.#onReuqestAnim(time, fps)
-                    : this.pause(),
+            failAction: () => this.pause(),
         });
     }
 

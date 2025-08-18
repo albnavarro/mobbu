@@ -458,15 +458,18 @@ export default class MobAsyncTimeline {
             /**
              * Current action data. Than we match key in object.
              *
-             * ClearCurretPromise() specification:
+             * NORMALI TWEEN
              *
-             * - Tweens, when called with a new action while still running, do not create a new promise but instead reuse
-             *   the first promise created. The promise is resolved once the tween completes. Here, we have a special
-             *   case: with Promise.race (waitComplete: false), the longest-running tween will not create a new promise
-             *   in the next step because it is still active. This leads to entering a step without a new promise to
-             *   resolve. In this scenario, we need to ensure that whenever a tween executes an action in the current
-             *   step, there is always a promise related to that step. Therefore, we force the tween to reject any
-             *   active promises and create a new one.
+             * - Create a fresh primise from tween: Tweens, when called with a new action while still running, do not
+             *   create a new promise but instead reuse the first promise created. The promise is resolved once the
+             *   tween completes. Here, we have a special case: with Promise.race (waitComplete: false), the
+             *   longest-running tween will not create a new promise in the next step because it is still active. This
+             *   leads to entering a step without a new promise to resolve. In this scenario, we need to ensure that
+             *   whenever a tween executes an action in the current step, there is always a promise related to that
+             *   step. Therefore, we force the tween to reject any active promises and create a new one.
+             * - Normalize pasue status, if timeline is not in pause tween should not be in pause.
+             *   tween.validateInitialization() if used set tween in pause. in next loop remov epause if timeline is
+             *   not.
              */
             const stepFunction = {
                 set: () => {
@@ -494,6 +497,8 @@ export default class MobAsyncTimeline {
                     );
                 },
                 goFromTo: () => {
+                    if (!this.#isInPause) tween?.clearCurretPromise?.();
+
                     return tween?.[/** @type {'goFromTo'} */ (action)](
                         valuesFrom,
                         valuesTo,
@@ -633,10 +638,10 @@ export default class MobAsyncTimeline {
                 resolveTweenPromise({
                     mainReject,
                     mainResolve,
-                    isStopped: this.#isStopped,
-                    isInPause: this.#isInPause,
+                    isStopped: () => this.#isStopped,
+                    isInPause: () => this.#isInPause,
                     addToActiveTween: (tween) => this.#addToActiveTween(tween),
-                    currentSessionId: this.#sessionId,
+                    currentSessionId: () => this.#sessionId,
                     previousSessionId,
                     tween,
                     stepFunction,
@@ -869,12 +874,12 @@ export default class MobAsyncTimeline {
             resolveTweenPromise({
                 mainReject,
                 mainResolve,
-                isStopped: this.#isStopped,
-                isInPause: this.#isInPause,
+                isStopped: () => this.#isStopped,
+                isInPause: () => this.#isInPause,
                 addToActiveTween: (tween) => {
                     return this.#addToActiveTween(tween);
                 },
-                currentSessionId: this.#sessionId,
+                currentSessionId: () => this.#sessionId,
                 previousSessionId,
                 tween,
                 stepFunction,

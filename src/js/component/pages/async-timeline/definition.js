@@ -22,10 +22,6 @@ const buttons = {
         label: 'play from label reverse',
         method: 'playFromLabelReverse',
     },
-    'js-async-timeline-revert-next': {
-        label: 'revert next',
-        method: 'revertNext',
-    },
     'js-async-timeline-pause': {
         label: 'pause',
         method: 'pause',
@@ -33,6 +29,10 @@ const buttons = {
     'js-async-timeline-resume': {
         label: 'resume',
         method: 'resume',
+    },
+    'js-async-timeline-revert-next': {
+        label: 'revert next',
+        method: 'revertNext',
     },
     'js-async-timeline-stop': {
         label: 'stop',
