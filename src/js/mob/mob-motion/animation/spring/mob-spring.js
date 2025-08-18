@@ -323,6 +323,9 @@ export default class MobSpring {
                 this.#currentReject = undefined;
                 this.#currentResolve = undefined;
 
+                /**
+                 * Can happen that with fat pause/resume settled is resolve in pause. In this case consider pause ended.
+                 */
                 this.#pauseStatus = false;
                 this.#isRunning = false;
             };
