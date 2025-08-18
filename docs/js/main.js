@@ -16452,8 +16452,8 @@
 
   // src/js/mob/mob-motion/animation/async-timeline/loop-callback.js
   var resolveTweenPromise = ({
-    reject,
-    res,
+    mainReject,
+    mainResolve,
     isStopped: isStopped2,
     previousSessionId,
     currentSessionId,
@@ -16464,14 +16464,14 @@
     addToActiveTween
   }) => {
     if (isStopped2 || previousSessionId !== currentSessionId) {
-      reject();
+      mainReject();
       return;
     }
     const unsubscribeActiveTween = addToActiveTween(tween2);
     const unsubscribeValidation = tween2 && tween2?.validateInitialization ? tween2.validateInitialization(() => {
       return isInPause;
     }) : NOOP;
-    stepFunction[action2]().then(() => res({ resolve: true })).catch(() => {
+    stepFunction[action2]().then(() => mainResolve({ resolve: true })).catch(() => {
     }).finally(() => {
       unsubscribeActiveTween();
       unsubscribeValidation();
@@ -16902,7 +16902,7 @@
             });
           }
         };
-        return new Promise((res, reject) => {
+        return new Promise((mainResolve, mainReject) => {
           const delay = isImmediate ? false : tweenProps?.delay;
           const previousSessionId = this.#sessionId;
           if (delay) {
@@ -16912,8 +16912,8 @@
                 start,
                 deltaTimeOnpause: 0,
                 delay,
-                reject,
-                res,
+                mainReject,
+                mainResolve,
                 previousSessionId,
                 tween: tween2,
                 stepFunction,
@@ -16923,8 +16923,8 @@
             return;
           }
           resolveTweenPromise({
-            reject,
-            res,
+            mainReject,
+            mainResolve,
             isStopped: this.#isStopped,
             isInPause: this.#isInPause,
             addToActiveTween: (tween3) => this.#addToActiveTween(tween3),
@@ -17019,8 +17019,8 @@
      * @param {number} param0.start
      * @param {number} param0.deltaTimeOnpause
      * @param {number} param0.delay
-     * @param {(value: any) => void} param0.reject - Timeline current group item promise
-     * @param {(value: any) => void} param0.res - Timeline current group item promise
+     * @param {(value: any) => void} param0.mainReject
+     * @param {(value: any) => void} param0.mainResolve
      * @param {number} param0.previousSessionId
      * @param {any} param0.tween
      * @param {Record<string, () => void>} param0.stepFunction
@@ -17030,8 +17030,8 @@
       start,
       deltaTimeOnpause,
       delay,
-      reject,
-      res,
+      mainReject,
+      mainResolve,
       previousSessionId,
       tween: tween2,
       stepFunction,
@@ -17042,8 +17042,8 @@
       if (this.#isInPause) deltaTimeOnpause = current - this.#timeOnPause;
       if (delta - deltaTimeOnpause >= delay || this.#isStopped || this.#isReverseNext) {
         resolveTweenPromise({
-          reject,
-          res,
+          mainReject,
+          mainResolve,
           isStopped: this.#isStopped,
           isInPause: this.#isInPause,
           addToActiveTween: (tween3) => {
@@ -17062,8 +17062,8 @@
           start,
           deltaTimeOnpause,
           delay,
-          reject,
-          res,
+          mainReject,
+          mainResolve,
           previousSessionId,
           tween: tween2,
           stepFunction,
@@ -34504,7 +34504,7 @@ Loading snippet ...</pre
       duration: 1e3,
       ease: "easeInOutBack"
     });
-    let tweenGridRotate = tween_exports.createTimeTween({
+    let tweenGridRotate = tween_exports.createSpring({
       data: tweenRotateTarget
     });
     data.forEach((item) => {
@@ -34538,17 +34538,13 @@ Loading snippet ...</pre
       x: getCoordinate({ row: 1, col: 8 }).x,
       rotate: 360,
       scale: 2
-    }).createGroup({ waitComplete: false }).goTo(
-      tweenAround,
-      {
-        y: getCoordinate({ row: 8, col: 8 }).y,
-        rotate: 180
-      },
-      { duration: 2e3 }
-    ).goTo(
+    }).createGroup({ waitComplete: false }).goTo(tweenAround, {
+      y: getCoordinate({ row: 8, col: 8 }).y,
+      rotate: 180
+    }).goTo(
       tweenGridRotate,
       { y: getCoordinate({ row: 0, col: 8 }).y },
-      { delay: 1e3 }
+      { delay: 500 }
     ).closeGroup().label({ name: "my-label" }).createGroup({ waitComplete: false }).goTo(tweenAround, {
       x: getCoordinate({ row: 8, col: 1 }).x,
       rotate: 0,
