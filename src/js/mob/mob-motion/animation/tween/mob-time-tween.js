@@ -136,11 +136,6 @@ export default class MobTimeTween {
     #pauseStatus;
 
     /**
-     * @type {boolean}
-     */
-    #comeFromResume;
-
-    /**
      * @type {number}
      */
     #startTime;
@@ -254,7 +249,6 @@ export default class MobTimeTween {
         this.#callbackStartInPause = [];
         this.#unsubscribeCache = [];
         this.#pauseStatus = false;
-        this.#comeFromResume = false;
         this.#startTime = 0;
         this.#timeElapsed = 0;
         this.#pauseTime = 0;
@@ -462,12 +456,21 @@ export default class MobTimeTween {
     }
 
     /**
-     * TimeTween doasn/t need this method. It use always from/to value. Spring/lerp use only to value to be reactive,
-     * See that tween for reference.
+     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
+     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
+     * isRunning back to true
      *
      * @returns {void}
      */
-    clearCurretPromise() {}
+    clearCurretPromise() {
+        if (this.#currentReject) {
+            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
+            this.#currentPromise = undefined;
+            this.#currentReject = undefined;
+            this.#currentResolve = undefined;
+            this.#isRunning = false;
+        }
+    }
 
     /**
      * @type {import('./type.js').TimeTweenStop}
@@ -475,7 +478,6 @@ export default class MobTimeTween {
     stop({ clearCache = true, updateValues = true } = {}) {
         this.#pauseTime = 0;
         this.#pauseStatus = false;
-        this.#comeFromResume = false;
 
         if (updateValues) this.#values = setFromToByCurrent(this.#values);
 
@@ -538,7 +540,6 @@ export default class MobTimeTween {
     resume() {
         if (!this.#pauseStatus) return;
         this.#pauseStatus = false;
-        this.#comeFromResume = true;
         this.unFreezeStagger();
     }
 
@@ -622,11 +623,10 @@ export default class MobTimeTween {
      */
     goTo(toObject, specialProps = {}) {
         /**
-         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause First
-         * execution in pause or after resume, reset all pause props.
+         * Skip if is in pause
          */
-        if (this.#pauseStatus || this.#comeFromResume)
-            this.stop({ clearCache: false });
+        if (this.#pauseStatus)
+            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
 
         /**
          * Enable stagger.
@@ -649,11 +649,10 @@ export default class MobTimeTween {
      */
     goFrom(fromObject, specialProps = {}) {
         /**
-         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause First
-         * execution in pause or after resume, reset all pause props.
+         * Skip if is in pause
          */
-        if (this.#pauseStatus || this.#comeFromResume)
-            this.stop({ clearCache: false });
+        if (this.#pauseStatus)
+            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
 
         /**
          * Enable stagger.
@@ -676,11 +675,10 @@ export default class MobTimeTween {
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
         /**
-         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause First
-         * execution in pause or after resume, reset all pause props.
+         * Skip if is in pause
          */
-        if (this.#pauseStatus || this.#comeFromResume)
-            this.stop({ clearCache: false });
+        if (this.#pauseStatus)
+            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
 
         /**
          * Set does not need stagger.
@@ -711,11 +709,10 @@ export default class MobTimeTween {
      */
     set(setObject, specialProps = {}) {
         /**
-         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause First
-         * execution in pause or after resume, reset all pause props.
+         * Skip if is in pause
          */
-        if (this.#pauseStatus || this.#comeFromResume)
-            this.stop({ clearCache: false });
+        if (this.#pauseStatus)
+            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
 
         /**
          * Set does not need stagger.
@@ -802,15 +799,6 @@ export default class MobTimeTween {
     #doAction(newObjectParsed, newObjectRaw, specialProps = {}) {
         this.#values = mergeArrayTween(newObjectParsed, this.#values);
 
-        /**
-         * Time tween need restart if called while running. this.#value is updated below At stop by default from/to
-         * value is updated, for next if only set/goTo is used without define from value.
-         */
-        if (this.#isRunning) {
-            this.stop({ clearCache: false, updateValues: false });
-            this.#updateDataWhileRunning();
-        }
-
         const { reverse, immediate } = this.#mergeProps(specialProps);
 
         /**
@@ -828,6 +816,15 @@ export default class MobTimeTween {
          * Execute immediate if settled and exit.
          */
         if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
+            /**
+             * Time tween need restart if called while running. this.#value is updated below At stop by default from/to
+             * value is updated, for next if only set/goTo is used without define from value.
+             */
+            if (this.#isRunning) {
+                this.stop({ clearCache: false, updateValues: false });
+                this.#updateDataWhileRunning();
+            }
+
             this.#values = setFromCurrentByTo(this.#values);
             return Promise.resolve();
         }
