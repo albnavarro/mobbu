@@ -466,11 +466,11 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         },
         play: () => {
             timeline.play();
-            gridTimeline.play();
+            if (!gridTimeline.isActive()) gridTimeline.play();
         },
         playReverse: () => {
             timeline.playReverse();
-            gridTimeline.play();
+            if (!gridTimeline.isActive()) gridTimeline.play();
         },
         playFromLabel: () => {
             timeline
@@ -479,8 +479,8 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                     timeline.playFrom('my-label').then(() => {
                         console.log('resolve promise playFrom');
                     });
-                    gridTimeline.play();
                 });
+            if (!gridTimeline.isActive()) gridTimeline.play();
         },
         playFromLabelReverse: () => {
             timeline
@@ -489,8 +489,8 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                     timeline.playFromReverse('my-label').then(() => {
                         console.log('resolve promise playFrom');
                     });
-                    gridTimeline.play();
                 });
+            if (!gridTimeline.isActive()) gridTimeline.play();
         },
         revertNext: () => {
             timeline.reverseNext();
