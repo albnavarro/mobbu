@@ -2,8 +2,8 @@ import { NOOP } from '../../utils/functions-utils';
 
 /**
  * @param {Object} param
- * @param {(reason?: any) => void} param.reject
- * @param {(reason?: any) => void} param.res
+ * @param {(reason?: any) => void} param.mainReject
+ * @param {(reason?: any) => void} param.mainResolve
  * @param {boolean} param.isStopped
  * @param {boolean} param.isInPause
  * @param {(tween: any) => function} param.addToActiveTween
@@ -14,8 +14,8 @@ import { NOOP } from '../../utils/functions-utils';
  * @param {string} param.action
  */
 export const resolveTweenPromise = ({
-    reject,
-    res,
+    mainReject,
+    mainResolve,
     isStopped,
     previousSessionId,
     currentSessionId,
@@ -30,7 +30,7 @@ export const resolveTweenPromise = ({
      * - This check is utils when delay is active
      */
     if (isStopped || previousSessionId !== currentSessionId) {
-        reject();
+        mainReject();
         return;
     }
 
@@ -53,7 +53,7 @@ export const resolveTweenPromise = ({
             : NOOP;
 
     stepFunction[action]()
-        .then(() => res({ resolve: true }))
+        .then(() => mainResolve({ resolve: true }))
         .catch(() => {})
         .finally(() => {
             unsubscribeActiveTween();

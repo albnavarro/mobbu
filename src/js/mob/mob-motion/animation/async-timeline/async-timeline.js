@@ -599,7 +599,7 @@ export default class MobAsyncTimeline {
                 },
             };
 
-            return new Promise((res, reject) => {
+            return new Promise((mainResolve, mainReject) => {
                 // Get delay
                 const delay = isImmediate ? false : tweenProps?.delay;
                 const previousSessionId = this.#sessionId;
@@ -615,8 +615,8 @@ export default class MobAsyncTimeline {
                             start,
                             deltaTimeOnpause: 0,
                             delay,
-                            reject,
-                            res,
+                            mainReject,
+                            mainResolve,
                             previousSessionId,
                             tween,
                             stepFunction,
@@ -631,8 +631,8 @@ export default class MobAsyncTimeline {
                  * Here we resolve single tween promise
                  */
                 resolveTweenPromise({
-                    reject,
-                    res,
+                    mainReject,
+                    mainResolve,
                     isStopped: this.#isStopped,
                     isInPause: this.#isInPause,
                     addToActiveTween: (tween) => this.#addToActiveTween(tween),
@@ -816,8 +816,8 @@ export default class MobAsyncTimeline {
      * @param {number} param0.start
      * @param {number} param0.deltaTimeOnpause
      * @param {number} param0.delay
-     * @param {(value: any) => void} param0.reject - Timeline current group item promise
-     * @param {(value: any) => void} param0.res - Timeline current group item promise
+     * @param {(value: any) => void} param0.mainReject
+     * @param {(value: any) => void} param0.mainResolve
      * @param {number} param0.previousSessionId
      * @param {any} param0.tween
      * @param {Record<string, () => void>} param0.stepFunction
@@ -827,8 +827,8 @@ export default class MobAsyncTimeline {
         start,
         deltaTimeOnpause,
         delay,
-        reject,
-        res,
+        mainReject,
+        mainResolve,
         previousSessionId,
         tween,
         stepFunction,
@@ -867,8 +867,8 @@ export default class MobAsyncTimeline {
              * Here we resolve single tween promise
              */
             resolveTweenPromise({
-                reject,
-                res,
+                mainReject,
+                mainResolve,
                 isStopped: this.#isStopped,
                 isInPause: this.#isInPause,
                 addToActiveTween: (tween) => {
@@ -892,8 +892,8 @@ export default class MobAsyncTimeline {
                 start,
                 deltaTimeOnpause,
                 delay,
-                reject,
-                res,
+                mainReject,
+                mainResolve,
                 previousSessionId,
                 tween,
                 stepFunction,
