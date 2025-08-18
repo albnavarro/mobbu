@@ -120,7 +120,7 @@ export const lettering01 = async () => {
         <animation-title
             ${MobJs.staticProps(
                 /** @type {import('@commonComponent/animation-title/type').AnimationTitle['state']} */ ({
-                    title: 'Mob 01',
+                    title: 'Mob 01/<span>Svg</span>',
                     list: ['Svg', 'Spring', 'Lerp'],
                 })
             )}

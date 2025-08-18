@@ -2,21 +2,32 @@
 
 .c-animation-title {
     position: fixed;
-    bottom: calc(var(--footer-height) + #{rem(22)} * -1);
+    bottom: calc(var(--footer-height) + #{rem(35)} * -1);
     left: rem(60);
+
+    &__main {
+        font-size: rem(50);
+
+        span {
+            color: $grey-medium-2;
+        }
+    }
 
     &__list {
         list-style-type: none;
         padding-left: 0;
-        margin-left: 0;
+        margin-left: calc(#{rem(10)} * -1);
         margin-bottom: 0;
     }
 
     &__item {
+        padding-left: rem(15);
+        position: relative;
+
         h6 {
             margin-bottom: 0;
-            font-size: rem(16);
-            opacity: 0.4;
+            font-size: rem(14);
+            line-height: 1.4;
         }
     }
 }

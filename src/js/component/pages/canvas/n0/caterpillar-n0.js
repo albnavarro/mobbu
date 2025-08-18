@@ -59,7 +59,7 @@ export const CaterpillarN0Fn = ({
                 <animation-title
                     ${staticProps(
                         /** @type {AnimationTitle['state']} */ ({
-                            title: 'Canvas Mouse interaction 01',
+                            title: 'Canvas Mouse interaction 01/<span>Canvas 2d</span>',
                             list: ['Spring', 'AsyncTimeline'],
                         })
                     )}

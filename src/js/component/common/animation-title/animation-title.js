@@ -24,7 +24,7 @@ export const AnimationTitleFn = ({ getState }) => {
                         })
                         .join('')}
                 </ul>
-                <h2 class="c-animation-title__mail">${title}</h2>
+                <h2 class="c-animation-title__main">${title}</h2>
             </div>
         </div>
     `;

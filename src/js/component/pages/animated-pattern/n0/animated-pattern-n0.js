@@ -56,7 +56,7 @@ export const AnimatedPatternN0Fn = ({
                 <animation-title
                     ${staticProps(
                         /** @type {AnimationTitle['state']} */ ({
-                            title: 'Animated pattern',
+                            title: 'Animated pattern/<span>Canvas 2d</span>',
                             list: ['TimeTween', 'AsyncTimeline'],
                         })
                     )}

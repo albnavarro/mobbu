@@ -76,7 +76,7 @@ export const ScrollerN0Fn = ({
                 <animation-title
                     ${staticProps(
                         /** @type {AnimationTitle['state']} */ ({
-                            title: 'Scroll control',
+                            title: 'Scroll control/<span>Canvas 2d</span>',
                             list: [
                                 'Sequencer',
                                 'CreateStagger',

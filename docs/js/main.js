@@ -678,7 +678,7 @@ Loading snippet ...</pre
                     <canvas ${r("canvas")}></canvas>
                 </div>
                 <animation-title
-                    ${i({title:"Animated pattern",list:["TimeTween","AsyncTimeline"]})}
+                    ${i({title:"Animated pattern/<span>Canvas 2d</span>",list:["TimeTween","AsyncTimeline"]})}
                 ></animation-title>
             </div>
         </div>
@@ -690,7 +690,7 @@ Loading snippet ...</pre
                                 <h6>${n}</h6>
                             </li>`).join("")}
                 </ul>
-                <h2 class="c-animation-title__mail">${t}</h2>
+                <h2 class="c-animation-title__main">${t}</h2>
             </div>
         </div>
     `};var Be=m.createComponent({tag:"animation-title",component:SS,exportState:["title","list"],state:{title:()=>({value:"",type:String}),list:()=>({value:[],type:Array})}});var TS=m.createComponent({tag:"animatedpattern-n0",component:vS,exportState:["numberOfRow","numberOfColumn","cellWidth","cellHeight","gutter","fill","stagger","reorder","disableOffcanvas"],state:{isMounted:!1,numberOfRow:()=>({value:10,type:Number}),numberOfColumn:()=>({value:10,type:Number}),cellWidth:()=>({value:window.innerHeight/16,type:Number}),cellHeight:()=>({value:window.innerHeight/16,type:Number}),gutter:()=>({value:1,type:Number}),fill:()=>({value:[16,27,38,49,60,71,82,93],type:Array}),stagger:()=>({value:{each:5,grid:{col:11,row:11,direction:"row"},waitComplete:!1},type:"any"}),reorder:()=>({value:!0,type:Boolean}),disableOffcanvas:()=>({value:!!(Je()||Ge()),type:Boolean})},child:[Be]});var Eu=[{animation:{},nav:{prevRoute:"#async-timeline",nextRoute:"#animatedPatternN0?version=1&activeId=1",backRoute:"#canvas-overview"}},{title:"Animated pattern N.0 v1",animation:{fill:[0,13,20,45,65,71,72,73,74,75,76,77,83,92,96,113,117,134,138,155,156,157,158,159,189,209],gutter:1,numberOfColumn:20,numberOfRow:10,cellWidth:window.innerHeight/18,cellHeight:window.innerHeight/18,stagger:{each:2,from:"random",waitComplete:!1},reorder:!1},nav:{prevRoute:"#animatedPatternN0?version=0&activeId=0",nextRoute:"#animatedPatternN0?version=2&activeId=2",backRoute:"#canvas-overview"}},{animation:{fill:[0,13,20,45,65,71,72,73,74,75,76,77,83,92,96,113,117,134,138,155,156,157,158,159,189,209],gutter:1,numberOfColumn:10,numberOfRow:10,stagger:{each:10,from:"edges",waitComplete:!1},reorder:!1},nav:{prevRoute:"#animatedPatternN0?version=1&activeId=1",nextRoute:"#animatedPatternN0?version=3&activeId=3",backRoute:"#canvas-overview"}},{title:"Animated pattern N.0 v3",animation:{fill:[],gutter:1,numberOfColumn:12,numberOfRow:13,cellWidth:window.innerHeight/22,cellHeight:window.innerHeight/22,stagger:{each:20,from:{x:6,y:6},grid:{col:13,row:13,direction:"radial"},waitComplete:!1},reorder:!1},nav:{prevRoute:"#animatedPatternN0?version=2&activeId=2",nextRoute:"#animatedPatternN1",backRoute:"#canvas-overview"}}];m.useComponent([TS]);var xS=({params:e})=>{let{version:t}=e,r=Eu[Math.max(0,Math.min(Number(t),Eu.length-1))];return Pe({active:!0,prevRoute:r.nav.prevRoute,nextRoute:r.nav.nextRoute,backRoute:r.nav.backRoute,color:"black"}),g`<div class="l-padding">
@@ -707,7 +707,7 @@ Loading snippet ...</pre
                     <canvas ${r("canvas")}></canvas>
                 </div>
                 <animation-title
-                    ${i({title:"Animated pattern",list:["Lerp","AsyncTimeline"]})}
+                    ${i({title:"Animated pattern/<span>Canvas 2d</span>",list:["Lerp","AsyncTimeline"]})}
                 ></animation-title>
             </div>
         </div>
@@ -723,7 +723,7 @@ Loading snippet ...</pre
                     <canvas ${t("canvas")}></canvas>
                 </div>
                 <animation-title
-                    ${i({title:"Canvas Mouse interaction 01",list:["Spring","AsyncTimeline"]})}
+                    ${i({title:"Canvas Mouse interaction 01/<span>Canvas 2d</span>",list:["Spring","AsyncTimeline"]})}
                 ></animation-title>
             </div>
         </div>
@@ -739,7 +739,7 @@ Loading snippet ...</pre
                     <canvas ${o("canvas")}></canvas>
                 </div>
                 <animation-title
-                    ${i({title:"Canvas Mouse interaction 02",list:["Spring","TimeTween","AsyncTimeline"]})}
+                    ${i({title:"Canvas Mouse interaction 02/<span>Canvas 2d</span>",list:["Spring","TimeTween","AsyncTimeline"]})}
                 ></animation-title>
             </div>
         </div>
@@ -785,7 +785,7 @@ Loading snippet ...</pre
                     <canvas ${r("canvas")}></canvas>
                 </div>
                 <animation-title
-                    ${i({title:"SyncTimeline with controls",list:["Sequencer","SyncTimeline"]})}
+                    ${i({title:"SyncTimeline with controls/<span>Canvas 2d</span>",list:["Sequencer","SyncTimeline"]})}
                 ></animation-title>
             </div>
         </div>
@@ -801,7 +801,7 @@ Loading snippet ...</pre
                     <canvas ${r("canvas")}></canvas>
                 </div>
                 <animation-title
-                    ${i({title:"Scroll control",list:["Sequencer","CreateStagger","ScrollTrigger"]})}
+                    ${i({title:"Scroll control/<span>Canvas 2d</span>",list:["Sequencer","CreateStagger","ScrollTrigger"]})}
                 ></animation-title>
             </div>
             <div class="c-canvas-scroller" ${r("canvasScroller")}></div>
@@ -820,7 +820,7 @@ Loading snippet ...</pre
                     <canvas ${o("canvas")}></canvas>
                 </div>
                 <animation-title
-                    ${a({title:"Scroll control",list:["ScrollerTween","ScrollTrigger"]})}
+                    ${a({title:"Scroll control/<span>Canvas 2d</span>",list:["ScrollerTween","ScrollTrigger"]})}
                 ></animation-title>
             </div>
             <div class="c-canvas-scroller" ${o("canvasScroller")}></div>
@@ -1310,7 +1310,7 @@ Loading snippet ...</pre
             ${m.staticProps({shape:qT({u0:t,u1:r,o,o_b:n,m1:s,m2:a,m3:l,m4:d,b1:f,b1_b:v,b2:y,b3:T,b4:_,b5:x,g1:k,sign:I,m1_b:i,m2_b:c,m3_b:p,m4_b:h,b1_stone:C,m1_stone:P,m2_stone:O}),xDepth:100,yDepth:30,factor:20,xLimit:20,yLimit:20,drag:!0,perspective:1e3})}
         ></move-3d>
         <animation-title
-            ${m.staticProps({title:"Mob 01",list:["Svg","Spring","Lerp"]})}
+            ${m.staticProps({title:"Mob 01/<span>Svg</span>",list:["Svg","Spring","Lerp"]})}
         ></animation-title>
     </div>`};var JT=()=>_e.mq("min","desktop"),YT=({onMount:e,getProxi:t,bindEffect:r})=>{let o=t();return o.active=JT(),e(()=>{let n=u.useResize(()=>{o.active=JT()});return()=>{n()}}),g`
         <a
@@ -1354,7 +1354,7 @@ Loading snippet ...</pre
                     <canvas ${r("canvas")}></canvas>
                 </div>
                 <animation-title
-                    ${i({title:"AsyncTimeline example",list:["Spring","TimeTween","AsyncTimeline"]})}
+                    ${i({title:"AsyncTimeline example/<span>Canvas 2d</span>",list:["Spring","TimeTween","AsyncTimeline"]})}
                 ></animation-title>
             </div>
         </div>

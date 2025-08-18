@@ -117,7 +117,7 @@ export const AsyncTimelineFn = ({
                 <animation-title
                     ${staticProps(
                         /** @type {AnimationTitle['state']} */ ({
-                            title: 'AsyncTimeline example',
+                            title: 'AsyncTimeline example/<span>Canvas 2d</span>',
                             list: ['Spring', 'TimeTween', 'AsyncTimeline'],
                         })
                     )}
