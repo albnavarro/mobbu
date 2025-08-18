@@ -408,12 +408,14 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
      */
     const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
         if (val) {
+            isActive = false;
             timeline.pause();
             gridTimeline.pause();
             return;
         }
 
         setTimeout(async () => {
+            isActive = true;
             /**
              * If close nav but change route skip.
              */

@@ -34747,11 +34747,13 @@ Loading snippet ...</pre
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
+        isActive2 = false;
         timeline.pause();
         gridTimeline.pause();
         return;
       }
       setTimeout(async () => {
+        isActive2 = true;
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
         timeline.resume();
