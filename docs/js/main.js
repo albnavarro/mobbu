@@ -16455,27 +16455,26 @@
     reject,
     res,
     isStopped: isStopped2,
-    startOnDelay,
     previousSessionId,
     currentSessionId,
     isInPause,
     tween: tween2,
-    fn,
+    stepFunction,
     action: action2,
     addToActiveTween
   }) => {
-    if (isStopped2 || startOnDelay || previousSessionId !== currentSessionId) {
+    if (isStopped2 || previousSessionId !== currentSessionId) {
       reject();
       return;
     }
     const unsubscribeActiveTween = addToActiveTween(tween2);
-    const unsubscribeTweenStartInPause = tween2 && tween2?.validateInitialization ? tween2.validateInitialization(() => {
+    const unsubscribeValidation = tween2 && tween2?.validateInitialization ? tween2.validateInitialization(() => {
       return isInPause;
     }) : NOOP;
-    fn[action2]().then(() => res({ resolve: true })).catch(() => {
+    stepFunction[action2]().then(() => res({ resolve: true })).catch(() => {
     }).finally(() => {
       unsubscribeActiveTween();
-      unsubscribeTweenStartInPause();
+      unsubscribeValidation();
     });
   };
 
@@ -16577,10 +16576,6 @@
      * @type {boolean}
      */
     #isStopped;
-    /**
-     * @type {boolean}
-     */
-    #startOnDelay;
     /**
      * @type {number}
      */
@@ -16733,7 +16728,6 @@
       this.#isInSuspension = false;
       this.#addAsyncIsActive = false;
       this.#isStopped = true;
-      this.#startOnDelay = false;
       this.#sessionId = 0;
       this.#activetweenCounter = 0;
       this.#timeOnPause = 0;
@@ -16801,7 +16795,7 @@
             return prevId === id && prevAction === action2;
           }
         );
-        const fn = {
+        const stepFunction = {
           set: () => {
             if (!this.#isInPause) tween2?.clearCurretPromise?.();
             return tween2?.[
@@ -16922,7 +16916,7 @@
                 res,
                 previousSessionId,
                 tween: tween2,
-                fn,
+                stepFunction,
                 action: action2
               });
             });
@@ -16932,13 +16926,12 @@
             reject,
             res,
             isStopped: this.#isStopped,
-            startOnDelay: this.#startOnDelay,
             isInPause: this.#isInPause,
             addToActiveTween: (tween3) => this.#addToActiveTween(tween3),
             currentSessionId: this.#sessionId,
             previousSessionId,
             tween: tween2,
-            fn,
+            stepFunction,
             action: action2
           });
         });
@@ -17030,7 +17023,7 @@
      * @param {(value: any) => void} param0.res - Timeline current group item promise
      * @param {number} param0.previousSessionId
      * @param {any} param0.tween
-     * @param {Record<string, () => void>} param0.fn
+     * @param {Record<string, () => void>} param0.stepFunction
      * @param {string} param0.action
      */
     #loopOnDelay({
@@ -17041,7 +17034,7 @@
       res,
       previousSessionId,
       tween: tween2,
-      fn,
+      stepFunction,
       action: action2
     }) {
       const current = modules_exports.getTime();
@@ -17052,7 +17045,6 @@
           reject,
           res,
           isStopped: this.#isStopped,
-          startOnDelay: this.#startOnDelay,
           isInPause: this.#isInPause,
           addToActiveTween: (tween3) => {
             return this.#addToActiveTween(tween3);
@@ -17060,7 +17052,7 @@
           currentSessionId: this.#sessionId,
           previousSessionId,
           tween: tween2,
-          fn,
+          stepFunction,
           action: action2
         });
         return;
@@ -17074,7 +17066,7 @@
           res,
           previousSessionId,
           tween: tween2,
-          fn,
+          stepFunction,
           action: action2
         });
       });
@@ -17592,7 +17584,6 @@
         if (this.#freeMode) {
           if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
             return;
-          this.#startOnDelay = false;
           this.stop();
           this.#isStopped = false;
           if (this.#isReverse) this.#revertTween();
@@ -17650,7 +17641,6 @@
         const forceYoYoNow = forceYoYo;
         if (this.#autoSet) this.#addSetBlocks();
         if (this.#tweenList.length === 0 || this.#addAsyncIsActive) return;
-        this.#startOnDelay = false;
         this.stop();
         this.#isStopped = false;
         if (forceYoYoNow) this.#forceYoyo = true;

@@ -148,11 +148,6 @@ export default class MobAsyncTimeline {
     #isStopped;
 
     /**
-     * @type {boolean}
-     */
-    #startOnDelay;
-
-    /**
      * @type {number}
      */
     #sessionId;
@@ -314,7 +309,6 @@ export default class MobAsyncTimeline {
         this.#isInSuspension = false;
         this.#addAsyncIsActive = false;
         this.#isStopped = true;
-        this.#startOnDelay = false;
         this.#sessionId = 0;
         this.#activetweenCounter = 0;
         this.#timeOnPause = 0;
@@ -474,7 +468,7 @@ export default class MobAsyncTimeline {
              *   step, there is always a promise related to that step. Therefore, we force the tween to reject any
              *   active promises and create a new one.
              */
-            const fn = {
+            const stepFunction = {
                 set: () => {
                     if (!this.#isInPause) tween?.clearCurretPromise?.();
 
@@ -625,7 +619,7 @@ export default class MobAsyncTimeline {
                             res,
                             previousSessionId,
                             tween,
-                            fn,
+                            stepFunction,
                             action,
                         });
                     });
@@ -640,13 +634,12 @@ export default class MobAsyncTimeline {
                     reject,
                     res,
                     isStopped: this.#isStopped,
-                    startOnDelay: this.#startOnDelay,
                     isInPause: this.#isInPause,
                     addToActiveTween: (tween) => this.#addToActiveTween(tween),
                     currentSessionId: this.#sessionId,
                     previousSessionId,
                     tween,
-                    fn,
+                    stepFunction,
                     action,
                 });
             });
@@ -827,7 +820,7 @@ export default class MobAsyncTimeline {
      * @param {(value: any) => void} param0.res - Timeline current group item promise
      * @param {number} param0.previousSessionId
      * @param {any} param0.tween
-     * @param {Record<string, () => void>} param0.fn
+     * @param {Record<string, () => void>} param0.stepFunction
      * @param {string} param0.action
      */
     #loopOnDelay({
@@ -838,7 +831,7 @@ export default class MobAsyncTimeline {
         res,
         previousSessionId,
         tween,
-        fn,
+        stepFunction,
         action,
     }) {
         const current = MobCore.getTime();
@@ -856,22 +849,14 @@ export default class MobAsyncTimeline {
         /**
          * RESOLVE DELAY:
          *
-         * Delta - deltaTimeOnpause: reconciliate time: total duration of current timeline step less time elapsed in
-         * pause. Loop #loopOnDelay until reconciliate time is minus delay time
-         *
-         * When reconciliate time is over delay value the tween should go ( delay is ended ). NOTE: dealy is timeline
-         * internal property not tween property. th if is the real delay check.
-         *
-         * If the time elapsed in current timeline step is over delay value need to resolve or reject timeline item
-         * group promsie. the same in case of stop new play, or reverse next
-         *
-         * If there is no problem run tween, if there is problem reject promise of current timeline group item, so
-         * timeline con go in next step.
-         *
-         * OK: resolve current timeline group promise. timeline group item promise is resolved by tweeen resolve.
-         *
-         * NO OK: reject current timeline group promise. if isStopped if play() if fired when pause status is active if
-         * sessionId change
+         * - Delta - deltaTimeOnpause: reconciliate time: total duration of current timeline step less time elapsed in
+         *   pause.
+         * - When reconciliate time is over delay value the tween should go ( delay is ended ). NOTE: dealy is timeline
+         *   internal property not tween property. th if is the real delay check.
+         * - If the time elapsed in current timeline step is over delay value need to resolve or reject timeline item
+         *   group promsie.
+         * - If there is no problem run tween, if there is problem reject promise of current timeline group item, so
+         *   timeline con go in next step.
          */
         if (
             delta - deltaTimeOnpause >= delay ||
@@ -885,7 +870,6 @@ export default class MobAsyncTimeline {
                 reject,
                 res,
                 isStopped: this.#isStopped,
-                startOnDelay: this.#startOnDelay,
                 isInPause: this.#isInPause,
                 addToActiveTween: (tween) => {
                     return this.#addToActiveTween(tween);
@@ -893,7 +877,7 @@ export default class MobAsyncTimeline {
                 currentSessionId: this.#sessionId,
                 previousSessionId,
                 tween,
-                fn,
+                stepFunction,
                 action,
             });
 
@@ -912,7 +896,7 @@ export default class MobAsyncTimeline {
                 res,
                 previousSessionId,
                 tween,
-                fn,
+                stepFunction,
                 action,
             });
         });
@@ -1634,7 +1618,6 @@ export default class MobAsyncTimeline {
                 if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
                     return;
 
-                this.#startOnDelay = false;
                 this.stop();
                 this.#isStopped = false;
 
@@ -1740,7 +1723,6 @@ export default class MobAsyncTimeline {
             /**
              * Rest necessary props
              */
-            this.#startOnDelay = false;
             this.stop();
             this.#isStopped = false;
 
