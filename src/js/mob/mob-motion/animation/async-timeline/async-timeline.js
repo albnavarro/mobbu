@@ -476,14 +476,18 @@ export default class MobAsyncTimeline {
                 }
             );
 
-            /*
+            /**
              * Current action data. Than we match key in object.
+             *
+             * ClearCurretPromise() specification:
+             *
+             * - We perform a Promise.reject() of the tween. We are sure that the tween can start with a new promise to
+             *   resolve. If in a Promise.race(), a tween continues because it is slower and risks not resolving its
+             *   promise, we force manual cleanup. Importantly, this must not happen when the tween is paused—forcing
+             *   the this.#isRunning parameter could interfere with the pause mechanism.
              */
             const fn = {
                 set: () => {
-                    /**
-                     * Clear eventually previous primise from promise race condition
-                     */
                     if (!this.#isInPause) tween?.clearCurretPromise?.();
 
                     return tween?.[/** @type {'set'} */ (action)](
@@ -492,9 +496,6 @@ export default class MobAsyncTimeline {
                     );
                 },
                 goTo: () => {
-                    /**
-                     * Clear eventually previous primise from promise race condition
-                     */
                     if (!this.#isInPause) tween?.clearCurretPromise?.();
 
                     return tween?.[/** @type {'goTo'} */ (action)](
@@ -503,9 +504,6 @@ export default class MobAsyncTimeline {
                     );
                 },
                 goFrom: () => {
-                    /**
-                     * Clear eventually previous primise from promise race condition
-                     */
                     if (!this.#isInPause) tween?.clearCurretPromise?.();
 
                     return tween?.[/** @type {'goFrom'} */ (action)](

@@ -12824,9 +12824,12 @@
       );
     }
     /**
-     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
-     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
-     * isRunning back to true
+     * AsyncTimeline utils.
+     *
+     * - We perform a Promise.reject() of the tween. We are sure that the tween can start with a new promise to resolve.
+     *   If in a Promise.race(), a tween continues because it is slower and risks not resolving its promise, we force
+     *   manual cleanup. Importantly, this must not happen when the tween is paused—forcing the this.#isRunning
+     *   parameter could interfere with the pause mechanism.
      *
      * @returns {void}
      */
@@ -14966,9 +14969,12 @@
       );
     }
     /**
-     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
-     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
-     * isRunning back to true
+     * AsyncTimeline utils.
+     *
+     * - We perform a Promise.reject() of the tween. We are sure that the tween can start with a new promise to resolve.
+     *   If in a Promise.race(), a tween continues because it is slower and risks not resolving its promise, we force
+     *   manual cleanup. Importantly, this must not happen when the tween is paused—forcing the this.#isRunning
+     *   parameter could interfere with the pause mechanism.
      *
      * @returns {void}
      */
@@ -15796,9 +15802,12 @@
       );
     }
     /**
-     * CAUTION. Use by asyncTimeline. If inside group with waitComplete: false the tween is not resolved and another
-     * step call the tween no new promise is created. Fire reject if there is one and set isRunning false. Next draw
-     * isRunning back to true
+     * AsyncTimeline utils.
+     *
+     * - We perform a Promise.reject() of the tween. We are sure that the tween can start with a new promise to resolve.
+     *   If in a Promise.race(), a tween continues because it is slower and risks not resolving its promise, we force
+     *   manual cleanup. Importantly, this must not happen when the tween is paused—forcing the this.#isRunning
+     *   parameter could interfere with the pause mechanism.
      *
      * @returns {void}
      */
