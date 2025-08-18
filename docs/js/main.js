@@ -12941,7 +12941,8 @@
      * @type {import('../../utils/type.js').GoTo<import('./type.js').LerpActions>} obj To Values
      */
     goTo(toObject, spacialProps = {}) {
-      if (this.#pauseStatus) return new Promise((resolve) => resolve);
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
       const toObjectparsed = parseGoToObject(toObject);
       return this.#doAction(toObjectparsed, toObject, spacialProps);
@@ -12950,7 +12951,8 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').LerpActions>} obj To Values
      */
     goFrom(fromObject, specialProps = {}) {
-      if (this.#pauseStatus) return new Promise((resolve) => resolve);
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
       const fromObjectParsed = parseGoFromObject(fromObject);
       return this.#doAction(fromObjectParsed, fromObject, specialProps);
@@ -12959,7 +12961,8 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').LerpActions>} obj To Values
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
-      if (this.#pauseStatus) return new Promise((resolve) => resolve);
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
       if (!compareKeys(fromObject, toObject)) {
         compareKeysWarning("lerp goFromTo:", fromObject, toObject);
@@ -12972,7 +12975,8 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').LerpActions>} obj To Values
      */
     set(setObject, specialProps = {}) {
-      if (this.#pauseStatus) return new Promise((resolve) => resolve);
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
       return this.#doAction(setObjectParsed, setObject, specialProps);
@@ -15090,7 +15094,8 @@
      * @type {import('../../utils/type.js').GoTo<import('./type.js').SpringActions>} obj To Values
      */
     goTo(toObject, specialProps = {}) {
-      if (this.#pauseStatus) return new Promise((resolve) => resolve);
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
       const toObjectParsed = parseGoToObject(toObject);
       return this.#doAction(toObjectParsed, toObject, specialProps);
@@ -15099,7 +15104,8 @@
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').SpringActions>} obj To Values
      */
     goFrom(fromObject, spacialProps = {}) {
-      if (this.#pauseStatus) return new Promise((resolve) => resolve);
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
       const fromObjectParsed = parseGoFromObject(fromObject);
       return this.#doAction(fromObjectParsed, fromObject, spacialProps);
@@ -15108,7 +15114,8 @@
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').SpringActions>} obj To Values
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
-      if (this.#pauseStatus) return new Promise((resolve) => resolve);
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
       if (!compareKeys(fromObject, toObject)) {
         compareKeysWarning("spring goFromTo:", fromObject, toObject);
@@ -15121,7 +15128,8 @@
      * @type {import('../../utils/type.js').Set<import('./type.js').SpringActions>} obj To Values
      */
     set(setObject, specialProps = {}) {
-      if (this.#pauseStatus) return new Promise((resolve) => resolve);
+      if (this.#pauseStatus)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = false;
       const setObjectParsed = parseSetObject(setObject);
       return this.#doAction(setObjectParsed, setObject, specialProps);

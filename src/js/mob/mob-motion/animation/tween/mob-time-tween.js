@@ -605,9 +605,8 @@ export default class MobTimeTween {
      */
     goTo(toObject, specialProps = {}) {
         /**
-         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause
-         *
-         * First execution in pause or after resume, reset all pause props.
+         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause First
+         * execution in pause or after resume, reset all pause props.
          */
         if (this.#pauseStatus || this.#comeFromResume)
             this.stop({ clearCache: false });
@@ -633,9 +632,8 @@ export default class MobTimeTween {
      */
     goFrom(fromObject, specialProps = {}) {
         /**
-         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause
-         *
-         * First execution in pause or after resume, reset all pause props.
+         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause First
+         * execution in pause or after resume, reset all pause props.
          */
         if (this.#pauseStatus || this.#comeFromResume)
             this.stop({ clearCache: false });
@@ -661,9 +659,8 @@ export default class MobTimeTween {
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
         /**
-         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause
-         *
-         * First execution in pause or after resume, reset all pause props.
+         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause First
+         * execution in pause or after resume, reset all pause props.
          */
         if (this.#pauseStatus || this.#comeFromResume)
             this.stop({ clearCache: false });
@@ -697,9 +694,8 @@ export default class MobTimeTween {
      */
     set(setObject, specialProps = {}) {
         /**
-         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause
-         *
-         * First execution in pause or after resume, reset all pause props.
+         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause First
+         * execution in pause or after resume, reset all pause props.
          */
         if (this.#pauseStatus || this.#comeFromResume)
             this.stop({ clearCache: false });

@@ -655,7 +655,8 @@ export default class MobSpring {
         /**
          * Skip if is in pause
          */
-        if (this.#pauseStatus) return new Promise((resolve) => resolve);
+        if (this.#pauseStatus)
+            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
 
         /**
          * Enable stagger.
@@ -680,7 +681,8 @@ export default class MobSpring {
         /**
          * Skip if is in pause
          */
-        if (this.#pauseStatus) return new Promise((resolve) => resolve);
+        if (this.#pauseStatus)
+            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
 
         /**
          * Enable stagger.
@@ -705,7 +707,8 @@ export default class MobSpring {
         /**
          * Skip if is in pause
          */
-        if (this.#pauseStatus) return new Promise((resolve) => resolve);
+        if (this.#pauseStatus)
+            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
 
         /**
          * Set does not need stagger.
@@ -734,7 +737,8 @@ export default class MobSpring {
         /**
          * Skip if is in pause
          */
-        if (this.#pauseStatus) return new Promise((resolve) => resolve);
+        if (this.#pauseStatus)
+            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
 
         /**
          * Set does not need stagger.
