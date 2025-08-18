@@ -262,28 +262,14 @@ getProxi({ excludeSet: exportableState })
 
 # Mobmotion
 
-## TimeTween:
-- capire meglio l'uso di nelle azioni.
+## TimeTween vs Spring/lerp.
 
-```js
-if (this.#pauseStatus || this.#comeFromResume)
-    this.stop({ clearCache: false });
-```
+Su `set/goTo/goFrom` etc.. abbiamo due comportamanti diversi se il metodo viene chiamato in `pausa`.
+    - TimeTween esegue uno stop del tween.
+    - Lerp/Spring ritornano una `Promise.reject()`
 
-## Pause
-- Pause, stagger ( subscribeCache ) non dovrebbero finire il loro stop ma fermarsi.
-- Riprendere la logica da stop(), capire come fare.
-```js
-if (clearCache)
-    this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
-```
+Sarebbe da uniformare, `Lerp/Spring` sembra piu pulito, o chiamo uno stop o resume per riabilitare il tween.
 
-- `handle-cache`.
-    - Aggiungere alla Map la propietá `freezed`, percio al posto di cancellarlo settiamo `freezed = true`.
-    - Puó essere necessario aggiungere un oggetto `freezed: { active: true, frame: ... }` per riallineare il frame se ce ne fosse bisogno.
-    - `pause()` aggiunge suspended
-    - `resume()` lo toglie.
-    - `handle-cache` filtrerá solo i non `freezed`
 
 ### AsyncTimeline
 
