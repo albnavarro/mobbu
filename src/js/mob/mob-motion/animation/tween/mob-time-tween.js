@@ -136,6 +136,11 @@ export default class MobTimeTween {
     #pauseStatus;
 
     /**
+     * @type {boolean}
+     */
+    #comeFromResume;
+
+    /**
      * @type {number}
      */
     #startTime;
@@ -244,6 +249,7 @@ export default class MobTimeTween {
         this.#callbackStartInPause = [];
         this.#unsubscribeCache = [];
         this.#pauseStatus = false;
+        this.#comeFromResume = false;
         this.#startTime = 0;
         this.#timeElapsed = 0;
         this.#pauseTime = 0;
@@ -463,6 +469,8 @@ export default class MobTimeTween {
     stop({ clearCache = true, updateValues = true } = {}) {
         this.#pauseTime = 0;
         this.#pauseStatus = false;
+        this.#comeFromResume = false;
+
         if (updateValues) this.#values = setFromToByCurrent(this.#values);
 
         /**
@@ -514,6 +522,7 @@ export default class MobTimeTween {
     resume() {
         if (!this.#pauseStatus) return;
         this.#pauseStatus = false;
+        this.#comeFromResume = true;
     }
 
     /**
@@ -596,9 +605,12 @@ export default class MobTimeTween {
      */
     goTo(toObject, specialProps = {}) {
         /**
-         * Skip if is in pause
+         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause
+         *
+         * First execution in pause or after resume, reset all pause props.
          */
-        if (this.#pauseStatus) return new Promise((resolve) => resolve);
+        if (this.#pauseStatus || this.#comeFromResume)
+            this.stop({ clearCache: false });
 
         /**
          * Enable stagger.
@@ -621,9 +633,12 @@ export default class MobTimeTween {
      */
     goFrom(fromObject, specialProps = {}) {
         /**
-         * Skip if is in pause
+         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause
+         *
+         * First execution in pause or after resume, reset all pause props.
          */
-        if (this.#pauseStatus) return new Promise((resolve) => resolve);
+        if (this.#pauseStatus || this.#comeFromResume)
+            this.stop({ clearCache: false });
 
         /**
          * Enable stagger.
@@ -646,9 +661,12 @@ export default class MobTimeTween {
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
         /**
-         * Skip if is in pause
+         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause
+         *
+         * First execution in pause or after resume, reset all pause props.
          */
-        if (this.#pauseStatus) return new Promise((resolve) => resolve);
+        if (this.#pauseStatus || this.#comeFromResume)
+            this.stop({ clearCache: false });
 
         /**
          * Set does not need stagger.
@@ -679,9 +697,12 @@ export default class MobTimeTween {
      */
     set(setObject, specialProps = {}) {
         /**
-         * Skip if is in pause
+         * Force stop if call in pause() o first run after pause(), enable fire goTo when tween is in pause
+         *
+         * First execution in pause or after resume, reset all pause props.
          */
-        if (this.#pauseStatus) return new Promise((resolve) => resolve);
+        if (this.#pauseStatus || this.#comeFromResume)
+            this.stop({ clearCache: false });
 
         /**
          * Set does not need stagger.
@@ -711,7 +732,7 @@ export default class MobTimeTween {
      */
     setImmediate(setObject, specialProps = {}) {
         /**
-         * Secure check, stop tween if is running, TODO:should remove ?
+         * Secure check, stop tween if is running, TODO:should remove ? updateValues in below
          */
         if (this.#isRunning)
             this.stop({ clearCache: true, updateValues: false });
