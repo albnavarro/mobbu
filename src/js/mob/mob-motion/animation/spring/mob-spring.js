@@ -460,11 +460,19 @@ export default class MobSpring {
             this.#fpsInLoading = false;
         }
 
-        initRaf(
-            this.#callbackStartInPause,
-            (time, fps) => this.#onReuqestAnim(time, fps),
-            () => this.pause()
-        );
+        /**
+         * - Check if tween should run.
+         * - External toll like async-timeline should use this method for avoid a tween that should be in pause run
+         *   accidentally.
+         */
+        initRaf({
+            validationFunction: this.#callbackStartInPause,
+            successAction: (time, fps) => this.#onReuqestAnim(time, fps),
+            failAction: (time, fps) =>
+                this.#pauseStatus
+                    ? this.#onReuqestAnim(time, fps)
+                    : this.pause(),
+        });
     }
 
     /**

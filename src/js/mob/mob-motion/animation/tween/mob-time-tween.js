@@ -450,11 +450,17 @@ export default class MobTimeTween {
             this.#fpsInLoading = false;
         }
 
-        initRaf(
-            this.#callbackStartInPause,
-            (time) => this.#onReuqestAnim(time),
-            () => this.pause()
-        );
+        /**
+         * - Check if tween should run.
+         * - External toll like async-timeline should use this method for avoid a tween that should be in pause run
+         *   accidentally.
+         */
+        initRaf({
+            validationFunction: this.#callbackStartInPause,
+            successAction: (time) => this.#onReuqestAnim(time),
+            failAction: (time) =>
+                this.#pauseStatus ? this.#onReuqestAnim(time) : this.pause(),
+        });
     }
 
     /**
@@ -628,10 +634,9 @@ export default class MobTimeTween {
      */
     goTo(toObject, specialProps = {}) {
         /**
-         * Skip if is in pause
+         * Timeline tween need a clean restart, is not 'reactive' like spring or lerp.
          */
-        if (this.#pauseStatus)
-            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
+        this.stop({ clearCache: false, updateValues: true });
 
         /**
          * Enable stagger.
@@ -654,10 +659,9 @@ export default class MobTimeTween {
      */
     goFrom(fromObject, specialProps = {}) {
         /**
-         * Skip if is in pause
+         * Timeline tween need a clean restart, is not 'reactive' like spring or lerp.
          */
-        if (this.#pauseStatus)
-            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
+        this.stop({ clearCache: false, updateValues: true });
 
         /**
          * Enable stagger.
@@ -680,10 +684,9 @@ export default class MobTimeTween {
      */
     goFromTo(fromObject, toObject, specialProps = {}) {
         /**
-         * Skip if is in pause
+         * Timeline tween need a clean restart, is not 'reactive' like spring or lerp.
          */
-        if (this.#pauseStatus)
-            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
+        this.stop({ clearCache: false, updateValues: true });
 
         /**
          * Set does not need stagger.
@@ -714,10 +717,9 @@ export default class MobTimeTween {
      */
     set(setObject, specialProps = {}) {
         /**
-         * Skip if is in pause
+         * Timeline tween need a clean restart, is not 'reactive' like spring or lerp.
          */
-        if (this.#pauseStatus)
-            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
+        this.stop({ clearCache: false, updateValues: true });
 
         /**
          * Set does not need stagger.
@@ -749,8 +751,7 @@ export default class MobTimeTween {
         /**
          * Secure check, stop tween if is running, TODO:should remove ? updateValues in below
          */
-        if (this.#isRunning)
-            this.stop({ clearCache: false, updateValues: false });
+        this.stop({ clearCache: false, updateValues: false });
 
         /**
          * Skip if is in pause

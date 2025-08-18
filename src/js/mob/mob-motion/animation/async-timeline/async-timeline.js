@@ -150,17 +150,7 @@ export default class MobAsyncTimeline {
     /**
      * @type {boolean}
      */
-    #delayIsRunning;
-
-    /**
-     * @type {boolean}
-     */
     #startOnDelay;
-
-    /**
-     * @type {import('./type.js').AsyncTimelineAfterReject}
-     */
-    #actionAfterReject;
 
     /**
      * @type {number}
@@ -324,12 +314,7 @@ export default class MobAsyncTimeline {
         this.#isInSuspension = false;
         this.#addAsyncIsActive = false;
         this.#isStopped = true;
-        this.#delayIsRunning = false;
         this.#startOnDelay = false;
-        this.#actionAfterReject = {
-            active: false,
-            fn: () => {},
-        };
         this.#sessionId = 0;
         this.#activetweenCounter = 0;
         this.#timeOnPause = 0;
@@ -481,10 +466,13 @@ export default class MobAsyncTimeline {
              *
              * ClearCurretPromise() specification:
              *
-             * - We perform a Promise.reject() of the tween. We are sure that the tween can start with a new promise to
-             *   resolve. If in a Promise.race(), a tween continues because it is slower and risks not resolving its
-             *   promise, we force manual cleanup. Importantly, this must not happen when the tween is paused—forcing
-             *   the this.#isRunning parameter could interfere with the pause mechanism.
+             * - Tweens, when called with a new action while still running, do not create a new promise but instead reuse
+             *   the first promise created. The promise is resolved once the tween completes. Here, we have a special
+             *   case: with Promise.race (waitComplete: false), the longest-running tween will not create a new promise
+             *   in the next step because it is still active. This leads to entering a step without a new promise to
+             *   resolve. In this scenario, we need to ensure that whenever a tween executes an action in the current
+             *   step, there is always a promise related to that step. Therefore, we force the tween to reject any
+             *   active promises and create a new one.
              */
             const fn = {
                 set: () => {
@@ -627,7 +615,6 @@ export default class MobAsyncTimeline {
                  */
                 if (delay) {
                     const start = MobCore.getTime();
-                    this.#delayIsRunning = true;
 
                     requestAnimationFrame(() => {
                         this.#loopOnDelay({
@@ -646,6 +633,9 @@ export default class MobAsyncTimeline {
                     return;
                 }
 
+                /**
+                 * Here we resolve single tween promise
+                 */
                 resolveTweenPromise({
                     reject,
                     res,
@@ -815,16 +805,8 @@ export default class MobAsyncTimeline {
                     });
                 }
             })
-            .catch(() => {
-                // If play or reverse or playFromLabel is fired diring delay tween fail
-                // After fail we can fire the action
-                if (this.#actionAfterReject.active) {
-                    console.log('actionAfterReject fired');
-                    this.#actionAfterReject.fn();
-                    this.#actionAfterReject.fn = () => {};
-                    this.#actionAfterReject.active = false;
-                    return;
-                }
+            .catch((/** @type {any} */ error) => {
+                if (error) console.log(error);
             })
             .finally(() => {
                 /**
@@ -864,21 +846,12 @@ export default class MobAsyncTimeline {
         /**
          * Time elapsed from the start of current timeline step.
          */
-        let delta = current - start;
+        const delta = current - start;
 
         /*
          * Time elapsed from pause() start.
          */
         if (this.#isInPause) deltaTimeOnpause = current - this.#timeOnPause;
-
-        /*
-         * #actionAfterReject cache next action ( play/playReverse ) when user call previous method and a tween is waitng delay end.
-         * this condition equalize delay && delta value so enter in the resolveTweenPromise function.
-         */
-        if (this.#actionAfterReject.active) {
-            deltaTimeOnpause = 0;
-            delta = delay;
-        }
 
         /**
          * RESOLVE DELAY:
@@ -906,10 +879,8 @@ export default class MobAsyncTimeline {
             this.#isReverseNext
         ) {
             /**
-             * Is settled to true on first loopOnDelay() execution.
+             * Here we resolve single tween promise
              */
-            this.#delayIsRunning = false;
-
             resolveTweenPromise({
                 reject,
                 res,
@@ -1663,19 +1634,6 @@ export default class MobAsyncTimeline {
                 if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
                     return;
 
-                /**
-                 * If a tween has delay and is not start reject main promise and fire the new pipe
-                 * This.#actionAfterReject will be fired when reject main promise.
-                 */
-                if (this.#delayIsRunning && !this.#actionAfterReject.active) {
-                    this.#startOnDelay = true;
-                    this.#actionAfterReject = {
-                        fn: () => this.play(),
-                        active: true,
-                    };
-                    return;
-                }
-
                 this.#startOnDelay = false;
                 this.stop();
                 this.#isStopped = false;
@@ -1771,7 +1729,6 @@ export default class MobAsyncTimeline {
             const currentResolve = resolve ?? thisResolve;
             const currentReject = reject ?? thisReject;
             const forceYoYoNow = forceYoYo;
-            const callbackNow = callback;
 
             if (this.#autoSet) this.#addSetBlocks();
 
@@ -1779,27 +1736,6 @@ export default class MobAsyncTimeline {
              * Skip of there is nothing to run
              */
             if (this.#tweenList.length === 0 || this.#addAsyncIsActive) return;
-
-            /**
-             * If a tween has delay and is not start reject main promise and fire the new pipe This.#actionAfterReject
-             * will be fired when reject main promise.
-             */
-            if (this.#delayIsRunning && !this.#actionAfterReject.active) {
-                this.#startOnDelay = true;
-
-                this.#actionAfterReject = {
-                    fn: () =>
-                        this.playReverse({
-                            forceYoYo: forceYoYoNow,
-                            callback: callbackNow,
-                            resolve: currentResolve,
-                            reject: currentReject,
-                        }),
-                    active: true,
-                };
-
-                return;
-            }
 
             /**
              * Rest necessary props
@@ -2117,10 +2053,6 @@ export default class MobAsyncTimeline {
             callback: undefined,
             index: -1,
             isReverse: false,
-        };
-        this.#actionAfterReject = {
-            active: false,
-            fn: () => {},
         };
     }
 }

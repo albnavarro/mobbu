@@ -1,22 +1,39 @@
 import { MobCore } from '../../../mob-core';
 
 /**
- * Fire mean request animation frame function. In case the is some function add form timeline fire pauseFUnction.
+ * - Execute request animation frame init function.
+ * - Check if tween should run or execute other action.
+ * - Validate function start from external tool ( eg: asynctimeline ).
  *
- * @param {{ cb: () => boolean }[]} callbackPauseArray
- * @param {(time: number, fps: number) => void} rafFunction
- * @param {() => void} pauseFunction
+ * @param {object} params
+ * @param {{ cb: () => boolean }[]} params.validationFunction
+ * @param {(time: number, fps: number) => void} params.successAction
+ * @param {(time: number, fps: number) => void} params.failAction
  * @returns {void}
  */
-export const initRaf = (callbackPauseArray, rafFunction, pauseFunction) => {
+export const initRaf = ({ validationFunction, successAction, failAction }) => {
     MobCore.useFrame(() => {
         MobCore.useNextTick(({ time, fps }) => {
-            const prevent = callbackPauseArray
+            /**
+             * Should i run ?
+             */
+            const fail = validationFunction
                 .map(({ cb }) => cb())
                 .includes(true);
 
-            rafFunction(time, fps);
-            if (prevent) pauseFunction();
+            /**
+             * Default run
+             */
+            successAction(time, fps);
+
+            if (fail) {
+                console.log('inti raf checker, pause is running');
+            }
+
+            /**
+             * Fail function.
+             */
+            if (fail) failAction(time, fps);
         });
     });
 };
