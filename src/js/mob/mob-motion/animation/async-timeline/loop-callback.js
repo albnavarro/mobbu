@@ -47,8 +47,9 @@ export const resolveTweenPromise = ({
      */
     const unsubscribeValidation =
         tween && tween?.validateInitialization
-            ? tween.validateInitialization(() => {
-                  return isInPause();
+            ? tween.validateInitialization({
+                  validation: () => isInPause(),
+                  callback: () => tween.pause?.(),
               })
             : NOOP;
 

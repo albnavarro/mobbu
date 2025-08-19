@@ -122,7 +122,7 @@ export default class MobSpring {
     #callbackOnComplete;
 
     /**
-     * @type {{ cb: () => boolean }[]}
+     * @type {{ validation: () => boolean; callback: () => void }[]}
      */
     #externalValidations;
 
@@ -467,8 +467,7 @@ export default class MobSpring {
          */
         initRaf({
             validationFunction: this.#externalValidations,
-            successAction: (time, fps) => this.#onReuqestAnim(time, fps),
-            failAction: () => this.pause(),
+            defaultRafInit: (time, fps) => this.#onReuqestAnim(time, fps),
         });
     }
 
@@ -1091,11 +1090,17 @@ export default class MobSpring {
      * applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will
      * automatically pause. Add callback to start in pause to stack
      *
-     * @param {() => boolean} cb Cal function
-     * @returns {() => void} Unsubscribe callback
+     * @param {object} params
+     * @param {() => boolean} params.validation
+     * @param {() => void} params.callback
+     * @returns {() => void}
      */
-    validateInitialization(cb) {
-        const valuesUpdated = [...this.#externalValidations, { cb }];
+    validateInitialization({ validation, callback }) {
+        const valuesUpdated = [
+            ...this.#externalValidations,
+            { validation, callback },
+        ];
+
         this.#externalValidations = valuesUpdated;
 
         return () => (this.#externalValidations = []);

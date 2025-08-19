@@ -2,38 +2,37 @@ import { MobCore } from '../../../mob-core';
 
 /**
  * - Execute request animation frame init function.
- * - Check if tween should run or execute other action.
+ * - After default run, execute user function if there is one.
  * - Validate function start from external tool ( eg: asynctimeline ).
  *
  * @param {object} params
- * @param {{ cb: () => boolean }[]} params.validationFunction
- * @param {(time: number, fps: number) => void} params.successAction
- * @param {(time: number, fps: number) => void} params.failAction
+ * @param {{ validation: () => boolean; callback: () => void }[]} params.validationFunction
+ * @param {(time: number, fps: number) => void} params.defaultRafInit
  * @returns {void}
  */
-export const initRaf = ({ validationFunction, successAction, failAction }) => {
+export const initRaf = ({ validationFunction, defaultRafInit }) => {
     MobCore.useFrame(() => {
         MobCore.useNextTick(({ time, fps }) => {
             /**
-             * Should i run ?
+             * Find first validation that retrurn true from last inserted.
              */
-            const fail = validationFunction
-                .map(({ cb }) => cb())
-                .includes(true);
+            const result = validationFunction.findLast(({ validation }) =>
+                validation()
+            );
 
             /**
              * Default run
              */
-            successAction(time, fps);
-
-            if (fail) {
-                console.log('inti raf checker, pause is running');
-            }
+            defaultRafInit(time, fps);
 
             /**
-             * Fail function.
+             * After default initialization launch custom function if there is one. Fire callback
              */
-            if (fail) failAction(time, fps);
+            if (result) {
+                result?.callback();
+                console.log('custom tween run function extrecuted');
+                return;
+            }
         });
     });
 };
