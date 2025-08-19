@@ -33,9 +33,11 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     let wichContext = useOffscreen ? offScreenCtx : ctx;
+
     const useRadius = roundRectIsSupported(
         /** @type {CanvasRenderingContext2D} */ (wichContext)
     );
+
     wichContext = null;
 
     canvas.width = canvas.clientWidth;
@@ -45,7 +47,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     const numberOfColumn = 10;
     const cellWidth = window.innerHeight / 18;
     const cellHeight = window.innerHeight / 18;
-    const gutter = 3;
+    const gutter = 1;
 
     /**
      * Create basic grid.
@@ -109,7 +111,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         ease: 'easeInOutQuad',
         stagger: {
             each: 10,
-            from: 'start',
+            from: 'edges',
         },
         data: { scale: 1, rotate: 0 },
     });
@@ -156,9 +158,6 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         { scale: 0.2, rotate: 90 },
         { duration: 1000 }
     );
-    // .goTo(tweenGrid, { rotate: 180, scale: 1.2 }, { duration: 500 })
-    // .goTo(tweenGrid, { scale: 1.3 }, { duration: 500 })
-    // .goTo(tweenGrid, { scale: 1 }, { duration: 1200 });
 
     /**
      * Create single item timeline
@@ -220,78 +219,6 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         .closeGroup();
 
     /**
-     * @param {object} params
-     * @param {number} params.x
-     * @param {number} params.y
-     * @param {number} params.width
-     * @param {number} params.height
-     * @param {number} params.rotate
-     * @param {number} params.scale
-     * @param {number} params.offsetYCenter
-     * @param {number} params.offsetXCenter
-     * @param {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} params.context
-     * @param {string} params.fill
-     */
-    const drawItem = ({
-        x,
-        y,
-        width,
-        height,
-        rotate,
-        scale,
-        offsetXCenter,
-        offsetYCenter,
-        context,
-        fill,
-    }) => {
-        const rotation = (Math.PI / 180) * rotate;
-        const xx = Math.cos(rotation) * scale;
-        const xy = Math.sin(rotation) * scale;
-
-        /**
-         * Apply scale/rotation/scale all together.
-         */
-        context.setTransform(
-            xx,
-            xy,
-            -xy,
-            xx,
-            offsetXCenter + x,
-            offsetYCenter + y
-        );
-
-        /**
-         * Draw.
-         */
-        if (useRadius) {
-            context.beginPath();
-            context.roundRect(
-                Math.round(-width / 2),
-                Math.round(-height / 2),
-                width,
-                height,
-                5
-            );
-        } else {
-            context.beginPath();
-            context.rect(
-                Math.round(-width / 2),
-                Math.round(-height / 2),
-                width,
-                height
-            );
-        }
-
-        context.fillStyle = fill;
-        context.fill();
-
-        /**
-         * Reset all transform instead save() restore().
-         */
-        // context.setTransform(1, 0, 0, 1, 0, 0);
-    };
-
-    /**
      * Main draw function.
      */
     const draw = () => {
@@ -320,17 +247,8 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
          * Grid
          */
         data.forEach(
-            ({
-                x,
-                y,
-                width,
-                height,
-                rotate,
-                scale,
-                offsetXCenter,
-                offsetYCenter,
-            }) => {
-                drawItem({
+            (
+                {
                     x,
                     y,
                     width,
@@ -339,48 +257,164 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                     scale,
                     offsetXCenter,
                     offsetYCenter,
-                    context,
-                    fill: '#ffffff',
-                });
+                },
+                index
+            ) => {
+                /**
+                 * Around
+                 */
+                if (index === 40) {
+                    {
+                        const rotation =
+                            (Math.PI / 180) * tweenAroundTarget.rotate;
+                        const xx = Math.cos(rotation) * tweenAroundTarget.scale;
+                        const xy = Math.sin(rotation) * tweenAroundTarget.scale;
+
+                        /**
+                         * Apply scale/rotation/scale all together.
+                         */
+                        context.setTransform(
+                            xx,
+                            xy,
+                            -xy,
+                            xx,
+                            Math.floor(
+                                tweenAroundTarget.offsetXCenter +
+                                    tweenAroundTarget.x
+                            ),
+                            Math.floor(
+                                tweenAroundTarget.offsetYCenter +
+                                    tweenAroundTarget.y
+                            )
+                        );
+
+                        /**
+                         * Draw.
+                         */
+                        if (useRadius) {
+                            context.beginPath();
+                            context.roundRect(
+                                Math.floor(-tweenAroundTarget.width / 2),
+                                Math.floor(-tweenAroundTarget.height / 2),
+                                Math.floor(tweenAroundTarget.width),
+                                tweenAroundTarget.height,
+                                5
+                            );
+                        } else {
+                            context.beginPath();
+                            context.rect(
+                                Math.floor(-tweenAroundTarget.width / 2),
+                                Math.floor(-tweenAroundTarget.height / 2),
+                                Math.floor(tweenAroundTarget.width),
+                                Math.floor(tweenAroundTarget.height)
+                            );
+                        }
+
+                        context.fillStyle = '#000000';
+                        context.fill();
+                    }
+                }
+
+                /**
+                 * GRID
+                 */
+                const rotation = (Math.PI / 180) * rotate;
+                const xx = Math.cos(rotation) * scale;
+                const xy = Math.sin(rotation) * scale;
+
+                /**
+                 * Apply scale/rotation/scale all together.
+                 */
+                context.setTransform(
+                    xx,
+                    xy,
+                    -xy,
+                    xx,
+                    Math.floor(offsetXCenter + x),
+                    Math.floor(offsetYCenter + y)
+                );
+
+                /**
+                 * Draw.
+                 */
+                if (useRadius) {
+                    context.beginPath();
+                    context.roundRect(
+                        Math.floor(-width / 2),
+                        Math.floor(-height / 2),
+                        width,
+                        height,
+                        5
+                    );
+                } else {
+                    context.beginPath();
+                    context.rect(
+                        Math.floor(-width / 2),
+                        Math.floor(-height / 2),
+                        width,
+                        height
+                    );
+                }
+
+                context.fillStyle = '#fff';
+                context.fill();
             }
         );
 
         /**
-         * Tween1
+         * CENTER TWEEN
          */
-        drawItem({
-            x: tweenAroundTarget.x,
-            y: tweenAroundTarget.y,
-            width: tweenAroundTarget.width,
-            height: tweenAroundTarget.height,
-            rotate: tweenAroundTarget.rotate,
-            scale: tweenAroundTarget.scale,
-            offsetXCenter: tweenAroundTarget.offsetXCenter,
-            offsetYCenter: tweenAroundTarget.offsetYCenter,
-            context,
-            fill: '#000000',
-        });
+        {
+            const rotation = (Math.PI / 180) * tweenRotateTarget.rotate;
+            const xx = Math.cos(rotation) * tweenRotateTarget.scale;
+            const xy = Math.sin(rotation) * tweenRotateTarget.scale;
 
-        /**
-         * Fixed tween
-         */
-        drawItem({
-            x: tweenRotateTarget.x,
-            y: tweenRotateTarget.y,
-            width: tweenRotateTarget.width,
-            height: tweenRotateTarget.height,
-            rotate: tweenRotateTarget.rotate,
-            scale: tweenRotateTarget.scale,
-            offsetXCenter: tweenRotateTarget.offsetXCenter,
-            offsetYCenter: tweenRotateTarget.offsetYCenter,
-            context,
-            fill: '#000000',
-        });
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(
+                xx,
+                xy,
+                -xy,
+                xx,
+                Math.floor(
+                    tweenRotateTarget.offsetXCenter + tweenRotateTarget.x
+                ),
+                Math.floor(
+                    tweenRotateTarget.offsetYCenter + tweenRotateTarget.y
+                )
+            );
+
+            /**
+             * Draw.
+             */
+            if (useRadius) {
+                context.beginPath();
+                context.roundRect(
+                    Math.floor(-tweenRotateTarget.width / 2),
+                    Math.floor(-tweenRotateTarget.height / 2),
+                    Math.floor(tweenRotateTarget.width),
+                    Math.floor(tweenRotateTarget.height),
+                    5
+                );
+            } else {
+                context.beginPath();
+                context.rect(
+                    Math.floor(-tweenRotateTarget.width / 2),
+                    Math.floor(-tweenRotateTarget.height / 2),
+                    Math.floor(tweenRotateTarget.width),
+                    Math.floor(tweenRotateTarget.height)
+                );
+            }
+
+            context.fillStyle = '#a86464';
+            context.fill();
+        }
 
         /**
          * Reset all transform instead save() restore().
          */
-        context.setTransform(1, 0, 0, 1, 0, 0);
+        // context.setTransform(1, 0, 0, 1, 0, 0);
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
@@ -404,34 +438,36 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     });
 
     /**
-     * Pause/Resume animation on nav open.
+     * - Use debouunce for performance ( Firefix ? )
      */
-    const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
-        if (val) {
-            isActive = false;
-            timeline.pause();
-            gridTimeline.pause();
-            return;
-        }
+    const unWatchPause = navigationStore.watch(
+        'navigationIsOpen',
+        MobCore.useDebounce((/** @type {any} */ val) => {
+            if (val) {
+                timeline.pause();
+                gridTimeline.pause();
+                isActive = false;
+                return;
+            }
 
-        setTimeout(async () => {
-            isActive = true;
-            /**
-             * If close nav but change route skip.
-             */
-            const currentRoute = MobJs.getActiveRoute();
-            if (currentRoute.route !== activeRoute.route) return;
+            setTimeout(async () => {
+                /**
+                 * If close nav but change route skip.
+                 */
+                const currentRoute = MobJs.getActiveRoute();
+                if (currentRoute.route !== activeRoute.route) return;
 
-            timeline.resume();
-            gridTimeline.resume();
+                timeline.resume();
+                gridTimeline.resume();
+                isActive = true;
 
-            /**
-             * Restart loop
-             */
-            // gridTimeline?.play();
-            MobCore.useFrame(() => loop());
-        }, 500);
-    });
+                /**
+                 * Restart loop
+                 */
+                MobCore.useFrame(() => loop());
+            }, 200);
+        }, 200)
+    );
 
     /**
      * Destroy.
