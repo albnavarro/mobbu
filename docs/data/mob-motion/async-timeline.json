@@ -106,7 +106,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 9
+                            "numLines": 10
                         }
                     },
                     {
@@ -212,6 +212,26 @@
                     {
                         "component": "mob-spacer",
                         "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h5"
+                        },
+                        "content": "forceFromTo:"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "It transforms all actions into <strong>goFromTo()</strong>."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
                             "style": "medium"
                         }
                     },
@@ -222,7 +242,25 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>autoSet</strong> and <strong>inheritProps</strong> are set to <strong>true</strong> by default, ensuring greater <strong>safety</strong> in most cases. However, they also make the timeline <strong>more rigid</strong> and less capable of breaking out of conventional patterns. These settings can be adjusted deliberately—for example, to achieve continuous <a href='#animatedPatternN0?version=0&activeId=0'><strong>motion effects</strong></a> with staggers, you need to <strong>disable autoSet</strong>.<br/><strong>freeMode</strong> is unlikely to be changed from its default value ( <strong>false</strong> ), but it can still be manually controlled if needed."
+                        "content": "<strong>autoSet</strong> and <strong>inheritProps</strong> are set to <strong>true</strong> by default, ensuring greater <strong>safety</strong> in most cases. However, they also make the timeline <strong>more rigid</strong> and less capable of breaking out of conventional patterns. These settings can be adjusted deliberately"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "<strong>forceFromTo</strong> is an evolution of <strong>inheritProps</strong>. It will use the inherited properties to transform an action, for example <strong>goTo()</strong>, into a <strong>fromTo()</strong>. It is a very powerful option that, when combined with autoSet, eliminates any kind of side effect from the timeline. It is <strong>disabled by default</strong> because when using groups with the <strong>waitComplete: false</strong> option, the <strong>longest tweens will be cut short</strong>. If this is not your use case, this option is recommended.<br/><strong>forceFromTo</strong> will enable <strong>inheritProps</strong>."
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "<strong>FreeMode</strong> is a controversial option. Enabling it while <strong>disabling</strong> autoSet, inheritProps, and forceFromTo removes all safety systems from the timeline. This allows you to <strong>control individual tweens outside of the timeline</strong>, forcing the timeline itself to adapt. It is a difficult option to manage but remains available."
                     },
                     {
                         "component": "mob-spacer",
@@ -250,7 +288,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 71
+                            "numLines": 72
                         }
                     },
                     {

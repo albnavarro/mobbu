@@ -1130,7 +1130,9 @@ export default class MobAsyncTimeline {
         /**
          * Get previousValues until this step and merge with user data
          */
-        const previousValues = this.#inheritProps ? inheritProps : {};
+        const previousValues =
+            this.#inheritProps || this.#forceFromTo ? inheritProps : {};
+
         this.#currentTweenCounter++;
 
         if (this.#forceFromTo) {
@@ -1177,7 +1179,9 @@ export default class MobAsyncTimeline {
         /**
          * Get previousValues until this step and merge with user data
          */
-        const previousValues = this.#inheritProps ? inheritProps : {};
+        const previousValues =
+            this.#inheritProps || this.#forceFromTo ? inheritProps : {};
+
         this.#currentTweenCounter++;
 
         if (this.#forceFromTo) {

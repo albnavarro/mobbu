@@ -17248,7 +17248,7 @@
         tween: tween2,
         index: this.#tweenList.length
       });
-      const previousValues = this.#inheritProps ? inheritProps : {};
+      const previousValues = this.#inheritProps || this.#forceFromTo ? inheritProps : {};
       this.#currentTweenCounter++;
       if (this.#forceFromTo) {
         this.#addAction({
@@ -17286,7 +17286,7 @@
         tween: tween2,
         index: this.#tweenList.length
       });
-      const previousValues = this.#inheritProps ? inheritProps : {};
+      const previousValues = this.#inheritProps || this.#forceFromTo ? inheritProps : {};
       this.#currentTweenCounter++;
       if (this.#forceFromTo) {
         this.#addAction({

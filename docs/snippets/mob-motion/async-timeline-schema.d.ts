@@ -4,4 +4,5 @@ interface MobAsyncTimeline {
     freeMode?: boolean;
     autoSet?: boolean;
     inheritProps?: boolean;
+    forceFromTo?: boolean;
 }

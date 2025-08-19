@@ -6,4 +6,5 @@ const myTimeline = MobTimeline.createAsyncTimeline({
     freeMode: false,
     autoSet: true,
     inheritProps: true,
+    forceFromTo: false,
 });
