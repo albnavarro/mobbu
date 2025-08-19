@@ -22,7 +22,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>createStagger</strong> is a specialized utility for coordinating multiple sequencers. Unlike the standard <strong><a href='./#mobMotion-stagger'>stagger</a></strong> which operates on single animations, createStagger synchronizes <strong>groups of sequencers</strong> using stagger patterns. It returns an array of precomputed start/end values for precise sequencing control."
+            "content": "<strong>createStagger</strong> is a specialized utility for coordinating multiple <strong>sequencers</strong>. Unlike the standard <strong><a href='./#mobMotion-stagger'>stagger</a></strong> which operates on single animations, createStagger synchronizes <strong>groups of sequencers</strong> using stagger patterns. It returns an array of precomputed start/end values for precise sequencing control."
         },
         {
             "component": "mob-spacer",

@@ -23,7 +23,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The <strong>Sequencer</strong> is a specialized tween that operates independently of time or precision values. It functions as a data store that returns interpolated values when given an input. Its core method <strong>draw(value)</strong> handles the interpolation, making it ideal for integration with <a href='./#mobMotion-sync-timeline'>syncTimeline</a> and <a href='./#mobMotion-scrolltrigger'>scrollTrigger</a> which can control it by passing partial values."
+            "content": "The <strong>Sequencer</strong> is a specialized tween that operates independently of time or precision values. It functions as a data store that returns interpolated values when given an input. Its core method <strong>draw(value)</strong> handles the interpolation, making it ideal for integration with <a href='./#mobMotion-sync-timeline'><strong>syncTimeline</strong></a> and <a href='./#mobMotion-scrolltrigger'><strong>scrollTrigger</strong></a> which can control it by passing partial values."
         },
         {
             "component": "mob-spacer",
@@ -43,6 +43,26 @@
                         "url": "./#caterpillarN2"
                     }
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "How it works"
+        },
+        {
+            "component": "doc-svg",
+            "props": {
+                "className": "start-end-svg",
+                "url": "./asset/svg/sequencer.svg"
             }
         },
         {

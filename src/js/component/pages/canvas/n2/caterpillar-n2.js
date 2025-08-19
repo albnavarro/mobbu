@@ -128,7 +128,7 @@ export const CaterpillarN2Fn = ({
                 <animation-title
                     ${staticProps(
                         /** @type {AnimationTitle['state']} */ ({
-                            title: 'SyncTimeline with controls/<span>Canvas 2d</span>',
+                            title: 'SyncTimeline example/<span>Canvas 2d</span>',
                             list: ['Sequencer', 'SyncTimeline'],
                         })
                     )}

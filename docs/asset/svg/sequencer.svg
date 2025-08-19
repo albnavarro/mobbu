@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="713.55" height="467.71" version="1.1" viewBox="0 0 188.79 123.75" xmlns="http://www.w3.org/2000/svg">
+ <g display="none">
+  <rect x="-2.6585" y="-.88617" width="192.52" height="126.28" fill="#c7c7c7" stroke="#000" stroke-width=".26458"/>
+ </g>
+ <g transform="translate(-4.0197 -6.515)">
+  <g>
+   <path x="18.749626" y="24.050135" width="161.48332" height="95.562111" d="m24.041 24.05h150.9a5.2917 5.2917 45 0 1 5.2917 5.2917v84.979a5.2917 5.2917 135 0 1-5.2917 5.2917h-150.9a5.2917 5.2917 45 0 1-5.2917-5.2917v-84.979a5.2917 5.2917 135 0 1 5.2917-5.2917z" fill-opacity=".21516"/>
+   <g>
+    <path d="m68.741-4.8106-0.33259 171.43v1.2352" stop-color="#000000" stroke="#f00" stroke-dasharray="0.79375, 0.79375" stroke-dashoffset=".52917" stroke-width=".26458" style="font-variation-settings:normal"/>
+    <g stroke="#fff5f5" stroke-dasharray="6.1296, 0.2554" stroke-dashoffset=".5108" stroke-width=".2554">
+     <path d="m180.11 54.974-159.74-0.33259h-1.1509" stop-color="#000000" style="font-variation-settings:normal"/>
+     <path d="m179.9 39.904-159.74-0.33259h-1.1509" stop-color="#000000" style="font-variation-settings:normal"/>
+     <path d="m179.58 70.286-159.74-0.33259h-1.1509" stop-color="#000000" style="font-variation-settings:normal"/>
+     <path d="m179.62 86.745-159.74-0.33259h-1.1509" stop-color="#000000" style="font-variation-settings:normal"/>
+     <path d="m179.83 103.62-159.74-0.33259h-1.1509" stop-color="#000000" style="font-variation-settings:normal"/>
+    </g>
+   </g>
+  </g>
+  <g fill="#d3c7c7">
+   <rect x="21.353" y="42.383" width="49.47" height="9.6061"/>
+   <rect x="28.184" y="73.48" width="23.388" height="9.6061"/>
+   <rect x="64.192" y="73.468" width="99.071" height="9.6061"/>
+   <rect x="21.385" y="90.426" width="154.41" height="9.6061"/>
+   <rect x="37.16" y="57.564" width="90.974" height="9.6061"/>
+   <rect x="123.3" y="42.383" width="23.297" height="9.6061"/>
+  </g>
+ </g>
+ <g fill="#000000" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458">
+  <text transform="translate(-4.0197 -6.515)" x="13.929577" y="47.803207" style="line-height:1.25" xml:space="preserve"><tspan x="13.929577" y="47.803207" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">x</tspan></text>
+  <text transform="translate(-4.0197 -6.515)" x="23.449854" y="21.720383" style="line-height:1.25" xml:space="preserve"><tspan x="23.449854" y="21.720383" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">0</tspan></text>
+  <text transform="translate(-4.0197 -6.515)" x="170.33348" y="21.65027" style="line-height:1.25" xml:space="preserve"><tspan x="170.33348" y="21.65027" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">10</tspan></text>
+  <text x="9.903532" y="55.958214" style="line-height:1.25" xml:space="preserve"><tspan x="9.903532" y="55.958214" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">y</tspan></text>
+  <text x="1.5180843" y="71.912766" style="line-height:1.25" xml:space="preserve"><tspan x="1.5180843" y="71.912766" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">rotate</tspan></text>
+  <text x="-1.1387494" y="89.025635" style="line-height:1.25" xml:space="preserve"><tspan x="-1.1387494" y="89.025635" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">opacity</tspan></text>
+  <text transform="translate(-4.0197 -6.515)" x="23.64143" y="48.51255" style="line-height:1.25" xml:space="preserve"><tspan x="23.64143" y="48.51255" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">0</tspan></text>
+  <text x="60.679401" y="42.08387" style="line-height:1.25" xml:space="preserve"><tspan x="60.679401" y="42.08387" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">20</tspan></text>
+  <text x="121.63206" y="41.988411" style="line-height:1.25" xml:space="preserve"><tspan x="121.63206" y="41.988411" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">20</tspan></text>
+  <text x="135.36613" y="41.947407" style="line-height:1.25" xml:space="preserve"><tspan x="135.36613" y="41.947407" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">10</tspan></text>
+  <text x="34.311691" y="56.962959" style="line-height:1.25" xml:space="preserve"><tspan x="34.311691" y="56.962959" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">0</tspan></text>
+  <text x="117.79125" y="56.982002" style="line-height:1.25" xml:space="preserve"><tspan x="117.79125" y="56.982002" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">15</tspan></text>
+  <text x="25.467955" y="72.840836" style="line-height:1.25" xml:space="preserve"><tspan x="25.467955" y="72.840836" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">0</tspan></text>
+  <text x="19.05666" y="89.742912" style="line-height:1.25" xml:space="preserve"><tspan x="19.05666" y="89.742912" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">0</tspan></text>
+  <text x="167.75313" y="89.815178" style="line-height:1.25" xml:space="preserve"><tspan x="167.75313" y="89.815178" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">1</tspan></text>
+  <text x="42.112209" y="72.685501" style="line-height:1.25" xml:space="preserve"><tspan x="42.112209" y="72.685501" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">90</tspan></text>
+  <text x="61.963646" y="72.798454" style="line-height:1.25" xml:space="preserve"><tspan x="61.963646" y="72.798454" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">90</tspan></text>
+  <text x="151.62444" y="72.645279" style="line-height:1.25" xml:space="preserve"><tspan x="151.62444" y="72.645279" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">270</tspan></text>
+ </g>
+</svg>
