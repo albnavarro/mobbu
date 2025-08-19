@@ -54,6 +54,11 @@ export default class MobAsyncTimeline {
     #inheritProps;
 
     /**
+     * @type {boolean}
+     */
+    #forceFromTo;
+
+    /**
      * @type {import('./type.js').AsyncTimelineTweenItem[][]}
      */
     #tweenList;
@@ -273,6 +278,11 @@ export default class MobAsyncTimeline {
             data?.inheritProps,
             'asyncTimeline: inheritProps',
             true
+        );
+        this.#forceFromTo = valueIsBooleanAndReturnDefault(
+            data?.forceFromTo,
+            'asyncTimeline: forceFromTo',
+            false
         );
         this.#tweenList = [];
         this.#currentTween = [];
@@ -996,8 +1006,22 @@ export default class MobAsyncTimeline {
                     }
 
                     case 'goFrom': {
-                        timelineReverseGoFromWarning();
-                        this.stop();
+                        if (!this.#forceFromTo) {
+                            timelineReverseGoFromWarning();
+                            this.stop();
+                        }
+
+                        /**
+                         * With enable forceFromTo is the same of goFromTo
+                         */
+                        return {
+                            ...item,
+                            data: {
+                                ...data,
+                                valuesFrom: valuesTo,
+                                valuesTo: valuesFrom,
+                            },
+                        };
                     }
                 }
 
@@ -1097,28 +1121,41 @@ export default class MobAsyncTimeline {
         if (!asyncTimelineTweenIsValid(tween)) return this;
         tweenProps.delay = asyncTimelineDelayIsValid(tweenProps?.delay);
 
+        const inheritProps = reduceTweenUntilIndex({
+            timeline: this.#tweenList,
+            tween,
+            index: this.#tweenList.length,
+        });
+
         /**
          * Get previousValues until this step and merge with user data
          */
-        const previousValues = this.#inheritProps
-            ? reduceTweenUntilIndex({
-                  timeline: this.#tweenList,
-                  tween,
-                  index: this.#tweenList.length,
-              })
-            : {};
-
+        const previousValues = this.#inheritProps ? inheritProps : {};
         this.#currentTweenCounter++;
 
-        this.#addAction({
-            ...this.#defaultObj,
-            id: this.#currentTweenCounter,
-            tween,
-            action: 'goTo',
-            valuesTo: { ...previousValues, ...valuesTo },
-            tweenProps: tweenProps ?? {},
-            groupProps: { waitComplete: this.#waitComplete },
-        });
+        if (this.#forceFromTo) {
+            this.#addAction({
+                ...this.#defaultObj,
+                id: this.#currentTweenCounter,
+                tween,
+                action: 'goFromTo',
+                valuesFrom: { ...previousValues },
+                valuesTo: { ...previousValues, ...valuesTo },
+
+                tweenProps: tweenProps ?? {},
+                groupProps: { waitComplete: this.#waitComplete },
+            });
+        } else {
+            this.#addAction({
+                ...this.#defaultObj,
+                id: this.#currentTweenCounter,
+                tween,
+                action: 'goTo',
+                valuesTo: { ...previousValues, ...valuesTo },
+                tweenProps: tweenProps ?? {},
+                groupProps: { waitComplete: this.#waitComplete },
+            });
+        }
 
         this.#addTweenToStore(tween);
         return this;
@@ -1131,28 +1168,40 @@ export default class MobAsyncTimeline {
         if (!asyncTimelineTweenIsValid(tween)) return this;
         tweenProps.delay = asyncTimelineDelayIsValid(tweenProps?.delay);
 
+        const inheritProps = reduceTweenUntilIndex({
+            timeline: this.#tweenList,
+            tween,
+            index: this.#tweenList.length,
+        });
+
         /**
          * Get previousValues until this step and merge with user data
          */
-        const previousValues = this.#inheritProps
-            ? reduceTweenUntilIndex({
-                  timeline: this.#tweenList,
-                  tween,
-                  index: this.#tweenList.length,
-              })
-            : {};
-
+        const previousValues = this.#inheritProps ? inheritProps : {};
         this.#currentTweenCounter++;
 
-        this.#addAction({
-            ...this.#defaultObj,
-            id: this.#currentTweenCounter,
-            tween,
-            action: 'goFrom',
-            valuesFrom: { ...previousValues, ...valuesFrom },
-            tweenProps,
-            groupProps: { waitComplete: this.#waitComplete },
-        });
+        if (this.#forceFromTo) {
+            this.#addAction({
+                ...this.#defaultObj,
+                id: this.#currentTweenCounter,
+                tween,
+                action: 'goFromTo',
+                valuesFrom: { ...previousValues, ...valuesFrom },
+                valuesTo: { ...previousValues },
+                tweenProps: tweenProps ?? {},
+                groupProps: { waitComplete: this.#waitComplete },
+            });
+        } else {
+            this.#addAction({
+                ...this.#defaultObj,
+                id: this.#currentTweenCounter,
+                tween,
+                action: 'goFrom',
+                valuesFrom: { ...previousValues, ...valuesFrom },
+                tweenProps,
+                groupProps: { waitComplete: this.#waitComplete },
+            });
+        }
 
         this.#addTweenToStore(tween);
         return this;

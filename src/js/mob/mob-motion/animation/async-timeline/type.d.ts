@@ -40,6 +40,8 @@ export interface AsyncTimeline {
     autoSet?: boolean;
 
     inheritProps?: boolean;
+
+    forceFromTo?: boolean;
 }
 
 export interface AsyncTimelineTypeSpecialProps
