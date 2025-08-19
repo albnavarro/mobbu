@@ -251,7 +251,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>forceFromTo</strong> is an evolution of <strong>inheritProps</strong>. It will use the inherited properties to transform an action, for example <strong>goTo()</strong>, into a <strong>fromTo()</strong>. It is a very powerful option that, when combined with autoSet, eliminates any kind of side effect from the timeline. It is <strong>disabled by default</strong> because when using groups with the <strong>waitComplete: false</strong> option, the <strong>longest tweens will be cut short</strong>. If this is not your use case, this option is recommended.<br/><strong>forceFromTo</strong> will enable <strong>inheritProps</strong>."
+                        "content": "<strong>forceFromTo</strong> is an evolution of <strong>inheritProps</strong>. It will use the inherited properties to transform an action, for example <strong>goTo()</strong>, into a <strong>goFromTo()</strong>. It is a very powerful option that, when combined with autoSet, eliminates any kind of side effect from the timeline. It is <strong>disabled by default</strong> because when using groups with the <strong>waitComplete: false</strong> option, the <strong>longest tweens will be cut short</strong>. If this is not your use case, this option is recommended.<br/><strong>forceFromTo</strong> will enable <strong>inheritProps</strong>."
                     },
                     {
                         "component": "mob-paragraph",
