@@ -1,7 +1,7 @@
 import { MobCore } from '@mobCore';
 
 const loop = () => {
-    MobCore.useNextFrame(({ fps, shouldRender, time }) => {
+    MobCore.useNextFrame(({ fps, time }) => {
         // code
         loop();
     });

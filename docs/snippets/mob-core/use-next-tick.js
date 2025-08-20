@@ -1,7 +1,7 @@
 import { MobCore } from '@mobCore';
 
 MobCore.useFrame(() => {
-    MobCore.useNextTick(({ fps, shouldRender, time }) => {
+    MobCore.useNextTick(({ fps, time }) => {
         // code
     });
 });
