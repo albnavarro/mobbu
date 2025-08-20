@@ -33866,7 +33866,6 @@ Loading snippet ...</pre
     b5,
     sign,
     m1_b,
-    m2_b,
     m3_b,
     m4_b,
     b1_stone,
@@ -34077,25 +34076,6 @@ Loading snippet ...</pre
                 tagName: "any-component",
                 className: "u-any-center-svg l-mob-01__block",
                 props: {
-                  content: m2_b
-                }
-              }
-            },
-            children: []
-          },
-          {
-            props: {
-              id: 4,
-              depth: 180,
-              initialDepth: 1,
-              anchorPoint: "center",
-              classList: "",
-              animate: true,
-              rotate: "y",
-              component: {
-                tagName: "any-component",
-                className: "u-any-center-svg l-mob-01__block",
-                props: {
                   content: sign
                 }
               }
@@ -34181,7 +34161,7 @@ Loading snippet ...</pre
               id: 7,
               depth: 120,
               anchorPoint: "center",
-              initialDepth: 10,
+              initialDepth: 20,
               classList: "",
               animate: true,
               rotate: "y",
@@ -34199,6 +34179,7 @@ Loading snippet ...</pre
             props: {
               id: 8,
               depth: 100,
+              initialDepth: 10,
               anchorPoint: "center",
               classList: "",
               animate: true,
@@ -34270,7 +34251,6 @@ Loading snippet ...</pre
       m1,
       m1_b,
       m2,
-      m2_b,
       m3,
       m3_b,
       m4,
@@ -34291,7 +34271,6 @@ Loading snippet ...</pre
       "M1_block",
       "M1_b_block",
       "M2_block",
-      "M2_b_block",
       "M3_block",
       "M3_b_block",
       "M4_block",
@@ -34338,7 +34317,6 @@ Loading snippet ...</pre
           b5,
           sign,
           m1_b,
-          m2_b,
           m3_b,
           m4_b,
           b1_stone,

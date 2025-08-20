@@ -12,7 +12,6 @@ export type GetLetteringMob = (arg0: {
     m4: string;
     m4_b: string;
     m2: string;
-    m2_b: string;
     m1_stone: string;
     b1: string;
     b1_b: string;
