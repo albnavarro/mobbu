@@ -1,7 +1,7 @@
 @use '../../abstract' as *;
 
-.l-lettering-01 {
-    margin-left: calc(var(--header-height) / 2 * -1);
+.l-rdp-01 {
+    // margin-left: calc(var(--header-height) / 2 * -1);
 
     &__block {
         transform: translate(

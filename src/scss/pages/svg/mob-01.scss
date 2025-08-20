@@ -1,0 +1,17 @@
+@use '../../abstract' as *;
+
+.l-mob-01 {
+    // margin-left: calc(var(--header-height) / 2 * -1);
+
+    &__block {
+        transform: translate(
+            calc(#{rem(50)} * -1),
+            calc(var(--footer-height) / 2 * -1)
+        );
+
+        svg {
+            width: calc(((1098 * 100) / 1600) * 1vw);
+            height: calc(((466 * 100) / 1600) * 1vw);
+        }
+    }
+}

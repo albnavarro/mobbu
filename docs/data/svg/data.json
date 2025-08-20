@@ -2,8 +2,12 @@
     "title": "Illustration",
     "items": [
         {
+            "title": "rdp 01",
+            "url": "./#rdp-01"
+        },
+        {
             "title": "mob 01",
-            "url": "./#mob_01"
+            "url": "./#mob-01"
         }
     ]
 }

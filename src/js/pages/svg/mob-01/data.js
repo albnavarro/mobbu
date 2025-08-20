@@ -1,5 +1,5 @@
 /** @type {import('./type.js').GetLetteringMob} */
-export const getLettering_01 = ({
+export const rdp_01_schema = ({
     u0,
     u1,
     o,
@@ -43,7 +43,7 @@ export const getLettering_01 = ({
                         animate: true,
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: u0,
                             },
@@ -60,7 +60,7 @@ export const getLettering_01 = ({
                         animate: true,
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: u1,
                             },
@@ -78,7 +78,7 @@ export const getLettering_01 = ({
                         animate: true,
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: o,
                             },
@@ -96,7 +96,7 @@ export const getLettering_01 = ({
                         animate: true,
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: o_b,
                             },
@@ -114,7 +114,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m1,
                             },
@@ -132,7 +132,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m1_b,
                             },
@@ -151,7 +151,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m4,
                             },
@@ -170,7 +170,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m4_b,
                             },
@@ -189,7 +189,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m1_stone,
                             },
@@ -208,7 +208,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m2,
                             },
@@ -227,7 +227,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m2_b,
                             },
@@ -246,7 +246,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: sign,
                             },
@@ -264,7 +264,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m3,
                             },
@@ -282,7 +282,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m3_b,
                             },
@@ -301,7 +301,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: m2_stone,
                             },
@@ -320,7 +320,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: b1,
                             },
@@ -339,7 +339,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: b1_b,
                             },
@@ -358,7 +358,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: b2,
                             },
@@ -377,7 +377,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: b1_stone,
                             },
@@ -395,7 +395,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: b3,
                             },
@@ -414,7 +414,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: b4,
                             },
@@ -433,7 +433,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: b5,
                             },
@@ -452,7 +452,7 @@ export const getLettering_01 = ({
                         rotate: 'y',
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-lettering-01__block',
+                            className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: g1,
                             },

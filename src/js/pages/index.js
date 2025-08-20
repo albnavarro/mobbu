@@ -17,9 +17,10 @@ import { matrioska_page } from './matrioska';
 import { horizontalScroller } from './plugin/horizontal-scroller';
 import { move3DRoute } from './plugin/move-3d';
 import { move3DrouteProps } from './plugin/move-3d/props';
-import { lettering01 } from './svg/lettering-01';
+import { lettering01 } from './svg/mob-01';
 import { onlyDesktop } from './onlyDesktop';
 import { asyncTimeline } from './canvas/async-timeline';
+import { rdp } from './svg/rdp';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
 
@@ -900,8 +901,13 @@ export const routes = [
         },
     },
     {
-        name: 'mob_01',
+        name: 'mob-01',
         layout: lettering01,
+        props: {},
+    },
+    {
+        name: 'rdp-01',
+        layout: rdp,
         props: {},
     },
 ];

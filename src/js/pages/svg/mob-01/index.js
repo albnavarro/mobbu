@@ -4,7 +4,7 @@ import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
-import { getLettering_01 } from './lettering-01-data';
+import { rdp_01_schema } from './data';
 import { AnimationTitle } from '@commonComponent/animation-title/definition';
 
 MobJs.useComponent([Move3D, AnyComponent, AnimationTitle]);
@@ -72,17 +72,17 @@ export const lettering01 = async () => {
     /** Quicknav */
     updateQuickNavState({
         active: true,
-        prevRoute: '',
+        prevRoute: '#rdp-01',
         nextRoute: '',
         backRoute: '#svg-overview',
         color: 'black',
     });
 
-    return html`<div class="l-lettering-01">
+    return html`<div class="l-mob-01">
         <move-3d
             ${MobJs.staticProps(
                 /** @type {import('@commonComponent/move-3d/type').Move3D['state']} */ ({
-                    shape: getLettering_01({
+                    shape: rdp_01_schema({
                         u0,
                         u1,
                         o,
