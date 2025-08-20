@@ -380,6 +380,14 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "x-small",
+                            "label": "Common utils",
+                            "isSection": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
                             "id": "stagger",
                             "label": "Stagger"
                         }
