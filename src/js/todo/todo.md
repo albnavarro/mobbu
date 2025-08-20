@@ -1,4 +1,16 @@
-# MobCore
+### Docs: Stagger:
+- Specificare con un `note`  che il suo utilizzo e migliore con `subscibecache`, pause, stop etc..
+- Specificare i moduli che lo usano con link.
+
+### Docs: AsyncTimeline
+- Breve riassunto con lista puntata delle feature.
+
+### MobCore
+- Parallax/Scroltriiger
+- Puo usare il metodo `freezeCache` on `scrollEnd` ? ( scrollerTween/sequencer ).
+
+<hr/>
+<hr/>
 
 ## Store/MobJs:
 ### Map & Set
