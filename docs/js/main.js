@@ -33861,19 +33861,16 @@ Loading snippet ...</pre
     m4,
     b1,
     b1_b,
-    b2,
     b3,
     b4,
     b5,
-    g1,
     sign,
     m1_b,
     m2_b,
     m3_b,
     m4_b,
     b1_stone,
-    m1_stone,
-    m2_stone
+    m1_stone
   }) => {
     return [
       {
@@ -34143,25 +34140,6 @@ Loading snippet ...</pre
           },
           {
             props: {
-              id: 5,
-              depth: 100,
-              initialDepth: 5,
-              anchorPoint: "center",
-              classList: "",
-              animate: true,
-              rotate: "y",
-              component: {
-                tagName: "any-component",
-                className: "u-any-center-svg l-mob-01__block",
-                props: {
-                  content: m2_stone
-                }
-              }
-            },
-            children: []
-          },
-          {
-            props: {
               id: 6,
               depth: 50,
               anchorPoint: "center",
@@ -34193,25 +34171,6 @@ Loading snippet ...</pre
                 className: "u-any-center-svg l-mob-01__block",
                 props: {
                   content: b1_b
-                }
-              }
-            },
-            children: []
-          },
-          {
-            props: {
-              id: 7,
-              depth: 120,
-              anchorPoint: "center",
-              initialDepth: 10,
-              classList: "",
-              animate: true,
-              rotate: "y",
-              component: {
-                tagName: "any-component",
-                className: "u-any-center-svg l-mob-01__block",
-                props: {
-                  content: b2
                 }
               }
             },
@@ -34291,25 +34250,6 @@ Loading snippet ...</pre
               }
             },
             children: []
-          },
-          {
-            props: {
-              id: 12,
-              initialDepth: 2,
-              depth: 102,
-              anchorPoint: "center",
-              classList: "",
-              animate: true,
-              rotate: "y",
-              component: {
-                tagName: "any-component",
-                className: "u-any-center-svg l-mob-01__block",
-                props: {
-                  content: g1
-                }
-              }
-            },
-            children: []
           }
         ]
       }
@@ -34337,15 +34277,12 @@ Loading snippet ...</pre
       m4_b,
       b1,
       b1_b,
-      b2,
       b3,
       b4,
       b5,
-      g1,
       sign,
       b1_stone,
-      m1_stone,
-      m2_stone
+      m1_stone
     ] = [
       "U0_block",
       "U1_block",
@@ -34361,15 +34298,12 @@ Loading snippet ...</pre
       "M4_b_block",
       "B1_block",
       "B1_b_block",
-      "B2_block",
       "B3_block",
       "B4_block",
       "B5_block",
-      "G1_block",
       "sign",
       "Bstone_1_block",
-      "Mstone_1_block",
-      "Mstone_2_block"
+      "Mstone_1_block"
     ].map((id) => {
       return parseSvg({
         svg: letteringMob,
@@ -34399,19 +34333,16 @@ Loading snippet ...</pre
           m4,
           b1,
           b1_b,
-          b2,
           b3,
           b4,
           b5,
-          g1,
           sign,
           m1_b,
           m2_b,
           m3_b,
           m4_b,
           b1_stone,
-          m1_stone,
-          m2_stone
+          m1_stone
         }),
         xDepth: 100,
         yDepth: 30,

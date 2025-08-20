@@ -10,11 +10,9 @@ export const rdp_01_schema = ({
     m4,
     b1,
     b1_b,
-    b2,
     b3,
     b4,
     b5,
-    g1,
     sign,
     m1_b,
     m2_b,
@@ -22,7 +20,6 @@ export const rdp_01_schema = ({
     m4_b,
     b1_stone,
     m1_stone,
-    m2_stone,
 }) => {
     return [
         {
@@ -292,25 +289,6 @@ export const rdp_01_schema = ({
                 },
                 {
                     props: {
-                        id: 5,
-                        depth: 100,
-                        initialDepth: 5,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: m2_stone,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
                         id: 6,
                         depth: 50,
                         anchorPoint: 'center',
@@ -342,25 +320,6 @@ export const rdp_01_schema = ({
                             className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: b1_b,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 7,
-                        depth: 120,
-                        anchorPoint: 'center',
-                        initialDepth: 10,
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: b2,
                             },
                         },
                     },
@@ -436,25 +395,6 @@ export const rdp_01_schema = ({
                             className: 'u-any-center-svg l-mob-01__block',
                             props: {
                                 content: b5,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 12,
-                        initialDepth: 2,
-                        depth: 102,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: g1,
                             },
                         },
                     },
