@@ -131,7 +131,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "For advanced usage, you must return a <strong>function that returns an object</strong> containing at least one of these properties: <strong>validate</strong>, <strong>type</strong>, or <strong>skipEqual</strong>. You can nest up to <strong>two levels</strong> (supporting both basic and advanced use cases) per property, as demonstrated in the <strong>nested object</strong> example."
+                        "content": "For advanced usage, you must return a <strong>function that returns an object</strong> containing at least one of these properties: <strong>validate</strong>, <strong>type</strong>, or <strong>skipEqual</strong>. You can nest up to <strong>two levels</strong> (supporting both basic and advanced use cases) per property, as demonstrated in the <strong>nested object</strong> example.</br>"
                     },
                     {
                         "component": "mob-snippet",
@@ -154,7 +154,7 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "Nosted object"
+                        "content": "Nested object"
                     },
                     {
                         "component": "mob-paragraph",
@@ -163,7 +163,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "To use an object with <strong>infinite insertions</strong>, employ the <strong>any type</strong>. Note that this approach disables property-specific definitions for nested properties."
+                        "content": "To use an object with <strong>infinite insertions</strong>, employ the <strong>any</strong> type. Note that this approach disables property-specific definitions for nested properties.<br/><br/><strong>Works only with advanced implementation</strong>"
                     },
                     {
                         "component": "mob-snippet",
@@ -253,7 +253,7 @@
                                 "NodeList | 'NodeList'",
                                 "Set | 'Set'",
                                 "Map | 'Map'",
-                                "Any"
+                                "'Any'"
                             ]
                         }
                     },
