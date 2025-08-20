@@ -22,7 +22,16 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The <strong>stagger's</strong> task is to calculate the number of delay frames for each subscriber of the tween. The stagger does not generate new instances of our tween - it simply manages their rendering over time in specific <strong>requestAnimationFrame</strong> calls. This mechanism is not to be confused with <strong>setTimeout()</strong>; the stagger thinks in terms of frame counts rather than milliseconds. In fact, using the stagger doesn't affect the perception of the animation. This count varies based on the frame rate identified at the start. The stagger can no longer be modified once calculated."
+            "content": "The <strong>stagger's</strong> task is to calculate the number of delay frames for each subscriber of the tween. The stagger does not generate new instances of our tween - it simply manages their rendering over time in specific <strong>requestAnimationFrame</strong> calls. This count varies based on the frame rate identified at the start. The stagger can no longer be modified once calculated."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "For more efficient management of staggers, it is preferable to use <strong>subscribeCache</strong> instead of <strong>subscribe</strong> to apply the values calculated by the various tweens. By using <strong>subscribeCache</strong>, a tween (or a timeline) will be able to, when one of the methods between <strong>pause()</strong> and <strong>stop()</strong> is called, apply the same action to the related staggers as well ( <a href='#async-timeline'><strong>async example</strong></a>, <a href='#caterpillarN2'><strong>sync example</strong></a>  ).<br/><br/> <strong>ScrollTrigger/Parallax</strong> do not operate in terms of <strong>pause/stop</strong>, and in this case, the staggers <strong>will continue their run</strong>, realigning to the current value (<a href='#scrollerN1'><strong>example</strong></a>). Keep in mind that both the <strong>sequencer</strong> and <strong>scrollerTween</strong> will be able to utilize the <a href='#mobMotion-create-stagger'><strong>createStagger</strong></a> module to manage staggers as separate tweens ( <a href='#scrollerN0?version=1&activeId=1'><strong>example</strong></a> )."
         },
         {
             "component": "mob-spacer",

@@ -87,7 +87,7 @@
                         "props": {
                             "style": "x-small",
                             "id": "async",
-                            "label": "Async"
+                            "label": "Async modules"
                         }
                     },
                     {
@@ -224,7 +224,7 @@
                         "props": {
                             "style": "x-small",
                             "id": "sync",
-                            "label": "Sync"
+                            "label": "Sync modules"
                         }
                     },
                     {
