@@ -68,7 +68,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The modules in the <strong>async</strong> section are entirely based on the <strong>promise</strong> concept, while the <strong>sync</strong> modules are entirely based on the <strong>time</strong> concept. The division aims to maximize their strengths while keeping the code more maintainable."
+            "content": "The modules in the <strong>async</strong> section are entirely based on the <strong>promise</strong> concept, while the <strong>sync</strong> modules are entirely based on the <strong>seek</strong> concept. The division aims to maximize their strengths while keeping the code more maintainable."
         },
         {
             "component": "mob-spacer",
