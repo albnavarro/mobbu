@@ -322,8 +322,14 @@
             "children": null
         },
         {
+            "label": "rdp 01",
+            "url": "rdp-01",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
             "label": "mob 01",
-            "url": "mob_01",
+            "url": "mob-01",
             "scrollToSection": "svg",
             "children": null
         },
