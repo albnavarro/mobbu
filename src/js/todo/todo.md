@@ -274,16 +274,9 @@ getProxi({ excludeSet: exportableState })
 
 # Mobmotion
 
-## TimeTween vs Spring/lerp.
+### Velocity.
+- Inserire nei timeTween/lerp/Spring in concetto di velocity.
 
-Su `set/goTo/goFrom` etc.. abbiamo due comportamanti diversi se il metodo viene chiamato in `pausa`.
-    - TimeTween esegue uno stop del tween.
-    - Lerp/Spring ritornano una `Promise.reject()`
-
-Sarebbe da uniformare, `Lerp/Spring` sembra piu pulito, o chiamo uno stop o resume per riabilitare il tween.
-
-
-### AsyncTimeline
 
 #### SetTween.
 - Se chiamato durante un add / addAsync puó generare un errore, ( da verificare che questa condizione sia giusta ) ???
