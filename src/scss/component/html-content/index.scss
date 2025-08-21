@@ -232,11 +232,11 @@
 
 h2 {
     &.is-section {
-        background: $nord-bg;
-        color: $white;
+        background: $white;
+        color: $black;
         padding: rem(20) rem(20) rem(20) rem(40);
         margin-left: calc(#{rem(40)} * -1);
-        margin-right: calc(#{rem(40)} * -1);
+        margin-right: calc(#{rem(39)} * -1);
         position: relative;
         overflow: hidden;
         margin-bottom: 0;
@@ -244,7 +244,7 @@ h2 {
         transition: transform 0.35s;
 
         &.pinned {
-            box-shadow: 0 calc(#{rem(30)} * -1) 0 $black;
+            box-shadow: 0 calc(#{rem(30)} * -1) 0 $white;
         }
 
         &.hide.pinned {
@@ -256,7 +256,7 @@ h2 {
             position: absolute;
             left: calc(#{rem(100)} * -1);
             top: 0;
-            background: $black;
+            background: $grey;
             width: rem(200);
             height: rem(200);
             transform: rotate(45deg);
@@ -267,7 +267,7 @@ h2 {
             position: absolute;
             right: calc(#{rem(100)} * -1);
             top: rem(60);
-            background: $black;
+            background: $grey;
             width: rem(200);
             height: rem(200);
             transform: rotate(50deg);

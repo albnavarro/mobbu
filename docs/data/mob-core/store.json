@@ -521,8 +521,8 @@
                             "style": "medium",
                             "dots": false,
                             "items": [
-                                "<span class='quote'>get</span>: The object automatically reflects the current state values.",
-                                "<span class='quote'>set</span>: Internally triggers <span class='quote'>myStore.set('prop', value)</span> when modifying the object."
+                                "<strong>get</strong>: The object automatically reflects the current state values.",
+                                "<strong>set</strong>: Internally triggers <strong>myStore.set('prop', value)</strong> when modifying the object."
                             ]
                         }
                     },
@@ -553,7 +553,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The proxy intentionally omits <span class='quote'>deep watch</span> for performance optimization.<br />To modify <strong>nested</strong> object contents, you must <strong>reassign</strong> the entire property."
+                        "content": "The proxy intentionally omits <strong>deep watch</strong> for performance optimization.<br />To modify <strong>nested</strong> object contents, you must <strong>reassign</strong> the entire property."
                     },
                     {
                         "component": "mob-spacer",
@@ -631,7 +631,7 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<span class='quote'>emit: </span>&nbsp;Modifies data without triggering reactions (no callbacks fired). Default: <strong>true</strong>."
+                                "<strong>emit: </strong>&nbsp;Modifies data without triggering reactions (no callbacks fired). Default: <strong>true</strong>."
                             ]
                         }
                     },
@@ -735,8 +735,8 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<span class='quote'>emit: </span>&nbsp;Performs silent updates (bypasses reactivity, no callbacks triggered). Default: <strong>true</strong>.",
-                                "<span class='quote'>clone: </span>&nbsp;Creates a copy of original data. Default: <strong>false</strong>."
+                                "<strong>emit: </strong>&nbsp;Performs silent updates (bypasses reactivity, no callbacks triggered). Default: <strong>true</strong>.",
+                                "<strong>clone: </strong>&nbsp;Creates a copy of original data. Default: <strong>false</strong>."
                             ]
                         }
                     },
@@ -913,8 +913,8 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<span class='quote'>wait: </span>&nbsp;Defers callback execution until the current <strong>JavaScript event loop</strong> completes, using the latest value.<br />Only effective when <strong>emit-async</strong> is not used.<br/> Default: <strong>false</strong>.",
-                                "<span class='quote'>immediate: </span>&nbsp;Triggers the initial callback immediately on subscription.<br />Default: <strong>false</strong>."
+                                "<strong>wait: </strong>&nbsp;Defers callback execution until the current <strong>JavaScript event loop</strong> completes, using the latest value.<br />Only effective when <strong>emit-async</strong> is not used.<br/> Default: <strong>false</strong>.",
+                                "<strong>immediate: </strong>&nbsp;Triggers the initial callback immediately on subscription.<br />Default: <strong>false</strong>."
                             ]
                         }
                     },
