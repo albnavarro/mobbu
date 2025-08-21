@@ -5,7 +5,7 @@
             "props": {
                 "style": "small",
                 "id": "start",
-                "label": "Implementations"
+                "label": "Initialize"
             }
         },
         {
@@ -56,7 +56,13 @@
                             "isSection": true,
                             "useSticky": true
                         },
-                        "content": "Creation"
+                        "content": "Initialize"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -131,7 +137,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "For advanced usage, you must return a <strong>function that returns an object</strong> containing at least one of these properties: <strong>validate</strong>, <strong>type</strong>, or <strong>skipEqual</strong>. You can nest up to <strong>two levels</strong> (supporting both basic and advanced use cases) per property, as demonstrated in the <strong>nested object</strong> example.</br>"
+                        "content": "For advanced usage, it is necessary to return a <strong>function that returns an object</strong> containing the <strong>value</strong> property and at least one of the following properties: <strong>validate</strong>, <strong>type</strong>, or <strong>skipEqual</strong>. You can <strong>nest up to two levels</strong> (supporting both basic and advanced use cases) for properties, <strong>as demonstrated in the nested object example</strong>."
                     },
                     {
                         "component": "mob-snippet",
@@ -203,6 +209,14 @@
                         }
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "params",
+                            "label": "State params"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -210,7 +224,27 @@
                             "isSection": true,
                             "useSticky": true
                         },
-                        "content": "Params"
+                        "content": "State params"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true
+                        },
+                        "content": "Details of the parameters if defining a single state via an <strong>advanced implementation</strong>. Recall that in this case, the practice is to provide a <strong>function that returns an object</strong> with a <strong>value property</strong> and one of <strong>validate</strong>, <strong>type</strong>, or <strong>skipEqual</strong>."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -238,6 +272,19 @@
                             "tag": "h5"
                         },
                         "content": "type"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "The type can be defined as a <strong>native JavaScript object</strong> or in the form of a <strong>string</strong>.<br/> In the case of <strong>any</strong>, only the string form is supported."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-list",
@@ -377,6 +424,12 @@
                         "content": "Typescript:"
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h5"
@@ -500,6 +553,12 @@
                             "useSticky": true
                         },
                         "content": "Methods:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
