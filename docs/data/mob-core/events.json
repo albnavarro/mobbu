@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Event Collection</strong> (Pub/Sub Model): <ul> <li><strong>Standardized</strong> event system for common interactions</li> <li><strong>Automatic cleanup</strong> when subscribers reach zero</li> <li>Returns <strong>unsubscribe</strong> function with every subscription ( when needed )</li> </ul>"
+            "content": "<strong>Event Collection</strong> (Pub/Sub Model): <ul> <li><strong>Standardized</strong> event system for common interactions</li> <li><strong>Automatic cleanup</strong> when subscribers <strong>reach zero</strong></li> <li>Returns <strong>unsubscribe</strong> function with every subscription ( when needed )</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -56,14 +56,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Behavior:</strong> Utilizes the first available <strong>requestAnimationFrame</strong> callback."
+            "content": "Utilizes the first available <strong>requestAnimationFrame</strong> callback."
         },
         {
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<span class='quote'>fps</span>: current fps value: number",
-                    "<span class='quote'>time</span>: current time: number"
+                    "<strong>fps</strong>: current fps value: number",
+                    "<strong>time</strong>: current time: number"
                 ]
             }
         },
@@ -103,7 +103,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Post-Render Pre-Frame Event:</strong> Fires after the current <strong>requestAnimationFrame</strong> rendering completes, but before the next frame's callbacks execute."
+            "content": "Fires after the current <strong>requestAnimationFrame</strong> rendering completes, but before the next frame's callbacks execute."
         },
         {
             "component": "mob-snippet",
@@ -141,7 +141,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Frame-Loop Event:</strong> Dispatches during the next available <strong>requestAnimationFrame</strong> cycle, enabling RAF-based animation loops."
+            "content": "Dispatches during the next available <strong>requestAnimationFrame</strong> cycle, enabling RAF-based animation loops."
         },
         {
             "component": "mob-snippet",
@@ -179,7 +179,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Frame-Targeted Event:</strong> Precisely schedules execution during a specific <strong>requestAnimationFrame</strong> cycle."
+            "content": "Precisely schedules execution during a specific <strong>requestAnimationFrame</strong> cycle."
         },
         {
             "component": "mob-snippet",
@@ -217,7 +217,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Page Load Event:</strong> Triggers immediately when the DOM finishes loading."
+            "content": "Triggers immediately when the DOM finishes loading."
         },
         {
             "component": "mob-snippet",
@@ -255,18 +255,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Debounced Resize Event:</strong> Triggers on each window resize with built-in debounce to prevent performance issues."
+            "content": "Triggers on each window resize with built-in debounce to prevent performance issues."
         },
         {
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<span class='quote'>horizontalResize</span>: boolean",
-                    "<span class='quote'>verticalResize</span>: boolean",
-                    "<span class='quote'>documentHeight</span>: number",
-                    "<span class='quote'>scrollY</span>: number",
-                    "<span class='quote'>windowsHeight</span>: number",
-                    "<span class='quote'>windowsWidth</span>: number"
+                    "<strong>horizontalResize</strong>: boolean",
+                    "<strong>verticalResize</strong>: boolean",
+                    "<strong>documentHeight</strong>: number",
+                    "<strong>scrollY</strong>: number",
+                    "<strong>windowsHeight</strong>: number",
+                    "<strong>windowsWidth</strong>: number"
                 ]
             }
         },
@@ -306,14 +306,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Tab Visibility Callback:</strong> Listens for browser tab focus changes using the Page Visibility API."
+            "content": "Listens for browser tab focus changes using the Page Visibility API."
         },
         {
             "component": "mob-list",
             "props": {
-                "items": [
-                    "<span class='quote'>visibilityState</span>: hidden | visible"
-                ]
+                "items": ["<strong>visibilityState</strong>: hidden | visible"]
             }
         },
         {
@@ -371,11 +369,11 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<span class='quote'>page</span>: { x: number y: number }",
-                    "<span class='quote'>client</span>: { x: number y: number }",
-                    "<span class='quote'>target</span>: Element",
-                    "<span class='quote'>type</span>: mouseEvent",
-                    "<span class='quote'>preventDefault</span>: function"
+                    "<strong>page</strong>: { x: number y: number }",
+                    "<strong>client</strong>: { x: number y: number }",
+                    "<strong>target</strong>: Element",
+                    "<strong>type</strong>: mouseEvent",
+                    "<strong>preventDefault</strong>: function"
                 ]
             }
         },
@@ -409,21 +407,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Wheel Event Callback:</strong> Handles mouse wheel/pad scroll interactions"
+            "content": "Handles mouse wheel/pad scroll interactions"
         },
         {
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<span class='quote'>page</span>: { x: number; y: number; }",
-                    "<span class='quote'>client</span>: { x: number; y: number; }",
-                    "<span class='quote'>target</span>: Element",
-                    "<span class='quote'>type</span>: mouseEvent",
-                    "<span class='quote'>preventDefault</span>: function",
-                    "<span class='quote'>spinX</span>: number",
-                    "<span class='quote'>spinY</span>: number",
-                    "<span class='quote'>pixelX</span>: number",
-                    "<span class='quote'>pixelY</span>: number"
+                    "<strong>page</strong>: { x: number; y: number; }",
+                    "<strong>client</strong>: { x: number; y: number; }",
+                    "<strong>target</strong>: Element",
+                    "<strong>type</strong>: mouseEvent",
+                    "<strong>preventDefault</strong>: function",
+                    "<strong>spinX</strong>: number",
+                    "<strong>spinY</strong>: number",
+                    "<strong>pixelX</strong>: number",
+                    "<strong>pixelY</strong>: number"
                 ]
             }
         },
@@ -470,12 +468,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Pointer Event Callback:</strong> Handles unified input from mouse, touch, and pen/stylus devices."
+            "content": "Handles unified input from mouse, touch, and pen/stylus devices."
         },
         {
             "component": "mob-list",
             "props": {
-                "items": ["<span class='quote'>native event</span>"]
+                "items": ["<strong>native event</strong>"]
             }
         },
         {
@@ -514,14 +512,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Post-Scroll Tick Callback:</strong> Schedules execution on the first available <strong>nextTick</strong> after scrolling completes."
+            "content": "Schedules execution on the first available <strong>nextTick</strong> after scrolling completes."
         },
         {
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<span class='quote'>scrollY</span>: number",
-                    "<span class='quote'>direction</span>: scrollDirection"
+                    "<strong>scrollY</strong>: number",
+                    "<strong>direction</strong>: scrollDirection"
                 ]
             }
         },
@@ -561,14 +559,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Immediate Scroll Callback:</strong> Executes synchronously during each scroll event dispatch."
+            "content": "Executes synchronously during each scroll event dispatch."
         },
         {
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<span class='quote'>scrollY</span>: number",
-                    "<span class='quote'>direction</span>: scrollDirection"
+                    "<strong>scrollY</strong>: number",
+                    "<strong>direction</strong>: scrollDirection"
                 ]
             }
         },
@@ -608,14 +606,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Throttled Scroll Callback:</strong> Executes at controlled intervals during scrolling to optimize performance.  "
+            "content": "Executes at <strong>controlled intervals</strong> during scrolling to optimize performance.  "
         },
         {
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<span class='quote'>scrollY</span>: number",
-                    "<span class='quote'>direction</span>: scrollDirection"
+                    "<strong>scrollY</strong>: number",
+                    "<strong>direction</strong>: scrollDirection"
                 ]
             }
         },
@@ -655,12 +653,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<ul> <li><strong>Scroll Start:</strong> Triggers when scrolling is first detected</li> <li><strong>Scroll End:</strong> Executes after scrolling stops</li> </ul>"
+            "content": "<ul><li><strong>Scroll Start:</strong> Triggers when scrolling is first detected</li> <li><strong>Scroll End:</strong> Executes after scrolling stops</li> </ul>"
         },
         {
             "component": "mob-list",
             "props": {
-                "items": ["<span class='quote'>scrollY</span>: number"]
+                "items": ["<strong>scrollY</strong>: number"]
             }
         },
         {
@@ -699,7 +697,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Type Validator:</strong> Checks if variable matches specified type (String/Number/etc.), returning boolean."
+            "content": "Checks if variable matches specified type (String/Number/etc.), returning boolean."
         },
         {
             "component": "mob-list",
