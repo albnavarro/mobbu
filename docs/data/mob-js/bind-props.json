@@ -85,7 +85,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Dependency Management Options</strong>: <ul> <li><strong>Proxy Mode</strong>: <ul> <li>Automatic dependency tracking</li> <li>No manual declarations needed</li> </ul> </li> </ul>"
+            "content": "<strong>Dependency Management Options</strong>: <ul> <li><strong>Automatic</strong> dependency tracking</li> <li>No manual declarations needed</li></ul>"
         },
         {
             "component": "mob-paragraph",
@@ -94,7 +94,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Optimal bindProps Usage</strong>: <ul> <li><strong>Simplest implementation</strong>: <ul> <li>Basic <strong>function</strong> binding</li> <li>With <strong>proxy</strong> integration</li> </ul> </li> <li>Benefits: <ul> <li><strong>Maximum convenience</strong></li> <li><strong>Recommended</strong> for most use cases</li> </ul> </li> </ul>"
+            "content": "Using proxies, it is possible to not specify any <strong>dependencies</strong> directly. If there are no specific needs, this is the <strong>most convenient solution</strong>. The module will be <strong>recomputed</strong> when at least one of the properties used inside the callback changes."
         },
         {
             "component": "mob-spacer",
@@ -131,7 +131,7 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "observe ( optional )"
+            "content": "observe"
         },
         {
             "component": "mob-paragraph",
@@ -158,7 +158,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": " <ul> <li><strong>Input</strong>: Full parent state object (all values)</li> <li><strong>Output</strong>: Object for child component state</li> <li><strong>Key Features</strong>: <ul> <li>Access to <strong>unmonitored states</strong></li> <li>Explicit state transformation</li> </ul> </li> </ul>"
+            "content": " <ul> <li><strong>Input</strong>: Full parent state object (all values)</li> <li><strong>Output</strong>: Object for child component state</li></ul>"
         },
         {
             "component": "mob-spacer",
@@ -202,7 +202,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": " <ul> <li>Provides: <ul> <li>Current <strong>value</strong> of the repeated item</li> <li>Iteration <strong>position</strong> (index)</li> </ul> </li> <li>Accessible within <strong><a href='#mobJs-repeat'>repeater</a></strong> components</li> </ul>"
+            "content": " <ul> <li>Provides: <ul> <li>Current <strong>value</strong> of the repeated item</li> <li>Iteration <strong>position</strong> (index)</li> </ul> </li> <li>Accessible within <strong><a href='#mobJs-repeat'>repeater</a></strong> module</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -211,7 +211,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Repeater Value Access</strong>: <ul> <li><strong>bindProps</strong> capability: <ul> <li>Returns <strong>current</strong> value</li> <li>Tracks <strong>updated</strong> values</li> </ul> </li> <li><strong>Recommended approach</strong>: <ul> <li>Use the repeater's built-in <strong>proxy</strong></li> <li>Benefits: <ul> <li>Tighter <strong>TypeScript</strong> integration</li> <li>More idiomatic implementation</li> </ul> </li> </ul> </li> </ul>"
+            "content": "Even though these values are available, it is always advisable to refer to the <strong>proxy</strong> provided by the <a href='#mobJs-repeat'><strong>repeater</strong></a> module ( current )."
         },
         {
             "component": "mob-snippet",

@@ -105,7 +105,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": " <ul> <li><strong>Recommended Practice</strong>: <ul> <li>Use the repeater's built-in <strong>proxy</strong></li> <li>Benefits: <ul> <li>Seamless <strong>TypeScript</strong> integration</li> <li>Automatic value synchronization</li> <li>Cleaner syntax</li> </ul> </li> </ul> </li> </ul>"
+            "content": "Even though these values are available, it is always advisable to refer to the <strong>proxy</strong> provided by the <a href='#mobJs-repeat'><strong>repeater</strong></a> module ( current )."
         },
         {
             "component": "mob-snippet",
