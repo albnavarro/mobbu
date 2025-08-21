@@ -289,6 +289,12 @@
                             "hasBorder": true,
                             "numLines": 27
                         }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
                     }
                 ]
             }
