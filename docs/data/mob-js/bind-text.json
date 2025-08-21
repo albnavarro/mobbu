@@ -49,7 +49,7 @@
                 "items": [
                     "based on <strong>String.raw</strong>",
                     "requires a <strong>unique parent node</strong>, each update will delete the previous contents of the node.",
-                    "States must be specified as <strong>strings</strong> in order to be identified as keys to the component's state object."
+                    "States must be specified as <strong>strings</strong> in order to be identified as <strong>keys</strong> to the component's <strong>state object</strong>."
                 ]
             }
         },

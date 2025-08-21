@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>bindObject Characteristics</strong>: <ul> <li><strong>Simplified alternative</strong> to <a href='#mobJs-invalidate'><strong>invalidate</strong></a></li> <li>Built on <strong>String.raw</strong> templating</li> <li>Usage contexts: <ul> <li>Component <strong>proxy</strong></li> <li><strong>repeat</strong> module proxy</li> </ul> </li> </ul>"
+            "content": "<strong>bindObject Characteristics</strong>: <ul> <li><strong>Simplified alternative</strong> to <a href='#mobJs-invalidate'><strong>invalidate</strong></a></li> <li>Built on <strong>String.raw</strong> templating</li> <li>Usage contexts: <ul> <li>Component <strong>proxy</strong></li> <li><strong>repeat</strong> module proxy ( <strong>current</strong> )</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -47,8 +47,8 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>observe</span>: Observed status ( optional ).",
-                    "<span class='quote'>value</span>: A function that will return the updated value."
+                    "<strong>observe</strong>: Observed status ( optional ).",
+                    "<strong>value</strong>: A function that will return the updated value."
                 ]
             }
         },
@@ -71,11 +71,11 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "based on <span class='quote'>String.raw</span>",
-                    "requires a <span class='quote'>unique parent node</span>, each update will delete the previous contents of the node.",
-                    "similarly to <span class='quote'>bindText</span> it allows you to mix texts and variables.",
-                    "Useful if you want to use the value of a <span class='quote'>proxy</span>.",
-                    "Useful if you want to print the value of <span class='quote'>current.value</span> inside a repeat"
+                    "based on <strong>String.raw</strong>",
+                    "requires a <strong>unique parent node</strong>, each update will delete the previous contents of the node.",
+                    "similarly to <strong>bindText</strong> it allows you to mix texts and variables.",
+                    "Useful if you want to use the value of a <strong>proxy</strong>.",
+                    "Useful if you want to print the value of <strong>current.value</strong> inside a repeat"
                 ]
             }
         },
@@ -96,7 +96,15 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "With proxi ( auto detect dependencies )"
+            "content": "Raccomanded"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true
+            },
+            "content": "In its <strong>simplest version</strong>, we only define the <strong>value property</strong>. The module will <strong>automatically track the state/states</strong> that will allow the module to update itself."
         },
         {
             "component": "mob-snippet",
@@ -120,6 +128,14 @@
                 "tag": "h5"
             },
             "content": "Explicit dependencies"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true
+            },
+            "content": "It is possible to define a <strong>custom state</strong> that will <strong>trigger the module's update</strong>."
         },
         {
             "component": "mob-snippet",
