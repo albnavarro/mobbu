@@ -22,6 +22,8 @@ myStore.computed(
     }
 );
 
-console.log(myStore.get().initialProp); // 1
-console.log(myStore.get().dependency1); // 2
-console.log(myStore.get().dependency2); // 4
+proxi.initialProp = 2;
+
+console.log(myStore.get().initialProp); // 2
+console.log(myStore.get().dependency1); // 4
+console.log(myStore.get().dependency2); // 8
