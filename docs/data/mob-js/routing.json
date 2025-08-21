@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Route Definition:</strong> <ul> <li>Implement as a function returning route DOM</li> <li>Supports <strong>async</strong> operations (data fetching, etc.)</li> <li>Execution flow: <ul> <li>Runs <em>before</em> removing previous route</li> <li>Waits for all async operations</li> <li>Renders new route only with resolved data</li> </ul> </li> </ul>"
+            "content": "<strong>Route Definition:</strong> <ul> <li>Implement as a <strong>function returning route DOM</strong></li> <li>Supports <strong>async</strong> operations (data fetching, etc.)</li> <li>Execution flow: <ul> <li>Runs <strong>before</strong> removing previous route</li> <li><strong>Waits</strong> for all async operations</li></ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -42,7 +42,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Initialization Requirements:</strong> <ul> <li>All dependencies must load <em>before</em> app startup via <strong><a href='#mobJs-utils'>useComponent()</a></strong></li> <li>Route limitations: <ul> <li><strong>No reactive props</strong> supported</li> <li>Non-component architecture</li> </ul> </li> </ul>"
+            "content": "<stron> <ul> <li>All dependencies must load <strong>before</strong> app startup via <strong><a href='#mobJs-utils'>useComponent()</a></strong></li> <li><strong>Route limitations</strong>: <ul> <li><strong>No reactive props</strong> supported</li> <li><strong>Non-component architecture</strong></li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -55,15 +55,15 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The function has as parameter an object with:"
+            "content": "The function has as <strong>parameter an object</strong> with:"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span class='quote'>param</span> Optional parameters added to the URL.",
-                    "<span class='quote'>props</span> Optional props passed to the function"
+                    "<strong>param</strong> Optional parameters added to the URL.",
+                    "<strong>props</strong> Optional props passed to the function"
                 ]
             }
         },
@@ -83,16 +83,8 @@
                         "component": "mob-spacer",
                         "props": {
                             "style": "x-small",
-                            "label": "Route definition",
-                            "isSection": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
                             "id": "basicfunction",
-                            "label": "Basic&nbsp;route"
+                            "label": "Route function"
                         }
                     },
                     {
@@ -103,39 +95,13 @@
                             "index": "Routing / 01",
                             "useSticky": true
                         },
-                        "content": "Route definition"
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h5"
-                        },
-                        "content": "basic Route:"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/routing-function.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 19
-                        }
+                        "content": "Route function"
                     },
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
-                            "id": "asyncfunction",
-                            "label": "async&nbsp;route"
+                            "style": "big"
                         }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h5"
-                        },
-                        "content": "async Route:"
                     },
                     {
                         "component": "mob-snippet",
@@ -167,18 +133,18 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "All the routes must be inserted into an array as follows, it is necessary to indicate:"
+                        "content": "<strong>All the routes</strong> must be inserted into an array as follows, it is necessary to indicate:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>name</span> <strong>route name</strong>.",
-                                "<span class='quote'>templateName</span> name ( identifier ) of the template unlike the name ( route ), this parameter <strong>is not unique</strong>.",
-                                "<span class='quote'>layout</span> <strong>page function</strong> to use",
-                                "<span class='quote'>restoreScroll</span> <strong>override</strong> <strong>restoreScroll</strong> global value",
-                                "<span class='quote'>props</span> the <strong>props (object)</strong> to pass to the layout function "
+                                "<strong>name:</strong> route name.",
+                                "<strong>templateName:</strong> name ( identifier ) of the template unlike the name ( route ), this parameter <strong>is not unique</strong>.",
+                                "<strong>layout:</strong> <strong>page function</strong> to use",
+                                "<strong>restoreScroll:</strong> <strong>override</strong> <strong>restoreScroll</strong> global value",
+                                "<strong>props:</strong> the <strong>props (object)</strong> to pass to the layout function "
                             ]
                         }
                     },
@@ -311,8 +277,8 @@
                             "style": "medium",
                             "dots": true,
                             "items": [
-                                "beforePageTransition()",
-                                "pageTransition()"
+                                "<strong>beforePageTransition()</strong>",
+                                "<strong>pageTransition()</strong>"
                             ]
                         }
                     },
@@ -343,7 +309,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Pre-Mount Transition Hook:</strong> <ul> <li>Async function executes between: <ul> <li>Old node cloning</li> <li>DOM insertion</li> </ul> </li> <li>Primary use: Modify cloned node's <strong>style</strong> pre-attachment</li> </ul>"
+                        "content": "<ul><li><strong>Async function executes between</strong>: <ul> <li>Old node cloning</li> <li>DOM insertion</li></ul></li><li><strong>Primary use</strong>: Modify cloned node's <strong>style</strong> pre-attachment</li> </ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -373,7 +339,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Post-Render Hook:</strong> Executes immediately after new route node completes rendering."
+                        "content": "Executes immediately <strong>after new route node completes rendering</strong>."
                     },
                     {
                         "component": "mob-snippet",
@@ -413,7 +379,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Function (optional) where you can return a specific route based on the incoming route"
+                        "content": "Function (optional) where you can <strong>return a specific route based on the incoming route</strong>"
                     },
                     {
                         "component": "mob-snippet",
@@ -475,9 +441,10 @@
                     {
                         "component": "mob-paragraph",
                         "props": {
-                            "style": "medium"
+                            "style": "medium",
+                            "boxed": true
                         },
-                        "content": "<strong>Route Transition Events:</strong> Full lifecycle hooks for navigation changes:"
+                        "content": "<strong>Full lifecycle hooks</strong> for navigation changes:"
                     },
                     {
                         "component": "mob-spacer",
@@ -514,7 +481,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Pre-Route Change Event:</strong> <ul> <li>Triggers before navigation completes</li></ul>"
+                        "content": "Triggers <strong>before navigation completes</strong>"
                     },
                     {
                         "component": "mob-snippet",
@@ -546,7 +513,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Post-Route Change Event:</strong> <ul> <li>Triggers after successful navigation</li></ul>"
+                        "content": "Triggers <strong>after successful navigation</strong>"
                     },
                     {
                         "component": "mob-snippet",

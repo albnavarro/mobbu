@@ -110,7 +110,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Throttle value in milliseconds, used by useScrollThrottle"
+            "content": "Throttle value in <strong>milliseconds</strong>, used by <strong>useScrollThrottle</strong>"
         },
         {
             "component": "mob-spacer",
@@ -138,7 +138,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Limits the value of spinY to a maximum in both negative and positive"
+            "content": "<strong>Limits</strong> the value of <strong>spinY</strong> to a <strong>maximum</strong> in both negative and positive"
         },
         {
             "component": "mob-spacer",
@@ -166,7 +166,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Limits the value of spinX to a maximum in both negative and positive"
+            "content": "<strong>Limits</strong> the value of <strong>spinX</strong> to a <strong>maximum</strong> in both negative and positive"
         },
         {
             "component": "mob-spacer",
