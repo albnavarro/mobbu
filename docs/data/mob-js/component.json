@@ -200,7 +200,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Component Requirements:</strong> <ul> <li>Must be declared as a <strong>web-component</strong></li> <li>Generated DOM replaces the component upon rendering</li> <li>Standard naming conventions apply: <ul> <li>Start with <strong>lowercase letter</strong></li> <li>Must <strong>contain a hyphen</strong></li> </ul> </li> </ul>"
+                        "content": "<ul> <li>Must be declared as a <strong>web-component</strong></li> <li>Generated DOM replaces the component upon rendering</li> <li>Standard naming conventions apply: <ul> <li>Start with <strong>lowercase letter</strong></li> <li>Must <strong>contain a hyphen</strong></li> </ul> </li> </ul>"
                     },
                     {
                         "component": "mob-title",
@@ -214,7 +214,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Component Initialization:</strong> The <strong>component function</strong> executes upon instance creation."
+                        "content": "The <strong>component function</strong> executes upon instance creation."
                     },
                     {
                         "component": "mob-title",
@@ -228,7 +228,16 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Component Registry:</strong> <ul> <li>An <strong>array</strong> containing all child <strong>component definitions</strong></li> <li>Requires <strong>dependency loading</strong> prior to app initialization</li> </ul>"
+                        "content": "<ul><li>An <strong>array</strong> containing all child <strong>component definitions</strong></li> <li>Requires <strong>dependency loading</strong> prior to app initialization</li> </ul>"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
+                        },
+                        "content": "Alternatively, you can use the <a href='#mobJs-utils'><strong>useComponent</strong></a> utility to load all <strong>components</strong> once before initializing the app. However, doing so will make it harder to access components via <strong>LSP</strong> (e.g., <strong>Go to Definition</strong>) easily."
                     },
                     {
                         "component": "mob-title",
@@ -278,7 +287,7 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<a href='#mobJs-bindStore'>bindStore</a>"
+                                "<a href='#mobJs-bindStore'><strong>bindStore</strong></a>"
                             ]
                         }
                     },
@@ -302,7 +311,7 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<a href='./#mobJs-web-component'>Web component</a>"
+                                "<a href='./#mobJs-web-component'><strong>Web component</strong></a>"
                             ]
                         }
                     },
@@ -318,12 +327,12 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>onMount Timing Option:</strong> <ul> <li><strong>Default:</strong> Fires after all components finish mounting</li> <li><strong>Enabled:</strong> Triggers immediately before the next component renders (no queue waiting)</li> </ul>"
+                        "content": "<strong>Normally</strong>, all onMount functions are executed <strong>after all components have been created</strong>.<br/><strong>Enabling</strong> this property will cause the <strong>onMount</strong> function to execute <strong>before the child components are created</strong>."
                     },
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "big"
                         }
                     },
                     {
@@ -668,20 +677,6 @@
                         "props": {
                             "style": "medium"
                         }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h5"
-                        },
-                        "content": "Fundamental params:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Main functions for component management:"
                     },
                     {
                         "component": "mob-spacer",

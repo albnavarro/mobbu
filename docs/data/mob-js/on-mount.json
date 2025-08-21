@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>onMount Execution Flow:</strong> <ul> <li>Triggers after: <ul> <li>All current-loop components are DOM-ready</li> <li>Child components complete their <strong>onMount</strong></li> </ul> </li> <li>Order: Deepest-first hierarchical processing</li> <li>Route readiness: All <strong>onMount</strong> completions trigger <a href='./#mobJs-routing'><strong>route-loaded events</strong></a></li> </ul>"
+            "content": "<strong>Triggers after</strong>: <ul> <li>All components have been <strong>created</strong>.</li> <li>Parents components complete their <strong>onMount</strong></li></ul> "
         },
         {
             "component": "mob-spacer",
@@ -46,7 +46,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Early onMount Trigger:</strong> Execute between: <ul> <li>Child component creation</li> </ul> <em>Enable via <strong>scoped</strong> parameter in <a href='./#mobJs-component'><strong>component definition</strong></a></em>"
+            "content": "<strong>Enabling</strong> this property will cause the <strong>onMount</strong> function to execute <strong>before the child components are created</strong>.<br/>This property is enabled in the <a href='#mobJs-component'><strong>component's definition</strong></a>."
         },
         {
             "component": "mob-spacer",
@@ -86,7 +86,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>onMount Cleanup:</strong> <ul> <li>Optional return: <strong>destroy()</strong> function</li> <li>Execution timing: During component unmount</li> <li>Typical uses: <ul> <li>Event listener removal</li> <li>Animation cancellation</li> <li>Subscription cleanup</li> </ul> </li> </ul>"
+            "content": "<ul><li>Optional return: <strong>destroy()</strong> function</li><li>Typical uses: <ul><li><strong>Event listener removal</strong></li> <li><strong>Animation cancellation</strong></li><li><strong>Subscription cleanup</strong></li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -113,7 +113,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h5"
             },
             "content": "Async"
         },
@@ -122,7 +122,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Async onMount Behavior:</strong> <ul> <li>Supports <strong>async</strong>/<strong>await</strong> operations</li> <li>Execution impact: <ul> <li>Parent component <strong>onMount</strong> functions await completion</li> <li>Entire mount chain becomes sequential</li> </ul> </li> </ul>"
+            "content": "Supports <strong>async</strong>/<strong>await</strong> operations."
         },
         {
             "component": "mob-snippet",
@@ -133,21 +133,6 @@
                 "hasBorder": true,
                 "numLines": 27
             }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "<strong>onMount Strategy Guide:</strong> <ul> <li><strong>Blocking mode</strong> required when: <ul> <li>Parent components need precise measurements</li> <li>Downstream logic depends on async operations (e.g., data fetching)</li> </ul> </li> <li><strong>Non-blocking</strong> recommended for: <ul> <li>Independent operations</li> <li>Non-critical measurements</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
