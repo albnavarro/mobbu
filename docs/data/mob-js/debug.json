@@ -63,37 +63,17 @@
             }
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h5"
-            },
-            "content": "componentMap"
-        },
-        {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "In the <strong>MobJs.componentMap</strong> there are all the instances of our components in which it is possible to analyze all the specifications from the console."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Each component is identified by an <strong>id</strong> in string format, by enabling the <strong>debug property</strong> each component will display its own id in the <strong>data-mobjs</strong> attribute so as to be searchable in the <strong>MobJs.componentMap</strong>."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The <strong>debug</strong> parameter will add a <strong>comment</strong> for each component with the component <strong>tag</strong> defined in the <strong>MobJs.createComponent()</strong> function."
+            "content": "In the <strong>MobJs.componentMap</strong> there are all the instances of our components in which it is possible to analyze all the specifications from the console.<br/><br/>Each component is identified by an <strong>id</strong> in string format, by enabling the <strong>debug property</strong> each component will display its own id in the <strong>data-mobjs</strong> attribute so as to be searchable in the <strong>MobJs.componentMap</strong>.<br/><br/>The <strong>debug</strong> parameter will add a <strong>comment</strong> for each component with the component <strong>tag</strong> defined in the <strong>MobJs.createComponent()</strong> function."
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {

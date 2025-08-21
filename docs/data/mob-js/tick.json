@@ -27,7 +27,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>App-Wide Ready Hook:</strong> Async function that awaits full computation of: <ul> <li><strong>bindProps</strong> </li> <li><strong>repeaters</strong> </li> <li><strong>invalidate</strong> </li> <li><strong>runtime components</strong> </li> </ul>"
+            "content": "<strong>Async function</strong> that <strong>awaits</strong> full computation of: <ul> <li><strong>bindProps</strong> </li> <li><strong>repeaters</strong> </li> <li><strong>invalidate</strong> </li> <li><strong>runtime components</strong> </li> </ul>"
         },
         {
             "component": "mob-spacer",
