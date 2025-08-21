@@ -48,11 +48,17 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>attachTo</span>: Node where attach new component",
-                    "<span class='quote'>component</span>: Component to render",
-                    "<span class='quote'>position (optional)</span>: position where attach new component: 'afterbegin'|'beforeend'",
-                    "<span class='quote'>clean (optional)</span>: remove previous content"
+                    "<strong>attachTo</strong>: Node where attach new component",
+                    "<strong>component</strong>: Component to render",
+                    "<strong>position (optional)</strong>: position where attach new component: 'afterbegin'|'beforeend'",
+                    "<strong>clean (optional)</strong>: remove previous content"
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
