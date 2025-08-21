@@ -34,7 +34,7 @@
                 top: rem(10);
                 width: 5px;
                 height: 5px;
-                background: $black;
+                background: $grey-medium;
                 display: inline-block;
                 border-radius: 100%;
             }
@@ -160,6 +160,7 @@
             left: 0;
             top: 50%;
             transform: translateY(-50%);
+            color: $nord-bg;
         }
     }
 }

@@ -3119,7 +3119,7 @@ code {
   top: 0.6666666667rem;
   width: 5px;
   height: 5px;
-  background: #000;
+  background: #a4a4b3;
   display: inline-block;
   border-radius: 100%;
 }
@@ -3237,6 +3237,7 @@ code {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
+  color: #2e3440;
 }
 .list-links {
   padding: 0.3333333333rem 0.6666666667rem;

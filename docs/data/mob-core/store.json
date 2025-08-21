@@ -281,12 +281,6 @@
                         "content": "The type can be defined as a <strong>native JavaScript object</strong> or in the form of a <strong>string</strong>.<br/> In the case of <strong>any</strong>, only the string form is supported."
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
                         "component": "mob-list",
                         "props": {
                             "items": [
@@ -530,6 +524,14 @@
                 "useTriangle": false,
                 "usePadding": false,
                 "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "x-small",
+                            "label": "Methods",
+                            "isSection": true
+                        }
+                    },
                     {
                         "component": "mob-spacer",
                         "props": {
