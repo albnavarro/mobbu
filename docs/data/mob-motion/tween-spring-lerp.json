@@ -239,7 +239,7 @@
                         "props": {
                             "style": "small",
                             "id": "tween",
-                            "label": "Tween"
+                            "label": "TimeTween"
                         }
                     },
                     {
@@ -250,7 +250,7 @@
                             "index": "Tween Spring Lerp / 03",
                             "useSticky": false
                         },
-                        "content": "Time tween:"
+                        "content": "TimeTween:"
                     },
                     {
                         "component": "mob-spacer",
