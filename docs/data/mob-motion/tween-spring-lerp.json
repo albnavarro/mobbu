@@ -17,6 +17,12 @@
             "content": "Tween animations"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
@@ -71,7 +77,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Tween Spring Lerp / 01",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Animation type:"
                     },
@@ -155,7 +161,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Tween Spring Lerp / 02",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Common params:"
                     },
@@ -230,7 +236,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Tween Spring Lerp / 03",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Time tween:"
                     },
@@ -342,7 +348,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Tween Spring Lerp / 04",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Spring"
                     },
@@ -467,7 +473,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Tween Spring Lerp / 05",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Lerp"
                     },
@@ -554,14 +560,6 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Methods",
-                "isSection": true
-            }
-        },
-        {
             "component": "html-content",
             "props": {
                 "useTriangle": false,
@@ -570,7 +568,17 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "x-small"
+                            "style": "x-small",
+                            "label": "Methods",
+                            "isSection": true
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small",
+                            "id": "set",
+                            "label": "Set"
                         }
                     },
                     {
@@ -579,14 +587,14 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Tween Spring Lerp / 06",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Common methods"
                     },
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "small"
                         }
                     },
                     {
@@ -601,9 +609,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
-                            "id": "set",
-                            "label": "Set"
+                            "style": "medium"
                         }
                     },
                     {

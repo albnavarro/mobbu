@@ -72,7 +72,7 @@
                             "tag": "h2",
                             "index": "AsyncTimeline / 01",
                             "isSection": true,
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Params:"
                     },
@@ -90,7 +90,7 @@
                             "hasOverflow": false,
                             "hasBorder": true,
                             "numLines": 7,
-                            "useSticky": true
+                            "useSticky": false
                         }
                     },
                     {
@@ -366,7 +366,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "AsyncTimeline / 02",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Methods"
                     },

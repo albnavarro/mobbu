@@ -78,7 +78,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "SyncTimeline / 01",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Params:"
                     },
@@ -240,7 +240,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "SyncTimeline / 02",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Methods"
                     },

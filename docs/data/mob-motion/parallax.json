@@ -84,7 +84,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Parallax / 01",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Params:"
                     },
@@ -1014,7 +1014,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Parallax / 02",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Methods"
                     },
