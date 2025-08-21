@@ -128,6 +128,9 @@
     }
 
     h2 {
+        margin: rem(40) calc(#{rem(39)} * -1) rem(20) calc(#{rem(40)} * -1);
+        padding-left: rem(40);
+
         &.is-section {
             color: $black;
             border-bottom: 1px $black solid;
@@ -145,23 +148,23 @@
             &.hide.pinned {
                 transform: translateY(-100%);
             }
-        }
 
-        .title-content {
-            position: absolute;
-            bottom: rem(1);
-            font-size: rem(50);
-            left: rem(40);
-        }
+            .title-content {
+                position: absolute;
+                bottom: rem(1);
+                font-size: rem(50);
+                left: rem(40);
+            }
 
-        .title-index {
-            display: block;
-            font-size: rem(14);
-            position: absolute;
-            top: rem(12);
-            right: rem(40);
-            color: $black;
-            z-index: 1;
+            .title-index {
+                display: block;
+                font-size: rem(14);
+                position: absolute;
+                bottom: calc(#{rem(13)} * -1);
+                right: rem(40);
+                color: $black;
+                z-index: 1;
+            }
         }
     }
 

@@ -82,6 +82,12 @@
                         "content": "Animation type:"
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h3"
@@ -166,6 +172,12 @@
                         "content": "Common params:"
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h3"
@@ -243,15 +255,8 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "small"
                         }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "Additional params:"
                     },
                     {
                         "component": "mob-title",
@@ -355,15 +360,8 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "small"
                         }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "Additional params:"
                     },
                     {
                         "component": "mob-title",
@@ -480,15 +478,8 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "small"
                         }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "Additional params:"
                     },
                     {
                         "component": "mob-title",

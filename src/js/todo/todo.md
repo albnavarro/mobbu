@@ -1,6 +1,6 @@
-### Docs: Stagger:
-- Specificare con un `note`  che il suo utilizzo e migliore con `subscibecache`, pause, stop etc..
-- Specificare i moduli che lo usano con link.
+### Docs:
+- I titolo `sticky` sono deprecati, scorporare i blocchi html-content innestati
+
 
 ### Docs: AsyncTimeline
 - Breve riassunto con lista puntata delle feature.
