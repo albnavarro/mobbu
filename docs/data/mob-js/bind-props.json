@@ -52,10 +52,9 @@
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "boxed": true,
-                "note": true
+                "boxed": true
             },
-            "content": "For passing <strong>callbacks</strong>, it is convenient to use the <a href='#mobJs-staticProps'><strong>staticProps</strong></a> module."
+            "content": "<strong>bindProps</strong> allows <strong>reactive updating of props</strong> between parent and child."
         },
         {
             "component": "mob-paragraph",
@@ -64,7 +63,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "For a state to be <strong>visible from the outside</strong>, it must be exposed in the <strong>exportState</strong> field within the <a href='#mobJs-component'><strong>component's definition</strong></a>"
+            "content": "<br/>For passing <strong>callbacks</strong>, it is convenient to use the <a href='#mobJs-staticProps'><strong>staticProps</strong></a> module.<br/>For a state to be <strong>visible from the outside</strong>, it must be exposed in the <strong>exportState</strong> field within the <a href='#mobJs-component'><strong>component's definition</strong></a>"
         },
         {
             "component": "mob-spacer",

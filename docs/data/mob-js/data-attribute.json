@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Static Data Attributes</strong>: <ul> <li><strong>Non-reactive</strong> value passing</li> <li>Ideal for: <ul> <li>Constant configuration</li> <li>Performance-critical cases</li> </ul> </li> <li>Benefits: <ul> <li><strong>Improved readability</strong></li> <li><strong>Reduced overhead</strong> vs reactive properties</li> </ul> </li> </ul>"
+            "content": "Through <strong>data attributes</strong>, it is possible to pass <strong>state</strong> values between <strong>parent</strong> and <strong>child</strong>."
         },
         {
             "component": "mob-paragraph",
