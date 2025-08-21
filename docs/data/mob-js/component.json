@@ -356,7 +356,7 @@
                         "props": {
                             "style": "x-small",
                             "id": "function",
-                            "label": "Function component"
+                            "label": "function component"
                         }
                     },
                     {
@@ -406,55 +406,11 @@
                         }
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h6"
                         },
-                        "content": "Advanced component structure example."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/component.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 66
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
-                            "id": "async",
-                            "label": "Async Function Component"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h5"
-                        },
                         "content": "Async"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "<strong>Async Initialization:</strong> The component's render phase automatically waits for <strong>async</strong> operations (fetch, auth checks, etc.) to resolve."
                     },
                     {
                         "component": "mob-snippet",
