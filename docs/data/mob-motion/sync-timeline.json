@@ -17,6 +17,12 @@
             "content": "Sync timeline"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
@@ -41,7 +47,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "medium"
             }
         },
         {
@@ -247,7 +253,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "small"
                         }
                     },
                     {
@@ -277,7 +283,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "play",
                             "label": "play/playReverse/stop"
                         }
@@ -346,7 +352,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "playFrom",
                             "label": "playFrom/playFromReverse"
                         }
@@ -378,7 +384,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "reverse",
                             "label": "reverse"
                         }
@@ -410,7 +416,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "pause/resume",
                             "label": "pause/resume"
                         }
@@ -442,7 +448,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "onLoopEnd",
                             "label": "onLoopEnd"
                         }
@@ -491,7 +497,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "onComplete",
                             "label": "onComplete"
                         }
@@ -523,7 +529,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "onUpdate",
                             "label": "onUpdate"
                         }
@@ -572,7 +578,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "destroy",
                             "label": "destroy"
                         }
@@ -604,7 +610,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "utils",
                             "label": "Utils"
                         }
