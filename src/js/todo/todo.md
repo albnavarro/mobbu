@@ -134,28 +134,9 @@ store[prop] = valueTransformed;
 
 # MobJs
 
-## DOCS:
-- `BindStore` `Web-component` `slot` `tick`
-    - Fare una sottosezione apposita sotto `component` similare a `Static Params` & `Utils Params`.
-    - Idealmante `utils` e il corrente `utils params` -> `secondary params`.
-- Spiegare i meccanismi base `html-element`, consumo memoria etc.., fare sezione apposta, tipo un `README` in root a `mobJs`
+## Refs:
+Usare weakRef.
 
-### getRepeatOrInvalidateInsideElement
-- Al posto di ciclare pe rintero `repeatIdPlaceHolderMap/invalidateIdPlaceHolderMap`
-- Es: `repeatFunctionMap` dato lo `scopeId` si possono recuperare i singoli `id` di `repeatIdPlaceHolderMap`.
-- Capire se questa strada, anche se poco influente in termini prestazionali puó avere senso.
-- La seguente riga di codice fá pensar eil contrario:
-
-```js
-if (
-    componentId &&
-    !compareIdOrParentIdRecursive({
-        id: scopeId ?? '',
-        compareValue: componentId,
-    })
-)
-    return;
-```
 
 ## BindProps
 ##### Nota: puó essere un falso problema, per le massime performance i methodi possono avere un accesso diretto al componente senza intermediazione, nel caso specificarlo.
