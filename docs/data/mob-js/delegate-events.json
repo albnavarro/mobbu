@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": " <ul> <li><strong>Event Delegation</strong>: <ul> <li>Consolidates listeners at <strong>root level</strong></li> <li>Automatically routes events to targets</li> </ul> </li> <li><strong>Compatibility</strong>: <ul> <li>Works on both <strong>components</strong> and <strong>DOM nodes</strong></li> <li><strong>Not recommended</strong> for animations</li> </ul> </li> <li><strong>Execution Control</strong>: <ul> <li>Blocks duplicate calls during app updates</li> <li>Leverages <strong>asynchronous</strong> processing</li> </ul> </li> <li><strong>Animation Alternative</strong>: Native <strong>addEventListener</strong></li> </ul>"
+            "content": " <ul> <li><strong>Event Delegation</strong>: <ul> <li>Consolidates listeners at <strong>root level</strong></li></ul> </li> <li><strong>Compatibility</strong>: <ul> <li>Works on both <strong>components</strong> and <strong>DOM nodes</strong></li></ul> </li> <li><strong>Execution Control</strong>: <ul> <li>Blocks duplicate calls during app updates</li> <li>Leverages <strong>asynchronous</strong> processing</li></ul></li></ul>"
         },
         {
             "component": "mob-spacer",

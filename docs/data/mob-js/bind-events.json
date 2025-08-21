@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": " <ul> <li><strong>Component-exclusive</strong> event binding</li> <li>Incompatible with: <ul> <li>Generic DOM elements</li> <li>Non-component nodes</li> </ul> </li> <li>Alternative for generic nodes: <a href='./#mobJs-delegateEvents'><strong>delegateEvents</strong></a></li> <li><strong>Execution Safety</strong>: <ul> <li>Blocks duplicate calls during app updates</li> <li>Ensures single-flush behavior</li> </ul> </li> </ul>"
+            "content": " <ul> <li><strong>Component-exclusive</strong> event binding</li> <li><strong>Incompatible with</strong>: <ul> <li>Generic DOM elements</li> <li>Non-component nodes</li> </ul> </li> <li>Alternative for generic nodes: <a href='./#mobJs-delegateEvents'><strong>delegateEvents</strong></a></li></ul>"
         },
         {
             "component": "mob-spacer",

@@ -41,7 +41,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<ul> <li><strong>Universal targeting</strong>: <ul> <li>Works on <strong>HTML nodes</strong></li> <li>Works on <strong>component nodes</strong></li> </ul> </li> <li><strong>Component behavior</strong>: <ul> <li>Returns component's <strong>first node</strong></li> </ul> </li> <li><strong>Critical role</strong> in <a href='#mobJs-memory-management'><strong>memory management</strong></a></li> </ul>"
+            "content": "It is possible to use <strong>components</strong> or <strong>simple HTML nodes</strong> as <strong>targets</strong>."
         },
         {
             "component": "mob-spacer",
