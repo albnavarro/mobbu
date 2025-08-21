@@ -37,9 +37,10 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "boxed": true
             },
-            "content": "<strong>Watch Function Behavior</strong>: <ul> <li>Triggers on state changes from: <ul> <li>External sources (<strong>bindProps</strong>, etc.)</li> <li>Internal component updates</li> </ul> </li><li>Automatic cleanup: <ul> <li>On component <strong>destruction</strong></li> <li>Manual via returned <strong>unwatch</strong> function</li> </ul> </li> </ul>"
+            "content": "<strong>Automatic cleanup:</strong><ul><li>On component <strong>destruction</strong></li> <li>Manual via returned <strong>unwatch</strong> function</li></ul>"
         },
         {
             "component": "mob-spacer",

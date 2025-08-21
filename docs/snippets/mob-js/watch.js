@@ -1,7 +1,7 @@
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount, getState, watch, setRef, getRef }) => {
     const { label } = getState();
@@ -10,7 +10,7 @@ export const MyComponent = ({ onMount, getState, watch, setRef, getRef }) => {
         const { labelRef } = getRef();
 
         /**
-         * With proxi
+         * With proxi as key
          */
         const unwatch = watch(
             () => proxi.myState,
@@ -20,7 +20,7 @@ export const MyComponent = ({ onMount, getState, watch, setRef, getRef }) => {
         );
 
         /**
-         * Use string
+         * Use string as key
          */
         const unwatch = watch('myState', (value) => {
             labelRef.classList.toggle('myClass', value);

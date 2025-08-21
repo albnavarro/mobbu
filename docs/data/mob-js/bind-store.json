@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>bindStore Functionality:</strong> <ul> <li>Creates <strong>reactive binding</strong> between component state and <strong><a href='#mobCore-store'>mobStore</a></strong></li> <li>Inherits full <strong>reactivity</strong> system from linked store</li> <li>Multi-store support: Pass an <strong>array</strong> of stores</li> </ul>"
+            "content": "<ul><li>Creates <strong>reactive binding</strong> between component state and an instance of <strong><a href='#mobCore-store'>mobStore</a></strong></li> <li>Inherits full <strong>reactivity</strong> system from linked store</li> <li>Multi-store support: Pass an <strong>array</strong> of stores</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -74,7 +74,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "There is a special store ( <strong>MobJs.mainStore</strong> ) that handles all <strong>mobJs events</strong> as in the following example:"
+            "content": "<strong>Multiple stores can be added using an array</strong>.<br/>There is a special store ( <strong>MobJs.mainStore</strong> ) that handles all <strong>mobJs events</strong> as in the following example:"
         },
         {
             "component": "mob-spacer",
