@@ -94,6 +94,12 @@
                         }
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -122,7 +128,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "Export routes",
                             "label": "Export routes"
                         }
@@ -221,6 +227,12 @@
                         }
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -256,7 +268,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "javascript navigate",
                             "label": "Javascript&nbsp;navigate"
                         }
@@ -298,7 +310,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "page-transition",
                             "label": "Page&nbsp;transition"
                         }
@@ -426,7 +438,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "Redirect",
                             "label": "Redirect"
                         }
@@ -490,7 +502,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "x-small",
+                            "style": "small",
                             "id": "events",
                             "label": "Events/mainStore"
                         }

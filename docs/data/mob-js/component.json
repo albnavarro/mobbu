@@ -170,6 +170,12 @@
                         }
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -423,6 +429,12 @@
                         }
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h2",
@@ -506,6 +518,12 @@
                             "style": "x-small",
                             "id": "type",
                             "label": "Typescript support"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
                         }
                     },
                     {
@@ -719,7 +737,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "lifecycle",
                             "label": "Life cycle"
                         }

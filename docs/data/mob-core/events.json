@@ -334,8 +334,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "useMouseClick",
-                "label": "useMouseClick/down/..."
+                "id": "useMouseEvent",
+                "label": "Mouse/Touch event"
             }
         },
         {
@@ -346,11 +346,18 @@
             "content": "useMouseClick"
         },
         {
-            "component": "mob-title",
+            "component": "mob-list",
             "props": {
-                "tag": "h6"
-            },
-            "content": "... useMouseDown<br/>... useMouseUp<br/>... useTouchMove<br/>... useTouchStart<br/>... useTouchMove<br/>  ... useTouchEnd"
+                "items": [
+                    "useMouseClick",
+                    "useMouseDown",
+                    "useMouseUp",
+                    "useTouchMove",
+                    "useTouchStart",
+                    "useTouchMove",
+                    "useTouchEnd"
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -363,7 +370,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Handles both mouse and touch interactions through a unified interface."
+            "content": "Handles both <strong>mouse</strong> and <strong>touch</strong> interactions through a unified interface."
         },
         {
             "component": "mob-list",
@@ -451,11 +458,17 @@
             "content": "usePointerEvent"
         },
         {
-            "component": "mob-title",
+            "component": "mob-list",
             "props": {
-                "tag": "h6"
-            },
-            "content": "... usePointerMove<br/>... usePointerOver<br/>... usePointerDown<br/>... usePointerUp<br/>... usePointerOut<br/>  ... usePointerLeave"
+                "items": [
+                    "usePointerMove",
+                    "usePointerOver",
+                    "usePointerDown",
+                    "usePointerUp",
+                    "usePointerOut",
+                    "usePointerLeave"
+                ]
+            }
         },
         {
             "component": "mob-spacer",

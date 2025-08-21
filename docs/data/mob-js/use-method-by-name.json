@@ -78,7 +78,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5"
             },
             "content": "Reference:"
         },

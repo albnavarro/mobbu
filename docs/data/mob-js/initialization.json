@@ -216,7 +216,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "contentid",
                             "label": "Content id"
                         }
@@ -238,7 +238,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "routes",
                             "label": "routes"
                         }
@@ -267,7 +267,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "index",
                             "label": "index"
                         }
@@ -289,7 +289,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "pagenotfound",
                             "label": "Page not found"
                         }
@@ -311,7 +311,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "beforePageTransition",
                             "label": "beforePageTransition"
                         }
@@ -347,7 +347,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "pageTransition",
                             "label": "pageTransition"
                         }
@@ -383,7 +383,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "afterInit",
                             "label": "afterInit"
                         }
@@ -405,7 +405,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "redirect",
                             "label": "redirect"
                         }
@@ -441,7 +441,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "restoreScroll",
                             "label": "restoreScroll"
                         }
@@ -463,7 +463,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium",
+                            "style": "small",
                             "id": "componentDefaultProps",
                             "label": "componentDefaultProps"
                         }
