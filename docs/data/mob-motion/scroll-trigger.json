@@ -17,6 +17,12 @@
             "content": "scrollTrigger"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
@@ -41,7 +47,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
@@ -63,7 +69,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "medium"
             }
         },
         {
@@ -113,7 +119,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "target",
                             "label": "DOM&nbsp;Element"
                         }
@@ -228,7 +234,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "breakpoint",
                             "label": "breakpoint"
                         }
@@ -283,7 +289,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "propierties",
                             "label": "propierties"
                         }
@@ -345,7 +351,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "range",
                             "label": "range"
                         }
@@ -382,9 +388,9 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>+/-100px</span>: Move by ±100 pixels",
-                                "<span class='quote'>+/-100vw | +/-100vh</span>: Move by ±100% of screen width/height",
-                                "<span class='quote'>+/-100w | +/-100h</span>: Move by ±100% of element's own width/height",
+                                "<strong>+/-100px</strong>: Move by ±100 pixels",
+                                "<strong>+/-100vw | +/-100vh</strong>: Move by ±100% of screen width/height",
+                                "<strong>+/-100w | +/-100h</strong>: Move by ±100% of element's own width/height",
                                 "Properties are recalculated on each resize"
                             ]
                         }
@@ -407,7 +413,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<span class='quote'>45deg | -45deg</span>. The default value is <strong>0</strong>."
+                        "content": "<strong>45deg | -45deg</strong>. The default value is <strong>0</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -427,7 +433,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Example: <span class='quote'>+/-0.5</span>. The scale property is increased by 0.5 (default value is <strong>0</strong>)."
+                        "content": "Example: <strong>+/-0.5</strong>. The scale property is increased by 0.5 (default value is <strong>0</strong>)."
                     },
                     {
                         "component": "mob-spacer",
@@ -447,7 +453,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<span class='quote'>+/-</span> number between <span class='quote'>0 and 1</span> (default is <strong>1</strong>)."
+                        "content": "<strong>+/-</strong> number between <strong>0 and 1</strong> (default is <strong>1</strong>)."
                     },
                     {
                         "component": "mob-spacer",
@@ -467,7 +473,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<span class='quote'>'margin', 'padding-left', etc...</span> Each value will be converted to <strong>px</strong> (no unit needed)."
+                        "content": "<strong>'margin', 'padding-left', etc...</strong> Each value will be converted to <strong>px</strong> (no unit needed)."
                     },
                     {
                         "component": "mob-spacer",
@@ -487,7 +493,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When using <span class='quote'>tween</span>, the value is controlled by the <strong>sequencer/scrollerTween</strong> itself (no options available)."
+                        "content": "When using <strong>tween</strong>, the value is controlled by the <strong>sequencer/scrollerTween</strong> itself (no options available)."
                     },
                     {
                         "component": "mob-spacer",
@@ -508,7 +514,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "dynamicRange",
                             "label": "dynamicRange"
                         }
@@ -559,7 +565,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "tween",
                             "label": "scrollerTween/sequencer"
                         }
@@ -591,6 +597,19 @@
                         }
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h4"
+                        },
+                        "content": "scrollerTween"
+                    },
+                    {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
@@ -616,7 +635,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "position",
                             "label": "start/end"
                         }
@@ -660,14 +679,14 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When <span class='quote'>start</span> is <strong>bottom/right</strong>, animation begins when the item's <strong>top/left</strong> touches the specified value from screen's bottom/right."
+                        "content": "When <strong>start</strong> is <strong>bottom/right</strong>, animation begins when the item's <strong>top/left</strong> touches the specified value from screen's bottom/right."
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When <span class='quote'>start</span> is <strong>top/left</strong>, animation begins when the item's <strong>bottom/right</strong> touches the specified value from screen's top/left (reverse scroll)."
+                        "content": "When <strong>start</strong> is <strong>top/left</strong>, animation begins when the item's <strong>bottom/right</strong> touches the specified value from screen's top/left (reverse scroll)."
                     },
                     {
                         "component": "mob-paragraph",
@@ -769,7 +788,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "dynamicstart",
                             "label": "dynamicStart/dynamicEnd"
                         }
@@ -812,7 +831,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<span class='quote'>top | right | bottom | left</span><br/>Functions identically to the equivalent in <strong>start/end</strong>."
+                        "content": "<strong>top | right | bottom | left</strong><br/>Functions identically to the equivalent in <strong>start/end</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -868,7 +887,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "reverse",
                             "label": "reverse"
                         }
@@ -890,7 +909,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "marker",
                             "label": "marker"
                         }
@@ -922,7 +941,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "direction",
                             "label": "direction"
                         }
@@ -944,7 +963,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "ease",
                             "label": "ease"
                         }
@@ -954,12 +973,13 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "ease"
+                        "content": "ease management"
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
-                            "style": "medium"
+                            "style": "medium",
+                            "boxed": true
                         },
                         "content": "When enabled, uses <strong>Lerp</strong> or <strong>Spring</strong> instances for value updates."
                     },
@@ -1028,7 +1048,9 @@
                     {
                         "component": "mob-paragraph",
                         "props": {
-                            "style": "medium"
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
                         },
                         "content": "<strong>Note:</strong> Spring doesn't work with the sequencer module (due to value clamping), but is compatible with <strong>scrollerTween</strong>."
                     },
@@ -1051,7 +1073,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "pin",
                             "label": "pin"
                         }
@@ -1061,14 +1083,21 @@
                         "props": {
                             "tag": "h5"
                         },
-                        "content": "pin"
+                        "content": "pin management"
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
-                            "style": "medium"
+                            "style": "medium",
+                            "boxed": true
                         },
                         "content": "Freezes elements like CSS <strong>position: sticky</strong>. Uses JavaScript positioning with anticipatory movement to prevent visual jumps. Elements may become direct <strong>body</strong> children if needed."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -1145,7 +1174,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "events",
                             "label": "events"
                         }
@@ -1160,9 +1189,16 @@
                     {
                         "component": "mob-paragraph",
                         "props": {
-                            "style": "medium"
+                            "style": "medium",
+                            "boxed": true
                         },
                         "content": "Animation lifecycle events:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -1172,13 +1208,11 @@
                         "content": "onEnter"
                     },
                     {
-                        "component": "mob-list",
+                        "component": "mob-paragraph",
                         "props": {
-                            "style": "medium",
-                            "items": [
-                                "Triggered when entering scroll range (no parameters)"
-                            ]
-                        }
+                            "style": "medium"
+                        },
+                        "content": "Triggered when entering scroll range (no parameters)"
                     },
                     {
                         "component": "mob-title",
@@ -1188,13 +1222,11 @@
                         "content": "onEnterBack"
                     },
                     {
-                        "component": "mob-list",
+                        "component": "mob-paragraph",
                         "props": {
-                            "style": "medium",
-                            "items": [
-                                "Triggered when re-entering scroll range from bottom (no parameters)"
-                            ]
-                        }
+                            "style": "medium"
+                        },
+                        "content": "Triggered when re-entering scroll range from bottom (no parameters)"
                     },
                     {
                         "component": "mob-title",
@@ -1204,13 +1236,11 @@
                         "content": "onLeave"
                     },
                     {
-                        "component": "mob-list",
+                        "component": "mob-paragraph",
                         "props": {
-                            "style": "medium",
-                            "items": [
-                                "Triggered when leaving scroll range (no parameters)"
-                            ]
-                        }
+                            "style": "medium"
+                        },
+                        "content": "Triggered when leaving scroll range (no parameters)"
                     },
                     {
                         "component": "mob-title",
@@ -1220,13 +1250,11 @@
                         "content": "onLeaveBack"
                     },
                     {
-                        "component": "mob-list",
+                        "component": "mob-paragraph",
                         "props": {
-                            "style": "medium",
-                            "items": [
-                                "Triggered when re-leaving scroll range from top (no parameters)"
-                            ]
-                        }
+                            "style": "medium"
+                        },
+                        "content": "Triggered when re-leaving scroll range from top (no parameters)"
                     },
                     {
                         "component": "mob-title",
@@ -1258,7 +1286,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "utils",
                             "label": "utils&nbsp;parameters"
                         }
@@ -1345,7 +1373,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -1414,7 +1442,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "move",
                             "label": "move"
                         }
@@ -1469,7 +1497,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "refresh",
                             "label": "refresh"
                         }
@@ -1507,7 +1535,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "destroy",
                             "label": "destroy"
                         }
