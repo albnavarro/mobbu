@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>State Update Methods:</strong> <ul> <li><strong>setState</strong>: <ul> <li>Explicit state updates</li> <li>Extended configuration options</li> </ul> </li> <li><strong>proxies</strong>: <ul> <li>Direct assignment syntax</li> <li>Automatic reactivity</li> </ul> </li> </ul> <strong>Advanced Options:</strong> Detailed in the <strong><a href='#mobCore-store'>store documentation</a></strong>."
+            "content": "<strong>Alternative</strong> to using <a href='#mobJs-getProxi'><strong>proxies</strong></a> to update the component's state.<br/> Compared to proxies, <strong>it offers more options</strong>; refer to the <a href='#mobCore-store'><strong>store</strong></a> for more detailed information.<br/>As a <strong>key</strong>, either a <strong>string</strong> or a <strong>function that returns the proxy</strong> can be used."
         },
         {
             "component": "mob-spacer",

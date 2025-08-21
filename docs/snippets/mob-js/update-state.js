@@ -1,18 +1,18 @@
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ updateState }) => {
     const proxi = getProxi();
 
     /**
-     * Use proxi
+     * Key as string
      */
     updateState('counter', (value) => (value += 1));
 
     /**
-     * Mutate counter state.
+     * Key as proxi
      */
     updateState(
         () => proxi.counter,

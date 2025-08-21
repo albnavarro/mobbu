@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Proxy Advantages:</strong> <ul> <li>It can be used by the <a href='#mobJs-computed'><strong>computed</strong></a> module to automatically <strong>detect dependencies</strong> without needing to declare them manually.</li><li>It simplifies state management by allowing both <strong>set</strong> and <strong>get</strong> operations.</li> </ul> </li> </ul>"
+            "content": "<strong>Proxy Advantages:</strong> <ul> <li>It can be used by the <a href='#mobJs-computed'><strong>computed</strong></a> module to automatically <strong>detect dependencies</strong> without needing to declare them manually.</li><li>It <strong>simplifies</strong> state management by allowing both <strong>set</strong> and <strong>get</strong> operations.</li><li>It allows for the efficient use of <strong>LSP</strong> (Language Server Protocol) operations when <strong>types</strong> are used.</li>  </ul>"
         },
         {
             "component": "mob-spacer",

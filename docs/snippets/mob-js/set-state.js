@@ -1,18 +1,18 @@
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ setState, getProxi }) => {
     const proxi = getProxi();
 
     /**
-     * Mutate label state.
+     * Key as string
      */
     setState('label', 'my label');
 
     /**
-     * Use proxi
+     * Key as proxi
      */
     setState(() => proxi.label, 'my label');
 

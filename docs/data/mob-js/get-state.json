@@ -32,10 +32,9 @@
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
-                "boxed": true,
-                "note": true
+                "boxed": true
             },
-            "content": "<strong>State Access Methods:</strong> <ul> <li><strong>getState</strong>: Explicit state reader</li> <li><strong>proxies</strong>: Automatic reactive access</li> </ul>"
+            "content": "<strong>Alternative</strong> to using <a href='#mobJs-getProxi'><strong>proxies</strong></a> to <strong>access</strong> the component's state."
         },
         {
             "component": "mob-spacer",
