@@ -17,6 +17,12 @@
             "content": "Stagger"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",

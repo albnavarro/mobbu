@@ -235,7 +235,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "x-small",
+                            "style": "small",
                             "id": "add",
                             "label": "add"
                         }

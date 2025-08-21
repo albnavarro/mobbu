@@ -282,12 +282,6 @@
                         }
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h5"
@@ -300,12 +294,6 @@
                             "style": "medium"
                         },
                         "content": "Controls duration variation between instances:<br/><strong>Higher values</strong> reduce duration differences (more uniform timing)."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
                     },
                     {
                         "component": "mob-spacer",
@@ -332,12 +320,6 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
                             "style": "medium",
                             "id": "from",
                             "label": "from"
@@ -356,12 +338,6 @@
                             "style": "medium"
                         },
                         "content": "See <strong><a href='./#mobMotion-stagger'>stagger documentation</a></strong> for details."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
                     },
                     {
                         "component": "mob-spacer",

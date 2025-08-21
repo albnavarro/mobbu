@@ -74,7 +74,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "medium"
             }
         },
         {
@@ -197,7 +197,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -206,7 +206,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
+                "style": "-small",
                 "label": "Methods",
                 "isSection": true
             }
@@ -220,7 +220,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "x-small",
+                            "style": "small",
                             "id": "goto",
                             "label": "Goto"
                         }
@@ -309,7 +309,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "goFrom",
                             "label": "goFrom"
                         }
@@ -341,7 +341,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "goFromTo",
                             "label": "goFromTo"
                         }
@@ -373,7 +373,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "add",
                             "label": "add"
                         }
@@ -429,7 +429,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "label",
                             "label": "label"
                         }
@@ -461,7 +461,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "subscribe",
                             "label": "subscribe"
                         }
@@ -511,7 +511,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "subscribeCache",
                             "label": "subscribeCache"
                         }
@@ -562,7 +562,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "onstop",
                             "label": "onStop"
                         }
@@ -603,7 +603,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "masterSequencer",
                             "label": "masterSequencer"
                         }
@@ -635,7 +635,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "createStagger",
                             "label": "createStagger"
                         }

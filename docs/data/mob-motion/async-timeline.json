@@ -300,7 +300,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "override",
                             "label": "tween&nbsp;params&nbsp;and&nbsp;override"
                         }
@@ -338,7 +338,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -361,7 +361,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "x-small",
+                            "style": "small",
                             "id": "set",
                             "label": "Set"
                         }
@@ -402,7 +402,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "goto",
                             "label": "goTo"
                         }
@@ -427,7 +427,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "goFrom",
                             "label": "goFrom"
                         }
@@ -452,7 +452,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "goFromTo",
                             "label": "goFromTo"
                         }
@@ -477,7 +477,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "add",
                             "label": "add/addAsync"
                         }
@@ -533,7 +533,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "createGroup",
                             "label": "create/closeGroup"
                         }
@@ -582,7 +582,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "suspend",
                             "label": "suspend"
                         }
@@ -614,7 +614,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "label",
                             "label": "label"
                         }
@@ -646,7 +646,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "settween",
                             "label": "setTween"
                         }
@@ -678,7 +678,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "play",
                             "label": "play/playRevese/stop"
                         }
@@ -710,7 +710,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "playFrom",
                             "label": "playFrom/playFromReverse"
                         }
@@ -742,7 +742,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "pause/resume",
                             "label": "pause/resume"
                         }
@@ -774,7 +774,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "reverseNext",
                             "label": "reverseNext"
                         }
@@ -806,7 +806,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "onLoopEnd",
                             "label": "onLoopEnd/onComplete"
                         }
@@ -867,7 +867,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "destroy",
                             "label": "destroy"
                         }
@@ -899,7 +899,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "utils",
                             "label": "Utils"
                         }
