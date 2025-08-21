@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Callback Passing Solution</strong>: <ul> <li><strong>staticProps</strong> is the recommended method for: <ul> <li>Parent-to-child <strong>callback functions</strong></li>  </ul> </li> </ul>"
+            "content": "This module is particularly <strong>suited</strong> for passing <strong>callbacks between components</strong>."
         },
         {
             "component": "mob-paragraph",
@@ -44,7 +44,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Prop Visibility Rule</strong>: <ul> <li>Required setup: Expose props in <strong>exportState</strong></li> <li>Location: Component's <strong><a href='#mobJs-component'>definition</a></strong> function</li> <li>Access control: <ul> <li>Exposed props → <strong>public</strong></li> <li>Others → <strong>private</strong></li> </ul> </li> </ul>"
+            "content": "For a state to be <strong>visible from the outside</strong>, it must be exposed in the <strong>exportState</strong> field within the <a href='#mobJs-component'><strong>component's definition</strong></a>"
         },
         {
             "component": "mob-spacer",

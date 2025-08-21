@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Data Attribute Limitations</strong>: <ul> <li>Value type restriction: Only <strong>strings</strong> supported</li> <li>For complex data types: <ul> <li>Use <strong><a href='#mobJs-staticProps'>staticProps</a></strong> function</li> <li>Supports: numbers, objects, arrays, etc.</li> </ul> </li> </ul>"
+            "content": "<strong>Data Attribute Limitations</strong>: <ul> <li>Value type restriction: Only <strong>strings</strong> supported</li> <li>For complex data types: <ul> <li>Use <strong><a href='#mobJs-staticProps'>staticProps</a></strong> function ( supports numbers, objects, arrays, etc. )</li></ul> </li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -44,7 +44,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Prop Visibility Rule</strong>: <ul> <li>Required setup: Expose props in <strong>exportState</strong></li> <li>Location: Component's <strong><a href='#mobJs-component'>definition</a></strong> function</li> <li>Access control: <ul> <li>Exposed props → <strong>public</strong></li> <li>Others → <strong>private</strong></li> </ul> </li> </ul>"
+            "content": "For a state to be <strong>visible from the outside</strong>, it must be exposed in the <strong>exportState</strong> field within the <a href='#mobJs-component'><strong>component's definition</strong></a>"
         },
         {
             "component": "mob-spacer",
