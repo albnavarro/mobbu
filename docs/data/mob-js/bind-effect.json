@@ -71,7 +71,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "params:"
         },
@@ -98,7 +98,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "With proxi ( auto detect dependencies )"
         },
@@ -135,7 +135,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Explicit dependencies"
         },
@@ -172,7 +172,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Single object"
         },
@@ -209,7 +209,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Array of object"
         },

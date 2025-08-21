@@ -42,7 +42,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Unnamed slot"
         },
@@ -67,7 +67,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Named slot"
         },

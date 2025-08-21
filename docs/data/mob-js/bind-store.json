@@ -85,7 +85,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Add store in component definition"
         },
@@ -115,7 +115,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Use within the component"
         },
@@ -144,7 +144,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Type tips:"
         },

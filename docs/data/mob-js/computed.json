@@ -52,7 +52,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
+                "tag": "h3",
                 "isBold": true
             },
             "content": "With proxi ( auto detect dependencies )"
@@ -76,7 +76,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
+                "tag": "h3",
                 "isBold": true
             },
             "content": "Explicit dependencies"

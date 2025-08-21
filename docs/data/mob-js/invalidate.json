@@ -53,7 +53,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "observe:"
         },
@@ -73,7 +73,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "beforeUpdate ( optional )"
         },
@@ -93,7 +93,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "afterUpdate ( optional )"
         },
@@ -113,7 +113,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "render"
         },

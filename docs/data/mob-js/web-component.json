@@ -54,7 +54,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "createComponent additional params:"
         },
@@ -88,7 +88,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Common argument:"
         },
@@ -136,7 +136,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Specific argument:"
         },
@@ -177,7 +177,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Box sizing:"
         },

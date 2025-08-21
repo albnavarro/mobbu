@@ -19,7 +19,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "javascript component library"
         },
@@ -92,7 +92,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Initialization"
                     },
@@ -128,7 +128,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Components"
                     },
@@ -164,7 +164,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Routing"
                     },
@@ -200,7 +200,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Tick"
                     },
@@ -233,7 +233,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "memory management"
                     },
@@ -269,7 +269,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Utils"
                     },
@@ -302,7 +302,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Debug"
                     },

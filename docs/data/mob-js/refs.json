@@ -85,7 +85,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
+                "tag": "h3",
                 "isBold": true
             },
             "content": "Use refs inside invalidate/repeater"

@@ -37,7 +37,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
+                "tag": "h3",
                 "isBold": true
             },
             "content": "delegateEvent supports all common events except:"
@@ -64,7 +64,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Params:"
         },
@@ -107,7 +107,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "Additional props"
         },

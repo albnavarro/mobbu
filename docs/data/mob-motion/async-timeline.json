@@ -124,7 +124,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "repeat:"
                     },
@@ -144,7 +144,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "yoyo:"
                     },
@@ -164,7 +164,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "freeMode:"
                     },
@@ -184,7 +184,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "autoSet:"
                     },
@@ -204,7 +204,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "inheritProps:"
                     },
@@ -224,7 +224,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "forceFromTo:"
                     },
@@ -277,7 +277,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Example"
                     },
@@ -385,7 +385,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Set"
                     },
@@ -410,7 +410,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "goTo"
                     },
@@ -435,7 +435,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "goFrom"
                     },
@@ -460,7 +460,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "goFromTo"
                     },
@@ -485,7 +485,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "add/addAsync"
                     },
@@ -505,7 +505,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "addAsync params:"
                     },
@@ -541,7 +541,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "createGroup/closeGroup"
                     },
@@ -590,7 +590,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "suspend"
                     },
@@ -622,7 +622,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "label"
                     },
@@ -654,7 +654,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "setTween"
                     },
@@ -686,7 +686,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "play/playReverse/stop"
                     },
@@ -718,7 +718,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "playFrom/playFromReverse"
                     },
@@ -750,7 +750,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "pause/resume"
                     },
@@ -782,7 +782,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "reverseNext"
                     },
@@ -814,7 +814,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "onLoopEnd/onComplete"
                     },
@@ -875,7 +875,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "destroy"
                     },
@@ -907,7 +907,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Utils"
                     },

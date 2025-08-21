@@ -27,7 +27,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h3"
             },
             "content": "javascript animation library"
         },
@@ -149,7 +149,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Pros:"
                     },
@@ -167,7 +167,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Cons:"
                     },
@@ -183,7 +183,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Modules:"
                     },
@@ -294,7 +294,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Pros:"
                     },
@@ -312,7 +312,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Cons:"
                     },
@@ -328,7 +328,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Modules:"
                     },
@@ -411,7 +411,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Stagger:"
                     },
@@ -446,14 +446,14 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h5"
+                            "tag": "h3"
                         },
                         "content": "Defaults:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
-                            "tag": "h5",
+                            "tag": "h3",
                             "dots": false,
                             "links": true,
                             "items": [

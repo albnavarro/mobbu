@@ -127,24 +127,45 @@
         }
     }
 
-    h3 {
-        border-bottom: 1px rgba($black, 1) solid;
-        padding-bottom: rem(20);
-        margin-bottom: rem(40);
-        position: relative;
+    h2 {
+        &.is-section {
+            color: $black;
+            border-bottom: 1px $black solid;
+            margin: rem(40) calc(#{rem(39)} * -1) rem(20) calc(#{rem(40)} * -1);
+            position: relative;
+            overflow: hidden;
+            text-transform: capitalize;
+            transition: transform 0.35s;
+            height: rem(60);
 
-        &::after {
-            content: '';
+            &.pinned {
+                box-shadow: 0 calc(#{rem(30)} * -1) 0 $black;
+            }
+
+            &.hide.pinned {
+                transform: translateY(-100%);
+            }
+        }
+
+        .title-content {
             position: absolute;
-            left: 0;
-            top: 100%;
-            width: rem(50);
-            height: 5px;
-            background: $black;
+            bottom: rem(1);
+            font-size: rem(50);
+            left: rem(40);
+        }
+
+        .title-index {
+            display: block;
+            font-size: rem(14);
+            position: absolute;
+            top: rem(12);
+            right: rem(40);
+            color: $black;
+            z-index: 1;
         }
     }
 
-    h5 {
+    h3 {
         padding-bottom: rem(10);
         padding-left: rem(25);
         margin-bottom: rem(10);
@@ -229,47 +250,4 @@
 .title-content {
     position: relative;
     z-index: 1;
-}
-
-h2 {
-    &.is-section {
-        color: $black;
-        border-bottom: 1px $black solid;
-        margin: rem(40) calc(#{rem(39)} * -1) rem(20) calc(#{rem(40)} * -1);
-        position: relative;
-        overflow: hidden;
-        text-transform: capitalize;
-        transition: transform 0.35s;
-        height: rem(60);
-
-        &.pinned {
-            box-shadow: 0 calc(#{rem(30)} * -1) 0 $black;
-        }
-
-        &.hide.pinned {
-            transform: translateY(-100%);
-        }
-    }
-
-    // &.use-sticky {
-    //     position: sticky;
-    //     top: var(--header-height);
-    // }
-
-    .title-content {
-        position: absolute;
-        bottom: rem(1);
-        font-size: rem(50);
-        left: rem(40);
-    }
-
-    .title-index {
-        display: block;
-        font-size: rem(14);
-        position: absolute;
-        top: rem(12);
-        right: rem(40);
-        color: $black;
-        z-index: 1;
-    }
 }
