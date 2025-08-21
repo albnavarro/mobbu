@@ -17,6 +17,12 @@
             "content": "Asynctimeline"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
@@ -41,7 +47,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "medium"
             }
         },
         {
@@ -493,7 +499,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small"
+                            "style": "medium"
                         }
                     },
                     {
