@@ -41,7 +41,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Reactive Property Updates:</strong> <ul> <li>Computed properties: <ul> <li>Processed in the JavaScript event loop</li> <li>Single execution per update cycle</li> </ul> </li>  </ul>"
+            "content": "<ul><li>Processed in the <strong>JavaScript event loop</strong></li> <li><strong>Single execution per update cycle</strong></li></ul>"
         },
         {
             "component": "mob-spacer",
@@ -86,7 +86,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Granular Dependency Control:</strong> <ul> <li>With explicit dependencies you can: <ul> <li>Define custom <strong>trigger conditions</strong></li> <li>Optimize <strong>performance</strong> by skipping unnecessary executions</li> </ul> </li> <li>Alternative mode: Use <strong>proxies</strong> for automatic detection</li> </ul>"
+            "content": "By defining dependencies explicitly, it is possible to have <strong>greater control</strong> over the conditions that will <strong>trigger</strong> the module's recomputation."
         },
         {
             "component": "mob-spacer",

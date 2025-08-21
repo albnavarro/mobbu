@@ -1,13 +1,13 @@
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ computed, bindText, getProxi }) => {
     const proxi = getProxi();
 
     /**
-     * Use keys to define props and dependencies
+     * Use string as key
      */
     computed(
         'sum',
@@ -18,7 +18,7 @@ export const MyComponent = ({ computed, bindText, getProxi }) => {
     );
 
     /**
-     * Use proxi to define props and dependencies
+     * Use proxi as key
      */
     computed(
         () => proxi.sum,
