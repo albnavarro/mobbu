@@ -17,6 +17,12 @@
             "content": "Create stagger"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
@@ -140,7 +146,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "medium"
             }
         },
         {
@@ -165,7 +171,7 @@
                             "index": "CreateStagger / 01",
                             "useSticky": false
                         },
-                        "content": "Difference from default stagger object:"
+                        "content": "Params"
                     },
                     {
                         "component": "mob-spacer",
@@ -176,7 +182,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h3"
+                            "tag": "h5"
                         },
                         "content": "type:"
                     },
@@ -196,7 +202,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "equal:"
                     },
@@ -216,7 +222,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "start:"
                     },
@@ -236,7 +242,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "end:"
                     },
@@ -256,7 +262,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "center:"
                     },
@@ -270,7 +276,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "each",
                             "label": "each"
                         }
@@ -278,13 +284,13 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "small"
                         }
                     },
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h3"
+                            "tag": "h5"
                         },
                         "content": "each"
                     },
@@ -304,21 +310,15 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "waitComplete",
                             "label": "waitComplete"
                         }
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h3"
+                            "tag": "h5"
                         },
                         "content": "waitComplete"
                     },
@@ -338,7 +338,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "from",
                             "label": "from"
                         }
@@ -346,7 +346,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h3"
+                            "tag": "h5"
                         },
                         "content": "from"
                     },
@@ -366,7 +366,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "grid",
                             "label": "grid"
                         }
@@ -374,7 +374,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h3"
+                            "tag": "h5"
                         },
                         "content": "grid"
                     },
