@@ -149,6 +149,7 @@
         padding-left: rem(25);
         margin-bottom: rem(10);
         margin-top: rem(40);
+        margin-left: calc(#{rem(20)} * -1);
         position: relative;
         font-size: rem(26);
 
