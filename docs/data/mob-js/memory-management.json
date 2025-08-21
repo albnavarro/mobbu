@@ -60,7 +60,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Weak Reference Benefits:</strong> <ul> <li>Tracks both <strong>component-managed</strong> and <strong>non-component nodes</strong></li> <li><strong>Recommended:</strong> Always access nodes via: <ul> <li><a href='#mobJs-refs'><strong>ref</strong></a> (single elements)</li> <li><a href='#mobJs-refs'><strong>refs</strong></a> (collections)</li> </ul> </li> <li>Automatic cleanup during <strong>unmounting</strong></li> <li>Zero interference with <strong>garbage collector</strong></li> </ul>"
+            "content": "For this reason, the use of <strong>ref</strong> and <strong>refs</strong> becomes <strong>not mandatory but recommended</strong>.<br/><strong>Weak primitives</strong> work well when they are the only references; creating additional references <strong>may impact the garbage collector’s</strong> ability to free memory."
         }
     ]
 }

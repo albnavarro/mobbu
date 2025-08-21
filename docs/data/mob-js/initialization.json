@@ -316,7 +316,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Pre-Route Hook:</strong> Optional function executed during route transitions: <ol> <li>After cloning the route node</li> <li>Before appending the cloned node to the DOM</li> </ol>"
+                        "content": "Optional function executed during <strong>route transitions</strong>:<ul><li>After cloning the route node</li> <li>Before appending the cloned node to the DOM</li> </ul>"
                     },
                     {
                         "component": "mob-list",
@@ -352,7 +352,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Route Transition Hook:</strong> Optional function for animating both: <ul> <li>The outgoing (previous) route node</li> <li>The incoming (new) route node</li> </ul>"
+                        "content": "Optional function for <strong>animating both</strong>: <ul> <li>The outgoing (previous) route node</li> <li>The incoming (new) route node</li> </ul>"
                     },
                     {
                         "component": "mob-list",
@@ -388,7 +388,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Post-Initialization Hook:</strong> Custom callback executed after the app completes startup."
+                        "content": "Callback executed <strong>after the app completes startup</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -410,7 +410,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Route Interceptor:</strong> Optional function that transforms incoming routes"
+                        "content": "Optional function that <strong>transforms incoming routes</strong>"
                     },
                     {
                         "component": "mob-list",
@@ -446,7 +446,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Scroll Position Persistence:</strong> Configurable option for storing/restoring scroll coordinates during History API navigation."
+                        "content": "Configurable option for <strong>storing/restoring scroll</strong> coordinates during <strong>History API navigation</strong>."
                     },
                     {
                         "component": "mob-spacer",
@@ -474,7 +474,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Default Component Parameters:</strong> Optional configuration defining initial props for all component instances."
+                        "content": "Optional configuration <strong>defining initial props for all component instances</strong>."
                     },
                     {
                         "component": "mob-spacer",
