@@ -15,6 +15,12 @@
             "content": "bindProps"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "anchor-button",
             "props": {
                 "anchor": "#proxi",

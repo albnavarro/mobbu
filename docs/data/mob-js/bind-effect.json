@@ -15,6 +15,12 @@
             "content": "bindEffect"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "anchor-button",
             "props": {
                 "anchor": "#proxi",
@@ -97,12 +103,6 @@
             "content": "With proxi ( auto detect dependencies )"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -138,12 +138,6 @@
                 "tag": "h5"
             },
             "content": "Explicit dependencies"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-paragraph",

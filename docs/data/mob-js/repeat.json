@@ -49,6 +49,12 @@
             "content": "<ul><li>As with other modules, it can be a <strong>string</strong> or a <strong>function that returns a proxy</strong>.</li><li><strong>Must be</strong> a direct array (not nested within other state objects)</li></ul>"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -61,6 +67,12 @@
                 "style": "medium"
             },
             "content": "Completely <strong>removes</strong> all existing components in the list"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
@@ -77,6 +89,12 @@
             "content": "When a <strong>key is specified</strong>, the <strong>order</strong> of the components will be <strong>reorganized</strong> based on the <strong>current state</strong> of the reference array while preserving their current state.<br/> If <strong>no key is specified</strong>, components will be <strong>added</strong> and <strong>removed</strong>, and the <strong>visual update</strong> will occur via <a href='#mobJs-bindProps'><strong>bindProps</strong></a>"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -89,6 +107,12 @@
                 "style": "medium"
             },
             "content": "Components are rendered starting from a <strong>webComponent</strong>. This module requires internal components to be populated with <strong>dedicated attributes</strong>. This mechanism is <strong>executed automatically</strong> but requires an extra operation. In specific cases with a <strong>large number of elements</strong>, it is possible to pass these attributes <strong>more directly</strong> using the sync parameter. In this case, simply enable the option and insert it into the component in the form of a function: <strong>${sync()}</strong>.<br/><br/>Note that even if there are <strong>performance differences</strong>, they are in any case <strong>minimal</strong>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
@@ -114,6 +138,12 @@
             "content": "<ul> <li><strong>Important Restriction</strong>: The <strong>MobJs.tick()</strong> utility <strong>won't work</strong> inside this function</li> <li><strong>Execution Timing</strong>: The app's internal tick only resolves <strong>after</strong> the repeater completes its work</li> <li><strong>Consequence</strong>: Attempting to use it would leave the repeater in a <strong>suspended state</strong></li> </ul>"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -126,6 +156,12 @@
                 "style": "medium"
             },
             "content": "<strong>Callback</strong> fired at the <strong>end</strong> of the update."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
