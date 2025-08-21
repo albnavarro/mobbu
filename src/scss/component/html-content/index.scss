@@ -83,7 +83,7 @@
     h1 {
         padding: rem(20);
         border: 2px $white solid;
-        margin-bottom: rem(50);
+        margin-bottom: 0;
         position: relative;
         overflow: hidden;
         border-radius: rem(10);
@@ -145,22 +145,22 @@
     }
 
     h5 {
-        border-bottom: 1px rgba($black, 1) solid;
+        // border-bottom: 1px rgba($black, 0.1) solid;
         padding-bottom: rem(10);
-        margin-bottom: rem(30);
+        margin-bottom: rem(10);
         margin-top: rem(40);
         position: relative;
-        font-size: rem(22);
+        font-size: rem(26);
 
-        &::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 100%;
-            width: rem(30);
-            height: 5px;
-            background: $black;
-        }
+        // &::after {
+        //     content: '';
+        //     position: absolute;
+        //     left: 0;
+        //     top: 100%;
+        //     width: rem(30);
+        //     height: 5px;
+        //     background: $black;
+        // }
     }
 }
 
@@ -232,45 +232,24 @@
 
 h2 {
     &.is-section {
-        background: $white;
+        // background: $white;
         color: $black;
-        padding: rem(20) rem(20) rem(20) rem(40);
-        margin-left: calc(#{rem(40)} * -1);
-        margin-right: calc(#{rem(39)} * -1);
+        border-bottom: 1px $black solid;
+
+        // padding: rem(20) rem(20) rem(20) rem(40);
+        margin: rem(40) calc(#{rem(39)} * -1) rem(20) calc(#{rem(40)} * -1);
         position: relative;
         overflow: hidden;
-        margin-bottom: 0;
         text-transform: capitalize;
         transition: transform 0.35s;
+        height: rem(60);
 
         &.pinned {
-            box-shadow: 0 calc(#{rem(30)} * -1) 0 $white;
+            box-shadow: 0 calc(#{rem(30)} * -1) 0 $black;
         }
 
         &.hide.pinned {
             transform: translateY(-100%);
-        }
-
-        &::before {
-            content: '';
-            position: absolute;
-            left: calc(#{rem(100)} * -1);
-            top: 0;
-            background: $grey;
-            width: rem(200);
-            height: rem(200);
-            transform: rotate(45deg);
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            right: calc(#{rem(100)} * -1);
-            top: rem(60);
-            background: $grey;
-            width: rem(200);
-            height: rem(200);
-            transform: rotate(50deg);
         }
     }
 
@@ -279,13 +258,20 @@ h2 {
     //     top: var(--header-height);
     // }
 
+    .title-content {
+        position: absolute;
+        bottom: rem(1);
+        font-size: rem(50);
+        left: rem(40);
+    }
+
     .title-index {
         display: block;
         font-size: rem(14);
         position: absolute;
         top: rem(12);
-        right: rem(20);
-        color: $white;
+        right: rem(40);
+        color: $black;
         z-index: 1;
     }
 }

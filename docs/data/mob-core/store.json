@@ -54,7 +54,7 @@
                             "tag": "h2",
                             "index": "Store / 01",
                             "isSection": true,
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Initialize"
                     },
@@ -222,7 +222,7 @@
                             "tag": "h2",
                             "index": "Store / 02",
                             "isSection": true,
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "State params"
                     },
@@ -419,7 +419,7 @@
                             "tag": "h2",
                             "index": "Store / 02",
                             "isSection": true,
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Typescript:"
                     },
@@ -550,7 +550,7 @@
                             "tag": "h2",
                             "index": "Store / 03",
                             "isSection": true,
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Methods:"
                     },
@@ -633,7 +633,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-set",
                             "label": "Set"
                         }
@@ -737,7 +737,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-update",
                             "label": "Update"
                         }
@@ -842,7 +842,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-get",
                             "label": "Get"
                         }
@@ -883,7 +883,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-get-props",
                             "label": "Get-props"
                         }
@@ -924,7 +924,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-watch",
                             "label": "Watch"
                         }
@@ -1020,7 +1020,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-emit",
                             "label": "Emit"
                         }
@@ -1082,7 +1082,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-emit-async",
                             "label": "Emit-async"
                         }
@@ -1144,7 +1144,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-computed",
                             "label": "Computed"
                         }
@@ -1316,7 +1316,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-bind",
                             "label": "BindStore"
                         }
@@ -1401,7 +1401,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-map-set",
                             "label": "Built-in objects Map/Set"
                         }
@@ -1510,7 +1510,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "store-destroy",
                             "label": "Destroy"
                         }

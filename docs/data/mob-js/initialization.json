@@ -17,6 +17,12 @@
             "content": "Initialization"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
@@ -98,7 +104,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "medium"
             }
         },
         {
@@ -129,9 +135,15 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Initialization / 01",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Initialization params"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -150,7 +162,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "small",
                             "id": "wrapper",
                             "label": "Wrapper"
                         }
@@ -204,7 +216,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "contentid",
                             "label": "Content id"
                         }
@@ -226,7 +238,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "routes",
                             "label": "routes"
                         }
@@ -255,7 +267,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "index",
                             "label": "index"
                         }
@@ -277,7 +289,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "pagenotfound",
                             "label": "Page not found"
                         }
@@ -299,7 +311,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "beforePageTransition",
                             "label": "beforePageTransition"
                         }
@@ -335,7 +347,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "pageTransition",
                             "label": "pageTransition"
                         }
@@ -371,7 +383,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "afterInit",
                             "label": "afterInit"
                         }
@@ -393,7 +405,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "redirect",
                             "label": "redirect"
                         }
@@ -429,7 +441,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "restoreScroll",
                             "label": "restoreScroll"
                         }
@@ -451,7 +463,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "componentDefaultProps",
                             "label": "componentDefaultProps"
                         }
@@ -495,13 +507,13 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "medium"
                         }
                     },
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "medium"
                         }
                     }
                 ]

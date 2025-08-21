@@ -79,7 +79,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "MobJs / 01",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Main features"
                     },
@@ -120,7 +120,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "component",
                             "label": "Component"
                         }
@@ -156,7 +156,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "routing",
                             "label": "Routing"
                         }
@@ -192,7 +192,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "tick",
                             "label": "Tick"
                         }
@@ -225,7 +225,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "memory",
                             "label": "Memory management"
                         }
@@ -261,7 +261,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "utils",
                             "label": "Utils"
                         }
@@ -294,7 +294,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "debug",
                             "label": "Debug"
                         }

@@ -93,7 +93,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Routing / 01",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Route function"
                     },
@@ -428,7 +428,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Routing / 02",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Events/mainStore"
                     },

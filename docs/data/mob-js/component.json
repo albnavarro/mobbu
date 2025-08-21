@@ -17,6 +17,12 @@
             "content": "Component"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
@@ -146,7 +152,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "medium"
             }
         },
         {
@@ -169,7 +175,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Component / 01",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Component definition"
                     },
@@ -189,6 +195,12 @@
                         "content": "<strong>createComponent:</strong> Handles both <strong>definition</strong> and <strong>registration</strong> of components in a single operation."
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h5"
@@ -203,6 +215,12 @@
                         "content": "<ul> <li>Must be declared as a <strong>web-component</strong></li> <li>Generated DOM replaces the component upon rendering</li> <li>Standard naming conventions apply: <ul> <li>Start with <strong>lowercase letter</strong></li> <li>Must <strong>contain a hyphen</strong></li> </ul> </li> </ul>"
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h5"
@@ -215,6 +233,12 @@
                             "style": "medium"
                         },
                         "content": "The <strong>component function</strong> executes upon instance creation."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -240,6 +264,12 @@
                         "content": "Alternatively, you can use the <a href='#mobJs-utils'><strong>useComponent</strong></a> utility to load all <strong>components</strong> once before initializing the app. However, doing so will make it harder to access components via <strong>LSP</strong> (e.g., <strong>Go to Definition</strong>) easily."
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h5"
@@ -254,6 +284,12 @@
                         "content": "An <strong>array</strong> of component <strong>states</strong> exposed for external access (e.g., parent-to-child communication)."
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h5"
@@ -266,6 +302,12 @@
                             "style": "medium"
                         },
                         "content": "<strong>Component State System:</strong> <ul> <li>All <strong>component states</strong> derive from the <strong><a href='#mobCore-store'>mobCore store</a></strong></li> <li>Inherits full store functionality (reactivity, etc.)</li> </ul>"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-title",
@@ -289,6 +331,12 @@
                             "items": [
                                 "<a href='#mobJs-bindStore'><strong>bindStore</strong></a>"
                             ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
                         }
                     },
                     {
@@ -316,6 +364,12 @@
                         }
                     },
                     {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h5"
@@ -332,7 +386,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "medium"
                         }
                     },
                     {
@@ -348,7 +402,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -374,7 +428,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Component / 02",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Component function"
                     },
@@ -434,7 +488,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -460,7 +514,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Component / 03",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Typescript support"
                     },
@@ -642,7 +696,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big"
+                            "style": "medium"
                         }
                     }
                 ]
@@ -668,7 +722,7 @@
                             "tag": "h2",
                             "isSection": true,
                             "index": "Component / 04",
-                            "useSticky": true
+                            "useSticky": false
                         },
                         "content": "Component function params:"
                     },
@@ -681,7 +735,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "lifecycle",
                             "label": "Life cycle"
                         }
@@ -723,7 +777,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "state_managment",
                             "label": "State management"
                         }
@@ -786,7 +840,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "side-effect",
                             "label": "Side effect"
                         }
@@ -828,7 +882,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "props",
                             "label": "props"
                         }
@@ -878,7 +932,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "dom_manipulation",
                             "label": "DOM manipulation"
                         }
@@ -932,7 +986,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "events",
                             "label": "Events"
                         }
@@ -984,7 +1038,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "methods",
                             "label": "External Component API"
                         }
@@ -1046,7 +1100,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "blocks",
                             "label": "Blocks & cycle"
                         }
@@ -1100,7 +1154,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "big",
+                            "style": "medium",
                             "id": "special",
                             "label": "Special component"
                         }
@@ -1147,7 +1201,7 @@
                         "component": "mob-spacer",
                         "props": {
                             "id": "static",
-                            "style": "big",
+                            "style": "medium",
                             "label": "Static params"
                         }
                     },
@@ -1189,7 +1243,7 @@
                         "component": "mob-spacer",
                         "props": {
                             "id": "utils",
-                            "style": "big",
+                            "style": "medium",
                             "label": "Utils params"
                         }
                     },
