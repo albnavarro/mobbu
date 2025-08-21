@@ -48,7 +48,7 @@ export const TitleFn = ({ onMount, bindEffect, getProxi }) => {
         /**
          * Added pin only when page is stable.
          */
-        const unsubscribeAfterRouteChange = proxi.isSection
+        const unsubscribeAfterRouteChange = proxi.useSticky
             ? MobJs.afterRouteChange(async () => {
                   await MobJs.tick();
 
