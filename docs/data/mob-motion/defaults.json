@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "All <strong>default parameters</strong> are grouped in an editable object.<br/>This object must be modified <strong>before</strong> initializing any modules."
+            "content": "All default parameters are grouped in an editable object.<br/>This object must be modified before initializing any modules."
         },
         {
             "component": "mob-spacer",
@@ -135,14 +135,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Enables <strong>passive events</strong> for wheel and similar events.<br/>Used by <strong>scrollTrigger</strong> and <strong>Parallax</strong> modules."
+            "content": "Enables passive events for wheel and similar events.<br/>Used by scrollTrigger and Parallax modules."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Overrides the default <strong>mobCore</strong> value"
+            "content": "Overrides the default mobCore value"
         },
         {
             "component": "mob-snippet",
@@ -180,14 +180,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "When <strong>true</strong>, nextTick callbacks execute <strong>after</strong> the requestAnimationFrame (as soon as possible). When <strong>false</strong>, they execute just before it. The nextTick mechanism performs <strong>DOM read operations</strong> only (no writes). Enabled by default to ensure all rendering operations complete before DOM measurements, providing greater safety at the cost of a <strong>single frame delay</strong> (usually negligible)."
+            "content": "When true, nextTick callbacks execute after the requestAnimationFrame (as soon as possible). When false, they execute just before it. The nextTick mechanism performs DOM read operations only (no writes). Enabled by default to ensure all rendering operations complete before DOM measurements, providing greater safety at the cost of a single frame delay (usually negligible)."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Overrides the default <strong>mobCore</strong> value"
+            "content": "Overrides the default mobCore value"
         },
         {
             "component": "mob-snippet",
@@ -225,14 +225,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Throttle value in <strong>milliseconds</strong>, used by <strong>scrollTrigger</strong> and <strong>parallax</strong>.<br/>Default: <strong>100ms</strong>"
+            "content": "Throttle value in milliseconds, used by scrollTrigger and parallax.<br/>Default: 100ms"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Overrides the default <strong>mobCore</strong> value"
+            "content": "Overrides the default mobCore value"
         },
         {
             "component": "mob-snippet",
@@ -270,7 +270,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add or edit values in the <strong>breakpoint list</strong>. These defaults are used by modules like <strong>scrollTrigger</strong> and <strong>parallax</strong>, but can be overridden at the module level when needed."
+            "content": "Add or edit values in the breakpoint list. These defaults are used by modules like scrollTrigger and parallax, but can be overridden at the module level when needed."
         },
         {
             "component": "mob-snippet",
@@ -308,7 +308,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Default <strong>sequencer</strong> parameters"
+            "content": "Default sequencer parameters"
         },
         {
             "component": "mob-snippet",
@@ -346,7 +346,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Default <strong>scrollTrigger</strong> parameters"
+            "content": "Default scrollTrigger parameters"
         },
         {
             "component": "mob-snippet",
@@ -384,7 +384,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Default <strong>parallax</strong> parameters"
+            "content": "Default parallax parameters"
         },
         {
             "component": "mob-snippet",
@@ -422,7 +422,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Default <strong>tween</strong> parameters"
+            "content": "Default tween parameters"
         },
         {
             "component": "mob-snippet",
@@ -460,7 +460,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Default <strong>spring</strong> parameters"
+            "content": "Default spring parameters"
         },
         {
             "component": "mob-snippet",
@@ -498,7 +498,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Default <strong>lerp</strong> parameters"
+            "content": "Default lerp parameters"
         },
         {
             "component": "mob-snippet",

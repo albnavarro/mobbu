@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The <strong>stagger's</strong> task is to calculate the number of delay frames for each subscriber of the tween. The stagger does not generate new instances of our tween - it simply manages their rendering over time in specific <strong>requestAnimationFrame</strong> calls. This count varies based on the frame rate identified at the start. The stagger can no longer be modified once calculated."
+            "content": "The stagger's task is to calculate the number of delay frames for each subscriber of the tween. The stagger does not generate new instances of our tween - it simply manages their rendering over time in specific requestAnimationFrame calls. This count varies based on the frame rate identified at the start. The stagger can no longer be modified once calculated."
         },
         {
             "component": "mob-paragraph",
@@ -37,7 +37,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "For more efficient management of staggers, it is preferable to use <strong>subscribeCache</strong> instead of <strong>subscribe</strong> to apply the values calculated by the various tweens. By using <strong>subscribeCache</strong>, a tween (or a timeline) will be able to, when one of the methods between <strong>pause()</strong> and <strong>stop()</strong> is called, apply the same action to the related staggers as well ( <a href='#async-timeline'><strong>async example</strong></a>, <a href='#caterpillarN2'><strong>sync example</strong></a>  ).<br/><br/> <strong>ScrollTrigger/Parallax</strong> do not operate in terms of <strong>pause/stop</strong>, and in this case, the staggers <strong>will continue their run</strong>, realigning to the current value (<a href='#scrollerN1'><strong>example</strong></a>). Keep in mind that <strong>sequencer</strong> will be able to utilize the <a href='#mobMotion-create-stagger'><strong>createStagger</strong></a> module to manage staggers as separate tweens ( <a href='#scrollerN0?version=1&activeId=1'><strong>example</strong></a> )."
+            "content": "For more efficient management of staggers, it is preferable to use subscribeCache instead of subscribe to apply the values calculated by the various tweens. By using subscribeCache, a tween (or a timeline) will be able to, when one of the methods between pause() and stop() is called, apply the same action to the related staggers as well ( <a href='#async-timeline'>async example</a>, <a href='#caterpillarN2'>sync example</a>  ).<br/><br/> ScrollTrigger/Parallax do not operate in terms of pause/stop, and in this case, the staggers will continue their run, realigning to the current value (<a href='#scrollerN1'>example</a>). Keep in mind that sequencer will be able to utilize the <a href='#mobMotion-create-stagger'>createStagger</a> module to manage staggers as separate tweens ( <a href='#scrollerN0?version=1&activeId=1'>example</a> )."
         },
         {
             "component": "mob-spacer",
@@ -64,7 +64,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The first subscriber will use the frames: <strong>0,1,2,3,4,...</strong><br/>The second subscriber will use the frames: <strong>2,3,4,5,6,...</strong><br/>Naturally, the offset value will vary based on the frame rate."
+            "content": "The first subscriber will use the frames: 0,1,2,3,4,...<br/>The second subscriber will use the frames: 2,3,4,5,6,...<br/>Naturally, the offset value will vary based on the frame rate."
         },
         {
             "component": "mob-spacer",
@@ -115,7 +115,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines the <strong>offset</strong> between renderings:"
+            "content": "Determines the offset between renderings:"
         },
         {
             "component": "mob-snippet",
@@ -147,7 +147,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines whether the tween is considered completed when the stagger for the <strong>first</strong> subscriber begins (<strong>waitComplete: false</strong>) or when the <strong>last</strong> subscriber finishes (<strong>waitComplete: true</strong>). The animated pattern modules rely on this mechanism. Using <strong>waitComplete: false</strong>, loops of tweens synchronized by an <strong>asyncTimeline</strong> will repeat without considering the stagger durations, creating independent animations. This can create a continuous movement effect by concatenating multiple tweens."
+            "content": "Determines whether the tween is considered completed when the stagger for the first subscriber begins (waitComplete: false) or when the last subscriber finishes (waitComplete: true). The animated pattern modules rely on this mechanism. Using waitComplete: false, loops of tweens synchronized by an asyncTimeline will repeat without considering the stagger durations, creating independent animations. This can create a continuous movement effect by concatenating multiple tweens."
         },
         {
             "component": "mob-snippet",
@@ -188,7 +188,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The <strong>{ x: number, y: number }</strong> object will only take effect with a <strong>grid: { direction: 'radial' }</strong> parameter."
+            "content": "The { x: number, y: number } object will only take effect with a grid: { direction: 'radial' } parameter."
         },
         {
             "component": "mob-snippet",
@@ -220,7 +220,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "When using a two-dimensional column/row model, you need to specify the number of <strong>columns</strong> and <strong>rows</strong>. You can then specify whether to group subscribers by <strong>row/column</strong> or as a single <strong>radial</strong> element."
+            "content": "When using a two-dimensional column/row model, you need to specify the number of columns and rows. You can then specify whether to group subscribers by row/column or as a single radial element."
         },
         {
             "component": "mob-paragraph",

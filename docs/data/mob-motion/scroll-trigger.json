@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "To be activated, the <strong>init</strong> method must be executed. Unlike parallax which reasons by speed/multipliers, <strong>scrollTrigger</strong> allows you to reason in absolute values from point A (<strong>start</strong>) to point B (<strong>end</strong>)."
+            "content": "To be activated, the init method must be executed. Unlike parallax which reasons by speed/multipliers, scrollTrigger allows you to reason in absolute values from point A (start) to point B (end)."
         },
         {
             "component": "mob-list",
@@ -143,7 +143,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The default subject to apply transformations to. If you use the <strong>pin</strong> property it will be applied to this element."
+                        "content": "The default subject to apply transformations to. If you use the pin property it will be applied to this element."
                     },
                     {
                         "component": "mob-spacer",
@@ -163,7 +163,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "A DOM node other than <strong>item</strong> to be used as a reference for position, height, and width calculations."
+                        "content": "A DOM node other than item to be used as a reference for position, height, and width calculations."
                     },
                     {
                         "component": "mob-spacer",
@@ -183,7 +183,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "A DOM node other than <strong>item</strong> to apply transformations to."
+                        "content": "A DOM node other than item to apply transformations to."
                     },
                     {
                         "component": "mob-spacer",
@@ -203,7 +203,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The scrollable node in which the target is contained.<br/> The default is <strong>window</strong>."
+                        "content": "The scrollable node in which the target is contained.<br/> The default is window."
                     },
                     {
                         "component": "mob-spacer",
@@ -223,7 +223,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "A node that contains the scrollable element.<br/> The default is <strong>window</strong>."
+                        "content": "A node that contains the scrollable element.<br/> The default is window."
                     },
                     {
                         "component": "mob-spacer",
@@ -258,7 +258,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Reference breakpoint, it will be possible to add custom values in <strong><a href='#mobMotion-defaults'>Default utils</a></strong>"
+                        "content": "Reference breakpoint, it will be possible to add custom values in <a href='#mobMotion-defaults'>Default utils</a>"
                     },
                     {
                         "component": "mob-spacer",
@@ -278,7 +278,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Determines whether the <strong>scrollTrigger</strong> should be active from <strong>breakpoint up</strong> or <strong>up to the breakpoint</strong>."
+                        "content": "Determines whether the scrollTrigger should be active from breakpoint up or up to the breakpoint."
                     },
                     {
                         "component": "mob-spacer",
@@ -314,7 +314,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>Built-in</strong> properties can be used exclusively as <strong>single properties</strong>, to modify multiple properties or for more complex situations in general use one of <strong>scrollerTween/sequencer</strong>"
+                        "content": "Built-in properties can be used exclusively as single properties, to modify multiple properties or for more complex situations in general use one of scrollerTween/sequencer"
                     },
                     {
                         "component": "mob-spacer",
@@ -327,17 +327,17 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>y</strong>: Vertical movement",
-                                "<strong>x</strong>: Horizontal movement",
-                                "<strong>rotate</strong>: Rotation",
-                                "<strong>rotateY</strong>: Y-axis rotation",
-                                "<strong>rotateX</strong>: X-axis rotation",
-                                "<strong>rotateZ</strong>: Z-axis rotation",
-                                "<strong>opacity</strong>: Transparency control",
-                                "<strong>scale</strong>: Uniform scaling",
-                                "<strong>scaleX</strong>: X-axis scaling",
-                                "<strong>scaleY</strong>: Y-axis scaling",
-                                "<strong>tween</strong>: Use external <strong>scrollerTween/sequencer</strong> for complex animations"
+                                "<span class='quote'>y:</span> Vertical movement",
+                                "<span class='quote'>x:</span> Horizontal movement",
+                                "<span class='quote'>rotate</span>: Rotation",
+                                "<span class='quote'>rotateY</span>: Y-axis rotation",
+                                "<span class='quote'>rotateX</span>: X-axis rotation",
+                                "<span class='quote'>rotateZ</span>: Z-axis rotation",
+                                "<span class='quote'>opacity</span>: Transparency control",
+                                "<span class='quote'>scale</span>: Uniform scaling",
+                                "<span class='quote'>scaleX</span>: X-axis scaling",
+                                "<span class='quote'>scaleY</span>: Y-axis scaling",
+                                "<span class='quote'>tween</span>: Use external scrollerTween/sequencer for complex animations"
                             ]
                         }
                     },
@@ -346,7 +346,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>If no property is specified</strong>, scrollTrigger can only be used to track <strong>onEnter/onEnterBack/onLeave/onLeaveBack</strong> events"
+                        "content": "If no property is specified, scrollTrigger can only be used to track onEnter/onEnterBack/onLeave/onLeaveBack events"
                     },
                     {
                         "component": "mob-spacer",
@@ -368,7 +368,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Property that defines the calculation of the distance value. Valid only if you use simple <strong>built-in properties</strong> (must be a string)."
+                        "content": "Property that defines the calculation of the distance value. Valid only if you use simple built-in properties (must be a string)."
                     },
                     {
                         "component": "mob-spacer",
@@ -388,9 +388,9 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>+/-100px</strong>: Move by ±100 pixels",
-                                "<strong>+/-100vw | +/-100vh</strong>: Move by ±100% of screen width/height",
-                                "<strong>+/-100w | +/-100h</strong>: Move by ±100% of element's own width/height",
+                                "<span class='quote'>+/-100px</span>: Move by ±100 pixels",
+                                "<span class='quote'>+/-100vw | +/-100vh</span>: Move by ±100% of screen width/height",
+                                "<span class='quote'>+/-100w | +/-100h</span>: Move by ±100% of element's own width/height",
                                 "Properties are recalculated on each resize"
                             ]
                         }
@@ -413,7 +413,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>45deg | -45deg</strong>. The default value is <strong>0</strong>."
+                        "content": "<span class='quote'>45deg | -45deg</span>. The default value is 0."
                     },
                     {
                         "component": "mob-spacer",
@@ -433,7 +433,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Example: <strong>+/-0.5</strong>. The scale property is increased by 0.5 (default value is <strong>0</strong>)."
+                        "content": "Example: <span class='quote'>+/-0.5</span>. The scale property is increased by 0.5 (default value is 0)."
                     },
                     {
                         "component": "mob-spacer",
@@ -453,7 +453,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>+/-</strong> number between <strong>0 and 1</strong> (default is <strong>1</strong>)."
+                        "content": "<span class='quote'>+/-</span> number between 0 and 1 (default is 1)."
                     },
                     {
                         "component": "mob-spacer",
@@ -473,7 +473,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>'margin', 'padding-left', etc...</strong> Each value will be converted to <strong>px</strong> (no unit needed)."
+                        "content": "<span class='quote'>margin</span>, <span class='quote'>paddingLeft</span>, etc... Each value will be converted to px (no unit needed)."
                     },
                     {
                         "component": "mob-spacer",
@@ -493,7 +493,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When using <strong>tween</strong>, the value is controlled by the <strong>sequencer/scrollerTween</strong> itself (no options available)."
+                        "content": "When using tween, the value is controlled by the <span class='quote'>sequencer/scrollerTween</span> itself (no options available)."
                     },
                     {
                         "component": "mob-spacer",
@@ -531,7 +531,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Alternative to the <strong>range</strong> property. Valid only for simple <strong>built-in transformations</strong>."
+                        "content": "Alternative to the range property. Valid only for simple built-in transformations."
                     },
                     {
                         "component": "mob-list",
@@ -539,10 +539,10 @@
                             "style": "medium",
                             "items": [
                                 "Transformation value calculated through a function",
-                                "Function result is used in <strong>px</strong>",
+                                "Function result is used in px",
                                 "Function re-executes on each resize",
-                                "Takes priority over <strong>range</strong> method",
-                                "No effect when using <strong>tween</strong> property"
+                                "Takes priority over range method",
+                                "No effect when using tween property"
                             ]
                         }
                     },
@@ -582,17 +582,17 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "For complex animations, use a custom <strong>tween</strong>. You can use either a <a href='./#mobMotion-sequencer'><strong>sequencer</strong></a> or the simplified <strong>scrollerTween</strong> which shares these methods:"
+                        "content": "For complex animations, use a custom tween. You can use either a <a href='./#mobMotion-sequencer'>sequencer</a> or the simplified scrollerTween which shares these methods:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>subscribe</strong>",
-                                "<strong>subscribeCache</strong>",
-                                "<strong>onStop</strong>",
-                                "<strong>destroy</strong>"
+                                "<span class='quote'>subscribe</span>",
+                                "<span class='quote'>subscribeCache</span>",
+                                "<span class='quote'>onStop</span>",
+                                "<span class='quote'>destroy</span>"
                             ]
                         }
                     },
@@ -614,7 +614,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>scrollerTween</strong> only requires two properties: <strong>from</strong> and <strong>to</strong> (instead of multiple properties)."
+                        "content": "scrollerTween only requires two properties: from and to (instead of multiple properties)."
                     },
                     {
                         "component": "mob-spacer",
@@ -679,21 +679,21 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When <strong>start</strong> is <strong>bottom/right</strong>, animation begins when the item's <strong>top/left</strong> touches the specified value from screen's bottom/right."
+                        "content": "When start is bottom/right, animation begins when the item's top/left touches the specified value from screen's bottom/right."
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When <strong>start</strong> is <strong>top/left</strong>, animation begins when the item's <strong>bottom/right</strong> touches the specified value from screen's top/left (reverse scroll)."
+                        "content": "When start is top/left, animation begins when the item's bottom/right touches the specified value from screen's top/left (reverse scroll)."
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The <strong>start</strong> value's reference edge (top/bottom/etc.) also determines the <strong>end</strong> value's reference edge."
+                        "content": "The start value's reference edge (top/bottom/etc.) also determines the end value's reference edge."
                     },
                     {
                         "component": "mob-spacer",
@@ -713,7 +713,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Adds a value in <strong>vh|vw|px</strong> (use <strong>vh</strong> for vertical, <strong>vw</strong> for horizontal)."
+                        "content": "Adds a value in <span class='quote'>vh|vw|px</span> (use vh for vertical, vw for horizontal)."
                     },
                     {
                         "component": "mob-spacer",
@@ -733,7 +733,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Adds the item's <strong>height/width</strong> (or half) to the final value.<br/>Useful for element centering."
+                        "content": "Adds the item's <span class='quote'>height/width</span> (or half) to the final value.<br/>Useful for element centering."
                     },
                     {
                         "component": "mob-spacer",
@@ -748,7 +748,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "Values <strong>2 & 3</strong> are always added from the chosen position towards the screen center (regardless of top/bottom/left/right).<br/>When starting from <strong>bottom</strong>, the reference is the <strong>top edge</strong> of the object.<br/>To make the animation <strong>end</strong> when the <strong>bottom edge</strong> is <strong>40px below the screen top</strong>, simply <strong>subtract the element's height</strong>."
+                        "content": "Values 2 & 3 are always added from the chosen position towards the screen center (regardless of top/bottom/left/right).<br/>When starting from bottom, the reference is the top edge of the object.<br/>To make the animation end when the bottom edge is 40px below the screen top, simply subtract the element's height."
                     },
                     {
                         "component": "mob-spacer",
@@ -811,7 +811,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Alternative to <strong>start/end</strong> properties. Accepts an object with two parameters:"
+                        "content": "Alternative to start/end properties. Accepts an object with two parameters:"
                     },
                     {
                         "component": "mob-spacer",
@@ -831,7 +831,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>top | right | bottom | left</strong><br/>Functions identically to the equivalent in <strong>start/end</strong>."
+                        "content": "<span class='quote'>top</span> | <span class='quote'>right</span> | <span class='quote'>bottom</span> | <span class='quote'>left</span><br/>Functions identically to the equivalent in start/end."
                     },
                     {
                         "component": "mob-spacer",
@@ -851,7 +851,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Function that returns a number. Recalculated after each <strong>resize</strong> event."
+                        "content": "Function that returns a number. Recalculated after each resize event."
                     },
                     {
                         "component": "mob-spacer",
@@ -866,7 +866,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "Like <strong>start/end</strong>, this value is always added from the chosen position towards screen center (regardless of top/bottom/left/right)."
+                        "content": "Like start/end, this value is always added from the chosen position towards screen center (regardless of top/bottom/left/right)."
                     },
                     {
                         "component": "mob-spacer",
@@ -926,7 +926,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Displays animation <strong>start/end indicators</strong>. Markers appear at the element's edge and <strong>fixed positions</strong> matching start/end values. Accepts a string parameter that displays beside the marker."
+                        "content": "Displays animation start/end indicators. Markers appear at the element's edge and fixed positions matching start/end values. Accepts a string parameter that displays beside the marker."
                     },
                     {
                         "component": "mob-snippet",
@@ -958,7 +958,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Sets scroll direction: <strong>vertical</strong> (default) or <strong>horizontal</strong>."
+                        "content": "Sets scroll direction: vertical (default) or horizontal."
                     },
                     {
                         "component": "mob-spacer",
@@ -981,7 +981,7 @@
                             "style": "medium",
                             "boxed": true
                         },
-                        "content": "When enabled, uses <strong>Lerp</strong> or <strong>Spring</strong> instances for value updates."
+                        "content": "When enabled, uses Lerp or Spring instances for value updates."
                     },
                     {
                         "component": "mob-spacer",
@@ -1001,7 +1001,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Toggles easing (default: <strong>false</strong>)"
+                        "content": "Boolean: Toggles easing (default: false)"
                     },
                     {
                         "component": "mob-title",
@@ -1015,7 +1015,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Easing type: <strong>spring</strong> or <strong>lerp</strong>"
+                        "content": "Easing type: spring or lerp"
                     },
                     {
                         "component": "mob-title",
@@ -1029,7 +1029,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Lerp velocity (0.01-0.1). Default: <strong>0.06</strong>"
+                        "content": "Lerp velocity (0.01-0.1). Default: 0.06"
                     },
                     {
                         "component": "mob-title",
@@ -1043,7 +1043,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Spring configuration presets: <strong>default | gentle | wobbly | bounce | scroller</strong>"
+                        "content": "Spring configuration presets: default | gentle | wobbly | bounce | scroller"
                     },
                     {
                         "component": "mob-paragraph",
@@ -1052,7 +1052,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>Note:</strong> Spring doesn't work with the sequencer module (due to value clamping), but is compatible with <strong>scrollerTween</strong>."
+                        "content": "Note: Spring doesn't work with the sequencer module (due to value clamping), but is compatible with scrollerTween."
                     },
                     {
                         "component": "mob-spacer",
@@ -1091,7 +1091,7 @@
                             "style": "medium",
                             "boxed": true
                         },
-                        "content": "Freezes elements like CSS <strong>position: sticky</strong>. Uses JavaScript positioning with anticipatory movement to prevent visual jumps. Elements may become direct <strong>body</strong> children if needed."
+                        "content": "Freezes elements like CSS position: sticky. Uses JavaScript positioning with anticipatory movement to prevent visual jumps. Elements may become direct body children if needed."
                     },
                     {
                         "component": "mob-spacer",
@@ -1111,7 +1111,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Enables pinning (default: <strong>false</strong>)"
+                        "content": "Boolean: Enables pinning (default: false)"
                     },
                     {
                         "component": "mob-title",
@@ -1125,7 +1125,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: When <strong>true</strong>, uses Spring for smoother pin release transitions"
+                        "content": "Boolean: When true, uses Spring for smoother pin release transitions"
                     },
                     {
                         "component": "mob-title",
@@ -1139,7 +1139,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Forces element to become a direct <strong>body</strong> child"
+                        "content": "Boolean: Forces element to become a direct body child"
                     },
                     {
                         "component": "mob-title",
@@ -1153,7 +1153,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Activates pinning slightly early on page load (default: <strong>false</strong>)"
+                        "content": "Boolean: Activates pinning slightly early on page load (default: false)"
                     },
                     {
                         "component": "mob-spacer",
@@ -1268,8 +1268,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>value</strong>: Parent's scroll position (auto-calculated if undefined)",
-                                "<strong>parentIsMoving</strong>: Internal sync parameter (for connected scrollTriggers)"
+                                "<span class='quote'>value</span>: Parent's scroll position (auto-calculated if undefined)",
+                                "<span class='quote'>parentIsMoving</span>: Internal sync parameter (for connected scrollTriggers)"
                             ]
                         }
                     },
@@ -1316,7 +1316,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Disables GPU-accelerated <strong>transform: translate3d(0,0,0)</strong> during animations"
+                        "content": "Boolean: Disables GPU-accelerated transform: translate3d(0,0,0) during animations"
                     },
                     {
                         "component": "mob-title",
@@ -1344,7 +1344,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Applies <strong>perspective</strong> and <strong>transform-style: preserve-3d</strong> to parent elements"
+                        "content": "Boolean: Applies perspective and transform-style: preserve-3d to parent elements"
                     },
                     {
                         "component": "mob-title",
@@ -1358,7 +1358,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Temporarily activates <strong>will-change</strong> during FPS drops (default: <strong>true</strong>)"
+                        "content": "Boolean: Temporarily activates will-change during FPS drops (default: true)"
                     },
                     {
                         "component": "mob-snippet",
@@ -1474,8 +1474,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>value</strong>: Current scroll position (avoids recalculation when shared between instances)",
-                                "<strong>parentIsMoving</strong>: Internal synchronization parameter"
+                                "<span class='quote'>value</span>: Current scroll position (avoids recalculation when shared between instances)",
+                                "<span class='quote'>parentIsMoving</span>: Internal synchronization parameter"
                             ]
                         }
                     },
@@ -1522,7 +1522,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Recalculates</strong> all positions/measurements and updates rendering (automatically triggered on resize)"
+                        "content": "Recalculates all positions/measurements and updates rendering (automatically triggered on resize)"
                     },
                     {
                         "component": "mob-spacer",
@@ -1560,7 +1560,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Destroys</strong> the ScrollTrigger instance"
+                        "content": "Destroys the ScrollTrigger instance"
                     },
                     {
                         "component": "mob-snippet",
