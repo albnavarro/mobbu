@@ -51,7 +51,6 @@ const getLineHeight = () => {
 /** @type {MobComponent<Snippet>} */
 export const SnippetFn = ({
     onMount,
-    getState,
     setRef,
     getRef,
     delegateEvents,
@@ -59,7 +58,6 @@ export const SnippetFn = ({
     getProxi,
     bindObject,
 }) => {
-    const { source, numLines } = getState();
     const proxi = getProxi();
 
     /**
@@ -71,14 +69,14 @@ export const SnippetFn = ({
      * Add exanpd logic if snippet has X lines.
      */
     const closedHeight = `20rem`;
-    const useExpand = Number(numLines) > 15;
+    const useExpand = Number(proxi.numLines) > 15;
     const expandClass = useExpand ? 'use-expand' : '';
 
     /**
      * Get final snippet height ( in rem ). After load snippet height will be removed. Use to load page with right size
      * ( histoy back issue )
      */
-    const snippetHeight = `${numLines * Number(lineHeight)}rem`;
+    const snippetHeight = `${proxi.numLines * Number(lineHeight)}rem`;
 
     onMount(async () => {
         const { codeEl } = getRef();
@@ -86,13 +84,10 @@ export const SnippetFn = ({
         /**
          * Async onMount, component should be destroyed. Avoid desconstruct
          */
-        const stateObject = getState();
-        const awaitLoad = stateObject?.awaitLoad;
-
-        if (awaitLoad) {
-            await loadSnippet({ ref: codeEl, source });
+        if (proxi.awaitLoad) {
+            await loadSnippet({ ref: codeEl, source: proxi.source });
         } else {
-            loadSnippet({ ref: codeEl, source });
+            loadSnippet({ ref: codeEl, source: proxi.source });
         }
 
         return () => {};

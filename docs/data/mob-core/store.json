@@ -127,7 +127,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "For advanced usage, it is necessary to return a function that returns an object containing the value property and at least one of the following properties: validate, type, or skipEqual. You can nest up to two levels (supporting both basic and advanced use cases) for properties, as demonstrated in the nested object example."
+            "content": "For advanced usage, it is necessary to return a function that returns an object containing the <span class='quote'>value</span> property and at least one of the following properties: <span class='quote'>validate</span>, <span class='quote'>type</span>, or <span class='quote'>skipEqual</span>. You can nest up to two levels (supporting both basic and advanced use cases) for properties, as demonstrated in example below."
         },
         {
             "component": "mob-snippet",
@@ -156,7 +156,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "To use an object with infinite insertions, employ the any type. Note that this approach disables property-specific definitions for nested properties.<br/><br/>Works only with advanced implementation"
+            "content": "To use an object with infinite insertions, employ the <span class='quote'>any</span> type. Note that this approach disables property-specific definitions for nested properties.<br/><br/>Works only with advanced implementation"
         },
         {
             "component": "mob-snippet",
