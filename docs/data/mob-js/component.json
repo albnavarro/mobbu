@@ -270,11 +270,15 @@
                         "content": "child:"
                     },
                     {
-                        "component": "mob-paragraph",
+                        "component": "mob-list",
                         "props": {
-                            "style": "medium"
-                        },
-                        "content": "<ul><li>An array containing all child component definitions</li> <li>Requires dependency loading prior to app initialization</li> </ul>"
+                            "tag": "h3",
+                            "dots": false,
+                            "items": [
+                                "An array containing all child component definitions",
+                                "Requires dependency loading prior to app initialization"
+                            ]
+                        }
                     },
                     {
                         "component": "mob-paragraph",
@@ -323,7 +327,18 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Component State System: <ul> <li>All component states derive from the <a href='#mobCore-store'>mobCore store</a></li> <li>Inherits full store functionality (reactivity, etc.)</li> </ul>"
+                        "content": "Component State System:"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "tag": "h3",
+                            "dots": false,
+                            "items": [
+                                "All component states derive from the <a href='#mobCore-store'>mobCore store</a>",
+                                "Inherits full store functionality (reactivity, etc.)"
+                            ]
+                        }
                     },
                     {
                         "component": "mob-spacer",
@@ -369,11 +384,15 @@
                         "content": "webComponent:"
                     },
                     {
-                        "component": "mob-paragraph",
+                        "component": "mob-list",
                         "props": {
-                            "style": "medium"
-                        },
-                        "content": "Web Component Conversion: When the component function returns its defined tag as the first node, it: <ul> <li>Becomes usable as a web component</li> <li>Gains full lifecycle management</li> </ul>"
+                            "tag": "h3",
+                            "dots": false,
+                            "items": [
+                                "Becomes usable as a web component",
+                                "Gains full lifecycle management"
+                            ]
+                        }
                     },
                     {
                         "component": "mob-list",
@@ -403,7 +422,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Normally, all onMount functions are executed after all components have been created.<br/>Enabling this property will cause the onMount function to execute before the child components are created."
+                        "content": "Normally, all <span class='quote'>onMount</span> functions are executed after all components have been created.<br/>Enabling this property will cause the <span class='quote'>onMount</span> function to execute before the child components are created."
                     },
                     {
                         "component": "mob-spacer",

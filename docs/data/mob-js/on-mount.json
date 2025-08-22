@@ -17,16 +17,26 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Triggers after:"
+        },
+        {
+            "component": "mob-list",
             "props": {
                 "style": "medium",
-                "boxed": true
-            },
-            "content": "Triggers after: <ul> <li>All components have been created.</li> <li>Parents components complete their onMount</li></ul> "
+                "dots": true,
+                "items": [
+                    " All components have been created.",
+                    "Parents components complete their <span class='quote'>onMount</span>"
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -46,7 +56,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Enabling this property will cause the onMount function to execute before the child components are created.<br/>This property is enabled in the <a href='#mobJs-component'>component's definition</a>."
+            "content": "Enabling this property will cause the <span class='quote'>onMount</span> function to execute before the child components are created.<br/>This property is enabled in the <a href='#mobJs-component'>component's definition</a>."
         },
         {
             "component": "mob-spacer",
@@ -66,7 +76,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "onMount Parameters: Receives an object containing: <ul> <li>element: The component's root DOM element</li> <li>refs: All registered references (via ref/refs)</li> </ul>"
+            "content": "<span class='quote'>onMount</span> Parameters: Receives an object containing:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "<span class='quote'>element</span>: The component's root DOM element",
+                    "<span class='quote'>refs</span>: All registered references (via ref/refs)"
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -86,12 +107,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<ul><li>Optional return: destroy() function</li><li>Typical uses: <ul><li>Event listener removal</li> <li>Animation cancellation</li><li>Subscription cleanup</li> </ul> </li> </ul>"
+            "content": "Optional return: <span class='quote'>destroy()</span> function"
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {

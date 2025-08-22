@@ -55,8 +55,8 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>getRefs</span>(): Always returns an array with all matches",
-                    "<span class='quote'>getRef</span>(): The first match found always returns"
+                    "<span class='quote'>getRefs()</span>: Always returns an array with all matches",
+                    "<span class='quote'>getRef()</span>: The first match found always returns"
                 ]
             }
         },

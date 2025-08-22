@@ -86,11 +86,21 @@
             "content": "With proxi ( auto detect dependencies )"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium"
-            },
-            "content": "Dependency Management Options: <ul> <li>Automatic dependency tracking</li> <li>No manual declarations needed</li></ul>"
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "Automatic dependency tracking",
+                    "No manual declarations needed"
+                ]
+            }
         },
         {
             "component": "mob-paragraph",
@@ -139,11 +149,16 @@
             "content": "observe"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": " <ul> <li>Triggers bindProps on state changes</li> <li>Batch processes changes within same eventLoop</li> <li>Optional in repeaters (auto-monitors internal state)</li> </ul>"
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "Triggers bindProps on state changes",
+                    "Batch processes changes within same eventLoop",
+                    "Optional in repeaters (auto-monitors internal state)"
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -159,11 +174,15 @@
             "content": "props"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": " <ul> <li>Input: Full parent state object (all values)</li> <li>Output: Object for child component state</li></ul>"
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "<span class='quote'>Input</span>: Full parent state object (all values)",
+                    "<span class='quote'>Output</span>: Object for child component state"
+                ]
+            }
         },
         {
             "component": "mob-spacer",

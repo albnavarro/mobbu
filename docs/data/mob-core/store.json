@@ -336,7 +336,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Validation function that analyzes values. It receives both the current value and previous value as parameters, returning a boolean result. Each property's validation status appears as watch function parameters and can be retrieved via the getValidation() method."
+                        "content": "Validation function that analyzes values. It receives both the current value and previous value as parameters, returning a boolean result. Each property's validation status appears as watch function parameters and can be retrieved via the <span class='quote'>getValidation()</span> method."
                     },
                     {
                         "component": "mob-spacer",
@@ -356,7 +356,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If the value equals the previous one, the property won't update.<br /> This prevents watch execution and makes the property irrelevant to its related computed values. Default: true."
+                        "content": "If the value equals the previous one, the property won't update.<br /> This prevents watch execution and makes the property irrelevant to its related computed values.<br/> Default: <span class='quote'>true</span>."
                     },
                     {
                         "component": "mob-spacer",
@@ -376,7 +376,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When true, the validation function acts as a blocker - the property updates only if validation succeeds.<br />Default: false."
+                        "content": "When <span class='quote'>true</span>, the validation function acts as a blocker - the property updates only if validation succeeds.<br />Default: <span class='quote'>false</span>."
                     },
                     {
                         "component": "mob-spacer",
@@ -582,8 +582,8 @@
                             "style": "medium",
                             "dots": false,
                             "items": [
-                                "get: The object automatically reflects the current state values.",
-                                "set: Internally triggers myStore.set('prop', value) when modifying the object."
+                                "<span class='quote'>get</span>: The object automatically reflects the current state values.",
+                                "<span class='quote'>set</span>: Internally triggers <span class='quote'>myStore.set('prop', value)</span> when modifying the object."
                             ]
                         }
                     },
@@ -692,7 +692,7 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<span class='quote'>emit</span>: &nbsp;Modifies data without triggering reactions (no callbacks fired). Default: true."
+                                "<span class='quote'>emit</span>: &nbsp;Modifies data without triggering reactions (no callbacks fired).<br/> Default: <span class='quote'>true</span>."
                             ]
                         }
                     },
@@ -796,8 +796,8 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<span class='quote'>emit</span>: &nbsp;Performs silent updates (bypasses reactivity, no callbacks triggered). Default: true.",
-                                "<span class='quote'>clone</span>: &nbsp;Creates a copy of original data. Default: false."
+                                "<span class='quote'>emit</span>: &nbsp;Performs silent updates (bypasses reactivity, no callbacks triggered).<br/> Default: <span class='quote'>true</span>.",
+                                "<span class='quote'>clone</span>: &nbsp;Creates a copy of original data.<br/> Default: <span class='quote'>false</span>."
                             ]
                         }
                     },
@@ -974,8 +974,8 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<span class='quote'>wait</span>: &nbsp;Defers callback execution until the current JavaScript event loop completes, using the latest value.<br />Only effective when emit-async is not used.<br/> Default: false.",
-                                "<span class='quote'>immediate</span>: &nbsp;Triggers the initial callback immediately on subscription.<br />Default: false."
+                                "<span class='quote'>wait</span>: &nbsp;Defers callback execution until the current JavaScript event loop completes, using the latest value.<br />Only effective when emit-async is not used.<br/> Default: <span class='quote'>false</span>.",
+                                "<span class='quote'>immediate</span>: &nbsp;Triggers the initial callback immediately on subscription.<br />Default: <span class='quote'>false</span>."
                             ]
                         }
                     },
@@ -1350,12 +1350,12 @@
                             "style": "medium",
                             "dots": true,
                             "items": [
-                                "get",
-                                "getProxi ( only as getter )",
-                                "watch",
-                                "computed",
-                                "emit",
-                                "emitAsync"
+                                "<span class='quote'>get</span>",
+                                "<span class='quote'>getProxi</span> ( only as getter )",
+                                "<span class='quote'>watch</span>",
+                                "<span class='quote'>computed</span>",
+                                "<span class='quote'>emit</span>",
+                                "<span class='quote'>emitAsync</span>"
                             ]
                         }
                     },

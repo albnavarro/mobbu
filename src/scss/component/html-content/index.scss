@@ -154,9 +154,19 @@
 
             .title-content {
                 position: absolute;
-                bottom: rem(8);
-                font-size: rem(65);
+                bottom: calc(#{rem(2)} * -1);
+                font-size: rem(40);
                 left: rem(40);
+
+                @include mq(large) {
+                    font-size: rem(60);
+                    bottom: rem(4);
+                }
+
+                @include mq(xlarge) {
+                    font-size: rem(65);
+                    bottom: rem(8);
+                }
             }
 
             .title-index {
@@ -167,6 +177,11 @@
                 right: rem(40);
                 color: $black;
                 z-index: 1;
+                display: none;
+
+                @include mq(large) {
+                    display: block;
+                }
             }
         }
     }

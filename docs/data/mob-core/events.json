@@ -56,7 +56,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Utilizes the first available requestAnimationFrame callback."
+            "content": "Utilizes the first available <span class='quote'>requestAnimationFrame</span> callback."
         },
         {
             "component": "mob-list",
@@ -103,7 +103,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Fires after the current requestAnimationFrame rendering completes, but before the next frame's callbacks execute."
+            "content": "Fires after the current <span class='quote'>requestAnimationFrame</span> rendering completes, but before the next frame's callbacks execute."
         },
         {
             "component": "mob-snippet",
@@ -141,7 +141,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Dispatches during the next available requestAnimationFrame cycle, enabling RAF-based animation loops."
+            "content": "Dispatches during the next available <span class='quote'>requestAnimationFrame</span> cycle, enabling RAF-based animation loops."
         },
         {
             "component": "mob-snippet",
@@ -179,7 +179,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Precisely schedules execution during a specific requestAnimationFrame cycle."
+            "content": "Precisely schedules execution during a specific <span class='quote'>requestAnimationFrame</span> cycle."
         },
         {
             "component": "mob-snippet",

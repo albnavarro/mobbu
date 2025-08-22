@@ -71,11 +71,11 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "based on String.raw",
+                    "based on <span class='quote'>String.raw</span>",
                     "requires a unique parent node, each update will delete the previous contents of the node.",
                     "similarly to bindText it allows you to mix texts and variables.",
                     "Useful if you want to use the value of a proxy.",
-                    "Useful if you want to print the value of current.value inside a repeat"
+                    "Useful if you want to print the value of <span class='quote'>current.value</span> inside a repeat"
                 ]
             }
         },

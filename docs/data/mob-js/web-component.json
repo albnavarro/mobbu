@@ -145,7 +145,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<p>The attributeChangedCallback comes supercharged with extra parameters that bridge directly to the native webComponent observer - giving you hooks into:</p>"
+            "content": "The <span class='quote'>attributeChangedCallback</span> comes supercharged with extra parameters that bridge directly to the native webComponent observer - giving you hooks into:"
         },
         {
             "component": "mob-list",

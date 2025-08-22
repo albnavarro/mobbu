@@ -201,7 +201,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Async Wrapper Support: The wrapper function supports async/await for asynchronous operations."
+                        "content": "The wrapper function supports <span class='quote'>async/await</span> for asynchronous operations."
                     },
                     {
                         "component": "mob-snippet",
@@ -458,7 +458,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Configurable option for storing/restoring scroll coordinates during History API navigation."
+                        "content": "Configurable option for storing/restoring scroll coordinates during <span class='quote'>History API</span> navigation."
                     },
                     {
                         "component": "mob-spacer",

@@ -135,7 +135,7 @@ store[prop] = valueTransformed;
 # MobJs
 
 ## Refs:
-Usare weakRef.
+Usare weakRef - non si puó possono dare falsi positivi.
 
 
 ## BindProps

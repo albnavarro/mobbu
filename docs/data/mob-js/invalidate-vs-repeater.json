@@ -35,7 +35,7 @@
                 "dots": true,
                 "items": [
                     "<p>The invalidate function handles the complete DOM refresh cycle - it automatically clears out the old DOM structure and delivers a brand new DOM in return.</p>",
-                    "<p>Inside an invalidate, you have complete freedom in code structure - including using standard JavaScript map() to generate element lists when reactivity isn't required.</p>",
+                    "<p>Inside an invalidate, you have complete freedom in code structure - including using standard JavaScript <span class='quote'>Array.map()</span> to generate element lists when reactivity isn't required.</p>",
                     "<p>The invalidate function shines for conditional DOM generation - simply return a function containing your logic, where you can leverage getState() to build anything from basic to complex rendering conditions.</p>"
                 ]
             }
@@ -60,7 +60,7 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<p>Think of the repeater module as the reactive version of JavaScript's array.map() - it automatically keeps your DOM in sync with underlying data changes.</p>",
+                    "<p>Think of the repeater module as the reactive version of JavaScript's <span class='quote'>Array.map()</span> - it automatically keeps your DOM in sync with underlying data changes.</p>",
                     "<p>The repeater either recycles component state or maintains source data order - ensuring optimal performance while preserving your intended structure.</p>",
                     "<p>Unlike invalidate, the repeat function has one key requirement - it must return a single root node as its first element, no matter what DOM structure follows.</p>"
                 ]

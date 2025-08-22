@@ -47,7 +47,7 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "based on String.raw",
+                    "based on <span class='quote'>String.raw</span>",
                     "requires a unique parent node, each update will delete the previous contents of the node.",
                     "States must be specified as strings in order to be identified as keys to the component's state object."
                 ]

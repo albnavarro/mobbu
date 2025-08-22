@@ -32,7 +32,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "In the <a href='#mobJs-initialization'>initialization</a> function, you can enable the debug property componentDefaultProps.debug"
+            "content": "In the <a href='#mobJs-initialization'>initialization</a> function, you can enable the debug property <span class='quote'>componentDefaultProps.debug</span>"
         },
         {
             "component": "mob-spacer",

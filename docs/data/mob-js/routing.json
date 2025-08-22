@@ -44,11 +44,19 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "isBold": true
+            },
+            "content": "Route Definition:"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Route Definition: <ul> <li>Implement as a function returning route DOM</li> <li>Supports async operations (data fetching, etc.)</li> <li>Execution flow: <ul> <li>Runs before removing previous route</li> <li>Waits for all async operations</li></ul> </li> </ul>"
+            "content": "<ul><li>Implement as a function returning route DOM</li> <li>Supports async operations (data fetching, etc.)</li> <li>Execution flow: <ul> <li>Runs before removing previous route</li> <li>Waits for all async operations</li></ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -57,9 +65,10 @@
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-title",
             "props": {
-                "style": "medium"
+                "tag": "h6",
+                "isBold": true
             },
             "content": "The function has as parameter an object with:"
         },
