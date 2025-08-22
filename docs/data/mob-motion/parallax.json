@@ -163,7 +163,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Alternative DOM node for position, height, and width calculations."
+                        "content": "Alternative DOM node for position, <span class='quote'>height</span>, and <span class='quote'>width</span> calculations."
                     },
                     {
                         "component": "mob-spacer",
@@ -203,7 +203,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Scrollable container node (default: window)."
+                        "content": "Scrollable container node ( default: <span class='quote'>window</span> )."
                     },
                     {
                         "component": "mob-spacer",
@@ -223,7 +223,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Node containing the scrollable element (default: window)."
+                        "content": "Node containing the scrollable element ( default: <span class='quote'>window</span> )."
                     },
                     {
                         "component": "mob-spacer",
@@ -384,7 +384,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Higher values (closer to 10) create faster movement.<br/>For opacity control, use opacityStart and opacityEnd instead."
+                        "content": "Higher values (closer to 10) create faster movement.<br/>For opacity control, use <span class='quote'>opacityStart</span> and <span class='quote'>opacityEnd</span> instead."
                     },
                     {
                         "component": "mob-paragraph",
@@ -443,7 +443,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Starting opacity value from viewport top.<br/>100 = 100vh (default: 100)."
+                        "content": "Starting opacity value from viewport top.<br/>100 = <span class='quote'>100vh</span> (default: 100)."
                     },
                     {
                         "component": "mob-title",
@@ -457,7 +457,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Ending opacity value from viewport top.<br/>100 = 100vh (default: 0)."
+                        "content": "Ending opacity value from viewport top.<br/>100 = <span class='quote'>100vh</span> (default: 0)."
                     },
                     {
                         "component": "mob-snippet",
@@ -637,7 +637,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the top edge of the screen ( default is the the window )."
+                        "content": "The element matches the top edge of the <span class='quote'>screen</span>.<br/> default: <span class='quote'>window</span>."
                     },
                     {
                         "component": "mob-title",
@@ -651,7 +651,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the right edge of the screen ( default is the the window )."
+                        "content": "The element matches the right edge of the <span class='quote'>screen</span><br/> default: <span class='quote'>window</span>."
                     },
                     {
                         "component": "mob-title",
@@ -665,7 +665,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the center of the screen ( default is the the window )."
+                        "content": "The element matches the center of the <span class='quote'>screen</span><br/> default: <span class='quote'>window</span>."
                     },
                     {
                         "component": "mob-title",
@@ -679,7 +679,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the bottom edge of the screen ( default is the the window )."
+                        "content": "The element matches the bottom edge of the <span class='quote'>screen</span><br/> default: <span class='quote'>window</span>."
                     },
                     {
                         "component": "mob-title",
@@ -693,7 +693,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the left edge of the screen ( default is the the window )."
+                        "content": "The element matches the left edge of the <span class='quote'>screen</span><br/> default: <span class='quote'>window</span>."
                     },
                     {
                         "component": "mob-title",
@@ -707,7 +707,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The element matches the end of the scroller ( default is the the document ).."
+                        "content": "The element matches the end of the <span class='quote'>scroller</span><br/> default: <span class='quote'>window</span>."
                     },
                     {
                         "component": "mob-title",
@@ -721,7 +721,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "number from 0 to 100 which corresponds to a value calculated from the bottom of the screen"
+                        "content": "number from 0 to 100 which corresponds to a value calculated from the bottom of the <span class='quote'>screen</span>"
                     },
                     {
                         "component": "mob-spacer",
@@ -766,10 +766,10 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "in-stop",
-                                "in-back",
-                                "out-stop",
-                                "out-back"
+                                "<span class='quote'>in-stop</span>",
+                                "<span class='quote'>in-back</span>",
+                                "<span class='quote'>out-stop</span>",
+                                "<span class='quote'>out-back</span>"
                             ]
                         }
                     },
@@ -823,9 +823,10 @@
                     {
                         "component": "mob-paragraph",
                         "props": {
-                            "style": "medium"
+                            "style": "medium",
+                            "boxed": true
                         },
-                        "content": "Uses <a href='./#mobMotion-tween-spring-lerp'>Lerp or Spring</a> for smoothed value updates."
+                        "content": "When enabled, uses Lerp or Spring instances for value updates."
                     },
                     {
                         "component": "mob-spacer",
@@ -845,7 +846,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Toggle easing (default: false)"
+                        "content": "Boolean: Toggles easing<br/>default: <span class='quote'>false</span>"
                     },
                     {
                         "component": "mob-title",
@@ -859,7 +860,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Type: spring or lerp"
+                        "content": "Easing type: spring or lerp"
                     },
                     {
                         "component": "mob-title",
@@ -873,7 +874,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Lerp velocity (0.01-0.1). Default: 0.06"
+                        "content": "Lerp velocity ( <span class='quote'>0.01-0.1</span> ). Default: <span class='quote'>0.06</span>"
                     },
                     {
                         "component": "mob-title",
@@ -887,7 +888,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Spring presets: default | gentle | wobbly | bounce | scroller"
+                        "content": "Spring configuration presets: <span class='quote'>default</span> - <span class='quote'>gentle</span> - <span class='quote'>wobbly</span> - <span class='quote'>bounce</span> - <span class='quote'>scroller</span>"
                     },
                     {
                         "component": "mob-spacer",
@@ -938,7 +939,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Disables GPU-accelerated transform: translate3d(0,0,0)"
+                        "content": "Disables GPU-accelerated transform: <span class='quote'>translate3d(0,0,0)</span> during animations"
                     },
                     {
                         "component": "mob-title",
@@ -952,7 +953,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Throttles scroll events (configurable in <a href='./#mobMotion-defaults'>Default utils</a>)"
+                        "content": "Throttles scroll events (configurable in <a href='./#mobMotion-defaults'>Default utils</a>)"
                     },
                     {
                         "component": "mob-title",
@@ -966,7 +967,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Applies 3D perspective to parent elements"
+                        "content": "Applies perspective and transform-style: preserve-3d to parent elements"
                     },
                     {
                         "component": "mob-title",
@@ -980,7 +981,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Temporarily activates will-change during FPS drops (default: true)"
+                        "content": "Temporarily activates <span class='quote'>will-change</span> during FPS drops.<br/>default: <span class='quote'>false</span>"
                     },
                     {
                         "component": "mob-snippet",
