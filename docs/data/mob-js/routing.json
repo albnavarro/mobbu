@@ -89,619 +89,577 @@
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-spacer",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "basicfunction",
-                            "label": "Route function"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Routing / 01"
-                        },
-                        "content": "Route function"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big"
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/routing-async-function.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 24
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "Export routes",
-                            "label": "Export routes"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Export routes"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "All the routes must be inserted into an array as follows, it is necessary to indicate:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "items": [
-                                "<span class='quote'>name</span>: route name.",
-                                "<span class='quote'>templateName</span>: name ( identifier ) of the template unlike the name ( route ), this parameter is not unique.",
-                                "<span class='quote'>layout</span>: page function to use",
-                                "<span class='quote'>restoreScroll</span>: override restoreScroll global value",
-                                "<span class='quote'>props</span>: the props (object) to pass to the layout function "
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true,
-                            "note": true
-                        },
-                        "content": "The array containing all the routes will be loaded as described in the <a href='#mobJs-initialization'>initialization section</a> "
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/route-inizialization.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 32
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/route-import.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 10
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    }
+                "style": "x-small",
+                "id": "basicfunction",
+                "label": "Route function"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "Routing / 01"
+            },
+            "content": "Route function"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/routing-async-function.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 24
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "Export routes",
+                "label": "Export routes"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Export routes"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "All the routes must be inserted into an array as follows, it is necessary to indicate:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span class='quote'>name</span>: route name.",
+                    "<span class='quote'>templateName</span>: name ( identifier ) of the template unlike the name ( route ), this parameter is not unique.",
+                    "<span class='quote'>layout</span>: page function to use",
+                    "<span class='quote'>restoreScroll</span>: override restoreScroll global value",
+                    "<span class='quote'>props</span>: the props (object) to pass to the layout function "
                 ]
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-paragraph",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "Navigate",
-                            "isSection": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "link navigate",
-                            "label": "Link&nbsp;navigate"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Links / 03"
-                        },
-                        "content": "Links"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Navigate via link"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/routing-link.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 6
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "javascript navigate",
-                            "label": "Javascript&nbsp;navigate"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Navigate via javascript"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/route-link-js.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 27
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    }
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "The array containing all the routes will be loaded as described in the <a href='#mobJs-initialization'>initialization section</a> "
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/route-inizialization.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 32
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/route-import.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 10
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Navigate",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "id": "link navigate",
+                "label": "Link&nbsp;navigate"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "Links / 03"
+            },
+            "content": "Links"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Navigate via link"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/routing-link.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 6
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "javascript navigate",
+                "label": "Javascript&nbsp;navigate"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Navigate via javascript"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/route-link-js.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 27
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Page transition",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "page-transition",
+                "label": "Page&nbsp;transition"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "Routing / 02"
+            },
+            "content": "Using page transitions"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "To use page transitions use the following functions:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "<span class='quote'>beforePageTransition</span>()",
+                    "<span class='quote'>pageTransition</span>()"
                 ]
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-paragraph",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "Page transition",
-                            "isSection": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small",
-                            "id": "page-transition",
-                            "label": "Page&nbsp;transition"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Routing / 02"
-                        },
-                        "content": "Using page transitions"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "To use page transitions use the following functions:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": true,
-                            "items": [
-                                "<span class='quote'>beforePageTransition</span>()",
-                                "<span class='quote'>pageTransition</span>()"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true,
-                            "note": true
-                        },
-                        "content": "The beforePageTransition and pageTransition functions will be loaded as described in the <a href='#mobJs-initialization'>initialization section</a> "
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "beforePageTransition"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "<ul><li>Async function executes between: <ul> <li>Old node cloning</li> <li>DOM insertion</li></ul></li><li>Primary use: Modify cloned node's style pre-attachment</li> </ul>"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/before-page-transition.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 25
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "pageTransition"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Executes immediately after new route node completes rendering."
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/page-transition.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 48
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big"
-                        }
-                    }
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "The beforePageTransition and pageTransition functions will be loaded as described in the <a href='#mobJs-initialization'>initialization section</a> "
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "beforePageTransition"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<ul><li>Async function executes between: <ul> <li>Old node cloning</li> <li>DOM insertion</li></ul></li><li>Primary use: Modify cloned node's style pre-attachment</li> </ul>"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/before-page-transition.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 25
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "pageTransition"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Executes immediately after new route node completes rendering."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/page-transition.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 48
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big"
+            }
+        },
+
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Redirect",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "Redirect",
+                "label": "Redirect"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "Routing / 02"
+            },
+            "content": "Redirect"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Function (optional) where you can return a specific route based on the incoming route"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/redirect.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 9
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Events",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "events",
+                "label": "Events/mainStore"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "Routing / 02"
+            },
+            "content": "Events/mainStore"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true
+            },
+            "content": "Full lifecycle hooks for navigation changes:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Centralized Event Management: <ul> <li>Alternative to individual events: MobIs.mainStore</li> <li>Consolidates all mobJs events</li> <li>Integrates with <a href='#mobJs-bindStore'>bindStore</a> utility</li> </ul> Implementation Guide: See dedicated section for usage examples."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big",
+                "id": "beforeRouteChange",
+                "label": "beforeRouteChange"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "beforeRouteChange"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Triggers before navigation completes"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/before-route-change.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 9
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big",
+                "id": "afterRouteChange",
+                "label": "afterRouteChange"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "afterRouteChange"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Triggers after successful navigation"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/after-route-change.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 14
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big",
+                "id": "activeRoute",
+                "label": "activeRoute"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "activeRoute"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Route Data Access: Returns:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "<span class='quote'>route</span>: Active path value",
+                    "<span class='quote'>templateName</span>: Currently rendered template identifier"
                 ]
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-snippet",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "Redirect",
-                            "isSection": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small",
-                            "id": "Redirect",
-                            "label": "Redirect"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Routing / 02"
-                        },
-                        "content": "Redirect"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Function (optional) where you can return a specific route based on the incoming route"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/redirect.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 9
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big"
-                        }
-                    }
-                ]
+                "source": "./snippets/mob-js/active-route.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 4
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-spacer",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "Events",
-                            "isSection": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small",
-                            "id": "events",
-                            "label": "Events/mainStore"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Routing / 02"
-                        },
-                        "content": "Events/mainStore"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true
-                        },
-                        "content": "Full lifecycle hooks for navigation changes:"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true,
-                            "note": true
-                        },
-                        "content": "Centralized Event Management: <ul> <li>Alternative to individual events: MobIs.mainStore</li> <li>Consolidates all mobJs events</li> <li>Integrates with <a href='#mobJs-bindStore'>bindStore</a> utility</li> </ul> Implementation Guide: See dedicated section for usage examples."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
-                            "id": "beforeRouteChange",
-                            "label": "beforeRouteChange"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "beforeRouteChange"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Triggers before navigation completes"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/before-route-change.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 9
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
-                            "id": "afterRouteChange",
-                            "label": "afterRouteChange"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "afterRouteChange"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Triggers after successful navigation"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/after-route-change.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 14
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
-                            "id": "activeRoute",
-                            "label": "activeRoute"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "activeRoute"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Route Data Access: Returns:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": true,
-                            "items": [
-                                "<span class='quote'>route</span>: Active path value",
-                                "<span class='quote'>templateName</span>: Currently rendered template identifier"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/active-route.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 4
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "big",
-                            "id": "params",
-                            "label": "activeParams"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "activeParams"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Route Parameters: Returns the current route's parameter values as a key-value object."
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/active-params.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 4
-                        }
-                    }
-                ]
+                "style": "big",
+                "id": "params",
+                "label": "activeParams"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "activeParams"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Route Parameters: Returns the current route's parameter values as a key-value object."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/active-params.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 4
             }
         }
     ]

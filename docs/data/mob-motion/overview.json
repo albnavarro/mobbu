@@ -77,408 +77,382 @@
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-spacer",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
+                "style": "x-small",
+                "id": "async",
+                "label": "Async modules"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "- tween",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "- spring",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "- lerp",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "- Async timeline",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "&nbsp",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "MobMotion / 01"
+            },
+            "content": "Async:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "dots": false,
+                "links": true,
+                "items": [
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "async",
-                            "label": "Async modules"
-                        }
+                        "label": "Tween/Spring/Lerp",
+                        "url": "./#mobMotion-tween-spring-lerp"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "- tween",
-                            "isNote": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "- spring",
-                            "isNote": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "- lerp",
-                            "isNote": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "- Async timeline",
-                            "isNote": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "&nbsp",
-                            "isNote": true
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "MobMotion / 01"
-                        },
-                        "content": "Async:"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "Tween/Spring/Lerp",
-                                    "url": "./#mobMotion-tween-spring-lerp"
-                                },
-                                {
-                                    "label": "Async timeline",
-                                    "url": "./#mobMotion-async-timeline"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Pros:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "items": [
-                                "Single tween can be used without other dependencies",
-                                "Lerp and Spring can handle interactive animations like mouse trails.",
-                                "In a timeline, the space between tweens can be precisely controlled without time approximations.",
-                                "Timelines effectively handle looped animations that don't involve much user interaction."
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Cons:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "items": [
-                                "Data transformations (x, y, rotate, etc.) will all have the same 'duration' for each tween",
-                                "In a timeline, direction can only be changed when a single tween is completed ( <span class='quote'>reverseNext</span> ), because the mechanism is based on promise resolution rather than time."
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
+                        "label": "Async timeline",
+                        "url": "./#mobMotion-async-timeline"
                     }
                 ]
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-spacer",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Pros:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "Single tween can be used without other dependencies",
+                    "Lerp and Spring can handle interactive animations like mouse trails.",
+                    "In a timeline, the space between tweens can be precisely controlled without time approximations.",
+                    "Timelines effectively handle looped animations that don't involve much user interaction."
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Cons:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "Data transformations (x, y, rotate, etc.) will all have the same 'duration' for each tween",
+                    "In a timeline, direction can only be changed when a single tween is completed ( <span class='quote'>reverseNext</span> ), because the mechanism is based on promise resolution rather than time."
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "id": "sync",
+                "label": "Sync modules"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "- Sequencer",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "- Create stagger",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "- Sync timeline",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "- ScrollTrigger",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "- Parallax",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "&nbsp",
+                "isNote": true
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "MobMotion / 02"
+            },
+            "content": "Sync:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "dots": false,
+                "links": true,
+                "items": [
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "sync",
-                            "label": "Sync modules"
-                        }
+                        "label": "Sequencer (sync tween)",
+                        "url": "./#mobMotion-sequencer"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "- Sequencer",
-                            "isNote": true
-                        }
+                        "label": "Create Stagger",
+                        "url": "./#mobMotion-create-stagger"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "- Create stagger",
-                            "isNote": true
-                        }
+                        "label": "Sync timeline",
+                        "url": "./#mobMotion-sync-timeline"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "- Sync timeline",
-                            "isNote": true
-                        }
+                        "label": "ScrollTrigger",
+                        "url": "./#mobMotion-scrolltrigger"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "- ScrollTrigger",
-                            "isNote": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "- Parallax",
-                            "isNote": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "&nbsp",
-                            "isNote": true
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "MobMotion / 02"
-                        },
-                        "content": "Sync:"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "Sequencer (sync tween)",
-                                    "url": "./#mobMotion-sequencer"
-                                },
-                                {
-                                    "label": "Create Stagger",
-                                    "url": "./#mobMotion-create-stagger"
-                                },
-                                {
-                                    "label": "Sync timeline",
-                                    "url": "./#mobMotion-sync-timeline"
-                                },
-                                {
-                                    "label": "ScrollTrigger",
-                                    "url": "./#mobMotion-scrolltrigger"
-                                },
-                                {
-                                    "label": "Parallax",
-                                    "url": "./#mobMotion-parallax"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Pros:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "items": [
-                                "Individual properties (x, y, rotate, etc.) can be managed independently with different timings.",
-                                "Timelines can handle direction changes without limitations.",
-                                "Staggers can be managed at single tween level or by creating multiple tweens ( createStagger ).",
-                                "ScrollTrigger and Parallax"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Cons:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "items": [
-                                "Not standalone, they require a timer ( syncTimeline ) or ScrollTrigger to be used.",
-                                "Cannot handle interactive animations like mouse trails"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Modules:"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
+                        "label": "Parallax",
+                        "url": "./#mobMotion-parallax"
                     }
                 ]
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-spacer",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Pros:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "Individual properties (x, y, rotate, etc.) can be managed independently with different timings.",
+                    "Timelines can handle direction changes without limitations.",
+                    "Staggers can be managed at single tween level or by creating multiple tweens ( createStagger ).",
+                    "ScrollTrigger and Parallax"
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Cons:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "Not standalone, they require a timer ( syncTimeline ) or ScrollTrigger to be used.",
+                    "Cannot handle interactive animations like mouse trails"
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Modules:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Common utils",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "id": "stagger",
+                "label": "Stagger"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "MobMotion / 03"
+            },
+            "content": "Common:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Stagger:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Common utility for both sync and Async animations"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "dots": false,
+                "links": true,
+                "items": [
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "Common utils",
-                            "isSection": true
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "stagger",
-                            "label": "Stagger"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "MobMotion / 03"
-                        },
-                        "content": "Common:"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Stagger:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Common utility for both sync and Async animations"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "Stagger",
-                                    "url": "./#mobMotion-stagger"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small",
-                            "id": "defaults",
-                            "label": "Defaults"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Defaults:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "tag": "h3",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "Defaults",
-                                    "url": "./#mobMotion-defaults"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
+                        "label": "Stagger",
+                        "url": "./#mobMotion-stagger"
                     }
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "defaults",
+                "label": "Defaults"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Defaults:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "Defaults",
+                        "url": "./#mobMotion-defaults"
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]

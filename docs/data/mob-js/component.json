@@ -156,1193 +156,1155 @@
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-spacer",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
+                "style": "x-small",
+                "id": "component-definition",
+                "label": "Component definition"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "Component / 01"
+            },
+            "content": "Component definition"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/definition.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 62
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "createComponent: Handles both definition and registration of components in a single operation."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "tag:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<ul> <li>Must be declared as a web-component</li> <li>Generated DOM replaces the component upon rendering</li> <li>Standard naming conventions apply: <ul> <li>Start with lowercase letter</li> <li>Must contain a hyphen</li> </ul> </li> </ul>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "component:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The component function executes upon instance creation."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "child:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "An array containing all child component definitions",
+                    "Requires dependency loading prior to app initialization"
+                ]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Alternatively, you can use the <a href='#mobJs-utils'>useComponent</a> utility to load all components once before initializing the app. However, doing so will make it harder to access components via LSP (e.g., Go to Definition) easily."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "exportState:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "An array of component states exposed for external access (e.g., parent-to-child communication)."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "state:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Component State System:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "All component states derive from the <a href='#mobCore-store'>mobCore store</a>",
+                    "Inherits full store functionality (reactivity, etc.)"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "bindStore:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "bindStore: Synchronizes component state with an external <a href='#mobCore-store'>mobStore</a>, inheriting its full reactivity system."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": ["<a href='#mobJs-bindStore'>bindStore</a>"]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "webComponent:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "Becomes usable as a web component",
+                    "Gains full lifecycle management"
+                ]
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": ["<a href='./#mobJs-web-component'>Web component</a>"]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "scoped:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Normally, all <span class='quote'>onMount</span> functions are executed after all components have been created.<br/>Enabling this property will cause the <span class='quote'>onMount</span> function to execute before the child components are created."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "id": "function",
+                "label": "function component"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "Component / 02"
+            },
+            "content": "The function"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true
+            },
+            "content": "Basic component structure example."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/component-base.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 37
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Async"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/component-async.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 25
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "id": "type",
+                "label": "Typescript support"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "Component / 03"
+            },
+            "content": "Typescript support"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Component Typing System: <ul> <li>Associate an interface to define types for: <ul> <li>methods</li> <li>states</li> <li>refs</li> </ul> </li><br/> <li>Automatic function configuration <ul><li>getRef: Returns HTMLElement</li> <li>getRefs: Returns HTMLElement[]</li></ul> </ul>"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Type Safety Note: The type parameter (dynamic runtime checks) bypasses TypeScript's static type validation."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/component-type-decalration.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 13
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Add type to definition:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "jsDoc:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/definition-type-js-doc.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 25
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "typescript:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/definition-type-ts.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 18
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Add type to function:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "jsDoc:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/component-type-js-doc.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 8
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "typescript:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/component-type-ts.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 3
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Specialized Types: Enables clean component segmentation into focused utility functions."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/single-type.d.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 36
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Component params:",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "lifecycle",
+                "label": "Life cycle"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true,
+                "index": "Component / 04"
+            },
+            "content": "Function params:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Life cycle"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Component lifecycle control"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "component-definition",
-                            "label": "Component definition"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Component / 01"
-                        },
-                        "content": "Component definition"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/definition.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 62
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true,
-                            "note": true
-                        },
-                        "content": "createComponent: Handles both definition and registration of components in a single operation."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "tag:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "<ul> <li>Must be declared as a web-component</li> <li>Generated DOM replaces the component upon rendering</li> <li>Standard naming conventions apply: <ul> <li>Start with lowercase letter</li> <li>Must contain a hyphen</li> </ul> </li> </ul>"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "component:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The component function executes upon instance creation."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "child:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "tag": "h3",
-                            "dots": false,
-                            "items": [
-                                "An array containing all child component definitions",
-                                "Requires dependency loading prior to app initialization"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true,
-                            "note": true
-                        },
-                        "content": "Alternatively, you can use the <a href='#mobJs-utils'>useComponent</a> utility to load all components once before initializing the app. However, doing so will make it harder to access components via LSP (e.g., Go to Definition) easily."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "exportState:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "An array of component states exposed for external access (e.g., parent-to-child communication)."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "state:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Component State System:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "tag": "h3",
-                            "dots": false,
-                            "items": [
-                                "All component states derive from the <a href='#mobCore-store'>mobCore store</a>",
-                                "Inherits full store functionality (reactivity, etc.)"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "bindStore:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "bindStore: Synchronizes component state with an external <a href='#mobCore-store'>mobStore</a>, inheriting its full reactivity system."
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "tag": "h3",
-                            "dots": false,
-                            "items": [
-                                "<a href='#mobJs-bindStore'>bindStore</a>"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "webComponent:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "tag": "h3",
-                            "dots": false,
-                            "items": [
-                                "Becomes usable as a web component",
-                                "Gains full lifecycle management"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "tag": "h3",
-                            "dots": false,
-                            "items": [
-                                "<a href='./#mobJs-web-component'>Web component</a>"
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "scoped:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Normally, all <span class='quote'>onMount</span> functions are executed after all components have been created.<br/>Enabling this property will cause the <span class='quote'>onMount</span> function to execute before the child components are created."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
+                        "label": "OnMount/Destroy",
+                        "url": "./#mobJs-onMount"
                     }
                 ]
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-spacer",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
+                "style": "medium",
+                "id": "state_managment",
+                "label": "State management"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "State management"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Component state managemen"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "function",
-                            "label": "function component"
-                        }
+                        "label": "GetProxi",
+                        "url": "./#mobJs-getProxi"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
+                        "label": "GetState",
+                        "url": "./#mobJs-getState"
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Component / 02"
-                        },
-                        "content": "The function"
+                        "label": "SetState",
+                        "url": "./#mobJs-setState"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
+                        "label": "UpdateState",
+                        "url": "./#mobJs-updateState"
                     },
                     {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true
-                        },
-                        "content": "Basic component structure example."
+                        "label": "Computed",
+                        "url": "./#mobJs-computed"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/component-base.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 37
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h6"
-                        },
-                        "content": "Async"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/component-async.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 25
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
+                        "label": "BindStore",
+                        "url": "./#mobJs-bindStore",
+                        "isLabel": false
                     }
                 ]
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-spacer",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
+                "style": "medium",
+                "id": "side-effect",
+                "label": "Side effect"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Side effect"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Side effect management"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "id": "type",
-                            "label": "Typescript support"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Component / 03"
-                        },
-                        "content": "Typescript support"
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true,
-                            "note": true
-                        },
-                        "content": "Component Typing System: <ul> <li>Associate an interface to define types for: <ul> <li>methods</li> <li>states</li> <li>refs</li> </ul> </li><br/> <li>Automatic function configuration <ul><li>getRef: Returns HTMLElement</li> <li>getRefs: Returns HTMLElement[]</li></ul> </ul>"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium",
-                            "boxed": true,
-                            "note": true
-                        },
-                        "content": "Type Safety Note: The type parameter (dynamic runtime checks) bypasses TypeScript's static type validation."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/component-type-decalration.ts",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 13
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Add type to definition:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "jsDoc:"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/definition-type-js-doc.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 25
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "typescript:"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/definition-type-ts.ts",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 18
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Add type to function:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "jsDoc:"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/component-type-js-doc.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 8
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "typescript:"
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/component-type-ts.ts",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 3
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Specialized Types: Enables clean component segmentation into focused utility functions."
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/single-type.d.ts",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 36
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
+                        "label": "Watch",
+                        "url": "./#mobJs-watch"
                     }
                 ]
             }
         },
         {
-            "component": "html-content",
+            "component": "mob-spacer",
             "props": {
-                "useTriangle": false,
-                "usePadding": false,
-                "data": [
+                "style": "medium",
+                "id": "props",
+                "label": "props"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Props"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Parent-child state synchronization"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "x-small",
-                            "label": "Component params:",
-                            "isSection": true
-                        }
+                        "label": "DataAttribute",
+                        "url": "./#mobJs-dataAttribute"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small",
-                            "id": "lifecycle",
-                            "label": "Life cycle"
-                        }
+                        "label": "StaticProps",
+                        "url": "./#mobJs-staticProps"
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h2",
-                            "isSection": true,
-                            "index": "Component / 04"
-                        },
-                        "content": "Function params:"
+                        "label": "BindProps",
+                        "url": "./#mobJs-bindProps"
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "dom_manipulation",
+                "label": "DOM manipulation"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "DOM manipulation"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Reactive management of classes, styles, text, and DOM refs"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "BindText",
+                        "url": "./#mobJs-bindtext"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
+                        "label": "BindObject",
+                        "url": "./#mobJs-bindObject"
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Life cycle"
+                        "label": "bindEffect",
+                        "url": "./#mobJs-bind-effect"
                     },
                     {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Component lifecycle control"
+                        "label": "Refs",
+                        "url": "<a href='./#mobJs-refs'>Refs</a>"
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "events",
+                "label": "Events"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Events"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Event handling for components and shared DOM nodes"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "BindEvents",
+                        "url": "./#mobJs-bindEvents"
                     },
                     {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "OnMount/Destroy",
-                                    "url": "./#mobJs-onMount"
-                                }
-                            ]
-                        }
+                        "label": "DelegateEvents",
+                        "url": "./#mobJs-delegateEvents"
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "methods",
+                "label": "External Component API"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "External Component API"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Managing a component instance and its methods"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "InstanceName",
+                        "url": "./#mobJs-instanceName"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "state_managment",
-                            "label": "State management"
-                        }
+                        "label": "addMethods",
+                        "url": "./#mobJs-methods"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
+                        "label": "setStateByName",
+                        "url": "./#mobJs-setStateByName"
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "State management"
+                        "label": "updateStateByName",
+                        "url": "./#mobJs-updateStateByName"
                     },
                     {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Component state managemen"
+                        "label": "useMethodByName",
+                        "url": "./#mobJs-useMethodByName"
                     },
                     {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "GetProxi",
-                                    "url": "./#mobJs-getProxi"
-                                },
-                                {
-                                    "label": "GetState",
-                                    "url": "./#mobJs-getState"
-                                },
-                                {
-                                    "label": "SetState",
-                                    "url": "./#mobJs-setState"
-                                },
-                                {
-                                    "label": "UpdateState",
-                                    "url": "./#mobJs-updateState"
-                                },
-                                {
-                                    "label": "Computed",
-                                    "url": "./#mobJs-computed"
-                                },
-                                {
-                                    "label": "BindStore",
-                                    "url": "./#mobJs-bindStore",
-                                    "isLabel": false
-                                }
-                            ]
-                        }
+                        "label": "useMethodarrayByName",
+                        "url": "./#mobJs-useMethodArrayByName"
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "blocks",
+                "label": "Blocks & cycle"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Blocks & cycle"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Managing DOM node updates, reactive collections, and on-the-fly component generation"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "RenderComponent",
+                        "url": "./#mobJs-runtime"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "side-effect",
-                            "label": "Side effect"
-                        }
+                        "label": "Invalidate",
+                        "url": "./#mobJs-invalidate"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
+                        "label": "Repeat",
+                        "url": "./#mobJs-repeat"
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Side effect"
+                        "label": "Invalidate vs Repeater",
+                        "url": "./#mobJs-invalidate-vs-repeater"
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "special",
+                "label": "Special component"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Special component"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Specialized components, slot patterns, and web component support"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "web component",
+                        "url": "./#mobJs-web-component"
                     },
                     {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Side effect management"
+                        "label": "slot",
+                        "url": "./#mobJs-slot"
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "id": "static",
+                "style": "medium",
+                "label": "Static params"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Static params:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Managing classes directly on component instances ( non reactive )"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "ClassList",
+                        "url": "./#mobJs-class-list"
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "id": "utils",
+                "style": "medium",
+                "label": "Utils params"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Utils params:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "General utility functions"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "UnBind",
+                        "url": "./#mobJs-unBind"
                     },
                     {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "Watch",
-                                    "url": "./#mobJs-watch"
-                                }
-                            ]
-                        }
+                        "label": "Emit",
+                        "url": "./#mobJs-emit"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "props",
-                            "label": "props"
-                        }
+                        "label": "EmitAsync",
+                        "url": "./#mobJs-emitAsync"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
+                        "label": "RemoveDOM",
+                        "url": "./#mobJs-removeDom"
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Props"
+                        "label": "Remove",
+                        "url": "./#mobJs-remove"
                     },
                     {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Parent-child state synchronization"
+                        "label": "GetChildren",
+                        "url": "./#mobJs-getChildren"
                     },
                     {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "DataAttribute",
-                                    "url": "./#mobJs-dataAttribute"
-                                },
-                                {
-                                    "label": "StaticProps",
-                                    "url": "./#mobJs-staticProps"
-                                },
-                                {
-                                    "label": "BindProps",
-                                    "url": "./#mobJs-bindProps"
-                                }
-                            ]
-                        }
+                        "label": "FreezeProp",
+                        "url": "./#mobJs-freezeProp"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "dom_manipulation",
-                            "label": "DOM manipulation"
-                        }
+                        "label": "UnFreezeProp",
+                        "url": "./#mobJs-unFreezeProp"
                     },
                     {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
+                        "label": "GetParentId",
+                        "url": "./#mobJs-getParentId"
                     },
                     {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "DOM manipulation"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Reactive management of classes, styles, text, and DOM refs"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "BindText",
-                                    "url": "./#mobJs-bindtext"
-                                },
-                                {
-                                    "label": "BindObject",
-                                    "url": "./#mobJs-bindObject"
-                                },
-                                {
-                                    "label": "bindEffect",
-                                    "url": "./#mobJs-bind-effect"
-                                },
-                                {
-                                    "label": "Refs",
-                                    "url": "<a href='./#mobJs-refs'>Refs</a>"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "events",
-                            "label": "Events"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Events"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Event handling for components and shared DOM nodes"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "BindEvents",
-                                    "url": "./#mobJs-bindEvents"
-                                },
-                                {
-                                    "label": "DelegateEvents",
-                                    "url": "./#mobJs-delegateEvents"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "methods",
-                            "label": "External Component API"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "External Component API"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Managing a component instance and its methods"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "InstanceName",
-                                    "url": "./#mobJs-instanceName"
-                                },
-                                {
-                                    "label": "addMethods",
-                                    "url": "./#mobJs-methods"
-                                },
-                                {
-                                    "label": "setStateByName",
-                                    "url": "./#mobJs-setStateByName"
-                                },
-                                {
-                                    "label": "updateStateByName",
-                                    "url": "./#mobJs-updateStateByName"
-                                },
-                                {
-                                    "label": "useMethodByName",
-                                    "url": "./#mobJs-useMethodByName"
-                                },
-                                {
-                                    "label": "useMethodarrayByName",
-                                    "url": "./#mobJs-useMethodArrayByName"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "blocks",
-                            "label": "Blocks & cycle"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Blocks & cycle"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Managing DOM node updates, reactive collections, and on-the-fly component generation"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "RenderComponent",
-                                    "url": "./#mobJs-runtime"
-                                },
-                                {
-                                    "label": "Invalidate",
-                                    "url": "./#mobJs-invalidate"
-                                },
-                                {
-                                    "label": "Repeat",
-                                    "url": "./#mobJs-repeat"
-                                },
-                                {
-                                    "label": "Invalidate vs Repeater",
-                                    "url": "./#mobJs-invalidate-vs-repeater"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium",
-                            "id": "special",
-                            "label": "Special component"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Special component"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Specialized components, slot patterns, and web component support"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "web component",
-                                    "url": "./#mobJs-web-component"
-                                },
-                                {
-                                    "label": "slot",
-                                    "url": "./#mobJs-slot"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "id": "static",
-                            "style": "medium",
-                            "label": "Static params"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Static params:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Managing classes directly on component instances ( non reactive )"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "ClassList",
-                                    "url": "./#mobJs-class-list"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "id": "utils",
-                            "style": "medium",
-                            "label": "Utils params"
-                        }
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "small"
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Utils params:"
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "General utility functions"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "style": "medium",
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "UnBind",
-                                    "url": "./#mobJs-unBind"
-                                },
-                                {
-                                    "label": "Emit",
-                                    "url": "./#mobJs-emit"
-                                },
-                                {
-                                    "label": "EmitAsync",
-                                    "url": "./#mobJs-emitAsync"
-                                },
-                                {
-                                    "label": "RemoveDOM",
-                                    "url": "./#mobJs-removeDom"
-                                },
-                                {
-                                    "label": "Remove",
-                                    "url": "./#mobJs-remove"
-                                },
-                                {
-                                    "label": "GetChildren",
-                                    "url": "./#mobJs-getChildren"
-                                },
-                                {
-                                    "label": "FreezeProp",
-                                    "url": "./#mobJs-freezeProp"
-                                },
-                                {
-                                    "label": "UnFreezeProp",
-                                    "url": "./#mobJs-unFreezeProp"
-                                },
-                                {
-                                    "label": "GetParentId",
-                                    "url": "./#mobJs-getParentId"
-                                },
-                                {
-                                    "label": "WatchParent",
-                                    "url": "./#mobJs-watchParent"
-                                }
-                            ]
-                        }
+                        "label": "WatchParent",
+                        "url": "./#mobJs-watchParent"
                     }
                 ]
             }
