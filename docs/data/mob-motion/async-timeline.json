@@ -173,7 +173,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "By default, play() and playReverse() reset tweens to their initial/final values by performing set actions, but without adding them to the timeline (unlike AutoSet, which applies them every cycle). freeMode disables this behavior"
+                        "content": "By default, <span class='quote'>play()</span> and <span class='quote'>playReverse()</span> reset tweens to their initial/final values by performing set actions, but without adding them to the timeline (unlike AutoSet, which applies them every cycle). freeMode disables this behavior"
                     },
                     {
                         "component": "mob-spacer",
@@ -193,7 +193,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If set to true, it permanently adds set actions at the start/end points of the timeline, forcing the positions and preventing tweens from exceeding the timeline's length."
+                        "content": "If set to <span class='quote'>true</span>, it permanently adds set actions at the start/end points of the timeline, forcing the positions and preventing tweens from exceeding the timeline's length."
                     },
                     {
                         "component": "mob-spacer",
@@ -213,7 +213,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When true, it allows inheriting unspecified properties for the current tween from previous steps and merges them with those defined by the user."
+                        "content": "When <span class='quote'>true</span>, it allows inheriting unspecified properties for the current tween from previous steps and merges them with those defined by the user."
                     },
                     {
                         "component": "mob-spacer",
@@ -233,7 +233,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "It transforms all actions into goFromTo()."
+                        "content": "It transforms all actions into <span class='quote'>goFromTo()</span>."
                     },
                     {
                         "component": "mob-spacer",
@@ -516,7 +516,7 @@
                             "items": [
                                 "<span class='quote'>resolve</span>: Promise resolution function",
                                 "<span class='quote'>loop</span>: Current iteration count",
-                                "<span class='quote'>direction</span>: Timeline direction ('forward' or 'backward')"
+                                "<span class='quote'>direction</span>: Timeline direction (<span class='quote'>forward</span> or <span class='quote'>backward</span>)"
                             ]
                         }
                     },
@@ -557,8 +557,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<span class='quote'>true</span>: Waits for all tweens (Promise.all)",
-                                "<span class='quote'>false</span>: Proceeds after first tween completes (Promise.race)"
+                                "<span class='quote'>true</span>: Waits for all tweens ( <span class='quote'>Promise.all</span> )",
+                                "<span class='quote'>false</span>: Proceeds after first tween completes ( <span class='quote'>Promise.race</span> )"
                             ]
                         }
                     },
@@ -599,7 +599,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Pauses timeline execution. Use resume() to continue. Suspension occurs only after completing the current animation."
+                        "content": "Pauses timeline execution. Use <span class='quote'>resume()</span> to continue. Suspension occurs only after completing the current animation."
                     },
                     {
                         "component": "mob-snippet",
@@ -631,7 +631,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Marks timeline positions for playFrom(label) or playFromReverse(label) navigation."
+                        "content": "Marks timeline positions for <span class='quote'>playFrom(label)</span> or <span class='quote'>playFromReverse(label)</span> navigation."
                     },
                     {
                         "component": "mob-snippet",
@@ -695,7 +695,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "play() and playReverse() return Promises upon completion. stop() clears stagger caches by default (configurable)."
+                        "content": "<span class='quote'>play()</span> and <span class='quote'>playReverse()</span> return Promises upon completion. <span class='quote'>stop()</span> clears stagger caches by default (configurable)."
                     },
                     {
                         "component": "mob-snippet",
@@ -727,7 +727,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Version of play() that starts from specific labels."
+                        "content": "Version of <span class='quote'>play()</span> that starts from specific labels."
                     },
                     {
                         "component": "mob-snippet",
@@ -759,7 +759,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "pause() freezes execution. resume() continues from paused/suspended states."
+                        "content": "<span class='quote'>pause()</span> freezes execution. <span class='quote'>resume()</span> continues from paused/suspended states."
                     },
                     {
                         "component": "mob-snippet",
@@ -844,7 +844,7 @@
                             "style": "medium",
                             "items": [
                                 "<span class='quote'>loop</span>: Current loop count",
-                                "<span class='quote'>direction</span>: Active direction ('forward'|'backward')"
+                                "<span class='quote'>direction</span>: Active direction (<span class='quote'>forward</span> <span class='quote'>backward</span>)"
                             ]
                         }
                     },
@@ -916,7 +916,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "isPaused()/isSuspended()/getDirection() - Timeline status checkers:"
+                        "content": "<span class='quote'>isPaused()</span> - <span class='quote'>isSuspended()</span> - <span class='quote'>getDirection()</span> - Timeline status checkers:"
                     },
                     {
                         "component": "mob-snippet",
