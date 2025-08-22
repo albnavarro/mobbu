@@ -192,6 +192,22 @@
                         }
                     },
                     {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/definition.js",
+                            "isFull": true,
+                            "hasOverflow": false,
+                            "hasBorder": true,
+                            "numLines": 62
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium",
@@ -388,22 +404,6 @@
                             "style": "medium"
                         },
                         "content": "Normally, all onMount functions are executed after all components have been created.<br/>Enabling this property will cause the onMount function to execute before the child components are created."
-                    },
-                    {
-                        "component": "mob-spacer",
-                        "props": {
-                            "style": "medium"
-                        }
-                    },
-                    {
-                        "component": "mob-snippet",
-                        "props": {
-                            "source": "./snippets/mob-js/definition.js",
-                            "isFull": true,
-                            "hasOverflow": false,
-                            "hasBorder": true,
-                            "numLines": 62
-                        }
                     },
                     {
                         "component": "mob-spacer",

@@ -147,6 +147,29 @@
                         }
                     },
                     {
+                        "component": "mob-list",
+                        "props": {
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "Tween/Spring/Lerp",
+                                    "url": "./#mobMotion-tween-spring-lerp"
+                                },
+                                {
+                                    "label": "Async timeline",
+                                    "url": "./#mobMotion-async-timeline"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h3"
@@ -177,30 +200,6 @@
                             "items": [
                                 "Data transformations (x, y, rotate, etc.) will all have the same 'duration' for each tween",
                                 "In a timeline, direction can only be changed when a single tween is completed (reverseNext), because the mechanism is based on promise resolution rather than time."
-                            ]
-                        }
-                    },
-                    {
-                        "component": "mob-title",
-                        "props": {
-                            "tag": "h3"
-                        },
-                        "content": "Modules:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "Tween/Spring/Lerp",
-                                    "url": "./#mobMotion-tween-spring-lerp"
-                                },
-                                {
-                                    "label": "Async timeline",
-                                    "url": "./#mobMotion-async-timeline"
-                                }
                             ]
                         }
                     },
@@ -292,6 +291,41 @@
                         }
                     },
                     {
+                        "component": "mob-list",
+                        "props": {
+                            "dots": false,
+                            "links": true,
+                            "items": [
+                                {
+                                    "label": "Sequencer (sync tween)",
+                                    "url": "./#mobMotion-sequencer"
+                                },
+                                {
+                                    "label": "Create Stagger",
+                                    "url": "./#mobMotion-create-stagger"
+                                },
+                                {
+                                    "label": "Sync timeline",
+                                    "url": "./#mobMotion-sync-timeline"
+                                },
+                                {
+                                    "label": "ScrollTrigger",
+                                    "url": "./#mobMotion-scrolltrigger"
+                                },
+                                {
+                                    "label": "Parallax",
+                                    "url": "./#mobMotion-parallax"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
                         "component": "mob-title",
                         "props": {
                             "tag": "h3"
@@ -331,35 +365,6 @@
                             "tag": "h3"
                         },
                         "content": "Modules:"
-                    },
-                    {
-                        "component": "mob-list",
-                        "props": {
-                            "dots": false,
-                            "links": true,
-                            "items": [
-                                {
-                                    "label": "Sequencer (sync tween)",
-                                    "url": "./#mobMotion-sequencer"
-                                },
-                                {
-                                    "label": "Create Stagger",
-                                    "url": "./#mobMotion-create-stagger"
-                                },
-                                {
-                                    "label": "Sync timeline",
-                                    "url": "./#mobMotion-sync-timeline"
-                                },
-                                {
-                                    "label": "ScrollTrigger",
-                                    "url": "./#mobMotion-scrolltrigger"
-                                },
-                                {
-                                    "label": "Parallax",
-                                    "url": "./#mobMotion-parallax"
-                                }
-                            ]
-                        }
                     },
                     {
                         "component": "mob-spacer",
