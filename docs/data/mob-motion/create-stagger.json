@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>createStagger</strong> is a specialized utility for coordinating multiple <strong>sequencers</strong>. Unlike the standard <strong><a href='./#mobMotion-stagger'>stagger</a></strong> which operates on single animations, createStagger synchronizes <strong>groups of sequencers</strong> using stagger patterns. It returns an array of precomputed start/end values for precise sequencing control."
+            "content": "createStagger is a specialized utility for coordinating multiple sequencers. Unlike the standard <a href='./#mobMotion-stagger'>stagger</a> which operates on single animations, createStagger synchronizes groups of sequencers using stagger patterns. It returns an array of precomputed start/end values for precise sequencing control."
         },
         {
             "component": "mob-spacer",
@@ -191,7 +191,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The <strong>type</strong> property defines the synchronization pattern for sequencer groups:"
+                        "content": "The type property defines the synchronization pattern for sequencer groups:"
                     },
                     {
                         "component": "mob-spacer",
@@ -211,7 +211,18 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Uniform duration</strong> across all instances:<br/>- Value 0: No effect<br/>- Value 1: Sequential start (end-to-beginning)<br/>- Above 1: Increasing overlap while maintaining equal duration"
+                        "content": "Uniform duration across all instances:"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "items": [
+                                "<span class='quote'>Value</span> 0: No effect",
+                                "<span class='quote'>Value</span> 1: Sequential start (end-to-beginning)",
+                                "<span class='quote'>Above</span> 1: Increasing overlap while maintaining equal duration"
+                            ]
+                        }
                     },
                     {
                         "component": "mob-spacer",
@@ -231,7 +242,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Simultaneous start</strong> with varying durations:<br/>All instances begin together but complete at different times."
+                        "content": "Simultaneous start with varying durations:<br/>All instances begin together but complete at different times."
                     },
                     {
                         "component": "mob-spacer",
@@ -251,7 +262,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Synchronized completion</strong>:<br/>Instances start at different times but all reach maximum value simultaneously."
+                        "content": "Synchronized completion:<br/>Instances start at different times but all reach maximum value simultaneously."
                     },
                     {
                         "component": "mob-spacer",
@@ -271,7 +282,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Gradual acceleration</strong>:<br/>First instance starts earliest (slowest), last starts latest (fastest), with proportional timing in between."
+                        "content": "Gradual acceleration:<br/>First instance starts earliest (slowest), last starts latest (fastest), with proportional timing in between."
                     },
                     {
                         "component": "mob-spacer",
@@ -293,7 +304,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Controls duration variation between instances:<br/><strong>Higher values</strong> reduce duration differences (more uniform timing)."
+                        "content": "Controls duration variation between instances:<br/>Higher values reduce duration differences (more uniform timing)."
                     },
                     {
                         "component": "mob-spacer",
@@ -315,7 +326,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "See <strong><a href='./#mobMotion-stagger'>stagger documentation</a></strong> for details."
+                        "content": "See <a href='./#mobMotion-stagger'>stagger documentation</a> for details."
                     },
                     {
                         "component": "mob-spacer",
@@ -337,7 +348,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "See <strong><a href='./#mobMotion-stagger'>stagger documentation</a></strong> for details."
+                        "content": "See <a href='./#mobMotion-stagger'>stagger documentation</a> for details."
                     },
                     {
                         "component": "mob-spacer",
@@ -359,7 +370,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "See <strong><a href='./#mobMotion-stagger'>stagger documentation</a></strong> for details."
+                        "content": "See <a href='./#mobMotion-stagger'>stagger documentation</a> for details."
                     },
                     {
                         "component": "mob-spacer",

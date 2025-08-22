@@ -29,7 +29,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "The <strong>Sequencer</strong> is a specialized tween that operates independently of time or precision values. It functions as a data store that returns interpolated values when given an input. Its core method <strong>draw(value)</strong> handles the interpolation, making it ideal for integration with <a href='./#mobMotion-sync-timeline'><strong>syncTimeline</strong></a> and <a href='./#mobMotion-scrolltrigger'><strong>scrollTrigger</strong></a> which can control it by passing partial values."
+            "content": "The Sequencer is a specialized tween that operates independently of time or precision values. It functions as a data store that returns interpolated values when given an input. Its core method draw(value) handles the interpolation, making it ideal for integration with <a href='./#mobMotion-sync-timeline'>syncTimeline</a> and <a href='./#mobMotion-scrolltrigger'>scrollTrigger</a> which can control it by passing partial values."
         },
         {
             "component": "mob-spacer",
@@ -133,7 +133,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The <strong>duration</strong> property defines a numerical range (default: 10) within which properties can vary independently. Think of it like a musical sequencer where you can adjust individual instrument timing within a 2.30 minute track. When used with <strong><a href='./#mobMotion-sync-timeline'>syncTimeline</a></strong> or <strong><a href='./#mobMotion-scrolltrigger'>scrollTrigger</a></strong>, the actual duration scales proportionally to this value."
+                        "content": "The duration property defines a numerical range (default: 10) within which properties can vary independently. Think of it like a musical sequencer where you can adjust individual instrument timing within a 2.30 minute track. When used with <a href='./#mobMotion-sync-timeline'>syncTimeline</a> or <a href='./#mobMotion-scrolltrigger'>scrollTrigger</a>, the actual duration scales proportionally to this value."
                     },
                     {
                         "component": "mob-spacer",
@@ -182,7 +182,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Initialization mirrors standard <strong><a href='./#mobMotion-tween-spring-lerp'>tween</a></strong> setup (excluding the <strong>relative</strong> option):"
+                        "content": "Initialization mirrors standard <a href='./#mobMotion-tween-spring-lerp'>tween</a> setup (excluding the relative option):"
                     },
                     {
                         "component": "mob-snippet",
@@ -260,29 +260,22 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The <strong>first parameter</strong> allows you to modify one or more parameters of the state."
+                        "content": "<strong>The first parameter</strong> allows you to modify one or more parameters of the state. Accepts numeric values or dynamic functions for runtime adjustments."
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Accepts numeric values or dynamic functions for runtime adjustments."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The <strong>second parameter</strong> defines:"
+                        "content": "<strong>The second parameter</strong> defines:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>Start/end range</strong> within the duration value",
-                                "<strong>Custom easing</strong> for the transition"
+                                "Start/end range within the duration value",
+                                "Custom easing for the transition"
                             ]
                         }
                     },
@@ -291,8 +284,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>Start</strong>: default: 0",
-                                "<strong>End</strong>: default: duration parameter value"
+                                "<span class='quote'>Start</span>: default: 0",
+                                "<span class='quote'>End</span>: default: duration parameter value"
                             ]
                         }
                     },
@@ -326,7 +319,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Similar to <strong>goTo</strong>, but transitions from the specified start value to the current state."
+                        "content": "Similar to goTo, but transitions from the specified start value to the current state."
                     },
                     {
                         "component": "mob-snippet",
@@ -390,7 +383,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Executes <strong>custom functions</strong> at specific points in the duration range. Since sequencers don't use promises, callbacks trigger at the first opportunity after passing the threshold value."
+                        "content": "Executes custom functions at specific points in the duration range. Since sequencers don't use promises, callbacks trigger at the first opportunity after passing the threshold value."
                     },
                     {
                         "component": "mob-spacer",
@@ -410,9 +403,9 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>value</strong>: Actual trigger point (may slightly exceed target)",
-                                "<strong>isForced</strong>: True if sequencer started beyond threshold",
-                                "<strong>direction</strong>: Movement context ('backward'|'forward'|'none')"
+                                "<span class='quote'>value</span>: Actual trigger point (may slightly exceed target)",
+                                "<span class='quote'>isForced</span>: True if sequencer started beyond threshold",
+                                "<span class='quote'>direction</span>: Movement context ('backward'|'forward'|'none')"
                             ]
                         }
                     },
@@ -446,7 +439,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Create reference points for navigation with <strong><a href='./#mobMotion-sync-timeline'>syncTimeline</a></strong>."
+                        "content": "Create reference points for navigation with <a href='./#mobMotion-sync-timeline'>syncTimeline</a>."
                     },
                     {
                         "component": "mob-snippet",
@@ -478,7 +471,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Applies real-time values to targets. Returns an <strong>unsubscribe()</strong> function."
+                        "content": "Applies real-time values to targets. Returns an unsubscribe() function."
                     },
                     {
                         "component": "mob-paragraph",
@@ -487,7 +480,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>Memory Tip:</strong> Use <strong>weakRef</strong> for animations in nested functions/closures to prevent leaks."
+                        "content": "Memory Tip: Use weakRef for animations in nested functions/closures to prevent leaks."
                     },
                     {
                         "component": "mob-paragraph",
@@ -496,7 +489,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "This method is not very suitable for staggers. If you're using staggers, the <strong>subscribeCache</strong> method is preferable.<br/> The stagger mechanism works by <strong>delegating callbacks</strong> to specific frames. This method is unable to clean up future renderings if the animation is stopped, which is something <strong>subscribeCache can do</strong> instead."
+                        "content": "This method is not very suitable for staggers. If you're using staggers, the subscribeCache method is preferable.<br/> The stagger mechanism works by delegating callbacks to specific frames. This method is unable to clean up future renderings if the animation is stopped, which is something subscribeCache can do instead."
                     },
                     {
                         "component": "mob-snippet",
@@ -528,15 +521,15 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Optimized version of <strong>subscribe</strong> for staggers"
+                        "content": "Optimized version of subscribe for staggers"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "Stores targets/callbacks <strong>once</strong>",
-                                "It only accumulates an object with the <strong>actual updated values</strong>."
+                                "Stores targets/callbacks once",
+                                "It only accumulates an object with the actual updated values."
                             ]
                         }
                     },
@@ -547,7 +540,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>Memory Tip:</strong> Use <strong>weakRef</strong> for animations in nested functions/closures to prevent leaks."
+                        "content": "Memory Tip: Use weakRef for animations in nested functions/closures to prevent leaks."
                     },
                     {
                         "component": "mob-snippet",
@@ -588,7 +581,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "This method may not be the most suitable when working with <strong>staggers</strong>. On the other hand, using <strong>subscribeCache</strong> (a dedicated method for staggers) allows you to cancel future renderings if they should not be executed. This method, however, <strong>cannot be removed from the rendering queue</strong>."
+                        "content": "This method may not be the most suitable when working with staggers. On the other hand, using subscribeCache (a dedicated method for staggers) allows you to cancel future renderings if they should not be executed. This method, however, cannot be removed from the rendering queue."
                     },
                     {
                         "component": "mob-snippet",
@@ -620,7 +613,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Groups multiple sequencers for unified control via <strong><a href='./#mobMotion-sync-timeline'>syncTimeline</a></strong>/<strong><a href='./#mobMotion-scrolltrigger'>scrollTrigger</a></strong>. Particularly useful with <strong><a href='./#mobMotion-create-stagger'>createStagger</a></strong>."
+                        "content": "Groups multiple sequencers for unified control via <a href='./#mobMotion-sync-timeline'>syncTimeline</a>/<a href='./#mobMotion-scrolltrigger'>scrollTrigger</a>. Particularly useful with <a href='./#mobMotion-create-stagger'>createStagger</a>."
                     },
                     {
                         "component": "mob-snippet",
@@ -652,7 +645,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Enables staggered synchronization across multiple sequencer instances using <strong><a href='./#mobMotion-create-stagger'>createStagger</a></strong> parameters."
+                        "content": "Enables staggered synchronization across multiple sequencer instances using <a href='./#mobMotion-create-stagger'>createStagger</a> parameters."
                     },
                     {
                         "component": "mob-spacer",

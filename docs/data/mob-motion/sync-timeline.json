@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>syncTimeline</strong> is a powerful timing controller that manages one or more <strong><a href='./#mobMotion-sequencer'>sequencers</a></strong>. It handles playback control (play, stop, pause) while regulating animation duration and sequencing."
+            "content": "syncTimeline is a powerful timing controller that manages one or more <a href='./#mobMotion-sequencer'>sequencers</a>. It handles playback control (play, stop, pause) while regulating animation duration and sequencing."
         },
         {
             "component": "mob-list",
@@ -138,7 +138,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Sets the number of animation loops (<strong>-1</strong> for infinite). The system automatically adjusts the last frame timing by <strong>1/2 of the current fps</strong> to eliminate visible repetition between loops. <strong><a href='./#caterpillarN2'>See example</a></strong> for seamless loop transitions."
+                        "content": "Sets the number of animation loops (-1 for infinite). The system automatically adjusts the last frame timing by 1/2 of the current fps to eliminate visible repetition between loops. <a href='./#caterpillarN2'>See example</a> for seamless loop transitions."
                     },
                     {
                         "component": "mob-spacer",
@@ -178,7 +178,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Total animation duration in <strong>milliseconds</strong>."
+                        "content": "Total animation duration in milliseconds."
                     },
                     {
                         "component": "mob-spacer",
@@ -268,7 +268,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Registers one or more <strong>sequencers</strong> or <strong>masterSequencers</strong> to the timeline."
+                        "content": "Registers one or more sequencers or masterSequencers to the timeline."
                     },
                     {
                         "component": "mob-snippet",
@@ -313,9 +313,9 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>useCurrent: false</strong> - Always starts from beginning/end",
-                                "<strong>useCurrent: true</strong> - Reverses only if moving opposite to command",
-                                "<em>Default:</em> useCurrent = false"
+                                "<span class='quote'>useCurrent</span>: false - Always starts from beginning/end",
+                                "<span class='quote'>useCurrent</span>: true - Reverses only if moving opposite to command",
+                                "<span class='quote'>Default</span>: useCurrent = false"
                             ]
                         }
                     },
@@ -337,7 +337,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Halts playback. <strong>By default clears stagger caches</strong> (configurable). When disabled, staggers complete naturally by aligning with the first element."
+                        "content": "Halts playback. By default clears stagger caches (configurable). When disabled, staggers complete naturally by aligning with the first element."
                     },
                     {
                         "component": "mob-snippet",
@@ -369,7 +369,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Starts playback from specific <strong>labels</strong> (defined in sequencers). Both methods return Promises that resolve upon timeline completion."
+                        "content": "Starts playback from specific labels (defined in sequencers). Both methods return Promises that resolve upon timeline completion."
                     },
                     {
                         "component": "mob-snippet",
@@ -479,8 +479,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>loop</strong>: Current iteration count",
-                                "<strong>direction</strong>: Playback direction ('forward'|'backward')"
+                                "<span class='quote'>loop</span>: Current iteration count",
+                                "<span class='quote'>direction</span>: Playback direction ('forward'|'backward')"
                             ]
                         }
                     },
@@ -560,8 +560,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>time</strong>: Current timeline position",
-                                "<strong>direction</strong>: Current playback direction"
+                                "<span class='quote'>time</span>: Current timeline position",
+                                "<span class='quote'>direction</span>: Current playback direction"
                             ]
                         }
                     },
@@ -627,7 +627,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Status checkers: <strong>isActive()</strong>, <strong>isSuspended()</strong>, <strong>getDirection()</strong>, <strong>getTime()</strong>"
+                        "content": "Status checkers: isActive(), isSuspended(), getDirection(), getTime()"
                     },
                     {
                         "component": "mob-snippet",
