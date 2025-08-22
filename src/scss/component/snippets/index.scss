@@ -18,6 +18,7 @@
         background: $white;
         border: 0;
         border-radius: rem(10);
+        font-size: rem(12);
 
         &:hover {
             background: $nord-bg;
@@ -45,12 +46,33 @@
 
         --padding-pre: #{rem(30)};
 
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: rem(150);
+            background: linear-gradient(
+                360deg,
+                rgba($black, 1) 0%,
+                rgba($black, 0) 100%
+            );
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s;
+        }
+
         &.open {
             height: calc(var(--snippet-height) + (var(--padding-pre) * 2));
         }
 
         &.close {
             height: var(--closed-height);
+
+            &::after {
+                opacity: 1;
+            }
         }
     }
 
