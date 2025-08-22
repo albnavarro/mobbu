@@ -163,7 +163,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "A DOM node other than item to be used as a reference for position, height, and width calculations."
+                        "content": "A DOM node other than item to be used as a reference for position, <span class='quote'>height</span>, and <span class='quote'>width</span> calculations."
                     },
                     {
                         "component": "mob-spacer",
@@ -203,7 +203,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The scrollable node in which the target is contained.<br/> The default is window."
+                        "content": "The scrollable node in which the target is contained.<br/> The default is <span class='quote'>window</span>."
                     },
                     {
                         "component": "mob-spacer",
@@ -223,7 +223,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "A node that contains the scrollable element.<br/> The default is window."
+                        "content": "A node that contains the scrollable element.<br/> The default is <span class='quote'>window</span>."
                     },
                     {
                         "component": "mob-spacer",
@@ -346,7 +346,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If no property is specified, scrollTrigger can only be used to track onEnter/onEnterBack/onLeave/onLeaveBack events"
+                        "content": "If no property is specified, scrollTrigger can only be used to track <span class='quote'>onEnter</span> - <span class='quote'>onEnterBack</span> - <span class='quote'>onLeave</span> - <span class='quote'>onLeaveBack</span> events"
                     },
                     {
                         "component": "mob-spacer",
@@ -531,7 +531,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Alternative to the range property. Valid only for simple built-in transformations."
+                        "content": "Alternative to the <span class='quote'>range</span> property. Valid only for simple built-in transformations."
                     },
                     {
                         "component": "mob-list",
@@ -675,25 +675,16 @@
                         "content": "References the screen side."
                     },
                     {
-                        "component": "mob-paragraph",
+                        "component": "mob-list",
                         "props": {
-                            "style": "medium"
-                        },
-                        "content": "When start is bottom/right, animation begins when the item's top/left touches the specified value from screen's bottom/right."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "When start is top/left, animation begins when the item's bottom/right touches the specified value from screen's top/left (reverse scroll)."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "The start value's reference edge (top/bottom/etc.) also determines the end value's reference edge."
+                            "style": "medium",
+                            "dots": true,
+                            "items": [
+                                "When start is <span class='quote'>bottom/right</span>, animation begins when the item's <span class='quote'>top/left</span> touches the specified value from screen's <span class='quote'>bottom/right</span>.",
+                                "When start is <span class='quote'>top/left</span>, animation begins when the item's <span class='quote'>bottom/right</span> touches the specified value from screen's <span class='quote'>top/left</span>.",
+                                "The start value's reference edge ( <span class='quote'>top/bottom/etc..</span> ) also determines the end value's reference edge."
+                            ]
+                        }
                     },
                     {
                         "component": "mob-spacer",
@@ -709,11 +700,14 @@
                         "content": "2) +/-<value>vh | vw | px"
                     },
                     {
-                        "component": "mob-paragraph",
+                        "component": "mob-list",
                         "props": {
-                            "style": "medium"
-                        },
-                        "content": "Adds a value in <span class='quote'>vh|vw|px</span> (use vh for vertical, vw for horizontal)."
+                            "style": "medium",
+                            "dots": true,
+                            "items": [
+                                "Adds a value in <span class='quote'>vh|vw|px</span> (use <span class='quote'>vh</span> for vertical, <span class='quote'>vw</span> for horizontal)."
+                            ]
+                        }
                     },
                     {
                         "component": "mob-spacer",
@@ -729,11 +723,14 @@
                         "content": "3) +/- height | halfHeight | width | halfWidth"
                     },
                     {
-                        "component": "mob-paragraph",
+                        "component": "mob-list",
                         "props": {
-                            "style": "medium"
-                        },
-                        "content": "Adds the item's <span class='quote'>height/width</span> (or half) to the final value.<br/>Useful for element centering."
+                            "style": "medium",
+                            "dots": true,
+                            "items": [
+                                "Adds the item's <span class='quote'>height/width</span> (or half) to the final value. Useful for element centering."
+                            ]
+                        }
                     },
                     {
                         "component": "mob-spacer",
@@ -831,7 +828,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<span class='quote'>top</span> | <span class='quote'>right</span> | <span class='quote'>bottom</span> | <span class='quote'>left</span><br/>Functions identically to the equivalent in start/end."
+                        "content": "<span class='quote'>top</span> | <span class='quote'>right</span> | <span class='quote'>bottom</span> | <span class='quote'>left</span><br/>Functions identically to the equivalent in <span class='quote'>start/end</span>."
                     },
                     {
                         "component": "mob-spacer",
@@ -926,7 +923,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Displays animation start/end indicators. Markers appear at the element's edge and fixed positions matching start/end values. Accepts a string parameter that displays beside the marker."
+                        "content": "Displays animation <span class='quote'>start/end</span> indicators. Markers appear at the element's edge and fixed positions matching start/end values. Accepts a string parameter that displays beside the marker."
                     },
                     {
                         "component": "mob-snippet",
@@ -1001,7 +998,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Toggles easing (default: false)"
+                        "content": "Boolean: Toggles easing<br/>default: <span class='quote'>false</span>"
                     },
                     {
                         "component": "mob-title",
@@ -1029,7 +1026,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Lerp velocity (0.01-0.1). Default: 0.06"
+                        "content": "Lerp velocity ( <span class='quote'>0.01-0.1</span> ). Default: <span class='quote'>0.06</span>"
                     },
                     {
                         "component": "mob-title",
@@ -1043,7 +1040,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Spring configuration presets: default | gentle | wobbly | bounce | scroller"
+                        "content": "Spring configuration presets: <span class='quote'>default</span> - <span class='quote'>gentle</span> - <span class='quote'>wobbly</span> - <span class='quote'>bounce</span> - <span class='quote'>scroller</span>"
                     },
                     {
                         "component": "mob-paragraph",
@@ -1111,7 +1108,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Enables pinning (default: false)"
+                        "content": "Enables pinning<br/>default: <span class='quote'>false</span>"
                     },
                     {
                         "component": "mob-title",
@@ -1125,7 +1122,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: When true, uses Spring for smoother pin release transitions"
+                        "content": "When true, uses Spring for smoother pin release transitions<br/>default: <span class='quote'>false</span>"
                     },
                     {
                         "component": "mob-title",
@@ -1139,7 +1136,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Forces element to become a direct body child"
+                        "content": "Forces element to become a direct body child<br/>default: <span class='quote'>false</span>"
                     },
                     {
                         "component": "mob-title",
@@ -1153,7 +1150,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Activates pinning slightly early on page load (default: false)"
+                        "content": "Activates pinning slightly early on page load.<br/>default: <span class='quote'>false</span>"
                     },
                     {
                         "component": "mob-spacer",
@@ -1316,7 +1313,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Disables GPU-accelerated transform: translate3d(0,0,0) during animations"
+                        "content": "Disables GPU-accelerated transform: <span class='quote'>translate3d(0,0,0)</span> during animations"
                     },
                     {
                         "component": "mob-title",
@@ -1330,7 +1327,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Throttles scroll events (configurable in <a href='./#mobMotion-defaults'>Default utils</a>)"
+                        "content": "Throttles scroll events (configurable in <a href='./#mobMotion-defaults'>Default utils</a>)"
                     },
                     {
                         "component": "mob-title",
@@ -1344,7 +1341,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Applies perspective and transform-style: preserve-3d to parent elements"
+                        "content": "Applies perspective and transform-style: preserve-3d to parent elements"
                     },
                     {
                         "component": "mob-title",
@@ -1358,7 +1355,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Boolean: Temporarily activates will-change during FPS drops (default: true)"
+                        "content": "Temporarily activates <span class='quote'>will-change</span> during FPS drops.<br/>default: <span class='quote'>false</span>"
                     },
                     {
                         "component": "mob-snippet",
