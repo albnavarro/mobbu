@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Async timeline</strong> is a <strong>promise-based</strong> animation coordinator that manages <strong>tweens</strong>, <strong>lerps</strong>, and <strong>springs</strong>. It handles single animations or groups, supports looping, and allows custom functions between animations."
+            "content": "Async timeline is a promise-based animation coordinator that manages tweens, lerps, and springs. It handles single animations or groups, supports looping, and allows custom functions between animations."
         },
         {
             "component": "mob-list",
@@ -133,7 +133,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Sets the number of <strong>animation loops</strong>.<br/><strong>-1</strong> creates an infinite loop."
+                        "content": "Sets the number of animation loops.<br/>-1 creates an infinite loop."
                     },
                     {
                         "component": "mob-spacer",
@@ -153,7 +153,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When enabled, reverses animation direction after each loop.<br/>All tween values <strong>flip</strong> between start and end points."
+                        "content": "When enabled, reverses animation direction after each loop.<br/>All tween values flip between start and end points."
                     },
                     {
                         "component": "mob-spacer",
@@ -173,7 +173,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "By default, <strong>play()</strong> and <strong>playReverse()</strong> reset tweens to their initial/final values by performing <strong>set actions</strong>, but without adding them to the timeline (<strong>unlike AutoSet</strong>, which applies them every cycle). freeMode <strong>disables</strong> this behavior"
+                        "content": "By default, play() and playReverse() reset tweens to their initial/final values by performing set actions, but without adding them to the timeline (unlike AutoSet, which applies them every cycle). freeMode disables this behavior"
                     },
                     {
                         "component": "mob-spacer",
@@ -193,7 +193,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If set to <strong>true</strong>, it permanently adds <strong>set</strong> actions at the <strong>start/end</strong> points of the timeline, forcing the positions and preventing tweens from exceeding the timeline's length."
+                        "content": "If set to true, it permanently adds set actions at the start/end points of the timeline, forcing the positions and preventing tweens from exceeding the timeline's length."
                     },
                     {
                         "component": "mob-spacer",
@@ -213,7 +213,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When <strong>true</strong>, it allows <strong>inheriting unspecified properties</strong> for the current tween from <strong>previous steps</strong> and <strong>merges</strong> them with those defined by the user."
+                        "content": "When true, it allows inheriting unspecified properties for the current tween from previous steps and merges them with those defined by the user."
                     },
                     {
                         "component": "mob-spacer",
@@ -233,7 +233,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "It transforms all actions into <strong>goFromTo()</strong>."
+                        "content": "It transforms all actions into goFromTo()."
                     },
                     {
                         "component": "mob-spacer",
@@ -248,7 +248,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>autoSet</strong> and <strong>inheritProps</strong> are set to <strong>true</strong> by default, ensuring greater <strong>safety</strong> in most cases. However, they also make the timeline <strong>more rigid</strong> and less capable of breaking out of conventional patterns. These settings can be adjusted deliberately"
+                        "content": "autoSet and inheritProps are set to true by default, ensuring greater safety in most cases. However, they also make the timeline more rigid and less capable of breaking out of conventional patterns. These settings can be adjusted deliberately"
                     },
                     {
                         "component": "mob-paragraph",
@@ -257,7 +257,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>forceFromTo</strong> is an evolution of <strong>inheritProps</strong>. It will use the inherited properties to transform an action, for example <strong>goTo()</strong>, into a <strong>goFromTo()</strong>. It is a very powerful option that, when combined with autoSet, eliminates any kind of side effect from the timeline. It is <strong>disabled by default</strong> because when using groups with the <strong>waitComplete: false</strong> option, the <strong>longest tweens will be cut short</strong>. If this is not your use case, this option is recommended.<br/><strong>forceFromTo</strong> will enable <strong>inheritProps</strong>."
+                        "content": "forceFromTo is an evolution of inheritProps. It will use the inherited properties to transform an action, for example goTo(), into a goFromTo(). It is a very powerful option that, when combined with autoSet, eliminates any kind of side effect from the timeline. It is disabled by default because when using groups with the waitComplete: false option, the longest tweens will be cut short. If this is not your use case, this option is recommended.<br/>forceFromTo will enable inheritProps."
                     },
                     {
                         "component": "mob-paragraph",
@@ -266,7 +266,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>FreeMode</strong> is a controversial option. Enabling it while <strong>disabling</strong> autoSet, inheritProps, and forceFromTo removes all safety systems from the timeline. This allows you to <strong>control individual tweens outside of the timeline</strong>, forcing the timeline itself to adapt. It is a difficult option to manage but remains available."
+                        "content": "FreeMode is a controversial option. Enabling it while disabling autoSet, inheritProps, and forceFromTo removes all safety systems from the timeline. This allows you to control individual tweens outside of the timeline, forcing the timeline itself to adapt. It is a difficult option to manage but remains available."
                     },
                     {
                         "component": "mob-spacer",
@@ -317,7 +317,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Each tween instance uses its own parameters by default. The following schema shows override options, including the <strong>delay</strong> parameter (in milliseconds), which is not a property of the tween itself but is controlled by the parent timeline instance."
+                        "content": "Each tween instance uses its own parameters by default. The following schema shows override options, including the delay parameter (in milliseconds), which is not a property of the tween itself but is controlled by the parent timeline instance."
                     },
                     {
                         "component": "mob-spacer",
@@ -494,7 +494,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Execute synchronous or asynchronous functions within the timeline. Both types execute <strong>only after</strong> the previous animation completes, ensuring perfect sequencing."
+                        "content": "Execute synchronous or asynchronous functions within the timeline. Both types execute only after the previous animation completes, ensuring perfect sequencing."
                     },
                     {
                         "component": "mob-spacer",
@@ -514,9 +514,9 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>resolve</strong>: Promise resolution function",
-                                "<strong>loop</strong>: Current iteration count",
-                                "<strong>direction</strong>: Timeline direction ('forward' or 'backward')"
+                                "<span class='quote'>resolve</span>: Promise resolution function",
+                                "<span class='quote'>loop</span>: Current iteration count",
+                                "<span class='quote'>direction</span>: Timeline direction ('forward' or 'backward')"
                             ]
                         }
                     },
@@ -550,15 +550,15 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Manages parallel animation groups.<br/><strong>waitComplete</strong> determines resolution timing:"
+                        "content": "Manages parallel animation groups.<br/>waitComplete determines resolution timing:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>true</strong>: Waits for all tweens (Promise.all)",
-                                "<strong>false</strong>: Proceeds after first tween completes (Promise.race)"
+                                "<span class='quote'>true</span>: Waits for all tweens (Promise.all)",
+                                "<span class='quote'>false</span>: Proceeds after first tween completes (Promise.race)"
                             ]
                         }
                     },
@@ -567,7 +567,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Individual tweens within groups still respect their <strong>delay</strong> properties."
+                        "content": "Individual tweens within groups still respect their delay properties."
                     },
                     {
                         "component": "mob-snippet",
@@ -599,7 +599,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Pauses timeline execution. Use <strong>resume()</strong> to continue. Suspension occurs only after completing the current animation."
+                        "content": "Pauses timeline execution. Use resume() to continue. Suspension occurs only after completing the current animation."
                     },
                     {
                         "component": "mob-snippet",
@@ -631,7 +631,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Marks timeline positions for <strong>playFrom(label)</strong> or <strong>playFromReverse(label)</strong> navigation."
+                        "content": "Marks timeline positions for playFrom(label) or playFromReverse(label) navigation."
                     },
                     {
                         "component": "mob-snippet",
@@ -695,7 +695,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>play()</strong> and <strong>playReverse()</strong> return Promises upon completion. <strong>stop()</strong> clears stagger caches by default (configurable)."
+                        "content": "play() and playReverse() return Promises upon completion. stop() clears stagger caches by default (configurable)."
                     },
                     {
                         "component": "mob-snippet",
@@ -727,7 +727,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Version of play() that starts from specific <strong>labels</strong>."
+                        "content": "Version of play() that starts from specific labels."
                     },
                     {
                         "component": "mob-snippet",
@@ -759,7 +759,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>pause()</strong> freezes execution. <strong>resume()</strong> continues from paused/suspended states."
+                        "content": "pause() freezes execution. resume() continues from paused/suspended states."
                     },
                     {
                         "component": "mob-snippet",
@@ -843,8 +843,8 @@
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>loop</strong>: Current loop count",
-                                "<strong>direction</strong>: Active direction ('forward'|'backward')"
+                                "<span class='quote'>loop</span>: Current loop count",
+                                "<span class='quote'>direction</span>: Active direction ('forward'|'backward')"
                             ]
                         }
                     },
@@ -916,7 +916,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>isPaused()</strong>/<strong>isSuspended()</strong>/<strong>getDirection()</strong> - Timeline status checkers:"
+                        "content": "isPaused()/isSuspended()/getDirection() - Timeline status checkers:"
                     },
                     {
                         "component": "mob-snippet",
