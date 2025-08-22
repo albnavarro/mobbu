@@ -121,9 +121,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-props-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 27
             }
         },
@@ -194,9 +191,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-props.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 66
             }
         },
@@ -241,9 +235,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-props-extra.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 11
             }
         },
@@ -272,9 +263,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-props-jsdoc.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 12
             }
         },
@@ -295,9 +283,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-props-ts.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 11
             }
         }

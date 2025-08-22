@@ -2,11 +2,10 @@ export interface Snippet {
     state: {
         source: string;
         contentIsLoaded: boolean;
-        isFull: boolean;
-        hasOverflow: boolean;
-        hasBorder: boolean;
         numLines: number;
         awaitLoad: boolean;
+        useExpand: boolean;
+        isExpanded: boolean;
     };
     ref: {
         codeEl: HTMLPreElement;

@@ -119,9 +119,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/on-mount.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 28
             }
         },
@@ -149,9 +146,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/on-mount-async.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 27
             }
         },
@@ -165,9 +159,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/on-mount-tips.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 38
             }
         },

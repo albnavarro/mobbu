@@ -98,9 +98,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/basic-use.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         },
@@ -136,9 +133,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/advanced-use.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 32
             }
         },
@@ -168,9 +162,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/any.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 16
             }
         },
@@ -430,9 +421,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/store-type.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 4
             }
         },
@@ -446,9 +434,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/store-type-add.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 19
             }
         },
@@ -477,9 +462,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/store-type-add-typescript.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 14
             }
         },
@@ -590,9 +572,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/get-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 35
             }
         },
@@ -631,9 +610,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/set.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 18
             }
         },
@@ -664,9 +640,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/set-params.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 18
             }
         },
@@ -694,9 +667,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/set-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 3
             }
         },
@@ -735,9 +705,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/update.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 25
             }
         },
@@ -769,9 +736,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/update-params.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 20
             }
         },
@@ -799,9 +763,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/update-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 18
             }
         },
@@ -840,9 +801,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/get.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 1
             }
         },
@@ -881,9 +839,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/get-prop.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 1
             }
         },
@@ -913,9 +868,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/watch.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         },
@@ -947,9 +899,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/watch-props.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 10
             }
         },
@@ -977,9 +926,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/watch-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 12
             }
         },
@@ -1009,9 +955,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/emit.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 1
             }
         },
@@ -1039,9 +982,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/emit-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 12
             }
         },
@@ -1071,9 +1011,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/emit-async.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 24
             }
         },
@@ -1101,9 +1038,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/emit-async-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 1
             }
         },
@@ -1190,9 +1124,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/computed.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 19
             }
         },
@@ -1220,9 +1151,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/computed-auto.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 12
             }
         },
@@ -1250,9 +1178,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/computed-proxi-dependecies.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -1273,9 +1198,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/computed-multi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 29
             }
         },
@@ -1333,9 +1255,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/bind-store.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 24
             }
         },
@@ -1358,9 +1277,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/store-type-bind-store.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 8
             }
         },
@@ -1416,9 +1332,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/update-map-set.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 19
             }
         },
@@ -1446,9 +1359,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/set-proxi-map-set.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 17
             }
         },
@@ -1499,9 +1409,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/destroy.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 4
             }
         },
@@ -1562,9 +1469,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/other.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 2
             }
         },

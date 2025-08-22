@@ -110,9 +110,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-object-auto.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 21
             }
         },
@@ -141,9 +138,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-object.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 24
             }
         },

@@ -77,9 +77,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-frame.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 5
             }
         },
@@ -109,9 +106,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-next-tick.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 22
             }
         },
@@ -147,9 +141,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-next-frame.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 10
             }
         },
@@ -185,9 +176,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-frame-index.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         },
@@ -223,9 +211,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-load.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 5
             }
         },
@@ -274,9 +259,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-resize.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 16
             }
         },
@@ -320,9 +302,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-visibility-change.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 7
             }
         },
@@ -390,9 +369,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-mouse-click.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 19
             }
         },
@@ -438,9 +414,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-mouse-wheel.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 19
             }
         },
@@ -495,9 +468,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-pointer-event.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 7
             }
         },
@@ -542,9 +512,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-scroll.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 7
             }
         },
@@ -589,9 +556,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-scroll-immediate.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 7
             }
         },
@@ -636,9 +600,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-scroll-throttle.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 7
             }
         },
@@ -682,9 +643,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/use-scroll-start.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -737,9 +695,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/check-type.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 26
             }
         },

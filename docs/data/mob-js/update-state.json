@@ -47,9 +47,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/update-state.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 26
             }
         },

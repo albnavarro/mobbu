@@ -47,9 +47,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/static-props.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 23
             }
         },
@@ -77,9 +74,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/static-props-jsdoc.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 5
             }
         },
@@ -100,9 +94,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/static-props-ts.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 3
             }
         }

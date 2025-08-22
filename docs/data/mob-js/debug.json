@@ -50,9 +50,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-map.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -80,9 +77,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/debug.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         }

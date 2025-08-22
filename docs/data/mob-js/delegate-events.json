@@ -92,9 +92,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/delegate-events.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 32
             }
         },
@@ -138,9 +135,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/delegate-events-extra.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 23
             }
         },

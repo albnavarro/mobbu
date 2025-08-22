@@ -32,9 +32,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/watch-parent.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 16
             }
         }

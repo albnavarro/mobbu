@@ -102,9 +102,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/stagger-interface-type.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 46
             }
         },
@@ -131,9 +128,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/create-stagger.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 84
             }
         },

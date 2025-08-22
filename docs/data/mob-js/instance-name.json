@@ -38,9 +38,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/instance-name.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 17
             }
         },

@@ -4,36 +4,18 @@
     code {
         display: inline-block;
         position: relative;
-        width: auto;
-        min-width: rem(600);
-
-        // background: rgba($white, 0.3);
-        // border: 2px $white solid;
         padding: 0;
         border-radius: rem(10);
         overflow: hidden;
-
-        &.is-full {
-            @include mq('desktop') {
-                width: 100%;
-                min-width: auto;
-            }
-        }
+        width: 100%;
+        min-width: auto;
     }
 
     pre {
         overflow: auto;
         line-height: line-height(15, 22);
-
-        // background: transparent;
-        padding: rem(30);
         box-sizing: content-box;
-
-        &.is-full {
-            @include mq('desktop') {
-                padding: rem(30);
-                margin: 0;
-            }
-        }
+        padding: rem(30);
+        margin: 0;
     }
 }

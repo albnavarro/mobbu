@@ -119,9 +119,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-effect-auto.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 19
             }
         },
@@ -156,9 +153,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-effect-explicit.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 33
             }
         },
@@ -193,9 +187,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-effect-3.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 23
             }
         },
@@ -230,9 +221,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-effect-1.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 27
             }
         }

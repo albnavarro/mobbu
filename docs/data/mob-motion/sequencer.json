@@ -151,9 +151,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 54
             }
         },
@@ -181,9 +178,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 8
             }
         },
@@ -277,9 +271,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-go-to.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 46
             }
         },
@@ -309,9 +300,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-go-from.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 10
             }
         },
@@ -341,9 +329,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-go-from-to.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 10
             }
         },
@@ -397,9 +382,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-add.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 17
             }
         },
@@ -429,9 +411,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-label.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 37
             }
         },
@@ -479,9 +458,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-subscribe.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 21
             }
         },
@@ -530,9 +506,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-subscribe-cache.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 8
             }
         },
@@ -571,9 +544,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/on-stop.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 12
             }
         },
@@ -603,9 +573,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/master-sequencer.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 21
             }
         },

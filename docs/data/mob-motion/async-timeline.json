@@ -85,9 +85,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-schema.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 7
             }
         },
@@ -101,9 +98,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 10
             }
         },
@@ -283,9 +277,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-example.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 72
             }
         },
@@ -321,9 +312,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-override.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 14
             }
         },
@@ -376,9 +364,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-set.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 1
             }
         },
@@ -401,9 +386,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-go-to.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         },
@@ -426,9 +408,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-go-from.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 3
             }
         },
@@ -451,9 +430,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-go-from-to.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -507,9 +483,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-add.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 33
             }
         },
@@ -556,9 +529,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-group.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 27
             }
         },
@@ -588,9 +558,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-suspend.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 16
             }
         },
@@ -620,9 +587,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-label.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 9
             }
         },
@@ -652,9 +616,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-set-tween.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 5
             }
         },
@@ -684,9 +645,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-play.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 14
             }
         },
@@ -716,9 +674,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-play-from.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 9
             }
         },
@@ -748,9 +703,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-pause.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 9
             }
         },
@@ -780,9 +732,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-next.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 20
             }
         },
@@ -841,9 +790,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-events.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 9
             }
         },
@@ -873,9 +819,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-destroy.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 8
             }
         },
@@ -905,9 +848,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-utils.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 3
             }
         },

@@ -54,9 +54,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-init.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -97,9 +94,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 60
             }
         },
@@ -344,9 +338,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-propierties.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 39
             }
         },
@@ -396,9 +387,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-range.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 23
             }
         },
@@ -456,9 +444,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-opacity.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 16
             }
         },
@@ -576,9 +561,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-tween.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 28
             }
         },
@@ -726,9 +708,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-align.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 25
             }
         },
@@ -770,9 +749,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-on-switch.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 26
             }
         },
@@ -893,9 +869,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-easing.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 34
             }
         },
@@ -980,9 +953,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-utils.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 25
             }
         },
@@ -1047,9 +1017,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-init.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -1085,9 +1052,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-refresh.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 1
             }
         },
@@ -1117,9 +1081,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-destroy.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 2
             }
         },

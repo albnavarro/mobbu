@@ -61,9 +61,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/computed-auto.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 23
             }
         },
@@ -98,9 +95,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/computed.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 32
             }
         }

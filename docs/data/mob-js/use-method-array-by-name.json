@@ -40,9 +40,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/utils-use-method-array-by-name.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 47
             }
         },
@@ -63,9 +60,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/utils-use-method-array-by-name-ts.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },

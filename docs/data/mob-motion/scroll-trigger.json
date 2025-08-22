@@ -54,9 +54,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-init.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -97,9 +94,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 69
             }
         },
@@ -498,9 +492,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-range.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 29
             }
         },
@@ -549,9 +540,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-dynamic-range.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 18
             }
         },
@@ -619,9 +607,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-tween.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 33
             }
         },
@@ -750,9 +735,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-start.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 27
             }
         },
@@ -868,9 +850,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-dynamic-start.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 31
             }
         },
@@ -922,9 +901,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-marker.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 20
             }
         },
@@ -1054,9 +1030,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-easing.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 36
             }
         },
@@ -1155,9 +1128,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-pin.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 27
             }
         },
@@ -1267,9 +1237,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-event.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 34
             }
         },
@@ -1354,9 +1321,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-utils.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 27
             }
         },
@@ -1422,9 +1386,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-init.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -1477,9 +1438,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-move.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 104
             }
         },
@@ -1515,9 +1473,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-refresh.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 1
             }
         },
@@ -1547,9 +1502,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-destroy.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 2
             }
         },

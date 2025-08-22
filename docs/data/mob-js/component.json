@@ -188,9 +188,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/definition.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 62
             }
         },
@@ -466,9 +463,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-base.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 37
             }
         },
@@ -489,9 +483,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-async.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 25
             }
         },
@@ -565,9 +556,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-type-decalration.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -595,9 +583,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/definition-type-js-doc.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 25
             }
         },
@@ -618,9 +603,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/definition-type-ts.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 18
             }
         },
@@ -648,9 +630,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-type-js-doc.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 8
             }
         },
@@ -671,9 +650,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-type-ts.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 3
             }
         },
@@ -694,9 +670,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/single-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 36
             }
         },

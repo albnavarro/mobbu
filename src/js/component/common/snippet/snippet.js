@@ -41,10 +41,7 @@ const loadSnippet = async ({ ref, source }) => {
 
 /** @type {MobComponent<Snippet>} */
 export const SnippetFn = ({ onMount, getState, setRef, getRef }) => {
-    const { source, isFull, hasBorder, hasOverflow, numLines } = getState();
-    const isFullClass = isFull ? 'is-full' : '';
-    const hasBorderClass = hasBorder ? 'has-border' : '';
-    const hasOverflowClass = hasOverflow ? 'has-overflow' : '';
+    const { source, numLines } = getState();
 
     /**
      * Get pre rem font size. Calculate full size of snippet before load.
@@ -56,6 +53,12 @@ export const SnippetFn = ({ onMount, getState, setRef, getRef }) => {
     const lineHeight = getComputedStyle(
         document.documentElement
     ).getPropertyValue('--snippet-line-height-value');
+
+    /**
+     * Get final snippet height ( in rem ). After load snippet height will be removed. Use to load page with right size
+     * ( histoy back issue )
+     */
+    const snippetHeight = numLines * Number(lineHeight) * Number(remValue);
 
     onMount(async () => {
         const { codeEl } = getRef();
@@ -76,14 +79,8 @@ export const SnippetFn = ({ onMount, getState, setRef, getRef }) => {
     });
 
     return html`<div class="snippet">
-        <code class="${isFullClass} ${hasBorderClass}">
-            <pre
-                class="${isFullClass} ${hasOverflowClass}"
-                ${setRef('codeEl')}
-                style="height:${numLines *
-                Number(lineHeight) *
-                Number(remValue)}rem;"
-            >
+        <code>
+            <pre ${setRef('codeEl')} style="height:${snippetHeight}rem;">
 Loading snippet ...</pre
             >
         </code>

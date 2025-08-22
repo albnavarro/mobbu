@@ -100,9 +100,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/definition-bind-store.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 14
             }
         },
@@ -129,9 +126,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-store.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 22
             }
         },
@@ -161,9 +155,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-store-type.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 16
             }
         }

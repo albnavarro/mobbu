@@ -89,9 +89,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/stagger-interface.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 17
             }
         },
@@ -121,9 +118,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/each.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         },
@@ -153,9 +147,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/wait-complete.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         },
@@ -194,9 +185,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/from.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         },
@@ -235,9 +223,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/grid.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 11
             }
         },

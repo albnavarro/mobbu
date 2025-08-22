@@ -70,9 +70,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/refs.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 28
             }
         },
@@ -107,9 +104,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/refs-invalidate.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 85
             }
         }

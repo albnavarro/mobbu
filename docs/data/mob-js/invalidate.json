@@ -154,9 +154,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/invalidate.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 72
             }
         },
@@ -184,9 +181,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/invalidate-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 30
             }
         }

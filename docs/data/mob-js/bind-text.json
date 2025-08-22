@@ -69,9 +69,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-text.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 18
             }
         },

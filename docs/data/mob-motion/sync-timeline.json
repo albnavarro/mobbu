@@ -91,9 +91,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-schema.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 5
             }
         },
@@ -107,9 +104,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 7
             }
         },
@@ -196,9 +190,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-example.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 44
             }
         },
@@ -258,9 +249,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-time-add.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 13
             }
         },
@@ -327,9 +315,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-play.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 14
             }
         },
@@ -359,9 +344,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-play-from.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 9
             }
         },
@@ -391,9 +373,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-reverse.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 11
             }
         },
@@ -423,9 +402,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-pause.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 7
             }
         },
@@ -472,9 +448,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-loop.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 3
             }
         },
@@ -504,9 +477,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-complete.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 3
             }
         },
@@ -553,9 +523,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-update.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 3
             }
         },
@@ -585,9 +552,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-destroy.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 3
             }
         },
@@ -617,9 +581,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-utils.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 4
             }
         },

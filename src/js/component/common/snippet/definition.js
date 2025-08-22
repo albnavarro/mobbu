@@ -17,6 +17,7 @@ export const Snippet = MobJs.createComponent(
             'hasBorder',
             'numLines',
             'awaitLoad',
+            'useExpand',
         ],
         state: {
             source: () => ({
@@ -27,23 +28,19 @@ export const Snippet = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
-            isFull: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            hasOverflow: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            hasBorder: () => ({
-                value: false,
-                type: Boolean,
-            }),
             numLines: () => ({
                 value: 1,
                 type: Number,
             }),
             awaitLoad: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            useExpand: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            isExpanded: () => ({
                 value: false,
                 type: Boolean,
             }),

@@ -56,9 +56,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/index.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 16
             }
         },
@@ -95,9 +92,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/initialization.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 27
             }
         },
@@ -200,9 +194,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/wrapper.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 47
             }
         },
@@ -491,9 +482,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/defaults.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 30
             }
         },

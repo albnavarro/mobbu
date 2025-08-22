@@ -121,9 +121,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/routing-async-function.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 24
             }
         },
@@ -175,9 +172,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/route-inizialization.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 32
             }
         },
@@ -191,9 +185,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/route-import.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 10
             }
         },
@@ -252,9 +243,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/routing-link.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         },
@@ -277,9 +265,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/route-link-js.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 27
             }
         },
@@ -372,9 +357,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/before-page-transition.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 25
             }
         },
@@ -402,9 +384,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/page-transition.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 48
             }
         },
@@ -457,9 +436,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/redirect.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 9
             }
         },
@@ -549,9 +525,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/before-route-change.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 9
             }
         },
@@ -581,9 +554,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/after-route-change.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 14
             }
         },
@@ -624,9 +594,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/active-route.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 4
             }
         },
@@ -656,9 +623,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/active-params.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 4
             }
         }

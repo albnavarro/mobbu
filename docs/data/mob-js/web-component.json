@@ -39,9 +39,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/web-component-function.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 15
             }
         },
@@ -162,9 +159,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/web-component-definition.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 53
             }
         },
@@ -192,9 +186,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/box-sizing.scss",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 5
             }
         }

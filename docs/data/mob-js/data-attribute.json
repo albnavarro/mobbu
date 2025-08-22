@@ -56,9 +56,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/data-attribute.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 17
             }
         }

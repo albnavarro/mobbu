@@ -38,9 +38,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/un-bind.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 16
             }
         }

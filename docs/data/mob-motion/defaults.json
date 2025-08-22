@@ -47,9 +47,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-type.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 159
             }
         },
@@ -72,9 +69,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-example.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 21
             }
         },
@@ -103,9 +97,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-get.d.ts",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 6
             }
         },
@@ -148,9 +139,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-passive.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 5
             }
         },
@@ -193,9 +181,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-next.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 5
             }
         },
@@ -238,9 +223,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-throttle.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 5
             }
         },
@@ -276,9 +258,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-media.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 33
             }
         },
@@ -314,9 +293,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-sequencer.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 8
             }
         },
@@ -352,9 +328,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-scroll-trigger.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 23
             }
         },
@@ -390,9 +363,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-parallax.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 20
             }
         },
@@ -428,9 +398,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-tween.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 9
             }
         },
@@ -466,9 +433,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-spring.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 26
             }
         },
@@ -504,9 +468,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-lerp.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 9
             }
         },

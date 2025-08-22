@@ -229,9 +229,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-proxi.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 38
             }
         },
@@ -258,9 +255,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-native-dom.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 21
             }
         },
@@ -287,9 +281,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-multiple-element.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 118
             }
         },
@@ -316,9 +307,6 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-useSync.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
                 "numLines": 43
             }
         },
