@@ -15,7 +15,6 @@
         color: $black;
         text-align: center;
         transition: background 0.35s;
-        font-size: rem(11);
         background: $white;
         border: 0;
         border-radius: rem(10);
@@ -32,7 +31,6 @@
     }
 
     code {
-        display: inline-block;
         position: relative;
         padding: 0;
         border-radius: rem(10);
@@ -40,9 +38,15 @@
         width: 100%;
         min-width: auto;
         transition: height 0.35s;
+        box-sizing: content-box;
+        line-height: calc(var(--snippet-line-height-value) * 1rem);
+        font-size: calc(var(--snippet-rem-value) * 1rem);
+        display: block;
+
+        --padding-pre: #{rem(30)};
 
         &.open {
-            height: var(--snippet-height);
+            height: calc(var(--snippet-height) + (var(--padding-pre) * 2));
         }
 
         &.close {
@@ -52,10 +56,8 @@
 
     pre {
         overflow: hidden;
-        line-height: line-height(15, 22);
-        box-sizing: content-box;
-        padding: rem(30);
+        box-sizing: inherit;
+        padding: var(--padding-pre);
         margin: 0;
-        height: 100%;
     }
 }

@@ -368,10 +368,10 @@ th {
   --footer-height: 5.3333333333rem;
   --nav-width: 22.6666666667rem;
   --default-padding: 6.6666666667rem;
-  --snippet-rem-value: 0.9333333333;
-  --snippet-line-height-value: 1.4666666667;
   --doc-width: none;
   --main-translate: 6.6666666667rem;
+  --snippet-rem-value: 0.9333333333;
+  --snippet-line-height-value: 1.2;
 }
 @media screen and (min-width: 62em) and (height <= 700px) {
   :root {
@@ -3234,7 +3234,6 @@ ul li::marker {
   color: #000;
   text-align: center;
   transition: background 0.35s;
-  font-size: 0.7333333333rem;
   background: #fff;
   border: 0;
   border-radius: 0.6666666667rem;
@@ -3248,7 +3247,6 @@ ul li::marker {
   pointer-events: none;
 }
 .snippet code {
-  display: inline-block;
   position: relative;
   padding: 0;
   border-radius: 0.6666666667rem;
@@ -3256,20 +3254,23 @@ ul li::marker {
   width: 100%;
   min-width: auto;
   transition: height 0.35s;
+  box-sizing: content-box;
+  line-height: calc(var(--snippet-line-height-value) * 1rem);
+  font-size: calc(var(--snippet-rem-value) * 1rem);
+  display: block;
+  --padding-pre: 2rem;
 }
 .snippet code.open {
-  height: var(--snippet-height);
+  height: calc(var(--snippet-height) + var(--padding-pre) * 2);
 }
 .snippet code.close {
   height: var(--closed-height);
 }
 .snippet pre {
   overflow: hidden;
-  line-height: 1.4666666667em;
-  box-sizing: content-box;
-  padding: 2rem;
+  box-sizing: inherit;
+  padding: var(--padding-pre);
   margin: 0;
-  height: 100%;
 }
 .spacer {
   position: relative;

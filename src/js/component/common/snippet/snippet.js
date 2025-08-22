@@ -39,16 +39,13 @@ const loadSnippet = async ({ ref, source }) => {
     ref.style.height = '';
 };
 
-const getSizes = () => {
-    const remValue = getComputedStyle(
-        document.documentElement
-    ).getPropertyValue('--snippet-rem-value');
-
-    const lineHeight = getComputedStyle(
-        document.documentElement
-    ).getPropertyValue('--snippet-line-height-value');
-
-    return { remValue, lineHeight };
+/**
+ * @returns {string}
+ */
+const getLineHeight = () => {
+    return getComputedStyle(document.documentElement).getPropertyValue(
+        '--snippet-line-height-value'
+    );
 };
 
 /** @type {MobComponent<Snippet>} */
@@ -68,7 +65,7 @@ export const SnippetFn = ({
     /**
      * Get pre rem font size. Calculate full size of snippet before load.
      */
-    const { remValue, lineHeight } = getSizes();
+    const lineHeight = getLineHeight();
 
     /**
      * Add exanpd logic if snippet has X lines.
@@ -81,7 +78,7 @@ export const SnippetFn = ({
      * Get final snippet height ( in rem ). After load snippet height will be removed. Use to load page with right size
      * ( histoy back issue )
      */
-    const snippetHeight = `${numLines * Number(lineHeight) * Number(remValue)}rem`;
+    const snippetHeight = `${numLines * Number(lineHeight)}rem`;
 
     onMount(async () => {
         const { codeEl } = getRef();

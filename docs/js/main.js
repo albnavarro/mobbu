@@ -25052,14 +25052,10 @@
     core_default.highlightElement(ref);
     ref.style.height = "";
   };
-  var getSizes = () => {
-    const remValue = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue("--snippet-rem-value");
-    const lineHeight = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue("--snippet-line-height-value");
-    return { remValue, lineHeight };
+  var getLineHeight = () => {
+    return getComputedStyle(document.documentElement).getPropertyValue(
+      "--snippet-line-height-value"
+    );
   };
   var SnippetFn = ({
     onMount,
@@ -25073,11 +25069,11 @@
   }) => {
     const { source, numLines } = getState();
     const proxi = getProxi();
-    const { remValue, lineHeight } = getSizes();
+    const lineHeight = getLineHeight();
     const closedHeight = `20rem`;
     const useExpand = Number(numLines) > 15;
     const expandClass = useExpand ? "use-expand" : "";
-    const snippetHeight = `${numLines * Number(lineHeight) * Number(remValue)}rem`;
+    const snippetHeight = `${numLines * Number(lineHeight)}rem`;
     onMount(async () => {
       const { codeEl } = getRef();
       const stateObject = getState();

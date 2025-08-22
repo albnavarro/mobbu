@@ -19,10 +19,12 @@
     --footer-height: #{rem(80)};
     --nav-width: #{rem(340)};
     --default-padding: #{rem(100)};
-    --snippet-rem-value: #{strip-unit(rem(14))};
-    --snippet-line-height-value: #{strip-unit(line-height(15, 22))};
     --doc-width: none;
     --main-translate: #{rem(100)};
+
+    // snippet, global value for height pre-calc.
+    --snippet-rem-value: #{strip-unit(rem(14))};
+    --snippet-line-height-value: #{strip-unit(rem(18))};
 
     @include mq(desktop) {
         @media screen and (height <= 700px) {
