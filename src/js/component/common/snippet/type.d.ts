@@ -4,7 +4,6 @@ export interface Snippet {
         contentIsLoaded: boolean;
         numLines: number;
         awaitLoad: boolean;
-        useExpand: boolean;
         isExpanded: boolean;
     };
     ref: {

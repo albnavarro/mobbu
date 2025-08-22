@@ -10,15 +10,7 @@ export const Snippet = MobJs.createComponent(
     ({
         tag: 'mob-snippet',
         component: SnippetFn,
-        exportState: [
-            'source',
-            'isFull',
-            'hasOverflow',
-            'hasBorder',
-            'numLines',
-            'awaitLoad',
-            'useExpand',
-        ],
+        exportState: ['source', 'numLines', 'awaitLoad'],
         state: {
             source: () => ({
                 value: '',
@@ -33,10 +25,6 @@ export const Snippet = MobJs.createComponent(
                 type: Number,
             }),
             awaitLoad: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            useExpand: () => ({
                 value: false,
                 type: Boolean,
             }),

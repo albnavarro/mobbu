@@ -25088,15 +25088,7 @@ Loading snippet ...</pre
     {
       tag: "mob-snippet",
       component: SnippetFn,
-      exportState: [
-        "source",
-        "isFull",
-        "hasOverflow",
-        "hasBorder",
-        "numLines",
-        "awaitLoad",
-        "useExpand"
-      ],
+      exportState: ["source", "numLines", "awaitLoad"],
       state: {
         source: () => ({
           value: "",
@@ -25111,10 +25103,6 @@ Loading snippet ...</pre
           type: Number
         }),
         awaitLoad: () => ({
-          value: false,
-          type: Boolean
-        }),
-        useExpand: () => ({
           value: false,
           type: Boolean
         }),
