@@ -461,7 +461,7 @@
                             "index": "Component / 02",
                             "useSticky": false
                         },
-                        "content": "Component function"
+                        "content": "The function"
                     },
                     {
                         "component": "mob-spacer",
@@ -769,7 +769,7 @@
                             "index": "Component / 04",
                             "useSticky": false
                         },
-                        "content": "Component function params:"
+                        "content": "Function params:"
                     },
                     {
                         "component": "mob-spacer",
