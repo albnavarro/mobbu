@@ -315,7 +315,7 @@
                             "items": [
                                 "<span class='quote'>useCurrent</span>: false - Always starts from beginning/end",
                                 "<span class='quote'>useCurrent</span>: true - Reverses only if moving opposite to command",
-                                "<span class='quote'>Default</span>: useCurrent = false"
+                                "<span class='quote'>Default</span>: false"
                             ]
                         }
                     },
@@ -480,7 +480,7 @@
                             "style": "medium",
                             "items": [
                                 "<span class='quote'>loop</span>: Current iteration count",
-                                "<span class='quote'>direction</span>: Playback direction ('forward'|'backward')"
+                                "<span class='quote'>direction</span>: Playback direction (<span class='quote'>forward</span> <span class='quote'>backward</span>)"
                             ]
                         }
                     },
@@ -627,7 +627,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Status checkers: isActive(), isSuspended(), getDirection(), getTime()"
+                        "content": "Status checkers: <span class='quote'>isActive()</span> - <span class='quote'>isSuspended()</span> - <span class='quote'>getDirection()</span> - <span class='quote'>getTime()</span>"
                     },
                     {
                         "component": "mob-snippet",

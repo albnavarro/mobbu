@@ -319,7 +319,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Similar to goTo, but transitions from the specified start value to the current state."
+                        "content": "Similar to <span class='quote'>goTo()</span>, but transitions from the specified start value to the current state."
                     },
                     {
                         "component": "mob-snippet",
@@ -405,7 +405,7 @@
                             "items": [
                                 "<span class='quote'>value</span>: Actual trigger point (may slightly exceed target)",
                                 "<span class='quote'>isForced</span>: True if sequencer started beyond threshold",
-                                "<span class='quote'>direction</span>: Movement context ('backward'|'forward'|'none')"
+                                "<span class='quote'>direction</span>: Movement context (<span class='quote'>backward</span> <span class='quote'>forward</span> <span class='quote'>none</span>)"
                             ]
                         }
                     },
@@ -471,7 +471,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Applies real-time values to targets. Returns an unsubscribe() function."
+                        "content": "Applies real-time values to targets. Returns an <span class='quote'>unsubscribe()</span> function."
                     },
                     {
                         "component": "mob-paragraph",
