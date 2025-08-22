@@ -199,7 +199,7 @@
                         "props": {
                             "items": [
                                 "Data transformations (x, y, rotate, etc.) will all have the same 'duration' for each tween",
-                                "In a timeline, direction can only be changed when a single tween is completed (reverseNext), because the mechanism is based on promise resolution rather than time."
+                                "In a timeline, direction can only be changed when a single tween is completed ( <span class='quote'>reverseNext</span> ), because the mechanism is based on promise resolution rather than time."
                             ]
                         }
                     },
@@ -338,7 +338,7 @@
                             "items": [
                                 "Individual properties (x, y, rotate, etc.) can be managed independently with different timings.",
                                 "Timelines can handle direction changes without limitations.",
-                                "Staggers can be managed at single tween level or by creating multiple tweens (createStagger).",
+                                "Staggers can be managed at single tween level or by creating multiple tweens ( createStagger ).",
                                 "ScrollTrigger and Parallax"
                             ]
                         }
@@ -354,7 +354,7 @@
                         "component": "mob-list",
                         "props": {
                             "items": [
-                                "Not standalone, they require a timer (syncTimeline) or ScrollTrigger to be used.",
+                                "Not standalone, they require a timer ( syncTimeline ) or ScrollTrigger to be used.",
                                 "Cannot handle interactive animations like mouse trails"
                             ]
                         }

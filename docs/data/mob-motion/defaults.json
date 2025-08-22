@@ -180,7 +180,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "When true, nextTick callbacks execute after the requestAnimationFrame (as soon as possible). When false, they execute just before it. The nextTick mechanism performs DOM read operations only (no writes). Enabled by default to ensure all rendering operations complete before DOM measurements, providing greater safety at the cost of a single frame delay (usually negligible)."
+            "content": "When true, <span class='quote'>nextTick</span> callbacks execute after the requestAnimationFrame (as soon as possible). When false, they execute just before it. The <span class='quote'>nextTick</span> mechanism performs DOM read operations only (no writes). Enabled by default to ensure all rendering operations complete before DOM measurements, providing greater safety at the cost of a single frame delay (usually negligible)."
         },
         {
             "component": "mob-paragraph",
@@ -225,7 +225,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Throttle value in milliseconds, used by scrollTrigger and parallax.<br/>Default: 100ms"
+            "content": "Throttle value in milliseconds, used by scrollTrigger and parallax.<br/>Default: <span class='quote'>100ms</span>"
         },
         {
             "component": "mob-paragraph",
