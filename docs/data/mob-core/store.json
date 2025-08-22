@@ -692,7 +692,7 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "emit: &nbsp;Modifies data without triggering reactions (no callbacks fired). Default: true."
+                                "<span class='quote'>emit</span>: &nbsp;Modifies data without triggering reactions (no callbacks fired). Default: true."
                             ]
                         }
                     },
@@ -796,8 +796,8 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "emit: &nbsp;Performs silent updates (bypasses reactivity, no callbacks triggered). Default: true.",
-                                "clone: &nbsp;Creates a copy of original data. Default: false."
+                                "<span class='quote'>emit</span>: &nbsp;Performs silent updates (bypasses reactivity, no callbacks triggered). Default: true.",
+                                "<span class='quote'>clone</span>: &nbsp;Creates a copy of original data. Default: false."
                             ]
                         }
                     },
@@ -974,8 +974,8 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "wait: &nbsp;Defers callback execution until the current JavaScript event loop completes, using the latest value.<br />Only effective when emit-async is not used.<br/> Default: false.",
-                                "immediate: &nbsp;Triggers the initial callback immediately on subscription.<br />Default: false."
+                                "<span class='quote'>wait</span>: &nbsp;Defers callback execution until the current JavaScript event loop completes, using the latest value.<br />Only effective when emit-async is not used.<br/> Default: false.",
+                                "<span class='quote'>immediate</span>: &nbsp;Triggers the initial callback immediately on subscription.<br />Default: false."
                             ]
                         }
                     },

@@ -494,9 +494,17 @@
                     {
                         "component": "mob-paragraph",
                         "props": {
-                            "style": "medium"
+                            "style": "medium",
+                            "boxed": true,
+                            "note": true
                         },
                         "content": "Note: For opacity, use built-in parameters (opacityStart/opacityEnd) or scrollTrigger - opacity requires absolute values (1-0) rather than multipliers."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
                     },
                     {
                         "component": "mob-paragraph",
@@ -563,14 +571,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Multiplier value. Different properties can have different multipliers."
-                    },
-                    {
-                        "component": "mob-paragraph",
-                        "props": {
-                            "style": "medium"
-                        },
-                        "content": "Greater difference between from and to values creates more movement.<br/>Identical values produce no movement."
+                        "content": "Multiplier value. Different properties can have different multipliers.<br/>Greater difference between from and to values creates more movement.<br/>Identical values produce no movement."
                     },
                     {
                         "component": "mob-spacer",
