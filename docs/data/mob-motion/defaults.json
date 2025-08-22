@@ -47,7 +47,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-type.d.ts",
-                "numLines": 159
+                "numLines": 157
             }
         },
         {
@@ -69,7 +69,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/default-example.d.ts",
-                "numLines": 21
+                "numLines": 20
             }
         },
         {

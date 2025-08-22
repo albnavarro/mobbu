@@ -128,7 +128,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/create-stagger.js",
-                "numLines": 84
+                "numLines": 80
             }
         },
         {

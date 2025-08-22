@@ -695,7 +695,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/check-type.js",
-                "numLines": 26
+                "numLines": 3
             }
         },
         {

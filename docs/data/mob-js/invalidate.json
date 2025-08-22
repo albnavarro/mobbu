@@ -154,7 +154,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/invalidate.js",
-                "numLines": 72
+                "numLines": 59
             }
         },
         {

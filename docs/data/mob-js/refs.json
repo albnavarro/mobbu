@@ -70,7 +70,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/refs.js",
-                "numLines": 28
+                "numLines": 43
             }
         },
         {

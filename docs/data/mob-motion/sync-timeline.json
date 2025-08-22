@@ -190,7 +190,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline-example.js",
-                "numLines": 44
+                "numLines": 41
             }
         },
         {

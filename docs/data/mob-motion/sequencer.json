@@ -271,7 +271,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-go-to.js",
-                "numLines": 46
+                "numLines": 43
             }
         },
         {
@@ -382,7 +382,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-add.js",
-                "numLines": 17
+                "numLines": 16
             }
         },
         {
@@ -411,7 +411,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/sequencer-label.js",
-                "numLines": 37
+                "numLines": 34
             }
         },
         {

@@ -307,7 +307,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-useSync.js",
-                "numLines": 43
+                "numLines": 20
             }
         },
         {
