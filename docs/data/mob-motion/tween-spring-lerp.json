@@ -493,7 +493,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Controls the interpolation speed (range: 0.01–0.1; default: 0.06)."
+                        "content": "Controls the interpolation speed (range: <span class='quote'>0.01–0.1</span>; default: <span class='quote'>0.06</span>)."
                     },
                     {
                         "component": "mob-title",
@@ -507,7 +507,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Threshold for considering the animation complete (default: 0.01)."
+                        "content": "Threshold for considering the animation complete (default: <span class='quote'>0.01</span>)."
                     },
                     {
                         "component": "mob-spacer",
@@ -615,7 +615,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The set() method immediately applies values and returns a Promise."
+                        "content": "The <span class='quote'>set()</span> method immediately applies values and returns a <span class='quote'>Promise</span>"
                     },
                     {
                         "component": "mob-snippet",
@@ -647,7 +647,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The goTo() method transitions from the current state to the target state specified in the first parameter. The second parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each play())."
+                        "content": "The <span class='quote'>goTo()</span> method transitions from the current state to the target state specified in the first parameter. The second parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function ( re-evaluated on each <span class='quote'>play()</span> )."
                     },
                     {
                         "component": "mob-snippet",
@@ -679,7 +679,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The goFrom() method transitions from a specified initial state (first parameter) to the current state. The second parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each play())."
+                        "content": "The <span class='quote'>goFrom()</span> method transitions from a specified initial state (first parameter) to the current state. The second parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function ( re-evaluated on each <span class='quote'>play()</span> )."
                     },
                     {
                         "component": "mob-snippet",
@@ -711,7 +711,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The goFromTo() method transitions between two specified states (parameters 1 and 2). Both states must share the same keys. The third parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function (re-evaluated on each play())."
+                        "content": "The <span class='quote'>goFromTo()</span> method transitions between two specified states (parameters 1 and 2). Both states must share the same keys. The third parameter allows temporary override of default tween properties (except stagger). Values can be numeric or dynamically calculated via a function ( re-evaluated on each <span class='quote'>play()</span> )."
                     },
                     {
                         "component": "mob-snippet",
@@ -743,7 +743,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The stop() method accepts a parameter to clear the stagger cache (if subscribeCache was used). If disabled, staggers will complete their animation by syncing with the first element."
+                        "content": "The <span class='quote'>stop()</span> method accepts a parameter to clear the stagger cache (if subscribeCache was used). If disabled, staggers will complete their animation by syncing with the first element."
                     },
                     {
                         "component": "mob-snippet",
@@ -775,7 +775,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Pauses or resumes a tween/spring/lerp animation."
+                        "content": "<span class='quote'>Pauses</span> or <span class='quote'>resumes</span> a tween/spring/lerp animation."
                     },
                     {
                         "component": "mob-snippet",
@@ -807,7 +807,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The subscribe() method applies real-time values to a target and returns an unsubscribe() function."
+                        "content": "The <span class='quote'>subscribe()</span> method applies real-time values to a target and returns an <span class='quote'>unsubscribe()</span> function."
                     },
                     {
                         "component": "mob-paragraph",
@@ -908,7 +908,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The onComplete() method triggers when the animation finishes, useful for cleanup (e.g., disabling GPU usage)."
+                        "content": "The <span class='quote'>onComplete()</span> method triggers when the animation finishes, useful for cleanup (e.g., disabling GPU usage)."
                     },
                     {
                         "component": "mob-paragraph",
