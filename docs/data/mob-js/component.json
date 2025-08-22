@@ -180,8 +180,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "Component / 01",
-                            "useSticky": false
+                            "index": "Component / 01"
                         },
                         "content": "Component definition"
                     },
@@ -458,8 +457,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "Component / 02",
-                            "useSticky": false
+                            "index": "Component / 02"
                         },
                         "content": "The function"
                     },
@@ -550,8 +548,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "Component / 03",
-                            "useSticky": false
+                            "index": "Component / 03"
                         },
                         "content": "Typescript support"
                     },
@@ -766,8 +763,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "Component / 04",
-                            "useSticky": false
+                            "index": "Component / 04"
                         },
                         "content": "Function params:"
                     },

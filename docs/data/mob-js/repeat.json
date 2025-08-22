@@ -39,8 +39,7 @@
             "props": {
                 "tag": "h2",
                 "index": "Store / 01",
-                "isSection": true,
-                "useSticky": false
+                "isSection": true
             },
             "content": "Params"
         },

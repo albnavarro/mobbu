@@ -46,14 +46,6 @@ export const Title = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
-            useSticky: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            hideBeforeRouteChange: () => ({
-                value: false,
-                type: Boolean,
-            }),
         },
     })
 );

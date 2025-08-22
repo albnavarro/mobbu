@@ -78,8 +78,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "MobJs / 01",
-                            "useSticky": false
+                            "index": "MobJs / 01"
                         },
                         "content": "Main features"
                     },

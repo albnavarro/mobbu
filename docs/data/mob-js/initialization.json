@@ -134,8 +134,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "Initialization / 01",
-                            "useSticky": false
+                            "index": "Initialization / 01"
                         },
                         "content": "Initialization params"
                     },

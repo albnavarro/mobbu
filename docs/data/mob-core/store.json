@@ -53,8 +53,7 @@
                         "props": {
                             "tag": "h2",
                             "index": "Store / 01",
-                            "isSection": true,
-                            "useSticky": false
+                            "isSection": true
                         },
                         "content": "Initialize"
                     },
@@ -221,8 +220,7 @@
                         "props": {
                             "tag": "h2",
                             "index": "Store / 02",
-                            "isSection": true,
-                            "useSticky": false
+                            "isSection": true
                         },
                         "content": "State params"
                     },
@@ -412,8 +410,7 @@
                         "props": {
                             "tag": "h2",
                             "index": "Store / 02",
-                            "isSection": true,
-                            "useSticky": false
+                            "isSection": true
                         },
                         "content": "Typescript:"
                     },
@@ -551,8 +548,7 @@
                         "props": {
                             "tag": "h2",
                             "index": "Store / 03",
-                            "isSection": true,
-                            "useSticky": false
+                            "isSection": true
                         },
                         "content": "Methods:"
                     },

@@ -77,8 +77,7 @@
                         "props": {
                             "tag": "h2",
                             "index": "AsyncTimeline / 01",
-                            "isSection": true,
-                            "useSticky": false
+                            "isSection": true
                         },
                         "content": "Params:"
                     },
@@ -95,8 +94,7 @@
                             "isFull": true,
                             "hasOverflow": false,
                             "hasBorder": true,
-                            "numLines": 7,
-                            "useSticky": false
+                            "numLines": 7
                         }
                     },
                     {
@@ -371,8 +369,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "AsyncTimeline / 02",
-                            "useSticky": false
+                            "index": "AsyncTimeline / 02"
                         },
                         "content": "Methods"
                     },

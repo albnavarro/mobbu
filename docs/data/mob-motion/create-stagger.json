@@ -168,8 +168,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "CreateStagger / 01",
-                            "useSticky": false
+                            "index": "CreateStagger / 01"
                         },
                         "content": "Params"
                     },

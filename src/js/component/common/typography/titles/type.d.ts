@@ -6,8 +6,6 @@ interface State extends Readonly<NavigationStore> {
     isSection: boolean;
     isBold: boolean;
     index: string;
-    useSticky: boolean;
-    hideBeforeRouteChange: boolean;
 }
 
 export interface Title {

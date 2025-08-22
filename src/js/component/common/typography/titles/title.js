@@ -1,7 +1,5 @@
 import { getTrinangle } from '@componentLibs/utils/get-triangle';
-import { html, MobJs } from '@mobJs';
-import { sectionPinAnimation } from './animation/pin-animation';
-import { MobCore } from '@mobCore';
+import { html } from '@mobJs';
 
 /**
  * @param {string} tag
@@ -21,76 +19,15 @@ const getIndex = (index) => {
         : ``;
 };
 
-let currentZindex = 1;
-
-MobJs.beforeRouteChange(() => {
-    currentZindex = 1;
-});
-
 /** @type {import('@mobJsType').MobComponent<import('./type').Title>} */
-export const TitleFn = ({ onMount, bindEffect, getProxi }) => {
+export const TitleFn = ({ getProxi }) => {
     const proxi = getProxi();
-
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let destroy = () => {};
 
     const colorClass = proxi.color === 'inherit' ? '' : `is-${proxi.color}`;
     const boldClass = proxi.isBold ? `is-bold` : '';
     const isSectionClass = proxi.isSection ? `is-section` : '';
-    const useStickyClass = proxi.useSticky ? `use-sticky` : '';
 
-    /**
-     * Each section must have a z-index grater than previous for pin.
-     */
-    if (proxi.isSection) currentZindex++;
-
-    onMount(({ element }) => {
-        /**
-         * Added pin only when page is stable.
-         */
-        const unsubscribeAfterRouteChange = proxi.useSticky
-            ? MobJs.afterRouteChange(async () => {
-                  await MobJs.tick();
-
-                  const pinMethods = sectionPinAnimation({
-                      element,
-                  });
-
-                  destroy = pinMethods.destroy;
-              })
-            : () => {};
-
-        /**
-         * Move sticky title before route change
-         */
-        const unsubscribeBeforeRouteChange = MobJs.beforeRouteChange(() => {
-            proxi.hideBeforeRouteChange = true;
-        });
-
-        return () => {
-            unsubscribeAfterRouteChange();
-
-            /**
-             * Destroy after some frame. If title is pinned has time start animate out.
-             */
-            MobCore.useFrameIndex(() => {
-                unsubscribeBeforeRouteChange();
-                destroy();
-                destroy = () => {};
-            }, 20);
-        };
-    });
-
-    return html`<${proxi.tag} class="${colorClass} ${boldClass} ${isSectionClass} ${useStickyClass}"
-            style="z-index:${proxi.isSection ? currentZindex : 0};"
-            ${bindEffect({
-                toggleClass: {
-                    hide: () =>
-                        (proxi.isSection && proxi.navigationIsOpen) ||
-                        proxi.hideBeforeRouteChange,
-                },
-            })}
-        >
+    return html`<${proxi.tag} class="${colorClass} ${boldClass} ${isSectionClass}">
             ${getIndex(proxi.index)}
             <span class="triangle-left">${shouldUseTrinagle(proxi.tag)}</span>
             <span class="triangle-right">${shouldUseTrinagle(proxi.tag)}</span>

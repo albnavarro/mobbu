@@ -83,8 +83,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "SyncTimeline / 01",
-                            "useSticky": false
+                            "index": "SyncTimeline / 01"
                         },
                         "content": "Params:"
                     },
@@ -245,8 +244,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "SyncTimeline / 02",
-                            "useSticky": false
+                            "index": "SyncTimeline / 02"
                         },
                         "content": "Methods"
                     },

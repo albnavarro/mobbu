@@ -135,8 +135,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "MobMotion / 01",
-                            "useSticky": false
+                            "index": "MobMotion / 01"
                         },
                         "content": "Async:"
                     },
@@ -279,8 +278,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "MobMotion / 02",
-                            "useSticky": false
+                            "index": "MobMotion / 02"
                         },
                         "content": "Sync:"
                     },
@@ -402,8 +400,7 @@
                         "props": {
                             "tag": "h2",
                             "isSection": true,
-                            "index": "MobMotion / 03",
-                            "useSticky": false
+                            "index": "MobMotion / 03"
                         },
                         "content": "Common:"
                     },
