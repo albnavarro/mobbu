@@ -1,9 +1,11 @@
 import { html } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ bindObject, repeat }) => {
+export const MyComponent = ({ bindObject, repeat, getProxi }) => {
+    const proxi = getProxi();
+
     return html`
         <div>
             ${repeat({
@@ -12,6 +14,9 @@ export const MyComponent = ({ bindObject, repeat }) => {
                     return html`<div class="item">
                         <div class="item__inner">
                             ${bindObject`value: ${() => current.value.label}.`}
+                        </div>
+                        <div>
+                            ${bindObject`${() => (proxi.isExpanded ? 'close' : 'expand')}`}
                         </div>
                     </div>`;
                 },

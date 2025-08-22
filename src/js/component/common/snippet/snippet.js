@@ -39,13 +39,7 @@ const loadSnippet = async ({ ref, source }) => {
     ref.style.height = '';
 };
 
-/** @type {MobComponent<Snippet>} */
-export const SnippetFn = ({ onMount, getState, setRef, getRef }) => {
-    const { source, numLines } = getState();
-
-    /**
-     * Get pre rem font size. Calculate full size of snippet before load.
-     */
+const getSizes = () => {
     const remValue = getComputedStyle(
         document.documentElement
     ).getPropertyValue('--snippet-rem-value');
@@ -54,11 +48,40 @@ export const SnippetFn = ({ onMount, getState, setRef, getRef }) => {
         document.documentElement
     ).getPropertyValue('--snippet-line-height-value');
 
+    return { remValue, lineHeight };
+};
+
+/** @type {MobComponent<Snippet>} */
+export const SnippetFn = ({
+    onMount,
+    getState,
+    setRef,
+    getRef,
+    delegateEvents,
+    bindEffect,
+    getProxi,
+    bindObject,
+}) => {
+    const { source, numLines } = getState();
+    const proxi = getProxi();
+
+    /**
+     * Get pre rem font size. Calculate full size of snippet before load.
+     */
+    const { remValue, lineHeight } = getSizes();
+
+    /**
+     * Add exanpd logic if snippet has X lines.
+     */
+    const closedHeight = `20rem`;
+    const useExpand = Number(numLines) > 15;
+    const expandClass = useExpand ? 'use-expand' : '';
+
     /**
      * Get final snippet height ( in rem ). After load snippet height will be removed. Use to load page with right size
      * ( histoy back issue )
      */
-    const snippetHeight = numLines * Number(lineHeight) * Number(remValue);
+    const snippetHeight = `${numLines * Number(lineHeight) * Number(remValue)}rem`;
 
     onMount(async () => {
         const { codeEl } = getRef();
@@ -78,11 +101,35 @@ export const SnippetFn = ({ onMount, getState, setRef, getRef }) => {
         return () => {};
     });
 
-    return html`<div class="snippet">
-        <code>
-            <pre ${setRef('codeEl')} style="height:${snippetHeight}rem;">
-Loading snippet ...</pre
+    return html`<div
+        class="snippet"
+        style="--snippet-height:${snippetHeight};--closed-height:${closedHeight}"
+    >
+        <code
+            ${bindEffect({
+                toggleClass: {
+                    close: () => useExpand && !proxi.isExpanded,
+                    open: () => useExpand && proxi.isExpanded,
+                },
+            })}
+        >
+            <pre
+                ${setRef('codeEl')}
+                style="height:${useExpand ? closedHeight : snippetHeight}"
+            >
+                 Loading snippet ...</pre
             >
         </code>
+        <button
+            class="snippet__expand ${expandClass}"
+            ${!useExpand && 'disabled'}
+            ${delegateEvents({
+                click: () => {
+                    proxi.isExpanded = !proxi.isExpanded;
+                },
+            })}
+        >
+            ${bindObject`${() => (proxi.isExpanded ? 'close' : 'expand')}`}
+        </button>
     </div>`;
 };

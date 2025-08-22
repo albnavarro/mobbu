@@ -110,7 +110,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-object-auto.js",
-                "numLines": 21
+                "numLines": 26
             }
         },
         {

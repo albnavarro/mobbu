@@ -25052,15 +25052,32 @@
     core_default.highlightElement(ref);
     ref.style.height = "";
   };
-  var SnippetFn = ({ onMount, getState, setRef, getRef }) => {
-    const { source, numLines } = getState();
+  var getSizes = () => {
     const remValue = getComputedStyle(
       document.documentElement
     ).getPropertyValue("--snippet-rem-value");
     const lineHeight = getComputedStyle(
       document.documentElement
     ).getPropertyValue("--snippet-line-height-value");
-    const snippetHeight = numLines * Number(lineHeight) * Number(remValue);
+    return { remValue, lineHeight };
+  };
+  var SnippetFn = ({
+    onMount,
+    getState,
+    setRef,
+    getRef,
+    delegateEvents,
+    bindEffect,
+    getProxi,
+    bindObject
+  }) => {
+    const { source, numLines } = getState();
+    const proxi = getProxi();
+    const { remValue, lineHeight } = getSizes();
+    const closedHeight = `20rem`;
+    const useExpand = Number(numLines) > 15;
+    const expandClass = useExpand ? "use-expand" : "";
+    const snippetHeight = `${numLines * Number(lineHeight) * Number(remValue)}rem`;
     onMount(async () => {
       const { codeEl } = getRef();
       const stateObject = getState();
@@ -25073,12 +25090,36 @@
       return () => {
       };
     });
-    return renderHtml`<div class="snippet">
-        <code>
-            <pre ${setRef("codeEl")} style="height:${snippetHeight}rem;">
-Loading snippet ...</pre
+    return renderHtml`<div
+        class="snippet"
+        style="--snippet-height:${snippetHeight};--closed-height:${closedHeight}"
+    >
+        <code
+            ${bindEffect({
+      toggleClass: {
+        close: () => useExpand && !proxi.isExpanded,
+        open: () => useExpand && proxi.isExpanded
+      }
+    })}
+        >
+            <pre
+                ${setRef("codeEl")}
+                style="height:${useExpand ? closedHeight : snippetHeight}"
+            >
+                 Loading snippet ...</pre
             >
         </code>
+        <button
+            class="snippet__expand ${expandClass}"
+            ${!useExpand && "disabled"}
+            ${delegateEvents({
+      click: () => {
+        proxi.isExpanded = !proxi.isExpanded;
+      }
+    })}
+        >
+            ${bindObject`${() => proxi.isExpanded ? "close" : "expand"}`}
+        </button>
     </div>`;
   };
 

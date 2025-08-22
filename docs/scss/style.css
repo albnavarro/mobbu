@@ -3219,6 +3219,34 @@ ul li::marker {
   position: relative;
   z-index: 1;
 }
+.snippet {
+  position: relative;
+}
+.snippet__expand {
+  position: absolute;
+  top: 0.6666666667rem;
+  right: 0;
+  padding: 0.1333333333rem 0.6666666667rem;
+  margin-bottom: 0.6666666667rem;
+  margin-right: 0.6666666667rem;
+  display: inline-block;
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+  transition: background 0.35s;
+  font-size: 0.7333333333rem;
+  background: #fff;
+  border: 0;
+  border-radius: 0.6666666667rem;
+}
+.snippet__expand:hover {
+  background: #2e3440;
+  color: #fff;
+}
+.snippet__expand:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
 .snippet code {
   display: inline-block;
   position: relative;
@@ -3227,13 +3255,21 @@ ul li::marker {
   overflow: hidden;
   width: 100%;
   min-width: auto;
+  transition: height 0.35s;
+}
+.snippet code.open {
+  height: var(--snippet-height);
+}
+.snippet code.close {
+  height: var(--closed-height);
 }
 .snippet pre {
-  overflow: auto;
+  overflow: hidden;
   line-height: 1.4666666667em;
   box-sizing: content-box;
   padding: 2rem;
   margin: 0;
+  height: 100%;
 }
 .spacer {
   position: relative;
