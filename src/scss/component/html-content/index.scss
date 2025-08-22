@@ -140,6 +140,9 @@
             text-transform: capitalize;
             transition: transform 0.35s;
             height: rem(60);
+            box-shadow:
+                rgb(50 50 93 / 25%) 0 50px 100px -20px,
+                rgb(0 0 0 / 10%) 0 30px 60px -30px;
 
             &.pinned {
                 box-shadow: 0 calc(#{rem(30)} * -1) 0 $black;
@@ -151,8 +154,8 @@
 
             .title-content {
                 position: absolute;
-                bottom: rem(1);
-                font-size: rem(50);
+                bottom: rem(8);
+                font-size: rem(65);
                 left: rem(40);
             }
 
