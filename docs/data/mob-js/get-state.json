@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Component State System:</strong> <ul> <li>The component's state comes from a <a href='#mobCore-store'><strong>MobCore store</strong></a> instance.</li> <li>Inherits full store capabilities ( <strong>reactivity</strong>, <strong>methods</strong>, etc. )</li><li>The component's state must be <strong>declared</strong> within the <a href='#mobJs-component'><strong>component's definition</strong></a> function.</li> </ul>"
+            "content": "Component State System: <ul> <li>The component's state comes from a <a href='#mobCore-store'>MobCore store</a> instance.</li> <li>Inherits full store capabilities ( reactivity, methods, etc. )</li><li>The component's state must be declared within the <a href='#mobJs-component'>component's definition</a> function.</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -34,7 +34,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Alternative</strong> to using <a href='#mobJs-getProxi'><strong>proxies</strong></a> to <strong>access</strong> the component's state."
+            "content": "Alternative to using <a href='#mobJs-getProxi'>proxies</a> to access the component's state."
         },
         {
             "component": "mob-spacer",

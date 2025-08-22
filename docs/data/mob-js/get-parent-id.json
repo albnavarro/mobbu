@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The <strong>getParentId()</strong> function retrieves the immediate parent component's unique identifier."
+            "content": "The getParentId() function retrieves the immediate parent component's unique identifier."
         },
         {
             "component": "mob-spacer",

@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<ul> <li><strong>Definition</strong>: <ul> <li>Declare methods per component instance</li> <li>Globally accessible across the app</li> </ul> </li> <li><strong>Usage</strong>: <ul> <li>Access via <strong>useMethodByName</strong> utility</li> <li>Access via <strong>useMethodArrayByName</strong> utility</li></ul></li></ul>"
+            "content": "<ul> <li>Definition: <ul> <li>Declare methods per component instance</li> <li>Globally accessible across the app</li> </ul> </li> <li>Usage: <ul> <li>Access via useMethodByName utility</li> <li>Access via useMethodArrayByName utility</li></ul></li></ul>"
         },
         {
             "component": "mob-spacer",

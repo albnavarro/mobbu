@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<p>You can absolutely apply <strong>class attributes</strong> directly to components, just like regular DOM elements - the styling gets passed through to the rendered output.</p>"
+            "content": "<p>You can absolutely apply class attributes directly to components, just like regular DOM elements - the styling gets passed through to the rendered output.</p>"
         },
         {
             "component": "mob-spacer",

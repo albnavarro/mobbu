@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<ul> <li><strong>Availability</strong>: <ul> <li>Accessible from <strong>anywhere</strong> in the app</li> </ul> </li> <li><strong>Multi-Instance Handling</strong>: <ul> <li>Designed for <strong>multiple instances</strong> with identical names</li> <li>Returns an array of objects</li> </ul> </li> </ul>"
+            "content": "<ul> <li>Availability: <ul> <li>Accessible from anywhere in the app</li> </ul> </li> <li>Multi-Instance Handling: <ul> <li>Designed for multiple instances with identical names</li> <li>Returns an array of objects</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -57,7 +57,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>ts:</strong>"
+            "content": "ts:"
         },
         {
             "component": "mob-snippet",

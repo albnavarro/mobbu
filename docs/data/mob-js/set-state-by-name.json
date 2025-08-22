@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Update component state</strong> via instance name."
+            "content": "Update component state via instance name."
         },
         {
             "component": "mob-spacer",

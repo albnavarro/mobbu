@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Customizable Defaults:</strong> Selected configuration values can be modified to adjust behavior."
+            "content": "Customizable Defaults: Selected configuration values can be modified to adjust behavior."
         },
         {
             "component": "mob-spacer",
@@ -66,7 +66,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Use passive event listeners for <strong>wheel</strong>, <strong>touch</strong>, and other high-frequency events."
+            "content": "Use passive event listeners for wheel, touch, and other high-frequency events."
         },
         {
             "component": "mob-spacer",
@@ -88,7 +88,16 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>nextTick Execution Timing:</strong> <ul> <li><strong>Enabled (true):</strong> Callbacks run <em>after</em> render completion but <em>before next RAF</em></li> <li><strong>Disabled (false):</strong> Executes <em>pre-render</em> in the current frame</li> </ul> <strong>Default Behavior:</strong> Enabled (<strong>true</strong>) to guarantee: <ul> <li>DOM state consistency post-render</li> <li>Safe measurement conditions</li> </ul>"
+            "content": "nextTick Execution Timing:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "<span class='quote'>Enabled</span> (true): Callbacks run <em>after</em> render completion but <em>before next RAF</em>",
+                    "<span class='quote'>Disabled</span> (false): Executes <em>pre-render</em> in the current frame"
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -110,7 +119,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Throttle value in <strong>milliseconds</strong>, used by <strong>useScrollThrottle</strong>"
+            "content": "<span class='quote'>Throttle</span> value in milliseconds, used by useScrollThrottle"
         },
         {
             "component": "mob-spacer",
@@ -138,7 +147,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Limits</strong> the value of <strong>spinY</strong> to a <strong>maximum</strong> in both negative and positive"
+            "content": "Limits the value of <span class='quote'>spinY</span> to a maximum in both negative and positive"
         },
         {
             "component": "mob-spacer",
@@ -166,7 +175,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Limits</strong> the value of <strong>spinX</strong> to a <strong>maximum</strong> in both negative and positive"
+            "content": "Limits the value of <span class='quote'>spinX</span> to a maximum in both negative and positive"
         },
         {
             "component": "mob-spacer",

@@ -29,7 +29,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<p>Slots are marked with <strong>mobjs-slot</strong> tags, working flexibly as either <strong>unnamed</strong> defaults or <strong>named</strong> variants - like these examples demonstrate:</p>"
+            "content": "<p>Slots are marked with mobjs-slot tags, working flexibly as either unnamed defaults or named variants - like these examples demonstrate:</p>"
         },
         {
             "component": "mob-spacer",

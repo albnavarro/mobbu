@@ -32,7 +32,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "In the <strong><a href='#mobJs-initialization'>initialization</a></strong> function, you can enable the <strong>debug</strong> property <strong>componentDefaultProps.debug</strong>"
+            "content": "In the <a href='#mobJs-initialization'>initialization</a> function, you can enable the debug property componentDefaultProps.debug"
         },
         {
             "component": "mob-spacer",
@@ -68,7 +68,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "In the <strong>MobJs.componentMap</strong> there are all the instances of our components in which it is possible to analyze all the specifications from the console.<br/><br/>Each component is identified by an <strong>id</strong> in string format, by enabling the <strong>debug property</strong> each component will display its own id in the <strong>data-mobjs</strong> attribute so as to be searchable in the <strong>MobJs.componentMap</strong>.<br/><br/>The <strong>debug</strong> parameter will add a <strong>comment</strong> for each component with the component <strong>tag</strong> defined in the <strong>MobJs.createComponent()</strong> function."
+            "content": "In the MobJs.componentMap there are all the instances of our components in which it is possible to analyze all the specifications from the console.<br/><br/>Each component is identified by an id in string format, by enabling the debug property each component will display its own id in the data-mobjs attribute so as to be searchable in the MobJs.componentMap.<br/><br/>The debug parameter will add a comment for each component with the component tag defined in the MobJs.createComponent() function."
         },
         {
             "component": "mob-spacer",

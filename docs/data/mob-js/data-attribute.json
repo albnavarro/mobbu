@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Through <strong>data attributes</strong>, it is possible to pass <strong>state</strong> values between <strong>parent</strong> and <strong>child</strong>."
+            "content": "Through data attributes, it is possible to pass state values between parent and child."
         },
         {
             "component": "mob-paragraph",
@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Data Attribute Limitations</strong>: <ul> <li>Value type restriction: Only <strong>strings</strong> supported</li> <li>For complex data types: <ul> <li>Use <strong><a href='#mobJs-staticProps'>staticProps</a></strong> function ( supports numbers, objects, arrays, etc. )</li></ul> </li> </ul>"
+            "content": "Data Attribute Limitations: <ul> <li>Value type restriction: Only strings supported</li> <li>For complex data types: <ul> <li>Use <a href='#mobJs-staticProps'>staticProps</a> function ( supports numbers, objects, arrays, etc. )</li></ul> </li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -44,7 +44,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "For a state to be <strong>visible from the outside</strong>, it must be exposed in the <strong>exportState</strong> field within the <a href='#mobJs-component'><strong>component's definition</strong></a>"
+            "content": "For a state to be visible from the outside, it must be exposed in the exportState field within the <a href='#mobJs-component'>component's definition</a>"
         },
         {
             "component": "mob-spacer",

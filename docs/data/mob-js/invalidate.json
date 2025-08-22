@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Triggers re-rendering</strong> when associated states change."
+            "content": "Triggers re-rendering when associated states change."
         },
         {
             "component": "mob-spacer",
@@ -62,7 +62,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "An <strong>array</strong> containing the <strong>states to monitor</strong> for triggering a re-render. The states can be defined using <strong>strings</strong> or as <strong>functions that return the proxy</strong>."
+            "content": "An array containing the states to monitor for triggering a re-render. The states can be defined using strings or as functions that return the proxy."
         },
         {
             "component": "mob-spacer",
@@ -82,7 +82,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event triggered <strong>before list updates</strong> (activates after initial render)."
+            "content": "Event triggered before list updates (activates after initial render)."
         },
         {
             "component": "mob-spacer",
@@ -102,7 +102,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Triggered <strong>after render</strong>."
+            "content": "Triggered after render."
         },
         {
             "component": "mob-spacer",
@@ -122,7 +122,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Returns the HTML to be rendered.<br/> <ul> <li><strong>Key Difference from Repeater</strong>: <ul> <li>Returns <strong>any DOM type</strong> without restrictions</li> </ul> </li> <li><strong>Flexibility</strong>: <ul> <li>No output constraints</li> <li>Unlimited return value possibilities</li> </ul> </li> </ul>"
+            "content": "Returns the HTML to be rendered.<br/> <ul> <li>Key Difference from Repeater: <ul> <li>Returns any DOM type without restrictions</li> </ul> </li> <li>Flexibility: <ul> <li>No output constraints</li> <li>Unlimited return value possibilities</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -137,7 +137,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<ul> <li><strong>Container Requirement</strong>: <ul> <li>Invalidate function must be contained within a <strong>unique DOM element</strong></li> </ul> </li> <li><strong>Nesting Rules</strong>: <ul> <li>Supports nested invalidate/repeater structures</li> <li>Multiple nestings allowed within same component/scope</li> </ul> </li> </ul>"
+            "content": "<ul> <li>Container Requirement: <ul> <li>Invalidate function must be contained within a unique DOM element</li> </ul> </li> <li>Nesting Rules: <ul> <li>Supports nested invalidate/repeater structures</li> <li>Multiple nestings allowed within same component/scope</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

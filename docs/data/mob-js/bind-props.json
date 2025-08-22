@@ -60,7 +60,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>bindProps</strong> allows <strong>reactive updating of props</strong> between parent and child."
+            "content": "bindProps allows reactive updating of props between parent and child."
         },
         {
             "component": "mob-paragraph",
@@ -69,7 +69,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<br/>For passing <strong>callbacks</strong>, it is convenient to use the <a href='#mobJs-staticProps'><strong>staticProps</strong></a> module.<br/>For a state to be <strong>visible from the outside</strong>, it must be exposed in the <strong>exportState</strong> field within the <a href='#mobJs-component'><strong>component's definition</strong></a>"
+            "content": "<br/>For passing callbacks, it is convenient to use the <a href='#mobJs-staticProps'>staticProps</a> module.<br/>For a state to be visible from the outside, it must be exposed in the exportState field within the <a href='#mobJs-component'>component's definition</a>"
         },
         {
             "component": "mob-spacer",
@@ -90,7 +90,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Dependency Management Options</strong>: <ul> <li><strong>Automatic</strong> dependency tracking</li> <li>No manual declarations needed</li></ul>"
+            "content": "Dependency Management Options: <ul> <li>Automatic dependency tracking</li> <li>No manual declarations needed</li></ul>"
         },
         {
             "component": "mob-paragraph",
@@ -99,7 +99,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Using proxies, it is possible to not specify any <strong>dependencies</strong> directly. If there are no specific needs, this is the <strong>most convenient solution</strong>. The module will be <strong>recomputed</strong> when at least one of the properties used inside the callback changes."
+            "content": "Using proxies, it is possible to not specify any dependencies directly. If there are no specific needs, this is the most convenient solution. The module will be recomputed when at least one of the properties used inside the callback changes."
         },
         {
             "component": "mob-spacer",
@@ -143,7 +143,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": " <ul> <li>Triggers <strong>bindProps</strong> on state changes</li> <li>Batch processes changes within same <strong>eventLoop</strong></li> <li><strong>Optional</strong> in repeaters (auto-monitors internal state)</li> </ul>"
+            "content": " <ul> <li>Triggers bindProps on state changes</li> <li>Batch processes changes within same eventLoop</li> <li>Optional in repeaters (auto-monitors internal state)</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -163,7 +163,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": " <ul> <li><strong>Input</strong>: Full parent state object (all values)</li> <li><strong>Output</strong>: Object for child component state</li></ul>"
+            "content": " <ul> <li>Input: Full parent state object (all values)</li> <li>Output: Object for child component state</li></ul>"
         },
         {
             "component": "mob-spacer",
@@ -207,7 +207,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": " <ul> <li>Provides: <ul> <li>Current <strong>value</strong> of the repeated item</li> <li>Iteration <strong>position</strong> (index)</li> </ul> </li> <li>Accessible within <strong><a href='#mobJs-repeat'>repeater</a></strong> module</li> </ul>"
+            "content": " <ul> <li>Provides: <ul> <li>Current value of the repeated item</li> <li>Iteration position (index)</li> </ul> </li> <li>Accessible within <a href='#mobJs-repeat'>repeater</a> module</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -216,7 +216,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Even though these values are available, it is always advisable to refer to the <strong>proxy</strong> provided by the <a href='#mobJs-repeat'><strong>repeater</strong></a> module ( current )."
+            "content": "Even though these values are available, it is always advisable to refer to the proxy provided by the <a href='#mobJs-repeat'>repeater</a> module ( current )."
         },
         {
             "component": "mob-snippet",
@@ -247,7 +247,7 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "<strong>jsDoc</strong>"
+            "content": "jsDoc"
         },
         {
             "component": "mob-snippet",
@@ -270,7 +270,7 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "<strong>ts</strong>"
+            "content": "ts"
         },
         {
             "component": "mob-snippet",

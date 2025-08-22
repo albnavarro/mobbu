@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": " <ul> <li><strong>Key Requirement</strong>: <ul> <li>Component must have unique <strong>instance name</strong></li> </ul> </li> <li><strong>Global Availability</strong>: <ul> <li>Callable from <strong>anywhere</strong> in application</li> </ul> </li> <li><strong>Name Collision Handling</strong>: <ul> <li>With <strong>multiple instances</strong> of same name</li> <li>Uses <strong>first match</strong> found</li> </ul> </li> </ul>"
+            "content": " <ul> <li>Key Requirement: <ul> <li>Component must have unique instance name</li> </ul> </li> <li>Global Availability: <ul> <li>Callable from anywhere in application</li> </ul> </li> <li>Name Collision Handling: <ul> <li>With multiple instances of same name</li> <li>Uses first match found</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -57,7 +57,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>ts:</strong>"
+            "content": "ts:"
         },
         {
             "component": "mob-snippet",

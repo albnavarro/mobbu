@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "You can <strong>manually</strong> <strong>add</strong> and <strong>remove</strong> <strong>DOM blocks</strong> and <strong>components</strong> manually without using the <strong>repeat</strong> and <strong>invalidate</strong> functions."
+            "content": "You can manually add and remove DOM blocks and components manually without using the repeat and invalidate functions."
         },
         {
             "component": "mob-spacer",
@@ -48,10 +48,10 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<strong>attachTo</strong>: Node where attach new component",
-                    "<strong>component</strong>: Component to render",
-                    "<strong>position (optional)</strong>: position where attach new component: 'afterbegin'|'beforeend'",
-                    "<strong>clean (optional)</strong>: remove previous content"
+                    "<span class='quote'>attachTo</span>: Node where attach new component",
+                    "<span class='quote'>component</span>: Component to render",
+                    "<span class='quote'>position</span> (optional): position where attach new component: 'afterbegin'|'beforeend'",
+                    "<span class='quote'>clean</span> (optional): remove previous content"
                 ]
             }
         },

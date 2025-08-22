@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>bindText vs bindObject</strong>: <ul> <li><strong>bindText</strong>: <ul> <li>Updates node content on state changes</li> <li>Direct state reference via <strong>string key</strong></li> </ul> </li> <li><strong>bindObject</strong>: <ul> <li>Updates node content on state changes</li> <li>Updates using <strong>proxi</strong></li> </ul> </li> </ul>"
+            "content": "bindText vs bindObject: <ul> <li>bindText: <ul> <li>Updates node content on state changes</li> <li>Direct state reference via string key</li> </ul> </li> <li>bindObject: <ul> <li>Updates node content on state changes</li> <li>Updates using proxi</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -47,9 +47,9 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "based on <strong>String.raw</strong>",
-                    "requires a <strong>unique parent node</strong>, each update will delete the previous contents of the node.",
-                    "States must be specified as <strong>strings</strong> in order to be identified as <strong>keys</strong> to the component's <strong>state object</strong>."
+                    "based on String.raw",
+                    "requires a unique parent node, each update will delete the previous contents of the node.",
+                    "States must be specified as strings in order to be identified as keys to the component's state object."
                 ]
             }
         },
@@ -88,7 +88,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Advanced State Management</strong>: <ul> <li>For <strong>complex situations</strong>: <ul> <li>Use the <a href='#mobJs-invalidate'><strong>invalidate</strong></a> function</li> <li>Cleaner handling of intricate logic</li> </ul> </li> <li>Flexible returns: <ul> <li>Can output processed <strong>text</strong></li> <li>Or complex data structures</li> </ul> </li> </ul>"
+            "content": "Advanced State Management: <ul> <li>For complex situations: <ul> <li>Use the <a href='#mobJs-invalidate'>invalidate</a> function</li> <li>Cleaner handling of intricate logic</li> </ul> </li> <li>Flexible returns: <ul> <li>Can output processed text</li> <li>Or complex data structures</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

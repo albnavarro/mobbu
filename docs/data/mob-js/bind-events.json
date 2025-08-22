@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": " <ul> <li><strong>Component-exclusive</strong> event binding</li> <li><strong>Incompatible with</strong>: <ul> <li>Generic DOM elements</li> <li>Non-component nodes</li> </ul> </li> <li>Alternative for generic nodes: <a href='./#mobJs-delegateEvents'><strong>delegateEvents</strong></a></li></ul>"
+            "content": " <ul> <li>Component-exclusive event binding</li> <li>Incompatible with: <ul> <li>Generic DOM elements</li> <li>Non-component nodes</li> </ul> </li> <li>Alternative for generic nodes: <a href='./#mobJs-delegateEvents'>delegateEvents</a></li></ul>"
         },
         {
             "component": "mob-spacer",
@@ -96,7 +96,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": " <ul> <li><strong>Current value</strong> of the repeated item</li> <li><strong>Index position</strong> in the collection</li> <li>Automatically available within <a href='#mobJs-repeat'><strong>repeater</strong></a> components</li> </ul>"
+            "content": " <ul> <li>Current value of the repeated item</li> <li>Index position in the collection</li> <li>Automatically available within <a href='#mobJs-repeat'>repeater</a> components</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -105,7 +105,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Even though these values are available, it is always advisable to refer to the <strong>proxy</strong> provided by the <a href='#mobJs-repeat'><strong>repeater</strong></a> module ( current )."
+            "content": "Even though these values are available, it is always advisable to refer to the proxy provided by the <a href='#mobJs-repeat'>repeater</a> module ( current )."
         },
         {
             "component": "mob-snippet",

@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Steps to <strong>initialize</strong> a mobJs instance."
+            "content": "Steps to initialize a mobJs instance."
         },
         {
             "component": "mob-spacer",
@@ -50,7 +50,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <strong>root ID</strong> identifies the DOM container where the <strong>application initializes</strong>."
+            "content": "The root ID identifies the DOM container where the application initializes."
         },
         {
             "component": "mob-snippet",
@@ -157,7 +157,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The <strong>HTML node</strong> serves as the container for <strong>application initialization</strong>."
+                        "content": "The HTML node serves as the container for application initialization."
                     },
                     {
                         "component": "mob-spacer",
@@ -179,7 +179,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Wrapper Overview:</strong> <ul> <li>Primary container for all routed pages</li> <li>Defines the node where individual <strong>routes</strong> load</li> <li>Supports <strong>components</strong> with <strong><a href='#mobJs-staticProps'>static props</a></strong></li> </ul> <strong>Limitations:</strong> <ul> <li>No reactive props (non-component module)</li> </ul>"
+                        "content": "Wrapper Overview: <ul> <li>Primary container for all routed pages</li> <li>Defines the node where individual routes load</li> <li>Supports components with <a href='#mobJs-staticProps'>static props</a></li> </ul> Limitations: <ul> <li>No reactive props (non-component module)</li> </ul>"
                     },
                     {
                         "component": "mob-paragraph",
@@ -188,7 +188,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>Initialization Requirement:</strong> All dependencies must be loaded prior to app initialization via the <strong><a href='#mobJs-utils'>useComponent()</a></strong> utility."
+                        "content": "Initialization Requirement: All dependencies must be loaded prior to app initialization via the <a href='#mobJs-utils'>useComponent()</a> utility."
                     },
                     {
                         "component": "mob-spacer",
@@ -201,7 +201,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Async Wrapper Support:</strong> The wrapper function supports <strong>async</strong>/<strong>await</strong> for asynchronous operations."
+                        "content": "Async Wrapper Support: The wrapper function supports async/await for asynchronous operations."
                     },
                     {
                         "component": "mob-snippet",
@@ -233,7 +233,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Route Container:</strong> The designated <strong>node</strong> within the wrapper where all <strong>routes render</strong>."
+                        "content": "Route Container: The designated node within the wrapper where all routes render."
                     },
                     {
                         "component": "mob-spacer",
@@ -328,7 +328,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Optional function executed during <strong>route transitions</strong>:<ul><li>After cloning the route node</li> <li>Before appending the cloned node to the DOM</li> </ul>"
+                        "content": "Optional function executed during route transitions:<ul><li>After cloning the route node</li> <li>Before appending the cloned node to the DOM</li> </ul>"
                     },
                     {
                         "component": "mob-list",
@@ -364,7 +364,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Optional function for <strong>animating both</strong>: <ul> <li>The outgoing (previous) route node</li> <li>The incoming (new) route node</li> </ul>"
+                        "content": "Optional function for animating both: <ul> <li>The outgoing (previous) route node</li> <li>The incoming (new) route node</li> </ul>"
                     },
                     {
                         "component": "mob-list",
@@ -400,7 +400,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Callback executed <strong>after the app completes startup</strong>."
+                        "content": "Callback executed after the app completes startup."
                     },
                     {
                         "component": "mob-spacer",
@@ -422,7 +422,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Optional function that <strong>transforms incoming routes</strong>"
+                        "content": "Optional function that transforms incoming routes"
                     },
                     {
                         "component": "mob-list",
@@ -458,7 +458,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Configurable option for <strong>storing/restoring scroll</strong> coordinates during <strong>History API navigation</strong>."
+                        "content": "Configurable option for storing/restoring scroll coordinates during History API navigation."
                     },
                     {
                         "component": "mob-spacer",
@@ -486,7 +486,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Optional configuration <strong>defining initial props for all component instances</strong>."
+                        "content": "Optional configuration defining initial props for all component instances."
                     },
                     {
                         "component": "mob-spacer",

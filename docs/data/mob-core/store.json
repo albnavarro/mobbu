@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "A classic store based on the <strong>pub/sub</strong> pattern.<br />This module also powers the <strong>reactivity system</strong> in <strong>mobJs</strong> JavaScript components."
+            "content": "A classic store based on the pub/sub pattern.<br />This module also powers the reactivity system in mobJs JavaScript components."
         },
         {
             "component": "mob-spacer",
@@ -137,7 +137,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "For advanced usage, it is necessary to return a <strong>function that returns an object</strong> containing the <strong>value</strong> property and at least one of the following properties: <strong>validate</strong>, <strong>type</strong>, or <strong>skipEqual</strong>. You can <strong>nest up to two levels</strong> (supporting both basic and advanced use cases) for properties, <strong>as demonstrated in the nested object example</strong>."
+                        "content": "For advanced usage, it is necessary to return a function that returns an object containing the value property and at least one of the following properties: validate, type, or skipEqual. You can nest up to two levels (supporting both basic and advanced use cases) for properties, as demonstrated in the nested object example."
                     },
                     {
                         "component": "mob-snippet",
@@ -169,7 +169,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "To use an object with <strong>infinite insertions</strong>, employ the <strong>any</strong> type. Note that this approach disables property-specific definitions for nested properties.<br/><br/><strong>Works only with advanced implementation</strong>"
+                        "content": "To use an object with infinite insertions, employ the any type. Note that this approach disables property-specific definitions for nested properties.<br/><br/>Works only with advanced implementation"
                     },
                     {
                         "component": "mob-snippet",
@@ -238,7 +238,7 @@
                             "style": "medium",
                             "boxed": true
                         },
-                        "content": "Details of the parameters if defining a single state via an <strong>advanced implementation</strong>. Recall that in this case, the practice is to provide a <strong>function that returns an object</strong> with a <strong>value property</strong> and one of <strong>validate</strong>, <strong>type</strong>, or <strong>skipEqual</strong>."
+                        "content": "Details of the parameters if defining a single state via an advanced implementation. Recall that in this case, the practice is to provide a function that returns an object with a value property and one of validate, type, or skipEqual."
                     },
                     {
                         "component": "mob-spacer",
@@ -278,22 +278,22 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The type can be defined as a <strong>native JavaScript object</strong> or in the form of a <strong>string</strong>.<br/> In the case of <strong>any</strong>, only the string form is supported."
+                        "content": "The type can be defined as a native JavaScript object or in the form of a string.<br/> In the case of any, only the string form is supported."
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "items": [
-                                "<strong>Function</strong> | 'Function'",
-                                "<strong>String</strong> | 'String'",
-                                "<strong>Number</strong> | 'Number'",
-                                "<strong>Boolean</strong> | 'Boolean'",
-                                "<strong>Array</strong> | 'Array'",
-                                "<strong>Element</strong> | 'Element'",
-                                "<strong>HTMLElement</strong> | HTMLElement",
-                                "<strong>NodeList</strong> | 'NodeList'",
-                                "<strong>Set</strong> | 'Set'",
-                                "<strong>Map</strong> | 'Map'",
+                                "<span class='quote'>Function</span> | 'Function'",
+                                "<span class='quote'>String</span> | 'String'",
+                                "<span class='quote'>Number</span> | 'Number'",
+                                "<span class='quote'>Boolean</span> | 'Boolean'",
+                                "<span class='quote'>Array</span> | 'Array'",
+                                "<span class='quote'>Element</span> | 'Element'",
+                                "<span class='quote'>HTMLElement</span> | HTMLElement",
+                                "<span class='quote'>NodeList</span> | 'NodeList'",
+                                "<span class='quote'>Set</span> | 'Set'",
+                                "<span class='quote'>Map</span> | 'Map'",
                                 "'Any'"
                             ]
                         }
@@ -316,7 +316,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Transformation function</strong> that processes values before validation."
+                        "content": "Transformation function that processes values before validation."
                     },
                     {
                         "component": "mob-spacer",
@@ -336,7 +336,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Validation function that analyzes values. It receives both the <strong>current value</strong> and <strong>previous value</strong> as parameters, returning a boolean result. Each property's validation status appears as watch function parameters and can be retrieved via the <strong>getValidation()</strong> method."
+                        "content": "Validation function that analyzes values. It receives both the current value and previous value as parameters, returning a boolean result. Each property's validation status appears as watch function parameters and can be retrieved via the getValidation() method."
                     },
                     {
                         "component": "mob-spacer",
@@ -356,7 +356,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "If the value equals the previous one, the property won't update.<br /> This prevents watch execution and makes the property irrelevant to its related computed values. Default: <strong>true</strong>."
+                        "content": "If the value equals the previous one, the property won't update.<br /> This prevents watch execution and makes the property irrelevant to its related computed values. Default: true."
                     },
                     {
                         "component": "mob-spacer",
@@ -376,7 +376,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When <strong>true</strong>, the validation function acts as a blocker - the property updates <strong>only</strong> if validation succeeds.<br /><strong>Default</strong>: <strong>false</strong>."
+                        "content": "When true, the validation function acts as a blocker - the property updates only if validation succeeds.<br />Default: false."
                     },
                     {
                         "component": "mob-spacer",
@@ -435,7 +435,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Every store can implement an interface describing its state structure.<br />This example demonstrates the pattern using <strong>jsDoc</strong>."
+                        "content": "Every store can implement an interface describing its state structure.<br />This example demonstrates the pattern using jsDoc."
                     },
                     {
                         "component": "mob-paragraph",
@@ -444,7 +444,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "Note: The <strong>type</strong> parameter (for dynamic type checking) operates outside TypeScript's validation system."
+                        "content": "Note: The type parameter (for dynamic type checking) operates outside TypeScript's validation system."
                     },
                     {
                         "component": "mob-spacer",
@@ -491,7 +491,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "In <strong>.ts</strong> files, you can pass the interface as a generic parameter."
+                        "content": "In .ts files, you can pass the interface as a generic parameter."
                     },
                     {
                         "component": "mob-spacer",
@@ -582,8 +582,8 @@
                             "style": "medium",
                             "dots": false,
                             "items": [
-                                "<strong>get</strong>: The object automatically reflects the current state values.",
-                                "<strong>set</strong>: Internally triggers <strong>myStore.set('prop', value)</strong> when modifying the object."
+                                "get: The object automatically reflects the current state values.",
+                                "set: Internally triggers myStore.set('prop', value) when modifying the object."
                             ]
                         }
                     },
@@ -594,7 +594,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "Using <strong>proxies</strong> enables the simplest way to both <strong>read</strong> and <strong>modify</strong> state values."
+                        "content": "Using proxies enables the simplest way to both read and modify state values."
                     },
                     {
                         "component": "mob-spacer",
@@ -614,7 +614,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The proxy intentionally omits <strong>deep watch</strong> for performance optimization.<br />To modify <strong>nested</strong> object contents, you must <strong>reassign</strong> the entire property."
+                        "content": "The proxy intentionally omits deep watch for performance optimization.<br />To modify nested object contents, you must reassign the entire property."
                     },
                     {
                         "component": "mob-spacer",
@@ -652,7 +652,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Set store value:</strong> Directly updates the state while maintaining reactivity."
+                        "content": "Set store value: Directly updates the state while maintaining reactivity."
                     },
                     {
                         "component": "mob-paragraph",
@@ -661,7 +661,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>set</strong> provides an alternative to <strong>proxy</strong>-based state updates.<br />It offers <strong>more configuration options</strong> than the proxy approach."
+                        "content": "set provides an alternative to proxy-based state updates.<br />It offers more configuration options than the proxy approach."
                     },
                     {
                         "component": "mob-snippet",
@@ -692,7 +692,7 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<strong>emit: </strong>&nbsp;Modifies data without triggering reactions (no callbacks fired). Default: <strong>true</strong>."
+                                "emit: &nbsp;Modifies data without triggering reactions (no callbacks fired). Default: true."
                             ]
                         }
                     },
@@ -765,7 +765,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>update</strong> serves as a <strong>proxy</strong> alternative for state modifications,<br />offering <strong>additional configuration options</strong> beyond proxy capabilities."
+                        "content": "update serves as a proxy alternative for state modifications,<br />offering additional configuration options beyond proxy capabilities."
                     },
                     {
                         "component": "mob-snippet",
@@ -796,8 +796,8 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<strong>emit: </strong>&nbsp;Performs silent updates (bypasses reactivity, no callbacks triggered). Default: <strong>true</strong>.",
-                                "<strong>clone: </strong>&nbsp;Creates a copy of original data. Default: <strong>false</strong>."
+                                "emit: &nbsp;Performs silent updates (bypasses reactivity, no callbacks triggered). Default: true.",
+                                "clone: &nbsp;Creates a copy of original data. Default: false."
                             ]
                         }
                     },
@@ -870,7 +870,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>get</strong> provides a direct access alternative to <strong>proxy</strong>-based state reading."
+                        "content": "get provides a direct access alternative to proxy-based state reading."
                     },
                     {
                         "component": "mob-snippet",
@@ -911,7 +911,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>getProp</strong> offers a direct alternative to <strong>proxy</strong>-based state access for reading values."
+                        "content": "getProp offers a direct alternative to proxy-based state access for reading values."
                     },
                     {
                         "component": "mob-snippet",
@@ -974,8 +974,8 @@
                             "tag": "h3",
                             "dots": false,
                             "items": [
-                                "<strong>wait: </strong>&nbsp;Defers callback execution until the current <strong>JavaScript event loop</strong> completes, using the latest value.<br />Only effective when <strong>emit-async</strong> is not used.<br/> Default: <strong>false</strong>.",
-                                "<strong>immediate: </strong>&nbsp;Triggers the initial callback immediately on subscription.<br />Default: <strong>false</strong>."
+                                "wait: &nbsp;Defers callback execution until the current JavaScript event loop completes, using the latest value.<br />Only effective when emit-async is not used.<br/> Default: false.",
+                                "immediate: &nbsp;Triggers the initial callback immediately on subscription.<br />Default: false."
                             ]
                         }
                     },
@@ -1169,7 +1169,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Computed properties</strong> automatically update when their <strong>dependencies</strong> (store properties) change. These values are recalculated in the <strong>JavaScript event loop</strong>. Key behaviors: <ul> <li>Batch processing: Multiple dependency changes trigger a single recomputation</li> <li><strong>Initial values</strong> are determined during <strong>initialization</strong> using current dependency states</li> </ul>"
+                        "content": "Computed properties automatically update when their dependencies (store properties) change. These values are recalculated in the JavaScript event loop. Key behaviors: <ul> <li>Batch processing: Multiple dependency changes trigger a single recomputation</li> <li>Initial values are determined during initialization using current dependency states</li> </ul>"
                     },
                     {
                         "component": "mob-spacer",
@@ -1184,7 +1184,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>State Locking:</strong> After function definition, the target state becomes <strong>immutable</strong> to manual changes - only updatable through its <strong>computed function</strong>."
+                        "content": "State Locking: After function definition, the target state becomes immutable to manual changes - only updatable through its computed function."
                     },
                     {
                         "component": "mob-paragraph",
@@ -1193,7 +1193,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "To configure the <strong>target</strong> of a <strong>computed</strong> property and its optional <strong>dependencies</strong>, you may specify either: <ul> <li>Property keys as <strong>strings</strong></li> <li>A function that returns the <strong>proxy</strong>'s value</li></ul>"
+                        "content": "To configure the target of a computed property and its optional dependencies, you may specify either:  <li>Property keys as strings</li> <li>A function that returns the proxy's value</li>"
                     },
                     {
                         "component": "mob-spacer",
@@ -1213,14 +1213,14 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Using a functional approach lets you: <ul> <li>Declare <strong>explicit dependencies</strong></li> <li>Pass current dependency values as callback parameters</li> <li>Avoid relying on state values <strong>outside the callback context</strong></li> </ul>"
+                        "content": "Using a functional approach lets you:  <li>Declare explicit dependencies</li> <li>Pass current dependency values as callback parameters</li> <li>Avoid relying on state values outside the callback context</li> "
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "When dependencies are explicitly declared: <ul> <li>The <strong>callback</strong> receives <em>only</em> the specified <strong>dependencies</strong></li> <li>Alternative: Access <strong>proxies</strong> directly within the callback</li> </ul>"
+                        "content": "When dependencies are explicitly declared:  <li>The callback receives <em>only</em> the specified dependencies</li> <li>Alternative: Access proxies directly within the callback</li> "
                     },
                     {
                         "component": "mob-snippet",
@@ -1250,7 +1250,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Proxy</strong> automatically captures and tracks all accessed dependencies - <strong>no explicit declaration needed</strong>."
+                        "content": "Proxy automatically captures and tracks all accessed dependencies - no explicit declaration needed."
                     },
                     {
                         "component": "mob-snippet",
@@ -1280,7 +1280,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Use <strong>proxy</strong> to automatically define dependencies."
+                        "content": "Use proxy to automatically define dependencies."
                     },
                     {
                         "component": "mob-snippet",
@@ -1335,14 +1335,14 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "You can <strong>connect multiple stores</strong> to: <ul> <li>Access their properties reactively</li> <li>Sync computations across stores</li> </ul>"
+                        "content": "You can connect multiple stores to:  <li>Access their properties reactively</li> <li>Sync computations across stores</li> "
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Connected stores will utilize these <strong>methods</strong>:"
+                        "content": "Connected stores will utilize these methods:"
                     },
                     {
                         "component": "mob-list",
@@ -1388,7 +1388,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "When using <strong>bindStore</strong>, you must extend the type (using <strong>Readonly</strong> TypeScript utils)."
+                        "content": "When using bindStore, you must extend the type (using Readonly TypeScript utils)."
                     },
                     {
                         "component": "mob-snippet",
@@ -1420,7 +1420,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "The <strong>store</strong> implementation relies on <strong>value reassignment</strong> for reactivity. Note: <ul> <li>Special objects (<strong>Map</strong>, <strong>Set</strong>) require full reassignment</li> </ul>"
+                        "content": "The store implementation relies on value reassignment for reactivity. Note:  <li>Special objects (Map, Set) require full reassignment</li> "
                     },
                     {
                         "component": "mob-spacer",
@@ -1446,7 +1446,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Cloning</strong> ensures proper value comparison by: <ul> <li>Generating distinct <strong>new updated values</strong></li> <li>Enabling accurate <strong>previous</strong>/<strong>current</strong> tracking in <strong>watch</strong> utilities</li> </ul>"
+                        "content": "Cloning ensures proper value comparison by:  <li>Generating distinct new updated values</li> <li>Enabling accurate previous/current tracking in watch utilities</li> "
                     },
                     {
                         "component": "mob-snippet",
@@ -1476,7 +1476,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Unlike <strong>update</strong>, this operation: <ul> <li><strong>Cannot clone</strong> values (modifies source data directly)</li> <li>Requires <strong>skipEqual: false</strong> to force updates when values match</li> </ul> <strong>Watch utility behavior:</strong> Previous and current values will report as equal during these direct modifications."
+                        "content": "Unlike update, this operation:  <li>Cannot clone values (modifies source data directly)</li> <li>Requires skipEqual: false to force updates when values match</li>  Watch utility behavior: Previous and current values will report as equal during these direct modifications."
                     },
                     {
                         "component": "mob-snippet",
@@ -1501,7 +1501,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "I'm evaluating the <strong>possibility</strong> of inserting a new parameter in the state definition called <strong>skipUpdate</strong> to fully exploit the potential of states based on direct <strong>mutation</strong> such as <strong>map</strong> and <strong>set</strong>. For now, you will always have a copy of the previous state or you will update the state remotely by creating a copy anyway. It could be interesting to be able to modify the state remotely without creating a new copy."
+                        "content": "I'm evaluating the possibility of inserting a new parameter in the state definition called skipUpdate to fully exploit the potential of states based on direct mutation such as map and set. For now, you will always have a copy of the previous state or you will update the state remotely by creating a copy anyway. It could be interesting to be able to modify the state remotely without creating a new copy."
                     },
                     {
                         "component": "mob-spacer",

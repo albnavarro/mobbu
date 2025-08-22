@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<ul><li>Creates <strong>reactive binding</strong> between component state and an instance of <strong><a href='#mobCore-store'>mobStore</a></strong></li> <li>Inherits full <strong>reactivity</strong> system from linked store</li> <li>Multi-store support: Pass an <strong>array</strong> of stores</li> </ul>"
+            "content": "<ul><li>Creates reactive binding between component state and an instance of <a href='#mobCore-store'>mobStore</a></li> <li>Inherits full reactivity system from linked store</li> <li>Multi-store support: Pass an array of stores</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -39,7 +39,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Connected stores can only be used in <strong>reading mode</strong>:"
+            "content": "Connected stores can only be used in reading mode:"
         },
         {
             "component": "mob-list",
@@ -47,17 +47,17 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "getState",
-                    "getProxi ( only as getter )",
-                    "watch",
-                    "computed ( as dependencies )",
-                    "emit",
-                    "emitAsync",
-                    "bindText",
-                    "binsProxi",
-                    "bindEffect",
-                    "invalidate",
-                    "repeat"
+                    "<span class='quote'>getState</span>",
+                    "<span class='quote'>getProxi</span> ( only as getter )",
+                    "<span class='quote'>watch</span>",
+                    "<span class='quote'>computed</span> ( as dependencies )",
+                    "<span class='quote'>emit</span>",
+                    "<span class='quote'>emitAsync</span>",
+                    "<span class='quote'>bindText</span>",
+                    "<span class='quote'>binsProxi</span>",
+                    "<span class='quote'>bindEffect</span>",
+                    "<span class='quote'>invalidate</span>",
+                    "<span class='quote'>repeat</span>"
                 ]
             }
         },
@@ -74,7 +74,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Multiple stores can be added using an array</strong>.<br/>There is a special store ( <strong>MobJs.mainStore</strong> ) that handles all <strong>mobJs events</strong> as in the following example:"
+            "content": "Multiple stores can be added using an array.<br/>There is a special store ( MobJs.mainStore ) that handles all mobJs events as in the following example:"
         },
         {
             "component": "mob-spacer",
@@ -94,7 +94,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "External stores must be linked in the component <strong><a href='#mobJs-component'>definition</a></strong>"
+            "content": "External stores must be linked in the component <a href='#mobJs-component'>definition</a>"
         },
         {
             "component": "mob-snippet",
@@ -155,7 +155,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "When using the bindStore utility you need to extend the type ( use <strong>readOnlyts</strong> utils )."
+            "content": "When using the bindStore utility you need to extend the type ( use readOnlyts utils )."
         },
         {
             "component": "mob-snippet",

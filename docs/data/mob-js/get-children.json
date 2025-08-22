@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The <strong>getChildren</strong> function delivers an array of component IDs (as strings)"
+            "content": "The getChildren function delivers an array of component IDs (as strings)"
         },
         {
             "component": "mob-spacer",

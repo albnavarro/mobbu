@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": " <ul> <li><strong>Event Delegation</strong>: <ul> <li>Consolidates listeners at <strong>root level</strong></li></ul> </li> <li><strong>Compatibility</strong>: <ul> <li>Works on both <strong>components</strong> and <strong>DOM nodes</strong></li></ul> </li> <li><strong>Execution Control</strong>: <ul> <li>Blocks duplicate calls during app updates</li> <li>Leverages <strong>asynchronous</strong> processing</li></ul></li></ul>"
+            "content": " <ul> <li>Event Delegation: <ul> <li>Consolidates listeners at root level</li></ul> </li> <li>Compatibility: <ul> <li>Works on both components and DOM nodes</li></ul> </li> <li>Execution Control: <ul> <li>Blocks duplicate calls during app updates</li> <li>Leverages asynchronous processing</li></ul></li></ul>"
         },
         {
             "component": "mob-spacer",
@@ -48,10 +48,10 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "mouseenter",
-                    "mouseleave",
-                    "pointerenter",
-                    "pointerleave"
+                    "<span class='quote'>mouseenter</span>",
+                    "<span class='quote'>mouseleave</span>",
+                    "<span class='quote'>pointerenter</span>",
+                    "<span class='quote'>pointerleave</span>"
                 ]
             }
         },
@@ -123,7 +123,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": " <ul> <li><strong>Current value</strong> of the repeated item</li> <li><strong>Index position</strong> in the collection</li> <li>Automatically available within <a href='#mobJs-repeat'><strong>repeater</strong></a> components</li> </ul>"
+            "content": " <ul> <li>Current value of the repeated item</li> <li>Index position in the collection</li> <li>Automatically available within <a href='#mobJs-repeat'>repeater</a> components</li> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -132,7 +132,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Even though these values are available, it is always advisable to refer to the <strong>proxy</strong> provided by the <a href='#mobJs-repeat'><strong>repeater</strong></a> module ( current )."
+            "content": "Even though these values are available, it is always advisable to refer to the proxy provided by the <a href='#mobJs-repeat'>repeater</a> module ( current )."
         },
         {
             "component": "mob-snippet",

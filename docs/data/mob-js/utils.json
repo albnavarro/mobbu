@@ -50,7 +50,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>staticProps Utility:</strong> Works in both: <ul> <li><strong>Page</strong> components</li> <li><strong>Wrapper</strong> components</li> </ul>"
+            "content": "staticProps Utility: Works in both: <ul> <li>Page components</li> <li>Wrapper components</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -126,7 +126,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Component Configuration Utility:</strong> <ul> <li>Declared in <strong>wrappers</strong> and <strong>pages</strong></li> <li><strong>Array</strong> of child component definitions</li> <li><strong>Dependencies must load</strong> before initialization</li> <li>Component Equivalent: Handled via <strong>createComponent()</strong>'s <strong>child</strong> parameter</li> </ul>"
+            "content": "Component Configuration Utility: <ul> <li>Declared in wrappers and pages</li> <li>Array of child component definitions</li> <li>Dependencies must load before initialization</li> <li>Component Equivalent: Handled via createComponent()'s child parameter</li> </ul>"
         },
         {
             "component": "mob-spacer",

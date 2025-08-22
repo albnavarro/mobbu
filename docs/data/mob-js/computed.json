@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Component State System:</strong> <ul> <li>The component's state comes from a <a href='#mobCore-store'><strong>MobCore store</strong></a> instance.</li> <li>Inherits full store capabilities ( <strong>reactivity</strong>, <strong>methods</strong>, etc. )</li><li>The component's state must be <strong>declared</strong> within the <a href='#mobJs-component'><strong>component's definition</strong></a> function.</li> </ul>"
+            "content": "Component State System: <ul> <li>The component's state comes from a <a href='#mobCore-store'>MobCore store</a> instance.</li> <li>Inherits full store capabilities ( reactivity, methods, etc. )</li><li>The component's state must be declared within the <a href='#mobJs-component'>component's definition</a> function.</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -41,7 +41,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<ul><li>Processed in the <strong>JavaScript event loop</strong></li> <li><strong>Single execution per update cycle</strong></li></ul>"
+            "content": "<ul><li>Processed in the JavaScript event loop</li> <li>Single execution per update cycle</li></ul>"
         },
         {
             "component": "mob-spacer",
@@ -86,7 +86,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "By defining dependencies explicitly, it is possible to have <strong>greater control</strong> over the conditions that will <strong>trigger</strong> the module's recomputation."
+            "content": "By defining dependencies explicitly, it is possible to have greater control over the conditions that will trigger the module's recomputation."
         },
         {
             "component": "mob-spacer",

@@ -20,7 +20,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Components can maintain <strong>parent-state synchronization</strong> through the <span class='quote'>watchParent()</span> function. For optimal abstraction, always pair this with <strong><a href='./#mobJs-bindProps'>bindProps()</a></strong> to keep component dependencies clean and manageable."
+            "content": "Components can maintain parent-state synchronization through the <span class='quote'>watchParent()</span> function. For optimal abstraction, always pair this with bindProps() to keep component dependencies clean and manageable."
         },
         {
             "component": "mob-spacer",

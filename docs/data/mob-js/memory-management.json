@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "The library uses <strong>weak references</strong> for node reactivity in these functions:"
+            "content": "The library uses weak references for node reactivity in these functions:"
         },
         {
             "component": "mob-spacer",
@@ -40,10 +40,10 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs-delegateEvents'><strong>delegateEvents</strong></a>",
-                    "<a href='./#mobJs-bindtext'><strong>bindText</strong></a>",
-                    "<a href='./#mobJs-bindObject'><strong>bindObject</strong></a>",
-                    "<a href='./#mobJs-bind-effect'><strong>bindEffect</strong></a>"
+                    "<a href='./#mobJs-delegateEvents'><span class='quote'>delegateEvents</span></a>",
+                    "<a href='./#mobJs-bindtext'><span class='quote'>bindText</span></a>",
+                    "<a href='./#mobJs-bindObject'><span class='quote'>bindObject</span></a>",
+                    "<a href='./#mobJs-bind-effect'><span class='quote'>bindEffect</span></a>"
                 ]
             }
         },
@@ -60,7 +60,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "For this reason, the use of <strong>ref</strong> and <strong>refs</strong> becomes <strong>not mandatory but recommended</strong>.<br/><strong>Weak primitives</strong> work well when they are the only references; creating additional references <strong>may impact the garbage collector’s</strong> ability to free memory."
+            "content": "For this reason, the use of ref and refs becomes not mandatory but recommended.<br/>Weak primitives work well when they are the only references; creating additional references may impact the garbage collector’s ability to free memory."
         }
     ]
 }

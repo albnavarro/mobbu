@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<stron> <ul> <li>All dependencies must load <strong>before</strong> app startup via <strong><a href='#mobJs-utils'>useComponent()</a></strong></li> <li><strong>Route limitations</strong>: <ul> <li><strong>No reactive props</strong> supported</li> <li><strong>Non-component architecture</strong></li> </ul> </li> </ul>"
+            "content": "<ul> <li>All dependencies must load before app startup via <a href='#mobJs-utils'>useComponent()</a></li> <li>Route limitations: <ul> <li>No reactive props supported</li> <li>Non-component architecture</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -48,7 +48,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Route Definition:</strong> <ul> <li>Implement as a <strong>function returning route DOM</strong></li> <li>Supports <strong>async</strong> operations (data fetching, etc.)</li> <li>Execution flow: <ul> <li>Runs <strong>before</strong> removing previous route</li> <li><strong>Waits</strong> for all async operations</li></ul> </li> </ul>"
+            "content": "Route Definition: <ul> <li>Implement as a function returning route DOM</li> <li>Supports async operations (data fetching, etc.)</li> <li>Execution flow: <ul> <li>Runs before removing previous route</li> <li>Waits for all async operations</li></ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -61,15 +61,15 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The function has as <strong>parameter an object</strong> with:"
+            "content": "The function has as parameter an object with:"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<strong>param</strong> Optional parameters added to the URL.",
-                    "<strong>props</strong> Optional props passed to the function"
+                    "param Optional parameters added to the URL.",
+                    "props Optional props passed to the function"
                 ]
             }
         },
@@ -145,18 +145,18 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>All the routes</strong> must be inserted into an array as follows, it is necessary to indicate:"
+                        "content": "All the routes must be inserted into an array as follows, it is necessary to indicate:"
                     },
                     {
                         "component": "mob-list",
                         "props": {
                             "style": "medium",
                             "items": [
-                                "<strong>name:</strong> route name.",
-                                "<strong>templateName:</strong> name ( identifier ) of the template unlike the name ( route ), this parameter <strong>is not unique</strong>.",
-                                "<strong>layout:</strong> <strong>page function</strong> to use",
-                                "<strong>restoreScroll:</strong> <strong>override</strong> <strong>restoreScroll</strong> global value",
-                                "<strong>props:</strong> the <strong>props (object)</strong> to pass to the layout function "
+                                "<span class='quote'>name</span>: route name.",
+                                "<span class='quote'>templateName</span>: name ( identifier ) of the template unlike the name ( route ), this parameter is not unique.",
+                                "<span class='quote'>layout</span>: page function to use",
+                                "<span class='quote'>restoreScroll</span>: override restoreScroll global value",
+                                "<span class='quote'>props</span>: the props (object) to pass to the layout function "
                             ]
                         }
                     },
@@ -167,7 +167,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "The array containing all the routes will be loaded as described in the <strong><a href='#mobJs-initialization'>initialization section</a></strong> "
+                        "content": "The array containing all the routes will be loaded as described in the <a href='#mobJs-initialization'>initialization section</a> "
                     },
                     {
                         "component": "mob-snippet",
@@ -350,8 +350,8 @@
                             "style": "medium",
                             "dots": true,
                             "items": [
-                                "<strong>beforePageTransition()</strong>",
-                                "<strong>pageTransition()</strong>"
+                                "<span class='quote'>beforePageTransition</span>()",
+                                "<span class='quote'>pageTransition</span>()"
                             ]
                         }
                     },
@@ -362,7 +362,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "The <strong>beforePageTransition</strong> and <strong>pageTransition</strong> functions will be loaded as described in the <strong><a href='#mobJs-initialization'>initialization section</a></strong> "
+                        "content": "The beforePageTransition and pageTransition functions will be loaded as described in the <a href='#mobJs-initialization'>initialization section</a> "
                     },
                     {
                         "component": "mob-spacer",
@@ -382,7 +382,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<ul><li><strong>Async function executes between</strong>: <ul> <li>Old node cloning</li> <li>DOM insertion</li></ul></li><li><strong>Primary use</strong>: Modify cloned node's <strong>style</strong> pre-attachment</li> </ul>"
+                        "content": "<ul><li>Async function executes between: <ul> <li>Old node cloning</li> <li>DOM insertion</li></ul></li><li>Primary use: Modify cloned node's style pre-attachment</li> </ul>"
                     },
                     {
                         "component": "mob-snippet",
@@ -412,7 +412,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Executes immediately <strong>after new route node completes rendering</strong>."
+                        "content": "Executes immediately after new route node completes rendering."
                     },
                     {
                         "component": "mob-snippet",
@@ -470,7 +470,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Function (optional) where you can <strong>return a specific route based on the incoming route</strong>"
+                        "content": "Function (optional) where you can return a specific route based on the incoming route"
                     },
                     {
                         "component": "mob-snippet",
@@ -535,7 +535,7 @@
                             "style": "medium",
                             "boxed": true
                         },
-                        "content": "<strong>Full lifecycle hooks</strong> for navigation changes:"
+                        "content": "Full lifecycle hooks for navigation changes:"
                     },
                     {
                         "component": "mob-spacer",
@@ -550,7 +550,7 @@
                             "boxed": true,
                             "note": true
                         },
-                        "content": "<strong>Centralized Event Management:</strong> <ul> <li>Alternative to individual events: <strong>MobIs.mainStore</strong></li> <li>Consolidates all <strong>mobJs events</strong></li> <li>Integrates with <strong><a href='#mobJs-bindStore'>bindStore</a></strong> utility</li> </ul> <strong>Implementation Guide:</strong> See dedicated section for usage examples."
+                        "content": "Centralized Event Management: <ul> <li>Alternative to individual events: MobIs.mainStore</li> <li>Consolidates all mobJs events</li> <li>Integrates with <a href='#mobJs-bindStore'>bindStore</a> utility</li> </ul> Implementation Guide: See dedicated section for usage examples."
                     },
                     {
                         "component": "mob-spacer",
@@ -572,7 +572,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Triggers <strong>before navigation completes</strong>"
+                        "content": "Triggers before navigation completes"
                     },
                     {
                         "component": "mob-snippet",
@@ -604,7 +604,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Triggers <strong>after successful navigation</strong>"
+                        "content": "Triggers after successful navigation"
                     },
                     {
                         "component": "mob-snippet",
@@ -636,7 +636,18 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Route Data Access:</strong> Returns: <ul> <li><strong>route</strong>: Active path value</li> <li><strong>templateName</strong>: Currently rendered template identifier</li> </ul>"
+                        "content": "Route Data Access: Returns:"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "dots": true,
+                            "items": [
+                                "<span class='quote'>route</span>: Active path value",
+                                "<span class='quote'>templateName</span>: Currently rendered template identifier"
+                            ]
+                        }
                     },
                     {
                         "component": "mob-snippet",
@@ -668,7 +679,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>Route Parameters:</strong> Returns the current route's parameter values as a key-value object."
+                        "content": "Route Parameters: Returns the current route's parameter values as a key-value object."
                     },
                     {
                         "component": "mob-snippet",

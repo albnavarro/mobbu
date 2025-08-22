@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>Triggers after</strong>: <ul> <li>All components have been <strong>created</strong>.</li> <li>Parents components complete their <strong>onMount</strong></li></ul> "
+            "content": "Triggers after: <ul> <li>All components have been created.</li> <li>Parents components complete their onMount</li></ul> "
         },
         {
             "component": "mob-spacer",
@@ -46,7 +46,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>Enabling</strong> this property will cause the <strong>onMount</strong> function to execute <strong>before the child components are created</strong>.<br/>This property is enabled in the <a href='#mobJs-component'><strong>component's definition</strong></a>."
+            "content": "Enabling this property will cause the onMount function to execute before the child components are created.<br/>This property is enabled in the <a href='#mobJs-component'>component's definition</a>."
         },
         {
             "component": "mob-spacer",
@@ -66,7 +66,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>onMount Parameters:</strong> Receives an object containing: <ul> <li><strong>element</strong>: The component's root DOM element</li> <li><strong>refs</strong>: All registered references (via <strong>ref</strong>/<strong>refs</strong>)</li> </ul>"
+            "content": "onMount Parameters: Receives an object containing: <ul> <li>element: The component's root DOM element</li> <li>refs: All registered references (via ref/refs)</li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -86,7 +86,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<ul><li>Optional return: <strong>destroy()</strong> function</li><li>Typical uses: <ul><li><strong>Event listener removal</strong></li> <li><strong>Animation cancellation</strong></li><li><strong>Subscription cleanup</strong></li> </ul> </li> </ul>"
+            "content": "<ul><li>Optional return: destroy() function</li><li>Typical uses: <ul><li>Event listener removal</li> <li>Animation cancellation</li><li>Subscription cleanup</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -122,7 +122,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Supports <strong>async</strong>/<strong>await</strong> operations."
+            "content": "Supports async/await operations."
         },
         {
             "component": "mob-snippet",

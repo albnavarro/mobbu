@@ -60,7 +60,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<ul> <li><strong>Universal DOM control</strong>: <ul> <li>Works on both <strong>component</strong> and <strong>regular HTML elements</strong></li> <li>Manages: <ul> <li><strong>Classes</strong></li> <li><strong>Styles</strong></li> <li><strong>Attributes</strong></li> </ul><br/> </li> </ul> </li> <li><strong>Modular architecture</strong>: <ul> <li>Independent monitoring groups</li> <li>Flexible returns (<strong>object</strong> or <strong>array</strong>)</li> </ul> </li> </ul>"
+            "content": "<ul> <li>Universal DOM control: <ul> <li>Works on both component and regular HTML elements</li> <li>Manages: <ul> <li>Classes</li> <li>Styles</li> <li>Attributes</li> </ul><br/> </li> </ul> </li> <li>Modular architecture: <ul> <li>Independent monitoring groups</li> <li>Flexible returns (object or array)</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -81,10 +81,10 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<strong>observe ( optional )</strong>: a state or array of states.",
-                    "<strong>toggleClass</strong>: An object where the <strong>key is the class</strong> to apply and the <strong>value</strong> is a function that will return a <strong>boolean value</strong>.",
-                    "<strong>toggleStyle</strong>: an object where the <strong>key is the style</strong> to be changed and the <strong>value</strong> is a function that will return a <strong>string</strong>.",
-                    "<strong>toggleAttribute</strong>: an object where the <strong>key is the attribute</strong> to be changed and the value is a function that will return a <strong>string</strong>.<br/> If the value is equal to <strong>null</strong> the attribute will be deleted"
+                    "<span class='quote'>observe</span> ( optional ): a state or array of states.",
+                    "<span class='quote'>toggleClass</span>: An object where the key is the class to apply and the value is a function that will return a boolean value.",
+                    "<span class='quote'>toggleStyle</span>: an object where the key is the style to be changed and the value is a function that will return a string.",
+                    "<span class='quote'>toggleAttribute</span>: an object where the key is the attribute to be changed and the value is a function that will return a string.<br/> If the value is equal to null the attribute will be deleted"
                 ]
             }
         },
@@ -107,7 +107,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "When using <strong>proxies</strong> the <strong>observe property is not necessary</strong>"
+            "content": "When using proxies the observe property is not necessary"
         },
         {
             "component": "mob-spacer",
@@ -144,7 +144,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to <strong>explicitly declare</strong> which state change the module should <strong>update</strong> to."
+            "content": "It is possible to explicitly declare which state change the module should update to."
         },
         {
             "component": "mob-spacer",
@@ -181,7 +181,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "All property will be recalculated when at least <strong>one of them</strong> changes."
+            "content": "All property will be recalculated when at least one of them changes."
         },
         {
             "component": "mob-spacer",
@@ -218,7 +218,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The content of a <strong>specific object</strong> will be recalculated when at least <strong>one parameter of the same object changes</strong>."
+            "content": "The content of a specific object will be recalculated when at least one parameter of the same object changes."
         },
         {
             "component": "mob-spacer",

@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>bindObject Characteristics</strong>: <ul> <li><strong>Simplified alternative</strong> to <a href='#mobJs-invalidate'><strong>invalidate</strong></a></li> <li>Built on <strong>String.raw</strong> templating</li> <li>Usage contexts: <ul> <li>Component <strong>proxy</strong></li> <li><strong>repeat</strong> module proxy ( <strong>current</strong> )</li> </ul> </li> </ul>"
+            "content": "bindObject Characteristics: <ul> <li>Simplified alternative to <a href='#mobJs-invalidate'>invalidate</a></li> <li>Built on String.raw templating</li> <li>Usage contexts: <ul> <li>Component proxy</li> <li>repeat module proxy ( current )</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
@@ -47,8 +47,8 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<strong>observe</strong>: Observed status ( optional ).",
-                    "<strong>value</strong>: A function that will return the updated value."
+                    "<span class='quote'>observe</span>: Observed status ( optional ).",
+                    "<span class='quote'>value</span>: A function that will return the updated value."
                 ]
             }
         },
@@ -71,11 +71,11 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "based on <strong>String.raw</strong>",
-                    "requires a <strong>unique parent node</strong>, each update will delete the previous contents of the node.",
-                    "similarly to <strong>bindText</strong> it allows you to mix texts and variables.",
-                    "Useful if you want to use the value of a <strong>proxy</strong>.",
-                    "Useful if you want to print the value of <strong>current.value</strong> inside a repeat"
+                    "based on String.raw",
+                    "requires a unique parent node, each update will delete the previous contents of the node.",
+                    "similarly to bindText it allows you to mix texts and variables.",
+                    "Useful if you want to use the value of a proxy.",
+                    "Useful if you want to print the value of current.value inside a repeat"
                 ]
             }
         },
@@ -104,7 +104,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "In its <strong>simplest version</strong>, we only define the <strong>value property</strong>. The module will <strong>automatically track the state/states</strong> that will allow the module to update itself."
+            "content": "In its simplest version, we only define the value property. The module will automatically track the state/states that will allow the module to update itself."
         },
         {
             "component": "mob-snippet",
@@ -135,7 +135,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "It is possible to define a <strong>custom state</strong> that will <strong>trigger the module's update</strong>."
+            "content": "It is possible to define a custom state that will trigger the module's update."
         },
         {
             "component": "mob-snippet",
@@ -166,7 +166,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Advanced State Management</strong>: <ul> <li>For <strong>complex situations</strong>: <ul> <li>Use the <a href='#mobJs-invalidate'><strong>invalidate</strong></a> function</li> <li>Cleaner handling of intricate logic</li> </ul> </li> <li>Flexible returns: <ul> <li>Can output processed <strong>text</strong></li> <li>Or complex data structures</li> </ul> </li> </ul>"
+            "content": "Advanced State Management: <ul> <li>For complex situations: <ul> <li>Use the <a href='#mobJs-invalidate'>invalidate</a> function</li> <li>Cleaner handling of intricate logic</li> </ul> </li> <li>Flexible returns: <ul> <li>Can output processed text</li> <li>Or complex data structures</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

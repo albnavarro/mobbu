@@ -50,8 +50,8 @@
 .quote {
     position: relative;
     margin-inline: rem(2);
-    padding: 0 em(2);
-    font-size: 0.9em;
+    padding: em(2) em(3);
+    font-size: 0.8em;
 
     &::after {
         content: '';
@@ -61,7 +61,7 @@
         left: calc(#{rem(2)} * -1);
         /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
         right: calc(#{rem(2)} * -1);
-        background: rgba($white, 0.5);
+        background: rgba($black, 0.3);
         z-index: -1;
         border-radius: rem(4);
     }

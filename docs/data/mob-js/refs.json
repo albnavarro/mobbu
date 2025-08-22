@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>HTML nodes</strong> can be accessed through the <strong>ref</strong> and <strong>refs</strong> functions."
+            "content": "HTML nodes can be accessed through the ref and refs functions."
         },
         {
             "component": "mob-spacer",
@@ -41,7 +41,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "It is possible to use <strong>components</strong> or <strong>simple HTML nodes</strong> as <strong>targets</strong>."
+            "content": "It is possible to use components or simple HTML nodes as targets."
         },
         {
             "component": "mob-spacer",
@@ -55,8 +55,8 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<strong>getRefs()</strong>: Always returns an array with all matches",
-                    "<strong>getRef()</strong>: The first match found always returns"
+                    "<span class='quote'>getRefs</span>(): Always returns an array with all matches",
+                    "<span class='quote'>getRef</span>(): The first match found always returns"
                 ]
             }
         },
@@ -95,7 +95,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<ul> <li><strong>Usage Requirement</strong>: <ul> <li>Call <strong>getRef</strong>/<strong>getRefs</strong> on each access</li> <li>Ensures reference freshness</li> </ul> </li> <li><strong>DOM Order Guarantee</strong>: <ul> <li>Elements <strong>sorted</strong> in traversal order</li> <li>Consistent across updates</li> </ul> </li> </ul>"
+            "content": "<ul> <li>Usage Requirement: <ul> <li>Call getRef/getRefs on each access</li> <li>Ensures reference freshness</li> </ul> </li> <li>DOM Order Guarantee: <ul> <li>Elements sorted in traversal order</li> <li>Consistent across updates</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",

@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<strong>staticProps</strong> allows passing state <strong>values</strong> between <strong>parent</strong> and <strong>child</strong> <strong>without type limitations</strong> and <strong>without triggering any reactivity</strong> mechanisms."
+            "content": "staticProps allows passing state values between parent and child without type limitations and without triggering any reactivity mechanisms."
         },
         {
             "component": "mob-paragraph",
@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "This module is particularly <strong>suited</strong> for passing <strong>callbacks between components</strong>.<br/>For a state to be <strong>visible from the outside</strong>, it must be exposed in the <strong>exportState</strong> field within the <a href='#mobJs-component'><strong>component's definition</strong></a>"
+            "content": "This module is particularly suited for passing callbacks between components.<br/>For a state to be visible from the outside, it must be exposed in the exportState field within the <a href='#mobJs-component'>component's definition</a>"
         },
         {
             "component": "mob-spacer",
@@ -71,7 +71,7 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "<strong>jsDoc</strong>"
+            "content": "jsDoc"
         },
         {
             "component": "mob-snippet",
@@ -94,7 +94,7 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "<strong>ts</strong>"
+            "content": "ts"
         },
         {
             "component": "mob-snippet",

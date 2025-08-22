@@ -187,6 +187,13 @@
             color: $nord-bg;
         }
     }
+
+    pre,
+    code {
+        font-family: 'Fira Code', monospace;
+        font-optical-sizing: auto;
+        font-size: rem(12);
+    }
 }
 
 .list-links {

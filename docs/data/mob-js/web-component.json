@@ -27,7 +27,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<p>When working with web components, your HTML function's <strong>first node</strong> must use the exact same tag name as both the component's <strong><a href='./#mobJs-component'>definition</a></strong> and its subsequent instantiation calls.</p>"
+            "content": "<p>When working with web components, your HTML function's first node must use the exact same tag name as both the component's <a href='./#mobJs-component'>definition</a> and its subsequent instantiation calls.</p>"
         },
         {
             "component": "mob-spacer",
@@ -63,19 +63,19 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<p>The <strong><a href='./#mobJs-component'>createComponent</a></strong> function serves as your control center - here you'll define all lifecycle hooks that manage how your component behaves from birth to removal.</p>"
+            "content": "<p>The <a href='./#mobJs-component'>createComponent</a> function serves as your control center - here you'll define all lifecycle hooks that manage how your component behaves from birth to removal.</p>"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "style",
-                    "connectedCallback",
-                    "adoptedCallback",
-                    "disconnectedCallback",
-                    "attributeChangedCallback",
-                    "attributeToObserve"
+                    "<span class='quote'>style</span>",
+                    "<span class='quote'>connectedCallback</span>",
+                    "<span class='quote'>adoptedCallback</span>",
+                    "<span class='quote'>disconnectedCallback</span>",
+                    "<span class='quote'>attributeChangedCallback</span>",
+                    "<span class='quote'>attributeToObserve</span>"
                 ]
             }
         },
@@ -97,7 +97,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<p>Each parameter automatically receives the <strong>web component context</strong> (the custom element's instance), and optionally - as shown in the example below - can accept a utility object containing all our function's helper methods.</p>"
+            "content": "<p>Each parameter automatically receives the web component context (the custom element's instance), and optionally - as shown in the example below - can accept a utility object containing all our function's helper methods.</p>"
         },
         {
             "component": "mob-title",
@@ -145,16 +145,16 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<p>The <strong>attributeChangedCallback</strong> comes supercharged with extra parameters that bridge directly to the native webComponent observer - giving you hooks into:</p>"
+            "content": "<p>The attributeChangedCallback comes supercharged with extra parameters that bridge directly to the native webComponent observer - giving you hooks into:</p>"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<strong>name</strong>: name of the changed attribute",
-                    "<strong>oldValue</strong>: old value",
-                    "<strong>newValue</strong>: new value"
+                    "<span class='quote'>name</span>: name of the changed attribute",
+                    "<span class='quote'>oldValue</span>: old value",
+                    "<span class='quote'>newValue</span>: new value"
                 ]
             }
         },

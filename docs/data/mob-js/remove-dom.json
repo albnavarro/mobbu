@@ -26,7 +26,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<ul> <li><strong>HTMLElement Removal</strong> (non-component): <ul> <li>Completely <strong>destroys</strong> the specified DOM element</li> <li><strong>Cleanup Includes</strong>: <ul> <li>All <strong>component references</strong> within the element</li> <li>Associated <strong>watchers/subscriptions</strong></li> <li>State b<strong>indings</strong> and event listeners</li> </ul> </li> <li>Automatically <strong>purges</strong> from the internal tracking map</li> </ul> </li> </ul>"
+            "content": "<ul> <li>HTMLElement Removal (non-component): <ul> <li>Completely destroys the specified DOM element</li> <li>Cleanup Includes: <ul> <li>All component references within the element</li> <li>Associated watchers/subscriptions</li> <li>State bindings and event listeners</li> </ul> </li> <li>Automatically purges from the internal tracking map</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
