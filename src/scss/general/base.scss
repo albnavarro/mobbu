@@ -119,18 +119,12 @@ img {
 
 main {
     padding-top: calc(var(--header-height));
-    transition:
-        transform 0.55s,
-        opacity 1s 0.5s;
+    transition: opacity 0.55s;
     min-height: 100vh;
 
     &.shift {
-        transform: translateX(var(--main-translate));
-        transition:
-            transform 0.55s,
-            opacity 0.55s;
         cursor: pointer;
-        opacity: 0;
+        opacity: 0.1;
     }
 }
 

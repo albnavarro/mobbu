@@ -19,12 +19,8 @@
         transform 0.55s;
 
     &.active {
-        opacity: 1;
         visibility: visible;
-    }
-
-    &.shift {
-        transform: translateX(var(--main-translate));
+        opacity: 1;
     }
 
     &__triangles {

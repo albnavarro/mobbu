@@ -37,7 +37,6 @@
     }
 
     &.shift {
-        transform: translateX(var(--main-translate));
         pointer-events: none;
         opacity: 0.1;
     }
