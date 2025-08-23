@@ -56,5 +56,4 @@ interface MobScroller {
     reverse?: boolean;
     opacityStart?: number;
     opacityEnd?: number;
-    limiterOff?: boolean;
 }

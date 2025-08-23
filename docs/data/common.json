@@ -636,14 +636,14 @@
             "url": "mobMotion-sequencer"
         },
         {
-            "label": "Create stagger",
-            "scrollToSection": "mobMotion",
-            "url": "mobMotion-create-stagger"
-        },
-        {
             "label": "Sync timeline",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-sync-timeline"
+        },
+        {
+            "label": "Create stagger",
+            "scrollToSection": "mobMotion",
+            "url": "mobMotion-create-stagger"
         },
         {
             "label": "ScrollTrigger",

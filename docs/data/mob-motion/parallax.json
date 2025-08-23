@@ -110,7 +110,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/parallax-type.d.ts",
-                "numLines": 60
+                "numLines": 59
             }
         },
         {

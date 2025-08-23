@@ -207,8 +207,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "x-small",
-                "id": "link navigate",
-                "label": "Link&nbsp;navigate"
+                "id": "navigate_via_link",
+                "label": "Navigate via link"
             }
         },
         {
@@ -222,14 +222,14 @@
             "props": {
                 "tag": "h2",
                 "isSection": true,
-                "index": "Links / 03"
+                "index": "Navigate / 03"
             },
-            "content": "Links"
+            "content": "Navigate"
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
@@ -250,8 +250,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "javascript navigate",
-                "label": "Javascript&nbsp;navigate"
+                "id": "javascript_navigate",
+                "label": "Navigate via javascript"
             }
         },
         {
