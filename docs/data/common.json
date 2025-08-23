@@ -621,7 +621,7 @@
             "url": "mobMotion-overview"
         },
         {
-            "label": "Tween/Spring/Lerp",
+            "label": "TimeTween/Spring/Lerp ( async tween )",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-tween-spring-lerp"
         },
@@ -631,7 +631,7 @@
             "url": "mobMotion-async-timeline"
         },
         {
-            "label": "Sequencer",
+            "label": "Sequencer ( sync tween )",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-sequencer"
         },

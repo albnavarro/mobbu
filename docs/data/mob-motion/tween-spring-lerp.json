@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Tween animations"
+            "content": "Async tween"
         },
         {
             "component": "mob-spacer",

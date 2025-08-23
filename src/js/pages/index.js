@@ -868,7 +868,7 @@ export const routes = [
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mob-motion/tween-spring-lerp.json',
-            title: 'Tween Spring Lerp',
+            title: 'TimeTween Spring Lerp',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
         },
