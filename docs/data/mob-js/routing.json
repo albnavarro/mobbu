@@ -288,7 +288,7 @@
             "props": {
                 "style": "small",
                 "id": "page-transition",
-                "label": "Page&nbsp;transition"
+                "label": "Functions"
             }
         },
         {
@@ -298,7 +298,7 @@
                 "isSection": true,
                 "index": "Routing / 02"
             },
-            "content": "Using page transitions"
+            "content": "Page transitions"
         },
         {
             "component": "mob-spacer",

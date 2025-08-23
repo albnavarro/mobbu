@@ -324,7 +324,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "useMouseClick"
+            "content": "useMouseEvent"
         },
         {
             "component": "mob-list",
