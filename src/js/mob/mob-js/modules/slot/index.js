@@ -38,7 +38,7 @@ export const getUnamedPlaceholderSlot = ({ element }) => {
 
 /**
  * @param {object} params
- * @param {string} params.name
+ * @param {string | undefined} params.name
  * @param {HTMLElement | import('../../web-component/type').UserComponent} params.element
  * @returns {import('../../web-component/type').SlotComponent | undefined}
  */

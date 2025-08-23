@@ -34,4 +34,5 @@ export class SlotComponent extends HTMLElement {
     getSlotName: () => string | undefined;
     getStaticProps: () => string | undefined;
     getDynamicProps: () => string | undefined;
+    isSlot: boolean | undefined;
 }

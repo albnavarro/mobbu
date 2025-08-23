@@ -1,52 +1,66 @@
 // https://stackfull.dev/applying-tree-traversal-algorithms-to-dom
 
 /**
- * @function walkPreOrder
- * @param {Element} node
- * @yields {HTMLElement}
- * @generator
+ * @import {UserComponent} from '../web-component/type';
  */
-// @ts-ignore
+
+/**
+ * Return a iterator that walk through current node and children in preorder ( depth-first ).
+ *
+ * @param {Element} node
+ * @returns {Generator<Element | undefined>}
+ */
 export function* walkPreOrder(node) {
     if (!node) return;
 
+    /**
+     * First return is current node.
+     */
     yield node;
+
+    /**
+     * Walk horizontally children
+     */
     for (const child of node.children) {
+        /**
+         * The next return is first child of current node children.
+         *
+         * Yield* : Delegate next occurrence to another generator.
+         */
         yield* walkPreOrder(child);
     }
 }
 
 /**
- * FUTURE COMPONENT
- */
-
-/**
  * @param {Element} root
  * @param {boolean} firstOccurrence
- * @returns {import('../web-component/type').UserComponent[]}
+ * @returns {UserComponent[]}
  */
 function selectAll(root, firstOccurrence) {
     const result = [];
+
     for (const node of walkPreOrder(root)) {
         /**
          * Skip after first result. We are looking the first occurrence.
          */
         if (result.length > 0 && firstOccurrence) break;
 
+        // @ts-expect-error Generator return a generic Element.
         if (node?.getIsPlaceholder?.()) {
-            result.push(node);
+            result.push(/** @type {UserComponent} */ (node));
         }
     }
+
     return result;
 }
 
 /**
  * @param {Element | DocumentFragment} node
  * @param {boolean} firstOccurence
- * @returns {import('../web-component/type').UserComponent[]}
+ * @returns {UserComponent[]}
  */
 export const queryAllFutureComponent = (node, firstOccurence = true) => {
-    /** @type {any[]} */
+    /** @type {UserComponent[]} */
     let result = [];
     const root = node || document.body;
 

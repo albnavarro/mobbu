@@ -1,18 +1,19 @@
 import { walkPreOrder } from './query-all-future-component';
 
 /**
- * FUTURE COMPONENT
+ * @import {SlotComponent} from '../web-component/type';
  */
 
 /**
  * @param {Element} root
- * @param {string} slotName
+ * @param {string | undefined} slotName
  * @returns {import('../web-component/type').SlotComponent | null}
  */
 function selectAll(root, slotName) {
     for (const node of walkPreOrder(root)) {
+        // @ts-expect-error Generator return a generic Element.
         if (node?.isSlot && node?.getSlotName?.() === slotName) {
-            return node;
+            return /** @type {SlotComponent} */ (node);
         }
     }
     return null;
@@ -20,8 +21,8 @@ function selectAll(root, slotName) {
 
 /**
  * @param {Element} node
- * @param {string} slotName
- * @returns {import('../web-component/type').SlotComponent | null}
+ * @param {string | undefined} slotName
+ * @returns {SlotComponent | null}
  */
 export const querySecificSlot = (node, slotName) => {
     const root = node || document.body;
