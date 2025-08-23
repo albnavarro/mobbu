@@ -134,7 +134,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small",
+                "label": "Params",
+                "isSection": true
             }
         },
         {

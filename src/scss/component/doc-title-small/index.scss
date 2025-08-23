@@ -18,10 +18,10 @@
     }
 
     span {
-        color: $black;
+        color: $white;
         transition: opacity 0.35s;
         position: relative;
-        background: rgba($white, 0.4);
+        background: $black;
         padding: em(2) em(10);
         border-radius: em(20);
         text-transform: capitalize;

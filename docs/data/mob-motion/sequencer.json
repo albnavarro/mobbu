@@ -80,23 +80,23 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
-                "label": "Initialization",
-                "isSection": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "style": "x-small"
             }
         },
         {
             "component": "mob-spacer",
             "props": {
+                "style": "x-small",
+                "label": "Params",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "small",
-                "id": "code_example",
-                "label": "Params"
+                "id": "schema",
+                "label": "Schema"
             }
         },
         {
@@ -115,6 +115,27 @@
             }
         },
         {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-motion/sequencer-type.d.ts",
+                "numLines": 54
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "all",
+                "label": "All params"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
@@ -129,35 +150,59 @@
             "content": "The duration property defines a numerical range (default: 10) within which properties can vary independently. Think of it like a musical sequencer where you can adjust individual instrument timing within a 2.30 minute track. When used with <a href='./#mobMotion-sync-timeline'>syncTimeline</a> or <a href='./#mobMotion-scrolltrigger'>scrollTrigger</a>, the actual duration scales proportionally to this value."
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-title",
             "props": {
-                "style": "small"
-            }
+                "tag": "h3"
+            },
+            "content": "data:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "An object containing the animation values to interpolate."
         },
         {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
             },
-            "content": "All Params:"
+            "content": "ease:"
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-paragraph",
             "props": {
-                "style": "small"
-            }
+                "style": "medium"
+            },
+            "content": "The easing function that defines the animation's acceleration curve."
         },
         {
-            "component": "mob-snippet",
+            "component": "mob-title",
             "props": {
-                "source": "./snippets/mob-motion/sequencer-type.d.ts",
-                "numLines": 54
-            }
+                "tag": "h3"
+            },
+            "content": "stagger:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "For stagger effects, refer to the <a href='./#mobMotion-stagger'>stagger</a> section."
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "initialization",
+                "label": "Initialization"
             }
         },
         {

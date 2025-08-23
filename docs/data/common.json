@@ -636,11 +636,6 @@
             "url": "mobMotion-sequencer"
         },
         {
-            "label": "Stagger",
-            "scrollToSection": "mobMotion",
-            "url": "mobMotion-stagger"
-        },
-        {
             "label": "Create stagger",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-create-stagger"
@@ -659,6 +654,11 @@
             "label": "Parallax",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-parallax"
+        },
+        {
+            "label": "Stagger",
+            "scrollToSection": "mobMotion",
+            "url": "mobMotion-stagger"
         },
         {
             "label": "Defaults",

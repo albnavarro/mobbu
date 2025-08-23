@@ -84,6 +84,14 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "schema",
+                "label": "Schema"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h2",

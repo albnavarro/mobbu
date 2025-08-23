@@ -139,11 +139,18 @@
                 "style": "medium"
             }
         },
-
         {
             "component": "mob-spacer",
             "props": {
                 "style": "x-small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "common_example",
+                "label": "Common params"
             }
         },
         {
@@ -209,7 +216,6 @@
                 "style": "medium"
             }
         },
-
         {
             "component": "mob-spacer",
             "props": {

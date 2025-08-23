@@ -72,15 +72,17 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small"
+                "style": "x-small",
+                "label": "Params",
+                "isSection": true
             }
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
-                "label": "Params",
-                "isSection": true
+                "style": "small",
+                "id": "schema",
+                "label": "Schema"
             }
         },
         {

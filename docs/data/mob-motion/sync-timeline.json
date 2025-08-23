@@ -54,7 +54,7 @@
             "component": "mob-spacer",
             "props": {
                 "style": "x-small",
-                "label": "Initialization",
+                "label": "Params",
                 "isSection": true
             }
         },
@@ -68,8 +68,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "small",
-                "id": "code_example",
-                "label": "Params"
+                "id": "schema",
+                "label": "Schema"
             }
         },
         {
@@ -105,6 +105,14 @@
             "props": {
                 "source": "./snippets/mob-motion/sync-timeline.js",
                 "numLines": 7
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "all",
+                "label": "All params"
             }
         },
         {
