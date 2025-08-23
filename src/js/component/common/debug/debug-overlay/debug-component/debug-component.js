@@ -7,7 +7,7 @@
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { html, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../constant';
-import { debugActiveComponentStore } from '../store/debug-active-component';
+import { debugActiveComponentStore } from '@stores/debug';
 
 /**
  * @param {DOMTokenList | undefined} value

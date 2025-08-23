@@ -1,6 +1,6 @@
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { outerHeight } from '@mobCoreUtils';
 import { MobSmoothScroller } from '@mobMotionPlugin';
+import { navigationStore } from '@stores/navigation';
 
 let currentPercent = 0;
 

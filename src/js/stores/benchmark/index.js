@@ -1,7 +1,7 @@
 import { MobCore } from '@mobCore';
 
 /**
- * @import {MobStoreParams, MobStoreReturnType} from "@mobStoreType";
+ * @import {MobStoreParams} from "@mobStoreType";
  */
 
 export const externalBenchmarkStore = MobCore.createStore(

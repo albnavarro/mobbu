@@ -2,7 +2,7 @@
 
 import { html } from '@mobJs';
 import { benchMarkListExternalPartial } from './bench-mark-list-external-partial';
-import { externalBenchmarkStore } from './store';
+import { externalBenchmarkStore } from '@stores/benchmark';
 
 /**
  * @import {MobComponent, ReturnBindProps} from '@mobJsType';

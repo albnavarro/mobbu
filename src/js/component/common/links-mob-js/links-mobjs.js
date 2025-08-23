@@ -5,9 +5,9 @@
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { getCommonData } from '@data/index';
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html, MobJs } from '@mobJs';
 import { PAGE_TEMPLATE_COMPONENT_MOBJS } from '../../../pages';
+import { navigationStore } from '@stores/navigation';
 
 /**
  * This component is a singleton so use module scope.

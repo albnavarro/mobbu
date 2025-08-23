@@ -1,4 +1,3 @@
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import {
@@ -7,6 +6,7 @@ import {
     InitMobPageScroll,
     UnFreezeAndUPdateMobPageScroll,
 } from '@mobMotionPlugin';
+import { navigationStore } from '@stores/navigation';
 
 let usePrevent = false;
 let shouldInit = false;

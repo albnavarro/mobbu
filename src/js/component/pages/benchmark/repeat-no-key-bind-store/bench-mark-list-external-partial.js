@@ -6,7 +6,7 @@ import {
     createBenchMarkArray,
     shuffle,
 } from '../partials/bench-mark-list-partial';
-import { externalBenchmarkStore } from './store';
+import { externalBenchmarkStore } from '@stores/benchmark';
 
 /**
  * @import {DelegateEvents, SetRef, GetRef, GetState, BindEffect} from '@mobJsType';

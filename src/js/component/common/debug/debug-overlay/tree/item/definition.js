@@ -1,6 +1,6 @@
 import { MobJs } from '@mobJs';
 import { DebugTreeItemFn } from './debug-tree-item';
-import { debugActiveComponentStore } from '../../store/debug-active-component';
+import { debugActiveComponentStore } from '@stores/debug';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";

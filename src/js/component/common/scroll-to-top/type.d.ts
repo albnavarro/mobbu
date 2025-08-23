@@ -1,4 +1,4 @@
-import { NavigationStore } from '@layoutComponent/navigation/store/type';
+import { NavigationStore } from '@stores/navigation/type';
 
 interface State extends Readonly<NavigationStore> {
     active: boolean;

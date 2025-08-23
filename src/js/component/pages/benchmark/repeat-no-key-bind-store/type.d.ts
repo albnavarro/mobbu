@@ -1,9 +1,4 @@
-export interface ExternalStore {
-    counter: number;
-    time: number;
-    data: { label: string }[];
-    isLoading: boolean;
-}
+import { ExternalStore } from '@stores/benchmark/type';
 
 export interface BenchMarkExternal {
     state: Readonly<ExternalStore>;

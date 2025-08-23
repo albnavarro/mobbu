@@ -1,4 +1,4 @@
-import { DebugActiveComponentStore } from '../../store/type';
+import { DebugActiveComponentStore } from '@stores/debug/type';
 
 interface State extends Readonly<DebugActiveComponentStore> {
     id: string;

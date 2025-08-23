@@ -2,8 +2,8 @@
  * @import {MobComponent} from '@mobJsType';
  */
 
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html } from '@mobJs';
+import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<import('./type').HeaderToggle>} */
 export const HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {

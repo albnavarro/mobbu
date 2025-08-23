@@ -36,6 +36,9 @@
             "@pagesComponent/*": ["./src/js/component/pages/*"],
             "@componentLibs/*": ["./src/js/component/lib/*"],
 
+            //stores
+            "@stores/*": ["./src/js/stores/*"],
+
             // utils
             "@utils/*": ["./src/js/utils/*"],
 
@@ -50,6 +53,7 @@
         "src/js/mob/mob-motion",
         "src/js/mob/mob-core",
         "src/js/component",
+        "src/js/stores",
         "src/js/pages",
         "src/js/wrapper",
         "src/js/pageTransition",

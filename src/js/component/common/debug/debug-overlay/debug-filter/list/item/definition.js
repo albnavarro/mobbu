@@ -1,6 +1,6 @@
 import { MobJs } from '@mobJs';
 import { DebugFilterListItemFn } from './debug-filter-list-item';
-import { debugActiveComponentStore } from '@commonComponent/debug/debug-overlay/store/debug-active-component';
+import { debugActiveComponentStore } from '@stores/debug';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";

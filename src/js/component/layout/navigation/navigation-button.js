@@ -5,7 +5,7 @@
 
 import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
-import { navigationStore } from './store/nav-store';
+import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<NavigationButton>} */
 export const NavigationButtonFn = ({

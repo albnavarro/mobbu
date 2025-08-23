@@ -4,10 +4,10 @@
 
 import { html, MobJs } from '@mobJs';
 
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 // @ts-ignore
 import githubIcon from '../../../../svg/icon-github.svg';
 import { getCommonData } from '@data/index';
+import { navigationStore } from '@stores/navigation';
 
 /** @type{Record<string, any>} */
 const icon = {

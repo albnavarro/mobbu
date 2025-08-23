@@ -2,13 +2,13 @@
  * @import {MobComponent, UseMethodByName} from '@mobJsType';
  */
 
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { outerHeight } from '@mobCoreUtils';
 import { html, MobJs } from '@mobJs';
 import {
     mobNavigationContainerName,
     mobNavigationName,
 } from '../../instance-name';
+import { navigationStore } from '@stores/navigation';
 
 function titleHandler() {
     MobJs.loadUrl({ url: '#home' });

@@ -2,9 +2,9 @@
  * @import {DelegateEvents, MobComponent, StaticProps} from '@mobJsType';
  */
 
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
 import { html, MobJs } from '@mobJs';
 import { getCommonData } from '@data/index';
+import { navigationStore } from '@stores/navigation';
 
 /**
  * @param {object} params

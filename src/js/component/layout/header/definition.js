@@ -3,7 +3,7 @@ import { HeaderFn } from './header';
 import { HeadernavFn } from './header-nav';
 import { HeaderToggleFn } from './header-toggle';
 import { Search } from '@commonComponent/search/cta-search/definition';
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
+import { navigationStore } from '@stores/navigation';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";

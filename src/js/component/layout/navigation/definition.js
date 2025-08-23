@@ -4,7 +4,7 @@ import { NavigationFn } from './navigation';
 import { NavigationButtonFn } from './navigation-button';
 import { NavigationLabelFn } from './navigation-label';
 import { NavigationSubmenuFn } from './navigation-submenu';
-import { navigationStore } from './store/nav-store';
+import { navigationStore } from '@stores/navigation';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";

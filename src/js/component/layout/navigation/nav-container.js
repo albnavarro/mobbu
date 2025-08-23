@@ -2,11 +2,11 @@ import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';
 import { initNavigationScoller } from './animation/nav-scroller';
-import { navigationStore } from './store/nav-store';
 import {
     mobNavigationContainerName,
     mobNavigationName,
 } from '../../instance-name';
+import { navigationStore } from '@stores/navigation';
 
 /**
  * @import {SetState, UseMethodByName} from '@mobJsType'

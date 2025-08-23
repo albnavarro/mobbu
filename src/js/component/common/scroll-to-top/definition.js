@@ -1,6 +1,6 @@
 import { MobJs } from '@mobJs';
 import { ScrollToTopFn } from './scroll-to-top';
-import { navigationStore } from '@layoutComponent/navigation/store/nav-store';
+import { navigationStore } from '@stores/navigation';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";

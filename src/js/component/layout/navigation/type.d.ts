@@ -1,4 +1,4 @@
-import { NavigationStore } from './store/type';
+import { NavigationStore } from '@stores/navigation/type';
 
 export interface NavigationButton {
     state: {
