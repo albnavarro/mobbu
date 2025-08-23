@@ -1,6 +1,3 @@
-/**
- * Create and set the goTo value.
- */
 const mySequencer = tween
     .createSequencer({
         data: { x: 10, y: 0, rotate: 0 },

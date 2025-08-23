@@ -396,11 +396,13 @@
             "content": "2) rotate | rotateY | rotateX | rotateZ"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "<span class='quote'>45deg | -45deg</span>. The default value is 0."
+                "style": "medium",
+                "items": [
+                    "<span class='quote'>45deg | -45deg</span>. The default value is 0."
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -416,11 +418,13 @@
             "content": "3) scale | scaleX | scaleY"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "Example: <span class='quote'>+/-0.5</span>. The scale property is increased by 0.5 (default value is 0)."
+                "style": "medium",
+                "items": [
+                    "Example: <span class='quote'>+/-0.5</span>. The scale property is increased by 0.5 (default value is 0)."
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -436,11 +440,13 @@
             "content": "4) opacity"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "<span class='quote'>+/-</span> number between 0 and 1 (default is 1)."
+                "style": "medium",
+                "items": [
+                    "<span class='quote'>+/-</span> number between 0 and 1 (default is 1)."
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -456,11 +462,13 @@
             "content": "5) customCssProperties"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "<span class='quote'>margin</span>, <span class='quote'>paddingLeft</span>, etc... Each value will be converted to px (no unit needed)."
+                "style": "medium",
+                "items": [
+                    "<span class='quote'>margin</span>, <span class='quote'>paddingLeft</span>, etc... Each value will be converted to px (no unit needed)."
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -476,11 +484,13 @@
             "content": "6) tween"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "When using tween, the value is controlled by the <span class='quote'>sequencer/scrollerTween</span> itself (no options available)."
+                "style": "medium",
+                "items": [
+                    "When using tween, the value is controlled by the <span class='quote'>sequencer/scrollerTween</span> itself (no options available)."
+                ]
+            }
         },
         {
             "component": "mob-spacer",

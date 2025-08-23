@@ -20,8 +20,14 @@
         fill: $white;
     }
 
+    .title-content {
+        position: relative;
+        z-index: 1;
+    }
+
     ul {
         padding: 0;
+        margin-top: 0;
         list-style-type: none;
 
         li {
@@ -170,7 +176,6 @@
             }
 
             .title-index {
-                display: block;
                 font-size: rem(14);
                 position: absolute;
                 bottom: calc(#{rem(13)} * -1);
@@ -188,9 +193,9 @@
 
     h3 {
         padding-bottom: rem(10);
-        padding-left: rem(25);
-        margin-bottom: rem(10);
-        margin-top: rem(40);
+        padding-left: rem(20);
+        margin-bottom: 0;
+        margin-top: rem(20);
         margin-left: calc(#{rem(20)} * -1);
         position: relative;
         font-size: rem(26);
@@ -273,9 +278,4 @@
             transition: border-color 0.35s;
         }
     }
-}
-
-.title-content {
-    position: relative;
-    z-index: 1;
 }

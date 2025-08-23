@@ -524,7 +524,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "When calling methods (set, goTo, goFrom, goFromTo) during an active tween, they return Promise.reject() to ensure only the initial Promise resolves. Use catch(() => {}) to suppress Firefox's console errors about unhandled rejections."
+            "content": "When calling methods (<span class='quote'>set</span>, <span class='quote'>goTo</span>, <span class='quote'>goFrom</span>, <span class='quote'>goFromTo</span>) during an active tween, they return <span class='quote'>Promise.reject()</span> to ensure only the initial Promise resolves. Use <span class='quote'>catch(() => {})</span> to suppress Firefox's console errors about <span class='quote'>unhandled rejections</span>."
         },
         {
             "component": "mob-spacer",
