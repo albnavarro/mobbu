@@ -169,7 +169,7 @@ export const SearchOverlayHeaderFn = ({
                               .join(' ');
                           return `${currentValueLessLast} ${value}`;
                       })();
-            search_input.value = newSearchValue;
+            search_input.value = newSearchValue.trimStart();
             proxi.suggestionListData = [];
             search_input.focus();
         });
