@@ -52,7 +52,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/watch.js",
-                "numLines": 37
+                "numLines": 32
             }
         },
         {

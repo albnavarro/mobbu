@@ -3,35 +3,30 @@ import { html } from '@mobJs';
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ onMount, getState, watch, setRef, getRef }) => {
+export const MyComponent = ({ getState, watch, getPoxi }) => {
     const { label } = getState();
+    const proxi = getPoxi();
 
-    onMount(() => {
-        const { labelRef } = getRef();
+    /**
+     * With proxi as key
+     */
+    const unwatch = watch(
+        () => proxi.myState,
+        (newValue, oldValue) => {
+            console.log(newValue, oldValue);
+        }
+    );
 
-        /**
-         * With proxi as key
-         */
-        const unwatch = watch(
-            () => proxi.myState,
-            (value) => {
-                labelRef.classList.toggle('myClass', value);
-            }
-        );
-
-        /**
-         * Use string as key
-         */
-        const unwatch = watch('myState', (value) => {
-            labelRef.classList.toggle('myClass', value);
-        });
-
-        return () => {};
+    /**
+     * Use string as key
+     */
+    const unwatch = watch('myState', (newValue, oldValue) => {
+        console.log(newValue, oldValue);
     });
 
     return html`
         <div>
-            <h2 ${setRef('labelRef')}>${label}</h2>
+            <h2>${label}</h2>
         </div>
     `;
 };
