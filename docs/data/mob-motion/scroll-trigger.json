@@ -76,6 +76,14 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Params",
+                "isSection": true
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h2",
