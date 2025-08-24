@@ -288,6 +288,8 @@ export const caterpillarN1Animation = ({
         if (val) {
             isActive = false;
             rectTimeline?.pause();
+            rotationTween?.pause();
+            centerTween?.pause();
             return;
         }
 
@@ -304,6 +306,8 @@ export const caterpillarN1Animation = ({
              * Restart loop
              */
             rectTimeline?.resume();
+            rotationTween?.resume();
+            centerTween?.resume();
             MobCore.useFrame(() => loop());
         }, 500);
     });
