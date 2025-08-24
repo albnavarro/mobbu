@@ -14,17 +14,18 @@ const masterSequencer = MobTween.createMasterSequencer();
 const staggers = MobTween.createStaggers({
     items: targets,
     stagger: {
-        type: 'equal',
-        each: 2,
-        from: 'end',
+        type: 'end',
+        each: 5,
+        from: 'start',
+        grid: { col: 10, row: 10, direction: 'col' },
+        waitComplete: false,
     },
     duration: 10,
 });
 
 /**
- * Create All instance of sequencer.
- * If you don't need to keep track of the unsubscribe functions,
- * a simple forEach() is enough
+ * Create All instance of sequencer. If you don't need to keep track of the unsubscribe functions, a simple forEach() is
+ * enough
  */
 const unsubScribeStagger = staggers.map(({ item, start, end, index }) => {
     const sequencer = MobTween.createSequencer({
@@ -41,7 +42,7 @@ const unsubScribeStagger = staggers.map(({ item, start, end, index }) => {
     });
 
     /**
-     * add to masterSequencer
+     * Add to masterSequencer
      */
     masterSequencer.add(sequencer);
     return unsunscribe;

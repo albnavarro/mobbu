@@ -9,14 +9,6 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small",
-                "id": "start",
-                "label": "Overview"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
