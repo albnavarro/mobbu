@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Store"
+            "content": "<span>mobCore</span>/Store"
         },
         {
             "component": "mob-spacer",

@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "<span>Async</span>/Async tween"
+            "content": "<span>Async</span>/AsyncTween"
         },
         {
             "component": "mob-spacer",

@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Default value"
+            "content": "<span>mobCore</span>/Default values"
         },
         {
             "component": "mob-spacer",

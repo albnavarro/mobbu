@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Events"
+            "content": "<span>mobCore</span>/Events"
         },
         {
             "component": "mob-spacer",
