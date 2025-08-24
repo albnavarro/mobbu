@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "To activate, the init method must be executed. Unlike scrollTrigger which uses precise calculations, parallax moves elements around a neutral point (value = 0) using speed/multipliers rather than absolute values. The only absolute property is opacity, controlled by opacityStart and opacityEnd parameters.<br/><br/>Related group: <span class='quote'><a href='#mobMotion-sequencer'>sequencer</a></span> | <span class='quote'><a href='#mobMotion-sync-timeline'>syncTimeline</a></span> | <span class='quote'><a href='#mobMotion-create-stagger'>createStagger</a></span> | <span class='quote'><a href='#mobMotion-scrolltrigger'>scrollTrigger</a></span> | <span class='quote'><a href='#mobMotion-parallax'>parallax</a></span>"
+            "content": "Related group: <span class='quote'><a href='#mobMotion-sequencer'>sequencer</a></span> | <span class='quote'><a href='#mobMotion-sync-timeline'>syncTimeline</a></span> | <span class='quote'><a href='#mobMotion-create-stagger'>createStagger</a></span> | <span class='quote'><a href='#mobMotion-scrolltrigger'>scrollTrigger</a></span> | <span class='quote'><a href='#mobMotion-parallax'>parallax</a></span><br/><br/>To activate, the init method must be executed. Unlike scrollTrigger which uses precise calculations, parallax moves elements around a neutral point (value = 0) using speed/multipliers rather than absolute values. The only absolute property is opacity, controlled by opacityStart and opacityEnd parameters."
         },
         {
             "component": "mob-title",

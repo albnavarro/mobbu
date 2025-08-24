@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Async timeline is a promise-based animation coordinator that manages <span class='quote'>timetweens</span>, <span class='quote'>lerps</span>, and <span class='quote'>springs</span>. It handles single animations or groups, supports looping, and allows custom functions between animations.<br/><br/>Related group: <span class='quote'><a href='#mobMotion-tween-spring-lerp'>async tween</a></span> | <span class='quote'><a href='#mobMotion-async-timeline'>asyncTimeline</a></span>"
+            "content": "Related group: <span class='quote'><a href='#mobMotion-tween-spring-lerp'>async tween</a></span> | <span class='quote'><a href='#mobMotion-async-timeline'>asyncTimeline</a></span><br/><br/>Async timeline is a promise-based animation coordinator that manages <span class='quote'>timetweens</span>, <span class='quote'>lerps</span>, and <span class='quote'>springs</span>. It handles single animations or groups, supports looping, and allows custom functions between animations."
         },
         {
             "component": "mob-title",

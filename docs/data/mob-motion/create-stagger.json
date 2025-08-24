@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "createStagger is a specialized utility for coordinating multiple sequencers. Unlike the standard <a href='./#mobMotion-stagger'>stagger</a> which operates on single animations, createStagger synchronizes groups of sequencers using stagger patterns. It returns an array of precomputed start/end values for precise sequencing control.<br/><br/>Related group: <span class='quote'><a href='#mobMotion-sequencer'>sequencer</a></span> | <span class='quote'><a href='#mobMotion-sync-timeline'>syncTimeline</a></span> | <span class='quote'><a href='#mobMotion-create-stagger'>createStagger</a></span> | <span class='quote'><a href='#mobMotion-scrolltrigger'>scrollTrigger</a></span> | <span class='quote'><a href='#mobMotion-parallax'>parallax</a></span>"
+            "content": "Related group: <span class='quote'><a href='#mobMotion-sequencer'>sequencer</a></span> | <span class='quote'><a href='#mobMotion-sync-timeline'>syncTimeline</a></span> | <span class='quote'><a href='#mobMotion-create-stagger'>createStagger</a></span> | <span class='quote'><a href='#mobMotion-scrolltrigger'>scrollTrigger</a></span> | <span class='quote'><a href='#mobMotion-parallax'>parallax</a></span><br/><br/>createStagger is a specialized utility for coordinating multiple sequencers. Unlike the standard <a href='./#mobMotion-stagger'>stagger</a> which operates on single animations, createStagger synchronizes groups of sequencers using stagger patterns. It returns an array of precomputed start/end values for precise sequencing control."
         },
         {
             "component": "mob-spacer",
