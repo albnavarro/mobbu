@@ -149,7 +149,7 @@
             "props": {
                 "style": "medium",
                 "id": "target",
-                "label": "DOM&nbsp;Element"
+                "label": "DOM Element props"
             }
         },
         {
@@ -157,7 +157,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "DOM Element"
+            "content": "DOM Element props"
         },
         {
             "component": "mob-title",
@@ -264,7 +264,7 @@
             "props": {
                 "style": "medium",
                 "id": "breakpoint",
-                "label": "breakpoint"
+                "label": "breakpoint props"
             }
         },
         {
@@ -272,7 +272,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "breakpoint"
+            "content": "breakpoint props"
         },
         {
             "component": "mob-title",
@@ -982,7 +982,7 @@
             "props": {
                 "style": "medium",
                 "id": "ease",
-                "label": "ease"
+                "label": "ease props"
             }
         },
         {
@@ -990,7 +990,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "ease management"
+            "content": "ease props"
         },
         {
             "component": "mob-paragraph",
@@ -1089,7 +1089,7 @@
             "props": {
                 "style": "medium",
                 "id": "pin",
-                "label": "pin"
+                "label": "pin props"
             }
         },
         {
@@ -1097,7 +1097,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "pin management"
+            "content": "pin props"
         },
         {
             "component": "mob-paragraph",

@@ -34,43 +34,15 @@
             font-size: rem(13);
         }
 
-        &::before {
-            content: '';
-            top: 50%;
-            transform: translateY(-50%) rotate(45deg);
-            right: calc(100% + #{rem(5)});
-            height: rem(4);
-            width: rem(4);
-            position: absolute;
-            border-top: 1px rgba($black, 0.5) solid;
-            border-right: 1px rgba($black, 0.5) solid;
-        }
-
         span {
-            transition: transform 0.55s;
+            transition:
+                transform 0.55s,
+                opacity 0.55s;
             display: block;
             text-transform: capitalize;
 
             @media screen and (height >= 200px) and (height <= 900px) {
                 font-size: rem(11);
-            }
-        }
-
-        &.active {
-            font-weight: 600;
-        }
-
-        &.is-section,
-        &.is-note {
-            &::before {
-                content: none;
-            }
-
-            &:hover,
-            &.active {
-                &::after {
-                    content: none;
-                }
             }
         }
 
@@ -82,6 +54,52 @@
             span {
                 text-transform: uppercase;
             }
+        }
+
+        &::before {
+            content: '';
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            right: calc(100% + #{rem(5)});
+            height: rem(4);
+            width: rem(4);
+            position: absolute;
+            border-top: 1px rgba($black, 0.5) solid;
+            border-right: 1px rgba($black, 0.5) solid;
+            transition: transform 0.35s;
+        }
+
+        &:not(.active):hover {
+            &::before {
+                transform: translateY(-50%)
+                    translateX(calc(-50% + #{rem(2)} * -1)) rotate(45deg);
+            }
+        }
+
+        &.active {
+            font-weight: 600;
+        }
+
+        &.is-section,
+        &.is-note {
+            pointer-events: none;
+
+            &::before {
+                content: none;
+            }
+
+            &:hover,
+            &.active {
+                &::after {
+                    content: none;
+                }
+            }
+
+            // &:hover {
+            //     span {
+            //         opacity: 1;
+            //     }
+            // }
         }
 
         &.is-note {
