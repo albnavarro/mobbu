@@ -29,7 +29,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Tweens can be thought of as stores that interpolate numeric values and trigger callbacks during animations."
+            "content": "Tweens can be thought of as stores that interpolate numeric values and trigger callbacks during animations.<br/><br/>Related group: <span class='quote'><a href='#mobMotion-tween-spring-lerp'>async tween</a></span> | <span class='quote'><a href='#mobMotion-async-timeline'>asyncTimeline</a></span>"
         },
         {
             "component": "mob-title",

@@ -28,7 +28,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "To be activated, the init method must be executed. Unlike parallax which reasons by speed/multipliers, scrollTrigger allows you to reason in absolute values from point A (start) to point B (end)."
+            "content": "To be activated, the init method must be executed. Unlike parallax which reasons by speed/multipliers, scrollTrigger allows you to reason in absolute values from point A (start) to point B (end).<br/><br/>Related group: <span class='quote'><a href='#mobMotion-sequencer'>sequencer</a></span> | <span class='quote'><a href='#mobMotion-sync-timeline'>syncTimeline</a></span> | <span class='quote'><a href='#mobMotion-create-stagger'>createStagger</a></span> | <span class='quote'><a href='#mobMotion-scrolltrigger'>scrollTrigger</a></span> | <span class='quote'><a href='#mobMotion-parallax'>parallax</a></span>"
         },
         {
             "component": "mob-title",
