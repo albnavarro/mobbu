@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "<span>Sync</span> /Sequencer"
+            "content": "<span>Sync</span>/Sequencer"
         },
         {
             "component": "mob-spacer",

@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": " <span>Sync</span> /scrollTrigger"
+            "content": " <span>Sync</span>/scrollTrigger"
         },
         {
             "component": "mob-spacer",

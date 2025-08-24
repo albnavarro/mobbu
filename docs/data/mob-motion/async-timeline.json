@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "<span>Async</span> /Asynctimeline"
+            "content": "<span>Async</span>/Asynctimeline"
         },
         {
             "component": "mob-spacer",

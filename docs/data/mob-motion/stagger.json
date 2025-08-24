@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "<span>Common</span> /Stagger"
+            "content": "<span>Common</span>/Stagger"
         },
         {
             "component": "mob-spacer",
