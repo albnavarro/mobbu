@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Sync timeline"
+            "content": "<span>Sync</span> /SyncTimeline"
         },
         {
             "component": "mob-spacer",

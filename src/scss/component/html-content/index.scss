@@ -106,6 +106,12 @@
             opacity: 0.5;
         }
 
+        .title-content {
+            span {
+                font-size: rem(25);
+            }
+        }
+
         .triangle-left {
             position: absolute;
             top: calc(#{rem(5)} * -1);

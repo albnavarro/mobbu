@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Parallax"
+            "content": "<span>Sync</span> /Parallax"
         },
         {
             "component": "mob-spacer",

@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Sequencer (sync tween)"
+            "content": "<span>Sync</span> /Sequencer"
         },
         {
             "component": "mob-spacer",

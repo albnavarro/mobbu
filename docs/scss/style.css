@@ -3054,6 +3054,9 @@ ul li::marker {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2O8e/fufwYGBgZBQUEQxcCIIfDu3Tuwivfv30NUoAsAALHpFMMLqZlPAAAAAElFTkSuQmCC) repeat;
   opacity: 0.5;
 }
+.html-content h1 .title-content span {
+  font-size: 1.6666666667rem;
+}
 .html-content h1 .triangle-left {
   position: absolute;
   top: calc(0.3333333333rem * -1);
