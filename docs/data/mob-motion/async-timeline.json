@@ -137,12 +137,6 @@
             "content": "Sets the number of animation loops.<br/>-1 creates an infinite loop."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
@@ -155,12 +149,6 @@
                 "style": "medium"
             },
             "content": "When enabled, reverses animation direction after each loop.<br/>All tween values flip between start and end points."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-title",
@@ -177,12 +165,6 @@
             "content": "By default, <span class='quote'>play()</span> and <span class='quote'>playReverse()</span> reset tweens to their initial/final values by performing set actions, but without adding them to the timeline (unlike AutoSet, which applies them every cycle). freeMode disables this behavior"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
@@ -197,12 +179,6 @@
             "content": "If set to <span class='quote'>true</span>, it permanently adds set actions at the start/end points of the timeline, forcing the positions and preventing tweens from exceeding the timeline's length."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
@@ -215,12 +191,6 @@
                 "style": "medium"
             },
             "content": "When <span class='quote'>true</span>, it allows inheriting unspecified properties for the current tween from previous steps and merges them with those defined by the user."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-title",

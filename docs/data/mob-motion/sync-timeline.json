@@ -143,12 +143,6 @@
             "content": "Sets the number of animation loops (-1 for infinite). The system automatically adjusts the last frame timing by 1/2 of the current fps to eliminate visible repetition between loops. <a href='./#caterpillarN2'>See example</a> for seamless loop transitions."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
@@ -161,12 +155,6 @@
                 "style": "medium"
             },
             "content": "When enabled, automatically reverses animation direction after each loop completion."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-title",
@@ -189,11 +177,28 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "label": "Initialization",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "initialization",
+                "label": "code"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h6"
+                "tag": "h2",
+                "isSection": true
             },
-            "content": "code example"
+            "content": "Initialization"
         },
         {
             "component": "mob-spacer",

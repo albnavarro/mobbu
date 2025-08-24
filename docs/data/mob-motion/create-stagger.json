@@ -112,16 +112,33 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "mob-spacer",
             "props": {
-                "tag": "h3"
-            },
-            "content": "Usage:"
+                "style": "x-small",
+                "label": "Initialization",
+                "isSection": true
+            }
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium",
+                "id": "initialization",
+                "label": "code"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Initialization"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {

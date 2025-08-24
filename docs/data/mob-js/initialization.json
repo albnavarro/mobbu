@@ -70,7 +70,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
+                "style": "medium",
                 "id": "main",
                 "label": "Initialization"
             }
