@@ -68,6 +68,12 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium",
                 "id": "loadUrl",
                 "label": "loadUrl"
@@ -103,6 +109,12 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium",
                 "id": "useComponent",
                 "label": "useComponent"
@@ -133,6 +145,12 @@
             "props": {
                 "source": "./snippets/mob-js/utils-use-component.js",
                 "numLines": 10
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
