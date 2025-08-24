@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "getState"
+            "content": "<span>component</span>/getState"
         },
         {
             "component": "mob-spacer",

@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "unFreezeProp"
+            "content": "<span>component</span>/unFreezeProp"
         },
         {
             "component": "mob-spacer",

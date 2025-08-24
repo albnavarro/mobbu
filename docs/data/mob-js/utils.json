@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Main Utils"
+            "content": "<span>mobJs</span>/Utils"
         },
         {
             "component": "mob-spacer",

@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "UseMethodByName"
+            "content": "<span>component</span>/UseMethodByName"
         },
         {
             "component": "mob-spacer",

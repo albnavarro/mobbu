@@ -6,7 +6,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "watchParent"
+            "content": "<span>component</span>/watchParent"
         },
         {
             "component": "mob-spacer",

@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "delegateEvents"
+            "content": "<span>component</span>/delegateEvents"
         },
         {
             "component": "mob-spacer",

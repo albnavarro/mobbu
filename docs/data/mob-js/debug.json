@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Debug"
+            "content": "<span>mobJs</span>/Debug"
         },
         {
             "component": "mob-spacer",

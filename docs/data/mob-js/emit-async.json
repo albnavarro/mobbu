@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "emitAsync"
+            "content": "<span>component</span>/emitAsync"
         },
         {
             "component": "mob-spacer",

@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "UpdateStateByName"
+            "content": "<span>component</span>/UpdateStateByName"
         },
         {
             "component": "mob-spacer",

@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "classList"
+            "content": "<span>component</span>/classList"
         },
         {
             "component": "mob-spacer",

@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "unBind"
+            "content": "<span>component</span>/unBind"
         },
         {
             "component": "mob-spacer",

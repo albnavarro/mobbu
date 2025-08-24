@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "remove"
+            "content": "<span>component</span>/remove"
         },
         {
             "component": "mob-spacer",

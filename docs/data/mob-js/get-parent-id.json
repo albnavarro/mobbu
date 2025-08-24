@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "getParentId"
+            "content": "<span>component</span>/getParentId"
         },
         {
             "component": "mob-spacer",

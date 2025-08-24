@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Component"
+            "content": "<span>mobJs</span>/Component"
         },
         {
             "component": "mob-spacer",

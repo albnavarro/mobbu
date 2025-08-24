@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "invalidate vs repeat"
+            "content": "<span>component</span>/invalidate vs repeat"
         },
         {
             "component": "mob-spacer",

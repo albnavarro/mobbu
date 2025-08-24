@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "bindEffect"
+            "content": "<span>component</span>/bindEffect"
         },
         {
             "component": "mob-spacer",

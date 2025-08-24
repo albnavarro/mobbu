@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Slot"
+            "content": "<span>component</span>/Slot"
         },
         {
             "component": "mob-spacer",

@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "memory management"
+            "content": "<span>mobJs</span>/memory management"
         },
         {
             "component": "mob-spacer",

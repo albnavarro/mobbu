@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "refs"
+            "content": "<span>component</span>/refs"
         },
         {
             "component": "mob-spacer",
@@ -27,12 +27,6 @@
                 "boxed": true
             },
             "content": "HTML nodes can be accessed through the ref and refs functions."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-paragraph",

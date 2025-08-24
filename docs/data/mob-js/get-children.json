@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "getChildren"
+            "content": "<span>component</span>/getChildren"
         },
         {
             "component": "mob-spacer",

@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Add Methods"
+            "content": "<span>component</span>/Add Methods"
         },
         {
             "component": "mob-spacer",

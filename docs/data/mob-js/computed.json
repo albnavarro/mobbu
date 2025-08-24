@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "computed"
+            "content": "<span>component</span>/computed"
         },
         {
             "component": "mob-spacer",
