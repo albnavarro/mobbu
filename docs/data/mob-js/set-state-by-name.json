@@ -74,7 +74,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Reference:"
+            "content": "Related:"
         },
         {
             "component": "mob-list",

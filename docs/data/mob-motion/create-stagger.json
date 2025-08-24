@@ -191,7 +191,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "equal:"
         },
@@ -222,7 +222,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "start:"
         },
@@ -242,7 +242,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "end:"
         },
@@ -262,7 +262,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h6"
             },
             "content": "center:"
         },
@@ -276,9 +276,15 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "small",
                 "id": "each",
                 "label": "each"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
@@ -298,9 +304,15 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "small",
                 "id": "waitComplete",
                 "label": "waitComplete"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
@@ -320,9 +332,15 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "small",
                 "id": "from",
                 "label": "from"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
@@ -342,9 +360,15 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "small",
                 "id": "grid",
                 "label": "grid"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {

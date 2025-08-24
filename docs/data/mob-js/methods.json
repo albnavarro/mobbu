@@ -48,6 +48,13 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Related:"
+        },
+        {
             "component": "mob-list",
             "props": {
                 "style": "small",

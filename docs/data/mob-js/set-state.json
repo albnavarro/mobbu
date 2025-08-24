@@ -59,7 +59,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h6"
             },
             "content": "SetStateByName"
         },
@@ -73,7 +73,7 @@
         {
             "component": "mob-list",
             "props": {
-                "tag": "h3",
+                "tag": "h6",
                 "dots": false,
                 "links": true,
                 "items": [
