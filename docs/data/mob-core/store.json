@@ -79,7 +79,9 @@
         },
         {
             "component": "mob-spacer",
-            "props": {}
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
