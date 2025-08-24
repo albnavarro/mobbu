@@ -5,6 +5,14 @@
             "props": {
                 "style": "small",
                 "id": "start",
+                "label": "Top"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "start",
                 "label": "Overview"
             }
         },

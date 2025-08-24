@@ -5,7 +5,7 @@
             "props": {
                 "style": "small",
                 "id": "start",
-                "label": "Overview"
+                "label": "Top"
             }
         },
         {
@@ -83,6 +83,14 @@
             "component": "mob-spacer",
             "props": {
                 "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "schema",
+                "label": "Schema"
             }
         },
         {

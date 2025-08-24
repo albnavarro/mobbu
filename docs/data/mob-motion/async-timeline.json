@@ -5,7 +5,7 @@
             "props": {
                 "style": "small",
                 "id": "start",
-                "label": "Overview"
+                "label": "Top"
             }
         },
         {
@@ -246,16 +246,33 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "mob-spacer",
             "props": {
-                "tag": "h3"
-            },
-            "content": "Example"
+                "style": "x-small",
+                "label": "Initialization",
+                "isSection": true
+            }
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium",
+                "id": "initialization",
+                "label": "code"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Initialization"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {
@@ -268,9 +285,31 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "x-small",
+                "label": "Override",
+                "isSection": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium",
-                "id": "override",
-                "label": "tween&nbsp;params&nbsp;and&nbsp;override"
+                "id": "Override",
+                "label": "Override tweens params"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Override"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {

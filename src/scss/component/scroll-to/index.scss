@@ -27,7 +27,7 @@
         display: block;
         padding: 0;
         font-size: rem(12);
-        line-height: 1.6;
+        line-height: 1.5;
         margin-left: rem(10);
 
         @include mq(large) {
@@ -51,7 +51,7 @@
             display: block;
             text-transform: capitalize;
 
-            @media screen and (height >= 200px) and (height <= 750px) {
+            @media screen and (height >= 200px) and (height <= 900px) {
                 font-size: rem(11);
             }
         }
