@@ -28,22 +28,22 @@
         padding: 0;
         font-size: rem(12);
         line-height: 1.6;
+        margin-left: rem(10);
 
         @include mq(large) {
             font-size: rem(13);
         }
 
-        &::after {
+        &::before {
             content: '';
             top: 50%;
-            transform: translateY(-50%);
-            left: calc(#{rem(20)} * -1);
-            height: em(15);
+            transform: translateY(-50%) rotate(45deg);
+            right: calc(100% + #{rem(5)});
+            height: rem(4);
             width: rem(4);
-            background: $black;
             position: absolute;
-            opacity: 0;
-            transition: opacity 0.35s;
+            border-top: 1px rgba($black, 0.5) solid;
+            border-right: 1px rgba($black, 0.5) solid;
         }
 
         span {
@@ -56,19 +56,16 @@
             }
         }
 
-        &:hover,
-        &.active {
-            &::after {
-                opacity: 1;
-            }
-        }
-
         &.active {
             font-weight: 600;
         }
 
         &.is-section,
         &.is-note {
+            &::before {
+                content: none;
+            }
+
             &:hover,
             &.active {
                 &::after {
@@ -80,12 +77,18 @@
         &.is-section {
             font-weight: 600;
             margin-top: rem(10);
+            margin-left: 0;
+
+            span {
+                text-transform: uppercase;
+            }
         }
 
         &.is-note {
             font-size: rem(12);
             cursor: auto;
             opacity: 0.5;
+            margin-left: 0;
         }
     }
 }
