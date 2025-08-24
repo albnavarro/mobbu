@@ -40,9 +40,9 @@
                     "Typescript support",
                     "SPA ready.",
                     "Optional use of web component.",
-                    "Optional parent/child reactivity.",
-                    "Optional reactive list",
+                    "Parent/child reactivity.",
                     "Cross-component communication.",
+                    "Reactive list",
                     "Flexible invalidation of the DOM",
                     "Extensible state with external stores (only for reactivity)",
                     "Classes styles and reactive attributes",
@@ -94,7 +94,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Library initialization"
+            "content": "All the steps to initialize the library, with all parameters in detail."
         },
         {
             "component": "mob-list",
@@ -113,7 +113,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
+                "style": "medium",
                 "id": "component",
                 "label": "Component"
             }
@@ -130,7 +130,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Component management"
+            "content": "How to create a component and all specifications regarding props, reactivity, and much more."
         },
         {
             "component": "mob-list",
@@ -149,7 +149,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
+                "style": "medium",
                 "id": "routing",
                 "label": "Routing"
             }
@@ -166,7 +166,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Route management"
+            "content": "How to create a component and all specifications regarding props, reactivity, and much more."
         },
         {
             "component": "mob-list",
@@ -185,7 +185,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
+                "style": "medium",
                 "id": "tick",
                 "label": "Tick"
             }
@@ -216,7 +216,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
+                "style": "medium",
                 "id": "memory",
                 "label": "Memory management"
             }
@@ -252,7 +252,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
+                "style": "medium",
                 "id": "utils",
                 "label": "Utils"
             }
@@ -269,7 +269,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Utils function"
+            "content": "General utility functions."
         },
         {
             "component": "mob-list",
@@ -300,7 +300,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Enable application debug mode"
+            "content": "How to debug the application."
         },
         {
             "component": "mob-list",
