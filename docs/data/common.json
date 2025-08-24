@@ -621,37 +621,37 @@
             "url": "mobMotion-overview"
         },
         {
-            "label": "TimeTween/Spring/Lerp ( async tween )",
+            "label": "<span>Async</span> /TimeTween/Spring/Lerp",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-tween-spring-lerp"
         },
         {
-            "label": "Async timeline",
+            "label": "<span>Async</span> /AsyncTimeline",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-async-timeline"
         },
         {
-            "label": "Sequencer ( sync tween )",
+            "label": "<span>Sync</span> /Sequencer",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-sequencer"
         },
         {
-            "label": "Sync timeline",
+            "label": "<span>Sync</span> /SyncTimeline",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-sync-timeline"
         },
         {
-            "label": "Create stagger",
+            "label": "<span>Sync</span> /CreateStagger",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-create-stagger"
         },
         {
-            "label": "ScrollTrigger",
+            "label": "<span>Sync</span> /ScrollTrigger",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-scrolltrigger"
         },
         {
-            "label": "Parallax",
+            "label": "<span>Sync</span> /Parallax",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-parallax"
         },

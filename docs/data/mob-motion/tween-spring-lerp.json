@@ -32,6 +32,13 @@
             "content": "Tweens can be thought of as stores that interpolate numeric values and trigger callbacks during animations."
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Example:"
+        },
+        {
             "component": "mob-list",
             "props": {
                 "style": "medium",

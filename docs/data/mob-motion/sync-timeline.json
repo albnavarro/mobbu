@@ -31,6 +31,13 @@
             "content": "syncTimeline is a powerful timing controller that manages one or more <a href='./#mobMotion-sequencer'>sequencers</a>. It handles playback control (play, stop, pause) while regulating animation duration and sequencing."
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Example:"
+        },
+        {
             "component": "mob-list",
             "props": {
                 "style": "medium",
