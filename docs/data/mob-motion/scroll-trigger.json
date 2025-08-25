@@ -1167,7 +1167,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Activates pinning slightly early on page load.<br/>default: <span class='quote'>false</span>"
+            "content": "The <span class='quote'>pin</span> mechanism is activated before reaching the activation point based on a <span class='quote'>delta</span> factor that changes depending on the scroll speed. This mechanism prevents the pin from activating only after passing the activation point, but always a bit earlier. Upon page load, this delta factor is not applied; it is only applied after the first scroll. This option allows <span class='quote'>anticipating the impact point</span> even on the <span class='quote'>first load</span>."
         },
         {
             "component": "mob-spacer",
