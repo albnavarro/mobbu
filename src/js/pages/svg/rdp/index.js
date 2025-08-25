@@ -10,7 +10,7 @@ MobJs.useComponent([Move3D, AnyComponent]);
 
 export const rdp = async () => {
     const { data: lettering01 } = await loadTextContent({
-        source: './asset/svg/rdp_nord.svg?v=0.4',
+        source: './asset/svg/rdp.svg?v=0.4',
     });
 
     const [
