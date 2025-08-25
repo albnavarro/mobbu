@@ -949,6 +949,15 @@
             "content": "Displays animation <span class='quote'>start/end</span> indicators. Markers appear at the element's edge and fixed positions matching start/end values. Accepts a string parameter that displays beside the marker."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Attention: in certain situations, the markers may be located outside the visible area."
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-marker.js",
