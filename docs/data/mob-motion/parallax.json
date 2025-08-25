@@ -582,7 +582,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Exact value at neutral position (determined by align property)."
+            "content": "Exact value at neutral position (determined by <span class='quote'>align</span> property)."
         },
         {
             "component": "mob-title",
