@@ -8,6 +8,7 @@
     font-size: rem(11);
     font-weight: 400;
     position: relative;
+    z-index: 1;
 
     @include mq(large) {
         font-size: rem(12);

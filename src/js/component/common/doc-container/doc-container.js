@@ -1,24 +1,11 @@
-import { html, MobJs } from '@mobJs';
-import { scrollToTopName } from '../../instance-name';
+import { html } from '@mobJs';
 
 /**
- * @import {MobComponent, SetStateByName} from '@mobJsType';
- * @import {ScrollToTop} from '../scroll-to-top/type';
+ * @import {MobComponent} from '@mobJsType';
  */
 
 /** @type {MobComponent} */
-export const DocContainerFn = ({ onMount }) => {
-    /** @type {SetStateByName<ScrollToTop>} */
-    const setToTopState = MobJs.setStateByName(scrollToTopName);
-
-    onMount(() => {
-        setToTopState('active', true);
-
-        return () => {
-            setToTopState('active', false);
-        };
-    });
-
+export const DocContainerFn = () => {
     return html`
         <div class="c-doc-container">
             <div class="c-doc-container__content">

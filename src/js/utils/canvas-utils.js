@@ -1,4 +1,4 @@
-export const canvasBackground = '#e8e8e8';
+export const canvasBackground = '#cdcfcf';
 
 /**
  * @param {object} params
