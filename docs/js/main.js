@@ -25670,7 +25670,9 @@
           disableObservereffect = true;
           proxi.activeLabel = label;
           await MobBodyScroll.to(offsetTop);
-          disableObservereffect = false;
+          setTimeout(() => {
+            disableObservereffect = false;
+          }, 1e3);
         }
       });
       return renderHtml`
@@ -25754,10 +25756,12 @@
       resizeObserver.observe(modules_exports2.getRoot());
       const unsubscribeMouseWheel = modules_exports.useMouseWheel(
         debounceFuncion(() => {
+          if (disableObservereffect) return;
           setActiveLabelOnScroll({ proxi, direction: direction2 });
         }, 300)
       );
       const unsubScribeScrollEnd = modules_exports.useScrollEnd(() => {
+        if (disableObservereffect) return;
         setActiveLabelOnScroll({ proxi, direction: direction2 });
       });
       return () => {

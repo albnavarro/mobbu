@@ -75,47 +75,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "loadUrl",
-                "label": "loadUrl"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "loadUrl"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Load a route."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-js/utils-load-route.js",
-                "numLines": 3
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
                 "id": "useComponent",
                 "label": "useComponent"
             }
@@ -191,9 +150,42 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
-                "id": "secondary",
-                "label": "Secondary utils"
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "getRoot",
+                "label": "getRoot"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "getRoot"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Return app root <span class='quote'>HTMLElement</span>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/get-root.js",
+                "numLines": 3
             }
         }
     ]

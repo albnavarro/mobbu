@@ -45,10 +45,13 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                               proxi.activeLabel = label;
                               await MobBodyScroll.to(offsetTop);
 
-                              /**
-                               * Back to enable spacerAnchor observer.
-                               */
-                              disableObservereffect = false;
+                              setTimeout(() => {
+                                  /**
+                                   * Back to enable spacerAnchor observer. Wait one second to not colline with scroll
+                                   * end.
+                                   */
+                                  disableObservereffect = false;
+                              }, 1000);
                           },
                       });
 
@@ -175,6 +178,8 @@ export const ScrollToFn = ({
          */
         const unsubscribeMouseWheel = MobCore.useMouseWheel(
             debounceFuncion(() => {
+                if (disableObservereffect) return;
+
                 setActiveLabelOnScroll({ proxi, direction });
             }, 300)
         );
@@ -183,6 +188,8 @@ export const ScrollToFn = ({
          * Check active label in scroll end.
          */
         const unsubScribeScrollEnd = MobCore.useScrollEnd(() => {
+            if (disableObservereffect) return;
+
             setActiveLabelOnScroll({ proxi, direction });
         });
 
