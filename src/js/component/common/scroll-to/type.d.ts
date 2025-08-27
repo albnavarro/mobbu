@@ -14,6 +14,7 @@ export interface ScrollTo {
             label: string;
             isSection?: boolean;
             isNote?: boolean;
+            top: number;
         }[];
     };
     methods: {

@@ -38,3 +38,4 @@ export { getPropsFromParent } from './modules/static-props';
 export { tick } from './queque/tick';
 export { loadUrl } from './route';
 export { staticProps } from './utils';
+export { getRoot } from './route/dom-ref/root';

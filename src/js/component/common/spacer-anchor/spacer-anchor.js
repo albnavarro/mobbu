@@ -3,11 +3,9 @@
  * @import {SpacerAnchor} from './type';
  */
 
-import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 import { isVisibleInViewportSmart } from '@mobCoreUtils';
 import { scrollToName } from '../../instance-name';
-import { debounceFuncion } from 'src/js/mob/mob-core/events/debounce';
 
 /**
  * @param {object} params
@@ -41,6 +39,11 @@ const addItemToScrollComponent = async ({
     const methods = MobJs.useMethodByName(scrollToName);
     methods?.addItem?.({ id, label, element, isSection, isNote });
 
+    /**
+     * Set initial initial active state.
+     *
+     * On wheel/scroll active state is performed by scroll-to component in more efficient way
+     */
     if (isVisibleInViewportSmart(element) && !isSection) {
         methods?.setActiveLabel?.(label);
     }
@@ -56,35 +59,6 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
         if (!shouldAddToAnchor) return;
 
         addItemToScrollComponent({ id, label, element, isSection, isNote });
-
-        /**
-         * Check if element is visible in viewport at the end of weel with a 500ms debuonce
-         */
-        const unsubScribeWhell = MobCore.useMouseWheel(
-            debounceFuncion(() => {
-                if (isVisibleInViewportSmart(element) && !isSection) {
-                    /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
-                    const methods = MobJs.useMethodByName(scrollToName);
-                    methods?.setActiveLabel?.(label);
-                }
-            }, 500)
-        );
-
-        /**
-         * Check if element is visible in viewport at the end of scroll ( no wheel used )
-         */
-        const unsubScribeScrollEnd = MobCore.useScrollEnd(() => {
-            if (isVisibleInViewportSmart(element) && !isSection) {
-                /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
-                const methods = MobJs.useMethodByName(scrollToName);
-                methods?.setActiveLabel?.(label);
-            }
-        });
-
-        return () => {
-            unsubScribeWhell();
-            unsubScribeScrollEnd();
-        };
     });
 
     return html`<div id="${id}" class="spacer spacer--${style} ${lineClass}">

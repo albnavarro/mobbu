@@ -4,10 +4,12 @@
  * @import {ScrollToButton} from './button/type'
  */
 
+import { MobCore } from '@mobCore';
 import { offset } from '@mobCoreUtils';
-import { html } from '@mobJs';
+import { html, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { MobBodyScroll } from '@mobMotionPlugin';
+import { debounceFuncion } from 'src/js/mob/mob-core/events/debounce';
 
 let disableObservereffect = false;
 
@@ -71,6 +73,32 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
         .join('');
 }
 
+/**
+ * @param {object} params
+ * @param {ScrollTo['state']} params.proxi
+ * @param {'DOWN' | 'UP'} params.direction
+ * @returns {void}
+ */
+const setActiveLabelOnScroll = ({ proxi, direction }) => {
+    const winHeight = window.innerHeight;
+
+    if (direction === 'DOWN') {
+        const activeItem = proxi.anchorItems.findLast(({ top, isNote }) => {
+            return !isNote && top < window.scrollY + winHeight - 200;
+        });
+
+        proxi.activeLabel = activeItem ? activeItem.label : '';
+    }
+
+    if (direction === 'UP') {
+        const activeItem = proxi.anchorItems.findLast(
+            ({ top, isNote }) => !isNote && top < window.scrollY + 200
+        );
+
+        proxi.activeLabel = activeItem ? activeItem.label : '';
+    }
+};
+
 /** @type {MobComponent<ScrollTo>} */
 export const ScrollToFn = ({
     onMount,
@@ -83,6 +111,11 @@ export const ScrollToFn = ({
     getProxi,
 }) => {
     const proxi = getProxi();
+
+    /**
+     * @type {'DOWN' | 'UP'}
+     */
+    let direction = 'DOWN';
 
     addMethod('addItem', ({ id, label, element, isSection, isNote }) => {
         updateState('anchorItemsToBeComputed', (val) => {
@@ -100,11 +133,68 @@ export const ScrollToFn = ({
 
         /**
          * SpacerAnchor add label in different time during render. Use computed to get last array of label completed.
+         *
+         * Store offset.top value
          */
         computed(
             () => proxi.anchorItems,
-            () => proxi.anchorItemsToBeComputed
+            () => {
+                return proxi.anchorItemsToBeComputed.map((item) => {
+                    return {
+                        ...item,
+                        top: offset(item.element).top,
+                    };
+                });
+            }
         );
+
+        /**
+         * Get scroll direction.
+         */
+        const unsubscribeThrottle = MobCore.useScrollThrottle(
+            ({ direction: currentDirection }) => (direction = currentDirection)
+        );
+
+        /**
+         * Update cached top value of each item on window resize with debiunce.
+         */
+        let resizeObserver = new ResizeObserver(
+            debounceFuncion(() => {
+                proxi.anchorItems.forEach((item) => {
+                    item.top = offset(item.element).top;
+                });
+            }, 200)
+        );
+
+        resizeObserver.observe(MobJs.getRoot());
+
+        /**
+         * First check is performed by spacer-anchor using 'setActiveLabel' method.
+         *
+         * Check active label with less computed as possible, Find first valid occupprence starting from last
+         */
+        const unsubscribeMouseWheel = MobCore.useMouseWheel(
+            debounceFuncion(() => {
+                setActiveLabelOnScroll({ proxi, direction });
+            }, 300)
+        );
+
+        /**
+         * Check active label in scroll end.
+         */
+        const unsubScribeScrollEnd = MobCore.useScrollEnd(() => {
+            setActiveLabelOnScroll({ proxi, direction });
+        });
+
+        return () => {
+            unsubscribeMouseWheel();
+            unsubscribeThrottle();
+            unsubScribeScrollEnd();
+            resizeObserver.unobserve(MobJs.getRoot());
+            resizeObserver.disconnect();
+            // @ts-ignore
+            resizeObserver = null;
+        };
     });
 
     return html`
