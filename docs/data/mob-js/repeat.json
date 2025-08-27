@@ -281,7 +281,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-multiple-element.js",
-                "numLines": 118
+                "numLines": 20
             }
         },
         {
@@ -307,7 +307,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-useSync.js",
-                "numLines": 20
+                "numLines": 39
             }
         },
         {
