@@ -5,8 +5,9 @@
 
 import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
-import { isVisibleInViewport } from '@mobCoreUtils';
+import { isVisibleInViewportSmart } from '@mobCoreUtils';
 import { scrollToName } from '../../instance-name';
+import { debounceFuncion } from 'src/js/mob/mob-core/events/debounce';
 
 /**
  * @param {object} params
@@ -40,7 +41,7 @@ const addItemToScrollComponent = async ({
     const methods = MobJs.useMethodByName(scrollToName);
     methods?.addItem?.({ id, label, element, isSection, isNote });
 
-    if (isVisibleInViewport(element) && !isSection) {
+    if (isVisibleInViewportSmart(element) && !isSection) {
         methods?.setActiveLabel?.(label);
     }
 };
@@ -56,8 +57,24 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
 
         addItemToScrollComponent({ id, label, element, isSection, isNote });
 
-        const unsubScribeScroll = MobCore.useScrollThrottle(() => {
-            if (isVisibleInViewport(element) && !isSection) {
+        /**
+         * Check if element is visible in viewport at the end of weel with a 500ms debuonce
+         */
+        const unsubScribeWhell = MobCore.useMouseWheel(
+            debounceFuncion(() => {
+                if (isVisibleInViewportSmart(element) && !isSection) {
+                    /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
+                    const methods = MobJs.useMethodByName(scrollToName);
+                    methods?.setActiveLabel?.(label);
+                }
+            }, 500)
+        );
+
+        /**
+         * Check if element is visible in viewport at the end of scroll ( no wheel used )
+         */
+        const unsubScribeScrollEnd = MobCore.useScrollEnd(() => {
+            if (isVisibleInViewportSmart(element) && !isSection) {
                 /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
                 const methods = MobJs.useMethodByName(scrollToName);
                 methods?.setActiveLabel?.(label);
@@ -65,7 +82,8 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
         });
 
         return () => {
-            unsubScribeScroll();
+            unsubScribeWhell();
+            unsubScribeScrollEnd();
         };
     });
 

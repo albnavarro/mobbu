@@ -1702,35 +1702,9 @@
   var getUnivoqueId = () => {
     return `_${Math.random().toString(36).slice(2, 9)}`;
   };
-  function isVisibleInViewport(element) {
-    const elementStyle = globalThis.getComputedStyle(element);
-    if (elementStyle.height === "0px" || elementStyle.display === "none" || elementStyle.opacity === "0" || elementStyle.visibility === "hidden" || elementStyle.clipPath === "circle(0px at 50% 50%)" || elementStyle.transform === "scale(0)" || element.hasAttribute("hidden")) {
-      return false;
-    }
-    const rect = element.getBoundingClientRect();
-    const baseElementLeft = rect.left;
-    const baseElementTop = rect.top;
-    const elementFromStartingPoint = document.elementFromPoint(
-      baseElementLeft,
-      baseElementTop
-    );
-    if (elementFromStartingPoint !== null && !element.isSameNode(elementFromStartingPoint)) {
-      const elementZIndex = elementStyle.zIndex;
-      const elementOverlappingZIndex = globalThis.getComputedStyle(
-        elementFromStartingPoint
-      ).zIndex;
-      if (Number(elementZIndex) < Number(elementOverlappingZIndex)) {
-        return false;
-      }
-      if (elementZIndex === "" && elementOverlappingZIndex === "" && /**
-       * If two positioned elements overlap without a z-index specified, the element positioned last in the HTML
-       * code will be shown on top
-       */
-      element.compareDocumentPosition(elementFromStartingPoint) & Node.DOCUMENT_POSITION_FOLLOWING) {
-        return false;
-      }
-    }
-    return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+  function isVisibleInViewportSmart(element) {
+    var rect = element.getBoundingClientRect();
+    return rect.top >= 0 && rect.bottom <= window.innerHeight;
   }
   var clamp = (num, lower, upper) => {
     return Math.min(Math.max(num, lower), upper);
@@ -21555,7 +21529,10 @@
   };
   var rootElementToObserve;
   var MobPageScroller = ({ velocity, rootElement }) => {
-    let lerp2 = tween_exports.createLerp({ data: { scrollValue: window.scrollY } });
+    let lerp2 = tween_exports.createLerp({
+      data: { scrollValue: window.scrollY },
+      precision: 1
+    });
     rootElementToObserve = rootElement;
     const unsubscribe3 = lerp2.subscribe(({ scrollValue }) => {
       if (isFreezed) return;
@@ -25169,7 +25146,7 @@
     await modules_exports2.tick();
     const methods = modules_exports2.useMethodByName(scrollToName);
     methods?.addItem?.({ id, label, element, isSection, isNote });
-    if (isVisibleInViewport(element) && !isSection) {
+    if (isVisibleInViewportSmart(element) && !isSection) {
       methods?.setActiveLabel?.(label);
     }
   };
@@ -25180,14 +25157,23 @@
       const shouldAddToAnchor = hasAnchor({ label });
       if (!shouldAddToAnchor) return;
       addItemToScrollComponent({ id, label, element, isSection, isNote });
-      const unsubScribeScroll = modules_exports.useScrollThrottle(() => {
-        if (isVisibleInViewport(element) && !isSection) {
+      const unsubScribeWhell = modules_exports.useMouseWheel(
+        debounceFuncion(() => {
+          if (isVisibleInViewportSmart(element) && !isSection) {
+            const methods = modules_exports2.useMethodByName(scrollToName);
+            methods?.setActiveLabel?.(label);
+          }
+        }, 500)
+      );
+      const unsubScribeScrollEnd = modules_exports.useScrollEnd(() => {
+        if (isVisibleInViewportSmart(element) && !isSection) {
           const methods = modules_exports2.useMethodByName(scrollToName);
           methods?.setActiveLabel?.(label);
         }
       });
       return () => {
-        unsubScribeScroll();
+        unsubScribeWhell();
+        unsubScribeScrollEnd();
       };
     });
     return renderHtml`<div id="${id}" class="spacer spacer--${style} ${lineClass}">
