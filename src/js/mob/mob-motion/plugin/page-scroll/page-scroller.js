@@ -26,7 +26,11 @@ let rootElementToObserve;
 
 /** @type {import('./type').MobPageScroller} */
 const MobPageScroller = ({ velocity, rootElement }) => {
-    let lerp = MobTween.createLerp({ data: { scrollValue: window.scrollY } });
+    let lerp = MobTween.createLerp({
+        data: { scrollValue: window.scrollY },
+        precision: 1,
+    });
+
     rootElementToObserve = rootElement;
 
     const unsubscribe = lerp.subscribe(({ scrollValue }) => {
