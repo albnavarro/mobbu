@@ -37,7 +37,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
         if (isFreezed) return;
 
         window.scrollTo({
-            top: Math.trunc(scrollValue),
+            top: Math.round(scrollValue),
             left: 0,
             behavior: 'instant',
         });
@@ -85,7 +85,10 @@ const MobPageScroller = ({ velocity, rootElement }) => {
 
         const value = window.scrollY;
         lastScrollValue = value;
-        lerp.setImmediate({ scrollValue: value });
+        /**
+         * Deprecated: use ScrollEnd.
+         */
+        // lerp.setImmediate({ scrollValue: value });
     });
 
     /**
