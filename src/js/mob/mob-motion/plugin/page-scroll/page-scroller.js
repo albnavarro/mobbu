@@ -29,6 +29,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
     let lerp = MobTween.createLerp({
         data: { scrollValue: window.scrollY },
         precision: 1,
+        velocity: 0.1,
     });
 
     rootElementToObserve = rootElement;
@@ -94,17 +95,28 @@ const MobPageScroller = ({ velocity, rootElement }) => {
     /**
      * Stop lerp if use native scrollbar
      */
-    const unsubscribeMouseDown = MobCore.useMouseDown((event) => {
+    // const unsubscribeMouseDown = MobCore.useMouseDown((event) => {
+    //     if (isFreezed) return;
+    //
+    //     const scrollBarWidth =
+    //         window.innerWidth - document.documentElement.clientWidth;
+    //
+    //     if (event.page.x > window.innerWidth - scrollBarWidth) {
+    //         lerp.stop();
+    //         lastScrollValue = window.scrollY;
+    //         useNativeScroll = true;
+    //     }
+    // });
+
+    /**
+     * Stop lerp on pointerDown. Stop lerp even is touch or mouse click.
+     */
+    const unsubscribePointerDown = MobCore.usePointerDown(() => {
         if (isFreezed) return;
 
-        const scrollBarWidth =
-            window.innerWidth - document.documentElement.clientWidth;
-
-        if (event.page.x > window.innerWidth - scrollBarWidth) {
-            lerp.stop();
-            lastScrollValue = window.scrollY;
-            useNativeScroll = true;
-        }
+        lerp.stop();
+        lastScrollValue = window.scrollY;
+        useNativeScroll = true;
     });
 
     /**
@@ -143,7 +155,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
             unsubscribeScroll();
             unsubsribeScrollEnd();
             unsubscribeMouseWheel();
-            unsubscribeMouseDown();
+            unsubscribePointerDown();
             destroy = () => {};
             stop = () => {};
             update = () => {};
