@@ -80,26 +80,33 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
  * @param {object} params
  * @param {ScrollTo['state']} params.proxi
  * @param {'DOWN' | 'UP'} params.direction
+ * @param {number} params.winHeight
  * @returns {void}
  */
-const setActiveLabelOnScroll = ({ proxi, direction }) => {
-    const winHeight = window.innerHeight;
+const setActiveLabelOnScroll = ({ proxi, direction, winHeight }) => {
+    MobCore.useFrame(() => {
+        MobCore.useNextTick(() => {
+            if (direction === 'DOWN') {
+                const activeItem = proxi.anchorItems.findLast(
+                    ({ top, isNote }) => {
+                        return (
+                            !isNote && top < window.scrollY + winHeight - 200
+                        );
+                    }
+                );
 
-    if (direction === 'DOWN') {
-        const activeItem = proxi.anchorItems.findLast(({ top, isNote }) => {
-            return !isNote && top < window.scrollY + winHeight - 200;
+                proxi.activeLabel = activeItem ? activeItem.label : '';
+            }
+
+            if (direction === 'UP') {
+                const activeItem = proxi.anchorItems.findLast(
+                    ({ top, isNote }) => !isNote && top < window.scrollY + 200
+                );
+
+                proxi.activeLabel = activeItem ? activeItem.label : '';
+            }
         });
-
-        proxi.activeLabel = activeItem ? activeItem.label : '';
-    }
-
-    if (direction === 'UP') {
-        const activeItem = proxi.anchorItems.findLast(
-            ({ top, isNote }) => !isNote && top < window.scrollY + 200
-        );
-
-        proxi.activeLabel = activeItem ? activeItem.label : '';
-    }
+    });
 };
 
 /** @type {MobComponent<ScrollTo>} */
@@ -119,6 +126,7 @@ export const ScrollToFn = ({
      * @type {'DOWN' | 'UP'}
      */
     let direction = 'DOWN';
+    let winHeight = window.innerHeight;
 
     addMethod('addItem', ({ id, label, element, isSection, isNote }) => {
         updateState('anchorItemsToBeComputed', (val) => {
@@ -163,6 +171,12 @@ export const ScrollToFn = ({
          */
         let resizeObserver = new ResizeObserver(
             debounceFuncion(() => {
+                MobCore.useFrame(() => {
+                    MobCore.useNextTick(() => {
+                        winHeight = window.innerHeight;
+                    });
+                });
+
                 proxi.anchorItems.forEach((item) => {
                     item.top = offset(item.element).top;
                 });
@@ -176,13 +190,15 @@ export const ScrollToFn = ({
          *
          * Check active label with less computed as possible, Find first valid occupprence starting from last
          */
-        const unsubscribeMouseWheel = MobCore.useMouseWheel(
-            debounceFuncion(() => {
-                if (disableObservereffect) return;
+        const unsubscribeMouseWheel = proxi.updateAnchorOnWheel
+            ? MobCore.useMouseWheel(
+                  debounceFuncion(() => {
+                      if (disableObservereffect) return;
 
-                setActiveLabelOnScroll({ proxi, direction });
-            }, 300)
-        );
+                      setActiveLabelOnScroll({ proxi, direction, winHeight });
+                  }, 600)
+              )
+            : () => {};
 
         /**
          * Check active label in scroll end.
@@ -190,7 +206,7 @@ export const ScrollToFn = ({
         const unsubScribeScrollEnd = MobCore.useScrollEnd(() => {
             if (disableObservereffect) return;
 
-            setActiveLabelOnScroll({ proxi, direction });
+            setActiveLabelOnScroll({ proxi, direction, winHeight });
         });
 
         return () => {

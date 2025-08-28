@@ -16,6 +16,10 @@ export const ScrollTo = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
+            updateAnchorOnWheel: () => ({
+                value: false,
+                type: Boolean,
+            }),
             anchorItemsToBeComputed: () => ({
                 value: [],
                 type: Array,

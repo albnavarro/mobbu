@@ -1,6 +1,7 @@
 export interface ScrollTo {
     state: {
         activeLabel: string;
+        updateAnchorOnWheel: boolean;
         anchorItemsToBeComputed: {
             element: HTMLElement;
             id: string;
