@@ -8,15 +8,15 @@
     }
 
     &--small {
-        height: rem(20);
+        height: calc(var(--gap-size) / 2);
     }
 
     &--medium {
-        height: rem(60);
+        height: var(--gap-size);
     }
 
     &--big {
-        height: rem(100);
+        height: calc(var(--gap-size) * 2);
     }
 
     &--line {

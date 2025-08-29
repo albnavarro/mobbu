@@ -2,8 +2,8 @@
 
 .c-scroll-to {
     color: $black;
-    margin-left: rem(40);
-    margin-top: rem(30);
+    margin-left: var(--gap-size);
+    margin-top: calc(var(--gap-size) / 2);
 
     ul {
         padding: 0;

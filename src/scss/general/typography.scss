@@ -100,14 +100,14 @@ p {
 .p {
     &--boxed {
         background: $dot-bg;
-        padding: rem(20);
+        padding: calc(var(--gap-size) / 2);
         border-radius: rem(10);
         border: 2px $white solid;
     }
 
     &--note {
         position: relative;
-        padding-top: rem(60);
+        padding-top: calc(var(--gap-size) * 1.5);
 
         &::after {
             content: '!';

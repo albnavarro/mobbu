@@ -9,17 +9,17 @@
         position: sticky;
         top: var(--header-height);
         background: rgba($black, 0.8);
-        padding: rem(20);
+        padding: calc(var(--gap-size) / 2) var(--gap-size);
         z-index: 10;
     }
 
     &__counter {
         color: $black;
-        padding: rem(40) rem(40) 0;
+        padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
     }
 
     &__container {
-        padding: rem(20);
+        padding: var(--gap-size);
         width: 100%;
         box-sizing: border-box;
     }
@@ -27,12 +27,12 @@
     &__grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: rem(50);
+        gap: var(--gap-size);
     }
 
     &__label {
         color: $black;
-        padding: rem(20);
+        padding: calc(var(--gap-size) / 2);
     }
 
     &__top {
@@ -49,12 +49,12 @@
     }
 
     &__invalidate {
-        padding: rem(20) rem(40) 0;
+        padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
         display: flex;
         border-bottom: 1px $black solid;
 
         &__title {
-            margin-right: rem(12);
+            margin-right: calc(var(--gap-size) / 2);
         }
     }
 }

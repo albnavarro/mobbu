@@ -7,7 +7,7 @@
     overflow: hidden;
     position: fixed;
     top: rem(150, large);
-    left: calc(var(--doc-width) + #{rem(40)});
+    left: calc(var(--doc-width) + var(--gap-size));
     z-index: 14;
     width: rem(250);
     opacity: 1;
@@ -22,11 +22,11 @@
 
     @include mq(desktop) {
         display: block;
-        right: rem(24);
+        right: var(--gap-size);
     }
 
     @include mq(large) {
-        left: calc(var(--doc-width) + #{rem(40)});
+        left: calc(var(--doc-width) + var(--gap-size));
         right: auto;
     }
 

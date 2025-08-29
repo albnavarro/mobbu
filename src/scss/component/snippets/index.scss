@@ -44,7 +44,7 @@
         font-size: calc(var(--snippet-rem-value) * 1rem);
         display: block;
 
-        --padding-pre: #{rem(30)};
+        --padding-pre: var(--gap-size);
 
         &::after {
             content: '';

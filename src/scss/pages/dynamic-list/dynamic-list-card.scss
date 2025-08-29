@@ -4,7 +4,7 @@
     $self: &;
 
     flex: 0 0 100%;
-    padding: rem(10);
+    padding: calc(var(--gap-size) / 4);
     text-align: left;
     font-size: rem(14);
     line-height: 1.4;

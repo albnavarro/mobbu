@@ -18,7 +18,6 @@
     --header-navinfo: #{rem(40)};
     --footer-height: #{rem(80)};
     --nav-width: #{rem(340)};
-    --default-padding: #{rem(100)};
     --doc-width: none;
     --main-translate: #{rem(100)};
 
@@ -33,16 +32,12 @@
     }
 
     @include mq(large) {
-        --doc-width: #{rem(900, large)};
+        --doc-width: calc(var(--col-size) * 8);
     }
 
     @include mq(xlarge) {
-        --doc-width: #{rem(1100, xlarge)};
+        --doc-width: calc(var(--col-size) * 7);
     }
-
-    // @include mq(xxlarge) {
-    //     --doc-width: #{rem(1440, xxlarge)};
-    // }
 }
 
 html {
@@ -128,17 +123,13 @@ main {
 
 .container {
     margin: auto;
-    padding-left: rem(40);
+    padding-left: var(--gap-size);
 
     &--padding {
-        padding: rem(20) rem(40);
+        padding: var(--gap-size) var(--gap-size);
     }
 }
 
-.inner-main {
-    padding-top: rem(150);
-}
-
 .l-padding {
-    padding: var(--default-padding);
+    padding: var(--gap-size);
 }

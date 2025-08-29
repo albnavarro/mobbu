@@ -3,7 +3,7 @@
 .c-animation-title {
     position: fixed;
     bottom: calc(var(--footer-height) + #{rem(35)} * -1);
-    left: rem(60);
+    left: calc(var(--gap-size) * 2);
 
     &__main {
         font-size: rem(50);
