@@ -3,14 +3,14 @@
 .c-move3d-page {
     &__controls {
         position: fixed;
-        top: calc(var(--header-height) + rem(40));
-        right: rem(40);
+        top: calc(var(--header-height) + var(--gap-size));
+        right: var(--gap-size);
         z-index: 10;
 
         &__block {
-            padding: rem(20);
+            padding: calc(var(--gap-size) / 2);
             border: 1px $grey solid;
-            margin-bottom: rem(20);
+            margin-bottom: calc(var(--gap-size) / 3);
         }
 
         &__range {

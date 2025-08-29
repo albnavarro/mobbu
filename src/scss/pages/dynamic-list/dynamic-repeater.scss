@@ -9,9 +9,9 @@
     &__new {
         color: $black;
         font-size: rem(12);
-        padding: 0 rem(20);
+        padding: 0 calc(var(--gap-size) / 2);
         line-height: 1.5;
-        margin-bottom: rem(20);
+        margin-bottom: calc(var(--gap-size) / 2);
     }
 
     &__list {

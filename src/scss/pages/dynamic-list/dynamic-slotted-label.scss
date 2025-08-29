@@ -3,7 +3,7 @@
 .c-dynamic-list-slotted-label {
     border: 1px rgba($black, 0.1) solid;
     padding: rem(5);
-    margin-top: rem(10);
+    margin-top: calc(var(--gap-size) / 4);
 
     @include when-inside('.is-selected') {
         border-color: rgba($white, 0.3);

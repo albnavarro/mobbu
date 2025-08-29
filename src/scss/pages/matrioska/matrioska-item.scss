@@ -17,8 +17,8 @@
 
     &--1,
     &--2 {
-        padding-bottom: rem(20);
-        margin-bottom: rem(20);
+        padding-bottom: calc(var(--gap-size) / 2);
+        margin-bottom: calc(var(--gap-size) / 2);
     }
 
     &--2 {
@@ -40,13 +40,13 @@
     }
 
     &__level {
-        padding: rem(12);
+        padding: calc(var(--gap-size) / 2);
         margin-bottom: 0;
     }
 
     &__key,
     &__value {
-        padding: 0 rem(12);
+        padding: 0 calc(var(--gap-size) / 2);
         margin-bottom: 0;
 
         span {

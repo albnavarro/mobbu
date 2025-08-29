@@ -2,7 +2,7 @@
 
 .c-dynamic-slot {
     background: $black;
-    padding: rem(30);
+    padding: calc(var(--gap-size) / 2);
     border-radius: rem(20);
     margin: rem(20) 0;
 

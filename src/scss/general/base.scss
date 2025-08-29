@@ -7,13 +7,19 @@
 
 /**
  * Global columns/gap definition.
+ * for testing, for now is overriding below
  */
-@include grid-context;
+// @include grid-context;
 
 /**
  * Set up a decent box model on the root element
  */
 :root {
+    // Instead grid-context
+    --gap-size: #{rem(40)};
+    --col-size: 9%;
+
+    // Stadard css var
     --header-height: calc(var(--gap-size) * 2);
     --header-navinfo: #{rem(40)};
     --footer-height: calc(var(--gap-size) * 2);

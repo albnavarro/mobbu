@@ -9,21 +9,21 @@
         position: sticky;
         top: var(--header-height);
         background: rgba($black, 0.8);
-        padding: rem(8);
+        padding: calc(var(--gap-size) / 4);
         z-index: 10;
         display: flex;
         flex-wrap: wrap;
 
         &__item {
             flex: calc((100 / 4) * 1%);
-            padding-inline: rem(24);
+            padding-inline: calc(var(--gap-size) / 2);
             text-align: center;
             color: $white;
             font-size: rem(14);
         }
 
         &__title {
-            padding: rem(20) rem(40);
+            padding: calc(var(--gap-size) / 2) var(--gap-size);
             border-bottom: 1px $black solid;
             margin-right: rem(12);
 
@@ -58,13 +58,17 @@
 
         &--2 {
             border-bottom: 1px $black solid;
-            padding-bottom: rem(20);
+            padding-bottom: calc(var(--gap-size) / 2);
         }
 
         &--2,
         &--3 {
             display: flex;
             flex-wrap: wrap;
+        }
+
+        &--3 {
+            margin: calc(var(--gap-size) / 2);
         }
     }
 
@@ -75,7 +79,7 @@
 
         &--3 {
             flex: 0 0 50%;
-            padding: rem(20);
+            padding: calc(var(--gap-size) / 2);
             position: relative;
 
             &::after {

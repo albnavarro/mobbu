@@ -7,7 +7,7 @@
     overflow: hidden;
     position: fixed;
     top: calc(var(--header-height) + var(--gap-size) * 2);
-    left: calc(var(--doc-width) + var(--gap-size));
+    left: calc(var(--doc-width) + (var(--gap-size) / 2));
     z-index: 14;
     width: rem(250);
     opacity: 1;
@@ -17,18 +17,7 @@
         transform 0.55s,
         opacity 0.55s,
         visibility 0.55s;
-    display: none;
     mask-image: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 100%) rem(20));
-
-    @include mq(desktop) {
-        display: block;
-        right: var(--gap-size);
-    }
-
-    @include mq(large) {
-        left: calc(var(--doc-width) + var(--gap-size));
-        right: auto;
-    }
 
     &.hide {
         opacity: 0;

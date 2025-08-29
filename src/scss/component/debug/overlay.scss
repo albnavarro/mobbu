@@ -43,8 +43,8 @@
         top: rem(20);
         right: rem(10);
         z-index: 10;
-        height: rem(40);
-        width: rem(40);
+        height: var(--gap-size);
+        width: var(--gap-size);
         border: 0;
         background: transparent;
 
@@ -52,7 +52,7 @@
         &::before {
             content: '';
             position: absolute;
-            width: rem(20);
+            width: calc(var(--gap-size) / 2);
             height: 2px;
             top: 50%;
             left: 50%;
@@ -90,7 +90,7 @@
         right: -1px;
         background: transparent;
         border: 1px $white solid;
-        padding-inline: rem(20);
+        padding-inline: calc(var(--gap-size) / 2);
         padding-top: 0;
         padding-bottom: 0;
         margin: 0;

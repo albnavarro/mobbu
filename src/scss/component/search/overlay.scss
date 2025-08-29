@@ -71,9 +71,9 @@
         position: absolute;
         bottom: calc(100% - #{rem(3)});
         line-height: 1;
-        left: rem(40);
+        left: var(--gap-size);
         margin-bottom: 0;
-        font-size: rem(40);
+        font-size: var(--gap-size);
     }
 
     &__grid {
@@ -92,14 +92,14 @@
     &__header {
         grid-area: head;
         border-bottom: 1px $white solid;
-        padding-left: rem(40);
+        padding-left: var(--gap-size);
         align-content: center;
     }
 
     &__current-search {
         grid-area: current;
         border-bottom: 1px $white solid;
-        padding-left: rem(45);
+        padding-left: var(--gap-size);
         align-content: center;
         background: $white;
         color: $black;

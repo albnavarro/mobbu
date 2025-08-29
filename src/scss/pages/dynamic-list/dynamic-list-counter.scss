@@ -2,7 +2,7 @@
 
 .c-dynamic-counter {
     color: $white;
-    margin-top: rem(15);
+    margin-top: calc(var(--gap-size) / 4);
     border: 1px rgba($white, 0.1) solid;
     padding: rem(5);
 

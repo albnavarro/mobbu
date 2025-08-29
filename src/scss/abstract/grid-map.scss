@@ -1,44 +1,27 @@
 /*
 With vw only value 100 is available.
 */
-// $grid-map: (
-//     'xsmall': (
-//         size: 100,
-//         unit: '%',
-//         column: 3,
-//         gap: 10,
-//         extraside: 20,
-//     ),
-//     'medium': (
-//         size: 600,
-//         unit: px,
-//         column: 4,
-//         gap: 10,
-//         extraside: 30,
-//     ),
-//     'desktop': (
-//         size: 1600,
-//         unit: px,
-//         column: 10,
-//         gap: 20,
-//         extraside: 150,
-//     ),
-// );
-
 $grid-map: (
     'xsmall': (
         size: 100,
         unit: '%',
         column: 3,
-        gap: 0,
-        extraside: 0,
+        gap: 10,
+        extraside: 20,
+    ),
+    'medium': (
+        size: 600,
+        unit: px,
+        column: 4,
+        gap: 10,
+        extraside: 30,
     ),
     'desktop': (
-        size: 100,
-        unit: '%',
-        column: 12,
-        gap: 40,
-        extraside: 0,
+        size: 1600,
+        unit: px,
+        column: 10,
+        gap: 20,
+        extraside: 150,
     ),
 );
 

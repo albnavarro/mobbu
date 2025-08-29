@@ -34,7 +34,7 @@
     &__container {
         background: $white;
         border-radius: rem(30);
-        padding: rem(20);
+        padding: calc(var(--gap-size) / 2);
         transition:
             background 0.55s,
             color 0.55s;
@@ -53,7 +53,7 @@
 
     &__repeater-container,
     &__invalidate {
-        margin-top: rem(20);
+        margin-top: calc(var(--gap-size) / 2);
     }
 
     &__invalidate {
@@ -66,8 +66,8 @@
     &__repeater {
         font-size: 0;
         border-bottom: 1px rgba($black, 0.1) solid;
-        padding-bottom: rem(12);
-        margin-bottom: rem(12);
+        padding-bottom: calc(var(--gap-size) / 4);
+        margin-bottom: calc(var(--gap-size) / 4);
 
         @include when-inside('.is-selected') {
             border-bottom: 1px rgba($white, 0.1) solid;
@@ -75,7 +75,7 @@
     }
 
     &__button {
-        margin-bottom: rem(12);
+        margin-bottom: calc(var(--gap-size) / 4);
         width: 100%;
         padding: rem(12);
         border: 1px $white solid;

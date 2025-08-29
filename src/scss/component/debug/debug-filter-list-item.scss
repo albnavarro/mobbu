@@ -3,7 +3,7 @@
 .c-debug-filter-list-item {
     color: $white;
     font-size: rem(12);
-    padding-left: rem(20);
+    padding-left: calc(var(--gap-size) / 2);
     position: relative;
 
     &::after {

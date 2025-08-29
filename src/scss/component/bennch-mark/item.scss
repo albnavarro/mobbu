@@ -2,7 +2,7 @@
 
 .benchmark-fake {
     border: 1px $black solid;
-    padding: rem(20);
+    padding: calc(var(--gap-size) / 2);
     flex: 1 1 10%;
 
     $self: &;
@@ -18,7 +18,7 @@
     }
 
     &__row {
-        margin-bottom: rem(20);
+        margin-bottom: calc(var(--gap-size) / 2);
 
         &:last-child {
             margin-bottom: 0;

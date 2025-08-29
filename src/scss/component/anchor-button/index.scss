@@ -3,8 +3,8 @@
 .anchor-button {
     @include button;
 
-    padding-left: rem(20);
-    padding-right: rem(40);
+    padding-left: calc(var(--gap-size) / 2);
+    padding-right: var(--gap-size);
     text-align: left;
     position: relative;
 

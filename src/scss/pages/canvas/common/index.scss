@@ -30,7 +30,7 @@
 
     &__controls {
         position: absolute;
-        top: rem(40);
+        top: var(--gap-size);
         left: calc(100vw - #{rem(330)});
         width: rem(250);
         height: 100%;
@@ -75,8 +75,8 @@
             font-size: rem(14);
             display: block;
             border-radius: rem(20);
-            margin-top: rem(5);
-            margin-bottom: rem(5);
+            margin-top: 0;
+            margin-bottom: calc(var(--gap-size) / 5);
             text-align: center;
 
             &:hover {

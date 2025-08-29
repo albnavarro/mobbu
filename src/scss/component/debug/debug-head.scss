@@ -3,7 +3,7 @@
 .c-debug-head {
     color: $white;
     font-size: rem(12);
-    padding-top: rem(15);
+    padding-top: calc(var(--gap-size) / 2);
     display: flex;
 
     &__general,
@@ -13,10 +13,10 @@
 
     &__general {
         border-right: 1px $black solid;
-        padding-left: rem(40);
+        padding-left: var(--gap-size);
     }
 
     &__search {
-        padding-left: rem(20);
+        padding-left: calc(var(--gap-size) / 2);
     }
 }
