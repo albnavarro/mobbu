@@ -86,10 +86,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
 
         const value = window.scrollY;
         lastScrollValue = value;
-        /**
-         * Deprecated: use ScrollEnd.
-         */
-        // lerp.setImmediate({ scrollValue: value });
+        lerp.setImmediate({ scrollValue: value });
     });
 
     /**
