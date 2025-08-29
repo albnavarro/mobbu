@@ -200,7 +200,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
@@ -458,12 +458,6 @@
                 "boxed": true
             },
             "content": "Basic component structure example."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",

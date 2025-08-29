@@ -649,6 +649,7 @@ p a {
   padding: calc(var(--gap-size) / 2);
   border-radius: 0.6666666667rem;
   border: 2px #fff solid;
+  margin-bottom: calc(var(--gap-size) / 2);
 }
 .p--note {
   position: relative;
@@ -3598,7 +3599,7 @@ ul li::marker {
 }
 .c-scroll-to button.is-section {
   font-weight: 600;
-  margin-top: calc(var(--gap-size) / 2);
+  margin-top: calc(var(--gap-size) / 4);
   margin-left: 0;
 }
 .c-scroll-to button.is-section span {

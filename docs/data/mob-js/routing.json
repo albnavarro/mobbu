@@ -23,12 +23,6 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
@@ -483,12 +477,6 @@
                 "boxed": true
             },
             "content": "Full lifecycle hooks for navigation changes:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-paragraph",

@@ -777,12 +777,6 @@
             "content": "Values 2 & 3 are always added from the chosen position towards the screen center (regardless of top/bottom/left/right).<br/>When starting from bottom, the reference is the top edge of the object.<br/>To make the animation end when the bottom edge is 40px below the screen top, simply subtract the element's height."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/scroll-trigger-start.js",
@@ -792,7 +786,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
@@ -890,12 +884,6 @@
                 "note": true
             },
             "content": "Like start/end, this value is always added from the chosen position towards screen center (regardless of top/bottom/left/right)."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -1079,12 +1067,6 @@
                 "note": true
             },
             "content": "Note: Spring doesn't work with the sequencer module (due to value clamping), but is compatible with scrollerTween."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",

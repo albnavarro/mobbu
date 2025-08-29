@@ -416,12 +416,6 @@
             "content": "Note: The type parameter (for dynamic type checking) operates outside TypeScript's validation system."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/store-type.ts",
@@ -431,7 +425,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
@@ -455,12 +449,6 @@
                 "note": true
             },
             "content": "In .ts files, you can pass the interface as a generic parameter."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",

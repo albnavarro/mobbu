@@ -50,7 +50,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
@@ -60,12 +60,6 @@
                 "boxed": true
             },
             "content": "In the MobJs.componentMap there are all the instances of our components in which it is possible to analyze all the specifications from the console.<br/><br/>Each component is identified by an id in string format, by enabling the debug property each component will display its own id in the data-mobjs attribute so as to be searchable in the MobJs.componentMap.<br/><br/>The debug parameter will add a comment for each component with the component tag defined in the MobJs.createComponent() function."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
         },
         {
             "component": "mob-snippet",

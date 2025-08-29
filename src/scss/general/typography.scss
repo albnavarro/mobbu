@@ -103,6 +103,7 @@ p {
         padding: calc(var(--gap-size) / 2);
         border-radius: rem(10);
         border: 2px $white solid;
+        margin-bottom: calc(var(--gap-size) / 2);
     }
 
     &--note {
