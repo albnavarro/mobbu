@@ -41,7 +41,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "index.html"
         },
@@ -135,7 +135,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "Root id"
         },
@@ -163,7 +163,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "Wrapper"
         },
@@ -226,7 +226,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "Content id"
         },
@@ -254,7 +254,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "Routes"
         },
@@ -289,7 +289,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "Index"
         },
@@ -317,7 +317,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "Page not found"
         },
@@ -345,7 +345,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "beforePageTransition"
         },
@@ -387,7 +387,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "pageTransition"
         },
@@ -429,7 +429,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "afterInit"
         },
@@ -457,7 +457,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "redirect"
         },
@@ -499,7 +499,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "restoreScroll"
         },
@@ -527,7 +527,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "componentDefaultProps"
         },

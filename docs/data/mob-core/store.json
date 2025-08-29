@@ -227,7 +227,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "value"
         },
@@ -247,7 +247,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "type"
         },
@@ -285,7 +285,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "transform"
         },
@@ -305,7 +305,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "validate"
         },
@@ -325,7 +325,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "skipEqual"
         },
@@ -345,7 +345,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "strict"
         },

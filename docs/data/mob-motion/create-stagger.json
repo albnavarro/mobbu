@@ -204,7 +204,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "items:"
         },
@@ -224,7 +224,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "duration:"
         },
@@ -244,7 +244,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "stagger:"
         },

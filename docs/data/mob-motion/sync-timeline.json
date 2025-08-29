@@ -131,7 +131,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "repeat:"
         },
@@ -145,7 +145,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "yoyo:"
         },
@@ -159,7 +159,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "duration:"
         },

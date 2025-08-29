@@ -221,7 +221,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "tag:"
         },
@@ -241,7 +241,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "component:"
         },
@@ -261,7 +261,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "child:"
         },
@@ -294,7 +294,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "exportState:"
         },
@@ -314,7 +314,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "state:"
         },
@@ -345,7 +345,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "bindStore:"
         },
@@ -373,7 +373,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "webComponent:"
         },
@@ -405,7 +405,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "scoped:"
         },
