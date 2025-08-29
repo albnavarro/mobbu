@@ -141,7 +141,7 @@
 
     h2 {
         margin: var(--gap-size) calc(var(--gap-size) * -1)
-            calc(var(--gap-size) / 2) calc(#{rem(40)} * -1);
+            calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
         padding-left: var(--gap-size);
 
         &.is-section {

@@ -3141,7 +3141,7 @@ ul li::marker {
   z-index: -1;
 }
 .html-content h2 {
-  margin: var(--gap-size) calc(var(--gap-size) * -1) calc(var(--gap-size) / 2) calc(2.6666666667rem * -1);
+  margin: var(--gap-size) calc(var(--gap-size) * -1) calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
   padding-left: var(--gap-size);
 }
 .html-content h2.is-section {
@@ -3598,7 +3598,7 @@ ul li::marker {
 }
 .c-scroll-to button.is-section {
   font-weight: 600;
-  margin-top: 0.6666666667rem;
+  margin-top: calc(var(--gap-size) / 2);
   margin-left: 0;
 }
 .c-scroll-to button.is-section span {
@@ -3721,7 +3721,7 @@ ul li::marker {
 }
 .c-params-mobjs__label {
   line-height: 1.2;
-  margin-top: 1.3333333333rem;
+  margin-top: calc(var(--gap-size) / 2);
   margin-bottom: 0.3333333333rem;
   font-weight: 600;
   font-size: 0.8666666667rem;
