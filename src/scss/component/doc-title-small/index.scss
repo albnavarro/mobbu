@@ -1,7 +1,7 @@
 @use '../../abstract' as *;
 
 .c-doc-title-small {
-    margin-top: calc(var(--gap-size) / 2);
+    margin-top: var(--gap-size);
     padding-left: var(--gap-size);
     color: $black;
     margin-bottom: calc(var(--gap-size) / 2);

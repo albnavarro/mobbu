@@ -484,14 +484,19 @@ th {
   }
 }
 :root {
-  --header-height: 5.3333333333rem;
+  --header-height: calc(var(--gap-size) * 2);
   --header-navinfo: 2.6666666667rem;
-  --footer-height: 5.3333333333rem;
+  --footer-height: calc(var(--gap-size) * 2);
   --nav-width: 22.6666666667rem;
   --doc-width: none;
   --main-translate: 6.6666666667rem;
   --snippet-rem-value: 0.9333333333;
   --snippet-line-height-value: 1.2;
+}
+@media (min-width: 62em) {
+  :root {
+    --doc-width: calc(var(--col-size) * 8);
+  }
 }
 @media screen and (min-width: 62em) and (height <= 700px) {
   :root {
@@ -792,7 +797,7 @@ ul li::marker {
   text-align: center;
 }
 .l-footer__container {
-  padding: 0 1.3333333333rem;
+  padding: 0 var(--gap-size);
   display: grid;
   height: 100%;
 }
@@ -807,6 +812,7 @@ ul li::marker {
   place-self: center start;
   margin: 0;
   display: block;
+  padding: 0;
 }
 @media (min-width: 100em) {
   .footer-nav {
@@ -3386,13 +3392,8 @@ ul li::marker {
 .c-doc-container {
   padding-bottom: var(--footer-height);
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: var(--doc-width) 1fr;
   position: relative;
-}
-@media (min-width: 75em) {
-  .c-doc-container {
-    grid-template-columns: var(--doc-width) 1fr;
-  }
 }
 .c-doc-container__content {
   position: relative;
@@ -3453,7 +3454,7 @@ ul li::marker {
   white-space: nowrap;
 }
 .c-doc-title-small {
-  margin-top: calc(var(--gap-size) / 2);
+  margin-top: var(--gap-size);
   padding-left: var(--gap-size);
   color: #2e3440;
   margin-bottom: calc(var(--gap-size) / 2);
@@ -3657,7 +3658,7 @@ ul li::marker {
   height: var(--links-height);
   overflow: hidden;
   position: fixed;
-  top: 9.375rem;
+  top: calc(var(--header-height) + var(--gap-size) * 2);
   left: calc(var(--doc-width) + var(--gap-size));
   z-index: 14;
   width: 16.6666666667rem;
@@ -3669,7 +3670,7 @@ ul li::marker {
     opacity 0.55s,
     visibility 0.55s;
   display: none;
-  mask-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 2.6666666667rem);
+  mask-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 1.3333333333rem);
 }
 @media (min-width: 62em) {
   .c-params-mobjs {

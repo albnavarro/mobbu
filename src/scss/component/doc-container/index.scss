@@ -3,12 +3,8 @@
 .c-doc-container {
     padding-bottom: var(--footer-height);
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: var(--doc-width) 1fr;
     position: relative;
-
-    @include mq('large') {
-        grid-template-columns: var(--doc-width) 1fr;
-    }
 
     &__content {
         position: relative;

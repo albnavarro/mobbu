@@ -3,7 +3,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
+                "style": "x-small",
                 "id": "start",
                 "label": "Overview"
             }

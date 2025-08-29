@@ -4,6 +4,7 @@
     place-self: center start;
     margin: 0;
     display: block;
+    padding: 0;
 
     @include mq(xlarge) {
         place-self: center center;

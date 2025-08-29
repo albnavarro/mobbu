@@ -6,7 +6,7 @@
     height: var(--links-height);
     overflow: hidden;
     position: fixed;
-    top: rem(150, large);
+    top: calc(var(--header-height) + var(--gap-size) * 2);
     left: calc(var(--doc-width) + var(--gap-size));
     z-index: 14;
     width: rem(250);
@@ -18,7 +18,7 @@
         opacity 0.55s,
         visibility 0.55s;
     display: none;
-    mask-image: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 100%) rem(40));
+    mask-image: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 100%) rem(20));
 
     @include mq(desktop) {
         display: block;

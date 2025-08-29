@@ -20,7 +20,7 @@
     text-align: center;
 
     &__container {
-        padding: 0 rem(20);
+        padding: 0 var(--gap-size);
         display: grid;
         height: 100%;
     }

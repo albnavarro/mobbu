@@ -14,9 +14,9 @@
  * Set up a decent box model on the root element
  */
 :root {
-    --header-height: #{rem(80)};
+    --header-height: calc(var(--gap-size) * 2);
     --header-navinfo: #{rem(40)};
-    --footer-height: #{rem(80)};
+    --footer-height: calc(var(--gap-size) * 2);
     --nav-width: #{rem(340)};
     --doc-width: none;
     --main-translate: #{rem(100)};
@@ -26,6 +26,8 @@
     --snippet-line-height-value: #{strip-unit(rem(18))};
 
     @include mq(desktop) {
+        --doc-width: calc(var(--col-size) * 8);
+
         @media screen and (height <= 700px) {
             --footer-height: #{rem(50)};
         }
