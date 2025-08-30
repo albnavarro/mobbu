@@ -1331,11 +1331,10 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,L=I),k===void 0&&(
     `};var JT=m.createComponent({tag:"only-desktop-cta",component:GT,state:{active:()=>({value:!1,type:Boolean})}});m.useComponent([JT]);var YT=async()=>{let{data:e}=await ut({source:"./asset/svg/lettering-mob-only-desktop.svg?v=0.1"});return g`
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
-                <h3 class="l-only-desktop__title">
-                    This site is available<br />
-                    only on desktop<br />
+                <h4 class="l-only-desktop__title">
+                    This site is available only on desktop<br />
                     .. at now
-                </h3>
+                </h4>
                 <div>
                     <only-desktop-cta></only-desktop-cta>
                 </div>

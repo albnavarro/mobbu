@@ -13,11 +13,10 @@ export const onlyDesktop = async () => {
     return html`
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
-                <h3 class="l-only-desktop__title">
-                    This site is available<br />
-                    only on desktop<br />
+                <h4 class="l-only-desktop__title">
+                    This site is available only on desktop<br />
                     .. at now
-                </h3>
+                </h4>
                 <div>
                     <only-desktop-cta></only-desktop-cta>
                 </div>

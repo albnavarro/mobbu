@@ -18,10 +18,14 @@ $svg-max-height: calc(((1400 * 571) / 1098) * 1px);
 
     &__content {
         text-align: center;
+        width: 100%;
+        display: block;
     }
 
     &__title {
         margin-bottom: rem(40);
+        width: 100%;
+        display: block;
     }
 
     &__link {
@@ -38,8 +42,8 @@ $svg-max-height: calc(((1400 * 571) / 1098) * 1px);
 
     &__svg {
         svg {
-            width: min(1920px, calc(((1098 * 100) / 1400) * 1vw));
-            height: min($svg-max-height, calc(((466 * 100) / 1400) * 1vw));
+            width: min(1920px, calc(((1098 * 100) / 2200) * 1vw));
+            height: min($svg-max-height, calc(((466 * 100) / 2200) * 1vw));
         }
     }
 }
