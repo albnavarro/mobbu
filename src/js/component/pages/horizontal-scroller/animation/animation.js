@@ -20,6 +20,7 @@ const createPins = ({ indicators, setState }) => {
             animateAtStart: false,
             animatePin: true,
             useThrottle: true,
+            ease: false,
             dynamicStart: {
                 position: 'right',
                 value: () => {

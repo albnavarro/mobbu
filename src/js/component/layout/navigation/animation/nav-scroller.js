@@ -30,7 +30,6 @@ export const initNavigationScoller = ({ root }) => {
         direction: 'vertical',
         drag: true,
         scopedEvent: false,
-        breakpoint: 'small',
         onUpdate: ({ percent }) => {
             const { navigationIsOpen } = navigationStore.get();
             if (!navigationIsOpen) return;
@@ -63,7 +62,12 @@ export const initNavigationScoller = ({ root }) => {
 
         const maxValue = percent;
 
-        navScroller.move(maxValue).catch(() => {});
+        setTimeout(() => {
+            const navIsOpen = navigationStore.getProp('navigationIsOpen');
+            if (navIsOpen) return;
+
+            navScroller.set(maxValue);
+        }, 400);
     });
 
     /**

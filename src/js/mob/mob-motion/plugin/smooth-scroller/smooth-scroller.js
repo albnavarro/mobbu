@@ -513,6 +513,7 @@ export class MobSmoothScroller {
 
             default: {
                 this.#motion = new MobLerp();
+                this.#motion.updateVelocity(0.1);
                 break;
             }
         }
@@ -707,8 +708,8 @@ export class MobSmoothScroller {
         this.#unsubscribeMotion = this.#motion.subscribe(({ val }) => {
             /** @type {HTMLElement} */ (this.#scroller).style.transform =
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
-                    ? `translate3d(0px, 0px, 0px) translateY(${-val}px)`
-                    : `translate3d(0px, 0px, 0px) translateX(${-val}px)`;
+                    ? `translate3d(0px, 0px, 0px) translateY(${-Math.trunc(val)}px)`
+                    : `translate3d(0px, 0px, 0px) translateX(${-Math.trunc(val)}px)`;
 
             /**
              * TODO Move to scroll Start (scopedEvent or not , wheel touch etc...) Used by instance with ease = true;
@@ -736,8 +737,8 @@ export class MobSmoothScroller {
         this.#unsubscribeOnComplete = this.#motion.onComplete(({ val }) => {
             /** @type {HTMLElement} */ (this.#scroller).style.transform =
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
-                    ? `translateY(${-val}px)`
-                    : `translateX(${-val}px)`;
+                    ? `translateY(${-Math.trunc(val)}px)`
+                    : `translateX(${-Math.trunc(val)}px)`;
 
             MobCore.useNextTick(() => {
                 this.#onTickCallback({
