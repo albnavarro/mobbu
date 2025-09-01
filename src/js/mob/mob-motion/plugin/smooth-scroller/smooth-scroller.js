@@ -545,7 +545,12 @@ export class MobSmoothScroller {
                     passive: true,
                 }
             );
-        } else {
+        }
+
+        /**
+         * Non scoped event
+         */
+        if (!this.#scopedEvent) {
             this.#subscribeMouseWheel = MobCore.useMouseWheel((data) => {
                 this.#detectSwipe(data);
                 this.#onWhell(data);
@@ -802,11 +807,16 @@ export class MobSmoothScroller {
     /**
      * @type {(arg0: { spinY: number }) => void}
      */
-    #onScopedWhell({ spinY }) {
+    #onScopedWhell({ spinY = 0 }) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
 
         this.#dragEnable = false;
-        this.#endValue += spinY * this.#speed;
+
+        /**
+         * Normalize spinValue between -1 && 1.
+         */
+        const spinYParsed = clamp(spinY, -1, 1);
+        this.#endValue += spinYParsed * this.#speed;
         this.#calculateValue();
     }
 
@@ -879,13 +889,8 @@ export class MobSmoothScroller {
     /**
      * @type {import('./type.js').MobSmoothScrollerOnMouseEvent}
      */
-    #onWhell({ target, spinY, spinX, preventDefault }) {
-        if (
-            !mq[this.#queryType](this.#breakpoint) ||
-            (!spinY && spinY !== 0) ||
-            (!spinX && spinX !== 0)
-        )
-            return;
+    #onWhell({ target, spinY = 0, spinX = 0, preventDefault }) {
+        if (!mq[this.#queryType](this.#breakpoint)) return;
 
         if (
             target === this.#scroller ||
@@ -895,11 +900,18 @@ export class MobSmoothScroller {
             )
         ) {
             this.#dragEnable = false;
+
             preventDefault?.();
+            FreezeMobPageScroll();
 
             const spinXdiff = Math.abs(this.#lastSpinX - spinX);
             const spinYdiff = Math.abs(this.#lastSpinY - spinY);
 
+            /**
+             * In horizontal mode, allow scroll in X and Y direction if no swipe is used.
+             *
+             * With swipe enabled use only vertical wheel, both vertical && horizontal mode.
+             */
             const spinValue =
                 this.#useHorizontalScroll && !this.#useSwipe
                     ? (() => {
@@ -907,10 +919,16 @@ export class MobSmoothScroller {
                       })()
                     : spinY;
 
-            this.#endValue += spinValue * this.#speed;
+            /**
+             * When there is no advanced return;
+             */
+            if (Math.abs(spinValue) === 0) return;
 
+            /**
+             * Normalize spinValue between -1 && 1.
+             */
+            this.#endValue += clamp(spinValue, -1, 1) * this.#speed;
             this.#calculateValue();
-            FreezeMobPageScroll();
             this.#lastSpinY = spinY;
             this.#lastSpinX = spinX;
         }

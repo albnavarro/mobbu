@@ -1,5 +1,6 @@
 import { MobMotionCore, MobTween } from '../..';
 import { MobCore } from '../../../mob-core';
+import { clamp } from '../../core';
 
 let isActive = false;
 
@@ -56,9 +57,14 @@ const MobPageScroller = ({ velocity, rootElement }) => {
 
         event.preventDefault();
         useNativeScroll = false;
+
+        /**
+         * Normalize spinValue between -1 && 1.
+         */
+        const spinY = clamp(event.spinY ?? 0, -1, 1);
+
         const currentValue = MobMotionCore.clamp(
-            // @ts-ignore
-            event.spinY * velocity + lastScrollValue,
+            spinY * velocity + lastScrollValue,
             0,
             document.body.offsetHeight - window.innerHeight
         );
