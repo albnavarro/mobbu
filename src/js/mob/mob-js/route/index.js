@@ -11,6 +11,7 @@ import {
 } from './history';
 import { loadRoute } from './load-route';
 import { tryRedirect } from './redirect';
+import { getIndex } from './route-list';
 import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
 
 /** @type {string} */
@@ -182,7 +183,9 @@ const hashHandler = async () => {
      */
     await loadRoute({
         route: getRouteModule({ url: hash }),
-        templateName: getTemplateName({ url: hash }),
+        templateName: getTemplateName({
+            url: hash && hash.length > 0 ? hash : getIndex(),
+        }),
         restoreScroll: getRestoreScrollVale({ url: hash }),
         params,
         scrollY: currentHistory
