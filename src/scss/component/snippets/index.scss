@@ -12,17 +12,17 @@
         margin-right: rem(10);
         display: inline-block;
         text-decoration: none;
-        color: $black;
+        color: $white;
         text-align: center;
         transition: background 0.35s;
-        background: $white;
+        background: $black;
         border: 0;
         border-radius: rem(10);
         font-size: rem(12);
 
         &:hover {
-            background: $nord-bg;
-            color: $white;
+            background: $grey;
+            color: $black;
         }
 
         &:disabled {
@@ -43,6 +43,7 @@
         line-height: calc(var(--snippet-line-height-value) * 1rem);
         font-size: calc(var(--snippet-rem-value) * 1rem);
         display: block;
+        border: 2px $grey solid;
 
         --padding-pre: var(--gap-size);
 
@@ -55,8 +56,8 @@
             height: rem(150);
             background: linear-gradient(
                 360deg,
-                rgba($black, 1) 0%,
-                rgba($black, 0) 100%
+                rgba($white, 1) 0%,
+                rgba($white, 0) 100%
             );
             opacity: 0;
             pointer-events: none;
