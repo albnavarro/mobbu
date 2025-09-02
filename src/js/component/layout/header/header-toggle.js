@@ -3,6 +3,7 @@
  */
 
 import { html } from '@mobJs';
+import { UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<import('./type').HeaderToggle>} */
@@ -19,6 +20,12 @@ export const HeaderToggleFn = ({ delegateEvents, bindEffect, getProxi }) => {
                         'navigationIsOpen',
                         (state) => !state
                     );
+
+                    const isOpen = navigationStore.getProp('navigationIsOpen');
+                    if (!isOpen) {
+                        UnFreezeMobPageScroll();
+                        console.log('unfreeze');
+                    }
                 },
             })}
             ${bindEffect({

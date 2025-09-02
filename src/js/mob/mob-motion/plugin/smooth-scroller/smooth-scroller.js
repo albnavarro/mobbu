@@ -805,6 +805,15 @@ export class MobSmoothScroller {
     }
 
     /**
+     * Speed variation by screensize
+     */
+    #getDelta() {
+        return this.#direction === MobScrollerConstant.DIRECTION_HORIZONTAL
+            ? this.#screenWidth / 1920
+            : this.#screenHeight / 1080;
+    }
+
+    /**
      * @type {(arg0: { spinY: number }) => void}
      */
     #onScopedWhell({ spinY = 0 }) {
@@ -813,10 +822,15 @@ export class MobSmoothScroller {
         this.#dragEnable = false;
 
         /**
+         * Speed variation by screensize
+         */
+        const delta = this.#getDelta();
+
+        /**
          * Normalize spinValue between -1 && 1.
          */
         const spinYParsed = clamp(spinY, -1, 1);
-        this.#endValue += spinYParsed * this.#speed;
+        this.#endValue += spinYParsed * this.#speed * delta;
         this.#calculateValue();
     }
 
@@ -925,9 +939,15 @@ export class MobSmoothScroller {
             if (Math.abs(spinValue) === 0) return;
 
             /**
+             * Speed variation by screensize
+             */
+            const delta = this.#getDelta();
+
+            /**
              * Normalize spinValue between -1 && 1.
              */
-            this.#endValue += clamp(spinValue, -1, 1) * this.#speed;
+            this.#endValue +=
+                clamp(spinValue, -1, 1) * this.#speed * clamp(delta, 1, 10);
             this.#calculateValue();
             this.#lastSpinY = spinY;
             this.#lastSpinX = spinX;

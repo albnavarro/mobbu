@@ -1,6 +1,6 @@
 import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
-import { MobBodyScroll } from '@mobMotionPlugin';
+import { MobBodyScroll, UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { initNavigationScoller } from './animation/nav-scroller';
 import {
     mobNavigationContainerName,
@@ -53,6 +53,7 @@ function openNavigation({ main, setState }) {
 function addMainHandler({ main }) {
     main.addEventListener('click', () => {
         navigationStore.set('navigationIsOpen', false);
+        UnFreezeMobPageScroll();
     });
 }
 
