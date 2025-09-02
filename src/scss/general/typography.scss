@@ -99,10 +99,10 @@ p {
 
 .p {
     &--boxed {
-        background: $dot-bg;
+        background: $grey-light;
         padding: calc(var(--gap-size) / 2);
         border-radius: rem(10);
-        border: 2px $white solid;
+        border: 2px $grey-lightteen solid;
         margin-bottom: calc(var(--gap-size) / 2);
     }
 

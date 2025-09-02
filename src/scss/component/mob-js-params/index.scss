@@ -121,7 +121,7 @@
         }
 
         &::-webkit-slider-runnable-track {
-            background-color: rgba($grey, 0.3);
+            background-color: $grey-light;
             border-radius: rem(10);
             height: rem(10);
             width: var(--thumb-width);
@@ -129,7 +129,7 @@
 
         &::-webkit-slider-thumb {
             appearance: none;
-            background-color: $white;
+            background-color: $grey-medium-2;
             height: rem(10);
             width: var(--thumb-width);
             border-radius: rem(10);

@@ -233,13 +233,13 @@
     text-align: center;
     transition: background 0.35s;
     font-size: rem(14);
-    background: $white;
+    background: $grey-lightteen;
     border: 0;
     position: relative;
-    border-radius: rem(10);
+    border-radius: rem(20);
 
     &:hover {
-        background: $nord-bg;
+        background: $black;
         color: $white;
     }
 }

@@ -73,6 +73,7 @@ export const routes = [
     {
         name: 'about',
         layout: layoutAbout,
+        templateName: 'about',
         props: {},
     },
     {
@@ -108,6 +109,7 @@ export const routes = [
     {
         name: 'canvas-overview',
         layout: layoutLinksPage,
+        templateName: 'canvas-default',
         props: {
             source: './data/canvas/data.json',
         },
@@ -145,6 +147,7 @@ export const routes = [
     {
         name: 'home',
         layout: home,
+        templateName: 'home',
         props: {},
     },
     {
@@ -875,7 +878,6 @@ export const routes = [
     },
     {
         name: 'horizontalScroller',
-        templateName: 'generic',
         layout: horizontalScroller,
         restoreScroll: false,
         props: {},
@@ -883,19 +885,21 @@ export const routes = [
     {
         name: 'plugin-overview',
         layout: layoutLinksPage,
+        templateName: 'plugin-default',
         props: {
             source: './data/plugin/data.json',
         },
     },
     {
         name: 'move3D-shape1',
-        templateName: 'generic',
+        templateName: 'move-3d',
         layout: move3DRoute,
         props: move3DrouteProps.shape1,
     },
     {
         name: 'svg-overview',
         layout: layoutLinksPage,
+        templateName: 'svg-default',
         props: {
             source: './data/svg/data.json',
         },
@@ -903,11 +907,13 @@ export const routes = [
     {
         name: 'mob-01',
         layout: lettering01,
+        templateName: 'svg-default',
         props: {},
     },
     {
         name: 'rdp-01',
         layout: rdp,
+        templateName: 'svg-default',
         props: {},
     },
 ];

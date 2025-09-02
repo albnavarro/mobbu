@@ -150,6 +150,12 @@ export const loadRoute = async ({
     if (getRestoreScroll() && restoreScroll) scrollTo(0, scrollY);
 
     /**
+     * Set active route to body data-route
+     */
+    document.body.dataset['route'] = route;
+    document.body.dataset['template'] = templateName;
+
+    /**
      * Animate pgae teansition. Remove old route.
      */
     const pageTransition = getPageTransition();
@@ -170,12 +176,6 @@ export const loadRoute = async ({
      * Destroy Clone.
      */
     clone = null;
-
-    /**
-     * Set active route to body data-route
-     */
-    document.body.dataset['route'] = route;
-    document.body.dataset['template'] = templateName;
 
     /**
      * Remove watcher.

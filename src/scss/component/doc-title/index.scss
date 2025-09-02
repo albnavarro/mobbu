@@ -2,9 +2,9 @@
 
 .c-doc-title {
     h2 {
-        color: $white;
+        color: $black;
         font-size: rem(300);
-        opacity: 0.05;
+        opacity: 0.025;
         font-weight: 800;
         transform-origin: left bottom;
         transform: translate(calc(rem(50) * -1), calc(rem(320) * -1))

@@ -12,7 +12,7 @@ export const horizontalScroller = async () => {
         prevRoute: '',
         nextRoute: '#move3D-shape1',
         backRoute: '#plugin-overview',
-        color: 'white',
+        color: 'black',
     });
 
     return html`<div>

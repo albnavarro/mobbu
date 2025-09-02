@@ -17,26 +17,26 @@
  </g>
  <g transform="translate(-4.0197 -6.515)">
   <g>
-   <path x="29.842051" y="29.352493" width="139.29848" height="84.95739" d="m32.488 29.352h134.01a2.6458 2.6458 45 0 1 2.6458 2.6458v79.666a2.6458 2.6458 135 0 1-2.6458 2.6458h-134.01a2.6458 2.6458 45 0 1-2.6458-2.6458v-79.666a2.6458 2.6458 135 0 1 2.6458-2.6458z" fill-opacity=".21516"/>
-   <path d="m19.87 11.887 171.43 0.33259h1.2352" stop-color="#000000" stroke="#f00" stroke-dasharray="0.79374996,0.79374996" stroke-dashoffset=".52917" stroke-width=".26458" style="font-variation-settings:normal"/>
-   <path d="m19.87 100.63 171.43 0.33259h1.2352" stop-color="#000000" stroke="#f00" stroke-dasharray="0.79374996,0.79374996" stroke-width=".26458" style="font-variation-settings:normal"/>
+   <path x="29.842051" y="29.352493" width="139.29848" height="84.95739" d="m35.134 29.352h128.72a5.2917 5.2917 45 0 1 5.2917 5.2917v74.374a5.2917 5.2917 135 0 1-5.2917 5.2917h-128.72a5.2917 5.2917 45 0 1-5.2917-5.2917v-74.374a5.2917 5.2917 135 0 1 5.2917-5.2917z" fill-opacity=".21516"/>
+   <path d="m19.87 11.887 171.43 0.33259h1.2352" stop-color="#000000" stroke="#f00" stroke-dasharray="0.79375, 0.79375" stroke-dashoffset=".52917" stroke-width=".26458" style="font-variation-settings:normal"/>
+   <path d="m19.87 100.63 171.43 0.33259h1.2352" stop-color="#000000" stroke="#f00" stroke-dasharray="0.79375, 0.79375" stroke-width=".26458" style="font-variation-settings:normal"/>
   </g>
   <g>
-   <path transform="translate(0 -.52917)" x="87.128769" y="101.6087" width="28.655451" height="28.655451" d="m93.743 101.61h15.426a6.6146 6.6146 45 0 1 6.6146 6.6146v15.426a6.6146 6.6146 135 0 1-6.6146 6.6146h-15.426a6.6146 6.6146 45 0 1-6.6146-6.6146v-15.426a6.6146 6.6146 135 0 1 6.6146-6.6146z" fill="#fff"/>
-   <path transform="rotate(45)" x="76.347351" y="-67.133804" width="28.655451" height="28.655451" d="m82.962-67.134h15.426a6.6146 6.6146 45 0 1 6.6146 6.6146v15.426a6.6146 6.6146 135 0 1-6.6146 6.6146h-15.426a6.6146 6.6146 45 0 1-6.6146-6.6146v-15.426a6.6146 6.6146 135 0 1 6.6146-6.6146z" fill="#fff"/>
+   <path transform="translate(0 -.52917)" x="87.128769" y="101.6087" width="28.655451" height="28.655451" d="m93.743 101.61h15.426a6.6146 6.6146 45 0 1 6.6146 6.6146v15.426a6.6146 6.6146 135 0 1-6.6146 6.6146h-15.426a6.6146 6.6146 45 0 1-6.6146-6.6146v-15.426a6.6146 6.6146 135 0 1 6.6146-6.6146z" fill="#e9e9e9"/>
+   <path transform="rotate(45)" x="76.347351" y="-67.133804" width="28.655451" height="28.655451" d="m82.962-67.134h15.426a6.6146 6.6146 45 0 1 6.6146 6.6146v15.426a6.6146 6.6146 135 0 1-6.6146 6.6146h-15.426a6.6146 6.6146 45 0 1-6.6146-6.6146v-15.426a6.6146 6.6146 135 0 1 6.6146-6.6146z" fill="#e9e9e9"/>
    <g stroke-width=".26458">
     <text x="7.7867322" y="101.90195" fill="#000000" font-family="sans-serif" font-size="3.5278px" style="line-height:1.25" xml:space="preserve"><tspan x="7.7867322" y="101.90195" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Start</tspan></text>
     <text x="7.783287" y="13.267792" fill="#000000" font-family="sans-serif" font-size="3.5278px" style="line-height:1.25" xml:space="preserve"><tspan x="7.783287" y="13.267792" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">End</tspan></text>
     <path d="m174.52 102.38v11.845" marker-start="url(#ArrowWideHeavy)" stop-color="#000000" stroke="#000" stroke-dasharray="0.79375, 0.79375" style="font-variation-settings:normal"/>
     <text x="176.65793" y="109.57013" fill="#000000" font-family="sans-serif" font-size="3.5278px" style="line-height:1.25" xml:space="preserve"><tspan x="176.65793" y="109.57013" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">+40px</tspan></text>
     <path d="m174.52 29.423v11.845" marker-end="url(#marker2)" stop-color="#000000" stroke="#000" stroke-dasharray="0.79375, 0.79375" style="font-variation-settings:normal"/>
+    <path d="m125.61 13.234v27.424" marker-start="url(#marker4)" stop-color="#000000" stroke="#000" stroke-dasharray="0.79375, 0.79375" style="font-variation-settings:normal"/>
+    <text x="177.86703" y="36.362625" fill="#000000" font-family="sans-serif" font-size="3.5278px" style="line-height:1.25" xml:space="preserve"><tspan x="177.86703" y="36.362625" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">+40px</tspan></text>
+    <text x="128.01622" y="26.17708" fill="#000000" font-family="sans-serif" font-size="3.5278px" style="line-height:1.25" xml:space="preserve"><tspan x="128.01622" y="26.17708" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">- Height</tspan></text>
    </g>
-   <path d="m125.61 13.234v27.424" marker-start="url(#marker4)" stop-color="#000000" stroke="#000" stroke-dasharray="0.79375002,0.79375002" stroke-width=".26458" style="font-variation-settings:normal"/>
-   <text x="177.86703" y="36.362625" fill="#000000" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="177.86703" y="36.362625" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">+40px</tspan></text>
-   <text x="128.01622" y="26.17708" fill="#000000" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="128.01622" y="26.17708" font-family="sans-serif" font-size="3.5278px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">- Height</tspan></text>
   </g>
   <g>
-   <path d="m19.87 41.765 171.43 0.33259h1.2352" stop-color="#000000" stroke="#969696" stroke-dasharray="0.79374996,0.79374996" stroke-width=".26458" style="font-variation-settings:normal"/>
+   <path d="m19.87 41.765 171.43 0.33259h1.2352" stop-color="#000000" stroke="#969696" stroke-dasharray="0.79375, 0.79375" stroke-width=".26458" style="font-variation-settings:normal"/>
    <rect x="92.911" y="100.27" width="17.036" height=".78327"/>
    <rect transform="rotate(45)" x="82.341" y="-67.882" width="17.036" height=".78327"/>
   </g>

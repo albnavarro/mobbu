@@ -31,7 +31,7 @@
     }
 
     &__row {
-        background-color: $background;
+        background-color: $grey;
     }
 
     &__column {
@@ -52,7 +52,7 @@
     }
 
     &__wrap {
-        border: 1px $white solid;
+        border: 1px $black solid;
         height: 100%;
         position: relative;
     }
@@ -80,7 +80,7 @@
 
             &:hover {
                 button {
-                    border-bottom: rem(5) $white solid;
+                    border-bottom: rem(5) $black solid;
                 }
             }
         }
@@ -99,7 +99,7 @@
             position: relative;
 
             &.active {
-                border-bottom: rem(5) $white solid;
+                border-bottom: rem(5) $black solid;
             }
         }
     }
@@ -109,23 +109,23 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border: rem(10px) rgba($white, 0.15) solid;
+        border: rem(10px) rgba($black, 0.15) solid;
         width: rem(200);
         text-align: center;
 
         h1 {
             font-size: rem(200);
             font-weight: 600;
-            color: $white;
+            color: $black;
         }
     }
 
     &__indicator {
-        border-right: 1px $white solid;
+        border-right: 1px $black solid;
         border: 0;
         width: rem(60);
         height: rem(20);
-        color: $white;
+        color: $black;
         transition:
             background 0.15s,
             opacity 0.15s;
@@ -141,7 +141,7 @@
         }
 
         span {
-            background: $white;
+            background: $black;
             display: block;
             width: rem(60);
             height: rem(10);
@@ -153,7 +153,7 @@
         }
 
         &:hover {
-            background: $white;
+            background: $black;
         }
     }
 }
