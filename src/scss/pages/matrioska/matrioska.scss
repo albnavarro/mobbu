@@ -5,6 +5,11 @@
     padding-bottom: var(--footer-height);
     box-sizing: border-box;
 
+    // Increase scrolling performance on smooth scroll.
+    @include when-inside('.is-whelling') {
+        pointer-events: none;
+    }
+
     &__head {
         position: sticky;
         top: var(--header-height);

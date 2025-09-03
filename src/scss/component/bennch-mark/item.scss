@@ -27,10 +27,10 @@
 
     &__button {
         background: $black;
-        border: 0;
         width: 100%;
         display: block;
         color: $white;
+        border: 1px $black solid;
 
         &:hover {
             background: $white;

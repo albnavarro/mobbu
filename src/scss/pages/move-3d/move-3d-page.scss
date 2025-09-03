@@ -93,6 +93,10 @@
         background: $white;
     }
 
+    &.is-grey {
+        background: $grey-medium-2;
+    }
+
     &.is-small {
         width: calc(var(--item-width) * 0.5);
         height: calc(var(--item-height) * 0.5);

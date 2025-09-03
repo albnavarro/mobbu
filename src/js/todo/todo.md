@@ -1,6 +1,5 @@
-### Docs:
-- I titolo `sticky` sono deprecati, scorporare i blocchi html-content innestati
-
+###  Smooth scrolling modules:
+-  Rendere il clamp su spinX/Y opzionale.
 
 ### Docs: AsyncTimeline
 - Breve riassunto con lista puntata delle feature.

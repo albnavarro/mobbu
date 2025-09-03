@@ -6,6 +6,11 @@
     padding-left: calc(var(--gap-size) / 2);
     position: relative;
 
+    // Performance on scroll
+    @include when-inside('.is-whelling') {
+        pointer-events: none;
+    }
+
     &::after {
         content: '';
         position: absolute;

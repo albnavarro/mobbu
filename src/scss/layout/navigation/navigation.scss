@@ -48,6 +48,11 @@
         border: 0;
         background: transparent;
 
+        // Performance on scroll
+        @include when-inside('.is-whelling') {
+            pointer-events: none;
+        }
+
         &:hover {
             background: $grey;
 

@@ -1,6 +1,13 @@
+import { debounceFuncion } from 'src/js/mob/mob-core/events/debounce';
 import { MobMotionCore, MobTween } from '../..';
 import { MobCore } from '../../../mob-core';
 import { clamp } from '../../core';
+
+/** @type {number} */
+let windowInnerheight = window.innerHeight;
+
+/** @type {number} */
+let windowOffsetheight = document.body.offsetHeight;
 
 let isActive = false;
 
@@ -24,6 +31,14 @@ let update = () => {};
 
 /** @type {HTMLElement | undefined} */
 let rootElementToObserve;
+
+const removeWhellingClass = () => {
+    document.body.classList.remove('is-whelling');
+};
+
+const addWhellingClass = () => {
+    document.body.classList.add('is-whelling');
+};
 
 /** @type {import('./type').MobPageScroller} */
 const MobPageScroller = ({ velocity, rootElement }) => {
@@ -57,6 +72,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
 
         event.preventDefault();
         useNativeScroll = false;
+        addWhellingClass();
 
         /**
          * Normalize spinValue between -1 && 1.
@@ -66,12 +82,21 @@ const MobPageScroller = ({ velocity, rootElement }) => {
         const currentValue = MobMotionCore.clamp(
             spinY * velocity + lastScrollValue,
             0,
-            document.body.offsetHeight - window.innerHeight
+            windowOffsetheight - windowInnerheight
         );
 
         lastScrollValue = currentValue;
         lerp.goTo({ scrollValue: currentValue }).catch(() => {});
     });
+
+    /**
+     * Remove wheeling class on end wheel with debounce.
+     */
+    const unsubscribeDebounceWheel = MobCore.useMouseWheel(
+        debounceFuncion(() => {
+            removeWhellingClass();
+        }, 500)
+    );
 
     /**
      * Update lerp on scrollEnd eg. when search something in page
@@ -115,6 +140,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
      * Stop lerp on pointerDown. Stop lerp even is touch or mouse click.
      */
     const unsubscribePointerDown = MobCore.usePointerDown(() => {
+        removeWhellingClass();
         if (isFreezed) return;
 
         lerp.stop();
@@ -129,6 +155,8 @@ const MobPageScroller = ({ velocity, rootElement }) => {
         lerp.stop();
         lerp.setImmediate({ scrollValue: window.scrollY });
         lastScrollValue = window.scrollY;
+        windowInnerheight = window.innerHeight;
+        windowOffsetheight = document.body.offsetHeight;
     });
 
     resizeObserver.observe(rootElement);
@@ -159,6 +187,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
             unsubsribeScrollEnd();
             unsubscribeMouseWheel();
             unsubscribePointerDown();
+            unsubscribeDebounceWheel();
             destroy = () => {};
             stop = () => {};
             update = () => {};

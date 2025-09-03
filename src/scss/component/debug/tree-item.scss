@@ -6,6 +6,11 @@
     padding-left: rem(40);
     position: relative;
 
+    // Performance on scroll
+    @include when-inside('.is-whelling') {
+        pointer-events: none;
+    }
+
     &__head {
         &.has-children {
             cursor: pointer;

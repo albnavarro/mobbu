@@ -23,6 +23,7 @@ import {
     FreezeMobPageScroll,
     UnFreezeMobPageScroll,
 } from '../page-scroll/page-scroller.js';
+import { debounceFuncion } from 'src/js/mob/mob-core/events/debounce.js';
 
 export class MobSmoothScroller {
     /**
@@ -142,6 +143,12 @@ export class MobSmoothScroller {
     #subscribeMouseClick;
 
     /**
+     * @type {() => void}
+     * @returns {void}
+     */
+    #subscribeDebuoceWhell;
+
+    /**
      * @type {MobLerp | MobSpring}
      */
     #motion;
@@ -149,12 +156,12 @@ export class MobSmoothScroller {
     /**
      * @type {() => void}
      */
-    #unsubscribeMotion;
+    #subscribeMotion;
 
     /**
      * @type {() => void}
      */
-    #unsubscribeOnComplete;
+    #subscribeOnComplete;
 
     /**
      * @type {string}
@@ -337,10 +344,12 @@ export class MobSmoothScroller {
         this.#subscribeMouseMove = NOOP;
         this.#subscribeTouchMove = NOOP;
         this.#subscribeMouseClick = NOOP;
+        this.#subscribeDebuoceWhell = NOOP;
+
         // @ts-ignore
         this.#motion = {};
-        this.#unsubscribeMotion = NOOP;
-        this.#unsubscribeOnComplete = NOOP;
+        this.#subscribeMotion = NOOP;
+        this.#subscribeOnComplete = NOOP;
         this.#direction = directionIsValid(data?.direction, 'SmoothScroller');
         this.#isDestroyed = false;
 
@@ -463,6 +472,8 @@ export class MobSmoothScroller {
         });
 
         this.#scopedWhell = (event) => {
+            this.#addWhellingClass();
+
             const { spinY } = MobCore.normalizeWheel(event);
             this.#onScopedWhell({
                 spinY,
@@ -483,6 +494,35 @@ export class MobSmoothScroller {
                 },
             });
         };
+
+        /**
+         * Remove wheeling class at the end of wheel.
+         */
+        this.#subscribeDebuoceWhell = MobCore.useMouseWheel(
+            debounceFuncion(() => {
+                this.#removeWhellingClass();
+            }, 500)
+        );
+    }
+
+    /**
+     * @type {() => void}
+     */
+    #removeWhellingClass() {
+        if (!this.#scroller) return;
+
+        // @ts-ignore
+        this.#scroller.classList.remove('is-whelling');
+    }
+
+    /**
+     * @type {() => void}
+     */
+    #addWhellingClass() {
+        if (!this.#scroller) return;
+
+        // @ts-ignore
+        this.#scroller.classList.add('is-whelling');
     }
 
     /**
@@ -710,7 +750,7 @@ export class MobSmoothScroller {
         if (!this.#motion) return;
 
         this.#motion.setData({ val: 0 });
-        this.#unsubscribeMotion = this.#motion.subscribe(({ val }) => {
+        this.#subscribeMotion = this.#motion.subscribe(({ val }) => {
             /** @type {HTMLElement} */ (this.#scroller).style.transform =
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
                     ? `translate3d(0px, 0px, 0px) translateY(${-Math.trunc(val)}px)`
@@ -739,7 +779,7 @@ export class MobSmoothScroller {
             });
         });
 
-        this.#unsubscribeOnComplete = this.#motion.onComplete(({ val }) => {
+        this.#subscribeOnComplete = this.#motion.onComplete(({ val }) => {
             /** @type {HTMLElement} */ (this.#scroller).style.transform =
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
                     ? `translateY(${-Math.trunc(val)}px)`
@@ -905,6 +945,7 @@ export class MobSmoothScroller {
      */
     #onWhell({ target, spinY = 0, spinX = 0, preventDefault }) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
+        this.#addWhellingClass();
 
         if (
             target === this.#scroller ||
@@ -1120,8 +1161,9 @@ export class MobSmoothScroller {
         this.#subscribeMouseMove();
         this.#subscribeTouchMove();
         this.#subscribeMouseClick();
-        this.#unsubscribeMotion();
-        this.#unsubscribeOnComplete();
+        this.#subscribeMotion();
+        this.#subscribeOnComplete();
+        this.#subscribeDebuoceWhell();
         this.#motion?.destroy();
         // @ts-ignore
         this.#motion = null;

@@ -4,6 +4,11 @@
     margin-top: calc(var(--header-height) * -1);
     margin-left: calc(var(--header-height) * -0.5);
 
+    // Performance on scroll
+    @include when-inside('.is-whelling') {
+        pointer-events: none;
+    }
+
     &__top,
     &__bottom {
         height: calc(100vh - var(--header-height));
@@ -135,6 +140,7 @@
         padding: 0;
         margin: 0;
         display: block;
+        z-index: 10;
 
         &.hidden {
             visibility: hidden;
