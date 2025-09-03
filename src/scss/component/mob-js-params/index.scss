@@ -141,14 +141,14 @@
         }
 
         &::-moz-range-track {
-            background-color: rgba($grey, 0.3);
+            background-color: $grey-light;
             height: rem(10);
             border-radius: rem(10);
         }
 
         &::-moz-range-thumb {
             border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
-            background-color: $white;
+            background-color: $grey-medium-2;
             height: rem(10);
             width: var(--thumb-width);
             border-radius: rem(10);
