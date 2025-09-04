@@ -11,6 +11,8 @@ let windowOffsetheight = document.body.offsetHeight;
 
 let isActive = false;
 
+let usePrevent = true;
+
 /** @type {number} */
 let lastScrollValue = window.scrollY;
 
@@ -39,6 +41,15 @@ const removeWhellingClass = () => {
 const addWhellingClass = () => {
     document.body.classList.add('is-whelling');
 };
+
+/**
+ * Necessary.
+ *
+ * Enable the possibility to use preventDefault to block scroll page on wheel event. ( we scroll page manually ).
+ */
+MobMotionCore.setDefault({
+    usePassive: false,
+});
 
 /** @type {import('./type').MobPageScroller} */
 const MobPageScroller = ({ velocity, rootElement }) => {
@@ -90,6 +101,15 @@ const MobPageScroller = ({ velocity, rootElement }) => {
     });
 
     /**
+     * Disable scroll on well event. we manage scroll manually with scrollTo() API.
+     */
+    const unsubscribeWhellPrevent = MobCore.useMouseWheel(
+        ({ preventDefault }) => {
+            if (usePrevent) preventDefault();
+        }
+    );
+
+    /**
      * Remove wheeling class on end wheel with debounce.
      */
     const unsubscribeDebounceWheel = MobCore.useMouseWheel(
@@ -121,27 +141,11 @@ const MobPageScroller = ({ velocity, rootElement }) => {
     });
 
     /**
-     * Stop lerp if use native scrollbar
-     */
-    // const unsubscribeMouseDown = MobCore.useMouseDown((event) => {
-    //     if (isFreezed) return;
-    //
-    //     const scrollBarWidth =
-    //         window.innerWidth - document.documentElement.clientWidth;
-    //
-    //     if (event.page.x > window.innerWidth - scrollBarWidth) {
-    //         lerp.stop();
-    //         lastScrollValue = window.scrollY;
-    //         useNativeScroll = true;
-    //     }
-    // });
-
-    /**
      * Stop lerp on pointerDown. Stop lerp even is touch or mouse click.
      */
     const unsubscribePointerDown = MobCore.usePointerDown(() => {
-        removeWhellingClass();
         if (isFreezed) return;
+        removeWhellingClass();
 
         lerp.stop();
         lastScrollValue = window.scrollY;
@@ -188,6 +192,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
             unsubscribeMouseWheel();
             unsubscribePointerDown();
             unsubscribeDebounceWheel();
+            unsubscribeWhellPrevent();
             destroy = () => {};
             stop = () => {};
             update = () => {};
@@ -212,6 +217,10 @@ export const InitMobPageScroll = ({
     lastScrollValue = window.scrollY;
     isActive = true;
     isFreezed = false;
+    windowInnerheight = window.innerHeight;
+    windowOffsetheight = document.body.offsetHeight;
+    usePrevent = true;
+    useNativeScroll = false;
 
     ({ destroy, stop, update } = MobPageScroller({
         velocity,
@@ -229,14 +238,14 @@ export const FreezeMobPageScroll = () => {
 
 /** @type{() => void} */
 export const UnFreezeMobPageScroll = () => {
-    if (!isActive) return;
+    if (!isActive || !isFreezed) return;
 
     isFreezed = false;
 };
 
 /** @type{() => void} */
 export const UnFreezeAndUPdateMobPageScroll = () => {
-    if (!isActive) return;
+    if (!isActive || !isFreezed) return;
 
     update();
     lastScrollValue = window.scrollY;
@@ -253,4 +262,19 @@ export const UpdateMobPageScroll = () => {
 /** @type{() => void} */
 export const DestroyMobPageScroll = () => {
     destroy();
+};
+
+/** @type{() => void} */
+export const enebalePreventScroll = () => {
+    usePrevent = true;
+};
+
+/** @type{() => void} */
+export const disablePreventScroll = () => {
+    usePrevent = false;
+};
+
+/** @type{() => boolean} */
+export const getActiveStateScroll = () => {
+    return isActive;
 };

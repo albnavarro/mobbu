@@ -1,84 +1,60 @@
-import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import {
-    DestroyMobPageScroll,
     FreezeMobPageScroll,
     InitMobPageScroll,
     UnFreezeAndUPdateMobPageScroll,
 } from '@mobMotionPlugin';
-import { navigationStore } from '@stores/navigation';
+import {
+    DestroyMobPageScroll,
+    enebalePreventScroll,
+    getActiveStateScroll,
+} from '../mob/mob-motion/plugin/page-scroll/page-scroller';
+import { MobCore } from '@mobCore';
 
-let usePrevent = false;
-let shouldInit = false;
-let shouldDestroyPageScroll = false;
-const routeShoulNotUsePageScroll = new Set(['scrollerN0', 'scrollerN1']);
+let shouldFreezePageScroll = false;
+
+const routeShoulNotUsePageScroll = new Set([
+    'scrollerN0',
+    'scrollerN1',
+    'horizontalScroller',
+]);
 
 export const usePageScroll = () => {
     const rootElement = /** @type {HTMLElement} */ (
         document.querySelector('#root')
     );
 
-    const init = () => {
-        InitMobPageScroll({ rootElement });
-        shouldInit = false;
-        usePrevent = true;
-    };
-
-    const destroy = () => {
-        DestroyMobPageScroll();
-        shouldInit = true;
-        usePrevent = false;
-    };
-
     if (!rootElement) return;
     InitMobPageScroll({ rootElement });
-    shouldInit = false;
 
-    navigationStore.watch('navigationIsOpen', (isOpen) => {
-        if (isOpen) {
-            destroy();
-            return;
-        }
-
-        if (shouldInit && !shouldDestroyPageScroll) {
-            init();
-        }
+    MobJs.mainStore.watch('beforeRouteChange', () => {
+        FreezeMobPageScroll();
+        enebalePreventScroll();
     });
 
-    MobJs.mainStore.watch('routeIsLoading', (isLoading) => {
-        if (isLoading) {
-            usePrevent = true;
-            FreezeMobPageScroll();
-            return;
-        }
-
+    MobJs.mainStore.watch('afterRouteChange', () => {
         const currentRoute = MobJs.getActiveRoute()?.route;
-        shouldDestroyPageScroll = routeShoulNotUsePageScroll.has(currentRoute);
+        shouldFreezePageScroll = routeShoulNotUsePageScroll.has(currentRoute);
 
         /**
-         * Come from route without page-scroll active And current route should not use page-scroll.
+         * SnoothScroll freeze/unfeeze Page scroll. Use 10 frma delay to deactivate page-scroll in case is needed.
          */
-        if (shouldInit && !shouldDestroyPageScroll) {
-            init();
-            return;
-        }
+        MobCore.useFrameIndex(() => {
+            /**
+             * Come from route without page-scroll active And current route should not use page-scroll.
+             */
+            if (shouldFreezePageScroll) {
+                DestroyMobPageScroll();
+                return;
+            }
 
-        /**
-         * This rout should not use page-scroll.
-         */
-        if (shouldDestroyPageScroll) {
-            destroy();
-            return;
-        }
+            const shouldInizialize = !getActiveStateScroll();
 
-        /**
-         * Come from route that use page-scroll and current route use too.
-         */
-        UnFreezeAndUPdateMobPageScroll();
-        usePrevent = true;
-    });
-
-    MobCore.useMouseWheel(({ preventDefault }) => {
-        if (usePrevent) preventDefault();
+            /**
+             * Come from route that use page-scroll and current route use too.
+             */
+            if (shouldInizialize) InitMobPageScroll({ rootElement });
+            UnFreezeAndUPdateMobPageScroll();
+        }, 30);
     });
 };

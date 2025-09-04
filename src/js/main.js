@@ -108,7 +108,6 @@ MobCore.useLoad(() => {
 
     MobMotionCore.setDefault({
         deferredNextTick: true,
-        usePassive: false,
     });
 
     // MobMotionCore.printDefault();
