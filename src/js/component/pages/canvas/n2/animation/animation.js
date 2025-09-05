@@ -46,7 +46,7 @@ export const caterpillarN2Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     let userRotation = rotationDefault;
     const activeRoute = MobJs.getActiveRoute();
 
@@ -160,8 +160,11 @@ export const caterpillarN2Animation = ({
 
         if (!context) return;
 
-        context.fillStyle = '#fff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        // context.fillStyle = '#fff';
+        // context.fillRect(0, 0, canvas.width, canvas.height);
+
+        // eslint-disable-next-line no-self-assign
+        canvas.width = canvas.width;
 
         squareData.forEach(
             ({ width, height, x, y, rotate, hasFill, opacity }) => {

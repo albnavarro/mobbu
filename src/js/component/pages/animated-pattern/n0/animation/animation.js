@@ -36,7 +36,7 @@ export const animatedPatternN0Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
 
     const activeRoute = MobJs.getActiveRoute();
 
@@ -128,8 +128,11 @@ export const animatedPatternN0Animation = ({
 
         if (!context) return;
 
-        context.fillStyle = '#fff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        // context.fillStyle = '#fff';
+        // context.fillRect(0, 0, canvas.width, canvas.height);
+
+        // eslint-disable-next-line no-self-assign
+        canvas.width = canvas.width;
 
         data.forEach(
             ({

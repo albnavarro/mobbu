@@ -412,9 +412,15 @@ body::after {
   transition: opacity 0.55s, visibility 0.55s;
 }
 body[data-template=home]::after,
-body[data-template=about]::after,
 body[data-template=templateLinks]::after,
 body[data-template=templateAnimation]::after {
+  opacity: 1;
+  visibility: visible;
+}
+body[data-template=about] {
+  background: #eee;
+}
+body[data-template=about]::after {
   opacity: 1;
   visibility: visible;
 }
@@ -678,6 +684,9 @@ ul li::marker {
 [data-template=templateAnimation] .l-footer {
   background: transparent;
 }
+[data-template=templateLinks] .l-footer {
+  background: transparent;
+}
 .l-footer__container {
   padding: 0 var(--gap-size);
   display: grid;
@@ -722,6 +731,9 @@ ul li::marker {
   color: #2e3440;
 }
 [data-template=templateAnimation] .footer-nav__button {
+  color: #2e3440;
+}
+[data-template=templateLinks] .footer-nav__button {
   color: #2e3440;
 }
 .footer-nav__button::after {
@@ -1136,6 +1148,8 @@ ul li::marker {
   transform: translateX(-101%);
   transition: transform 0.55s;
   background: #fff;
+  border-top: 1px #2e3440 solid;
+  border-right: 1px #2e3440 solid;
 }
 .l-navcontainer.active {
   transform: translateX(0);
@@ -1155,14 +1169,13 @@ ul li::marker {
   width: calc(var(--header-height) / 2);
   top: 0;
   height: calc(100vh - var(--header-height));
-  background: rgba(46, 52, 64, 0.05);
   border-right: 1px #2e3440 solid;
+  background: transparent;
+  transition: background 0.35s;
 }
 [data-template=templateDocDefault] .l-navcontainer__side {
   border-right: 0;
-}
-[data-template=about] .l-navcontainer__side {
-  border-right: 0;
+  background: rgba(46, 52, 64, 0.05);
 }
 .active .l-navcontainer__side {
   left: 100%;
@@ -1198,7 +1211,7 @@ ul li::marker {
 .l-navcontainer__percent {
   position: absolute;
   left: calc(100% + 1px);
-  top: 1px;
+  top: 0;
   width: calc(100vw - var(--nav-width));
   background: #2e3440;
   height: 0.6666666667rem;
@@ -1322,13 +1335,6 @@ ul li::marker {
   border-right: 0.3333333333rem #2e3440 solid;
   display: block;
 }
-.l-about__scroll {
-  position: absolute;
-  bottom: 5.3333333333rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-}
 .l-about__list {
   list-style-type: none;
   max-width: 33.3333333333rem;
@@ -1406,6 +1412,7 @@ ul li::marker {
 }
 .l-about__about-svg--back svg {
   fill: #fff;
+  opacity: 0.2;
 }
 .l-about__about-svg--front {
   bottom: 0;
@@ -1440,7 +1447,7 @@ ul li::marker {
   z-index: -1;
 }
 .l-about__shape--back {
-  background: #2e3440;
+  background: #ccc;
   transform: translate3d(-50%, -94%, 0);
 }
 .l-about__shape--front {
@@ -1493,7 +1500,7 @@ ul li::marker {
   font-size: 20rem;
   opacity: 0;
   position: absolute;
-  top: 50%;
+  top: calc(50% - 4rem);
   left: calc(6.6666666667rem * -1);
   transform: translateY(100%);
   text-transform: uppercase;
@@ -1542,9 +1549,9 @@ ul li::marker {
 .l-links__row__white {
   position: absolute;
   inset: 50% 0 0;
-  background: #fff;
   z-index: 1;
   overflow: hidden;
+  border-top: 1px #2e3440 solid;
 }
 .l-links__scroller {
   width: auto;
@@ -1600,8 +1607,8 @@ ul li::marker {
   color: #2e3440;
   transition: background 0.55s, color 0.55s;
   text-transform: capitalize;
-  border-right: 1px #eee solid;
-  border-bottom: 1px #eee solid;
+  border-right: 1px #2e3440 solid;
+  border-bottom: 1px #2e3440 solid;
   position: relative;
 }
 .l-links__list__link:hover {

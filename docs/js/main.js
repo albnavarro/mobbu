@@ -26871,7 +26871,6 @@
         >
             <span></span>
         </button>
-        <h5 class="l-about__scroll">Scroll or drag</h5>
         <div class="l-about__scroller" ${setRef("scrollerElement")}>
             <div class="l-about__wrap" ${setRef("wrapElement")}>
                 ${block01({ setRef, getState })}
@@ -27991,7 +27990,7 @@
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     let wichContext = useOffscreen ? offScreenCtx : ctx;
@@ -28048,8 +28047,7 @@
         ctx
       );
       if (!context2) return;
-      context2.fillStyle = "#fff";
-      context2.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.width = canvas.width;
       data.forEach(
         ({
           x,
@@ -28846,8 +28844,7 @@
       if (!context2) return;
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      context2.fillStyle = "#fff";
-      context2.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.width = canvas.width;
       steamDataReorded.forEach(
         ({ width: width2, height: height2, opacity: opacity2, rotate, relativeIndex, index: i }) => {
           const offset2 = Math.sin(time2 / 1e3) * perpetualRatio * relativeIndex;
@@ -29076,7 +29073,7 @@
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     let { top, left } = offset(canvas);
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -29132,8 +29129,7 @@
         ctx
       );
       if (!context2) return;
-      context2.fillStyle = "#fff";
-      context2.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.width = canvas.width;
       squareData.forEach(
         ({ width: width2, height: height2, x, y, opacity: opacity2, rotate, hasFill }, i) => {
           const unitInverse = squareData.length - i;
@@ -29385,7 +29381,7 @@
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     let userRotation = rotationDefault;
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -29457,8 +29453,7 @@
         ctx
       );
       if (!context2) return;
-      context2.fillStyle = "#fff";
-      context2.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.width = canvas.width;
       squareData.forEach(
         ({ width: width2, height: height2, x, y, rotate, hasFill, opacity: opacity2 }) => {
           const centerX = canvas.width / 2;
@@ -29779,7 +29774,7 @@
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let masterSequencer = tween_exports.createMasterSequencer();
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     let wichContext = useOffscreen ? offScreenCtx : ctx;
@@ -29840,8 +29835,7 @@
         ctx
       );
       if (!context2) return;
-      context2.fillStyle = "#fff";
-      context2.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.width = canvas.width;
       data.forEach(
         ({
           x,
@@ -30247,7 +30241,7 @@
   }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     const useRadius = false;
@@ -30293,8 +30287,7 @@
       if (!context2) return;
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      context2.fillStyle = "#fff";
-      context2.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.width = canvas.width;
       stemData.forEach(({ width: width2, height: height2, opacity: opacity2, rotate, index }) => {
         const unitInverse = stemData.length / 2 - index;
         const scale = 1;
@@ -34319,7 +34312,7 @@
   var asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     let wichContext = useOffscreen ? offScreenCtx : ctx;
@@ -34455,8 +34448,7 @@
         ctx
       );
       if (!context2) return;
-      context2.fillStyle = "#fff";
-      context2.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.width = canvas.width;
       data.forEach(
         ({
           x,

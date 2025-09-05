@@ -168,8 +168,11 @@ export const caterpillarN0Animation = ({
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
 
-        context.fillStyle = '#fff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        // eslint-disable-next-line no-self-assign
+        canvas.width = canvas.width;
+
+        // context.fillStyle = '#ccc';
+        // context.fillRect(0, 0, canvas.width, canvas.height);
 
         steamDataReorded.forEach(
             ({ width, height, opacity, rotate, relativeIndex, index: i }) => {

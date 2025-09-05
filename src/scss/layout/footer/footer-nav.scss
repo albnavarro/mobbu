@@ -42,6 +42,10 @@
             color: $black;
         }
 
+        @include when-inside('[data-template="templateLinks"]') {
+            color: $black;
+        }
+
         &::after {
             content: '';
             position: absolute;

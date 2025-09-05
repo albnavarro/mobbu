@@ -40,7 +40,7 @@ export const scrollerN0Animation = ({
      */
     let isActive = true;
     let masterSequencer = MobTween.createMasterSequencer();
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = MobJs.getActiveRoute();
 
     /**
@@ -141,8 +141,11 @@ export const scrollerN0Animation = ({
         /**
          * Clear rpevious render.
          */
-        context.fillStyle = '#fff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        // context.fillStyle = '#fff';
+        // context.fillRect(0, 0, canvas.width, canvas.height);
+
+        // eslint-disable-next-line no-self-assign
+        canvas.width = canvas.width;
 
         data.forEach(
             ({

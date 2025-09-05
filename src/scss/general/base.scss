@@ -117,9 +117,17 @@ body {
     }
 
     &[data-template='home'],
-    &[data-template='about'],
     &[data-template='templateLinks'],
     &[data-template='templateAnimation'] {
+        &::after {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &[data-template='about'] {
+        background: $grey;
+
         &::after {
             opacity: 1;
             visibility: visible;

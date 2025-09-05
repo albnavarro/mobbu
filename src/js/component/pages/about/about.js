@@ -401,7 +401,6 @@ export const AboutComponentFn = ({
         >
             <span></span>
         </button>
-        <h5 class="l-about__scroll">Scroll or drag</h5>
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
                 ${block01({ setRef, getState })}

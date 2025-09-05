@@ -14,7 +14,7 @@
         font-size: rem(300);
         opacity: 0;
         position: absolute;
-        top: 50%;
+        top: calc(50% - #{rem(60)});
         left: calc(#{rem(100)} * -1);
         transform: translateY(100%);
         text-transform: uppercase;
@@ -66,9 +66,9 @@
         &__white {
             position: absolute;
             inset: 50% 0 0;
-            background: $white;
             z-index: 1;
             overflow: hidden;
+            border-top: 1px $black solid;
         }
     }
 
@@ -136,8 +136,8 @@
                 background 0.55s,
                 color 0.55s;
             text-transform: capitalize;
-            border-right: 1px $grey solid;
-            border-bottom: 1px $grey solid;
+            border-right: 1px $black solid;
+            border-bottom: 1px $black solid;
             position: relative;
 
             &:hover {

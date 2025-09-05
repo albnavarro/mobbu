@@ -33,6 +33,10 @@
         background: transparent;
     }
 
+    @include when-inside('[data-template="templateLinks"]') {
+        background: transparent;
+    }
+
     &__container {
         padding: 0 var(--gap-size);
         display: grid;

@@ -16,6 +16,8 @@
     transform: translateX(-101%);
     transition: transform 0.55s;
     background: $white;
+    border-top: 1px $black solid;
+    border-right: 1px $black solid;
 
     &.active {
         transform: translateX(0);
@@ -38,15 +40,13 @@
         width: calc(var(--header-height) / 2);
         top: 0;
         height: calc(100vh - var(--header-height));
-        background: rgba($black, 0.05);
         border-right: 1px $black solid;
+        background: transparent;
+        transition: background 0.35s;
 
         @include when-inside('[data-template="templateDocDefault"]') {
             border-right: 0;
-        }
-
-        @include when-inside('[data-template="about"]') {
-            border-right: 0;
+            background: rgba($black, 0.05);
         }
 
         @include when-inside('.active') {
@@ -88,7 +88,7 @@
     &__percent {
         position: absolute;
         left: calc(100% + 1px);
-        top: 1px;
+        top: 0;
         width: calc(100vw - var(--nav-width));
         background: $black;
         height: rem(10);

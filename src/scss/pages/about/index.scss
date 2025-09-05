@@ -95,14 +95,6 @@
         }
     }
 
-    &__scroll {
-        position: absolute;
-        bottom: rem(80);
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 2;
-    }
-
     &__list {
         list-style-type: none;
         max-width: rem(500);
@@ -192,6 +184,7 @@
 
             svg {
                 fill: $white;
+                opacity: 0.2;
             }
         }
 
@@ -233,7 +226,7 @@
         z-index: -1;
 
         &--back {
-            background: $black;
+            background: $grey-medium-2;
             transform: translate3d(-50%, -94%, 0);
         }
 

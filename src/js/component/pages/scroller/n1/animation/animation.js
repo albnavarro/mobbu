@@ -70,7 +70,7 @@ export const scrollerN1Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = MobJs.getActiveRoute();
 
     /**
@@ -160,8 +160,11 @@ export const scrollerN1Animation = ({
         /**
          * Clear rpevious render.
          */
-        context.fillStyle = '#fff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        // context.fillStyle = '#fff';
+        // context.fillRect(0, 0, canvas.width, canvas.height);
+
+        // eslint-disable-next-line no-self-assign
+        canvas.width = canvas.width;
 
         stemData.forEach(({ width, height, opacity, rotate, index }) => {
             const unitInverse = stemData.length / 2 - index;
