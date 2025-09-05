@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100vh - var(--header-height) - var(--footer-height));
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,7 +13,7 @@
 
     &--fixed {
         position: fixed;
-        top: var(--header-height);
+        top: 0;
     }
 
     &__wrap {
@@ -21,7 +21,7 @@
         opacity: 0;
         transition: opacity 0.55s;
         overflow: hidden;
-        height: calc(100vh - var(--header-height) - var(--footer-height));
+        height: 100vh;
 
         &.active {
             opacity: 1;
@@ -30,10 +30,10 @@
 
     &__controls {
         position: absolute;
-        top: var(--gap-size);
+        top: calc(var(--gap-size) + var(--header-height));
         left: calc(100vw - #{rem(330)});
         width: rem(250);
-        height: 100%;
+        height: auto;
         list-style: none;
         display: flex;
         align-items: flex-end;
@@ -67,7 +67,7 @@
         &__btn {
             min-width: var(--header-height);
             border: 0;
-            background: $white;
+            background: $grey;
             color: $black;
             padding: rem(5) rem(20);
             transition: background 0.2s;

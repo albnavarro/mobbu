@@ -5,7 +5,6 @@ import { MobJs } from '@mobJs';
 import { MobTimeline, MobTween } from '@mobMotion';
 import { navigationStore } from '@stores/navigation';
 import {
-    canvasBackground,
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
@@ -161,7 +160,7 @@ export const caterpillarN2Animation = ({
 
         if (!context) return;
 
-        context.fillStyle = canvasBackground;
+        context.fillStyle = '#fff';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         squareData.forEach(
@@ -209,7 +208,7 @@ export const caterpillarN2Animation = ({
                     context.fillStyle = `#000000`;
                 } else {
                     context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
-                    context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                    context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
                     context.stroke();
                 }
 

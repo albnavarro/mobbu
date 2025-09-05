@@ -23,6 +23,9 @@ import { asyncTimeline } from './canvas/async-timeline';
 import { rdp } from './svg/rdp';
 
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
+export const PAGE_TEMPLATE_DOCS_DEFAULT = 'templateDocDefault';
+export const PAGE_TEMPLATE_LINKS = 'templateLinks';
+export const PAGE_TEMPLATE_ANIMATION = 'templateAnimation';
 
 const mobJsComponentBreadCrumbs = [
     {
@@ -77,51 +80,59 @@ export const routes = [
         props: {},
     },
     {
-        name: 'animatedPatternN0',
-        layout: animatedPatternN0,
-        props: {},
-    },
-    {
-        name: 'animatedPatternN1',
-        layout: animatedPatternN1,
-        props: {},
-    },
-    {
-        name: 'caterpillarN0',
-        layout: caterpillarN0,
-        props: {},
-    },
-    {
-        name: 'caterpillarN1',
-        layout: caterpillarN1,
-        props: {},
-    },
-    {
-        name: 'caterpillarN2',
-        layout: caterpillarN2,
-        props: {},
-    },
-    {
-        name: 'async-timeline',
-        layout: asyncTimeline,
-        props: {},
-    },
-    {
         name: 'canvas-overview',
         layout: layoutLinksPage,
-        templateName: 'canvas-default',
+        templateName: PAGE_TEMPLATE_LINKS,
         props: {
             source: './data/canvas/data.json',
         },
     },
     {
+        name: 'animatedPatternN0',
+        layout: animatedPatternN0,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {},
+    },
+    {
+        name: 'animatedPatternN1',
+        layout: animatedPatternN1,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {},
+    },
+    {
+        name: 'caterpillarN0',
+        layout: caterpillarN0,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {},
+    },
+    {
+        name: 'caterpillarN1',
+        layout: caterpillarN1,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {},
+    },
+    {
+        name: 'caterpillarN2',
+        layout: caterpillarN2,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {},
+    },
+    {
+        name: 'async-timeline',
+        layout: asyncTimeline,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {},
+    },
+    {
         name: 'scrollerN0',
         layout: scrollerN0,
+        templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         name: 'scrollerN1',
         layout: scrollerN1,
+        templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
@@ -153,6 +164,7 @@ export const routes = [
     {
         name: 'mobCore-overview',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-core/overview.json',
             title: 'mobCore',
@@ -163,6 +175,7 @@ export const routes = [
     {
         name: 'mobCore-defaults',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-core/defaults.json',
             title: 'Defaults',
@@ -173,6 +186,7 @@ export const routes = [
     {
         name: 'mobCore-events',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-core/events.json',
             title: 'Events',
@@ -183,6 +197,7 @@ export const routes = [
     {
         name: 'mobCore-store',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-core/store.json',
             title: 'Store',
@@ -193,6 +208,7 @@ export const routes = [
     {
         name: 'mobJs-overview',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-js/overview.json',
             title: 'mobJs',
@@ -203,6 +219,7 @@ export const routes = [
     {
         name: 'mobJs-initialization',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-js/initialization.json',
             title: 'initialization',
@@ -213,6 +230,7 @@ export const routes = [
     {
         name: 'mobJs-component',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-js/component.json',
             title: 'component',
@@ -223,6 +241,7 @@ export const routes = [
     {
         name: 'mobJs-routing',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-js/routing.json',
             title: 'routing',
@@ -299,6 +318,7 @@ export const routes = [
     {
         name: 'mobJs-tick',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-js/tick.json',
             title: 'tick',
@@ -309,6 +329,7 @@ export const routes = [
     {
         name: 'mobJs-utils',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-js/utils.json',
             title: 'utils',
@@ -319,6 +340,7 @@ export const routes = [
     {
         name: 'mobJs-memory-management',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-js/memory-management.json',
             title: 'memory management',
@@ -329,6 +351,7 @@ export const routes = [
     {
         name: 'mobJs-debug',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-js/debug.json',
             title: 'debug',
@@ -779,6 +802,7 @@ export const routes = [
     {
         name: 'mobMotion-stagger',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/stagger.json',
             title: 'Stagger',
@@ -789,6 +813,7 @@ export const routes = [
     {
         name: 'mobMotion-defaults',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/defaults.json',
             title: 'Defaults',
@@ -799,6 +824,7 @@ export const routes = [
     {
         name: 'mobMotion-overview',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/overview.json',
             title: 'mobMotion',
@@ -809,6 +835,7 @@ export const routes = [
     {
         name: 'mobMotion-parallax',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/parallax.json',
             title: 'Parallax',
@@ -819,6 +846,7 @@ export const routes = [
     {
         name: 'mobMotion-sequencer',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/sequencer.json',
             title: 'Sequencer',
@@ -829,6 +857,7 @@ export const routes = [
     {
         name: 'mobMotion-scrolltrigger',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/scroll-trigger.json',
             title: 'ScrollTrigger',
@@ -839,6 +868,7 @@ export const routes = [
     {
         name: 'mobMotion-sync-timeline',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/sync-timeline.json',
             title: 'Synctimeline',
@@ -849,6 +879,7 @@ export const routes = [
     {
         name: 'mobMotion-create-stagger',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/create-stagger.json',
             title: 'CreateStagger',
@@ -859,6 +890,7 @@ export const routes = [
     {
         name: 'mobMotion-async-timeline',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/async-timeline.json',
             title: 'Asynctimeline',
@@ -869,6 +901,7 @@ export const routes = [
     {
         name: 'mobMotion-tween-spring-lerp',
         layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-motion/tween-spring-lerp.json',
             title: 'TimeTween Spring Lerp',
@@ -879,27 +912,28 @@ export const routes = [
     {
         name: 'horizontalScroller',
         layout: horizontalScroller,
+        templateName: PAGE_TEMPLATE_ANIMATION,
         restoreScroll: false,
         props: {},
     },
     {
         name: 'plugin-overview',
         layout: layoutLinksPage,
-        templateName: 'plugin-default',
+        templateName: PAGE_TEMPLATE_LINKS,
         props: {
             source: './data/plugin/data.json',
         },
     },
     {
         name: 'move3D-shape1',
-        templateName: 'move-3d',
+        templateName: PAGE_TEMPLATE_ANIMATION,
         layout: move3DRoute,
         props: move3DrouteProps.shape1,
     },
     {
         name: 'svg-overview',
         layout: layoutLinksPage,
-        templateName: 'svg-default',
+        templateName: PAGE_TEMPLATE_LINKS,
         props: {
             source: './data/svg/data.json',
         },
@@ -907,13 +941,13 @@ export const routes = [
     {
         name: 'mob-01',
         layout: lettering01,
-        templateName: 'svg-default',
+        templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         name: 'rdp-01',
         layout: rdp,
-        templateName: 'svg-default',
+        templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
 ];

@@ -6,7 +6,6 @@ import { MobJs } from '@mobJs';
 import { MobMotionCore, MobTimeline, MobTween } from '@mobMotion';
 import { navigationStore } from '@stores/navigation';
 import {
-    canvasBackground,
     copyCanvasBitmap,
     createGrid,
     getCanvasContext,
@@ -134,10 +133,11 @@ export const animatedPatternN1Animation = ({
 
         if (!context) return;
 
-        /**
-         * Clear rpevious render.
-         */
-        context.fillStyle = canvasBackground;
+        // eslint-disable-next-line no-self-assign
+        canvas.width = canvas.width;
+
+        // context.clearRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = '#fff';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         data.forEach(
@@ -222,7 +222,7 @@ export const animatedPatternN1Animation = ({
                     context.fillStyle = `#000000`;
                     context.fill();
                 } else {
-                    context.fillStyle = canvasBackground;
+                    context.fillStyle = `#ffff`;
                     context.fill();
                 }
 

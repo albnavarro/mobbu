@@ -118,9 +118,8 @@ body {
 
     &[data-template='home'],
     &[data-template='about'],
-    &[data-template='svg-default'],
-    &[data-template='plugin-default'],
-    &[data-template='canvas-default'] {
+    &[data-template='templateLinks'],
+    &[data-template='templateAnimation'] {
         &::after {
             opacity: 1;
             visibility: visible;
@@ -148,6 +147,14 @@ main {
     position: relative;
     z-index: 1;
 
+    @include when-inside('[data-template="home"]') {
+        padding-top: 0;
+    }
+
+    @include when-inside('[data-template="templateAnimation"]') {
+        padding-top: 0;
+    }
+
     &.shift {
         cursor: pointer;
         opacity: 0.1;
@@ -158,8 +165,8 @@ main {
     margin: auto;
     padding-left: var(--gap-size);
 
-    &--padding {
-        padding: var(--gap-size) var(--gap-size);
+    @include when-inside('[data-template="templateAnimation"]') {
+        padding-left: 0;
     }
 }
 

@@ -3,7 +3,6 @@
 /**
  * @import {MobComponent} from '@mobJsType';
  * @import {ScrollerN1} from './type';
- * @import {AnimationTitle} from '@commonComponent/animation-title/type';
  */
 
 import { MobCore } from '@mobCore';
@@ -24,7 +23,6 @@ export const ScrollerN1Fn = ({
     getRef,
     bindEffect,
     getProxi,
-    staticProps,
 }) => {
     const proxi = getProxi();
 
@@ -70,14 +68,6 @@ export const ScrollerN1Fn = ({
                 >
                     <canvas ${setRef('canvas')}></canvas>
                 </div>
-                <animation-title
-                    ${staticProps(
-                        /** @type {AnimationTitle['state']} */ ({
-                            title: 'Scroll control/<span>Canvas 2d</span>',
-                            list: ['ScrollerTween', 'ScrollTrigger'],
-                        })
-                    )}
-                ></animation-title>
             </div>
             <div class="c-canvas-scroller" ${setRef('canvasScroller')}></div>
         </div>

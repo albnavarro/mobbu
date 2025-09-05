@@ -12,7 +12,7 @@
     position: fixed;
     top: var(--header-height);
     left: 0;
-    z-index: 11;
+    z-index: 15;
     transform: translateX(-101%);
     transition: transform 0.55s;
     background: $white;
@@ -37,8 +37,17 @@
         left: 101%;
         width: calc(var(--header-height) / 2);
         top: 0;
-        height: calc(100vh - var(--header-height) - var(--footer-height));
+        height: calc(100vh - var(--header-height));
         background: rgba($black, 0.05);
+        border-right: 1px $black solid;
+
+        @include when-inside('[data-template="templateDocDefault"]') {
+            border-right: 0;
+        }
+
+        @include when-inside('[data-template="about"]') {
+            border-right: 0;
+        }
 
         @include when-inside('.active') {
             left: 100%;
@@ -78,10 +87,10 @@
 
     &__percent {
         position: absolute;
-        left: 100%;
-        top: 0;
+        left: calc(100% + 1px);
+        top: 1px;
         width: calc(100vw - var(--nav-width));
-        background: $white;
+        background: $black;
         height: rem(10);
         transform-origin: left;
         transform: scaleX(0);

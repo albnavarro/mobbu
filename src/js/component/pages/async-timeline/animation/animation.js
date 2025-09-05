@@ -5,7 +5,6 @@ import { MobJs } from '@mobJs';
 import { MobTimeline, MobTween } from '@mobMotion';
 import { navigationStore } from '@stores/navigation';
 import {
-    canvasBackground,
     copyCanvasBitmap,
     createGrid,
     getCanvasContext,
@@ -237,10 +236,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
 
         if (!context) return;
 
-        /**
-         * Clear rpevious render.
-         */
-        context.fillStyle = canvasBackground;
+        context.fillStyle = '#fff';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         /**
@@ -356,7 +352,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                     );
                 }
 
-                context.fillStyle = '#fff';
+                context.fillStyle = '#eee';
                 context.fill();
             }
         );

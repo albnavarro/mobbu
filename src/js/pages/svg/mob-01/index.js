@@ -5,9 +5,8 @@ import { html, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_schema } from './data';
-import { AnimationTitle } from '@commonComponent/animation-title/definition';
 
-MobJs.useComponent([Move3D, AnyComponent, AnimationTitle]);
+MobJs.useComponent([Move3D, AnyComponent]);
 
 export const lettering01 = async () => {
     const { data: letteringMob } = await loadTextContent({
@@ -105,13 +104,5 @@ export const lettering01 = async () => {
                 })
             )}
         ></move-3d>
-        <animation-title
-            ${MobJs.staticProps(
-                /** @type {import('@commonComponent/animation-title/type').AnimationTitle['state']} */ ({
-                    title: 'Mob 01/<span>Svg</span>',
-                    list: ['Svg', 'Spring', 'Lerp'],
-                })
-            )}
-        ></animation-title>
     </div>`;
 };

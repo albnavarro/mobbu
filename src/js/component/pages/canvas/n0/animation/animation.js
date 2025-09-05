@@ -6,7 +6,6 @@ import { MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 import { navigationStore } from '@stores/navigation';
 import {
-    canvasBackground,
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
@@ -74,7 +73,7 @@ export const caterpillarN0Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
     let { left } = offset(canvas);
     const activeRoute = MobJs.getActiveRoute();
 
@@ -169,10 +168,7 @@ export const caterpillarN0Animation = ({
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
 
-        /**
-         * Clear rpevious render.
-         */
-        context.fillStyle = canvasBackground;
+        context.fillStyle = '#fff';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         steamDataReorded.forEach(
@@ -244,7 +240,7 @@ export const caterpillarN0Animation = ({
                  * Color.
                  */
                 context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
-                context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
                 context.stroke();
                 context.fill();
 

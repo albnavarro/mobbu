@@ -83,13 +83,5 @@ export const rdp = async () => {
                 })
             )}
         ></move-3d>
-        <animation-title
-            ${MobJs.staticProps(
-                /** @type {import('@commonComponent/animation-title/type').AnimationTitle['state']} */ ({
-                    title: 'Rdp 01/<span>Svg</span>',
-                    list: ['Svg', 'Spring', 'Lerp'],
-                })
-            )}
-        ></animation-title>
     </div>`;
 };

@@ -3,7 +3,6 @@
 /**
  * @import {MobComponent} from '@mobJsType';
  * @import {CaterpillarN2, CaterpillarN2Button} from './type';
- * @import {AnimationTitle} from '@commonComponent/animation-title/type';
  */
 
 import { MobCore } from '@mobCore';
@@ -41,7 +40,6 @@ export const CaterpillarN2Fn = ({
     getRef,
     bindEffect,
     getProxi,
-    staticProps,
 }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
@@ -125,14 +123,6 @@ export const CaterpillarN2Fn = ({
                     </ul>
                     <canvas ${setRef('canvas')}></canvas>
                 </div>
-                <animation-title
-                    ${staticProps(
-                        /** @type {AnimationTitle['state']} */ ({
-                            title: 'SyncTimeline example/<span>Canvas 2d</span>',
-                            list: ['Sequencer', 'SyncTimeline'],
-                        })
-                    )}
-                ></animation-title>
             </div>
         </div>
     `;

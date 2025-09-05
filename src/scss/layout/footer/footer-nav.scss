@@ -30,6 +30,18 @@
         transition: opacity 0.55s;
         min-width: rem(100);
 
+        @include when-inside('[data-template="home"]') {
+            color: $black;
+        }
+
+        @include when-inside('[data-template="about"]') {
+            color: $black;
+        }
+
+        @include when-inside('[data-template="templateAnimation"]') {
+            color: $black;
+        }
+
         &::after {
             content: '';
             position: absolute;

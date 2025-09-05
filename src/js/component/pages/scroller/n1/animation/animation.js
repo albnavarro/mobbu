@@ -6,7 +6,6 @@ import { MobJs } from '@mobJs';
 import { MobScroll, MobTween } from '@mobMotion';
 import { navigationStore } from '@stores/navigation';
 import {
-    canvasBackground,
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
@@ -161,7 +160,7 @@ export const scrollerN1Animation = ({
         /**
          * Clear rpevious render.
          */
-        context.fillStyle = canvasBackground;
+        context.fillStyle = '#fff';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         stemData.forEach(({ width, height, opacity, rotate, index }) => {
@@ -214,7 +213,7 @@ export const scrollerN1Animation = ({
              * Color.
              */
             context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
-            context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+            context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
             context.stroke();
             context.fill();
 

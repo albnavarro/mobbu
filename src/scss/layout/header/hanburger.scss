@@ -9,13 +9,12 @@
     font: inherit;
     color: inherit;
     text-transform: none;
-    background-color: rgba($white, 0.1);
+    background-color: transparent;
     border: 0;
+    border-right: 1px $black solid;
     margin: 0;
     height: var(--header-height);
     width: var(--header-height);
-    border-top-left-radius: rem(30);
-    border-bottom-right-radius: rem(30);
     overflow: hidden;
 
     --width: 30px;
@@ -35,6 +34,22 @@
         transition-duration: 0.15s;
         transition-timing-function: ease;
 
+        @include when-inside('[data-template="home"]') {
+            background: black;
+        }
+
+        @include when-inside('[data-template="about"]') {
+            background: black;
+        }
+
+        @include when-inside('[data-template="templateLinks"]') {
+            background: black;
+        }
+
+        @include when-inside('[data-template="templateAnimation"]') {
+            background: black;
+        }
+
         &::before,
         &::after {
             width: 100%;
@@ -46,6 +61,22 @@
             transition-timing-function: ease;
             content: '';
             display: block;
+
+            @include when-inside('[data-template="home"]') {
+                background: black;
+            }
+
+            @include when-inside('[data-template="about"]') {
+                background: black;
+            }
+
+            @include when-inside('[data-template="templateLinks"]') {
+                background: black;
+            }
+
+            @include when-inside('[data-template="templateAnimation"]') {
+                background: black;
+            }
         }
 
         &::before {
@@ -70,6 +101,22 @@
                     top 0.075s ease,
                     opacity 0.075s 0.12s ease;
                 background-color: $white;
+
+                @include when-inside('[data-template="home"]') {
+                    background: black;
+                }
+
+                @include when-inside('[data-template="about"]') {
+                    background: black;
+                }
+
+                @include when-inside('[data-template="templateLinks"]') {
+                    background: black;
+                }
+
+                @include when-inside('[data-template="templateAnimation"]') {
+                    background: black;
+                }
             }
 
             &::after {
@@ -79,6 +126,22 @@
                     bottom 0.075s ease,
                     transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
                 background-color: $white;
+
+                @include when-inside('[data-template="home"]') {
+                    background: black;
+                }
+
+                @include when-inside('[data-template="about"]') {
+                    background: black;
+                }
+
+                @include when-inside('[data-template="templateLinks"]') {
+                    background: black;
+                }
+
+                @include when-inside('[data-template="templateAnimation"]') {
+                    background: black;
+                }
             }
         }
     }

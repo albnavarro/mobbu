@@ -1,7 +1,7 @@
 @use '../../abstract' as *;
 
 .c-btn-debug {
-    background: $white;
+    background: transparent;
     padding: rem(5) rem(30);
     border-radius: rem(20);
     text-decoration: none;
@@ -17,6 +17,5 @@
     &:hover {
         background: $black;
         color: $white;
-        border-color: $white;
     }
 }

@@ -6,7 +6,6 @@ import { MobJs } from '@mobJs';
 import { MobScroll, MobTween } from '@mobMotion';
 import { navigationStore } from '@stores/navigation';
 import {
-    canvasBackground,
     copyCanvasBitmap,
     createGrid,
     getCanvasContext,
@@ -142,7 +141,7 @@ export const scrollerN0Animation = ({
         /**
          * Clear rpevious render.
          */
-        context.fillStyle = canvasBackground;
+        context.fillStyle = '#fff';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         data.forEach(
@@ -210,7 +209,7 @@ export const scrollerN0Animation = ({
                     context.fillStyle = `#000000`;
                     context.fill();
                 } else {
-                    context.fillStyle = '#fff';
+                    context.fillStyle = '#eee';
                     context.fill();
 
                     if (!useRadius) {

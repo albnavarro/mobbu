@@ -3,7 +3,6 @@
 /**
  * @import {MobComponent} from '@mobJsType';
  * @import {AnimatedPatternN1} from './type';
- * @import {AnimationTitle} from '@commonComponent/animation-title/type';
  */
 
 import { MobCore } from '@mobCore';
@@ -19,7 +18,6 @@ export const AnimatedPatternN1Fn = ({
     getRef,
     bindEffect,
     getProxi,
-    staticProps,
 }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
@@ -53,14 +51,6 @@ export const AnimatedPatternN1Fn = ({
                 >
                     <canvas ${setRef('canvas')}></canvas>
                 </div>
-                <animation-title
-                    ${staticProps(
-                        /** @type {AnimationTitle['state']} */ ({
-                            title: 'Animated pattern/<span>Canvas 2d</span>',
-                            list: ['Lerp', 'AsyncTimeline'],
-                        })
-                    )}
-                ></animation-title>
             </div>
         </div>
     `;

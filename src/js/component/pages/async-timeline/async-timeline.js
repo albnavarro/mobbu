@@ -3,7 +3,6 @@
 /**
  * @import {MobComponent} from '@mobJsType';
  * @import {AsyncTimeline, AsyncTimelineControls} from './type';
- * @import {AnimationTitle} from '@commonComponent/animation-title/type';
  */
 
 import { MobCore } from '@mobCore';
@@ -41,7 +40,6 @@ export const AsyncTimelineFn = ({
     getRef,
     bindEffect,
     getProxi,
-    staticProps,
 }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
@@ -114,14 +112,6 @@ export const AsyncTimelineFn = ({
                     </ul>
                     <canvas ${setRef('canvas')}></canvas>
                 </div>
-                <animation-title
-                    ${staticProps(
-                        /** @type {AnimationTitle['state']} */ ({
-                            title: 'AsyncTimeline example/<span>Canvas 2d</span>',
-                            list: ['Spring', 'TimeTween', 'AsyncTimeline'],
-                        })
-                    )}
-                ></animation-title>
             </div>
         </div>
     `;

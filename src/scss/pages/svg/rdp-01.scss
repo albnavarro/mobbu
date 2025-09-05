@@ -1,13 +1,10 @@
 @use '../../abstract' as *;
 
 .l-rdp-01 {
-    // margin-left: calc(var(--header-height) / 2 * -1);
+    margin-left: calc(var(--header-height) * 1.5);
 
     &__block {
-        transform: translate(
-            calc(#{rem(50)} * -1),
-            calc(var(--footer-height) / 2 * -1)
-        );
+        transform: translate(calc(#{rem(50)} * -1), 0);
 
         svg {
             width: calc(((1098 * 100) / 1400) * 1vw);

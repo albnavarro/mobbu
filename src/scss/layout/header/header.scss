@@ -17,6 +17,24 @@
     background: $black;
     color: $white;
     z-index: 14;
+    border-bottom: 1px $black solid;
+    transition: background 0.35s;
+
+    @include when-inside('[data-template="home"]') {
+        background: transparent;
+    }
+
+    @include when-inside('[data-template="about"]') {
+        background: transparent;
+    }
+
+    @include when-inside('[data-template="templateLinks"]') {
+        background: transparent;
+    }
+
+    @include when-inside('[data-template="templateAnimation"]') {
+        background: transparent;
+    }
 
     &__grid {
         display: grid;
@@ -46,6 +64,22 @@
         width: auto;
         border: 0;
         text-align: left;
+
+        @include when-inside('[data-template="home"]') {
+            color: $black;
+        }
+
+        @include when-inside('[data-template="about"]') {
+            color: $black;
+        }
+
+        @include when-inside('[data-template="templateLinks"]') {
+            color: $black;
+        }
+
+        @include when-inside('[data-template="templateAnimation"]') {
+            color: $black;
+        }
 
         h3 {
             transform: translateY(100%);
@@ -110,6 +144,22 @@
                 transform 0.55s;
             width: rem(24);
             height: rem(24);
+
+            @include when-inside('[data-template="home"]') {
+                fill: $black;
+            }
+
+            @include when-inside('[data-template="about"]') {
+                fill: $black;
+            }
+
+            @include when-inside('[data-template="templateLinks"]') {
+                fill: $black;
+            }
+
+            @include when-inside('[data-template="templateAnimation"]') {
+                fill: $black;
+            }
         }
     }
 }

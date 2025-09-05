@@ -3,7 +3,6 @@
 import { MobJs } from '@mobJs';
 import { detectFirefox, detectSafari } from '@utils/utils';
 import { ScrollerN0Fn } from './scroller-n0';
-import { AnimationTitle } from '@commonComponent/animation-title/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -71,6 +70,5 @@ export const ScrollerN0 = MobJs.createComponent(
                 type: Boolean,
             }),
         },
-        child: [AnimationTitle],
     })
 );
