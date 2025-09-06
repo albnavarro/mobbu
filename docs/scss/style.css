@@ -1044,16 +1044,16 @@ ul li::marker {
   border-right: 1px #2e3440 solid;
 }
 [data-template=home] .l-navcontainer {
-  background: rgba(46, 52, 64, 0.1);
+  background: rgba(255, 255, 255, 0.4);
 }
 [data-template=about] .l-navcontainer {
-  background: rgba(46, 52, 64, 0.1);
+  background: rgba(255, 255, 255, 0.4);
 }
 [data-template=templateLinks] .l-navcontainer {
-  background: rgba(46, 52, 64, 0.1);
+  background: rgba(255, 255, 255, 0.4);
 }
 [data-template=templateAnimation] .l-navcontainer {
-  background: rgba(46, 52, 64, 0.1);
+  background: rgba(255, 255, 255, 0.4);
 }
 .l-navcontainer.active {
   transform: translateX(0);
@@ -1559,7 +1559,7 @@ ul li::marker {
 .c-canvas__controls {
   position: absolute;
   top: calc(var(--gap-size) + var(--header-height));
-  left: calc(100vw - 22rem);
+  left: calc(100vw - 16.6666666667rem - var(--header-height) / 2);
   width: 16.6666666667rem;
   height: auto;
   list-style: none;
@@ -1788,6 +1788,7 @@ ul li::marker {
   background: rgba(255, 255, 255, 0.8);
   padding: calc(var(--gap-size) / 2) var(--gap-size);
   z-index: 10;
+  border-bottom: 1px #2e3440 solid;
 }
 .c-dynamic-list__counter {
   color: #2e3440;
@@ -2000,6 +2001,7 @@ ul li::marker {
   z-index: 10;
   display: flex;
   flex-wrap: wrap;
+  border-bottom: 1px #2e3440 solid;
 }
 .matrioska__head__item {
   flex: 25%;
@@ -2118,7 +2120,7 @@ ul li::marker {
 }
 .l-h-scroller__top,
 .l-h-scroller__bottom {
-  height: calc(100vh - var(--header-height));
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

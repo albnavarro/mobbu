@@ -31,7 +31,7 @@
     &__controls {
         position: absolute;
         top: calc(var(--gap-size) + var(--header-height));
-        left: calc(100vw - #{rem(330)});
+        left: calc(100vw - #{rem(250)} - (var(--header-height) / 2));
         width: rem(250);
         height: auto;
         list-style: none;
