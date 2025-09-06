@@ -38230,9 +38230,14 @@
         /** @type {HTMLElement} */
         document.querySelector(".l-header")
       );
+      const footer = (
+        /** @type {HTMLElement} */
+        document.querySelector(".l-footer")
+      );
       const navHeight = outerHeight(scrollerEl);
       const headerHeight = outerHeight(header);
-      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight);
+      const footerHeight = outerHeight(footer);
+      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight + footerHeight);
       const maxValue = percent;
       setTimeout(() => {
         const navIsOpen = navigationStore.getProp("navigationIsOpen");

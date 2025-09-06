@@ -5,39 +5,35 @@
     top: var(--header-height);
     width: rem(50);
     left: 0;
-    height: calc(100vh - var(--footer-height));
+    height: calc(100vh - var(--footer-height) - var(--header-height));
 }
 
 .l-navcontainer {
     position: fixed;
     top: var(--header-height);
-    left: 0;
     z-index: 10;
     transform: translateX(-101%);
     transition:
         transform 0.55s,
         background 0.55s;
-    background: rgba($white, 0.6);
+    background: rgba($white, 0.8);
     border-top: 1px $black solid;
+    border-right: 1px $black solid;
 
     @include when-inside('[data-template="home"]') {
         background: rgba($black, 0.1);
-        border-right: 1px $black solid;
     }
 
     @include when-inside('[data-template="about"]') {
         background: rgba($black, 0.1);
-        border-right: 1px $black solid;
     }
 
     @include when-inside('[data-template="templateLinks"]') {
         background: rgba($black, 0.1);
-        border-right: 1px $black solid;
     }
 
     @include when-inside('[data-template="templateAnimation"]') {
         background: rgba($black, 0.1);
-        border-right: 1px $black solid;
     }
 
     &.active {
@@ -46,7 +42,8 @@
 
     &__wrap {
         width: var(--nav-width);
-        height: calc(100vh - var(--header-height));
+        height: calc(100vh - var(--footer-height) - var(--header-height));
+        left: 0;
         max-width: none;
         overflow: hidden;
     }
@@ -60,7 +57,7 @@
         left: 101%;
         width: calc(var(--header-height) / 2);
         top: 0;
-        height: calc(100vh - var(--header-height));
+        height: calc(100vh - var(--footer-height) - var(--header-height));
         border-right: 1px $black solid;
         background: transparent;
         transition: background 0.35s;
@@ -86,11 +83,18 @@
         transform: translateY(100%);
         padding: 0;
         margin: 0;
-        transition: transform 0.55s;
+        transition:
+            transform 0.55s,
+            opacity 0.35s,
+            visibility 0.35s;
         width: 100%;
+        opacity: 0;
+        visibility: hidden;
 
         @include when-inside('.active') {
             transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
         }
 
         &::after {

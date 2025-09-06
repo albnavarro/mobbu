@@ -10,13 +10,12 @@
 
 .l-footer {
     height: var(--footer-height);
-    background: $black;
+    background: $grey;
     position: fixed;
     z-index: 12;
     bottom: 0;
     left: 0;
     width: 100%;
-    color: $white;
     text-align: center;
     border-top: 1px $black solid;
     transition: background 1s;

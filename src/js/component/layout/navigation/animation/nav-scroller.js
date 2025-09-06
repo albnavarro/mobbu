@@ -54,11 +54,15 @@ export const initNavigationScoller = ({ root }) => {
         const header = /** @type {HTMLElement} */ (
             document.querySelector('.l-header')
         );
+        const footer = /** @type {HTMLElement} */ (
+            document.querySelector('.l-footer')
+        );
         const navHeight = outerHeight(scrollerEl);
         const headerHeight = outerHeight(header);
+        const footerHeight = outerHeight(footer);
         const percent =
             (100 * currentSection.offsetTop) /
-            (navHeight - window.innerHeight + headerHeight);
+            (navHeight - window.innerHeight + headerHeight + footerHeight);
 
         const maxValue = percent;
 

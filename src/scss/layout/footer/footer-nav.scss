@@ -25,26 +25,10 @@
     &__button {
         background: transparent;
         border: 0;
-        color: $white;
+        color: $black;
         position: relative;
         transition: opacity 0.55s;
         min-width: rem(100);
-
-        @include when-inside('[data-template="home"]') {
-            color: $black;
-        }
-
-        @include when-inside('[data-template="about"]') {
-            color: $black;
-        }
-
-        @include when-inside('[data-template="templateAnimation"]') {
-            color: $black;
-        }
-
-        @include when-inside('[data-template="templateLinks"]') {
-            color: $black;
-        }
 
         &::after {
             content: '';
