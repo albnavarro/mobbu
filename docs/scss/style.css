@@ -1302,8 +1302,7 @@ ul li::marker {
   left: calc(var(--header-height) / 2 * -1);
   width: 100vw;
   height: calc((100vh - var(--header-height) - var(--footer-height)) * 0.5);
-  background: #f6f6f6;
-  border-top: 1px #eee solid;
+  background: #fff;
   overflow: hidden;
   z-index: 2;
 }
@@ -1332,22 +1331,16 @@ ul li::marker {
   transform: translate(-50%, 30%);
 }
 .l-about__about-svg--front svg {
-  fill: #f6f6f6;
+  fill: #eee;
+  opacity: 0.3;
 }
 .l-about__about-svg--bottom {
   top: 0;
   left: 50%;
   transform: translate(-48.8%, -40.2%) rotateX(180deg);
-  mask-image:
-    linear-gradient(
-      180deg,
-      transparent 5%,
-      rgb(0, 0, 0) 52%,
-      rgb(0, 0, 0) 44%,
-      transparent 95%);
 }
 .l-about__about-svg--bottom svg {
-  fill: #eee;
+  fill: rgba(246, 246, 246, 0.5);
 }
 .l-about__shape {
   position: absolute;
