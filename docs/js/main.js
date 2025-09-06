@@ -38258,6 +38258,7 @@
           navScroller.move(0).catch(() => {
           });
           navigationStore.set("activeNavigationSection", "no-section");
+          percentEl.style.transform = `translateZ(0) scaleX(0)`;
         }, setDelay);
       },
       refreshScroller: () => {

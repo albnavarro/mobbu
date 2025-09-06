@@ -672,7 +672,7 @@ ul li::marker {
   width: 100%;
   text-align: center;
   border-top: 1px #2e3440 solid;
-  transition: background 1s;
+  transition: background 0.35s;
 }
 [data-template=home] .l-footer {
   background: transparent;
@@ -1785,7 +1785,7 @@ ul li::marker {
 .c-dynamic-list__header {
   position: sticky;
   top: var(--header-height);
-  background: rgba(46, 52, 64, 0.8);
+  background: rgba(255, 255, 255, 0.8);
   padding: calc(var(--gap-size) / 2) var(--gap-size);
   z-index: 10;
 }
@@ -1956,6 +1956,7 @@ ul li::marker {
   background: #2e3440;
   color: #fff;
   border-radius: 2rem;
+  border: 1px #2e3440 solid;
   transition: opacity 0.55s, background 0.55s;
 }
 .c-dynamic-list-button:hover {
@@ -1994,7 +1995,7 @@ ul li::marker {
 .matrioska__head {
   position: sticky;
   top: var(--header-height);
-  background: rgba(46, 52, 64, 0.8);
+  background: rgba(255, 255, 255, 0.8);
   padding: calc(var(--gap-size) / 4);
   z-index: 10;
   display: flex;

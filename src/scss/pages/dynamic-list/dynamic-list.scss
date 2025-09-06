@@ -13,7 +13,7 @@
     &__header {
         position: sticky;
         top: var(--header-height);
-        background: rgba($black, 0.8);
+        background: rgba($white, 0.8);
         padding: calc(var(--gap-size) / 2) var(--gap-size);
         z-index: 10;
     }
