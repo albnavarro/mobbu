@@ -15,19 +15,29 @@
         padding: 0;
     }
 
-    &__item {
-        border-bottom: 1px $grey solid;
-    }
-
     &__label {
         padding: rem(10) rem(20);
-        background: $black;
-        color: $white;
+        background: $grey;
+        color: $black;
         transition: background 0.35s;
 
+        @include when-inside('[data-template="home"]') {
+            background: rgba($black, 0.1);
+        }
+
+        @include when-inside('[data-template="about"]') {
+            background: rgba($black, 0.1);
+        }
+
+        @include when-inside('[data-template="templateLinks"]') {
+            background: rgba($black, 0.1);
+        }
+
+        @include when-inside('[data-template="templateAnimation"]') {
+            background: rgba($black, 0.1);
+        }
+
         &.active {
-            background: $grey;
-            color: $black;
             font-weight: 800;
         }
     }
@@ -53,32 +63,8 @@
             pointer-events: none;
         }
 
-        &:hover {
-            background: $grey;
-
-            &::before {
-                background: $black;
-                transform: scaleX(25%);
-            }
-        }
-
         span {
             font-size: rem(12);
-        }
-
-        /* stylelint-disable-next-line no-descending-specificity */
-        &::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 1px;
-            width: rem(20);
-            background: $black;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.55s;
-            z-index: 2;
         }
 
         &--arrow {
@@ -98,8 +84,6 @@
             }
 
             &.active {
-                background: $grey;
-
                 &::after {
                     transform: translateY(-50%) rotate(-135deg);
                 }
@@ -111,6 +95,8 @@
         }
 
         &.current {
+            font-weight: 600;
+
             &::before {
                 transform: scaleX(100%);
             }
@@ -119,7 +105,6 @@
         &--submenu {
             padding-left: rem(20);
             position: relative;
-            background: $grey-light;
         }
     }
 
@@ -128,28 +113,24 @@
         padding: 0;
         padding-bottom: 0;
         margin-bottom: 0;
-        background: rgba($white, 0.2);
 
         &__item {
             position: relative;
-            border-top: 1px $white solid;
+
+            &::after {
+                position: absolute;
+                content: '';
+                left: 0;
+                width: rem(5);
+                height: rem(5);
+                background: $black;
+                top: 50%;
+                transform: translateY(-50%);
+                border-radius: 100%;
+            }
 
             &:last-child {
                 border-bottom: 0;
-            }
-
-            /* stylelint-disable-next-line  no-descending-specificity */
-            &::after {
-                content: '';
-                position: absolute;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                width: rem(5);
-                background: $black;
-                transform-origin: right;
-                transition: transform 0.55s;
-                z-index: 1;
             }
         }
     }

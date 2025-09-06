@@ -12,12 +12,33 @@
     position: fixed;
     top: var(--header-height);
     left: 0;
-    z-index: 15;
+    z-index: 10;
     transform: translateX(-101%);
-    transition: transform 0.55s;
-    background: $white;
+    transition:
+        transform 0.55s,
+        background 0.55s;
+    background: rgba($white, 0.6);
     border-top: 1px $black solid;
-    border-right: 1px $black solid;
+
+    @include when-inside('[data-template="home"]') {
+        background: rgba($black, 0.1);
+        border-right: 1px $black solid;
+    }
+
+    @include when-inside('[data-template="about"]') {
+        background: rgba($black, 0.1);
+        border-right: 1px $black solid;
+    }
+
+    @include when-inside('[data-template="templateLinks"]') {
+        background: rgba($black, 0.1);
+        border-right: 1px $black solid;
+    }
+
+    @include when-inside('[data-template="templateAnimation"]') {
+        background: rgba($black, 0.1);
+        border-right: 1px $black solid;
+    }
 
     &.active {
         transform: translateX(0);
