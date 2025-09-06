@@ -58,7 +58,7 @@ export const caterpillarN2Animation = ({
     // const useRadius = roundRectIsSupported(wichContext) && !detectSafari();
     // wichContext = null;
 
-    const useRadius = false;
+    const useRadius = true;
 
     let squareData = [...Array.from({ length: numItems }).keys()].map(
         (_item, i) => {
@@ -195,7 +195,7 @@ export const caterpillarN2Animation = ({
                         Math.round(-height / 2),
                         width,
                         height,
-                        [150, 0]
+                        [40, 40]
                     );
                 } else {
                     context.beginPath();
@@ -210,8 +210,9 @@ export const caterpillarN2Animation = ({
                 if (hasFill) {
                     context.fillStyle = `#000000`;
                 } else {
-                    context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
-                    context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                    context.strokeStyle = `#000`;
+                    // context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                    context.fillStyle = `rgba(238, 238, 238, 0.9)`;
                     context.stroke();
                 }
 

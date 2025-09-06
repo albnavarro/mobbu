@@ -53,7 +53,8 @@
             }
 
             &.is-like-button {
-                background: $white;
+                background: transparent;
+                border: 1px $black solid;
                 padding: rem(5) rem(20);
                 border-radius: rem(20);
                 margin-top: rem(5);
@@ -67,7 +68,7 @@
         &__btn {
             min-width: var(--header-height);
             border: 0;
-            background: $grey;
+            background: transparent;
             color: $black;
             padding: rem(5) rem(20);
             transition: background 0.2s;
@@ -78,6 +79,7 @@
             margin-top: 0;
             margin-bottom: calc(var(--gap-size) / 5);
             text-align: center;
+            border: 1px $black solid;
 
             &:hover {
                 background: $black;

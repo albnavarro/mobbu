@@ -190,10 +190,11 @@ export const animatedPatternN0Animation = ({
                     context.fillStyle = `#000000`;
                     context.fill();
                 } else {
-                    context.fillStyle = '#eee';
+                    context.strokeStyle = `#000`;
+                    // context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                    context.fillStyle = `rgba(238, 238, 238, 0.9)`;
+                    context.stroke();
                     context.fill();
-                    // context.strokeStyle = '#ccc';
-                    // context.stroke();
                 }
 
                 /**

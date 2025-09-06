@@ -243,7 +243,8 @@ export const caterpillarN0Animation = ({
                  * Color.
                  */
                 context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
-                context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                // context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                context.fillStyle = `rgba(238, 238, 238, 0)`;
                 context.stroke();
                 context.fill();
 

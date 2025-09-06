@@ -215,8 +215,9 @@ export const scrollerN1Animation = ({
             /**
              * Color.
              */
-            context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
+            context.strokeStyle = `#000`;
             context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+            // context.fillStyle = `rgba(238, 238, 238, 0.9)`;
             context.stroke();
             context.fill();
 

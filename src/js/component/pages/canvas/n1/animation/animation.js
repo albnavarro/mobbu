@@ -43,7 +43,7 @@ export const caterpillarN1Animation = ({
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
 
-    const useRadius = false;
+    const useRadius = true;
 
     /**
      * Initial misure.
@@ -134,68 +134,67 @@ export const caterpillarN1Animation = ({
         // eslint-disable-next-line no-self-assign
         canvas.width = canvas.width;
 
-        squareData.forEach(
-            ({ width, height, x, y, opacity, rotate, hasFill }, i) => {
-                const unitInverse = squareData.length - i;
-                const centerX = canvas.width / 2;
-                const centerY = canvas.height / 2;
+        squareData.forEach(({ width, height, x, y, rotate, hasFill }, i) => {
+            const unitInverse = squareData.length - i;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
 
-                /**
-                 * Center canvas
-                 */
+            /**
+             * Center canvas
+             */
 
-                const scale = 1;
-                const rotation = (Math.PI / 180) * rotate;
-                const xx = Math.cos(rotation) * scale;
-                const xy = Math.sin(rotation) * scale;
+            const scale = 1;
+            const rotation = (Math.PI / 180) * rotate;
+            const xx = Math.cos(rotation) * scale;
+            const xy = Math.sin(rotation) * scale;
 
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    xx,
-                    xy,
-                    -xy,
-                    xx,
-                    centerX + x + (unitInverse * x) / 20,
-                    centerY + y + (unitInverse * y) / 20
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(
+                xx,
+                xy,
+                -xy,
+                xx,
+                centerX + x + (unitInverse * x) / 20,
+                centerY + y + (unitInverse * y) / 20
+            );
+
+            if (useRadius) {
+                context.beginPath();
+                context.roundRect(
+                    Math.round(-width / 2),
+                    Math.round(-height / 2),
+                    width,
+                    height,
+                    [40, 40]
                 );
-
-                if (useRadius) {
-                    context.beginPath();
-                    context.roundRect(
-                        Math.round(-width / 2),
-                        Math.round(-height / 2),
-                        width,
-                        height,
-                        [200, 0]
-                    );
-                } else {
-                    context.beginPath();
-                    context.rect(
-                        Math.round(-width / 2),
-                        Math.round(-height / 2),
-                        width,
-                        height
-                    );
-                }
-
-                if (hasFill) {
-                    context.fillStyle = `#000000`;
-                } else {
-                    context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
-                    context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
-                    context.stroke();
-                }
-
-                context.fill();
-
-                /**
-                 * Reset all transform instead save() restore().
-                 */
-                context.setTransform(1, 0, 0, 1, 0, 0);
+            } else {
+                context.beginPath();
+                context.rect(
+                    Math.round(-width / 2),
+                    Math.round(-height / 2),
+                    width,
+                    height
+                );
             }
-        );
+
+            if (hasFill) {
+                context.fillStyle = '#a86464';
+            } else {
+                context.strokeStyle = `#000`;
+                // context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                context.fillStyle = `rgba(238, 238, 238, 0.9)`;
+                context.stroke();
+            }
+
+            context.fill();
+
+            /**
+             * Reset all transform instead save() restore().
+             */
+            context.setTransform(1, 0, 0, 1, 0, 0);
+        });
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

@@ -28095,7 +28095,9 @@
             context2.fillStyle = `#000000`;
             context2.fill();
           } else {
-            context2.fillStyle = "#eee";
+            context2.strokeStyle = `#000`;
+            context2.fillStyle = `rgba(238, 238, 238, 0.9)`;
+            context2.stroke();
             context2.fill();
           }
           context2.setTransform(1, 0, 0, 1, 0, 0);
@@ -28881,7 +28883,7 @@
             );
           }
           context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
-          context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
+          context2.fillStyle = `rgba(238, 238, 238, 0)`;
           context2.stroke();
           context2.fill();
           context2.setTransform(1, 0, 0, 1, 0, 0);
@@ -29077,7 +29079,7 @@
     let { top, left } = offset(canvas);
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    const useRadius = false;
+    const useRadius = true;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     let squareData = [...Array.from({ length: numItems }).keys()].map(
@@ -29130,52 +29132,50 @@
       );
       if (!context2) return;
       canvas.width = canvas.width;
-      squareData.forEach(
-        ({ width: width2, height: height2, x, y, opacity: opacity2, rotate, hasFill }, i) => {
-          const unitInverse = squareData.length - i;
-          const centerX = canvas.width / 2;
-          const centerY = canvas.height / 2;
-          const scale = 1;
-          const rotation = Math.PI / 180 * rotate;
-          const xx = Math.cos(rotation) * scale;
-          const xy = Math.sin(rotation) * scale;
-          context2.setTransform(
-            xx,
-            xy,
-            -xy,
-            xx,
-            centerX + x + unitInverse * x / 20,
-            centerY + y + unitInverse * y / 20
+      squareData.forEach(({ width: width2, height: height2, x, y, rotate, hasFill }, i) => {
+        const unitInverse = squareData.length - i;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const scale = 1;
+        const rotation = Math.PI / 180 * rotate;
+        const xx = Math.cos(rotation) * scale;
+        const xy = Math.sin(rotation) * scale;
+        context2.setTransform(
+          xx,
+          xy,
+          -xy,
+          xx,
+          centerX + x + unitInverse * x / 20,
+          centerY + y + unitInverse * y / 20
+        );
+        if (useRadius) {
+          context2.beginPath();
+          context2.roundRect(
+            Math.round(-width2 / 2),
+            Math.round(-height2 / 2),
+            width2,
+            height2,
+            [40, 40]
           );
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(
-              Math.round(-width2 / 2),
-              Math.round(-height2 / 2),
-              width2,
-              height2,
-              [200, 0]
-            );
-          } else {
-            context2.beginPath();
-            context2.rect(
-              Math.round(-width2 / 2),
-              Math.round(-height2 / 2),
-              width2,
-              height2
-            );
-          }
-          if (hasFill) {
-            context2.fillStyle = `#000000`;
-          } else {
-            context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
-            context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
-            context2.stroke();
-          }
-          context2.fill();
-          context2.setTransform(1, 0, 0, 1, 0, 0);
+        } else {
+          context2.beginPath();
+          context2.rect(
+            Math.round(-width2 / 2),
+            Math.round(-height2 / 2),
+            width2,
+            height2
+          );
         }
-      );
+        if (hasFill) {
+          context2.fillStyle = "#a86464";
+        } else {
+          context2.strokeStyle = `#000`;
+          context2.fillStyle = `rgba(238, 238, 238, 0.9)`;
+          context2.stroke();
+        }
+        context2.fill();
+        context2.setTransform(1, 0, 0, 1, 0, 0);
+      });
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     let rectTimeline = timeline_exports.createAsyncTimeline({
@@ -29385,7 +29385,7 @@
     let userRotation = rotationDefault;
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    const useRadius = false;
+    const useRadius = true;
     let squareData = [...Array.from({ length: numItems }).keys()].map(
       (_item, i) => {
         const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
@@ -29470,7 +29470,7 @@
               Math.round(-height2 / 2),
               width2,
               height2,
-              [150, 0]
+              [40, 40]
             );
           } else {
             context2.beginPath();
@@ -29484,8 +29484,8 @@
           if (hasFill) {
             context2.fillStyle = `#000000`;
           } else {
-            context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
-            context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
+            context2.strokeStyle = `#000`;
+            context2.fillStyle = `rgba(238, 238, 238, 0.9)`;
             context2.stroke();
           }
           context2.fill();
@@ -29892,7 +29892,9 @@
             context2.fillStyle = `#000000`;
             context2.fill();
           } else {
-            context2.fillStyle = "#eee";
+            context2.strokeStyle = `#000`;
+            context2.fillStyle = `rgba(238, 238, 238, 0.9)`;
+            context2.stroke();
             context2.fill();
             if (!useRadius) {
               context2.strokeStyle = "#ccc";
@@ -30320,7 +30322,7 @@
             height2
           );
         }
-        context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
+        context2.strokeStyle = `#000`;
         context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
         context2.stroke();
         context2.fill();
@@ -34528,7 +34530,9 @@
               height
             );
           }
-          context2.fillStyle = "#eee";
+          context2.strokeStyle = `#000`;
+          context2.fillStyle = `rgba(238, 238, 238, 0.9)`;
+          context2.stroke();
           context2.fill();
         }
       );

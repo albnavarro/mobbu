@@ -1668,7 +1668,8 @@ ul li::marker {
   border-bottom: 0;
 }
 .c-canvas__controls__item.is-like-button {
-  background: #fff;
+  background: transparent;
+  border: 1px #2e3440 solid;
   padding: 0.3333333333rem 1.3333333333rem;
   border-radius: 1.3333333333rem;
   margin-top: 0.3333333333rem;
@@ -1680,7 +1681,7 @@ ul li::marker {
 .c-canvas__controls__btn {
   min-width: var(--header-height);
   border: 0;
-  background: #eee;
+  background: transparent;
   color: #2e3440;
   padding: 0.3333333333rem 1.3333333333rem;
   transition: background 0.2s;
@@ -1691,6 +1692,7 @@ ul li::marker {
   margin-top: 0;
   margin-bottom: calc(var(--gap-size) / 5);
   text-align: center;
+  border: 1px #2e3440 solid;
 }
 .c-canvas__controls__btn:hover {
   background: #2e3440;
