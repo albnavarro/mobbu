@@ -29132,50 +29132,52 @@
       );
       if (!context2) return;
       canvas.width = canvas.width;
-      squareData.forEach(({ width: width2, height: height2, x, y, rotate, hasFill }, i) => {
-        const unitInverse = squareData.length - i;
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        const scale = 1;
-        const rotation = Math.PI / 180 * rotate;
-        const xx = Math.cos(rotation) * scale;
-        const xy = Math.sin(rotation) * scale;
-        context2.setTransform(
-          xx,
-          xy,
-          -xy,
-          xx,
-          centerX + x + unitInverse * x / 20,
-          centerY + y + unitInverse * y / 20
-        );
-        if (useRadius) {
-          context2.beginPath();
-          context2.roundRect(
-            Math.round(-width2 / 2),
-            Math.round(-height2 / 2),
-            width2,
-            height2,
-            [40, 40]
+      squareData.forEach(
+        ({ width: width2, height: height2, x, y, rotate, hasFill, opacity: opacity2 }, i) => {
+          const unitInverse = squareData.length - i;
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          const scale = 1;
+          const rotation = Math.PI / 180 * rotate;
+          const xx = Math.cos(rotation) * scale;
+          const xy = Math.sin(rotation) * scale;
+          context2.setTransform(
+            xx,
+            xy,
+            -xy,
+            xx,
+            centerX + x + unitInverse * x / 20,
+            centerY + y + unitInverse * y / 20
           );
-        } else {
-          context2.beginPath();
-          context2.rect(
-            Math.round(-width2 / 2),
-            Math.round(-height2 / 2),
-            width2,
-            height2
-          );
+          if (useRadius) {
+            context2.beginPath();
+            context2.roundRect(
+              Math.round(-width2 / 2),
+              Math.round(-height2 / 2),
+              width2,
+              height2,
+              [40, 40]
+            );
+          } else {
+            context2.beginPath();
+            context2.rect(
+              Math.round(-width2 / 2),
+              Math.round(-height2 / 2),
+              width2,
+              height2
+            );
+          }
+          if (hasFill) {
+            context2.fillStyle = "#000";
+          } else {
+            context2.strokeStyle = `#000`;
+            context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
+            context2.stroke();
+          }
+          context2.fill();
+          context2.setTransform(1, 0, 0, 1, 0, 0);
         }
-        if (hasFill) {
-          context2.fillStyle = "#a86464";
-        } else {
-          context2.strokeStyle = `#000`;
-          context2.fillStyle = `rgba(238, 238, 238, 0.9)`;
-          context2.stroke();
-        }
-        context2.fill();
-        context2.setTransform(1, 0, 0, 1, 0, 0);
-      });
+      );
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     let rectTimeline = timeline_exports.createAsyncTimeline({
@@ -29331,7 +29333,7 @@
         width: window.innerHeight / 30,
         height: window.innerHeight / 30,
         fill: [14],
-        opacity: 0.05,
+        opacity: 1,
         radius: 0,
         rotationEach: 15,
         centerEach: 3,
@@ -29454,42 +29456,44 @@
       );
       if (!context2) return;
       canvas.width = canvas.width;
-      squareData.forEach(({ width: width2, height: height2, x, y, rotate, hasFill }) => {
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        const scale = 1;
-        const rotation = Math.PI / 180 * rotate;
-        const xx = Math.cos(rotation) * scale;
-        const xy = Math.sin(rotation) * scale;
-        context2.setTransform(xx, xy, -xy, xx, centerX + x, centerY + y);
-        if (useRadius) {
-          context2.beginPath();
-          context2.roundRect(
-            Math.round(-width2 / 2),
-            Math.round(-height2 / 2),
-            width2,
-            height2,
-            [40, 40]
-          );
-        } else {
-          context2.beginPath();
-          context2.rect(
-            Math.round(-width2 / 2),
-            Math.round(-height2 / 2),
-            width2,
-            height2
-          );
+      squareData.forEach(
+        ({ width: width2, height: height2, x, y, rotate, hasFill, opacity: opacity2 }) => {
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          const scale = 1;
+          const rotation = Math.PI / 180 * rotate;
+          const xx = Math.cos(rotation) * scale;
+          const xy = Math.sin(rotation) * scale;
+          context2.setTransform(xx, xy, -xy, xx, centerX + x, centerY + y);
+          if (useRadius) {
+            context2.beginPath();
+            context2.roundRect(
+              Math.round(-width2 / 2),
+              Math.round(-height2 / 2),
+              width2,
+              height2,
+              [40, 40]
+            );
+          } else {
+            context2.beginPath();
+            context2.rect(
+              Math.round(-width2 / 2),
+              Math.round(-height2 / 2),
+              width2,
+              height2
+            );
+          }
+          if (hasFill) {
+            context2.fillStyle = `#000000`;
+          } else {
+            context2.strokeStyle = `#000`;
+            context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
+            context2.stroke();
+          }
+          context2.fill();
+          context2.setTransform(1, 0, 0, 1, 0, 0);
         }
-        if (hasFill) {
-          context2.fillStyle = `#000000`;
-        } else {
-          context2.strokeStyle = `#000`;
-          context2.fillStyle = `rgba(238, 238, 238, 0.9)`;
-          context2.stroke();
-        }
-        context2.fill();
-        context2.setTransform(1, 0, 0, 1, 0, 0);
-      });
+      );
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     const loop = () => {
@@ -29712,11 +29716,11 @@
         height: window.innerHeight / 13,
         radius: 0,
         fill: [2],
-        opacity: 0.02,
+        opacity: 1,
         xAmplitude: 500,
         yAmplitude: 400,
         duration: 10,
-        rotationDefault: 360,
+        rotationDefault: 166,
         friction: duration / 2 / Math.PI,
         disableOffcanvas: () => ({
           value: detectFirefox() || detectSafari() ? true : false,
@@ -29891,7 +29895,7 @@
             context2.fill();
           } else {
             context2.strokeStyle = `#000`;
-            context2.fillStyle = `rgba(238, 238, 238, 0.9)`;
+            context2.fillStyle = `rgb(238, 238, 238)`;
             context2.stroke();
             context2.fill();
             if (!useRadius) {

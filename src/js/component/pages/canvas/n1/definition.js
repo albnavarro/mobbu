@@ -31,7 +31,7 @@ export const CaterpillarN1 = MobJs.createComponent(
             width: window.innerHeight / 30,
             height: window.innerHeight / 30,
             fill: [14],
-            opacity: 0.05,
+            opacity: 1,
             radius: 0,
             rotationEach: 15,
             centerEach: 3,

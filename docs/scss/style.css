@@ -678,7 +678,7 @@ ul li::marker {
   background: transparent;
 }
 [data-template=about] .l-footer {
-  background: transparent;
+  background: #2e3440;
 }
 [data-template=templateAnimation] .l-footer {
   background: transparent;
@@ -722,6 +722,9 @@ ul li::marker {
   position: relative;
   transition: opacity 0.55s;
   min-width: 6.6666666667rem;
+}
+[data-template=about] .footer-nav__button {
+  color: #fff;
 }
 .footer-nav__button::after {
   content: "";
@@ -2000,7 +2003,7 @@ ul li::marker {
   flex: 25%;
   padding-inline: calc(var(--gap-size) / 2);
   text-align: center;
-  color: #fff;
+  color: #2e3440;
   font-size: 0.9333333333rem;
 }
 .matrioska__head__title {
@@ -2410,6 +2413,10 @@ ul li::marker {
   border: 1px #2e3440 solid;
   margin-right: 0.6666666667rem;
   display: block;
+}
+[data-template=about] .c-btn-debug {
+  color: #fff;
+  border: 1px #fff solid;
 }
 .c-btn-debug:hover {
   background: #2e3440;

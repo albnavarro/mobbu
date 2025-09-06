@@ -30,6 +30,10 @@
         transition: opacity 0.55s;
         min-width: rem(100);
 
+        @include when-inside('[data-template="about"]') {
+            color: $white;
+        }
+
         &::after {
             content: '';
             position: absolute;

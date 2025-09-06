@@ -79,11 +79,11 @@ export const CaterpillarN2 = MobJs.createComponent(
             height: window.innerHeight / 13,
             radius: 0,
             fill: [2],
-            opacity: 0.02,
+            opacity: 1,
             xAmplitude: 500,
             yAmplitude: 400,
             duration: 10,
-            rotationDefault: 360,
+            rotationDefault: 166,
             friction: duration / 2 / Math.PI,
             disableOffcanvas: () => ({
                 value: detectFirefox() || detectSafari() ? true : false,
