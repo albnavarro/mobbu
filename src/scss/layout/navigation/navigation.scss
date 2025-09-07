@@ -29,11 +29,11 @@
             background: rgba($black, 0.1);
         }
 
-        @include when-inside('[data-template="templateLinks"]') {
+        @include when-inside('[data-template="template-listing"]') {
             background: rgba($black, 0.1);
         }
 
-        @include when-inside('[data-template="templateAnimation"]') {
+        @include when-inside('[data-template="template-animation"]') {
             background: rgba($black, 0.1);
         }
 

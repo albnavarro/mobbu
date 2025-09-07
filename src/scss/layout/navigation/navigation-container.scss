@@ -28,11 +28,11 @@
         background: rgba($white, 0.4);
     }
 
-    @include when-inside('[data-template="templateLinks"]') {
+    @include when-inside('[data-template="template-listing"]') {
         background: rgba($white, 0.4);
     }
 
-    @include when-inside('[data-template="templateAnimation"]') {
+    @include when-inside('[data-template="template-animation"]') {
         background: rgba($white, 0.4);
     }
 
@@ -62,7 +62,12 @@
         background: transparent;
         transition: background 0.35s;
 
-        @include when-inside('[data-template="templateDocDefault"]') {
+        @include when-inside('[data-template="template-doc-default"]') {
+            border-right: 0;
+            background: rgba($black, 0.05);
+        }
+
+        @include when-inside('[data-template="template-mobJs-component"]') {
             border-right: 0;
             background: rgba($black, 0.05);
         }

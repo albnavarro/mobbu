@@ -117,8 +117,8 @@ body {
     }
 
     &[data-template='home'],
-    &[data-template='templateLinks'],
-    &[data-template='templateAnimation'] {
+    &[data-template='template-listing'],
+    &[data-template='template-animation'] {
         &::after {
             opacity: 1;
             visibility: visible;
@@ -159,7 +159,7 @@ main {
         padding-top: 0;
     }
 
-    @include when-inside('[data-template="templateAnimation"]') {
+    @include when-inside('[data-template="template-animation"]') {
         padding-top: 0;
     }
 
@@ -173,7 +173,7 @@ main {
     margin: auto;
     padding-left: var(--gap-size);
 
-    @include when-inside('[data-template="templateAnimation"]') {
+    @include when-inside('[data-template="template-animation"]') {
         padding-left: 0;
     }
 }

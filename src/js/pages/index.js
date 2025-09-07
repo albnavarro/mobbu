@@ -22,10 +22,12 @@ import { onlyDesktop } from './onlyDesktop';
 import { asyncTimeline } from './canvas/async-timeline';
 import { rdp } from './svg/rdp';
 
-export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'templateMobJsComponent';
-export const PAGE_TEMPLATE_DOCS_DEFAULT = 'templateDocDefault';
-export const PAGE_TEMPLATE_LINKS = 'templateLinks';
-export const PAGE_TEMPLATE_ANIMATION = 'templateAnimation';
+export const PAGE_TEMPLATE_HOME = 'home';
+export const PAGE_TEMPLATE_ABOUT = 'about';
+export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'template-mobJs-component';
+export const PAGE_TEMPLATE_DOCS_DEFAULT = 'template-doc-default';
+export const PAGE_TEMPLATE_LINKS = 'template-listing';
+export const PAGE_TEMPLATE_ANIMATION = 'template-animation';
 
 const mobJsComponentBreadCrumbs = [
     {
@@ -76,7 +78,7 @@ export const routes = [
     {
         name: 'about',
         layout: layoutAbout,
-        templateName: 'about',
+        templateName: PAGE_TEMPLATE_ABOUT,
         props: {},
     },
     {
@@ -158,7 +160,7 @@ export const routes = [
     {
         name: 'home',
         layout: home,
-        templateName: 'home',
+        templateName: PAGE_TEMPLATE_HOME,
         props: {},
     },
     {

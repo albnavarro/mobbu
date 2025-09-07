@@ -27,11 +27,11 @@
         background: transparent;
     }
 
-    @include when-inside('[data-template="templateLinks"]') {
+    @include when-inside('[data-template="template-listing"]') {
         background: transparent;
     }
 
-    @include when-inside('[data-template="templateAnimation"]') {
+    @include when-inside('[data-template="template-animation"]') {
         background: transparent;
     }
 
