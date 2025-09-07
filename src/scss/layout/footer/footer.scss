@@ -25,7 +25,7 @@
     }
 
     @include when-inside('[data-template="about"]') {
-        background: $black;
+        background: rgba($black, 0.6);
     }
 
     @include when-inside('[data-template="template-animation"]') {
