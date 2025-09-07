@@ -1,6 +1,7 @@
 //@ts-check
 
 import { MobTimeline, MobTween } from '@mobMotion';
+import { navigationStore } from '@stores/navigation';
 
 /** @type {import('./type').SimpleIntroAnimation} */
 export const simpleIntroAnimation = ({ refs }) => {
@@ -24,7 +25,7 @@ export const simpleIntroAnimation = ({ refs }) => {
             item.style.opacity = `${opacity}`;
         });
 
-        loopTween.subscribe(({ scale }) => {
+        loopTween.subscribeCache(item, ({ scale }) => {
             item.style.scale = `${scale}`;
         });
     });
@@ -45,12 +46,27 @@ export const simpleIntroAnimation = ({ refs }) => {
         scale: 1.1,
     });
 
+    const unsubscribeNavigationStore = navigationStore.watch(
+        'navigationIsOpen',
+        (isOpen) => {
+            if (isOpen) {
+                if (introTl.isActive()) introTl.pause();
+                if (loopTimeline.isActive()) loopTimeline.pause();
+                return;
+            }
+
+            if (introTl.isActive()) introTl.resume();
+            if (loopTimeline.isActive()) loopTimeline.resume();
+        }
+    );
+
     return {
         playIntro: () => introTl?.play(),
         playSvg: () => {
             loopTimeline?.play();
         },
         destroy: () => {
+            unsubscribeNavigationStore();
             introTween.destroy();
             // @ts-ignore
             introTween = null;
