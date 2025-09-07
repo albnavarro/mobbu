@@ -27,5 +27,8 @@ export const linksScroller = ({
         destroy: () => {
             scroller.destroy();
         },
+        refresh: () => {
+            scroller.refresh();
+        },
     };
 };

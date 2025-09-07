@@ -24089,6 +24089,9 @@
     return {
       destroy: () => {
         scroller.destroy();
+      },
+      refresh: () => {
+        scroller.refresh();
       }
     };
   };
@@ -24103,20 +24106,31 @@
     getProxi
   }) => {
     const proxi = getProxi();
+    let destroy3 = () => {
+    };
+    let refresh = () => {
+    };
     onMount(() => {
       const { screenElement, scrollerElement } = getRef();
-      const { destroy: destroy3 } = linksScroller({
+      ({ destroy: destroy3, refresh } = linksScroller({
         screenElement,
         scrollerElement,
         hideControls: (value) => {
           proxi.showControls = value;
         }
+      }));
+      modules_exports.useNextLoop(() => {
+        refresh();
       });
       setTimeout(() => {
         proxi.isMounted = true;
       }, 500);
       return () => {
         destroy3();
+        destroy3 = () => {
+        };
+        refresh = () => {
+        };
       };
     });
     return renderHtml`<div class="l-links">

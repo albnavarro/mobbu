@@ -1,5 +1,6 @@
 import { html } from '@mobJs';
 import { linksScroller } from './animation/links-scroller';
+import { MobCore } from '@mobCore';
 
 /**
  * @import {MobComponent} from '@mobJsType';
@@ -21,14 +22,26 @@ export const LayoutLinksFn = ({
 }) => {
     const proxi = getProxi();
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let destroy = () => {};
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let refresh = () => {};
+
     onMount(() => {
         const { screenElement, scrollerElement } = getRef();
-        const { destroy } = linksScroller({
+        ({ destroy, refresh } = linksScroller({
             screenElement,
             scrollerElement,
             hideControls: (value) => {
                 proxi.showControls = value;
             },
+        }));
+
+        /**
+         * Update scroller dimensione ( when nom items is < window.innerWidth ).
+         */
+        MobCore.useNextLoop(() => {
+            refresh();
         });
 
         /**
@@ -40,6 +53,8 @@ export const LayoutLinksFn = ({
 
         return () => {
             destroy();
+            destroy = () => {};
+            refresh = () => {};
         };
     });
 

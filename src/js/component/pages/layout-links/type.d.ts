@@ -20,4 +20,5 @@ type LinksScroller = (arg0: {
     hideControls: (boolean) => void;
 }) => {
     destroy: () => void;
+    refresh: () => void;
 };
