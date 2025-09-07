@@ -72,7 +72,7 @@ export const animatedPatternN1Animation = ({
                 hasFill: fill.includes(i),
             };
         })
-        .sort((value) => (value.hasFill ? -1 : 1));
+        .toSorted((value) => (value.hasFill ? -1 : 1));
 
     /**
      * Create mouse tween.

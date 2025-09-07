@@ -314,6 +314,7 @@ export const caterpillarN2Animation = ({
         stop: () => syncTimeline.stop(),
         pause: () => syncTimeline.pause(),
         resume: () => syncTimeline.resume(),
+        // eslint-disable-next-line unicorn/no-array-reverse
         reverse: () => syncTimeline.reverse(),
         setRotation: (value) => (userRotation = value),
     };

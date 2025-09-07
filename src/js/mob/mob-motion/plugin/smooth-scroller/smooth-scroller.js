@@ -29,57 +29,57 @@ export class MobSmoothScroller {
     /**
      * @type {boolean}
      */
-    #propsIsValid;
+    #propsIsValid = true;
 
     /**
      * @type {number}
      */
-    #endValue;
+    #endValue = 0;
 
     /**
      * @type {number}
      */
-    #percent;
+    #percent = 0;
 
     /**
      * @type {number}
      */
-    #screenWidth;
+    #screenWidth = 0;
 
     /**
      * @type {number}
      */
-    #screenHeight;
+    #screenHeight = 0;
 
     /**
      * @type {number}
      */
-    #firstTouchValue;
+    #firstTouchValue = 0;
 
     /**
      * @type {number}
      */
-    #threshold;
+    #threshold = 30;
 
     /**
      * @type {number}
      */
-    #maxValue;
+    #maxValue = 0;
 
     /**
      * @type {boolean}
      */
-    #dragEnable;
+    #dragEnable = false;
 
     /**
      * @type {number}
      */
-    #prevTouchVal;
+    #prevTouchVal = 0;
 
     /**
      * @type {number}
      */
-    #touchVal;
+    #touchVal = 0;
 
     /**
      * @type {() => void}
@@ -235,7 +235,7 @@ export class MobSmoothScroller {
     /**
      * @type {boolean}
      */
-    #swipeisActive;
+    #swipeisActive = false;
 
     /**
      * @type {any[]}
@@ -255,12 +255,12 @@ export class MobSmoothScroller {
     /**
      * @type {number}
      */
-    #lastSpinX;
+    #lastSpinX = 0;
 
     /**
      * @type {number}
      */
-    #lastSpinY;
+    #lastSpinY = 0;
 
     /**
      * @type {boolean}
@@ -319,20 +319,6 @@ export class MobSmoothScroller {
      * @param {import('./type.js').MobSmoothScroller} data
      */
     constructor(data) {
-        this.#propsIsValid = true;
-        this.#endValue = 0;
-        this.#percent = 0;
-        this.#screenWidth = 0;
-        this.#screenHeight = 0;
-        this.#firstTouchValue = 0;
-        this.#threshold = 30;
-        this.#maxValue = 0;
-        this.#dragEnable = false;
-        this.#prevTouchVal = 0;
-        this.#touchVal = 0;
-        this.#lastSpinX = 0;
-        this.#lastSpinY = 0;
-        this.#swipeisActive = false;
         this.#subscribeResize = NOOP;
         this.#subscribeScrollStart = NOOP;
         this.#subscribeScrollEnd = NOOP;

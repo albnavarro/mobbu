@@ -33,7 +33,7 @@ This certainly took a lot of energy (we’re talking years of development), but 
 
 
 ### Node version:
-v23.5.0
+v24.7.0
 
 ### Installing:
 npm i

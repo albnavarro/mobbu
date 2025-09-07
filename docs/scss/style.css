@@ -372,6 +372,8 @@ html {
     scrollbar-width: var(--scrollbar-width);
   }
 }
+html {
+}
 @supports selector(::-webkit-scrollbar) {
   html ::-webkit-scrollbar-thumb {
     background: var(--scrollbar-color-thumb);
@@ -915,6 +917,8 @@ ul li::marker {
   background: transparent;
   border: 0;
   margin: 0 0.6666666667rem;
+}
+.l-header__sidenav {
 }
 .l-header__sidenav svg {
   fill: #2e3440;
@@ -1703,11 +1707,13 @@ ul li::marker {
   border: 0;
   position: relative;
   border-radius: 1.3333333333rem;
-  max-width: 13.3333333333rem;
 }
 .error-page__link:hover {
   background: #2e3440;
   color: #fff;
+}
+.error-page__link {
+  max-width: 13.3333333333rem;
 }
 .l-only-desktop {
   padding: 2rem;
@@ -1748,13 +1754,15 @@ ul li::marker {
   border: 0;
   position: relative;
   border-radius: 1.3333333333rem;
-  display: none;
-  max-width: 13.3333333333rem;
-  margin-bottom: 2.6666666667rem;
 }
 .l-only-desktop__link:hover {
   background: #2e3440;
   color: #fff;
+}
+.l-only-desktop__link {
+  display: none;
+  max-width: 13.3333333333rem;
+  margin-bottom: 2.6666666667rem;
 }
 .l-only-desktop__link.active {
   display: inline-block;
@@ -3183,6 +3191,12 @@ ul li::marker {
   border: 0;
   position: relative;
   border-radius: 1.3333333333rem;
+}
+.list-links:hover {
+  background: #2e3440;
+  color: #fff;
+}
+.list-links {
   display: inline-block;
   padding-left: calc(var(--gap-size) / 2);
   padding-right: var(--gap-size);
@@ -3190,10 +3204,6 @@ ul li::marker {
   position: relative;
   min-width: 16.6666666667rem;
   text-transform: capitalize;
-}
-.list-links:hover {
-  background: #2e3440;
-  color: #fff;
 }
 .list-links:hover .list-links__arrow__start {
   background: #fff;
@@ -3866,14 +3876,16 @@ ul li::marker {
   border: 0;
   position: relative;
   border-radius: 1.3333333333rem;
-  padding-left: calc(var(--gap-size) / 2);
-  padding-right: var(--gap-size);
-  text-align: left;
-  position: relative;
 }
 .anchor-button:hover {
   background: #2e3440;
   color: #fff;
+}
+.anchor-button {
+  padding-left: calc(var(--gap-size) / 2);
+  padding-right: var(--gap-size);
+  text-align: left;
+  position: relative;
 }
 .anchor-button:hover .anchor-button__arrow__start {
   background: #fff;

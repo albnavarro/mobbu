@@ -93,7 +93,7 @@ export const parseComponentsRecursive = async ({
          * Launch from the end so childn can initialize watch before parent. In case a watcher is watching a props
          * initialized inside onMount state of parent.
          */
-        for (const item of functionToFireAtTheEnd.reverse()) {
+        for (const item of functionToFireAtTheEnd.toReversed()) {
             const {
                 onMount,
                 initializeBindPropsWatcher,

@@ -41,7 +41,7 @@ export const getBindRefs = ({ element }) => {
 export const getRefsSorter = (refs) => {
     return [
         ...new Set(
-            refs.sort((a, b) => {
+            refs.toSorted((a, b) => {
                 if (a === b || !a || !b) return 0;
                 if (a.compareDocumentPosition(b) & 2) {
                     // b comes before a

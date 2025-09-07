@@ -78,8 +78,8 @@ export const animatedPatternN0Animation = ({
                       hasFill: fill.includes(i),
                   };
               })
-              .sort((value) => (value.hasFill ? -1 : 1))
-              .reverse()
+              .toSorted((value) => (value.hasFill ? -1 : 1))
+              .toReversed()
         : gridData.map((item, i) => {
               const hasFill = fill.includes(i);
               return {

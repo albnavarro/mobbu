@@ -124,7 +124,7 @@ export const caterpillarN0Animation = ({
     let steamDataReorded = stemData
         .splice(0, stemData.length / 2)
         // eslint-disable-next-line unicorn/prefer-spread
-        .concat(stemData.reverse());
+        .concat(stemData.toReversed());
 
     /**
      * Create tween.

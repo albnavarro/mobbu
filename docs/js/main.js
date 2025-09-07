@@ -1882,10 +1882,10 @@
     let _obj2 = obj2;
     if (!checkDataOrder) {
       if (Array.isArray(obj1)) {
-        _obj1 = [...obj1].sort();
+        _obj1 = [...obj1].toSorted();
       }
       if (Array.isArray(obj2)) {
-        _obj2 = [...obj2].sort();
+        _obj2 = [...obj2].toSorted();
       }
     }
     if (typeof _obj1 !== "object" || typeof _obj2 !== "object") {
@@ -7219,7 +7219,7 @@
   var getRefsSorter = (refs) => {
     return [
       ...new Set(
-        refs.sort((a, b) => {
+        refs.toSorted((a, b) => {
           if (a === b || !a || !b) return 0;
           if (a.compareDocumentPosition(b) & 2) {
             return 1;
@@ -9267,7 +9267,7 @@
     }
     const bindRefs = getBindRefs({ element });
     if (Object.keys(bindRefs).length > 0) addBindRefsToComponent(bindRefs);
-    for (const item of functionToFireAtTheEnd.reverse()) {
+    for (const item of functionToFireAtTheEnd.toReversed()) {
       const {
         onMount,
         initializeBindPropsWatcher,
@@ -10159,8 +10159,8 @@
     return (1 - amt) * start + amt * end;
   };
   var compareKeys = (a, b) => {
-    const aKeys = Object.keys(a).sort();
-    const bKeys = Object.keys(b).sort();
+    const aKeys = Object.keys(a).toSorted();
+    const bKeys = Object.keys(b).toSorted();
     return aKeys.length === bKeys.length && aKeys.every((element, index) => element === bKeys[index]);
   };
   var sliceIntoChunks = (arr, chunkSize) => {
@@ -12004,7 +12004,7 @@
         }
       },
       []
-    ).reverse();
+    ).toReversed();
     const cleanArray = finalArray.reduce(
       (previous, current) => {
         return current.length === 0 ? previous : [...previous, current];
@@ -13622,13 +13622,12 @@
     /**
      * @trype {string}
      */
-    #type;
+    #type = "sequencer";
     /**
      * @type {import('./type').MasterSequencerItem[]}
      */
     #children;
     constructor() {
-      this.#type = "sequencer";
       this.#children = [];
     }
     /**
@@ -13925,7 +13924,7 @@
 
   // src/js/mob/mob-motion/animation/sequencer/order-row.js
   var orderByProp = (arr, prop) => {
-    return arr.sort((a, b) => {
+    return arr.toSorted((a, b) => {
       return a?.[prop] - b?.[prop];
     });
   };
@@ -16356,7 +16355,7 @@
       return fallBack;
     }
     const frameArray = staggerArrayFiltered.map(({ frame }) => frame);
-    const frameSet = [...new Set(frameArray)].sort((a, b) => a - b);
+    const frameSet = [...new Set(frameArray)].toSorted((a, b) => a - b);
     const numItem = frameSet.length;
     const staggers = staggerArrayFiltered.map(({ item, frame }) => {
       const index = frameSet.indexOf(frame);
@@ -17146,8 +17145,8 @@
      */
     #revertTween() {
       this.#isReverse = !this.#isReverse;
-      this.#tweenList = this.#tweenList.reverse().map((group) => {
-        return group.reverse().map((item) => {
+      this.#tweenList = this.#tweenList.toReversed().map((group) => {
+        return group.toReversed().map((item) => {
           const { data } = item;
           const { action: action2, valuesFrom, prevValueTo, valuesTo } = data;
           const currentValueTo = valuesTo;
@@ -18973,15 +18972,15 @@
     /**
      * @type {number}
      */
-    #scrollerHeight;
+    #scrollerHeight = 0;
     /**
      * @type {number}
      */
-    #start;
+    #start = 0;
     /**
      * @type {number}
      */
-    #startFromTop;
+    #startFromTop = 0;
     /**
      * @type {boolean | undefined}
      */
@@ -19155,9 +19154,6 @@
      */
     #anticipatePinOnLoad;
     constructor() {
-      this.#scrollerHeight = 0;
-      this.#start = 0;
-      this.#startFromTop = 0;
       this.#invertSide = void 0;
       this.#end = 0;
       this.#getStart = () => 0;
@@ -19987,39 +19983,39 @@
     /**
      * @type {boolean}
      */
-    #isInzialized;
+    #isInzialized = false;
     /**
      * @type {boolean}
      */
-    #willChangeIsActive;
+    #willChangeIsActive = false;
     /**
      * @type {number}
      */
-    #offset;
+    #offset = 0;
     /**
      * @type {number}
      */
-    #screenPosition;
+    #screenPosition = 0;
     /**
      * @type {number}
      */
-    #endValue;
+    #endValue = 0;
     /**
      * @type {number}
      */
-    #height;
+    #height = 0;
     /**
      * @type {number}
      */
-    #width;
+    #width = 0;
     /**
      * @type {number}
      */
-    #scrollerScroll;
+    #scrollerScroll = 0;
     /**
      * @type {number}
      */
-    #scrollerHeight;
+    #scrollerHeight = 0;
     /**
      * @type {number}
      */
@@ -20425,15 +20421,6 @@
      *     import('./type.js').ScrollTrigger} data
      */
     constructor(data) {
-      this.#isInzialized = false;
-      this.#willChangeIsActive = false;
-      this.#offset = 0;
-      this.#screenPosition = 0;
-      this.#endValue = 0;
-      this.#height = 0;
-      this.#width = 0;
-      this.#scrollerScroll = 0;
-      this.#scrollerHeight = 0;
       this.#windowInnerWidth = window.innerWidth;
       this.#windowInnerHeight = window.innerHeight;
       this.#gap = 150;
@@ -21850,35 +21837,35 @@
     /**
      * @type {boolean}
      */
-    #propsisValid;
+    #propsisValid = true;
     /**
      * @type {number}
      */
-    #triggerTopPosition;
+    #triggerTopPosition = 0;
     /**
      * @type {boolean}
      */
-    #touchActive;
+    #touchActive = false;
     /**
      * @type {number}
      */
-    #lastTouchValueX;
+    #lastTouchValueX = 0;
     /**
      * @type {number}
      */
-    #dragSecureAreaBottom;
+    #dragSecureAreaBottom = 100;
     /**
      * @type {number}
      */
-    #dragSecureAreaTop;
+    #dragSecureAreaTop = 100;
     /**
      * @type {boolean}
      */
-    #shouldDragValue;
+    #shouldDragValue = false;
     /**
      * @type {number}
      */
-    #scrollValue;
+    #scrollValue = 0;
     /**
      * @type {() => void}
      */
@@ -22165,14 +22152,6 @@
      * @param {import('./type').MobHorizontalScroller} data
      */
     constructor(data) {
-      this.#propsisValid = true;
-      this.#triggerTopPosition = 0;
-      this.#touchActive = false;
-      this.#lastTouchValueX = 0;
-      this.#dragSecureAreaBottom = 100;
-      this.#dragSecureAreaTop = 100;
-      this.#shouldDragValue = false;
-      this.#scrollValue = 0;
       this.#unsubscribeScroll = () => {
       };
       this.#firstTouchValue = 0;
@@ -22992,47 +22971,47 @@
     /**
      * @type {boolean}
      */
-    #propsIsValid;
+    #propsIsValid = true;
     /**
      * @type {number}
      */
-    #endValue;
+    #endValue = 0;
     /**
      * @type {number}
      */
-    #percent;
+    #percent = 0;
     /**
      * @type {number}
      */
-    #screenWidth;
+    #screenWidth = 0;
     /**
      * @type {number}
      */
-    #screenHeight;
+    #screenHeight = 0;
     /**
      * @type {number}
      */
-    #firstTouchValue;
+    #firstTouchValue = 0;
     /**
      * @type {number}
      */
-    #threshold;
+    #threshold = 30;
     /**
      * @type {number}
      */
-    #maxValue;
+    #maxValue = 0;
     /**
      * @type {boolean}
      */
-    #dragEnable;
+    #dragEnable = false;
     /**
      * @type {number}
      */
-    #prevTouchVal;
+    #prevTouchVal = 0;
     /**
      * @type {number}
      */
-    #touchVal;
+    #touchVal = 0;
     /**
      * @type {() => void}
      */
@@ -23157,7 +23136,7 @@
     /**
      * @type {boolean}
      */
-    #swipeisActive;
+    #swipeisActive = false;
     /**
      * @type {any[]}
      */
@@ -23173,11 +23152,11 @@
     /**
      * @type {number}
      */
-    #lastSpinX;
+    #lastSpinX = 0;
     /**
      * @type {number}
      */
-    #lastSpinY;
+    #lastSpinY = 0;
     /**
      * @type {boolean}
      */
@@ -23232,20 +23211,6 @@
      * @param {import('./type.js').MobSmoothScroller} data
      */
     constructor(data) {
-      this.#propsIsValid = true;
-      this.#endValue = 0;
-      this.#percent = 0;
-      this.#screenWidth = 0;
-      this.#screenHeight = 0;
-      this.#firstTouchValue = 0;
-      this.#threshold = 30;
-      this.#maxValue = 0;
-      this.#dragEnable = false;
-      this.#prevTouchVal = 0;
-      this.#touchVal = 0;
-      this.#lastSpinX = 0;
-      this.#lastSpinY = 0;
-      this.#swipeisActive = false;
       this.#subscribeResize = NOOP;
       this.#subscribeScrollStart = NOOP;
       this.#subscribeScrollEnd = NOOP;
@@ -28032,7 +27997,7 @@
         rotate: 0,
         hasFill: fill.includes(i)
       };
-    }).sort((value) => value.hasFill ? -1 : 1).reverse() : gridData.map((item, i) => {
+    }).toSorted((value) => value.hasFill ? -1 : 1).toReversed() : gridData.map((item, i) => {
       const hasFill = fill.includes(i);
       return {
         ...item,
@@ -28488,7 +28453,7 @@
         mouseY: 0,
         hasFill: fill.includes(i)
       };
-    }).sort((value) => value.hasFill ? -1 : 1);
+    }).toSorted((value) => value.hasFill ? -1 : 1);
     let centerTween = tween_exports.createLerp({
       data: { mouseX: 0, mouseY: 0 }
     });
@@ -28839,7 +28804,7 @@
         };
       }
     );
-    let steamDataReorded = stemData.splice(0, stemData.length / 2).concat(stemData.reverse());
+    let steamDataReorded = stemData.splice(0, stemData.length / 2).concat(stemData.toReversed());
     let mainTween = tween_exports.createSpring({
       data: { rotate: 0, y: 0 },
       stagger: { each: 5, from: "center" }
@@ -29569,6 +29534,7 @@
       stop: () => syncTimeline.stop(),
       pause: () => syncTimeline.pause(),
       resume: () => syncTimeline.resume(),
+      // eslint-disable-next-line unicorn/no-array-reverse
       reverse: () => syncTimeline.reverse(),
       setRotation: (value) => userRotation = value
     };
@@ -29818,7 +29784,7 @@
         rotate: 0,
         hasFill: fill.includes(i)
       };
-    }).sort((value) => value.hasFill ? -1 : 1) : gridData.map((item, i) => {
+    }).toSorted((value) => value.hasFill ? -1 : 1) : gridData.map((item, i) => {
       return {
         ...item,
         scale: 0,
