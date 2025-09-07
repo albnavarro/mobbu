@@ -153,12 +153,10 @@ export const horizontalScrollerAnimation = ({
         breakpoint: 'tablet',
         children: [...pins, ...titlesParallax],
         onEnter: () => {
+            refreshPins({ pins });
             showNav({ nav });
         },
         onEnterBack: () => {
-            /**
-             * With fast scroll forward bottom of the page pin can lost position. So upodate when scroller back active.
-             */
             refreshPins({ pins });
             showNav({ nav });
         },

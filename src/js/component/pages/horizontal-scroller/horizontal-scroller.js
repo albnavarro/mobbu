@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import {MobComponent, SetState, BindProps, StaticProps, DelegateEvents, ReturnBindProps} from '@mobJsType';
+ * @import {MobComponent, SetState, BindProps, StaticProps, DelegateEvents} from '@mobJsType';
  * @import {HorizontalScroller} from './type';
  * @import {HorizontalScrollerButton} from './button/type';
  */
@@ -42,19 +42,10 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
  * @param {object} param
  * @param {number} param.numOfCol
  * @param {SetState<HorizontalScroller>} param.setState
- * @param {BindProps<HorizontalScroller, HorizontalScrollerButton>} param.bindProps
  * @param {StaticProps} param.staticProps
  * @param {DelegateEvents} param.delegateEvents
- * @param {HorizontalScroller['state']} param.proxi
  */
-const getNav = ({
-    numOfCol,
-    setState,
-    bindProps,
-    staticProps,
-    delegateEvents,
-    proxi,
-}) => {
+const getNav = ({ numOfCol, setState, staticProps, delegateEvents }) => {
     return [...Array.from({ length: numOfCol }).keys()]
         .map((_col, i) => {
             return html`
@@ -67,14 +58,6 @@ const getNav = ({
                     ${delegateEvents({
                         click: () => setState('currentId', i),
                     })}
-                    ${bindProps(
-                        /** @returns {ReturnBindProps<HorizontalScrollerButton>} */
-                        () => ({
-                            active:
-                                proxi.currentId === i ||
-                                proxi.currentIdFromScroll === i,
-                        })
-                    )}
                 ></horizontal-scroller-button>
             `;
         })
@@ -88,7 +71,6 @@ export const HorizontalScrollerFn = ({
     setState,
     watch,
     staticProps,
-    bindProps,
     delegateEvents,
     setRef,
     getRef,
@@ -182,10 +164,8 @@ export const HorizontalScrollerFn = ({
             ${getNav({
                 numOfCol: 10,
                 setState,
-                bindProps,
                 staticProps,
                 delegateEvents,
-                proxi,
             })}
         </ul>
         <div class="l-h-scroller__root js-root" ${setRef('js_root')}>

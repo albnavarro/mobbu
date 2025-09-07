@@ -98,14 +98,11 @@
             background: transparent;
             border: 0;
             border-top: rem(5) transparent solid;
+            border-bottom: rem(5) transparent solid;
             transition:
                 background 0.55s,
                 border-top 0.55s;
             position: relative;
-
-            &.active {
-                border-bottom: rem(5) $black solid;
-            }
         }
     }
 

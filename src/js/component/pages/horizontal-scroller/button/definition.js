@@ -18,10 +18,6 @@ export const HorizontalScrollerButton = MobJs.createComponent(
                 value: -1,
                 type: Number,
             }),
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
         },
     })
 );

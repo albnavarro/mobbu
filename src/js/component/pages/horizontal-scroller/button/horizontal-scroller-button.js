@@ -3,7 +3,7 @@
 import { html } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').HorizontalScrollerButton>} */
-export const HorizontalScrollerButtonFn = ({ getProxi, bindEffect }) => {
+export const HorizontalScrollerButtonFn = ({ getProxi }) => {
     const proxi = getProxi();
 
     return html`
@@ -12,9 +12,6 @@ export const HorizontalScrollerButtonFn = ({ getProxi, bindEffect }) => {
                 type="button"
                 data-id="${proxi.id}"
                 class="l-h-scroller__nav__btn"
-                ${bindEffect({
-                    toggleClass: { active: () => proxi.active },
-                })}
             >
                 ${proxi.id}
             </button>
