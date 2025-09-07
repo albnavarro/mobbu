@@ -942,7 +942,7 @@
                     },
                     {
                         "label": "Refs",
-                        "url": "<a href='./#mobJs-refs'>Refs</a>"
+                        "url": "./#mobJs-refs"
                     }
                 ]
             }
