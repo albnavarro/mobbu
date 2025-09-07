@@ -24134,15 +24134,17 @@
       };
     });
     return renderHtml`<div class="l-links">
-        <div
-            class="l-links__under is-white"
-            ${bindEffect({
+        <div class="l-links__under-container">
+            <div
+                class="l-links__under is-white"
+                ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
       }
     })}
-        >
-            ${proxi.title}
+            >
+                ${proxi.title}
+            </div>
         </div>
         <div class="l-links__grid">
             <div class="l-links__row l-links__row" ${setRef("screenElement")}>

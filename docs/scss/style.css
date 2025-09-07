@@ -1408,12 +1408,21 @@ ul li::marker {
   overflow: hidden;
   --scroller-height: calc( 100vh - var(--header-height) - var(--footer-height) );
 }
+.l-links__under-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--scroller-height) / 2);
+  overflow: hidden;
+}
 .l-links__under {
+  height: 100%;
+  line-height: calc(var(--scroller-height) / 2);
   font-size: 20rem;
   opacity: 0;
-  position: absolute;
-  top: calc(50% - 4rem);
-  left: calc(6.6666666667rem * -1);
+  position: relative;
+  bottom: 0;
   transform: translateY(100%);
   text-transform: uppercase;
   font-weight: 800;
@@ -1422,7 +1431,7 @@ ul li::marker {
   transition: transform 1.5s, opacity 0.55s;
 }
 .l-links__under.is-visible {
-  transform: translateY(-200%);
+  transform: translateY(30%);
   opacity: 0.1;
 }
 .l-links__over {
