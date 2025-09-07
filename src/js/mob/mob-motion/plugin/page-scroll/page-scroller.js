@@ -1,4 +1,3 @@
-import { debounceFuncion } from 'src/js/mob/mob-core/events/debounce';
 import { MobMotionCore, MobTween } from '../..';
 import { MobCore } from '../../../mob-core';
 import { clamp } from '../../core';
@@ -113,7 +112,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
      * Remove wheeling class on end wheel with debounce.
      */
     const unsubscribeDebounceWheel = MobCore.useMouseWheel(
-        debounceFuncion(() => {
+        MobCore.debounce(() => {
             removeWhellingClass();
         }, 500)
     );

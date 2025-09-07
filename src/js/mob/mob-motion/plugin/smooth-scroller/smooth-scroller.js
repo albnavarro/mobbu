@@ -23,7 +23,6 @@ import {
     FreezeMobPageScroll,
     UnFreezeMobPageScroll,
 } from '../page-scroll/page-scroller.js';
-import { debounceFuncion } from 'src/js/mob/mob-core/events/debounce.js';
 
 export class MobSmoothScroller {
     /**
@@ -485,7 +484,7 @@ export class MobSmoothScroller {
          * Remove wheeling class at the end of wheel.
          */
         this.#subscribeDebuoceWhell = MobCore.useMouseWheel(
-            debounceFuncion(() => {
+            MobCore.debounce(() => {
                 this.#removeWhellingClass();
             }, 500)
         );

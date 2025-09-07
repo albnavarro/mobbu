@@ -9,7 +9,6 @@ import { offset } from '@mobCoreUtils';
 import { html, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { MobBodyScroll } from '@mobMotionPlugin';
-import { debounceFuncion } from 'src/js/mob/mob-core/events/debounce';
 
 let disableObservereffect = false;
 
@@ -170,7 +169,7 @@ export const ScrollToFn = ({
          * Update cached top value of each item on window resize with debiunce.
          */
         let resizeObserver = new ResizeObserver(
-            debounceFuncion(() => {
+            MobCore.debounce(() => {
                 MobCore.useFrame(() => {
                     MobCore.useNextTick(() => {
                         winHeight = window.innerHeight;
@@ -192,7 +191,7 @@ export const ScrollToFn = ({
          */
         const unsubscribeMouseWheel = proxi.updateAnchorOnWheel
             ? MobCore.useMouseWheel(
-                  debounceFuncion(() => {
+                  MobCore.debounce(() => {
                       if (disableObservereffect) return;
 
                       setActiveLabelOnScroll({ proxi, direction, winHeight });
