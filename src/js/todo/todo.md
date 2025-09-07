@@ -1,7 +1,12 @@
 ###  Smooth scrolling modules:
 -  Rendere il clamp su spinX/Y opzionale.
 
+### About us
+- name
+- linkedin|github url
+
 ### Docs: AsyncTimeline
+- Right sidebar
 - Breve riassunto con lista puntata delle feature.
 
 ### MobCore

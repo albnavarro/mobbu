@@ -21,19 +21,19 @@
     border-right: 1px $black solid;
 
     @include when-inside('[data-template="home"]') {
-        background: rgba($white, 0.4);
+        background: rgba($white, 0.5);
     }
 
     @include when-inside('[data-template="about"]') {
-        background: rgba($white, 0.4);
+        background: rgba($white, 0.5);
     }
 
     @include when-inside('[data-template="template-listing"]') {
-        background: rgba($white, 0.4);
+        background: rgba($white, 0.5);
     }
 
     @include when-inside('[data-template="template-animation"]') {
-        background: rgba($white, 0.4);
+        background: rgba($white, 0.5);
     }
 
     &.active {
