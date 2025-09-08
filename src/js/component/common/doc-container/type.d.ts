@@ -1,6 +1,6 @@
-export interface RightSidebar {
+export interface DocContainer {
     state: {
-        data: {
+        rightSidebarData: {
             label: string;
             url: string;
         }[];

@@ -7,10 +7,17 @@ import { RightSidebar } from '@commonComponent/right-sidebar/definition';
  */
 
 export const DocContainer = MobJs.createComponent(
-    /** @type {CreateComponentParams<any>} */
+    /** @type {CreateComponentParams<import('./type').DocContainer>} */
     ({
         tag: 'doc-container',
         component: DocContainerFn,
+        exportState: ['rightSidebarData'],
+        state: {
+            rightSidebarData: () => ({
+                value: [],
+                type: Array,
+            }),
+        },
         child: [RightSidebar],
     })
 );

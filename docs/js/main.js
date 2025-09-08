@@ -24234,8 +24234,13 @@
   };
 
   // src/js/component/common/right-sidebar/right-sidebar.js
-  var RightSidebarFn = () => {
-    return renderHtml`<div class="right-sidebar">right sidebar placeholder</div>`;
+  var getList = ({ proxi }) => {
+    console.log(proxi.data);
+    return "pippo";
+  };
+  var RightSidebarFn = ({ getProxi }) => {
+    const proxi = getProxi();
+    return renderHtml`<div class="right-sidebar">${getList({ proxi })}</div>`;
   };
 
   // src/js/component/common/right-sidebar/definition.js
@@ -24244,11 +24249,11 @@
     {
       tag: "right-sidebar",
       component: RightSidebarFn,
-      exportState: [],
+      exportState: ["data"],
       state: {
-        test: () => ({
-          value: "",
-          type: String
+        data: () => ({
+          value: [],
+          type: Array
         })
       }
     }
@@ -24256,10 +24261,17 @@
 
   // src/js/component/common/doc-container/definition.js
   var DocContainer = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<any>} */
+    /** @type {CreateComponentParams<import('./type').DocContainer>} */
     {
       tag: "doc-container",
       component: DocContainerFn,
+      exportState: ["rightSidebarData"],
+      state: {
+        rightSidebarData: () => ({
+          value: [],
+          type: Array
+        })
+      },
       child: [RightSidebar]
     }
   );
@@ -25299,7 +25311,7 @@
   );
 
   // src/js/component/common/typography/list/list.js
-  var getList = ({ items, links }) => {
+  var getList2 = ({ items, links }) => {
     return links ? (
       /** @type{Record<'label' | 'url', string>[]} */
       items.map(
@@ -25320,7 +25332,7 @@
     const colorClass = `is-${color}`;
     const linksClass = links ? "use-links" : "use-default";
     return renderHtml`<ul class="ul ul--${style} ${colorClass} ${linksClass}">
-        ${getList({ items, links })}
+        ${getList2({ items, links })}
     </ul>`;
   };
 

@@ -10,11 +10,11 @@ export const RightSidebar = MobJs.createComponent(
     ({
         tag: 'right-sidebar',
         component: RightSidebarFn,
-        exportState: [],
+        exportState: ['data'],
         state: {
-            test: () => ({
-                value: '',
-                type: String,
+            data: () => ({
+                value: [],
+                type: Array,
             }),
         },
     })
