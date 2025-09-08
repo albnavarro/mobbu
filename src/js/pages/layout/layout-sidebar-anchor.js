@@ -18,10 +18,17 @@ MobJs.useComponent([
 
 /** @type {import('@mobJsType').PageAsync<{}, import('./type').LayoutSidebarAnchor['props']>} */
 export const layoutSidebarAnchor = async ({ props }) => {
-    const { source, title, breadCrumbs } = props;
+    const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
 
-    return html` <doc-container>
+    return html` <doc-container
+        ${MobJs.staticProps(
+            /** @type {Partial<import('@commonComponent/doc-container/type').DocContainer['state']>} */
+            ({
+                rightSidebarData: rightSidebar ?? [],
+            })
+        )}
+    >
         <div>
             <html-content
                 slot="docs"

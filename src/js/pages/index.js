@@ -61,6 +61,91 @@ const mobMotionOverviewBreadCrumbs = [
     },
 ];
 
+const mobCoreRightSidebar = [
+    {
+        label: 'store',
+        url: '#mobCore-store',
+    },
+    {
+        label: 'events',
+        url: '#mobCore-events',
+    },
+    {
+        label: 'defaults',
+        url: '#mobCore-defaults',
+    },
+];
+
+const mobJsRightSidebar = [
+    {
+        label: 'initialization',
+        url: '#mobJs-initialization',
+    },
+    {
+        label: 'component',
+        url: '#mobJs-component',
+    },
+    {
+        label: 'routing',
+        url: '#mobJs-routing',
+    },
+    {
+        label: 'tick',
+        url: '#mobJs-tick',
+    },
+    {
+        label: 'memory management',
+        url: '/#mobJs-memory-management',
+    },
+    {
+        label: 'utils',
+        url: '#mobJs-utils',
+    },
+    {
+        label: 'debug',
+        url: '#mobJs-debug',
+    },
+];
+
+const mobMotionRightSidebar = [
+    {
+        label: 'tween/spring/lerp',
+        url: '#mobMotion-tween-spring-lerp',
+    },
+    {
+        label: 'AsyncTimeline',
+        url: '#mobMotion-async-timeline',
+    },
+    {
+        label: 'sequencer',
+        url: '#mobMotion-sequencer',
+    },
+    {
+        label: 'SyncTimeline',
+        url: '#mobMotion-sync-timeline',
+    },
+    {
+        label: 'CreateStagger',
+        url: '#mobMotion-create-stagger',
+    },
+    {
+        label: 'ScrollTrigger',
+        url: '#mobMotion-scrolltrigger',
+    },
+    {
+        label: 'Parallax',
+        url: '#mobMotion-parallax',
+    },
+    {
+        label: 'Stagger',
+        url: '#mobMotion-stagger',
+    },
+    {
+        label: 'Default',
+        url: '#mobMotion-defaults',
+    },
+];
+
 /**
  * @type {import('@mobJsType').Route[]}
  */
@@ -172,6 +257,7 @@ export const routes = [
             title: 'mobCore',
             breadCrumbs: [],
             section: 'mobCore',
+            rightSidebar: mobCoreRightSidebar,
         },
     },
     {
@@ -183,6 +269,7 @@ export const routes = [
             title: 'Defaults',
             breadCrumbs: mobCoreOverviewBreadCrumbs,
             section: 'mobCore',
+            rightSidebar: mobCoreRightSidebar,
         },
     },
     {
@@ -194,6 +281,7 @@ export const routes = [
             title: 'Events',
             breadCrumbs: mobCoreOverviewBreadCrumbs,
             section: 'mobCore',
+            rightSidebar: mobCoreRightSidebar,
         },
     },
     {
@@ -205,6 +293,7 @@ export const routes = [
             title: 'Store',
             breadCrumbs: mobCoreOverviewBreadCrumbs,
             section: 'mobCore',
+            rightSidebar: mobCoreRightSidebar,
         },
     },
     {
@@ -216,6 +305,7 @@ export const routes = [
             title: 'mobJs',
             breadCrumbs: [],
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -227,6 +317,7 @@ export const routes = [
             title: 'initialization',
             breadCrumbs: mobJsOverviewBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -238,6 +329,7 @@ export const routes = [
             title: 'component',
             breadCrumbs: mobJsOverviewBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -249,6 +341,7 @@ export const routes = [
             title: 'routing',
             breadCrumbs: mobJsOverviewBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -326,6 +419,7 @@ export const routes = [
             title: 'tick',
             breadCrumbs: mobJsOverviewBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -337,6 +431,7 @@ export const routes = [
             title: 'utils',
             breadCrumbs: mobJsOverviewBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -348,6 +443,7 @@ export const routes = [
             title: 'memory management',
             breadCrumbs: mobJsOverviewBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -359,6 +455,7 @@ export const routes = [
             title: 'debug',
             breadCrumbs: mobJsOverviewBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -370,6 +467,7 @@ export const routes = [
             title: 'onMount',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -381,6 +479,7 @@ export const routes = [
             title: 'getState',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -392,6 +491,7 @@ export const routes = [
             title: 'setState',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -403,6 +503,7 @@ export const routes = [
             title: 'updateState',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -414,6 +515,7 @@ export const routes = [
             title: 'getProxi',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -425,6 +527,7 @@ export const routes = [
             title: 'watch',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -436,6 +539,7 @@ export const routes = [
             title: 'staticProps',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -447,6 +551,7 @@ export const routes = [
             title: 'dataAttribute',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -458,6 +563,7 @@ export const routes = [
             title: 'bindProps',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -469,6 +575,7 @@ export const routes = [
             title: 'bindEvents',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -480,6 +587,7 @@ export const routes = [
             title: 'delegateEvents',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -491,6 +599,7 @@ export const routes = [
             title: 'bindText',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -502,6 +611,7 @@ export const routes = [
             title: 'bindObject',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -513,6 +623,7 @@ export const routes = [
             title: 'bindEffect',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -524,6 +635,7 @@ export const routes = [
             title: 'add methods',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -535,6 +647,7 @@ export const routes = [
             title: 'useMethodByName',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -546,6 +659,7 @@ export const routes = [
             title: 'useMethodArrayByName',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -557,6 +671,7 @@ export const routes = [
             title: 'setStateByName',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -568,6 +683,7 @@ export const routes = [
             title: 'updateStateByName',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -579,6 +695,7 @@ export const routes = [
             title: 'refs',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -590,6 +707,7 @@ export const routes = [
             title: 'renderComponent',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -601,6 +719,7 @@ export const routes = [
             title: 'repeat',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -612,6 +731,7 @@ export const routes = [
             title: 'invalidate',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -623,6 +743,7 @@ export const routes = [
             title: 'invalidate vs repeater',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -634,6 +755,7 @@ export const routes = [
             title: 'webComponent',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -645,6 +767,7 @@ export const routes = [
             title: 'slot',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -656,6 +779,7 @@ export const routes = [
             title: 'unBind',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -667,6 +791,7 @@ export const routes = [
             title: 'emit',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -678,6 +803,7 @@ export const routes = [
             title: 'emitAsync',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -689,6 +815,7 @@ export const routes = [
             title: 'computed',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -700,6 +827,7 @@ export const routes = [
             title: 'bindStore',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -711,6 +839,7 @@ export const routes = [
             title: 'removeDom',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -722,6 +851,7 @@ export const routes = [
             title: 'remove',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -733,6 +863,7 @@ export const routes = [
             title: 'getChildren',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -744,6 +875,7 @@ export const routes = [
             title: 'freezeProp',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -755,6 +887,7 @@ export const routes = [
             title: 'unFreezeProp',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -766,6 +899,7 @@ export const routes = [
             title: 'getParentId',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -777,6 +911,7 @@ export const routes = [
             title: 'watchParent',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -788,6 +923,7 @@ export const routes = [
             title: 'instanceName',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -799,6 +935,7 @@ export const routes = [
             title: 'classList',
             breadCrumbs: mobJsComponentBreadCrumbs,
             section: 'mobJs',
+            rightSidebar: mobJsRightSidebar,
         },
     },
     {
@@ -810,6 +947,7 @@ export const routes = [
             title: 'Stagger',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {
@@ -821,6 +959,7 @@ export const routes = [
             title: 'Defaults',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {
@@ -832,6 +971,7 @@ export const routes = [
             title: 'mobMotion',
             breadCrumbs: [],
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {
@@ -843,6 +983,7 @@ export const routes = [
             title: 'Parallax',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {
@@ -854,6 +995,7 @@ export const routes = [
             title: 'Sequencer',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {
@@ -865,6 +1007,7 @@ export const routes = [
             title: 'ScrollTrigger',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {
@@ -876,6 +1019,7 @@ export const routes = [
             title: 'Synctimeline',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {
@@ -887,6 +1031,7 @@ export const routes = [
             title: 'CreateStagger',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {
@@ -898,6 +1043,7 @@ export const routes = [
             title: 'Asynctimeline',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {
@@ -909,6 +1055,7 @@ export const routes = [
             title: 'TimeTween Spring Lerp',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
         },
     },
     {

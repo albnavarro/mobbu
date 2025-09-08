@@ -1,0 +1,29 @@
+@use '../../abstract' as *;
+
+.right-sidebar {
+    &__list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__title {
+        font-weight: 600;
+        margin-bottom: calc(var(--gap-size) / 4);
+        font-size: rem(12);
+        text-transform: uppercase;
+
+        @include mq(large) {
+            font-size: rem(13);
+        }
+    }
+
+    &__item {
+        text-transform: capitalize;
+        font-size: rem(12);
+
+        @include mq(large) {
+            font-size: rem(13);
+        }
+    }
+}

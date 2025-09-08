@@ -3,6 +3,10 @@ export interface LayoutSidebarAnchor {
         source: string;
         title: string;
         breadCrumbs: LayoutSidebarAnchorBreadCrumbs[];
+        rightSidebar?: {
+            label: string;
+            url: string;
+        };
     };
 }
 

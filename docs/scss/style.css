@@ -3414,6 +3414,31 @@ ul li::marker {
     grid-column: 3/span 1;
   }
 }
+.right-sidebar__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.right-sidebar__title {
+  font-weight: 600;
+  margin-bottom: calc(var(--gap-size) / 4);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+@media (min-width: 75em) {
+  .right-sidebar__title {
+    font-size: 0.8666666667rem;
+  }
+}
+.right-sidebar__item {
+  text-transform: capitalize;
+  font-size: 0.8rem;
+}
+@media (min-width: 75em) {
+  .right-sidebar__item {
+    font-size: 0.8666666667rem;
+  }
+}
 .c-doc-title h2 {
   color: #2e3440;
   font-size: 20rem;

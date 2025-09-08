@@ -24215,11 +24215,19 @@
   };
 
   // src/js/component/common/doc-container/doc-container.js
-  var DocContainerFn = () => {
+  var DocContainerFn = ({ getState, staticProps: staticProps2 }) => {
+    const { rightSidebarData } = getState();
     return renderHtml`
         <div class="c-doc-container">
             <div class="c-doc-container__right-sidebar">
-                <right-sidebar></right-sidebar>
+                <right-sidebar
+                    ${staticProps2(
+      /** @type {Partial<import('@commonComponent/right-sidebar/type').RightSidebar['state']>} */
+      {
+        data: rightSidebarData
+      }
+    )}
+                ></right-sidebar>
             </div>
             <div class="c-doc-container__content">
                 <mobjs-slot name="docs"></mobjs-slot>
@@ -24235,12 +24243,24 @@
 
   // src/js/component/common/right-sidebar/right-sidebar.js
   var getList = ({ proxi }) => {
-    console.log(proxi.data);
-    return "pippo";
+    return proxi.data.map((item) => {
+      return renderHtml`
+                <li class="right-sidebar__item">
+                    <a href="${item.url}" class="right-sidebar__link"
+                        >${item.label}</a
+                    >
+                </li>
+            `;
+    }).join("");
   };
   var RightSidebarFn = ({ getProxi }) => {
     const proxi = getProxi();
-    return renderHtml`<div class="right-sidebar">${getList({ proxi })}</div>`;
+    return renderHtml`<div class="right-sidebar">
+        <div class="right-sidebar__title">related:</div>
+        <ul class="right-sidebar__list">
+            ${getList({ proxi })}
+        </ul>
+    </div>`;
   };
 
   // src/js/component/common/right-sidebar/definition.js
@@ -25947,9 +25967,16 @@
     HtmlContent
   ]);
   var layoutSidebarAnchor = async ({ props }) => {
-    const { source, title, breadCrumbs } = props;
+    const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    return renderHtml` <doc-container>
+    return renderHtml` <doc-container
+        ${modules_exports2.staticProps(
+      /** @type {Partial<import('@commonComponent/doc-container/type').DocContainer['state']>} */
+      {
+        rightSidebarData: rightSidebar ?? []
+      }
+    )}
+    >
         <div>
             <html-content
                 slot="docs"
@@ -25977,9 +26004,16 @@
   // src/js/pages/layout/layout-sidebar-links.js
   modules_exports2.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
   var layoutSidebarLinks = async ({ props }) => {
-    const { source, title, breadCrumbs } = props;
+    const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    return renderHtml` <doc-container>
+    return renderHtml` <doc-container
+        ${modules_exports2.staticProps(
+      /** @type {Partial<import('@commonComponent/doc-container/type').DocContainer['state']>} */
+      {
+        rightSidebarData: rightSidebar ?? []
+      }
+    )}
+    >
         <div>
             <html-content
                 slot="docs"
@@ -35196,6 +35230,88 @@
       title: "mobMotion"
     }
   ];
+  var mobCoreRightSidebar = [
+    {
+      label: "store",
+      url: "#mobCore-store"
+    },
+    {
+      label: "events",
+      url: "#mobCore-events"
+    },
+    {
+      label: "defaults",
+      url: "#mobCore-defaults"
+    }
+  ];
+  var mobJsRightSidebar = [
+    {
+      label: "initialization",
+      url: "#mobJs-initialization"
+    },
+    {
+      label: "component",
+      url: "#mobJs-component"
+    },
+    {
+      label: "routing",
+      url: "#mobJs-routing"
+    },
+    {
+      label: "tick",
+      url: "#mobJs-tick"
+    },
+    {
+      label: "memory management",
+      url: "/#mobJs-memory-management"
+    },
+    {
+      label: "utils",
+      url: "#mobJs-utils"
+    },
+    {
+      label: "debug",
+      url: "#mobJs-debug"
+    }
+  ];
+  var mobMotionRightSidebar = [
+    {
+      label: "tween/spring/lerp",
+      url: "#mobMotion-tween-spring-lerp"
+    },
+    {
+      label: "AsyncTimeline",
+      url: "#mobMotion-async-timeline"
+    },
+    {
+      label: "sequencer",
+      url: "#mobMotion-sequencer"
+    },
+    {
+      label: "SyncTimeline",
+      url: "#mobMotion-sync-timeline"
+    },
+    {
+      label: "CreateStagger",
+      url: "#mobMotion-create-stagger"
+    },
+    {
+      label: "ScrollTrigger",
+      url: "#mobMotion-scrolltrigger"
+    },
+    {
+      label: "Parallax",
+      url: "#mobMotion-parallax"
+    },
+    {
+      label: "Stagger",
+      url: "#mobMotion-stagger"
+    },
+    {
+      label: "Default",
+      url: "#mobMotion-defaults"
+    }
+  ];
   var routes = [
     {
       name: "pageNotFound",
@@ -35303,7 +35419,8 @@
         source: "./data/mob-core/overview.json",
         title: "mobCore",
         breadCrumbs: [],
-        section: "mobCore"
+        section: "mobCore",
+        rightSidebar: mobCoreRightSidebar
       }
     },
     {
@@ -35314,7 +35431,8 @@
         source: "./data/mob-core/defaults.json",
         title: "Defaults",
         breadCrumbs: mobCoreOverviewBreadCrumbs,
-        section: "mobCore"
+        section: "mobCore",
+        rightSidebar: mobCoreRightSidebar
       }
     },
     {
@@ -35325,7 +35443,8 @@
         source: "./data/mob-core/events.json",
         title: "Events",
         breadCrumbs: mobCoreOverviewBreadCrumbs,
-        section: "mobCore"
+        section: "mobCore",
+        rightSidebar: mobCoreRightSidebar
       }
     },
     {
@@ -35336,7 +35455,8 @@
         source: "./data/mob-core/store.json",
         title: "Store",
         breadCrumbs: mobCoreOverviewBreadCrumbs,
-        section: "mobCore"
+        section: "mobCore",
+        rightSidebar: mobCoreRightSidebar
       }
     },
     {
@@ -35347,7 +35467,8 @@
         source: "./data/mob-js/overview.json",
         title: "mobJs",
         breadCrumbs: [],
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35358,7 +35479,8 @@
         source: "./data/mob-js/initialization.json",
         title: "initialization",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35369,7 +35491,8 @@
         source: "./data/mob-js/component.json",
         title: "component",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35380,7 +35503,8 @@
         source: "./data/mob-js/routing.json",
         title: "routing",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35457,7 +35581,8 @@
         source: "./data/mob-js/tick.json",
         title: "tick",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35468,7 +35593,8 @@
         source: "./data/mob-js/utils.json",
         title: "utils",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35479,7 +35605,8 @@
         source: "./data/mob-js/memory-management.json",
         title: "memory management",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35490,7 +35617,8 @@
         source: "./data/mob-js/debug.json",
         title: "debug",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35501,7 +35629,8 @@
         source: "./data/mob-js/on-mount.json",
         title: "onMount",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35512,7 +35641,8 @@
         source: "./data/mob-js/get-state.json",
         title: "getState",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35523,7 +35653,8 @@
         source: "./data/mob-js/set-state.json",
         title: "setState",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35534,7 +35665,8 @@
         source: "./data/mob-js/update-state.json",
         title: "updateState",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35545,7 +35677,8 @@
         source: "./data/mob-js/get-proxi.json",
         title: "getProxi",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35556,7 +35689,8 @@
         source: "./data/mob-js/watch.json",
         title: "watch",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35567,7 +35701,8 @@
         source: "./data/mob-js/static-props.json",
         title: "staticProps",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35578,7 +35713,8 @@
         source: "./data/mob-js/data-attribute.json",
         title: "dataAttribute",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35589,7 +35725,8 @@
         source: "./data/mob-js/bind-props.json",
         title: "bindProps",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35600,7 +35737,8 @@
         source: "./data/mob-js/bind-events.json",
         title: "bindEvents",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35611,7 +35749,8 @@
         source: "./data/mob-js/delegate-events.json",
         title: "delegateEvents",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35622,7 +35761,8 @@
         source: "./data/mob-js/bind-text.json",
         title: "bindText",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35633,7 +35773,8 @@
         source: "./data/mob-js/bind-object.json",
         title: "bindObject",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35644,7 +35785,8 @@
         source: "./data/mob-js/bind-effect.json",
         title: "bindEffect",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35655,7 +35797,8 @@
         source: "./data/mob-js/methods.json",
         title: "add methods",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35666,7 +35809,8 @@
         source: "./data/mob-js/use-method-by-name.json",
         title: "useMethodByName",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35677,7 +35821,8 @@
         source: "./data/mob-js/use-method-array-by-name.json",
         title: "useMethodArrayByName",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35688,7 +35833,8 @@
         source: "./data/mob-js/set-state-by-name.json",
         title: "setStateByName",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35699,7 +35845,8 @@
         source: "./data/mob-js/update-state-by-name.json",
         title: "updateStateByName",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35710,7 +35857,8 @@
         source: "./data/mob-js/refs.json",
         title: "refs",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35721,7 +35869,8 @@
         source: "./data/mob-js/runtime.json",
         title: "renderComponent",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35732,7 +35881,8 @@
         source: "./data/mob-js/repeat.json",
         title: "repeat",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35743,7 +35893,8 @@
         source: "./data/mob-js/invalidate.json",
         title: "invalidate",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35754,7 +35905,8 @@
         source: "./data/mob-js/invalidate-vs-repeater.json",
         title: "invalidate vs repeater",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35765,7 +35917,8 @@
         source: "./data/mob-js/web-component.json",
         title: "webComponent",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35776,7 +35929,8 @@
         source: "./data/mob-js/slot.json",
         title: "slot",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35787,7 +35941,8 @@
         source: "./data/mob-js/unbind.json",
         title: "unBind",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35798,7 +35953,8 @@
         source: "./data/mob-js/emit.json",
         title: "emit",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35809,7 +35965,8 @@
         source: "./data/mob-js/emit-async.json",
         title: "emitAsync",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35820,7 +35977,8 @@
         source: "./data/mob-js/computed.json",
         title: "computed",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35831,7 +35989,8 @@
         source: "./data/mob-js/bind-store.json",
         title: "bindStore",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35842,7 +36001,8 @@
         source: "./data/mob-js/remove-dom.json",
         title: "removeDom",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35853,7 +36013,8 @@
         source: "./data/mob-js/remove.json",
         title: "remove",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35864,7 +36025,8 @@
         source: "./data/mob-js/get-children.json",
         title: "getChildren",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35875,7 +36037,8 @@
         source: "./data/mob-js/freeze-prop.json",
         title: "freezeProp",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35886,7 +36049,8 @@
         source: "./data/mob-js/unfreeze-prop.json",
         title: "unFreezeProp",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35897,7 +36061,8 @@
         source: "./data/mob-js/get-parent-id.json",
         title: "getParentId",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35908,7 +36073,8 @@
         source: "./data/mob-js/watch-parent.json",
         title: "watchParent",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35919,7 +36085,8 @@
         source: "./data/mob-js/instance-name.json",
         title: "instanceName",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35930,7 +36097,8 @@
         source: "./data/mob-js/class-list.json",
         title: "classList",
         breadCrumbs: mobJsComponentBreadCrumbs,
-        section: "mobJs"
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
       }
     },
     {
@@ -35941,7 +36109,8 @@
         source: "./data/mob-motion/stagger.json",
         title: "Stagger",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {
@@ -35952,7 +36121,8 @@
         source: "./data/mob-motion/defaults.json",
         title: "Defaults",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {
@@ -35963,7 +36133,8 @@
         source: "./data/mob-motion/overview.json",
         title: "mobMotion",
         breadCrumbs: [],
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {
@@ -35974,7 +36145,8 @@
         source: "./data/mob-motion/parallax.json",
         title: "Parallax",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {
@@ -35985,7 +36157,8 @@
         source: "./data/mob-motion/sequencer.json",
         title: "Sequencer",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {
@@ -35996,7 +36169,8 @@
         source: "./data/mob-motion/scroll-trigger.json",
         title: "ScrollTrigger",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {
@@ -36007,7 +36181,8 @@
         source: "./data/mob-motion/sync-timeline.json",
         title: "Synctimeline",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {
@@ -36018,7 +36193,8 @@
         source: "./data/mob-motion/create-stagger.json",
         title: "CreateStagger",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {
@@ -36029,7 +36205,8 @@
         source: "./data/mob-motion/async-timeline.json",
         title: "Asynctimeline",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {
@@ -36040,7 +36217,8 @@
         source: "./data/mob-motion/tween-spring-lerp.json",
         title: "TimeTween Spring Lerp",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
-        section: "mobMotion"
+        section: "mobMotion",
+        rightSidebar: mobMotionRightSidebar
       }
     },
     {

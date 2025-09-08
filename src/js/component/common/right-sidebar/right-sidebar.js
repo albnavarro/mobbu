@@ -10,13 +10,27 @@ import { html } from '@mobJs';
  * @param {RightSidebar['state']} params.proxi
  */
 const getList = ({ proxi }) => {
-    console.log(proxi.data);
-    return 'pippo';
+    return proxi.data
+        .map((item) => {
+            return html`
+                <li class="right-sidebar__item">
+                    <a href="${item.url}" class="right-sidebar__link"
+                        >${item.label}</a
+                    >
+                </li>
+            `;
+        })
+        .join('');
 };
 
 /** @type {MobComponent<RightSidebar>} */
 export const RightSidebarFn = ({ getProxi }) => {
     const proxi = getProxi();
 
-    return html`<div class="right-sidebar">${getList({ proxi })}</div>`;
+    return html`<div class="right-sidebar">
+        <div class="right-sidebar__title">related:</div>
+        <ul class="right-sidebar__list">
+            ${getList({ proxi })}
+        </ul>
+    </div>`;
 };

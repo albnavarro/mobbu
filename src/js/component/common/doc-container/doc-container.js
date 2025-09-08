@@ -4,12 +4,21 @@ import { html } from '@mobJs';
  * @import {MobComponent} from '@mobJsType';
  */
 
-/** @type {MobComponent} */
-export const DocContainerFn = () => {
+/** @type {MobComponent<import('./type').DocContainer>} */
+export const DocContainerFn = ({ getState, staticProps }) => {
+    const { rightSidebarData } = getState();
+
     return html`
         <div class="c-doc-container">
             <div class="c-doc-container__right-sidebar">
-                <right-sidebar></right-sidebar>
+                <right-sidebar
+                    ${staticProps(
+                        /** @type {Partial<import('@commonComponent/right-sidebar/type').RightSidebar['state']>} */
+                        ({
+                            data: rightSidebarData,
+                        })
+                    )}
+                ></right-sidebar>
             </div>
             <div class="c-doc-container__content">
                 <mobjs-slot name="docs"></mobjs-slot>
