@@ -6,7 +6,6 @@
 - linkedin|github url
 
 ### Docs: AsyncTimeline
-- Right sidebar
 - Breve riassunto con lista puntata delle feature.
 
 ### MobCore
@@ -138,9 +137,8 @@ store[prop] = valueTransformed;
 
 # MobJs
 
-## Refs:
-Usare weakRef - non si puó possono dare falsi positivi.
-
+## PageTrasition:
+- possibilitá di disabilitare le trasizioni di pagina per rotta ( nella definizione della rotta ).
 
 ## BindProps
 ##### Nota: puó essere un falso problema, per le massime performance i methodi possono avere un accesso diretto al componente senza intermediazione, nel caso specificarlo.
