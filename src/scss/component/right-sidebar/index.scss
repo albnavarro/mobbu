@@ -26,4 +26,10 @@
             font-size: rem(13);
         }
     }
+
+    &__link {
+        &.active {
+            font-weight: 600;
+        }
+    }
 }

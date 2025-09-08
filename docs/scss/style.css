@@ -3439,6 +3439,9 @@ ul li::marker {
     font-size: 0.8666666667rem;
   }
 }
+.right-sidebar__link.active {
+  font-weight: 600;
+}
 .c-doc-title h2 {
   color: #2e3440;
   font-size: 20rem;

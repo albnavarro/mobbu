@@ -24242,12 +24242,14 @@
   };
 
   // src/js/component/common/right-sidebar/right-sidebar.js
-  var getList = ({ proxi }) => {
-    return proxi.data.map((item) => {
+  var getList = ({ proxi, activeRoute }) => {
+    return proxi.data.map(({ label, url }) => {
+      const urlParsed = url.replaceAll("#", "");
+      const activeClass = activeRoute === urlParsed ? "active" : "";
       return renderHtml`
                 <li class="right-sidebar__item">
-                    <a href="${item.url}" class="right-sidebar__link"
-                        >${item.label}</a
+                    <a href="${url}" class="right-sidebar__link ${activeClass}"
+                        >${label}</a
                     >
                 </li>
             `;
@@ -24255,10 +24257,11 @@
   };
   var RightSidebarFn = ({ getProxi }) => {
     const proxi = getProxi();
+    const { route: activeRoute } = modules_exports2.getActiveRoute();
     return renderHtml`<div class="right-sidebar">
         <div class="right-sidebar__title">related:</div>
         <ul class="right-sidebar__list">
-            ${getList({ proxi })}
+            ${getList({ proxi, activeRoute })}
         </ul>
     </div>`;
   };

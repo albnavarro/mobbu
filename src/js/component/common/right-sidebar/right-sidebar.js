@@ -3,19 +3,23 @@
  * @import {RightSidebar} from './type';
  */
 
-import { html } from '@mobJs';
+import { html, MobJs } from '@mobJs';
 
 /**
  * @param {object} params
  * @param {RightSidebar['state']} params.proxi
+ * @param {string} params.activeRoute
  */
-const getList = ({ proxi }) => {
+const getList = ({ proxi, activeRoute }) => {
     return proxi.data
-        .map((item) => {
+        .map(({ label, url }) => {
+            const urlParsed = url.replaceAll('#', '');
+            const activeClass = activeRoute === urlParsed ? 'active' : '';
+
             return html`
                 <li class="right-sidebar__item">
-                    <a href="${item.url}" class="right-sidebar__link"
-                        >${item.label}</a
+                    <a href="${url}" class="right-sidebar__link ${activeClass}"
+                        >${label}</a
                     >
                 </li>
             `;
@@ -27,10 +31,12 @@ const getList = ({ proxi }) => {
 export const RightSidebarFn = ({ getProxi }) => {
     const proxi = getProxi();
 
+    const { route: activeRoute } = MobJs.getActiveRoute();
+
     return html`<div class="right-sidebar">
         <div class="right-sidebar__title">related:</div>
         <ul class="right-sidebar__list">
-            ${getList({ proxi })}
+            ${getList({ proxi, activeRoute })}
         </ul>
     </div>`;
 };
