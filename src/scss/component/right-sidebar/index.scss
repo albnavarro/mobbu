@@ -2,7 +2,7 @@
 
 .right-sidebar {
     position: fixed;
-    z-index: 15;
+    z-index: 9;
     display: none;
     left: var(--header-height);
     top: calc(var(--gap-size) + var(--header-height));

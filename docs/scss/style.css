@@ -1046,7 +1046,7 @@ ul li::marker {
   z-index: 10;
   transform: translateX(-101%);
   transition: transform 0.55s, background 0.55s;
-  background: rgba(255, 255, 255, 0.8);
+  background: #fff;
   border-top: 1px #2e3440 solid;
   border-right: 1px #2e3440 solid;
 }
@@ -3410,7 +3410,7 @@ ul li::marker {
 }
 .right-sidebar {
   position: fixed;
-  z-index: 15;
+  z-index: 9;
   display: none;
   left: var(--header-height);
   top: calc(var(--gap-size) + var(--header-height));
