@@ -34,7 +34,7 @@ export const RightSidebarFn = ({ getProxi }) => {
     const { route: activeRoute } = MobJs.getActiveRoute();
 
     return html`<div class="right-sidebar">
-        <div class="right-sidebar__title">related:</div>
+        <div class="right-sidebar__title">Sections:</div>
         <ul class="right-sidebar__list">
             ${getList({ proxi, activeRoute })}
         </ul>

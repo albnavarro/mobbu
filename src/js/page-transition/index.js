@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { MobTimeline, MobMotionCore, MobTween } from '@mobMotion';
+import { MobTimeline, MobTween } from '@mobMotion';
 
 let scrollY = 0;
 
@@ -32,7 +32,7 @@ export const pageTransition = async ({
     oldRoute,
     newRoute,
 }) => {
-    if (MobMotionCore.mq('max', 'desktop') || oldRoute === newRoute) return;
+    if (oldRoute === newRoute) return;
 
     /** @type {HTMLElement} */ (newNode).style.opacity = '0';
 

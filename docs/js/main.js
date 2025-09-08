@@ -23997,7 +23997,7 @@
     oldRoute,
     newRoute
   }) => {
-    if (core_exports.mq("max", "desktop") || oldRoute === newRoute) return;
+    if (oldRoute === newRoute) return;
     newNode.style.opacity = "0";
     const oldNodeTween = tween_exports.createTimeTween({
       data: { opacity: 1 },
@@ -24259,7 +24259,7 @@
     const proxi = getProxi();
     const { route: activeRoute } = modules_exports2.getActiveRoute();
     return renderHtml`<div class="right-sidebar">
-        <div class="right-sidebar__title">related:</div>
+        <div class="right-sidebar__title">Sections:</div>
         <ul class="right-sidebar__list">
             ${getList({ proxi, activeRoute })}
         </ul>
