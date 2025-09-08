@@ -13,10 +13,12 @@ import {
     headerName,
     mobNavigationContainerName,
     quickNavName,
+    rightSidebarName,
     scrollDownLabelName,
     searchOverlay,
 } from '../component/instance-name';
 import { SearchOverlay } from '@commonComponent/search/search-overlay/definition';
+import { RightSidebar } from '@commonComponent/right-sidebar/definition';
 
 MobJs.useComponent([
     Header,
@@ -29,6 +31,7 @@ MobJs.useComponent([
     DebugOverlay,
     TestScssGrid,
     SearchOverlay,
+    RightSidebar,
 ]);
 
 export const wrapper = async () => {
@@ -53,6 +56,7 @@ export const wrapper = async () => {
         <route-loader></route-loader>
         <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
         <links-mobjs></links-mobjs>
+        <right-sidebar name="${rightSidebarName}"></right-sidebar>
         <search-overlay name="${searchOverlay}"></search-overlay>
     `;
 };

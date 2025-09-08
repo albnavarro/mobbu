@@ -3408,6 +3408,25 @@ ul li::marker {
     grid-column: 3/span 1;
   }
 }
+.right-sidebar {
+  position: fixed;
+  z-index: 15;
+  display: none;
+  left: var(--header-height);
+  top: calc(var(--gap-size) + var(--header-height));
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s, visibility 0.35s;
+}
+.right-sidebar.visible {
+  opacity: 1;
+  visibility: visible;
+}
+@media (min-width: 100em) {
+  .right-sidebar {
+    display: block;
+  }
+}
 .right-sidebar__list {
   list-style-type: none;
   margin: 0;
@@ -3433,8 +3452,14 @@ ul li::marker {
     font-size: 0.8666666667rem;
   }
 }
+.right-sidebar__link {
+  transition: opacity 0.35s;
+}
 .right-sidebar__link.active {
   font-weight: 600;
+}
+.right-sidebar__link:hover {
+  opacity: 0.3;
 }
 .c-doc-title h2 {
   color: #2e3440;

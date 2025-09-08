@@ -24168,20 +24168,10 @@
   };
 
   // src/js/component/common/doc-container/doc-container.js
-  var DocContainerFn = ({ getState, staticProps: staticProps2 }) => {
-    const { rightSidebarData } = getState();
+  var DocContainerFn = () => {
     return renderHtml`
         <div class="c-doc-container">
-            <div class="c-doc-container__right-sidebar">
-                <right-sidebar
-                    ${staticProps2(
-      /** @type {Partial<import('@commonComponent/right-sidebar/type').RightSidebar['state']>} */
-      {
-        data: rightSidebarData
-      }
-    )}
-                ></right-sidebar>
-            </div>
+            <div class="c-doc-container__right-sidebar"></div>
             <div class="c-doc-container__content">
                 <mobjs-slot name="docs"></mobjs-slot>
             </div>
@@ -24194,61 +24184,12 @@
     `;
   };
 
-  // src/js/component/common/right-sidebar/right-sidebar.js
-  var getList = ({ proxi, activeRoute }) => {
-    return proxi.data.map(({ label, url }) => {
-      const urlParsed = url.replaceAll("#", "");
-      const activeClass = activeRoute === urlParsed ? "active" : "";
-      return renderHtml`
-                <li class="right-sidebar__item">
-                    <a href="${url}" class="right-sidebar__link ${activeClass}"
-                        >${label}</a
-                    >
-                </li>
-            `;
-    }).join("");
-  };
-  var RightSidebarFn = ({ getProxi }) => {
-    const proxi = getProxi();
-    const { route: activeRoute } = modules_exports2.getActiveRoute();
-    return renderHtml`<div class="right-sidebar">
-        <div class="right-sidebar__title">Sections:</div>
-        <ul class="right-sidebar__list">
-            ${getList({ proxi, activeRoute })}
-        </ul>
-    </div>`;
-  };
-
-  // src/js/component/common/right-sidebar/definition.js
-  var RightSidebar = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').RightSidebar>} */
-    {
-      tag: "right-sidebar",
-      component: RightSidebarFn,
-      exportState: ["data"],
-      state: {
-        data: () => ({
-          value: [],
-          type: Array
-        })
-      }
-    }
-  );
-
   // src/js/component/common/doc-container/definition.js
   var DocContainer = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DocContainer>} */
+    /** @type {CreateComponentParams<any>} */
     {
       tag: "doc-container",
-      component: DocContainerFn,
-      exportState: ["rightSidebarData"],
-      state: {
-        rightSidebarData: () => ({
-          value: [],
-          type: Array
-        })
-      },
-      child: [RightSidebar]
+      component: DocContainerFn
     }
   );
 
@@ -25171,6 +25112,7 @@
   var searchOverlay = "search_overlay";
   var searchOverlayList = "search_overlay_list";
   var searchOverlayHeader = "search_overlay_header";
+  var rightSidebarName = "right-sidebar";
 
   // src/js/component/common/spacer-anchor/spacer-anchor.js
   function hasAnchor({ label }) {
@@ -25287,7 +25229,7 @@
   );
 
   // src/js/component/common/typography/list/list.js
-  var getList2 = ({ items, links }) => {
+  var getList = ({ items, links }) => {
     return links ? (
       /** @type{Record<'label' | 'url', string>[]} */
       items.map(
@@ -25308,7 +25250,7 @@
     const colorClass = `is-${color}`;
     const linksClass = links ? "use-links" : "use-default";
     return renderHtml`<ul class="ul ul--${style} ${colorClass} ${linksClass}">
-        ${getList2({ items, links })}
+        ${getList({ items, links })}
     </ul>`;
   };
 
@@ -25925,14 +25867,9 @@
   var layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    return renderHtml` <doc-container
-        ${modules_exports2.staticProps(
-      /** @type {Partial<import('@commonComponent/doc-container/type').DocContainer['state']>} */
-      {
-        rightSidebarData: rightSidebar ?? []
-      }
-    )}
-    >
+    const navContainerMethods = modules_exports2.useMethodByName(rightSidebarName);
+    navContainerMethods?.updateList(rightSidebar ?? []);
+    return renderHtml` <doc-container>
         <div>
             <html-content
                 slot="docs"
@@ -25962,14 +25899,9 @@
   var layoutSidebarLinks = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    return renderHtml` <doc-container
-        ${modules_exports2.staticProps(
-      /** @type {Partial<import('@commonComponent/doc-container/type').DocContainer['state']>} */
-      {
-        rightSidebarData: rightSidebar ?? []
-      }
-    )}
-    >
+    const navContainerMethods = modules_exports2.useMethodByName(rightSidebarName);
+    navContainerMethods?.updateList(rightSidebar ?? []);
+    return renderHtml`<doc-container>
         <div>
             <html-content
                 slot="docs"
@@ -35219,7 +35151,7 @@
     },
     {
       label: "memory management",
-      url: "/#mobJs-memory-management"
+      url: "#mobJs-memory-management"
     },
     {
       label: "utils",
@@ -36259,7 +36191,7 @@
     newNode.style.opacity = "0";
     const oldNodeTween = tween_exports.createTimeTween({
       data: { opacity: 1 },
-      duration: 300
+      duration: 200
     });
     const newNodeTween = tween_exports.createTimeTween({
       data: { opacity: 0 },
@@ -39684,6 +39616,89 @@
     }
   );
 
+  // src/js/component/common/right-sidebar/right-sidebar.js
+  var getList2 = ({ proxi, bindEffect }) => {
+    return proxi.data.map(({ label, url }) => {
+      const urlParsed = url.replaceAll("#", "");
+      return renderHtml`
+                <li class="right-sidebar__item">
+                    <a
+                        href="${url}"
+                        class="right-sidebar__link"
+                        ${bindEffect({
+        toggleClass: {
+          active: () => proxi.activeRoute.route === urlParsed
+        }
+      })}
+                        >${label}</a
+                    >
+                </li>
+            `;
+    }).join("");
+  };
+  var docsTemplate = /* @__PURE__ */ new Set([
+    PAGE_TEMPLATE_COMPONENT_MOBJS,
+    PAGE_TEMPLATE_DOCS_DEFAULT
+  ]);
+  var RightSidebarFn = ({
+    getProxi,
+    invalidate,
+    addMethod,
+    computed,
+    bindEffect
+  }) => {
+    const proxi = getProxi();
+    addMethod("updateList", (data) => {
+      proxi.data = data;
+    });
+    modules_exports2.afterRouteChange(({ currentTemplate }) => {
+      if (!docsTemplate.has(currentTemplate)) proxi.data = [];
+    });
+    computed(
+      () => proxi.isVisible,
+      () => proxi.data.length > 0
+    );
+    return renderHtml`<div
+        class="right-sidebar"
+        ${bindEffect({
+      toggleClass: {
+        visible: () => proxi.isVisible
+      }
+    })}
+    >
+        <div class="right-sidebar__title">Sections:</div>
+        <ul class="right-sidebar__list">
+            ${invalidate({
+      observe: () => proxi.data,
+      render: () => {
+        return getList2({ proxi, bindEffect });
+      }
+    })}
+        </ul>
+    </div>`;
+  };
+
+  // src/js/component/common/right-sidebar/definition.js
+  var RightSidebar = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').RightSidebar>} */
+    {
+      tag: "right-sidebar",
+      component: RightSidebarFn,
+      exportState: ["data"],
+      bindStore: [modules_exports2.mainStore],
+      state: {
+        data: () => ({
+          value: [],
+          type: Array
+        }),
+        isVisible: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
   // src/js/wrapper/index.js
   modules_exports2.useComponent([
     Header,
@@ -39695,7 +39710,8 @@
     LinksMobJs,
     DebugOverlay,
     TestScssGrid,
-    SearchOverlay
+    SearchOverlay,
+    RightSidebar
   ]);
   var wrapper = async () => {
     const useScssTestGrid = false;
@@ -39718,6 +39734,7 @@
         <route-loader></route-loader>
         <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
         <links-mobjs></links-mobjs>
+        <right-sidebar name="${rightSidebarName}"></right-sidebar>
         <search-overlay name="${searchOverlay}"></search-overlay>
     `;
   };

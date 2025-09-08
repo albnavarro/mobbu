@@ -6,7 +6,7 @@ import { ScrollTo } from '@commonComponent/scroll-to/definition';
 import { html, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
-import { scrollToName } from 'src/js/component/instance-name';
+import { rightSidebarName, scrollToName } from 'src/js/component/instance-name';
 
 MobJs.useComponent([
     DocContainer,
@@ -21,14 +21,13 @@ export const layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
 
-    return html` <doc-container
-        ${MobJs.staticProps(
-            /** @type {Partial<import('@commonComponent/doc-container/type').DocContainer['state']>} */
-            ({
-                rightSidebarData: rightSidebar ?? [],
-            })
-        )}
-    >
+    /**
+     * @type {import('@mobJsType').UseMethodByName<import('@commonComponent/right-sidebar/type').RightSidebar>}
+     */
+    const navContainerMethods = MobJs.useMethodByName(rightSidebarName);
+    navContainerMethods?.updateList(rightSidebar ?? []);
+
+    return html` <doc-container>
         <div>
             <html-content
                 slot="docs"

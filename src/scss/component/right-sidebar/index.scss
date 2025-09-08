@@ -1,6 +1,26 @@
 @use '../../abstract' as *;
 
 .right-sidebar {
+    position: fixed;
+    z-index: 15;
+    display: none;
+    left: var(--header-height);
+    top: calc(var(--gap-size) + var(--header-height));
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.35s,
+        visibility 0.35s;
+
+    &.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @include mq(xlarge) {
+        display: block;
+    }
+
     &__list {
         list-style-type: none;
         margin: 0;
@@ -28,8 +48,14 @@
     }
 
     &__link {
+        transition: opacity 0.35s;
+
         &.active {
             font-weight: 600;
+        }
+
+        &:hover {
+            opacity: 0.3;
         }
     }
 }

@@ -64,7 +64,7 @@ export const pageTransition = async ({
 
     const oldNodeTween = MobTween.createTimeTween({
         data: { opacity: 1 },
-        duration: 300,
+        duration: 200,
     });
 
     const newNodeTween = MobTween.createTimeTween({

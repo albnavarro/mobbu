@@ -6,7 +6,7 @@ export interface LayoutSidebarAnchor {
         rightSidebar?: {
             label: string;
             url: string;
-        };
+        }[];
     };
 }
 

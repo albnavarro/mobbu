@@ -11,10 +11,15 @@ export const RightSidebar = MobJs.createComponent(
         tag: 'right-sidebar',
         component: RightSidebarFn,
         exportState: ['data'],
+        bindStore: [MobJs.mainStore],
         state: {
             data: () => ({
                 value: [],
                 type: Array,
+            }),
+            isVisible: () => ({
+                value: false,
+                type: Boolean,
             }),
         },
     })

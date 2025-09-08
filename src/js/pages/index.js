@@ -95,7 +95,7 @@ const mobJsRightSidebar = [
     },
     {
         label: 'memory management',
-        url: '/#mobJs-memory-management',
+        url: '#mobJs-memory-management',
     },
     {
         label: 'utils',
