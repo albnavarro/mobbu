@@ -9415,7 +9415,6 @@
     await tick();
     const contentElement = getContentElement();
     if (!contentElement || !(contentElement instanceof HTMLElement)) return;
-    if (!skipTransition) contentElement.style.visibility = "hidden";
     const { activeRoute: fromRoute } = mainStore.get();
     mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, {
       currentRoute: fromRoute.route,
@@ -23975,52 +23974,6 @@
     commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data) => data).catch((error) => console.warn("Something went wrong.", error));
   };
 
-  // src/js/page-transition/index.js
-  var scrollY = 0;
-  modules_exports2.beforeRouteChange(() => {
-    scrollY = window.scrollY;
-  });
-  var beforePageTransition2 = async ({ oldNode }) => {
-    oldNode.classList.remove("current-route");
-    oldNode.classList.add("fake-content");
-    oldNode.style.position = "fixed";
-    oldNode.style.zIndex = "10";
-    oldNode.style.top = "var(--header-height)";
-    oldNode.style.left = "0";
-    oldNode.style.width = "100vw";
-    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
-    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
-  };
-  var pageTransition2 = async ({
-    oldNode,
-    newNode,
-    oldRoute,
-    newRoute
-  }) => {
-    if (oldRoute === newRoute) return;
-    newNode.style.opacity = "0";
-    const oldNodeTween = tween_exports.createTimeTween({
-      data: { opacity: 1 },
-      duration: 300
-    });
-    const newNodeTween = tween_exports.createTimeTween({
-      data: { opacity: 0 },
-      duration: 500
-    });
-    oldNodeTween.subscribe(({ opacity }) => {
-      oldNode.style.opacity = opacity;
-    });
-    newNodeTween.subscribe(({ opacity }) => {
-      newNode.style.opacity = opacity;
-    });
-    let tl = timeline_exports.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
-    await tl.play();
-    tl.destroy();
-    tl = null;
-    newNode.style.removeProperty("opacity");
-    newNode.classList.add("current-route");
-  };
-
   // src/js/pages/404/index.js
   var pageNotFound2 = () => {
     return renderHtml`
@@ -36266,6 +36219,65 @@
       props: {}
     }
   ];
+
+  // src/js/page-transition/index.js
+  var scrollY = 0;
+  modules_exports2.beforeRouteChange(() => {
+    scrollY = window.scrollY;
+  });
+  var useTopPosition = /* @__PURE__ */ new Set([
+    PAGE_TEMPLATE_COMPONENT_MOBJS,
+    PAGE_TEMPLATE_DOCS_DEFAULT,
+    PAGE_TEMPLATE_LINKS,
+    PAGE_TEMPLATE_ABOUT
+  ]);
+  var useLetPosition = /* @__PURE__ */ new Set([
+    PAGE_TEMPLATE_COMPONENT_MOBJS,
+    PAGE_TEMPLATE_DOCS_DEFAULT,
+    PAGE_TEMPLATE_LINKS,
+    PAGE_TEMPLATE_ABOUT,
+    PAGE_TEMPLATE_HOME
+  ]);
+  var beforePageTransition2 = async ({ oldNode, oldTemplateName }) => {
+    oldNode.classList.remove("current-route");
+    oldNode.classList.add("fake-content");
+    oldNode.style.position = "fixed";
+    oldNode.style.zIndex = "10";
+    oldNode.style.top = useTopPosition.has(oldTemplateName) ? "var(--header-height)" : "0";
+    oldNode.style.left = useLetPosition.has(oldTemplateName) ? `calc(var(--header-height)/2)` : "0";
+    oldNode.style.right = `0`;
+    oldNode.style.transform = `translateY(-${scrollY}px)`;
+    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
+  };
+  var pageTransition2 = async ({
+    oldNode,
+    newNode,
+    oldRoute,
+    newRoute
+  }) => {
+    if (oldRoute === newRoute) return;
+    newNode.style.opacity = "0";
+    const oldNodeTween = tween_exports.createTimeTween({
+      data: { opacity: 1 },
+      duration: 300
+    });
+    const newNodeTween = tween_exports.createTimeTween({
+      data: { opacity: 0 },
+      duration: 300
+    });
+    oldNodeTween.subscribe(({ opacity }) => {
+      oldNode.style.opacity = opacity;
+    });
+    newNodeTween.subscribe(({ opacity }) => {
+      newNode.style.opacity = opacity;
+    });
+    let tl = timeline_exports.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
+    await tl.play();
+    tl.destroy();
+    tl = null;
+    newNode.style.removeProperty("opacity");
+    newNode.classList.add("current-route");
+  };
 
   // src/js/utils/scrollbar-with.js
   var setValue = () => {

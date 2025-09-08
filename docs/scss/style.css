@@ -3346,7 +3346,6 @@ ul li::marker {
   pointer-events: none;
 }
 .c-doc-container__right-sidebar {
-  background: #eee;
   display: none;
   position: sticky;
   z-index: 14;
@@ -3366,6 +3365,7 @@ ul li::marker {
   position: relative;
   background: rgba(255, 255, 255, 0.4);
   grid-column: 1/span 1;
+  min-height: 100vh;
 }
 .c-doc-container__content::after {
   content: "";
@@ -3384,14 +3384,8 @@ ul li::marker {
 @media (min-width: 100em) {
   .c-doc-container__content {
     grid-column: 2/span 1;
+    border-left: 1px #2e3440 solid;
   }
-}
-.fake-content .c-doc-container__content {
-  background:
-    radial-gradient(
-      circle at bottom center,
-      transparent 100px,
-      transparent);
 }
 .c-doc-container__side {
   display: none;

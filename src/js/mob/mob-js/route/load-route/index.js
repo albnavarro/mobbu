@@ -44,7 +44,7 @@ export const loadRoute = async ({
     const contentElement = getContentElement();
     if (!contentElement || !(contentElement instanceof HTMLElement)) return;
 
-    if (!skipTransition) contentElement.style.visibility = 'hidden';
+    // if (!skipTransition) contentElement.style.visibility = 'hidden';
 
     /**
      * Set before Route leave.
@@ -168,6 +168,7 @@ export const loadRoute = async ({
             oldTemplateName: fromRoute.templateName,
             newTemplateName: templateName,
         });
+
         // @ts-ignore
         clone.remove();
     }

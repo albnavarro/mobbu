@@ -16,7 +16,6 @@
     }
 
     &__right-sidebar {
-        background: $grey;
         display: none;
         position: sticky;
         z-index: 14;
@@ -36,6 +35,7 @@
         position: relative;
         background: rgba($white, 0.4);
         grid-column: 1 / span 1;
+        min-height: 100vh;
 
         &::after {
             content: '';
@@ -53,14 +53,7 @@
 
         @include mq(xlarge) {
             grid-column: 2 / span 1;
-        }
-
-        @include when-inside('.fake-content') {
-            background: radial-gradient(
-                circle at bottom center,
-                transparent 100px,
-                transparent
-            );
+            border-left: 1px $black solid;
         }
     }
 

@@ -1,5 +1,12 @@
 import { MobJs } from '@mobJs';
 import { MobTimeline, MobTween } from '@mobMotion';
+import {
+    PAGE_TEMPLATE_ABOUT,
+    PAGE_TEMPLATE_COMPONENT_MOBJS,
+    PAGE_TEMPLATE_DOCS_DEFAULT,
+    PAGE_TEMPLATE_HOME,
+    PAGE_TEMPLATE_LINKS,
+} from '../pages';
 
 let scrollY = 0;
 
@@ -7,18 +14,37 @@ MobJs.beforeRouteChange(() => {
     scrollY = window.scrollY;
 });
 
+const useTopPosition = new Set([
+    PAGE_TEMPLATE_COMPONENT_MOBJS,
+    PAGE_TEMPLATE_DOCS_DEFAULT,
+    PAGE_TEMPLATE_LINKS,
+    PAGE_TEMPLATE_ABOUT,
+]);
+
+const useLetPosition = new Set([
+    PAGE_TEMPLATE_COMPONENT_MOBJS,
+    PAGE_TEMPLATE_DOCS_DEFAULT,
+    PAGE_TEMPLATE_LINKS,
+    PAGE_TEMPLATE_ABOUT,
+    PAGE_TEMPLATE_HOME,
+]);
+
 /**
  * @type {import('@mobJsType').BeforePageTransition}
  */
-export const beforePageTransition = async ({ oldNode }) => {
+export const beforePageTransition = async ({ oldNode, oldTemplateName }) => {
     oldNode.classList.remove('current-route');
     oldNode.classList.add('fake-content');
     oldNode.style.position = 'fixed';
     oldNode.style.zIndex = '10';
-    oldNode.style.top = 'var(--header-height)';
-    oldNode.style.left = '0';
-    oldNode.style.width = '100vw';
-    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
+    oldNode.style.top = useTopPosition.has(oldTemplateName)
+        ? 'var(--header-height)'
+        : '0';
+    oldNode.style.left = useLetPosition.has(oldTemplateName)
+        ? `calc(var(--header-height)/2)`
+        : '0';
+    oldNode.style.right = `0`;
+    oldNode.style.transform = `translateY(-${scrollY}px)`;
     oldNode.style.minHeight =
         'calc(100vh - var(--header-height) - var(--footer-height))';
 };
@@ -43,7 +69,7 @@ export const pageTransition = async ({
 
     const newNodeTween = MobTween.createTimeTween({
         data: { opacity: 0 },
-        duration: 500,
+        duration: 300,
     });
 
     oldNodeTween.subscribe(({ opacity }) => {
