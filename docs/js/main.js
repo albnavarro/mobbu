@@ -24218,7 +24218,9 @@
   var DocContainerFn = () => {
     return renderHtml`
         <div class="c-doc-container">
-            <div class="c-doc-container__right-sidebar">right</div>
+            <div class="c-doc-container__right-sidebar">
+                <right-sidebar></right-sidebar>
+            </div>
             <div class="c-doc-container__content">
                 <mobjs-slot name="docs"></mobjs-slot>
             </div>
@@ -24231,12 +24233,34 @@
     `;
   };
 
+  // src/js/component/common/right-sidebar/right-sidebar.js
+  var RightSidebarFn = () => {
+    return renderHtml`<div class="right-sidebar">right sidebar placeholder</div>`;
+  };
+
+  // src/js/component/common/right-sidebar/definition.js
+  var RightSidebar = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').RightSidebar>} */
+    {
+      tag: "right-sidebar",
+      component: RightSidebarFn,
+      exportState: [],
+      state: {
+        test: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
   // src/js/component/common/doc-container/definition.js
   var DocContainer = modules_exports2.createComponent(
     /** @type {CreateComponentParams<any>} */
     {
       tag: "doc-container",
-      component: DocContainerFn
+      component: DocContainerFn,
+      child: [RightSidebar]
     }
   );
 

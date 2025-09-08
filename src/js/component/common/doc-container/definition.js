@@ -1,5 +1,6 @@
 import { MobJs } from '@mobJs';
 import { DocContainerFn } from './doc-container';
+import { RightSidebar } from '@commonComponent/right-sidebar/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -10,5 +11,6 @@ export const DocContainer = MobJs.createComponent(
     ({
         tag: 'doc-container',
         component: DocContainerFn,
+        child: [RightSidebar],
     })
 );
