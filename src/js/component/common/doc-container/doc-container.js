@@ -8,6 +8,7 @@ import { html } from '@mobJs';
 export const DocContainerFn = () => {
     return html`
         <div class="c-doc-container">
+            <div class="c-doc-container__right-sidebar">right</div>
             <div class="c-doc-container__content">
                 <mobjs-slot name="docs"></mobjs-slot>
             </div>

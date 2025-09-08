@@ -21,11 +21,10 @@
 
     // Stadard css var
     --header-height: calc(var(--gap-size) * 2);
-    --header-navinfo: #{rem(40)};
     --footer-height: calc(var(--gap-size) * 2);
     --nav-width: #{rem(340)};
     --doc-width: none;
-    --main-translate: #{rem(100)};
+    --right-sidebar: none;
 
     // snippet, global value for height pre-calc.
     --snippet-rem-value: #{strip-unit(rem(14))};
@@ -33,6 +32,7 @@
 
     @include mq(desktop) {
         --doc-width: calc(var(--col-size) * 8);
+        --right-sidebar: #{rem(250)};
 
         @media screen and (height <= 700px) {
             --footer-height: #{rem(50)};

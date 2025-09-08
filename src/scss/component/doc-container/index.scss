@@ -6,9 +6,30 @@
     grid-template-columns: var(--doc-width) 1fr;
     position: relative;
 
+    @include mq(xlarge) {
+        grid-template-columns: var(--right-sidebar) var(--doc-width) 1fr;
+    }
+
     // Increase scrolling performance on smooth scroll.
     @include when-inside('.is-whelling') {
         pointer-events: none;
+    }
+
+    &__right-sidebar {
+        background: $grey;
+        display: none;
+        position: sticky;
+        z-index: 14;
+        top: var(--header-height);
+        align-self: start;
+        height: calc(100vh - var(--header-height) - var(--footer-height));
+        overflow: hidden;
+        padding: var(--gap-size);
+
+        @include mq('xlarge') {
+            grid-column: 1 / span 1;
+            display: block;
+        }
     }
 
     &__content {
@@ -28,6 +49,10 @@
 
         @include mq('large') {
             width: auto;
+        }
+
+        @include mq(xlarge) {
+            grid-column: 2 / span 1;
         }
 
         @include when-inside('.fake-content') {
@@ -52,6 +77,10 @@
 
         @include mq('desktop') {
             display: block;
+        }
+
+        @include mq(xlarge) {
+            grid-column: 3 / span 1;
         }
     }
 }
