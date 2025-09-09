@@ -1,12 +1,12 @@
 /**
- * @type {import('../../type').PageTransition | (() => void)}
+ * @type {import('../../type').PageTransition | undefined}
  */
-let pageTransition = () => {};
+let pageTransition;
 
 /**
- * @type {import('../../type').BeforePageTransition | (() => void)}
+ * @type {import('../../type').BeforePageTransition | undefined}
  */
-let beforePageTransition = () => {};
+let beforePageTransition;
 
 /**
  * @param {object} obj
@@ -31,11 +31,11 @@ export const setPageTransition = ({ fn }) => {
 };
 
 /**
- * @returns {import('../../type').BeforePageTransition | (() => void)}
+ * @returns {import('../../type').BeforePageTransition | undefined}
  */
 export const getBeforePageTransition = () => beforePageTransition;
 
 /**
- * @returns {import('../../type').PageTransition | (() => void)}
+ * @returns {import('../../type').PageTransition | undefined}
  */
 export const getPageTransition = () => pageTransition;

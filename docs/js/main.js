@@ -9373,10 +9373,8 @@
   };
 
   // src/js/mob/mob-js/route/page-transition/index.js
-  var pageTransition = () => {
-  };
-  var beforePageTransition = () => {
-  };
+  var pageTransition;
+  var beforePageTransition;
   var setBeforePageTransition = ({ fn }) => {
     if (!fn) return;
     beforePageTransition = fn;

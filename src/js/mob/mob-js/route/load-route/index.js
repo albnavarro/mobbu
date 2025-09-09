@@ -118,6 +118,7 @@ export const loadRoute = async ({
             oldTemplateName: fromRoute.templateName,
             newTemplateName: templateName,
         });
+
         contentElement?.parentNode?.insertBefore(clone, contentElement);
     }
 
