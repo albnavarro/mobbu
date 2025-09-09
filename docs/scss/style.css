@@ -3418,6 +3418,9 @@ ul li::marker {
   visibility: hidden;
   transition: opacity 0.35s, visibility 0.35s;
 }
+.is-whelling .right-sidebar {
+  pointer-events: none;
+}
 .right-sidebar.visible {
   opacity: 1;
   visibility: visible;

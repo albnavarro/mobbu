@@ -12,6 +12,11 @@
         opacity 0.35s,
         visibility 0.35s;
 
+    // Performance on scroll
+    @include when-inside('.is-whelling') {
+        pointer-events: none;
+    }
+
     &.visible {
         opacity: 1;
         visibility: visible;
