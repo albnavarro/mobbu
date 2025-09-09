@@ -35090,6 +35090,7 @@
   var PAGE_TEMPLATE_DOCS_DEFAULT = "template-doc-default";
   var PAGE_TEMPLATE_LINKS = "template-listing";
   var PAGE_TEMPLATE_ANIMATION = "template-animation";
+  var PAGE_TEMPLATE_TEST = "template-test";
   var mobJsComponentBreadCrumbs = [
     {
       url: "./#mobJs-overview",
@@ -35276,6 +35277,7 @@
     {
       name: "dynamic-list",
       layout: dynamic_list,
+      templateName: PAGE_TEMPLATE_TEST,
       props: {
         source: "./data/mob-js/general-repeat-test.json",
         breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -35286,6 +35288,7 @@
     {
       name: "matrioska",
       layout: matrioska_page,
+      templateName: PAGE_TEMPLATE_TEST,
       props: {
         source: "./data/mob-js/matrioska.json",
         breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -35398,6 +35401,7 @@
     {
       name: "mobJs-benchmark-invalidate",
       layout: benchMark,
+      templateName: PAGE_TEMPLATE_TEST,
       props: {
         rootComponent: "benchmark-invalidate",
         breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -35409,6 +35413,7 @@
     {
       name: "mobJs-benchmark-repeat-no-key",
       layout: benchMark,
+      templateName: PAGE_TEMPLATE_TEST,
       props: {
         rootComponent: "benchmark-repeat-no-key",
         breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -35420,6 +35425,7 @@
     {
       name: "mobJs-benchmark-repeat-key",
       layout: benchMark,
+      templateName: PAGE_TEMPLATE_TEST,
       props: {
         rootComponent: "benchmark-repeat-key",
         breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -35431,6 +35437,7 @@
     {
       name: "mobJs-benchmark-repeat-no-key-nested",
       layout: benchMark,
+      templateName: PAGE_TEMPLATE_TEST,
       props: {
         rootComponent: "benchmark-repeat-key-no-nested",
         breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -35442,6 +35449,7 @@
     {
       name: "mobJs-benchmark-repeat-key-nested",
       layout: benchMark,
+      templateName: PAGE_TEMPLATE_TEST,
       props: {
         rootComponent: "benchmark-repeat-key-nested",
         breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -35453,6 +35461,7 @@
     {
       name: "mobJs-benchmark-repeat-key-bind-store",
       layout: benchMark,
+      templateName: PAGE_TEMPLATE_TEST,
       props: {
         rootComponent: "benchmark-repeat-no-key-bind-store",
         breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -36161,14 +36170,16 @@
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_DOCS_DEFAULT,
     PAGE_TEMPLATE_LINKS,
-    PAGE_TEMPLATE_ABOUT
+    PAGE_TEMPLATE_ABOUT,
+    PAGE_TEMPLATE_TEST
   ]);
   var useLetPosition = /* @__PURE__ */ new Set([
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_DOCS_DEFAULT,
     PAGE_TEMPLATE_LINKS,
     PAGE_TEMPLATE_ABOUT,
-    PAGE_TEMPLATE_HOME
+    PAGE_TEMPLATE_HOME,
+    PAGE_TEMPLATE_TEST
   ]);
   var beforePageTransition2 = async ({ oldNode, oldTemplateName }) => {
     oldNode.classList.remove("current-route");

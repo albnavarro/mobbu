@@ -6,6 +6,7 @@ import {
     PAGE_TEMPLATE_DOCS_DEFAULT,
     PAGE_TEMPLATE_HOME,
     PAGE_TEMPLATE_LINKS,
+    PAGE_TEMPLATE_TEST,
 } from '../pages';
 
 let scrollY = 0;
@@ -19,6 +20,7 @@ const useTopPosition = new Set([
     PAGE_TEMPLATE_DOCS_DEFAULT,
     PAGE_TEMPLATE_LINKS,
     PAGE_TEMPLATE_ABOUT,
+    PAGE_TEMPLATE_TEST,
 ]);
 
 const useLetPosition = new Set([
@@ -27,6 +29,7 @@ const useLetPosition = new Set([
     PAGE_TEMPLATE_LINKS,
     PAGE_TEMPLATE_ABOUT,
     PAGE_TEMPLATE_HOME,
+    PAGE_TEMPLATE_TEST,
 ]);
 
 /**

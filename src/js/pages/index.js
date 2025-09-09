@@ -28,6 +28,7 @@ export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'template-mobJs-component';
 export const PAGE_TEMPLATE_DOCS_DEFAULT = 'template-doc-default';
 export const PAGE_TEMPLATE_LINKS = 'template-listing';
 export const PAGE_TEMPLATE_ANIMATION = 'template-animation';
+export const PAGE_TEMPLATE_TEST = 'template-test';
 
 const mobJsComponentBreadCrumbs = [
     {
@@ -225,6 +226,7 @@ export const routes = [
     {
         name: 'dynamic-list',
         layout: dynamic_list,
+        templateName: PAGE_TEMPLATE_TEST,
         props: {
             source: './data/mob-js/general-repeat-test.json',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -235,6 +237,7 @@ export const routes = [
     {
         name: 'matrioska',
         layout: matrioska_page,
+        templateName: PAGE_TEMPLATE_TEST,
         props: {
             source: './data/mob-js/matrioska.json',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -347,6 +350,7 @@ export const routes = [
     {
         name: 'mobJs-benchmark-invalidate',
         layout: benchMark,
+        templateName: PAGE_TEMPLATE_TEST,
         props: {
             rootComponent: 'benchmark-invalidate',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -358,6 +362,7 @@ export const routes = [
     {
         name: 'mobJs-benchmark-repeat-no-key',
         layout: benchMark,
+        templateName: PAGE_TEMPLATE_TEST,
         props: {
             rootComponent: 'benchmark-repeat-no-key',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -369,6 +374,7 @@ export const routes = [
     {
         name: 'mobJs-benchmark-repeat-key',
         layout: benchMark,
+        templateName: PAGE_TEMPLATE_TEST,
         props: {
             rootComponent: 'benchmark-repeat-key',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -380,6 +386,7 @@ export const routes = [
     {
         name: 'mobJs-benchmark-repeat-no-key-nested',
         layout: benchMark,
+        templateName: PAGE_TEMPLATE_TEST,
         props: {
             rootComponent: 'benchmark-repeat-key-no-nested',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -391,6 +398,7 @@ export const routes = [
     {
         name: 'mobJs-benchmark-repeat-key-nested',
         layout: benchMark,
+        templateName: PAGE_TEMPLATE_TEST,
         props: {
             rootComponent: 'benchmark-repeat-key-nested',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -402,6 +410,7 @@ export const routes = [
     {
         name: 'mobJs-benchmark-repeat-key-bind-store',
         layout: benchMark,
+        templateName: PAGE_TEMPLATE_TEST,
         props: {
             rootComponent: 'benchmark-repeat-no-key-bind-store',
             breadCrumbs: mobJsOverviewBreadCrumbs,
