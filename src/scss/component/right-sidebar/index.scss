@@ -49,13 +49,31 @@
 
     &__link {
         transition: opacity 0.35s;
+        position: relative;
+
+        &::before {
+            content: '';
+            opacity: 0;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            right: calc(100% + #{rem(5)});
+            height: rem(4);
+            width: rem(4);
+            position: absolute;
+            border-top: 1px rgba($black, 0.5) solid;
+            border-right: 1px rgba($black, 0.5) solid;
+            transition: opacity 0.35s;
+        }
 
         &.active {
             font-weight: 600;
         }
 
-        &:hover {
-            opacity: 0.3;
+        &:hover,
+        &.active {
+            &::before {
+                opacity: 1;
+            }
         }
     }
 }
