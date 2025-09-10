@@ -19,6 +19,11 @@
     background: $white;
     border-top: 1px $black solid;
     border-right: 1px $black solid;
+    display: none;
+
+    @include mq(desktop) {
+        display: block;
+    }
 
     @include when-inside('[data-template="home"]') {
         background: rgba($white, 0.5);

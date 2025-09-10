@@ -18,6 +18,11 @@
     z-index: 14;
     border-bottom: 1px $black solid;
     transition: background 0.35s;
+    display: none;
+
+    @include mq(desktop) {
+        display: block;
+    }
 
     @include when-inside('[data-template="home"]') {
         background: transparent;
