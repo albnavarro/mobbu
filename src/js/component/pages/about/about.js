@@ -25,6 +25,13 @@ const goToPercentage = {
     4: 100,
 };
 
+const bioInfo = [
+    'Alberto Navarro',
+    'Milan, Italy',
+    '<a href="https://github.com/albnavarro/" target="_blank">github</a>',
+    '<a href="https://www.linkedin.com/in/alberto-navarro74/" target="_blank">linkedin</a>',
+];
+
 /**
  * @param {object} params
  * @param {SetRef<import('./type').About>} params.setRef
@@ -203,6 +210,23 @@ const getShapeTrail = ({ setRef }) => {
         .join('')}`;
 };
 
+/**
+ * @returns {string}
+ */
+const getBio = () => {
+    return html`
+        <ul class="l-about__bio">
+            <li class="l-about__bio__item">[</li>
+            ${bioInfo
+                .map((item) => {
+                    return html` <li class="l-about__bio__item">${item}</li> `;
+                })
+                .join('')}
+            <li class="l-about__bio__item">]</li>
+        </ul>
+    `;
+};
+
 /** @type {MobComponent<import('./type').About>} */
 export const AboutComponentFn = ({
     onMount,
@@ -342,6 +366,7 @@ export const AboutComponentFn = ({
         ${setRef('screenElement')}
         style="--number-of-section:${numberOfSection}"
     >
+        ${getBio()}
         <span class="l-about__background">
             <div
                 class="l-about__about-svg l-about__about-svg--bottom"
