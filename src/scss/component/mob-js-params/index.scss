@@ -47,6 +47,14 @@
         }
     }
 
+    li,
+    p {
+        // Performance on scroll
+        @include when-inside('.is-whelling') {
+            pointer-events: none;
+        }
+    }
+
     a {
         transition: color 0.35s;
         display: block;
