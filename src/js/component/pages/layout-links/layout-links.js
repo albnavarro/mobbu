@@ -73,10 +73,24 @@ export const LayoutLinksFn = ({
         </div>
         <div class="l-links__grid">
             <div class="l-links__row l-links__row" ${setRef('screenElement')}>
-                <div class="l-links__row__white">
+                <div
+                    class="l-links__row__white"
+                    ${bindEffect({
+                        toggleClass: {
+                            active: () => proxi.isMounted,
+                        },
+                    })}
+                >
                     <h6 class="l-links__over is-black">${proxi.title}</h6>
                 </div>
-                <div class="l-links__title">
+                <div
+                    class="l-links__title"
+                    ${bindEffect({
+                        toggleClass: {
+                            'is-visible': () => proxi.isMounted,
+                        },
+                    })}
+                >
                     <h1 class="title-big">${proxi.title}</h1>
                 </div>
                 <div
@@ -94,13 +108,25 @@ export const LayoutLinksFn = ({
                                 return /* HTML */ `
                                     <li class="l-links__list__item">
                                         <a
-                                            class="l-links__list__link"
+                                            class="l-links__list__link index-${index} ${index %
+                                            2
+                                                ? 'is-odd'
+                                                : 'is-even'}"
                                             href="${item.url}"
+                                            ${bindEffect({
+                                                toggleClass: {
+                                                    active: () =>
+                                                        proxi.isMounted,
+                                                },
+                                            })}
                                         >
-                                            <span class="l-links__list__counter"
+                                            <span
+                                                class="l-links__list__counter index-${index}"
                                                 >${getCounter(index)}</span
                                             >
-                                            <span>${item.title}</span>
+                                            <span class="index-${index}"
+                                                >${item.title}</span
+                                            >
                                         </a>
                                     </li>
                                 `;

@@ -59,8 +59,17 @@
     &__title {
         position: absolute;
         top: 50%;
-        transform: translateY(-120%);
+        transform: translate(-10%, -120%);
         padding-left: calc(var(--header-height) / 2);
+        opacity: 0;
+        transition:
+            opacity 1s,
+            transform 1s;
+
+        &.is-visible {
+            opacity: 1;
+            transform: translate(0, -120%);
+        }
     }
 
     &__grid {
@@ -78,7 +87,25 @@
             inset: 50% 0 0;
             z-index: 1;
             overflow: hidden;
-            border-top: 1px $black solid;
+
+            &::before {
+                content: '';
+                position: absolute;
+                background: $black;
+                transition: transform 0.55s;
+                top: 0;
+                left: 0;
+                height: 1px;
+                width: 100%;
+                transform-origin: top left;
+                transform: scaleX(0);
+            }
+
+            &.active {
+                &::before {
+                    transform: scaleX(100%);
+                }
+            }
         }
     }
 
@@ -100,10 +127,16 @@
         bottom: calc((var(--scroller-height) * 0.5) + #{rem(70)});
         left: rem(40);
         z-index: 2;
-        display: none;
+        opacity: 0;
+        transform: translateX(20%);
+        pointer-events: none;
+        transition:
+            opacity 1.5s,
+            transform 1.5s;
 
         &.active {
-            display: block;
+            opacity: 1;
+            transform: translateX(0);
         }
     }
 
@@ -146,9 +179,77 @@
                 background 0.55s,
                 color 0.55s;
             text-transform: capitalize;
-            border-right: 1px $black solid;
-            border-bottom: 1px $black solid;
             position: relative;
+
+            &::after,
+            &::before {
+                content: '';
+                position: absolute;
+                background: $black;
+                transition: transform 0.55s;
+            }
+
+            &::after {
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: 1px;
+                transform: scaleY(0);
+            }
+
+            &::before {
+                bottom: 0;
+                left: 0;
+                height: 1px;
+                width: 100%;
+                transform: scaleX(0);
+                transform-origin: bottom left;
+            }
+
+            &.is-odd {
+                &::after {
+                    transform-origin: bottom right;
+                }
+            }
+
+            &.is-even {
+                &::after {
+                    transform-origin: top right;
+                }
+            }
+
+            span {
+                opacity: 0;
+            }
+
+            @for $i from 1 through 20 {
+                &.index-#{$i} {
+                    &::after,
+                    &::before {
+                        transition: transform 0.25s 0.05s * $i ease-out;
+                    }
+                }
+
+                span {
+                    &.index-#{$i} {
+                        transition: opacity 0.25s 0.05s * $i;
+                    }
+                }
+            }
+
+            &.active {
+                &::after {
+                    transform: scaleY(100%);
+                }
+
+                &::before {
+                    transform: scaleX(100%);
+                }
+
+                span {
+                    opacity: 1;
+                }
+            }
 
             &:hover {
                 background: $black;

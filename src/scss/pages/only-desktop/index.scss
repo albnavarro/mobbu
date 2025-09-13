@@ -26,6 +26,7 @@ $svg-max-height: calc(((1400 * 571) / 1098) * 1px);
         margin-bottom: rem(40);
         width: 100%;
         display: block;
+        font-size: rem(30);
     }
 
     &__link {
@@ -41,9 +42,19 @@ $svg-max-height: calc(((1400 * 571) / 1098) * 1px);
     }
 
     &__svg {
+        position: relative;
+        display: flex;
+        justify-content: center;
+
         svg {
-            width: min(1920px, calc(((1098 * 100) / 2200) * 1vw));
-            height: min($svg-max-height, calc(((466 * 100) / 2200) * 1vw));
+            flex: 0 0 auto;
+            width: min(1920px, calc(((1098 * 100) / 800) * 1vw));
+            height: min($svg-max-height, calc(((466 * 100) / 800) * 1vw));
+
+            @include mq(desktop) {
+                width: min(1920px, calc(((1098 * 100) / 2200) * 1vw));
+                height: min($svg-max-height, calc(((466 * 100) / 2200) * 1vw));
+            }
         }
     }
 }

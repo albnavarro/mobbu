@@ -14,8 +14,8 @@ export const onlyDesktop = async () => {
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
                 <h4 class="l-only-desktop__title">
-                    This site is available only on desktop<br />
-                    .. at now
+                    This site is a desktop<br />
+                    only project
                 </h4>
                 <div>
                     <only-desktop-cta></only-desktop-cta>

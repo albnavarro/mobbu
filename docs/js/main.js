@@ -50,10 +50,16 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,L=I),k===void 0&&(
         </div>
         <div class="l-links__grid">
             <div class="l-links__row l-links__row" ${e("screenElement")}>
-                <div class="l-links__row__white">
+                <div
+                    class="l-links__row__white"
+                    ${o({toggleClass:{active:()=>s.isMounted}})}
+                >
                     <h6 class="l-links__over is-black">${s.title}</h6>
                 </div>
-                <div class="l-links__title">
+                <div
+                    class="l-links__title"
+                    ${o({toggleClass:{"is-visible":()=>s.isMounted}})}
+                >
                     <h1 class="title-big">${s.title}</h1>
                 </div>
                 <div
@@ -65,13 +71,17 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,L=I),k===void 0&&(
                         ${s.items.map((c,l)=>`
                                     <li class="l-links__list__item">
                                         <a
-                                            class="l-links__list__link"
+                                            class="l-links__list__link index-${l} ${l%2?"is-odd":"is-even"}"
                                             href="${c.url}"
+                                            ${o({toggleClass:{active:()=>s.isMounted}})}
                                         >
-                                            <span class="l-links__list__counter"
+                                            <span
+                                                class="l-links__list__counter index-${l}"
                                                 >${tw(l)}</span
                                             >
-                                            <span>${c.title}</span>
+                                            <span class="index-${l}"
+                                                >${c.title}</span
+                                            >
                                         </a>
                                     </li>
                                 `).join("")}
@@ -1304,8 +1314,8 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,L=I),k===void 0&&(
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
                 <h4 class="l-only-desktop__title">
-                    This site is available only on desktop<br />
-                    .. at now
+                    This site is a desktop<br />
+                    only project
                 </h4>
                 <div>
                     <only-desktop-cta></only-desktop-cta>
