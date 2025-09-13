@@ -13,7 +13,7 @@ export const updateQuickNavState = ({
     nextRoute = '',
     prevRoute = '',
     backRoute = '',
-    color = 'white',
+    color = 'black',
 }) => {
     /** @type {SetStateByName<import('./type').QuickNav>} */
     const setQuickNavState = MobJs.setStateByName(quickNavName);

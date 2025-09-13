@@ -13,7 +13,7 @@ export const QuickNav = MobJs.createComponent(
         exportState: ['color', 'active', 'prevRoute', 'nextRoute', 'backRoute'],
         state: {
             color: () => ({
-                value: 'white',
+                value: 'black',
                 type: String,
                 validate: (value) => {
                     return ['white', 'black'].includes(value);

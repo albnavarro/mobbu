@@ -15,7 +15,7 @@ export const move3DRoute = async ({ props }) => {
         prevRoute: prevRoute,
         nextRoute: nextRoute,
         backRoute: '#plugin-overview',
-        color: 'white',
+        color: 'black',
     });
 
     return html`<move-3d-page

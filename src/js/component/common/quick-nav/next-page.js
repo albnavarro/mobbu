@@ -19,7 +19,7 @@ export const QuickNavFn = ({ getProxi, bindEffect }) => {
         proxi.nextRoute = '';
         proxi.prevRoute = '';
         proxi.backRoute = '';
-        proxi.color = 'white';
+        proxi.color = 'black';
     });
 
     return html`<div
